@@ -171,3 +171,6 @@ export type { FloatingActionButtonProps, FloatingAction } from "./FloatingAction
 
 export { CollectionView } from "./CollectionView";
 export type { CollectionViewProps, CollectionItem } from "./CollectionView";
+
+export { ComponentShowcase } from "./ComponentShowcase";
+export type { ComponentShowcaseProps, ShowcaseItem } from "./ComponentShowcase";

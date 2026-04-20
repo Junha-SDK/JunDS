@@ -156,6 +156,7 @@ export const sections: NavSection[] = [
     title: "Lab",
     items: [
       { href: "/design-system/lab", label: "실험실" },
+      { href: "/design-system/showcase", label: "컬렉션 보기" },
     ],
   },
 ];
@@ -284,6 +285,7 @@ const koreanKeywords: Record<string, string[]> = {
   CollectionView: ["컬렉션뷰", "갤러리", "컬렉션", "그리드뷰"],
   FlowDiagram: ["플로우다이어그램", "흐름도", "노드그래프", "프로세스흐름"],
   "실험실": ["실험실", "랩", "플레이그라운드", "lab", "playground"],
+  "컬렉션 보기": ["컬렉션", "갤러리", "쇼케이스", "시각적", "미리보기"],
 };
 
 export interface SearchEntry {

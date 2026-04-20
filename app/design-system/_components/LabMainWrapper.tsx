@@ -4,13 +4,13 @@ import { cn } from "@/ds/utils/cn";
 
 export function LabMainWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isLab = pathname === "/design-system/lab";
+  const isFullWidth = pathname === "/design-system/lab" || pathname === "/design-system/showcase";
 
   return (
     <main
       className={cn(
         "flex-1 overflow-y-auto transition-colors duration-300",
-        isLab ? "p-0 overflow-hidden" : "p-8",
+        isFullWidth ? "p-0 overflow-hidden" : "p-8",
       )}
     >
       {children}
