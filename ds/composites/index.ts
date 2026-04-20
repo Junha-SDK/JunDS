@@ -168,3 +168,6 @@ export type { DetailPanelProps, DetailPanelTab } from "./DetailPanel";
 
 export { FloatingActionButton } from "./FloatingActionButton";
 export type { FloatingActionButtonProps, FloatingAction } from "./FloatingActionButton";
+
+export { CollectionView } from "./CollectionView";
+export type { CollectionViewProps, CollectionItem } from "./CollectionView";

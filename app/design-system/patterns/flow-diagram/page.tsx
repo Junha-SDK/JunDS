@@ -4,211 +4,184 @@ import { ComponentPage, Section } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { FlowDiagram } from "@/ds/patterns/FlowDiagram";
 import type { FlowNode, FlowConnection } from "@/ds/patterns/FlowDiagram";
+import { SegmentedControl } from "@/ds/composites/SegmentedControl";
 
-// ── Section 1: 제조 프로세스 흐름 ──────────────────────
+// ── Section 1: 프로세스 흐름 예시 ──────────────────────
 
-const mfgNodes: FlowNode[] = [
+const processNodes: FlowNode[] = [
+  // Row 1: 입고 프로세스
   {
     id: "ord",
     title: "주문접수",
     x: 50,
-    y: 100,
+    y: 40,
     variant: "info",
     icon: <span>📋</span>,
-    group: "전처리",
+    group: "입고 프로세스",
     content: <p className="text-xs">PO 입력 및 확인</p>,
   },
   {
     id: "mat",
     title: "자재입고",
     x: 300,
-    y: 100,
+    y: 40,
     variant: "default",
     icon: <span>📦</span>,
-    group: "전처리",
+    group: "입고 프로세스",
     content: <p className="text-xs">LOT 배정 완료</p>,
   },
   {
     id: "prod",
     title: "생산",
-    x: 560,
-    y: 100,
+    x: 550,
+    y: 40,
     variant: "success",
     icon: <span>🏭</span>,
+    group: "입고 프로세스",
     content: <p className="text-xs">공정 진행 중</p>,
   },
+  // Row 2: 출고 프로세스
   {
     id: "qa",
     title: "품질검사",
-    x: 560,
-    y: 280,
+    x: 550,
+    y: 200,
     variant: "warning",
     icon: <span>🔍</span>,
-    group: "후처리",
+    group: "출고 프로세스",
     content: <p className="text-xs">검사 대기</p>,
   },
   {
     id: "insp",
     title: "수입검사",
     x: 300,
-    y: 280,
+    y: 200,
     variant: "danger",
     icon: <span>🧪</span>,
-    group: "후처리",
+    group: "출고 프로세스",
     content: <p className="text-xs">외부 검사 요청</p>,
   },
   {
     id: "ship",
     title: "출하",
     x: 50,
-    y: 280,
+    y: 200,
     variant: "success",
     icon: <span>🚚</span>,
-    group: "후처리",
+    group: "출고 프로세스",
     content: <p className="text-xs">출하 준비 완료</p>,
   },
 ];
 
-const mfgConnections: FlowConnection[] = [
-  { id: "mc1", from: "ord", to: "mat", label: "투입" },
-  { id: "mc2", from: "mat", to: "prod", label: "생산 지시" },
-  { id: "mc3", from: "prod", to: "qa", label: "검사 요청" },
-  { id: "mc4", from: "qa", to: "insp", label: "외부 의뢰" },
-  { id: "mc5", from: "insp", to: "ship", label: "합격" },
+const processConnections: FlowConnection[] = [
+  { id: "pc1", from: "ord", to: "mat", label: "투입" },
+  { id: "pc2", from: "mat", to: "prod", label: "생산 지시" },
+  { id: "pc3", from: "prod", to: "qa", label: "검사 요청" },
+  { id: "pc4", from: "qa", to: "insp", label: "외부 의뢰" },
+  { id: "pc5", from: "insp", to: "ship", label: "합격" },
 ];
 
-// ── Section 2: 연결선 스타일 ──────────────────────────
+// ── Section 2: 연결선 스타일 비교 ──────────────────────
 
-const styleNodes: FlowNode[] = [
-  { id: "s1", title: "시작", x: 30, y: 50, variant: "info" },
-  { id: "s2", title: "처리", x: 280, y: 50, variant: "success" },
-  { id: "s3", title: "종료", x: 530, y: 50, variant: "default" },
+const diamondNodes: FlowNode[] = [
+  { id: "d-top", title: "데이터 수집", x: 200, y: 20, variant: "info" },
+  { id: "d-left", title: "전처리", x: 50, y: 150, variant: "warning" },
+  { id: "d-right", title: "분석", x: 350, y: 150, variant: "success" },
+  { id: "d-bottom", title: "결과", x: 200, y: 280, variant: "default" },
 ];
 
-const styleConnections: FlowConnection[] = [
-  { id: "sc1", from: "s1", to: "s2", label: "Step 1" },
-  { id: "sc2", from: "s2", to: "s3", label: "Step 2" },
+const diamondConnections: FlowConnection[] = [
+  { id: "dc1", from: "d-top", to: "d-left", label: "정제" },
+  { id: "dc2", from: "d-top", to: "d-right", label: "분석" },
+  { id: "dc3", from: "d-left", to: "d-bottom", label: "출력" },
+  { id: "dc4", from: "d-right", to: "d-bottom", label: "출력" },
 ];
 
-// ── Section 3: 읽기 전용 ────────────────────────────
+// ── Section 3: 실시간 데이터 파이프라인 ──────────────────
+
+const pipelineNodes: FlowNode[] = [
+  { id: "src-api", title: "API", x: 30, y: 30, variant: "info", outputs: 2, icon: <span>🌐</span> },
+  { id: "src-db", title: "DB", x: 30, y: 150, variant: "info", outputs: 2, icon: <span>🗄️</span> },
+  { id: "src-file", title: "File", x: 30, y: 270, variant: "info", outputs: 2, icon: <span>📁</span> },
+  { id: "merger", title: "병합 처리기", x: 300, y: 130, variant: "warning", inputs: 3, outputs: 2, icon: <span>🔀</span> },
+  { id: "proc-a", title: "실시간 분석", x: 580, y: 60, variant: "success", inputs: 1, icon: <span>📊</span> },
+  { id: "proc-b", title: "배치 저장", x: 580, y: 220, variant: "success", inputs: 1, icon: <span>💾</span> },
+];
+
+const pipelineConnections: FlowConnection[] = [
+  { id: "plc1", from: "src-api", to: "merger", fromPort: 0, toPort: 0, label: "REST" },
+  { id: "plc2", from: "src-db", to: "merger", fromPort: 0, toPort: 1, label: "Query" },
+  { id: "plc3", from: "src-file", to: "merger", fromPort: 0, toPort: 2, label: "CSV" },
+  { id: "plc4", from: "merger", to: "proc-a", fromPort: 0, toPort: 0, label: "Stream" },
+  { id: "plc5", from: "merger", to: "proc-b", fromPort: 1, toPort: 0, label: "Batch" },
+];
+
+// ── Section 4: 읽기 전용 뷰어 ──────────────────────────
 
 const readonlyNodes: FlowNode[] = [
-  { id: "r1", title: "입력", x: 30, y: 60, variant: "info" },
-  { id: "r2", title: "처리", x: 280, y: 60, variant: "success" },
-  { id: "r3", title: "출력", x: 530, y: 60, variant: "default" },
+  { id: "ro1", title: "요청", x: 30, y: 60, variant: "info" },
+  { id: "ro2", title: "검증", x: 230, y: 60, variant: "warning" },
+  { id: "ro3", title: "처리", x: 430, y: 60, variant: "success" },
+  { id: "ro4", title: "응답", x: 630, y: 60, variant: "default" },
 ];
 
 const readonlyConnections: FlowConnection[] = [
-  { id: "rc1", from: "r1", to: "r2" },
-  { id: "rc2", from: "r2", to: "r3" },
+  { id: "roc1", from: "ro1", to: "ro2" },
+  { id: "roc2", from: "ro2", to: "ro3" },
+  { id: "roc3", from: "ro3", to: "ro4" },
 ];
 
-// ── Section 4: 그룹 표시 ────────────────────────────
+// ── Connection style options ────────────────────────────
 
-const groupNodes: FlowNode[] = [
-  { id: "g1", title: "데이터 수집", x: 40, y: 80, variant: "info", group: "데이터 레이어" },
-  { id: "g2", title: "데이터 정제", x: 280, y: 80, variant: "info", group: "데이터 레이어" },
-  { id: "g3", title: "분석 엔진", x: 40, y: 260, variant: "success", group: "분석 레이어" },
-  { id: "g4", title: "시각화", x: 280, y: 260, variant: "success", group: "분석 레이어" },
-  { id: "g5", title: "대시보드", x: 540, y: 170, variant: "warning", group: "표현 레이어" },
+const connectionStyleOptions = [
+  { key: "bezier", label: "Bezier (곡선)" },
+  { key: "straight", label: "Straight (직선)" },
+  { key: "step", label: "Step (직각)" },
 ];
 
-const groupConnections: FlowConnection[] = [
-  { id: "gc1", from: "g1", to: "g2", label: "ETL" },
-  { id: "gc2", from: "g2", to: "g3", label: "정제 데이터" },
-  { id: "gc3", from: "g3", to: "g4", label: "결과" },
-  { id: "gc4", from: "g4", to: "g5", label: "렌더링" },
-];
-
-// ── Section 5: 멀티 포트 ────────────────────────────
-
-const multiPortNodes: FlowNode[] = [
-  { id: "mp1", title: "데이터 소스 A", x: 30, y: 40, variant: "info", outputs: 2 },
-  { id: "mp2", title: "데이터 소스 B", x: 30, y: 200, variant: "info", outputs: 1 },
-  { id: "mp3", title: "병합 처리기", x: 320, y: 100, variant: "warning", inputs: 3, outputs: 2 },
-  { id: "mp4", title: "출력 A", x: 620, y: 40, variant: "success", inputs: 1 },
-  { id: "mp5", title: "출력 B", x: 620, y: 220, variant: "success", inputs: 1 },
-];
-
-const multiPortConnections: FlowConnection[] = [
-  { id: "mpc1", from: "mp1", to: "mp3", fromPort: 0, toPort: 0, label: "채널 1" },
-  { id: "mpc2", from: "mp1", to: "mp3", fromPort: 1, toPort: 1, label: "채널 2" },
-  { id: "mpc3", from: "mp2", to: "mp3", fromPort: 0, toPort: 2, label: "보조" },
-  { id: "mpc4", from: "mp3", to: "mp4", fromPort: 0, toPort: 0, label: "메인" },
-  { id: "mpc5", from: "mp3", to: "mp5", fromPort: 1, toPort: 0, label: "서브" },
-];
-
-// ── Page Component ──────────────────────────────────
+// ── Page Component ──────────────────────────────────────
 
 export default function FlowDiagramPage() {
   // Section 1 state
-  const [mfgN, setMfgN] = useState(mfgNodes);
-  const [mfgC, setMfgC] = useState(mfgConnections);
-  const [mfgSel, setMfgSel] = useState<string[]>([]);
+  const [procNodes, setProcNodes] = useState(processNodes);
+  const [procConns, setProcConns] = useState(processConnections);
+  const [procSel, setProcSel] = useState<string[]>([]);
 
-  const handleMfgMove = useCallback((id: string, x: number, y: number) => {
-    setMfgN((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
+  const handleProcMove = useCallback((id: string, x: number, y: number) => {
+    setProcNodes((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
   }, []);
-  const handleMfgConnect = useCallback((from: string, to: string) => {
-    setMfgC((prev) => [...prev, { id: `mc${Date.now()}`, from, to }]);
+  const handleProcConnect = useCallback((from: string, to: string) => {
+    setProcConns((prev) => [...prev, { id: `pc${Date.now()}`, from, to }]);
   }, []);
-  const handleMfgDisconnect = useCallback((connId: string) => {
-    setMfgC((prev) => prev.filter((c) => c.id !== connId));
+  const handleProcDisconnect = useCallback((connId: string) => {
+    setProcConns((prev) => prev.filter((c) => c.id !== connId));
   }, []);
-  const handleMfgDelete = useCallback((ids: string[]) => {
-    setMfgN((prev) => prev.filter((n) => !ids.includes(n.id)));
-    setMfgC((prev) => prev.filter((c) => !ids.includes(c.from) && !ids.includes(c.to)));
-    setMfgSel([]);
-  }, []);
-
-  // Section 2 state - 3 independent style examples
-  const [bezierN, setBezierN] = useState(styleNodes);
-  const [straightN, setStraightN] = useState(styleNodes.map((n) => ({ ...n, id: `st-${n.id}` })));
-  const [stepN, setStepN] = useState(styleNodes.map((n) => ({ ...n, id: `sp-${n.id}` })));
-
-  const straightConns: FlowConnection[] = styleConnections.map((c) => ({
-    ...c,
-    id: `st-${c.id}`,
-    from: `st-${c.from}`,
-    to: `st-${c.to}`,
-  }));
-  const stepConns: FlowConnection[] = styleConnections.map((c) => ({
-    ...c,
-    id: `sp-${c.id}`,
-    from: `sp-${c.from}`,
-    to: `sp-${c.to}`,
-  }));
-
-  const handleBezierMove = useCallback((id: string, x: number, y: number) => {
-    setBezierN((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
-  }, []);
-  const handleStraightMove = useCallback((id: string, x: number, y: number) => {
-    setStraightN((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
-  }, []);
-  const handleStepMove = useCallback((id: string, x: number, y: number) => {
-    setStepN((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
+  const handleProcDelete = useCallback((ids: string[]) => {
+    setProcNodes((prev) => prev.filter((n) => !ids.includes(n.id)));
+    setProcConns((prev) => prev.filter((c) => !ids.includes(c.from) && !ids.includes(c.to)));
+    setProcSel([]);
   }, []);
 
-  // Section 4 state
-  const [grpN, setGrpN] = useState(groupNodes);
-  const [grpC] = useState(groupConnections);
+  // Section 2 state
+  const [connStyle, setConnStyle] = useState<"bezier" | "straight" | "step">("bezier");
+  const [diaNodes, setDiaNodes] = useState(diamondNodes);
 
-  const handleGrpMove = useCallback((id: string, x: number, y: number) => {
-    setGrpN((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
+  const handleDiaMove = useCallback((id: string, x: number, y: number) => {
+    setDiaNodes((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
   }, []);
 
-  // Section 5 state
-  const [mpN, setMpN] = useState(multiPortNodes);
-  const [mpC, setMpC] = useState(multiPortConnections);
+  // Section 3 state
+  const [pipeNodes, setPipeNodes] = useState(pipelineNodes);
+  const [pipeConns, setPipeConns] = useState(pipelineConnections);
 
-  const handleMpMove = useCallback((id: string, x: number, y: number) => {
-    setMpN((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
+  const handlePipeMove = useCallback((id: string, x: number, y: number) => {
+    setPipeNodes((prev) => prev.map((n) => (n.id === id ? { ...n, x, y } : n)));
   }, []);
-  const handleMpConnect = useCallback((from: string, to: string) => {
-    setMpC((prev) => [...prev, { id: `mpc${Date.now()}`, from, to }]);
+  const handlePipeConnect = useCallback((from: string, to: string) => {
+    setPipeConns((prev) => [...prev, { id: `plc${Date.now()}`, from, to }]);
   }, []);
-  const handleMpDisconnect = useCallback((connId: string) => {
-    setMpC((prev) => prev.filter((c) => c.id !== connId));
+  const handlePipeDisconnect = useCallback((connId: string) => {
+    setPipeConns((prev) => prev.filter((c) => c.id !== connId));
   }, []);
 
   return (
@@ -233,18 +206,19 @@ export default function FlowDiagramPage() {
         { name: "animateConnections", type: "boolean", default: "false", description: "연결선 애니메이션" },
       ]}
     >
-      {/* Section 1: 제조 프로세스 흐름 */}
-      <Section title="제조 프로세스 흐름">
+      {/* Section 1: 프로세스 흐름 예시 */}
+      <Section title="프로세스 흐름 예시">
         <Preview padding={false}>
           <FlowDiagram
-            nodes={mfgN}
-            connections={mfgC}
-            onNodeMove={handleMfgMove}
-            onConnect={handleMfgConnect}
-            onDisconnect={handleMfgDisconnect}
-            onNodeDelete={handleMfgDelete}
-            selectedIds={mfgSel}
-            onSelectionChange={setMfgSel}
+            nodes={procNodes}
+            connections={procConns}
+            onNodeMove={handleProcMove}
+            onConnect={handleProcConnect}
+            onDisconnect={handleProcDisconnect}
+            onNodeDelete={handleProcDelete}
+            selectedIds={procSel}
+            onSelectionChange={setProcSel}
+            fitToView
             showGrid
             showMinimap
             animateConnections
@@ -252,109 +226,77 @@ export default function FlowDiagramPage() {
           />
         </Preview>
         <div className="mt-3 text-xs text-muted space-y-1">
-          <p>- 6개의 제조 공정 노드와 라벨이 있는 연결선</p>
-          <p>- &quot;전처리&quot;, &quot;후처리&quot; 그룹 영역 표시</p>
-          <p>- 노드 드래그, 줌, 연결, 삭제 (Delete 키) 지원</p>
-          <p>- 연결선 위 라벨과 점선 애니메이션 효과</p>
+          <p>- 6개 노드의 제조 프로세스 흐름 (2행 배치, fitToView 자동 적용)</p>
+          <p>- &quot;입고 프로세스&quot;, &quot;출고 프로세스&quot; 그룹 영역 표시</p>
+          <p>- 노드 드래그, 줌, 연결, 삭제 (Delete 키) 모두 지원</p>
+          <p>- 미니맵과 연결선 애니메이션 활성화</p>
         </div>
       </Section>
 
-      {/* Section 2: 연결선 스타일 */}
-      <Section title="연결선 스타일">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <p className="text-xs text-muted mb-2 font-semibold">Bezier (곡선)</p>
-            <Preview padding={false}>
-              <FlowDiagram
-                nodes={bezierN}
-                connections={styleConnections}
-                onNodeMove={handleBezierMove}
-                connectionStyle="bezier"
-                className="h-[200px] rounded-xl"
-              />
-            </Preview>
-          </div>
-          <div>
-            <p className="text-xs text-muted mb-2 font-semibold">Straight (직선)</p>
-            <Preview padding={false}>
-              <FlowDiagram
-                nodes={straightN}
-                connections={straightConns}
-                onNodeMove={handleStraightMove}
-                connectionStyle="straight"
-                className="h-[200px] rounded-xl"
-              />
-            </Preview>
-          </div>
-          <div>
-            <p className="text-xs text-muted mb-2 font-semibold">Step (직각)</p>
-            <Preview padding={false}>
-              <FlowDiagram
-                nodes={stepN}
-                connections={stepConns}
-                onNodeMove={handleStepMove}
-                connectionStyle="step"
-                className="h-[200px] rounded-xl"
-              />
-            </Preview>
-          </div>
-        </div>
-      </Section>
-
-      {/* Section 3: 읽기 전용 모드 */}
-      <Section title="읽기 전용 모드">
-        <Preview padding={false}>
-          <FlowDiagram
-            nodes={readonlyNodes}
-            connections={readonlyConnections}
-            readonly
-            showGrid
-            className="h-[220px] rounded-xl"
+      {/* Section 2: 연결선 스타일 비교 */}
+      <Section title="연결선 스타일 비교">
+        <div className="mb-3 flex justify-center">
+          <SegmentedControl
+            options={connectionStyleOptions}
+            value={connStyle}
+            onChange={(v) => setConnStyle(v as "bezier" | "straight" | "step")}
+            size="sm"
           />
-        </Preview>
-        <div className="mt-3 text-xs text-muted space-y-1">
-          <p>- readonly=true: 드래그, 연결, 삭제 비활성화</p>
-          <p>- 줌/패닝만 가능</p>
         </div>
-      </Section>
-
-      {/* Section 4: 그룹 표시 */}
-      <Section title="그룹 표시">
         <Preview padding={false}>
           <FlowDiagram
-            nodes={grpN}
-            connections={grpC}
-            onNodeMove={handleGrpMove}
-            showGrid
+            nodes={diaNodes}
+            connections={diamondConnections}
+            onNodeMove={handleDiaMove}
+            connectionStyle={connStyle}
+            fitToView
             animateConnections
-            className="h-[450px] rounded-xl"
+            className="h-[380px] rounded-xl"
           />
         </Preview>
         <div className="mt-3 text-xs text-muted space-y-1">
-          <p>- 같은 group 값을 가진 노드들이 반투명 배경 영역으로 표시됩니다</p>
-          <p>- 각 그룹은 점선 테두리와 라벨로 구분됩니다</p>
+          <p>- 다이아몬드 형태의 4개 노드로 연결선 스타일을 비교합니다</p>
+          <p>- 상단 토글로 bezier / straight / step 스타일을 전환해 보세요</p>
         </div>
       </Section>
 
-      {/* Section 5: 멀티 포트 */}
-      <Section title="멀티 포트">
+      {/* Section 3: 실시간 데이터 파이프라인 */}
+      <Section title="실시간 데이터 파이프라인">
         <Preview padding={false}>
           <FlowDiagram
-            nodes={mpN}
-            connections={mpC}
-            onNodeMove={handleMpMove}
-            onConnect={handleMpConnect}
-            onDisconnect={handleMpDisconnect}
+            nodes={pipeNodes}
+            connections={pipeConns}
+            onNodeMove={handlePipeMove}
+            onConnect={handlePipeConnect}
+            onDisconnect={handlePipeDisconnect}
+            connectionStyle="step"
+            fitToView
             showGrid
-            connectionStyle="bezier"
             animateConnections
             className="h-[400px] rounded-xl"
           />
         </Preview>
         <div className="mt-3 text-xs text-muted space-y-1">
-          <p>- inputs/outputs 속성으로 여러 포트를 설정합니다</p>
-          <p>- fromPort/toPort로 특정 포트 간 연결을 지정합니다</p>
-          <p>- 포트는 노드 좌/우 측면에 수직으로 분배됩니다</p>
+          <p>- 3개의 데이터 소스(API, DB, File)가 병합 처리기로 연결</p>
+          <p>- 멀티 포트(inputs/outputs)를 활용한 복잡한 데이터 흐름</p>
+          <p>- step 스타일 연결선과 애니메이션으로 파이프라인 시각화</p>
+        </div>
+      </Section>
+
+      {/* Section 4: 읽기 전용 뷰어 */}
+      <Section title="읽기 전용 뷰어">
+        <Preview padding={false}>
+          <FlowDiagram
+            nodes={readonlyNodes}
+            connections={readonlyConnections}
+            readonly
+            fitToView
+            className="h-[200px] rounded-xl"
+          />
+        </Preview>
+        <div className="mt-3 text-xs text-muted space-y-1">
+          <p>- readonly 모드: 드래그, 연결, 삭제 비활성화</p>
+          <p>- 줌/패닝만 가능한 뷰어 모드</p>
         </div>
       </Section>
     </ComponentPage>

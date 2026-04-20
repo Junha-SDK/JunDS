@@ -107,6 +107,7 @@ export const sections: NavSection[] = [
       { href: "/design-system/composites/key-value-grid", label: "KeyValueGrid" },
       { href: "/design-system/composites/detail-panel", label: "DetailPanel" },
       { href: "/design-system/composites/floating-action-button", label: "FloatingActionButton" },
+      { href: "/design-system/composites/collection-view", label: "CollectionView" },
     ],
   },
   {
@@ -280,6 +281,7 @@ const koreanKeywords: Record<string, string[]> = {
   KeyValueGrid: ["키값그리드", "필드값", "메타데이터"],
   DetailPanel: ["디테일패널", "상세패널", "사이드패널"],
   FloatingActionButton: ["플로팅버튼", "FAB", "떠있는버튼"],
+  CollectionView: ["컬렉션뷰", "갤러리", "컬렉션", "그리드뷰"],
   FlowDiagram: ["플로우다이어그램", "흐름도", "노드그래프", "프로세스흐름"],
   "실험실": ["실험실", "랩", "플레이그라운드", "lab", "playground"],
 };
