@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, type ReactNode } from "react";
+import { useState, useRef, useId, type ReactNode } from "react";
 import { cn } from "../../utils/cn";
 
 export type TooltipPosition = "top" | "bottom" | "left" | "right";
@@ -27,6 +27,7 @@ const positionStyles: Record<TooltipPosition, string> = {
 export function Tooltip({ content, position = "top", delay = 200, children, className }: TooltipProps) {
   const [show, setShow] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const tooltipId = useId();
 
   const handleEnter = () => {
     timerRef.current = setTimeout(() => setShow(true), delay);
@@ -43,10 +44,12 @@ export function Tooltip({ content, position = "top", delay = 200, children, clas
       onMouseLeave={handleLeave}
       onFocus={handleEnter}
       onBlur={handleLeave}
+      aria-describedby={show ? tooltipId : undefined}
     >
       {children}
       {show && (
         <div
+          id={tooltipId}
           className={cn(
             "absolute z-80 px-2.5 py-1.5 text-xs text-white bg-gray-800 rounded-lg shadow-lg",
             "whitespace-nowrap pointer-events-none animate-fade-in",

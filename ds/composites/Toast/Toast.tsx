@@ -106,7 +106,7 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
     <ToastContext.Provider value={ctx}>
       {children}
       <Portal>
-        <div className={cn("fixed z-70 flex flex-col gap-2 pointer-events-none", positionStyles[position])}>
+        <div aria-live="polite" className={cn("fixed z-70 flex flex-col gap-2 pointer-events-none", positionStyles[position])}>
           {toasts.map((t) => (
             <ToastItem key={t.id} item={t} onRemove={remove} />
           ))}
@@ -124,6 +124,8 @@ function ToastItem({ item, onRemove }: { item: ToastItem; onRemove: (id: number)
 
   return (
     <div
+      role="alert"
+      aria-atomic="true"
       className={cn(
         "pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl border shadow-lg",
         "animate-slide-in-right min-w-[280px] max-w-md",

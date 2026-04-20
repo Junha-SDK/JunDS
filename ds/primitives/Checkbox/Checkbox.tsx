@@ -31,6 +31,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               else if (ref) (ref as React.RefObject<HTMLInputElement | null>).current = el;
             }}
             type="checkbox"
+            aria-checked={indeterminate ? "mixed" : !!props.checked}
             className={cn(
               sizeClass,
               "rounded border-border border transition-all duration-150 cursor-pointer",

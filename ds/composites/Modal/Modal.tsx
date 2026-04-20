@@ -1,8 +1,10 @@
 "use client";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef, useId, createContext, useContext } from "react";
 import { cn } from "../../utils/cn";
 import { Portal } from "../../primitives/Portal";
 import type { ReactNode } from "react";
+
+const ModalIdContext = createContext<{ titleId: string; descId: string } | null>(null);
 
 export type ModalSize = "sm" | "md" | "lg" | "xl" | "full";
 
@@ -45,6 +47,10 @@ const sizeStyles: Record<ModalSize, string> = {
  * </Modal>
  */
 export function Modal({ open, onClose, size = "md", dismissible = true, children, className }: ModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  const descId = useId();
+
   const handleEsc = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") onClose();
   }, [onClose]);
@@ -53,11 +59,39 @@ export function Modal({ open, onClose, size = "md", dismissible = true, children
     if (!open) return;
     document.addEventListener("keydown", handleEsc);
     document.body.style.overflow = "hidden";
+
+    // Focus first focusable element
+    const dialog = dialogRef.current;
+    if (dialog) {
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length > 0) focusable[0].focus();
+    }
+
     return () => {
       document.removeEventListener("keydown", handleEsc);
       document.body.style.overflow = "";
     };
   }, [open, handleEsc]);
+
+  // Focus trap
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key !== "Tab") return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const focusable = dialog.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }, []);
 
   if (!open) return null;
 
@@ -67,6 +101,10 @@ export function Modal({ open, onClose, size = "md", dismissible = true, children
         className="fixed inset-0 z-50 flex items-center justify-center p-4"
         aria-modal="true"
         role="dialog"
+        aria-labelledby={titleId}
+        aria-describedby={descId}
+        onKeyDown={handleKeyDown}
+        ref={dialogRef}
       >
         {/* Backdrop */}
         <div
@@ -82,7 +120,9 @@ export function Modal({ open, onClose, size = "md", dismissible = true, children
             className,
           )}
         >
-          {children}
+          <ModalIdContext.Provider value={{ titleId, descId }}>
+            {children}
+          </ModalIdContext.Provider>
         </div>
       </div>
     </Portal>
@@ -90,9 +130,10 @@ export function Modal({ open, onClose, size = "md", dismissible = true, children
 }
 
 function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
+  const ids = useContext(ModalIdContext);
   return (
     <div className={cn("flex items-center justify-between px-5 py-4 border-b border-border-light shrink-0", className)}>
-      <h3 className="text-base font-semibold text-foreground">{children}</h3>
+      <h3 id={ids?.titleId} className="text-base font-semibold text-foreground">{children}</h3>
       {onClose && (
         <button
           type="button"
