@@ -288,7 +288,7 @@ function NodeToolbar({
   return (
     <div
       className={cn(
-        "absolute -top-8 left-1/2 -translate-x-1/2 z-30",
+        "absolute -top-7 left-1/2 -translate-x-1/2 z-30",
         "flex items-center gap-0.5 px-1.5 py-0.5",
         "bg-primary text-primary-foreground rounded-md shadow-lg",
         "text-[10px] font-medium whitespace-nowrap",
@@ -612,7 +612,7 @@ export function BuilderCanvas() {
       )}
       onClick={handleCanvasClick}
     >
-      <div className="max-w-4xl mx-auto p-6 space-y-2 min-h-screen">
+      <div className="max-w-4xl mx-auto px-6 pt-10 pb-6 space-y-2 min-h-screen">
         {state.rootIds.length === 0 ? (
           <div
             className={cn(
