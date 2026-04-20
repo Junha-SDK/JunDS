@@ -13,9 +13,7 @@ export interface ShowcaseItem {
   description: string;
   category: string;
   href?: string;
-  /** 카드에 표시할 정적 미리보기 (실제 컴포넌트 렌더) */
   preview: ReactNode;
-  /** 호버 시 보여줄 인터랙션 데모 */
   hoverDemo?: ReactNode;
 }
 
@@ -29,20 +27,40 @@ export interface ComponentShowcaseProps {
 }
 
 /* ================================================================== */
-/*  Constants                                                          */
+/*  Styles                                                             */
 /* ================================================================== */
 
-const catColors: Record<string, string> = {
-  Foundation: "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300",
-  Primitives: "bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300",
-  Composites: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
-  Patterns: "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
-  Security: "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300",
-  Advanced: "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300",
+const catBadge: Record<string, string> = {
+  Foundation: "bg-violet-500/10 text-violet-600 border-violet-200",
+  Primitives: "bg-blue-500/10 text-blue-600 border-blue-200",
+  Composites: "bg-emerald-500/10 text-emerald-600 border-emerald-200",
+  Patterns: "bg-amber-500/10 text-amber-600 border-amber-200",
+  Security: "bg-red-500/10 text-red-600 border-red-200",
+  Advanced: "bg-rose-500/10 text-rose-600 border-rose-200",
 };
 
-const catChipColors: Record<string, string> = {
-  "전체": "bg-gray-900 text-white dark:bg-white dark:text-gray-900",
+/** 카드 미리보기 영역의 카테고리별 배경 그라데이션 */
+const catPreviewBg: Record<string, string> = {
+  Foundation: "bg-gradient-to-br from-violet-50 to-purple-50",
+  Primitives: "bg-gradient-to-br from-blue-50 to-indigo-50",
+  Composites: "bg-gradient-to-br from-emerald-50 to-teal-50",
+  Patterns: "bg-gradient-to-br from-amber-50 to-orange-50",
+  Security: "bg-gradient-to-br from-red-50 to-pink-50",
+  Advanced: "bg-gradient-to-br from-rose-50 to-fuchsia-50",
+};
+
+/** 호버 시 카드 글로우 색상 */
+const catGlow: Record<string, string> = {
+  Foundation: "shadow-violet-500/20",
+  Primitives: "shadow-blue-500/20",
+  Composites: "shadow-emerald-500/20",
+  Patterns: "shadow-amber-500/20",
+  Security: "shadow-red-500/20",
+  Advanced: "shadow-rose-500/20",
+};
+
+const catChipActive: Record<string, string> = {
+  "전체": "bg-foreground text-background",
   Foundation: "bg-violet-500 text-white",
   Primitives: "bg-blue-500 text-white",
   Composites: "bg-emerald-500 text-white",
@@ -51,16 +69,14 @@ const catChipColors: Record<string, string> = {
   Advanced: "bg-rose-500 text-white",
 };
 
-const defaultCatColor = "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300";
-
-const gridClasses: Record<2 | 3 | 4, string> = {
+const gridCls: Record<2 | 3 | 4, string> = {
   2: "grid-cols-1 sm:grid-cols-2",
   3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
   4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 };
 
 /* ================================================================== */
-/*  Component                                                          */
+/*  ComponentShowcase                                                  */
 /* ================================================================== */
 
 export function ComponentShowcase({
@@ -72,7 +88,7 @@ export function ComponentShowcase({
   className,
 }: ComponentShowcaseProps) {
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("전체");
+  const [activeCat, setActiveCat] = useState("전체");
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
 
   const categories = useMemo(() => {
@@ -81,69 +97,54 @@ export function ComponentShowcase({
   }, [items]);
 
   const filtered = useMemo(() => {
+    const q = search.toLowerCase();
     return items.filter((item) => {
-      const q = search.toLowerCase();
-      const matchesSearch =
-        !q ||
-        item.label.toLowerCase().includes(q) ||
-        item.description.toLowerCase().includes(q);
-      const matchesCategory =
-        activeCategory === "전체" || item.category === activeCategory;
-      return matchesSearch && matchesCategory;
+      if (q && !item.label.toLowerCase().includes(q) && !item.description.toLowerCase().includes(q)) return false;
+      if (activeCat !== "전체" && item.category !== activeCat) return false;
+      return true;
     });
-  }, [items, search, activeCategory]);
+  }, [items, search, activeCat]);
 
-  const handleClick = useCallback(
-    (item: ShowcaseItem) => {
-      onItemClick?.(item);
-    },
-    [onItemClick],
-  );
+  const handleClick = useCallback((item: ShowcaseItem) => { onItemClick?.(item); }, [onItemClick]);
 
   return (
     <div className={cn("relative", className)}>
-      {/* ── Top bar ── */}
+      {/* ── Controls ── */}
       {(searchable || filterable) && (
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           {searchable && (
             <div className="relative">
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted"
-                width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2"
-              >
-                <circle cx="11" cy="11" r="7" />
-                <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
+              <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="7" /><path d="M21 21l-4.35-4.35" strokeLinecap="round" />
               </svg>
               <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                type="text" value={search} onChange={(e) => setSearch(e.target.value)}
                 placeholder="컴포넌트 검색..."
-                className="h-10 w-full rounded-xl border border-border bg-card pl-10 pr-4 text-sm text-foreground placeholder:text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:w-64"
+                className="h-11 w-full rounded-2xl border border-border bg-card pl-11 pr-4 text-sm text-foreground shadow-sm placeholder:text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:w-72 transition-all"
               />
             </div>
           )}
           {filterable && (
-            <div className="flex flex-wrap gap-1.5">
-              {categories.map((cat) => {
-                const isActive = activeCategory === cat;
-                return (
-                  <button
-                    key={cat}
-                    type="button"
-                    onClick={() => setActiveCategory(cat)}
-                    className={cn(
-                      "rounded-full px-3 py-1 text-xs font-medium transition-all cursor-pointer",
-                      isActive
-                        ? catChipColors[cat] || "bg-gray-900 text-white"
-                        : "bg-gray-100 text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700",
-                    )}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat} type="button"
+                  onClick={() => setActiveCat(cat)}
+                  className={cn(
+                    "rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer",
+                    activeCat === cat
+                      ? catChipActive[cat] || "bg-foreground text-background"
+                      : "bg-card text-muted border border-border hover:border-foreground/20 hover:text-foreground",
+                  )}
+                >
+                  {cat}
+                  {cat !== "전체" && (
+                    <span className="ml-1 opacity-60">
+                      {items.filter(i => i.category === cat).length}
+                    </span>
+                  )}
+                </button>
+              ))}
             </div>
           )}
         </div>
@@ -151,16 +152,20 @@ export function ComponentShowcase({
 
       {/* ── Grid ── */}
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-muted">
-          <div className="text-3xl mb-2 opacity-30">∅</div>
-          <p className="text-sm">검색 결과가 없습니다</p>
+        <div className="flex flex-col items-center justify-center py-24 text-muted">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="mb-3 opacity-20">
+            <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" strokeLinecap="round" />
+          </svg>
+          <p className="text-sm font-medium">검색 결과가 없습니다</p>
+          <p className="text-xs mt-1">다른 키워드로 검색해 보세요</p>
         </div>
       ) : (
-        <div className={cn("grid gap-5", gridClasses[columns])}>
-          {filtered.map((item) => (
+        <div className={cn("grid gap-6", gridCls[columns])}>
+          {filtered.map((item, i) => (
             <ShowcaseCard
               key={item.key}
               item={item}
+              index={i}
               isHovered={hoveredKey === item.key}
               onHover={setHoveredKey}
               onClick={handleClick}
@@ -177,84 +182,95 @@ export function ComponentShowcase({
 /* ================================================================== */
 
 function ShowcaseCard({
-  item,
-  isHovered,
-  onHover,
-  onClick,
+  item, index, isHovered, onHover, onClick,
 }: {
-  item: ShowcaseItem;
+  item: ShowcaseItem; index: number;
   isHovered: boolean;
   onHover: (key: string | null) => void;
   onClick: (item: ShowcaseItem) => void;
 }) {
   const showDemo = isHovered && item.hoverDemo;
+  const bg = catPreviewBg[item.category] || "bg-gradient-to-br from-gray-50 to-gray-100";
+  const glow = catGlow[item.category] || "shadow-gray-500/20";
+  const badge = catBadge[item.category] || "bg-gray-100 text-gray-600 border-gray-200";
 
   return (
     <div
       className={cn(
-        "relative cursor-pointer rounded-2xl border bg-card transition-all duration-300 ease-out overflow-hidden",
+        "group relative cursor-pointer rounded-2xl border bg-card overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
         isHovered
-          ? "border-primary shadow-xl shadow-primary/10 scale-[1.02] z-10"
-          : "border-border shadow-sm hover:shadow-md",
+          ? `border-primary/40 shadow-2xl ${glow} -translate-y-1 z-10`
+          : "border-border shadow-sm hover:shadow-md hover:-translate-y-0.5",
       )}
+      style={{ animationDelay: `${index * 30}ms` }}
       onMouseEnter={() => onHover(item.key)}
       onMouseLeave={() => onHover(null)}
       onClick={() => onClick(item)}
     >
-      {/* ── Preview / Demo zone ── */}
-      <div className="relative h-[180px] overflow-hidden bg-gray-50 dark:bg-gray-900/50">
-        {/* 정적 미리보기 — 항상 표시, 호버 시 페이드 아웃 */}
-        <div
-          className={cn(
-            "absolute inset-0 flex items-center justify-center p-4 pointer-events-none transition-opacity duration-300",
-            showDemo ? "opacity-0" : "opacity-100",
-          )}
-        >
-          <div className="transform scale-90">{item.preview}</div>
+      {/* ── Preview zone ── */}
+      <div className={cn("relative h-[200px] overflow-hidden", bg)}>
+        {/* 패턴 오버레이 — 미묘한 도트 */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: "radial-gradient(circle, currentColor 0.5px, transparent 0.5px)",
+          backgroundSize: "12px 12px",
+        }} />
+
+        {/* 정적 미리보기 */}
+        <div className={cn(
+          "absolute inset-0 flex items-center justify-center p-5 pointer-events-none transition-all duration-500 ease-out",
+          showDemo ? "opacity-0 scale-90 blur-sm" : "opacity-100 scale-100 blur-0",
+        )}>
+          <div className="transform scale-[0.85]">{item.preview}</div>
         </div>
 
-        {/* 호버 데모 — 호버 시 페이드 인 */}
+        {/* 호버 데모 */}
         {item.hoverDemo && (
-          <div
-            className={cn(
-              "absolute inset-0 flex items-center justify-center p-4 pointer-events-none transition-all duration-300",
-              showDemo
-                ? "opacity-100 scale-100"
-                : "opacity-0 scale-95",
-            )}
-          >
+          <div className={cn(
+            "absolute inset-0 flex items-center justify-center p-5 pointer-events-none transition-all duration-500 ease-out",
+            showDemo ? "opacity-100 scale-100 blur-0" : "opacity-0 scale-110 blur-sm",
+          )}>
             <div className="w-full max-h-full overflow-hidden">{item.hoverDemo}</div>
           </div>
         )}
 
-        {/* 호버 힌트 배지 */}
+        {/* 호버 그라데이션 오버레이 */}
+        <div className={cn(
+          "absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/80 to-transparent transition-opacity duration-300 pointer-events-none",
+          isHovered ? "opacity-0" : "opacity-100",
+        )} />
+
+        {/* "미리보기" 배지 */}
         {item.hoverDemo && (
-          <div
-            className={cn(
-              "absolute top-2 right-2 rounded-full bg-primary/90 px-2 py-0.5 text-[10px] font-medium text-white transition-all duration-200",
-              isHovered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
-            )}
-          >
-            미리보기
+          <div className={cn(
+            "absolute top-3 right-3 flex items-center gap-1 rounded-full bg-foreground/80 backdrop-blur-sm px-2.5 py-1 text-[10px] font-medium text-background transition-all duration-300",
+            isHovered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2",
+          )}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+            </svg>
+            인터랙션 미리보기
           </div>
         )}
       </div>
 
       {/* ── Info zone ── */}
-      <div className="px-4 py-3 border-t border-border/50">
-        <div className="flex items-center justify-between mb-0.5">
-          <span className="text-sm font-semibold text-foreground">{item.label}</span>
-          <span
-            className={cn(
-              "rounded-full px-2 py-0.5 text-[10px] font-medium",
-              catColors[item.category] ?? defaultCatColor,
-            )}
-          >
+      <div className="px-4 py-3.5">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-sm font-bold text-foreground tracking-tight">{item.label}</span>
+          <span className={cn("rounded-full px-2 py-0.5 text-[10px] font-semibold border", badge)}>
             {item.category}
           </span>
         </div>
-        <p className="text-xs text-muted truncate">{item.description}</p>
+        <p className="text-xs text-muted leading-relaxed line-clamp-2">{item.description}</p>
       </div>
+
+      {/* 하단 악센트 라인 */}
+      <div className={cn(
+        "absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300",
+        isHovered ? "opacity-100" : "opacity-0",
+      )} style={{
+        background: `linear-gradient(90deg, transparent, var(--primary), transparent)`,
+      }} />
     </div>
   );
 }
