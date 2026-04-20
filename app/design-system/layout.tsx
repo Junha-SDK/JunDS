@@ -1,8 +1,9 @@
-import { DsNav } from "./_components/DsNav";
 import { CollapsibleTheme } from "./_components/CollapsibleTheme";
 import { ThemeRestorer } from "./_components/ThemeRestorer";
 import { DarkModeToggle } from "./_components/DarkModeToggle";
 import { BreakpointIndicator } from "./_components/BreakpointIndicator";
+import { DsSidebar } from "./_components/DsSidebar";
+import { LabMainWrapper } from "./_components/LabMainWrapper";
 import Link from "next/link";
 
 export default function DesignSystemLayout({ children }: { children: React.ReactNode }) {
@@ -34,10 +35,8 @@ export default function DesignSystemLayout({ children }: { children: React.React
         {/* 테마 선택기 (접기/펼치기) */}
         <CollapsibleTheme />
 
-        {/* 네비 */}
-        <div className="flex-1 overflow-y-auto">
-          <DsNav />
-        </div>
+        {/* 검색 + 네비 */}
+        <DsSidebar />
 
         {/* 하단 */}
         <div className="px-4 py-3 border-t border-white/10 text-[11px] text-white/30 flex items-center justify-between">
@@ -47,9 +46,9 @@ export default function DesignSystemLayout({ children }: { children: React.React
       </aside>
 
       {/* 우측 콘텐츠 */}
-      <main className="flex-1 overflow-y-auto p-8 transition-colors duration-300">
+      <LabMainWrapper>
         {children}
-      </main>
+      </LabMainWrapper>
     </div>
   );
 }
