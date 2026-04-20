@@ -80,3 +80,6 @@ export type { StarRatingProps, StarRatingSize } from "./StarRating";
 
 export { BackTop } from "./BackTop";
 export type { BackTopProps } from "./BackTop";
+
+export { ErrorBoundary } from "./ErrorBoundary";
+export type { ErrorBoundaryProps } from "./ErrorBoundary";
