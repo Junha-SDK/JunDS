@@ -1,8 +1,11 @@
 "use client";
-import { useState, useMemo, useRef, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { cn } from "../../utils/cn";
-import Link from "next/link";
 import type { ReactNode } from "react";
+
+/* ================================================================== */
+/*  Types                                                              */
+/* ================================================================== */
 
 export interface ShowcaseItem {
   key: string;
@@ -25,22 +28,40 @@ export interface ComponentShowcaseProps {
   className?: string;
 }
 
+/* ================================================================== */
+/*  Constants                                                          */
+/* ================================================================== */
+
 const catColors: Record<string, string> = {
-  Foundation: "bg-violet-100 text-violet-700",
-  Primitives: "bg-blue-100 text-blue-700",
-  기본: "bg-blue-100 text-blue-700",
-  Composites: "bg-emerald-100 text-emerald-700",
-  Patterns: "bg-amber-100 text-amber-700",
-  Security: "bg-red-100 text-red-700",
+  Foundation: "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300",
+  Primitives: "bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300",
+  Composites: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
+  Patterns: "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
+  Security: "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300",
+  Advanced: "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300",
 };
 
-const defaultCatColor = "bg-gray-100 text-gray-700";
+const catChipColors: Record<string, string> = {
+  "전체": "bg-gray-900 text-white dark:bg-white dark:text-gray-900",
+  Foundation: "bg-violet-500 text-white",
+  Primitives: "bg-blue-500 text-white",
+  Composites: "bg-emerald-500 text-white",
+  Patterns: "bg-amber-500 text-white",
+  Security: "bg-red-500 text-white",
+  Advanced: "bg-rose-500 text-white",
+};
+
+const defaultCatColor = "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300";
 
 const gridClasses: Record<2 | 3 | 4, string> = {
-  2: "grid-cols-2",
-  3: "grid-cols-2 lg:grid-cols-3",
-  4: "grid-cols-2 md:grid-cols-3 xl:grid-cols-4",
+  2: "grid-cols-1 sm:grid-cols-2",
+  3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+  4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 };
+
+/* ================================================================== */
+/*  Component                                                          */
+/* ================================================================== */
 
 export function ComponentShowcase({
   items,
@@ -53,13 +74,6 @@ export function ComponentShowcase({
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("전체");
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
-  const [overlayPos, setOverlayPos] = useState<{
-    top: number;
-    left: number;
-  } | null>(null);
-
-  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   const categories = useMemo(() => {
     const cats = Array.from(new Set(items.map((i) => i.category)));
@@ -68,220 +82,179 @@ export function ComponentShowcase({
 
   const filtered = useMemo(() => {
     return items.filter((item) => {
+      const q = search.toLowerCase();
       const matchesSearch =
-        !search ||
-        item.label.toLowerCase().includes(search.toLowerCase()) ||
-        item.description.toLowerCase().includes(search.toLowerCase());
+        !q ||
+        item.label.toLowerCase().includes(q) ||
+        item.description.toLowerCase().includes(q);
       const matchesCategory =
         activeCategory === "전체" || item.category === activeCategory;
       return matchesSearch && matchesCategory;
     });
   }, [items, search, activeCategory]);
 
-  const computeOverlayPosition = useCallback((cardEl: HTMLDivElement) => {
-    const rect = cardEl.getBoundingClientRect();
-    const overlayWidth = 320;
-    const overlayHeight = 280;
-
-    let top = rect.top + rect.height / 2 - overlayHeight / 2;
-    let left = rect.left + rect.width / 2 - overlayWidth / 2;
-
-    // Keep within viewport
-    if (left + overlayWidth > window.innerWidth - 8) {
-      left = window.innerWidth - overlayWidth - 8;
-    }
-    if (left < 8) left = 8;
-    if (top + overlayHeight > window.innerHeight - 8) {
-      top = window.innerHeight - overlayHeight - 8;
-    }
-    if (top < 8) top = 8;
-
-    return { top, left };
-  }, []);
-
-  const handleMouseEnter = useCallback(
-    (item: ShowcaseItem) => {
-      if (!item.hoverDemo) return;
-      hoverTimerRef.current = setTimeout(() => {
-        const cardEl = cardRefs.current.get(item.key);
-        if (cardEl) {
-          setOverlayPos(computeOverlayPosition(cardEl));
-          setHoveredKey(item.key);
-        }
-      }, 300);
-    },
-    [computeOverlayPosition],
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    if (hoverTimerRef.current) {
-      clearTimeout(hoverTimerRef.current);
-      hoverTimerRef.current = null;
-    }
-    setHoveredKey(null);
-    setOverlayPos(null);
-  }, []);
-
-  const handleCardClick = useCallback(
+  const handleClick = useCallback(
     (item: ShowcaseItem) => {
       onItemClick?.(item);
     },
     [onItemClick],
   );
 
-  const setCardRef = useCallback(
-    (key: string) => (el: HTMLDivElement | null) => {
-      if (el) {
-        cardRefs.current.set(key, el);
-      } else {
-        cardRefs.current.delete(key);
-      }
-    },
-    [],
-  );
-
-  const hoveredItem = hoveredKey
-    ? items.find((i) => i.key === hoveredKey)
-    : null;
-
-  const renderCard = (item: ShowcaseItem) => {
-    const cardContent = (
-      <>
-        {/* Preview zone */}
-        <div className="flex h-[160px] items-center justify-center overflow-hidden bg-gray-50 pointer-events-none dark:bg-gray-900">
-          <div style={{ transform: "scale(0.85)" }}>{item.preview}</div>
-        </div>
-
-        {/* Info zone */}
-        <div className="flex h-[64px] flex-col justify-center gap-1 px-3">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-              {item.label}
-            </span>
-            <span
-              className={cn(
-                "rounded-full px-1.5 py-0.5 text-[10px] font-medium",
-                catColors[item.category] ?? defaultCatColor,
-              )}
-            >
-              {item.category}
-            </span>
-          </div>
-          <p className="truncate text-xs text-gray-500 dark:text-gray-400">
-            {item.description}
-          </p>
-        </div>
-      </>
-    );
-
-    const sharedProps = {
-      ref: setCardRef(item.key),
-      className: cn(
-        "group relative cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-800",
-      ),
-      onMouseEnter: () => handleMouseEnter(item),
-      onMouseLeave: handleMouseLeave,
-    };
-
-    if (item.href) {
-      return (
-        <div
-          key={item.key}
-          {...sharedProps}
-          onClick={() => handleCardClick(item)}
-        >
-          <Link href={item.href} className="block">
-            {cardContent}
-          </Link>
-        </div>
-      );
-    }
-
-    return (
-      <div
-        key={item.key}
-        {...sharedProps}
-        onClick={() => handleCardClick(item)}
-      >
-        {cardContent}
-      </div>
-    );
-  };
-
   return (
     <div className={cn("relative", className)}>
-      {/* Top bar */}
+      {/* ── Top bar ── */}
       {(searchable || filterable) && (
-        <div className="sticky top-0 z-20 flex flex-col gap-3 border-b border-gray-200 bg-white/80 px-1 py-3 backdrop-blur-sm sm:flex-row sm:items-center dark:border-gray-700 dark:bg-gray-900/80">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           {searchable && (
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="컴포넌트 검색..."
-              className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm outline-none transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500 sm:w-60 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
-            />
+            <div className="relative">
+              <svg
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted"
+                width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
+              </svg>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="컴포넌트 검색..."
+                className="h-10 w-full rounded-xl border border-border bg-card pl-10 pr-4 text-sm text-foreground placeholder:text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:w-64"
+              />
+            </div>
           )}
-
           {filterable && (
-            <div className="flex flex-1 gap-1.5 overflow-x-auto">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={cn(
-                    "shrink-0 rounded-full px-3 py-1 text-xs font-medium transition-colors",
-                    activeCategory === cat
-                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600",
-                  )}
-                >
-                  {cat}
-                </button>
-              ))}
+            <div className="flex flex-wrap gap-1.5">
+              {categories.map((cat) => {
+                const isActive = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={cn(
+                      "rounded-full px-3 py-1 text-xs font-medium transition-all cursor-pointer",
+                      isActive
+                        ? catChipColors[cat] || "bg-gray-900 text-white"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700",
+                    )}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
       )}
 
-      {/* Grid */}
-      <div className={cn("grid gap-4 pt-4", gridClasses[columns])}>
-        {filtered.map(renderCard)}
+      {/* ── Grid ── */}
+      {filtered.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-20 text-muted">
+          <div className="text-3xl mb-2 opacity-30">∅</div>
+          <p className="text-sm">검색 결과가 없습니다</p>
+        </div>
+      ) : (
+        <div className={cn("grid gap-5", gridClasses[columns])}>
+          {filtered.map((item) => (
+            <ShowcaseCard
+              key={item.key}
+              item={item}
+              isHovered={hoveredKey === item.key}
+              onHover={setHoveredKey}
+              onClick={handleClick}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ================================================================== */
+/*  Card                                                               */
+/* ================================================================== */
+
+function ShowcaseCard({
+  item,
+  isHovered,
+  onHover,
+  onClick,
+}: {
+  item: ShowcaseItem;
+  isHovered: boolean;
+  onHover: (key: string | null) => void;
+  onClick: (item: ShowcaseItem) => void;
+}) {
+  const showDemo = isHovered && item.hoverDemo;
+
+  return (
+    <div
+      className={cn(
+        "relative cursor-pointer rounded-2xl border bg-card transition-all duration-300 ease-out overflow-hidden",
+        isHovered
+          ? "border-primary shadow-xl shadow-primary/10 scale-[1.02] z-10"
+          : "border-border shadow-sm hover:shadow-md",
+      )}
+      onMouseEnter={() => onHover(item.key)}
+      onMouseLeave={() => onHover(null)}
+      onClick={() => onClick(item)}
+    >
+      {/* ── Preview / Demo zone ── */}
+      <div className="relative h-[180px] overflow-hidden bg-gray-50 dark:bg-gray-900/50">
+        {/* 정적 미리보기 — 항상 표시, 호버 시 페이드 아웃 */}
+        <div
+          className={cn(
+            "absolute inset-0 flex items-center justify-center p-4 pointer-events-none transition-opacity duration-300",
+            showDemo ? "opacity-0" : "opacity-100",
+          )}
+        >
+          <div className="transform scale-90">{item.preview}</div>
+        </div>
+
+        {/* 호버 데모 — 호버 시 페이드 인 */}
+        {item.hoverDemo && (
+          <div
+            className={cn(
+              "absolute inset-0 flex items-center justify-center p-4 pointer-events-none transition-all duration-300",
+              showDemo
+                ? "opacity-100 scale-100"
+                : "opacity-0 scale-95",
+            )}
+          >
+            <div className="w-full max-h-full overflow-hidden">{item.hoverDemo}</div>
+          </div>
+        )}
+
+        {/* 호버 힌트 배지 */}
+        {item.hoverDemo && (
+          <div
+            className={cn(
+              "absolute top-2 right-2 rounded-full bg-primary/90 px-2 py-0.5 text-[10px] font-medium text-white transition-all duration-200",
+              isHovered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1",
+            )}
+          >
+            미리보기
+          </div>
+        )}
       </div>
 
-      {/* Empty state */}
-      {filtered.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-20 text-gray-400">
-          <p className="text-sm">검색 결과가 없습니다.</p>
+      {/* ── Info zone ── */}
+      <div className="px-4 py-3 border-t border-border/50">
+        <div className="flex items-center justify-between mb-0.5">
+          <span className="text-sm font-semibold text-foreground">{item.label}</span>
+          <span
+            className={cn(
+              "rounded-full px-2 py-0.5 text-[10px] font-medium",
+              catColors[item.category] ?? defaultCatColor,
+            )}
+          >
+            {item.category}
+          </span>
         </div>
-      )}
-
-      {/* Hover overlay */}
-      {hoveredItem?.hoverDemo && overlayPos && (
-        <div
-          className="pointer-events-none fixed z-50 animate-in fade-in duration-200"
-          style={{
-            top: overlayPos.top,
-            left: overlayPos.left,
-            width: 320,
-            height: 280,
-          }}
-        >
-          <div className="flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gray-900 shadow-2xl dark:bg-gray-950">
-            <div className="flex flex-1 items-center justify-center overflow-hidden p-4 pointer-events-none">
-              {hoveredItem.hoverDemo}
-            </div>
-            <div className="border-t border-gray-700 px-4 py-2.5">
-              <p className="text-sm font-semibold text-white">
-                {hoveredItem.label}
-              </p>
-              <p className="truncate text-xs text-gray-400">
-                {hoveredItem.description}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+        <p className="text-xs text-muted truncate">{item.description}</p>
+      </div>
     </div>
   );
 }

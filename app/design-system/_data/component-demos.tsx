@@ -743,8 +743,8 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <Breadcrumb
         items={[
-          { label: "홈", href: "#" },
-          { label: "프로젝트", href: "#" },
+          { label: "홈", href: undefined },
+          { label: "프로젝트", href: undefined },
           { label: "설정" },
         ]}
       />
@@ -753,10 +753,10 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="flex flex-col gap-3 w-full">
         <Breadcrumb
           items={[
-            { label: "홈", href: "#" },
-            { label: "프로젝트", href: "#" },
-            { label: "디자인 시스템", href: "#" },
-            { label: "컴포넌트", href: "#" },
+            { label: "홈", href: undefined },
+            { label: "프로젝트", href: undefined },
+            { label: "디자인 시스템", href: undefined },
+            { label: "컴포넌트", href: undefined },
             { label: "Breadcrumb" },
           ]}
         />
