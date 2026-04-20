@@ -116,21 +116,6 @@ const pipelineConnections: FlowConnection[] = [
   { id: "plc5", from: "merger", to: "proc-b", fromPort: 1, toPort: 0, label: "Batch" },
 ];
 
-// ── Section 4: 읽기 전용 뷰어 ──────────────────────────
-
-const readonlyNodes: FlowNode[] = [
-  { id: "ro1", title: "요청", x: 30, y: 60, variant: "info" },
-  { id: "ro2", title: "검증", x: 230, y: 60, variant: "warning" },
-  { id: "ro3", title: "처리", x: 430, y: 60, variant: "success" },
-  { id: "ro4", title: "응답", x: 630, y: 60, variant: "default" },
-];
-
-const readonlyConnections: FlowConnection[] = [
-  { id: "roc1", from: "ro1", to: "ro2" },
-  { id: "roc2", from: "ro2", to: "ro3" },
-  { id: "roc3", from: "ro3", to: "ro4" },
-];
-
 // ── Connection style options ────────────────────────────
 
 const connectionStyleOptions = [
@@ -201,8 +186,7 @@ export default function FlowDiagramPage() {
         { name: "showGrid", type: "boolean", default: "true", description: "그리드 배경 표시" },
         { name: "showMinimap", type: "boolean", default: "false", description: "미니맵 표시" },
         { name: "fitToView", type: "boolean", default: "false", description: "전체 보기 자동 적용" },
-        { name: "readonly", type: "boolean", default: "false", description: "읽기 전용 모드" },
-        { name: "connectionStyle", type: '"bezier" | "straight" | "step"', default: '"bezier"', description: "연결선 스타일" },
+{ name: "connectionStyle", type: '"bezier" | "straight" | "step"', default: '"bezier"', description: "연결선 스타일" },
         { name: "animateConnections", type: "boolean", default: "false", description: "연결선 애니메이션" },
       ]}
     >
@@ -283,22 +267,6 @@ export default function FlowDiagramPage() {
         </div>
       </Section>
 
-      {/* Section 4: 읽기 전용 뷰어 */}
-      <Section title="읽기 전용 뷰어">
-        <Preview padding={false}>
-          <FlowDiagram
-            nodes={readonlyNodes}
-            connections={readonlyConnections}
-            readonly
-            fitToView
-            className="h-[200px] rounded-xl"
-          />
-        </Preview>
-        <div className="mt-3 text-xs text-muted space-y-1">
-          <p>- readonly 모드: 드래그, 연결, 삭제 비활성화</p>
-          <p>- 줌/패닝만 가능한 뷰어 모드</p>
-        </div>
-      </Section>
     </ComponentPage>
   );
 }
