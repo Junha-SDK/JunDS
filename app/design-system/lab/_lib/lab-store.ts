@@ -5,358 +5,301 @@ import {
   useContext,
   useReducer,
   useCallback,
+  useMemo,
   type ReactNode,
 } from "react";
 import React from "react";
 import type {
   LabState,
-  CanvasNode,
-  NodeId,
-  PropValue,
-  LayoutMode,
+  RegionState,
+  RegionStyle,
+  TokenOverrides,
   ViewportPreset,
+  PropValue,
 } from "./types";
-import { labComponentMap } from "./component-registry";
-import {
-  createHistory,
-  pushState,
-  undo as historyUndo,
-  redo as historyRedo,
-  type HistoryState,
-} from "./history";
+import { layoutTemplateMap } from "./layout-templates";
+import { createHistory, pushState, undo, redo, type HistoryState } from "./history";
 
-// ── ID generation ──
+// ── Default tokens ──
 
-let nodeCounter = 0;
-
-function generateId(): string {
-  return `node_${++nodeCounter}_${Date.now()}`;
-}
+export const defaultTokens: TokenOverrides = {
+  primary: "#5b4cc7",
+  accent: "#7c5ce7",
+  danger: "#dc3f3f",
+  success: "#2f8f57",
+  warning: "#b7791f",
+  radius: "md",
+  shadow: "sm",
+  spacingBase: 4,
+  fontFamily: "system-ui",
+};
 
 // ── Initial state ──
 
 const initialLabState: LabState = {
-  nodes: {},
-  selectedIds: [],
-  mode: "freeform",
-  gridEnabled: true,
-  gridSize: 8,
+  templateId: "",
+  regions: {},
+  tokens: { ...defaultTokens },
   viewport: "desktop",
-  zoom: 1,
-  nextZIndex: 1,
+  selectedRegionId: null,
+  selectedSlotId: null,
 };
 
 // ── Actions ──
 
-export type LabAction =
-  | { type: "ADD_NODE"; componentId: string; x: number; y: number }
-  | { type: "MOVE_NODE"; nodeId: NodeId; x: number; y: number }
-  | { type: "RESIZE_NODE"; nodeId: NodeId; width: number; height: number }
-  | { type: "UPDATE_PROP"; nodeId: NodeId; propName: string; value: PropValue }
-  | { type: "UPDATE_CHILDREN"; nodeId: NodeId; children: string }
-  | { type: "DELETE_NODES"; nodeIds: NodeId[] }
-  | { type: "SELECT"; nodeIds: NodeId[] }
-  | { type: "CLEAR_SELECTION" }
-  | { type: "SET_MODE"; mode: LayoutMode }
-  | { type: "TOGGLE_GRID" }
-  | { type: "SET_GRID_SIZE"; size: number }
+type LabAction =
+  | { type: "LOAD_TEMPLATE"; templateId: string }
   | { type: "SET_VIEWPORT"; viewport: ViewportPreset }
-  | { type: "SET_ZOOM"; zoom: number }
-  | { type: "DUPLICATE_NODES"; nodeIds: NodeId[] }
-  | { type: "BRING_FORWARD"; nodeId: NodeId }
-  | { type: "SEND_BACKWARD"; nodeId: NodeId };
+  | { type: "SELECT_REGION"; regionId: string | null }
+  | { type: "SELECT_SLOT"; slotId: string | null }
+  | { type: "UPDATE_REGION_STYLE"; regionId: string; key: keyof RegionStyle; value: string }
+  | { type: "ADD_SLOT"; regionId: string; componentId: string }
+  | { type: "REMOVE_SLOT"; regionId: string; slotId: string }
+  | { type: "UPDATE_SLOT_PROP"; regionId: string; slotId: string; propName: string; value: PropValue }
+  | { type: "UPDATE_SLOT_CHILDREN"; regionId: string; slotId: string; children: string | undefined }
+  | { type: "MOVE_SLOT"; regionId: string; slotId: string; direction: "up" | "down" }
+  | { type: "UPDATE_TOKEN"; key: keyof TokenOverrides; value: string | number }
+  | { type: "CLEAR_SELECTION" }
+  | { type: "UNDO" }
+  | { type: "REDO" };
 
-// ── Snap to grid helper ──
+// ── Slot ID generator ──
 
-function snap(value: number, gridSize: number, enabled: boolean): number {
-  if (!enabled) return value;
-  return Math.round(value / gridSize) * gridSize;
+let _nextSlotId = 1000;
+function generateSlotId(): string {
+  return `slot_${++_nextSlotId}`;
 }
 
-// ── Reducer ──
+// ── Reducer (operates on LabState) ──
 
 function labReducer(state: LabState, action: LabAction): LabState {
   switch (action.type) {
-    case "ADD_NODE": {
-      const def = labComponentMap.get(action.componentId);
-      if (!def) return state;
+    case "LOAD_TEMPLATE": {
+      const template = layoutTemplateMap.get(action.templateId);
+      if (!template) return state;
 
-      const defaultProps: Record<string, PropValue> = {};
-      for (const prop of def.props) {
-        defaultProps[prop.name] = prop.defaultValue;
+      const regions: Record<string, RegionState> = {};
+      for (const region of template.regions) {
+        regions[region.id] = {
+          style: { ...region.defaultStyle },
+          slots: region.defaultSlots.map((s) => ({
+            ...s,
+            props: { ...s.props },
+          })),
+        };
       }
 
-      const id = generateId();
-      const node: CanvasNode = {
-        id,
-        componentId: action.componentId,
-        props: defaultProps,
-        children: def.defaultChildren,
-        rect: {
-          x: snap(action.x, state.gridSize, state.gridEnabled),
-          y: snap(action.y, state.gridSize, state.gridEnabled),
-          width: def.minWidth ?? 120,
-          height: def.minHeight ?? 40,
-        },
-        zIndex: state.nextZIndex,
-      };
-
       return {
-        ...state,
-        nodes: { ...state.nodes, [id]: node },
-        selectedIds: [id],
-        nextZIndex: state.nextZIndex + 1,
+        templateId: action.templateId,
+        regions,
+        tokens: { ...defaultTokens },
+        viewport: state.viewport,
+        selectedRegionId: null,
+        selectedSlotId: null,
       };
     }
-
-    case "MOVE_NODE": {
-      const node = state.nodes[action.nodeId];
-      if (!node) return state;
-      return {
-        ...state,
-        nodes: {
-          ...state.nodes,
-          [action.nodeId]: {
-            ...node,
-            rect: {
-              ...node.rect,
-              x: snap(action.x, state.gridSize, state.gridEnabled),
-              y: snap(action.y, state.gridSize, state.gridEnabled),
-            },
-          },
-        },
-      };
-    }
-
-    case "RESIZE_NODE": {
-      const node = state.nodes[action.nodeId];
-      if (!node) return state;
-      const def = labComponentMap.get(node.componentId);
-      const minW = def?.minWidth ?? 20;
-      const minH = def?.minHeight ?? 20;
-      return {
-        ...state,
-        nodes: {
-          ...state.nodes,
-          [action.nodeId]: {
-            ...node,
-            rect: {
-              ...node.rect,
-              width: Math.max(minW, action.width),
-              height: Math.max(minH, action.height),
-            },
-          },
-        },
-      };
-    }
-
-    case "UPDATE_PROP": {
-      const node = state.nodes[action.nodeId];
-      if (!node) return state;
-      return {
-        ...state,
-        nodes: {
-          ...state.nodes,
-          [action.nodeId]: {
-            ...node,
-            props: { ...node.props, [action.propName]: action.value },
-          },
-        },
-      };
-    }
-
-    case "UPDATE_CHILDREN": {
-      const node = state.nodes[action.nodeId];
-      if (!node) return state;
-      return {
-        ...state,
-        nodes: {
-          ...state.nodes,
-          [action.nodeId]: { ...node, children: action.children },
-        },
-      };
-    }
-
-    case "DELETE_NODES": {
-      const remaining = { ...state.nodes };
-      for (const id of action.nodeIds) {
-        delete remaining[id];
-      }
-      return {
-        ...state,
-        nodes: remaining,
-        selectedIds: state.selectedIds.filter(
-          (id) => !action.nodeIds.includes(id),
-        ),
-      };
-    }
-
-    case "SELECT":
-      return { ...state, selectedIds: action.nodeIds };
-
-    case "CLEAR_SELECTION":
-      return { ...state, selectedIds: [] };
-
-    case "SET_MODE":
-      return { ...state, mode: action.mode };
-
-    case "TOGGLE_GRID":
-      return { ...state, gridEnabled: !state.gridEnabled };
-
-    case "SET_GRID_SIZE":
-      return { ...state, gridSize: action.size };
 
     case "SET_VIEWPORT":
       return { ...state, viewport: action.viewport };
 
-    case "SET_ZOOM":
-      return { ...state, zoom: Math.max(0.25, Math.min(3, action.zoom)) };
+    case "SELECT_REGION":
+      return { ...state, selectedRegionId: action.regionId, selectedSlotId: null };
 
-    case "DUPLICATE_NODES": {
-      const newNodes = { ...state.nodes };
-      const newIds: NodeId[] = [];
-      let zIndex = state.nextZIndex;
+    case "SELECT_SLOT":
+      return { ...state, selectedSlotId: action.slotId };
 
-      for (const srcId of action.nodeIds) {
-        const src = state.nodes[srcId];
-        if (!src) continue;
-        const newId = generateId();
-        newNodes[newId] = {
-          ...src,
-          id: newId,
-          rect: { ...src.rect, x: src.rect.x + 20, y: src.rect.y + 20 },
-          props: { ...src.props },
-          zIndex: zIndex++,
-        };
-        newIds.push(newId);
-      }
+    case "CLEAR_SELECTION":
+      return { ...state, selectedRegionId: null, selectedSlotId: null };
 
+    case "UPDATE_REGION_STYLE": {
+      const region = state.regions[action.regionId];
+      if (!region) return state;
       return {
         ...state,
-        nodes: newNodes,
-        selectedIds: newIds,
-        nextZIndex: zIndex,
-      };
-    }
-
-    case "BRING_FORWARD": {
-      const node = state.nodes[action.nodeId];
-      if (!node) return state;
-      return {
-        ...state,
-        nodes: {
-          ...state.nodes,
-          [action.nodeId]: { ...node, zIndex: state.nextZIndex },
-        },
-        nextZIndex: state.nextZIndex + 1,
-      };
-    }
-
-    case "SEND_BACKWARD": {
-      const node = state.nodes[action.nodeId];
-      if (!node) return state;
-      // Find the minimum zIndex across all nodes
-      const allZ = Object.values(state.nodes).map((n) => n.zIndex);
-      const minZ = Math.min(...allZ);
-      return {
-        ...state,
-        nodes: {
-          ...state.nodes,
-          [action.nodeId]: {
-            ...node,
-            zIndex: Math.max(0, minZ - 1),
+        regions: {
+          ...state.regions,
+          [action.regionId]: {
+            ...region,
+            style: { ...region.style, [action.key]: action.value },
           },
         },
       };
     }
+
+    case "ADD_SLOT": {
+      const region = state.regions[action.regionId];
+      if (!region) return state;
+      const newSlot = {
+        id: generateSlotId(),
+        componentId: action.componentId,
+        props: {},
+        children: undefined,
+      };
+      return {
+        ...state,
+        regions: {
+          ...state.regions,
+          [action.regionId]: {
+            ...region,
+            slots: [...region.slots, newSlot],
+          },
+        },
+      };
+    }
+
+    case "REMOVE_SLOT": {
+      const region = state.regions[action.regionId];
+      if (!region) return state;
+      return {
+        ...state,
+        regions: {
+          ...state.regions,
+          [action.regionId]: {
+            ...region,
+            slots: region.slots.filter((s) => s.id !== action.slotId),
+          },
+        },
+        selectedSlotId:
+          state.selectedSlotId === action.slotId ? null : state.selectedSlotId,
+      };
+    }
+
+    case "UPDATE_SLOT_PROP": {
+      const region = state.regions[action.regionId];
+      if (!region) return state;
+      return {
+        ...state,
+        regions: {
+          ...state.regions,
+          [action.regionId]: {
+            ...region,
+            slots: region.slots.map((s) =>
+              s.id === action.slotId
+                ? { ...s, props: { ...s.props, [action.propName]: action.value } }
+                : s,
+            ),
+          },
+        },
+      };
+    }
+
+    case "UPDATE_SLOT_CHILDREN": {
+      const region = state.regions[action.regionId];
+      if (!region) return state;
+      return {
+        ...state,
+        regions: {
+          ...state.regions,
+          [action.regionId]: {
+            ...region,
+            slots: region.slots.map((s) =>
+              s.id === action.slotId ? { ...s, children: action.children } : s,
+            ),
+          },
+        },
+      };
+    }
+
+    case "MOVE_SLOT": {
+      const region = state.regions[action.regionId];
+      if (!region) return state;
+      const idx = region.slots.findIndex((s) => s.id === action.slotId);
+      if (idx === -1) return state;
+      const newIdx = action.direction === "up" ? idx - 1 : idx + 1;
+      if (newIdx < 0 || newIdx >= region.slots.length) return state;
+      const newSlots = [...region.slots];
+      [newSlots[idx], newSlots[newIdx]] = [newSlots[newIdx], newSlots[idx]];
+      return {
+        ...state,
+        regions: {
+          ...state.regions,
+          [action.regionId]: { ...region, slots: newSlots },
+        },
+      };
+    }
+
+    case "UPDATE_TOKEN":
+      return {
+        ...state,
+        tokens: { ...state.tokens, [action.key]: action.value },
+      };
 
     default:
       return state;
   }
 }
 
-// ── Actions that should NOT create history entries ──
+// ── History-aware wrapper reducer ──
 
-const NON_HISTORY_ACTIONS = new Set<LabAction["type"]>([
-  "SELECT",
-  "CLEAR_SELECTION",
-  "SET_ZOOM",
-  "SET_VIEWPORT",
-  "TOGGLE_GRID",
-  "SET_GRID_SIZE",
-  "SET_MODE",
-]);
-
-// ── History-wrapped reducer ──
-
-type HistoryAction =
-  | LabAction
-  | { type: "UNDO" }
-  | { type: "REDO" };
+interface HistoryWrappedState {
+  history: HistoryState<LabState>;
+}
 
 function historyReducer(
-  history: HistoryState<LabState>,
-  action: HistoryAction,
-): HistoryState<LabState> {
+  state: HistoryWrappedState,
+  action: LabAction,
+): HistoryWrappedState {
   if (action.type === "UNDO") {
-    return historyUndo(history);
+    return { history: undo(state.history) };
   }
   if (action.type === "REDO") {
-    return historyRedo(history);
+    return { history: redo(state.history) };
   }
 
-  const newState = labReducer(history.present, action);
+  const newLabState = labReducer(state.history.present, action);
+  if (newLabState === state.history.present) return state;
 
-  // Don't push history for selection/view-only changes
-  if (NON_HISTORY_ACTIONS.has(action.type)) {
-    return { ...history, present: newState };
+  // Non-history actions (viewport, selection) don't push to undo stack
+  const noHistory =
+    action.type === "SET_VIEWPORT" ||
+    action.type === "SELECT_REGION" ||
+    action.type === "SELECT_SLOT" ||
+    action.type === "CLEAR_SELECTION";
+
+  if (noHistory) {
+    return { history: { ...state.history, present: newLabState } };
   }
 
-  return pushState(history, newState);
+  return { history: pushState(state.history, newLabState) };
 }
 
 // ── Context ──
 
 interface LabContextValue {
   state: LabState;
-  dispatch: (action: LabAction) => void;
-  undo: () => void;
-  redo: () => void;
+  dispatch: React.Dispatch<LabAction>;
   canUndo: boolean;
   canRedo: boolean;
 }
 
 const LabContext = createContext<LabContextValue | null>(null);
 
+// ── Provider ──
+
 export function LabProvider({ children }: { children: ReactNode }) {
-  const [history, rawDispatch] = useReducer(
-    historyReducer,
-    initialLabState,
-    createHistory,
+  const [wrapped, dispatch] = useReducer(historyReducer, {
+    history: createHistory(initialLabState),
+  });
+
+  const value = useMemo<LabContextValue>(
+    () => ({
+      state: wrapped.history.present,
+      dispatch,
+      canUndo: wrapped.history.past.length > 0,
+      canRedo: wrapped.history.future.length > 0,
+    }),
+    [wrapped, dispatch],
   );
-
-  const dispatch = useCallback(
-    (action: LabAction) => rawDispatch(action),
-    [],
-  );
-
-  const handleUndo = useCallback(() => rawDispatch({ type: "UNDO" }), []);
-  const handleRedo = useCallback(() => rawDispatch({ type: "REDO" }), []);
-
-  const value: LabContextValue = {
-    state: history.present,
-    dispatch,
-    undo: handleUndo,
-    redo: handleRedo,
-    canUndo: history.past.length > 0,
-    canRedo: history.future.length > 0,
-  };
 
   return React.createElement(LabContext.Provider, { value }, children);
 }
 
+// ── Hook ──
+
 export function useLab(): LabContextValue {
   const ctx = useContext(LabContext);
-  if (!ctx) throw new Error("useLab must be used within LabProvider");
+  if (!ctx) {
+    throw new Error("useLab must be used within a <LabProvider>");
+  }
   return ctx;
 }

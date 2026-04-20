@@ -1,133 +1,242 @@
-import type { LabState, CanvasNode } from "./types";
+import type { LabState, TokenOverrides, RegionStyle, SlotDef } from "./types";
+import { layoutTemplateMap } from "./layout-templates";
 import { labComponentMap } from "./component-registry";
+import { defaultTokens } from "./lab-store";
 
 export interface GeneratedCode {
   imports: string;
   jsx: string;
+  tokens: string;
   full: string;
 }
 
-function formatPropValue(
-  name: string,
-  value: string | number | boolean | undefined,
-): string | null {
-  if (value === undefined) return null;
-  if (typeof value === "boolean") {
-    return value ? name : null; // true => just name, false => omit
-  }
-  if (typeof value === "number") {
-    return `${name}={${value}}`;
-  }
-  // string
-  return `${name}="${value}"`;
+// ── Helpers ──
+
+function indent(text: string, level: number): string {
+  const pad = "  ".repeat(level);
+  return text
+    .split("\n")
+    .map((line) => (line.trim() ? pad + line : ""))
+    .join("\n");
 }
 
-function generateNodeJsx(node: CanvasNode, freeform: boolean): string {
-  const def = labComponentMap.get(node.componentId);
-  const tag = node.componentId;
-
-  // Build props string
-  const propParts: string[] = [];
-
-  if (def) {
-    for (const propDef of def.props) {
-      const value = node.props[propDef.name];
-      // Skip props that equal their default value
-      if (value === propDef.defaultValue) continue;
-      const formatted = formatPropValue(propDef.name, value);
-      if (formatted) propParts.push(formatted);
-    }
-  } else {
-    // No def found, emit all non-undefined props
-    for (const [key, value] of Object.entries(node.props)) {
-      if (value === undefined) continue;
-      const formatted = formatPropValue(key, value);
-      if (formatted) propParts.push(formatted);
-    }
-  }
-
-  // Add positioning style for freeform mode
-  if (freeform) {
-    const style = `{{ position: "absolute", left: ${node.rect.x}, top: ${node.rect.y}, width: ${node.rect.width}, height: ${node.rect.height} }}`;
-    propParts.push(`style={${style}}`);
-  }
-
-  const propsStr = propParts.length > 0 ? " " + propParts.join(" ") : "";
-
-  const hasChildren =
-    node.children !== undefined &&
-    node.children !== "" &&
-    def?.acceptsChildren !== false;
-
-  if (hasChildren) {
-    return `<${tag}${propsStr}>${node.children}</${tag}>`;
-  }
-  return `<${tag}${propsStr} />`;
+function formatPropValue(value: string | number | boolean | undefined): string {
+  if (value === undefined) return "undefined";
+  if (typeof value === "string") return `"${value}"`;
+  if (typeof value === "boolean") return `{${value}}`;
+  if (typeof value === "number") return `{${value}}`;
+  return `"${value}"`;
 }
+
+function buildPropsString(
+  componentId: string,
+  props: Record<string, string | number | boolean | undefined>,
+): string {
+  const def = labComponentMap.get(componentId);
+  const parts: string[] = [];
+
+  for (const [key, value] of Object.entries(props)) {
+    if (value === undefined) continue;
+
+    // Skip if value equals the component's default
+    if (def) {
+      const propDef = def.props.find((p) => p.name === key);
+      if (propDef && propDef.defaultValue === value) continue;
+    }
+
+    if (typeof value === "boolean") {
+      parts.push(value ? key : `${key}={false}`);
+    } else {
+      parts.push(`${key}=${formatPropValue(value)}`);
+    }
+  }
+
+  return parts.length > 0 ? " " + parts.join(" ") : "";
+}
+
+function renderSlot(slot: SlotDef): string {
+  const propsStr = buildPropsString(slot.componentId, slot.props);
+  const def = labComponentMap.get(slot.componentId);
+
+  if (slot.children) {
+    return `<${slot.componentId}${propsStr}>${slot.children}</${slot.componentId}>`;
+  }
+  if (def?.acceptsChildren && def.defaultChildren) {
+    return `<${slot.componentId}${propsStr}>${def.defaultChildren}</${slot.componentId}>`;
+  }
+  return `<${slot.componentId}${propsStr} />`;
+}
+
+function styleToInline(style: RegionStyle): string {
+  const parts: string[] = [];
+  parts.push(`display: "flex"`);
+  parts.push(`flexDirection: "${style.flexDirection}"`);
+  parts.push(`alignItems: "${style.alignItems}"`);
+  parts.push(`justifyContent: "${style.justifyContent}"`);
+  parts.push(`padding: "${style.padding}"`);
+  parts.push(`gap: "${style.gap}"`);
+  if (style.backgroundColor !== "white") {
+    parts.push(`backgroundColor: "${style.backgroundColor}"`);
+  }
+  return parts.join(", ");
+}
+
+// ── Token CSS variable generation ──
+
+function generateTokenCSS(tokens: TokenOverrides): string {
+  const vars: string[] = [];
+
+  if (tokens.primary !== defaultTokens.primary) {
+    vars.push(`  --ds-color-primary: ${tokens.primary};`);
+  }
+  if (tokens.accent !== defaultTokens.accent) {
+    vars.push(`  --ds-color-accent: ${tokens.accent};`);
+  }
+  if (tokens.danger !== defaultTokens.danger) {
+    vars.push(`  --ds-color-danger: ${tokens.danger};`);
+  }
+  if (tokens.success !== defaultTokens.success) {
+    vars.push(`  --ds-color-success: ${tokens.success};`);
+  }
+  if (tokens.warning !== defaultTokens.warning) {
+    vars.push(`  --ds-color-warning: ${tokens.warning};`);
+  }
+
+  const radiusMap: Record<string, string> = {
+    none: "0px",
+    sm: "4px",
+    md: "8px",
+    lg: "12px",
+    xl: "16px",
+    "2xl": "24px",
+  };
+  if (tokens.radius !== defaultTokens.radius) {
+    vars.push(`  --ds-radius: ${radiusMap[tokens.radius] ?? tokens.radius};`);
+  }
+
+  const shadowMap: Record<string, string> = {
+    none: "none",
+    xs: "0 1px 2px rgba(0,0,0,0.05)",
+    sm: "0 1px 3px rgba(0,0,0,0.1)",
+    md: "0 4px 6px rgba(0,0,0,0.1)",
+    lg: "0 10px 15px rgba(0,0,0,0.1)",
+  };
+  if (tokens.shadow !== defaultTokens.shadow) {
+    vars.push(`  --ds-shadow: ${shadowMap[tokens.shadow] ?? tokens.shadow};`);
+  }
+
+  if (tokens.spacingBase !== defaultTokens.spacingBase) {
+    vars.push(`  --ds-spacing-base: ${tokens.spacingBase}px;`);
+  }
+
+  if (tokens.fontFamily !== defaultTokens.fontFamily) {
+    vars.push(`  --ds-font-family: ${tokens.fontFamily};`);
+  }
+
+  if (vars.length === 0) return "";
+
+  return `:root {\n${vars.join("\n")}\n}`;
+}
+
+// ── Main generator ──
 
 export function generateCode(state: LabState): GeneratedCode {
-  const nodes = Object.values(state.nodes);
+  const template = layoutTemplateMap.get(state.templateId);
+  if (!template) return { imports: "", jsx: "", tokens: "", full: "" };
 
-  if (nodes.length === 0) {
-    return {
-      imports: "",
-      jsx: "{/* Empty canvas */}",
-      full: "// No components on canvas",
-    };
-  }
-
-  // 1. Collect unique component IDs and group by import path
+  // 1. Collect unique component IDs from all regions
   const componentIds = new Set<string>();
-  for (const node of nodes) {
-    componentIds.add(node.componentId);
-  }
-
-  // Group by importPath
-  const importGroups = new Map<string, string[]>();
-  for (const cid of componentIds) {
-    const def = labComponentMap.get(cid);
-    const path = def?.importPath ?? "@/ds";
-    if (!importGroups.has(path)) {
-      importGroups.set(path, []);
+  for (const regionId of Object.keys(state.regions)) {
+    const region = state.regions[regionId];
+    for (const slot of region.slots) {
+      componentIds.add(slot.componentId);
     }
-    importGroups.get(path)!.push(cid);
   }
 
-  // 2. Generate import lines
+  // Group imports by import path
+  const importsByPath = new Map<string, Set<string>>();
+  for (const id of componentIds) {
+    const def = labComponentMap.get(id);
+    if (!def) continue;
+    const path = def.importPath;
+    if (!importsByPath.has(path)) importsByPath.set(path, new Set());
+    importsByPath.get(path)!.add(id);
+  }
+
   const importLines: string[] = [];
-  for (const [path, names] of importGroups) {
-    const sorted = [...names].sort();
+  for (const [path, components] of importsByPath) {
+    const sorted = [...components].sort();
     importLines.push(`import { ${sorted.join(", ")} } from "${path}";`);
   }
   const imports = importLines.join("\n");
 
-  // 3. Sort nodes by zIndex for rendering order
-  const sortedNodes = [...nodes].sort((a, b) => a.zIndex - b.zIndex);
+  // 2. Generate grid container
+  const gridStyle = [
+    `display: "grid"`,
+    `gridTemplateAreas: '${template.gridTemplate}'`,
+    `gridTemplateColumns: "${template.gridColumns}"`,
+    `gridTemplateRows: "${template.gridRows}"`,
+    `minHeight: "100vh"`,
+  ].join(", ");
 
-  // 4. Generate JSX
-  const isFreeform = state.mode === "freeform";
+  // 3. Generate region elements
+  const regionJSXLines: string[] = [];
+  for (const regionDef of template.regions) {
+    const regionState = state.regions[regionDef.id];
+    if (!regionState) continue;
 
-  const nodeJsxLines = sortedNodes.map((node) =>
-    generateNodeJsx(node, isFreeform),
-  );
+    const tag = regionDef.tag;
+    const regionStyle = `gridArea: "${regionDef.gridArea}", ${styleToInline(regionState.style)}`;
 
-  let jsx: string;
-  if (isFreeform) {
-    const inner = nodeJsxLines.map((line) => "      " + line).join("\n");
-    jsx = `    <div style={{ position: "relative", width: "100%", minHeight: 400 }}>\n${inner}\n    </div>`;
-  } else {
-    const inner = nodeJsxLines.map((line) => "      " + line).join("\n");
-    jsx = `    <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>\n${inner}\n    </div>`;
+    const slotLines = regionState.slots.map((slot) => renderSlot(slot));
+
+    if (slotLines.length === 0) {
+      regionJSXLines.push(`      <${tag} style={{ ${regionStyle} }} />`);
+    } else {
+      regionJSXLines.push(`      <${tag} style={{ ${regionStyle} }}>`);
+      for (const line of slotLines) {
+        regionJSXLines.push(`        ${line}`);
+      }
+      regionJSXLines.push(`      </${tag}>`);
+    }
   }
 
-  // 5. Full component
-  const full = `${imports}
+  // 4. Build JSX
+  const jsx = [
+    `    <div style={{ ${gridStyle} }}>`,
+    ...regionJSXLines,
+    `    </div>`,
+  ].join("\n");
 
-export default function LabPreview() {
-  return (
-${jsx}
-  );
-}`;
+  // 5. Generate token overrides
+  const tokens = generateTokenCSS(state.tokens);
 
-  return { imports, jsx, full };
+  // 6. Full component
+  const fullLines: string[] = [];
+  fullLines.push(imports);
+  fullLines.push("");
+
+  if (tokens) {
+    fullLines.push("/* Add to your global CSS:");
+    fullLines.push(tokens);
+    fullLines.push("*/");
+    fullLines.push("");
+  }
+
+  fullLines.push(`export default function ${capitalize(state.templateId)}Layout() {`);
+  fullLines.push("  return (");
+  fullLines.push(jsx);
+  fullLines.push("  );");
+  fullLines.push("}");
+
+  const full = fullLines.join("\n");
+
+  return { imports, jsx, tokens, full };
+}
+
+function capitalize(str: string): string {
+  return str
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
 }
