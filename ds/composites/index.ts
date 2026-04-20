@@ -150,3 +150,21 @@ export type { ScrollSpyProps, ScrollSpySection } from "./ScrollSpy";
 
 export { Spotlight } from "./Spotlight";
 export type { SpotlightProps } from "./Spotlight";
+
+export { DateRangeFilter } from "./DateRangeFilter";
+export type { DateRangeFilterProps, DatePreset } from "./DateRangeFilter";
+
+export { ComparisonGrid } from "./ComparisonGrid";
+export type { ComparisonGridProps, ComparisonCard } from "./ComparisonGrid";
+
+export { FilterButtonGroup } from "./FilterButtonGroup";
+export type { FilterButtonGroupProps, FilterOption } from "./FilterButtonGroup";
+
+export { KeyValueGrid } from "./KeyValueGrid";
+export type { KeyValueGridProps, KeyValueItem } from "./KeyValueGrid";
+
+export { DetailPanel } from "./DetailPanel";
+export type { DetailPanelProps, DetailPanelTab } from "./DetailPanel";
+
+export { FloatingActionButton } from "./FloatingActionButton";
+export type { FloatingActionButtonProps, FloatingAction } from "./FloatingActionButton";

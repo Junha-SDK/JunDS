@@ -32,7 +32,7 @@ export { VirtualList } from "./VirtualList";
 export type { VirtualListProps } from "./VirtualList";
 
 export { ChartCard } from "./ChartCard";
-export type { ChartCardProps, ChartDataPoint, ChartType } from "./ChartCard";
+export type { ChartCardProps, ChartDataPoint, ChartSegment, ChartTone, ChartTrend, ChartType } from "./ChartCard";
 
 export { NotificationCenter } from "./NotificationCenter";
 export type { NotificationCenterProps, Notification } from "./NotificationCenter";
@@ -51,3 +51,6 @@ export type { LoginFormProps } from "./LoginForm";
 
 export { Tour } from "./Tour";
 export type { TourProps, TourStep } from "./Tour";
+
+export { FlowDiagram } from "./FlowDiagram";
+export type { FlowDiagramProps, FlowNode } from "./FlowDiagram";

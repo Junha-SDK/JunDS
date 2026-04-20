@@ -47,6 +47,8 @@ export const sections: NavSection[] = [
       { href: "/design-system/primitives/scroll-area", label: "ScrollArea" },
       { href: "/design-system/primitives/star-rating", label: "StarRating" },
       { href: "/design-system/primitives/back-top", label: "BackTop" },
+      { href: "/design-system/primitives/battery-indicator", label: "BatteryIndicator" },
+      { href: "/design-system/primitives/severity-badge", label: "SeverityBadge" },
     ],
   },
   {
@@ -99,6 +101,12 @@ export const sections: NavSection[] = [
       { href: "/design-system/composites/watermark", label: "Watermark" },
       { href: "/design-system/composites/scroll-spy", label: "ScrollSpy" },
       { href: "/design-system/composites/spotlight", label: "Spotlight" },
+      { href: "/design-system/composites/date-range-filter", label: "DateRangeFilter" },
+      { href: "/design-system/composites/comparison-grid", label: "ComparisonGrid" },
+      { href: "/design-system/composites/filter-button-group", label: "FilterButtonGroup" },
+      { href: "/design-system/composites/key-value-grid", label: "KeyValueGrid" },
+      { href: "/design-system/composites/detail-panel", label: "DetailPanel" },
+      { href: "/design-system/composites/floating-action-button", label: "FloatingActionButton" },
     ],
   },
   {
@@ -120,6 +128,7 @@ export const sections: NavSection[] = [
       { href: "/design-system/patterns/sortable-list", label: "SortableList" },
       { href: "/design-system/patterns/rich-text-editor", label: "RichTextEditor" },
       { href: "/design-system/patterns/tour", label: "Tour" },
+      { href: "/design-system/patterns/flow-diagram", label: "FlowDiagram" },
     ],
   },
   {
@@ -263,6 +272,15 @@ const koreanKeywords: Record<string, string[]> = {
   "Token Export": ["토큰내보내기", "토큰"],
   "AI Prompt Generator": ["AI프롬프트", "프롬프트"],
   Changelog: ["변경로그", "업데이트"],
+  BatteryIndicator: ["배터리", "충전표시", "레벨"],
+  SeverityBadge: ["심각도", "상태배지", "위험도"],
+  DateRangeFilter: ["날짜필터", "기간필터", "날짜범위"],
+  ComparisonGrid: ["비교그리드", "비교카드", "통계비교"],
+  FilterButtonGroup: ["필터버튼", "필터그룹"],
+  KeyValueGrid: ["키값그리드", "필드값", "메타데이터"],
+  DetailPanel: ["디테일패널", "상세패널", "사이드패널"],
+  FloatingActionButton: ["플로팅버튼", "FAB", "떠있는버튼"],
+  FlowDiagram: ["플로우다이어그램", "흐름도", "노드그래프", "프로세스흐름"],
   "실험실": ["실험실", "랩", "플레이그라운드", "lab", "playground"],
 };
 

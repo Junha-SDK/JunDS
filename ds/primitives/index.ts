@@ -83,3 +83,9 @@ export type { BackTopProps } from "./BackTop";
 
 export { ErrorBoundary } from "./ErrorBoundary";
 export type { ErrorBoundaryProps } from "./ErrorBoundary";
+
+export { BatteryIndicator } from "./BatteryIndicator";
+export type { BatteryIndicatorProps } from "./BatteryIndicator";
+
+export { SeverityBadge } from "./SeverityBadge";
+export type { SeverityBadgeProps, Severity } from "./SeverityBadge";
