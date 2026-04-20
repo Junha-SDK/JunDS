@@ -1,10 +1,39 @@
-import type { ComponentPropsWithoutRef, ElementType } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  ComponentPropsWithRef,
+  ElementType,
+  PropsWithChildren,
+  ReactElement,
+  ForwardRefRenderFunction,
+} from "react";
+import { forwardRef } from "react";
 
-/** `as` prop으로 렌더링 요소를 바꿀 수 있는 다형성 타입 */
+/**
+ * Polymorphic `as` prop 타입 유틸리티
+ *
+ * @example
+ * type ButtonProps = PolymorphicProps<"button", { variant: "primary" | "ghost" }>;
+ * // Now accepts `as="a"` and all anchor props are available
+ */
+
+// Base props with `as`
+type AsProp<C extends ElementType> = {
+  as?: C;
+};
+
+// Merge own props with element props, excluding conflicts
+type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
+
 export type PolymorphicProps<
-  E extends ElementType,
-  P = object,
-> = P &
-  Omit<ComponentPropsWithoutRef<E>, keyof P | "as"> & {
-    as?: E;
-  };
+  C extends ElementType,
+  Props = {},
+> = PropsWithChildren<Props & AsProp<C>> &
+  Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
+
+export type PolymorphicRef<C extends ElementType> =
+  ComponentPropsWithRef<C>["ref"];
+
+export type PolymorphicPropsWithRef<
+  C extends ElementType,
+  Props = {},
+> = PolymorphicProps<C, Props> & { ref?: PolymorphicRef<C> };

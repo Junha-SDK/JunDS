@@ -7,3 +7,5 @@ export { duration, easing, animationClass } from "./animation";
 export { zIndex } from "./zindex";
 export { themePresets, applyTheme, restoreTheme, getCurrentThemeName, generateTheme } from "./themes";
 export type { ThemePreset } from "./themes";
+export { breakpoints, mediaQueries } from "./breakpoints";
+export type { Breakpoint } from "./breakpoints";
