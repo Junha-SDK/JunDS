@@ -22,6 +22,14 @@ export interface TableProps<T = any> {
   hoverable?: boolean;
   /** 콤팩트 모드 */
   compact?: boolean;
+  /** 행 크기 */
+  size?: "sm" | "md" | "lg";
+  /** 헤더 고정 (스크롤 시 상단에 고정) */
+  stickyHeader?: boolean;
+  /** 테이블 최대 높이 (stickyHeader와 함께 사용) */
+  maxHeight?: string | number;
+  /** 셀 테두리 표시 */
+  bordered?: boolean;
   className?: string;
   /** 행 클릭 핸들러 */
   onRowClick?: (row: T, index: number) => void;
@@ -33,6 +41,12 @@ const alignClass = {
   left: "text-left",
   center: "text-center",
   right: "text-right",
+} as const;
+
+const sizePadding = {
+  sm: { th: "px-3 py-2", td: "px-3 py-1.5" },
+  md: { th: "px-4 py-3", td: "px-4 py-3" },
+  lg: { th: "px-5 py-4", td: "px-5 py-4" },
 } as const;
 
 /**
@@ -47,12 +61,28 @@ export function Table<T extends Record<string, any>>({
   striped,
   hoverable,
   compact,
+  size,
+  stickyHeader,
+  maxHeight,
+  bordered,
   className,
   onRowClick,
   emptyMessage = "데이터가 없습니다",
 }: TableProps<T>) {
+  // size prop takes precedence; fall back to compact for backward compat
+  const resolvedSize = size ?? (compact ? "sm" : "md");
+  const { th: thPad, td: tdPad } = sizePadding[resolvedSize];
+
+  const wrapperStyle: React.CSSProperties | undefined =
+    stickyHeader && maxHeight
+      ? { maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight, overflowY: "auto" }
+      : undefined;
+
   return (
-    <div className={cn("overflow-x-auto border border-border rounded-xl", className)}>
+    <div
+      className={cn("overflow-x-auto border border-border rounded-xl", className)}
+      style={wrapperStyle}
+    >
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-border bg-gray-50">
@@ -61,8 +91,10 @@ export function Table<T extends Record<string, any>>({
                 key={col.key}
                 className={cn(
                   "font-medium text-muted",
-                  compact ? "px-3 py-2" : "px-4 py-3",
+                  thPad,
                   alignClass[col.align ?? "left"],
+                  stickyHeader && "sticky top-0 z-[2] bg-gray-50",
+                  bordered && "border border-border",
                   col.className,
                 )}
               >
@@ -98,8 +130,9 @@ export function Table<T extends Record<string, any>>({
                     key={col.key}
                     className={cn(
                       "text-foreground",
-                      compact ? "px-3 py-1.5" : "px-4 py-3",
+                      tdPad,
                       alignClass[col.align ?? "left"],
+                      bordered && "border border-border",
                       col.className,
                     )}
                   >

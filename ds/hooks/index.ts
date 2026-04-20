@@ -10,3 +10,5 @@ export { useBreakpoint, useBreakpointValue } from "./useBreakpoint";
 export { useReducedMotion } from "./useReducedMotion";
 export { useForm } from "./useForm";
 export type { UseFormReturn, FormRules, ValidationRule } from "./useForm";
+export { usePanelResize } from "./usePanelResize";
+export type { UsePanelResizeOptions } from "./usePanelResize";

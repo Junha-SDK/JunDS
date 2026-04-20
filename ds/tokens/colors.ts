@@ -23,6 +23,10 @@ export const colors = {
     hover: "var(--danger-hover)",
     light: "var(--danger-light)",
   },
+  info: {
+    DEFAULT: "var(--info)",
+    light: "var(--info-light)",
+  },
   neutral: {
     background: "var(--background)",
     foreground: "var(--foreground)",
