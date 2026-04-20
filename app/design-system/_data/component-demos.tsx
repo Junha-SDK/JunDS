@@ -2185,22 +2185,18 @@ export const showcaseItems: ShowcaseItem[] = [
     category: "Composites",
     href: "/design-system/composites/watermark",
     preview: (
-      <div className="w-full max-w-[180px]">
-        <Watermark text="기밀">
-          <div className="h-[60px] bg-white rounded-lg border border-border p-2">
-            <div className="text-xs text-foreground">보호된 콘텐츠</div>
-          </div>
-        </Watermark>
+      <div className="relative w-full max-w-[180px] h-[60px] bg-white rounded-lg border border-border p-2 overflow-hidden">
+        <div className="text-xs text-foreground">보호된 콘텐츠</div>
+        <div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">기밀</div>
       </div>
     ),
     hoverDemo: (
-      <div className="w-full max-w-[280px]">
-        <Watermark text="JunDS Preview" fontSize={12} gap={80}>
-          <div className="h-[100px] bg-white rounded-lg border border-border p-3">
-            <div className="text-xs font-medium text-foreground mb-1">기밀 문서</div>
-            <div className="text-[10px] text-muted">워터마크가 콘텐츠 위에 반복적으로 표시됩니다.</div>
-          </div>
-        </Watermark>
+      <div className="relative w-full max-w-[280px] h-[100px] bg-white rounded-lg border border-border p-3 overflow-hidden">
+        <div className="text-xs font-medium text-foreground mb-1">기밀 문서</div>
+        <div className="text-[10px] text-muted">워터마크가 콘텐츠 위에 반복적으로 표시됩니다.</div>
+        <div className="absolute inset-0 grid grid-cols-2 gap-8 items-center justify-items-center opacity-[0.07] pointer-events-none select-none" style={{ transform: "rotate(-20deg)", transformOrigin: "center" }}>
+          {Array.from({ length: 6 }, (_, i) => <span key={i} className="text-sm font-bold text-foreground whitespace-nowrap">JunDS Preview</span>)}
+        </div>
       </div>
     ),
   },
