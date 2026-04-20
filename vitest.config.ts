@@ -10,6 +10,12 @@ export default defineConfig({
     setupFiles: ["./ds/__tests__/setup.ts"],
     include: ["ds/__tests__/**/*.test.{ts,tsx}"],
     css: false,
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html", "lcov"],
+      include: ["ds/**/*.{ts,tsx}"],
+      exclude: ["ds/__tests__/**", "ds/**/index.ts"],
+    },
   },
   resolve: {
     alias: {
