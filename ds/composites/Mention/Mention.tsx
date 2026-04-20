@@ -1,0 +1,201 @@
+"use client";
+import { useState, useRef, useMemo, useCallback, useEffect } from "react";
+import { cn } from "../../utils/cn";
+import { useClickOutside } from "../../hooks/useClickOutside";
+import { Portal } from "../../primitives/Portal";
+
+export interface MentionUser {
+  key: string;
+  label: string;
+  /** 아바타 이미지 URL */
+  avatar?: string;
+  /** 추가 설명 */
+  description?: string;
+}
+
+export interface MentionProps {
+  value: string;
+  onChange: (value: string) => void;
+  /** 사용자 목록 */
+  users: MentionUser[];
+  /** 트리거 문자 */
+  trigger?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  className?: string;
+}
+
+/**
+ * 멘션 입력
+ * @example
+ * <Mention value={text} onChange={setText} users={userList} trigger="@" />
+ */
+export function Mention({
+  value,
+  onChange,
+  users,
+  trigger = "@",
+  placeholder = "내용을 입력하세요...",
+  disabled,
+  className,
+}: MentionProps) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [highlightIdx, setHighlightIdx] = useState(0);
+  const [mentionStart, setMentionStart] = useState<number | null>(null);
+  const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(dropdownRef, () => { setOpen(false); setMentionStart(null); }, open);
+
+  const filtered = useMemo(() => {
+    if (!query) return users;
+    const q = query.toLowerCase();
+    return users.filter(
+      (u) => u.label.toLowerCase().includes(q) || u.description?.toLowerCase().includes(q),
+    );
+  }, [users, query]);
+
+  const updateDropdownPosition = useCallback(() => {
+    if (!textareaRef.current) return;
+    const rect = textareaRef.current.getBoundingClientRect();
+    // Position below the textarea caret area
+    setDropdownPos({
+      top: rect.bottom + 4,
+      left: rect.left,
+    });
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.target.value;
+    onChange(newValue);
+
+    const cursorPos = e.target.selectionStart ?? 0;
+    // Check for trigger character
+    const textBeforeCursor = newValue.slice(0, cursorPos);
+    const lastTriggerIdx = textBeforeCursor.lastIndexOf(trigger);
+
+    if (lastTriggerIdx >= 0) {
+      const textBetween = textBeforeCursor.slice(lastTriggerIdx + trigger.length);
+      // Only valid if no space in the mention query
+      if (!textBetween.includes(" ") && (lastTriggerIdx === 0 || newValue[lastTriggerIdx - 1] === " " || newValue[lastTriggerIdx - 1] === "\n")) {
+        setMentionStart(lastTriggerIdx);
+        setQuery(textBetween);
+        setHighlightIdx(0);
+        setOpen(true);
+        updateDropdownPosition();
+        return;
+      }
+    }
+
+    setOpen(false);
+    setMentionStart(null);
+  };
+
+  const handleSelect = useCallback((user: MentionUser) => {
+    if (mentionStart === null || !textareaRef.current) return;
+    const cursorPos = textareaRef.current.selectionStart ?? 0;
+    const before = value.slice(0, mentionStart);
+    const after = value.slice(cursorPos);
+    const mention = `${trigger}${user.label} `;
+    const newValue = before + mention + after;
+    onChange(newValue);
+
+    setOpen(false);
+    setMentionStart(null);
+    setQuery("");
+
+    // Restore focus and cursor
+    requestAnimationFrame(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+        const newPos = before.length + mention.length;
+        textareaRef.current.setSelectionRange(newPos, newPos);
+      }
+    });
+  }, [mentionStart, value, trigger, onChange]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!open) return;
+
+    if (e.key === "Escape") {
+      e.preventDefault();
+      setOpen(false);
+      setMentionStart(null);
+      return;
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightIdx((i) => Math.min(i + 1, filtered.length - 1));
+      return;
+    }
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightIdx((i) => Math.max(i - 1, 0));
+      return;
+    }
+    if (e.key === "Enter" && filtered[highlightIdx]) {
+      e.preventDefault();
+      handleSelect(filtered[highlightIdx]);
+    }
+  };
+
+  useEffect(() => {
+    if (open) setHighlightIdx(0);
+  }, [query, open]);
+
+  return (
+    <div className={cn("relative w-full", className)}>
+      <textarea
+        ref={textareaRef}
+        value={value}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        placeholder={placeholder}
+        disabled={disabled}
+        className={cn(
+          "w-full min-h-[80px] px-3 py-2 text-sm border bg-white rounded-lg transition-all duration-150 resize-y",
+          "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "disabled:opacity-50 disabled:cursor-not-allowed",
+          "border-border placeholder:text-muted-light",
+        )}
+      />
+
+      {open && filtered.length > 0 && (
+        <Portal>
+          <div
+            ref={dropdownRef}
+            className="fixed z-50 w-64 bg-white border border-border rounded-lg shadow-lg max-h-48 overflow-auto py-1 animate-fade-in-scale"
+            style={{ top: dropdownPos.top, left: dropdownPos.left }}
+          >
+            {filtered.map((user, i) => (
+              <button
+                key={user.key}
+                type="button"
+                onClick={() => handleSelect(user)}
+                className={cn(
+                  "w-full flex items-center gap-2 px-3 py-2 text-left transition-colors cursor-pointer text-sm",
+                  i === highlightIdx && "bg-primary-light",
+                  "hover:bg-gray-50",
+                )}
+              >
+                {user.avatar ? (
+                  <img src={user.avatar} alt={user.label} className="w-6 h-6 rounded-full shrink-0 object-cover" />
+                ) : (
+                  <div className="w-6 h-6 rounded-full shrink-0 bg-primary/10 text-primary flex items-center justify-center text-xs font-medium">
+                    {user.label[0]}
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="truncate font-medium">{user.label}</div>
+                  {user.description && <div className="text-xs text-muted truncate">{user.description}</div>}
+                </div>
+              </button>
+            ))}
+          </div>
+        </Portal>
+      )}
+    </div>
+  );
+}
