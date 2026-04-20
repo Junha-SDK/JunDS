@@ -63,11 +63,11 @@ const statusIcons: Record<ResultProps["status"], ReactNode> = {
  */
 export function Result({ status, title, description, extra, icon, className }: ResultProps) {
   return (
-    <div className={cn("flex flex-col items-center justify-center py-16 px-6 text-center", className)}>
-      <div className="mb-6">
+    <div className={cn("flex flex-col items-center justify-center py-16 px-6 text-center animate-fade-in", className)}>
+      <div className="mb-6 transition-colors duration-200">
         {icon ?? statusIcons[status]}
       </div>
-      <h2 className="text-xl font-semibold text-foreground mb-2">{title}</h2>
+      <h2 className="text-xl font-semibold text-foreground mb-2 transition-colors duration-200">{title}</h2>
       {description && <p className="text-sm text-muted max-w-md">{description}</p>}
       {extra && <div className="mt-6 flex gap-3">{extra}</div>}
     </div>

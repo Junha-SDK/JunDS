@@ -62,7 +62,7 @@ export function BatteryIndicator({
   }
 
   return (
-    <div className={cn("inline-flex items-center gap-1.5", className)}>
+    <div className={cn("inline-flex items-center gap-1.5 hover:scale-105 transition-transform duration-200", className)}>
       {label && (
         <span className="text-xs font-medium text-gray-600 dark:text-gray-400">{label}</span>
       )}

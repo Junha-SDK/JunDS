@@ -49,7 +49,7 @@ export function Stepper({ steps, current, direction = "horizontal", className }:
               {/* 스텝 원 */}
               <div
                 className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 transition-colors",
+                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 transition-all duration-300",
                   status === "completed" && "bg-primary text-white",
                   status === "current" && "bg-primary text-white ring-4 ring-primary-light",
                   status === "upcoming" && "bg-gray-200 text-muted",
@@ -69,6 +69,7 @@ export function Stepper({ steps, current, direction = "horizontal", className }:
               {!isLast && (
                 <div
                   className={cn(
+                    "transition-all duration-300",
                     isVertical ? "w-px flex-1 min-h-[24px] mx-auto mt-1 mb-1" : "flex-1 h-px mx-2",
                     i < current ? "bg-primary" : "bg-gray-200",
                   )}

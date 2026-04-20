@@ -58,7 +58,7 @@ export function KeyValueGrid({ items, columns = 3, bordered, className }: KeyVal
         <div
           key={item.key}
           className={cn(
-            "space-y-1",
+            "space-y-1 transition-colors duration-150",
             spanStyles[item.span ?? 1],
             bordered ? "bg-white p-3" : "p-0",
           )}
@@ -66,7 +66,7 @@ export function KeyValueGrid({ items, columns = 3, bordered, className }: KeyVal
           <dt className="text-[10px] font-medium text-muted uppercase tracking-wider">
             {item.label}
           </dt>
-          <dd className="text-sm font-medium text-foreground">{item.value}</dd>
+          <dd className="text-sm font-medium text-foreground rounded px-1 -mx-1 transition-colors duration-150 hover:bg-gray-50">{item.value}</dd>
         </div>
       ))}
     </div>

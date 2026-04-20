@@ -252,10 +252,10 @@ export function CollectionView({
                 key={item.key}
                 onClick={item.onClick}
                 className={cn(
-                  "group flex flex-col rounded-xl border border-border bg-card text-left",
+                  "group relative flex flex-col rounded-xl border border-border bg-card text-left",
                   "overflow-hidden transition-all duration-200",
                   (item.onClick || item.href) &&
-                    "cursor-pointer hover:shadow-lg hover:border-primary hover:-translate-y-0.5",
+                    "cursor-pointer hover:shadow-lg hover:border-primary hover:-translate-y-0.5 hover:z-10",
                 )}
               >
                 {/* 프리뷰 영역 */}

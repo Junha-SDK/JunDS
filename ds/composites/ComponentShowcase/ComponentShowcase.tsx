@@ -197,7 +197,7 @@ function ShowcaseCard({
   return (
     <div
       className={cn(
-        "group relative cursor-pointer rounded-2xl border bg-card overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        "group relative cursor-pointer rounded-2xl border bg-card overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:z-10",
         isHovered
           ? `border-primary/40 shadow-2xl ${glow} -translate-y-1 z-10`
           : "border-border shadow-sm hover:shadow-md hover:-translate-y-0.5",

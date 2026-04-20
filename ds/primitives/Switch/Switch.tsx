@@ -66,7 +66,7 @@ export function Switch({
         disabled={disabled}
         onClick={() => onChange(!checked)}
         className={cn(
-          "relative inline-flex shrink-0 rounded-full transition-colors duration-300 ease-in-out",
+          "relative inline-flex shrink-0 rounded-full transition-colors duration-300 ease-in-out hover:brightness-110",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
           trackSize[size],
           checked ? "bg-primary" : "bg-gray-300",

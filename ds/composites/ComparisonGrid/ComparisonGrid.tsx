@@ -42,9 +42,9 @@ export function ComparisonGrid({ cards, columns = 4, className }: ComparisonGrid
         <div
           key={card.key}
           className={cn(
-            "border rounded-xl p-4 bg-white transition-all",
+            "border rounded-xl p-4 bg-white transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
             card.hasVariance
-              ? "border-l-[3px] border-l-amber-400 border-t-border border-r-border border-b-border bg-amber-50/40"
+              ? "border-l-[3px] border-l-amber-400 border-t-border border-r-border border-b-border bg-amber-50/40 hover:shadow-amber-200/50"
               : "border-border",
           )}
         >
