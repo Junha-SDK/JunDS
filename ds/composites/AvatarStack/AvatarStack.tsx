@@ -1,0 +1,43 @@
+"use client";
+import { cn } from "../../utils/cn";
+import { Avatar } from "../../primitives/Avatar";
+import type { AvatarSize } from "../../primitives/Avatar";
+
+export interface AvatarStackProps {
+  names: string[];
+  /** 최대 표시 수 */
+  max?: number;
+  size?: AvatarSize;
+  className?: string;
+}
+
+/**
+ * 아바타 스택 (겹쳐진 그룹)
+ * @example
+ * <AvatarStack names={["김준하","이서연","박민수","최유진","정다은"]} max={3} />
+ */
+export function AvatarStack({ names, max = 4, size = "sm", className }: AvatarStackProps) {
+  const visible = names.slice(0, max);
+  const overflow = names.length - max;
+
+  return (
+    <div className={cn("flex items-center -space-x-2", className)}>
+      {visible.map((name, i) => (
+        <div key={`${name}-${i}`} className="ring-2 ring-white rounded-full">
+          <Avatar name={name} size={size} />
+        </div>
+      ))}
+      {overflow > 0 && (
+        <div className={cn(
+          "rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-semibold ring-2 ring-white",
+          size === "xs" ? "w-6 h-6 text-[9px]" :
+          size === "sm" ? "w-8 h-8 text-[10px]" :
+          size === "md" ? "w-9 h-9 text-xs" :
+          size === "lg" ? "w-11 h-11 text-sm" : "w-14 h-14 text-base",
+        )}>
+          +{overflow}
+        </div>
+      )}
+    </div>
+  );
+}

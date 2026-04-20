@@ -1,0 +1,55 @@
+"use client";
+import { cn } from "../../utils/cn";
+import type { ReactNode } from "react";
+
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  icon?: ReactNode;
+}
+
+export interface BreadcrumbProps {
+  items: BreadcrumbItem[];
+  separator?: ReactNode;
+  className?: string;
+}
+
+/**
+ * 브레드크럼 네비게이션
+ * @example
+ * <Breadcrumb items={[{label:"홈",href:"/"},{label:"프로젝트",href:"/projects"},{label:"설정"}]} />
+ */
+export function Breadcrumb({ items, separator, className }: BreadcrumbProps) {
+  const sep = separator || (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted-light">
+      <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+
+  return (
+    <nav aria-label="Breadcrumb" className={cn("flex items-center gap-1.5 text-sm", className)}>
+      {items.map((item, i) => {
+        const isLast = i === items.length - 1;
+        return (
+          <span key={i} className="flex items-center gap-1.5">
+            {i > 0 && <span className="shrink-0">{sep}</span>}
+            {item.href && !isLast ? (
+              <a
+                href={item.href}
+                className="flex items-center gap-1 text-muted hover:text-foreground transition-colors"
+              >
+                {item.icon}
+                {item.label}
+              </a>
+            ) : (
+              <span className={cn("flex items-center gap-1", isLast ? "text-foreground font-medium" : "text-muted")}>
+                {item.icon}
+                {item.label}
+              </span>
+            )}
+          </span>
+        );
+      })}
+    </nav>
+  );
+}
