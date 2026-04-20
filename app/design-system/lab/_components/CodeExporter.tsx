@@ -1,139 +1,155 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/ds/utils/cn";
-import { Portal } from "@/ds/primitives/Portal";
-import { useLab } from "../_lib/lab-store";
+import { useLab } from "../_lib/store";
 import { generateCode } from "../_lib/code-generator";
-
-/* ------------------------------------------------------------------ */
-/*  CodeExporter modal                                                 */
-/* ------------------------------------------------------------------ */
-
-type TabId = "component" | "tokens";
 
 export function CodeExporter({ onClose }: { onClose: () => void }) {
   const { state } = useLab();
-  const generated = generateCode(state);
+  const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const backdropRef = useRef<HTMLDivElement>(null);
 
-  const hasTokns = generated.tokens.length > 0;
-  const [activeTab, setActiveTab] = useState<TabId>("component");
-  const [copied, setCopied] = useState<TabId | null>(null);
+  const code = useMemo(() => generateCode(state), [state]);
 
-  const currentCode =
-    activeTab === "component" ? generated.full : generated.tokens;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
+  /* Copy to clipboard */
   const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(currentCode);
-      setCopied(activeTab);
-      setTimeout(() => setCopied(null), 2000);
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
-      // fallback
+      /* fallback */
+      const ta = document.createElement("textarea");
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  }, [currentCode, activeTab]);
+  }, [code]);
 
+  /* Download as .tsx */
   const handleDownload = useCallback(() => {
-    const blob = new Blob([generated.full], { type: "text/tsx" });
+    const blob = new Blob([code], { type: "text/tsx;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${state.templateId}-layout.tsx`;
+    a.download = "Page.tsx";
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, [generated.full, state.templateId]);
+  }, [code]);
 
+  /* Close on Escape */
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose]);
+
+  /* Close on backdrop click */
   const handleBackdropClick = useCallback(
     (e: React.MouseEvent) => {
-      if (e.target === e.currentTarget) onClose();
+      if (e.target === backdropRef.current) onClose();
     },
     [onClose],
   );
 
-  return (
-    <Portal>
-      {/* Backdrop */}
+  if (!mounted) return null;
+
+  return createPortal(
+    <div
+      ref={backdropRef}
+      onClick={handleBackdropClick}
+      className={cn(
+        "fixed inset-0 z-50 flex items-center justify-center",
+        "bg-black/50 backdrop-blur-sm",
+      )}
+    >
       <div
-        onClick={handleBackdropClick}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+        className={cn(
+          "w-full max-w-2xl max-h-[80vh] mx-4 flex flex-col",
+          "bg-[#1a1726] rounded-xl border border-[#2a2744] shadow-2xl overflow-hidden",
+        )}
       >
-        {/* Modal */}
-        <div className="relative w-full max-w-3xl max-h-[80vh] mx-4 flex flex-col rounded-lg border border-border bg-gray-900 shadow-2xl overflow-hidden">
-          {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
-            <h3 className="text-sm font-semibold text-gray-100">
-              코드 내보내기
-            </h3>
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex h-7 w-7 items-center justify-center rounded text-gray-400 hover:text-gray-100 hover:bg-gray-700 transition-colors"
-            >
-              ✕
-            </button>
-          </div>
-
-          {/* Tabs */}
-          <div className="flex items-center gap-0.5 px-4 pt-2 border-b border-gray-700">
-            <button
-              type="button"
-              onClick={() => setActiveTab("component")}
-              className={cn(
-                "px-3 py-1.5 text-xs font-medium rounded-t transition-colors",
-                activeTab === "component"
-                  ? "bg-gray-800 text-gray-100 border border-b-0 border-gray-700"
-                  : "text-gray-400 hover:text-gray-200",
-              )}
-            >
-              컴포넌트
-            </button>
-            {hasTokns && (
-              <button
-                type="button"
-                onClick={() => setActiveTab("tokens")}
-                className={cn(
-                  "px-3 py-1.5 text-xs font-medium rounded-t transition-colors",
-                  activeTab === "tokens"
-                    ? "bg-gray-800 text-gray-100 border border-b-0 border-gray-700"
-                    : "text-gray-400 hover:text-gray-200",
-                )}
-              >
-                토큰
-              </button>
-            )}
-          </div>
-
-          {/* Code area */}
-          <div className="flex-1 overflow-auto p-4">
-            <pre className="text-[13px] leading-relaxed text-gray-100 font-mono whitespace-pre-wrap">
-              {currentCode}
-            </pre>
-          </div>
-
-          {/* Footer actions */}
-          <div className="flex items-center justify-end gap-2 px-4 py-3 border-t border-gray-700">
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[#2a2744]">
+          <h3 className="text-sm font-semibold text-white/90">
+            생성된 코드
+          </h3>
+          <div className="flex items-center gap-2">
+            {/* Copy */}
             <button
               type="button"
               onClick={handleCopy}
               className={cn(
-                "flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-medium transition-colors",
-                copied === activeTab
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-700 text-gray-200 hover:bg-gray-600",
+                "text-xs font-medium px-3 py-1.5 rounded-lg transition-colors",
+                copied
+                  ? "bg-emerald-500/20 text-emerald-400"
+                  : "bg-white/10 text-white/70 hover:text-white hover:bg-white/15",
               )}
             >
-              {copied === activeTab ? "복사됨!" : "복사"}
+              {copied ? "복사됨!" : "복사"}
             </button>
+            {/* Download */}
             <button
               type="button"
               onClick={handleDownload}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary text-primary-foreground text-xs font-medium hover:opacity-90 transition-opacity"
+              className={cn(
+                "text-xs font-medium px-3 py-1.5 rounded-lg",
+                "bg-white/10 text-white/70 hover:text-white hover:bg-white/15",
+                "transition-colors",
+              )}
             >
-              .tsx 다운로드
+              다운로드
+            </button>
+            {/* Close */}
+            <button
+              type="button"
+              onClick={onClose}
+              className={cn(
+                "p-1.5 rounded-lg",
+                "text-white/50 hover:text-white hover:bg-white/10",
+                "transition-colors",
+              )}
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
           </div>
         </div>
+
+        {/* Code body */}
+        <div className="flex-1 overflow-auto p-4">
+          <pre className="text-xs leading-relaxed font-mono text-emerald-300/90 whitespace-pre-wrap break-words">
+            {code}
+          </pre>
+        </div>
       </div>
-    </Portal>
+    </div>,
+    document.body,
   );
 }

@@ -1,242 +1,234 @@
-import type { LabState, TokenOverrides, RegionStyle, SlotDef } from "./types";
-import { layoutTemplateMap } from "./layout-templates";
-import { labComponentMap } from "./component-registry";
-import { defaultTokens } from "./lab-store";
+import type { LabState, NodeId, TreeNode, PropValue } from "./types";
+import { componentDefMap } from "./registry";
 
-export interface GeneratedCode {
-  imports: string;
-  jsx: string;
-  tokens: string;
-  full: string;
+// ─── Layout HTML tags ────────────────────────────────────────────────
+
+const LAYOUT_TAGS = new Set(["div", "section", "header", "footer", "main", "aside", "nav"]);
+
+// ─── Tailwind mapping helpers ────────────────────────────────────────
+
+const paddingMap: Record<string, string> = {
+  "0": "",
+  "4": "p-1",
+  "8": "p-2",
+  "16": "p-4",
+  "24": "p-6",
+  "32": "p-8",
+  "48": "p-12",
+};
+
+const gapMap: Record<string, string> = {
+  "0": "",
+  "2": "gap-0.5",
+  "4": "gap-1",
+  "8": "gap-2",
+  "12": "gap-3",
+  "16": "gap-4",
+  "24": "gap-6",
+};
+
+const displayMap: Record<string, string> = {
+  flex: "flex",
+  grid: "grid",
+  block: "",
+};
+
+const flexDirectionMap: Record<string, string> = {
+  row: "",
+  column: "flex-col",
+};
+
+const alignItemsMap: Record<string, string> = {
+  stretch: "",
+  center: "items-center",
+  start: "items-start",
+  end: "items-end",
+};
+
+const justifyContentMap: Record<string, string> = {
+  start: "",
+  center: "justify-center",
+  end: "justify-end",
+  between: "justify-between",
+  around: "justify-around",
+};
+
+const gridColsMap: Record<string, string> = {
+  "1": "",
+  "2": "grid-cols-2",
+  "3": "grid-cols-3",
+  "4": "grid-cols-4",
+  "6": "grid-cols-6",
+};
+
+function buildLayoutClassName(props: Record<string, PropValue>): string {
+  const classes: string[] = [];
+
+  const display = String(props.display ?? "flex");
+  const cls = displayMap[display];
+  if (cls) classes.push(cls);
+
+  if (display === "flex") {
+    const dir = flexDirectionMap[String(props.flexDirection ?? "row")];
+    if (dir) classes.push(dir);
+
+    const align = alignItemsMap[String(props.alignItems ?? "stretch")];
+    if (align) classes.push(align);
+
+    const justify = justifyContentMap[String(props.justifyContent ?? "start")];
+    if (justify) classes.push(justify);
+  }
+
+  if (display === "grid") {
+    const cols = gridColsMap[String(props.gridCols ?? "1")];
+    if (cols) classes.push(cols);
+  }
+
+  const pad = paddingMap[String(props.padding ?? "0")];
+  if (pad) classes.push(pad);
+
+  const gap = gapMap[String(props.gap ?? "0")];
+  if (gap) classes.push(gap);
+
+  if (props.className && typeof props.className === "string") {
+    classes.push(props.className);
+  }
+
+  return classes.filter(Boolean).join(" ");
 }
 
-// ── Helpers ──
+// ─── JSX rendering ──────────────────────────────────────────────────
 
-function indent(text: string, level: number): string {
-  const pad = "  ".repeat(level);
-  return text
-    .split("\n")
-    .map((line) => (line.trim() ? pad + line : ""))
-    .join("\n");
+function indent(level: number): string {
+  return "    " + "  ".repeat(level);
 }
 
-function formatPropValue(value: string | number | boolean | undefined): string {
-  if (value === undefined) return "undefined";
+function formatPropValue(value: PropValue): string {
   if (typeof value === "string") return `"${value}"`;
-  if (typeof value === "boolean") return `{${value}}`;
   if (typeof value === "number") return `{${value}}`;
-  return `"${value}"`;
+  if (typeof value === "boolean") return value ? "" : `{false}`;
+  return '""';
 }
 
-function buildPropsString(
-  componentId: string,
-  props: Record<string, string | number | boolean | undefined>,
+function renderNode(
+  nodeId: NodeId,
+  state: LabState,
+  depth: number,
+  imports: Set<string>,
 ): string {
-  const def = labComponentMap.get(componentId);
-  const parts: string[] = [];
+  const node = state.nodes[nodeId];
+  if (!node) return "";
 
-  for (const [key, value] of Object.entries(props)) {
-    if (value === undefined) continue;
+  const def = componentDefMap.get(node.componentId);
+  const isLayout = LAYOUT_TAGS.has(node.componentId);
+  const tag = isLayout ? node.componentId : node.componentId;
+  const pad = indent(depth);
 
-    // Skip if value equals the component's default
+  // Collect non-default props
+  const propEntries: string[] = [];
+
+  if (isLayout) {
+    const className = buildLayoutClassName(node.props);
+    if (className) {
+      propEntries.push(`className="${className}"`);
+    }
+    // Background color as inline style
+    if (node.props.backgroundColor) {
+      propEntries.push(`style={{ backgroundColor: "${node.props.backgroundColor}" }}`);
+    }
+  } else {
+    // Track import for DS components
+    if (!isLayout) {
+      imports.add(node.componentId);
+    }
+
+    // Emit non-default props
     if (def) {
-      const propDef = def.props.find((p) => p.name === key);
-      if (propDef && propDef.defaultValue === value) continue;
-    }
+      for (const propDef of def.props) {
+        const val = node.props[propDef.name];
+        if (val === undefined || val === propDef.defaultValue) continue;
 
-    if (typeof value === "boolean") {
-      parts.push(value ? key : `${key}={false}`);
-    } else {
-      parts.push(`${key}=${formatPropValue(value)}`);
-    }
-  }
-
-  return parts.length > 0 ? " " + parts.join(" ") : "";
-}
-
-function renderSlot(slot: SlotDef): string {
-  const propsStr = buildPropsString(slot.componentId, slot.props);
-  const def = labComponentMap.get(slot.componentId);
-
-  if (slot.children) {
-    return `<${slot.componentId}${propsStr}>${slot.children}</${slot.componentId}>`;
-  }
-  if (def?.acceptsChildren && def.defaultChildren) {
-    return `<${slot.componentId}${propsStr}>${def.defaultChildren}</${slot.componentId}>`;
-  }
-  return `<${slot.componentId}${propsStr} />`;
-}
-
-function styleToInline(style: RegionStyle): string {
-  const parts: string[] = [];
-  parts.push(`display: "flex"`);
-  parts.push(`flexDirection: "${style.flexDirection}"`);
-  parts.push(`alignItems: "${style.alignItems}"`);
-  parts.push(`justifyContent: "${style.justifyContent}"`);
-  parts.push(`padding: "${style.padding}"`);
-  parts.push(`gap: "${style.gap}"`);
-  if (style.backgroundColor !== "white") {
-    parts.push(`backgroundColor: "${style.backgroundColor}"`);
-  }
-  return parts.join(", ");
-}
-
-// ── Token CSS variable generation ──
-
-function generateTokenCSS(tokens: TokenOverrides): string {
-  const vars: string[] = [];
-
-  if (tokens.primary !== defaultTokens.primary) {
-    vars.push(`  --ds-color-primary: ${tokens.primary};`);
-  }
-  if (tokens.accent !== defaultTokens.accent) {
-    vars.push(`  --ds-color-accent: ${tokens.accent};`);
-  }
-  if (tokens.danger !== defaultTokens.danger) {
-    vars.push(`  --ds-color-danger: ${tokens.danger};`);
-  }
-  if (tokens.success !== defaultTokens.success) {
-    vars.push(`  --ds-color-success: ${tokens.success};`);
-  }
-  if (tokens.warning !== defaultTokens.warning) {
-    vars.push(`  --ds-color-warning: ${tokens.warning};`);
-  }
-
-  const radiusMap: Record<string, string> = {
-    none: "0px",
-    sm: "4px",
-    md: "8px",
-    lg: "12px",
-    xl: "16px",
-    "2xl": "24px",
-  };
-  if (tokens.radius !== defaultTokens.radius) {
-    vars.push(`  --ds-radius: ${radiusMap[tokens.radius] ?? tokens.radius};`);
-  }
-
-  const shadowMap: Record<string, string> = {
-    none: "none",
-    xs: "0 1px 2px rgba(0,0,0,0.05)",
-    sm: "0 1px 3px rgba(0,0,0,0.1)",
-    md: "0 4px 6px rgba(0,0,0,0.1)",
-    lg: "0 10px 15px rgba(0,0,0,0.1)",
-  };
-  if (tokens.shadow !== defaultTokens.shadow) {
-    vars.push(`  --ds-shadow: ${shadowMap[tokens.shadow] ?? tokens.shadow};`);
-  }
-
-  if (tokens.spacingBase !== defaultTokens.spacingBase) {
-    vars.push(`  --ds-spacing-base: ${tokens.spacingBase}px;`);
-  }
-
-  if (tokens.fontFamily !== defaultTokens.fontFamily) {
-    vars.push(`  --ds-font-family: ${tokens.fontFamily};`);
-  }
-
-  if (vars.length === 0) return "";
-
-  return `:root {\n${vars.join("\n")}\n}`;
-}
-
-// ── Main generator ──
-
-export function generateCode(state: LabState): GeneratedCode {
-  const template = layoutTemplateMap.get(state.templateId);
-  if (!template) return { imports: "", jsx: "", tokens: "", full: "" };
-
-  // 1. Collect unique component IDs from all regions
-  const componentIds = new Set<string>();
-  for (const regionId of Object.keys(state.regions)) {
-    const region = state.regions[regionId];
-    for (const slot of region.slots) {
-      componentIds.add(slot.componentId);
-    }
-  }
-
-  // Group imports by import path
-  const importsByPath = new Map<string, Set<string>>();
-  for (const id of componentIds) {
-    const def = labComponentMap.get(id);
-    if (!def) continue;
-    const path = def.importPath;
-    if (!importsByPath.has(path)) importsByPath.set(path, new Set());
-    importsByPath.get(path)!.add(id);
-  }
-
-  const importLines: string[] = [];
-  for (const [path, components] of importsByPath) {
-    const sorted = [...components].sort();
-    importLines.push(`import { ${sorted.join(", ")} } from "${path}";`);
-  }
-  const imports = importLines.join("\n");
-
-  // 2. Generate grid container
-  const gridStyle = [
-    `display: "grid"`,
-    `gridTemplateAreas: '${template.gridTemplate}'`,
-    `gridTemplateColumns: "${template.gridColumns}"`,
-    `gridTemplateRows: "${template.gridRows}"`,
-    `minHeight: "100vh"`,
-  ].join(", ");
-
-  // 3. Generate region elements
-  const regionJSXLines: string[] = [];
-  for (const regionDef of template.regions) {
-    const regionState = state.regions[regionDef.id];
-    if (!regionState) continue;
-
-    const tag = regionDef.tag;
-    const regionStyle = `gridArea: "${regionDef.gridArea}", ${styleToInline(regionState.style)}`;
-
-    const slotLines = regionState.slots.map((slot) => renderSlot(slot));
-
-    if (slotLines.length === 0) {
-      regionJSXLines.push(`      <${tag} style={{ ${regionStyle} }} />`);
-    } else {
-      regionJSXLines.push(`      <${tag} style={{ ${regionStyle} }}>`);
-      for (const line of slotLines) {
-        regionJSXLines.push(`        ${line}`);
+        if (typeof val === "boolean") {
+          if (val) {
+            propEntries.push(propDef.name);
+          } else {
+            propEntries.push(`${propDef.name}={false}`);
+          }
+        } else {
+          propEntries.push(`${propDef.name}=${formatPropValue(val)}`);
+        }
       }
-      regionJSXLines.push(`      </${tag}>`);
+    } else {
+      // No def, emit all truthy props
+      for (const [key, val] of Object.entries(node.props)) {
+        if (val === undefined) continue;
+        if (typeof val === "boolean") {
+          if (val) propEntries.push(key);
+        } else {
+          propEntries.push(`${key}=${formatPropValue(val)}`);
+        }
+      }
     }
   }
 
-  // 4. Build JSX
-  const jsx = [
-    `    <div style={{ ${gridStyle} }}>`,
-    ...regionJSXLines,
-    `    </div>`,
-  ].join("\n");
+  const propsStr = propEntries.length > 0 ? " " + propEntries.join(" ") : "";
 
-  // 5. Generate token overrides
-  const tokens = generateTokenCSS(state.tokens);
+  // Determine children
+  const hasChildNodes = node.childNodes.length > 0;
+  const hasTextChildren = node.children !== undefined && node.children !== "";
 
-  // 6. Full component
-  const fullLines: string[] = [];
-  fullLines.push(imports);
-  fullLines.push("");
-
-  if (tokens) {
-    fullLines.push("/* Add to your global CSS:");
-    fullLines.push(tokens);
-    fullLines.push("*/");
-    fullLines.push("");
+  if (!hasChildNodes && !hasTextChildren) {
+    return `${pad}<${tag}${propsStr} />`;
   }
 
-  fullLines.push(`export default function ${capitalize(state.templateId)}Layout() {`);
-  fullLines.push("  return (");
-  fullLines.push(jsx);
-  fullLines.push("  );");
-  fullLines.push("}");
+  if (hasChildNodes) {
+    const childLines = node.childNodes
+      .map((cid) => renderNode(cid, state, depth + 1, imports))
+      .filter(Boolean)
+      .join("\n");
+    return `${pad}<${tag}${propsStr}>\n${childLines}\n${pad}</${tag}>`;
+  }
 
-  const full = fullLines.join("\n");
-
-  return { imports, jsx, tokens, full };
+  // Text children
+  return `${pad}<${tag}${propsStr}>${node.children}</${tag}>`;
 }
 
-function capitalize(str: string): string {
-  return str
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join("");
+// ─── Public API ─────────────────────────────────────────────────────
+
+export function generateCode(state: LabState): string {
+  if (state.rootIds.length === 0) {
+    return `export function Page() {\n  return null;\n}`;
+  }
+
+  const imports = new Set<string>();
+  const bodyLines = state.rootIds
+    .map((id) => renderNode(id, state, 0, imports))
+    .filter(Boolean)
+    .join("\n");
+
+  const lines: string[] = [];
+
+  // Import statement
+  if (imports.size > 0) {
+    const sorted = Array.from(imports).sort();
+    lines.push(`import { ${sorted.join(", ")} } from "@/ds";`);
+    lines.push("");
+  }
+
+  lines.push("export function Page() {");
+  lines.push("  return (");
+
+  // Wrap in fragment if multiple root nodes
+  if (state.rootIds.length > 1) {
+    lines.push("    <>");
+    lines.push(bodyLines);
+    lines.push("    </>");
+  } else {
+    lines.push(bodyLines);
+  }
+
+  lines.push("  );");
+  lines.push("}");
+
+  return lines.join("\n");
 }

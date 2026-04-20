@@ -1,0 +1,619 @@
+import type { ComponentDef, PropDef } from "./types";
+
+// ─── Shared prop sets ────────────────────────────────────────────────
+
+const layoutProps: PropDef[] = [
+  { name: "className", type: "text", defaultValue: undefined, label: "CSS Class" },
+  {
+    name: "padding",
+    type: "select",
+    options: ["0", "4", "8", "16", "24", "32", "48"],
+    defaultValue: "0",
+    label: "Padding",
+  },
+  {
+    name: "gap",
+    type: "select",
+    options: ["0", "2", "4", "8", "12", "16", "24"],
+    defaultValue: "0",
+    label: "Gap",
+  },
+  {
+    name: "display",
+    type: "select",
+    options: ["flex", "grid", "block"],
+    defaultValue: "flex",
+    label: "Display",
+  },
+  {
+    name: "flexDirection",
+    type: "select",
+    options: ["row", "column"],
+    defaultValue: "row",
+    label: "Flex Direction",
+  },
+  {
+    name: "alignItems",
+    type: "select",
+    options: ["stretch", "center", "start", "end"],
+    defaultValue: "stretch",
+    label: "Align Items",
+  },
+  {
+    name: "justifyContent",
+    type: "select",
+    options: ["start", "center", "end", "between", "around"],
+    defaultValue: "start",
+    label: "Justify Content",
+  },
+  {
+    name: "gridCols",
+    type: "select",
+    options: ["1", "2", "3", "4", "6"],
+    defaultValue: "1",
+    label: "Grid Columns",
+  },
+  { name: "backgroundColor", type: "color", defaultValue: undefined, label: "Background" },
+];
+
+function layoutDef(
+  id: string,
+  label: string,
+  icon: string,
+): ComponentDef {
+  return {
+    id,
+    label,
+    category: "\uB808\uC774\uC544\uC6C3",
+    isContainer: true,
+    props: layoutProps,
+    icon,
+  };
+}
+
+// ─── Component definitions ───────────────────────────────────────────
+
+export const componentDefs: ComponentDef[] = [
+  // ── 레이아웃 ──────────────────────────────────────────────────────
+  layoutDef("div", "div", "\u25A2"),
+  layoutDef("section", "section", "\u00A7"),
+  layoutDef("header", "header", "\u2594"),
+  layoutDef("footer", "footer", "\u2581"),
+  layoutDef("main", "main", "\u25A3"),
+  layoutDef("aside", "aside", "\u2590"),
+  layoutDef("nav", "nav", "\u2630"),
+
+  // ── 기본 (Primitives) ─────────────────────────────────────────────
+  {
+    id: "Button",
+    label: "Button",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\uD83D\uDD18",
+    defaultChildren: "Button",
+    props: [
+      {
+        name: "variant",
+        type: "select",
+        options: ["primary", "secondary", "outline", "ghost", "danger"],
+        defaultValue: "primary",
+        label: "Variant",
+      },
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md", "lg"],
+        defaultValue: "md",
+        label: "Size",
+      },
+      { name: "disabled", type: "boolean", defaultValue: false, label: "Disabled" },
+      { name: "fullWidth", type: "boolean", defaultValue: false, label: "Full Width" },
+    ],
+  },
+  {
+    id: "Input",
+    label: "Input",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\uD83D\uDCDD",
+    props: [
+      { name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" },
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md", "lg"],
+        defaultValue: "md",
+        label: "Size",
+      },
+      { name: "disabled", type: "boolean", defaultValue: false, label: "Disabled" },
+    ],
+  },
+  {
+    id: "Textarea",
+    label: "Textarea",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\uD83D\uDCC4",
+    props: [
+      { name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" },
+      { name: "rows", type: "number", defaultValue: 3, label: "Rows" },
+      { name: "disabled", type: "boolean", defaultValue: false, label: "Disabled" },
+    ],
+  },
+  {
+    id: "Label",
+    label: "Label",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\uD83C\uDFF7",
+    defaultChildren: "Label",
+    props: [
+      { name: "required", type: "boolean", defaultValue: false, label: "Required" },
+    ],
+  },
+  {
+    id: "Badge",
+    label: "Badge",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u2B24",
+    defaultChildren: "Badge",
+    props: [
+      {
+        name: "variant",
+        type: "select",
+        options: ["primary", "success", "danger", "warning", "info", "default"],
+        defaultValue: "default",
+        label: "Variant",
+      },
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md", "lg"],
+        defaultValue: "md",
+        label: "Size",
+      },
+    ],
+  },
+  {
+    id: "Avatar",
+    label: "Avatar",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\uD83D\uDC64",
+    props: [
+      {
+        name: "size",
+        type: "select",
+        options: ["xs", "sm", "md", "lg", "xl"],
+        defaultValue: "md",
+        label: "Size",
+      },
+    ],
+  },
+  {
+    id: "Spinner",
+    label: "Spinner",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u27F3",
+    props: [
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md", "lg"],
+        defaultValue: "md",
+        label: "Size",
+      },
+    ],
+  },
+  {
+    id: "Divider",
+    label: "Divider",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u2500",
+    props: [],
+  },
+  {
+    id: "Tag",
+    label: "Tag",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\uD83D\uDD16",
+    defaultChildren: "Tag",
+    props: [
+      {
+        name: "color",
+        type: "select",
+        options: ["default", "primary", "success", "danger", "warning", "info"],
+        defaultValue: "default",
+        label: "Color",
+      },
+      { name: "removable", type: "boolean", defaultValue: false, label: "Removable" },
+    ],
+  },
+  {
+    id: "Toggle",
+    label: "Toggle",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u2298",
+    props: [
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md"],
+        defaultValue: "md",
+        label: "Size",
+      },
+      { name: "label", type: "text", defaultValue: "", label: "Label" },
+    ],
+  },
+  {
+    id: "Checkbox",
+    label: "Checkbox",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u2611",
+    props: [
+      { name: "label", type: "text", defaultValue: "", label: "Label" },
+    ],
+  },
+  {
+    id: "Switch",
+    label: "Switch",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u23FB",
+    props: [
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md", "lg"],
+        defaultValue: "md",
+        label: "Size",
+      },
+      { name: "label", type: "text", defaultValue: "", label: "Label" },
+    ],
+  },
+  {
+    id: "Slider",
+    label: "Slider",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u2501",
+    props: [],
+  },
+  {
+    id: "StarRating",
+    label: "StarRating",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u2B50",
+    props: [
+      { name: "value", type: "number", defaultValue: 3, label: "Value" },
+      { name: "max", type: "number", defaultValue: 5, label: "Max" },
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md", "lg"],
+        defaultValue: "md",
+        label: "Size",
+      },
+      { name: "readonly", type: "boolean", defaultValue: false, label: "Read Only" },
+    ],
+  },
+  {
+    id: "IconButton",
+    label: "IconButton",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u2295",
+    props: [
+      {
+        name: "variant",
+        type: "select",
+        options: ["ghost", "outline", "primary"],
+        defaultValue: "ghost",
+        label: "Variant",
+      },
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md", "lg"],
+        defaultValue: "md",
+        label: "Size",
+      },
+    ],
+  },
+  {
+    id: "Kbd",
+    label: "Kbd",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u2328",
+    defaultChildren: "\u2318K",
+    props: [],
+  },
+  {
+    id: "StatusDot",
+    label: "StatusDot",
+    category: "\uAE30\uBCF8",
+    isContainer: false,
+    icon: "\u25CF",
+    props: [
+      {
+        name: "status",
+        type: "select",
+        options: ["online", "offline", "away", "busy"],
+        defaultValue: "online",
+        label: "Status",
+      },
+    ],
+  },
+
+  // ── 입력 (Input) ──────────────────────────────────────────────────
+  {
+    id: "Select",
+    label: "Select",
+    category: "\uC785\uB825",
+    isContainer: false,
+    icon: "\u25BE",
+    props: [
+      { name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" },
+    ],
+  },
+  {
+    id: "NumberInput",
+    label: "NumberInput",
+    category: "\uC785\uB825",
+    isContainer: false,
+    icon: "#",
+    props: [
+      { name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" },
+    ],
+  },
+  {
+    id: "PasswordInput",
+    label: "PasswordInput",
+    category: "\uC785\uB825",
+    isContainer: false,
+    icon: "\uD83D\uDD12",
+    props: [
+      { name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" },
+    ],
+  },
+  {
+    id: "DateInput",
+    label: "DateInput",
+    category: "\uC785\uB825",
+    isContainer: false,
+    icon: "\uD83D\uDCC5",
+    props: [],
+  },
+  {
+    id: "FileUpload",
+    label: "FileUpload",
+    category: "\uC785\uB825",
+    isContainer: false,
+    icon: "\uD83D\uDCCE",
+    props: [],
+  },
+  {
+    id: "CopyButton",
+    label: "CopyButton",
+    category: "\uC785\uB825",
+    isContainer: false,
+    icon: "\uD83D\uDCCB",
+    props: [],
+  },
+
+  // ── 데이터 (Data Display) ─────────────────────────────────────────
+  {
+    id: "Card",
+    label: "Card",
+    category: "\uB370\uC774\uD130",
+    isContainer: true,
+    icon: "\uD83C\uDCCF",
+    props: [
+      { name: "hoverable", type: "boolean", defaultValue: false, label: "Hoverable" },
+      { name: "padding", type: "boolean", defaultValue: true, label: "Padding" },
+    ],
+  },
+  {
+    id: "Alert",
+    label: "Alert",
+    category: "\uB370\uC774\uD130",
+    isContainer: true,
+    icon: "\u26A0",
+    defaultChildren: "Alert message",
+    props: [
+      {
+        name: "variant",
+        type: "select",
+        options: ["info", "success", "warning", "danger"],
+        defaultValue: "info",
+        label: "Variant",
+      },
+    ],
+  },
+  {
+    id: "Table",
+    label: "Table",
+    category: "\uB370\uC774\uD130",
+    isContainer: false,
+    icon: "\uD83D\uDCCA",
+    props: [
+      { name: "striped", type: "boolean", defaultValue: false, label: "Striped" },
+      { name: "hoverable", type: "boolean", defaultValue: false, label: "Hoverable" },
+      { name: "compact", type: "boolean", defaultValue: false, label: "Compact" },
+    ],
+  },
+  {
+    id: "Skeleton",
+    label: "Skeleton",
+    category: "\uB370\uC774\uD130",
+    isContainer: false,
+    icon: "\u2592",
+    props: [
+      { name: "width", type: "text", defaultValue: "100%", label: "Width" },
+      { name: "height", type: "text", defaultValue: "40px", label: "Height" },
+      { name: "rounded", type: "boolean", defaultValue: false, label: "Rounded" },
+    ],
+  },
+  {
+    id: "ProgressBar",
+    label: "ProgressBar",
+    category: "\uB370\uC774\uD130",
+    isContainer: false,
+    icon: "\u2593",
+    props: [
+      { name: "value", type: "number", defaultValue: 60, label: "Value" },
+      { name: "max", type: "number", defaultValue: 100, label: "Max" },
+      { name: "showLabel", type: "boolean", defaultValue: false, label: "Show Label" },
+    ],
+  },
+  {
+    id: "StatCard",
+    label: "StatCard",
+    category: "\uB370\uC774\uD130",
+    isContainer: false,
+    icon: "\uD83D\uDCC8",
+    props: [
+      { name: "title", type: "text", defaultValue: "\uD1B5\uACC4", label: "Title" },
+      { name: "value", type: "text", defaultValue: "1,234", label: "Value" },
+    ],
+  },
+  {
+    id: "Timeline",
+    label: "Timeline",
+    category: "\uB370\uC774\uD130",
+    isContainer: false,
+    icon: "\u23F1",
+    props: [],
+  },
+  {
+    id: "Descriptions",
+    label: "Descriptions",
+    category: "\uB370\uC774\uD130",
+    isContainer: false,
+    icon: "\uD83D\uDCCB",
+    props: [
+      { name: "bordered", type: "boolean", defaultValue: false, label: "Bordered" },
+      { name: "columns", type: "number", defaultValue: 2, label: "Columns" },
+    ],
+  },
+  {
+    id: "EmptyState",
+    label: "EmptyState",
+    category: "\uB370\uC774\uD130",
+    isContainer: false,
+    icon: "\u2205",
+    props: [
+      { name: "title", type: "text", defaultValue: "\uB370\uC774\uD130 \uC5C6\uC74C", label: "Title" },
+    ],
+  },
+
+  // ── 피드백 (Feedback) ─────────────────────────────────────────────
+  {
+    id: "Tooltip",
+    label: "Tooltip",
+    category: "\uD53C\uB4DC\uBC31",
+    isContainer: false,
+    icon: "\uD83D\uDCAC",
+    props: [
+      { name: "content", type: "text", defaultValue: "\uB3C4\uC6C0\uB9D0", label: "Content" },
+    ],
+  },
+  {
+    id: "Breadcrumb",
+    label: "Breadcrumb",
+    category: "\uD53C\uB4DC\uBC31",
+    isContainer: false,
+    icon: "/",
+    props: [],
+  },
+  {
+    id: "Tabs",
+    label: "Tabs",
+    category: "\uD53C\uB4DC\uBC31",
+    isContainer: false,
+    icon: "\u229E",
+    props: [],
+  },
+  {
+    id: "Accordion",
+    label: "Accordion",
+    category: "\uD53C\uB4DC\uBC31",
+    isContainer: false,
+    icon: "\u25BC",
+    props: [],
+  },
+  {
+    id: "Stepper",
+    label: "Stepper",
+    category: "\uD53C\uB4DC\uBC31",
+    isContainer: false,
+    icon: "1\u21922",
+    props: [
+      {
+        name: "direction",
+        type: "select",
+        options: ["horizontal", "vertical"],
+        defaultValue: "horizontal",
+        label: "Direction",
+      },
+      { name: "current", type: "number", defaultValue: 0, label: "Current Step" },
+    ],
+  },
+  {
+    id: "Result",
+    label: "Result",
+    category: "\uD53C\uB4DC\uBC31",
+    isContainer: false,
+    icon: "\u2713",
+    props: [
+      {
+        name: "status",
+        type: "select",
+        options: ["success", "error", "warning", "info", "404"],
+        defaultValue: "success",
+        label: "Status",
+      },
+      { name: "title", type: "text", defaultValue: "\uC644\uB8CC", label: "Title" },
+    ],
+  },
+
+  // ── 네비게이션 (Navigation) ───────────────────────────────────────
+  {
+    id: "Pagination",
+    label: "Pagination",
+    category: "\uB124\uBE44\uAC8C\uC774\uC158",
+    isContainer: false,
+    icon: "\u00AB\u00BB",
+    props: [],
+  },
+  {
+    id: "SegmentedControl",
+    label: "SegmentedControl",
+    category: "\uB124\uBE44\uAC8C\uC774\uC158",
+    isContainer: false,
+    icon: "\u25A3",
+    props: [
+      {
+        name: "size",
+        type: "select",
+        options: ["sm", "md", "lg"],
+        defaultValue: "md",
+        label: "Size",
+      },
+      { name: "fullWidth", type: "boolean", defaultValue: false, label: "Full Width" },
+    ],
+  },
+];
+
+/** Map for O(1) lookup by component id */
+export const componentDefMap = new Map<string, ComponentDef>(
+  componentDefs.map((def) => [def.id, def]),
+);
