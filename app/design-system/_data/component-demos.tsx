@@ -1285,32 +1285,24 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/multi-select",
     preview: (
       <div className="w-full max-w-[200px]">
-        <MultiSelect
-          options={[
-            { value: "react", label: "React" },
-            { value: "ts", label: "TypeScript" },
-            { value: "next", label: "Next.js" },
-          ]}
-          value={["react", "ts"]}
-          onChange={noop}
-        />
+        <div className="flex items-center gap-1 flex-wrap min-h-[36px] w-full border border-border bg-white rounded-lg px-2 py-1.5">
+          <Tag color="primary">React</Tag>
+          <Tag color="primary">TypeScript</Tag>
+        </div>
       </div>
     ),
     hoverDemo: (
       <div className="flex flex-col gap-2 w-full max-w-[260px]">
         <Label>기술 스택</Label>
-        <MultiSelect
-          options={[
-            { value: "react", label: "React" },
-            { value: "ts", label: "TypeScript" },
-            { value: "next", label: "Next.js" },
-            { value: "tailwind", label: "Tailwind" },
-            { value: "graphql", label: "GraphQL" },
-          ]}
-          value={["react", "ts", "next"]}
-          onChange={noop}
-          searchable
-        />
+        <div className="flex items-center gap-1 flex-wrap min-h-[36px] w-full border border-border bg-white rounded-lg px-2 py-1.5">
+          <Tag color="primary">React</Tag>
+          <Tag color="primary">TypeScript</Tag>
+          <Tag color="primary">Next.js</Tag>
+        </div>
+        <div className="border border-border rounded-lg bg-white shadow-lg">
+          <div className="px-3 py-1.5 text-xs hover:bg-primary-light cursor-default">Tailwind</div>
+          <div className="px-3 py-1.5 text-xs hover:bg-primary-light cursor-default">GraphQL</div>
+        </div>
       </div>
     ),
   },
