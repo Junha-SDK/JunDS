@@ -544,8 +544,11 @@ export function FlowDiagram({
       kick();
       return;
     }
+    // 빈 캔버스 좌클릭 → 팬 시작
     setSel([]);
     setSelConn(null);
+    panRef.current = { sx: e.clientX, sy: e.clientY, px: camera.panX, py: camera.panY };
+    kick();
   }, [camera, s2c, setSel, readonly, kick]);
 
   // 노드 마우스다운
@@ -664,7 +667,7 @@ export function FlowDiagram({
 
       {/* 단축키 힌트 */}
       <div className="absolute bottom-4 left-4 text-[10px] text-gray-600 z-20 select-none pointer-events-none">
-        {readonly ? "스크롤: 줌 · Space+드래그: 이동" : "Shift+드래그: 범위선택 · 스크롤: 줌 · Space+드래그: 이동 · Delete: 삭제"}
+        {readonly ? "드래그: 이동 · 스크롤: 줌" : "드래그: 이동 · Shift+드래그: 범위선택 · 스크롤: 줌 · Delete: 삭제"}
       </div>
     </div>
   );
