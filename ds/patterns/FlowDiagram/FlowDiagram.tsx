@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect, memo } from "react";
+import { useRef, useState, useCallback, useEffect, memo, useMemo } from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
@@ -16,12 +16,26 @@ export interface FlowNode {
   y: number;
   /** Width (auto if not set) */
   width?: number;
+  /** 노드 아이콘 */
+  icon?: ReactNode;
+  /** 노드 그룹 (같은 그룹은 같은 배경 영역으로 표시) */
+  group?: string;
+  /** 여러 입력 포트 */
+  inputs?: number;
+  /** 여러 출력 포트 */
+  outputs?: number;
 }
 
 export interface FlowConnection {
   id: string;
   from: string;
   to: string;
+  /** 연결선 위에 표시할 라벨 */
+  label?: string;
+  /** 연결선 from의 포트 인덱스 (0부터) */
+  fromPort?: number;
+  /** 연결선 to의 포트 인덱스 (0부터) */
+  toPort?: number;
 }
 
 export interface FlowDiagramProps {
@@ -38,14 +52,28 @@ export interface FlowDiagramProps {
   showGrid?: boolean;
   /** 미니맵 표시 */
   showMinimap?: boolean;
+  /** 노드 삭제 핸들러 */
+  onNodeDelete?: (nodeIds: string[]) => void;
+  /** 노드 더블클릭 핸들러 */
+  onNodeDoubleClick?: (nodeId: string) => void;
+  /** 전체 보기 (Fit to View) */
+  fitToView?: boolean;
+  /** 읽기 전용 */
+  readonly?: boolean;
+  /** 연결선 스타일 */
+  connectionStyle?: "bezier" | "straight" | "step";
+  /** 연결선 애니메이션 (점선 흐르는 효과) */
+  animateConnections?: boolean;
 }
 
 // ── Constants ──────────────────────────────────────────
 
 const NODE_DEFAULT_WIDTH = 200;
 const NODE_HEADER_HEIGHT = 36;
+const NODE_APPROX_HEIGHT = 60;
 const MIN_ZOOM = 0.25;
 const MAX_ZOOM = 2;
+const FIT_PADDING = 60;
 
 // ── Variant Styles ─────────────────────────────────────
 
@@ -72,6 +100,16 @@ const variantHeaderText: Record<NonNullable<FlowNode["variant"]>, string> = {
   danger: "text-red-300",
   info: "text-blue-300",
 };
+
+// ── Group Colors ──────────────────────────────────────
+
+const groupColors = [
+  { bg: "rgba(59,130,246,0.08)", border: "rgba(59,130,246,0.35)", text: "#93c5fd" },
+  { bg: "rgba(16,185,129,0.08)", border: "rgba(16,185,129,0.35)", text: "#6ee7b7" },
+  { bg: "rgba(245,158,11,0.08)", border: "rgba(245,158,11,0.35)", text: "#fcd34d" },
+  { bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.35)", text: "#fca5a5" },
+  { bg: "rgba(168,85,247,0.08)", border: "rgba(168,85,247,0.35)", text: "#c4b5fd" },
+];
 
 // ── Grid Background ────────────────────────────────────
 
@@ -103,14 +141,39 @@ function ConnectionPath({
   to,
   selected,
   onClick,
+  style: pathStyle = "bezier",
+  animate = false,
+  label,
 }: {
   from: { x: number; y: number };
   to: { x: number; y: number };
   selected?: boolean;
   onClick?: () => void;
+  style?: "bezier" | "straight" | "step";
+  animate?: boolean;
+  label?: string;
 }) {
-  const dx = Math.abs(to.x - from.x) * 0.5;
-  const d = `M ${from.x} ${from.y} C ${from.x + dx} ${from.y}, ${to.x - dx} ${to.y}, ${to.x} ${to.y}`;
+  let d: string;
+  let midX: number;
+  let midY: number;
+
+  if (pathStyle === "straight") {
+    d = `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
+    midX = (from.x + to.x) / 2;
+    midY = (from.y + to.y) / 2;
+  } else if (pathStyle === "step") {
+    const mx = (from.x + to.x) / 2;
+    d = `M ${from.x} ${from.y} L ${mx} ${from.y} L ${mx} ${to.y} L ${to.x} ${to.y}`;
+    midX = mx;
+    midY = (from.y + to.y) / 2;
+  } else {
+    // bezier
+    const dx = Math.abs(to.x - from.x) * 0.5;
+    d = `M ${from.x} ${from.y} C ${from.x + dx} ${from.y}, ${to.x - dx} ${to.y}, ${to.x} ${to.y}`;
+    midX = (from.x + to.x) / 2;
+    midY = (from.y + to.y) / 2;
+  }
+
   return (
     <g>
       {/* Invisible wider path for easier clicking */}
@@ -131,7 +194,50 @@ function ConnectionPath({
         className="transition-colors"
         strokeLinecap="round"
         style={{ pointerEvents: "none" }}
-      />
+        {...(animate
+          ? {
+              strokeDasharray: "6 4",
+              strokeDashoffset: 0,
+            }
+          : {})}
+      >
+        {animate && (
+          <animate
+            attributeName="stroke-dashoffset"
+            from="0"
+            to="-20"
+            dur="1s"
+            repeatCount="indefinite"
+          />
+        )}
+      </path>
+
+      {/* Connection label */}
+      {label && (
+        <>
+          <rect
+            x={midX - label.length * 3.5 - 6}
+            y={midY - 10}
+            width={label.length * 7 + 12}
+            height={20}
+            rx={10}
+            fill="#1f2937"
+            stroke="#4b5563"
+            strokeWidth={1}
+          />
+          <text
+            x={midX}
+            y={midY + 4}
+            textAnchor="middle"
+            fill="#d1d5db"
+            fontSize={11}
+            fontFamily="sans-serif"
+            style={{ pointerEvents: "none" }}
+          >
+            {label}
+          </text>
+        </>
+      )}
     </g>
   );
 }
@@ -140,23 +246,37 @@ function ConnectionPath({
 
 function Port({
   side,
+  index,
+  total,
   onMouseDown,
+  disabled,
 }: {
   side: "input" | "output";
+  index: number;
+  total: number;
   onMouseDown: (e: React.MouseEvent) => void;
+  disabled?: boolean;
 }) {
+  // Distribute ports vertically
+  const spacing = total > 1 ? 100 / (total + 1) : 50;
+  const topPercent = spacing * (index + 1);
+
   return (
     <div
       onMouseDown={(e) => {
+        if (disabled) return;
         e.stopPropagation();
         onMouseDown(e);
       }}
       className={cn(
-        "absolute w-3 h-3 rounded-full border-2 border-white bg-blue-500 cursor-crosshair z-10 hover:scale-125 transition-transform",
-        side === "input"
-          ? "left-0 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          : "right-0 top-1/2 translate-x-1/2 -translate-y-1/2"
+        "absolute w-3 h-3 rounded-full border-2 border-white bg-blue-500 z-10 transition-transform",
+        disabled ? "cursor-default opacity-50" : "cursor-crosshair hover:scale-125",
+        side === "input" ? "left-0 -translate-x-1/2" : "right-0 translate-x-1/2"
       )}
+      style={{
+        top: `${topPercent}%`,
+        transform: `${side === "input" ? "translateX(-50%)" : "translateX(50%)"} translateY(-50%)`,
+      }}
     />
   );
 }
@@ -170,9 +290,12 @@ interface FlowNodeCardProps {
   onPortMouseDown: (
     nodeId: string,
     side: "input" | "output",
+    portIndex: number,
     e: React.MouseEvent
   ) => void;
   onNodeClick: (nodeId: string) => void;
+  onDoubleClick?: (nodeId: string) => void;
+  readonly?: boolean;
 }
 
 const FlowNodeCard = memo(function FlowNodeCard({
@@ -181,9 +304,13 @@ const FlowNodeCard = memo(function FlowNodeCard({
   onMouseDown,
   onPortMouseDown,
   onNodeClick,
+  onDoubleClick,
+  readonly,
 }: FlowNodeCardProps) {
   const variant = node.variant ?? "default";
   const w = node.width ?? NODE_DEFAULT_WIDTH;
+  const inputCount = node.inputs ?? 1;
+  const outputCount = node.outputs ?? 1;
 
   return (
     <div
@@ -199,40 +326,57 @@ const FlowNodeCard = memo(function FlowNodeCard({
         minWidth: 180,
         maxWidth: 280,
         boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-        cursor: "grab",
+        cursor: readonly ? "default" : "grab",
       }}
       onMouseDown={(e) => {
+        if (readonly) return;
         if (e.button === 0) {
           onMouseDown(e);
         }
       }}
       onClick={(e) => {
-        // Only fire click if no significant drag happened (handled by parent)
         e.stopPropagation();
         onNodeClick(node.id);
       }}
+      onDoubleClick={(e) => {
+        e.stopPropagation();
+        onDoubleClick?.(node.id);
+      }}
     >
-      {/* Input port (left) */}
-      <Port
-        side="input"
-        onMouseDown={(e) => onPortMouseDown(node.id, "input", e)}
-      />
+      {/* Input ports (left) */}
+      {Array.from({ length: inputCount }, (_, i) => (
+        <Port
+          key={`in-${i}`}
+          side="input"
+          index={i}
+          total={inputCount}
+          disabled={readonly}
+          onMouseDown={(e) => onPortMouseDown(node.id, "input", i, e)}
+        />
+      ))}
 
-      {/* Output port (right) */}
-      <Port
-        side="output"
-        onMouseDown={(e) => onPortMouseDown(node.id, "output", e)}
-      />
+      {/* Output ports (right) */}
+      {Array.from({ length: outputCount }, (_, i) => (
+        <Port
+          key={`out-${i}`}
+          side="output"
+          index={i}
+          total={outputCount}
+          disabled={readonly}
+          onMouseDown={(e) => onPortMouseDown(node.id, "output", i, e)}
+        />
+      ))}
 
       {/* Header */}
       <div
         className={cn(
-          "px-3 py-2 font-bold text-sm border-b rounded-t-[10px]",
+          "px-3 py-2 font-bold text-sm border-b rounded-t-[10px] flex items-center gap-2",
           variantBorder[variant],
           variantHeaderBg[variant],
           variantHeaderText[variant]
         )}
       >
+        {node.icon && <span className="flex-shrink-0">{node.icon}</span>}
         {node.title}
       </div>
 
@@ -243,6 +387,56 @@ const FlowNodeCard = memo(function FlowNodeCard({
     </div>
   );
 });
+
+// ── Group Overlay ──────────────────────────────────────
+
+function GroupOverlay({
+  groupName,
+  nodes,
+  colorIndex,
+}: {
+  groupName: string;
+  nodes: FlowNode[];
+  colorIndex: number;
+}) {
+  if (nodes.length === 0) return null;
+
+  const color = groupColors[colorIndex % groupColors.length];
+  const PAD = 24;
+
+  let minX = Infinity,
+    minY = Infinity,
+    maxX = -Infinity,
+    maxY = -Infinity;
+  for (const n of nodes) {
+    const w = n.width ?? NODE_DEFAULT_WIDTH;
+    if (n.x < minX) minX = n.x;
+    if (n.y < minY) minY = n.y;
+    if (n.x + w > maxX) maxX = n.x + w;
+    if (n.y + NODE_APPROX_HEIGHT > maxY) maxY = n.y + NODE_APPROX_HEIGHT;
+  }
+
+  return (
+    <div
+      className="absolute rounded-xl pointer-events-none"
+      style={{
+        left: minX - PAD,
+        top: minY - PAD - 20,
+        width: maxX - minX + PAD * 2,
+        height: maxY - minY + PAD * 2 + 20,
+        background: color.bg,
+        border: `2px dashed ${color.border}`,
+      }}
+    >
+      <div
+        className="absolute top-1 left-3 text-xs font-semibold"
+        style={{ color: color.text }}
+      >
+        {groupName}
+      </div>
+    </div>
+  );
+}
 
 // ── Minimap ────────────────────────────────────────────
 
@@ -267,7 +461,6 @@ function Minimap({
   const MINIMAP_H = 100;
   const PADDING = 20;
 
-  // Compute bounding box of all nodes
   let minX = Infinity,
     minY = Infinity,
     maxX = -Infinity,
@@ -288,7 +481,6 @@ function Minimap({
   const worldH = maxY - minY || 1;
   const scale = Math.min(MINIMAP_W / worldW, MINIMAP_H / worldH);
 
-  // Viewport rectangle in world coords
   const vpX = -pan.x / zoom;
   const vpY = -pan.y / zoom;
   const vpW = containerWidth / zoom;
@@ -300,7 +492,6 @@ function Minimap({
       style={{ width: MINIMAP_W, height: MINIMAP_H }}
     >
       <svg width={MINIMAP_W} height={MINIMAP_H}>
-        {/* Connections */}
         {connections.map((conn) => {
           const fromNode = nodes.find((n) => n.id === conn.from);
           const toNode = nodes.find((n) => n.id === conn.to);
@@ -322,7 +513,6 @@ function Minimap({
             />
           );
         })}
-        {/* Nodes */}
         {nodes.map((n) => {
           const w = n.width ?? NODE_DEFAULT_WIDTH;
           return (
@@ -339,7 +529,6 @@ function Minimap({
             />
           );
         })}
-        {/* Viewport */}
         <rect
           x={(vpX - minX) * scale}
           y={(vpY - minY) * scale}
@@ -369,6 +558,12 @@ export function FlowDiagram({
   className,
   showGrid = true,
   showMinimap = false,
+  onNodeDelete,
+  onNodeDoubleClick,
+  fitToView: fitToViewProp = false,
+  readonly = false,
+  connectionStyle = "bezier",
+  animateConnections = false,
 }: FlowDiagramProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState(1);
@@ -394,6 +589,7 @@ export function FlowDiagram({
   const [connecting, setConnecting] = useState<{
     fromId: string;
     side: "input" | "output";
+    portIndex: number;
     mouseX: number;
     mouseY: number;
   } | null>(null);
@@ -414,7 +610,6 @@ export function FlowDiagram({
 
   const spaceDownRef = useRef(false);
 
-  // Selected IDs: external if provided, otherwise internal
   const selectedSet = new Set(
     selectedIds ?? Array.from(internalSelected)
   );
@@ -441,6 +636,55 @@ export function FlowDiagram({
     [pan, zoom]
   );
 
+  // ── Fit to View ──
+  const performFitToView = useCallback(() => {
+    if (nodes.length === 0 || containerSize.w === 0) return;
+
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity;
+    for (const n of nodes) {
+      const w = n.width ?? NODE_DEFAULT_WIDTH;
+      if (n.x < minX) minX = n.x;
+      if (n.y < minY) minY = n.y;
+      if (n.x + w > maxX) maxX = n.x + w;
+      if (n.y + NODE_APPROX_HEIGHT > maxY) maxY = n.y + NODE_APPROX_HEIGHT;
+    }
+
+    const worldW = maxX - minX;
+    const worldH = maxY - minY;
+    if (worldW <= 0 || worldH <= 0) return;
+
+    const availW = containerSize.w - FIT_PADDING * 2;
+    const availH = containerSize.h - FIT_PADDING * 2;
+    const newZoom = Math.min(
+      MAX_ZOOM,
+      Math.max(MIN_ZOOM, Math.min(availW / worldW, availH / worldH))
+    );
+
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+    const newPanX = containerSize.w / 2 - centerX * newZoom;
+    const newPanY = containerSize.h / 2 - centerY * newZoom;
+
+    setZoom(newZoom);
+    setPan({ x: newPanX, y: newPanY });
+  }, [nodes, containerSize]);
+
+  // ── Compute groups ──
+  const groupMap = useMemo(() => {
+    const map = new Map<string, FlowNode[]>();
+    for (const node of nodes) {
+      if (node.group) {
+        const arr = map.get(node.group) ?? [];
+        arr.push(node);
+        map.set(node.group, arr);
+      }
+    }
+    return map;
+  }, [nodes]);
+
   // ── Observe container size ──
   useEffect(() => {
     const el = containerRef.current;
@@ -456,6 +700,13 @@ export function FlowDiagram({
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  // ── Auto fit to view when prop is true ──
+  useEffect(() => {
+    if (fitToViewProp && containerSize.w > 0) {
+      performFitToView();
+    }
+  }, [fitToViewProp, containerSize.w, containerSize.h]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Wheel zoom ──
   useEffect(() => {
@@ -473,7 +724,6 @@ export function FlowDiagram({
       setZoom((prevZoom) => {
         const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, prevZoom * factor));
         const ratio = newZoom / prevZoom;
-        // Zoom toward mouse position
         setPan((prevPan) => ({
           x: mouseX - ratio * (mouseX - prevPan.x),
           y: mouseY - ratio * (mouseY - prevPan.y),
@@ -495,12 +745,19 @@ export function FlowDiagram({
       }
       if (
         (e.key === "Delete" || e.key === "Backspace") &&
-        !e.target?.toString().includes("Input")
+        !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
       ) {
         // Delete selected connection
         if (selectedConnection && onDisconnect) {
           onDisconnect(selectedConnection);
           setSelectedConnection(null);
+        }
+        // Delete selected nodes
+        const selectedArr = Array.from(
+          selectedIds ? new Set(selectedIds) : internalSelected
+        );
+        if (selectedArr.length > 0 && onNodeDelete) {
+          onNodeDelete(selectedArr);
         }
       }
       if (e.key === "Escape") {
@@ -520,12 +777,11 @@ export function FlowDiagram({
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [selectedConnection, onDisconnect]);
+  }, [selectedConnection, onDisconnect, onNodeDelete, selectedIds, internalSelected]);
 
   // ── Mouse move (global while dragging/selecting/connecting/panning) ──
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Panning
       if (panning) {
         setPan({
           x: panning.startPanX + (e.clientX - panning.startMouseX),
@@ -534,7 +790,6 @@ export function FlowDiagram({
         return;
       }
 
-      // Node drag
       if (dragging) {
         const dx = (e.clientX - dragging.startMouseX) / zoom;
         const dy = (e.clientY - dragging.startMouseY) / zoom;
@@ -543,7 +798,6 @@ export function FlowDiagram({
           setDragging((prev) => (prev ? { ...prev, didMove: true } : prev));
         }
 
-        // Move all selected nodes (or just the dragged one)
         const nodesToMove = selectedSet.has(dragging.nodeId)
           ? Array.from(selectedSet)
           : [dragging.nodeId];
@@ -557,7 +811,6 @@ export function FlowDiagram({
         return;
       }
 
-      // Selection rectangle
       if (selecting) {
         const canvas = screenToCanvas(e.clientX, e.clientY);
         setSelecting((prev) =>
@@ -566,7 +819,6 @@ export function FlowDiagram({
         return;
       }
 
-      // Connection dragging
       if (connecting) {
         const canvas = screenToCanvas(e.clientX, e.clientY);
         setConnecting((prev) =>
@@ -576,20 +828,17 @@ export function FlowDiagram({
       }
     };
 
-    const handleMouseUp = (e: MouseEvent) => {
-      // Finalize panning
+    const handleMouseUp = () => {
       if (panning) {
         setPanning(null);
         return;
       }
 
-      // Finalize node drag
       if (dragging) {
         setDragging(null);
         return;
       }
 
-      // Finalize selection rectangle
       if (selecting) {
         const { startX, startY, endX, endY } = selecting;
         const left = Math.min(startX, endX);
@@ -600,8 +849,7 @@ export function FlowDiagram({
         const hits: string[] = [];
         for (const node of nodes) {
           const nw = node.width ?? NODE_DEFAULT_WIDTH;
-          const nh = 60; // approx node height
-          // Check intersection
+          const nh = NODE_APPROX_HEIGHT;
           if (
             node.x + nw > left &&
             node.x < right &&
@@ -616,10 +864,8 @@ export function FlowDiagram({
         return;
       }
 
-      // Finalize connection
       if (connecting) {
         setConnecting(null);
-        // Connection is finalized in the port mouseDown handler
         return;
       }
     };
@@ -646,10 +892,8 @@ export function FlowDiagram({
   // ── Canvas mouse down ──
   const handleCanvasMouseDown = useCallback(
     (e: React.MouseEvent) => {
-      // Only handle left button
       if (e.button !== 0 && e.button !== 1) return;
 
-      // Middle click = pan
       if (e.button === 1) {
         e.preventDefault();
         setPanning({
@@ -661,7 +905,6 @@ export function FlowDiagram({
         return;
       }
 
-      // Space + left click = pan
       if (spaceDownRef.current) {
         setPanning({
           startMouseX: e.clientX,
@@ -672,8 +915,7 @@ export function FlowDiagram({
         return;
       }
 
-      // Shift + left click on empty canvas = selection rect
-      if (e.shiftKey) {
+      if (e.shiftKey && !readonly) {
         const canvas = screenToCanvas(e.clientX, e.clientY);
         setSelecting({
           startX: canvas.x,
@@ -684,20 +926,18 @@ export function FlowDiagram({
         return;
       }
 
-      // Click on empty canvas = clear selection
       updateSelection([]);
       setSelectedConnection(null);
     },
-    [pan, screenToCanvas, updateSelection]
+    [pan, screenToCanvas, updateSelection, readonly]
   );
 
   // ── Node mouse down (drag) ──
   const handleNodeMouseDown = useCallback(
     (nodeId: string, e: React.MouseEvent) => {
       e.stopPropagation();
-      if (e.button !== 0) return;
+      if (e.button !== 0 || readonly) return;
 
-      // If shift-clicking a node, toggle selection
       if (e.shiftKey) {
         const newSelected = new Set(selectedSet);
         if (newSelected.has(nodeId)) {
@@ -709,12 +949,10 @@ export function FlowDiagram({
         return;
       }
 
-      // If node is not selected, select only it (unless it's already in a group selection)
       if (!selectedSet.has(nodeId)) {
         updateSelection([nodeId]);
       }
 
-      // Gather start positions for all nodes that will move
       const willMove = selectedSet.has(nodeId)
         ? Array.from(selectedSet)
         : [nodeId];
@@ -723,7 +961,6 @@ export function FlowDiagram({
         const n = nodes.find((nd) => nd.id === nid);
         if (n) startPositions.set(nid, { x: n.x, y: n.y });
       }
-      // Also include the dragged node
       const draggedNode = nodes.find((n) => n.id === nodeId);
       if (draggedNode && !startPositions.has(nodeId)) {
         startPositions.set(nodeId, { x: draggedNode.x, y: draggedNode.y });
@@ -737,13 +974,12 @@ export function FlowDiagram({
         didMove: false,
       });
     },
-    [nodes, selectedSet, updateSelection]
+    [nodes, selectedSet, updateSelection, readonly]
   );
 
   // ── Node click ──
   const handleNodeClick = useCallback(
     (nodeId: string) => {
-      // Only fire click if no drag happened
       if (dragging?.didMove) return;
       onNodeClick?.(nodeId);
     },
@@ -752,14 +988,13 @@ export function FlowDiagram({
 
   // ── Port mouse down (connection) ──
   const handlePortMouseDown = useCallback(
-    (nodeId: string, side: "input" | "output", e: React.MouseEvent) => {
+    (nodeId: string, side: "input" | "output", portIndex: number, e: React.MouseEvent) => {
       e.stopPropagation();
       e.preventDefault();
+      if (readonly) return;
 
-      // If there's already a connection being made, complete it
       if (connecting) {
         if (connecting.fromId !== nodeId) {
-          // Determine direction: output -> input
           const from =
             connecting.side === "output" ? connecting.fromId : nodeId;
           const to = connecting.side === "output" ? nodeId : connecting.fromId;
@@ -773,23 +1008,29 @@ export function FlowDiagram({
       setConnecting({
         fromId: nodeId,
         side,
+        portIndex,
         mouseX: canvas.x,
         mouseY: canvas.y,
       });
     },
-    [connecting, onConnect, screenToCanvas]
+    [connecting, onConnect, screenToCanvas, readonly]
   );
 
   // ── Get port position in canvas coords ──
   const getPortPos = useCallback(
-    (nodeId: string, side: "input" | "output") => {
+    (nodeId: string, side: "input" | "output", portIndex: number = 0) => {
       const node = nodes.find((n) => n.id === nodeId);
       if (!node) return { x: 0, y: 0 };
       const w = node.width ?? NODE_DEFAULT_WIDTH;
+      const totalPorts = side === "input" ? (node.inputs ?? 1) : (node.outputs ?? 1);
+      const nodeHeight = NODE_APPROX_HEIGHT;
+      const spacing = totalPorts > 1 ? nodeHeight / (totalPorts + 1) : nodeHeight / 2;
+      const y = node.y + spacing * (portIndex + 1);
+
       if (side === "output") {
-        return { x: node.x + w, y: node.y + NODE_HEADER_HEIGHT / 2 + 10 };
+        return { x: node.x + w, y };
       }
-      return { x: node.x, y: node.y + NODE_HEADER_HEIGHT / 2 + 10 };
+      return { x: node.x, y };
     },
     [nodes]
   );
@@ -812,9 +1053,8 @@ export function FlowDiagram({
       }
     : undefined;
 
-  // Get connection "from" port position for the connecting line
   const connectingFromPos = connecting
-    ? getPortPos(connecting.fromId, connecting.side)
+    ? getPortPos(connecting.fromId, connecting.side, connecting.portIndex)
     : null;
 
   const isPanning = panning !== null;
@@ -855,6 +1095,16 @@ export function FlowDiagram({
           height: 0,
         }}
       >
+        {/* Group overlays (render behind nodes) */}
+        {Array.from(groupMap.entries()).map(([groupName, groupNodes], i) => (
+          <GroupOverlay
+            key={groupName}
+            groupName={groupName}
+            nodes={groupNodes}
+            colorIndex={i}
+          />
+        ))}
+
         {/* SVG layer for connections */}
         <svg
           className="absolute"
@@ -869,8 +1119,8 @@ export function FlowDiagram({
         >
           <g style={{ pointerEvents: "auto" }}>
             {connections.map((conn) => {
-              const fromPos = getPortPos(conn.from, "output");
-              const toPos = getPortPos(conn.to, "input");
+              const fromPos = getPortPos(conn.from, "output", conn.fromPort ?? 0);
+              const toPos = getPortPos(conn.to, "input", conn.toPort ?? 0);
               return (
                 <ConnectionPath
                   key={conn.id}
@@ -878,6 +1128,9 @@ export function FlowDiagram({
                   to={toPos}
                   selected={selectedConnection === conn.id}
                   onClick={() => handleConnectionClick(conn.id)}
+                  style={connectionStyle}
+                  animate={animateConnections}
+                  label={conn.label}
                 />
               );
             })}
@@ -888,6 +1141,7 @@ export function FlowDiagram({
             <ConnectionPath
               from={connectingFromPos}
               to={{ x: connecting.mouseX, y: connecting.mouseY }}
+              style={connectionStyle}
             />
           )}
         </svg>
@@ -909,6 +1163,8 @@ export function FlowDiagram({
             onMouseDown={(e) => handleNodeMouseDown(node.id, e)}
             onPortMouseDown={handlePortMouseDown}
             onNodeClick={handleNodeClick}
+            onDoubleClick={onNodeDoubleClick}
+            readonly={readonly}
           />
         ))}
       </div>
@@ -952,11 +1208,25 @@ export function FlowDiagram({
         >
           -
         </button>
+        {/* Fit to View button */}
+        <button
+          type="button"
+          onClick={performFitToView}
+          className="w-8 h-8 rounded-lg bg-gray-800 text-white flex items-center justify-center text-[10px] hover:bg-gray-700 transition-colors"
+          title="Fit to View"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <rect x="1" y="1" width="12" height="12" rx="2" />
+            <path d="M1 5H5V1M9 1V5H13M13 9H9V13M5 13V9H1" />
+          </svg>
+        </button>
       </div>
 
       {/* Selection hint */}
       <div className="absolute bottom-4 left-4 text-[10px] text-gray-500 z-20 select-none">
-        Shift+Drag: Select | Scroll: Zoom | Middle-click / Space+Drag: Pan
+        {readonly
+          ? "Scroll: Zoom | Middle-click / Space+Drag: Pan"
+          : "Shift+Drag: Select | Scroll: Zoom | Middle-click / Space+Drag: Pan | Delete: Remove"}
       </div>
     </div>
   );
