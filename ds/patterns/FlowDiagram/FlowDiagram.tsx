@@ -1,28 +1,31 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect, memo, useMemo } from "react";
+import {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  memo,
+  useMemo,
+} from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
-// ── Types ──────────────────────────────────────────────
+/* ================================================================== */
+/*  Types                                                              */
+/* ================================================================== */
 
 export interface FlowNode {
   id: string;
   title: string;
   content?: ReactNode;
   variant?: "default" | "success" | "warning" | "danger" | "info";
-  /** Position on canvas */
   x: number;
   y: number;
-  /** Width (auto if not set) */
   width?: number;
-  /** 노드 아이콘 */
   icon?: ReactNode;
-  /** 노드 그룹 (같은 그룹은 같은 배경 영역으로 표시) */
   group?: string;
-  /** 여러 입력 포트 */
   inputs?: number;
-  /** 여러 출력 포트 */
   outputs?: number;
 }
 
@@ -30,11 +33,8 @@ export interface FlowConnection {
   id: string;
   from: string;
   to: string;
-  /** 연결선 위에 표시할 라벨 */
   label?: string;
-  /** 연결선 from의 포트 인덱스 (0부터) */
   fromPort?: number;
-  /** 연결선 to의 포트 인덱스 (0부터) */
   toPort?: number;
 }
 
@@ -47,1186 +47,624 @@ export interface FlowDiagramProps {
   onDisconnect?: (connectionId: string) => void;
   selectedIds?: string[];
   onSelectionChange?: (ids: string[]) => void;
-  className?: string;
-  /** 그리드 표시 */
-  showGrid?: boolean;
-  /** 미니맵 표시 */
-  showMinimap?: boolean;
-  /** 노드 삭제 핸들러 */
   onNodeDelete?: (nodeIds: string[]) => void;
-  /** 노드 더블클릭 핸들러 */
   onNodeDoubleClick?: (nodeId: string) => void;
-  /** 전체 보기 (Fit to View) */
+  className?: string;
+  showGrid?: boolean;
+  showMinimap?: boolean;
   fitToView?: boolean;
-  /** 읽기 전용 */
   readonly?: boolean;
-  /** 연결선 스타일 */
   connectionStyle?: "bezier" | "straight" | "step";
-  /** 연결선 애니메이션 (점선 흐르는 효과) */
   animateConnections?: boolean;
 }
 
-// ── Constants ──────────────────────────────────────────
+/* ================================================================== */
+/*  Constants                                                          */
+/* ================================================================== */
 
-const NODE_DEFAULT_WIDTH = 200;
-const NODE_HEADER_HEIGHT = 36;
-const NODE_APPROX_HEIGHT = 60;
-const MIN_ZOOM = 0.25;
-const MAX_ZOOM = 2;
-const FIT_PADDING = 60;
+const NODE_W = 200;
+const MIN_ZOOM = 0.1;
+const MAX_ZOOM = 3;
+const FIT_PAD = 60;
+const GRID_SIZE = 20;
 
-// ── Variant Styles ─────────────────────────────────────
+/* ================================================================== */
+/*  Variant styles                                                     */
+/* ================================================================== */
 
-const variantBorder: Record<NonNullable<FlowNode["variant"]>, string> = {
-  default: "border-gray-600",
-  success: "border-green-500",
-  warning: "border-amber-500",
-  danger: "border-red-500",
-  info: "border-blue-500",
-};
+type V = NonNullable<FlowNode["variant"]>;
+const vBorder: Record<V, string> = { default: "#4b5563", success: "#22c55e", warning: "#f59e0b", danger: "#ef4444", info: "#3b82f6" };
+const vHeaderBg: Record<V, string> = { default: "#1f2937", success: "#14532d", warning: "#78350f", danger: "#7f1d1d", info: "#1e3a5f" };
+const vHeaderText: Record<V, string> = { default: "#d1d5db", success: "#86efac", warning: "#fde68a", danger: "#fca5a5", info: "#93c5fd" };
 
-const variantHeaderBg: Record<NonNullable<FlowNode["variant"]>, string> = {
-  default: "bg-gray-800",
-  success: "bg-green-900/50",
-  warning: "bg-amber-900/50",
-  danger: "bg-red-900/50",
-  info: "bg-blue-900/50",
-};
-
-const variantHeaderText: Record<NonNullable<FlowNode["variant"]>, string> = {
-  default: "text-gray-200",
-  success: "text-green-300",
-  warning: "text-amber-300",
-  danger: "text-red-300",
-  info: "text-blue-300",
-};
-
-// ── Group Colors ──────────────────────────────────────
-
-const groupColors = [
-  { bg: "rgba(59,130,246,0.08)", border: "rgba(59,130,246,0.35)", text: "#93c5fd" },
-  { bg: "rgba(16,185,129,0.08)", border: "rgba(16,185,129,0.35)", text: "#6ee7b7" },
-  { bg: "rgba(245,158,11,0.08)", border: "rgba(245,158,11,0.35)", text: "#fcd34d" },
-  { bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.35)", text: "#fca5a5" },
-  { bg: "rgba(168,85,247,0.08)", border: "rgba(168,85,247,0.35)", text: "#c4b5fd" },
+const groupPalette = [
+  { bg: "rgba(59,130,246,0.06)", border: "rgba(59,130,246,0.3)", text: "#93c5fd" },
+  { bg: "rgba(16,185,129,0.06)", border: "rgba(16,185,129,0.3)", text: "#6ee7b7" },
+  { bg: "rgba(245,158,11,0.06)", border: "rgba(245,158,11,0.3)", text: "#fcd34d" },
+  { bg: "rgba(239,68,68,0.06)", border: "rgba(239,68,68,0.3)", text: "#fca5a5" },
+  { bg: "rgba(168,85,247,0.06)", border: "rgba(168,85,247,0.3)", text: "#c4b5fd" },
 ];
 
-// ── Grid Background ────────────────────────────────────
+/* ================================================================== */
+/*  Helpers                                                            */
+/* ================================================================== */
 
-function GridBackground({
-  zoom,
-  pan,
-}: {
-  zoom: number;
-  pan: { x: number; y: number };
-}) {
-  const size = 24 * zoom;
+/** 줌+팬을 동시에 계산하는 순수함수 */
+function zoomAtPoint(
+  prevZoom: number,
+  prevPan: { x: number; y: number },
+  mouseX: number,
+  mouseY: number,
+  delta: number,
+) {
+  const factor = delta > 0 ? 0.9 : 1.1;
+  const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, prevZoom * factor));
+  const r = newZoom / prevZoom;
+  return {
+    zoom: newZoom,
+    panX: mouseX - r * (mouseX - prevPan.x),
+    panY: mouseY - r * (mouseY - prevPan.y),
+  };
+}
+
+/* ================================================================== */
+/*  Grid Background                                                    */
+/* ================================================================== */
+
+function Grid({ zoom, pan }: { zoom: number; pan: { x: number; y: number } }) {
+  const s = GRID_SIZE * zoom;
   return (
     <div
       className="absolute inset-0 pointer-events-none"
       style={{
-        backgroundImage:
-          "radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)",
-        backgroundSize: `${size}px ${size}px`,
-        backgroundPosition: `${pan.x % size}px ${pan.y % size}px`,
+        backgroundImage: "radial-gradient(circle,rgba(255,255,255,0.07) 1px,transparent 1px)",
+        backgroundSize: `${s}px ${s}px`,
+        backgroundPosition: `${pan.x % s}px ${pan.y % s}px`,
       }}
     />
   );
 }
 
-// ── SVG Connection Path ────────────────────────────────
+/* ================================================================== */
+/*  Connection SVG                                                     */
+/* ================================================================== */
 
-function ConnectionPath({
-  from,
-  to,
-  selected,
-  onClick,
-  style: pathStyle = "bezier",
-  animate = false,
+function ConnLine({
+  x1, y1, x2, y2,
+  selected, onClick,
+  style: ls = "bezier",
+  animate,
   label,
 }: {
-  from: { x: number; y: number };
-  to: { x: number; y: number };
-  selected?: boolean;
-  onClick?: () => void;
+  x1: number; y1: number; x2: number; y2: number;
+  selected?: boolean; onClick?: () => void;
   style?: "bezier" | "straight" | "step";
   animate?: boolean;
   label?: string;
 }) {
   let d: string;
-  let midX: number;
-  let midY: number;
-
-  if (pathStyle === "straight") {
-    d = `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
-    midX = (from.x + to.x) / 2;
-    midY = (from.y + to.y) / 2;
-  } else if (pathStyle === "step") {
-    const mx = (from.x + to.x) / 2;
-    d = `M ${from.x} ${from.y} L ${mx} ${from.y} L ${mx} ${to.y} L ${to.x} ${to.y}`;
-    midX = mx;
-    midY = (from.y + to.y) / 2;
+  if (ls === "straight") {
+    d = `M${x1},${y1} L${x2},${y2}`;
+  } else if (ls === "step") {
+    const mx = (x1 + x2) / 2;
+    d = `M${x1},${y1} H${mx} V${y2} H${x2}`;
   } else {
-    // bezier
-    const dx = Math.abs(to.x - from.x) * 0.5;
-    d = `M ${from.x} ${from.y} C ${from.x + dx} ${from.y}, ${to.x - dx} ${to.y}, ${to.x} ${to.y}`;
-    midX = (from.x + to.x) / 2;
-    midY = (from.y + to.y) / 2;
+    const dx = Math.max(Math.abs(x2 - x1) * 0.4, 40);
+    d = `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
   }
+
+  const midX = (x1 + x2) / 2;
+  const midY = (y1 + y2) / 2;
+  const color = selected ? "#3b82f6" : "#6b7280";
+  const sw = selected ? 3 : 2;
 
   return (
     <g>
-      {/* Invisible wider path for easier clicking */}
-      <path
-        d={d}
-        stroke="transparent"
-        strokeWidth={12}
-        fill="none"
-        className="cursor-pointer"
-        style={{ pointerEvents: "stroke" }}
-        onClick={onClick}
-      />
-      <path
-        d={d}
-        stroke={selected ? "#3b82f6" : "#6b7280"}
-        strokeWidth={selected ? 3 : 2}
-        fill="none"
-        className="transition-colors"
-        strokeLinecap="round"
+      {/* 투명 히트영역 */}
+      <path d={d} stroke="transparent" strokeWidth={14} fill="none"
+        style={{ pointerEvents: "stroke", cursor: "pointer" }} onClick={onClick} />
+      {/* 실제 선 */}
+      <path d={d} stroke={color} strokeWidth={sw} fill="none" strokeLinecap="round"
         style={{ pointerEvents: "none" }}
-        {...(animate
-          ? {
-              strokeDasharray: "6 4",
-              strokeDashoffset: 0,
-            }
-          : {})}
+        strokeDasharray={animate ? "6 4" : undefined}
       >
         {animate && (
-          <animate
-            attributeName="stroke-dashoffset"
-            from="0"
-            to="-20"
-            dur="1s"
-            repeatCount="indefinite"
-          />
+          <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.8s" repeatCount="indefinite" />
         )}
       </path>
-
-      {/* Connection label */}
+      {/* 화살표 */}
+      <circle cx={x2} cy={y2} r={3} fill={color} style={{ pointerEvents: "none" }} />
+      {/* 라벨 */}
       {label && (
-        <>
-          <rect
-            x={midX - label.length * 3.5 - 6}
-            y={midY - 10}
-            width={label.length * 7 + 12}
-            height={20}
-            rx={10}
-            fill="#1f2937"
-            stroke="#4b5563"
-            strokeWidth={1}
-          />
-          <text
-            x={midX}
-            y={midY + 4}
-            textAnchor="middle"
-            fill="#d1d5db"
-            fontSize={11}
-            fontFamily="sans-serif"
-            style={{ pointerEvents: "none" }}
-          >
-            {label}
-          </text>
-        </>
+        <g style={{ pointerEvents: "none" }}>
+          <rect x={midX - label.length * 3.5 - 6} y={midY - 9} width={label.length * 7 + 12}
+            height={18} rx={9} fill="#111827" stroke="#374151" strokeWidth={1} />
+          <text x={midX} y={midY + 3.5} textAnchor="middle" fill="#d1d5db"
+            fontSize={10} fontFamily="system-ui,sans-serif">{label}</text>
+        </g>
       )}
     </g>
   );
 }
 
-// ── Port Component ─────────────────────────────────────
+/* ================================================================== */
+/*  Node Card                                                          */
+/* ================================================================== */
 
-function Port({
-  side,
-  index,
-  total,
-  onMouseDown,
-  disabled,
+const NodeCard = memo(function NodeCard({
+  node, isSelected, nodeHeights, readonly,
+  onMouseDown, onPortDown, onClick, onDblClick,
 }: {
-  side: "input" | "output";
-  index: number;
-  total: number;
-  onMouseDown: (e: React.MouseEvent) => void;
-  disabled?: boolean;
-}) {
-  // Distribute ports vertically
-  const spacing = total > 1 ? 100 / (total + 1) : 50;
-  const topPercent = spacing * (index + 1);
-
-  return (
-    <div
-      onMouseDown={(e) => {
-        if (disabled) return;
-        e.stopPropagation();
-        onMouseDown(e);
-      }}
-      className={cn(
-        "absolute w-3 h-3 rounded-full border-2 border-white bg-blue-500 z-10 transition-transform",
-        disabled ? "cursor-default opacity-50" : "cursor-crosshair hover:scale-125",
-        side === "input" ? "left-0 -translate-x-1/2" : "right-0 translate-x-1/2"
-      )}
-      style={{
-        top: `${topPercent}%`,
-        transform: `${side === "input" ? "translateX(-50%)" : "translateX(50%)"} translateY(-50%)`,
-      }}
-    />
-  );
-}
-
-// ── Node Component ─────────────────────────────────────
-
-interface FlowNodeCardProps {
   node: FlowNode;
   isSelected: boolean;
-  onMouseDown: (e: React.MouseEvent) => void;
-  onPortMouseDown: (
-    nodeId: string,
-    side: "input" | "output",
-    portIndex: number,
-    e: React.MouseEvent
-  ) => void;
-  onNodeClick: (nodeId: string) => void;
-  onDoubleClick?: (nodeId: string) => void;
+  nodeHeights: React.RefObject<Map<string, number>>;
   readonly?: boolean;
-}
+  onMouseDown: (id: string, e: React.MouseEvent) => void;
+  onPortDown: (id: string, side: "input" | "output", portIdx: number, e: React.MouseEvent) => void;
+  onClick: (id: string) => void;
+  onDblClick?: (id: string) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const v = node.variant ?? "default";
+  const w = node.width ?? NODE_W;
+  const nIn = node.inputs ?? 1;
+  const nOut = node.outputs ?? 1;
 
-const FlowNodeCard = memo(function FlowNodeCard({
-  node,
-  isSelected,
-  onMouseDown,
-  onPortMouseDown,
-  onNodeClick,
-  onDoubleClick,
-  readonly,
-}: FlowNodeCardProps) {
-  const variant = node.variant ?? "default";
-  const w = node.width ?? NODE_DEFAULT_WIDTH;
-  const inputCount = node.inputs ?? 1;
-  const outputCount = node.outputs ?? 1;
+  // 노드 높이 측정
+  useEffect(() => {
+    if (ref.current) {
+      nodeHeights.current?.set(node.id, ref.current.offsetHeight);
+    }
+  });
+
+  const h = nodeHeights.current?.get(node.id) ?? 60;
 
   return (
     <div
-      className={cn(
-        "absolute select-none rounded-xl border-2 bg-gray-900 text-white overflow-visible transition-shadow duration-150",
-        variantBorder[variant],
-        isSelected && "ring-2 ring-blue-500 ring-offset-2 ring-offset-gray-950"
-      )}
+      ref={ref}
       style={{
+        position: "absolute",
         left: node.x,
         top: node.y,
         width: w,
-        minWidth: 180,
-        maxWidth: 280,
-        boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+        borderColor: vBorder[v],
+        boxShadow: isSelected
+          ? `0 0 0 2px #3b82f6, 0 4px 24px rgba(0,0,0,0.4)`
+          : "0 4px 20px rgba(0,0,0,0.3)",
         cursor: readonly ? "default" : "grab",
+        zIndex: isSelected ? 10 : 1,
       }}
-      onMouseDown={(e) => {
-        if (readonly) return;
-        if (e.button === 0) {
-          onMouseDown(e);
-        }
-      }}
-      onClick={(e) => {
-        e.stopPropagation();
-        onNodeClick(node.id);
-      }}
-      onDoubleClick={(e) => {
-        e.stopPropagation();
-        onDoubleClick?.(node.id);
-      }}
+      className="select-none rounded-xl border-2 bg-gray-900 text-white overflow-visible"
+      onMouseDown={(e) => { if (!readonly && e.button === 0) { e.stopPropagation(); onMouseDown(node.id, e); } }}
+      onClick={(e) => { e.stopPropagation(); onClick(node.id); }}
+      onDoubleClick={(e) => { e.stopPropagation(); onDblClick?.(node.id); }}
     >
-      {/* Input ports (left) */}
-      {Array.from({ length: inputCount }, (_, i) => (
-        <Port
-          key={`in-${i}`}
-          side="input"
-          index={i}
-          total={inputCount}
-          disabled={readonly}
-          onMouseDown={(e) => onPortMouseDown(node.id, "input", i, e)}
-        />
-      ))}
-
-      {/* Output ports (right) */}
-      {Array.from({ length: outputCount }, (_, i) => (
-        <Port
-          key={`out-${i}`}
-          side="output"
-          index={i}
-          total={outputCount}
-          disabled={readonly}
-          onMouseDown={(e) => onPortMouseDown(node.id, "output", i, e)}
-        />
-      ))}
-
-      {/* Header */}
-      <div
-        className={cn(
-          "px-3 py-2 font-bold text-sm border-b rounded-t-[10px] flex items-center gap-2",
-          variantBorder[variant],
-          variantHeaderBg[variant],
-          variantHeaderText[variant]
-        )}
-      >
-        {node.icon && <span className="flex-shrink-0">{node.icon}</span>}
-        {node.title}
+      {/* 입력 포트 */}
+      {Array.from({ length: nIn }, (_, i) => {
+        const py = nIn === 1 ? h / 2 : (h / (nIn + 1)) * (i + 1);
+        return (
+          <div key={`i${i}`}
+            onMouseDown={(e) => { e.stopPropagation(); onPortDown(node.id, "input", i, e); }}
+            className={cn("absolute w-3 h-3 rounded-full border-2 border-gray-300 bg-blue-500 z-20", readonly ? "cursor-default opacity-40" : "cursor-crosshair hover:scale-150 transition-transform")}
+            style={{ left: -6, top: py - 6 }} />
+        );
+      })}
+      {/* 출력 포트 */}
+      {Array.from({ length: nOut }, (_, i) => {
+        const py = nOut === 1 ? h / 2 : (h / (nOut + 1)) * (i + 1);
+        return (
+          <div key={`o${i}`}
+            onMouseDown={(e) => { e.stopPropagation(); onPortDown(node.id, "output", i, e); }}
+            className={cn("absolute w-3 h-3 rounded-full border-2 border-gray-300 bg-blue-500 z-20", readonly ? "cursor-default opacity-40" : "cursor-crosshair hover:scale-150 transition-transform")}
+            style={{ right: -6, top: py - 6 }} />
+        );
+      })}
+      {/* 헤더 */}
+      <div className="px-3 py-2 text-sm font-bold rounded-t-[10px] border-b flex items-center gap-1.5"
+        style={{ background: vHeaderBg[v], color: vHeaderText[v], borderColor: vBorder[v] }}>
+        {node.icon && <span className="shrink-0 text-base">{node.icon}</span>}
+        <span className="truncate">{node.title}</span>
       </div>
-
-      {/* Content */}
-      {node.content && (
-        <div className="px-3 py-2 text-xs text-gray-400">{node.content}</div>
-      )}
+      {/* 내용 */}
+      {node.content && <div className="px-3 py-2 text-xs text-gray-400">{node.content}</div>}
     </div>
   );
 });
 
-// ── Group Overlay ──────────────────────────────────────
+/* ================================================================== */
+/*  Group Overlay                                                      */
+/* ================================================================== */
 
-function GroupOverlay({
-  groupName,
-  nodes,
-  colorIndex,
-}: {
-  groupName: string;
-  nodes: FlowNode[];
-  colorIndex: number;
+function GrpOverlay({ name, nodes, ci, heights }: {
+  name: string; nodes: FlowNode[]; ci: number;
+  heights: React.RefObject<Map<string, number>>;
 }) {
-  if (nodes.length === 0) return null;
-
-  const color = groupColors[colorIndex % groupColors.length];
-  const PAD = 24;
-
-  let minX = Infinity,
-    minY = Infinity,
-    maxX = -Infinity,
-    maxY = -Infinity;
+  if (!nodes.length) return null;
+  const c = groupPalette[ci % groupPalette.length];
+  const PAD = 28;
+  let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
   for (const n of nodes) {
-    const w = n.width ?? NODE_DEFAULT_WIDTH;
-    if (n.x < minX) minX = n.x;
-    if (n.y < minY) minY = n.y;
-    if (n.x + w > maxX) maxX = n.x + w;
-    if (n.y + NODE_APPROX_HEIGHT > maxY) maxY = n.y + NODE_APPROX_HEIGHT;
+    const w = n.width ?? NODE_W;
+    const h = heights.current?.get(n.id) ?? 60;
+    if (n.x < x1) x1 = n.x;
+    if (n.y < y1) y1 = n.y;
+    if (n.x + w > x2) x2 = n.x + w;
+    if (n.y + h > y2) y2 = n.y + h;
   }
-
   return (
-    <div
-      className="absolute rounded-xl pointer-events-none"
-      style={{
-        left: minX - PAD,
-        top: minY - PAD - 20,
-        width: maxX - minX + PAD * 2,
-        height: maxY - minY + PAD * 2 + 20,
-        background: color.bg,
-        border: `2px dashed ${color.border}`,
-      }}
-    >
-      <div
-        className="absolute top-1 left-3 text-xs font-semibold"
-        style={{ color: color.text }}
-      >
-        {groupName}
-      </div>
+    <div className="absolute rounded-2xl pointer-events-none" style={{
+      left: x1 - PAD, top: y1 - PAD - 18,
+      width: x2 - x1 + PAD * 2, height: y2 - y1 + PAD * 2 + 18,
+      background: c.bg, border: `2px dashed ${c.border}`,
+    }}>
+      <span className="absolute top-1.5 left-3 text-[10px] font-bold tracking-wider uppercase" style={{ color: c.text }}>{name}</span>
     </div>
   );
 }
 
-// ── Minimap ────────────────────────────────────────────
+/* ================================================================== */
+/*  Minimap                                                            */
+/* ================================================================== */
 
-function Minimap({
-  nodes,
-  connections,
-  zoom,
-  pan,
-  containerWidth,
-  containerHeight,
-}: {
-  nodes: FlowNode[];
-  connections: FlowConnection[];
-  zoom: number;
-  pan: { x: number; y: number };
-  containerWidth: number;
-  containerHeight: number;
+function Minimap({ nodes, connections, zoom, pan, cw, ch, heights }: {
+  nodes: FlowNode[]; connections: FlowConnection[];
+  zoom: number; pan: { x: number; y: number };
+  cw: number; ch: number;
+  heights: React.RefObject<Map<string, number>>;
 }) {
-  if (nodes.length === 0) return null;
-
-  const MINIMAP_W = 160;
-  const MINIMAP_H = 100;
-  const PADDING = 20;
-
-  let minX = Infinity,
-    minY = Infinity,
-    maxX = -Infinity,
-    maxY = -Infinity;
+  if (!nodes.length) return null;
+  const MW = 150, MH = 90, P = 20;
+  let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
   for (const n of nodes) {
-    const w = n.width ?? NODE_DEFAULT_WIDTH;
-    if (n.x < minX) minX = n.x;
-    if (n.y < minY) minY = n.y;
-    if (n.x + w > maxX) maxX = n.x + w;
-    if (n.y + 60 > maxY) maxY = n.y + 60;
+    const w = n.width ?? NODE_W;
+    const h = heights.current?.get(n.id) ?? 60;
+    x1 = Math.min(x1, n.x); y1 = Math.min(y1, n.y);
+    x2 = Math.max(x2, n.x + w); y2 = Math.max(y2, n.y + h);
   }
-  minX -= PADDING;
-  minY -= PADDING;
-  maxX += PADDING;
-  maxY += PADDING;
-
-  const worldW = maxX - minX || 1;
-  const worldH = maxY - minY || 1;
-  const scale = Math.min(MINIMAP_W / worldW, MINIMAP_H / worldH);
-
-  const vpX = -pan.x / zoom;
-  const vpY = -pan.y / zoom;
-  const vpW = containerWidth / zoom;
-  const vpH = containerHeight / zoom;
-
+  x1 -= P; y1 -= P; x2 += P; y2 += P;
+  const ww = x2 - x1 || 1, wh = y2 - y1 || 1;
+  const s = Math.min(MW / ww, MH / wh);
   return (
-    <div
-      className="absolute top-4 right-4 z-20 rounded-lg border border-gray-700 bg-gray-900/80 backdrop-blur-sm overflow-hidden"
-      style={{ width: MINIMAP_W, height: MINIMAP_H }}
-    >
-      <svg width={MINIMAP_W} height={MINIMAP_H}>
-        {connections.map((conn) => {
-          const fromNode = nodes.find((n) => n.id === conn.from);
-          const toNode = nodes.find((n) => n.id === conn.to);
-          if (!fromNode || !toNode) return null;
-          const fw = fromNode.width ?? NODE_DEFAULT_WIDTH;
-          const x1 = (fromNode.x + fw - minX) * scale;
-          const y1 = (fromNode.y + NODE_HEADER_HEIGHT / 2 - minY) * scale;
-          const x2 = (toNode.x - minX) * scale;
-          const y2 = (toNode.y + NODE_HEADER_HEIGHT / 2 - minY) * scale;
-          return (
-            <line
-              key={conn.id}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="#6b7280"
-              strokeWidth={1}
-            />
-          );
+    <div className="absolute top-3 right-3 z-20 rounded-lg border border-gray-700 bg-gray-900/90 backdrop-blur" style={{ width: MW, height: MH }}>
+      <svg width={MW} height={MH}>
+        {connections.map(c => {
+          const fn = nodes.find(n => n.id === c.from), tn = nodes.find(n => n.id === c.to);
+          if (!fn || !tn) return null;
+          return <line key={c.id} x1={(fn.x + (fn.width ?? NODE_W) - x1) * s} y1={(fn.y + 20 - y1) * s}
+            x2={(tn.x - x1) * s} y2={(tn.y + 20 - y1) * s} stroke="#6b7280" strokeWidth={0.8} />;
         })}
-        {nodes.map((n) => {
-          const w = n.width ?? NODE_DEFAULT_WIDTH;
-          return (
-            <rect
-              key={n.id}
-              x={(n.x - minX) * scale}
-              y={(n.y - minY) * scale}
-              width={w * scale}
-              height={40 * scale}
-              rx={2}
-              fill="#374151"
-              stroke="#6b7280"
-              strokeWidth={0.5}
-            />
-          );
-        })}
-        <rect
-          x={(vpX - minX) * scale}
-          y={(vpY - minY) * scale}
-          width={vpW * scale}
-          height={vpH * scale}
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth={1.5}
-          rx={1}
-        />
+        {nodes.map(n => <rect key={n.id} x={(n.x - x1) * s} y={(n.y - y1) * s}
+          width={(n.width ?? NODE_W) * s} height={(heights.current?.get(n.id) ?? 60) * s}
+          rx={2} fill="#374151" stroke="#6b7280" strokeWidth={0.5} />)}
+        <rect x={(-pan.x / zoom - x1) * s} y={(-pan.y / zoom - y1) * s}
+          width={(cw / zoom) * s} height={(ch / zoom) * s}
+          fill="none" stroke="#3b82f6" strokeWidth={1.5} rx={1} />
       </svg>
     </div>
   );
 }
 
-// ── Main FlowDiagram ───────────────────────────────────
+/* ================================================================== */
+/*  Main FlowDiagram                                                   */
+/* ================================================================== */
 
 export function FlowDiagram({
-  nodes,
-  connections,
-  onNodeMove,
-  onNodeClick,
-  onConnect,
-  onDisconnect,
-  selectedIds,
-  onSelectionChange,
-  className,
-  showGrid = true,
-  showMinimap = false,
-  onNodeDelete,
-  onNodeDoubleClick,
-  fitToView: fitToViewProp = false,
-  readonly = false,
-  connectionStyle = "bezier",
-  animateConnections = false,
+  nodes, connections,
+  onNodeMove, onNodeClick, onConnect, onDisconnect,
+  selectedIds, onSelectionChange,
+  onNodeDelete, onNodeDoubleClick,
+  className, showGrid = true, showMinimap = false,
+  fitToView: fitProp = false, readonly = false,
+  connectionStyle = "bezier", animateConnections = false,
 }: FlowDiagramProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [zoom, setZoom] = useState(1);
-  const [pan, setPan] = useState({ x: 0, y: 0 });
-  const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
+  const nodeHeightsRef = useRef<Map<string, number>>(new Map());
 
-  // Interaction state
-  const [dragging, setDragging] = useState<{
-    nodeId: string;
-    startMouseX: number;
-    startMouseY: number;
-    startPositions: Map<string, { x: number; y: number }>;
-    didMove: boolean;
+  // 줌+팬을 하나의 state로 관리 → 동기 문제 해결
+  const [camera, setCamera] = useState({ zoom: 1, panX: 0, panY: 0 });
+  const [cSize, setCSize] = useState({ w: 0, h: 0 });
+
+  // 인터랙션
+  const dragRef = useRef<{
+    nodeId: string; sx: number; sy: number;
+    starts: Map<string, { x: number; y: number }>;
+    moved: boolean;
   } | null>(null);
+  const panRef = useRef<{ sx: number; sy: number; px: number; py: number } | null>(null);
+  const selectRef = useRef<{ sx: number; sy: number; ex: number; ey: number } | null>(null);
+  const connRef = useRef<{ fromId: string; side: "input" | "output"; port: number; mx: number; my: number } | null>(null);
+  const spaceRef = useRef(false);
+  const [, forceRender] = useState(0);
+  const kick = useCallback(() => forceRender(c => c + 1), []);
 
-  const [selecting, setSelecting] = useState<{
-    startX: number;
-    startY: number;
-    endX: number;
-    endY: number;
-  } | null>(null);
+  const [selConn, setSelConn] = useState<string | null>(null);
+  const [intSel, setIntSel] = useState<Set<string>>(new Set());
+  const selSet = useMemo(() => new Set(selectedIds ?? Array.from(intSel)), [selectedIds, intSel]);
 
-  const [connecting, setConnecting] = useState<{
-    fromId: string;
-    side: "input" | "output";
-    portIndex: number;
-    mouseX: number;
-    mouseY: number;
-  } | null>(null);
+  const setSel = useCallback((ids: string[]) => {
+    setIntSel(new Set(ids));
+    onSelectionChange?.(ids);
+  }, [onSelectionChange]);
 
-  const [panning, setPanning] = useState<{
-    startMouseX: number;
-    startMouseY: number;
-    startPanX: number;
-    startPanY: number;
-  } | null>(null);
+  const s2c = useCallback((sx: number, sy: number) => {
+    const r = containerRef.current?.getBoundingClientRect();
+    if (!r) return { x: 0, y: 0 };
+    return { x: (sx - r.left - camera.panX) / camera.zoom, y: (sy - r.top - camera.panY) / camera.zoom };
+  }, [camera]);
 
-  const [internalSelected, setInternalSelected] = useState<Set<string>>(
-    new Set()
-  );
-  const [selectedConnection, setSelectedConnection] = useState<string | null>(
-    null
-  );
-
-  const spaceDownRef = useRef(false);
-
-  const selectedSet = new Set(
-    selectedIds ?? Array.from(internalSelected)
-  );
-
-  const updateSelection = useCallback(
-    (ids: string[]) => {
-      const newSet = new Set(ids);
-      setInternalSelected(newSet);
-      onSelectionChange?.(ids);
-    },
-    [onSelectionChange]
-  );
-
-  // Convert screen coords to canvas coords
-  const screenToCanvas = useCallback(
-    (screenX: number, screenY: number) => {
-      const rect = containerRef.current?.getBoundingClientRect();
-      if (!rect) return { x: 0, y: 0 };
-      return {
-        x: (screenX - rect.left - pan.x) / zoom,
-        y: (screenY - rect.top - pan.y) / zoom,
-      };
-    },
-    [pan, zoom]
-  );
-
-  // ── Fit to View ──
-  const performFitToView = useCallback(() => {
-    if (nodes.length === 0 || containerSize.w === 0) return;
-
-    let minX = Infinity,
-      minY = Infinity,
-      maxX = -Infinity,
-      maxY = -Infinity;
-    for (const n of nodes) {
-      const w = n.width ?? NODE_DEFAULT_WIDTH;
-      if (n.x < minX) minX = n.x;
-      if (n.y < minY) minY = n.y;
-      if (n.x + w > maxX) maxX = n.x + w;
-      if (n.y + NODE_APPROX_HEIGHT > maxY) maxY = n.y + NODE_APPROX_HEIGHT;
-    }
-
-    const worldW = maxX - minX;
-    const worldH = maxY - minY;
-    if (worldW <= 0 || worldH <= 0) return;
-
-    const availW = containerSize.w - FIT_PADDING * 2;
-    const availH = containerSize.h - FIT_PADDING * 2;
-    const newZoom = Math.min(
-      MAX_ZOOM,
-      Math.max(MIN_ZOOM, Math.min(availW / worldW, availH / worldH))
-    );
-
-    const centerX = (minX + maxX) / 2;
-    const centerY = (minY + maxY) / 2;
-    const newPanX = containerSize.w / 2 - centerX * newZoom;
-    const newPanY = containerSize.h / 2 - centerY * newZoom;
-
-    setZoom(newZoom);
-    setPan({ x: newPanX, y: newPanY });
-  }, [nodes, containerSize]);
-
-  // ── Compute groups ──
-  const groupMap = useMemo(() => {
-    const map = new Map<string, FlowNode[]>();
-    for (const node of nodes) {
-      if (node.group) {
-        const arr = map.get(node.group) ?? [];
-        arr.push(node);
-        map.set(node.group, arr);
-      }
-    }
-    return map;
+  // 포트 위치 계산 (측정된 높이 사용)
+  const portPos = useCallback((nodeId: string, side: "input" | "output", portIdx = 0) => {
+    const n = nodes.find(nd => nd.id === nodeId);
+    if (!n) return { x: 0, y: 0 };
+    const w = n.width ?? NODE_W;
+    const h = nodeHeightsRef.current.get(nodeId) ?? 60;
+    const total = side === "input" ? (n.inputs ?? 1) : (n.outputs ?? 1);
+    const py = total === 1 ? h / 2 : (h / (total + 1)) * (portIdx + 1);
+    return { x: side === "output" ? n.x + w : n.x, y: n.y + py };
   }, [nodes]);
 
-  // ── Observe container size ──
+  // 그룹 맵
+  const groupMap = useMemo(() => {
+    const m = new Map<string, FlowNode[]>();
+    nodes.forEach(n => { if (n.group) { m.set(n.group, [...(m.get(n.group) ?? []), n]); } });
+    return m;
+  }, [nodes]);
+
+  // Fit to View
+  const fitToView = useCallback(() => {
+    if (!nodes.length || !cSize.w) return;
+    let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
+    for (const n of nodes) {
+      const w = n.width ?? NODE_W, h = nodeHeightsRef.current.get(n.id) ?? 60;
+      x1 = Math.min(x1, n.x); y1 = Math.min(y1, n.y);
+      x2 = Math.max(x2, n.x + w); y2 = Math.max(y2, n.y + h);
+    }
+    const ww = x2 - x1, wh = y2 - y1;
+    if (ww <= 0 || wh <= 0) return;
+    const z = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, Math.min((cSize.w - FIT_PAD * 2) / ww, (cSize.h - FIT_PAD * 2) / wh)));
+    setCamera({ zoom: z, panX: cSize.w / 2 - ((x1 + x2) / 2) * z, panY: cSize.h / 2 - ((y1 + y2) / 2) * z });
+  }, [nodes, cSize]);
+
+  // ResizeObserver
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setContainerSize({
-          w: entry.contentRect.width,
-          h: entry.contentRect.height,
-        });
-      }
-    });
+    const ro = new ResizeObserver(es => { for (const e of es) setCSize({ w: e.contentRect.width, h: e.contentRect.height }); });
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
-  // ── Auto fit to view when prop is true ──
-  useEffect(() => {
-    if (fitToViewProp && containerSize.w > 0) {
-      performFitToView();
-    }
-  }, [fitToViewProp, containerSize.w, containerSize.h]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 자동 fit
+  useEffect(() => { if (fitProp && cSize.w > 0) fitToView(); }, [fitProp, cSize.w]); // eslint-disable-line
 
-  // ── Wheel zoom ──
+  // 휠 줌 (마우스 위치 기준)
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-
-    const handleWheel = (e: WheelEvent) => {
+    const h = (e: WheelEvent) => {
       e.preventDefault();
-      const rect = el.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-
-      const factor = e.deltaY > 0 ? 0.9 : 1.1;
-
-      setZoom((prevZoom) => {
-        const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, prevZoom * factor));
-        const ratio = newZoom / prevZoom;
-        setPan((prevPan) => ({
-          x: mouseX - ratio * (mouseX - prevPan.x),
-          y: mouseY - ratio * (mouseY - prevPan.y),
-        }));
-        return newZoom;
-      });
+      const r = el.getBoundingClientRect();
+      setCamera(prev => zoomAtPoint(prev.zoom, { x: prev.panX, y: prev.panY }, e.clientX - r.left, e.clientY - r.top, e.deltaY));
     };
-
-    el.addEventListener("wheel", handleWheel, { passive: false });
-    return () => el.removeEventListener("wheel", handleWheel);
+    el.addEventListener("wheel", h, { passive: false });
+    return () => el.removeEventListener("wheel", h);
   }, []);
 
-  // ── Keyboard: shift, space, delete ──
+  // 키보드
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === " ") {
-        e.preventDefault();
-        spaceDownRef.current = true;
+    const kd = (e: KeyboardEvent) => {
+      if (e.key === " ") { e.preventDefault(); spaceRef.current = true; }
+      if ((e.key === "Delete" || e.key === "Backspace") && !(e.target instanceof HTMLInputElement)) {
+        if (selConn && onDisconnect) { onDisconnect(selConn); setSelConn(null); }
+        const ids = Array.from(selSet);
+        if (ids.length && onNodeDelete) onNodeDelete(ids);
       }
-      if (
-        (e.key === "Delete" || e.key === "Backspace") &&
-        !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
-      ) {
-        // Delete selected connection
-        if (selectedConnection && onDisconnect) {
-          onDisconnect(selectedConnection);
-          setSelectedConnection(null);
-        }
-        // Delete selected nodes
-        const selectedArr = Array.from(
-          selectedIds ? new Set(selectedIds) : internalSelected
-        );
-        if (selectedArr.length > 0 && onNodeDelete) {
-          onNodeDelete(selectedArr);
-        }
-      }
-      if (e.key === "Escape") {
-        setConnecting(null);
-        setSelecting(null);
-        setSelectedConnection(null);
-      }
+      if (e.key === "Escape") { connRef.current = null; selectRef.current = null; setSelConn(null); kick(); }
     };
-    const handleKeyUp = (e: KeyboardEvent) => {
-      if (e.key === " ") {
-        spaceDownRef.current = false;
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
-    };
-  }, [selectedConnection, onDisconnect, onNodeDelete, selectedIds, internalSelected]);
+    const ku = (e: KeyboardEvent) => { if (e.key === " ") spaceRef.current = false; };
+    window.addEventListener("keydown", kd);
+    window.addEventListener("keyup", ku);
+    return () => { window.removeEventListener("keydown", kd); window.removeEventListener("keyup", ku); };
+  }, [selConn, selSet, onDisconnect, onNodeDelete, kick]);
 
-  // ── Mouse move (global while dragging/selecting/connecting/panning) ──
+  // 마우스 이동/업 (글로벌)
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (panning) {
-        setPan({
-          x: panning.startPanX + (e.clientX - panning.startMouseX),
-          y: panning.startPanY + (e.clientY - panning.startMouseY),
-        });
+    const mm = (e: MouseEvent) => {
+      // 팬
+      if (panRef.current) {
+        const p = panRef.current;
+        setCamera(prev => ({ ...prev, panX: p.px + e.clientX - p.sx, panY: p.py + e.clientY - p.sy }));
         return;
       }
-
-      if (dragging) {
-        const dx = (e.clientX - dragging.startMouseX) / zoom;
-        const dy = (e.clientY - dragging.startMouseY) / zoom;
-
-        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
-          setDragging((prev) => (prev ? { ...prev, didMove: true } : prev));
-        }
-
-        const nodesToMove = selectedSet.has(dragging.nodeId)
-          ? Array.from(selectedSet)
-          : [dragging.nodeId];
-
-        for (const nid of nodesToMove) {
-          const startPos = dragging.startPositions.get(nid);
-          if (startPos && onNodeMove) {
-            onNodeMove(nid, startPos.x + dx, startPos.y + dy);
+      // 노드 드래그
+      if (dragRef.current) {
+        const d = dragRef.current;
+        const dx = (e.clientX - d.sx) / camera.zoom;
+        const dy = (e.clientY - d.sy) / camera.zoom;
+        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) d.moved = true;
+        if (d.moved) {
+          const toMove = selSet.has(d.nodeId) ? Array.from(selSet) : [d.nodeId];
+          for (const nid of toMove) {
+            const sp = d.starts.get(nid);
+            if (sp && onNodeMove) onNodeMove(nid, Math.round(sp.x + dx), Math.round(sp.y + dy));
           }
         }
         return;
       }
-
-      if (selecting) {
-        const canvas = screenToCanvas(e.clientX, e.clientY);
-        setSelecting((prev) =>
-          prev ? { ...prev, endX: canvas.x, endY: canvas.y } : prev
-        );
+      // 셀렉트 박스
+      if (selectRef.current) {
+        const c = s2c(e.clientX, e.clientY);
+        selectRef.current.ex = c.x; selectRef.current.ey = c.y;
+        kick();
         return;
       }
-
-      if (connecting) {
-        const canvas = screenToCanvas(e.clientX, e.clientY);
-        setConnecting((prev) =>
-          prev ? { ...prev, mouseX: canvas.x, mouseY: canvas.y } : prev
-        );
-        return;
+      // 연결선 드래그
+      if (connRef.current) {
+        const c = s2c(e.clientX, e.clientY);
+        connRef.current.mx = c.x; connRef.current.my = c.y;
+        kick();
       }
     };
-
-    const handleMouseUp = () => {
-      if (panning) {
-        setPanning(null);
-        return;
-      }
-
-      if (dragging) {
-        setDragging(null);
-        return;
-      }
-
-      if (selecting) {
-        const { startX, startY, endX, endY } = selecting;
-        const left = Math.min(startX, endX);
-        const right = Math.max(startX, endX);
-        const top = Math.min(startY, endY);
-        const bottom = Math.max(startY, endY);
-
+    const mu = () => {
+      if (panRef.current) { panRef.current = null; return; }
+      if (dragRef.current) { dragRef.current = null; return; }
+      if (selectRef.current) {
+        const s = selectRef.current;
+        const l = Math.min(s.sx, s.ex), r = Math.max(s.sx, s.ex);
+        const t = Math.min(s.sy, s.ey), b = Math.max(s.sy, s.ey);
         const hits: string[] = [];
-        for (const node of nodes) {
-          const nw = node.width ?? NODE_DEFAULT_WIDTH;
-          const nh = NODE_APPROX_HEIGHT;
-          if (
-            node.x + nw > left &&
-            node.x < right &&
-            node.y + nh > top &&
-            node.y < bottom
-          ) {
-            hits.push(node.id);
-          }
+        for (const n of nodes) {
+          const w = n.width ?? NODE_W, h = nodeHeightsRef.current.get(n.id) ?? 60;
+          if (n.x + w > l && n.x < r && n.y + h > t && n.y < b) hits.push(n.id);
         }
-        updateSelection(hits);
-        setSelecting(null);
+        setSel(hits);
+        selectRef.current = null;
+        kick();
         return;
       }
-
-      if (connecting) {
-        setConnecting(null);
-        return;
-      }
+      if (connRef.current) { connRef.current = null; kick(); }
     };
+    window.addEventListener("mousemove", mm);
+    window.addEventListener("mouseup", mu);
+    return () => { window.removeEventListener("mousemove", mm); window.removeEventListener("mouseup", mu); };
+  }, [camera.zoom, selSet, nodes, onNodeMove, s2c, setSel, kick]);
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [
-    dragging,
-    selecting,
-    connecting,
-    panning,
-    zoom,
-    nodes,
-    selectedSet,
-    onNodeMove,
-    screenToCanvas,
-    updateSelection,
-  ]);
-
-  // ── Canvas mouse down ──
-  const handleCanvasMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      if (e.button !== 0 && e.button !== 1) return;
-
-      if (e.button === 1) {
-        e.preventDefault();
-        setPanning({
-          startMouseX: e.clientX,
-          startMouseY: e.clientY,
-          startPanX: pan.x,
-          startPanY: pan.y,
-        });
-        return;
-      }
-
-      if (spaceDownRef.current) {
-        setPanning({
-          startMouseX: e.clientX,
-          startMouseY: e.clientY,
-          startPanX: pan.x,
-          startPanY: pan.y,
-        });
-        return;
-      }
-
-      if (e.shiftKey && !readonly) {
-        const canvas = screenToCanvas(e.clientX, e.clientY);
-        setSelecting({
-          startX: canvas.x,
-          startY: canvas.y,
-          endX: canvas.x,
-          endY: canvas.y,
-        });
-        return;
-      }
-
-      updateSelection([]);
-      setSelectedConnection(null);
-    },
-    [pan, screenToCanvas, updateSelection, readonly]
-  );
-
-  // ── Node mouse down (drag) ──
-  const handleNodeMouseDown = useCallback(
-    (nodeId: string, e: React.MouseEvent) => {
-      e.stopPropagation();
-      if (e.button !== 0 || readonly) return;
-
-      if (e.shiftKey) {
-        const newSelected = new Set(selectedSet);
-        if (newSelected.has(nodeId)) {
-          newSelected.delete(nodeId);
-        } else {
-          newSelected.add(nodeId);
-        }
-        updateSelection(Array.from(newSelected));
-        return;
-      }
-
-      if (!selectedSet.has(nodeId)) {
-        updateSelection([nodeId]);
-      }
-
-      const willMove = selectedSet.has(nodeId)
-        ? Array.from(selectedSet)
-        : [nodeId];
-      const startPositions = new Map<string, { x: number; y: number }>();
-      for (const nid of willMove) {
-        const n = nodes.find((nd) => nd.id === nid);
-        if (n) startPositions.set(nid, { x: n.x, y: n.y });
-      }
-      const draggedNode = nodes.find((n) => n.id === nodeId);
-      if (draggedNode && !startPositions.has(nodeId)) {
-        startPositions.set(nodeId, { x: draggedNode.x, y: draggedNode.y });
-      }
-
-      setDragging({
-        nodeId,
-        startMouseX: e.clientX,
-        startMouseY: e.clientY,
-        startPositions,
-        didMove: false,
-      });
-    },
-    [nodes, selectedSet, updateSelection, readonly]
-  );
-
-  // ── Node click ──
-  const handleNodeClick = useCallback(
-    (nodeId: string) => {
-      if (dragging?.didMove) return;
-      onNodeClick?.(nodeId);
-    },
-    [dragging, onNodeClick]
-  );
-
-  // ── Port mouse down (connection) ──
-  const handlePortMouseDown = useCallback(
-    (nodeId: string, side: "input" | "output", portIndex: number, e: React.MouseEvent) => {
-      e.stopPropagation();
+  // 캔버스 마우스다운
+  const onCanvasDown = useCallback((e: React.MouseEvent) => {
+    if (e.button !== 0 && e.button !== 1) return;
+    if (e.button === 1 || spaceRef.current) {
       e.preventDefault();
-      if (readonly) return;
+      panRef.current = { sx: e.clientX, sy: e.clientY, px: camera.panX, py: camera.panY };
+      kick();
+      return;
+    }
+    if (e.shiftKey && !readonly) {
+      const c = s2c(e.clientX, e.clientY);
+      selectRef.current = { sx: c.x, sy: c.y, ex: c.x, ey: c.y };
+      kick();
+      return;
+    }
+    setSel([]);
+    setSelConn(null);
+  }, [camera, s2c, setSel, readonly, kick]);
 
-      if (connecting) {
-        if (connecting.fromId !== nodeId) {
-          const from =
-            connecting.side === "output" ? connecting.fromId : nodeId;
-          const to = connecting.side === "output" ? nodeId : connecting.fromId;
-          onConnect?.(from, to);
-        }
-        setConnecting(null);
-        return;
+  // 노드 마우스다운
+  const onNodeDown = useCallback((id: string, e: React.MouseEvent) => {
+    if (e.shiftKey) {
+      const ns = new Set(selSet);
+      ns.has(id) ? ns.delete(id) : ns.add(id);
+      setSel(Array.from(ns));
+      return;
+    }
+    if (!selSet.has(id)) setSel([id]);
+    const toMove = selSet.has(id) ? Array.from(selSet) : [id];
+    const starts = new Map<string, { x: number; y: number }>();
+    for (const nid of toMove) { const n = nodes.find(nd => nd.id === nid); if (n) starts.set(nid, { x: n.x, y: n.y }); }
+    const dn = nodes.find(n => n.id === id);
+    if (dn && !starts.has(id)) starts.set(id, { x: dn.x, y: dn.y });
+    dragRef.current = { nodeId: id, sx: e.clientX, sy: e.clientY, starts, moved: false };
+  }, [nodes, selSet, setSel]);
+
+  const onNodeClk = useCallback((id: string) => {
+    if (dragRef.current?.moved) return;
+    onNodeClick?.(id);
+  }, [onNodeClick]);
+
+  // 포트 마우스다운
+  const onPortDown = useCallback((id: string, side: "input" | "output", port: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    if (readonly) return;
+    if (connRef.current) {
+      if (connRef.current.fromId !== id) {
+        const from = connRef.current.side === "output" ? connRef.current.fromId : id;
+        const to = connRef.current.side === "output" ? id : connRef.current.fromId;
+        onConnect?.(from, to);
       }
+      connRef.current = null; kick();
+      return;
+    }
+    const c = s2c(e.clientX, e.clientY);
+    connRef.current = { fromId: id, side, port, mx: c.x, my: c.y };
+    kick();
+  }, [readonly, onConnect, s2c, kick]);
 
-      const canvas = screenToCanvas(e.clientX, e.clientY);
-      setConnecting({
-        fromId: nodeId,
-        side,
-        portIndex,
-        mouseX: canvas.x,
-        mouseY: canvas.y,
-      });
-    },
-    [connecting, onConnect, screenToCanvas, readonly]
-  );
+  // 셀렉트 박스 스타일
+  const selBox = selectRef.current;
+  const connDrag = connRef.current;
+  const connFrom = connDrag ? portPos(connDrag.fromId, connDrag.side, connDrag.port) : null;
 
-  // ── Get port position in canvas coords ──
-  const getPortPos = useCallback(
-    (nodeId: string, side: "input" | "output", portIndex: number = 0) => {
-      const node = nodes.find((n) => n.id === nodeId);
-      if (!node) return { x: 0, y: 0 };
-      const w = node.width ?? NODE_DEFAULT_WIDTH;
-      const totalPorts = side === "input" ? (node.inputs ?? 1) : (node.outputs ?? 1);
-      const nodeHeight = NODE_APPROX_HEIGHT;
-      const spacing = totalPorts > 1 ? nodeHeight / (totalPorts + 1) : nodeHeight / 2;
-      const y = node.y + spacing * (portIndex + 1);
-
-      if (side === "output") {
-        return { x: node.x + w, y };
-      }
-      return { x: node.x, y };
-    },
-    [nodes]
-  );
-
-  // ── Connection click ──
-  const handleConnectionClick = useCallback(
-    (connId: string) => {
-      setSelectedConnection(connId);
-    },
-    []
-  );
-
-  // ── Selection rect style ──
-  const selectionRectStyle = selecting
-    ? {
-        left: Math.min(selecting.startX, selecting.endX),
-        top: Math.min(selecting.startY, selecting.endY),
-        width: Math.abs(selecting.endX - selecting.startX),
-        height: Math.abs(selecting.endY - selecting.startY),
-      }
-    : undefined;
-
-  const connectingFromPos = connecting
-    ? getPortPos(connecting.fromId, connecting.side, connecting.portIndex)
-    : null;
-
-  const isPanning = panning !== null;
-  const isDragging = dragging !== null;
+  const isPanning = panRef.current !== null;
+  const isDragging = dragRef.current !== null;
 
   return (
-    <div
-      ref={containerRef}
-      className={cn(
-        "relative overflow-hidden bg-gray-950 w-full h-full",
-        className
-      )}
-      style={{
-        cursor: isPanning
-          ? "grabbing"
-          : spaceDownRef.current
-            ? "grab"
-            : isDragging
-              ? "grabbing"
-              : "default",
-        minHeight: 400,
-      }}
-      onMouseDown={handleCanvasMouseDown}
-      onContextMenu={(e) => e.preventDefault()}
-    >
-      {/* Grid background */}
-      {showGrid && <GridBackground zoom={zoom} pan={pan} />}
+    <div ref={containerRef}
+      className={cn("relative overflow-hidden bg-gray-950 w-full", className)}
+      style={{ minHeight: 400, cursor: isPanning ? "grabbing" : spaceRef.current ? "grab" : isDragging ? "grabbing" : "default" }}
+      onMouseDown={onCanvasDown}
+      onContextMenu={e => e.preventDefault()}>
 
-      {/* Zoom/Pan transform wrapper */}
-      <div
-        style={{
-          transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-          transformOrigin: "0 0",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: 0,
-          height: 0,
-        }}
-      >
-        {/* Group overlays (render behind nodes) */}
-        {Array.from(groupMap.entries()).map(([groupName, groupNodes], i) => (
-          <GroupOverlay
-            key={groupName}
-            groupName={groupName}
-            nodes={groupNodes}
-            colorIndex={i}
-          />
+      {showGrid && <Grid zoom={camera.zoom} pan={{ x: camera.panX, y: camera.panY }} />}
+
+      {/* 변환 레이어 */}
+      <div style={{ transform: `translate(${camera.panX}px,${camera.panY}px) scale(${camera.zoom})`, transformOrigin: "0 0", position: "absolute", top: 0, left: 0 }}>
+        {/* 그룹 오버레이 */}
+        {Array.from(groupMap.entries()).map(([name, gn], i) => (
+          <GrpOverlay key={name} name={name} nodes={gn} ci={i} heights={nodeHeightsRef} />
         ))}
 
-        {/* SVG layer for connections */}
-        <svg
-          className="absolute"
-          style={{
-            overflow: "visible",
-            top: 0,
-            left: 0,
-            width: 1,
-            height: 1,
-            pointerEvents: "none",
-          }}
-        >
+        {/* SVG 연결선 */}
+        <svg style={{ position: "absolute", top: 0, left: 0, width: 1, height: 1, overflow: "visible", pointerEvents: "none" }}>
           <g style={{ pointerEvents: "auto" }}>
-            {connections.map((conn) => {
-              const fromPos = getPortPos(conn.from, "output", conn.fromPort ?? 0);
-              const toPos = getPortPos(conn.to, "input", conn.toPort ?? 0);
-              return (
-                <ConnectionPath
-                  key={conn.id}
-                  from={fromPos}
-                  to={toPos}
-                  selected={selectedConnection === conn.id}
-                  onClick={() => handleConnectionClick(conn.id)}
-                  style={connectionStyle}
-                  animate={animateConnections}
-                  label={conn.label}
-                />
-              );
+            {connections.map(c => {
+              const fp = portPos(c.from, "output", c.fromPort ?? 0);
+              const tp = portPos(c.to, "input", c.toPort ?? 0);
+              return <ConnLine key={c.id} x1={fp.x} y1={fp.y} x2={tp.x} y2={tp.y}
+                selected={selConn === c.id} onClick={() => setSelConn(c.id)}
+                style={connectionStyle} animate={animateConnections} label={c.label} />;
             })}
           </g>
-
-          {/* Temporary connection line while dragging from port */}
-          {connecting && connectingFromPos && (
-            <ConnectionPath
-              from={connectingFromPos}
-              to={{ x: connecting.mouseX, y: connecting.mouseY }}
-              style={connectionStyle}
-            />
+          {connDrag && connFrom && (
+            <ConnLine x1={connFrom.x} y1={connFrom.y} x2={connDrag.mx} y2={connDrag.my} style={connectionStyle} />
           )}
         </svg>
 
-        {/* Selection rectangle */}
-        {selecting && selectionRectStyle && (
-          <div
-            className="absolute border-2 border-dashed border-pink-500 bg-pink-500/10 rounded-lg pointer-events-none"
-            style={selectionRectStyle}
-          />
+        {/* 셀렉트 박스 */}
+        {selBox && (
+          <div className="absolute border-2 border-dashed border-pink-500/60 bg-pink-500/10 rounded-lg pointer-events-none"
+            style={{ left: Math.min(selBox.sx, selBox.ex), top: Math.min(selBox.sy, selBox.ey),
+              width: Math.abs(selBox.ex - selBox.sx), height: Math.abs(selBox.ey - selBox.sy) }} />
         )}
 
-        {/* Nodes */}
-        {nodes.map((node) => (
-          <FlowNodeCard
-            key={node.id}
-            node={node}
-            isSelected={selectedSet.has(node.id)}
-            onMouseDown={(e) => handleNodeMouseDown(node.id, e)}
-            onPortMouseDown={handlePortMouseDown}
-            onNodeClick={handleNodeClick}
-            onDoubleClick={onNodeDoubleClick}
-            readonly={readonly}
-          />
+        {/* 노드 */}
+        {nodes.map(n => (
+          <NodeCard key={n.id} node={n} isSelected={selSet.has(n.id)}
+            nodeHeights={nodeHeightsRef} readonly={readonly}
+            onMouseDown={onNodeDown} onPortDown={onPortDown}
+            onClick={onNodeClk} onDblClick={onNodeDoubleClick} />
         ))}
       </div>
 
-      {/* Minimap */}
-      {showMinimap && (
-        <Minimap
-          nodes={nodes}
-          connections={connections}
-          zoom={zoom}
-          pan={pan}
-          containerWidth={containerSize.w}
-          containerHeight={containerSize.h}
-        />
-      )}
+      {/* 미니맵 */}
+      {showMinimap && <Minimap nodes={nodes} connections={connections} zoom={camera.zoom}
+        pan={{ x: camera.panX, y: camera.panY }} cw={cSize.w} ch={cSize.h} heights={nodeHeightsRef} />}
 
-      {/* Zoom controls (bottom-right) */}
+      {/* 줌 컨트롤 */}
       <div className="absolute bottom-4 right-4 flex flex-col gap-1 z-20">
-        <button
-          type="button"
-          onClick={() =>
-            setZoom((z) => Math.min(MAX_ZOOM, z * 1.2))
-          }
-          className="w-8 h-8 rounded-lg bg-gray-800 text-white flex items-center justify-center text-sm hover:bg-gray-700 transition-colors"
-        >
-          +
-        </button>
-        <button
-          type="button"
-          onClick={() => setZoom(1)}
-          className="w-8 h-8 rounded-lg bg-gray-800 text-white flex items-center justify-center text-[10px] hover:bg-gray-700 transition-colors"
-        >
-          {Math.round(zoom * 100)}%
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            setZoom((z) => Math.max(MIN_ZOOM, z * 0.8))
-          }
-          className="w-8 h-8 rounded-lg bg-gray-800 text-white flex items-center justify-center text-sm hover:bg-gray-700 transition-colors"
-        >
-          -
-        </button>
-        {/* Fit to View button */}
-        <button
-          type="button"
-          onClick={performFitToView}
-          className="w-8 h-8 rounded-lg bg-gray-800 text-white flex items-center justify-center text-[10px] hover:bg-gray-700 transition-colors"
-          title="Fit to View"
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="1" y="1" width="12" height="12" rx="2" />
-            <path d="M1 5H5V1M9 1V5H13M13 9H9V13M5 13V9H1" />
-          </svg>
+        <button type="button" onClick={() => setCamera(p => zoomAtPoint(p.zoom, { x: p.panX, y: p.panY }, cSize.w / 2, cSize.h / 2, -1))}
+          className="w-8 h-8 rounded-lg bg-gray-800/90 text-white flex items-center justify-center text-sm hover:bg-gray-700 transition-colors cursor-pointer">+</button>
+        <button type="button" onClick={() => setCamera({ zoom: 1, panX: 0, panY: 0 })}
+          className="w-8 h-8 rounded-lg bg-gray-800/90 text-white flex items-center justify-center text-[10px] hover:bg-gray-700 transition-colors cursor-pointer">{Math.round(camera.zoom * 100)}%</button>
+        <button type="button" onClick={() => setCamera(p => zoomAtPoint(p.zoom, { x: p.panX, y: p.panY }, cSize.w / 2, cSize.h / 2, 1))}
+          className="w-8 h-8 rounded-lg bg-gray-800/90 text-white flex items-center justify-center text-sm hover:bg-gray-700 transition-colors cursor-pointer">−</button>
+        <button type="button" onClick={fitToView} title="전체 보기"
+          className="w-8 h-8 rounded-lg bg-gray-800/90 text-white flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="1" y="1" width="12" height="12" rx="2" /><path d="M1 5H5V1M9 1V5H13M13 9H9V13M5 13V9H1" /></svg>
         </button>
       </div>
 
-      {/* Selection hint */}
-      <div className="absolute bottom-4 left-4 text-[10px] text-gray-500 z-20 select-none">
-        {readonly
-          ? "Scroll: Zoom | Middle-click / Space+Drag: Pan"
-          : "Shift+Drag: Select | Scroll: Zoom | Middle-click / Space+Drag: Pan | Delete: Remove"}
+      {/* 단축키 힌트 */}
+      <div className="absolute bottom-4 left-4 text-[10px] text-gray-600 z-20 select-none pointer-events-none">
+        {readonly ? "스크롤: 줌 · Space+드래그: 이동" : "Shift+드래그: 범위선택 · 스크롤: 줌 · Space+드래그: 이동 · Delete: 삭제"}
       </div>
     </div>
   );
