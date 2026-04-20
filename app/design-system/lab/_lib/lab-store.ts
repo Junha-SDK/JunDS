@@ -36,14 +36,22 @@ export const defaultTokens: TokenOverrides = {
 
 // ── Initial state ──
 
-const initialLabState: LabState = {
-  templateId: "",
-  regions: {},
-  tokens: { ...defaultTokens },
-  viewport: "desktop",
-  selectedRegionId: null,
-  selectedSlotId: null,
-};
+function buildInitialState(): LabState {
+  const template = layoutTemplateMap.get("dashboard");
+  if (!template) {
+    return { templateId: "", regions: {}, tokens: { ...defaultTokens }, viewport: "desktop", selectedRegionId: null, selectedSlotId: null };
+  }
+  const regions: Record<string, RegionState> = {};
+  for (const region of template.regions) {
+    regions[region.id] = {
+      style: { ...region.defaultStyle },
+      slots: region.defaultSlots.map((s) => ({ ...s, props: { ...s.props } })),
+    };
+  }
+  return { templateId: "dashboard", regions, tokens: { ...defaultTokens }, viewport: "desktop", selectedRegionId: null, selectedSlotId: null };
+}
+
+const initialLabState: LabState = buildInitialState();
 
 // ── Actions ──
 
