@@ -38,8 +38,31 @@ import { CommandPalette } from "@/ds/patterns/CommandPalette";
 import { FlowDiagram } from "@/ds/patterns/FlowDiagram";
 
 /* ------------------------------------------------------------------ */
-/*  Helper: noop for interactive components in preview mode            */
+/*  Live demo components (auto-playing interactive demos)              */
 /* ------------------------------------------------------------------ */
+import {
+  ButtonLiveDemo,
+  ToggleLiveDemo,
+  SwitchLiveDemo,
+  CheckboxLiveDemo,
+  ProgressBarLiveDemo,
+  StarRatingLiveDemo,
+  SpinnerLiveDemo,
+  AlertLiveDemo,
+  BadgeLiveDemo,
+  TabsLiveDemo,
+  AccordionLiveDemo,
+  StepperLiveDemo,
+  PaginationLiveDemo,
+  SkeletonLiveDemo,
+  TooltipLiveDemo,
+  TimelineLiveDemo,
+  SliderLiveDemo,
+  InputLiveDemo,
+  CardLiveDemo,
+  StatusDotLiveDemo,
+} from "./live-demos";
+
 const noop = () => {};
 
 export const showcaseItems: ShowcaseItem[] = [
@@ -61,25 +84,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Button size="sm" variant="danger">Danger</Button>
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-2 w-full">
-        <div className="flex flex-wrap gap-2">
-          <Button size="sm" variant="primary">Primary</Button>
-          <Button size="sm" variant="secondary">Secondary</Button>
-          <Button size="sm" variant="danger">Danger</Button>
-          <Button size="sm" variant="ghost">Ghost</Button>
-          <Button size="sm" variant="outline">Outline</Button>
-          <Button size="sm" variant="link">Link</Button>
-        </div>
-        <Divider label="크기 비교" />
-        <div className="flex items-center gap-2">
-          <Button size="xs">XS</Button>
-          <Button size="sm">SM</Button>
-          <Button size="md">MD</Button>
-          <Button size="lg">LG</Button>
-        </div>
-      </div>
-    ),
+    hoverDemo: <ButtonLiveDemo />,
   },
 
   // 2. Input
@@ -94,23 +99,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Input placeholder="텍스트를 입력하세요..." />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-3 w-full max-w-[260px]">
-        <Input placeholder="기본 입력" />
-        <Input placeholder="포커스 상태" className="border-primary shadow-[0_0_0_3px_var(--primary-glow)]" />
-        <Input placeholder="비활성화" disabled />
-        <Input placeholder="에러 상태" error />
-        <Input
-          placeholder="아이콘 포함"
-          leftSlot={
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M9.5 9.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          }
-        />
-      </div>
-    ),
+    hoverDemo: <InputLiveDemo />,
   },
 
   // 3. Textarea
@@ -151,32 +140,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Badge variant="outline">외곽선</Badge>
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-3 w-full">
-        <div className="flex flex-wrap gap-1.5">
-          <Badge variant="default">기본</Badge>
-          <Badge variant="primary">Primary</Badge>
-          <Badge variant="success">성공</Badge>
-          <Badge variant="warning">경고</Badge>
-          <Badge variant="danger">위험</Badge>
-          <Badge variant="info">정보</Badge>
-          <Badge variant="outline">외곽선</Badge>
-        </div>
-        <Divider label="크기 비교" />
-        <div className="flex items-center gap-2">
-          <Badge variant="primary" size="sm">SM</Badge>
-          <Badge variant="primary" size="md">MD</Badge>
-          <Badge variant="primary" size="lg">LG</Badge>
-        </div>
-        <Divider label="점 & 카운트" />
-        <div className="flex items-center gap-2">
-          <Badge variant="success" dot>온라인</Badge>
-          <Badge variant="danger" dot>긴급</Badge>
-          <Badge count={5} />
-          <Badge count={120} maxCount={99} />
-        </div>
-      </div>
-    ),
+    hoverDemo: <BadgeLiveDemo />,
   },
 
   // 5. Avatar
@@ -225,32 +189,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Spinner size="md" />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-4 w-full">
-        <div className="flex items-end gap-4">
-          <div className="flex flex-col items-center gap-1">
-            <Spinner size="sm" />
-            <span className="text-[10px] text-muted">SM</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <Spinner size="md" />
-            <span className="text-[10px] text-muted">MD</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <Spinner size="lg" />
-            <span className="text-[10px] text-muted">LG</span>
-          </div>
-        </div>
-        <Divider label="색상" />
-        <div className="flex items-center gap-4">
-          <Spinner size="md" color="primary" />
-          <Spinner size="md" color="muted" />
-          <span className="bg-gray-800 rounded-lg p-2">
-            <Spinner size="md" color="white" />
-          </span>
-        </div>
-      </div>
-    ),
+    hoverDemo: <SpinnerLiveDemo />,
   },
 
   // 7. Divider
@@ -296,14 +235,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Toggle checked={false} onChange={noop} />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-3 w-full">
-        <Toggle checked={true} onChange={noop} label="알림 활성화" />
-        <Toggle checked={false} onChange={noop} label="다크 모드" />
-        <Toggle checked={true} onChange={noop} size="sm" label="작은 토글" />
-        <Toggle checked={false} onChange={noop} disabled label="비활성화" />
-      </div>
-    ),
+    hoverDemo: <ToggleLiveDemo />,
   },
 
   // 9. Checkbox
@@ -319,14 +251,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Checkbox checked={false} onChange={noop} />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-2.5 w-full">
-        <Checkbox checked={true} onChange={noop} label="선택됨" />
-        <Checkbox checked={false} onChange={noop} label="미선택" />
-        <Checkbox indeterminate onChange={noop} label="부분 선택" />
-        <Checkbox checked={false} onChange={noop} label="비활성화" disabled />
-      </div>
-    ),
+    hoverDemo: <CheckboxLiveDemo />,
   },
 
   // 10. Tag
@@ -377,13 +302,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Switch checked={true} onChange={noop} />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-3 w-full">
-        <Switch checked={true} onChange={noop} size="sm" label="Small" />
-        <Switch checked={true} onChange={noop} size="md" label="Medium" />
-        <Switch checked={false} onChange={noop} size="lg" label="Large" />
-      </div>
-    ),
+    hoverDemo: <SwitchLiveDemo />,
   },
 
   // 12. StarRating
@@ -398,22 +317,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <StarRating value={4} readonly />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-3 w-full">
-        <div className="flex items-center gap-2">
-          <StarRating value={5} size="sm" readonly />
-          <span className="text-xs text-muted">5/5</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <StarRating value={3} size="md" readonly />
-          <span className="text-xs text-muted">3/5</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <StarRating value={2} size="lg" readonly />
-          <span className="text-xs text-muted">2/5</span>
-        </div>
-      </div>
-    ),
+    hoverDemo: <StarRatingLiveDemo />,
   },
 
   // 13. Kbd
@@ -469,16 +373,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <StatusDot status="info" />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-2 w-full">
-        <StatusDot status="success" label="온라인" />
-        <StatusDot status="warning" label="자리비움" />
-        <StatusDot status="danger" label="오프라인" />
-        <StatusDot status="info" label="접속 중" />
-        <StatusDot status="neutral" label="알 수 없음" />
-        <StatusDot status="pulse" label="실시간" />
-      </div>
-    ),
+    hoverDemo: <StatusDotLiveDemo />,
   },
 
   // 15. Slider
@@ -493,14 +388,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Slider value={60} />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-4 w-full max-w-[260px]">
-        <Slider value={30} showValue />
-        <Slider value={60} showValue color="success" />
-        <Slider value={85} showValue color="warning" />
-        <Slider value={95} showValue color="danger" />
-      </div>
-    ),
+    hoverDemo: <SliderLiveDemo />,
   },
 
   // 16. Label
@@ -548,30 +436,7 @@ export const showcaseItems: ShowcaseItem[] = [
         </Card.Body>
       </Card>
     ),
-    hoverDemo: (
-      <Card hoverable className="w-full max-w-[280px]">
-        <Card.Header>
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold">프로젝트 현황</h3>
-            <Badge variant="success" size="sm">진행 중</Badge>
-          </div>
-        </Card.Header>
-        <Card.Body>
-          <p className="text-xs text-muted mb-3">디자인 시스템 v2.0 개발이 진행되고 있습니다.</p>
-          <ProgressBar value={68} showLabel size="sm" />
-        </Card.Body>
-        <Card.Footer>
-          <div className="flex items-center justify-between">
-            <div className="flex -space-x-1.5">
-              <Avatar name="김준하" size="xs" />
-              <Avatar name="이서연" size="xs" />
-              <Avatar name="박지민" size="xs" />
-            </div>
-            <span className="text-[10px] text-muted">3명 참여</span>
-          </div>
-        </Card.Footer>
-      </Card>
-    ),
+    hoverDemo: <CardLiveDemo />,
   },
 
   // 18. Alert
@@ -586,14 +451,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Alert variant="info">업데이트가 있습니다.</Alert>
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-2 w-full max-w-[300px]">
-        <Alert variant="info" title="안내">새로운 기능이 추가되었습니다.</Alert>
-        <Alert variant="success" title="완료">저장이 완료되었습니다.</Alert>
-        <Alert variant="warning" title="주의">배포 전 확인하세요.</Alert>
-        <Alert variant="danger" title="오류">서버 연결이 끊어졌습니다.</Alert>
-      </div>
-    ),
+    hoverDemo: <AlertLiveDemo />,
   },
 
   // 19. Skeleton
@@ -608,19 +466,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Skeleton variant="text" lines={3} />
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full max-w-[260px] space-y-3">
-        <div className="flex items-center gap-3">
-          <Skeleton variant="circle" width={40} height={40} />
-          <div className="flex-1 space-y-2">
-            <Skeleton variant="text" width="60%" />
-            <Skeleton variant="text" width="40%" />
-          </div>
-        </div>
-        <Skeleton variant="rect" width="100%" height={80} />
-        <Skeleton variant="text" lines={2} />
-      </div>
-    ),
+    hoverDemo: <SkeletonLiveDemo />,
   },
 
   // 20. ProgressBar
@@ -635,14 +481,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <ProgressBar value={65} />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-3 w-full max-w-[280px]">
-        <ProgressBar value={25} showLabel label="업로드" variant="default" />
-        <ProgressBar value={50} showLabel label="빌드" variant="success" />
-        <ProgressBar value={75} showLabel label="테스트" variant="warning" />
-        <ProgressBar value={90} showLabel label="배포" variant="danger" size="lg" />
-      </div>
-    ),
+    hoverDemo: <ProgressBarLiveDemo />,
   },
 
   // 21. Tabs
@@ -664,42 +503,7 @@ export const showcaseItems: ShowcaseItem[] = [
         size="sm"
       />
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-4 w-full">
-        <Tabs
-          tabs={[
-            { value: "all", label: "전체", badge: 12 },
-            { value: "mine", label: "내 업무", badge: 3 },
-            { value: "done", label: "완료" },
-          ]}
-          value="all"
-          onChange={noop}
-          size="sm"
-        />
-        <Tabs
-          variant="pills"
-          tabs={[
-            { value: "a", label: "개요" },
-            { value: "b", label: "분석" },
-            { value: "c", label: "설정" },
-          ]}
-          value="a"
-          onChange={noop}
-          size="sm"
-        />
-        <Tabs
-          variant="segment"
-          tabs={[
-            { value: "d", label: "일간" },
-            { value: "e", label: "주간" },
-            { value: "f", label: "월간" },
-          ]}
-          value="d"
-          onChange={noop}
-          size="sm"
-        />
-      </div>
-    ),
+    hoverDemo: <TabsLiveDemo />,
   },
 
   // 22. Accordion
@@ -719,18 +523,7 @@ export const showcaseItems: ShowcaseItem[] = [
         />
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full max-w-[300px]">
-        <Accordion
-          items={[
-            { key: "1", title: "배송은 얼마나 걸리나요?", content: <p className="text-xs text-muted">보통 2~3일 소요됩니다.</p>, defaultOpen: true },
-            { key: "2", title: "교환/반품은 어떻게 하나요?", content: <p className="text-xs text-muted">마이페이지에서 신청하세요.</p> },
-            { key: "3", title: "해외 배송이 가능한가요?", content: <p className="text-xs text-muted">현재 국내만 가능합니다.</p> },
-          ]}
-          single
-        />
-      </div>
-    ),
+    hoverDemo: <AccordionLiveDemo />,
   },
 
   // 23. Breadcrumb
@@ -774,13 +567,7 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <Pagination page={1} totalPages={10} onChange={noop} />
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-3 w-full items-center">
-        <Pagination page={1} totalPages={10} onChange={noop} />
-        <Pagination page={5} totalPages={10} onChange={noop} />
-        <Pagination page={10} totalPages={10} onChange={noop} />
-      </div>
-    ),
+    hoverDemo: <PaginationLiveDemo />,
   },
 
   // 25. Timeline
@@ -799,17 +586,7 @@ export const showcaseItems: ShowcaseItem[] = [
         ]}
       />
     ),
-    hoverDemo: (
-      <Timeline
-        items={[
-          { key: "1", title: "업무 생성", description: "새 업무가 등록되었습니다", time: "09:00", color: "primary" },
-          { key: "2", title: "담당자 배정", description: "김준하에게 배정", time: "09:30", color: "primary" },
-          { key: "3", title: "진행 시작", description: "개발 착수", time: "10:00", color: "success" },
-          { key: "4", title: "리뷰 요청", description: "코드 리뷰를 요청했습니다", time: "15:00", color: "warning" },
-          { key: "5", title: "배포 완료", time: "17:00", color: "success" },
-        ]}
-      />
-    ),
+    hoverDemo: <TimelineLiveDemo />,
   },
 
   // 26. Stepper
@@ -831,19 +608,7 @@ export const showcaseItems: ShowcaseItem[] = [
         />
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full max-w-[320px]">
-        <Stepper
-          steps={[
-            { key: "1", title: "기본 정보", description: "이름, 이메일" },
-            { key: "2", title: "상세 설정", description: "알림, 권한" },
-            { key: "3", title: "검토", description: "최종 확인" },
-            { key: "4", title: "완료", description: "가입 완료" },
-          ]}
-          current={2}
-        />
-      </div>
-    ),
+    hoverDemo: <StepperLiveDemo />,
   },
 
   // 27. Tooltip
@@ -861,24 +626,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Button size="sm" variant="secondary">Hover me</Button>
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-4 items-center w-full">
-        <Tooltip content="위쪽 툴팁" position="top">
-          <Button size="sm" variant="outline">Top</Button>
-        </Tooltip>
-        <div className="flex items-center gap-6">
-          <Tooltip content="왼쪽" position="left">
-            <Button size="sm" variant="outline">Left</Button>
-          </Tooltip>
-          <Tooltip content="오른쪽" position="right">
-            <Button size="sm" variant="outline">Right</Button>
-          </Tooltip>
-        </div>
-        <Tooltip content="아래쪽 툴팁" position="bottom">
-          <Button size="sm" variant="outline">Bottom</Button>
-        </Tooltip>
-      </div>
-    ),
+    hoverDemo: <TooltipLiveDemo />,
   },
 
   // 28. EmptyState
