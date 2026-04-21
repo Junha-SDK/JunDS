@@ -114,6 +114,16 @@ import {
   EmptyStateLiveDemo,
   StatCardLiveDemo,
   FlowDiagramLiveDemo,
+  SelectLiveDemo,
+  ModalLiveDemo,
+  ToastLiveDemo,
+  DropdownLiveDemo,
+  DrawerLiveDemo,
+  ConfirmDialogLiveDemo,
+  CarouselLiveDemo,
+  TreeViewLiveDemo,
+  NavigationMenuLiveDemo,
+  SegmentedControlLiveDemo,
 } from "./live-demos";
 
 const noop = () => {};
@@ -1229,22 +1239,7 @@ export const showcaseItems: ShowcaseItem[] = [
         />
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-2 w-full max-w-[240px]">
-        <Label>프레임워크</Label>
-        <Select
-          options={[
-            { value: "react", label: "React" },
-            { value: "vue", label: "Vue" },
-            { value: "svelte", label: "Svelte" },
-            { value: "angular", label: "Angular" },
-          ]}
-          value="react"
-          onChange={noop}
-          placeholder="선택하세요"
-        />
-      </div>
-    ),
+    hoverDemo: <SelectLiveDemo />,
   },
 
   // 46. MultiSelect
@@ -1295,22 +1290,7 @@ export const showcaseItems: ShowcaseItem[] = [
         </div>
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full max-w-[300px] border border-border rounded-xl bg-white shadow-xl overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-          <h3 className="text-sm font-semibold text-foreground">프로젝트 설정</h3>
-          <span className="text-muted text-xs cursor-pointer">x</span>
-        </div>
-        <div className="p-4 flex flex-col gap-2">
-          <Label>프로젝트 이름</Label>
-          <Input placeholder="프로젝트명을 입력하세요" />
-        </div>
-        <div className="flex justify-end gap-2 px-4 py-3 border-t border-border bg-gray-50">
-          <Button size="sm" variant="secondary">취소</Button>
-          <Button size="sm">저장</Button>
-        </div>
-      </div>
-    ),
+    hoverDemo: <ModalLiveDemo />,
   },
 
   // 48. Toast (static representation)
@@ -1326,21 +1306,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <span className="text-xs font-medium text-foreground">저장되었습니다</span>
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-2 w-full max-w-[280px]">
-        {([
-          { type: "success", msg: "저장 완료", border: "border-success/20", bg: "bg-success-light", color: "#2f8f57", icon: "M5.5 9.5l2 2 5-5" },
-          { type: "error", msg: "오류가 발생했습니다", border: "border-danger/20", bg: "bg-danger-light", color: "#dc3f3f", icon: "M6.5 6.5l5 5M11.5 6.5l-5 5" },
-          { type: "warning", msg: "주의가 필요합니다", border: "border-warning/20", bg: "bg-warning-light", color: "#b7791f", icon: "M9 7v3.5M9 13h.01" },
-          { type: "info", msg: "새 업데이트가 있습니다", border: "border-primary/20", bg: "bg-primary-light", color: "#5b4cc7", icon: "M9 8v4.5M9 5.5h.01" },
-        ]).map((t) => (
-          <div key={t.type} className={`border ${t.border} ${t.bg} rounded-lg px-3 py-2 flex items-center gap-2`}>
-            <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke={t.color} strokeWidth="1.5" /><path d={t.icon} stroke={t.color} strokeWidth="1.5" strokeLinecap="round" /></svg>
-            <span className="text-xs font-medium text-foreground">{t.msg}</span>
-          </div>
-        ))}
-      </div>
-    ),
+    hoverDemo: <ToastLiveDemo />,
   },
 
   // 49. Dropdown
@@ -1355,20 +1321,7 @@ export const showcaseItems: ShowcaseItem[] = [
         <Button size="sm" variant="secondary">메뉴 열기</Button>
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-1 w-full max-w-[180px] border border-border rounded-lg bg-white shadow-lg py-1">
-        {[
-          { label: "편집", icon: "M11.5 2.5l2 2M7 7l5-5M3 13h2l8-8-2-2-8 8v2z" },
-          { label: "복사", icon: "M4 4h8v8H4zM8 4V2H2v8h2" },
-          { label: "삭제", icon: "M2 4h12M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6.5 7v4M9.5 7v4", danger: true },
-        ].map((item, i) => (
-          <div key={item.label} className={`px-3 py-1.5 text-xs flex items-center gap-2 cursor-pointer ${item.danger ? "text-red-600 hover:bg-red-50" : "text-foreground hover:bg-gray-50"} ${i === 0 ? "bg-gray-50" : ""}`}>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d={item.icon} stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            {item.label}
-          </div>
-        ))}
-      </div>
-    ),
+    hoverDemo: <DropdownLiveDemo />,
   },
 
   // 50. ConfirmDialog (static representation)
@@ -1388,21 +1341,7 @@ export const showcaseItems: ShowcaseItem[] = [
         </div>
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full max-w-[280px] border border-red-200 rounded-xl bg-white shadow-xl p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v5M8 10.5h.01" stroke="#dc3f3f" strokeWidth="1.5" strokeLinecap="round" /></svg>
-          </div>
-          <h3 className="text-sm font-semibold text-foreground">정말 삭제하시겠습니까?</h3>
-        </div>
-        <p className="text-xs text-muted mb-4 ml-10">이 프로젝트와 관련된 모든 데이터가 영구적으로 삭제됩니다.</p>
-        <div className="flex justify-end gap-2">
-          <Button size="sm" variant="secondary">취소</Button>
-          <Button size="sm" variant="danger">삭제</Button>
-        </div>
-      </div>
-    ),
+    hoverDemo: <ConfirmDialogLiveDemo />,
   },
 
   // 51. Drawer (static representation)
@@ -1420,20 +1359,7 @@ export const showcaseItems: ShowcaseItem[] = [
         </div>
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full max-w-[300px] h-[140px] border border-border rounded-lg bg-gray-50 relative overflow-hidden">
-        <div className="p-2 text-[10px] text-muted">메인 콘텐츠 영역</div>
-        <div className="absolute right-0 top-0 bottom-0 w-[55%] bg-white border-l border-border shadow-xl flex flex-col">
-          <div className="flex items-center justify-between px-3 py-2 border-b border-border">
-            <span className="text-xs font-semibold text-foreground">상세 패널</span>
-            <span className="text-[10px] text-muted cursor-pointer">x</span>
-          </div>
-          <div className="p-3 flex-1 overflow-hidden">
-            <div className="text-[10px] text-muted">드로어 패널의 내용이 여기에 표시됩니다.</div>
-          </div>
-        </div>
-      </div>
-    ),
+    hoverDemo: <DrawerLiveDemo />,
   },
 
   // 52. Combobox
@@ -1614,23 +1540,7 @@ export const showcaseItems: ShowcaseItem[] = [
         </div>
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full max-w-[280px] border border-red-200 rounded-xl bg-white shadow-xl p-4">
-        <div className="flex items-start gap-3 mb-3">
-          <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center shrink-0">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v6M10 13h.01" stroke="#dc3f3f" strokeWidth="2" strokeLinecap="round" /></svg>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">접근 권한 필요</h3>
-            <p className="text-xs text-muted mt-1">이 작업을 수행하려면 관리자 권한이 필요합니다.</p>
-          </div>
-        </div>
-        <div className="flex justify-end gap-2">
-          <Button size="sm" variant="secondary">취소</Button>
-          <Button size="sm" variant="danger">권한 요청</Button>
-        </div>
-      </div>
-    ),
+    hoverDemo: <ConfirmDialogLiveDemo />,
   },
 
   // 59. Sheet (static representation)
@@ -1678,20 +1588,7 @@ export const showcaseItems: ShowcaseItem[] = [
         ))}
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-1 w-full max-w-[240px]">
-        <div className="flex items-center gap-4 px-2">
-          {["홈", "제품", "문서", "팀"].map((label, i) => (
-            <span key={label} className={`text-xs font-medium cursor-pointer ${i === 1 ? "text-primary" : "text-muted hover:text-foreground"}`}>{label}</span>
-          ))}
-        </div>
-        <div className="border border-border rounded-lg bg-white shadow-lg p-2 mt-1 grid grid-cols-2 gap-1">
-          {["대시보드", "분석", "리포트", "설정"].map((item) => (
-            <div key={item} className="px-2 py-1.5 text-[10px] text-foreground rounded hover:bg-gray-50 cursor-pointer">{item}</div>
-          ))}
-        </div>
-      </div>
-    ),
+    hoverDemo: <NavigationMenuLiveDemo />,
   },
 
   // 61. Menubar (static representation)
@@ -1746,22 +1643,7 @@ export const showcaseItems: ShowcaseItem[] = [
         </div>
       </div>
     ),
-    hoverDemo: (
-      <div className="flex flex-col items-center gap-2 w-full max-w-[260px]">
-        <div className="w-full flex items-center gap-2">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-muted shrink-0 cursor-pointer"><path d="M10 3l-5 5 5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-          <div className="flex-1 h-16 bg-gradient-to-r from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
-            <span className="text-xs font-medium text-purple-600">카드 2 / 3</span>
-          </div>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-muted shrink-0 cursor-pointer"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-        </div>
-        <div className="flex items-center gap-1">
-          {[0, 1, 2].map((i) => (
-            <div key={i} className={`w-2 h-2 rounded-full transition-all ${i === 1 ? "bg-primary" : "bg-gray-300"}`} />
-          ))}
-        </div>
-      </div>
-    ),
+    hoverDemo: <CarouselLiveDemo />,
   },
 
   // 63. Resizable
@@ -1813,29 +1695,7 @@ export const showcaseItems: ShowcaseItem[] = [
         />
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full max-w-[220px]">
-        <TreeView
-          nodes={[
-            { key: "src", label: "src", children: [
-              { key: "components", label: "components", children: [
-                { key: "button", label: "Button.tsx" },
-                { key: "input", label: "Input.tsx" },
-              ]},
-              { key: "hooks", label: "hooks", children: [
-                { key: "use-form", label: "useForm.ts" },
-              ]},
-              { key: "app", label: "App.tsx" },
-            ]},
-            { key: "pkg", label: "package.json" },
-            { key: "tsconfig", label: "tsconfig.json" },
-          ]}
-          defaultExpanded={["src", "components"]}
-          selected="button"
-          onSelect={noop}
-        />
-      </div>
-    ),
+    hoverDemo: <TreeViewLiveDemo />,
   },
 
   // 65. Transfer
@@ -1933,30 +1793,7 @@ export const showcaseItems: ShowcaseItem[] = [
         size="sm"
       />
     ),
-    hoverDemo: (
-      <div className="flex flex-col gap-3 w-full">
-        <SegmentedControl
-          options={[
-            { key: "day", label: "일" },
-            { key: "week", label: "주" },
-            { key: "month", label: "월" },
-          ]}
-          value="week"
-          onChange={noop}
-          size="sm"
-        />
-        <SegmentedControl
-          options={[
-            { key: "all", label: "전체" },
-            { key: "active", label: "활성" },
-            { key: "archived", label: "보관" },
-          ]}
-          value="all"
-          onChange={noop}
-          size="md"
-        />
-      </div>
-    ),
+    hoverDemo: <SegmentedControlLiveDemo />,
   },
 
   // 68. ColorPicker

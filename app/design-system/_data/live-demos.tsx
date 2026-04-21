@@ -628,3 +628,246 @@ export function FlowDiagramLiveDemo() {
     </div>
   );
 }
+
+/* ─── 24. SelectLiveDemo ──────────────────── */
+export function SelectLiveDemo() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const id = setInterval(() => setOpen(p => !p), 1500);
+    return () => clearInterval(id);
+  }, []);
+  const options = ["React", "Vue", "Svelte", "Angular"];
+  const [sel, setSel] = useState(0);
+  useEffect(() => {
+    if (!open) setSel(p => (p + 1) % options.length);
+  }, [open]);
+  return (
+    <div className="w-full max-w-[180px] space-y-1">
+      <div className={cn("border border-border rounded-lg px-3 py-2 text-xs bg-card flex justify-between items-center transition-all", open && "border-primary ring-2 ring-primary/20")}>
+        <span>{options[sel]}</span>
+        <svg width="10" height="10" viewBox="0 0 10 10" className={cn("transition-transform", open && "rotate-180")}><path d="M2 3l3 4 3-4" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
+      </div>
+      <div className={cn("border border-border rounded-lg bg-card shadow-lg overflow-hidden transition-all duration-300", open ? "max-h-[120px] opacity-100" : "max-h-0 opacity-0")}>
+        {options.map((o, i) => (
+          <div key={o} className={cn("px-3 py-1.5 text-xs transition-colors", i === sel ? "bg-primary/10 text-primary font-medium" : "text-foreground")}>{o}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── 25. ModalLiveDemo ───────────────────── */
+export function ModalLiveDemo() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const id = setInterval(() => setShow(p => !p), 2000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className="relative w-full h-full flex items-center justify-center">
+      <div className={cn("absolute inset-0 bg-black/20 rounded-lg transition-opacity duration-300", show ? "opacity-100" : "opacity-0")} />
+      <div className={cn("relative bg-card border border-border rounded-xl shadow-2xl p-3 w-[180px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]", show ? "scale-100 opacity-100" : "scale-90 opacity-0")}>
+        <div className="text-xs font-bold mb-1">삭제 확인</div>
+        <div className="text-[10px] text-muted mb-2">이 작업은 되돌릴 수 없습니다.</div>
+        <div className="flex gap-1.5 justify-end">
+          <div className="px-2 py-1 text-[10px] rounded-md bg-gray-100 text-foreground">취소</div>
+          <div className="px-2 py-1 text-[10px] rounded-md bg-danger text-white">삭제</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── 26. ToastLiveDemo ───────────────────── */
+export function ToastLiveDemo() {
+  const [idx, setIdx] = useState(-1);
+  useEffect(() => {
+    const id = setInterval(() => setIdx(p => (p + 1) % 5), 1200);
+    return () => clearInterval(id);
+  }, []);
+  const toasts = [
+    { bg: "bg-success/10 border-success/30", icon: "✓", text: "저장 완료", color: "text-success" },
+    { bg: "bg-danger/10 border-danger/30", icon: "✕", text: "오류 발생", color: "text-danger" },
+    { bg: "bg-warning/10 border-warning/30", icon: "⚠", text: "주의 필요", color: "text-warning" },
+    { bg: "bg-blue-50 border-blue-200", icon: "ℹ", text: "업데이트 있음", color: "text-blue-600" },
+  ];
+  return (
+    <div className="flex flex-col gap-1.5 w-full max-w-[200px]">
+      {toasts.map((t, i) => (
+        <div key={i} className={cn("flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs transition-all duration-300", t.bg, i <= idx ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4")}>
+          <span className={cn("text-sm", t.color)}>{t.icon}</span>
+          <span className="text-foreground">{t.text}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── 27. DrawerLiveDemo ──────────────────── */
+export function DrawerLiveDemo() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const id = setInterval(() => setOpen(p => !p), 2000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className="relative w-full h-[120px] bg-gray-50 rounded-lg overflow-hidden border border-border">
+      <div className="p-2 text-[10px] text-muted">메인 콘텐츠</div>
+      <div className={cn("absolute top-0 right-0 h-full w-[120px] bg-card border-l border-border shadow-xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] p-2", open ? "translate-x-0" : "translate-x-full")}>
+        <div className="text-[10px] font-bold mb-1">필터</div>
+        <div className="space-y-1">
+          <div className="h-4 rounded bg-gray-100"></div>
+          <div className="h-4 rounded bg-gray-100"></div>
+          <div className="h-4 rounded bg-primary/10"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── 28. CarouselLiveDemo ────────────────── */
+export function CarouselLiveDemo() {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setIdx(p => (p + 1) % 3), 1500);
+    return () => clearInterval(id);
+  }, []);
+  const colors = ["bg-blue-100", "bg-emerald-100", "bg-amber-100"];
+  return (
+    <div className="w-full max-w-[200px]">
+      <div className="relative h-[80px] rounded-lg overflow-hidden">
+        {colors.map((c, i) => (
+          <div key={i} className={cn("absolute inset-0 flex items-center justify-center text-xs font-bold transition-all duration-500", c, i === idx ? "opacity-100 scale-100" : "opacity-0 scale-95")}>
+            슬라이드 {i + 1}
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-center gap-1 mt-2">
+        {[0,1,2].map(i => (
+          <div key={i} className={cn("w-1.5 h-1.5 rounded-full transition-all duration-300", i === idx ? "bg-primary w-4" : "bg-gray-300")} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── 29. TreeViewLiveDemo ────────────────── */
+export function TreeViewLiveDemo() {
+  const [expanded, setExpanded] = useState(new Set(["src"]));
+  useEffect(() => {
+    const sequence = [new Set(["src"]), new Set(["src","components"]), new Set(["src","components","hooks"]), new Set<string>()];
+    let i = 0;
+    const id = setInterval(() => { i = (i + 1) % sequence.length; setExpanded(sequence[i]); }, 1200);
+    return () => clearInterval(id);
+  }, []);
+  const items = [
+    { id: "src", label: "src/", depth: 0, has: true },
+    { id: "components", label: "components/", depth: 1, has: true, parent: "src" },
+    { id: "button", label: "Button.tsx", depth: 2, has: false, parent: "components" },
+    { id: "input", label: "Input.tsx", depth: 2, has: false, parent: "components" },
+    { id: "hooks", label: "hooks/", depth: 1, has: true, parent: "src" },
+    { id: "useform", label: "useForm.ts", depth: 2, has: false, parent: "hooks" },
+  ];
+  const visible = items.filter(it => {
+    if (it.depth === 0) return true;
+    if (it.depth === 1) return expanded.has("src");
+    if (it.parent === "components") return expanded.has("components");
+    if (it.parent === "hooks") return expanded.has("hooks");
+    return false;
+  });
+  return (
+    <div className="text-xs space-y-0.5 w-full max-w-[180px]">
+      {visible.map(it => (
+        <div key={it.id} className={cn("flex items-center gap-1 py-0.5 transition-all duration-200")} style={{ paddingLeft: it.depth * 12 }}>
+          <span className="text-muted">{it.has ? (expanded.has(it.id) ? "▼" : "▶") : "·"}</span>
+          <span className={cn(it.has ? "font-medium text-foreground" : "text-muted")}>{it.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── 30. DropdownLiveDemo ────────────────── */
+export function DropdownLiveDemo() {
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setStep(p => (p + 1) % 6), 600);
+    return () => clearInterval(id);
+  }, []);
+  const open = step >= 1 && step <= 4;
+  const highlight = open ? step - 1 : -1;
+  const items = ["수정", "복제", "삭제"];
+  return (
+    <div className="space-y-1 w-full max-w-[140px]">
+      <div className={cn("px-3 py-1.5 rounded-lg bg-card border text-xs flex items-center justify-between transition-all", open ? "border-primary" : "border-border")}>
+        <span>작업</span>
+        <svg width="8" height="8" viewBox="0 0 8 8" className={cn("transition-transform", open && "rotate-180")}><path d="M1 2.5l3 3 3-3" stroke="currentColor" strokeWidth="1" fill="none"/></svg>
+      </div>
+      <div className={cn("border border-border rounded-lg bg-card shadow-lg overflow-hidden transition-all duration-300", open ? "max-h-[80px] opacity-100" : "max-h-0 opacity-0")}>
+        {items.map((it, i) => (
+          <div key={it} className={cn("px-3 py-1.5 text-xs transition-colors duration-150", i === highlight ? "bg-primary/10 text-primary" : "", i === 2 ? "text-danger" : "")}>{it}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── 31. ConfirmDialogLiveDemo ───────────── */
+export function ConfirmDialogLiveDemo() {
+  const [phase, setPhase] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setPhase(p => (p + 1) % 5), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const show = phase >= 1 && phase <= 3;
+  return (
+    <div className="relative w-full h-[110px] flex items-center justify-center">
+      <div className={cn("absolute inset-0 bg-black/15 rounded-lg transition-opacity duration-300", show ? "opacity-100" : "opacity-0")} />
+      <div className={cn("relative bg-card border border-border rounded-xl shadow-xl p-3 w-[170px] transition-all duration-400", show ? "scale-100 opacity-100" : "scale-95 opacity-0")}>
+        <div className="flex items-center gap-1.5 mb-1">
+          <span className="text-danger text-sm">⚠</span>
+          <span className="text-xs font-bold">삭제하시겠습니까?</span>
+        </div>
+        <div className="text-[10px] text-muted mb-2">이 작업은 되돌릴 수 없습니다.</div>
+        <div className="flex gap-1.5 justify-end">
+          <div className={cn("px-2 py-1 text-[10px] rounded-md border transition-all", phase === 2 ? "bg-gray-100 border-foreground/20" : "border-border")}>취소</div>
+          <div className={cn("px-2 py-1 text-[10px] rounded-md text-white transition-all", phase === 3 ? "bg-danger scale-105" : "bg-danger/80")}>삭제</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── 32. NavigationMenuLiveDemo ──────────── */
+export function NavigationMenuLiveDemo() {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setActive(p => (p + 1) % 4), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const items = ["홈", "제품", "문서", "블로그"];
+  return (
+    <div className="flex gap-1 bg-card border border-border rounded-lg p-1">
+      {items.map((it, i) => (
+        <div key={it} className={cn("px-2.5 py-1 rounded-md text-[10px] font-medium transition-all duration-300", i === active ? "bg-primary/10 text-primary" : "text-muted")}>{it}</div>
+      ))}
+    </div>
+  );
+}
+
+/* ─── 33. SegmentedControlLiveDemo ────────── */
+export function SegmentedControlLiveDemo() {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setIdx(p => (p + 1) % 3), 1200);
+    return () => clearInterval(id);
+  }, []);
+  const items = ["일간", "주간", "월간"];
+  return (
+    <div className="flex rounded-xl bg-gray-100 p-1 gap-0.5 w-full max-w-[180px]">
+      {items.map((it, i) => (
+        <div key={it} className={cn("flex-1 text-center py-1.5 text-[10px] font-medium rounded-lg transition-all duration-300", i === idx ? "bg-white shadow-sm text-foreground" : "text-muted")}>{it}</div>
+      ))}
+    </div>
+  );
+}
