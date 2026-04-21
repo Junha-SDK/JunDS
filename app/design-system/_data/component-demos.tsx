@@ -126,6 +126,7 @@ import {
   TreeViewLiveDemo,
   NavigationMenuLiveDemo,
   SegmentedControlLiveDemo,
+  CalendarLiveDemo,
 } from "./live-demos";
 
 const noop = () => {};
@@ -765,12 +766,7 @@ export const showcaseItems: ShowcaseItem[] = [
         </div>
       </div>
     ),
-    hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[320px]"><DsCalendar events={[{ id: "1", date: new Date().toISOString().slice(0, 10), label: "오늘 일정", color: "bg-primary" }]} /></div>,
-        <div key="2" className="w-full max-w-[320px]"><DsCalendar events={[{ id: "1", date: new Date().toISOString().slice(0, 10), label: "회의", color: "bg-green-500" }, { id: "2", date: new Date().toISOString().slice(0, 10), label: "마감", color: "bg-red-500" }]} /></div>,
-      ]} />
-    ),
+    hoverDemo: <CalendarLiveDemo />,
   },
 
   // 33. CommandPalette

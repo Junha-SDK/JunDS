@@ -629,6 +629,114 @@ export function FlowDiagramLiveDemo() {
   );
 }
 
+/* ─── 24. CalendarLiveDemo ───────────────── */
+const calEvents = [
+  { color: "#5b4cc7", label: "디자인 리뷰", time: "10:00" },
+  { color: "#22c55e", label: "팀 미팅", time: "14:00" },
+  { color: "#ef4444", label: "배포", time: "" },
+  { color: "#f59e0b", label: "스프린트 회고", time: "16:00" },
+  { color: "#3b82f6", label: "코드 리뷰", time: "11:00" },
+];
+
+export function CalendarLiveDemo() {
+  const [step, setStep] = useState(0);
+  const [selected, setSelected] = useState(-1);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setStep((p) => {
+        const next = (p + 1) % 8;
+        // 0-4: 이벤트 하나씩 등록, 5: 날짜 선택, 6: 다른 날짜, 7: 리셋
+        if (next <= 4) setSelected(-1);
+        else if (next === 5) setSelected(2);
+        else if (next === 6) setSelected(4);
+        else setSelected(-1);
+        return next;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const visibleEvents = calEvents.slice(0, Math.min(step, 5));
+  const days = [14, 15, 16, 17, 18, 19, 20];
+  const weekdays = ["월", "화", "수", "목", "금", "토", "일"];
+
+  return (
+    <div className="w-full max-w-[240px]">
+      {/* 헤더 */}
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-xs font-bold text-foreground">2026년 4월</span>
+        <div className="flex gap-0.5">
+          <div className="w-4 h-4 rounded flex items-center justify-center text-muted text-[10px]">◀</div>
+          <div className="w-4 h-4 rounded flex items-center justify-center text-muted text-[10px]">▶</div>
+        </div>
+      </div>
+
+      {/* 요일 헤더 */}
+      <div className="grid grid-cols-7 gap-px mb-1">
+        {weekdays.map((d) => (
+          <div key={d} className="text-[9px] text-center text-muted font-medium">{d}</div>
+        ))}
+      </div>
+
+      {/* 날짜 그리드 */}
+      <div className="grid grid-cols-7 gap-px">
+        {days.map((d, i) => {
+          const isSelected = i === selected;
+          const dayEvents = i === 0 ? visibleEvents.slice(0, 2)
+            : i === 2 ? visibleEvents.slice(2, 3)
+            : i === 3 ? visibleEvents.slice(3, 4)
+            : i === 4 ? visibleEvents.slice(4, 5)
+            : [];
+
+          return (
+            <div
+              key={d}
+              className={cn(
+                "rounded-lg p-0.5 min-h-[44px] transition-all duration-300",
+                isSelected ? "bg-primary/10 ring-1 ring-primary" : "bg-card",
+              )}
+            >
+              <div className={cn(
+                "text-[10px] font-medium mb-0.5 w-4 h-4 flex items-center justify-center rounded-full mx-auto transition-all duration-300",
+                d === 17 && "bg-primary text-white",
+                isSelected && d !== 17 && "text-primary font-bold",
+                d !== 17 && !isSelected && "text-foreground",
+              )}>
+                {d}
+              </div>
+              <div className="space-y-0.5">
+                {dayEvents.map((ev, j) => (
+                  <div
+                    key={j}
+                    className="text-[7px] truncate rounded px-0.5 py-px font-medium animate-fade-in"
+                    style={{
+                      backgroundColor: `${ev.color}15`,
+                      color: ev.color,
+                      animationDelay: `${j * 100}ms`,
+                    }}
+                  >
+                    {ev.time && <span className="opacity-60">{ev.time} </span>}
+                    {ev.label}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* 하단 안내 */}
+      <div className="mt-2 text-[9px] text-muted text-center transition-opacity duration-300">
+        {step <= 4 && `일정 등록 중... (${Math.min(step, 5)}/5)`}
+        {step === 5 && "📅 날짜를 클릭하여 선택"}
+        {step === 6 && "📅 다른 날짜 선택"}
+        {step === 7 && "✓ 완료 — 반복"}
+      </div>
+    </div>
+  );
+}
+
 /* ─── 24. SelectLiveDemo ──────────────────── */
 export function SelectLiveDemo() {
   const [open, setOpen] = useState(false);
