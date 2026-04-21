@@ -10,15 +10,26 @@ interface ToastItem {
   id: number;
   type: ToastType;
   message: string;
+  content?: ReactNode;
+  action?: { label: string; onClick: () => void };
+  blocking?: boolean;
   duration: number;
+}
+
+interface ToastOptions {
+  action?: { label: string; onClick: () => void };
+  blocking?: boolean;
+  duration?: number;
 }
 
 interface ToastContextValue {
   toast: (message: string, type?: ToastType, duration?: number) => void;
-  success: (message: string) => void;
-  error: (message: string) => void;
-  warning: (message: string) => void;
-  info: (message: string) => void;
+  success: (message: string, options?: ToastOptions) => void;
+  error: (message: string, options?: ToastOptions) => void;
+  warning: (message: string, options?: ToastOptions) => void;
+  info: (message: string, options?: ToastOptions) => void;
+  custom: (content: ReactNode, options?: { blocking?: boolean; duration?: number }) => void;
+  confirm: (message: string, onConfirm: () => void, onCancel?: () => void) => void;
 }
 
 const ToastContext = createContext<ToastContextValue | null>(null);
@@ -85,9 +96,10 @@ export interface ToastProviderProps {
 export function DsToastProvider({ children, position = "bottom-right", maxToasts = 5 }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-  const addToast = useCallback((message: string, type: ToastType = "info", duration = 3500) => {
+  const addToast = useCallback((message: string, type: ToastType = "info", duration = 3500, extra?: Partial<Pick<ToastItem, "content" | "action" | "blocking">>) => {
     const id = nextId++;
-    setToasts((prev) => [...prev.slice(-(maxToasts - 1)), { id, type, message, duration }]);
+    const blocking = extra?.blocking ?? false;
+    setToasts((prev) => [...prev.slice(-(maxToasts - 1)), { id, type, message, duration, content: extra?.content, action: extra?.action, blocking }]);
   }, [maxToasts]);
 
   const remove = useCallback((id: number) => {
@@ -96,19 +108,48 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
 
   const ctx: ToastContextValue = {
     toast: addToast,
-    success: (msg) => addToast(msg, "success"),
-    error: (msg) => addToast(msg, "error"),
-    warning: (msg) => addToast(msg, "warning"),
-    info: (msg) => addToast(msg, "info"),
+    success: (msg, opts) => addToast(msg, "success", opts?.duration ?? 3500, opts),
+    error: (msg, opts) => addToast(msg, "error", opts?.duration ?? 3500, opts),
+    warning: (msg, opts) => addToast(msg, "warning", opts?.duration ?? 3500, opts),
+    info: (msg, opts) => addToast(msg, "info", opts?.duration ?? 3500, opts),
+    custom: (content, opts) => addToast("", "info", opts?.duration ?? 3500, { content, blocking: opts?.blocking }),
+    confirm: (message, onConfirm, onCancel) => addToast(message, "info", 0, {
+      blocking: true,
+      action: undefined,
+      content: (
+        <div className="flex flex-col gap-2 w-full">
+          <p className="text-sm text-foreground">{message}</p>
+          <div className="flex gap-2 justify-end">
+            {onCancel && (
+              <button
+                onClick={() => { onCancel(); remove(nextId - 1); }}
+                className="px-3 py-1 text-xs rounded-lg border border-border text-muted hover:text-foreground transition-colors cursor-pointer"
+              >
+                취소
+              </button>
+            )}
+            <button
+              onClick={() => { onConfirm(); remove(nextId - 1); }}
+              className="px-3 py-1 text-xs rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors cursor-pointer"
+            >
+              확인
+            </button>
+          </div>
+        </div>
+      ),
+    }),
   };
 
   return (
     <ToastContext.Provider value={ctx}>
       {children}
       <Portal>
+        {toasts.some((t) => t.blocking) && (
+          <div className="fixed inset-0 z-69 bg-black/10 pointer-events-auto" />
+        )}
         <div aria-live="polite" className={cn("fixed z-70 flex flex-col gap-2 pointer-events-none", positionStyles[position])}>
           {toasts.map((t) => (
-            <ToastItem key={t.id} item={t} onRemove={remove} />
+            <SingleToast key={t.id} item={t} onRemove={remove} />
           ))}
         </div>
       </Portal>
@@ -116,10 +157,20 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
   );
 }
 
-function ToastItem({ item, onRemove }: { item: ToastItem; onRemove: (id: number) => void }) {
+function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: number) => void }) {
   useEffect(() => {
+    if (item.blocking || item.duration === 0) return;
     const timer = setTimeout(() => onRemove(item.id), item.duration);
     return () => clearTimeout(timer);
+  }, [item, onRemove]);
+
+  useEffect(() => {
+    if (item.blocking) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onRemove(item.id);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, [item, onRemove]);
 
   return (
@@ -132,16 +183,32 @@ function ToastItem({ item, onRemove }: { item: ToastItem; onRemove: (id: number)
         typeStyles[item.type],
       )}
     >
-      <span className="shrink-0">{icons[item.type]}</span>
-      <p className="text-sm text-foreground flex-1">{item.message}</p>
-      <button
-        onClick={() => onRemove(item.id)}
-        className="text-muted hover:text-foreground transition-colors shrink-0 cursor-pointer"
-      >
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      </button>
+      {item.content ? (
+        <div className="flex-1">{item.content}</div>
+      ) : (
+        <>
+          <span className="shrink-0">{icons[item.type]}</span>
+          <p className="text-sm text-foreground flex-1">{item.message}</p>
+          {item.action && (
+            <button
+              onClick={() => { item.action!.onClick(); onRemove(item.id); }}
+              className="px-2 py-1 text-xs font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors shrink-0 cursor-pointer"
+            >
+              {item.action.label}
+            </button>
+          )}
+        </>
+      )}
+      {!item.blocking && (
+        <button
+          onClick={() => onRemove(item.id)}
+          className="text-muted hover:text-foreground transition-colors shrink-0 cursor-pointer"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

@@ -16,6 +16,71 @@ function ToastDemo() {
   );
 }
 
+function ActionDemo() {
+  const { success, warning } = useDsToast();
+  return (
+    <div className="flex gap-3 flex-wrap">
+      <Button
+        variant="secondary"
+        onClick={() =>
+          success("파일이 삭제되었습니다.", {
+            action: { label: "되돌리기", onClick: () => alert("되돌리기 완료!") },
+          })
+        }
+      >
+        삭제 + 되돌리기
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={() =>
+          warning("새 업데이트가 있습니다.", {
+            action: { label: "업데이트", onClick: () => alert("업데이트 시작!") },
+            duration: 6000,
+          })
+        }
+      >
+        업데이트 알림
+      </Button>
+    </div>
+  );
+}
+
+function CustomContentDemo() {
+  const { custom, confirm } = useDsToast();
+  return (
+    <div className="flex gap-3 flex-wrap">
+      <Button
+        variant="secondary"
+        onClick={() =>
+          custom(
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-lg">🎉</div>
+              <div>
+                <p className="text-sm font-medium text-foreground">축하합니다!</p>
+                <p className="text-xs text-muted">레벨이 올랐습니다.</p>
+              </div>
+            </div>,
+          )
+        }
+      >
+        커스텀 토스트
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={() =>
+          confirm(
+            "정말 삭제하시겠습니까?",
+            () => alert("삭제됨!"),
+            () => alert("취소됨!"),
+          )
+        }
+      >
+        확인 토스트
+      </Button>
+    </div>
+  );
+}
+
 export default function ToastPage() {
   return (
     <DsToastProvider position="bottom-right">
@@ -31,6 +96,18 @@ export default function ToastPage() {
         <Section title="Interactive Demo">
           <Preview>
             <ToastDemo />
+          </Preview>
+        </Section>
+
+        <Section title="액션 버튼">
+          <Preview>
+            <ActionDemo />
+          </Preview>
+        </Section>
+
+        <Section title="커스텀 콘텐츠">
+          <Preview>
+            <CustomContentDemo />
           </Preview>
         </Section>
       </ComponentPage>
