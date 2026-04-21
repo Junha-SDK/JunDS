@@ -24,15 +24,15 @@ const TYPE_CONFIG: Record<
 > = {
   spoiler: {
     defaultLabel: "스포일러 보기",
-    bg: "bg-slate-100 dark:bg-slate-800",
-    border: "border-slate-300 dark:border-slate-600",
-    badge: "bg-slate-600 hover:bg-slate-700 dark:bg-slate-500 dark:hover:bg-slate-400",
+    bg: "bg-gray-50",
+    border: "border-border",
+    badge: "bg-foreground/80 hover:bg-foreground text-background",
   },
   caution: {
     defaultLabel: "내용 보기",
-    bg: "bg-amber-50 dark:bg-amber-950",
-    border: "border-amber-300 dark:border-amber-700",
-    badge: "bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-400",
+    bg: "bg-warning-light",
+    border: "border-warning/30",
+    badge: "bg-warning hover:bg-warning/90 text-white",
   },
 };
 
