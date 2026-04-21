@@ -472,8 +472,9 @@ export function SliderLiveDemo() {
   }, [direction]);
 
   return (
-    <div className="flex items-center justify-center h-full px-4">
-      <Slider value={value} onChange={setValue} showValue size="sm" />
+    <div className="flex flex-col items-center justify-center h-full px-6 gap-2 w-full max-w-[200px] mx-auto">
+      <span className="text-lg font-bold text-primary tabular-nums">{value}</span>
+      <Slider value={value} onChange={setValue} size="sm" />
     </div>
   );
 }
