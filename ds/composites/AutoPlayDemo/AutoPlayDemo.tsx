@@ -8,7 +8,7 @@ export interface AutoPlayDemoProps {
   /** 프레임 전환 간격 (ms) */
   interval?: number;
   /** 전환 애니메이션 */
-  transition?: "fade" | "slide-up" | "slide-left" | "scale" | "none";
+  transition?: "fade" | "slide-up" | "slide-left" | "scale" | "crossfade" | "none";
   /** 전환 지속 시간 (ms) */
   duration?: number;
   className?: string;
@@ -37,20 +37,32 @@ export function AutoPlayDemo({
   className,
 }: AutoPlayDemoProps) {
   const [current, setCurrent] = useState(0);
+  const [previous, setPrevious] = useState<number | null>(null);
 
   useEffect(() => {
     if (frames.length <= 1) return;
     const id = setInterval(() => {
-      setCurrent((p) => (p + 1) % frames.length);
+      setCurrent((prev) => {
+        setPrevious(prev);
+        return (prev + 1) % frames.length;
+      });
     }, interval);
     return () => clearInterval(id);
   }, [frames.length, interval]);
+
+  // Clear previous frame after transition completes
+  useEffect(() => {
+    if (previous === null) return;
+    const id = setTimeout(() => setPrevious(null), duration);
+    return () => clearTimeout(id);
+  }, [previous, duration]);
 
   const transitionStyles = {
     fade: { enter: "opacity-100", exit: "opacity-0" },
     "slide-up": { enter: "opacity-100 translate-y-0", exit: "opacity-0 translate-y-3" },
     "slide-left": { enter: "opacity-100 translate-x-0", exit: "opacity-0 translate-x-4" },
     scale: { enter: "opacity-100 scale-100", exit: "opacity-0 scale-90" },
+    crossfade: { enter: "opacity-100", exit: "opacity-0" },
     none: { enter: "", exit: "" },
   };
 
@@ -58,23 +70,29 @@ export function AutoPlayDemo({
 
   return (
     <div className={cn("relative w-full", className)}>
-      {frames.map((frame, i) => (
-        <div
-          key={i}
-          className={cn(
-            "transition-all pointer-events-none",
-            i === 0 ? "relative" : "absolute inset-0",
-            i === current ? t.enter : t.exit,
-          )}
-          style={{
-            transitionDuration: `${duration}ms`,
-            transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
-            visibility: i === current ? "visible" : "hidden",
-          }}
-        >
-          {frame}
-        </div>
-      ))}
+      {frames.map((frame, i) => {
+        const isActive = i === current;
+        const isLeaving = i === previous;
+        const isVisible = isActive || isLeaving;
+
+        return (
+          <div
+            key={i}
+            className={cn(
+              "transition-all pointer-events-none",
+              i === 0 ? "relative" : "absolute inset-0",
+              isActive ? t.enter : t.exit,
+            )}
+            style={{
+              transitionDuration: `${duration}ms`,
+              transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+              visibility: isVisible ? "visible" : "hidden",
+            }}
+          >
+            {frame}
+          </div>
+        );
+      })}
     </div>
   );
 }

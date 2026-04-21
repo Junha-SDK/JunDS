@@ -503,9 +503,29 @@ CSS 변수 기반 — `globals.css`에 정의, TypeScript에서 `@/ds/tokens`로
 <VirtualList items={bigData} itemHeight={40} height={400} renderItem={(item)=><Row>{item.name}</Row>} keyExtractor={i=>i.id} />
 ```
 
-### ChartCard (SVG 차트 — bar, donut, sparkline)
+### ChartCard (SVG 차트 — bar, horizontal-bar, stacked-bar, line, area, donut, sparkline, progress, radial)
 ```tsx
-<ChartCard title="주간 완료" type="bar|donut|sparkline" data={[{label:"월",value:12},{label:"화",value:8}]} />
+<ChartCard
+  title="월간 매출"
+  type="bar|horizontal-bar|stacked-bar|line|area|donut|sparkline|progress|radial"
+  data={[{label:"월",value:12},{label:"화",value:8}]}
+  value="120만"
+  trend={{ value:"+18%", direction:"up", label:"전월 대비" }}
+  showLegend
+  showGrid
+/>
+
+<ChartCard
+  title="릴리즈 현황"
+  type="stacked-bar"
+  data={[
+    { label:"Core", value:0, segments:[
+      { label:"완료", value:34 },
+      { label:"진행", value:18 },
+      { label:"대기", value:8 },
+    ] },
+  ]}
+/>
 ```
 
 ### NotificationCenter (알림 센터)

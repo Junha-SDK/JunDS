@@ -52,7 +52,7 @@ export function SeverityBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full font-medium whitespace-nowrap transition-all duration-200",
+        "inline-flex items-center gap-1.5 rounded-full font-medium whitespace-nowrap transition-all duration-150",
         severityStyles[severity],
         sizeStyles[size],
         className,

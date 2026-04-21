@@ -98,7 +98,7 @@ export function Resizable({
       <div
         onMouseDown={handleMouseDown}
         className={cn(
-          "relative flex-shrink-0 bg-border transition-colors hover:bg-primary/30",
+          "relative flex-shrink-0 bg-border transition-colors duration-150 hover:bg-primary/30",
           isHorizontal
             ? "w-1.5 cursor-col-resize"
             : "h-1.5 cursor-row-resize",

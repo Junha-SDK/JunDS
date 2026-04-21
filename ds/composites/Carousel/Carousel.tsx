@@ -92,7 +92,7 @@ export function Carousel({
             className={cn(
               "absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center",
               "rounded-full bg-white/80 border border-border shadow-sm text-foreground",
-              "opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:bg-white",
+              "opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer hover:bg-white",
             )}
             aria-label="이전 슬라이드"
           >
@@ -106,7 +106,7 @@ export function Carousel({
             className={cn(
               "absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center",
               "rounded-full bg-white/80 border border-border shadow-sm text-foreground",
-              "opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:bg-white",
+              "opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer hover:bg-white",
             )}
             aria-label="다음 슬라이드"
           >

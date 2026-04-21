@@ -64,7 +64,7 @@ export function TreeView({ nodes, selected, onSelect, defaultExpanded = [], clas
           {/* 펼침/접힘 화살표 */}
           {hasChildren ? (
             <svg
-              className={cn("w-4 h-4 shrink-0 text-muted transition-transform duration-150", isExpanded && "rotate-90")}
+              className={cn("w-4 h-4 shrink-0 text-muted transition-transform duration-200", isExpanded && "rotate-90")}
               fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

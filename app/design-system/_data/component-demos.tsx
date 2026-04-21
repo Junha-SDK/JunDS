@@ -318,7 +318,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={800} transition="slide-up" frames={[
+      <AutoPlayDemo interval={1000} transition="slide-up" frames={[
         <Tag key="1" color="primary">React</Tag>,
         <Tag key="2" color="green">완료</Tag>,
         <Tag key="3" color="red">긴급</Tag>,
@@ -734,7 +734,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[300px]"><DataTable columns={[{ key: "id", header: "ID", render: (row) => <span className="text-muted">#{row.id}</span>, width: "50px" }, { key: "name", header: "이름", render: (row) => <span className="font-medium">{row.name}</span> }]} data={[{ id: 1, name: "프로젝트 A" }, { id: 2, name: "프로젝트 B" }, { id: 3, name: "프로젝트 C" }]} rowKey={(row) => String(row.id)} pageSize={3} /></div>,
         <div key="2" className="w-full max-w-[300px]"><DataTable columns={[{ key: "id", header: "ID", render: (row) => <span className="text-muted">#{row.id}</span>, width: "50px" }, { key: "name", header: "이름", render: (row) => <span className="font-medium">{row.name}</span> }]} data={[{ id: 4, name: "프로젝트 D" }, { id: 5, name: "프로젝트 E" }, { id: 6, name: "프로젝트 F" }]} rowKey={(row) => String(row.id)} pageSize={3} striped /></div>,
       ]} />
@@ -766,7 +766,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[320px]"><DsCalendar events={[{ id: "1", date: new Date().toISOString().slice(0, 10), label: "오늘 일정", color: "bg-primary" }]} /></div>,
         <div key="2" className="w-full max-w-[320px]"><DsCalendar events={[{ id: "1", date: new Date().toISOString().slice(0, 10), label: "회의", color: "bg-green-500" }, { id: "2", date: new Date().toISOString().slice(0, 10), label: "마감", color: "bg-red-500" }]} /></div>,
       ]} />
@@ -980,7 +980,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[220px]"><ScrollArea maxHeight={80}><div className="flex flex-col gap-1 p-1">{["항목 1", "항목 2", "항목 3", "항목 4", "항목 5"].map((item) => <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">{item}</div>)}</div></ScrollArea></div>,
         <div key="2" className="w-full max-w-[220px]"><ScrollArea maxHeight={80}><div className="flex flex-col gap-1 p-1">{["React", "Vue", "Angular", "Svelte", "Solid"].map((item) => <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">{item}</div>)}</div></ScrollArea></div>,
       ]} />
@@ -1450,7 +1450,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[240px] h-[80px]"><Resizable direction="horizontal" defaultSize={40}><div className="h-full bg-blue-50 p-2 text-xs text-blue-700">왼쪽</div><div className="h-full bg-green-50 p-2 text-xs text-green-700">오른쪽</div></Resizable></div>,
         <div key="2" className="w-full max-w-[240px] h-[80px]"><Resizable direction="horizontal" defaultSize={60}><div className="h-full bg-purple-50 p-2 text-xs text-purple-700">넓은 패널</div><div className="h-full bg-amber-50 p-2 text-xs text-amber-700">좁은</div></Resizable></div>,
       ]} />
@@ -1505,7 +1505,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[280px]"><Transfer source={[{ key: "1", label: "React" }, { key: "2", label: "Vue" }]} target={[{ key: "3", label: "Next.js" }]} onChange={noop} sourceTitle="선택 가능" targetTitle="선택됨" /></div>,
         <div key="2" className="w-full max-w-[280px]"><Transfer source={[{ key: "1", label: "React" }]} target={[{ key: "2", label: "Vue" }, { key: "3", label: "Next.js" }]} onChange={noop} sourceTitle="선택 가능" targetTitle="선택됨" /></div>,
       ]} />
@@ -1725,7 +1725,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="relative w-full max-w-[220px] h-[80px] bg-white rounded-lg border border-border p-3 overflow-hidden"><div className="text-xs font-medium text-foreground">기밀 문서</div><div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">기밀</div></div>,
         <div key="2" className="relative w-full max-w-[220px] h-[80px] bg-white rounded-lg border border-border p-3 overflow-hidden"><div className="text-xs font-medium text-foreground">미리보기</div><div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">PREVIEW</div></div>,
       ]} />
@@ -1968,7 +1968,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[300px]"><FilterBar searchValue="" onSearchChange={noop} searchPlaceholder="업무 검색..." onReset={noop} activeCount={0} /></div>,
         <div key="2" className="w-full max-w-[300px]"><FilterBar searchValue="" onSearchChange={noop} searchPlaceholder="업무 검색..." actions={<Button size="sm">내보내기</Button>} onReset={noop} activeCount={2} /></div>,
       ]} />
@@ -2025,7 +2025,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="flex gap-1.5 w-full max-w-[260px]">{[{ title: "할 일", items: ["UI 디자인", "API 연동"] }, { title: "진행 중", items: ["DB 설계"] }, { title: "완료", items: [] }].map((col) => <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5"><div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>{col.items.map((item) => <div key={item} className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5">{item}</div>)}</div>)}</div>,
         <div key="2" className="flex gap-1.5 w-full max-w-[260px]">{[{ title: "할 일", items: ["API 연동"] }, { title: "진행 중", items: ["DB 설계", "UI 디자인"] }, { title: "완료", items: [] }].map((col) => <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5"><div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>{col.items.map((item) => <div key={item} className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5">{item}</div>)}</div>)}</div>,
         <div key="3" className="flex gap-1.5 w-full max-w-[260px]">{[{ title: "할 일", items: [] }, { title: "진행 중", items: ["API 연동"] }, { title: "완료", items: ["DB 설계", "UI 디자인"] }].map((col) => <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5"><div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>{col.items.map((item) => <div key={item} className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5">{item}</div>)}</div>)}</div>,
@@ -2047,7 +2047,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <StatsGrid key="1" stats={[{ label: "총 업무", value: "142", change: "+12%", trend: "up" as const }, { label: "완료", value: "98", change: "+5", trend: "up" as const }]} columns={2} />,
         <StatsGrid key="2" stats={[{ label: "진행 중", value: "32" }, { label: "지연", value: "12", change: "+3", trend: "down" as const }]} columns={2} />,
       ]} />
@@ -2093,7 +2093,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[240px]"><FormBuilder fields={[{ name: "title", label: "제목", type: "text", required: true, placeholder: "프로젝트명" }]} onSubmit={noop} submitLabel="생성" columns={1} /></div>,
         <div key="2" className="w-full max-w-[240px]"><FormBuilder fields={[{ name: "title", label: "제목", type: "text", required: true, placeholder: "프로젝트명" }, { name: "desc", label: "설명", type: "textarea", placeholder: "프로젝트 설명" }]} onSubmit={noop} submitLabel="생성" columns={1} /></div>,
       ]} />
@@ -2172,7 +2172,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[240px]"><ChartCard title="주간 매출" type="bar" data={[{ label: "월", value: 40 }, { label: "화", value: 55 }, { label: "수", value: 35 }, { label: "목", value: 70 }, { label: "금", value: 65 }]} trend={{ value: "+12%", direction: "up" }} /></div>,
         <div key="2" className="w-full max-w-[240px]"><ChartCard title="매출 추이" type="sparkline" data={[{ label: "1", value: 30 }, { label: "2", value: 50 }, { label: "3", value: 45 }, { label: "4", value: 70 }, { label: "5", value: 60 }, { label: "6", value: 85 }]} /></div>,
       ]} />
@@ -2249,7 +2249,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[240px] border border-border rounded-lg bg-white overflow-hidden"><div className="flex items-center gap-0.5 px-2 py-1 border-b border-border bg-gray-50"><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold bg-gray-200 text-foreground rounded">B</span><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">I</span><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">U</span></div><div className="p-2 text-xs text-foreground"><p><strong>굵은 텍스트</strong> 예시</p></div></div>,
         <div key="2" className="w-full max-w-[240px] border border-border rounded-lg bg-white overflow-hidden"><div className="flex items-center gap-0.5 px-2 py-1 border-b border-border bg-gray-50"><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">B</span><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold bg-gray-200 text-foreground rounded">I</span><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">U</span></div><div className="p-2 text-xs text-foreground"><p><em>기울임 텍스트</em> 예시</p></div></div>,
       ]} />
@@ -2374,7 +2374,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[240px]"><SecurityChecklist items={[{ key: "2fa", title: "2FA 인증", description: "활성화됨", status: "secure" }, { key: "pwd", title: "비밀번호", description: "최근 변경", status: "secure" }]} title="보안 점검" /></div>,
         <div key="2" className="w-full max-w-[240px]"><SecurityChecklist items={[{ key: "2fa", title: "2FA 인증", description: "활성화됨", status: "secure" }, { key: "ssl", title: "SSL 인증서", description: "만료됨", status: "insecure" }]} title="보안 점검" /></div>,
       ]} />
@@ -2400,7 +2400,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[220px]"><TrustIndicator title="보안 신뢰도" items={[{ key: "ssl", label: "SSL", status: "pass" }, { key: "2fa", label: "2FA", status: "pass" }]} /></div>,
         <div key="2" className="w-full max-w-[220px]"><TrustIndicator title="보안 신뢰도" items={[{ key: "ssl", label: "SSL", status: "pass" }, { key: "2fa", label: "2FA", status: "pass" }, { key: "audit", label: "감사", status: "warning" }, { key: "backup", label: "백업", status: "fail" }]} /></div>,
       ]} />
@@ -2422,7 +2422,7 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[220px] p-3 border border-border rounded-xl bg-white shadow-lg"><h3 className="text-xs font-bold text-foreground text-center mb-2">로그인</h3><div className="flex flex-col gap-1.5"><Label>이메일</Label><Input placeholder="email@example.com" /><Button className="w-full" size="sm">로그인</Button></div></div>,
         <div key="2" className="w-full max-w-[220px] p-3 border border-border rounded-xl bg-white shadow-lg"><h3 className="text-xs font-bold text-foreground text-center mb-2">로그인</h3><div className="flex flex-col gap-1.5"><Label>이메일</Label><Input placeholder="email@example.com" /><Label>비밀번호</Label><PasswordInput placeholder="비밀번호" /><Button className="w-full" size="sm">로그인</Button></div></div>,
       ]} />

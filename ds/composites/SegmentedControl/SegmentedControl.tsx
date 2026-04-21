@@ -70,7 +70,7 @@ export function SegmentedControl({
     >
       {/* 슬라이딩 인디케이터 */}
       <div
-        className="absolute top-1 bottom-1 bg-white rounded-md shadow-sm transition-all duration-200 ease-out"
+        className="absolute top-1 bottom-1 bg-white rounded-md shadow-sm transition-all duration-200"
         style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
       />
       {options.map((option) => (

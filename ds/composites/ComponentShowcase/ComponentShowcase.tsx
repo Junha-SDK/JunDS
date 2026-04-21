@@ -220,7 +220,7 @@ function ShowcaseCard({
           "absolute inset-0 flex items-center justify-center p-5 pointer-events-none transition-all duration-500 ease-out",
           showDemo ? "opacity-0 scale-90 blur-sm" : "opacity-100 scale-100 blur-0",
         )}>
-          <div className="transform scale-75 flex items-center justify-center w-full">{item.preview}</div>
+          <div className="transform scale-[0.8] flex items-center justify-center w-full">{item.preview}</div>
         </div>
 
         {/* 호버 데모 */}

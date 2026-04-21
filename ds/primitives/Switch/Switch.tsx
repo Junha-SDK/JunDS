@@ -66,7 +66,7 @@ export function Switch({
         disabled={disabled}
         onClick={() => onChange(!checked)}
         className={cn(
-          "relative inline-flex shrink-0 rounded-full transition-colors duration-300 ease-in-out hover:brightness-110",
+          "relative inline-flex shrink-0 rounded-full transition-colors duration-200 hover:brightness-110",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
           trackSize[size],
           checked ? "bg-primary" : "bg-gray-300",
@@ -74,7 +74,7 @@ export function Switch({
       >
         <span
           className={cn(
-            "absolute top-1/2 -translate-y-1/2 left-[3px] rounded-full bg-white shadow-md transition-transform duration-300 ease-in-out",
+            "absolute top-1/2 -translate-y-1/2 left-[3px] rounded-full bg-white shadow-md transition-transform duration-200",
             thumbSize[size],
             checked && thumbTranslate[size],
           )}
