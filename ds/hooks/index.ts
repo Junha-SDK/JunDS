@@ -12,3 +12,7 @@ export { useForm } from "./useForm";
 export type { UseFormReturn, FormRules, ValidationRule } from "./useForm";
 export { usePanelResize } from "./usePanelResize";
 export type { UsePanelResizeOptions } from "./usePanelResize";
+export { useScrollSpy } from "./useScrollSpy";
+export type { UseScrollSpyOptions } from "./useScrollSpy";
+export { useFocusMode } from "./useFocusMode";
+export type { FocusModeState } from "./useFocusMode";

@@ -54,3 +54,9 @@ export type { TourProps, TourStep } from "./Tour";
 
 export { FlowDiagram } from "./FlowDiagram";
 export type { FlowDiagramProps, FlowNode } from "./FlowDiagram";
+
+export { Starfield } from "./Starfield";
+export type { StarfieldProps } from "./Starfield";
+
+export { MasonryGrid } from "./MasonryGrid";
+export type { MasonryGridProps } from "./MasonryGrid";
