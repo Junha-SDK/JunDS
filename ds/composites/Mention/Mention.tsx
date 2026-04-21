@@ -60,10 +60,12 @@ export function Mention({
   const updateDropdownPosition = useCallback(() => {
     if (!textareaRef.current) return;
     const rect = textareaRef.current.getBoundingClientRect();
-    // Position below the textarea caret area
+    const dropdownWidth = 256;
+    const dropdownHeight = 192;
+    const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
     setDropdownPos({
-      top: rect.bottom + 4,
-      left: rect.left,
+      top: clamp(rect.bottom + 4, 8, window.innerHeight - dropdownHeight - 8),
+      left: clamp(rect.left, 8, window.innerWidth - dropdownWidth - 8),
     });
   }, []);
 
@@ -155,7 +157,7 @@ export function Mention({
         placeholder={placeholder}
         disabled={disabled}
         className={cn(
-          "w-full min-h-[80px] px-3 py-2 text-sm border bg-white rounded-lg transition-all duration-150 resize-y",
+          "w-full min-h-[80px] px-3 py-2 text-sm border bg-card rounded-lg transition-all duration-150 resize-y",
           "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           "border-border placeholder:text-muted-light",
@@ -166,7 +168,7 @@ export function Mention({
         <Portal>
           <div
             ref={dropdownRef}
-            className="fixed z-50 w-64 bg-white border border-border rounded-lg shadow-lg max-h-48 overflow-auto py-1 animate-fade-in-scale"
+            className="fixed z-50 w-64 bg-card border border-border rounded-lg shadow-lg max-h-48 overflow-auto py-1 animate-fade-in-scale"
             style={{ top: dropdownPos.top, left: dropdownPos.left }}
           >
             {filtered.map((user, i) => (
@@ -177,7 +179,7 @@ export function Mention({
                 className={cn(
                   "w-full flex items-center gap-2 px-3 py-2 text-left transition-colors cursor-pointer text-sm",
                   i === highlightIdx && "bg-primary-light",
-                  "hover:bg-gray-50",
+                  "hover:bg-primary/10",
                 )}
               >
                 {user.avatar ? (

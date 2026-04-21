@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { cn } from "../../utils/cn";
 import { Portal } from "../../primitives/Portal";
 import type { ReactNode } from "react";
@@ -31,15 +31,36 @@ export interface ContextMenuProps {
 export function ContextMenu({ items, children, className }: ContextMenuProps) {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [focusedIndex, setFocusedIndex] = useState(-1);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  /** Actionable (non-divider, non-disabled) item indices */
+  const actionableIndices = useMemo(
+    () =>
+      items.reduce<number[]>((acc, item, i) => {
+        if (!item.divider && !item.disabled) acc.push(i);
+        return acc;
+      }, []),
+    [items],
+  );
 
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    setPos({ x: e.clientX, y: e.clientY });
+    const menuWidth = 180;
+    const menuHeight = items.length * 36;
+    let x = e.clientX;
+    let y = e.clientY;
+    if (x + menuWidth > window.innerWidth) x = window.innerWidth - menuWidth - 8;
+    if (y + menuHeight > window.innerHeight) y = window.innerHeight - menuHeight - 8;
+    setPos({ x, y });
     setOpen(true);
-  }, []);
+    setFocusedIndex(-1);
+  }, [items.length]);
 
-  const close = useCallback(() => setOpen(false), []);
+  const close = useCallback(() => {
+    setOpen(false);
+    setFocusedIndex(-1);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -50,17 +71,66 @@ export function ContextMenu({ items, children, className }: ContextMenuProps) {
       }
     };
 
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "Escape":
+          close();
+          break;
+        case "ArrowDown": {
+          e.preventDefault();
+          setFocusedIndex((prev) => {
+            const curPos = actionableIndices.indexOf(prev);
+            const next = curPos < actionableIndices.length - 1 ? curPos + 1 : 0;
+            return actionableIndices[next] ?? -1;
+          });
+          break;
+        }
+        case "ArrowUp": {
+          e.preventDefault();
+          setFocusedIndex((prev) => {
+            const curPos = actionableIndices.indexOf(prev);
+            const next =
+              curPos > 0 ? curPos - 1 : actionableIndices.length - 1;
+            return actionableIndices[next] ?? -1;
+          });
+          break;
+        }
+        case "Enter": {
+          e.preventDefault();
+          if (focusedIndex >= 0) {
+            const item = items[focusedIndex];
+            if (item && !item.disabled && !item.divider) {
+              item.onClick?.();
+              close();
+            }
+          }
+          break;
+        }
+        default:
+          break;
+      }
     };
 
     document.addEventListener("mousedown", handleClick);
-    document.addEventListener("keydown", handleEsc);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("mousedown", handleClick);
-      document.removeEventListener("keydown", handleEsc);
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open, close]);
+  }, [open, close, focusedIndex, items, actionableIndices]);
+
+  /** Focus the active button when focusedIndex changes */
+  useEffect(() => {
+    if (!open || focusedIndex < 0) return;
+    const menu = menuRef.current;
+    if (!menu) return;
+    const buttons = menu.querySelectorAll<HTMLButtonElement>('[role="menuitem"]');
+    let btnIdx = 0;
+    for (let i = 0; i < focusedIndex; i++) {
+      if (!items[i].divider) btnIdx++;
+    }
+    buttons[btnIdx]?.focus();
+  }, [focusedIndex, open, items]);
 
   return (
     <>
@@ -70,14 +140,14 @@ export function ContextMenu({ items, children, className }: ContextMenuProps) {
           <div
             ref={menuRef}
             className={cn(
-              "fixed z-50 min-w-[180px] py-1 bg-white rounded-xl shadow-lg border border-border-light",
+              "fixed z-50 min-w-[180px] py-1 bg-card rounded-xl shadow-lg border border-border",
               "animate-fade-in",
               className,
             )}
             style={{ left: pos.x, top: pos.y }}
             role="menu"
           >
-            {items.map((item) => {
+            {items.map((item, index) => {
               if (item.divider) {
                 return (
                   <div
@@ -87,20 +157,24 @@ export function ContextMenu({ items, children, className }: ContextMenuProps) {
                   />
                 );
               }
+              const isFocused = index === focusedIndex;
               return (
                 <button
                   key={item.key}
                   type="button"
                   role="menuitem"
+                  tabIndex={isFocused ? 0 : -1}
                   disabled={item.disabled}
+                  onMouseEnter={() => setFocusedIndex(index)}
                   onClick={() => {
                     item.onClick?.();
                     close();
                   }}
                   className={cn(
                     "w-full flex items-center gap-2 px-3 py-2 text-sm text-left transition-colors cursor-pointer",
-                    "hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed",
+                    "hover:bg-primary/10 disabled:opacity-40 disabled:cursor-not-allowed",
                     item.danger ? "text-danger hover:bg-danger-light" : "text-foreground",
+                    isFocused && "bg-primary/10",
                   )}
                 >
                   {item.icon && <span className="w-4 h-4 shrink-0">{item.icon}</span>}

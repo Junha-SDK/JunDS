@@ -195,3 +195,6 @@ export type { SpoilerBlockProps } from "./SpoilerBlock";
 
 export { BookCard } from "./BookCard";
 export type { BookCardProps } from "./BookCard";
+
+export { AutoPlayDemo } from "./AutoPlayDemo";
+export type { AutoPlayDemoProps } from "./AutoPlayDemo";

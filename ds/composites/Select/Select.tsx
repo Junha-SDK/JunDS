@@ -98,7 +98,7 @@ export function Select<T extends string = string>({
         onClick={() => !disabled && setOpen(!open)}
         onKeyDown={handleKeyDown}
         className={cn(
-          "flex items-center justify-between gap-2 w-full border bg-white transition-all duration-150",
+          "flex items-center justify-between gap-2 w-full border bg-card transition-all duration-150",
           "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
           "disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
           error ? "border-danger" : open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
@@ -124,13 +124,13 @@ export function Select<T extends string = string>({
         <ul
           ref={listRef}
           className={cn(
-            "absolute z-50 mt-1 w-full bg-white border border-border rounded-lg shadow-xl",
+            "absolute z-50 mt-1 w-full bg-card border border-border rounded-lg shadow-xl",
             "max-h-60 overflow-auto py-1 animate-fade-in-scale",
           )}
           role="listbox"
         >
           {searchable && (
-            <li className="px-2 py-1.5 sticky top-0 bg-white">
+            <li className="px-2 py-1.5 sticky top-0 bg-card">
               <input
                 type="text"
                 value={search}

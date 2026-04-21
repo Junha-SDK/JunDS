@@ -47,7 +47,12 @@ export function ColorPicker({
     if (disabled) return;
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
-      setPos({ top: rect.bottom + 4, left: rect.left });
+      const popupWidth = 220;
+      const popupHeight = 200;
+      const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
+      const left = clamp(rect.left, 8, window.innerWidth - popupWidth - 8);
+      const top = clamp(rect.bottom + 4, 8, window.innerHeight - popupHeight - 8);
+      setPos({ top, left });
     }
     setInputValue(value);
     setOpen(!open);
@@ -82,7 +87,7 @@ export function ColorPicker({
         disabled={disabled}
         onClick={handleOpen}
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-white rounded-lg transition-all duration-150 cursor-pointer",
+          "flex items-center gap-2 h-9 px-3 border bg-card rounded-lg transition-all duration-150 cursor-pointer",
           "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
@@ -99,7 +104,7 @@ export function ColorPicker({
         <Portal>
           <div
             ref={ref}
-            className="fixed z-50 bg-white border border-border rounded-lg shadow-lg p-3 animate-fade-in-scale"
+            className="fixed z-50 bg-card border border-border rounded-lg shadow-lg p-3 animate-fade-in-scale"
             style={{ top: pos.top, left: pos.left }}
           >
             <div className="grid grid-cols-6 gap-1.5 mb-2">
@@ -131,7 +136,7 @@ export function ColorPicker({
                   onBlur={handleInputBlur}
                   placeholder="#000000"
                   maxLength={7}
-                  className="flex-1 h-7 px-2 text-sm border border-border rounded-md bg-white focus:outline-none focus:border-primary min-w-0"
+                  className="flex-1 h-7 px-2 text-sm border border-border rounded-md bg-card focus:outline-none focus:border-primary min-w-0"
                 />
               </div>
             )}

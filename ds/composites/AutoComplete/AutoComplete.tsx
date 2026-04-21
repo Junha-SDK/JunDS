@@ -64,7 +64,13 @@ export function AutoComplete({
   const updatePosition = () => {
     if (wrapperRef.current) {
       const rect = wrapperRef.current.getBoundingClientRect();
-      setPos({ top: rect.bottom + 4, left: rect.left, width: rect.width });
+      const dropdownHeight = 240;
+      const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
+      setPos({
+        top: clamp(rect.bottom + 4, 8, window.innerHeight - dropdownHeight - 8),
+        left: clamp(rect.left, 8, window.innerWidth - rect.width - 8),
+        width: rect.width,
+      });
     }
   };
 
@@ -117,7 +123,7 @@ export function AutoComplete({
     <div ref={wrapperRef} className={cn("relative w-full", className)}>
       <div
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-white rounded-lg transition-all duration-150",
+          "flex items-center gap-2 h-9 px-3 border bg-card rounded-lg transition-all duration-150",
           "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
           disabled && "opacity-50 cursor-not-allowed",
           "border-border",
@@ -144,7 +150,7 @@ export function AutoComplete({
         <Portal>
           <div
             ref={ref}
-            className="fixed z-50 bg-white border border-border rounded-lg shadow-lg max-h-60 overflow-auto py-1 animate-fade-in-scale"
+            className="fixed z-50 bg-card border border-border rounded-lg shadow-lg max-h-60 overflow-auto py-1 animate-fade-in-scale"
             style={{ top: pos.top, left: pos.left, width: pos.width }}
           >
             {filtered.length === 0 && !loading && (
@@ -161,7 +167,7 @@ export function AutoComplete({
                 className={cn(
                   "w-full flex items-center gap-2 px-3 py-2 text-left transition-colors cursor-pointer text-sm",
                   i === highlightIdx && "bg-primary-light",
-                  "hover:bg-gray-50",
+                  "hover:bg-primary/10",
                 )}
               >
                 <div className="flex-1 min-w-0">

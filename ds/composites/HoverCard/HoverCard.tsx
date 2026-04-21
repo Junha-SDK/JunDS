@@ -58,7 +58,7 @@ export function HoverCard({
       {show && (
         <div
           className={cn(
-            "absolute z-50 w-64 p-4 bg-white rounded-xl shadow-lg border border-border-light",
+            "absolute z-50 w-64 p-4 bg-card rounded-xl shadow-lg border border-border",
             "animate-fade-in",
             sideStyles[side],
           )}
