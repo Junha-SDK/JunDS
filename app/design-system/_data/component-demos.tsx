@@ -72,6 +72,11 @@ import { KeyValueGrid } from "@/ds/composites/KeyValueGrid";
 import { CollectionView } from "@/ds/composites/CollectionView";
 import { SecurityBadge } from "@/ds/composites/SecurityBadge";
 import { TrustIndicator } from "@/ds/composites/TrustIndicator";
+import { Callout } from "@/ds/composites/Callout";
+import { SpoilerBlock } from "@/ds/composites/SpoilerBlock";
+import { BookCard } from "@/ds/composites/BookCard";
+import { ReadingTime } from "@/ds/composites/ReadingTime";
+import { TreeNav } from "@/ds/composites/TreeNav";
 
 // Additional pattern imports
 import { FilterBar } from "@/ds/patterns/FilterBar";
@@ -2421,6 +2426,217 @@ export const showcaseItems: ShowcaseItem[] = [
       <AutoPlayDemo interval={1500} transition="fade" frames={[
         <div key="1" className="w-full max-w-[220px] p-3 border border-border rounded-xl bg-white shadow-lg"><h3 className="text-xs font-bold text-foreground text-center mb-2">로그인</h3><div className="flex flex-col gap-1.5"><Label>이메일</Label><Input placeholder="email@example.com" /><Button className="w-full" size="sm">로그인</Button></div></div>,
         <div key="2" className="w-full max-w-[220px] p-3 border border-border rounded-xl bg-white shadow-lg"><h3 className="text-xs font-bold text-foreground text-center mb-2">로그인</h3><div className="flex flex-col gap-1.5"><Label>이메일</Label><Input placeholder="email@example.com" /><Label>비밀번호</Label><PasswordInput placeholder="비밀번호" /><Button className="w-full" size="sm">로그인</Button></div></div>,
+      ]} />
+    ),
+  },
+
+  // 104. ImageLightbox
+  {
+    key: "image-lightbox",
+    label: "ImageLightbox",
+    description: "이미지를 클릭하면 전체 화면으로 확대하는 라이트박스",
+    category: "Composites",
+    href: "/design-system/composites/image-lightbox",
+    preview: (
+      <div className="flex items-center justify-center">
+        <div className="w-24 h-16 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-[10px] font-bold shadow-md">🔍 클릭 확대</div>
+      </div>
+    ),
+    hoverDemo: (
+      <AutoPlayDemo interval={1500} transition="scale" frames={[
+        <div key="1" className="w-24 h-16 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-md" />,
+        <div key="2" className="w-40 h-28 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-2xl ring-2 ring-white/20" />,
+      ]} />
+    ),
+  },
+
+  // 105. Callout
+  {
+    key: "callout",
+    label: "Callout",
+    description: "노트, 경고, 팁 등을 강조하는 콜아웃 블록",
+    category: "Composites",
+    href: "/design-system/composites/callout",
+    preview: (
+      <div className="w-full max-w-[200px]">
+        <Callout variant="tip" title="팁">유용한 정보입니다.</Callout>
+      </div>
+    ),
+    hoverDemo: (
+      <AutoPlayDemo interval={1200} transition="slide-up" frames={[
+        <Callout key="1" variant="tip" title="팁">유용한 정보입니다.</Callout>,
+        <Callout key="2" variant="warning" title="주의">주의가 필요합니다.</Callout>,
+        <Callout key="3" variant="danger" title="위험">위험한 작업입니다.</Callout>,
+        <Callout key="4" variant="info" title="안내">참고 사항입니다.</Callout>,
+        <Callout key="5" variant="note" title="노트">메모 내용입니다.</Callout>,
+      ]} />
+    ),
+  },
+
+  // 106. SpoilerBlock
+  {
+    key: "spoiler-block",
+    label: "SpoilerBlock",
+    description: "스포일러나 민감한 콘텐츠를 blur로 가리는 블록",
+    category: "Composites",
+    href: "/design-system/composites/spoiler-block",
+    preview: (
+      <div className="w-full max-w-[180px] relative">
+        <div className="blur-sm text-xs text-foreground">이 내용은 스포일러입니다.</div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-[10px] bg-foreground/80 text-background px-2 py-0.5 rounded-full">스포일러 보기</span>
+        </div>
+      </div>
+    ),
+    hoverDemo: (
+      <AutoPlayDemo interval={2000} transition="fade" frames={[
+        <div key="1" className="w-full max-w-[200px] relative"><div className="blur-md text-xs">비밀 내용이 숨겨져 있습니다.</div><div className="absolute inset-0 flex items-center justify-center"><span className="text-xs bg-foreground/80 text-background px-3 py-1 rounded-full">🔒 스포일러</span></div></div>,
+        <div key="2" className="w-full max-w-[200px] text-xs text-foreground">✨ 비밀이 공개되었습니다!</div>,
+      ]} />
+    ),
+  },
+
+  // 107. BookCard
+  {
+    key: "book-card",
+    label: "BookCard",
+    description: "책/작품 커버 카드 (쉰 효과, 잠금 상태)",
+    category: "Composites",
+    href: "/design-system/composites/book-card",
+    preview: (
+      <div className="w-[100px]">
+        <BookCard title="소설 제목" author="작가명" />
+      </div>
+    ),
+    hoverDemo: (
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
+        <div key="1" className="w-[100px]"><BookCard title="열린 책" author="작가 A" /></div>,
+        <div key="2" className="w-[100px]"><BookCard title="잠긴 책" author="작가 B" locked /></div>,
+      ]} />
+    ),
+  },
+
+  // 108. ReadingTime
+  {
+    key: "reading-time",
+    label: "ReadingTime",
+    description: "CJK 인식 읽기 시간 추정 (난이도 포함)",
+    category: "Composites",
+    href: "/design-system/composites/reading-time",
+    preview: (
+      <div className="flex items-center gap-2 text-xs text-muted">
+        <span>📖</span>
+        <ReadingTime content="안녕하세요. 이것은 디자인 시스템에 대한 긴 글입니다. 컴포넌트의 구조와 사용법을 설명합니다." format="long" showDifficulty />
+      </div>
+    ),
+    hoverDemo: (
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
+        <div key="1" className="text-xs"><ReadingTime content="짧은 글입니다." format="long" showDifficulty /></div>,
+        <div key="2" className="text-xs"><ReadingTime content={"긴 ".repeat(500)} format="long" showDifficulty /></div>,
+      ]} />
+    ),
+  },
+
+  // 109. AutoHideHeader
+  {
+    key: "auto-hide-header",
+    label: "AutoHideHeader",
+    description: "스크롤 방향에 따라 자동으로 숨기는 헤더",
+    category: "Composites",
+    href: "/design-system/composites/auto-hide-header",
+    preview: (
+      <div className="flex flex-col items-center gap-1">
+        <div className="w-full max-w-[160px] h-6 rounded-t-lg bg-foreground/10 flex items-center justify-center text-[9px] text-muted font-medium">↕ 스크롤 감지 헤더</div>
+        <div className="w-full max-w-[160px] h-12 rounded-b-lg bg-gray-50 border border-border" />
+      </div>
+    ),
+    hoverDemo: (
+      <AutoPlayDemo interval={1200} transition="slide-up" frames={[
+        <div key="1" className="text-center"><div className="w-40 h-6 bg-foreground/10 rounded-lg flex items-center justify-center text-[9px] text-muted">📍 헤더 보임</div><div className="text-[8px] text-muted mt-1">↓ 아래로 스크롤</div></div>,
+        <div key="2" className="text-center"><div className="w-40 h-6 bg-foreground/5 rounded-lg flex items-center justify-center text-[9px] text-muted opacity-30 -translate-y-2">🙈 헤더 숨김</div><div className="text-[8px] text-muted mt-1">↑ 위로 스크롤하면 복원</div></div>,
+      ]} />
+    ),
+  },
+
+  // 110. TreeNav
+  {
+    key: "tree-nav",
+    label: "TreeNav",
+    description: "재귀 트리 구조 네비게이션 (확장/축소/배지)",
+    category: "Composites",
+    href: "/design-system/composites/tree-nav",
+    preview: (
+      <div className="w-full max-w-[160px] text-xs space-y-0.5">
+        <div className="font-medium text-foreground">▼ 컴포넌트</div>
+        <div className="pl-3 text-muted">Button</div>
+        <div className="pl-3 text-primary font-medium">Input</div>
+        <div className="font-medium text-foreground">▶ 패턴</div>
+      </div>
+    ),
+    hoverDemo: (
+      <div className="w-full max-w-[180px]">
+        <TreeNav
+          items={[
+            { key: "comp", label: "컴포넌트", children: [
+              { key: "btn", label: "Button" },
+              { key: "inp", label: "Input" },
+              { key: "card", label: "Card" },
+            ]},
+            { key: "pat", label: "패턴", badge: 3, children: [
+              { key: "dt", label: "DataTable" },
+              { key: "cal", label: "Calendar" },
+            ]},
+          ]}
+          activeKey="inp"
+          defaultExpanded={["comp", "pat"]}
+        />
+      </div>
+    ),
+  },
+
+  // 111. Starfield
+  {
+    key: "starfield",
+    label: "Starfield",
+    description: "캔버스 기반 별밤 애니메이션 (별 반짝임 + 유성)",
+    category: "Patterns",
+    href: "/design-system/patterns/starfield",
+    preview: (
+      <div className="w-full h-[80px] rounded-lg bg-gray-950 relative overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "radial-gradient(1px 1px at 20% 30%, white, transparent), radial-gradient(1px 1px at 50% 60%, white, transparent), radial-gradient(1px 1px at 80% 20%, white, transparent), radial-gradient(1px 1px at 10% 80%, white, transparent), radial-gradient(1px 1px at 70% 70%, white, transparent)" }} />
+        <span className="text-white/40 text-[10px] z-10">✨ 별밤 캔버스</span>
+      </div>
+    ),
+    hoverDemo: (
+      <AutoPlayDemo interval={1500} transition="fade" frames={[
+        <div key="1" className="text-center text-[10px] text-muted">🌟 220개 별 반짝임</div>,
+        <div key="2" className="text-center text-[10px] text-muted">☄️ 유성 애니메이션</div>,
+        <div key="3" className="text-center text-[10px] text-muted">🎨 색상 변화 + HDR</div>,
+      ]} />
+    ),
+  },
+
+  // 112. MasonryGrid
+  {
+    key: "masonry-grid",
+    label: "MasonryGrid",
+    description: "CSS columns 기반 메이슨리(핀터레스트) 레이아웃",
+    category: "Patterns",
+    href: "/design-system/patterns/masonry-grid",
+    preview: (
+      <div className="columns-3 gap-1 w-full max-w-[160px]">
+        <div className="h-8 rounded bg-blue-200 mb-1" />
+        <div className="h-12 rounded bg-emerald-200 mb-1" />
+        <div className="h-6 rounded bg-amber-200 mb-1" />
+        <div className="h-10 rounded bg-purple-200 mb-1" />
+        <div className="h-7 rounded bg-pink-200 mb-1" />
+        <div className="h-9 rounded bg-cyan-200 mb-1" />
+      </div>
+    ),
+    hoverDemo: (
+      <AutoPlayDemo interval={1200} transition="fade" frames={[
+        <div key="2" className="columns-2 gap-1 w-full max-w-[160px]"><div className="h-8 rounded bg-blue-200 mb-1" /><div className="h-14 rounded bg-emerald-200 mb-1" /><div className="h-6 rounded bg-amber-200 mb-1" /><div className="h-10 rounded bg-purple-200 mb-1" /></div>,
+        <div key="3" className="columns-3 gap-1 w-full max-w-[160px]"><div className="h-8 rounded bg-blue-200 mb-1" /><div className="h-12 rounded bg-emerald-200 mb-1" /><div className="h-6 rounded bg-amber-200 mb-1" /><div className="h-10 rounded bg-purple-200 mb-1" /><div className="h-7 rounded bg-pink-200 mb-1" /><div className="h-9 rounded bg-cyan-200 mb-1" /></div>,
       ]} />
     ),
   },
