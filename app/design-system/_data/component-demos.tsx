@@ -111,6 +111,9 @@ import {
   InputLiveDemo,
   CardLiveDemo,
   StatusDotLiveDemo,
+  EmptyStateLiveDemo,
+  StatCardLiveDemo,
+  FlowDiagramLiveDemo,
 } from "./live-demos";
 
 const noop = () => {};
@@ -687,16 +690,13 @@ export const showcaseItems: ShowcaseItem[] = [
     category: "Composites",
     href: "/design-system/composites/empty-state",
     preview: (
-      <EmptyState title="데이터 없음" className="py-4" />
+      <div className="flex flex-col items-center gap-1 text-center">
+        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-muted text-sm">∅</div>
+        <span className="text-xs font-medium text-foreground">업무가 없습니다</span>
+        <span className="text-[10px] text-muted">새로운 업무를 추가하세요</span>
+      </div>
     ),
-    hoverDemo: (
-      <EmptyState
-        title="업무가 없습니다"
-        description="새로운 업무를 추가하여 프로젝트를 시작해보세요."
-        action={<Button size="sm">업무 추가</Button>}
-        className="py-6"
-      />
-    ),
+    hoverDemo: <EmptyStateLiveDemo />,
   },
 
   // 29. StatCard
@@ -707,16 +707,13 @@ export const showcaseItems: ShowcaseItem[] = [
     category: "Composites",
     href: "/design-system/composites/stat-card",
     preview: (
-      <StatCard label="총 사용자" value="1,234" className="max-w-[180px]" />
-    ),
-    hoverDemo: (
-      <div className="grid grid-cols-2 gap-2 w-full max-w-[320px]">
-        <StatCard label="총 사용자" value="1,234" change="+12%" trend="up" />
-        <StatCard label="매출" value="₩3.2M" change="-5%" trend="down" />
-        <StatCard label="전환율" value="3.8%" change="+0.2%" trend="up" />
-        <StatCard label="이탈률" value="24%" trend="neutral" change="0%" />
+      <div className="bg-card border border-border rounded-xl p-3 w-full max-w-[160px]">
+        <div className="text-[10px] text-muted mb-1">총 사용자</div>
+        <div className="text-xl font-bold text-foreground">1,234</div>
+        <div className="text-[10px] text-success mt-0.5">↑ +12%</div>
       </div>
     ),
+    hoverDemo: <StatCardLiveDemo />,
   },
 
   // 30. Table
@@ -909,41 +906,15 @@ export const showcaseItems: ShowcaseItem[] = [
     category: "Patterns",
     href: "/design-system/patterns/flow-diagram",
     preview: (
-      <div className="w-full max-w-[200px] flex items-center justify-center gap-1">
-        {["시작", "처리", "완료"].map((label, i) => (
-          <div key={label} className="flex items-center gap-1">
-            <div className={`px-2 py-1 text-[10px] font-medium rounded border ${i === 0 ? "bg-blue-50 text-blue-700 border-blue-200" : i === 1 ? "bg-amber-50 text-amber-700 border-amber-200" : "bg-emerald-50 text-emerald-700 border-emerald-200"}`}>
-              {label}
-            </div>
-            {i < 2 && (
-              <svg width="12" height="8" viewBox="0 0 12 8" fill="none" className="text-muted shrink-0">
-                <path d="M0 4h8M8 4l-3-3M8 4l-3 3" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-              </svg>
-            )}
-          </div>
-        ))}
+      <div className="flex items-center gap-3">
+        <div className="w-14 h-8 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-[9px] font-bold text-blue-600">시작</div>
+        <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h14M14 5l-4-4M14 5l-4 4" stroke="#6b7280" strokeWidth="1.5" fill="none" /></svg>
+        <div className="w-14 h-8 rounded-lg bg-green-500/20 border border-green-500/40 flex items-center justify-center text-[9px] font-bold text-green-600">처리</div>
+        <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h14M14 5l-4-4M14 5l-4 4" stroke="#6b7280" strokeWidth="1.5" fill="none" /></svg>
+        <div className="w-14 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-[9px] font-bold text-amber-600">완료</div>
       </div>
     ),
-    hoverDemo: (
-      <div className="w-full h-[200px]">
-        <FlowDiagram
-          nodes={[
-            { id: "1", title: "데이터 수집", x: 20, y: 20, variant: "info", width: 120 },
-            { id: "2", title: "데이터 처리", x: 200, y: 20, variant: "warning", width: 120 },
-            { id: "3", title: "검증", x: 20, y: 110, variant: "danger", width: 120 },
-            { id: "4", title: "저장 완료", x: 200, y: 110, variant: "success", width: 120 },
-          ]}
-          connections={[
-            { id: "c1", from: "1", to: "2" },
-            { id: "c2", from: "2", to: "4" },
-            { id: "c3", from: "1", to: "3" },
-            { id: "c4", from: "3", to: "4" },
-          ]}
-          readonly
-          showGrid
-        />
-      </div>
-    ),
+    hoverDemo: <FlowDiagramLiveDemo />,
   },
 
   /* ================================================================ */

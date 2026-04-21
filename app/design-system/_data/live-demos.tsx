@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { cn } from "@/ds/utils/cn";
 
 // Primitives
 import { Button } from "@/ds/primitives/Button";
@@ -553,6 +554,77 @@ export function StatusDotLiveDemo() {
   return (
     <div className="flex items-center justify-center h-full">
       <StatusDot status={current.status} label={current.label} size="lg" />
+    </div>
+  );
+}
+
+/* ─── 21. EmptyStateLiveDemo ───────────────── */
+export function EmptyStateLiveDemo() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const id = setInterval(() => setShow(p => !p), 2000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className="flex flex-col items-center gap-2 transition-all duration-500">
+      {show ? (
+        <>
+          <div className="text-xs font-medium text-foreground">업무 목록</div>
+          <div className="space-y-1.5 w-full max-w-[160px]">
+            <div className="h-6 rounded bg-primary/10 flex items-center px-2 text-[10px]">디자인 리뷰</div>
+            <div className="h-6 rounded bg-primary/10 flex items-center px-2 text-[10px]">코드 작성</div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-muted text-sm">∅</div>
+          <span className="text-xs font-medium text-foreground">업무가 없습니다</span>
+          <span className="text-[10px] text-muted">빈 상태 → 데이터 전환</span>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ─── 22. StatCardLiveDemo ─────────────────── */
+export function StatCardLiveDemo() {
+  const [value, setValue] = useState(1234);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setValue(p => p + Math.floor(Math.random() * 20 - 5));
+    }, 800);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className="bg-card border border-border rounded-xl p-3 w-full max-w-[160px] transition-all duration-300">
+      <div className="text-[10px] text-muted mb-1">총 사용자</div>
+      <div className="text-xl font-bold text-foreground tabular-nums">{value.toLocaleString()}</div>
+      <div className="text-[10px] text-success mt-0.5">↑ 실시간 변동</div>
+    </div>
+  );
+}
+
+/* ─── 23. FlowDiagramLiveDemo ──────────────── */
+export function FlowDiagramLiveDemo() {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setActive(p => (p + 1) % 4), 800);
+    return () => clearInterval(id);
+  }, []);
+  const nodes = ["수집", "처리", "검증", "완료"];
+  const colors = ["bg-blue-500/20 border-blue-500/50 text-blue-600", "bg-amber-500/20 border-amber-500/50 text-amber-600", "bg-purple-500/20 border-purple-500/50 text-purple-600", "bg-green-500/20 border-green-500/50 text-green-600"];
+  return (
+    <div className="flex items-center gap-2">
+      {nodes.map((n, i) => (
+        <div key={n} className="flex items-center gap-2">
+          <div className={cn(
+            "w-12 h-7 rounded-lg border flex items-center justify-center text-[9px] font-bold transition-all duration-300",
+            colors[i],
+            i === active && "ring-2 ring-primary scale-110",
+          )}>{n}</div>
+          {i < 3 && <svg width="12" height="8" viewBox="0 0 12 8"><path d="M0 4h8M8 4l-3-3M8 4l-3 3" stroke={i < active ? "#3b82f6" : "#d1d5db"} strokeWidth="1.5" fill="none" className="transition-colors duration-300" /></svg>}
+        </div>
+      ))}
     </div>
   );
 }
