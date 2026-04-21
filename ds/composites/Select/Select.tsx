@@ -124,7 +124,7 @@ export function Select<T extends string = string>({
         <ul
           ref={listRef}
           className={cn(
-            "absolute z-50 mt-1 w-full bg-white border border-border rounded-lg shadow-lg",
+            "absolute z-50 mt-1 w-full bg-white border border-border rounded-lg shadow-xl",
             "max-h-60 overflow-auto py-1 animate-fade-in-scale",
           )}
           role="listbox"
@@ -152,9 +152,9 @@ export function Select<T extends string = string>({
               onClick={() => !opt.disabled && handleSelect(opt.value)}
               className={cn(
                 "px-3 py-1.5 text-sm cursor-pointer flex items-center gap-2 transition-colors",
-                opt.value === value && "bg-primary-light text-primary font-medium",
-                i === highlightIdx && "bg-gray-50",
-                opt.disabled ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-50",
+                opt.value === value && "bg-primary text-white font-medium",
+                i === highlightIdx && "bg-primary/10",
+                opt.disabled ? "opacity-40 cursor-not-allowed" : "hover:bg-primary/10 hover:text-primary",
               )}
             >
               {opt.icon}

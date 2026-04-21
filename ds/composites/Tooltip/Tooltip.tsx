@@ -51,7 +51,7 @@ export function Tooltip({ content, position = "top", delay = 200, children, clas
         <div
           id={tooltipId}
           className={cn(
-            "absolute z-80 px-2.5 py-1.5 text-xs text-white bg-gray-800 rounded-lg shadow-lg",
+            "absolute z-80 px-2.5 py-1.5 text-xs text-white bg-gray-900/95 rounded-lg shadow-xl shadow-black/25 border border-gray-700/50 backdrop-blur-sm",
             "whitespace-nowrap pointer-events-none animate-fade-in",
             positionStyles[position],
           )}

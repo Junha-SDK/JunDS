@@ -80,7 +80,7 @@ export function Drawer({
       {/* Backdrop */}
       <div
         className={cn(
-          "fixed inset-0 z-50 bg-black/40 transition-opacity duration-300",
+          "fixed inset-0 z-50 bg-black/30 transition-opacity duration-300",
           open ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         onClick={dismissible ? onClose : undefined}
@@ -102,7 +102,7 @@ export function Drawer({
             <button
               type="button"
               onClick={onClose}
-              className="text-muted hover:text-foreground transition-colors p-1 rounded-lg hover:bg-gray-100 cursor-pointer"
+              className="text-muted hover:text-primary transition-colors p-1 rounded-lg hover:bg-primary/10 cursor-pointer"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <path d="M4.5 4.5l9 9M13.5 4.5l-9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

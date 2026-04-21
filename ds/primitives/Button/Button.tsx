@@ -5,11 +5,11 @@ import type { ButtonProps } from "./Button.types";
 
 const variantStyles: Record<string, string> = {
   primary:
-    "bg-primary text-white hover:bg-primary-hover shadow-sm active:shadow-none",
+    "bg-primary text-white hover:bg-primary-hover shadow-sm active:shadow-none hover:shadow-md hover:-translate-y-0.5 active:scale-[0.97]",
   secondary:
-    "bg-white text-foreground border border-border hover:bg-card-hover active:bg-gray-100",
+    "bg-white text-foreground border border-border hover:bg-card-hover hover:shadow-sm active:bg-gray-100",
   danger:
-    "bg-danger text-white hover:bg-danger-hover shadow-sm active:shadow-none",
+    "bg-danger text-white hover:bg-danger-hover shadow-sm active:shadow-none hover:shadow-md hover:shadow-danger/20",
   ghost:
     "text-foreground hover:bg-gray-100 active:bg-gray-200",
   outline:

@@ -138,7 +138,7 @@ function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
         <button
           type="button"
           onClick={onClose}
-          className="text-muted hover:text-foreground transition-colors p-1 rounded-lg hover:bg-gray-100 cursor-pointer"
+          className="text-muted hover:text-primary transition-colors p-1 rounded-lg hover:bg-primary/10 cursor-pointer"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M4.5 4.5l9 9M13.5 4.5l-9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

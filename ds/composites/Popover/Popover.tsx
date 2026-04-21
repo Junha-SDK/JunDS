@@ -34,7 +34,7 @@ export function Popover({ trigger, content, align = "left", side = "bottom", cla
       {open && (
         <div
           className={cn(
-            "absolute z-60 bg-white border border-border rounded-xl shadow-lg p-3 animate-fade-in-scale",
+            "absolute z-60 bg-white border border-border rounded-xl shadow-xl shadow-black/15 p-4 animate-fade-in-scale backdrop-blur-sm",
             side === "bottom" ? "mt-1 top-full" : "mb-1 bottom-full",
             alignStyles[align],
           )}

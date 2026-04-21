@@ -22,9 +22,9 @@ export function Card({ hoverable, noPadding, className, children, ...props }: Ca
   return (
     <div
       className={cn(
-        "bg-white border border-border rounded-xl shadow-xs",
+        "bg-white border border-border rounded-xl shadow-sm hover:shadow-md transition-all duration-200",
         !noPadding && "p-0",
-        hoverable && "card-hover cursor-pointer",
+        hoverable && "card-hover cursor-pointer hover:shadow-lg hover:-translate-y-1 hover:border-primary/20",
         className,
       )}
       {...props}

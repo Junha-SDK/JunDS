@@ -45,8 +45,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             className={cn(
               "w-full border bg-white transition-all duration-150",
-              "placeholder:text-muted-light",
-              "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
+              "placeholder:text-muted",
+              "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)] focus:bg-white",
               "disabled:opacity-50 disabled:cursor-not-allowed",
               error
                 ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgba(220,63,63,0.15)]"
@@ -70,8 +70,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         className={cn(
           "w-full border bg-white transition-all duration-150",
-          "placeholder:text-muted-light",
-          "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "placeholder:text-muted",
+          "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)] focus:bg-white",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           error
             ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgba(220,63,63,0.15)]"

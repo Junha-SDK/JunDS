@@ -49,7 +49,7 @@ export function SpoilerBlock({
   return (
     <div
       className={cn(
-        "relative rounded-lg border p-4 overflow-hidden transition-all duration-300",
+        "relative rounded-lg border border-border p-4 overflow-hidden transition-all duration-300",
         config.bg,
         config.border,
         className,
@@ -59,7 +59,7 @@ export function SpoilerBlock({
       <div
         className={cn(
           "transition-[filter] duration-500 ease-out",
-          revealed ? "blur-0" : "blur-md select-none pointer-events-none",
+          revealed ? "blur-0" : "blur-sm select-none pointer-events-none",
         )}
         aria-hidden={!revealed}
       >
@@ -73,7 +73,7 @@ export function SpoilerBlock({
             type="button"
             onClick={() => setRevealed(true)}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium text-white shadow-lg transition-colors",
+              "px-4 py-2 rounded-full text-sm font-semibold text-white shadow-md hover:shadow-lg transition-colors",
               config.badge,
             )}
           >

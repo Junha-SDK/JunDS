@@ -87,7 +87,7 @@ export function Dropdown({ trigger, items, onSelect, align = "right", className 
         <div
           role="menu"
           className={cn(
-            "absolute z-50 mt-1 min-w-[160px] bg-white border border-border rounded-lg shadow-lg py-1 animate-fade-in-scale",
+            "absolute z-50 mt-1 min-w-[160px] bg-white border border-border rounded-lg shadow-xl shadow-black/15 py-1 animate-fade-in-scale",
             align === "right" ? "right-0" : "left-0",
           )}
         >
@@ -113,8 +113,8 @@ export function Dropdown({ trigger, items, onSelect, align = "right", className 
                 className={cn(
                   "w-full flex items-center gap-2 px-3 py-1.5 text-sm text-left transition-colors cursor-pointer",
                   item.danger
-                    ? "text-danger hover:bg-danger-light"
-                    : "text-foreground hover:bg-gray-50",
+                    ? "text-danger hover:bg-danger/10 hover:text-danger"
+                    : "text-foreground hover:bg-primary/10",
                   item.disabled && "opacity-40 cursor-not-allowed",
                 )}
               >
