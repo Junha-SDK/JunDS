@@ -665,7 +665,7 @@ export function ModalLiveDemo() {
   }, []);
   return (
     <div className="relative w-full h-full flex items-center justify-center">
-      <div className={cn("absolute inset-0 bg-black/20 rounded-lg transition-opacity duration-300", show ? "opacity-100" : "opacity-0")} />
+      <div className={cn("absolute inset-0 bg-foreground/5 rounded-lg transition-opacity duration-300", show ? "opacity-100" : "opacity-0")} />
       <div className={cn("relative bg-card border border-border rounded-xl shadow-2xl p-3 w-[180px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]", show ? "scale-100 opacity-100" : "scale-90 opacity-0")}>
         <div className="text-xs font-bold mb-1">삭제 확인</div>
         <div className="text-[10px] text-muted mb-2">이 작업은 되돌릴 수 없습니다.</div>
@@ -822,7 +822,7 @@ export function ConfirmDialogLiveDemo() {
   const show = phase >= 1 && phase <= 3;
   return (
     <div className="relative w-full h-[110px] flex items-center justify-center">
-      <div className={cn("absolute inset-0 bg-black/15 rounded-lg transition-opacity duration-300", show ? "opacity-100" : "opacity-0")} />
+      <div className={cn("absolute inset-0 bg-foreground/5 rounded-lg transition-opacity duration-300", show ? "opacity-100" : "opacity-0")} />
       <div className={cn("relative bg-card border border-border rounded-xl shadow-xl p-3 w-[170px] transition-all duration-400", show ? "scale-100 opacity-100" : "scale-95 opacity-0")}>
         <div className="flex items-center gap-1.5 mb-1">
           <span className="text-danger text-sm">⚠</span>

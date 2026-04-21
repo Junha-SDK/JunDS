@@ -1,0 +1,80 @@
+"use client";
+import { useState, useEffect, type ReactNode } from "react";
+import { cn } from "../../utils/cn";
+
+export interface AutoPlayDemoProps {
+  /** 순환할 프레임들 (각 프레임은 ReactNode) */
+  frames: ReactNode[];
+  /** 프레임 전환 간격 (ms) */
+  interval?: number;
+  /** 전환 애니메이션 */
+  transition?: "fade" | "slide-up" | "slide-left" | "scale" | "none";
+  /** 전환 지속 시간 (ms) */
+  duration?: number;
+  className?: string;
+}
+
+/**
+ * 자동 순환 데모
+ * 여러 상태/프레임을 자동으로 순환하며 컴포넌트의 다양한 모습을 보여줍니다.
+ *
+ * @example
+ * <AutoPlayDemo
+ *   frames={[
+ *     <Button variant="primary">Primary</Button>,
+ *     <Button variant="danger">Danger</Button>,
+ *     <Button variant="ghost">Ghost</Button>,
+ *   ]}
+ *   interval={1000}
+ *   transition="fade"
+ * />
+ */
+export function AutoPlayDemo({
+  frames,
+  interval = 1500,
+  transition = "fade",
+  duration = 400,
+  className,
+}: AutoPlayDemoProps) {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (frames.length <= 1) return;
+    const id = setInterval(() => {
+      setCurrent((p) => (p + 1) % frames.length);
+    }, interval);
+    return () => clearInterval(id);
+  }, [frames.length, interval]);
+
+  const transitionStyles = {
+    fade: { enter: "opacity-100", exit: "opacity-0" },
+    "slide-up": { enter: "opacity-100 translate-y-0", exit: "opacity-0 translate-y-3" },
+    "slide-left": { enter: "opacity-100 translate-x-0", exit: "opacity-0 translate-x-4" },
+    scale: { enter: "opacity-100 scale-100", exit: "opacity-0 scale-90" },
+    none: { enter: "", exit: "" },
+  };
+
+  const t = transitionStyles[transition];
+
+  return (
+    <div className={cn("relative w-full", className)}>
+      {frames.map((frame, i) => (
+        <div
+          key={i}
+          className={cn(
+            "transition-all pointer-events-none",
+            i === 0 ? "relative" : "absolute inset-0",
+            i === current ? t.enter : t.exit,
+          )}
+          style={{
+            transitionDuration: `${duration}ms`,
+            transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+            visibility: i === current ? "visible" : "hidden",
+          }}
+        >
+          {frame}
+        </div>
+      ))}
+    </div>
+  );
+}
