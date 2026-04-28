@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Easy launcher: ./start [dev|prod] [--port N]
+#
+#   ./start              # dev mode on port 6100 (auto-shifts if busy)
+#   ./start prod         # production mode (after `npm run build`)
+#   ./start --port 4000  # dev mode on a custom base port
+#   PORT=7000 ./start    # base port via env var
+
+set -e
+cd "$(dirname "$0")"
+
+mode="dev"
+if [[ "$1" == "dev" || "$1" == "prod" || "$1" == "start" ]]; then
+  [[ "$1" == "prod" || "$1" == "start" ]] && mode="start" || mode="dev"
+  shift
+fi
+
+if [[ ! -d node_modules ]]; then
+  echo "[start] installing dependencies (first run)…"
+  npm install
+fi
+
+base_port="${PORT:-6100}"
+if [[ "$1" == "--port" && -n "$2" ]]; then
+  base_port="$2"
+  shift 2
+fi
+
+exec node scripts/run-server.mjs "$mode" --port "$base_port" "$@"
