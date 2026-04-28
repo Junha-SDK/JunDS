@@ -8,6 +8,7 @@ export function LabMainWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <main
+      data-jds-content
       className={cn(
         "flex-1 overflow-y-auto transition-colors duration-300",
         isFullWidth ? "p-0 overflow-hidden" : "p-8",

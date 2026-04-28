@@ -503,7 +503,7 @@ export function InputLiveDemo() {
 
   return (
     <div className="flex items-center justify-center h-full px-3">
-      <Input value={text} readOnly placeholder="Type here..." inputSize="sm" />
+      <Input value={text} readOnly placeholder="Type here..." size="sm" />
     </div>
   );
 }

@@ -1,380 +1,300 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Box, Flex, VStack, HStack, Heading, Text } from "@/ds/core";
+import { SimpleGrid } from "@/ds/layout";
 import { Button } from "@/ds/primitives/Button";
 import { Badge } from "@/ds/primitives/Badge";
 import { Avatar } from "@/ds/primitives/Avatar";
+import { Input } from "@/ds/primitives/Input";
 import { Toggle } from "@/ds/primitives/Toggle";
+import { Switch } from "@/ds/primitives/Switch";
 import { StarRating } from "@/ds/primitives/StarRating";
 import { Spinner } from "@/ds/primitives/Spinner";
 import { Card } from "@/ds/composites/Card";
 import { Alert } from "@/ds/composites/Alert";
 import { ProgressBar } from "@/ds/composites/Progress";
-
-const stats = [
-  { label: "Primitives", count: 31, color: "primary" as const },
-  { label: "Composites", count: 60, color: "success" as const },
-  { label: "Patterns", count: 19, color: "warning" as const },
-  { label: "Hooks", count: 12, color: "info" as const },
-  { label: "Tokens", count: 8, color: "default" as const },
-];
-
-const features = [
-  {
-    icon: "M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z",
-    title: "130+ 컴포넌트",
-    desc: "레고처럼 조합 가능한 완전한 UI 라이브러리",
-  },
-  {
-    icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
-    title: "TypeScript First",
-    desc: "모든 Props에 완벽한 타입 지원",
-  },
-  {
-    icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
-    title: "접근성 (A11y)",
-    desc: "ARIA, 키보드 네비게이션, Focus Trap",
-  },
-  {
-    icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01",
-    title: "테마 시스템",
-    desc: "18개 프리셋 + 커스텀 테마 + 다크 모드",
-  },
-  {
-    icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
-    title: "반응형",
-    desc: "브레이크포인트 토큰, useBreakpoint 훅",
-  },
-  {
-    icon: "M13 10V3L4 14h7v7l9-11h-7z",
-    title: "트리쉐이킹",
-    desc: "ESM/CJS 듀얼 빌드, sideEffects: false",
-  },
-];
-
-const newFeatures = [
-  { name: "FlowDiagram", desc: "인터랙티브 노드 그래프" },
-  { name: "ComponentShowcase", desc: "컴포넌트 갤러리" },
-  { name: "ThemeProvider / I18nProvider / ErrorBoundary", desc: "프로바이더 패턴" },
-  { name: "useForm / useBreakpoint / useReducedMotion", desc: "커스텀 훅" },
-  { name: "접근성 강화", desc: "focus trap, ARIA, reduced-motion" },
-];
+import { Tabs } from "@/ds/composites/Tabs";
+import { AnimatedCounter } from "@/ds/composites/AnimatedCounter";
+import { MiniChart } from "@/ds/composites/MiniChart";
+import { ProgressRing } from "@/ds/composites/ProgressRing";
 
 export default function DesignSystemPage() {
+  const [mounted, setMounted] = useState(false);
+  const [demoTab, setDemoTab] = useState("overview");
+  const [demoRating, setDemoRating] = useState(4);
+  const [demoSwitch, setDemoSwitch] = useState(true);
+
+  useEffect(() => setMounted(true), []);
+
   return (
-    <div className="max-w-6xl mx-auto">
-      {/* ═══ Hero Section ═══ */}
-      <section className="relative overflow-hidden rounded-3xl mb-12 px-8 py-20 md:py-28">
-        {/* Animated gradient blobs */}
-        <div className="absolute inset-0 -z-10">
-          <div
-            className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full opacity-30 animate-float-slow"
-            style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 70%)" }}
-          />
-          <div
-            className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-20 animate-float-slow"
-            style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)", animationDelay: "-4s" }}
-          />
-          <div
-            className="absolute top-[40%] left-[50%] w-[40%] h-[40%] rounded-full opacity-15 animate-float-slow"
-            style={{ background: "radial-gradient(circle, var(--info) 0%, transparent 70%)", animationDelay: "-8s" }}
-          />
-        </div>
+    <Box maxW="1152px" mx="auto">
+      {/* ═══ Hero ═══ */}
+      <Box as="section" position="relative" overflow="hidden" radius="3xl" mb={16} px={8} py={{ base: 24, md: 32 }}>
+        {/* Animated gradient mesh */}
+        <Box position="absolute" className="inset-0 -z-10">
+          <Box position="absolute" className="top-[-30%] left-[-15%] rounded-full opacity-25 animate-float-slow" style={{ width: "70%", height: "70%", background: "radial-gradient(circle, var(--primary) 0%, transparent 70%)" }} />
+          <Box position="absolute" className="bottom-[-25%] right-[-10%] rounded-full opacity-20 animate-float-slow" style={{ width: "55%", height: "55%", background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)", animationDelay: "-4s" }} />
+          <Box position="absolute" className="top-[30%] left-[55%] rounded-full opacity-15 animate-float-slow" style={{ width: "45%", height: "45%", background: "radial-gradient(circle, var(--info) 0%, transparent 70%)", animationDelay: "-8s" }} />
+          {/* Grid pattern overlay */}
+          <Box position="absolute" className="inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, var(--foreground) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+        </Box>
 
-        <div className="relative text-center stagger-children">
-          {/* Version badge */}
-          <div className="inline-flex items-center gap-2 mb-6">
-            <Badge variant="primary" size="lg" className="badge-shine">
-              v2.1.0
-            </Badge>
-            <span className="text-sm text-muted">Production Ready</span>
-          </div>
+        <Box position="relative" textAlign="center" className="stagger-children">
+          <Box display="inline-flex" className="items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+            <Box as="span" className="relative flex h-2 w-2"><Box as="span" className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" /><Box as="span" className="relative inline-flex rounded-full h-2 w-2 bg-primary" /></Box>
+            <Text as="span" fontSize="xs" fontWeight="semibold" color="primary" mb={0}>v2.2.0 — Framework Mode</Text>
+          </Box>
 
-          {/* Title */}
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4">
-            <span className="gradient-text">junDS</span>
-          </h1>
+          <Heading level={1} mb={5} className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter">
+            <Box as="span" className="gradient-text">junDS</Box>
+          </Heading>
 
-          {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted font-medium mb-6 max-w-2xl mx-auto">
-            프로덕션 레디 디자인 시스템
-          </p>
+          <Text fontSize={{ base: "lg", md: "xl" }} color="muted" mb={4} className="max-w-2xl mx-auto leading-relaxed">
+            레고처럼 조합하는 프로덕션 레디 디자인 프레임워크.<br className="hidden md:block" />
+            <Text as="span" color="foreground" fontWeight="semibold" mb={0}>219개 컴포넌트</Text>로 무엇이든 만드세요.
+          </Text>
 
-          {/* Stats line */}
-          <p className="text-sm md:text-base text-muted-light mb-10 tracking-wide">
-            130+ 컴포넌트 &middot; 12 커스텀 훅 &middot; 8 디자인 토큰 &middot; 다크 모드
-          </p>
+          <Text fontSize="sm" color="muted-light" mb={10}>
+            TypeScript · Tailwind CSS · 반응형 Props · 접근성 · 다크 모드 · 트리쉐이킹
+          </Text>
 
-          {/* CTA Buttons */}
-          <div className="flex items-center justify-center gap-4">
-            <Link href="/design-system/showcase">
-              <Button variant="primary" size="lg" className="btn-primary px-8 py-3 text-base">
-                컬렉션 보기
+          <HStack gap={4} justify="center" className="flex-wrap">
+            <Link href="/design-system/showcase/lego">
+              <Button variant="primary" size="lg" className="px-8 py-3.5 text-base shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-shadow">
+                레고 조합 보기
               </Button>
             </Link>
-            <a href="#quick-start">
-              <Button variant="outline" size="lg" className="px-8 py-3 text-base">
-                시작하기
+            <Link href="/design-system/showcase">
+              <Button variant="secondary" size="lg" className="px-8 py-3.5 text-base">
+                컬렉션 탐색
               </Button>
-            </a>
-          </div>
-        </div>
-      </section>
+            </Link>
+          </HStack>
+        </Box>
+      </Box>
 
-      {/* ═══ Live Component Strip ═══ */}
-      <section className="mb-16 overflow-hidden relative">
-        <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
-
-        <div className="flex gap-6 items-center animate-marquee">
-          {/* First set */}
-          <div className="flex gap-6 items-center shrink-0">
-            <div className="animate-float" style={{ animationDelay: "0s" }}>
-              <Button variant="primary" size="md">Button</Button>
-            </div>
-            <div className="animate-float" style={{ animationDelay: "0.5s" }}>
-              <Badge variant="success" size="lg">Active</Badge>
-            </div>
-            <div className="animate-float" style={{ animationDelay: "1s" }}>
-              <Avatar name="JunDS" size="lg" />
-            </div>
-            <div className="animate-float" style={{ animationDelay: "1.5s" }}>
-              <Toggle checked label="" />
-            </div>
-            <div className="animate-float" style={{ animationDelay: "2s" }}>
-              <StarRating value={4} readonly />
-            </div>
-            <div className="animate-float" style={{ animationDelay: "2.5s" }}>
-              <Spinner size="md" />
-            </div>
-            <div className="animate-float" style={{ animationDelay: "3s" }}>
-              <Card className="p-3 text-xs font-medium">Card</Card>
-            </div>
-            <div className="animate-float" style={{ animationDelay: "3.5s" }}>
-              <Alert variant="info" title="Info" className="py-2 px-3 text-xs">Alert</Alert>
-            </div>
-            <div className="animate-float w-32" style={{ animationDelay: "4s" }}>
-              <ProgressBar value={72} />
-            </div>
-          </div>
-          {/* Duplicate for seamless loop */}
-          <div className="flex gap-6 items-center shrink-0">
-            <div className="animate-float" style={{ animationDelay: "0s" }}>
-              <Button variant="primary" size="md">Button</Button>
-            </div>
-            <div className="animate-float" style={{ animationDelay: "0.5s" }}>
-              <Badge variant="success" size="lg">Active</Badge>
-            </div>
-            <div className="animate-float" style={{ animationDelay: "1s" }}>
-              <Avatar name="JunDS" size="lg" />
-            </div>
-            <div className="animate-float" style={{ animationDelay: "1.5s" }}>
-              <Toggle checked label="" />
-            </div>
-            <div className="animate-float" style={{ animationDelay: "2s" }}>
-              <StarRating value={4} readonly />
-            </div>
-            <div className="animate-float" style={{ animationDelay: "2.5s" }}>
-              <Spinner size="md" />
-            </div>
-            <div className="animate-float" style={{ animationDelay: "3s" }}>
-              <Card className="p-3 text-xs font-medium">Card</Card>
-            </div>
-            <div className="animate-float" style={{ animationDelay: "3.5s" }}>
-              <Alert variant="info" title="Info" className="py-2 px-3 text-xs">Alert</Alert>
-            </div>
-            <div className="animate-float w-32" style={{ animationDelay: "4s" }}>
-              <ProgressBar value={72} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ Stats Grid ═══ */}
-      <section className="mb-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 stagger-children">
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className="glass border border-border rounded-2xl p-6 text-center card-hover"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-foreground mb-2 animate-count-up">
-                {s.count}
-              </div>
-              <Badge variant={s.color} size="sm">{s.label}</Badge>
-            </div>
+      {/* ═══ Stats ═══ */}
+      <Box as="section" mb={16}>
+        <SimpleGrid cols={{ base: 3, md: 5 }} gap={{ base: 3, md: 4 }}>
+          {[
+            { label: "Primitives", count: 38, color: "text-primary", bg: "bg-primary/10" },
+            { label: "Composites", count: 117, color: "text-emerald-600", bg: "bg-emerald-50" },
+            { label: "Patterns", count: 24, color: "text-amber-600", bg: "bg-amber-50" },
+            { label: "Hooks", count: 29, color: "text-sky-600", bg: "bg-sky-50" },
+            { label: "Layout", count: 11, color: "text-rose-600", bg: "bg-rose-50" },
+          ].map((s) => (
+            <Box key={s.label} radius="2xl" border className="bg-white p-5 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-default">
+              <Box className="text-3xl md:text-4xl font-extrabold text-foreground mb-1.5 tabular-nums">
+                {mounted ? <AnimatedCounter value={s.count} duration={1500} /> : s.count}
+              </Box>
+              <Box as="span" className={`inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${s.color} ${s.bg}`}>
+                {s.label}
+              </Box>
+            </Box>
           ))}
-        </div>
-        <p className="text-center text-muted text-sm mt-4">
-          총 <span className="font-semibold text-foreground">110+</span> 컴포넌트로 구성된 완전한 디자인 시스템
-        </p>
-      </section>
+        </SimpleGrid>
+      </Box>
 
-      {/* ═══ Feature Cards ═══ */}
-      <section className="mb-16">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">
-          <span className="gradient-text">왜 junDS인가?</span>
-        </h2>
-        <p className="text-center text-muted mb-8">엔터프라이즈급 디자인 시스템의 모든 것</p>
+      {/* ═══ Live Demos ═══ */}
+      <Box as="section" mb={16}>
+        <Heading level={2} textAlign="center" mb={2} className="text-2xl md:text-3xl tracking-tight">
+          <Box as="span" className="gradient-text">실시간 데모</Box>
+        </Heading>
+        <Text fontSize="sm" dimmed textAlign="center" mb={8}>컴포넌트가 실제로 어떻게 동작하는지 직접 확인하세요</Text>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 stagger-children">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="glass border border-border rounded-2xl p-6 card-hover group"
-            >
-              <div className="w-10 h-10 rounded-xl bg-primary-light flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                <svg className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d={f.icon} />
-                </svg>
-              </div>
-              <h3 className="text-base font-semibold text-foreground mb-1">{f.title}</h3>
-              <p className="text-sm text-muted">{f.desc}</p>
-            </div>
+        <SimpleGrid cols={{ base: 1, md: 3 }} gap={4}>
+          {/* Demo 1: Interactive Card */}
+          <Box radius="2xl" border className="bg-white p-6 hover:shadow-lg transition-shadow">
+            <Text as="p" fontSize="xs" fontWeight="bold" dimmed mb={4} className="uppercase tracking-widest" style={{ fontSize: "10px" }}>Dashboard Card</Text>
+            <VStack gap="sm" align="stretch">
+              <Flex align="center" justify="between">
+                <Box>
+                  <Text as="p" fontSize="2xl" fontWeight="bold" mb={0} className="tabular-nums">₩12.4M</Text>
+                  <Text as="p" fontSize="xs" dimmed mb={0}>이번 달 매출</Text>
+                </Box>
+                <ProgressRing value={78} size={56} strokeWidth={4}>
+                  <Text as="span" fontSize="xs" fontWeight="bold" mb={0}>78%</Text>
+                </ProgressRing>
+              </Flex>
+              <MiniChart data={[30,45,38,52,48,61,55,70,65,78]} type="area" width={250} height={40} />
+              <HStack gap={2}>
+                <Badge variant="success" size="sm" dot>+12.5%</Badge>
+                <Text as="span" fontSize="xs" dimmed mb={0}>전월 대비</Text>
+              </HStack>
+            </VStack>
+          </Box>
+
+          {/* Demo 2: Form */}
+          <Box radius="2xl" border className="bg-white p-6 hover:shadow-lg transition-shadow">
+            <Text as="p" fontSize="xs" fontWeight="bold" dimmed mb={4} className="uppercase tracking-widest" style={{ fontSize: "10px" }}>Settings Form</Text>
+            <VStack gap="sm" align="stretch">
+              <Input placeholder="사용자 이름" size="sm" />
+              <Input placeholder="이메일 주소" size="sm" />
+              <Flex align="center" justify="between" py={1}>
+                <Text as="span" fontSize="xs" color="foreground" mb={0}>알림 받기</Text>
+                <Switch size="sm" checked={demoSwitch} onChange={() => setDemoSwitch(!demoSwitch)} />
+              </Flex>
+              <Flex align="center" justify="between" py={1}>
+                <Text as="span" fontSize="xs" color="foreground" mb={0}>별점</Text>
+                <StarRating value={demoRating} onChange={setDemoRating} size="sm" />
+              </Flex>
+              <Button variant="primary" size="sm" fullWidth>저장</Button>
+            </VStack>
+          </Box>
+
+          {/* Demo 3: Components Mix */}
+          <Box radius="2xl" border className="bg-white p-6 hover:shadow-lg transition-shadow">
+            <Text as="p" fontSize="xs" fontWeight="bold" dimmed mb={4} className="uppercase tracking-widest" style={{ fontSize: "10px" }}>Component Mix</Text>
+            <VStack gap="sm" align="stretch">
+              <HStack gap={3}>
+                <Avatar name="김준하" size="md" />
+                <Box>
+                  <Text as="p" fontSize="sm" fontWeight="semibold" mb={0}>김준하</Text>
+                  <Text as="p" fontSize="xs" dimmed mb={0}>Frontend Engineer</Text>
+                </Box>
+                <Badge variant="primary" size="sm" className="ml-auto">Pro</Badge>
+              </HStack>
+              <Alert variant="success" title="배포 완료" className="text-xs py-2">{""}</Alert>
+              <ProgressBar value={85} className="h-1.5" />
+              <HStack gap={2}>
+                <Button variant="secondary" size="xs">프로필</Button>
+                <Button variant="ghost" size="xs">설정</Button>
+                <Button variant="link" size="xs">더보기</Button>
+              </HStack>
+            </VStack>
+          </Box>
+        </SimpleGrid>
+      </Box>
+
+      {/* ═══ Why JunDS ═══ */}
+      <Box as="section" mb={16}>
+        <Heading level={2} textAlign="center" mb={2} className="text-2xl md:text-3xl tracking-tight">
+          <Box as="span" className="gradient-text">왜 junDS인가?</Box>
+        </Heading>
+        <Text fontSize="sm" dimmed textAlign="center" mb={8}>프레임워크급 디자인 시스템의 모든 것</Text>
+
+        <SimpleGrid cols={{ base: 1, md: 2, lg: 3 }} gap={4}>
+          {[
+            { icon: "🧱", title: "219개 컴포넌트", desc: "Primitives → Composites → Patterns 3계층 아키텍처" },
+            { icon: "📐", title: "프레임워크 코어", desc: "Box, Flex, Page, Heading — 토큰 기반 레이아웃 시스템" },
+            { icon: "📱", title: "반응형 Props", desc: "p={{ base: 2, md: 4 }} — 브레이크포인트별 제어" },
+            { icon: "🎨", title: "18개 테마", desc: "커스텀 색상 + 다크 모드 + 밀도/반경/간격 전역 제어" },
+            { icon: "♿", title: "접근성 내장", desc: "ARIA, 키보드 네비게이션, Focus Trap, Reduced Motion" },
+            { icon: "📦", title: "트리쉐이킹", desc: "ESM/CJS 듀얼 빌드, sideEffects: false, 개별 import" },
+            { icon: "🧪", title: "230개 테스트", desc: "Vitest + Testing Library + 접근성 테스트" },
+            { icon: "🔧", title: "29개 커스텀 훅", desc: "useForm, useBreakpoint, useIdle, useCountUp 등" },
+            { icon: "📊", title: "25기능 DataTable", desc: "검색, 필터, 정렬, 가상스크롤, 내보내기, 인라인 편집" },
+          ].map((f) => (
+            <Box key={f.title} radius="2xl" border className="group bg-white p-5 hover:border-primary/30 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+              <Text as="span" fontSize="2xl" mb={3} className="block">{f.icon}</Text>
+              <Heading level={3} mb={1} className="text-sm font-bold group-hover:text-primary transition-colors">{f.title}</Heading>
+              <Text fontSize="xs" dimmed mb={0} lineHeight="relaxed">{f.desc}</Text>
+            </Box>
           ))}
-        </div>
-      </section>
+        </SimpleGrid>
+      </Box>
 
       {/* ═══ Quick Start ═══ */}
-      <section id="quick-start" className="mb-16 scroll-mt-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">
-          <span className="gradient-text">시작하기</span>
-        </h2>
-        <p className="text-center text-muted mb-8">간단한 import로 바로 사용 가능</p>
+      <Box as="section" mb={16} id="quick-start" className="scroll-mt-8">
+        <Heading level={2} textAlign="center" mb={2} className="text-2xl md:text-3xl tracking-tight">
+          <Box as="span" className="gradient-text">30초 만에 시작하기</Box>
+        </Heading>
+        <Text fontSize="sm" dimmed textAlign="center" mb={8}>복사 → 붙여넣기 → 완료</Text>
 
-        <div className="glass border border-border rounded-2xl p-6 md:p-8">
-          <pre className="bg-gray-900 text-gray-100 rounded-xl p-5 text-sm font-mono overflow-x-auto leading-relaxed">
-            <code>{`// 개별 import (트리쉐이킹 최적)
-import { Button } from "@/ds/primitives/Button";
-import { Modal } from "@/ds/composites/Modal";
-import { DataTable } from "@/ds/patterns/DataTable";
-import { useForm } from "@/ds/hooks/useForm";
+        <SimpleGrid cols={{ base: 1, md: 2 }} gap={4}>
+          <Box radius="2xl" border overflow="hidden" className="bg-white">
+            <HStack gap={2} className="px-4 py-2.5 bg-gray-50 border-b border-border">
+              <Box as="span" className="w-3 h-3 rounded-full bg-danger/60" />
+              <Box as="span" className="w-3 h-3 rounded-full bg-warning/60" />
+              <Box as="span" className="w-3 h-3 rounded-full bg-success/60" />
+              <Text as="span" fontSize="xs" dimmed mb={0} className="font-mono ml-2" style={{ fontSize: "10px" }}>터미널</Text>
+            </HStack>
+            <pre className="p-5 text-sm font-mono text-gray-300 bg-gray-950 overflow-x-auto leading-relaxed">
+<span className="text-gray-500">$</span> <span className="text-emerald-400">npm install</span> @junds/ui{"\n"}
+<span className="text-gray-500">$</span> <span className="text-emerald-400">npm install</span> tailwindcss
+            </pre>
+          </Box>
 
-// 또는 barrel import
-import { Button, Modal, DataTable, useForm } from "@/ds";
-
-// 테마 프로바이더
-import { ThemeProvider } from "@/ds/providers/ThemeProvider";`}</code>
-          </pre>
-        </div>
-      </section>
+          <Box radius="2xl" border overflow="hidden" className="bg-white">
+            <HStack gap={2} className="px-4 py-2.5 bg-gray-50 border-b border-border">
+              <Box as="span" className="w-3 h-3 rounded-full bg-danger/60" />
+              <Box as="span" className="w-3 h-3 rounded-full bg-warning/60" />
+              <Box as="span" className="w-3 h-3 rounded-full bg-success/60" />
+              <Text as="span" fontSize="xs" dimmed mb={0} className="font-mono ml-2" style={{ fontSize: "10px" }}>App.tsx</Text>
+            </HStack>
+            <pre className="p-5 text-sm font-mono text-gray-300 bg-gray-950 overflow-x-auto leading-relaxed">
+<span className="text-sky-400">import</span> {"{"} <span className="text-amber-300">Button</span> {"}"} <span className="text-sky-400">from</span> <span className="text-emerald-400">"@junds/ui"</span>{"\n"}
+<span className="text-sky-400">import</span> {"{"} <span className="text-amber-300">Page</span>, <span className="text-amber-300">Heading</span> {"}"} <span className="text-sky-400">from</span> <span className="text-emerald-400">"@junds/ui/core"</span>{"\n\n"}
+<span className="text-sky-400">export default function</span> <span className="text-amber-300">App</span>() {"{"}{"\n"}
+{"  "}<span className="text-sky-400">return</span> ({"\n"}
+{"    "}<span className="text-gray-500">{"<"}</span><span className="text-rose-400">Page</span> maxWidth=<span className="text-emerald-400">"lg"</span><span className="text-gray-500">{">"}</span>{"\n"}
+{"      "}<span className="text-gray-500">{"<"}</span><span className="text-rose-400">Heading</span> level={"{"}1{"}"}<span className="text-gray-500">{">"}</span>Hello JunDS<span className="text-gray-500">{"</"}</span><span className="text-rose-400">Heading</span><span className="text-gray-500">{">"}</span>{"\n"}
+{"      "}<span className="text-gray-500">{"<"}</span><span className="text-rose-400">Button</span> variant=<span className="text-emerald-400">"primary"</span><span className="text-gray-500">{">"}</span>{"\n"}
+{"        "}시작하기{"\n"}
+{"      "}<span className="text-gray-500">{"</"}</span><span className="text-rose-400">Button</span><span className="text-gray-500">{">"}</span>{"\n"}
+{"    "}<span className="text-gray-500">{"</"}</span><span className="text-rose-400">Page</span><span className="text-gray-500">{">"}</span>{"\n"}
+{"  "}){"\n"}
+{"}"}
+            </pre>
+          </Box>
+        </SimpleGrid>
+      </Box>
 
       {/* ═══ Architecture ═══ */}
-      <section className="mb-16">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">
-          <span className="gradient-text">아키텍처</span>
-        </h2>
-        <p className="text-center text-muted mb-8">계층화된 컴포넌트 설계</p>
+      <Box as="section" mb={16}>
+        <Heading level={2} textAlign="center" mb={2} className="text-2xl md:text-3xl tracking-tight">
+          <Box as="span" className="gradient-text">3계층 아키텍처</Box>
+        </Heading>
+        <Text fontSize="sm" dimmed textAlign="center" mb={8}>Atoms → Molecules → Organisms</Text>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 stagger-children">
-          {/* Primitives */}
-          <div className="glass border border-border rounded-2xl p-6 card-hover relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
-            <div className="text-sm font-bold text-primary mb-1">Primitives</div>
-            <div className="text-3xl font-bold text-foreground mb-2">31개</div>
-            <p className="text-xs text-muted mb-3">의존성 0인 원자 컴포넌트</p>
-            <div className="flex flex-wrap gap-1">
-              {["Button", "Input", "Badge", "Avatar", "Toggle", "Slider", "Checkbox", "Radio"].map((c) => (
-                <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-primary-light text-primary font-medium">{c}</span>
-              ))}
-            </div>
-          </div>
-
-          {/* Composites */}
-          <div className="glass border border-border rounded-2xl p-6 card-hover relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-success" />
-            <div className="text-sm font-bold text-success mb-1">Composites</div>
-            <div className="text-3xl font-bold text-foreground mb-2">60개</div>
-            <p className="text-xs text-muted mb-3">Primitives를 조합한 분자 컴포넌트</p>
-            <div className="flex flex-wrap gap-1">
-              {["Modal", "Tabs", "Select", "Toast", "Card", "Drawer", "Dropdown", "Alert"].map((c) => (
-                <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-success-light text-success font-medium">{c}</span>
-              ))}
-            </div>
-          </div>
-
-          {/* Patterns */}
-          <div className="glass border border-border rounded-2xl p-6 card-hover relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-warning" />
-            <div className="text-sm font-bold text-warning mb-1">Patterns</div>
-            <div className="text-3xl font-bold text-foreground mb-2">19개</div>
-            <p className="text-xs text-muted mb-3">비즈니스 로직을 포함한 복합 패턴</p>
-            <div className="flex flex-wrap gap-1">
-              {["DataTable", "Calendar", "CommandPalette", "FlowDiagram", "FormWizard"].map((c) => (
-                <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-warning-light text-warning font-medium">{c}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Arrow indicator */}
-        <div className="hidden md:flex items-center justify-center mt-4 text-muted">
-          <span className="text-xs">Primitives</span>
-          <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-          <span className="text-xs">Composites</span>
-          <svg className="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-          <span className="text-xs">Patterns</span>
-        </div>
-      </section>
-
-      {/* ═══ New in v2.1 ═══ */}
-      <section className="mb-16">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">
-          <span className="gradient-text">v2.1의 새로운 기능</span>
-        </h2>
-        <p className="text-center text-muted mb-8">최근 추가된 기능들</p>
-
-        <div className="glass border border-border rounded-2xl p-6 md:p-8">
-          <div className="space-y-4 stagger-children">
-            {newFeatures.map((f) => (
-              <div key={f.name} className="flex items-center gap-4 p-3 rounded-xl hover:bg-primary-light/30 transition-colors">
-                <div className="w-2 h-2 rounded-full bg-primary shrink-0 animate-pulse-soft" />
-                <div>
-                  <span className="text-sm font-semibold text-foreground">{f.name}</span>
-                  <span className="text-sm text-muted ml-2">- {f.desc}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        <SimpleGrid cols={{ base: 1, md: 3 }} gap={4}>
+          {[
+            { layer: "Primitives", count: 38, color: "primary", items: ["Button","Input","Badge","Avatar","Toggle","Switch","Slider","Checkbox","Tag","Spinner"] },
+            { layer: "Composites", count: 117, color: "success", items: ["Modal","Tabs","Select","DataGrid","Card","Drawer","Toast","Timeline","Carousel","Rating"] },
+            { layer: "Patterns", count: 24, color: "warning", items: ["DataTable","FormWizard","Calendar","Kanban","CommandPalette","FlowDiagram","Sidebar"] },
+          ].map((l) => (
+            <Box key={l.layer} radius="2xl" border overflow="hidden" className="group bg-white p-6 hover:shadow-lg transition-all relative">
+              <Box position="absolute" top={0} left={0} className={`right-0 h-1 bg-${l.color}`} />
+              <Box className={`text-xs font-bold text-${l.color} uppercase tracking-widest mb-1`}>{l.layer}</Box>
+              <Box className="text-3xl font-extrabold text-foreground mb-1 tabular-nums">{l.count}개</Box>
+              <Text fontSize="xs" dimmed mb={4}>
+                {l.layer === "Primitives" ? "의존성 없는 원자 컴포넌트" : l.layer === "Composites" ? "조합된 분자 컴포넌트" : "비즈니스 로직 포함 패턴"}
+              </Text>
+              <Flex wrap="wrap" gap={1.5}>
+                {l.items.map((c) => (
+                  <Box as="span" key={c} className={`text-[10px] px-2 py-0.5 rounded-full bg-${l.color}/10 text-${l.color} font-medium`}>{c}</Box>
+                ))}
+              </Flex>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Box>
 
       {/* ═══ Bottom CTA ═══ */}
-      <section className="mb-8">
-        <div className="relative overflow-hidden rounded-3xl border border-border p-10 md:p-14 text-center glass">
-          {/* Background decoration */}
-          <div
-            className="absolute inset-0 -z-10 opacity-10 animate-aurora"
-            style={{ background: "linear-gradient(135deg, var(--primary), var(--accent), var(--info), var(--success))" }}
-          />
-
-          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3">
-            컬렉션 갤러리에서 모든 컴포넌트를 시각적으로 탐색하세요
-          </h2>
-          <p className="text-muted mb-6 max-w-lg mx-auto text-sm">
-            130개 이상의 컴포넌트를 인터랙티브하게 체험하고, 코드 스니펫을 바로 복사하세요.
-          </p>
-          <Link href="/design-system/showcase">
-            <Button variant="primary" size="lg" className="btn-primary px-10 py-3 text-base">
-              갤러리 탐색하기
-            </Button>
-          </Link>
-        </div>
-      </section>
-
-      {/* Marquee CSS */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      ` }} />
-    </div>
+      <Box as="section" mb={8}>
+        <Box position="relative" overflow="hidden" radius="3xl" border p={{ base: 12, md: 16 }} textAlign="center">
+          <Box position="absolute" className="inset-0 -z-10 opacity-10 animate-aurora" style={{ background: "linear-gradient(135deg, var(--primary), var(--accent), var(--info), var(--success))" }} />
+          <Heading level={2} mb={3} className="text-2xl md:text-3xl tracking-tight">
+            지금 바로 시작하세요
+          </Heading>
+          <Text fontSize="sm" dimmed mb={8} className="max-w-lg mx-auto">
+            219개 컴포넌트, 29개 훅, 11개 레이아웃을 갤러리에서 탐색하고 바로 사용하세요.
+          </Text>
+          <HStack gap={4} justify="center" className="flex-wrap">
+            <Link href="/design-system/showcase">
+              <Button variant="primary" size="lg" className="px-10 py-3.5 text-base shadow-lg shadow-primary/25">
+                갤러리 탐색
+              </Button>
+            </Link>
+            <Link href="/design-system/framework/provider">
+              <Button variant="outline" size="lg" className="px-10 py-3.5 text-base">
+                프레임워크 가이드
+              </Button>
+            </Link>
+          </HStack>
+        </Box>
+      </Box>
+    </Box>
   );
 }

@@ -55,7 +55,7 @@ import { Button, Modal, DataTable } from "@/ds";
 
 ### Input
 ```tsx
-<Input inputSize="sm|md|lg" error leftSlot={<SearchIcon/>} rightSlot={<ClearIcon/>} placeholder="검색..." />
+<Input size="sm|md|lg" error leftSlot={<SearchIcon/>} rightSlot={<ClearIcon/>} placeholder="검색..." />
 ```
 
 ### Textarea

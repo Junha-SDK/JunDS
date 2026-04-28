@@ -1,5 +1,56 @@
 @import "tailwindcss";
 
+/* ═══ JunDS Framework Variables ═══ */
+
+/* Font scale - controlled by JunDSProvider */
+:root {
+  --jds-font-scale: 1;
+  --jds-font-base: 15px;
+  --jds-density-px: 16px;
+  --jds-density-py: 8px;
+  --jds-density-text: 0.875rem;
+  --jds-radius-sm: 4px;
+  --jds-radius-md: 8px;
+  --jds-radius-lg: 12px;
+  --jds-radius-xl: 16px;
+  --jds-spacing-mult: 1;
+}
+
+/* Apply font scale to body */
+body {
+  font-size: var(--jds-font-base);
+}
+
+/* Components that use density variables */
+[data-density="compact"] .jds-density-text { font-size: 0.75rem; }
+[data-density="normal"] .jds-density-text { font-size: 0.875rem; }
+[data-density="comfortable"] .jds-density-text { font-size: 0.875rem; }
+
+/* Components that use radius variables */
+[data-radius="none"] .jds-radius { border-radius: 0px; }
+[data-radius="sm"] .jds-radius { border-radius: var(--jds-radius-md); }
+[data-radius="md"] .jds-radius { border-radius: var(--jds-radius-md); }
+[data-radius="lg"] .jds-radius { border-radius: var(--jds-radius-lg); }
+[data-radius="full"] .jds-radius { border-radius: 9999px; }
+
+/* Global radius overrides for all common elements */
+[data-radius="none"] input,
+[data-radius="none"] button,
+[data-radius="none"] select,
+[data-radius="none"] textarea,
+[data-radius="none"] .rounded-lg,
+[data-radius="none"] .rounded-xl,
+[data-radius="none"] .rounded-2xl,
+[data-radius="none"] .rounded-3xl { border-radius: 0px !important; }
+
+[data-radius="full"] input,
+[data-radius="full"] button,
+[data-radius="full"] select,
+[data-radius="full"] textarea { border-radius: 9999px !important; }
+
+/* Spacing multiplier utility */
+.jds-spacing { gap: calc(var(--jds-spacing-mult) * 1rem); }
+
 /* ═══════════════════════════════════════════════════
    DESIGN SYSTEM — SLD Management
    ═══════════════════════════════════════════════════ */
@@ -171,11 +222,18 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* ─── Smooth Scroll ────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* ─── Base ──────────────────────────────────────── */
 body {
   background: var(--background);
   color: var(--foreground);
   font-feature-settings: "ss01" on, "cv01" on;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -192,8 +250,8 @@ body {
 }
 
 ::selection {
-  background: rgba(91, 76, 199, 0.18);
-  color: var(--foreground);
+  background: var(--primary-light);
+  color: var(--primary);
 }
 
 /* ─── ANIMATIONS ────────────────────────────────── */
@@ -475,11 +533,11 @@ main > * {
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.25);
-  border-radius: 99px;
+  background: var(--border);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.45);
+  background: var(--muted-light);
 }
 
 /* ─── FORM ELEMENTS ─────────────────────────────── */
@@ -494,12 +552,24 @@ input:focus, select:focus, textarea:focus {
 /* Let component classes control input text color */
 
 /* ─── TRANSITIONS ───────────────────────────────── */
-button, a {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+/* Smooth transitions on theme/color mode change */
+* {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
 }
 
-input, select, textarea {
-  transition: border-color 0.15s ease, box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease;
+/* Exclude animations from theme transitions */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, box-shadow;
+}
+
+/* Override for elements that need their own transitions */
+button, a, input, textarea, select, [role="button"] {
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── BUTTON STYLES ─────────────────────────────── */
@@ -688,6 +758,149 @@ input, select, textarea {
   100% { background-color: #ef4444; }
 }
 
+/* ═══ JunDS Micro-Interactions ═══ */
+
+/* Interactive card hover — lift + shadow + border */
+.jds-card-interactive {
+  @apply transition-all duration-200 ease-out;
+}
+.jds-card-interactive:hover {
+  @apply -translate-y-0.5 shadow-lg;
+  border-color: var(--primary-light);
+}
+
+/* Button press effect */
+.jds-btn-press:active {
+  @apply scale-[0.97] transition-transform duration-75;
+}
+
+/* Focus ring standardization */
+.jds-focus {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1;
+}
+
+/* Input focus glow */
+.jds-input-focus {
+  @apply transition-all duration-150;
+}
+.jds-input-focus:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+/* Smooth fade-in for dynamically shown content */
+.jds-appear {
+  animation: jds-fade-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes jds-fade-in {
+  from { opacity: 0; transform: translateY(4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Smooth slide-up for modals/sheets */
+.jds-slide-up {
+  animation: jds-slide-up 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes jds-slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Skeleton shimmer effect (improved) */
+.jds-shimmer {
+  background: linear-gradient(90deg, var(--border) 25%, var(--border-light) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: jds-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes jds-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Hover scale for icon buttons */
+.jds-icon-hover {
+  @apply transition-all duration-150;
+}
+.jds-icon-hover:hover {
+  @apply scale-110;
+}
+.jds-icon-hover:active {
+  @apply scale-95;
+}
+
+/* Tooltip appear animation */
+.jds-tooltip-appear {
+  animation: jds-tooltip-in 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes jds-tooltip-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Accordion expand animation */
+.jds-expand {
+  animation: jds-expand 200ms ease-out;
+}
+
+@keyframes jds-expand {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 500px; }
+}
+
+/* Number highlight animation (for updated values) */
+.jds-number-highlight {
+  animation: jds-number-flash 600ms ease;
+}
+
+@keyframes jds-number-flash {
+  0% { color: inherit; }
+  30% { color: var(--primary); transform: scale(1.05); }
+  100% { color: inherit; transform: scale(1); }
+}
+
+/* Glass morphism utilities */
+.jds-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+
+.jds-glass-dark {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+
+/* Gradient text utility */
+.jds-gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Dot pulse for status indicators */
+.jds-dot-pulse {
+  position: relative;
+}
+.jds-dot-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: inherit;
+  animation: jds-pulse 2s ease-in-out infinite;
+}
+
+@keyframes jds-pulse {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 0.4; transform: scale(1.6); }
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -716,4 +929,62 @@ input, select, textarea {
   .print\:hidden {
     display: none !important;
   }
+}
+
+/* ═══ JunDS Premium Defaults ═══ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-light);
+}
+
+::selection {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::placeholder {
+  color: var(--muted-light);
+  opacity: 0.6;
+}
+
+.backdrop-premium {
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
 }

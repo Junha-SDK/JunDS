@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/ds/utils/cn";
+import { Box } from "@/ds/core";
 import type { ReactNode } from "react";
 
 export function Preview({
@@ -12,14 +12,15 @@ export function Preview({
   padding?: boolean;
 }) {
   return (
-    <div
-      className={cn(
-        "border border-border rounded-xl bg-card transition-colors duration-200",
-        padding && "p-6",
-        className,
-      )}
+    <Box
+      border
+      radius="xl"
+      bg="card"
+      transition
+      p={padding ? 6 : undefined}
+      className={className}
     >
       {children}
-    </div>
+    </Box>
   );
 }

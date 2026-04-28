@@ -2,6 +2,39 @@
 import type { ReactNode } from "react";
 import type { PropDef } from "./PropsTable";
 import { PropsTable } from "./PropsTable";
+import { Box, Flex, VStack, HStack, Heading, Text } from "@/ds/core";
+import { Badge } from "@/ds/primitives/Badge";
+import { cn } from "@/ds/utils/cn";
+
+/* ═══════════════════════ Main Page ═══════════════════════ */
+
+export interface ComponentPageProps {
+  name: string;
+  description: string;
+  importPath: string;
+  children: ReactNode;
+  props?: PropDef[];
+  /** 관련 컴포넌트 */
+  related?: { name: string; href: string }[];
+  /** 상태 뱃지 */
+  status?: "stable" | "beta" | "deprecated" | "new";
+  /** 버전 */
+  version?: string;
+}
+
+const statusVariant: Record<string, "success" | "warning" | "danger" | "primary"> = {
+  stable: "success",
+  beta: "warning",
+  deprecated: "danger",
+  new: "primary",
+};
+
+const statusLabel: Record<string, string> = {
+  stable: "Stable",
+  beta: "Beta",
+  deprecated: "Deprecated",
+  new: "New",
+};
 
 export function ComponentPage({
   name,
@@ -9,45 +42,296 @@ export function ComponentPage({
   importPath,
   children,
   props,
-}: {
-  name: string;
-  description: string;
-  importPath: string;
-  children: ReactNode;
-  props?: PropDef[];
-}) {
+  related,
+  status,
+  version,
+}: ComponentPageProps) {
   return (
-    <div className="max-w-4xl">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground mb-1">{name}</h1>
-        <p className="text-sm text-muted mb-2">{description}</p>
-        <code className="text-xs font-mono bg-gray-100 text-muted px-2 py-1 rounded-md">
-          {importPath}
-        </code>
-      </div>
+    <Box maxW="896px">
+      {/* ── Header ── */}
+      <Box mb={8}>
+        <HStack gap="sm" mb={2}>
+          <Heading level={1} mb={0}>{name}</Heading>
+          {status && (
+            <Badge variant={statusVariant[status]} size="sm">
+              {statusLabel[status]}
+            </Badge>
+          )}
+          {version && (
+            <Text as="span" fontSize="xs" mono dimmed
+              className="bg-gray-100 px-1.5 py-0.5 rounded"
+            >
+              v{version}
+            </Text>
+          )}
+        </HStack>
+        <Text fontSize="sm" dimmed mb={3} lineHeight="relaxed">{description}</Text>
+        <HStack gap={2}>
+          <Box
+            as="code"
+            fontSize="xs"
+            color="muted"
+            bg="surface-raised"
+            px={2.5}
+            py={1}
+            radius="lg"
+            border
+            className="font-mono"
+          >
+            {importPath}
+          </Box>
+          <button
+            type="button"
+            onClick={() => navigator.clipboard.writeText(importPath)}
+            className="p-1.5 text-muted hover:text-primary hover:bg-primary/5 rounded-lg transition-colors cursor-pointer"
+            aria-label="import 복사"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+              <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+            </svg>
+          </button>
+        </HStack>
+      </Box>
 
-      {/* Content (previews, variants, code examples) */}
-      <div className="flex flex-col gap-8">
+      {/* ── Content ── */}
+      <VStack gap={10}>
         {children}
-      </div>
+      </VStack>
 
-      {/* Props Table */}
+      {/* ── Props Table ── */}
       {props && props.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-lg font-semibold text-foreground mb-3">Props</h2>
+        <Box mt={10}>
+          <Heading level={2} mb={1}>API Reference</Heading>
+          <Text fontSize="xs" dimmed mb={4}>컴포넌트에 전달할 수 있는 모든 props입니다.</Text>
           <PropsTable props={props} />
-        </div>
+        </Box>
       )}
-    </div>
+
+      {/* ── Related Components ── */}
+      {related && related.length > 0 && (
+        <Box mt={10}>
+          <Heading level={2} mb={3}>관련 컴포넌트</Heading>
+          <Box display="grid" cols={{ base: 2, sm: 3 }} gap={3}>
+            {related.map((r) => (
+              <a
+                key={r.name}
+                href={r.href}
+                className="flex items-center gap-2 px-4 py-3 rounded-xl border border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
+              >
+                <Text as="span" fontSize="sm" fontWeight="medium" color="foreground" className="group-hover:text-primary transition-colors">
+                  {r.name}
+                </Text>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="ml-auto text-muted group-hover:text-primary transition-colors">
+                  <path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            ))}
+          </Box>
+        </Box>
+      )}
+    </Box>
   );
 }
 
-export function Section({ title, children }: { title: string; children: ReactNode }) {
+/* ═══════════════════════ Section ═══════════════════════ */
+
+export function Section({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
   return (
-    <div>
-      <h2 className="text-base font-semibold text-foreground mb-3">{title}</h2>
+    <Box as="section">
+      <Heading level={4} mb={description ? 0.5 : 3}>{title}</Heading>
+      {description && <Text fontSize="xs" dimmed mb={3} lineHeight="relaxed">{description}</Text>}
       {children}
-    </div>
+    </Box>
+  );
+}
+
+/* ═══════════════════════ Do / Don't ═══════════════════════ */
+
+export interface GuidelineItem {
+  type: "do" | "dont" | "caution";
+  description: string;
+  preview?: ReactNode;
+}
+
+export function Guidelines({ items }: { items: GuidelineItem[] }) {
+  const config = {
+    do: { label: "Do", icon: "\u2713", border: "border-success/30", bg: "bg-success/5", text: "text-success", iconBg: "bg-success" },
+    dont: { label: "Don't", icon: "\u2715", border: "border-danger/30", bg: "bg-danger/5", text: "text-danger", iconBg: "bg-danger" },
+    caution: { label: "Caution", icon: "!", border: "border-warning/30", bg: "bg-warning/5", text: "text-warning", iconBg: "bg-warning" },
+  };
+
+  return (
+    <Box display="grid" cols={{ base: 1, md: 2 }} gap={4}>
+      {items.map((item, i) => {
+        const c = config[item.type];
+        return (
+          <Box key={i} radius="xl" border overflow="hidden" className={c.border}>
+            {item.preview && (
+              <Flex align="center" justify="center" p={5} minH="120px" className={c.bg}>
+                {item.preview}
+              </Flex>
+            )}
+            <Flex gap={2.5} px={4} py={3} align="start" className="bg-white">
+              <Box
+                as="span"
+                shrink={0}
+                w={20}
+                h={20}
+                radius="full"
+                display="flex"
+                align="center"
+                justify="center"
+                color="white"
+                fontSize="2xs"
+                fontWeight="bold"
+                mt={0.5}
+                className={c.iconBg}
+              >
+                {c.icon}
+              </Box>
+              <Box>
+                <Text as="span" fontSize="xs" fontWeight="bold" textTransform="uppercase" letterSpacing="wider" className={c.text}>
+                  {c.label}
+                </Text>
+                <Text fontSize="xs" dimmed mt={0.5} lineHeight="relaxed">{item.description}</Text>
+              </Box>
+            </Flex>
+          </Box>
+        );
+      })}
+    </Box>
+  );
+}
+
+/* ═══════════════════════ Anatomy ═══════════════════════ */
+
+export function Anatomy({ items }: { items: { label: string; description: string }[] }) {
+  return (
+    <VStack gap={2}>
+      {items.map((item, i) => (
+        <HStack key={i} gap={3} px={4} py={3} radius="lg" align="start" className="bg-gray-50/70 border border-border-light">
+          <Box
+            as="span"
+            shrink={0}
+            w={24}
+            h={24}
+            radius="full"
+            display="flex"
+            align="center"
+            justify="center"
+            fontSize="xs"
+            fontWeight="bold"
+            mt={0.5}
+            className="bg-primary/10 text-primary"
+          >
+            {i + 1}
+          </Box>
+          <Box>
+            <Text as="p" fontSize="sm" fontWeight="semibold" color="foreground">{item.label}</Text>
+            <Text fontSize="xs" dimmed mt={0.5}>{item.description}</Text>
+          </Box>
+        </HStack>
+      ))}
+    </VStack>
+  );
+}
+
+/* ═══════════════════════ Usage Note ═══════════════════════ */
+
+export function UsageNote({ children, type = "info" }: { children: ReactNode; type?: "info" | "warning" | "tip" }) {
+  const config = {
+    info: { icon: "\u2139", bg: "bg-info/5", border: "border-info/20", text: "text-info" },
+    warning: { icon: "\u26A0", bg: "bg-warning/5", border: "border-warning/20", text: "text-warning" },
+    tip: { icon: "\uD83D\uDCA1", bg: "bg-success/5", border: "border-success/20", text: "text-success" },
+  };
+  const c = config[type];
+
+  return (
+    <Flex gap={3} px={4} py={3} radius="xl" border className={cn(c.bg, c.border)}>
+      <Text as="span" fontSize="md" shrink={0} className={c.text}>{c.icon}</Text>
+      <Box fontSize="xs" color="foreground" lineHeight="relaxed">{children}</Box>
+    </Flex>
+  );
+}
+
+/* ═══════════════════════ Accessibility Note ═══════════════════════ */
+
+export function AccessibilityNote({ items }: { items: string[] }) {
+  return (
+    <Box radius="xl" border p={4} className="bg-gray-50/50">
+      <HStack gap={2} mb={3}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-primary">
+          <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+          <circle cx="8" cy="4.5" r="1" fill="currentColor" />
+          <path d="M5.5 7L8 7.5M10.5 7L8 7.5M8 7.5V12M8 12L6 14M8 12L10 14" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <Heading level={5} mb={0}>접근성</Heading>
+      </HStack>
+      <VStack as="ul" gap={1.5}>
+        {items.map((item, i) => (
+          <HStack as="li" key={i} gap={2} align="start" fontSize="xs" color="muted">
+            <Text as="span" color="primary" shrink={0} mt={0.5}>•</Text>
+            <Text as="span" fontSize="xs" dimmed>{item}</Text>
+          </HStack>
+        ))}
+      </VStack>
+    </Box>
+  );
+}
+
+/* ═══════════════════════ Code Block ═══════════════════════ */
+
+export function CodeExample({ code, language = "tsx" }: { code: string; language?: string }) {
+  return (
+    <Box radius="xl" border overflow="hidden" position="relative" className="group">
+      <Flex align="center" justify="between" px={4} py={2} className="bg-gray-50 border-b border-border">
+        <Text as="span" fontSize="2xs" fontWeight="semibold" dimmed textTransform="uppercase" letterSpacing="wider">
+          {language}
+        </Text>
+        <button
+          type="button"
+          onClick={() => navigator.clipboard.writeText(code)}
+          className="text-muted hover:text-primary transition-colors cursor-pointer opacity-0 group-hover:opacity-100"
+          aria-label="코드 복사"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+            <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+          </svg>
+        </button>
+      </Flex>
+      <pre className="p-4 text-xs leading-relaxed overflow-x-auto bg-gray-950 text-gray-100">
+        <code>{code}</code>
+      </pre>
+    </Box>
+  );
+}
+
+/* ═══════════════════════ Variant Grid ═══════════════════════ */
+
+export function VariantGrid({ children, cols = 2 }: { children: ReactNode; cols?: number }) {
+  return (
+    <Box
+      display="grid"
+      gap={4}
+      cols={{ base: 1, md: cols }}
+    >
+      {children}
+    </Box>
+  );
+}
+
+export function VariantItem({ label, description, children }: { label: string; description?: string; children: ReactNode }) {
+  return (
+    <Box radius="xl" border overflow="hidden">
+      <Flex align="center" justify="center" p={5} minH="100px" bg="card">
+        {children}
+      </Flex>
+      <Box px={4} py={2.5} className="bg-gray-50/70 border-t border-border">
+        <Text as="p" fontSize="xs" fontWeight="semibold" color="foreground">{label}</Text>
+        {description && <Text fontSize="2xs" dimmed mt={0.5}>{description}</Text>}
+      </Box>
+    </Box>
   );
 }

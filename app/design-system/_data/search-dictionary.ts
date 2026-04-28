@@ -11,6 +11,22 @@ export interface NavSection {
 
 export const sections: NavSection[] = [
   {
+    title: "Framework",
+    items: [
+      { href: "/design-system/framework/provider", label: "JunDSProvider" },
+      { href: "/design-system/framework/box", label: "Box" },
+      { href: "/design-system/framework/flex", label: "Flex" },
+      { href: "/design-system/framework/stack", label: "HStack / VStack" },
+      { href: "/design-system/framework/grid-layout", label: "GridLayout" },
+      { href: "/design-system/framework/center", label: "Center" },
+      { href: "/design-system/framework/group", label: "Group" },
+      { href: "/design-system/framework/heading", label: "Heading" },
+      { href: "/design-system/framework/text", label: "Text" },
+      { href: "/design-system/framework/page", label: "Page" },
+      { href: "/design-system/framework/section", label: "Section" },
+    ],
+  },
+  {
     title: "Foundation",
     items: [
       { href: "/design-system", label: "개요", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" },
@@ -159,6 +175,9 @@ export const sections: NavSection[] = [
       { href: "/design-system/advanced/token-export", label: "Token Export" },
       { href: "/design-system/advanced/ai-prompt", label: "AI Prompt Generator" },
       { href: "/design-system/advanced/changelog", label: "Changelog" },
+      { href: "/design-system/advanced/form-validation", label: "Form Validation" },
+      { href: "/design-system/advanced/performance", label: "Performance" },
+      { href: "/design-system/advanced/migration", label: "Migration Guide" },
     ],
   },
   {
@@ -166,11 +185,14 @@ export const sections: NavSection[] = [
     items: [
       { href: "/design-system/lab", label: "실험실" },
       { href: "/design-system/showcase", label: "컬렉션 보기" },
+      { href: "/design-system/showcase/lego", label: "레고 조합" },
+      { href: "/design-system/showcase/templates", label: "페이지 템플릿" },
     ],
   },
 ];
 
 export const categoryColors: Record<string, string> = {
+  Framework: "bg-pink-500",
   Foundation: "bg-violet-500",
   Primitives: "bg-blue-500",
   Composites: "bg-emerald-500",
@@ -283,6 +305,9 @@ const koreanKeywords: Record<string, string[]> = {
   "Token Export": ["토큰내보내기", "토큰"],
   "AI Prompt Generator": ["AI프롬프트", "프롬프트"],
   Changelog: ["변경로그", "업데이트"],
+  "Form Validation": ["폼검증", "유효성검사", "밸리데이션", "zod"],
+  Performance: ["성능", "번들크기", "최적화", "벤치마크"],
+  "Migration Guide": ["마이그레이션", "전환가이드", "MUI", "Chakra"],
   BatteryIndicator: ["배터리", "충전표시", "레벨"],
   SeverityBadge: ["심각도", "상태배지", "위험도"],
   DateRangeFilter: ["날짜필터", "기간필터", "날짜범위"],
@@ -302,8 +327,21 @@ const koreanKeywords: Record<string, string[]> = {
   TreeNav: ["트리네비게이션", "트리메뉴", "계층메뉴"],
   Starfield: ["별밤", "별필드", "우주배경"],
   MasonryGrid: ["메이슨리", "벽돌배치", "핀터레스트"],
+  JunDSProvider: ["프로바이더", "설정", "테마", "전역설정", "프레임워크"],
+  Box: ["박스", "컨테이너", "래퍼", "기본블록"],
+  Flex: ["플렉스", "유연배치", "플렉스박스"],
+  "HStack / VStack": ["가로스택", "세로스택", "수평", "수직", "스택"],
+  GridLayout: ["그리드레이아웃", "그리드", "격자"],
+  Center: ["센터", "중앙정렬", "가운데"],
+  Group: ["그룹", "그룹핑", "가로그룹"],
+  Heading: ["헤딩", "제목", "타이틀", "h1", "h2", "h3"],
+  Text: ["텍스트", "본문", "글자", "문단"],
+  Page: ["페이지", "페이지레이아웃", "전체레이아웃"],
+  Section: ["섹션", "구역", "영역"],
   "실험실": ["실험실", "랩", "플레이그라운드", "lab", "playground"],
   "컬렉션 보기": ["컬렉션", "갤러리", "쇼케이스", "시각적", "미리보기"],
+  "레고 조합": ["레고", "조합", "구성", "컴포지션", "예시", "사용법"],
+  "페이지 템플릿": ["템플릿", "페이지", "예제", "보일러플레이트"],
 };
 
 export interface SearchEntry {
