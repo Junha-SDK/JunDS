@@ -1,0 +1,115 @@
+"use client";
+import { useState, useRef, useCallback, forwardRef } from "react";
+import { cn } from "../../utils/cn";
+
+export interface TagInputProps {
+  value: string[];
+  onChange: (tags: string[]) => void;
+  placeholder?: string;
+  maxTags?: number;
+  disabled?: boolean;
+  error?: boolean;
+  size?: "sm" | "md" | "lg";
+  className?: string;
+}
+
+const sizeStyles = {
+  sm: "min-h-8 text-xs gap-1 px-2",
+  md: "min-h-9 text-sm gap-1.5 px-3",
+  lg: "min-h-11 text-base gap-2 px-4",
+};
+
+const tagSizeStyles = {
+  sm: "text-[10px] px-1.5 py-0.5",
+  md: "text-xs px-2 py-0.5",
+  lg: "text-sm px-2.5 py-1",
+};
+
+/**
+ * 태그 입력 컴포넌트
+ * @example
+ * <TagInput value={["React","Next"]} onChange={setTags} placeholder="태그 입력 후 Enter" />
+ */
+export const TagInput = forwardRef<HTMLDivElement, TagInputProps>(
+  ({
+  value,
+  onChange,
+  placeholder = "태그 입력 후 Enter",
+  maxTags,
+  disabled,
+  error,
+  size = "md",
+  className,
+}, ref) => {
+  const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const addTag = useCallback((tag: string) => {
+    const trimmed = tag.trim();
+    if (!trimmed || value.includes(trimmed)) return;
+    if (maxTags && value.length >= maxTags) return;
+    onChange([...value, trimmed]);
+    setInput("");
+  }, [value, onChange, maxTags]);
+
+  const removeTag = useCallback((idx: number) => {
+    onChange(value.filter((_, i) => i !== idx));
+  }, [value, onChange]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && input) {
+      e.preventDefault();
+      addTag(input);
+    } else if (e.key === "Backspace" && !input && value.length > 0) {
+      removeTag(value.length - 1);
+    }
+  };
+
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "flex flex-wrap items-center border rounded-lg bg-white transition-all duration-150",
+        "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
+        error ? "border-danger" : "border-border",
+        disabled && "opacity-50 cursor-not-allowed",
+        sizeStyles[size],
+        className,
+      )}
+      onClick={() => inputRef.current?.focus()}
+    >
+      {value.map((tag, i) => (
+        <span
+          key={`${tag}-${i}`}
+          className={cn(
+            "inline-flex items-center gap-1 bg-primary/10 text-primary rounded-md font-medium",
+            tagSizeStyles[size],
+          )}
+        >
+          {tag}
+          {!disabled && (
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); removeTag(i); }}
+              className="hover:text-danger transition-colors cursor-pointer"
+              aria-label={`${tag} 제거`}
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+            </button>
+          )}
+        </span>
+      ))}
+      <input
+        ref={inputRef}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder={value.length === 0 ? placeholder : ""}
+        disabled={disabled || (maxTags !== undefined && value.length >= maxTags)}
+        className="flex-1 min-w-[80px] outline-none bg-transparent placeholder:text-muted"
+      />
+    </div>
+  );
+},
+);
+TagInput.displayName = "TagInput";
