@@ -1,0 +1,87 @@
+{
+  "JunDS Button": {
+    "prefix": "jds-button",
+    "body": ["<Button variant=\"${1|primary,secondary,danger,ghost,outline,link|}\" size=\"${2|md,sm,lg,xs|}\">${3:텍스트}</Button>"],
+    "description": "JunDS Button"
+  },
+  "JunDS Input": {
+    "prefix": "jds-input",
+    "body": ["<Input value={${1:value}} onChange={(e) => ${2:setValue}(e.target.value)} placeholder=\"${3:입력하세요}\" />"],
+    "description": "JunDS Input"
+  },
+  "JunDS Modal": {
+    "prefix": "jds-modal",
+    "body": ["<Modal open={${1:open}} onClose={${2:onClose}} size=\"${3|md,sm,lg,xl|}\">", "  <Modal.Header onClose={${2:onClose}}>${4:제목}</Modal.Header>", "  <div className=\"p-5\">${5:내용}</div>", "  <Modal.Footer>", "    <Button variant=\"secondary\" size=\"sm\" onClick={${2:onClose}}>취소</Button>", "    <Button variant=\"primary\" size=\"sm\">${6:확인}</Button>", "  </Modal.Footer>", "</Modal>"],
+    "description": "JunDS Modal"
+  },
+  "JunDS Card": {
+    "prefix": "jds-card",
+    "body": ["<Card>", "  <Card.Header>${1:제목}</Card.Header>", "  <Card.Body>${2:내용}</Card.Body>", "</Card>"],
+    "description": "JunDS Card"
+  },
+  "JunDS Page": {
+    "prefix": "jds-page",
+    "body": ["<Page maxWidth=\"${1|lg,md,xl,2xl|}\">", "  <Page.Header title=\"${2:제목}\" description=\"${3:설명}\" />", "  <Page.Body>${4:콘텐츠}</Page.Body>", "</Page>"],
+    "description": "JunDS Page layout"
+  },
+  "JunDS Box": {
+    "prefix": "jds-box",
+    "body": ["<Box p={${1:4}} bg=\"${2|white,surface,primary|}\" radius=\"${3|md,sm,lg|}\" ${4:border}>${5:내용}</Box>"],
+    "description": "JunDS Box"
+  },
+  "JunDS HStack": {
+    "prefix": "jds-hstack",
+    "body": ["<HStack gap=\"${1|sm,md,lg|}\">${2:내용}</HStack>"],
+    "description": "JunDS Horizontal Stack"
+  },
+  "JunDS VStack": {
+    "prefix": "jds-vstack",
+    "body": ["<VStack gap=\"${1|md,sm,lg|}\">${2:내용}</VStack>"],
+    "description": "JunDS Vertical Stack"
+  },
+  "JunDS SimpleGrid": {
+    "prefix": "jds-grid",
+    "body": ["<SimpleGrid cols={{ base: ${1:1}, md: ${2:2}, lg: ${3:3} }} gap=\"${4|md,sm,lg|}\">${5:내용}</SimpleGrid>"],
+    "description": "JunDS Responsive Grid"
+  },
+  "JunDS DataTable": {
+    "prefix": "jds-datatable",
+    "body": ["<DataTable", "  columns={[", "    { key: \"${1:name}\", header: \"${2:이름}\", render: (r) => r.${1:name}, sortable: true },", "  ]}", "  data={${3:data}}", "  rowKey={(r) => r.${4:id}}", "  searchable", "  pageSize={${5:20}}", "/>"],
+    "description": "JunDS DataTable"
+  },
+  "JunDS MetricCard": {
+    "prefix": "jds-metric",
+    "body": ["<MetricCard label=\"${1:지표}\" value=\"${2:1,234}\" change={${3:12.5}} changeLabel=\"${4:전월 대비}\" />"],
+    "description": "JunDS MetricCard"
+  },
+  "JunDS Tabs": {
+    "prefix": "jds-tabs",
+    "body": ["const [${1:tab}, ${2:setTab}] = useState(\"${3:first}\");", "", "<Tabs tabs={[{ value: \"${3:first}\", label: \"${4:탭1}\" }, { value: \"${5:second}\", label: \"${6:탭2}\" }]} value={${1:tab}} onChange={${2:setTab}} />"],
+    "description": "JunDS Tabs"
+  },
+  "JunDS Toast": {
+    "prefix": "jds-toast",
+    "body": ["const toast = useDsToast();", "toast({ type: \"${1|success,error,warning,info|}\", title: \"${2:알림}\" });"],
+    "description": "JunDS Toast"
+  },
+  "JunDS Form Field": {
+    "prefix": "jds-field",
+    "body": ["<div>", "  <label className=\"block text-sm font-medium mb-1\">${1:라벨}</label>", "  <Input value={${2:value}} onChange={(e) => ${3:setValue}(e.target.value)} error={!!${4:error}} />", "  {${4:error} && <p className=\"text-xs text-danger mt-1\">{${4:error}}</p>}", "</div>"],
+    "description": "JunDS Form Field with error"
+  },
+  "JunDS Import Primitives": {
+    "prefix": "jds-imp-prim",
+    "body": ["import { ${1|Button,Input,Badge,Avatar,Switch,Toggle,Checkbox,Tag,Spinner|} } from \"@/ds/primitives/${1}\";"],
+    "description": "Import JunDS primitive"
+  },
+  "JunDS Import Composite": {
+    "prefix": "jds-imp-comp",
+    "body": ["import { ${1|Modal,Tabs,Select,Card,Alert,Drawer,Toast|} } from \"@/ds/composites/${1}\";"],
+    "description": "Import JunDS composite"
+  },
+  "JunDS Import Core": {
+    "prefix": "jds-imp-core",
+    "body": ["import { ${1|Box,Flex,HStack,VStack,Page,Heading,Text|} } from \"@/ds/core\";"],
+    "description": "Import JunDS core"
+  }
+}

@@ -1,0 +1,85 @@
+JunDS Commercial License Agreement
+Version 1.0
+
+Copyright (c) 2024-2026 JunDS. All rights reserved.
+
+NOTICE: This software is licensed, not sold. This license agreement
+("Agreement") is a legal agreement between you ("Licensee") and JunDS
+("Licensor") for the use of the JunDS Design System ("Software").
+
+1. GRANT OF LICENSE
+
+   Subject to the terms of this Agreement and payment of applicable fees,
+   Licensor grants Licensee a non-exclusive, non-transferable, limited
+   license to:
+
+   a) Use the Software in Licensee's own applications and projects
+   b) Modify the Software solely for integration into Licensee's projects
+   c) Deploy applications containing the Software to production environments
+
+2. RESTRICTIONS
+
+   Licensee shall NOT:
+
+   a) Redistribute, sublicense, sell, lease, or transfer the Software
+      or any portion thereof to any third party
+   b) Make the Software available as part of a service bureau, application
+      service provider, or similar commercial offering
+   c) Remove, alter, or obscure any proprietary notices, labels, or marks
+      on the Software
+   d) Reverse engineer, decompile, disassemble, or otherwise attempt to
+      derive the source code of the Software
+   e) Use the Software to create a competing product or service
+   f) Share license keys or authentication tokens with unauthorized parties
+   g) Circumvent, disable, or interfere with any license verification,
+      authentication, or security features of the Software
+
+3. LICENSE KEY
+
+   a) Each license key is tied to specific domains and/or environments
+      as specified at the time of purchase
+   b) License keys must not be shared publicly or committed to public
+      version control repositories
+   c) Licensor reserves the right to revoke license keys that are found
+      to be misused or shared in violation of this Agreement
+
+4. INTELLECTUAL PROPERTY
+
+   The Software is and shall remain the exclusive property of Licensor.
+   This Agreement does not convey any ownership rights in the Software.
+   All rights not expressly granted herein are reserved by Licensor.
+
+5. UPDATES AND SUPPORT
+
+   a) Licensed users receive updates for the duration of their subscription
+   b) Support is provided according to the Licensee's subscription plan
+   c) Licensor is not obligated to provide updates or support after
+      the subscription period expires
+
+6. WARRANTY DISCLAIMER
+
+   THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+7. LIMITATION OF LIABILITY
+
+   IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES ARISING OUT OF OR IN
+   CONNECTION WITH THIS AGREEMENT OR THE USE OF THE SOFTWARE.
+
+8. TERMINATION
+
+   a) This Agreement is effective until terminated
+   b) Licensor may terminate this Agreement immediately if Licensee
+      breaches any term of this Agreement
+   c) Upon termination, Licensee must cease all use of the Software
+      and destroy all copies in their possession
+
+9. GOVERNING LAW
+
+   This Agreement shall be governed by and construed in accordance
+   with the laws of the Republic of Korea.
+
+For licensing inquiries: license@junds.dev
+Website: https://junds.dev

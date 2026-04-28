@@ -1,0 +1,36 @@
+# Source code — NEVER publish
+ds/
+app/
+public/
+
+# Config files
+*.config.ts
+*.config.mjs
+tsconfig*.json
+eslint.config.mjs
+postcss.config.mjs
+vitest.config.ts
+next.config.ts
+next-env.d.ts
+rollup.config.mjs
+
+# Dev files
+.next/
+node_modules/
+.git/
+.gitignore
+.env*
+*.md
+!README.md
+
+# Tests
+**/__tests__/
+**/*.test.*
+**/*.spec.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
