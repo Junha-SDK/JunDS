@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export type SpinnerSize = "xs" | "sm" | "md" | "lg";
@@ -24,10 +25,11 @@ const colorMap: Record<SpinnerColor, string> = {
  * @example
  * <Spinner size="md" />
  */
-export function Spinner({ size = "md", color = "primary", className, label = "로딩 중" }: SpinnerProps) {
+export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(function Spinner({ size = "md", color = "primary", className, label = "로딩 중" }, ref) {
   const s = sizeMap[size];
   return (
     <svg
+      ref={ref}
       className={cn("animate-spin", colorMap[color], className)}
       width={s}
       height={s}
@@ -40,4 +42,6 @@ export function Spinner({ size = "md", color = "primary", className, label = "�
       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
     </svg>
   );
-}
+});
+
+Spinner.displayName = "Spinner";

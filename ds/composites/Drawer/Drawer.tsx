@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import { Portal } from "../../primitives/Portal";
 import type { ReactNode } from "react";
@@ -19,9 +19,10 @@ export interface DrawerProps {
   className?: string;
 }
 
+/** Drawer panel widths — fixed sizes for consistent layout, not spacing tokens */
 const sizeMap: Record<DrawerSide, Record<DrawerSize, string>> = {
-  right: { sm: "w-80", md: "w-[420px]", lg: "w-[560px]", xl: "w-[720px]" },
-  left: { sm: "w-80", md: "w-[420px]", lg: "w-[560px]", xl: "w-[720px]" },
+  right: { sm: "w-full sm:w-80", md: "w-full sm:w-[420px]", lg: "w-full sm:w-[560px]", xl: "w-full sm:w-[720px]" },
+  left: { sm: "w-full sm:w-80", md: "w-full sm:w-[420px]", lg: "w-full sm:w-[560px]", xl: "w-full sm:w-[720px]" },
   bottom: { sm: "h-48", md: "h-72", lg: "h-96", xl: "h-[480px]" },
 };
 
@@ -50,7 +51,8 @@ const positionClass: Record<DrawerSide, string> = {
  *   <FilterContent />
  * </Drawer>
  */
-export function Drawer({
+export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
+  ({
   open,
   onClose,
   side = "right",
@@ -60,7 +62,7 @@ export function Drawer({
   footer,
   dismissible = true,
   className,
-}: DrawerProps) {
+}, ref) => {
   const handleEsc = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") onClose();
   }, [onClose]);
@@ -80,15 +82,19 @@ export function Drawer({
       {/* Backdrop */}
       <div
         className={cn(
-          "fixed inset-0 z-50 bg-black/30 transition-opacity duration-300",
+          "fixed inset-0 z-50 bg-black/25 backdrop-blur-[2px] transition-opacity duration-300",
           open ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         onClick={dismissible ? onClose : undefined}
       />
       {/* Panel */}
       <div
+        ref={ref}
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
         className={cn(
-          "fixed z-50 bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          "fixed z-50 bg-white shadow-[-20px_0_60px_rgba(0,0,0,0.1)] flex flex-col transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]",
           positionClass[side],
           sizeMap[side][size],
           open ? slideIn[side] : slideOut[side],
@@ -97,12 +103,12 @@ export function Drawer({
       >
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between px-5 py-4 border-b border-border-light shrink-0">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-border/40 shrink-0">
             <h3 className="text-base font-semibold text-foreground">{title}</h3>
             <button
               type="button"
               onClick={onClose}
-              className="text-muted hover:text-primary transition-colors p-1 rounded-lg hover:bg-primary/10 cursor-pointer"
+              className="text-muted hover:text-foreground transition-colors p-1.5 rounded-xl hover:bg-gray-100 cursor-pointer"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <path d="M4.5 4.5l9 9M13.5 4.5l-9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -114,11 +120,13 @@ export function Drawer({
         <div className="flex-1 overflow-y-auto p-5">{children}</div>
         {/* Footer */}
         {footer && (
-          <div className="flex items-center justify-end gap-2 px-5 py-3 border-t border-border-light bg-gray-50/50 shrink-0">
+          <div className="flex items-center justify-end gap-2 px-6 py-3.5 border-t border-border/40 bg-gray-50/30 shrink-0">
             {footer}
           </div>
         )}
       </div>
     </Portal>
   );
-}
+},
+);
+Drawer.displayName = "Drawer";

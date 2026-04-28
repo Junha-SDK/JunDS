@@ -1,24 +1,36 @@
 "use client";
-import { cn } from "../utils/cn";
-import type { ReactNode, HTMLAttributes } from "react";
+import { forwardRef } from "react";
+import { Box } from "../core/Box";
+import type { BoxProps } from "../core/Box";
+import type { Responsive, SpacingToken } from "../core/styleProps";
 
-type ContainerProps = HTMLAttributes<HTMLDivElement> & {
-  size?: "sm" | "md" | "lg" | "xl" | "full";
-  children: ReactNode;
-};
+export interface ContainerProps extends Omit<BoxProps, "maxW" | "mx"> {
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "full";
+  px?: Responsive<SpacingToken>;
+  center?: boolean;
+}
 
 const sizeMap = {
-  sm: "max-w-2xl",
-  md: "max-w-4xl",
-  lg: "max-w-6xl",
-  xl: "max-w-7xl",
-  full: "max-w-full",
+  xs: "512px",
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1536px",
+  full: "100%",
 };
 
-export function Container({ size = "lg", className, children, ...props }: ContainerProps) {
-  return (
-    <div className={cn("mx-auto w-full px-4 sm:px-6", sizeMap[size], className)} {...props}>
-      {children}
-    </div>
-  );
-}
+export const Container = forwardRef<HTMLElement, ContainerProps>(
+  ({ size = "lg", px = { base: 4, sm: 6 }, center = true, ...props }, ref) => (
+    <Box
+      ref={ref}
+      w="full"
+      maxW={sizeMap[size]}
+      px={px}
+      style={{ marginLeft: center ? "auto" : undefined, marginRight: center ? "auto" : undefined, ...props.style }}
+      {...props}
+    />
+  ),
+);
+
+Container.displayName = "Container";

@@ -1,6 +1,6 @@
 "use client";
+import { forwardRef, useMemo } from "react";
 import { cn } from "../../utils/cn";
-import { useMemo } from "react";
 
 export interface PaginationProps {
   page: number;
@@ -16,7 +16,8 @@ export interface PaginationProps {
  * @example
  * <Pagination page={1} totalPages={10} onChange={setPage} />
  */
-export function Pagination({ page, totalPages, onChange, siblings = 1, className }: PaginationProps) {
+export const Pagination = forwardRef<HTMLElement, PaginationProps>(
+  ({ page, totalPages, onChange, siblings = 1, className }, ref) => {
   const pages = useMemo(() => {
     const items: (number | "...")[] = [];
     const start = Math.max(2, page - siblings);
@@ -42,7 +43,7 @@ export function Pagination({ page, totalPages, onChange, siblings = 1, className
     );
 
   return (
-    <nav className={cn("flex items-center gap-1", className)} aria-label="Pagination">
+    <nav ref={ref} className={cn("flex items-center gap-1", className)} aria-label="Pagination">
       <button
         type="button"
         disabled={page <= 1}
@@ -83,4 +84,6 @@ export function Pagination({ page, totalPages, onChange, siblings = 1, className
       </button>
     </nav>
   );
-}
+},
+);
+Pagination.displayName = "Pagination";

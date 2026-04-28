@@ -15,7 +15,7 @@ describe("Alert", () => {
 
   it("applies variant styles", () => {
     const { container } = render(<Alert variant="danger">위험</Alert>);
-    expect(container.firstChild).toHaveClass("bg-danger-light");
+    expect(container.firstChild).toHaveClass("border-l-danger");
   });
 
   it("has alert role", () => {

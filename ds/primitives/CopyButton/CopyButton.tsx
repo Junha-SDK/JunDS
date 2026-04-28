@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface CopyButtonProps {
@@ -19,14 +19,14 @@ export interface CopyButtonProps {
  * <CopyButton text="복사할 텍스트" />
  * <CopyButton text={code} variant="button" label="코드 복사" />
  */
-export function CopyButton({
+export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(function CopyButton({
   text,
   copiedLabel = "복사됨!",
   label = "복사",
   variant = "icon",
   size = "md",
   className,
-}: CopyButtonProps) {
+}, ref) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -38,6 +38,7 @@ export function CopyButton({
   if (variant === "button") {
     return (
       <button
+        ref={ref}
         type="button"
         onClick={handleCopy}
         className={cn(
@@ -60,6 +61,7 @@ export function CopyButton({
 
   return (
     <button
+      ref={ref}
       type="button"
       onClick={handleCopy}
       className={cn(
@@ -78,4 +80,6 @@ export function CopyButton({
       )}
     </button>
   );
-}
+});
+
+CopyButton.displayName = "CopyButton";

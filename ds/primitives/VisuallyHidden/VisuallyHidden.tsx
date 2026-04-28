@@ -1,3 +1,5 @@
+"use client";
+import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
 
 /**
@@ -5,9 +7,10 @@ import type { HTMLAttributes } from "react";
  * @example
  * <VisuallyHidden>테이블 정렬 기준</VisuallyHidden>
  */
-export function VisuallyHidden({ children, ...props }: HTMLAttributes<HTMLSpanElement>) {
+export const VisuallyHidden = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(function VisuallyHidden({ children, ...props }, ref) {
   return (
     <span
+      ref={ref}
       className="absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0"
       style={{ clip: "rect(0,0,0,0)" }}
       {...props}
@@ -15,4 +18,6 @@ export function VisuallyHidden({ children, ...props }: HTMLAttributes<HTMLSpanEl
       {children}
     </span>
   );
-}
+});
+
+VisuallyHidden.displayName = "VisuallyHidden";

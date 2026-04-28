@@ -1,26 +1,106 @@
 "use client";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
+/** 드롭다운 옵션 항목 정의 */
 export interface SelectOption<T extends string = string> {
+  /** 옵션의 고유 값. onChange 콜백에 전달됩니다. */
   value: T;
+  /** 드롭다운 목록에 표시되는 텍스트 */
   label: string;
+  /**
+   * 옵션 라벨 왼쪽에 표시되는 아이콘.
+   * 국기, 카테고리 아이콘 등을 표시할 때 사용합니다.
+   *
+   * @example icon={<FlagIcon />}
+   */
   icon?: React.ReactNode;
+  /**
+   * 옵션 비활성화 여부.
+   * true이면 선택할 수 없으며 흐리게 표시됩니다.
+   *
+   * @default false
+   */
   disabled?: boolean;
 }
 
+/**
+ * 드롭다운 선택 컴포넌트.
+ *
+ * 옵션 목록에서 하나를 선택합니다.
+ * 검색, 비활성화, 에러 상태를 지원합니다.
+ *
+ * @example
+ * <Select
+ *   options={[{ value: "kr", label: "한국" }, { value: "us", label: "미국" }]}
+ *   value={country}
+ *   onChange={setCountry}
+ *   placeholder="국가 선택"
+ * />
+ */
 export interface SelectProps<T extends string = string> {
+  /**
+   * 선택 가능한 옵션 목록.
+   * 각 옵션은 value와 label을 필수로 가집니다.
+   */
   options: SelectOption<T>[];
+  /**
+   * 현재 선택된 값.
+   * options 배열 내 하나의 value와 일치해야 합니다.
+   * 미지정 시 placeholder가 표시됩니다.
+   */
   value?: T;
+  /**
+   * 옵션이 선택될 때 호출되는 콜백.
+   * 새로 선택된 옵션의 value가 인자로 전달됩니다.
+   */
   onChange?: (value: T) => void;
+  /**
+   * 값이 선택되지 않았을 때 표시되는 안내 텍스트.
+   *
+   * @default "선택하세요"
+   */
   placeholder?: string;
+  /**
+   * 컴포넌트 전체 비활성화 여부.
+   * true이면 드롭다운을 열 수 없으며 흐리게 표시됩니다.
+   *
+   * @default false
+   */
   disabled?: boolean;
+  /**
+   * 에러 상태 표시 여부.
+   * true이면 테두리가 빨간색으로 변경되어 유효성 검사 실패를 나타냅니다.
+   *
+   * @default false
+   */
   error?: boolean;
+  /**
+   * 셀렉트 크기.
+   * - `"sm"` — 작은 크기 (32px). 밀집된 폼에 적합합니다.
+   * - `"md"` — 기본 크기 (36px).
+   * - `"lg"` — 큰 크기 (44px). 주요 입력 폼에 적합합니다.
+   *
+   * @default "md"
+   */
   size?: "sm" | "md" | "lg";
+  /**
+   * 검색 기능 활성화 여부.
+   * true이면 드롭다운 상단에 검색 입력 필드가 표시되어 옵션을 필터링할 수 있습니다.
+   * 옵션이 많을 때 사용합니다.
+   *
+   * @default false
+   */
   searchable?: boolean;
+  /** 루트 요소에 추가할 CSS 클래스 */
   className?: string;
-  /** 전체 너비 */
+  /**
+   * 전체 너비 사용 여부.
+   * true이면 부모 컨테이너의 너비를 100% 차지합니다.
+   *
+   * @default false
+   */
   fullWidth?: boolean;
 }
 
@@ -31,11 +111,20 @@ const sizeStyles = {
 };
 
 /**
- * 드롭다운 셀렉트
+ * 드롭다운 선택 컴포넌트.
+ *
+ * 옵션 목록에서 하나를 선택합니다.
+ * 검색, 비활성화, 에러 상태를 지원합니다.
+ *
  * @example
- * <Select options={[{value:"a",label:"옵션A"}]} value={v} onChange={setV} />
+ * <Select
+ *   options={[{ value: "kr", label: "한국" }, { value: "us", label: "미국" }]}
+ *   value={country}
+ *   onChange={setCountry}
+ *   placeholder="국가 선택"
+ * />
  */
-export function Select<T extends string = string>({
+function SelectInner<T extends string = string>({
   options,
   value,
   onChange,
@@ -46,7 +135,8 @@ export function Select<T extends string = string>({
   searchable,
   fullWidth,
   className,
-}: SelectProps<T>) {
+  innerRef,
+}: SelectProps<T> & { innerRef?: React.Ref<HTMLDivElement> }) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [highlightIdx, setHighlightIdx] = useState(-1);
@@ -91,7 +181,11 @@ export function Select<T extends string = string>({
   }, [open]);
 
   return (
-    <div ref={ref} className={cn("relative", fullWidth ? "w-full" : "w-fit", className)}>
+    <div ref={(node) => {
+      (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      if (typeof innerRef === "function") innerRef(node);
+      else if (innerRef) (innerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    }} className={cn("relative", fullWidth ? "w-full" : "w-fit", className)}>
       <button
         type="button"
         disabled={disabled}
@@ -125,6 +219,7 @@ export function Select<T extends string = string>({
           ref={listRef}
           className={cn(
             "absolute z-50 mt-1 w-full bg-card border border-border rounded-lg shadow-xl",
+            /* Dropdown max height: 240px (15rem) — fits ~6 options comfortably */
             "max-h-60 overflow-auto py-1 animate-fade-in-scale",
           )}
           role="listbox"
@@ -171,3 +266,11 @@ export function Select<T extends string = string>({
     </div>
   );
 }
+
+export const Select = forwardRef<HTMLDivElement, SelectProps>(
+  (props, ref) => <SelectInner {...props} innerRef={ref} />,
+) as <T extends string = string>(
+  props: SelectProps<T> & { ref?: React.Ref<HTMLDivElement> },
+) => React.ReactElement | null;
+
+(Select as { displayName?: string }).displayName = "Select";

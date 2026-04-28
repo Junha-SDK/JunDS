@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
@@ -34,9 +35,10 @@ const dotColors = {
  *   { key:"2", title:"진행 시작", time:"11:30", color:"success" },
  * ]} />
  */
-export function Timeline({ items, lineStyle = "solid", className }: TimelineProps) {
+export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
+  ({ items, lineStyle = "solid", className }, ref) => {
   return (
-    <div className={cn("relative", className)}>
+    <div ref={ref} className={cn("relative", className)}>
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         const color = item.color || "neutral";
@@ -73,4 +75,6 @@ export function Timeline({ items, lineStyle = "solid", className }: TimelineProp
       })}
     </div>
   );
-}
+},
+);
+Timeline.displayName = "Timeline";

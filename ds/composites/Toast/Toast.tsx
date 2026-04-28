@@ -62,10 +62,10 @@ const icons: Record<ToastType, ReactNode> = {
 };
 
 const typeStyles: Record<ToastType, string> = {
-  success: "border-success/20 bg-success-light",
-  error: "border-danger/20 bg-danger-light",
-  warning: "border-warning/20 bg-warning-light",
-  info: "border-primary/20 bg-primary-light",
+  success: "border-border/60 border-l-4 border-l-success bg-white dark:bg-gray-900",
+  error: "border-border/60 border-l-4 border-l-danger bg-white dark:bg-gray-900",
+  warning: "border-border/60 border-l-4 border-l-warning bg-white dark:bg-gray-900",
+  info: "border-border/60 border-l-4 border-l-primary bg-white dark:bg-gray-900",
 };
 
 const positionStyles: Record<ToastPosition, string> = {
@@ -178,7 +178,7 @@ function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: numbe
       role="alert"
       aria-atomic="true"
       className={cn(
-        "pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl border shadow-lg",
+        "pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-[0_8px_30px_rgba(0,0,0,0.12)]",
         "animate-slide-in-right min-w-[280px] max-w-md",
         typeStyles[item.type],
       )}

@@ -23,9 +23,9 @@ describe("Input", () => {
   });
 
   it("renders different sizes", () => {
-    const { rerender } = render(<Input inputSize="sm" placeholder="sm" />);
+    const { rerender } = render(<Input size="sm" placeholder="sm" />);
     expect(screen.getByPlaceholderText("sm")).toBeDefined();
-    rerender(<Input inputSize="lg" placeholder="lg" />);
+    rerender(<Input size="lg" placeholder="lg" />);
     expect(screen.getByPlaceholderText("lg")).toBeDefined();
   });
 });

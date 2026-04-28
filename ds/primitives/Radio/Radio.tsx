@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface RadioOption {
@@ -22,9 +23,9 @@ export interface RadioGroupProps {
  * @example
  * <RadioGroup name="priority" options={[{value:"0",label:"긴급"},{value:"1",label:"높음"}]} value={v} onChange={setV} />
  */
-export function RadioGroup({ name, options, value, onChange, size = "md", direction = "vertical", className }: RadioGroupProps) {
+export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function RadioGroup({ name, options, value, onChange, size = "md", direction = "vertical", className }, ref) {
   return (
-    <div className={cn("flex gap-2", direction === "vertical" ? "flex-col" : "flex-row flex-wrap", className)} role="radiogroup">
+    <div ref={ref} className={cn("flex gap-2", direction === "vertical" ? "flex-col" : "flex-row flex-wrap", className)} role="radiogroup">
       {options.map((opt) => (
         <label
           key={opt.value}
@@ -50,4 +51,6 @@ export function RadioGroup({ name, options, value, onChange, size = "md", direct
       ))}
     </div>
   );
-}
+});
+
+RadioGroup.displayName = "RadioGroup";

@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export type StatusDotStatus = "success" | "warning" | "danger" | "info" | "neutral" | "pulse";
@@ -31,11 +32,13 @@ const sizeMap = {
  * <StatusDot status="success" label="온라인" />
  * <StatusDot status="danger" label="오프라인" />
  */
-export function StatusDot({ status = "neutral", label, size = "md", className }: StatusDotProps) {
+export const StatusDot = forwardRef<HTMLSpanElement, StatusDotProps>(function StatusDot({ status = "neutral", label, size = "md", className }, ref) {
   return (
-    <span className={cn("inline-flex items-center gap-1.5", className)}>
+    <span ref={ref} className={cn("inline-flex items-center gap-1.5", className)}>
       <span className={cn("rounded-full shrink-0", statusColors[status], sizeMap[size])} />
       {label && <span className="text-xs text-foreground">{label}</span>}
     </span>
   );
-}
+});
+
+StatusDot.displayName = "StatusDot";

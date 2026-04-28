@@ -9,3 +9,7 @@ export { themePresets, applyTheme, restoreTheme, getCurrentThemeName, generateTh
 export type { ThemePreset } from "./themes";
 export { breakpoints, mediaQueries } from "./breakpoints";
 export type { Breakpoint } from "./breakpoints";
+export { opacity } from "./opacity";
+export type { OpacityScale } from "./opacity";
+export { borderWidth } from "./borderWidth";
+export type { BorderWidthScale } from "./borderWidth";

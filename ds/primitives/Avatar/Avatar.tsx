@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { HTMLAttributes } from "react";
 
@@ -67,9 +68,9 @@ function getColor(name: string): string {
  * <Avatar name="김준하" size="md" status="online" />
  * <Avatar src="/photo.jpg" size="lg" />
  */
-export function Avatar({ name, src, size = "md", status, className, ...props }: AvatarProps) {
+export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar({ name, src, size = "md", status, className, ...props }, ref) {
   return (
-    <div className={cn("relative inline-flex shrink-0", className)} {...props}>
+    <div ref={ref} className={cn("relative inline-flex shrink-0", className)} {...props}>
       {src ? (
         <img
           src={src}
@@ -98,4 +99,6 @@ export function Avatar({ name, src, size = "md", status, className, ...props }: 
       )}
     </div>
   );
-}
+});
+
+Avatar.displayName = "Avatar";

@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { breakpoints, type Breakpoint } from "../tokens/breakpoints";
 
 /**
- * 현재 뷰포트의 브레이크포인트 반환
+ * 현재 브레이크포인트 감지 훅
  * @example
  * const bp = useBreakpoint(); // "sm" | "md" | "lg" | "xl" | "2xl"
- * const isMobile = useBreakpoint() === "sm";
+ * const isDesktop = useBreakpointValue("lg"); // boolean
  */
 export function useBreakpoint(): Breakpoint {
   const [bp, setBp] = useState<Breakpoint>("lg");

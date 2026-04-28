@@ -73,15 +73,15 @@ const GRID_SIZE = 20;
 /* ================================================================== */
 
 type V = NonNullable<FlowNode["variant"]>;
-const vBorder: Record<V, string> = { default: "#4b5563", success: "#22c55e", warning: "#f59e0b", danger: "#ef4444", info: "#3b82f6" };
-const vHeaderBg: Record<V, string> = { default: "#1f2937", success: "#14532d", warning: "#78350f", danger: "#7f1d1d", info: "#1e3a5f" };
-const vHeaderText: Record<V, string> = { default: "#d1d5db", success: "#86efac", warning: "#fde68a", danger: "#fca5a5", info: "#93c5fd" };
+const vBorder: Record<V, string> = { default: "var(--muted)", success: "var(--success)", warning: "var(--warning)", danger: "var(--danger)", info: "var(--primary)" };
+const vHeaderBg: Record<V, string> = { default: "var(--foreground)", success: "#14532d", warning: "#78350f", danger: "#7f1d1d", info: "#1e3a5f" };
+const vHeaderText: Record<V, string> = { default: "var(--border)", success: "var(--success-light)", warning: "var(--warning-light)", danger: "var(--danger-light)", info: "var(--primary-light)" };
 
 const groupPalette = [
-  { bg: "rgba(59,130,246,0.06)", border: "rgba(59,130,246,0.3)", text: "#93c5fd" },
-  { bg: "rgba(16,185,129,0.06)", border: "rgba(16,185,129,0.3)", text: "#6ee7b7" },
-  { bg: "rgba(245,158,11,0.06)", border: "rgba(245,158,11,0.3)", text: "#fcd34d" },
-  { bg: "rgba(239,68,68,0.06)", border: "rgba(239,68,68,0.3)", text: "#fca5a5" },
+  { bg: "color-mix(in srgb, var(--primary) 6%, transparent)", border: "color-mix(in srgb, var(--primary) 30%, transparent)", text: "var(--primary-light)" },
+  { bg: "color-mix(in srgb, var(--success) 6%, transparent)", border: "color-mix(in srgb, var(--success) 30%, transparent)", text: "#6ee7b7" },
+  { bg: "color-mix(in srgb, var(--warning) 6%, transparent)", border: "color-mix(in srgb, var(--warning) 30%, transparent)", text: "#fcd34d" },
+  { bg: "color-mix(in srgb, var(--danger) 6%, transparent)", border: "color-mix(in srgb, var(--danger) 30%, transparent)", text: "var(--danger-light)" },
   { bg: "rgba(168,85,247,0.06)", border: "rgba(168,85,247,0.3)", text: "#c4b5fd" },
 ];
 
@@ -155,7 +155,7 @@ function ConnLine({
 
   const midX = (x1 + x2) / 2;
   const midY = (y1 + y2) / 2;
-  const color = selected ? "#3b82f6" : "#6b7280";
+  const color = selected ? "var(--primary)" : "var(--muted)";
   const sw = selected ? 3 : 2;
 
   return (
@@ -178,8 +178,8 @@ function ConnLine({
       {label && (
         <g style={{ pointerEvents: "none" }}>
           <rect x={midX - label.length * 3.5 - 6} y={midY - 9} width={label.length * 7 + 12}
-            height={18} rx={9} fill="#111827" stroke="#374151" strokeWidth={1} />
-          <text x={midX} y={midY + 3.5} textAnchor="middle" fill="#d1d5db"
+            height={18} rx={9} fill="var(--foreground)" stroke="var(--border)" strokeWidth={1} />
+          <text x={midX} y={midY + 3.5} textAnchor="middle" fill="var(--border)"
             fontSize={10} fontFamily="system-ui,sans-serif">{label}</text>
         </g>
       )}
@@ -229,7 +229,7 @@ const NodeCard = memo(function NodeCard({
         width: w,
         borderColor: vBorder[v],
         boxShadow: isSelected
-          ? `0 0 0 2px #3b82f6, 0 4px 24px rgba(0,0,0,0.4)`
+          ? `0 0 0 2px var(--primary), 0 4px 24px rgba(0,0,0,0.4)`
           : "0 4px 20px rgba(0,0,0,0.3)",
         cursor: readonly ? "default" : "grab",
         zIndex: isSelected ? 10 : 1,
@@ -331,14 +331,14 @@ function Minimap({ nodes, connections, zoom, pan, cw, ch, heights }: {
           const fn = nodes.find(n => n.id === c.from), tn = nodes.find(n => n.id === c.to);
           if (!fn || !tn) return null;
           return <line key={c.id} x1={(fn.x + (fn.width ?? NODE_W) - x1) * s} y1={(fn.y + 20 - y1) * s}
-            x2={(tn.x - x1) * s} y2={(tn.y + 20 - y1) * s} stroke="#6b7280" strokeWidth={0.8} />;
+            x2={(tn.x - x1) * s} y2={(tn.y + 20 - y1) * s} stroke="var(--muted)" strokeWidth={0.8} />;
         })}
         {nodes.map(n => <rect key={n.id} x={(n.x - x1) * s} y={(n.y - y1) * s}
           width={(n.width ?? NODE_W) * s} height={(heights.current?.get(n.id) ?? 60) * s}
-          rx={2} fill="#374151" stroke="#6b7280" strokeWidth={0.5} />)}
+          rx={2} fill="var(--border)" stroke="var(--muted)" strokeWidth={0.5} />)}
         <rect x={(-pan.x / zoom - x1) * s} y={(-pan.y / zoom - y1) * s}
           width={(cw / zoom) * s} height={(ch / zoom) * s}
-          fill="none" stroke="#3b82f6" strokeWidth={1.5} rx={1} />
+          fill="none" stroke="var(--primary)" strokeWidth={1.5} rx={1} />
       </svg>
     </div>
   );

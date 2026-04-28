@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
@@ -15,9 +16,10 @@ export interface EmptyStateProps {
  * @example
  * <EmptyState title="업무가 없습니다" description="새 업무를 추가해보세요" action={<Button>추가</Button>} />
  */
-export function EmptyState({ icon, title, description, action, className }: EmptyStateProps) {
+export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
+  ({ icon, title, description, action, className }, ref) => {
   return (
-    <div className={cn("flex flex-col items-center justify-center py-12 px-6 text-center", className)}>
+    <div ref={ref} className={cn("flex flex-col items-center justify-center py-12 px-6 text-center", className)}>
       {icon ? (
         <div className="mb-3 text-muted-light">{icon}</div>
       ) : (
@@ -33,4 +35,6 @@ export function EmptyState({ icon, title, description, action, className }: Empt
       {action && <div className="mt-4">{action}</div>}
     </div>
   );
-}
+},
+);
+EmptyState.displayName = "EmptyState";

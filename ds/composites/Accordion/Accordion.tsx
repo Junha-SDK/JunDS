@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
@@ -23,7 +23,8 @@ export interface AccordionProps {
  * @example
  * <Accordion items={[{key:"1",title:"FAQ",content:<p>답변</p>}]} />
  */
-export function Accordion({ items, single, className }: AccordionProps) {
+export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
+  ({ items, single, className }, ref) => {
   const [openKeys, setOpenKeys] = useState<Set<string>>(() => {
     const defaults = new Set<string>();
     items.forEach((item) => { if (item.defaultOpen) defaults.add(item.key); });
@@ -40,7 +41,7 @@ export function Accordion({ items, single, className }: AccordionProps) {
   };
 
   return (
-    <div className={cn("divide-y divide-border border border-border rounded-xl overflow-hidden", className)}>
+    <div ref={ref} className={cn("divide-y divide-border border border-border rounded-xl overflow-hidden", className)}>
       {items.map((item) => {
         const isOpen = openKeys.has(item.key);
         const buttonId = `accordion-btn-${item.key}`;
@@ -87,4 +88,6 @@ export function Accordion({ items, single, className }: AccordionProps) {
       })}
     </div>
   );
-}
+},
+);
+Accordion.displayName = "Accordion";

@@ -46,13 +46,13 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             resize();
           }}
           className={cn(
-            "w-full border bg-white px-3 py-2 text-sm rounded-lg transition-all duration-150",
-            "placeholder:text-muted-light resize-y min-h-[80px]",
-            "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
-            "disabled:opacity-50 disabled:cursor-not-allowed",
+            "w-full border bg-white/80 backdrop-blur-sm px-3.5 py-2.5 text-sm rounded-xl transition-all duration-200 ease-out",
+            "placeholder:text-muted-light/60 resize-y min-h-[80px]",
+            "focus:outline-none focus:border-primary focus:bg-white focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
+            "disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-gray-50",
             autoResize && "resize-none overflow-hidden",
             error
-              ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgba(220,63,63,0.15)]"
+              ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgba(220,63,63,0.12),0_1px_2px_rgba(0,0,0,0.04)]"
               : "border-border",
             className,
           )}

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
@@ -15,7 +15,7 @@ export interface BackTopProps {
  * @example
  * <BackTop threshold={300} />
  */
-export function BackTop({ threshold = 400, className, children }: BackTopProps) {
+export const BackTop = forwardRef<HTMLButtonElement, BackTopProps>(function BackTop({ threshold = 400, className, children }, ref) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -35,6 +35,7 @@ export function BackTop({ threshold = 400, className, children }: BackTopProps) 
 
   return (
     <button
+      ref={ref}
       type="button"
       onClick={scrollToTop}
       aria-label="상단으로 이동"
@@ -60,4 +61,6 @@ export function BackTop({ threshold = 400, className, children }: BackTopProps) 
       )}
     </button>
   );
-}
+});
+
+BackTop.displayName = "BackTop";

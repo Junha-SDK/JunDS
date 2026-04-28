@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface SkeletonProps {
@@ -16,12 +17,14 @@ export interface SkeletonProps {
  * <Skeleton variant="circle" width={40} height={40} />
  * <Skeleton variant="rect" width="100%" height={200} />
  */
-export function Skeleton({ variant = "text", width, height, lines = 1, className }: SkeletonProps) {
+export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
+  ({ variant = "text", width, height, lines = 1, className }, ref) => {
   const baseClass = "bg-gray-200 animate-pulse rounded";
 
   if (variant === "circle") {
     return (
       <div
+        ref={ref}
         className={cn(baseClass, "rounded-full", className)}
         style={{ width: width || 40, height: height || 40 }}
       />
@@ -31,6 +34,7 @@ export function Skeleton({ variant = "text", width, height, lines = 1, className
   if (variant === "rect") {
     return (
       <div
+        ref={ref}
         className={cn(baseClass, "rounded-lg", className)}
         style={{ width: width || "100%", height: height || 100 }}
       />
@@ -39,7 +43,7 @@ export function Skeleton({ variant = "text", width, height, lines = 1, className
 
   // text
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
+    <div ref={ref} className={cn("flex flex-col gap-2", className)}>
       {Array.from({ length: lines }, (_, i) => (
         <div
           key={i}
@@ -51,4 +55,6 @@ export function Skeleton({ variant = "text", width, height, lines = 1, className
       ))}
     </div>
   );
-}
+},
+);
+Skeleton.displayName = "Skeleton";

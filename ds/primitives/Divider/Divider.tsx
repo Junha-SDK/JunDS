@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface DividerProps {
@@ -15,14 +16,14 @@ export interface DividerProps {
  * <Divider label="또는" />
  * <Divider orientation="vertical" />
  */
-export function Divider({ orientation = "horizontal", label, className }: DividerProps) {
+export const Divider = forwardRef<HTMLDivElement, DividerProps>(function Divider({ orientation = "horizontal", label, className }, ref) {
   if (orientation === "vertical") {
-    return <div className={cn("w-px bg-border self-stretch", className)} role="separator" />;
+    return <div ref={ref} className={cn("w-px bg-border self-stretch", className)} role="separator" />;
   }
 
   if (label) {
     return (
-      <div className={cn("flex items-center gap-3", className)} role="separator">
+      <div ref={ref} className={cn("flex items-center gap-3", className)} role="separator">
         <div className="flex-1 h-px bg-border" />
         <span className="text-xs text-muted-light font-medium shrink-0">{label}</span>
         <div className="flex-1 h-px bg-border" />
@@ -30,5 +31,7 @@ export function Divider({ orientation = "horizontal", label, className }: Divide
     );
   }
 
-  return <div className={cn("h-px bg-border w-full", className)} role="separator" />;
-}
+  return <div ref={ref} className={cn("h-px bg-border w-full", className)} role="separator" />;
+});
+
+Divider.displayName = "Divider";

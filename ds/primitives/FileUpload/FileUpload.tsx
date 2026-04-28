@@ -75,6 +75,10 @@ export function FileUpload({
   return (
     <div className={cn("w-full", className)}>
       <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        aria-label={description}
+        onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); inputRef.current?.click(); } }}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={() => setDragOver(false)}

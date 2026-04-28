@@ -9,32 +9,37 @@ describe("Stack", () => {
     expect(screen.getByText("B")).toBeInTheDocument();
   });
 
-  it("defaults to vertical", () => {
+  it("defaults to vertical (column)", () => {
     const { container } = render(<Stack>child</Stack>);
-    expect(container.firstChild).toHaveClass("flex-col");
+    const el = container.firstChild as HTMLElement;
+    expect(el.style.flexDirection).toBe("column");
   });
 
-  it("supports horizontal", () => {
-    const { container } = render(<Stack direction="horizontal">child</Stack>);
-    expect(container.firstChild).toHaveClass("flex-row");
+  it("supports row direction", () => {
+    const { container } = render(<Stack direction="row">child</Stack>);
+    const el = container.firstChild as HTMLElement;
+    expect(el.style.flexDirection).toBe("row");
   });
 
-  it("applies gap", () => {
+  it("applies gap via style", () => {
     const { container } = render(<Stack gap={6}>child</Stack>);
-    expect(container.firstChild).toHaveClass("gap-6");
+    const el = container.firstChild as HTMLElement;
+    expect(el.style.gap).toBe("24px");
   });
 });
 
 describe("HStack", () => {
   it("renders horizontal", () => {
     const { container } = render(<HStack>child</HStack>);
-    expect(container.firstChild).toHaveClass("flex-row");
+    const el = container.firstChild as HTMLElement;
+    expect(el.style.flexDirection).toBe("row");
   });
 });
 
 describe("VStack", () => {
   it("renders vertical", () => {
     const { container } = render(<VStack>child</VStack>);
-    expect(container.firstChild).toHaveClass("flex-col");
+    const el = container.firstChild as HTMLElement;
+    expect(el.style.flexDirection).toBe("column");
   });
 });

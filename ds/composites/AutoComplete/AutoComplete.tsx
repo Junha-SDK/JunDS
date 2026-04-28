@@ -50,6 +50,7 @@ export function AutoComplete({
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const listboxId = `autocomplete-listbox-${useState(() => Math.random().toString(36).slice(2, 8))[0]}`;
 
   useClickOutside(ref, () => setOpen(false), open);
 
@@ -141,6 +142,11 @@ export function AutoComplete({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled}
+          role="combobox"
+          aria-expanded={open}
+          aria-controls={listboxId}
+          aria-autocomplete="list"
+          aria-activedescendant={open && filtered[highlightIdx] ? `${listboxId}-option-${highlightIdx}` : undefined}
           className="flex-1 text-sm outline-none bg-transparent placeholder:text-muted-light min-w-0"
         />
         {loading && <Spinner size="xs" />}
@@ -150,6 +156,8 @@ export function AutoComplete({
         <Portal>
           <div
             ref={ref}
+            id={listboxId}
+            role="listbox"
             className="fixed z-50 bg-card border border-border rounded-lg shadow-lg max-h-60 overflow-auto py-1 animate-fade-in-scale"
             style={{ top: pos.top, left: pos.left, width: pos.width }}
           >
@@ -162,7 +170,10 @@ export function AutoComplete({
             {filtered.map((opt, i) => (
               <button
                 key={opt.key}
+                id={`${listboxId}-option-${i}`}
                 type="button"
+                role="option"
+                aria-selected={i === highlightIdx}
                 onClick={() => handleSelect(opt)}
                 className={cn(
                   "w-full flex items-center gap-2 px-3 py-2 text-left transition-colors cursor-pointer text-sm",

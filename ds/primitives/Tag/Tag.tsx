@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { HTMLAttributes } from "react";
 
@@ -28,9 +29,10 @@ const colorStyles: Record<TagColor, string> = {
  * <Tag color="blue">프론트엔드</Tag>
  * <Tag color="red" closable onClose={handleRemove}>긴급</Tag>
  */
-export function Tag({ color = "gray", closable, onClose, className, children, ...props }: TagProps) {
+export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag({ color = "gray", closable, onClose, className, children, ...props }, ref) {
   return (
     <span
+      ref={ref}
       className={cn(
         "inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium whitespace-nowrap",
         colorStyles[color],
@@ -56,4 +58,6 @@ export function Tag({ color = "gray", closable, onClose, className, children, ..
       )}
     </span>
   );
-}
+});
+
+Tag.displayName = "Tag";

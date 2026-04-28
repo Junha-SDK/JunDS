@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { HTMLAttributes } from "react";
 
@@ -12,9 +13,10 @@ export interface KbdProps extends HTMLAttributes<HTMLElement> {
  * @example
  * <Kbd keys={["⌘", "K"]} />
  */
-export function Kbd({ keys, className, children, ...props }: KbdProps) {
+export const Kbd = forwardRef<HTMLElement, KbdProps>(function Kbd({ keys, className, children, ...props }, ref) {
   return (
     <kbd
+      ref={ref}
       className={cn(
         "inline-flex items-center gap-0.5 rounded border border-border bg-gray-50",
         "px-1.5 py-0.5 text-[11px] font-mono font-medium text-muted",
@@ -26,4 +28,6 @@ export function Kbd({ keys, className, children, ...props }: KbdProps) {
       {keys ? keys.join("") : children}
     </kbd>
   );
-}
+});
+
+Kbd.displayName = "Kbd";

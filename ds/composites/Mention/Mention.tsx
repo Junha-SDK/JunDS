@@ -30,6 +30,9 @@ export interface MentionProps {
  * @example
  * <Mention value={text} onChange={setText} users={userList} trigger="@" />
  */
+const DROPDOWN_WIDTH = 256;
+const DROPDOWN_MAX_HEIGHT = 192;
+
 export function Mention({
   value,
   onChange,
@@ -60,8 +63,8 @@ export function Mention({
   const updateDropdownPosition = useCallback(() => {
     if (!textareaRef.current) return;
     const rect = textareaRef.current.getBoundingClientRect();
-    const dropdownWidth = 256;
-    const dropdownHeight = 192;
+    const dropdownWidth = DROPDOWN_WIDTH;
+    const dropdownHeight = DROPDOWN_MAX_HEIGHT;
     const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
     setDropdownPos({
       top: clamp(rect.bottom + 4, 8, window.innerHeight - dropdownHeight - 8),

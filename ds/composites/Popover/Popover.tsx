@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, type ReactNode } from "react";
+import { useState, useRef, forwardRef, type ReactNode } from "react";
 import { cn } from "../../utils/cn";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
@@ -22,14 +22,19 @@ const alignStyles = {
  * @example
  * <Popover trigger={<Button>열기</Button>} content={<div>내용</div>} />
  */
-export function Popover({ trigger, content, align = "left", side = "bottom", className }: PopoverProps) {
+export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
+  ({ trigger, content, align = "left", side = "bottom", className }, forwardedRef) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useClickOutside(ref, () => setOpen(false), open);
 
   return (
-    <div ref={ref} className={cn("relative inline-block", className)}>
+    <div ref={(node) => {
+      (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      if (typeof forwardedRef === "function") forwardedRef(node);
+      else if (forwardedRef) (forwardedRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    }} className={cn("relative inline-block", className)}>
       <div onClick={() => setOpen(!open)}>{trigger}</div>
       {open && (
         <div
@@ -44,4 +49,6 @@ export function Popover({ trigger, content, align = "left", side = "bottom", cla
       )}
     </div>
   );
-}
+},
+);
+Popover.displayName = "Popover";

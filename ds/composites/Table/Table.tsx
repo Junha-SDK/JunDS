@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
@@ -55,7 +56,7 @@ const sizePadding = {
  * @example
  * <Table columns={[{key:"name",header:"이름"}]} data={[{name:"홍길동"}]} striped hoverable />
  */
-export function Table<T extends Record<string, any>>({
+function TableInner<T extends Record<string, any>>({
   columns,
   data,
   striped,
@@ -68,7 +69,8 @@ export function Table<T extends Record<string, any>>({
   className,
   onRowClick,
   emptyMessage = "데이터가 없습니다",
-}: TableProps<T>) {
+  innerRef,
+}: TableProps<T> & { innerRef?: React.Ref<HTMLDivElement> }) {
   // size prop takes precedence; fall back to compact for backward compat
   const resolvedSize = size ?? (compact ? "sm" : "md");
   const { th: thPad, td: tdPad } = sizePadding[resolvedSize];
@@ -80,6 +82,7 @@ export function Table<T extends Record<string, any>>({
 
   return (
     <div
+      ref={innerRef}
       className={cn("overflow-x-auto border border-border rounded-xl", className)}
       style={wrapperStyle}
     >
@@ -149,3 +152,11 @@ export function Table<T extends Record<string, any>>({
     </div>
   );
 }
+
+export function Table<T extends Record<string, any>>(
+  props: TableProps<T> & { ref?: React.Ref<HTMLDivElement> },
+) {
+  return <TableInner {...props} innerRef={props.ref} />;
+}
+
+Table.displayName = "Table";

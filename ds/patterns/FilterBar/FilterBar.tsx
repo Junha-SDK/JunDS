@@ -49,7 +49,7 @@ export function FilterBar({
             value={searchValue}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder={searchPlaceholder}
-            inputSize="sm"
+            size="sm"
             leftSlot={
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />

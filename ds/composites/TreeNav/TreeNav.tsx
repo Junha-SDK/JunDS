@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { cn } from "../../utils/cn";
 
 export interface TreeNavItem {

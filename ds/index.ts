@@ -10,6 +10,9 @@ export {
 } from "./auth";
 export type { JunDSProviderProps } from "./auth";
 
+// Core
+export * from "./core";
+
 // Primitives
 export * from "./primitives";
 

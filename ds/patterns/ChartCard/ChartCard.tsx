@@ -87,9 +87,9 @@ const chartPalette = [
   "var(--warning)",
   "var(--danger)",
   "var(--accent)",
-  "#64748b",
-  "#0891b2",
-  "#db2777",
+  "var(--muted)",
+  "var(--info)",
+  "var(--danger)",
 ];
 
 const toneColor: Record<ChartTone, string> = {
@@ -97,7 +97,7 @@ const toneColor: Record<ChartTone, string> = {
   success: "var(--success)",
   warning: "var(--warning)",
   danger: "var(--danger)",
-  info: "#0284c7",
+  info: "var(--info)",
 };
 
 const defaultHeights: Record<ChartType, number> = {

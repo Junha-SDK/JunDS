@@ -1,4 +1,5 @@
 "use client";
+import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
@@ -19,7 +20,8 @@ export interface BreadcrumbProps {
  * @example
  * <Breadcrumb items={[{label:"홈",href:"/"},{label:"프로젝트",href:"/projects"},{label:"설정"}]} />
  */
-export function Breadcrumb({ items, separator, className }: BreadcrumbProps) {
+export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
+  ({ items, separator, className }, ref) => {
   const sep = separator || (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted-light">
       <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -27,7 +29,7 @@ export function Breadcrumb({ items, separator, className }: BreadcrumbProps) {
   );
 
   return (
-    <nav aria-label="Breadcrumb" className={cn("flex items-center gap-1.5 text-sm", className)}>
+    <nav ref={ref} aria-label="Breadcrumb" className={cn("flex items-center gap-1.5 text-sm", className)}>
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         return (
@@ -52,4 +54,6 @@ export function Breadcrumb({ items, separator, className }: BreadcrumbProps) {
       })}
     </nav>
   );
-}
+},
+);
+Breadcrumb.displayName = "Breadcrumb";

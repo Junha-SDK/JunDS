@@ -1,7 +1,11 @@
 "use client";
 import { useState, useCallback } from "react";
 
-/** localStorage 동기화 상태 */
+/**
+ * localStorage 동기화 상태 훅
+ * @example
+ * const [theme, setTheme] = useLocalStorage("theme", "light");
+ */
 export function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {

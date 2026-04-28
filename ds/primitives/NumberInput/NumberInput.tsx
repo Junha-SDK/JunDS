@@ -52,8 +52,8 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
     return (
       <div className={cn("inline-flex border rounded-lg bg-white overflow-hidden", error ? "border-danger" : "border-border", "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]", disabled && "opacity-50", className)}>
         {!hideControls && (
-          <button type="button" onClick={decrement} disabled={disabled || (min !== undefined && (value ?? 0) <= min)} className={cn(btnClass, "border-l-0 border-r rounded-l-lg")} tabIndex={-1}>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+          <button type="button" onClick={decrement} disabled={disabled || (min !== undefined && (value ?? 0) <= min)} className={cn(btnClass, "border-l-0 border-r rounded-l-lg")} tabIndex={-1} aria-label="감소">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
           </button>
         )}
         <input
@@ -73,8 +73,8 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
           {...props}
         />
         {!hideControls && (
-          <button type="button" onClick={increment} disabled={disabled || (max !== undefined && (value ?? 0) >= max)} className={cn(btnClass, "rounded-r-lg")} tabIndex={-1}>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2.5v7M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+          <button type="button" onClick={increment} disabled={disabled || (max !== undefined && (value ?? 0) >= max)} className={cn(btnClass, "rounded-r-lg")} tabIndex={-1} aria-label="증가">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.5v7M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
           </button>
         )}
       </div>

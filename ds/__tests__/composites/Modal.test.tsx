@@ -30,7 +30,7 @@ describe("Modal", () => {
     const onClose = vi.fn();
     render(<Modal open onClose={onClose}>내용</Modal>);
     // backdrop is the div with bg-black/40
-    const backdrop = document.querySelector(".bg-black\\/40");
+    const backdrop = document.querySelector(".bg-black\\/30") ?? document.querySelector(".bg-black\\/40");
     if (backdrop) fireEvent.click(backdrop);
     expect(onClose).toHaveBeenCalled();
   });

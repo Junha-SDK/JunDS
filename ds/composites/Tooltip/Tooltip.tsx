@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useId, type ReactNode } from "react";
+import { useState, useRef, useId, forwardRef, type ReactNode } from "react";
 import { cn } from "../../utils/cn";
 
 export type TooltipPosition = "top" | "bottom" | "left" | "right";
@@ -24,7 +24,8 @@ const positionStyles: Record<TooltipPosition, string> = {
  * @example
  * <Tooltip content="저장합니다"><Button>저장</Button></Tooltip>
  */
-export function Tooltip({ content, position = "top", delay = 200, children, className }: TooltipProps) {
+export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
+  ({ content, position = "top", delay = 200, children, className }, ref) => {
   const [show, setShow] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const tooltipId = useId();
@@ -39,6 +40,7 @@ export function Tooltip({ content, position = "top", delay = 200, children, clas
 
   return (
     <div
+      ref={ref}
       className={cn("relative inline-flex", className)}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
@@ -62,4 +64,6 @@ export function Tooltip({ content, position = "top", delay = 200, children, clas
       )}
     </div>
   );
-}
+},
+);
+Tooltip.displayName = "Tooltip";
