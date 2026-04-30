@@ -1,0 +1,351 @@
+{
+  "generatedAt": "2026-04-29T11:55:21.320Z",
+  "tooling": "axe-core@4.11.3",
+  "summary": {
+    "total": 61,
+    "withViolations": 0,
+    "byImpact": {
+      "critical": 0,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0
+    }
+  },
+  "components": [
+    {
+      "name": "AddressInput",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Affix",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Alert",
+      "kind": "composite",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "AutoHideHeader",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "AutoPlayDemo",
+      "kind": "composite",
+      "violations": [],
+      "error": "render failed: Cannot read properties of undefined (reading 'length')"
+    },
+    {
+      "name": "Banner",
+      "kind": "composite",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "BentoGrid",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ButtonGroup",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Callout",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Card",
+      "kind": "composite",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Carousel",
+      "kind": "composite",
+      "violations": [],
+      "error": "render failed: children.map is not a function"
+    },
+    {
+      "name": "ChatBubble",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Collapsible",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "DateInput",
+      "kind": "composite",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Dock",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "FormField",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Globe",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "GradientBorder",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "HoverCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Marquee",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Popover",
+      "kind": "composite",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Resizable",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "SearchInput",
+      "kind": "composite",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "SignaturePad",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Skeleton",
+      "kind": "composite",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "SplitPane",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "SpoilerBlock",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "SpotlightCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Sticky",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "SwipeAction",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Tooltip",
+      "kind": "composite",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "FilterBar",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "MasonryGrid",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "RichTextEditor",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "Starfield",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "AspectRatio",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Avatar",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "BackTop",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Badge",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Button",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Checkbox",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "CurrencyInput",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Divider",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "ErrorBoundary",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "FocusGuard",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Input",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Kbd",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Label",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "NumberInput",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "OTPInput",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "PasswordInput",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "PhoneInput",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "PinInput",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Portal",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "ScrollArea",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Slider",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Spinner",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "StatusDot",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Tag",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Textarea",
+      "kind": "primitive",
+      "violations": [],
+      "error": "named export is not a component"
+    },
+    {
+      "name": "Toggle",
+      "kind": "primitive",
+      "violations": []
+    }
+  ]
+}

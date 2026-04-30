@@ -1,0 +1,1628 @@
+{
+  "generatedAt": "2026-04-29T08:36:30.492Z",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "baseUrl": "http://localhost:6100",
+  "selector": "[data-preview]",
+  "screenshots": [
+    {
+      "kind": "composite",
+      "slug": "accordion",
+      "name": "Accordion",
+      "route": "/design-system/composites/accordion",
+      "image": ".ai/screenshots/composite--accordion.png",
+      "width": 896,
+      "height": 218
+    },
+    {
+      "kind": "composite",
+      "slug": "action-sheet",
+      "name": "Action Sheet",
+      "route": "/design-system/composites/action-sheet",
+      "image": ".ai/screenshots/composite--action-sheet.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "address-input",
+      "name": "Address Input",
+      "route": "/design-system/composites/address-input",
+      "image": ".ai/screenshots/composite--address-input.png",
+      "width": 896,
+      "height": 174
+    },
+    {
+      "kind": "composite",
+      "slug": "affix",
+      "name": "Affix",
+      "route": "/design-system/composites/affix",
+      "image": ".ai/screenshots/composite--affix.png",
+      "width": 896,
+      "height": 242
+    },
+    {
+      "kind": "composite",
+      "slug": "alert",
+      "name": "Alert",
+      "route": "/design-system/composites/alert",
+      "image": ".ai/screenshots/composite--alert.png",
+      "width": 896,
+      "height": 458
+    },
+    {
+      "kind": "composite",
+      "slug": "alert-dialog",
+      "name": "Alert Dialog",
+      "route": "/design-system/composites/alert-dialog",
+      "image": ".ai/screenshots/composite--alert-dialog.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "animated-counter",
+      "name": "Animated Counter",
+      "route": "/design-system/composites/animated-counter",
+      "image": ".ai/screenshots/composite--animated-counter.png",
+      "width": 896,
+      "height": 106
+    },
+    {
+      "kind": "composite",
+      "slug": "audio-player",
+      "name": "Audio Player",
+      "route": "/design-system/composites/audio-player",
+      "image": ".ai/screenshots/composite--audio-player.png",
+      "width": 896,
+      "height": 112
+    },
+    {
+      "kind": "composite",
+      "slug": "auto-complete",
+      "name": "Auto Complete",
+      "route": "/design-system/composites/auto-complete",
+      "image": ".ai/screenshots/composite--auto-complete.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "auto-hide-header",
+      "name": "Auto Hide Header",
+      "route": "/design-system/composites/auto-hide-header",
+      "image": ".ai/screenshots/composite--auto-hide-header.png",
+      "width": 896,
+      "height": 402
+    },
+    {
+      "kind": "composite",
+      "slug": "auto-play-demo",
+      "name": "Auto Play Demo",
+      "route": "/design-system/composites/auto-play-demo",
+      "image": ".ai/screenshots/composite--auto-play-demo.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "avatar-stack",
+      "name": "Avatar Stack",
+      "route": "/design-system/composites/avatar-stack",
+      "image": ".ai/screenshots/composite--avatar-stack.png",
+      "width": 896,
+      "height": 82
+    },
+    {
+      "kind": "composite",
+      "slug": "banner",
+      "name": "Banner",
+      "route": "/design-system/composites/banner",
+      "image": ".ai/screenshots/composite--banner.png",
+      "width": 896,
+      "height": 242
+    },
+    {
+      "kind": "composite",
+      "slug": "bento-grid",
+      "name": "Bento Grid",
+      "route": "/design-system/composites/bento-grid",
+      "image": ".ai/screenshots/composite--bento-grid.png",
+      "width": 896,
+      "height": 426
+    },
+    {
+      "kind": "composite",
+      "slug": "book-card",
+      "name": "Book Card",
+      "route": "/design-system/composites/book-card",
+      "image": ".ai/screenshots/composite--book-card.png",
+      "width": 896,
+      "height": 354
+    },
+    {
+      "kind": "composite",
+      "slug": "bottom-sheet",
+      "name": "Bottom Sheet",
+      "route": "/design-system/composites/bottom-sheet",
+      "image": ".ai/screenshots/composite--bottom-sheet.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "breadcrumb",
+      "name": "Breadcrumb",
+      "route": "/design-system/composites/breadcrumb",
+      "image": ".ai/screenshots/composite--breadcrumb.png",
+      "width": 896,
+      "height": 70
+    },
+    {
+      "kind": "composite",
+      "slug": "button-group",
+      "name": "Button Group",
+      "route": "/design-system/composites/button-group",
+      "image": ".ai/screenshots/composite--button-group.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "callout",
+      "name": "Callout",
+      "route": "/design-system/composites/callout",
+      "image": ".ai/screenshots/composite--callout.png",
+      "width": 896,
+      "height": 468
+    },
+    {
+      "kind": "composite",
+      "slug": "card",
+      "name": "Card",
+      "route": "/design-system/composites/card",
+      "image": ".ai/screenshots/composite--card.png",
+      "width": 896,
+      "height": 242
+    },
+    {
+      "kind": "composite",
+      "slug": "carousel",
+      "name": "Carousel",
+      "route": "/design-system/composites/carousel",
+      "image": ".ai/screenshots/composite--carousel.png",
+      "width": 896,
+      "height": 262
+    },
+    {
+      "kind": "composite",
+      "slug": "chat-bubble",
+      "name": "Chat Bubble",
+      "route": "/design-system/composites/chat-bubble",
+      "image": ".ai/screenshots/composite--chat-bubble.png",
+      "width": 896,
+      "height": 267
+    },
+    {
+      "kind": "composite",
+      "slug": "code-editor",
+      "name": "Code Editor",
+      "route": "/design-system/composites/code-editor",
+      "image": ".ai/screenshots/composite--code-editor.png",
+      "width": 896,
+      "height": 285
+    },
+    {
+      "kind": "composite",
+      "slug": "collapsible",
+      "name": "Collapsible",
+      "route": "/design-system/composites/collapsible",
+      "image": ".ai/screenshots/composite--collapsible.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "collection-view",
+      "name": "Collection View",
+      "route": "/design-system/composites/collection-view",
+      "image": ".ai/screenshots/composite--collection-view.png",
+      "width": 896,
+      "height": 732
+    },
+    {
+      "kind": "composite",
+      "slug": "color-picker",
+      "name": "Color Picker",
+      "route": "/design-system/composites/color-picker",
+      "image": ".ai/screenshots/composite--color-picker.png",
+      "width": 896,
+      "height": 114
+    },
+    {
+      "kind": "composite",
+      "slug": "color-swatch",
+      "name": "Color Swatch",
+      "route": "/design-system/composites/color-swatch",
+      "image": ".ai/screenshots/composite--color-swatch.png",
+      "width": 896,
+      "height": 82
+    },
+    {
+      "kind": "composite",
+      "slug": "combobox",
+      "name": "Combobox",
+      "route": "/design-system/composites/combobox",
+      "image": ".ai/screenshots/composite--combobox.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "compare-slider",
+      "name": "Compare Slider",
+      "route": "/design-system/composites/compare-slider",
+      "image": ".ai/screenshots/composite--compare-slider.png",
+      "width": 896,
+      "height": 410
+    },
+    {
+      "kind": "composite",
+      "slug": "comparison-grid",
+      "name": "Comparison Grid",
+      "route": "/design-system/composites/comparison-grid",
+      "image": ".ai/screenshots/composite--comparison-grid.png",
+      "width": 896,
+      "height": 139
+    },
+    {
+      "kind": "composite",
+      "slug": "component-showcase",
+      "name": "Component Showcase",
+      "route": "/design-system/composites/component-showcase",
+      "image": ".ai/screenshots/composite--component-showcase.png",
+      "width": 896,
+      "height": 699
+    },
+    {
+      "kind": "composite",
+      "slug": "confetti",
+      "name": "Confetti",
+      "route": "/design-system/composites/confetti",
+      "image": ".ai/screenshots/composite--confetti.png",
+      "width": 896,
+      "height": 114
+    },
+    {
+      "kind": "composite",
+      "slug": "confirm-dialog",
+      "name": "Confirm Dialog",
+      "route": "/design-system/composites/confirm-dialog",
+      "image": ".ai/screenshots/composite--confirm-dialog.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "context-menu",
+      "name": "Context Menu",
+      "route": "/design-system/composites/context-menu",
+      "image": ".ai/screenshots/composite--context-menu.png",
+      "width": 896,
+      "height": 210
+    },
+    {
+      "kind": "composite",
+      "slug": "copy-block",
+      "name": "Copy Block",
+      "route": "/design-system/composites/copy-block",
+      "image": ".ai/screenshots/composite--copy-block.png",
+      "width": 896,
+      "height": 208
+    },
+    {
+      "kind": "composite",
+      "slug": "cron-expression",
+      "name": "Cron Expression",
+      "route": "/design-system/composites/cron-expression",
+      "image": ".ai/screenshots/composite--cron-expression.png",
+      "width": 896,
+      "height": 145
+    },
+    {
+      "kind": "composite",
+      "slug": "data-grid",
+      "name": "Data Grid",
+      "route": "/design-system/composites/data-grid",
+      "image": ".ai/screenshots/composite--data-grid.png",
+      "width": 896,
+      "height": 245
+    },
+    {
+      "kind": "composite",
+      "slug": "date-input",
+      "name": "Date Input",
+      "route": "/design-system/composites/date-input",
+      "image": ".ai/screenshots/composite--date-input.png",
+      "width": 896,
+      "height": 134
+    },
+    {
+      "kind": "composite",
+      "slug": "date-range-filter",
+      "name": "Date Range Filter",
+      "route": "/design-system/composites/date-range-filter",
+      "image": ".ai/screenshots/composite--date-range-filter.png",
+      "width": 896,
+      "height": 122
+    },
+    {
+      "kind": "composite",
+      "slug": "date-range-picker",
+      "name": "Date Range Picker",
+      "route": "/design-system/composites/date-range-picker",
+      "image": ".ai/screenshots/composite--date-range-picker.png",
+      "width": 896,
+      "height": 118
+    },
+    {
+      "kind": "composite",
+      "slug": "descriptions",
+      "name": "Descriptions",
+      "route": "/design-system/composites/descriptions",
+      "image": ".ai/screenshots/composite--descriptions.png",
+      "width": 896,
+      "height": 134
+    },
+    {
+      "kind": "composite",
+      "slug": "detail-panel",
+      "name": "Detail Panel",
+      "route": "/design-system/composites/detail-panel",
+      "image": ".ai/screenshots/composite--detail-panel.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "diff-viewer",
+      "name": "Diff Viewer",
+      "route": "/design-system/composites/diff-viewer",
+      "image": ".ai/screenshots/composite--diff-viewer.png",
+      "width": 896,
+      "height": 219
+    },
+    {
+      "kind": "composite",
+      "slug": "disclosure",
+      "name": "Disclosure",
+      "route": "/design-system/composites/disclosure",
+      "image": ".ai/screenshots/composite--disclosure.png",
+      "width": 896,
+      "height": 73
+    },
+    {
+      "kind": "composite",
+      "slug": "dock",
+      "name": "Dock",
+      "route": "/design-system/composites/dock",
+      "image": ".ai/screenshots/composite--dock.png",
+      "width": 896,
+      "height": 156
+    },
+    {
+      "kind": "composite",
+      "slug": "drawer",
+      "name": "Drawer",
+      "route": "/design-system/composites/drawer",
+      "image": ".ai/screenshots/composite--drawer.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "dropdown",
+      "name": "Dropdown",
+      "route": "/design-system/composites/dropdown",
+      "image": ".ai/screenshots/composite--dropdown.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "emoji-picker",
+      "name": "Emoji Picker",
+      "route": "/design-system/composites/emoji-picker",
+      "image": ".ai/screenshots/composite--emoji-picker.png",
+      "width": 896,
+      "height": 215
+    },
+    {
+      "kind": "composite",
+      "slug": "empty-state",
+      "name": "Empty State",
+      "route": "/design-system/composites/empty-state",
+      "image": ".ai/screenshots/composite--empty-state.png",
+      "width": 896,
+      "height": 298
+    },
+    {
+      "kind": "composite",
+      "slug": "filter-button-group",
+      "name": "Filter Button Group",
+      "route": "/design-system/composites/filter-button-group",
+      "image": ".ai/screenshots/composite--filter-button-group.png",
+      "width": 896,
+      "height": 118
+    },
+    {
+      "kind": "composite",
+      "slug": "floating-action-button",
+      "name": "Floating Action Button",
+      "route": "/design-system/composites/floating-action-button",
+      "image": ".ai/screenshots/composite--floating-action-button.png",
+      "width": 896,
+      "height": 306
+    },
+    {
+      "kind": "composite",
+      "slug": "form-field",
+      "name": "Form Field",
+      "route": "/design-system/composites/form-field",
+      "image": ".ai/screenshots/composite--form-field.png",
+      "width": 896,
+      "height": 242
+    },
+    {
+      "kind": "composite",
+      "slug": "funnel-chart",
+      "name": "Funnel Chart",
+      "route": "/design-system/composites/funnel-chart",
+      "image": ".ai/screenshots/composite--funnel-chart.png",
+      "width": 896,
+      "height": 350
+    },
+    {
+      "kind": "composite",
+      "slug": "gauge-chart",
+      "name": "Gauge Chart",
+      "route": "/design-system/composites/gauge-chart",
+      "image": ".ai/screenshots/composite--gauge-chart.png",
+      "width": 896,
+      "height": 162
+    },
+    {
+      "kind": "composite",
+      "slug": "globe",
+      "name": "Globe",
+      "route": "/design-system/composites/globe",
+      "image": ".ai/screenshots/composite--globe.png",
+      "width": 896,
+      "height": 310
+    },
+    {
+      "kind": "composite",
+      "slug": "gradient-border",
+      "name": "Gradient Border",
+      "route": "/design-system/composites/gradient-border",
+      "image": ".ai/screenshots/composite--gradient-border.png",
+      "width": 896,
+      "height": 108
+    },
+    {
+      "kind": "composite",
+      "slug": "heatmap",
+      "name": "Heatmap",
+      "route": "/design-system/composites/heatmap",
+      "image": ".ai/screenshots/composite--heatmap.png",
+      "width": 896,
+      "height": 172
+    },
+    {
+      "kind": "composite",
+      "slug": "hover-card",
+      "name": "Hover Card",
+      "route": "/design-system/composites/hover-card",
+      "image": ".ai/screenshots/composite--hover-card.png",
+      "width": 896,
+      "height": 70
+    },
+    {
+      "kind": "composite",
+      "slug": "image-cropper",
+      "name": "Image Cropper",
+      "route": "/design-system/composites/image-cropper",
+      "image": ".ai/screenshots/composite--image-cropper.png",
+      "width": 896,
+      "height": 307
+    },
+    {
+      "kind": "composite",
+      "slug": "image-lightbox",
+      "name": "Image Lightbox",
+      "route": "/design-system/composites/image-lightbox",
+      "image": ".ai/screenshots/composite--image-lightbox.png",
+      "width": 896,
+      "height": 270
+    },
+    {
+      "kind": "composite",
+      "slug": "inline-edit",
+      "name": "Inline Edit",
+      "route": "/design-system/composites/inline-edit",
+      "image": ".ai/screenshots/composite--inline-edit.png",
+      "width": 896,
+      "height": 103
+    },
+    {
+      "kind": "composite",
+      "slug": "json-viewer",
+      "name": "Json Viewer",
+      "route": "/design-system/composites/json-viewer",
+      "image": ".ai/screenshots/composite--json-viewer.png",
+      "width": 896,
+      "height": 339
+    },
+    {
+      "kind": "composite",
+      "slug": "key-value-grid",
+      "name": "Key Value Grid",
+      "route": "/design-system/composites/key-value-grid",
+      "image": ".ai/screenshots/composite--key-value-grid.png",
+      "width": 896,
+      "height": 199
+    },
+    {
+      "kind": "composite",
+      "slug": "loading-overlay",
+      "name": "Loading Overlay",
+      "route": "/design-system/composites/loading-overlay",
+      "image": ".ai/screenshots/composite--loading-overlay.png",
+      "width": 896,
+      "height": 208
+    },
+    {
+      "kind": "composite",
+      "slug": "markdown-viewer",
+      "name": "Markdown Viewer",
+      "route": "/design-system/composites/markdown-viewer",
+      "image": ".ai/screenshots/composite--markdown-viewer.png",
+      "width": 896,
+      "height": 639
+    },
+    {
+      "kind": "composite",
+      "slug": "marquee",
+      "name": "Marquee",
+      "route": "/design-system/composites/marquee",
+      "image": ".ai/screenshots/composite--marquee.png",
+      "width": 896,
+      "height": 74
+    },
+    {
+      "kind": "composite",
+      "slug": "mention",
+      "name": "Mention",
+      "route": "/design-system/composites/mention",
+      "image": ".ai/screenshots/composite--mention.png",
+      "width": 896,
+      "height": 165
+    },
+    {
+      "kind": "composite",
+      "slug": "menubar",
+      "name": "Menubar",
+      "route": "/design-system/composites/menubar",
+      "image": ".ai/screenshots/composite--menubar.png",
+      "width": 896,
+      "height": 88
+    },
+    {
+      "kind": "composite",
+      "slug": "metric-card",
+      "name": "Metric Card",
+      "route": "/design-system/composites/metric-card",
+      "image": ".ai/screenshots/composite--metric-card.png",
+      "width": 896,
+      "height": 228
+    },
+    {
+      "kind": "composite",
+      "slug": "mini-chart",
+      "name": "Mini Chart",
+      "route": "/design-system/composites/mini-chart",
+      "image": ".ai/screenshots/composite--mini-chart.png",
+      "width": 896,
+      "height": 170
+    },
+    {
+      "kind": "composite",
+      "slug": "modal",
+      "name": "Modal",
+      "route": "/design-system/composites/modal",
+      "image": ".ai/screenshots/composite--modal.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "multi-select",
+      "name": "Multi Select",
+      "route": "/design-system/composites/multi-select",
+      "image": ".ai/screenshots/composite--multi-select.png",
+      "width": 896,
+      "height": 110
+    },
+    {
+      "kind": "composite",
+      "slug": "navigation-menu",
+      "name": "Navigation Menu",
+      "route": "/design-system/composites/navigation-menu",
+      "image": ".ai/screenshots/composite--navigation-menu.png",
+      "width": 896,
+      "height": 96
+    },
+    {
+      "kind": "composite",
+      "slug": "notification",
+      "name": "Notification",
+      "route": "/design-system/composites/notification",
+      "image": ".ai/screenshots/composite--notification.png",
+      "width": 896,
+      "height": 390
+    },
+    {
+      "kind": "composite",
+      "slug": "onboarding",
+      "name": "Onboarding",
+      "route": "/design-system/composites/onboarding",
+      "image": ".ai/screenshots/composite--onboarding.png",
+      "width": 896,
+      "height": 426
+    },
+    {
+      "kind": "composite",
+      "slug": "pagination",
+      "name": "Pagination",
+      "route": "/design-system/composites/pagination",
+      "image": ".ai/screenshots/composite--pagination.png",
+      "width": 896,
+      "height": 178
+    },
+    {
+      "kind": "composite",
+      "slug": "popover",
+      "name": "Popover",
+      "route": "/design-system/composites/popover",
+      "image": ".ai/screenshots/composite--popover.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "progress",
+      "name": "Progress",
+      "route": "/design-system/composites/progress",
+      "image": ".ai/screenshots/composite--progress.png",
+      "width": 896,
+      "height": 200
+    },
+    {
+      "kind": "composite",
+      "slug": "progress-ring",
+      "name": "Progress Ring",
+      "route": "/design-system/composites/progress-ring",
+      "image": ".ai/screenshots/composite--progress-ring.png",
+      "width": 896,
+      "height": 170
+    },
+    {
+      "kind": "composite",
+      "slug": "pull-to-refresh",
+      "name": "Pull To Refresh",
+      "route": "/design-system/composites/pull-to-refresh",
+      "image": ".ai/screenshots/composite--pull-to-refresh.png",
+      "width": 896,
+      "height": 362
+    },
+    {
+      "kind": "composite",
+      "slug": "qr-code",
+      "name": "Qr Code",
+      "route": "/design-system/composites/qr-code",
+      "image": ".ai/screenshots/composite--qr-code.png",
+      "width": 896,
+      "height": 178
+    },
+    {
+      "kind": "composite",
+      "slug": "rating",
+      "name": "Rating",
+      "route": "/design-system/composites/rating",
+      "image": ".ai/screenshots/composite--rating.png",
+      "width": 896,
+      "height": 166
+    },
+    {
+      "kind": "composite",
+      "slug": "reading-time",
+      "name": "Reading Time",
+      "route": "/design-system/composites/reading-time",
+      "image": ".ai/screenshots/composite--reading-time.png",
+      "width": 896,
+      "height": 282
+    },
+    {
+      "kind": "composite",
+      "slug": "resizable",
+      "name": "Resizable",
+      "route": "/design-system/composites/resizable",
+      "image": ".ai/screenshots/composite--resizable.png",
+      "width": 896,
+      "height": 244
+    },
+    {
+      "kind": "composite",
+      "slug": "result",
+      "name": "Result",
+      "route": "/design-system/composites/result",
+      "image": ".ai/screenshots/composite--result.png",
+      "width": 896,
+      "height": 382
+    },
+    {
+      "kind": "composite",
+      "slug": "scroll-spy",
+      "name": "Scroll Spy",
+      "route": "/design-system/composites/scroll-spy",
+      "image": ".ai/screenshots/composite--scroll-spy.png",
+      "width": 896,
+      "height": 688
+    },
+    {
+      "kind": "composite",
+      "slug": "search-input",
+      "name": "Search Input",
+      "route": "/design-system/composites/search-input",
+      "image": ".ai/screenshots/composite--search-input.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "segmented-control",
+      "name": "Segmented Control",
+      "route": "/design-system/composites/segmented-control",
+      "image": ".ai/screenshots/composite--segmented-control.png",
+      "width": 896,
+      "height": 122
+    },
+    {
+      "kind": "composite",
+      "slug": "select",
+      "name": "Select",
+      "route": "/design-system/composites/select",
+      "image": ".ai/screenshots/composite--select.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "sheet",
+      "name": "Sheet",
+      "route": "/design-system/composites/sheet",
+      "image": ".ai/screenshots/composite--sheet.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "signature-pad",
+      "name": "Signature Pad",
+      "route": "/design-system/composites/signature-pad",
+      "image": ".ai/screenshots/composite--signature-pad.png",
+      "width": 896,
+      "height": 292
+    },
+    {
+      "kind": "composite",
+      "slug": "skeleton",
+      "name": "Skeleton",
+      "route": "/design-system/composites/skeleton",
+      "image": ".ai/screenshots/composite--skeleton.png",
+      "width": 896,
+      "height": 518
+    },
+    {
+      "kind": "composite",
+      "slug": "skeleton-preset",
+      "name": "Skeleton Preset",
+      "route": "/design-system/composites/skeleton-preset",
+      "image": ".ai/screenshots/composite--skeleton-preset.png",
+      "width": 896,
+      "height": 368
+    },
+    {
+      "kind": "composite",
+      "slug": "split-pane",
+      "name": "Split Pane",
+      "route": "/design-system/composites/split-pane",
+      "image": ".ai/screenshots/composite--split-pane.png",
+      "width": 896,
+      "height": 242
+    },
+    {
+      "kind": "composite",
+      "slug": "spoiler-block",
+      "name": "Spoiler Block",
+      "route": "/design-system/composites/spoiler-block",
+      "image": ".ai/screenshots/composite--spoiler-block.png",
+      "width": 896,
+      "height": 230
+    },
+    {
+      "kind": "composite",
+      "slug": "spotlight",
+      "name": "Spotlight",
+      "route": "/design-system/composites/spotlight",
+      "image": ".ai/screenshots/composite--spotlight.png",
+      "width": 896,
+      "height": 212
+    },
+    {
+      "kind": "composite",
+      "slug": "spotlight-card",
+      "name": "Spotlight Card",
+      "route": "/design-system/composites/spotlight-card",
+      "image": ".ai/screenshots/composite--spotlight-card.png",
+      "width": 896,
+      "height": 148
+    },
+    {
+      "kind": "composite",
+      "slug": "stat-card",
+      "name": "Stat Card",
+      "route": "/design-system/composites/stat-card",
+      "image": ".ai/screenshots/composite--stat-card.png",
+      "width": 896,
+      "height": 160
+    },
+    {
+      "kind": "composite",
+      "slug": "stepper",
+      "name": "Stepper",
+      "route": "/design-system/composites/stepper",
+      "image": ".ai/screenshots/composite--stepper.png",
+      "width": 896,
+      "height": 188
+    },
+    {
+      "kind": "composite",
+      "slug": "sticky",
+      "name": "Sticky",
+      "route": "/design-system/composites/sticky",
+      "image": ".ai/screenshots/composite--sticky.png",
+      "width": 896,
+      "height": 306
+    },
+    {
+      "kind": "composite",
+      "slug": "swipe-action",
+      "name": "Swipe Action",
+      "route": "/design-system/composites/swipe-action",
+      "image": ".ai/screenshots/composite--swipe-action.png",
+      "width": 896,
+      "height": 114
+    },
+    {
+      "kind": "composite",
+      "slug": "table",
+      "name": "Table",
+      "route": "/design-system/composites/table",
+      "image": ".ai/screenshots/composite--table.png",
+      "width": 896,
+      "height": 279
+    },
+    {
+      "kind": "composite",
+      "slug": "tabs",
+      "name": "Tabs",
+      "route": "/design-system/composites/tabs",
+      "image": ".ai/screenshots/composite--tabs.png",
+      "width": 896,
+      "height": 93
+    },
+    {
+      "kind": "composite",
+      "slug": "tag-input",
+      "name": "Tag Input",
+      "route": "/design-system/composites/tag-input",
+      "image": ".ai/screenshots/composite--tag-input.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "time-picker",
+      "name": "Time Picker",
+      "route": "/design-system/composites/time-picker",
+      "image": ".ai/screenshots/composite--time-picker.png",
+      "width": 896,
+      "height": 118
+    },
+    {
+      "kind": "composite",
+      "slug": "timeline",
+      "name": "Timeline",
+      "route": "/design-system/composites/timeline",
+      "image": ".ai/screenshots/composite--timeline.png",
+      "width": 896,
+      "height": 341
+    },
+    {
+      "kind": "composite",
+      "slug": "toast",
+      "name": "Toast",
+      "route": "/design-system/composites/toast",
+      "image": ".ai/screenshots/composite--toast.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "composite",
+      "slug": "tooltip",
+      "name": "Tooltip",
+      "route": "/design-system/composites/tooltip",
+      "image": ".ai/screenshots/composite--tooltip.png",
+      "width": 896,
+      "height": 150
+    },
+    {
+      "kind": "composite",
+      "slug": "transfer",
+      "name": "Transfer",
+      "route": "/design-system/composites/transfer",
+      "image": ".ai/screenshots/composite--transfer.png",
+      "width": 896,
+      "height": 376
+    },
+    {
+      "kind": "composite",
+      "slug": "tree-nav",
+      "name": "Tree Nav",
+      "route": "/design-system/composites/tree-nav",
+      "image": ".ai/screenshots/composite--tree-nav.png",
+      "width": 896,
+      "height": 306
+    },
+    {
+      "kind": "composite",
+      "slug": "tree-view",
+      "name": "Tree View",
+      "route": "/design-system/composites/tree-view",
+      "image": ".ai/screenshots/composite--tree-view.png",
+      "width": 896,
+      "height": 481
+    },
+    {
+      "kind": "composite",
+      "slug": "treemap-chart",
+      "name": "Treemap Chart",
+      "route": "/design-system/composites/treemap-chart",
+      "image": ".ai/screenshots/composite--treemap-chart.png",
+      "width": 896,
+      "height": 300
+    },
+    {
+      "kind": "composite",
+      "slug": "typewriter",
+      "name": "Typewriter",
+      "route": "/design-system/composites/typewriter",
+      "image": ".ai/screenshots/composite--typewriter.png",
+      "width": 896,
+      "height": 82
+    },
+    {
+      "kind": "composite",
+      "slug": "video-player",
+      "name": "Video Player",
+      "route": "/design-system/composites/video-player",
+      "image": ".ai/screenshots/composite--video-player.png",
+      "width": 896,
+      "height": 200
+    },
+    {
+      "kind": "composite",
+      "slug": "virtual-scroll",
+      "name": "Virtual Scroll",
+      "route": "/design-system/composites/virtual-scroll",
+      "image": ".ai/screenshots/composite--virtual-scroll.png",
+      "width": 896,
+      "height": 372
+    },
+    {
+      "kind": "composite",
+      "slug": "watermark",
+      "name": "Watermark",
+      "route": "/design-system/composites/watermark",
+      "image": ".ai/screenshots/composite--watermark.png",
+      "width": 896,
+      "height": 202
+    },
+    {
+      "kind": "pattern",
+      "slug": "action-bar",
+      "name": "Action Bar",
+      "route": "/design-system/patterns/action-bar",
+      "image": ".ai/screenshots/pattern--action-bar.png",
+      "width": 896,
+      "height": 282
+    },
+    {
+      "kind": "pattern",
+      "slug": "calendar",
+      "name": "Calendar",
+      "route": "/design-system/patterns/calendar",
+      "image": ".ai/screenshots/pattern--calendar.png",
+      "width": 896,
+      "height": 564
+    },
+    {
+      "kind": "pattern",
+      "slug": "chart-card",
+      "name": "Chart Card",
+      "route": "/design-system/patterns/chart-card",
+      "image": ".ai/screenshots/pattern--chart-card.png",
+      "width": 896,
+      "height": 359
+    },
+    {
+      "kind": "pattern",
+      "slug": "command-palette",
+      "name": "Command Palette",
+      "route": "/design-system/patterns/command-palette",
+      "image": ".ai/screenshots/pattern--command-palette.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "pattern",
+      "slug": "data-table",
+      "name": "Data Table",
+      "route": "/design-system/patterns/data-table",
+      "image": ".ai/screenshots/pattern--data-table.png",
+      "width": 896,
+      "height": 927
+    },
+    {
+      "kind": "pattern",
+      "slug": "filter-bar",
+      "name": "Filter Bar",
+      "route": "/design-system/patterns/filter-bar",
+      "image": ".ai/screenshots/pattern--filter-bar.png",
+      "width": 896,
+      "height": 82
+    },
+    {
+      "kind": "pattern",
+      "slug": "flow-diagram",
+      "name": "Flow Diagram",
+      "route": "/design-system/patterns/flow-diagram",
+      "image": ".ai/screenshots/pattern--flow-diagram.png",
+      "width": 896,
+      "height": 502
+    },
+    {
+      "kind": "pattern",
+      "slug": "form",
+      "name": "Form",
+      "route": "/design-system/patterns/form",
+      "image": ".ai/screenshots/pattern--form.png",
+      "width": 896,
+      "height": 246
+    },
+    {
+      "kind": "pattern",
+      "slug": "form-array",
+      "name": "Form Array",
+      "route": "/design-system/patterns/form-array",
+      "image": ".ai/screenshots/pattern--form-array.png",
+      "width": 896,
+      "height": 140
+    },
+    {
+      "kind": "pattern",
+      "slug": "form-builder",
+      "name": "Form Builder",
+      "route": "/design-system/patterns/form-builder",
+      "image": ".ai/screenshots/pattern--form-builder.png",
+      "width": 896,
+      "height": 383
+    },
+    {
+      "kind": "pattern",
+      "slug": "form-wizard",
+      "name": "Form Wizard",
+      "route": "/design-system/patterns/form-wizard",
+      "image": ".ai/screenshots/pattern--form-wizard.png",
+      "width": 896,
+      "height": 254
+    },
+    {
+      "kind": "pattern",
+      "slug": "infinite-list",
+      "name": "Infinite List",
+      "route": "/design-system/patterns/infinite-list",
+      "image": ".ai/screenshots/pattern--infinite-list.png",
+      "width": 896,
+      "height": 474
+    },
+    {
+      "kind": "pattern",
+      "slug": "kanban",
+      "name": "Kanban",
+      "route": "/design-system/patterns/kanban",
+      "image": ".ai/screenshots/pattern--kanban.png",
+      "width": 896,
+      "height": 263
+    },
+    {
+      "kind": "pattern",
+      "slug": "masonry-grid",
+      "name": "Masonry Grid",
+      "route": "/design-system/patterns/masonry-grid",
+      "image": ".ai/screenshots/pattern--masonry-grid.png",
+      "width": 896,
+      "height": 786
+    },
+    {
+      "kind": "pattern",
+      "slug": "notification-center",
+      "name": "Notification Center",
+      "route": "/design-system/patterns/notification-center",
+      "image": ".ai/screenshots/pattern--notification-center.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "pattern",
+      "slug": "rich-text-editor",
+      "name": "Rich Text Editor",
+      "route": "/design-system/patterns/rich-text-editor",
+      "image": ".ai/screenshots/pattern--rich-text-editor.png",
+      "width": 896,
+      "height": 371
+    },
+    {
+      "kind": "pattern",
+      "slug": "sortable-list",
+      "name": "Sortable List",
+      "route": "/design-system/patterns/sortable-list",
+      "image": ".ai/screenshots/pattern--sortable-list.png",
+      "width": 896,
+      "height": 340
+    },
+    {
+      "kind": "pattern",
+      "slug": "starfield",
+      "name": "Starfield",
+      "route": "/design-system/patterns/starfield",
+      "image": ".ai/screenshots/pattern--starfield.png",
+      "width": 896,
+      "height": 402
+    },
+    {
+      "kind": "pattern",
+      "slug": "stats-grid",
+      "name": "Stats Grid",
+      "route": "/design-system/patterns/stats-grid",
+      "image": ".ai/screenshots/pattern--stats-grid.png",
+      "width": 896,
+      "height": 144
+    },
+    {
+      "kind": "pattern",
+      "slug": "tour",
+      "name": "Tour",
+      "route": "/design-system/patterns/tour",
+      "image": ".ai/screenshots/pattern--tour.png",
+      "width": 896,
+      "height": 228
+    },
+    {
+      "kind": "pattern",
+      "slug": "virtual-list",
+      "name": "Virtual List",
+      "route": "/design-system/patterns/virtual-list",
+      "image": ".ai/screenshots/pattern--virtual-list.png",
+      "width": 896,
+      "height": 474
+    },
+    {
+      "kind": "primitive",
+      "slug": "announcer",
+      "name": "Announcer",
+      "route": "/design-system/primitives/announcer",
+      "image": ".ai/screenshots/primitive--announcer.png",
+      "width": 896,
+      "height": 94
+    },
+    {
+      "kind": "primitive",
+      "slug": "aspect-ratio",
+      "name": "Aspect Ratio",
+      "route": "/design-system/primitives/aspect-ratio",
+      "image": ".ai/screenshots/primitive--aspect-ratio.png",
+      "width": 896,
+      "height": 1218
+    },
+    {
+      "kind": "primitive",
+      "slug": "avatar",
+      "name": "Avatar",
+      "route": "/design-system/primitives/avatar",
+      "image": ".ai/screenshots/primitive--avatar.png",
+      "width": 896,
+      "height": 106
+    },
+    {
+      "kind": "primitive",
+      "slug": "back-top",
+      "name": "Back Top",
+      "route": "/design-system/primitives/back-top",
+      "image": ".ai/screenshots/primitive--back-top.png",
+      "width": 896,
+      "height": 102
+    },
+    {
+      "kind": "primitive",
+      "slug": "badge",
+      "name": "Badge",
+      "route": "/design-system/primitives/badge",
+      "image": ".ai/screenshots/primitive--badge.png",
+      "width": 896,
+      "height": 76
+    },
+    {
+      "kind": "primitive",
+      "slug": "battery-indicator",
+      "name": "Battery Indicator",
+      "route": "/design-system/primitives/battery-indicator",
+      "image": ".ai/screenshots/primitive--battery-indicator.png",
+      "width": 896,
+      "height": 94
+    },
+    {
+      "kind": "primitive",
+      "slug": "button",
+      "name": "Button",
+      "route": "/design-system/primitives/button",
+      "image": ".ai/screenshots/primitive--button.png",
+      "width": 896,
+      "height": 146
+    },
+    {
+      "kind": "primitive",
+      "slug": "checkbox",
+      "name": "Checkbox",
+      "route": "/design-system/primitives/checkbox",
+      "image": ".ai/screenshots/primitive--checkbox.png",
+      "width": 896,
+      "height": 194
+    },
+    {
+      "kind": "primitive",
+      "slug": "copy-button",
+      "name": "Copy Button",
+      "route": "/design-system/primitives/copy-button",
+      "image": ".ai/screenshots/primitive--copy-button.png",
+      "width": 896,
+      "height": 78
+    },
+    {
+      "kind": "primitive",
+      "slug": "currency-input",
+      "name": "Currency Input",
+      "route": "/design-system/primitives/currency-input",
+      "image": ".ai/screenshots/primitive--currency-input.png",
+      "width": 896,
+      "height": 134
+    },
+    {
+      "kind": "primitive",
+      "slug": "divider",
+      "name": "Divider",
+      "route": "/design-system/primitives/divider",
+      "image": ".ai/screenshots/primitive--divider.png",
+      "width": 896,
+      "height": 203
+    },
+    {
+      "kind": "primitive",
+      "slug": "error-boundary",
+      "name": "Error Boundary",
+      "route": "/design-system/primitives/error-boundary",
+      "image": ".ai/screenshots/primitive--error-boundary.png",
+      "width": 896,
+      "height": 114
+    },
+    {
+      "kind": "primitive",
+      "slug": "file-upload",
+      "name": "File Upload",
+      "route": "/design-system/primitives/file-upload",
+      "image": ".ai/screenshots/primitive--file-upload.png",
+      "width": 896,
+      "height": 178
+    },
+    {
+      "kind": "primitive",
+      "slug": "focus-guard",
+      "name": "Focus Guard",
+      "route": "/design-system/primitives/focus-guard",
+      "image": ".ai/screenshots/primitive--focus-guard.png",
+      "width": 896,
+      "height": 256
+    },
+    {
+      "kind": "primitive",
+      "slug": "icon-button",
+      "name": "Icon Button",
+      "route": "/design-system/primitives/icon-button",
+      "image": ".ai/screenshots/primitive--icon-button.png",
+      "width": 896,
+      "height": 90
+    },
+    {
+      "kind": "primitive",
+      "slug": "input",
+      "name": "Input",
+      "route": "/design-system/primitives/input",
+      "image": ".ai/screenshots/primitive--input.png",
+      "width": 896,
+      "height": 90
+    },
+    {
+      "kind": "primitive",
+      "slug": "kbd",
+      "name": "Kbd",
+      "route": "/design-system/primitives/kbd",
+      "image": ".ai/screenshots/primitive--kbd.png",
+      "width": 896,
+      "height": 73
+    },
+    {
+      "kind": "primitive",
+      "slug": "label",
+      "name": "Label",
+      "route": "/design-system/primitives/label",
+      "image": ".ai/screenshots/primitive--label.png",
+      "width": 896,
+      "height": 190
+    },
+    {
+      "kind": "primitive",
+      "slug": "number-formatter",
+      "name": "Number Formatter",
+      "route": "/design-system/primitives/number-formatter",
+      "image": ".ai/screenshots/primitive--number-formatter.png",
+      "width": 896,
+      "height": 210
+    },
+    {
+      "kind": "primitive",
+      "slug": "number-input",
+      "name": "Number Input",
+      "route": "/design-system/primitives/number-input",
+      "image": ".ai/screenshots/primitive--number-input.png",
+      "width": 896,
+      "height": 88
+    },
+    {
+      "kind": "primitive",
+      "slug": "otp-input",
+      "name": "Otp Input",
+      "route": "/design-system/primitives/otp-input",
+      "image": ".ai/screenshots/primitive--otp-input.png",
+      "width": 896,
+      "height": 130
+    },
+    {
+      "kind": "primitive",
+      "slug": "phone-input",
+      "name": "Phone Input",
+      "route": "/design-system/primitives/phone-input",
+      "image": ".ai/screenshots/primitive--phone-input.png",
+      "width": 896,
+      "height": 116
+    },
+    {
+      "kind": "primitive",
+      "slug": "portal",
+      "name": "Portal",
+      "route": "/design-system/primitives/portal",
+      "image": ".ai/screenshots/primitive--portal.png",
+      "width": 896,
+      "height": 82
+    },
+    {
+      "kind": "primitive",
+      "slug": "radio",
+      "name": "Radio",
+      "route": "/design-system/primitives/radio",
+      "image": ".ai/screenshots/primitive--radio.png",
+      "width": 896,
+      "height": 178
+    },
+    {
+      "kind": "primitive",
+      "slug": "range-slider",
+      "name": "Range Slider",
+      "route": "/design-system/primitives/range-slider",
+      "image": ".ai/screenshots/primitive--range-slider.png",
+      "width": 896,
+      "height": 118
+    },
+    {
+      "kind": "primitive",
+      "slug": "scroll-area",
+      "name": "Scroll Area",
+      "route": "/design-system/primitives/scroll-area",
+      "image": ".ai/screenshots/primitive--scroll-area.png",
+      "width": 896,
+      "height": 444
+    },
+    {
+      "kind": "primitive",
+      "slug": "severity-badge",
+      "name": "Severity Badge",
+      "route": "/design-system/primitives/severity-badge",
+      "image": ".ai/screenshots/primitive--severity-badge.png",
+      "width": 896,
+      "height": 74
+    },
+    {
+      "kind": "primitive",
+      "slug": "slider",
+      "name": "Slider",
+      "route": "/design-system/primitives/slider",
+      "image": ".ai/screenshots/primitive--slider.png",
+      "width": 896,
+      "height": 78
+    },
+    {
+      "kind": "primitive",
+      "slug": "spinner",
+      "name": "Spinner",
+      "route": "/design-system/primitives/spinner",
+      "image": ".ai/screenshots/primitive--spinner.png",
+      "width": 896,
+      "height": 94
+    },
+    {
+      "kind": "primitive",
+      "slug": "star-rating",
+      "name": "Star Rating",
+      "route": "/design-system/primitives/star-rating",
+      "image": ".ai/screenshots/primitive--star-rating.png",
+      "width": 896,
+      "height": 302
+    },
+    {
+      "kind": "primitive",
+      "slug": "status-dot",
+      "name": "Status Dot",
+      "route": "/design-system/primitives/status-dot",
+      "image": ".ai/screenshots/primitive--status-dot.png",
+      "width": 896,
+      "height": 66
+    },
+    {
+      "kind": "primitive",
+      "slug": "switch",
+      "name": "Switch",
+      "route": "/design-system/primitives/switch",
+      "image": ".ai/screenshots/primitive--switch.png",
+      "width": 896,
+      "height": 194
+    },
+    {
+      "kind": "primitive",
+      "slug": "tag",
+      "name": "Tag",
+      "route": "/design-system/primitives/tag",
+      "image": ".ai/screenshots/primitive--tag.png",
+      "width": 896,
+      "height": 70
+    },
+    {
+      "kind": "primitive",
+      "slug": "textarea",
+      "name": "Textarea",
+      "route": "/design-system/primitives/textarea",
+      "image": ".ai/screenshots/primitive--textarea.png",
+      "width": 896,
+      "height": 432
+    },
+    {
+      "kind": "primitive",
+      "slug": "toggle",
+      "name": "Toggle",
+      "route": "/design-system/primitives/toggle",
+      "image": ".ai/screenshots/primitive--toggle.png",
+      "width": 896,
+      "height": 146
+    },
+    {
+      "kind": "primitive",
+      "slug": "visually-hidden",
+      "name": "Visually Hidden",
+      "route": "/design-system/primitives/visually-hidden",
+      "image": ".ai/screenshots/primitive--visually-hidden.png",
+      "width": 896,
+      "height": 82
+    },
+    {
+      "kind": "security",
+      "slug": "login-form",
+      "name": "Login Form",
+      "route": "/design-system/security/login-form",
+      "image": ".ai/screenshots/security--login-form.png",
+      "width": 896,
+      "height": 589
+    },
+    {
+      "kind": "security",
+      "slug": "password-input",
+      "name": "Password Input",
+      "route": "/design-system/security/password-input",
+      "image": ".ai/screenshots/security--password-input.png",
+      "width": 896,
+      "height": 86
+    },
+    {
+      "kind": "security",
+      "slug": "pin-input",
+      "name": "Pin Input",
+      "route": "/design-system/security/pin-input",
+      "image": ".ai/screenshots/security--pin-input.png",
+      "width": 896,
+      "height": 98
+    },
+    {
+      "kind": "security",
+      "slug": "security-badge",
+      "name": "Security Badge",
+      "route": "/design-system/security/security-badge",
+      "image": ".ai/screenshots/security--security-badge.png",
+      "width": 896,
+      "height": 76
+    },
+    {
+      "kind": "security",
+      "slug": "security-checklist",
+      "name": "Security Checklist",
+      "route": "/design-system/security/security-checklist",
+      "image": ".ai/screenshots/security--security-checklist.png",
+      "width": 896,
+      "height": 488
+    },
+    {
+      "kind": "security",
+      "slug": "trust-indicator",
+      "name": "Trust Indicator",
+      "route": "/design-system/security/trust-indicator",
+      "image": ".ai/screenshots/security--trust-indicator.png",
+      "width": 896,
+      "height": 446
+    }
+  ],
+  "errors": [
+    {
+      "route": "/design-system/patterns/sidebar",
+      "reason": "no Preview block found"
+    }
+  ]
+}

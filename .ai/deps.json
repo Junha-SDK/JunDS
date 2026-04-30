@@ -1,0 +1,2356 @@
+{
+  "generatedAt": "2026-04-29T08:23:10.049Z",
+  "componentCount": 179,
+  "graph": {
+    "Announcer": {
+      "kind": "primitive",
+      "file": "ds/primitives/Announcer/Announcer.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "AspectRatio": {
+      "kind": "primitive",
+      "file": "ds/primitives/AspectRatio/AspectRatio.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Avatar": {
+      "kind": "primitive",
+      "file": "ds/primitives/Avatar/Avatar.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "AvatarStack"
+      ]
+    },
+    "BackTop": {
+      "kind": "primitive",
+      "file": "ds/primitives/BackTop/BackTop.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Badge": {
+      "kind": "primitive",
+      "file": "ds/primitives/Badge/Badge.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "Kanban",
+        "NotificationCenter"
+      ]
+    },
+    "BatteryIndicator": {
+      "kind": "primitive",
+      "file": "ds/primitives/BatteryIndicator/BatteryIndicator.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Button": {
+      "kind": "primitive",
+      "file": "ds/primitives/Button/Button.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "Calendar",
+        "ConfirmDialog",
+        "FilterBar",
+        "FormBuilder",
+        "LoginForm",
+        "SecurityChecklist"
+      ]
+    },
+    "Checkbox": {
+      "kind": "primitive",
+      "file": "ds/primitives/Checkbox/Checkbox.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "DataTable",
+        "LoginForm"
+      ]
+    },
+    "CopyButton": {
+      "kind": "primitive",
+      "file": "ds/primitives/CopyButton/CopyButton.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CurrencyInput": {
+      "kind": "primitive",
+      "file": "ds/primitives/CurrencyInput/CurrencyInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Divider": {
+      "kind": "primitive",
+      "file": "ds/primitives/Divider/Divider.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "LoginForm"
+      ]
+    },
+    "ErrorBoundary": {
+      "kind": "primitive",
+      "file": "ds/primitives/ErrorBoundary/ErrorBoundary.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FileUpload": {
+      "kind": "primitive",
+      "file": "ds/primitives/FileUpload/FileUpload.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FocusGuard": {
+      "kind": "primitive",
+      "file": "ds/primitives/FocusGuard/FocusGuard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "IconButton": {
+      "kind": "primitive",
+      "file": "ds/primitives/IconButton/IconButton.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "Calendar",
+        "RichTextEditor"
+      ]
+    },
+    "Input": {
+      "kind": "primitive",
+      "file": "ds/primitives/Input/Input.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "FilterBar",
+        "FormBuilder",
+        "LoginForm"
+      ]
+    },
+    "Kbd": {
+      "kind": "primitive",
+      "file": "ds/primitives/Kbd/Kbd.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "CommandPalette"
+      ]
+    },
+    "Label": {
+      "kind": "primitive",
+      "file": "ds/primitives/Label/Label.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "FormBuilder",
+        "FormField",
+        "LoginForm"
+      ]
+    },
+    "NumberFormatter": {
+      "kind": "primitive",
+      "file": "ds/primitives/NumberFormatter/NumberFormatter.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "NumberInput": {
+      "kind": "primitive",
+      "file": "ds/primitives/NumberInput/NumberInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "OTPInput": {
+      "kind": "primitive",
+      "file": "ds/primitives/OTPInput/OTPInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PasswordInput": {
+      "kind": "primitive",
+      "file": "ds/primitives/PasswordInput/PasswordInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "LoginForm"
+      ]
+    },
+    "PhoneInput": {
+      "kind": "primitive",
+      "file": "ds/primitives/PhoneInput/PhoneInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PinInput": {
+      "kind": "primitive",
+      "file": "ds/primitives/PinInput/PinInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Portal": {
+      "kind": "primitive",
+      "file": "ds/primitives/Portal/Portal.tsx",
+      "imports": [],
+      "importedBy": [
+        "ActionBar",
+        "ActionSheet",
+        "AlertDialog",
+        "AutoComplete",
+        "BottomSheet",
+        "ColorPicker",
+        "CommandPalette",
+        "ContextMenu",
+        "DateRangePicker",
+        "Drawer",
+        "Mention",
+        "Modal",
+        "Sheet",
+        "Spotlight",
+        "TimePicker",
+        "Toast",
+        "Tour"
+      ]
+    },
+    "Radio": {
+      "kind": "primitive",
+      "file": "ds/primitives/Radio/Radio.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "RangeSlider": {
+      "kind": "primitive",
+      "file": "ds/primitives/RangeSlider/RangeSlider.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ScrollArea": {
+      "kind": "primitive",
+      "file": "ds/primitives/ScrollArea/ScrollArea.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SeverityBadge": {
+      "kind": "primitive",
+      "file": "ds/primitives/SeverityBadge/SeverityBadge.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Slider": {
+      "kind": "primitive",
+      "file": "ds/primitives/Slider/Slider.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Spinner": {
+      "kind": "primitive",
+      "file": "ds/primitives/Spinner/Spinner.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "AutoComplete",
+        "Combobox",
+        "InfiniteList"
+      ]
+    },
+    "StarRating": {
+      "kind": "primitive",
+      "file": "ds/primitives/StarRating/StarRating.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "StatusDot": {
+      "kind": "primitive",
+      "file": "ds/primitives/StatusDot/StatusDot.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Switch": {
+      "kind": "primitive",
+      "file": "ds/primitives/Switch/Switch.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Tag": {
+      "kind": "primitive",
+      "file": "ds/primitives/Tag/Tag.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "MultiSelect"
+      ]
+    },
+    "Textarea": {
+      "kind": "primitive",
+      "file": "ds/primitives/Textarea/Textarea.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "FormBuilder"
+      ]
+    },
+    "Toggle": {
+      "kind": "primitive",
+      "file": "ds/primitives/Toggle/Toggle.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "VisuallyHidden": {
+      "kind": "primitive",
+      "file": "ds/primitives/VisuallyHidden/VisuallyHidden.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "Accordion": {
+      "kind": "composite",
+      "file": "ds/composites/Accordion/Accordion.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ActionSheet": {
+      "kind": "composite",
+      "file": "ds/composites/ActionSheet/ActionSheet.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AddressInput": {
+      "kind": "composite",
+      "file": "ds/composites/AddressInput/AddressInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Affix": {
+      "kind": "composite",
+      "file": "ds/composites/Affix/Affix.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Alert": {
+      "kind": "composite",
+      "file": "ds/composites/Alert/Alert.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "LoginForm"
+      ]
+    },
+    "AlertDialog": {
+      "kind": "composite",
+      "file": "ds/composites/AlertDialog/AlertDialog.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AnimatedCounter": {
+      "kind": "composite",
+      "file": "ds/composites/AnimatedCounter/AnimatedCounter.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AudioPlayer": {
+      "kind": "composite",
+      "file": "ds/composites/AudioPlayer/AudioPlayer.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AutoComplete": {
+      "kind": "composite",
+      "file": "ds/composites/AutoComplete/AutoComplete.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "primitive",
+          "name": "Spinner"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AutoHideHeader": {
+      "kind": "composite",
+      "file": "ds/composites/AutoHideHeader/AutoHideHeader.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AutoPlayDemo": {
+      "kind": "composite",
+      "file": "ds/composites/AutoPlayDemo/AutoPlayDemo.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AvatarStack": {
+      "kind": "composite",
+      "file": "ds/composites/AvatarStack/AvatarStack.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Avatar"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Banner": {
+      "kind": "composite",
+      "file": "ds/composites/Banner/Banner.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "BentoGrid": {
+      "kind": "composite",
+      "file": "ds/composites/BentoGrid/BentoGrid.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "BookCard": {
+      "kind": "composite",
+      "file": "ds/composites/BookCard/BookCard.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "BottomSheet": {
+      "kind": "composite",
+      "file": "ds/composites/BottomSheet/BottomSheet.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Breadcrumb": {
+      "kind": "composite",
+      "file": "ds/composites/Breadcrumb/Breadcrumb.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ButtonGroup": {
+      "kind": "composite",
+      "file": "ds/composites/ButtonGroup/ButtonGroup.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Callout": {
+      "kind": "composite",
+      "file": "ds/composites/Callout/Callout.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "Card": {
+      "kind": "composite",
+      "file": "ds/composites/Card/Card.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "createCompound"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
+        }
+      ],
+      "importedBy": []
+    },
+    "Carousel": {
+      "kind": "composite",
+      "file": "ds/composites/Carousel/Carousel.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ChatBubble": {
+      "kind": "composite",
+      "file": "ds/composites/ChatBubble/ChatBubble.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CodeEditor": {
+      "kind": "composite",
+      "file": "ds/composites/CodeEditor/CodeEditor.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Collapsible": {
+      "kind": "composite",
+      "file": "ds/composites/Collapsible/Collapsible.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CollectionView": {
+      "kind": "composite",
+      "file": "ds/composites/CollectionView/CollectionView.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ColorPicker": {
+      "kind": "composite",
+      "file": "ds/composites/ColorPicker/ColorPicker.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ColorSwatch": {
+      "kind": "composite",
+      "file": "ds/composites/ColorSwatch/ColorSwatch.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Combobox": {
+      "kind": "composite",
+      "file": "ds/composites/Combobox/Combobox.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "hook",
+          "name": "useDebounce"
+        },
+        {
+          "kind": "primitive",
+          "name": "Spinner"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CompareSlider": {
+      "kind": "composite",
+      "file": "ds/composites/CompareSlider/CompareSlider.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ComparisonGrid": {
+      "kind": "composite",
+      "file": "ds/composites/ComparisonGrid/ComparisonGrid.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ComponentShowcase": {
+      "kind": "composite",
+      "file": "ds/composites/ComponentShowcase/ComponentShowcase.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Confetti": {
+      "kind": "composite",
+      "file": "ds/composites/Confetti/Confetti.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ConfirmDialog": {
+      "kind": "composite",
+      "file": "ds/composites/ConfirmDialog/ConfirmDialog.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Button"
+        }
+      ],
+      "importedBy": []
+    },
+    "ContextMenu": {
+      "kind": "composite",
+      "file": "ds/composites/ContextMenu/ContextMenu.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CopyBlock": {
+      "kind": "composite",
+      "file": "ds/composites/CopyBlock/CopyBlock.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CronExpression": {
+      "kind": "composite",
+      "file": "ds/composites/CronExpression/CronExpression.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "DataGrid": {
+      "kind": "composite",
+      "file": "ds/composites/DataGrid/DataGrid.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "DateInput": {
+      "kind": "composite",
+      "file": "ds/composites/DateInput/DateInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "DateRangeFilter": {
+      "kind": "composite",
+      "file": "ds/composites/DateRangeFilter/DateRangeFilter.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "DateRangePicker": {
+      "kind": "composite",
+      "file": "ds/composites/DateRangePicker/DateRangePicker.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Descriptions": {
+      "kind": "composite",
+      "file": "ds/composites/Descriptions/Descriptions.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "DetailPanel": {
+      "kind": "composite",
+      "file": "ds/composites/DetailPanel/DetailPanel.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "DiffViewer": {
+      "kind": "composite",
+      "file": "ds/composites/DiffViewer/DiffViewer.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Dock": {
+      "kind": "composite",
+      "file": "ds/composites/Dock/Dock.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Drawer": {
+      "kind": "composite",
+      "file": "ds/composites/Drawer/Drawer.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Dropdown": {
+      "kind": "composite",
+      "file": "ds/composites/Dropdown/Dropdown.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "EmojiPicker": {
+      "kind": "composite",
+      "file": "ds/composites/EmojiPicker/EmojiPicker.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "EmptyState": {
+      "kind": "composite",
+      "file": "ds/composites/EmptyState/EmptyState.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "DataTable"
+      ]
+    },
+    "FilterButtonGroup": {
+      "kind": "composite",
+      "file": "ds/composites/FilterButtonGroup/FilterButtonGroup.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FloatingActionButton": {
+      "kind": "composite",
+      "file": "ds/composites/FloatingActionButton/FloatingActionButton.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FormField": {
+      "kind": "composite",
+      "file": "ds/composites/FormField/FormField.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Label"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FunnelChart": {
+      "kind": "composite",
+      "file": "ds/composites/FunnelChart/FunnelChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "GaugeChart": {
+      "kind": "composite",
+      "file": "ds/composites/GaugeChart/GaugeChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Globe": {
+      "kind": "composite",
+      "file": "ds/composites/Globe/Globe.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "GradientBorder": {
+      "kind": "composite",
+      "file": "ds/composites/GradientBorder/GradientBorder.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Heatmap": {
+      "kind": "composite",
+      "file": "ds/composites/Heatmap/Heatmap.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "HoverCard": {
+      "kind": "composite",
+      "file": "ds/composites/HoverCard/HoverCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ImageCropper": {
+      "kind": "composite",
+      "file": "ds/composites/ImageCropper/ImageCropper.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ImageLightbox": {
+      "kind": "composite",
+      "file": "ds/composites/ImageLightbox/ImageLightbox.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "InlineEdit": {
+      "kind": "composite",
+      "file": "ds/composites/InlineEdit/InlineEdit.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "JSONViewer": {
+      "kind": "composite",
+      "file": "ds/composites/JSONViewer/JSONViewer.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "KeyValueGrid": {
+      "kind": "composite",
+      "file": "ds/composites/KeyValueGrid/KeyValueGrid.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "LoadingOverlay": {
+      "kind": "composite",
+      "file": "ds/composites/LoadingOverlay/LoadingOverlay.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "MarkdownViewer": {
+      "kind": "composite",
+      "file": "ds/composites/MarkdownViewer/MarkdownViewer.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Marquee": {
+      "kind": "composite",
+      "file": "ds/composites/Marquee/Marquee.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Mention": {
+      "kind": "composite",
+      "file": "ds/composites/Mention/Mention.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Menubar": {
+      "kind": "composite",
+      "file": "ds/composites/Menubar/Menubar.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "MetricCard": {
+      "kind": "composite",
+      "file": "ds/composites/MetricCard/MetricCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "MiniChart": {
+      "kind": "composite",
+      "file": "ds/composites/MiniChart/MiniChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Modal": {
+      "kind": "composite",
+      "file": "ds/composites/Modal/Modal.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "createCompound"
+        }
+      ],
+      "importedBy": []
+    },
+    "MultiSelect": {
+      "kind": "composite",
+      "file": "ds/composites/MultiSelect/MultiSelect.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "primitive",
+          "name": "Tag"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "NavigationMenu": {
+      "kind": "composite",
+      "file": "ds/composites/NavigationMenu/NavigationMenu.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Notification": {
+      "kind": "composite",
+      "file": "ds/composites/Notification/Notification.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Onboarding": {
+      "kind": "composite",
+      "file": "ds/composites/Onboarding/Onboarding.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Pagination": {
+      "kind": "composite",
+      "file": "ds/composites/Pagination/Pagination.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "DataTable"
+      ]
+    },
+    "Popover": {
+      "kind": "composite",
+      "file": "ds/composites/Popover/Popover.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Progress": {
+      "kind": "composite",
+      "file": "ds/composites/Progress/Progress.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ProgressRing": {
+      "kind": "composite",
+      "file": "ds/composites/ProgressRing/ProgressRing.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PullToRefresh": {
+      "kind": "composite",
+      "file": "ds/composites/PullToRefresh/PullToRefresh.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "QRCode": {
+      "kind": "composite",
+      "file": "ds/composites/QRCode/QRCode.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Rating": {
+      "kind": "composite",
+      "file": "ds/composites/Rating/Rating.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ReadingTime": {
+      "kind": "composite",
+      "file": "ds/composites/ReadingTime/ReadingTime.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Resizable": {
+      "kind": "composite",
+      "file": "ds/composites/Resizable/Resizable.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Result": {
+      "kind": "composite",
+      "file": "ds/composites/Result/Result.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ScrollSpy": {
+      "kind": "composite",
+      "file": "ds/composites/ScrollSpy/ScrollSpy.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SearchInput": {
+      "kind": "composite",
+      "file": "ds/composites/SearchInput/SearchInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SecurityBadge": {
+      "kind": "composite",
+      "file": "ds/composites/SecurityBadge/SecurityBadge.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SegmentedControl": {
+      "kind": "composite",
+      "file": "ds/composites/SegmentedControl/SegmentedControl.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Select": {
+      "kind": "composite",
+      "file": "ds/composites/Select/Select.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "FormBuilder"
+      ]
+    },
+    "Sheet": {
+      "kind": "composite",
+      "file": "ds/composites/Sheet/Sheet.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SignaturePad": {
+      "kind": "composite",
+      "file": "ds/composites/SignaturePad/SignaturePad.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Skeleton": {
+      "kind": "composite",
+      "file": "ds/composites/Skeleton/Skeleton.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SkeletonPreset": {
+      "kind": "composite",
+      "file": "ds/composites/SkeletonPreset/SkeletonPreset.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SplitPane": {
+      "kind": "composite",
+      "file": "ds/composites/SplitPane/SplitPane.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SpoilerBlock": {
+      "kind": "composite",
+      "file": "ds/composites/SpoilerBlock/SpoilerBlock.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "Spotlight": {
+      "kind": "composite",
+      "file": "ds/composites/Spotlight/Spotlight.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SpotlightCard": {
+      "kind": "composite",
+      "file": "ds/composites/SpotlightCard/SpotlightCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "StatCard": {
+      "kind": "composite",
+      "file": "ds/composites/StatCard/StatCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "StatsGrid"
+      ]
+    },
+    "Stepper": {
+      "kind": "composite",
+      "file": "ds/composites/Stepper/Stepper.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Sticky": {
+      "kind": "composite",
+      "file": "ds/composites/Sticky/Sticky.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SwipeAction": {
+      "kind": "composite",
+      "file": "ds/composites/SwipeAction/SwipeAction.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Table": {
+      "kind": "composite",
+      "file": "ds/composites/Table/Table.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Tabs": {
+      "kind": "composite",
+      "file": "ds/composites/Tabs/Tabs.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "TagInput": {
+      "kind": "composite",
+      "file": "ds/composites/TagInput/TagInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "TimePicker": {
+      "kind": "composite",
+      "file": "ds/composites/TimePicker/TimePicker.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Timeline": {
+      "kind": "composite",
+      "file": "ds/composites/Timeline/Timeline.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Toast": {
+      "kind": "composite",
+      "file": "ds/composites/Toast/Toast.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Tooltip": {
+      "kind": "composite",
+      "file": "ds/composites/Tooltip/Tooltip.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Transfer": {
+      "kind": "composite",
+      "file": "ds/composites/Transfer/Transfer.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "TreeNav": {
+      "kind": "composite",
+      "file": "ds/composites/TreeNav/TreeNav.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "TreeView": {
+      "kind": "composite",
+      "file": "ds/composites/TreeView/TreeView.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "TreemapChart": {
+      "kind": "composite",
+      "file": "ds/composites/TreemapChart/TreemapChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "TrustIndicator": {
+      "kind": "composite",
+      "file": "ds/composites/TrustIndicator/TrustIndicator.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Typewriter": {
+      "kind": "composite",
+      "file": "ds/composites/Typewriter/Typewriter.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "VideoPlayer": {
+      "kind": "composite",
+      "file": "ds/composites/VideoPlayer/VideoPlayer.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "VirtualScroll": {
+      "kind": "composite",
+      "file": "ds/composites/VirtualScroll/VirtualScroll.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Watermark": {
+      "kind": "composite",
+      "file": "ds/composites/Watermark/Watermark.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ActionBar": {
+      "kind": "pattern",
+      "file": "ds/patterns/ActionBar/ActionBar.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Calendar": {
+      "kind": "pattern",
+      "file": "ds/patterns/Calendar/Calendar.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Button"
+        },
+        {
+          "kind": "primitive",
+          "name": "IconButton"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ChartCard": {
+      "kind": "pattern",
+      "file": "ds/patterns/ChartCard/ChartCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CommandPalette": {
+      "kind": "pattern",
+      "file": "ds/patterns/CommandPalette/CommandPalette.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useKeyboard"
+        },
+        {
+          "kind": "primitive",
+          "name": "Kbd"
+        },
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "DataTable": {
+      "kind": "pattern",
+      "file": "ds/patterns/DataTable/DataTable.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "EmptyState"
+        },
+        {
+          "kind": "composite",
+          "name": "Pagination"
+        },
+        {
+          "kind": "primitive",
+          "name": "Checkbox"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FilterBar": {
+      "kind": "pattern",
+      "file": "ds/patterns/FilterBar/FilterBar.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Button"
+        },
+        {
+          "kind": "primitive",
+          "name": "Input"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FlowDiagram": {
+      "kind": "pattern",
+      "file": "ds/patterns/FlowDiagram/FlowDiagram.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Form": {
+      "kind": "pattern",
+      "file": "ds/patterns/Form/Form.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FormArray": {
+      "kind": "pattern",
+      "file": "ds/patterns/FormArray/FormArray.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FormBuilder": {
+      "kind": "pattern",
+      "file": "ds/patterns/FormBuilder/FormBuilder.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "Select"
+        },
+        {
+          "kind": "primitive",
+          "name": "Button"
+        },
+        {
+          "kind": "primitive",
+          "name": "Input"
+        },
+        {
+          "kind": "primitive",
+          "name": "Label"
+        },
+        {
+          "kind": "primitive",
+          "name": "Textarea"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FormWizard": {
+      "kind": "pattern",
+      "file": "ds/patterns/FormWizard/FormWizard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "InfiniteList": {
+      "kind": "pattern",
+      "file": "ds/patterns/InfiniteList/InfiniteList.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Spinner"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Kanban": {
+      "kind": "pattern",
+      "file": "ds/patterns/Kanban/Kanban.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Badge"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "LoginForm": {
+      "kind": "pattern",
+      "file": "ds/patterns/LoginForm/LoginForm.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "Alert"
+        },
+        {
+          "kind": "primitive",
+          "name": "Button"
+        },
+        {
+          "kind": "primitive",
+          "name": "Checkbox"
+        },
+        {
+          "kind": "primitive",
+          "name": "Divider"
+        },
+        {
+          "kind": "primitive",
+          "name": "Input"
+        },
+        {
+          "kind": "primitive",
+          "name": "Label"
+        },
+        {
+          "kind": "primitive",
+          "name": "PasswordInput"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "MasonryGrid": {
+      "kind": "pattern",
+      "file": "ds/patterns/MasonryGrid/MasonryGrid.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "NotificationCenter": {
+      "kind": "pattern",
+      "file": "ds/patterns/NotificationCenter/NotificationCenter.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useClickOutside"
+        },
+        {
+          "kind": "primitive",
+          "name": "Badge"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "RichTextEditor": {
+      "kind": "pattern",
+      "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "IconButton"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SecurityChecklist": {
+      "kind": "pattern",
+      "file": "ds/patterns/SecurityChecklist/SecurityChecklist.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Button"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Sidebar": {
+      "kind": "pattern",
+      "file": "ds/patterns/Sidebar/Sidebar.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SortableList": {
+      "kind": "pattern",
+      "file": "ds/patterns/SortableList/SortableList.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Starfield": {
+      "kind": "pattern",
+      "file": "ds/patterns/Starfield/Starfield.tsx",
+      "imports": [],
+      "importedBy": []
+    },
+    "StatsGrid": {
+      "kind": "pattern",
+      "file": "ds/patterns/StatsGrid/StatsGrid.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "StatCard"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Tour": {
+      "kind": "pattern",
+      "file": "ds/patterns/Tour/Tour.tsx",
+      "imports": [
+        {
+          "kind": "primitive",
+          "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "VirtualList": {
+      "kind": "pattern",
+      "file": "ds/patterns/VirtualList/VirtualList.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    }
+  },
+  "stats": {
+    "mostDependedOn": [
+      {
+        "name": "Portal",
+        "kind": "primitive",
+        "count": 17
+      },
+      {
+        "name": "Button",
+        "kind": "primitive",
+        "count": 6
+      },
+      {
+        "name": "Input",
+        "kind": "primitive",
+        "count": 3
+      },
+      {
+        "name": "Label",
+        "kind": "primitive",
+        "count": 3
+      },
+      {
+        "name": "Spinner",
+        "kind": "primitive",
+        "count": 3
+      },
+      {
+        "name": "Badge",
+        "kind": "primitive",
+        "count": 2
+      },
+      {
+        "name": "Checkbox",
+        "kind": "primitive",
+        "count": 2
+      },
+      {
+        "name": "IconButton",
+        "kind": "primitive",
+        "count": 2
+      },
+      {
+        "name": "Avatar",
+        "kind": "primitive",
+        "count": 1
+      },
+      {
+        "name": "Divider",
+        "kind": "primitive",
+        "count": 1
+      }
+    ],
+    "heaviestImporters": [
+      {
+        "name": "LoginForm",
+        "kind": "pattern",
+        "count": 7
+      },
+      {
+        "name": "FormBuilder",
+        "kind": "pattern",
+        "count": 5
+      },
+      {
+        "name": "DataTable",
+        "kind": "pattern",
+        "count": 3
+      },
+      {
+        "name": "AutoComplete",
+        "kind": "composite",
+        "count": 2
+      },
+      {
+        "name": "Calendar",
+        "kind": "pattern",
+        "count": 2
+      },
+      {
+        "name": "CommandPalette",
+        "kind": "pattern",
+        "count": 2
+      },
+      {
+        "name": "FilterBar",
+        "kind": "pattern",
+        "count": 2
+      },
+      {
+        "name": "ActionSheet",
+        "kind": "composite",
+        "count": 1
+      },
+      {
+        "name": "AlertDialog",
+        "kind": "composite",
+        "count": 1
+      },
+      {
+        "name": "AvatarStack",
+        "kind": "composite",
+        "count": 1
+      }
+    ],
+    "cycles": []
+  }
+}

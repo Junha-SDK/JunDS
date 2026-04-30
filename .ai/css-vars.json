@@ -1,0 +1,371 @@
+{
+  "generatedAt": "2026-04-29T08:23:10.404Z",
+  "source": "app/globals.css",
+  "summary": {
+    "uniqueVariables": 56,
+    "blocks": 3,
+    "categoryCounts": {
+      "system": 10,
+      "surface-color": 8,
+      "semantic-color": 6,
+      "other": 3,
+      "color": 27,
+      "typography": 2
+    }
+  },
+  "blocks": [
+    {
+      "selector": "@import \"tailwindcss\";\n\n/* ═══ JunDS Framework Variables ═══ */\n\n/* Font scale - controlled by JunDSProvider */\n:root",
+      "vars": [
+        {
+          "name": "--jds-font-scale",
+          "value": "1",
+          "category": "system"
+        },
+        {
+          "name": "--jds-font-base",
+          "value": "15px",
+          "category": "system"
+        },
+        {
+          "name": "--jds-density-px",
+          "value": "16px",
+          "category": "system"
+        },
+        {
+          "name": "--jds-density-py",
+          "value": "8px",
+          "category": "system"
+        },
+        {
+          "name": "--jds-density-text",
+          "value": "0.875rem",
+          "category": "system"
+        },
+        {
+          "name": "--jds-radius-sm",
+          "value": "4px",
+          "category": "system"
+        },
+        {
+          "name": "--jds-radius-md",
+          "value": "8px",
+          "category": "system"
+        },
+        {
+          "name": "--jds-radius-lg",
+          "value": "12px",
+          "category": "system"
+        },
+        {
+          "name": "--jds-radius-xl",
+          "value": "16px",
+          "category": "system"
+        },
+        {
+          "name": "--jds-spacing-mult",
+          "value": "1",
+          "category": "system"
+        }
+      ]
+    },
+    {
+      "selector": "/* ─── Dark Mode ─────────────────────────────── */\n[data-theme=\"dark\"]",
+      "vars": [
+        {
+          "name": "--background",
+          "value": "#0c0a14",
+          "category": "surface-color"
+        },
+        {
+          "name": "--foreground",
+          "value": "#e4e2ee",
+          "category": "surface-color"
+        },
+        {
+          "name": "--card",
+          "value": "#161329",
+          "category": "surface-color"
+        },
+        {
+          "name": "--card-hover",
+          "value": "#1c1932",
+          "category": "surface-color"
+        },
+        {
+          "name": "--border",
+          "value": "#2a2744",
+          "category": "surface-color"
+        },
+        {
+          "name": "--border-light",
+          "value": "#22203a",
+          "category": "surface-color"
+        },
+        {
+          "name": "--muted",
+          "value": "#a09cb5",
+          "category": "surface-color"
+        },
+        {
+          "name": "--muted-light",
+          "value": "#706d88",
+          "category": "surface-color"
+        },
+        {
+          "name": "--primary-light",
+          "value": "rgba(91, 76, 199, 0.15)",
+          "category": "semantic-color"
+        },
+        {
+          "name": "--accent-light",
+          "value": "rgba(124, 92, 231, 0.12)",
+          "category": "semantic-color"
+        },
+        {
+          "name": "--danger-light",
+          "value": "rgba(220, 63, 63, 0.15)",
+          "category": "semantic-color"
+        },
+        {
+          "name": "--success-light",
+          "value": "rgba(47, 143, 87, 0.15)",
+          "category": "semantic-color"
+        },
+        {
+          "name": "--warning-light",
+          "value": "rgba(183, 121, 31, 0.15)",
+          "category": "semantic-color"
+        },
+        {
+          "name": "--info-light",
+          "value": "rgba(59, 130, 246, 0.15)",
+          "category": "semantic-color"
+        },
+        {
+          "name": "--dm-surface",
+          "value": "#161329",
+          "category": "other"
+        },
+        {
+          "name": "--dm-surface-raised",
+          "value": "#1c1932",
+          "category": "other"
+        },
+        {
+          "name": "--dm-surface-overlay",
+          "value": "#22203a",
+          "category": "other"
+        }
+      ]
+    },
+    {
+      "selector": "@theme inline",
+      "vars": [
+        {
+          "name": "--color-background",
+          "value": "var(--background)",
+          "category": "color"
+        },
+        {
+          "name": "--color-foreground",
+          "value": "var(--foreground)",
+          "category": "color"
+        },
+        {
+          "name": "--color-card",
+          "value": "var(--card)",
+          "category": "color"
+        },
+        {
+          "name": "--color-card-hover",
+          "value": "var(--card-hover)",
+          "category": "color"
+        },
+        {
+          "name": "--color-border",
+          "value": "var(--border)",
+          "category": "color"
+        },
+        {
+          "name": "--color-border-light",
+          "value": "var(--border-light)",
+          "category": "color"
+        },
+        {
+          "name": "--color-primary",
+          "value": "var(--primary)",
+          "category": "color"
+        },
+        {
+          "name": "--color-primary-hover",
+          "value": "var(--primary-hover)",
+          "category": "color"
+        },
+        {
+          "name": "--color-primary-light",
+          "value": "var(--primary-light)",
+          "category": "color"
+        },
+        {
+          "name": "--color-primary-glow",
+          "value": "var(--primary-glow)",
+          "category": "color"
+        },
+        {
+          "name": "--color-accent",
+          "value": "var(--accent)",
+          "category": "color"
+        },
+        {
+          "name": "--color-accent-light",
+          "value": "var(--accent-light)",
+          "category": "color"
+        },
+        {
+          "name": "--color-danger",
+          "value": "var(--danger)",
+          "category": "color"
+        },
+        {
+          "name": "--color-danger-hover",
+          "value": "var(--danger-hover)",
+          "category": "color"
+        },
+        {
+          "name": "--color-danger-light",
+          "value": "var(--danger-light)",
+          "category": "color"
+        },
+        {
+          "name": "--color-muted",
+          "value": "var(--muted)",
+          "category": "color"
+        },
+        {
+          "name": "--color-muted-light",
+          "value": "var(--muted-light)",
+          "category": "color"
+        },
+        {
+          "name": "--color-success",
+          "value": "var(--success)",
+          "category": "color"
+        },
+        {
+          "name": "--color-success-light",
+          "value": "var(--success-light)",
+          "category": "color"
+        },
+        {
+          "name": "--color-warning",
+          "value": "var(--warning)",
+          "category": "color"
+        },
+        {
+          "name": "--color-warning-light",
+          "value": "var(--warning-light)",
+          "category": "color"
+        },
+        {
+          "name": "--color-info",
+          "value": "var(--info)",
+          "category": "color"
+        },
+        {
+          "name": "--color-info-light",
+          "value": "var(--info-light)",
+          "category": "color"
+        },
+        {
+          "name": "--color-sidebar-bg",
+          "value": "var(--sidebar-bg)",
+          "category": "color"
+        },
+        {
+          "name": "--color-sidebar-hover",
+          "value": "var(--sidebar-hover)",
+          "category": "color"
+        },
+        {
+          "name": "--color-sidebar-text",
+          "value": "var(--sidebar-text)",
+          "category": "color"
+        },
+        {
+          "name": "--color-sidebar-active",
+          "value": "var(--sidebar-active)",
+          "category": "color"
+        },
+        {
+          "name": "--font-sans",
+          "value": "'Pretendard', 'Inter', -apple-system, 'Segoe UI', sans-serif",
+          "category": "typography"
+        },
+        {
+          "name": "--font-mono",
+          "value": "var(--font-geist-mono)",
+          "category": "typography"
+        }
+      ]
+    }
+  ],
+  "index": [
+    "--accent-light",
+    "--background",
+    "--border",
+    "--border-light",
+    "--card",
+    "--card-hover",
+    "--color-accent",
+    "--color-accent-light",
+    "--color-background",
+    "--color-border",
+    "--color-border-light",
+    "--color-card",
+    "--color-card-hover",
+    "--color-danger",
+    "--color-danger-hover",
+    "--color-danger-light",
+    "--color-foreground",
+    "--color-info",
+    "--color-info-light",
+    "--color-muted",
+    "--color-muted-light",
+    "--color-primary",
+    "--color-primary-glow",
+    "--color-primary-hover",
+    "--color-primary-light",
+    "--color-sidebar-active",
+    "--color-sidebar-bg",
+    "--color-sidebar-hover",
+    "--color-sidebar-text",
+    "--color-success",
+    "--color-success-light",
+    "--color-warning",
+    "--color-warning-light",
+    "--danger-light",
+    "--dm-surface",
+    "--dm-surface-overlay",
+    "--dm-surface-raised",
+    "--font-mono",
+    "--font-sans",
+    "--foreground",
+    "--info-light",
+    "--jds-density-px",
+    "--jds-density-py",
+    "--jds-density-text",
+    "--jds-font-base",
+    "--jds-font-scale",
+    "--jds-radius-lg",
+    "--jds-radius-md",
+    "--jds-radius-sm",
+    "--jds-radius-xl",
+    "--jds-spacing-mult",
+    "--muted",
+    "--muted-light",
+    "--primary-light",
+    "--success-light",
+    "--warning-light"
+  ]
+}
