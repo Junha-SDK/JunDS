@@ -238,6 +238,10 @@ export const sections: NavSection[] = [
       { href: "/design-system/patterns/form", label: "Form" },
       { href: "/design-system/patterns/form-array", label: "FormArray" },
       { href: "/design-system/patterns/form-wizard", label: "FormWizard" },
+      { href: "/design-system/patterns/auth-layout", label: "AuthLayout" },
+      { href: "/design-system/patterns/settings-layout", label: "SettingsLayout" },
+      { href: "/design-system/patterns/pricing-page", label: "PricingPage" },
+      { href: "/design-system/patterns/gantt-chart", label: "GanttChart" },
     ],
   },
   {
@@ -508,6 +512,10 @@ const koreanKeywords: Record<string, string[]> = {
   MonthPicker: ["월선택", "month-picker"],
   YearPicker: ["연도선택", "year-picker"],
   Snackbar: ["스낵바", "snackbar", "짧은알림"],
+  AuthLayout: ["인증", "로그인", "auth-layout"],
+  SettingsLayout: ["설정", "settings", "사이드바"],
+  PricingPage: ["요금", "pricing", "페이지"],
+  GanttChart: ["간트", "gantt", "일정", "프로젝트"],
 };
 
 export interface SearchEntry {

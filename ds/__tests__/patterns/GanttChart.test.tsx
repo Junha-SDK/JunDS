@@ -1,10 +1,10 @@
 import { render } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { PageHeader } from "../../composites/PageHeader";
+import { GanttChart } from "../../patterns/GanttChart";
 
-describe("PageHeader", () => {
+describe("GanttChart", () => {
   it("renders", () => {
-    const { container } = render(<PageHeader title="x" data-testid="root" />);
+    const { container } = render(<GanttChart data-testid="root" />);
     expect(container.firstChild).toBeTruthy();
   });
 });

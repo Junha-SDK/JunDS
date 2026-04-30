@@ -9,6 +9,7 @@ import {
   CodeExample,
   VariantGrid,
   VariantItem,
+  DecisionMatrix,
 } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { Card } from "@/ds/composites/Card";
@@ -83,9 +84,18 @@ export default function CardPage() {
       </Section>
 
       {/* ── 변형 ── */}
-      <Section title="변형 (Variants)" description="Card는 다양한 스타일과 조합으로 활용할 수 있습니다.">
+      <Section title="변형 (Variants)" description="Card는 다양한 스타일과 조합으로 활용할 수 있습니다. 각 변형의 우상단 '코드' 버튼으로 즉시 복사하세요.">
         <VariantGrid cols={2}>
-          <VariantItem label="기본 (Default)" description="기본 스타일의 카드. 정보 표시에 적합합니다.">
+          <VariantItem
+            label="기본 (Default)"
+            description="기본 스타일의 카드. 정보 표시에 적합합니다."
+            sourceCode={`<Card>
+  <Card.Header>기본 카드</Card.Header>
+  <Card.Body>
+    <p>기본 스타일의 카드입니다.</p>
+  </Card.Body>
+</Card>`}
+          >
             <div className="w-full px-2">
               <Card>
                 <Card.Header>기본 카드</Card.Header>
@@ -95,7 +105,21 @@ export default function CardPage() {
               </Card>
             </div>
           </VariantItem>
-          <VariantItem label="Hoverable" description="호버 시 시각적 피드백을 제공합니다.">
+          <VariantItem
+            label="Hoverable"
+            description="호버 시 시각적 피드백을 제공합니다."
+            sourceCode={`<Card hoverable>
+  <Card.Header>
+    <div className="flex items-center gap-2">
+      <span className="font-semibold">인터랙티브</span>
+      <Badge variant="primary" size="sm">New</Badge>
+    </div>
+  </Card.Header>
+  <Card.Body>
+    <p>마우스를 올려보세요.</p>
+  </Card.Body>
+</Card>`}
+          >
             <div className="w-full px-2">
               <Card hoverable>
                 <Card.Header>
@@ -110,7 +134,16 @@ export default function CardPage() {
               </Card>
             </div>
           </VariantItem>
-          <VariantItem label="Header + Body" description="Footer 없이 간단한 정보를 표시합니다.">
+          <VariantItem
+            label="Header + Body"
+            description="Footer 없이 간단한 정보를 표시합니다."
+            sourceCode={`<Card>
+  <Card.Header>알림</Card.Header>
+  <Card.Body>
+    <p>새로운 업데이트가 있습니다.</p>
+  </Card.Body>
+</Card>`}
+          >
             <div className="w-full px-2">
               <Card>
                 <Card.Header>알림</Card.Header>
@@ -120,7 +153,24 @@ export default function CardPage() {
               </Card>
             </div>
           </VariantItem>
-          <VariantItem label="전체 구조" description="Header, Body, Footer를 모두 포함한 완전한 형태">
+          <VariantItem
+            label="전체 구조"
+            description="Header, Body, Footer를 모두 포함한 완전한 형태"
+            sourceCode={`<Card>
+  <Card.Header>
+    <div className="flex items-center gap-2">
+      <span className="font-semibold">결제 정보</span>
+      <Badge variant="success" size="sm">완료</Badge>
+    </div>
+  </Card.Header>
+  <Card.Body>
+    <p>총 결제 금액: 45,000원</p>
+  </Card.Body>
+  <Card.Footer>
+    <Button size="sm" variant="secondary">영수증 보기</Button>
+  </Card.Footer>
+</Card>`}
+          >
             <div className="w-full px-2">
               <Card>
                 <Card.Header>
@@ -139,6 +189,49 @@ export default function CardPage() {
             </div>
           </VariantItem>
         </VariantGrid>
+      </Section>
+
+      {/* ── 의사결정 매트릭스 ── */}
+      <Section title="비슷한 카드 컴포넌트 비교" description="Card 외에도 카드 형태의 전용 컴포넌트가 있습니다. 의도에 맞춰 선택하세요.">
+        <DecisionMatrix
+          rows={[
+            {
+              name: "Card",
+              href: "/design-system/composites/card",
+              signature: "범용 컨테이너",
+              useWhen: "Header / Body / Footer 조합으로 자유롭게 콘텐츠를 그룹화할 때. 가장 무난한 기본 선택.",
+              avoidWhen: "지표·강조·리스트 항목처럼 의미가 명확한 경우 — 전용 컴포넌트가 더 명확한 의도를 전달.",
+            },
+            {
+              name: "StatCard",
+              href: "/design-system/composites/stat-card",
+              signature: "지표 표시",
+              useWhen: "단일 지표(숫자 + 라벨 + 변화율)를 카드 한 장에 보여줄 때. 대시보드 상단 KPI에 적합.",
+              avoidWhen: "여러 메트릭이나 비주얼이 함께 들어가야 한다면 MetricCard나 ChartCard를 사용.",
+            },
+            {
+              name: "MetricCard",
+              href: "/design-system/composites/metric-card",
+              signature: "지표 + 미니차트",
+              useWhen: "지표 옆에 스파크라인 등 추세 시각화를 함께 보여줄 때. 분석 대시보드의 카드 그리드.",
+              avoidWhen: "차트가 필요 없다면 StatCard로 충분 — 번들 사이즈가 더 작음.",
+            },
+            {
+              name: "SpotlightCard",
+              href: "/design-system/composites/spotlight-card",
+              signature: "강조 / 마케팅",
+              useWhen: "마우스 추적 글로우 효과로 시선을 끌고 싶은 마케팅·랜딩 페이지의 hero 카드.",
+              avoidWhen: "관리자 화면이나 정보 밀도가 높은 페이지 — 시각적 노이즈로 작용.",
+            },
+            {
+              name: "BookCard",
+              href: "/design-system/composites/book-card",
+              signature: "책/제품",
+              useWhen: "표지 이미지 + 제목 + 저자 같은 책 메타데이터 패턴 — 도서·강의·콘텐츠 카탈로그.",
+              avoidWhen: "일반 정보 카드 — 의미가 모호해짐.",
+            },
+          ]}
+        />
       </Section>
 
       {/* ── 실제 활용 예시 ── */}

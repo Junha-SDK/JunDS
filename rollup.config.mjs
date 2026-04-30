@@ -70,81 +70,105 @@ const onwarn = (warning, warn) => {
   warn(warning);
 };
 
-/** @type {import('rollup').RollupOptions[]} */
-const config = [
-  // ESM build
-  {
-    input: "ds/index.ts",
-    onwarn,
-    output: {
-      file: "dist/index.mjs",
-      format: "esm",
-      sourcemap: false,
-      banner: '"use client";',
-    },
-    external,
-    plugins: [
-      peerDepsExternal(),
-      resolve({
-        extensions: [".ts", ".tsx", ".js", ".jsx"],
-      }),
-      esbuild({
-        include: /\.[jt]sx?$/,
-        target: "es2017",
-        jsx: "automatic",
-        tsconfig: "./tsconfig.build.json",
-      }),
-      commonjs(),
-      postcss({
-        extract: "styles.css",
-        minimize: true,
-      }),
-      terser(terserOptions),
-    ],
-  },
-  // CJS build
-  {
-    input: "ds/index.ts",
-    onwarn,
-    output: {
-      file: "dist/index.cjs",
-      format: "cjs",
-      sourcemap: false,
-    },
-    external,
-    plugins: [
-      peerDepsExternal(),
-      resolve({
-        extensions: [".ts", ".tsx", ".js", ".jsx"],
-      }),
-      esbuild({
-        include: /\.[jt]sx?$/,
-        target: "es2017",
-        jsx: "automatic",
-        tsconfig: "./tsconfig.build.json",
-      }),
-      commonjs(),
-      postcss({
-        extract: false,
-      }),
-      terser(terserOptions),
-    ],
-  },
-  // Type declarations
-  {
-    input: "ds/index.ts",
-    onwarn,
-    output: {
-      file: "dist/index.d.ts",
-      format: "esm",
-    },
-    external,
-    plugins: [
-      dts({
-        tsconfig: "./tsconfig.build.json",
-      }),
-    ],
-  },
+const sharedJsPlugins = () => [
+  peerDepsExternal(),
+  resolve({
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+  }),
+  esbuild({
+    include: /\.[jt]sx?$/,
+    target: "es2017",
+    jsx: "automatic",
+    tsconfig: "./tsconfig.build.json",
+  }),
+  commonjs(),
 ];
+
+/**
+ * Sub-path entries — `import { X } from "@junds/ui/<entry>"` builds.
+ * Each entry barrel produces ESM + CJS + d.ts in dist/<entry>/.
+ * Mirror this list in package.json#exports.
+ */
+const SUB_ENTRIES = [
+  "primitives",
+  "composites",
+  "patterns",
+  "layout",
+  "core",
+  "hooks",
+  "tokens",
+  "providers",
+  "auth",
+  "utils",
+];
+
+function entryConfigs({ input, esmOut, cjsOut, dtsOut, extractCss = false }) {
+  return [
+    {
+      input,
+      onwarn,
+      output: {
+        file: esmOut,
+        format: "esm",
+        sourcemap: false,
+        banner: '"use client";',
+      },
+      external,
+      plugins: [
+        ...sharedJsPlugins(),
+        postcss({
+          extract: extractCss ? "styles.css" : false,
+          minimize: true,
+        }),
+        terser(terserOptions),
+      ],
+    },
+    {
+      input,
+      onwarn,
+      output: { file: cjsOut, format: "cjs", sourcemap: false },
+      external,
+      plugins: [
+        ...sharedJsPlugins(),
+        postcss({ extract: false }),
+        terser(terserOptions),
+      ],
+    },
+    {
+      input,
+      onwarn,
+      output: { file: dtsOut, format: "esm" },
+      external,
+      plugins: [dts({ tsconfig: "./tsconfig.build.json" })],
+    },
+  ];
+}
+
+const root = entryConfigs({
+  input: "ds/index.ts",
+  esmOut: "dist/index.mjs",
+  cjsOut: "dist/index.cjs",
+  dtsOut: "dist/index.d.ts",
+  extractCss: true,
+});
+
+const runtime = entryConfigs({
+  input: "ds/runtime/index.ts",
+  esmOut: "dist/runtime.mjs",
+  cjsOut: "dist/runtime.cjs",
+  dtsOut: "dist/runtime.d.ts",
+});
+
+const subEntries = SUB_ENTRIES.flatMap((entry) =>
+  entryConfigs({
+    input: `ds/${entry}/index.ts`,
+    esmOut: `dist/${entry}/index.mjs`,
+    cjsOut: `dist/${entry}/index.cjs`,
+    dtsOut: `dist/${entry}/index.d.ts`,
+  }),
+);
+
+/** @type {import('rollup').RollupOptions[]} */
+const config = [...root, ...runtime, ...subEntries];
 
 export default config;

@@ -1,10 +1,10 @@
 import { render } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { PageHeader } from "../../composites/PageHeader";
+import { AuthLayout } from "../../patterns/AuthLayout";
 
-describe("PageHeader", () => {
+describe("AuthLayout", () => {
   it("renders", () => {
-    const { container } = render(<PageHeader title="x" data-testid="root" />);
+    const { container } = render(<AuthLayout data-testid="root" />);
     expect(container.firstChild).toBeTruthy();
   });
 });

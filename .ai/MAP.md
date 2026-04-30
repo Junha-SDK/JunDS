@@ -10,7 +10,7 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-04-30T01:04:03.926Z
+Generated: 2026-04-30T01:09:19.882Z
 
 ---
 
@@ -356,10 +356,11 @@ _237 files_
 
 ## Patterns  (`ds/patterns/`)
 
-_39 files_
+_43 files_
 
 - `ds/patterns/ActionBar/ActionBar.stories.tsx`
 - `ds/patterns/ActionBar/ActionBar.tsx`
+- `ds/patterns/AuthLayout/AuthLayout.tsx`
 - `ds/patterns/Calendar/Calendar.tsx`
 - `ds/patterns/ChartCard/ChartCard.tsx`
 - `ds/patterns/CommandPalette/CommandPalette.stories.tsx`
@@ -376,6 +377,7 @@ _39 files_
 - `ds/patterns/FormBuilder/FormBuilder.stories.tsx`
 - `ds/patterns/FormBuilder/FormBuilder.tsx`
 - `ds/patterns/FormWizard/FormWizard.tsx`
+- `ds/patterns/GanttChart/GanttChart.tsx`
 - `ds/patterns/InfiniteList/InfiniteList.tsx`
 - `ds/patterns/Kanban/Kanban.tsx`
 - `ds/patterns/LoginForm/LoginForm.stories.tsx`
@@ -384,10 +386,12 @@ _39 files_
 - `ds/patterns/MasonryGrid/MasonryGrid.tsx`
 - `ds/patterns/NotificationCenter/NotificationCenter.stories.tsx`
 - `ds/patterns/NotificationCenter/NotificationCenter.tsx`
+- `ds/patterns/PricingPage/PricingPage.tsx`
 - `ds/patterns/RichTextEditor/RichTextEditor.stories.tsx`
 - `ds/patterns/RichTextEditor/RichTextEditor.tsx`
 - `ds/patterns/SecurityChecklist/SecurityChecklist.stories.tsx`
 - `ds/patterns/SecurityChecklist/SecurityChecklist.tsx`
+- `ds/patterns/SettingsLayout/SettingsLayout.tsx`
 - `ds/patterns/Sidebar/Sidebar.tsx`
 - `ds/patterns/SortableList/SortableList.tsx`
 - `ds/patterns/Starfield/Starfield.stories.tsx`
@@ -500,7 +504,7 @@ _29 files_
 
 ## Showcase routes  (`app/**/page.tsx`)
 
-_229 files_
+_233 files_
 
 - `app/design-system/advanced/ai-prompt/page.tsx`
 - `app/design-system/advanced/changelog/page.tsx`
@@ -649,6 +653,7 @@ _229 files_
 - `app/design-system/lab/page.tsx`
 - `app/design-system/page.tsx`
 - `app/design-system/patterns/action-bar/page.tsx`
+- `app/design-system/patterns/auth-layout/page.tsx`
 - `app/design-system/patterns/calendar/page.tsx`
 - `app/design-system/patterns/chart-card/page.tsx`
 - `app/design-system/patterns/command-palette/page.tsx`
@@ -659,11 +664,14 @@ _229 files_
 - `app/design-system/patterns/form-builder/page.tsx`
 - `app/design-system/patterns/form-wizard/page.tsx`
 - `app/design-system/patterns/form/page.tsx`
+- `app/design-system/patterns/gantt-chart/page.tsx`
 - `app/design-system/patterns/infinite-list/page.tsx`
 - `app/design-system/patterns/kanban/page.tsx`
 - `app/design-system/patterns/masonry-grid/page.tsx`
 - `app/design-system/patterns/notification-center/page.tsx`
+- `app/design-system/patterns/pricing-page/page.tsx`
 - `app/design-system/patterns/rich-text-editor/page.tsx`
+- `app/design-system/patterns/settings-layout/page.tsx`
 - `app/design-system/patterns/sidebar/page.tsx`
 - `app/design-system/patterns/sortable-list/page.tsx`
 - `app/design-system/patterns/starfield/page.tsx`
@@ -743,7 +751,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_225 files_
+_233 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -903,6 +911,7 @@ _225 files_
 - `ds/__tests__/hooks/useToggle.test.ts`
 - `ds/__tests__/layout/Stack.test.tsx`
 - `ds/__tests__/patterns/ActionBar.test.tsx`
+- `ds/__tests__/patterns/AuthLayout.test.tsx`
 - `ds/__tests__/patterns/ChartCard.test.tsx`
 - `ds/__tests__/patterns/CommandPalette.test.tsx`
 - `ds/__tests__/patterns/DataTable.test.tsx`
@@ -911,13 +920,16 @@ _225 files_
 - `ds/__tests__/patterns/Form.test.tsx`
 - `ds/__tests__/patterns/FormArray.test.tsx`
 - `ds/__tests__/patterns/FormBuilder.test.tsx`
+- `ds/__tests__/patterns/GanttChart.test.tsx`
 - `ds/__tests__/patterns/InfiniteList.test.tsx`
 - `ds/__tests__/patterns/Kanban.test.tsx`
 - `ds/__tests__/patterns/LoginForm.test.tsx`
 - `ds/__tests__/patterns/MasonryGrid.test.tsx`
 - `ds/__tests__/patterns/NotificationCenter.test.tsx`
+- `ds/__tests__/patterns/PricingPage.test.tsx`
 - `ds/__tests__/patterns/RichTextEditor.test.tsx`
 - `ds/__tests__/patterns/SecurityChecklist.test.tsx`
+- `ds/__tests__/patterns/SettingsLayout.test.tsx`
 - `ds/__tests__/patterns/SortableList.test.tsx`
 - `ds/__tests__/patterns/Starfield.test.tsx`
 - `ds/__tests__/patterns/StatsGrid.test.tsx`
@@ -967,10 +979,14 @@ _225 files_
 - `ds/__tests__/primitives/Tag.test.tsx`
 - `ds/__tests__/primitives/Textarea.test.tsx`
 - `ds/__tests__/primitives/Toggle.test.tsx`
+- `ds/__tests__/runtime/bindings.test.ts`
+- `ds/__tests__/runtime/labAdapter.test.ts`
+- `ds/__tests__/runtime/Renderer.test.tsx`
+- `ds/__tests__/runtime/schema.test.ts`
 - `ds/__tests__/types/prop-contracts.test.ts`
 - `ds/__tests__/utils/cn.test.ts`
 - `ds/__tests__/utils/Slot.test.tsx`
 
 ---
 
-**Total indexed files:** 902
+**Total indexed files:** 918

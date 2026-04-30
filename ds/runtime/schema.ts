@@ -43,56 +43,38 @@ const propValueSchema: v.GenericSchema<PropValue> = v.lazy(() =>
 
 export type PropValue = LiteralValue | BindingValue | ResponsiveValue;
 
-const navigateAction = v.object({
-  kind: v.literal("navigate"),
-  to: v.pipe(v.string(), v.minLength(1)),
-});
-
-const openModalAction = v.object({
-  kind: v.literal("openModal"),
-  modalId: v.pipe(v.string(), v.minLength(1)),
-});
-
-const closeModalAction = v.object({
-  kind: v.literal("closeModal"),
-  modalId: v.optional(v.string()),
-});
-
-const setStateAction = v.object({
-  kind: v.literal("setState"),
-  path: v.pipe(v.string(), v.minLength(1)),
-  value: propValueSchema,
-});
-
-const noopAction = v.object({ kind: v.literal("noop") });
-
-const submitFormAction: v.GenericSchema<SubmitFormAction> = v.lazy(() =>
+export const actionNodeSchema: v.GenericSchema<ActionNode> = v.variant("kind", [
+  v.object({ kind: v.literal("noop") }),
+  v.object({
+    kind: v.literal("navigate"),
+    to: v.pipe(v.string(), v.minLength(1)),
+  }),
+  v.object({
+    kind: v.literal("openModal"),
+    modalId: v.pipe(v.string(), v.minLength(1)),
+  }),
+  v.object({
+    kind: v.literal("closeModal"),
+    modalId: v.optional(v.string()),
+  }),
+  v.object({
+    kind: v.literal("setState"),
+    path: v.pipe(v.string(), v.minLength(1)),
+    value: propValueSchema,
+  }),
   v.object({
     kind: v.literal("submitForm"),
     formId: v.pipe(v.string(), v.minLength(1)),
-    onSuccess: v.optional(v.array(actionNodeSchema)),
-    onError: v.optional(v.array(actionNodeSchema)),
+    onSuccess: v.optional(v.array(v.lazy(() => actionNodeSchema))),
+    onError: v.optional(v.array(v.lazy(() => actionNodeSchema))),
   }),
-);
-
-const callApiAction = v.object({
-  kind: v.literal("callApi"),
-  sourceId: v.pipe(v.string(), v.minLength(1)),
-  operation: v.picklist(["read", "create", "update", "delete"]),
-  body: v.optional(v.record(v.string(), propValueSchema)),
-});
-
-export const actionNodeSchema: v.GenericSchema<ActionNode> = v.lazy(() =>
-  v.variant("kind", [
-    noopAction,
-    navigateAction,
-    openModalAction,
-    closeModalAction,
-    setStateAction,
-    submitFormAction,
-    callApiAction,
-  ]),
-);
+  v.object({
+    kind: v.literal("callApi"),
+    sourceId: v.pipe(v.string(), v.minLength(1)),
+    operation: v.picklist(["read", "create", "update", "delete"]),
+    body: v.optional(v.record(v.string(), propValueSchema)),
+  }),
+]);
 
 export type ActionNode =
   | { kind: "noop" }

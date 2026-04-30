@@ -453,15 +453,138 @@ export function VariantGrid({ children, cols = 2 }: { children: ReactNode; cols?
   );
 }
 
-export function VariantItem({ label, description, children }: { label: string; description?: string; children: ReactNode }) {
+export function VariantItem({
+  label,
+  description,
+  children,
+  sourceCode,
+}: {
+  label: string;
+  description?: string;
+  children: ReactNode;
+  /** 이 변형의 코드 스니펫. 넘기면 라벨 옆에 "복사" 버튼이 표시됩니다. */
+  sourceCode?: string;
+}) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async () => {
+    if (!sourceCode) return;
+    try {
+      await navigator.clipboard.writeText(sourceCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore
+    }
+  };
   return (
     <Box radius="xl" border overflow="hidden">
       <Flex align="center" justify="center" p={5} minH="100px" bg="card">
         {children}
       </Flex>
-      <Box px={4} py={2.5} className="bg-gray-50/70 border-t border-border">
-        <Text as="p" fontSize="xs" fontWeight="semibold" color="foreground">{label}</Text>
-        {description && <Text fontSize="2xs" dimmed mt={0.5}>{description}</Text>}
+      <Flex align="start" justify="between" gap={2} px={4} py={2.5} className="bg-gray-50/70 border-t border-border">
+        <Box className="flex-1 min-w-0">
+          <Text as="p" fontSize="xs" fontWeight="semibold" color="foreground">{label}</Text>
+          {description && <Text fontSize="2xs" dimmed mt={0.5}>{description}</Text>}
+        </Box>
+        {sourceCode && (
+          <button
+            type="button"
+            onClick={handleCopy}
+            aria-label={copied ? "코드가 복사되었습니다" : "이 변형의 코드 복사"}
+            className={cn(
+              "shrink-0 flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-colors cursor-pointer border",
+              copied
+                ? "bg-success/10 text-success border-success/20"
+                : "bg-white text-muted border-border hover:text-primary hover:border-primary/30",
+            )}
+          >
+            {copied ? (
+              <>
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
+                  <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>복사됨</span>
+              </>
+            ) : (
+              <>
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                  <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+                </svg>
+                <span>코드</span>
+              </>
+            )}
+          </button>
+        )}
+      </Flex>
+    </Box>
+  );
+}
+
+/* ═══════════════════════ Decision Matrix ═══════════════════════ */
+
+export interface DecisionMatrixRow {
+  /** 컴포넌트 이름 */
+  name: string;
+  /** 상세 페이지 경로 */
+  href?: string;
+  /** 언제 쓰면 좋은지 (한 줄) */
+  useWhen: string;
+  /** 언제 피해야 하는지 (한 줄) */
+  avoidWhen?: string;
+  /** 핵심 차이점 한 단어 키워드 */
+  signature?: string;
+}
+
+export function DecisionMatrix({
+  title = "비슷한 컴포넌트, 어떤 걸 골라야 할까?",
+  description,
+  rows,
+}: {
+  title?: string;
+  description?: string;
+  rows: DecisionMatrixRow[];
+}) {
+  return (
+    <Box radius="xl" border overflow="hidden">
+      <Box px={4} py={3} className="bg-gradient-to-r from-primary/5 to-accent/5 border-b border-border">
+        <Heading level={5} mb={description ? 0.5 : 0}>{title}</Heading>
+        {description && <Text fontSize="xs" dimmed mb={0} lineHeight="relaxed">{description}</Text>}
+      </Box>
+      <Box className="overflow-x-auto">
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="border-b border-border bg-gray-50/50">
+              <th className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px]">컴포넌트</th>
+              <th className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px]">언제 쓰는가</th>
+              <th className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px]">피해야 할 때</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={row.name} className={cn("border-b border-border last:border-0", i % 2 === 1 ? "bg-gray-50/30" : "bg-white")}>
+                <td className="px-4 py-3 align-top">
+                  {row.href ? (
+                    <a href={row.href} className="font-mono text-[12px] font-semibold text-primary hover:underline">
+                      {row.name}
+                    </a>
+                  ) : (
+                    <span className="font-mono text-[12px] font-semibold text-foreground">{row.name}</span>
+                  )}
+                  {row.signature && (
+                    <Box mt={1}>
+                      <Box as="span" className="inline-block text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary font-medium">
+                        {row.signature}
+                      </Box>
+                    </Box>
+                  )}
+                </td>
+                <td className="px-4 py-3 align-top text-foreground leading-relaxed">{row.useWhen}</td>
+                <td className="px-4 py-3 align-top text-muted leading-relaxed">{row.avoidWhen || "—"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </Box>
     </Box>
   );

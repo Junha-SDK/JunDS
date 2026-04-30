@@ -4,7 +4,7 @@ import { AnnouncementBar } from "../../composites/AnnouncementBar";
 
 describe("AnnouncementBar", () => {
   it("renders", () => {
-    const { container } = render(<AnnouncementBar data-testid="root" />);
+    const { container } = render(<AnnouncementBar message="x" data-testid="root" />);
     expect(container.firstChild).toBeTruthy();
   });
 });

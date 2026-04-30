@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-30T01:04:06.572Z",
+  "generatedAt": "2026-04-30T01:09:22.155Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -2061,6 +2061,73 @@
       ]
     },
     {
+      "name": "AnnouncementBar",
+      "kind": "composite",
+      "file": "ds/composites/AnnouncementBar/AnnouncementBar.tsx",
+      "interface": "AnnouncementBarProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "message",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "메시지 본문"
+        },
+        {
+          "name": "ctaLabel",
+          "type": "string",
+          "optional": true,
+          "description": "우측 CTA 텍스트"
+        },
+        {
+          "name": "ctaHref",
+          "type": "string",
+          "optional": true,
+          "description": "CTA 링크"
+        },
+        {
+          "name": "onCta",
+          "type": "() => void",
+          "optional": true,
+          "description": "CTA 클릭 핸들러 (href 없을 때)"
+        },
+        {
+          "name": "variant",
+          "type": "AnnouncementVariant",
+          "optional": true,
+          "description": "색상 톤"
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "optional": true,
+          "description": "닫기 가능 여부"
+        },
+        {
+          "name": "storageKey",
+          "type": "string",
+          "optional": true,
+          "description": "localStorage 영속 키 (있으면 닫기 상태 기억)"
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "좌측 아이콘"
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "optional": true,
+          "description": "닫힘 콜백"
+        }
+      ]
+    },
+    {
       "name": "AudioPlayer",
       "kind": "composite",
       "file": "ds/composites/AudioPlayer/AudioPlayer.tsx",
@@ -2726,6 +2793,49 @@
       ]
     },
     {
+      "name": "Clock",
+      "kind": "composite",
+      "file": "ds/composites/Clock/Clock.tsx",
+      "interface": "ClockProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "data-display"
+      ],
+      "props": [
+        {
+          "name": "mode",
+          "type": "ClockMode",
+          "optional": true,
+          "description": "표시 형식"
+        },
+        {
+          "name": "hour24",
+          "type": "boolean",
+          "optional": true,
+          "description": "24시간제 (digital 전용)"
+        },
+        {
+          "name": "showSeconds",
+          "type": "boolean",
+          "optional": true,
+          "description": "초 표시 여부"
+        },
+        {
+          "name": "timeZone",
+          "type": "string",
+          "optional": true,
+          "description": "시간대 (IANA, 예: \"Asia/Seoul\")"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "optional": true,
+          "description": "아날로그 크기(px)"
+        }
+      ]
+    },
+    {
       "name": "CodeEditor",
       "kind": "composite",
       "file": "ds/composites/CodeEditor/CodeEditor.tsx",
@@ -3343,6 +3453,73 @@
       ]
     },
     {
+      "name": "CookieConsent",
+      "kind": "composite",
+      "file": "ds/composites/CookieConsent/CookieConsent.tsx",
+      "interface": "CookieConsentProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "compliance"
+      ],
+      "props": [
+        {
+          "name": "message",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "메시지 본문"
+        },
+        {
+          "name": "categories",
+          "type": "Array<CookieCategory>",
+          "optional": true,
+          "description": "카테고리 (custom 모드)"
+        },
+        {
+          "name": "acceptLabel",
+          "type": "string",
+          "optional": true,
+          "description": "\"모두 수락\" 라벨"
+        },
+        {
+          "name": "rejectLabel",
+          "type": "string",
+          "optional": true,
+          "description": "\"필수만\" 라벨"
+        },
+        {
+          "name": "customizeLabel",
+          "type": "string",
+          "optional": true,
+          "description": "\"맞춤설정\" 라벨 (categories 있을 때)"
+        },
+        {
+          "name": "policyHref",
+          "type": "string",
+          "optional": true,
+          "description": "정책 링크"
+        },
+        {
+          "name": "storageKey",
+          "type": "string",
+          "optional": true,
+          "description": "localStorage 키"
+        },
+        {
+          "name": "position",
+          "type": "\"bottom\" | \"bottom-left\" | \"bottom-right\"",
+          "optional": true,
+          "description": "위치"
+        },
+        {
+          "name": "onConsent",
+          "type": "(categories: Record<string, boolean>) => void",
+          "optional": true,
+          "description": "동의 결과 콜백"
+        }
+      ]
+    },
+    {
       "name": "CopyBlock",
       "kind": "composite",
       "file": "ds/composites/CopyBlock/CopyBlock.tsx",
@@ -3376,6 +3553,49 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "Countdown",
+      "kind": "composite",
+      "file": "ds/composites/Countdown/Countdown.tsx",
+      "interface": "CountdownProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "to",
+          "type": "string | number | Date",
+          "optional": false,
+          "description": "만료 시각 (Date 또는 ISO 문자열 또는 timestamp)"
+        },
+        {
+          "name": "format",
+          "type": "CountdownFormat",
+          "optional": true,
+          "description": "표시 형식"
+        },
+        {
+          "name": "labels",
+          "type": "{ d?: string; h?: string; m?: string; s?: string; }",
+          "optional": true,
+          "description": "일/시/분/초 라벨"
+        },
+        {
+          "name": "onComplete",
+          "type": "() => void",
+          "optional": true,
+          "description": "만료 시 콜백"
+        },
+        {
+          "name": "completedContent",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "만료 시 표시할 내용"
         }
       ]
     },
@@ -4075,7 +4295,7 @@
         },
         {
           "name": "position",
-          "type": "\"bottom-right\" | \"bottom-left\" | \"top-right\" | \"top-left\"",
+          "type": "\"bottom-left\" | \"bottom-right\" | \"top-right\" | \"top-left\"",
           "optional": true,
           "description": "위치"
         },
@@ -4958,6 +5178,55 @@
       ]
     },
     {
+      "name": "MonthPicker",
+      "kind": "composite",
+      "file": "ds/composites/MonthPicker/MonthPicker.tsx",
+      "interface": "MonthPickerProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "input"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "MonthPickerValue",
+          "optional": true,
+          "description": "현재 선택값"
+        },
+        {
+          "name": "defaultValue",
+          "type": "MonthPickerValue",
+          "optional": true,
+          "description": "기본값"
+        },
+        {
+          "name": "onChange",
+          "type": "(v: MonthPickerValue) => void",
+          "optional": true,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "min",
+          "type": "string",
+          "optional": true,
+          "description": "최소 (yyyy-mm)"
+        },
+        {
+          "name": "max",
+          "type": "string",
+          "optional": true,
+          "description": "최대 (yyyy-mm)"
+        },
+        {
+          "name": "monthLabels",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "월 이름 라벨"
+        }
+      ]
+    },
+    {
       "name": "MultiSelect",
       "kind": "composite",
       "file": "ds/composites/MultiSelect/MultiSelect.tsx",
@@ -5150,6 +5419,67 @@
       ]
     },
     {
+      "name": "PageHeader",
+      "kind": "composite",
+      "file": "ds/composites/PageHeader/PageHeader.tsx",
+      "interface": "PageHeaderProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "메인 제목"
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "부제 / 설명"
+        },
+        {
+          "name": "breadcrumb",
+          "type": "Array<PageHeaderBreadcrumb>",
+          "optional": true,
+          "description": "브레드크럼"
+        },
+        {
+          "name": "onBack",
+          "type": "() => void",
+          "optional": true,
+          "description": "좌측 뒤로가기 핸들러"
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "우측 액션 영역"
+        },
+        {
+          "name": "avatar",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "좌측 아바타/아이콘 영역"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "하단 탭/메타 영역"
+        },
+        {
+          "name": "divider",
+          "type": "boolean",
+          "optional": true,
+          "description": "구분선 표시"
+        }
+      ]
+    },
+    {
       "name": "Pagination",
       "kind": "composite",
       "file": "ds/composites/Pagination/Pagination.tsx",
@@ -5232,6 +5562,31 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "PricingTable",
+      "kind": "composite",
+      "file": "ds/composites/PricingTable/PricingTable.tsx",
+      "interface": "PricingTableProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "plans",
+          "type": "Array<PricingPlan>",
+          "optional": false,
+          "description": "플랜 목록"
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "optional": true,
+          "description": "컬럼 수 (기본 자동)"
         }
       ]
     },
@@ -6019,6 +6374,67 @@
       ]
     },
     {
+      "name": "Snackbar",
+      "kind": "composite",
+      "file": "ds/composites/Snackbar/Snackbar.tsx",
+      "interface": "SnackbarProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "optional": false,
+          "description": "표시 여부"
+        },
+        {
+          "name": "message",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "메시지"
+        },
+        {
+          "name": "variant",
+          "type": "SnackbarVariant",
+          "optional": true,
+          "description": "변형"
+        },
+        {
+          "name": "position",
+          "type": "SnackbarPosition",
+          "optional": true,
+          "description": "위치"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "optional": true,
+          "description": "자동 닫힘(ms), 0 이면 수동"
+        },
+        {
+          "name": "actionLabel",
+          "type": "string",
+          "optional": true,
+          "description": "우측 액션 라벨 (예: \"실행 취소\")"
+        },
+        {
+          "name": "onAction",
+          "type": "() => void",
+          "optional": true,
+          "description": "액션 클릭 콜백"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "optional": true,
+          "description": "닫힘 콜백"
+        }
+      ]
+    },
+    {
       "name": "SplitPane",
       "kind": "composite",
       "file": "ds/composites/SplitPane/SplitPane.tsx",
@@ -6563,6 +6979,37 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ThinkingIndicator",
+      "kind": "composite",
+      "file": "ds/composites/ThinkingIndicator/ThinkingIndicator.tsx",
+      "interface": "ThinkingIndicatorProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "ThinkingVariant",
+          "optional": true,
+          "description": "애니메이션 종류"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "좌측 라벨 (예: \"Claude가 생각 중\")"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true,
+          "description": "점 색상"
         }
       ]
     },
@@ -7127,6 +7574,55 @@
       ]
     },
     {
+      "name": "YearPicker",
+      "kind": "composite",
+      "file": "ds/composites/YearPicker/YearPicker.tsx",
+      "interface": "YearPickerProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "input"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "optional": true,
+          "description": "현재 선택값"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "optional": true,
+          "description": "기본값"
+        },
+        {
+          "name": "onChange",
+          "type": "(year: number) => void",
+          "optional": true,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "optional": true,
+          "description": "최소 연도"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "optional": true,
+          "description": "최대 연도"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "optional": true,
+          "description": "한 페이지 연도 수 (기본 12)"
+        }
+      ]
+    },
+    {
       "name": "ActionBar",
       "kind": "pattern",
       "file": "ds/patterns/ActionBar/ActionBar.tsx",
@@ -7166,6 +7662,67 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "AuthLayout",
+      "kind": "pattern",
+      "file": "ds/patterns/AuthLayout/AuthLayout.tsx",
+      "interface": "AuthLayoutProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "AuthVariant",
+          "optional": true,
+          "description": "레이아웃 변형"
+        },
+        {
+          "name": "brandSide",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "좌측 브랜드 영역 (split / branded 전용)"
+        },
+        {
+          "name": "logo",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "상단 로고"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "카드 제목"
+        },
+        {
+          "name": "subtitle",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "카드 부제"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "폼 컨텐츠 (자식 placement)"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "카드 하단 푸터 (예: \"계정이 없으신가요?\")"
+        },
+        {
+          "name": "pageFooter",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "페이지 푸터 (저작권 등)"
         }
       ]
     },
@@ -8365,6 +8922,61 @@
       ]
     },
     {
+      "name": "PricingPage",
+      "kind": "pattern",
+      "file": "ds/patterns/PricingPage/PricingPage.tsx",
+      "interface": "PricingPageProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "페이지 제목"
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "페이지 설명"
+        },
+        {
+          "name": "monthlyPlans",
+          "type": "Array<PricingPlan>",
+          "optional": false,
+          "description": "월간 플랜"
+        },
+        {
+          "name": "yearlyPlans",
+          "type": "Array<PricingPlan>",
+          "optional": true,
+          "description": "연간 플랜 (있으면 토글 노출)"
+        },
+        {
+          "name": "toggleLabels",
+          "type": "{ monthly?: string; yearly?: string; saveLabel?: string; }",
+          "optional": true,
+          "description": "토글 라벨"
+        },
+        {
+          "name": "faqs",
+          "type": "Array<PricingFAQ>",
+          "optional": true,
+          "description": "FAQ 리스트"
+        },
+        {
+          "name": "footerCta",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "하단 CTA 영역"
+        }
+      ]
+    },
+    {
       "name": "RichTextEditor",
       "kind": "pattern",
       "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx",
@@ -8442,6 +9054,55 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "SettingsLayout",
+      "kind": "pattern",
+      "file": "ds/patterns/SettingsLayout/SettingsLayout.tsx",
+      "interface": "SettingsLayoutProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "sections",
+          "type": "Array<SettingsSection>",
+          "optional": false,
+          "description": "섹션 목록"
+        },
+        {
+          "name": "activeId",
+          "type": "string",
+          "optional": true,
+          "description": "현재 활성 섹션 ID (controlled)"
+        },
+        {
+          "name": "defaultActiveId",
+          "type": "string",
+          "optional": true,
+          "description": "기본 활성 ID"
+        },
+        {
+          "name": "onChange",
+          "type": "(id: string) => void",
+          "optional": true,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "페이지 제목"
+        },
+        {
+          "name": "sidebarWidth",
+          "type": "number",
+          "optional": true,
+          "description": "사이드바 폭"
         }
       ]
     },
