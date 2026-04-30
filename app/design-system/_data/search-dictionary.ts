@@ -76,6 +76,11 @@ export const sections: NavSection[] = [
       { href: "/design-system/primitives/portal", label: "Portal" },
       { href: "/design-system/primitives/range-slider", label: "RangeSlider" },
       { href: "/design-system/primitives/visually-hidden", label: "VisuallyHidden" },
+      { href: "/design-system/primitives/link", label: "Link" },
+      { href: "/design-system/primitives/image", label: "Image" },
+      { href: "/design-system/primitives/code", label: "Code" },
+      { href: "/design-system/primitives/mark", label: "Mark" },
+      { href: "/design-system/primitives/icon", label: "Icon" },
     ],
   },
   {
@@ -478,6 +483,11 @@ const koreanKeywords: Record<string, string[]> = {
   "컬렉션 보기": ["컬렉션", "갤러리", "쇼케이스", "시각적", "미리보기"],
   "레고 조합": ["레고", "조합", "구성", "컴포지션", "예시", "사용법"],
   "페이지 템플릿": ["템플릿", "페이지", "예제", "보일러플레이트"],
+  Link: ["링크", "앵커", "라우터", "navigation"],
+  Image: ["이미지", "사진", "fallback", "placeholder"],
+  Code: ["코드", "인라인", "inline-code"],
+  Mark: ["하이라이트", "highlight", "형광펜", "mark"],
+  Icon: ["아이콘", "icon", "svg-wrapper"],
 };
 
 export interface SearchEntry {

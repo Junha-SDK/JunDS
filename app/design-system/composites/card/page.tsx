@@ -39,7 +39,20 @@ export default function CardPage() {
     >
       {/* ── 개요 ── */}
       <Section title="개요" description="Card는 Header, Body, Footer를 조합하여 콘텐츠를 체계적으로 구성합니다.">
-        <Preview>
+        <Preview
+          sourceCode={`<Card>
+  <Card.Header>프로젝트 현황</Card.Header>
+  <Card.Body>
+    <p>현재 진행 중인 프로젝트의 전체 상태를 한눈에 확인할 수 있습니다.</p>
+  </Card.Body>
+  <Card.Footer>
+    <div className="flex items-center justify-between">
+      <span>최종 업데이트: 2시간 전</span>
+      <Button size="sm">자세히 보기</Button>
+    </div>
+  </Card.Footer>
+</Card>`}
+        >
           <div className="max-w-sm w-full">
             <Card>
               <Card.Header>프로젝트 현황</Card.Header>
@@ -55,17 +68,6 @@ export default function CardPage() {
             </Card>
           </div>
         </Preview>
-        <CodeExample
-          code={`<Card>
-  <Card.Header>프로젝트 현황</Card.Header>
-  <Card.Body>
-    <p>콘텐츠 영역입니다.</p>
-  </Card.Body>
-  <Card.Footer>
-    <Button size="sm">자세히 보기</Button>
-  </Card.Footer>
-</Card>`}
-        />
       </Section>
 
       {/* ── 구조 ── */}

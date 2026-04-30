@@ -92,6 +92,8 @@ export function ComponentPage({
             </svg>
           </button>
         </HStack>
+
+        <McpHint name={name} />
       </Box>
 
       {/* ── Content ── */}
@@ -128,6 +130,108 @@ export function ComponentPage({
               </a>
             ))}
           </Box>
+        </Box>
+      )}
+    </Box>
+  );
+}
+
+/* ═══════════════════════ MCP Hint ═══════════════════════ */
+
+function McpHint({ name }: { name: string }) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const lines: { tool: string; arg: string; desc: string }[] = [
+    { tool: "get_component_props", arg: `"${name}"`, desc: "한국어 JSDoc 포함 prop 시그니처" },
+    { tool: "locate", arg: `"${name.toLowerCase()}"`, desc: "관련 페이지·요구사항·테스트 랭킹" },
+    { tool: "get_a11y", arg: `"${name}"`, desc: "axe-core 접근성 보고서" },
+    { tool: "get_bundle_info", arg: `"${name}"`, desc: "raw + gzip 사이즈" },
+  ];
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(text);
+      setTimeout(() => setCopied(null), 2000);
+    } catch {
+      // ignore
+    }
+  };
+
+  return (
+    <Box mt={3}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className={cn(
+          "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-medium transition-colors cursor-pointer",
+          "bg-primary/5 border border-primary/15 text-primary hover:bg-primary/10 hover:border-primary/30",
+        )}
+      >
+        <Box as="span" className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        <span>AI 에디터로 사용하기 (MCP)</span>
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 12 12"
+          fill="none"
+          className={cn("transition-transform", open ? "rotate-180" : undefined)}
+          aria-hidden
+        >
+          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {open && (
+        <Box mt={2} radius="xl" border p={4} className="bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
+          <Text fontSize="xs" dimmed mb={3} lineHeight="relaxed">
+            Cursor / Claude Code에서 다음 도구를 호출하면 hallucination 없이 정확한 정보를 받을 수 있습니다.
+          </Text>
+          <VStack gap={1.5} align="stretch">
+            {lines.map((l) => {
+              const call = `${l.tool}(${l.arg})`;
+              const isCopied = copied === call;
+              return (
+                <Flex key={l.tool} align="center" gap={2} className="bg-white border border-border rounded-lg px-3 py-2">
+                  <Box as="code" fontSize="xs" className="font-mono text-foreground flex-1 truncate">
+                    <span className="text-primary">{l.tool}</span>
+                    <span className="text-muted">(</span>
+                    <span className="text-emerald-600">{l.arg}</span>
+                    <span className="text-muted">)</span>
+                  </Box>
+                  <Text as="span" fontSize="2xs" dimmed mb={0} className="hidden sm:inline">
+                    {l.desc}
+                  </Text>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(call)}
+                    aria-label={isCopied ? "복사됨" : "도구 호출 복사"}
+                    className={cn(
+                      "shrink-0 p-1 rounded-md transition-colors cursor-pointer",
+                      isCopied ? "text-success" : "text-muted hover:text-primary hover:bg-primary/5",
+                    )}
+                  >
+                    {isCopied ? (
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                        <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    ) : (
+                      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+                        <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                        <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+                      </svg>
+                    )}
+                  </button>
+                </Flex>
+              );
+            })}
+          </VStack>
+          <Text fontSize="2xs" dimmed mt={3} mb={0} lineHeight="relaxed">
+            <Box as="code" className="px-1 py-0.5 rounded bg-white border border-border font-mono text-[10px]">.mcp.json</Box>
+            은 저장소 루트에 이미 포함되어 있습니다 — AI 에디터로 프로젝트를 열면 자동 연결.
+          </Text>
         </Box>
       )}
     </Box>

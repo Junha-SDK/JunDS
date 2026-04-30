@@ -1,5 +1,5 @@
 /**
- * Accessibility audit — non-blocking, on-demand.
+ * Accessibility audit — non-blocking by default, strict on demand.
  *
  * Renders every "safely renderable" primitive / composite / pattern via
  * @testing-library/react in jsdom, then runs axe-core against each one.
@@ -9,23 +9,19 @@
  * NOTE: this file is INTENTIONALLY excluded from the regular `npm test` run
  * (see vitest.config.ts `test.exclude`). Run via:
  *
- *   npm run audit:a11y
+ *   npm run audit:a11y          → non-blocking; report only.
+ *   npm run audit:a11y:strict   → fails when render errors > 0 OR
+ *                                 critical/serious violations exist.
  *
- * The audit NEVER fails the test even when violations are found — the report
- * is the artifact, not a CI gate. Each component reports a list of violations
- * with axe-core impact levels:
+ * Strict mode is gated by `process.env.JUNDS_AUDIT_STRICT === "1"`.
  *
- *   - critical:  must-fix; blocks users.
- *   - serious:   high-impact barrier for many users.
- *   - moderate:  affects some users in some contexts.
- *   - minor:     edge cases / strongly recommended fixes.
- *
- * Renderability rule (slightly looser than `scripts/generate-smoke-tests.mjs`):
+ * Renderability rule:
  *   - kind ∈ {primitive, composite, pattern}
  *   - the source file has a top-level value export named after the component
- *   - either all props are optional, OR the only required props are
- *     children-like (`children` / `ReactNode` / `JSX.Element`) — for those we
- *     pass a small text node so the audit still gets coverage.
+ *   - all required props can be filled with type-derived defaults
+ *     (ReactNode → "샘플", arrays → [], strings → "sample", numbers → 0,
+ *      booleans → false, functions → noop). If any required prop has an
+ *      unknown shape we skip the component.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -40,6 +36,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..", "..", "..");
 const PROPS_JSON = path.join(ROOT, ".ai", "props.json");
 const REPORT_PATH = path.join(ROOT, ".ai", "a11y.json");
+const STRICT = process.env.JUNDS_AUDIT_STRICT === "1";
 
 const KIND_TO_PLURAL: Record<string, string> = {
   primitive: "primitives",
@@ -95,12 +92,55 @@ function hasValueExport(sourcePath: string, name: string): boolean {
   return patterns.some((p) => p.test(src));
 }
 
-function isChildrenLikeProp(p: PropMeta): boolean {
-  if (p.name === "children") return true;
-  return /ReactNode|JSX\.Element|React\.ReactNode/.test(p.type);
+/**
+ * React.forwardRef / React.memo return objects (not functions) carrying a
+ * `$$typeof` symbol. Treat them as components alongside plain function
+ * components and compound components (function + member props).
+ */
+function isReactComponentLike(value: unknown): boolean {
+  if (typeof value === "function") return true;
+  if (value && typeof value === "object") {
+    const v = value as { $$typeof?: unknown; render?: unknown };
+    if (v.$$typeof != null) return true;
+    if (typeof v.render === "function") return true;
+  }
+  return false;
 }
 
-type Renderable = { meta: ComponentMeta; needsChildren: boolean };
+function isArrayType(type: string): boolean {
+  return /\[\]\s*$|^\s*Array\s*<|^\s*ReadonlyArray\s*</.test(type);
+}
+
+function isReactNodeType(type: string): boolean {
+  return /\b(ReactNode|JSX\.Element|React\.ReactNode|ReactElement|React\.ReactElement)\b/.test(
+    type,
+  );
+}
+
+function isFunctionType(type: string): boolean {
+  // Crude: anything containing "=>" we treat as a function type.
+  return /=>/.test(type);
+}
+
+function defaultForProp(p: PropMeta): { ok: true; value: unknown } | { ok: false } {
+  const t = p.type;
+  if (isArrayType(t)) return { ok: true, value: [] };
+  if (isReactNodeType(t)) return { ok: true, value: "샘플" };
+  if (isFunctionType(t)) return { ok: true, value: () => {} };
+  if (/^\s*string\s*$/.test(t) || /\bstring\b/.test(t.split("|")[0] ?? "")) {
+    return { ok: true, value: "sample" };
+  }
+  if (/^\s*number\s*$/.test(t) || /\bnumber\b/.test(t.split("|")[0] ?? "")) {
+    return { ok: true, value: 0 };
+  }
+  if (/^\s*boolean\s*$/.test(t) || /\bboolean\b/.test(t.split("|")[0] ?? "")) {
+    return { ok: true, value: false };
+  }
+  // Object-ish required prop with no clear shape — bail out.
+  return { ok: false };
+}
+
+type Renderable = { meta: ComponentMeta; props: Record<string, unknown> };
 
 function pickRenderable(components: ComponentMeta[]): Renderable[] {
   const out: Renderable[] = [];
@@ -110,15 +150,18 @@ function pickRenderable(components: ComponentMeta[]): Renderable[] {
     const sourceAbs = path.join(ROOT, c.file);
     if (!hasValueExport(sourceAbs, c.name)) continue;
     const required = (c.props || []).filter((p) => p.optional !== true);
-    if (required.length === 0) {
-      out.push({ meta: c, needsChildren: false });
-      continue;
+    const props: Record<string, unknown> = {};
+    let ok = true;
+    for (const p of required) {
+      const def = defaultForProp(p);
+      if (!def.ok) {
+        ok = false;
+        break;
+      }
+      props[p.name] = def.value;
     }
-    // Allow components whose only required prop(s) are children-like — we
-    // pass a short text node when rendering so axe has meaningful DOM.
-    if (required.every(isChildrenLikeProp)) {
-      out.push({ meta: c, needsChildren: true });
-    }
+    if (!ok) continue;
+    out.push({ meta: c, props });
   }
   return out;
 }
@@ -126,8 +169,10 @@ function pickRenderable(components: ComponentMeta[]): Renderable[] {
 function summarize(results: ComponentResult[]) {
   const byImpact = { critical: 0, serious: 0, moderate: 0, minor: 0 };
   let withViolations = 0;
+  let withErrors = 0;
   for (const r of results) {
     if (r.violations.length > 0) withViolations++;
+    if (r.error) withErrors++;
     for (const v of r.violations) {
       const impact = (v.impact || "").toLowerCase();
       if (impact === "critical") byImpact.critical++;
@@ -136,16 +181,13 @@ function summarize(results: ComponentResult[]) {
       else if (impact === "minor") byImpact.minor++;
     }
   }
-  return { total: results.length, withViolations, byImpact };
+  return { total: results.length, withViolations, withErrors, byImpact };
 }
 
 const { components: allComponents } = readPropsJson();
 const renderable = pickRenderable(allComponents);
 const results: ComponentResult[] = [];
 
-// Suppress noisy axe-core / jsdom warnings while still letting hard errors
-// surface. axe writes a number of "color-contrast cannot run in jsdom" style
-// notices that are not actionable here.
 const originalWarn = console.warn;
 const originalError = console.error;
 console.warn = (...args: unknown[]) => {
@@ -159,9 +201,9 @@ console.error = (...args: unknown[]) => {
   originalError(...(args as []));
 };
 
-describe("a11y audit (non-blocking)", () => {
+describe("a11y audit", () => {
   for (const renderableEntry of renderable) {
-    const { meta, needsChildren } = renderableEntry;
+    const { meta, props } = renderableEntry;
     const plural = KIND_TO_PLURAL[meta.kind];
     const importSpec = `../../${plural}/${meta.name}`;
 
@@ -176,25 +218,32 @@ describe("a11y audit (non-blocking)", () => {
           violations: [],
           error: `import failed: ${(err as Error).message}`,
         });
+        if (STRICT) throw err;
         return;
       }
 
       const Comp = mod[meta.name] as React.ComponentType<unknown> | undefined;
-      if (!Comp || typeof Comp !== "function") {
+      if (!isReactComponentLike(Comp)) {
         results.push({
           name: meta.name,
           kind: meta.kind,
           violations: [],
           error: "named export is not a component",
         });
+        if (STRICT) {
+          throw new Error(
+            `[${meta.name}] named export is not a React component (got ${typeof Comp})`,
+          );
+        }
         return;
       }
 
       let container: HTMLElement | null = null;
       try {
-        const element = needsChildren
-          ? React.createElement(Comp, null, "샘플")
-          : React.createElement(Comp);
+        const element = React.createElement(
+          Comp as React.ComponentType<Record<string, unknown>>,
+          props,
+        );
         const result = render(element);
         container = result.container;
       } catch (err) {
@@ -205,6 +254,7 @@ describe("a11y audit (non-blocking)", () => {
           error: `render failed: ${(err as Error).message}`,
         });
         cleanup();
+        if (STRICT) throw err;
         return;
       }
 
@@ -231,18 +281,35 @@ describe("a11y audit (non-blocking)", () => {
           kind: meta.kind,
           violations,
         });
+
+        if (STRICT) {
+          const blockers = violations.filter(
+            (v) => v.impact === "critical" || v.impact === "serious",
+          );
+          if (blockers.length > 0) {
+            throw new Error(
+              `[${meta.name}] ${blockers.length} critical/serious a11y violation(s): ` +
+                blockers.map((b) => b.id).join(", "),
+            );
+          }
+        }
       } catch (err) {
+        const msg = (err as Error).message;
+        if (STRICT && /\d+ critical\/serious/.test(msg)) {
+          // already a strict-mode violation; rethrow.
+          throw err;
+        }
         results.push({
           name: meta.name,
           kind: meta.kind,
           violations: [],
-          error: `axe failed: ${(err as Error).message}`,
+          error: `axe failed: ${msg}`,
         });
+        if (STRICT) throw err;
       } finally {
         cleanup();
       }
 
-      // Always pass — this is an audit, not a gate.
       expect(results).toBeDefined();
     }, 30000);
   }
@@ -251,7 +318,6 @@ describe("a11y audit (non-blocking)", () => {
     console.warn = originalWarn;
     console.error = originalError;
 
-    // Sort for deterministic diffs.
     results.sort((a, b) => {
       if (a.kind !== b.kind) return a.kind.localeCompare(b.kind);
       return a.name.localeCompare(b.name);
@@ -261,6 +327,7 @@ describe("a11y audit (non-blocking)", () => {
     const report = {
       generatedAt: new Date().toISOString(),
       tooling: `axe-core@${(axe as unknown as { version: string }).version}`,
+      strict: STRICT,
       summary,
       components: results,
     };
@@ -268,9 +335,9 @@ describe("a11y audit (non-blocking)", () => {
     fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
     fs.writeFileSync(REPORT_PATH, JSON.stringify(report, null, 2) + "\n", "utf8");
 
-    // eslint-disable-next-line no-console
     originalWarn(
-      `[a11y-audit] scanned=${summary.total} withViolations=${summary.withViolations} ` +
+      `[a11y-audit] ${STRICT ? "STRICT " : ""}scanned=${summary.total} ` +
+        `errors=${summary.withErrors} withViolations=${summary.withViolations} ` +
         `critical=${summary.byImpact.critical} serious=${summary.byImpact.serious} ` +
         `moderate=${summary.byImpact.moderate} minor=${summary.byImpact.minor}`,
     );

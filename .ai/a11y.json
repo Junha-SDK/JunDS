@@ -1,17 +1,29 @@
 {
-  "generatedAt": "2026-04-29T11:55:21.320Z",
+  "generatedAt": "2026-04-30T01:01:56.246Z",
   "tooling": "axe-core@4.11.3",
+  "strict": false,
   "summary": {
-    "total": 61,
-    "withViolations": 0,
+    "total": 164,
+    "withViolations": 19,
+    "withErrors": 1,
     "byImpact": {
-      "critical": 0,
-      "serious": 0,
+      "critical": 18,
+      "serious": 1,
       "moderate": 0,
       "minor": 0
     }
   },
   "components": [
+    {
+      "name": "Accordion",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ActionSheet",
+      "kind": "composite",
+      "violations": []
+    },
     {
       "name": "AddressInput",
       "kind": "composite",
@@ -25,8 +37,27 @@
     {
       "name": "Alert",
       "kind": "composite",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
+    },
+    {
+      "name": "AlertDialog",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "AnimatedCounter",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "AudioPlayer",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "AutoComplete",
+      "kind": "composite",
+      "violations": []
     },
     {
       "name": "AutoHideHeader",
@@ -36,17 +67,35 @@
     {
       "name": "AutoPlayDemo",
       "kind": "composite",
-      "violations": [],
-      "error": "render failed: Cannot read properties of undefined (reading 'length')"
+      "violations": []
+    },
+    {
+      "name": "AvatarStack",
+      "kind": "composite",
+      "violations": []
     },
     {
       "name": "Banner",
       "kind": "composite",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "BentoGrid",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "BookCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "BottomSheet",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Breadcrumb",
       "kind": "composite",
       "violations": []
     },
@@ -63,14 +112,12 @@
     {
       "name": "Card",
       "kind": "composite",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "Carousel",
       "kind": "composite",
-      "violations": [],
-      "error": "render failed: children.map is not a function"
+      "violations": []
     },
     {
       "name": "ChatBubble",
@@ -78,15 +125,180 @@
       "violations": []
     },
     {
+      "name": "CodeEditor",
+      "kind": "composite",
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<textarea spellcheck=\"false\" class=\"flex-1 p-3 text-sm text-gray-100 bg-transparent outline-none resize-none font-mono leading-relaxed placeholder:text-gray-500\" style=\"min-height: 200px; tab-size: 2;\">sample</textarea>",
+              "target": [
+                "textarea"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Collapsible",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "CollectionView",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ColorPicker",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ColorSwatch",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Combobox",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "CompareSlider",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ComparisonGrid",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ComponentShowcase",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Confetti",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ConfirmDialog",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ContextMenu",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "CopyBlock",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "CronExpression",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "DataGrid",
       "kind": "composite",
       "violations": []
     },
     {
       "name": "DateInput",
       "kind": "composite",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input class=\"w-full h-9 px-3 text-sm border bg-white rounded-lg transition-all duration-150 focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)] disabled:opacity-50 disabled:cursor-not-allowed border-border\" type=\"date\">",
+              "target": [
+                "input"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DateRangeFilter",
+      "kind": "composite",
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input class=\"h-9 px-3 text-sm border border-border bg-white rounded-lg transition-all duration-150 focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]\" type=\"date\" value=\"sample\">",
+              "target": [
+                "input:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "html": "<input class=\"h-9 px-3 text-sm border border-border bg-white rounded-lg transition-all duration-150 focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]\" type=\"date\" value=\"sample\">",
+              "target": [
+                "input:nth-child(3)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Descriptions",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "DetailPanel",
+      "kind": "composite",
+      "violations": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "help": "Buttons must have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<button type=\"button\" class=\"text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer shrink-0 ml-2\">",
+              "target": [
+                "button"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DiffViewer",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Disclosure",
+      "kind": "composite",
+      "violations": []
     },
     {
       "name": "Dock",
@@ -94,7 +306,47 @@
       "violations": []
     },
     {
+      "name": "Drawer",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Dropdown",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "EmojiPicker",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "EmptyState",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "FilterButtonGroup",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "FloatingActionButton",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "FormField",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "FunnelChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "GaugeChart",
       "kind": "composite",
       "violations": []
     },
@@ -109,7 +361,42 @@
       "violations": []
     },
     {
+      "name": "Heatmap",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "HoverCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ImageCropper",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ImageLightbox",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "InlineEdit",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "KeyValueGrid",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "LoadingOverlay",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "MarkdownViewer",
       "kind": "composite",
       "violations": []
     },
@@ -119,10 +406,84 @@
       "violations": []
     },
     {
+      "name": "Mention",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Menubar",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "MetricCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "MiniChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Modal",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "MultiSelect",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "NavigationMenu",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Notification",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Onboarding",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Pagination",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "Popover",
       "kind": "composite",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
+    },
+    {
+      "name": "ProgressRing",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PullToRefresh",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "QRCode",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Rating",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ReadingTime",
+      "kind": "composite",
+      "violations": []
     },
     {
       "name": "Resizable",
@@ -130,10 +491,29 @@
       "violations": []
     },
     {
+      "name": "ScrollSpy",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "SearchInput",
       "kind": "composite",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
+    },
+    {
+      "name": "SegmentedControl",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Select",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Sheet",
+      "kind": "composite",
+      "violations": []
     },
     {
       "name": "SignaturePad",
@@ -143,8 +523,7 @@
     {
       "name": "Skeleton",
       "kind": "composite",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "SplitPane",
@@ -157,7 +536,22 @@
       "violations": []
     },
     {
+      "name": "Spotlight",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "SpotlightCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "StatCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Stepper",
       "kind": "composite",
       "violations": []
     },
@@ -172,13 +566,167 @@
       "violations": []
     },
     {
+      "name": "Table",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "TagInput",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Timeline",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "TimePicker",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "Tooltip",
       "kind": "composite",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
+    },
+    {
+      "name": "Transfer",
+      "kind": "composite",
+      "violations": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "help": "Buttons must have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<button type=\"button\" disabled=\"\" class=\"p-1.5 rounded-md border border-border transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100\">",
+              "target": [
+                "button:nth-child(1)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            },
+            {
+              "html": "<button type=\"button\" disabled=\"\" class=\"p-1.5 rounded-md border border-border transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100\">",
+              "target": [
+                "button:nth-child(2)"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TreemapChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "TreeNav",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "TreeView",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "TrustIndicator",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Typewriter",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "VideoPlayer",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "VirtualScroll",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Watermark",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ActionBar",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "CommandPalette",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "DataTable",
+      "kind": "pattern",
+      "violations": [
+        {
+          "id": "aria-required-children",
+          "impact": "critical",
+          "help": "Certain ARIA roles must contain particular children",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-required-children?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<div class=\"overflow-x-auto\" tabindex=\"0\" role=\"grid\">",
+              "target": [
+                ".overflow-x-auto"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element has children which are not allowed: table[tabindex]"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "FilterBar",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "FlowDiagram",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "Form",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "FormBuilder",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "FormWizard",
+      "kind": "pattern",
+      "violations": [],
+      "error": "render failed: Cannot read properties of undefined (reading 'title')"
+    },
+    {
+      "name": "InfiniteList",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "Kanban",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "LoginForm",
       "kind": "pattern",
       "violations": []
     },
@@ -188,7 +736,38 @@
       "violations": []
     },
     {
+      "name": "NotificationCenter",
+      "kind": "pattern",
+      "violations": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "help": "Buttons must have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<button type=\"button\" class=\"relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer\">",
+              "target": [
+                "button"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "RichTextEditor",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "SecurityChecklist",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "SortableList",
       "kind": "pattern",
       "violations": []
     },
@@ -198,52 +777,117 @@
       "violations": []
     },
     {
+      "name": "StatsGrid",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "Tour",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "VirtualList",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
       "name": "AspectRatio",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "Avatar",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "BackTop",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "Badge",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
+    },
+    {
+      "name": "BatteryIndicator",
+      "kind": "primitive",
+      "violations": []
     },
     {
       "name": "Button",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "help": "Buttons must have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<button class=\"inline-flex items-ce...\">",
+              "target": [
+                "button"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Checkbox",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input aria-checked=\"false\" class=\"w-4 h-4 rounded bord...\" type=\"checkbox\">",
+              "target": [
+                "input"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CopyButton",
+      "kind": "primitive",
+      "violations": []
     },
     {
       "name": "CurrencyInput",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input inputmode=\"numeric\" class=\"w-full border bg-whi...\" type=\"text\" value=\"\">",
+              "target": [
+                "input"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Divider",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "ErrorBoundary",
@@ -251,33 +895,92 @@
       "violations": []
     },
     {
+      "name": "FileUpload",
+      "kind": "primitive",
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input class=\"hidden\" type=\"file\">",
+              "target": [
+                "input"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "FocusGuard",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "IconButton",
       "kind": "primitive",
       "violations": []
     },
     {
       "name": "Input",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input class=\"w-full border bg-whi...\">",
+              "target": [
+                "input"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Kbd",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "Label",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
+    },
+    {
+      "name": "NumberFormatter",
+      "kind": "primitive",
+      "violations": []
     },
     {
       "name": "NumberInput",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input step=\"1\" class=\"w-16 text-center border-0 outline-none bg-transparent tabular-nums [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none h-9 text-sm\" type=\"number\" value=\"\">",
+              "target": [
+                "input"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "OTPInput",
@@ -287,14 +990,44 @@
     {
       "name": "PasswordInput",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input autocomplete=\"new-password\" class=\"w-full border bg-whi...\" type=\"password\">",
+              "target": [
+                "input"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "PhoneInput",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<input class=\"flex-1 px-3 outline-none bg-transparent min-w-0 tabular-nums h-9 text-sm\" type=\"tel\" value=\"\">",
+              "target": [
+                "input"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "PinInput",
@@ -307,40 +1040,120 @@
       "violations": []
     },
     {
+      "name": "RangeSlider",
+      "kind": "primitive",
+      "violations": [
+        {
+          "id": "aria-required-attr",
+          "impact": "critical",
+          "help": "Required ARIA attributes must be provided",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-required-attr?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<div role=\"slider\" tabindex=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"최솟값\" class=\"absolute w-5 h-5 bg-white border-2 border-primary rounded-full shadow-sm -translate-x-1/2 cursor-grab focus:outline-none focus:ring-2 focus:ring-primary/40 hover:scale-110 transition-transform\"></div>",
+              "target": [
+                "div[aria-label=\"최솟값\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Required ARIA attribute not present: aria-valuenow"
+            },
+            {
+              "html": "<div role=\"slider\" tabindex=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"최댓값\" class=\"absolute w-5 h-5 bg-white border-2 border-primary rounded-full shadow-sm -translate-x-1/2 cursor-grab focus:outline-none focus:ring-2 focus:ring-primary/40 hover:scale-110 transition-transform\"></div>",
+              "target": [
+                "div[aria-label=\"최댓값\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Required ARIA attribute not present: aria-valuenow"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "ScrollArea",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "Slider",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "aria-input-field-name",
+          "impact": "serious",
+          "help": "ARIA input fields must have an accessible name",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-input-field-name?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<div class=\"relative w-full rounded-full bg-gray-200 cursor-pointer select-none h-1.5\" role=\"slider\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\" tabindex=\"0\">",
+              "target": [
+                ".relative"
+              ],
+              "failureSummary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Spinner",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
+    },
+    {
+      "name": "StarRating",
+      "kind": "primitive",
+      "violations": []
     },
     {
       "name": "StatusDot",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
+    },
+    {
+      "name": "Switch",
+      "kind": "primitive",
+      "violations": [
+        {
+          "id": "button-name",
+          "impact": "critical",
+          "help": "Buttons must have discernible text",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<button type=\"button\" role=\"switch\" aria-checked=\"false\" class=\"relative inline-flex shrink-0 rounded-full transition-colors duration-200 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 w-11 h-6 bg-gray-300\">",
+              "target": [
+                "button"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Tag",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": []
     },
     {
       "name": "Textarea",
       "kind": "primitive",
-      "violations": [],
-      "error": "named export is not a component"
+      "violations": [
+        {
+          "id": "label",
+          "impact": "critical",
+          "help": "Form elements must have labels",
+          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
+          "nodes": [
+            {
+              "html": "<textarea class=\"w-full border bg-whi...\">",
+              "target": [
+                "textarea"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Toggle",

@@ -5,7 +5,7 @@
     <img src="https://img.shields.io/badge/components-190-blue" alt="Components" />
     <img src="https://img.shields.io/badge/hooks-30-green" alt="Hooks" />
     <img src="https://img.shields.io/badge/tests-476%20passed-brightgreen" alt="Tests" />
-    <img src="https://img.shields.io/badge/a11y-0%20violations-brightgreen" alt="A11y" />
+    <img src="https://img.shields.io/badge/a11y-audited-yellow" alt="A11y" />
     <img src="https://img.shields.io/badge/TypeScript-100%25-blue" alt="TypeScript" />
     <img src="https://img.shields.io/badge/MCP-14%20tools-purple" alt="MCP" />
     <img src="https://img.shields.io/badge/license-commercial-orange" alt="License" />

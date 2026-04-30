@@ -44,6 +44,7 @@
     "test:types": "vitest run ds/__tests__/types/",
     "validate:requirements": "node scripts/validate-requirements.mjs",
     "audit:a11y": "vitest run --config vitest.a11y.config.ts ds/__tests__/a11y/audit.test.tsx",
+    "audit:a11y:strict": "JUNDS_AUDIT_STRICT=1 vitest run --config vitest.a11y.config.ts ds/__tests__/a11y/audit.test.tsx",
     "coverage": "vitest run --coverage --coverage.reporter=json-summary --coverage.reporter=text",
     "coverage:report": "npm run coverage && node scripts/coverage-summary.mjs",
     "extract-css-vars": "node scripts/extract-css-vars.mjs",
@@ -67,7 +68,8 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "valibot": "^1.3.1"
   },
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
