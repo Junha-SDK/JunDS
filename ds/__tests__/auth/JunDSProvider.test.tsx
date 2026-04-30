@@ -1,5 +1,18 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, waitFor, act } from "@testing-library/react";
+
+// jsdom marks window.location as `configurable: true`, which makes
+// _isLocationTampered() believe the page is being attacked. Force it to
+// always report "not tampered" so we can exercise the rest of the provider
+// state machine. Real browsers always have configurable: false here.
+vi.mock("@/ds/auth/domain-lock", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/ds/auth/domain-lock")>();
+  return {
+    ...actual,
+    _isLocationTampered: () => false,
+  };
+});
+
 import {
   JunDSProvider,
   useJunDS,
@@ -27,11 +40,14 @@ function FullReadout() {
 function mockFetchOk(body: unknown) {
   vi.stubGlobal(
     "fetch",
-    vi.fn().mockResolvedValue(
-      new Response(JSON.stringify(body), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }),
+    vi.fn().mockImplementation(
+      () =>
+        Promise.resolve(
+          new Response(JSON.stringify(body), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          }),
+        ),
     ),
   );
 }
