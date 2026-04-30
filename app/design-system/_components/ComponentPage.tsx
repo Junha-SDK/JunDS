@@ -1,5 +1,5 @@
 "use client";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import type { PropDef } from "./PropsTable";
 import { PropsTable } from "./PropsTable";
 import { Box, Flex, VStack, HStack, Heading, Text } from "@/ds/core";
@@ -283,22 +283,49 @@ export function AccessibilityNote({ items }: { items: string[] }) {
 /* ═══════════════════════ Code Block ═══════════════════════ */
 
 export function CodeExample({ code, language = "tsx" }: { code: string; language?: string }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard API unavailable (insecure context) — silently ignore
+    }
+  };
   return (
-    <Box radius="xl" border overflow="hidden" position="relative" className="group">
+    <Box radius="xl" border overflow="hidden" position="relative">
       <Flex align="center" justify="between" px={4} py={2} className="bg-gray-50 border-b border-border">
         <Text as="span" fontSize="2xs" fontWeight="semibold" dimmed textTransform="uppercase" letterSpacing="wider">
           {language}
         </Text>
         <button
           type="button"
-          onClick={() => navigator.clipboard.writeText(code)}
-          className="text-muted hover:text-primary transition-colors cursor-pointer opacity-0 group-hover:opacity-100"
-          aria-label="코드 복사"
+          onClick={handleCopy}
+          aria-label={copied ? "코드가 복사되었습니다" : "코드 복사"}
+          className={cn(
+            "flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium transition-colors cursor-pointer",
+            copied
+              ? "bg-success/10 text-success"
+              : "text-muted hover:text-primary hover:bg-gray-100",
+          )}
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-            <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
-          </svg>
+          {copied ? (
+            <>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span>복사됨</span>
+            </>
+          ) : (
+            <>
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+              </svg>
+              <span>복사</span>
+            </>
+          )}
         </button>
       </Flex>
       <pre className="p-4 text-xs leading-relaxed overflow-x-auto bg-gray-950 text-gray-100">

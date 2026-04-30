@@ -26,6 +26,7 @@ export default function CardPage() {
       props={[
         { name: "hoverable", type: "boolean", default: "false", description: "마우스 호버 시 그림자 강화 및 약간의 상승 효과를 적용합니다. 클릭 가능한 카드에 사용하세요." },
         { name: "noPadding", type: "boolean", default: "false", description: "카드 내부 패딩을 제거합니다. 이미지나 커스텀 레이아웃에 유용합니다." },
+        { name: "asChild", type: "boolean", default: "false", description: "Radix-style Slot. true이면 자체 div 대신 단일 자식 엘리먼트의 root에 className/style/이벤트를 합칩니다. <Link>, <button> 등으로 위임할 때 사용합니다." },
         { name: "className", type: "string", description: "카드 컨테이너에 추가할 커스텀 클래스" },
         { name: "children", type: "ReactNode", required: true, description: "Card.Header, Card.Body, Card.Footer 등 서브 컴포넌트를 포함합니다." },
       ]}
@@ -195,6 +196,40 @@ export default function CardPage() {
         <UsageNote type="info">
           <code className="text-xs font-mono bg-gray-100 px-1 rounded">noPadding</code>을 사용할 때는 서브 컴포넌트(Header, Body, Footer) 대신 직접 레이아웃을 구성하는 것이 더 유연합니다.
         </UsageNote>
+      </Section>
+
+      {/* ── asChild — Slot 위임 ── */}
+      <Section title="asChild — 외부 컨테이너 위임" description="asChild={true}이면 Card는 자체 <div>를 렌더하지 않고 단일 자식 엘리먼트로 위임합니다. Next의 <Link>, <button> 등 임의의 컨테이너로 카드 디자인을 적용할 수 있습니다.">
+        <Preview>
+          <div className="max-w-sm w-full">
+            <Card asChild hoverable>
+              <a href="#card-aschild-demo" className="block no-underline text-inherit">
+                <Card.Body>
+                  <p className="text-sm font-semibold text-foreground">프로필로 이동</p>
+                  <p className="text-xs text-muted mt-1">전체 카드 영역이 클릭 가능한 링크가 됩니다.</p>
+                </Card.Body>
+              </a>
+            </Card>
+          </div>
+        </Preview>
+        <UsageNote type="tip">
+          asChild를 쓸 때 자식은 <strong>정확히 하나</strong>의 React element여야 합니다. 문자열·fragment·복수 자식은 dev 환경에서 console.warn 후 null이 렌더됩니다. className은 tailwind-merge로 병합되어 자식 className이 충돌 시 우선합니다.
+        </UsageNote>
+        <CodeExample
+          code={`// 카드 전체를 Next Link로 위임
+<Card asChild hoverable>
+  <Link href="/profile">
+    <Card.Body>프로필로 이동</Card.Body>
+  </Link>
+</Card>
+
+// button으로 위임 — onClick 핸들러는 Card와 button 양쪽에서 시퀀스 실행
+<Card asChild onClick={track}>
+  <button type="button" onClick={open}>
+    <Card.Body>다이얼로그 열기</Card.Body>
+  </button>
+</Card>`}
+        />
       </Section>
 
       {/* ── 가이드라인 ── */}

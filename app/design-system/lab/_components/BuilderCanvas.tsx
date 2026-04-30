@@ -348,13 +348,7 @@ function NodeToolbar({
 function RenderNode({ nodeId }: { nodeId: string }) {
   const { state, dispatch } = useLab();
   const node = state.nodes[nodeId];
-  if (!node) return null;
-
-  const def = componentDefMap.get(node.componentId);
-  const isSelected = state.selectedId === nodeId;
-  const isHovered = state.hoveredId === nodeId;
-  const isContainer = def?.isContainer ?? false;
-  const isLayout = LAYOUT_IDS.has(node.componentId);
+  const parentId = node?.parentId;
 
   const handleSelect = useCallback(
     (e: React.MouseEvent) => {
@@ -381,18 +375,18 @@ function RenderNode({ nodeId }: { nodeId: string }) {
   );
 
   const handleMoveUp = useCallback(() => {
-    const siblings = node.parentId ? state.nodes[node.parentId]?.childNodes : state.rootIds;
+    const siblings = parentId ? state.nodes[parentId]?.childNodes : state.rootIds;
     if (!siblings) return;
     const idx = siblings.indexOf(nodeId);
-    if (idx > 0) dispatch({ type: "MOVE_NODE", nodeId, newParentId: node.parentId, index: idx - 1 });
-  }, [dispatch, nodeId, node.parentId, state.nodes, state.rootIds]);
+    if (idx > 0) dispatch({ type: "MOVE_NODE", nodeId, newParentId: parentId, index: idx - 1 });
+  }, [dispatch, nodeId, parentId, state.nodes, state.rootIds]);
 
   const handleMoveDown = useCallback(() => {
-    const siblings = node.parentId ? state.nodes[node.parentId]?.childNodes : state.rootIds;
+    const siblings = parentId ? state.nodes[parentId]?.childNodes : state.rootIds;
     if (!siblings) return;
     const idx = siblings.indexOf(nodeId);
-    if (idx < siblings.length - 1) dispatch({ type: "MOVE_NODE", nodeId, newParentId: node.parentId, index: idx + 1 });
-  }, [dispatch, nodeId, node.parentId, state.nodes, state.rootIds]);
+    if (idx < siblings.length - 1) dispatch({ type: "MOVE_NODE", nodeId, newParentId: parentId, index: idx + 1 });
+  }, [dispatch, nodeId, parentId, state.nodes, state.rootIds]);
   const handleDuplicate = useCallback(
     () => dispatch({ type: "DUPLICATE_NODE", nodeId: nodeId }),
     [dispatch, nodeId],
@@ -409,6 +403,14 @@ function RenderNode({ nodeId }: { nodeId: string }) {
     },
     [dispatch, nodeId],
   );
+
+  if (!node) return null;
+
+  const def = componentDefMap.get(node.componentId);
+  const isSelected = state.selectedId === nodeId;
+  const isHovered = state.hoveredId === nodeId;
+  const isContainer = def?.isContainer ?? false;
+  const isLayout = LAYOUT_IDS.has(node.componentId);
 
   // ── Wrapper classes ─────────────────────────────────────────────────
   const wrapperCls = cn(

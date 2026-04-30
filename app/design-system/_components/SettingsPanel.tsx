@@ -81,7 +81,7 @@ export function SettingsPanel({
           <div className="p-4 space-y-5 max-h-[60vh] overflow-y-auto">
             {/* Theme */}
             <div>
-              <label className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">테마 색상</label>
+              <div className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">테마 색상</div>
               <div className="flex flex-wrap gap-2">
                 {THEMES.map((t) => (
                   <button
@@ -101,7 +101,7 @@ export function SettingsPanel({
 
             {/* Color Mode */}
             <div>
-              <label className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">색상 모드</label>
+              <div className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">색상 모드</div>
               <div className="flex gap-1">
                 {(["light", "dark", "system"] as const).map((mode) => (
                   <button
@@ -121,7 +121,7 @@ export function SettingsPanel({
 
             {/* Density */}
             <div>
-              <label className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">밀도</label>
+              <div className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">밀도</div>
               <div className="flex gap-1">
                 {(["compact", "normal", "comfortable"] as const).map((d) => (
                   <button
@@ -141,7 +141,7 @@ export function SettingsPanel({
 
             {/* Radius */}
             <div>
-              <label className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">모서리 반경</label>
+              <div className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">모서리 반경</div>
               <div className="flex gap-1">
                 {(["none", "sm", "md", "lg", "full"] as const).map((r) => (
                   <button
@@ -162,7 +162,7 @@ export function SettingsPanel({
 
             {/* Spacing */}
             <div>
-              <label className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">간격</label>
+              <div className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">간격</div>
               <div className="flex gap-1">
                 {(["tight", "default", "relaxed"] as const).map((s) => (
                   <button
@@ -182,7 +182,7 @@ export function SettingsPanel({
 
             {/* Font Size */}
             <div>
-              <label className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">글자 크기</label>
+              <div className="block text-[10px] font-bold text-muted uppercase tracking-widest mb-2">글자 크기</div>
               <div className="flex gap-1">
                 {(["xs", "sm", "default", "lg", "xl"] as const).map((f) => (
                   <button

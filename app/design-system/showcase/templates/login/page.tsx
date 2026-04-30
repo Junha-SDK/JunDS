@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Box, Flex, VStack, HStack, Heading, Text } from "@/ds/core";
 import { Button } from "@/ds/primitives/Button";
 import { Input } from "@/ds/primitives/Input";
+import { Label } from "@/ds/primitives/Label";
 import { Divider } from "@/ds/primitives/Divider";
 import { Checkbox } from "@/ds/primitives/Checkbox";
 import { Card } from "@/ds/composites/Card";
@@ -27,26 +28,30 @@ export default function LoginTemplate() {
         <Card>
           <Card.Body>
             <VStack gap={4}>
-              <Input
-                label="이메일"
-                placeholder="name@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                size="md"
-              />
-              <Input
-                label="비밀번호"
-                type="password"
-                placeholder="비밀번호를 입력하세요"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                size="md"
-              />
+              <Box>
+                <Label className="mb-1.5 block text-xs">이메일</Label>
+                <Input
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  size="md"
+                />
+              </Box>
+              <Box>
+                <Label className="mb-1.5 block text-xs">비밀번호</Label>
+                <Input
+                  type="password"
+                  placeholder="비밀번호를 입력하세요"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  size="md"
+                />
+              </Box>
 
               <Flex align="center" justify="between">
                 <Checkbox
                   checked={remember}
-                  onChange={setRemember}
+                  onChange={(e) => setRemember(e.target.checked)}
                   label="로그인 유지"
                 />
                 <button className="text-xs text-primary hover:underline">

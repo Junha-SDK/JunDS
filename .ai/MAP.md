@@ -10,13 +10,13 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-04-30T00:57:24.732Z
+Generated: 2026-04-30T00:58:25.141Z
 
 ---
 
 ## Requirements (read FIRST for any feature work)
 
-_10 files_
+_11 files_
 
 - `requirements/_template.md`
 - `requirements/agent-onboarding.md`
@@ -25,6 +25,7 @@ _10 files_
 - `requirements/i18n.md`
 - `requirements/license-and-auth.md`
 - `requirements/no-code-framework-phase-0.md`
+- `requirements/no-code-personas.md`
 - `requirements/README.md`
 - `requirements/showcase-site.md`
 - `requirements/theming.md`
@@ -921,4 +922,4 @@ _205 files_
 
 ---
 
-**Total indexed files:** 850
+**Total indexed files:** 851

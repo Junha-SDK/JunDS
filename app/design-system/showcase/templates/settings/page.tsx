@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Box, Flex, VStack, HStack, Heading, Text } from "@/ds/core";
 import { Button } from "@/ds/primitives/Button";
 import { Input } from "@/ds/primitives/Input";
+import { Label } from "@/ds/primitives/Label";
 import { Switch } from "@/ds/primitives/Switch";
 import { Divider } from "@/ds/primitives/Divider";
 import { Card } from "@/ds/composites/Card";
@@ -44,8 +45,14 @@ export default function SettingsTemplate() {
           <Card.Body>
             <VStack gap={5}>
               <Heading level={3}>프로필 정보</Heading>
-              <Input label="이름" value={name} onChange={(e) => setName(e.target.value)} />
-              <Input label="자기소개" value={bio} onChange={(e) => setBio(e.target.value)} />
+              <Box>
+                <Label className="mb-1.5 block text-xs">이름</Label>
+                <Input value={name} onChange={(e) => setName(e.target.value)} />
+              </Box>
+              <Box>
+                <Label className="mb-1.5 block text-xs">자기소개</Label>
+                <Input value={bio} onChange={(e) => setBio(e.target.value)} />
+              </Box>
               <Divider />
               <Heading level={3}>환경 설정</Heading>
               <Select
@@ -130,9 +137,18 @@ export default function SettingsTemplate() {
           <Card.Body>
             <VStack gap={5}>
               <Heading level={3}>비밀번호</Heading>
-              <Input label="현재 비밀번호" type="password" placeholder="현재 비밀번호" value="" onChange={() => {}} />
-              <Input label="새 비밀번호" type="password" placeholder="새 비밀번호" value="" onChange={() => {}} />
-              <Input label="비밀번호 확인" type="password" placeholder="비밀번호 확인" value="" onChange={() => {}} />
+              <Box>
+                <Label className="mb-1.5 block text-xs">현재 비밀번호</Label>
+                <Input type="password" placeholder="현재 비밀번호" value="" onChange={() => {}} />
+              </Box>
+              <Box>
+                <Label className="mb-1.5 block text-xs">새 비밀번호</Label>
+                <Input type="password" placeholder="새 비밀번호" value="" onChange={() => {}} />
+              </Box>
+              <Box>
+                <Label className="mb-1.5 block text-xs">비밀번호 확인</Label>
+                <Input type="password" placeholder="비밀번호 확인" value="" onChange={() => {}} />
+              </Box>
               <Divider />
               <Heading level={3}>보안 옵션</Heading>
               <HStack align="center" justify="between" className="py-2">

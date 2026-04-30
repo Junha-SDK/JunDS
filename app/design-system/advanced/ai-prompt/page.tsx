@@ -92,12 +92,14 @@ ${snippetLines}
 
       {/* Project description */}
       <div className="mb-4">
-        <label className="text-sm font-medium text-foreground block mb-1.5">프로젝트 설명</label>
-        <input
-          value={projectDesc}
-          onChange={(e) => setProjectDesc(e.target.value)}
-          className="w-full max-w-md h-9 px-3 text-sm border border-border rounded-lg bg-white focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]"
-        />
+        <label className="text-sm font-medium text-foreground block mb-1.5">
+          프로젝트 설명
+          <input
+            value={projectDesc}
+            onChange={(e) => setProjectDesc(e.target.value)}
+            className="mt-1.5 w-full max-w-md h-9 px-3 text-sm border border-border rounded-lg bg-white focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]"
+          />
+        </label>
       </div>
 
       {/* Component selector */}

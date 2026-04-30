@@ -71,6 +71,14 @@ export default function DesignSystemPage() {
               </Button>
             </Link>
           </HStack>
+
+          <Box mt={5}>
+            <Link href="#ai-mcp" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/15 hover:bg-primary/10 hover:border-primary/30 transition-colors text-xs font-medium text-primary">
+              <Box as="span" className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span>AI 모드 — Cursor / Claude Code에서 MCP로 사용하기</span>
+              <span aria-hidden>→</span>
+            </Link>
+          </Box>
         </Box>
       </Box>
 
@@ -195,6 +203,93 @@ export default function DesignSystemPage() {
         </SimpleGrid>
       </Box>
 
+      {/* ═══ AI Mode (MCP) ═══ */}
+      <Box as="section" mb={16} id="ai-mcp" className="scroll-mt-8">
+        <Flex align="center" justify="center" gap={2} mb={2}>
+          <Badge variant="primary" size="sm">NEW</Badge>
+          <Text as="span" fontSize="xs" fontWeight="bold" dimmed mb={0} className="uppercase tracking-widest">AI 모드 · MCP</Text>
+        </Flex>
+        <Heading level={2} textAlign="center" mb={2} className="text-2xl md:text-3xl tracking-tight">
+          <Box as="span" className="gradient-text">Cursor · Claude Code로 컴포넌트 조립</Box>
+        </Heading>
+        <Text fontSize="sm" dimmed textAlign="center" mb={8} className="max-w-2xl mx-auto">
+          저장소를 AI 에디터로 열면 14개 MCP 도구가 자동 연결됩니다. AI가 prop 시그니처와 import 경로를 직접 조회해 hallucination 없이 코드를 만듭니다.
+        </Text>
+
+        <SimpleGrid cols={{ base: 1, md: 2 }} gap={4} className="mb-4">
+          <Box radius="2xl" border overflow="hidden" className="bg-white">
+            <HStack gap={2} className="px-4 py-2.5 bg-gray-50 border-b border-border">
+              <Box as="span" className="w-3 h-3 rounded-full bg-danger/60" />
+              <Box as="span" className="w-3 h-3 rounded-full bg-warning/60" />
+              <Box as="span" className="w-3 h-3 rounded-full bg-success/60" />
+              <Text as="span" fontSize="xs" dimmed mb={0} className="font-mono ml-2" style={{ fontSize: "10px" }}>.mcp.json — 이미 포함됨</Text>
+            </HStack>
+            <pre className="p-5 text-sm font-mono text-gray-300 bg-gray-950 overflow-x-auto leading-relaxed">
+{`{
+  "mcpServers": {
+    "junds": {
+      "command": "node",
+      "args": ["mcp/server.mjs"]
+    }
+  }
+}`}
+            </pre>
+          </Box>
+
+          <Box radius="2xl" border overflow="hidden" className="bg-white">
+            <HStack gap={2} className="px-4 py-2.5 bg-gray-50 border-b border-border">
+              <Box as="span" className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <Text as="span" fontSize="xs" dimmed mb={0} className="font-mono ml-1" style={{ fontSize: "10px" }}>AI 에디터 대화</Text>
+            </HStack>
+            <Box p={5} className="bg-gray-950 text-sm font-mono leading-relaxed">
+              <Box className="text-emerald-300 mb-3">{"\u2192 \"결제 카드 + 액션 버튼 + 상태 뱃지로 화면 만들어줘\""}</Box>
+              <Box className="text-gray-500 text-xs mb-1">{"// AI가 호출:"}</Box>
+              <Box className="text-amber-300 text-xs mb-0.5">locate(&quot;결제 카드&quot;)</Box>
+              <Box className="text-amber-300 text-xs mb-0.5">get_component_props(&quot;Card&quot;)</Box>
+              <Box className="text-amber-300 text-xs mb-3">read_recipe(&quot;modal-form&quot;)</Box>
+              <Box className="text-gray-500 text-xs mb-1">{"// 결과:"}</Box>
+              <Box className="text-sky-400 text-xs">{"import { Card } from \"@junds/ui\""}</Box>
+              <Box className="text-sky-400 text-xs">{"import { Button, Badge } from \"@junds/ui\""}</Box>
+              <Box className="text-gray-400 text-xs mt-1">{"<Card hoverable> ..."}</Box>
+            </Box>
+          </Box>
+        </SimpleGrid>
+
+        <Box radius="2xl" border p={5} className="bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
+          <Text as="p" fontSize="xs" fontWeight="bold" mb={3} className="uppercase tracking-widest" dimmed>14개 MCP 도구</Text>
+          <Flex wrap="wrap" gap={1.5}>
+            {[
+              { name: "locate", desc: "자연어 검색" },
+              { name: "get_component_props", desc: "Prop 시그니처" },
+              { name: "list_recipes", desc: "조합 템플릿" },
+              { name: "read_recipe", desc: "템플릿 읽기" },
+              { name: "list_requirements", desc: "기능 스펙" },
+              { name: "read_requirement", desc: "스펙 읽기" },
+              { name: "list_hooks", desc: "훅 인벤토리" },
+              { name: "scaffold", desc: "자동 생성" },
+              { name: "get_a11y", desc: "접근성 보고서" },
+              { name: "get_bundle_info", desc: "번들 사이즈" },
+              { name: "get_deps_for", desc: "의존성 그래프" },
+              { name: "get_screenshot_info", desc: "스크린샷" },
+              { name: "extract_props", desc: "Props 재추출" },
+              { name: "map_refresh", desc: "MAP 재생성" },
+            ].map((t) => (
+              <Box
+                key={t.name}
+                as="span"
+                title={t.desc}
+                className="text-[11px] font-mono px-2 py-1 rounded-md bg-white border border-border text-foreground hover:border-primary/40 transition-colors cursor-default"
+              >
+                {t.name}
+              </Box>
+            ))}
+          </Flex>
+          <Text fontSize="xs" dimmed mt={4} mb={0}>
+            전체 입출력 스키마는 <Box as="code" className="px-1.5 py-0.5 rounded bg-white border border-border text-[11px] font-mono">mcp/README.md</Box> · 에이전트 온보딩은 <Box as="code" className="px-1.5 py-0.5 rounded bg-white border border-border text-[11px] font-mono">AGENTS.md</Box>
+          </Text>
+        </Box>
+      </Box>
+
       {/* ═══ Quick Start ═══ */}
       <Box as="section" mb={16} id="quick-start" className="scroll-mt-8">
         <Heading level={2} textAlign="center" mb={2} className="text-2xl md:text-3xl tracking-tight">
@@ -224,13 +319,13 @@ export default function DesignSystemPage() {
               <Text as="span" fontSize="xs" dimmed mb={0} className="font-mono ml-2" style={{ fontSize: "10px" }}>App.tsx</Text>
             </HStack>
             <pre className="p-5 text-sm font-mono text-gray-300 bg-gray-950 overflow-x-auto leading-relaxed">
-<span className="text-sky-400">import</span> {"{"} <span className="text-amber-300">Button</span> {"}"} <span className="text-sky-400">from</span> <span className="text-emerald-400">"@junds/ui"</span>{"\n"}
-<span className="text-sky-400">import</span> {"{"} <span className="text-amber-300">Page</span>, <span className="text-amber-300">Heading</span> {"}"} <span className="text-sky-400">from</span> <span className="text-emerald-400">"@junds/ui/core"</span>{"\n\n"}
+<span className="text-sky-400">import</span> {"{"} <span className="text-amber-300">Button</span> {"}"} <span className="text-sky-400">from</span> <span className="text-emerald-400">{"\"@junds/ui\""}</span>{"\n"}
+<span className="text-sky-400">import</span> {"{"} <span className="text-amber-300">Page</span>, <span className="text-amber-300">Heading</span> {"}"} <span className="text-sky-400">from</span> <span className="text-emerald-400">{"\"@junds/ui/core\""}</span>{"\n\n"}
 <span className="text-sky-400">export default function</span> <span className="text-amber-300">App</span>() {"{"}{"\n"}
 {"  "}<span className="text-sky-400">return</span> ({"\n"}
-{"    "}<span className="text-gray-500">{"<"}</span><span className="text-rose-400">Page</span> maxWidth=<span className="text-emerald-400">"lg"</span><span className="text-gray-500">{">"}</span>{"\n"}
+{"    "}<span className="text-gray-500">{"<"}</span><span className="text-rose-400">Page</span> maxWidth=<span className="text-emerald-400">{"\"lg\""}</span><span className="text-gray-500">{">"}</span>{"\n"}
 {"      "}<span className="text-gray-500">{"<"}</span><span className="text-rose-400">Heading</span> level={"{"}1{"}"}<span className="text-gray-500">{">"}</span>Hello JunDS<span className="text-gray-500">{"</"}</span><span className="text-rose-400">Heading</span><span className="text-gray-500">{">"}</span>{"\n"}
-{"      "}<span className="text-gray-500">{"<"}</span><span className="text-rose-400">Button</span> variant=<span className="text-emerald-400">"primary"</span><span className="text-gray-500">{">"}</span>{"\n"}
+{"      "}<span className="text-gray-500">{"<"}</span><span className="text-rose-400">Button</span> variant=<span className="text-emerald-400">{"\"primary\""}</span><span className="text-gray-500">{">"}</span>{"\n"}
 {"        "}시작하기{"\n"}
 {"      "}<span className="text-gray-500">{"</"}</span><span className="text-rose-400">Button</span><span className="text-gray-500">{">"}</span>{"\n"}
 {"    "}<span className="text-gray-500">{"</"}</span><span className="text-rose-400">Page</span><span className="text-gray-500">{">"}</span>{"\n"}

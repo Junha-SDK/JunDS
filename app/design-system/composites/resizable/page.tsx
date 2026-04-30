@@ -66,7 +66,7 @@ export default function ResizablePage() {
               ))}
             </div>
             <div className="h-64 p-4 bg-gray-950 text-gray-300 font-mono text-xs overflow-auto">
-              <p className="text-gray-500">// Button.tsx</p>
+              <p className="text-gray-500">{"// Button.tsx"}</p>
               <p><span className="text-purple-400">export function</span> <span className="text-yellow-300">Button</span>() {"{"}</p>
               <p>  <span className="text-purple-400">return</span> {"<"}button{">"}Click{"<"}/button{">"}</p>
               <p>{"}"}</p>

@@ -59,7 +59,7 @@ function ColorInput({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <label className="relative w-7 h-7 rounded-lg border border-border overflow-hidden cursor-pointer shrink-0">
+      <label className="relative w-7 h-7 rounded-lg border border-border overflow-hidden cursor-pointer shrink-0" aria-label="색상 선택">
         <input
           type="color"
           value={value || "#000000"}

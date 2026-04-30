@@ -135,12 +135,14 @@ export function PropsPlayground({ componentName, controls, renderPreview, import
         {/* Children text input */}
         {controls.find(c => c.name === "children") && (
           <div className="mt-3">
-            <label className="block text-[10px] font-bold text-muted uppercase tracking-wider mb-1.5">Children (텍스트)</label>
-            <input
-              value={String(values.children ?? "")}
-              onChange={(e) => updateValue("children", e.target.value)}
-              className="w-full h-7 px-2 text-xs border border-border rounded-md outline-none focus:border-primary bg-white"
-            />
+            <label className="block text-[10px] font-bold text-muted uppercase tracking-wider mb-1.5">
+              Children (텍스트)
+              <input
+                value={String(values.children ?? "")}
+                onChange={(e) => updateValue("children", e.target.value)}
+                className="mt-1.5 w-full h-7 px-2 text-xs border border-border rounded-md outline-none focus:border-primary bg-white"
+              />
+            </label>
           </div>
         )}
       </div>

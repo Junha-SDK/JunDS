@@ -17,8 +17,14 @@ export function DsSidebar() {
   const openPalette = useCallback(() => setPaletteOpen(true), []);
   const closePalette = useCallback(() => setPaletteOpen(false), []);
 
-  // Cmd+K to open palette
-  useKeyboard({ key: "k", meta: true }, openPalette);
+  // Cmd+K (mac) / Ctrl+K (windows/linux) to open palette
+  useKeyboard(
+    [
+      { key: "k", meta: true },
+      { key: "k", ctrl: true },
+    ],
+    openPalette,
+  );
 
   return (
     <>

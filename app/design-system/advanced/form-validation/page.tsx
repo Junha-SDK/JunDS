@@ -117,10 +117,11 @@ export default function FormValidationPage() {
           ) : (
             <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label htmlFor="form-validation-name" className="block text-sm font-medium text-foreground mb-1">
                   이름 <span className="text-danger">*</span>
                 </label>
                 <Input
+                  id="form-validation-name"
                   value={values.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                   onBlur={() => handleBlur("name")}
@@ -133,10 +134,11 @@ export default function FormValidationPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label htmlFor="form-validation-email" className="block text-sm font-medium text-foreground mb-1">
                   이메일 <span className="text-danger">*</span>
                 </label>
                 <Input
+                  id="form-validation-email"
                   type="email"
                   value={values.email}
                   onChange={(e) => handleChange("email", e.target.value)}
@@ -150,10 +152,11 @@ export default function FormValidationPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label htmlFor="form-validation-password" className="block text-sm font-medium text-foreground mb-1">
                   비밀번호 <span className="text-danger">*</span>
                 </label>
                 <Input
+                  id="form-validation-password"
                   type="password"
                   value={values.password}
                   onChange={(e) => handleChange("password", e.target.value)}
@@ -167,10 +170,11 @@ export default function FormValidationPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label htmlFor="form-validation-confirm-password" className="block text-sm font-medium text-foreground mb-1">
                   비밀번호 확인 <span className="text-danger">*</span>
                 </label>
                 <Input
+                  id="form-validation-confirm-password"
                   type="password"
                   value={values.confirmPassword}
                   onChange={(e) => handleChange("confirmPassword", e.target.value)}
@@ -184,10 +188,11 @@ export default function FormValidationPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
+                <label htmlFor="form-validation-phone" className="block text-sm font-medium text-foreground mb-1">
                   전화번호 <span className="text-danger">*</span>
                 </label>
                 <Input
+                  id="form-validation-phone"
                   type="tel"
                   value={values.phone}
                   onChange={(e) => handleChange("phone", e.target.value)}

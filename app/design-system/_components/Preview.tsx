@@ -19,6 +19,7 @@ export function Preview({
       transition
       p={padding ? 6 : undefined}
       className={className}
+      data-preview=""
     >
       {children}
     </Box>
