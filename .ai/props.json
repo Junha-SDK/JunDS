@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-30T01:09:22.155Z",
+  "generatedAt": "2026-04-30T01:09:29.518Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -7666,67 +7666,6 @@
       ]
     },
     {
-      "name": "AuthLayout",
-      "kind": "pattern",
-      "file": "ds/patterns/AuthLayout/AuthLayout.tsx",
-      "interface": "AuthLayoutProps",
-      "status": "stable",
-      "since": "2.3.0",
-      "tags": [
-        "layout"
-      ],
-      "props": [
-        {
-          "name": "variant",
-          "type": "AuthVariant",
-          "optional": true,
-          "description": "레이아웃 변형"
-        },
-        {
-          "name": "brandSide",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "좌측 브랜드 영역 (split / branded 전용)"
-        },
-        {
-          "name": "logo",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "상단 로고"
-        },
-        {
-          "name": "title",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "카드 제목"
-        },
-        {
-          "name": "subtitle",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "카드 부제"
-        },
-        {
-          "name": "children",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "폼 컨텐츠 (자식 placement)"
-        },
-        {
-          "name": "footer",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "카드 하단 푸터 (예: \"계정이 없으신가요?\")"
-        },
-        {
-          "name": "pageFooter",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "페이지 푸터 (저작권 등)"
-        }
-      ]
-    },
-    {
       "name": "Calendar",
       "kind": "pattern",
       "file": "ds/patterns/Calendar/Calendar.tsx",
@@ -8922,61 +8861,6 @@
       ]
     },
     {
-      "name": "PricingPage",
-      "kind": "pattern",
-      "file": "ds/patterns/PricingPage/PricingPage.tsx",
-      "interface": "PricingPageProps",
-      "status": "stable",
-      "since": "2.3.0",
-      "tags": [
-        "marketing"
-      ],
-      "props": [
-        {
-          "name": "title",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "페이지 제목"
-        },
-        {
-          "name": "description",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "페이지 설명"
-        },
-        {
-          "name": "monthlyPlans",
-          "type": "Array<PricingPlan>",
-          "optional": false,
-          "description": "월간 플랜"
-        },
-        {
-          "name": "yearlyPlans",
-          "type": "Array<PricingPlan>",
-          "optional": true,
-          "description": "연간 플랜 (있으면 토글 노출)"
-        },
-        {
-          "name": "toggleLabels",
-          "type": "{ monthly?: string; yearly?: string; saveLabel?: string; }",
-          "optional": true,
-          "description": "토글 라벨"
-        },
-        {
-          "name": "faqs",
-          "type": "Array<PricingFAQ>",
-          "optional": true,
-          "description": "FAQ 리스트"
-        },
-        {
-          "name": "footerCta",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "하단 CTA 영역"
-        }
-      ]
-    },
-    {
       "name": "RichTextEditor",
       "kind": "pattern",
       "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx",
@@ -9054,55 +8938,6 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
-        }
-      ]
-    },
-    {
-      "name": "SettingsLayout",
-      "kind": "pattern",
-      "file": "ds/patterns/SettingsLayout/SettingsLayout.tsx",
-      "interface": "SettingsLayoutProps",
-      "status": "stable",
-      "since": "2.3.0",
-      "tags": [
-        "layout"
-      ],
-      "props": [
-        {
-          "name": "sections",
-          "type": "Array<SettingsSection>",
-          "optional": false,
-          "description": "섹션 목록"
-        },
-        {
-          "name": "activeId",
-          "type": "string",
-          "optional": true,
-          "description": "현재 활성 섹션 ID (controlled)"
-        },
-        {
-          "name": "defaultActiveId",
-          "type": "string",
-          "optional": true,
-          "description": "기본 활성 ID"
-        },
-        {
-          "name": "onChange",
-          "type": "(id: string) => void",
-          "optional": true,
-          "description": "변경 콜백"
-        },
-        {
-          "name": "title",
-          "type": "ReactNode",
-          "optional": true,
-          "description": "페이지 제목"
-        },
-        {
-          "name": "sidebarWidth",
-          "type": "number",
-          "optional": true,
-          "description": "사이드바 폭"
         }
       ]
     },
