@@ -10,7 +10,7 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-04-30T01:03:24.587Z
+Generated: 2026-04-30T01:04:03.926Z
 
 ---
 
@@ -114,7 +114,7 @@ _77 files_
 
 ## Composites  (`ds/composites/`)
 
-_227 files_
+_237 files_
 
 - `ds/composites/Accordion/Accordion.stories.tsx`
 - `ds/composites/Accordion/Accordion.tsx`
@@ -130,6 +130,7 @@ _227 files_
 - `ds/composites/AlertDialog/AlertDialog.tsx`
 - `ds/composites/AnimatedCounter/AnimatedCounter.stories.tsx`
 - `ds/composites/AnimatedCounter/AnimatedCounter.tsx`
+- `ds/composites/AnnouncementBar/AnnouncementBar.tsx`
 - `ds/composites/AudioPlayer/AudioPlayer.stories.tsx`
 - `ds/composites/AudioPlayer/AudioPlayer.tsx`
 - `ds/composites/AutoComplete/AutoComplete.stories.tsx`
@@ -160,6 +161,7 @@ _227 files_
 - `ds/composites/Carousel/Carousel.tsx`
 - `ds/composites/ChatBubble/ChatBubble.stories.tsx`
 - `ds/composites/ChatBubble/ChatBubble.tsx`
+- `ds/composites/Clock/Clock.tsx`
 - `ds/composites/CodeEditor/CodeEditor.stories.tsx`
 - `ds/composites/CodeEditor/CodeEditor.tsx`
 - `ds/composites/Collapsible/Collapsible.stories.tsx`
@@ -184,8 +186,10 @@ _227 files_
 - `ds/composites/ConfirmDialog/ConfirmDialog.tsx`
 - `ds/composites/ContextMenu/ContextMenu.stories.tsx`
 - `ds/composites/ContextMenu/ContextMenu.tsx`
+- `ds/composites/CookieConsent/CookieConsent.tsx`
 - `ds/composites/CopyBlock/CopyBlock.stories.tsx`
 - `ds/composites/CopyBlock/CopyBlock.tsx`
+- `ds/composites/Countdown/Countdown.tsx`
 - `ds/composites/CronExpression/CronExpression.stories.tsx`
 - `ds/composites/CronExpression/CronExpression.tsx`
 - `ds/composites/DataGrid/DataGrid.stories.tsx`
@@ -255,6 +259,7 @@ _227 files_
 - `ds/composites/MiniChart/MiniChart.tsx`
 - `ds/composites/Modal/Modal.stories.tsx`
 - `ds/composites/Modal/Modal.tsx`
+- `ds/composites/MonthPicker/MonthPicker.tsx`
 - `ds/composites/MultiSelect/MultiSelect.stories.tsx`
 - `ds/composites/MultiSelect/MultiSelect.tsx`
 - `ds/composites/NavigationMenu/NavigationMenu.stories.tsx`
@@ -263,10 +268,12 @@ _227 files_
 - `ds/composites/Notification/Notification.tsx`
 - `ds/composites/Onboarding/Onboarding.stories.tsx`
 - `ds/composites/Onboarding/Onboarding.tsx`
+- `ds/composites/PageHeader/PageHeader.tsx`
 - `ds/composites/Pagination/Pagination.stories.tsx`
 - `ds/composites/Pagination/Pagination.tsx`
 - `ds/composites/Popover/Popover.stories.tsx`
 - `ds/composites/Popover/Popover.tsx`
+- `ds/composites/PricingTable/PricingTable.tsx`
 - `ds/composites/Progress/Progress.stories.tsx`
 - `ds/composites/Progress/Progress.tsx`
 - `ds/composites/ProgressRing/ProgressRing.stories.tsx`
@@ -296,6 +303,7 @@ _227 files_
 - `ds/composites/Skeleton/Skeleton.stories.tsx`
 - `ds/composites/Skeleton/Skeleton.tsx`
 - `ds/composites/SkeletonPreset/SkeletonPreset.tsx`
+- `ds/composites/Snackbar/Snackbar.tsx`
 - `ds/composites/SplitPane/SplitPane.stories.tsx`
 - `ds/composites/SplitPane/SplitPane.tsx`
 - `ds/composites/SpoilerBlock/SpoilerBlock.stories.tsx`
@@ -318,6 +326,7 @@ _227 files_
 - `ds/composites/Tabs/Tabs.tsx`
 - `ds/composites/TagInput/TagInput.stories.tsx`
 - `ds/composites/TagInput/TagInput.tsx`
+- `ds/composites/ThinkingIndicator/ThinkingIndicator.tsx`
 - `ds/composites/Timeline/Timeline.stories.tsx`
 - `ds/composites/Timeline/Timeline.tsx`
 - `ds/composites/TimePicker/TimePicker.stories.tsx`
@@ -343,6 +352,7 @@ _227 files_
 - `ds/composites/VirtualScroll/VirtualScroll.tsx`
 - `ds/composites/Watermark/Watermark.stories.tsx`
 - `ds/composites/Watermark/Watermark.tsx`
+- `ds/composites/YearPicker/YearPicker.tsx`
 
 ## Patterns  (`ds/patterns/`)
 
@@ -490,7 +500,7 @@ _29 files_
 
 ## Showcase routes  (`app/**/page.tsx`)
 
-_219 files_
+_229 files_
 
 - `app/design-system/advanced/ai-prompt/page.tsx`
 - `app/design-system/advanced/changelog/page.tsx`
@@ -506,6 +516,7 @@ _219 files_
 - `app/design-system/composites/alert-dialog/page.tsx`
 - `app/design-system/composites/alert/page.tsx`
 - `app/design-system/composites/animated-counter/page.tsx`
+- `app/design-system/composites/announcement-bar/page.tsx`
 - `app/design-system/composites/audio-player/page.tsx`
 - `app/design-system/composites/auto-complete/page.tsx`
 - `app/design-system/composites/auto-hide-header/page.tsx`
@@ -521,6 +532,7 @@ _219 files_
 - `app/design-system/composites/card/page.tsx`
 - `app/design-system/composites/carousel/page.tsx`
 - `app/design-system/composites/chat-bubble/page.tsx`
+- `app/design-system/composites/clock/page.tsx`
 - `app/design-system/composites/code-editor/page.tsx`
 - `app/design-system/composites/collapsible/page.tsx`
 - `app/design-system/composites/collection-view/page.tsx`
@@ -533,7 +545,9 @@ _219 files_
 - `app/design-system/composites/confetti/page.tsx`
 - `app/design-system/composites/confirm-dialog/page.tsx`
 - `app/design-system/composites/context-menu/page.tsx`
+- `app/design-system/composites/cookie-consent/page.tsx`
 - `app/design-system/composites/copy-block/page.tsx`
+- `app/design-system/composites/countdown/page.tsx`
 - `app/design-system/composites/cron-expression/page.tsx`
 - `app/design-system/composites/data-grid/page.tsx`
 - `app/design-system/composites/date-input/page.tsx`
@@ -570,12 +584,15 @@ _219 files_
 - `app/design-system/composites/metric-card/page.tsx`
 - `app/design-system/composites/mini-chart/page.tsx`
 - `app/design-system/composites/modal/page.tsx`
+- `app/design-system/composites/month-picker/page.tsx`
 - `app/design-system/composites/multi-select/page.tsx`
 - `app/design-system/composites/navigation-menu/page.tsx`
 - `app/design-system/composites/notification/page.tsx`
 - `app/design-system/composites/onboarding/page.tsx`
+- `app/design-system/composites/page-header/page.tsx`
 - `app/design-system/composites/pagination/page.tsx`
 - `app/design-system/composites/popover/page.tsx`
+- `app/design-system/composites/pricing-table/page.tsx`
 - `app/design-system/composites/progress-ring/page.tsx`
 - `app/design-system/composites/progress/page.tsx`
 - `app/design-system/composites/pull-to-refresh/page.tsx`
@@ -592,6 +609,7 @@ _219 files_
 - `app/design-system/composites/signature-pad/page.tsx`
 - `app/design-system/composites/skeleton-preset/page.tsx`
 - `app/design-system/composites/skeleton/page.tsx`
+- `app/design-system/composites/snackbar/page.tsx`
 - `app/design-system/composites/split-pane/page.tsx`
 - `app/design-system/composites/spoiler-block/page.tsx`
 - `app/design-system/composites/spotlight-card/page.tsx`
@@ -603,6 +621,7 @@ _219 files_
 - `app/design-system/composites/table/page.tsx`
 - `app/design-system/composites/tabs/page.tsx`
 - `app/design-system/composites/tag-input/page.tsx`
+- `app/design-system/composites/thinking-indicator/page.tsx`
 - `app/design-system/composites/time-picker/page.tsx`
 - `app/design-system/composites/timeline/page.tsx`
 - `app/design-system/composites/toast/page.tsx`
@@ -615,6 +634,7 @@ _219 files_
 - `app/design-system/composites/video-player/page.tsx`
 - `app/design-system/composites/virtual-scroll/page.tsx`
 - `app/design-system/composites/watermark/page.tsx`
+- `app/design-system/composites/year-picker/page.tsx`
 - `app/design-system/framework/box/page.tsx`
 - `app/design-system/framework/center/page.tsx`
 - `app/design-system/framework/flex/page.tsx`
@@ -723,7 +743,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_210 files_
+_225 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -740,6 +760,7 @@ _210 files_
 - `ds/__tests__/composites/AlertDialog.a11y.test.tsx`
 - `ds/__tests__/composites/AlertDialog.test.tsx`
 - `ds/__tests__/composites/AnimatedCounter.test.tsx`
+- `ds/__tests__/composites/AnnouncementBar.test.tsx`
 - `ds/__tests__/composites/AudioPlayer.test.tsx`
 - `ds/__tests__/composites/AutoComplete.a11y.test.tsx`
 - `ds/__tests__/composites/AutoComplete.test.tsx`
@@ -757,6 +778,7 @@ _210 files_
 - `ds/__tests__/composites/Card.test.tsx`
 - `ds/__tests__/composites/Carousel.test.tsx`
 - `ds/__tests__/composites/ChatBubble.test.tsx`
+- `ds/__tests__/composites/Clock.test.tsx`
 - `ds/__tests__/composites/CodeEditor.test.tsx`
 - `ds/__tests__/composites/Collapsible.test.tsx`
 - `ds/__tests__/composites/CollectionView.test.tsx`
@@ -770,7 +792,9 @@ _210 files_
 - `ds/__tests__/composites/Confetti.test.tsx`
 - `ds/__tests__/composites/ConfirmDialog.test.tsx`
 - `ds/__tests__/composites/ContextMenu.test.tsx`
+- `ds/__tests__/composites/CookieConsent.test.tsx`
 - `ds/__tests__/composites/CopyBlock.test.tsx`
+- `ds/__tests__/composites/Countdown.test.tsx`
 - `ds/__tests__/composites/CronExpression.test.tsx`
 - `ds/__tests__/composites/DataGrid.test.tsx`
 - `ds/__tests__/composites/DateInput.test.tsx`
@@ -809,12 +833,15 @@ _210 files_
 - `ds/__tests__/composites/MiniChart.test.tsx`
 - `ds/__tests__/composites/Modal.a11y.test.tsx`
 - `ds/__tests__/composites/Modal.test.tsx`
+- `ds/__tests__/composites/MonthPicker.test.tsx`
 - `ds/__tests__/composites/MultiSelect.test.tsx`
 - `ds/__tests__/composites/NavigationMenu.test.tsx`
 - `ds/__tests__/composites/Notification.test.tsx`
 - `ds/__tests__/composites/Onboarding.test.tsx`
+- `ds/__tests__/composites/PageHeader.test.tsx`
 - `ds/__tests__/composites/Pagination.test.tsx`
 - `ds/__tests__/composites/Popover.test.tsx`
+- `ds/__tests__/composites/PricingTable.test.tsx`
 - `ds/__tests__/composites/Progress.test.tsx`
 - `ds/__tests__/composites/ProgressRing.test.tsx`
 - `ds/__tests__/composites/PullToRefresh.test.tsx`
@@ -834,6 +861,7 @@ _210 files_
 - `ds/__tests__/composites/SignaturePad.test.tsx`
 - `ds/__tests__/composites/Skeleton.test.tsx`
 - `ds/__tests__/composites/SkeletonPreset.test.tsx`
+- `ds/__tests__/composites/Snackbar.test.tsx`
 - `ds/__tests__/composites/SplitPane.test.tsx`
 - `ds/__tests__/composites/SpoilerBlock.test.tsx`
 - `ds/__tests__/composites/Spotlight.test.tsx`
@@ -846,6 +874,7 @@ _210 files_
 - `ds/__tests__/composites/Tabs.a11y.test.tsx`
 - `ds/__tests__/composites/Tabs.test.tsx`
 - `ds/__tests__/composites/TagInput.test.tsx`
+- `ds/__tests__/composites/ThinkingIndicator.test.tsx`
 - `ds/__tests__/composites/Timeline.test.tsx`
 - `ds/__tests__/composites/TimePicker.test.tsx`
 - `ds/__tests__/composites/Toast.a11y.test.tsx`
@@ -860,6 +889,12 @@ _210 files_
 - `ds/__tests__/composites/VideoPlayer.test.tsx`
 - `ds/__tests__/composites/VirtualScroll.test.tsx`
 - `ds/__tests__/composites/Watermark.test.tsx`
+- `ds/__tests__/composites/YearPicker.test.tsx`
+- `ds/__tests__/core/Box.test.tsx`
+- `ds/__tests__/core/Flex.test.tsx`
+- `ds/__tests__/core/Heading.test.tsx`
+- `ds/__tests__/core/Page.test.tsx`
+- `ds/__tests__/core/Text.test.tsx`
 - `ds/__tests__/hooks/useClickOutside.test.tsx`
 - `ds/__tests__/hooks/useCopyToClipboard.test.ts`
 - `ds/__tests__/hooks/useDebounce.test.ts`
@@ -938,4 +973,4 @@ _210 files_
 
 ---
 
-**Total indexed files:** 867
+**Total indexed files:** 902

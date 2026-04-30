@@ -201,6 +201,16 @@ export const sections: NavSection[] = [
       { href: "/design-system/composites/typewriter", label: "Typewriter" },
       { href: "/design-system/composites/video-player", label: "VideoPlayer" },
       { href: "/design-system/composites/virtual-scroll", label: "VirtualScroll" },
+      { href: "/design-system/composites/countdown", label: "Countdown" },
+      { href: "/design-system/composites/clock", label: "Clock" },
+      { href: "/design-system/composites/page-header", label: "PageHeader" },
+      { href: "/design-system/composites/announcement-bar", label: "AnnouncementBar" },
+      { href: "/design-system/composites/thinking-indicator", label: "ThinkingIndicator" },
+      { href: "/design-system/composites/pricing-table", label: "PricingTable" },
+      { href: "/design-system/composites/cookie-consent", label: "CookieConsent" },
+      { href: "/design-system/composites/month-picker", label: "MonthPicker" },
+      { href: "/design-system/composites/year-picker", label: "YearPicker" },
+      { href: "/design-system/composites/snackbar", label: "Snackbar" },
     ],
   },
   {
@@ -488,6 +498,16 @@ const koreanKeywords: Record<string, string[]> = {
   Code: ["코드", "인라인", "inline-code"],
   Mark: ["하이라이트", "highlight", "형광펜", "mark"],
   Icon: ["아이콘", "icon", "svg-wrapper"],
+  Countdown: ["카운트다운", "타이머", "countdown"],
+  Clock: ["시계", "clock", "시간"],
+  PageHeader: ["페이지헤더", "page-header", "타이틀"],
+  AnnouncementBar: ["공지바", "announcement", "상단바"],
+  ThinkingIndicator: ["AI생각", "thinking", "로딩", "점점점"],
+  PricingTable: ["요금제", "pricing", "가격표"],
+  CookieConsent: ["쿠키동의", "cookie", "consent", "GDPR"],
+  MonthPicker: ["월선택", "month-picker"],
+  YearPicker: ["연도선택", "year-picker"],
+  Snackbar: ["스낵바", "snackbar", "짧은알림"],
 };
 
 export interface SearchEntry {
