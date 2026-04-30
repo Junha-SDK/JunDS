@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": "tsconfig.test.tsbuildinfo",
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
+  },
+  "include": [
+    "ds/**/*.ts",
+    "ds/**/*.tsx",
+    "vitest.config.ts"
+  ],
+  "exclude": ["node_modules", "**/*.stories.tsx"]
+}

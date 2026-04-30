@@ -44,3 +44,12 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /e2e/.auth/
+
+# Storybook
+/storybook-static/
+
+# AI agent visual regression PNGs (manifest is committed, PNGs are not)
+/.ai/screenshots/
+
+# Library bundle output
+/dist/

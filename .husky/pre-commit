@@ -1,0 +1,12 @@
+# Auto-refresh .ai/MAP.md and .ai/props.json when component/page/requirement
+# structure changes. Both outputs are committed artifacts that AI agents read;
+# keeping them in sync with the working tree avoids stale context.
+
+structural_changed=$(git diff --cached --name-only --diff-filter=ACDR | grep -E '^(ds/(primitives|composites|patterns|layout|hooks|tokens|providers|core|auth|utils)/|app/design-system/.+/page\.tsx$|requirements/.+\.md$)' || true)
+
+if [ -n "$structural_changed" ]; then
+  echo "[pre-commit] structural change detected — regenerating .ai/MAP.md and .ai/props.json"
+  npm run --silent map
+  npm run --silent extract-props
+  git add .ai/MAP.md .ai/props.json
+fi

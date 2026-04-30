@@ -53,6 +53,11 @@ jobs:
   typecheck:
     needs: install
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [lib, app, test]
+    name: typecheck (${{ matrix.project }})
     steps:
       - uses: actions/checkout@v4
 
@@ -66,8 +71,8 @@ jobs:
           path: node_modules
           key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
 
-      - name: Run type check
-        run: npx tsc --noEmit
+      - name: Run type check (${{ matrix.project }})
+        run: npm run typecheck:${{ matrix.project }}
 
   test:
     needs: install
@@ -141,5 +146,64 @@ jobs:
           path: node_modules
           key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
 
-      - name: Run accessibility tests
+      - name: Run accessibility tests (in-suite)
         run: npx vitest run --grep "a11y"
+
+      - name: Run consolidated a11y audit
+        run: npm run audit:a11y
+
+  validate-requirements:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
+      - name: Validate requirements/*.md
+        run: npm run validate:requirements
+
+  type-contracts:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
+      - name: Run prop signature contract tests
+        run: npm run test:types
+
+  ai-artifacts-fresh:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
+      - name: Regenerate .ai/MAP.md and .ai/props.json
+        run: npm run map && npm run extract-props
+      - name: Verify artifacts unchanged
+        run: |
+          if ! git diff --quiet .ai/MAP.md .ai/props.json; then
+            echo "✗ .ai/MAP.md or .ai/props.json is stale. Run 'npm run map && npm run extract-props' and commit." >&2
+            git --no-pager diff .ai/MAP.md .ai/props.json | head -120
+            exit 1
+          fi
+          echo "✓ .ai artifacts in sync with source"

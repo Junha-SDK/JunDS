@@ -59,11 +59,23 @@ const terserOptions = {
   },
 };
 
+// "use client" directives are intentionally hoisted to the bundle banner,
+// so silence rollup's per-file MODULE_LEVEL_DIRECTIVE warnings.
+const onwarn = (warning, warn) => {
+  if (warning.code === "MODULE_LEVEL_DIRECTIVE") return;
+  if (
+    warning.code === "SOURCEMAP_ERROR" &&
+    /Can't resolve original location/.test(warning.message ?? "")
+  ) return;
+  warn(warning);
+};
+
 /** @type {import('rollup').RollupOptions[]} */
-export default [
+const config = [
   // ESM build
   {
     input: "ds/index.ts",
+    onwarn,
     output: {
       file: "dist/index.mjs",
       format: "esm",
@@ -93,6 +105,7 @@ export default [
   // CJS build
   {
     input: "ds/index.ts",
+    onwarn,
     output: {
       file: "dist/index.cjs",
       format: "cjs",
@@ -120,6 +133,7 @@ export default [
   // Type declarations
   {
     input: "ds/index.ts",
+    onwarn,
     output: {
       file: "dist/index.d.ts",
       format: "esm",
@@ -132,3 +146,5 @@ export default [
     ],
   },
 ];
+
+export default config;
