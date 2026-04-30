@@ -10,7 +10,7 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-04-30T01:09:19.882Z
+Generated: 2026-04-30T01:10:10.221Z
 
 ---
 
@@ -420,7 +420,7 @@ _11 files_
 
 ## Hooks  (`ds/hooks/`)
 
-_29 files_
+_30 files_
 
 - `ds/hooks/useBreakpoint.ts`
 - `ds/hooks/useClickOutside.ts`
@@ -433,6 +433,7 @@ _29 files_
 - `ds/hooks/useEventListener.ts`
 - `ds/hooks/useFocusMode.ts`
 - `ds/hooks/useForm.ts`
+- `ds/hooks/useHotkeys.ts`
 - `ds/hooks/useIdle.ts`
 - `ds/hooks/useIntersectionObserver.ts`
 - `ds/hooks/useInterval.ts`
@@ -989,4 +990,4 @@ _233 files_
 
 ---
 
-**Total indexed files:** 918
+**Total indexed files:** 919

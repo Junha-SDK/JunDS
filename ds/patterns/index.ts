@@ -69,3 +69,15 @@ export type { FormArrayProps } from "./FormArray";
 
 export { Form, useFormContext } from "./Form";
 export type { FormProps } from "./Form";
+
+export { AuthLayout } from "./AuthLayout";
+export type { AuthLayoutProps } from "./AuthLayout";
+
+export { SettingsLayout } from "./SettingsLayout";
+export type { SettingsLayoutProps } from "./SettingsLayout";
+
+export { PricingPage } from "./PricingPage";
+export type { PricingPageProps } from "./PricingPage";
+
+export { GanttChart } from "./GanttChart";
+export type { GanttChartProps } from "./GanttChart";

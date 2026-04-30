@@ -112,6 +112,7 @@ function entryConfigs({ input, esmOut, cjsOut, dtsOut, extractCss = false }) {
         format: "esm",
         sourcemap: false,
         banner: '"use client";',
+        inlineDynamicImports: true,
       },
       external,
       plugins: [
@@ -126,7 +127,12 @@ function entryConfigs({ input, esmOut, cjsOut, dtsOut, extractCss = false }) {
     {
       input,
       onwarn,
-      output: { file: cjsOut, format: "cjs", sourcemap: false },
+      output: {
+        file: cjsOut,
+        format: "cjs",
+        sourcemap: false,
+        inlineDynamicImports: true,
+      },
       external,
       plugins: [
         ...sharedJsPlugins(),
