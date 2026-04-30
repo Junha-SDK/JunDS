@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "@junds/ui/styles.css";
+
+:root {
+  --jds-font-base: 15px;
+}
+
+body {
+  font-size: var(--jds-font-base);
+}

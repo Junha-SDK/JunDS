@@ -1,0 +1,26 @@
+{
+  "name": "create-junds",
+  "version": "0.1.0",
+  "description": "Bootstrap a new Next.js app preconfigured with @junds/ui design system",
+  "bin": {
+    "create-junds": "./bin/index.mjs"
+  },
+  "files": [
+    "bin",
+    "templates",
+    "README.md"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=18.18"
+  },
+  "keywords": [
+    "junds",
+    "design-system",
+    "nextjs",
+    "scaffold",
+    "create",
+    "starter"
+  ],
+  "license": "MIT"
+}
