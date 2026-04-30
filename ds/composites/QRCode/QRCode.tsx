@@ -3,10 +3,15 @@ import { useMemo } from "react";
 import { cn } from "../../utils/cn";
 
 export interface QRCodeProps {
+  /** 인코딩할 값 */
   value: string;
+  /** 코드 크기(px) */
   size?: number;
+  /** 모듈 색상 */
   color?: string;
+  /** 배경 색상 */
   bgColor?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -42,6 +47,14 @@ function generateMatrix(text: string, moduleCount: number = 21): boolean[][] {
   return matrix;
 }
 
+/**
+ * 주어진 값으로 QR 코드를 그립니다.
+ * @example
+ * <QRCode value="https://junds.dev" size={160} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function QRCode({ value, size = 128, color = "#000000", bgColor = "#ffffff", className }: QRCodeProps) {
   const matrix = useMemo(() => generateMatrix(value), [value]);
   const moduleCount = matrix.length;

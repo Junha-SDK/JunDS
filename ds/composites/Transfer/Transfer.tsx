@@ -9,12 +9,19 @@ export interface TransferItem {
 }
 
 export interface TransferProps {
+  /** 출발측 항목 */
   source: TransferItem[];
+  /** 도착측 항목 */
   target: TransferItem[];
+  /** 이동 시 콜백 */
   onChange: (source: TransferItem[], target: TransferItem[]) => void;
+  /** 출발측 제목 */
   sourceTitle?: string;
+  /** 도착측 제목 */
   targetTitle?: string;
+  /** 검색 활성화 */
   searchable?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -29,6 +36,9 @@ export interface TransferProps {
  *   targetTitle="선택됨"
  *   searchable
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function Transfer({
   source,

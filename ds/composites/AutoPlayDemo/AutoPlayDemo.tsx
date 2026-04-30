@@ -11,6 +11,7 @@ export interface AutoPlayDemoProps {
   transition?: "fade" | "slide-up" | "slide-left" | "scale" | "crossfade" | "none";
   /** 전환 지속 시간 (ms) */
   duration?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -28,6 +29,9 @@ export interface AutoPlayDemoProps {
  *   interval={1000}
  *   transition="fade"
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags misc
  */
 export function AutoPlayDemo({
   frames,

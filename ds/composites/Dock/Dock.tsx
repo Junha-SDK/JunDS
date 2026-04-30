@@ -4,18 +4,34 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface DockProps {
+  /** 도크 아이템 (DockItem) */
   children: ReactNode;
+  /** 호버 시 확대 배율 */
   magnification?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
 export interface DockItemProps {
+  /** 도크 아이템 (DockItem) */
   children: ReactNode;
   label?: string;
   onClick?: () => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * macOS 스타일의 마우스 오버 시 확대되는 독.
+ * @example
+ * <Dock magnification={1.4}>
+ *   <DockItem icon={<HomeIcon />} />
+ *   <DockItem icon={<SearchIcon />} />
+ * </Dock>
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
+ */
 export function Dock({ children, magnification = 1.6, className }: DockProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [mouseX, setMouseX] = useState<number | null>(null);

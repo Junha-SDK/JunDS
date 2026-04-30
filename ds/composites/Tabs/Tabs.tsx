@@ -210,6 +210,14 @@ function TabsInner<T extends string = string>({
   );
 }
 
+/**
+ * 수평 탭 전환 컨트롤.
+ * @example
+ * <Tabs tabs={[{ id: "a", label: "A" }, { id: "b", label: "B" }]} value={tab} onChange={setTab} />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
+ */
 export function Tabs<T extends string = string>(
   props: TabsProps<T> & { ref?: React.Ref<HTMLDivElement> },
 ) {

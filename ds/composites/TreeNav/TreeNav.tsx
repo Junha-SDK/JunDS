@@ -27,6 +27,7 @@ export interface TreeNavProps {
   onItemClick?: (key: string, href?: string) => void;
   /** 기본 확장 키 목록 */
   defaultExpanded?: string[];
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -175,6 +176,9 @@ function TreeNavNode({
  *   onItemClick={(key, href) => router.push(href!)}
  * />
  * ```
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export function TreeNav({
   items,

@@ -10,10 +10,13 @@ export interface KeyValueItem {
 }
 
 export interface KeyValueGridProps {
+  /** 표시할 키-값 항목 목록 */
   items: KeyValueItem[];
+  /** 그리드 열 수 */
   columns?: 2 | 3 | 4;
   /** 테두리 스타일 */
   bordered?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -42,6 +45,9 @@ const spanStyles: Record<number, string> = {
  *   columns={2}
  *   bordered
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function KeyValueGrid({ items, columns = 3, bordered, className }: KeyValueGridProps) {
   return (

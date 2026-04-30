@@ -4,11 +4,15 @@ import { cn } from "../../utils/cn";
 export type SecurityLevel = "critical" | "warning" | "safe" | "verified" | "unverified";
 
 export interface SecurityBadgeProps {
+  /** 보안 레벨 */
   level: SecurityLevel;
+  /** 사용자 정의 라벨 */
   label?: string;
   /** 아이콘 표시 */
   showIcon?: boolean;
+  /** 뱃지 크기 */
   size?: "sm" | "md" | "lg";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -51,6 +55,9 @@ const sizeStyles = {
  * @example
  * <SecurityBadge level="safe" />
  * <SecurityBadge level="critical" label="비밀번호 취약" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function SecurityBadge({ level, label, showIcon = true, size = "md", className }: SecurityBadgeProps) {
   const c = config[level];

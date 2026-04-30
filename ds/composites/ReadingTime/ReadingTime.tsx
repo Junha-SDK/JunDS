@@ -13,6 +13,7 @@ export interface ReadingTimeProps {
   format?: "short" | "long";
   /** 난이도 표시 */
   showDifficulty?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -95,6 +96,9 @@ function countHeadings(content: string): number {
  * <ReadingTime content={plainText} format="short" />
  * // 출력: "3분 읽기"
  * ```
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function ReadingTime({
   content,

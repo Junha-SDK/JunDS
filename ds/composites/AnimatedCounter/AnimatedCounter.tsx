@@ -3,14 +3,28 @@ import { useEffect, useState, useRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface AnimatedCounterProps {
+  /** 표시할 숫자 값 */
   value: number;
+  /** 애니메이션 지속 시간(ms) */
   duration?: number;
+  /** 소수점 자릿수 */
   decimals?: number;
+  /** 숫자 앞 접두어 */
   prefix?: string;
+  /** 숫자 뒤 접미어 */
   suffix?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 숫자가 부드럽게 증가/감소하며 표시되는 카운터.
+ * @example
+ * <AnimatedCounter value={1234} duration={1500} suffix="원" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function AnimatedCounter({
   value,
   duration = 1500,
@@ -20,7 +34,7 @@ export function AnimatedCounter({
   className,
 }: AnimatedCounterProps) {
   const [display, setDisplay] = useState(0);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number | undefined>(undefined);
   const startRef = useRef<number>(0);
   const fromRef = useRef(0);
 

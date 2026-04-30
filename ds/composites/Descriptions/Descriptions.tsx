@@ -10,11 +10,17 @@ export interface DescriptionItem {
 }
 
 export interface DescriptionsProps {
+  /** 키-값 항목 목록 */
   items: DescriptionItem[];
+  /** 상단 제목 */
   title?: string;
+  /** 한 행에 표시할 컬럼 수 */
   columns?: number;
+  /** 테두리 표시 여부 */
   bordered?: boolean;
+  /** 라벨/값 레이아웃 방향 */
   layout?: "horizontal" | "vertical";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -30,6 +36,9 @@ export interface DescriptionsProps {
  *   columns={2}
  *   bordered
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function Descriptions({
   items,

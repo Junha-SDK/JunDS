@@ -4,10 +4,15 @@ import { cn } from "../../utils/cn";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
 export interface PopoverProps {
+  /** 트리거 요소 */
   trigger: ReactNode;
+  /** 팝오버 내용 */
   content: ReactNode;
+  /** 가로 정렬 */
   align?: "left" | "right" | "center";
+  /** 노출 방향 */
   side?: "top" | "bottom";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -21,6 +26,9 @@ const alignStyles = {
  * 팝오버
  * @example
  * <Popover trigger={<Button>열기</Button>} content={<div>내용</div>} />
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay
  */
 export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
   ({ trigger, content, align = "left", side = "bottom", className }, forwardedRef) => {

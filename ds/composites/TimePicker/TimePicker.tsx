@@ -7,13 +7,17 @@ import { Portal } from "../../primitives/Portal";
 export interface TimePickerProps {
   /** "HH:mm" 형식의 시간 값 */
   value?: string;
+  /** 값 변경 콜백 */
   onChange: (time: string) => void;
   /** 시간 형식 */
   format?: "12h" | "24h";
   /** 분 단위 간격 */
   minuteStep?: number;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 플레이스홀더 */
   placeholder?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -21,6 +25,9 @@ export interface TimePickerProps {
  * 시간 선택기
  * @example
  * <TimePicker value={time} onChange={setTime} format="24h" minuteStep={15} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function TimePicker({
   value,

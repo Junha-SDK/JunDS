@@ -20,6 +20,7 @@ export function useSidebar() {
 }
 
 export interface SidebarProviderProps {
+  /** 사이드바 본문 */
   children: ReactNode;
   defaultCollapsed?: boolean;
 }
@@ -36,11 +37,17 @@ export function DsSidebarProvider({ children, defaultCollapsed = false }: Sideba
 
 // ─── Sidebar ────────────────────────────
 export interface SidebarProps {
+  /** 상단 헤더 영역 */
   header?: ReactNode;
+  /** 하단 푸터 영역 */
   footer?: ReactNode;
+  /** 사이드바 본문 */
   children: ReactNode;
+  /** 펼친 상태 너비(px) */
   width?: number;
+  /** 접힌 상태 너비(px) */
   collapsedWidth?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -52,6 +59,9 @@ export interface SidebarProps {
  *     <SidebarLink href="/" label="홈" icon={<HomeIcon />} />
  *   </DsSidebar>
  * </DsSidebarProvider>
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export function DsSidebar({
   header,
@@ -149,6 +159,7 @@ export function SidebarLink({ href, label, icon, active, badge, onClick }: Sideb
 // ─── SidebarSection ─────────────────────
 export interface SidebarSectionProps {
   title?: string;
+  /** 사이드바 본문 */
   children: ReactNode;
 }
 

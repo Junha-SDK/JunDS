@@ -43,9 +43,18 @@ export interface StarfieldProps {
   shootingStarInterval?: number;
   /** 배경색 */
   backgroundColor?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 별이 흐르는 우주 배경 애니메이션.
+ * @example
+ * <Starfield starCount={200} shootingStarInterval={3000} backgroundColor="#000" />
+ * @status stable
+ * @since 2.2.0
+ * @tags misc
+ */
 export function Starfield({
   starCount = 220,
   shootingStarInterval = 5,

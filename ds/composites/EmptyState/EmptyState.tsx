@@ -4,10 +4,15 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface EmptyStateProps {
+  /** 표시할 아이콘 */
   icon?: ReactNode;
+  /** 제목 텍스트 */
   title: string;
+  /** 설명 텍스트 */
   description?: string;
+  /** 하단 액션 버튼 */
   action?: ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -15,6 +20,9 @@ export interface EmptyStateProps {
  * 빈 상태 표시
  * @example
  * <EmptyState title="업무가 없습니다" description="새 업무를 추가해보세요" action={<Button>추가</Button>} />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   ({ icon, title, description, action, className }, ref) => {

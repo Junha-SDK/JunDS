@@ -12,13 +12,17 @@ const DEFAULT_PRESETS = [
 ];
 
 export interface ColorPickerProps {
+  /** 선택된 HEX 색상 */
   value: string;
+  /** 색상 변경 콜백 */
   onChange: (color: string) => void;
   /** 프리셋 색상 배열 */
   presets?: string[];
   /** HEX 입력 필드 표시 여부 */
   showInput?: boolean;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -26,6 +30,9 @@ export interface ColorPickerProps {
  * 색상 선택기
  * @example
  * <ColorPicker value={color} onChange={setColor} showInput />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function ColorPicker({
   value,

@@ -13,9 +13,11 @@ export interface TimelineItem {
 }
 
 export interface TimelineProps {
+  /** 타임라인 항목 */
   items: TimelineItem[];
   /** 연결선 스타일 */
   lineStyle?: "solid" | "dashed";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -34,6 +36,9 @@ const dotColors = {
  *   { key:"1", title:"생성", time:"10:00", color:"primary" },
  *   { key:"2", title:"진행 시작", time:"11:30", color:"success" },
  * ]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export const Timeline = forwardRef<HTMLDivElement, TimelineProps>(
   ({ items, lineStyle = "solid", className }, ref) => {

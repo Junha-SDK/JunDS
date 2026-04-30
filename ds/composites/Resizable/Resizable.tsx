@@ -14,6 +14,7 @@ export interface ResizableProps {
   minSize?: number;
   /** 최대 크기 (퍼센트) */
   maxSize?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -25,6 +26,9 @@ export interface ResizableProps {
  *   <div>왼쪽</div>
  *   <div>오른쪽</div>
  * </Resizable>
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
  */
 export function Resizable({
   children,

@@ -6,8 +6,11 @@ export type SpinnerSize = "xs" | "sm" | "md" | "lg";
 export type SpinnerColor = "primary" | "white" | "muted";
 
 export interface SpinnerProps {
+  /** 스피너 크기 */
   size?: SpinnerSize;
+  /** 스피너 색상 */
   color?: SpinnerColor;
+  /** 추가 클래스 */
   className?: string;
   /** 접근성 라벨 */
   label?: string;
@@ -24,6 +27,9 @@ const colorMap: Record<SpinnerColor, string> = {
  * 로딩 스피너
  * @example
  * <Spinner size="md" />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(function Spinner({ size = "md", color = "primary", className, label = "로딩 중" }, ref) {
   const s = sizeMap[size];

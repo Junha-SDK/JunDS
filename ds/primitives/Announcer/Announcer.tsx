@@ -18,6 +18,12 @@ export interface AnnouncerProviderProps {
   children: ReactNode;
 }
 
+/**
+ * Announcer 컴포넌트
+ * @status stable
+ * @since 2.2.0
+ * @tags accessibility, feedback
+ */
 export function AnnouncerProvider({ children }: AnnouncerProviderProps) {
   const [politeMsg, setPoliteMsg] = useState("");
   const [assertiveMsg, setAssertiveMsg] = useState("");

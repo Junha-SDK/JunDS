@@ -21,6 +21,7 @@ export interface NavMenuItem {
 export interface NavigationMenuProps {
   /** 메뉴 항목 목록 */
   items: NavMenuItem[];
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -29,6 +30,9 @@ export interface NavigationMenuProps {
  * 메가메뉴 스타일의 드롭다운 패널을 지원하는 수평 내비게이션 바
  * @example
  * <NavigationMenu items={[{key:"home",label:"홈",href:"/"},{key:"products",label:"제품",children:[{key:"a",label:"A",href:"/a"}]}]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export function NavigationMenu({ items, className }: NavigationMenuProps) {
   const [openKey, setOpenKey] = useState<string | null>(null);

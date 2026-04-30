@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 
 export interface SecurityCheckItem {
   key: string;
+  /** 제목 */
   title: string;
   description: string;
   status: "secure" | "insecure" | "attention" | "unchecked";
@@ -14,8 +15,11 @@ export interface SecurityCheckItem {
 }
 
 export interface SecurityChecklistProps {
+  /** 체크리스트 항목 */
   items: SecurityCheckItem[];
+  /** 제목 */
   title?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -61,6 +65,9 @@ const statusIcons: Record<string, ReactNode> = {
  *   { key:"2fa", title:"2단계 인증", description:"계정 보호를 위해 2FA를 활성화하세요", status:"insecure", action:{ label:"설정", onClick:setup2FA } },
  *   { key:"pw", title:"비밀번호 강도", description:"마지막 변경: 90일 전", status:"attention" },
  * ]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function SecurityChecklist({ items, title = "보안 체크리스트", className }: SecurityChecklistProps) {
   const secureCount = items.filter((i) => i.status === "secure").length;

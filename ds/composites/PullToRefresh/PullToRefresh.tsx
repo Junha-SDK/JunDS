@@ -4,12 +4,26 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface PullToRefreshProps {
+  /** 자식 요소 */
   children: ReactNode;
+  /** 새로고침 트리거 콜백 */
   onRefresh: () => Promise<void>;
+  /** 새로고침 임계 거리(px) */
   threshold?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 아래로 당겨서 새로고침하는 인터랙션 래퍼.
+ * @example
+ * <PullToRefresh onRefresh={async () => await reload()}>
+ *   <List />
+ * </PullToRefresh>
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
+ */
 export function PullToRefresh({ children, onRefresh, threshold = 60, className }: PullToRefreshProps) {
   const [pulling, setPulling] = useState(0);
   const [refreshing, setRefreshing] = useState(false);

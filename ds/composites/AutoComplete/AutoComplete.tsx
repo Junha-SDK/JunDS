@@ -13,18 +13,23 @@ export interface AutoCompleteOption {
 }
 
 export interface AutoCompleteProps {
+  /** 입력 값 */
   value: string;
+  /** 입력 변경 콜백 */
   onChange: (value: string) => void;
   /** 자동완성 옵션 목록 */
   options: AutoCompleteOption[];
   /** 옵션 선택 콜백 */
   onSelect?: (option: AutoCompleteOption) => void;
+  /** 플레이스홀더 */
   placeholder?: string;
+  /** 비활성화 여부 */
   disabled?: boolean;
   /** 비동기 로딩 상태 */
   loading?: boolean;
   /** 결과 없을 때 메시지 */
   emptyMessage?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -32,6 +37,9 @@ export interface AutoCompleteProps {
  * 자동완성 입력
  * @example
  * <AutoComplete value={v} onChange={setV} options={options} onSelect={handleSelect} placeholder="검색..." />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function AutoComplete({
   value,

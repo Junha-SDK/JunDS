@@ -3,14 +3,30 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface GradientBorderProps {
+  /** 감싸질 콘텐츠 */
   children: ReactNode;
+  /** 그라디언트 색상 배열 */
   gradient?: string;
+  /** 테두리 두께(px) */
   borderWidth?: number;
+  /** 모서리 둥글기 */
   rounded?: string;
+  /** 애니메이션 여부 */
   animated?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 그라디언트 테두리 효과를 가진 래퍼.
+ * @example
+ * <GradientBorder gradient="purple-pink" rounded animated>
+ *   <Card>...</Card>
+ * </GradientBorder>
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
+ */
 export function GradientBorder({
   children,
   gradient = "from-primary via-accent to-primary",

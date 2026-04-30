@@ -2,15 +2,28 @@
 import { cn } from "../../utils/cn";
 
 export interface HeatmapProps {
+  /** 히트맵 셀 데이터 */
   data: { date: string; value: number }[];
+  /** 색상 스케일 */
   colorScale?: string[];
+  /** 셀 크기(px) */
   cellSize?: number;
+  /** 셀 간격(px) */
   gap?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
 const DEFAULT_COLORS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"];
 
+/**
+ * 2차원 데이터를 색 강도로 표현하는 히트맵.
+ * @example
+ * <Heatmap data={matrix} colorScale="blue" cellSize={12} />
+ * @status stable
+ * @since 2.2.0
+ * @tags chart
+ */
 export function Heatmap({
   data, colorScale = DEFAULT_COLORS, cellSize = 12, gap = 2, className,
 }: HeatmapProps) {

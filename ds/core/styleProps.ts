@@ -157,7 +157,7 @@ export interface StyleProps {
   color?: Responsive<ColorToken>;
   borderColor?: ColorToken;
   // Display & Layout (반응형 지원)
-  display?: Responsive<"flex" | "grid" | "block" | "inline" | "inline-flex" | "inline-block" | "none">;
+  display?: Responsive<"flex" | "grid" | "block" | "inline" | "inline-flex" | "inline-block" | "none" | "contents">;
   direction?: Responsive<"row" | "column" | "row-reverse" | "column-reverse">;
   align?: "start" | "center" | "end" | "stretch" | "baseline";
   justify?: "start" | "center" | "end" | "between" | "around" | "evenly";

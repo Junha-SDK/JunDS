@@ -1,16 +1,32 @@
 "use client";
 
 export interface NumberFormatterProps {
+  /** 포맷할 숫자 값 */
   value: number;
+  /** 출력 포맷 종류 */
   format?: "decimal" | "currency" | "percent" | "compact";
+  /** ISO 4217 통화 코드 */
   currency?: string;
+  /** BCP 47 로케일 */
   locale?: string;
+  /** 소수점 자릿수 */
   decimals?: number;
+  /** 값 앞에 붙일 문자열 */
   prefix?: string;
+  /** 값 뒤에 붙일 문자열 */
   suffix?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 로케일 기반 숫자/통화/퍼센트 포맷 텍스트.
+ * @example
+ * <NumberFormatter value={1234567} format="currency" currency="KRW" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function NumberFormatter({
   value,
   format = "decimal",

@@ -3,7 +3,9 @@ import { useMemo } from "react";
 import { cn } from "../../utils/cn";
 
 export interface MarkdownViewerProps {
+  /** 마크다운 원문 텍스트 */
   content: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -23,6 +25,14 @@ function parseMarkdown(md: string): string {
     .replace(/\n\n/g, '<br/><br/>');
 }
 
+/**
+ * 마크다운 텍스트를 HTML로 렌더링합니다.
+ * @example
+ * <MarkdownViewer content="# 제목\n\n본문 내용" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function MarkdownViewer({ content, className }: MarkdownViewerProps) {
   const html = useMemo(() => parseMarkdown(content), [content]);
   return (

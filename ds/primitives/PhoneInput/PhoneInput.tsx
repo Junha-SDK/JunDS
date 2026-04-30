@@ -14,10 +14,15 @@ const COUNTRIES = [
 export type CountryCode = typeof COUNTRIES[number]["code"];
 
 export interface PhoneInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "value" | "size"> {
+  /** 숫자만 포함된 현재 값 */
   value?: string;
+  /** 값 변경 콜백 (digits, 국가코드 포함 전체 번호) */
   onChange?: (value: string, fullNumber: string) => void;
+  /** 초기 선택 국가 */
   defaultCountry?: CountryCode;
+  /** 입력 필드 크기 */
   size?: "sm" | "md" | "lg";
+  /** 에러 상태 표시 */
   error?: boolean;
 }
 
@@ -34,6 +39,14 @@ function formatPhone(raw: string): string {
   return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`;
 }
 
+/**
+ * 국가 코드 선택이 포함된 전화번호 입력기.
+ * @example
+ * <PhoneInput value={phone} onChange={setPhone} defaultCountry="KR" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
   ({ value = "", onChange, defaultCountry = "KR", size = "md", error, className, disabled, ...props }, ref) => {
     const [country, setCountry] = useState(() => COUNTRIES.find((c) => c.code === defaultCountry) ?? COUNTRIES[0]);

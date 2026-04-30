@@ -105,6 +105,9 @@ const dotColors: Record<BadgeVariant, string> = {
  * @example
  * <Badge variant="success" dot>활성</Badge>
  * <Badge count={42} maxCount={99} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge({
   variant = "default",

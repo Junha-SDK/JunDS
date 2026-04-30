@@ -3,13 +3,21 @@ import { useState, useRef, useCallback, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface TagInputProps {
+  /** 태그 배열 */
   value: string[];
+  /** 태그 변경 콜백 */
   onChange: (tags: string[]) => void;
+  /** 플레이스홀더 */
   placeholder?: string;
+  /** 최대 태그 수 */
   maxTags?: number;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 오류 상태 */
   error?: boolean;
+  /** 입력 크기 */
   size?: "sm" | "md" | "lg";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -29,6 +37,9 @@ const tagSizeStyles = {
  * 태그 입력 컴포넌트
  * @example
  * <TagInput value={["React","Next"]} onChange={setTags} placeholder="태그 입력 후 Enter" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const TagInput = forwardRef<HTMLDivElement, TagInputProps>(
   ({

@@ -3,11 +3,22 @@ import { useRef, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface AudioPlayerProps {
+  /** 오디오 URL */
   src: string;
+  /** 트랙 제목 */
   title?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 오디오 플레이백 컨트롤(재생/정지/시킹)이 포함된 플레이어.
+ * @example
+ * <AudioPlayer src="/audio/song.mp3" title="My Song" />
+ * @status stable
+ * @since 2.2.0
+ * @tags media
+ */
 export function AudioPlayer({ src, title, className }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);

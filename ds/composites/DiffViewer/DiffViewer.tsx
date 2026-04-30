@@ -3,10 +3,15 @@ import { useMemo } from "react";
 import { cn } from "../../utils/cn";
 
 export interface DiffViewerProps {
+  /** 이전 텍스트 */
   oldText: string;
+  /** 새 텍스트 */
   newText: string;
+  /** 이전 제목 라벨 */
   oldTitle?: string;
+  /** 새 제목 라벨 */
   newTitle?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -33,6 +38,14 @@ function computeDiff(oldLines: string[], newLines: string[]): DiffLine[] {
 const lineColors = { same: "", add: "bg-success/10 text-success", remove: "bg-danger/10 text-danger" };
 const linePrefix = { same: " ", add: "+", remove: "-" };
 
+/**
+ * 두 텍스트 간 차이를 강조 표시하는 diff 뷰어.
+ * @example
+ * <DiffViewer oldText={prev} newText={next} oldTitle="v1" newTitle="v2" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function DiffViewer({ oldText, newText, oldTitle, newTitle, className }: DiffViewerProps) {
   const diff = useMemo(() => computeDiff(oldText.split("\n"), newText.split("\n")), [oldText, newText]);
 

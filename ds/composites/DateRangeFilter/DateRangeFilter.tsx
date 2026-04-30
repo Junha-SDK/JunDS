@@ -8,14 +8,21 @@ export interface DatePreset {
 }
 
 export interface DateRangeFilterProps {
+  /** 시작일 (YYYY-MM-DD) */
   startDate: string;
+  /** 종료일 (YYYY-MM-DD) */
   endDate: string;
+  /** 시작일 변경 콜백 */
   onStartChange: (date: string) => void;
+  /** 종료일 변경 콜백 */
   onEndChange: (date: string) => void;
+  /** 조회(적용) 콜백 */
   onApply: () => void;
+  /** 초기화 콜백 */
   onReset?: () => void;
   /** 프리셋 버튼 */
   presets?: DatePreset[];
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -78,6 +85,9 @@ const defaultPresets: DatePreset[] = [
  *   onApply={handleApply}
  *   onReset={handleReset}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function DateRangeFilter({
   startDate,

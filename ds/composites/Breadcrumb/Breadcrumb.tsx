@@ -10,8 +10,11 @@ export interface BreadcrumbItem {
 }
 
 export interface BreadcrumbProps {
+  /** 경로 항목 목록 */
   items: BreadcrumbItem[];
+  /** 항목 사이 구분자 */
   separator?: ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -19,6 +22,9 @@ export interface BreadcrumbProps {
  * 브레드크럼 네비게이션
  * @example
  * <Breadcrumb items={[{label:"홈",href:"/"},{label:"프로젝트",href:"/projects"},{label:"설정"}]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
   ({ items, separator, className }, ref) => {

@@ -4,8 +4,11 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface BackTopProps {
+  /** 버튼이 나타나기 시작하는 스크롤 임계값(px) */
   threshold?: number;
+  /** 추가 클래스 */
   className?: string;
+  /** 버튼 내부 커스텀 콘텐츠 */
   children?: ReactNode;
 }
 
@@ -14,6 +17,9 @@ export interface BackTopProps {
  * @description 페이지를 스크롤하면 나타나는 상단 이동 버튼입니다.
  * @example
  * <BackTop threshold={300} />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export const BackTop = forwardRef<HTMLButtonElement, BackTopProps>(function BackTop({ threshold = 400, className, children }, ref) {
   const [visible, setVisible] = useState(false);

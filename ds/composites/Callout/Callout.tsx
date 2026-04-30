@@ -12,11 +12,15 @@ import { cn } from "../../utils";
  * - variant별 배경 틴트
  */
 export interface CalloutProps {
+  /** 콜아웃 유형 */
   variant?: "note" | "warning" | "danger" | "tip" | "info";
+  /** 제목 */
   title?: string;
+  /** 본문 내용 */
   children: React.ReactNode;
   /** 접기/펼치기 가능 여부 */
   collapsible?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -56,6 +60,16 @@ const VARIANT_CONFIG: Record<
   },
 };
 
+/**
+ * 강조성 메시지 박스(정보/경고/팁 등)를 표시합니다.
+ * @example
+ * <Callout variant="info" title="알려드립니다">
+ *   본문 내용을 입력하세요.
+ * </Callout>
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
+ */
 export function Callout({
   variant = "info",
   title,

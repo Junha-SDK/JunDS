@@ -3,12 +3,19 @@ import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface MetricCardProps {
+  /** 지표 라벨 */
   label: string;
+  /** 표시할 값 */
   value: string | number;
+  /** 변동률(%) */
   change?: number;
+  /** 변동률 옆 보조 텍스트 */
   changeLabel?: string;
+  /** 미니 차트용 데이터 */
   sparkline?: number[];
+  /** 우측 아이콘 */
   icon?: React.ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -16,6 +23,9 @@ export interface MetricCardProps {
  * 지표 카드 컴포넌트
  * @example
  * <MetricCard label="매출" value="1,200만" change={12.5} changeLabel="전월 대비" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export const MetricCard = forwardRef<HTMLDivElement, MetricCardProps>(
   ({ label, value, change, changeLabel, sparkline, icon, className }, ref) => {

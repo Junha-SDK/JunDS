@@ -4,11 +4,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { cn } from "../../utils/cn";
 
 export interface AutoHideHeaderProps {
+  /** 자식 요소 */
   children: React.ReactNode;
   /** 스크롤 감지 임계값 (px) */
   threshold?: number;
   /** 헤더 높이 (px) */
   height?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -25,6 +27,9 @@ export interface AutoHideHeaderProps {
  *   <nav>...</nav>
  * </AutoHideHeader>
  * ```
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export function AutoHideHeader({
   children,

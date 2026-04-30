@@ -10,14 +10,19 @@ export interface DateRange {
 }
 
 export interface DateRangePickerProps {
+  /** 선택된 날짜 범위 */
   value: DateRange;
+  /** 범위 변경 콜백 */
   onChange: (range: DateRange) => void;
+  /** 플레이스홀더 */
   placeholder?: string;
+  /** 비활성화 여부 */
   disabled?: boolean;
   /** 선택 가능한 최소 날짜 */
   minDate?: Date;
   /** 선택 가능한 최대 날짜 */
   maxDate?: Date;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -46,6 +51,9 @@ function getFirstDayOfMonth(year: number, month: number): number {
  * 날짜 범위 선택기
  * @example
  * <DateRangePicker value={range} onChange={setRange} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function DateRangePicker({
   value,

@@ -5,7 +5,7 @@ import { useClickOutside } from "../../hooks/useClickOutside";
 import { Badge } from "../../primitives/Badge";
 import type { ReactNode } from "react";
 
-export interface Notification {
+export interface NotificationItem {
   id: string;
   title: string;
   description?: string;
@@ -16,9 +16,13 @@ export interface Notification {
 }
 
 export interface NotificationCenterProps {
-  notifications: Notification[];
+  /** 알림 목록 */
+  notifications: NotificationItem[];
+  /** 전체 읽음 처리 콜백 */
   onMarkAllRead?: () => void;
+  /** 전체 삭제 콜백 */
   onClear?: () => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -26,6 +30,9 @@ export interface NotificationCenterProps {
  * 알림 센터 (벨 아이콘 + 드롭다운)
  * @example
  * <NotificationCenter notifications={[{id:"1",title:"새 업무",time:"방금"}]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export function NotificationCenter({ notifications, onMarkAllRead, onClear, className }: NotificationCenterProps) {
   const [open, setOpen] = useState(false);

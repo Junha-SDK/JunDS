@@ -15,6 +15,7 @@ export interface StarRatingProps {
   size?: StarRatingSize;
   /** 읽기 전용 */
   readonly?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -54,6 +55,9 @@ function StarIcon({ filled, className }: { filled: boolean; className?: string }
  * @example
  * <StarRating value={3} onChange={setRating} />
  * <StarRating value={4.5} max={5} readonly />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function StarRating({
   value,
@@ -68,6 +72,7 @@ export function StarRating({
   const displayValue = hovered ?? value;
 
   return (
+    // eslint-disable-next-line jsx-a11y/interactive-supports-focus -- radiogroup is a container; the underlying <button> stars are individually focusable
     <div
       role="radiogroup"
       aria-label="별점"

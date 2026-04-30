@@ -22,6 +22,9 @@ export interface RadioGroupProps {
  * 라디오 그룹
  * @example
  * <RadioGroup name="priority" options={[{value:"0",label:"긴급"},{value:"1",label:"높음"}]} value={v} onChange={setV} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function RadioGroup({ name, options, value, onChange, size = "md", direction = "vertical", className }, ref) {
   return (

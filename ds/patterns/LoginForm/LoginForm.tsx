@@ -11,11 +11,13 @@ import { Alert } from "../../composites/Alert";
 import type { ReactNode } from "react";
 
 export interface LoginFormProps {
+  /** 제출 콜백 */
   onSubmit: (data: { email: string; password: string; remember: boolean }) => void | Promise<void>;
   /** 소셜 로그인 버튼 */
   socialButtons?: ReactNode;
   /** 에러 메시지 */
   error?: string;
+  /** 로딩 상태 */
   loading?: boolean;
   /** 회원가입 링크 */
   signupHref?: string;
@@ -23,12 +25,15 @@ export interface LoginFormProps {
   forgotHref?: string;
   /** 로고 */
   logo?: ReactNode;
+  /** 폼 제목 */
   title?: string;
+  /** 폼 부제목 */
   subtitle?: string;
   /** 비밀번호 강도 표시 (회원가입 폼용) */
   showPasswordStrength?: boolean;
   /** 비밀번호 확인 (회원가입 폼용) */
   showConfirmPassword?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -45,6 +50,9 @@ export interface LoginFormProps {
  * @example
  * <LoginForm onSubmit={handleLogin} title="로그인" forgotHref="/forgot" />
  * <LoginForm onSubmit={handleRegister} title="회원가입" showPasswordStrength showConfirmPassword />
+ * @status stable
+ * @since 2.2.0
+ * @tags form
  */
 export function LoginForm({
   onSubmit,

@@ -3,16 +3,30 @@ import { useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface ColorSwatchProps {
+  /** 표시할 색상 목록 */
   colors: string[];
+  /** 선택된 색상 */
   selected?: string;
+  /** 색상 선택 콜백 */
   onSelect?: (color: string) => void;
+  /** 스와치 크기 */
   size?: "sm" | "md" | "lg";
+  /** 선택된 색상의 HEX 라벨 표시 여부 */
   showLabel?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
 const sizes = { sm: "w-6 h-6", md: "w-8 h-8", lg: "w-10 h-10" };
 
+/**
+ * 색상 팔레트에서 색을 선택하는 스와치.
+ * @example
+ * <ColorSwatch colors={["#f00", "#0f0", "#00f"]} selected={color} onSelect={setColor} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function ColorSwatch({ colors, selected, onSelect, size = "md", showLabel, className }: ColorSwatchProps) {
   const [copied, setCopied] = useState<string | null>(null);
 

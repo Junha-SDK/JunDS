@@ -5,12 +5,15 @@ import type { ReactNode } from "react";
 export type Severity = "ok" | "warn" | "danger" | "info" | "neutral";
 
 export interface SeverityBadgeProps {
+  /** 심각도 수준 */
   severity: Severity;
+  /** 뱃지 내용 */
   children: ReactNode;
   /** 작은 점만 표시 */
   dot?: boolean;
   /** 크기 */
   size?: "sm" | "md";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -41,6 +44,9 @@ const sizeStyles: Record<"sm" | "md", string> = {
  * @example
  * <SeverityBadge severity="ok">정상</SeverityBadge>
  * <SeverityBadge severity="danger" dot>오류</SeverityBadge>
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function SeverityBadge({
   severity,

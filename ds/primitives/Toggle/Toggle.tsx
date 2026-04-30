@@ -4,11 +4,19 @@ import { cn } from "../../utils/cn";
 export type ToggleSize = "sm" | "md";
 
 export interface ToggleProps {
+  /** 체크 상태 */
   checked?: boolean;
+  /** 상태 변경 콜백 */
   onChange?: (checked: boolean) => void;
+  /** 토글 크기 */
   size?: ToggleSize;
+  /** 비활성화 상태 */
   disabled?: boolean;
+  /** 옆에 표시할 라벨 */
   label?: string;
+  /** 시각 라벨이 없을 때 사용할 접근성 라벨 (기본: label 사용) */
+  "aria-label"?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -29,14 +37,19 @@ const thumbTranslate: Record<ToggleSize, string> = {
  * 토글 스위치
  * @example
  * <Toggle checked={on} onChange={setOn} label="알림" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
-export function Toggle({ checked = false, onChange, size = "md", disabled, label, className }: ToggleProps) {
+export function Toggle({ checked = false, onChange, size = "md", disabled, label, className, ...rest }: ToggleProps) {
+  const ariaLabel = rest["aria-label"] ?? label ?? "토글";
   return (
     <label className={cn("inline-flex items-center gap-2 cursor-pointer select-none", disabled && "opacity-50 cursor-not-allowed", className)}>
       <button
         type="button"
         role="switch"
         aria-checked={checked}
+        aria-label={ariaLabel}
         disabled={disabled}
         onClick={() => onChange?.(!checked)}
         className={cn(

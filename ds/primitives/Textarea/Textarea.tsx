@@ -4,8 +4,11 @@ import { cn } from "../../utils/cn";
 import type { TextareaHTMLAttributes } from "react";
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** 에러 상태 표시 */
   error?: boolean;
+  /** 내용에 맞춰 높이 자동 조절 */
   autoResize?: boolean;
+  /** maxLength 기준 글자수 카운터 표시 */
   showCount?: boolean;
 }
 
@@ -13,6 +16,9 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
  * 텍스트영역 컴포넌트
  * @example
  * <Textarea autoResize placeholder="설명을 입력하세요" maxLength={500} showCount />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ error, autoResize, showCount, maxLength, className, onChange, value, ...props }, ref) => {

@@ -6,6 +6,9 @@ import type { HTMLAttributes } from "react";
  * 시각적으로 숨기지만 스크린리더에서 접근 가능
  * @example
  * <VisuallyHidden>테이블 정렬 기준</VisuallyHidden>
+ * @status stable
+ * @since 2.2.0
+ * @tags accessibility
  */
 export const VisuallyHidden = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(function VisuallyHidden({ children, ...props }, ref) {
   return (

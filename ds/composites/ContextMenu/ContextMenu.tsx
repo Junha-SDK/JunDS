@@ -16,8 +16,11 @@ export interface ContextMenuItem {
 }
 
 export interface ContextMenuProps {
+  /** 메뉴 항목 목록 */
   items: ContextMenuItem[];
+  /** 우클릭 영역(자식) */
   children: ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -27,6 +30,9 @@ export interface ContextMenuProps {
  * <ContextMenu items={[{ key: "copy", label: "복사", shortcut: "Ctrl+C" }]}>
  *   <div>우클릭 영역</div>
  * </ContextMenu>
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay, navigation
  */
 export function ContextMenu({ items, children, className }: ContextMenuProps) {
   const [open, setOpen] = useState(false);

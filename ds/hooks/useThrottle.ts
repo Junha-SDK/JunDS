@@ -3,7 +3,7 @@ import { useRef, useCallback } from "react";
 
 export function useThrottle<T extends (...args: unknown[]) => void>(fn: T, delay: number): T {
   const lastCall = useRef(0);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   return useCallback((...args: unknown[]) => {
     const now = Date.now();

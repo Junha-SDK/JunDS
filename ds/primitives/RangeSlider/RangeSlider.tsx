@@ -3,16 +3,32 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { cn } from "../../utils/cn";
 
 export interface RangeSliderProps {
+  /** 허용 최소값 */
   min?: number;
+  /** 허용 최대값 */
   max?: number;
+  /** 증감 단위 */
   step?: number;
+  /** 현재 값 [최솟값, 최댓값] */
   value: [number, number];
+  /** 값 변경 콜백 */
   onChange: (value: [number, number]) => void;
+  /** 비활성화 상태 */
   disabled?: boolean;
+  /** 양 끝 숫자 라벨 표시 */
   showValues?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 두 핸들로 최소/최대 범위를 지정하는 슬라이더.
+ * @example
+ * <RangeSlider value={[20, 80]} onChange={setRange} min={0} max={100} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function RangeSlider({
   min = 0, max = 100, step = 1,
   value, onChange, disabled, showValues, className,

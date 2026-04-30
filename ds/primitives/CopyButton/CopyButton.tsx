@@ -3,13 +3,17 @@ import { useState, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface CopyButtonProps {
+  /** 클립보드에 복사할 텍스트 */
   text: string;
   /** 복사 후 표시 텍스트 */
   copiedLabel?: string;
   /** 기본 표시 텍스트 */
   label?: string;
+  /** 버튼 표시 형태 */
   variant?: "icon" | "button";
+  /** 버튼 크기 */
   size?: "sm" | "md";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -18,6 +22,9 @@ export interface CopyButtonProps {
  * @example
  * <CopyButton text="복사할 텍스트" />
  * <CopyButton text={code} variant="button" label="코드 복사" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
 export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(function CopyButton({
   text,

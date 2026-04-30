@@ -4,8 +4,11 @@ import { StatCard } from "../../composites/StatCard";
 import type { StatCardProps } from "../../composites/StatCard";
 
 export interface StatsGridProps {
+  /** 통계 항목 배열 */
   stats: StatCardProps[];
+  /** 그리드 열 수 */
   columns?: 2 | 3 | 4 | 5;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -25,6 +28,9 @@ const colsMap = {
  *   { label:"진행 중", value:32 },
  *   { label:"지연", value:12, change:"+3", trend:"down" },
  * ]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function StatsGrid({ stats, columns = 4, className }: StatsGridProps) {
   return (

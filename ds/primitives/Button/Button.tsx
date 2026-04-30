@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { ButtonProps } from "./Button.types";
 
 const variantStyles: Record<string, string> = {
@@ -30,6 +31,9 @@ const sizeStyles: Record<string, string> = {
  * @example
  * <Button variant="primary" size="md">저장</Button>
  * <Button variant="danger" loading>삭제 중...</Button>
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -41,6 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon,
       fullWidth,
       disabled,
+      asChild = false,
       className,
       children,
       ...props
@@ -48,12 +53,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const isDisabled = disabled || loading;
+    const Comp = asChild ? Slot : "button";
+    const buttonOnlyProps = asChild
+      ? {}
+      : { disabled: isDisabled, "aria-busy": loading || undefined };
 
     return (
-      <button
-        ref={ref}
-        disabled={isDisabled}
-        aria-busy={loading || undefined}
+      <Comp
+        ref={ref as never}
+        {...buttonOnlyProps}
         className={cn(
           "inline-flex items-center justify-center font-semibold transition-all duration-200 ease-out",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
@@ -81,9 +89,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ) : leftIcon ? (
           <span className="shrink-0">{leftIcon}</span>
         ) : null}
-        {children}
+        <Slottable>{children}</Slottable>
         {rightIcon && !loading && <span className="shrink-0">{rightIcon}</span>}
-      </button>
+      </Comp>
     );
   },
 );

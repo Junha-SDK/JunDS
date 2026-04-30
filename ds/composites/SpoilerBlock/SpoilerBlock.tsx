@@ -12,9 +12,13 @@ import { cn } from "../../utils";
  * - 숨김 상태에서 aria-hidden 적용
  */
 export interface SpoilerBlockProps {
+  /** 스포일러 종류 */
   type?: "spoiler" | "caution";
+  /** 공개 버튼 라벨 */
   label?: string;
+  /** 가려질 콘텐츠 */
   children: React.ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -36,6 +40,16 @@ const TYPE_CONFIG: Record<
   },
 };
 
+/**
+ * 블러 처리된 콘텐츠를 클릭으로 노출하는 스포일러 블록.
+ * @example
+ * <SpoilerBlock type="blur" label="스포일러 보기">
+ *   숨겨진 내용
+ * </SpoilerBlock>
+ * @status stable
+ * @since 2.2.0
+ * @tags disclosure
+ */
 export function SpoilerBlock({
   type = "spoiler",
   label,

@@ -13,10 +13,15 @@ export interface DropdownItem {
 }
 
 export interface DropdownProps {
+  /** 트리거 요소 */
   trigger: ReactNode;
+  /** 메뉴 항목 목록 */
   items: DropdownItem[];
+  /** 항목 선택 콜백 */
   onSelect: (key: string) => void;
+  /** 정렬 방향 */
   align?: "left" | "right";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -24,6 +29,9 @@ export interface DropdownProps {
  * 드롭다운 메뉴
  * @example
  * <Dropdown trigger={<IconButton icon={<MoreIcon />} label="메뉴" />} items={[...]} onSelect={handleAction} />
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay, navigation
  */
 export function Dropdown({ trigger, items, onSelect, align = "right", className }: DropdownProps) {
   const [open, setOpen] = useState(false);
@@ -78,6 +86,7 @@ export function Dropdown({ trigger, items, onSelect, align = "right", className 
       <div
         onClick={() => { setOpen(!open); setFocusIndex(-1); }}
         role="button"
+        tabIndex={0}
         aria-haspopup="true"
         aria-expanded={open}
       >

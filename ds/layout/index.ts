@@ -1,4 +1,4 @@
-export { Stack, HStack, VStack } from "./Stack";
+export { Stack } from "./Stack";
 export type { StackProps } from "./Stack";
 
 export { Grid } from "./Grid";

@@ -3,9 +3,13 @@ import { useEffect, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface ConfettiProps {
+  /** 활성화 여부 */
   active: boolean;
+  /** 파티클 수 */
   count?: number;
+  /** 애니메이션 지속 시간(ms) */
   duration?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -24,6 +28,14 @@ interface Particle {
   type: "square" | "circle" | "strip";
 }
 
+/**
+ * 축하/완료 시점에 화면을 가득 채우는 색종이 효과.
+ * @example
+ * <Confetti active={success} count={150} duration={3000} />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
+ */
 export function Confetti({ active, count = 50, duration = 3000, className }: ConfettiProps) {
   const [particles, setParticles] = useState<Particle[]>([]);
 

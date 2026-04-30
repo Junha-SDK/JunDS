@@ -6,9 +6,11 @@ import type { HTMLAttributes } from "react";
 export type TagColor = "gray" | "primary" | "blue" | "green" | "red" | "orange" | "purple" | "teal";
 
 export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
+  /** 태그 색상 */
   color?: TagColor;
   /** 닫기 버튼 표시 */
   closable?: boolean;
+  /** 닫기 버튼 클릭 콜백 */
   onClose?: () => void;
 }
 
@@ -28,6 +30,9 @@ const colorStyles: Record<TagColor, string> = {
  * @example
  * <Tag color="blue">프론트엔드</Tag>
  * <Tag color="red" closable onClose={handleRemove}>긴급</Tag>
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag({ color = "gray", closable, onClose, className, children, ...props }, ref) {
   return (

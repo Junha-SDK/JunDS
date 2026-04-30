@@ -3,9 +3,13 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface BentoGridProps {
+  /** 자식 요소 */
   children: ReactNode;
+  /** 그리드 열 수 */
   cols?: number;
+  /** 셀 간격(rem 단위 4배수) */
   gap?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -19,6 +23,17 @@ export interface BentoGridItemProps {
 const colSpanMap = { 1: "col-span-1", 2: "col-span-2", 3: "col-span-3" };
 const rowSpanMap = { 1: "row-span-1", 2: "row-span-2", 3: "row-span-3" };
 
+/**
+ * 크기가 다른 카드를 비대칭 그리드로 배치하는 벤토 레이아웃.
+ * @example
+ * <BentoGrid cols={3} gap="md">
+ *   <BentoItem span={2}>큰 카드</BentoItem>
+ *   <BentoItem>작은 카드</BentoItem>
+ * </BentoGrid>
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
+ */
 export function BentoGrid({ children, cols = 4, gap = 4, className }: BentoGridProps) {
   const colsClass: Record<number, string> = {
     2: "grid-cols-2",

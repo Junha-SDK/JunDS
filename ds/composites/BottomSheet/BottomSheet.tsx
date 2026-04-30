@@ -5,16 +5,32 @@ import { Portal } from "../../primitives/Portal";
 import type { ReactNode } from "react";
 
 export interface BottomSheetProps {
+  /** 열림 상태 */
   open: boolean;
+  /** 닫기 콜백 */
   onClose: () => void;
+  /** 상단 제목 */
   title?: string;
+  /** 시트 본문 */
   children: ReactNode;
+  /** 시트 높이 모드 */
   height?: "auto" | "half" | "full";
+  /** 추가 클래스 */
   className?: string;
 }
 
 const heightMap = { auto: "max-h-[80vh]", half: "h-[50vh]", full: "h-[90vh]" };
 
+/**
+ * 화면 하단에서 슬라이드 업되는 시트형 모달.
+ * @example
+ * <BottomSheet open={open} onClose={() => setOpen(false)} title="옵션">
+ *   <Menu />
+ * </BottomSheet>
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay
+ */
 export function BottomSheet({ open, onClose, title, children, height = "auto", className }: BottomSheetProps) {
   useEffect(() => {
     if (!open) return;

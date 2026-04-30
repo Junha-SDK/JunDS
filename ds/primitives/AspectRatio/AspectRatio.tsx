@@ -7,6 +7,7 @@ export interface AspectRatioProps {
   ratio?: number;
   /** 자식 요소 */
   children: React.ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -20,6 +21,9 @@ export interface AspectRatioProps {
  * <AspectRatio ratio={1}>
  *   <div>정사각형</div>
  * </AspectRatio>
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
  */
 export const AspectRatio = forwardRef<HTMLDivElement, AspectRatioProps>(
   ({ ratio = 16 / 9, children, className }, ref) => {

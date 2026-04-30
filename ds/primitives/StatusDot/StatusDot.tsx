@@ -5,9 +5,13 @@ import { cn } from "../../utils/cn";
 export type StatusDotStatus = "success" | "warning" | "danger" | "info" | "neutral" | "pulse";
 
 export interface StatusDotProps {
+  /** 상태 종류 */
   status?: StatusDotStatus;
+  /** 점 옆에 표시할 라벨 */
   label?: string;
+  /** 점 크기 */
   size?: "sm" | "md" | "lg";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -31,6 +35,9 @@ const sizeMap = {
  * @example
  * <StatusDot status="success" label="온라인" />
  * <StatusDot status="danger" label="오프라인" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export const StatusDot = forwardRef<HTMLSpanElement, StatusDotProps>(function StatusDot({ status = "neutral", label, size = "md", className }, ref) {
   return (

@@ -9,7 +9,7 @@ export interface UseLongPressOptions {
 
 export function useLongPress(callback: () => void, options: UseLongPressOptions = {}) {
   const { threshold = 500, onStart, onCancel } = options;
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const isPressed = useRef(false);
 
   const start = useCallback(() => {

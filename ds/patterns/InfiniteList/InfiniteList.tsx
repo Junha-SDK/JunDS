@@ -4,15 +4,23 @@ import { cn } from "../../utils/cn";
 import { Spinner } from "../../primitives/Spinner";
 
 export interface InfiniteListProps<T> {
+  /** 항목 배열 */
   items: T[];
+  /** 항목 렌더 함수 */
   renderItem: (item: T, index: number) => ReactNode;
+  /** 키 추출 함수 */
   keyExtractor: (item: T) => string;
+  /** 추가 로드 콜백 */
   onLoadMore: () => void;
+  /** 더 불러올 항목 존재 여부 */
   hasMore: boolean;
+  /** 로딩 상태 */
   loading?: boolean;
   /** 트리거 거리 (px) */
   threshold?: number;
+  /** 빈 상태 메시지 */
   emptyMessage?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -20,6 +28,9 @@ export interface InfiniteListProps<T> {
  * 무한 스크롤 리스트 (IntersectionObserver)
  * @example
  * <InfiniteList items={data} renderItem={(item)=><Card>{item.name}</Card>} keyExtractor={i=>i.id} onLoadMore={fetchMore} hasMore={hasNext} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
  */
 export function InfiniteList<T>({
   items,

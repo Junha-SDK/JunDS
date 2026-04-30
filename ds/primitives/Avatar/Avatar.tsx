@@ -10,6 +10,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   name?: string;
   /** 이미지 URL */
   src?: string;
+  /** 아바타 크기 */
   size?: AvatarSize;
   /** 온라인/오프라인 상태 점 */
   status?: "online" | "offline" | "away" | "busy";
@@ -67,6 +68,9 @@ function getColor(name: string): string {
  * @example
  * <Avatar name="김준하" size="md" status="online" />
  * <Avatar src="/photo.jpg" size="lg" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar({ name, src, size = "md", status, className, ...props }, ref) {
   return (

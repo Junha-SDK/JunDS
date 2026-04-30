@@ -102,6 +102,9 @@ const defaultIcons: Record<AlertVariant, ReactNode> = {
  * @example
  * <Alert variant="success" title="완료">작업이 성공했습니다.</Alert>
  * <Alert variant="danger" onClose={dismiss}>오류가 발생했습니다.</Alert>
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(
   ({ variant = "info", title, children, icon, onClose, className }, ref) => {

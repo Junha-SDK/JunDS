@@ -4,16 +4,23 @@ import { Button } from "../../primitives/Button";
 import type { ReactNode } from "react";
 
 export interface ConfirmDialogProps {
+  /** 열림 상태 */
   open: boolean;
+  /** 닫기 콜백 */
   onClose: () => void;
+  /** 확인 콜백 */
   onConfirm: () => void;
+  /** 다이얼로그 제목 */
   title: string;
+  /** 본문 설명 */
   description?: string | ReactNode;
   /** 확인 버튼 텍스트 */
   confirmLabel?: string;
+  /** 취소 버튼 텍스트 */
   cancelLabel?: string;
   /** 위험 액션 여부 */
   danger?: boolean;
+  /** 로딩 상태 */
   loading?: boolean;
 }
 
@@ -29,6 +36,9 @@ export interface ConfirmDialogProps {
  *   danger
  *   confirmLabel="삭제"
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay, feedback
  */
 export function ConfirmDialog({
   open,

@@ -3,12 +3,24 @@ import { useState } from "react";
 import { cn } from "../../utils/cn";
 
 export interface AddressInputProps {
+  /** 주소 선택 콜백 */
   onSelect?: (address: { zonecode: string; address: string; detail: string }) => void;
+  /** 주소 입력 플레이스홀더 */
   placeholder?: string;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 주소 검색 자동완성 입력기.
+ * @example
+ * <AddressInput onSelect={(addr) => setAddress(addr)} placeholder="주소 검색" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function AddressInput({
   onSelect,
   placeholder = "주소 검색",

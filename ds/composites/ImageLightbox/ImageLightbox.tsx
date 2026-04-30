@@ -14,13 +14,24 @@ import { cn } from "../../utils";
  * - Portal 사용
  */
 export interface ImageLightboxProps {
+  /** 이미지 URL */
   src: string;
+  /** 대체 텍스트 */
   alt?: string;
   /** 썸네일 클릭 시 확대 */
   children?: React.ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 이미지를 클릭해 확대 보기를 띄우는 라이트박스.
+ * @example
+ * <ImageLightbox src="/photo.jpg" alt="사진" />
+ * @status stable
+ * @since 2.2.0
+ * @tags media, overlay
+ */
 export function ImageLightbox({
   src,
   alt = "",

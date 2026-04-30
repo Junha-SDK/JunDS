@@ -4,12 +4,19 @@ import { cn } from "../../utils/cn";
 import type { InputHTMLAttributes } from "react";
 
 export interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "size"> {
+  /** 현재 숫자 값 */
   value?: number;
+  /** 값 변경 콜백 */
   onChange?: (value: number) => void;
+  /** 허용 최소값 */
   min?: number;
+  /** 허용 최대값 */
   max?: number;
+  /** 증감 단위 */
   step?: number;
+  /** 에러 상태 표시 */
   error?: boolean;
+  /** 입력 필드 크기 */
   size?: "sm" | "md" | "lg";
   /** +/- 버튼 숨김 */
   hideControls?: boolean;
@@ -25,6 +32,9 @@ const sizeStyles = {
  * 숫자 입력 (증감 버튼 포함)
  * @example
  * <NumberInput value={count} onChange={setCount} min={0} max={100} step={5} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
   ({ value, onChange, min, max, step = 1, error, size = "md", hideControls, className, disabled, ...props }, ref) => {

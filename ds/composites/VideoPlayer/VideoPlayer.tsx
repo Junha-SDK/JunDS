@@ -3,14 +3,28 @@ import { useRef, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface VideoPlayerProps {
+  /** 비디오 소스 URL */
   src: string;
+  /** 포스터 이미지 URL */
   poster?: string;
+  /** 자동 재생 */
   autoPlay?: boolean;
+  /** 음소거 시작 */
   muted?: boolean;
+  /** 반복 재생 */
   loop?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 컨트롤이 포함된 비디오 플레이어.
+ * @example
+ * <VideoPlayer src="/video.mp4" poster="/cover.jpg" autoPlay muted />
+ * @status stable
+ * @since 2.2.0
+ * @tags media
+ */
 export function VideoPlayer({ src, poster, autoPlay, muted: initMuted, loop, className }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(autoPlay ?? false);

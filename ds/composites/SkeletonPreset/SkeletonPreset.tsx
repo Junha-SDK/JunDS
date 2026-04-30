@@ -2,8 +2,11 @@
 import { cn } from "../../utils/cn";
 
 export interface SkeletonPresetProps {
+  /** 프리셋 종류 */
   variant: "card" | "table" | "profile" | "article" | "list";
+  /** 행 수 (table/list 변형) */
   rows?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -85,6 +88,14 @@ function ListSkeleton({ rows = 5, className }: { rows?: number; className?: stri
   );
 }
 
+/**
+ * 카드/리스트/프로필 등 자주 쓰는 스켈레톤 프리셋.
+ * @example
+ * <SkeletonPreset variant="card" rows={3} />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
+ */
 export function SkeletonPreset({ variant, rows, className }: SkeletonPresetProps) {
   switch (variant) {
     case "card": return <CardSkeleton className={className} />;

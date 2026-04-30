@@ -16,6 +16,9 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
  * 체크박스
  * @example
  * <Checkbox label="동의합니다" checked={ok} onChange={...} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ label, indeterminate, size = "md", className, ...props }, ref) => {

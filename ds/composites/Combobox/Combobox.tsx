@@ -15,20 +15,29 @@ export interface ComboboxOption {
 }
 
 export interface ComboboxProps {
+  /** 선택 옵션 목록 */
   options: ComboboxOption[];
+  /** 선택된 값 */
   value?: string;
+  /** 값 변경 콜백 */
   onChange?: (value: string) => void;
   /** 입력 변경 콜백 (async 검색용) */
   onInputChange?: (query: string) => void;
+  /** 플레이스홀더 */
   placeholder?: string;
   /** 새 값 생성 허용 */
   creatable?: boolean;
+  /** 새 값 생성 라벨 */
   onCreateLabel?: string;
   /** 비동기 로딩 */
   loading?: boolean;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 에러 상태 */
   error?: boolean;
+  /** 결과 없을 때 메시지 */
   emptyMessage?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -36,6 +45,9 @@ export interface ComboboxProps {
  * 콤보박스 (자동완성 + 셀렉트 + 생성)
  * @example
  * <Combobox options={users} value={v} onChange={setV} creatable placeholder="사용자 검색..." />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function Combobox({
   options,

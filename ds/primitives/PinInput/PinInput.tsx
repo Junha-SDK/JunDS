@@ -7,14 +7,20 @@ export interface PinInputProps {
   length?: number;
   /** 완료 콜백 */
   onComplete?: (value: string) => void;
+  /** 값 변경 콜백 */
   onChange?: (value: string) => void;
   /** 마스킹 (●) */
   masked?: boolean;
+  /** 에러 상태 표시 */
   error?: boolean;
+  /** 비활성화 상태 */
   disabled?: boolean;
   /** 숫자만 */
   numeric?: boolean;
+  /** 추가 클래스 */
   className?: string;
+  /** 각 입력 칸의 접근성 라벨 (기본: "N번째 자리") */
+  inputAriaLabel?: (index: number, length: number) => string;
 }
 
 /**
@@ -29,6 +35,9 @@ export interface PinInputProps {
  * @example
  * <PinInput length={6} masked onComplete={verifyOTP} />
  * <PinInput length={4} numeric onComplete={verifyPin} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function PinInput({
   length = 6,
@@ -39,6 +48,7 @@ export function PinInput({
   disabled,
   numeric = true,
   className,
+  inputAriaLabel,
 }: PinInputProps) {
   const [values, setValues] = useState<string[]>(Array(length).fill(""));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -112,6 +122,7 @@ export function PinInput({
           value={values[i]}
           disabled={disabled}
           autoComplete="one-time-code"
+          aria-label={inputAriaLabel ? inputAriaLabel(i, length) : `${i + 1}번째 자리`}
           onChange={(e) => handleChange(i, e.target.value)}
           onKeyDown={(e) => handleKeyDown(i, e)}
           onPaste={handlePaste}

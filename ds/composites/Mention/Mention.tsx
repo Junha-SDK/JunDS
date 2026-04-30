@@ -14,14 +14,19 @@ export interface MentionUser {
 }
 
 export interface MentionProps {
+  /** 입력 값 */
   value: string;
+  /** 값 변경 콜백 */
   onChange: (value: string) => void;
   /** 사용자 목록 */
   users: MentionUser[];
   /** 트리거 문자 */
   trigger?: string;
+  /** 플레이스홀더 텍스트 */
   placeholder?: string;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -33,6 +38,14 @@ export interface MentionProps {
 const DROPDOWN_WIDTH = 256;
 const DROPDOWN_MAX_HEIGHT = 192;
 
+/**
+ * @ 입력으로 사용자를 멘션할 수 있는 텍스트 입력.
+ * @example
+ * <Mention value={text} onChange={setText} users={users} trigger="@" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function Mention({
   value,
   onChange,

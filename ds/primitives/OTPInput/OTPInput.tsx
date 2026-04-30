@@ -3,14 +3,28 @@ import { useRef, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface OTPInputProps {
+  /** OTP 자릿수 */
   length?: number;
+  /** 모든 자릿수 입력 완료 시 호출 */
   onComplete?: (code: string) => void;
+  /** 값 변경 콜백 */
   onChange?: (code: string) => void;
+  /** 에러 상태 표시 */
   error?: boolean;
+  /** 비활성화 상태 */
   disabled?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 6자리 일회용 비밀번호(OTP) 입력기.
+ * @example
+ * <OTPInput length={6} onComplete={(code) => verify(code)} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function OTPInput({
   length = 6,
   onComplete,

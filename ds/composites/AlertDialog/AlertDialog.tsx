@@ -4,15 +4,25 @@ import { cn } from "../../utils/cn";
 import { Portal } from "../../primitives/Portal";
 
 export interface AlertDialogProps {
+  /** 열림 상태 */
   open: boolean;
+  /** 확인 콜백 */
   onConfirm: () => void;
+  /** 취소 콜백 */
   onCancel: () => void;
+  /** 다이얼로그 제목 */
   title: string;
+  /** 다이얼로그 본문 설명 */
   description: string;
+  /** 확인 버튼 라벨 */
   confirmLabel?: string;
+  /** 취소 버튼 라벨 */
   cancelLabel?: string;
+  /** 알림 유형 */
   variant?: "danger" | "warning" | "info";
+  /** 로딩 상태 */
   loading?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -45,6 +55,9 @@ const variantIcon: Record<string, { bg: string; stroke: string; path: string }> 
  *   description="이 작업은 되돌릴 수 없습니다."
  *   variant="danger"
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay, feedback
  */
 export function AlertDialog({
   open,

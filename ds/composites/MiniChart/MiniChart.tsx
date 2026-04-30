@@ -2,14 +2,28 @@
 import { cn } from "../../utils/cn";
 
 export interface MiniChartProps {
+  /** 차트 데이터 배열 */
   data: number[];
+  /** 차트 종류 */
   type?: "line" | "bar" | "area";
+  /** 차트 너비(px) */
   width?: number;
+  /** 차트 높이(px) */
   height?: number;
+  /** 선/막대 색상 */
   color?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 카드 안에 들어갈 작은 미니 차트(스파크라인).
+ * @example
+ * <MiniChart data={[5, 8, 12, 9, 14]} type="line" color="#3b82f6" />
+ * @status stable
+ * @since 2.2.0
+ * @tags chart
+ */
 export function MiniChart({ data, type = "line", width = 120, height = 32, color = "var(--primary)", className }: MiniChartProps) {
   if (data.length < 2) return null;
   const max = Math.max(...data);

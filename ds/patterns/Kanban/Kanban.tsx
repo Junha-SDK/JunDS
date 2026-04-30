@@ -16,6 +16,7 @@ export interface KanbanColumn<T extends KanbanItem> {
 }
 
 export interface KanbanProps<T extends KanbanItem> {
+  /** 컬럼 목록 */
   columns: KanbanColumn<T>[];
   /** 카드 렌더 */
   renderCard: (item: T, columnId: string) => ReactNode;
@@ -23,6 +24,7 @@ export interface KanbanProps<T extends KanbanItem> {
   onMove?: (itemId: string, fromColumn: string, toColumn: string) => void;
   /** 컬럼 헤더 커스텀 */
   renderColumnHeader?: (column: KanbanColumn<T>) => ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -34,6 +36,9 @@ export interface KanbanProps<T extends KanbanItem> {
  *   renderCard={(item) => <TaskCard task={item} />}
  *   onMove={handleMove}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
  */
 export function Kanban<T extends KanbanItem>({
   columns,

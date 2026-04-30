@@ -4,11 +4,17 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface HoverCardProps {
+  /** 트리거 요소 */
   trigger: ReactNode;
+  /** 호버 시 표시할 콘텐츠 */
   children: ReactNode;
+  /** 표시 방향 */
   side?: "top" | "bottom" | "left" | "right";
+  /** 열림 지연(ms) */
   openDelay?: number;
+  /** 닫힘 지연(ms) */
   closeDelay?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -25,6 +31,9 @@ const sideStyles: Record<string, string> = {
  * <HoverCard trigger={<span>@사용자</span>} side="bottom">
  *   <div>사용자 프로필 미리보기</div>
  * </HoverCard>
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay
  */
 export function HoverCard({
   trigger,

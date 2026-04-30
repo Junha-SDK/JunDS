@@ -11,14 +11,32 @@ export interface ActionSheetAction {
 }
 
 export interface ActionSheetProps {
+  /** 열림 상태 */
   open: boolean;
+  /** 닫기 콜백 */
   onClose: () => void;
+  /** 상단 제목 */
   title?: string;
+  /** 액션 목록 */
   actions: ActionSheetAction[];
+  /** 취소 버튼 라벨 */
   cancelLabel?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 모바일 친화적인 하단 액션 시트. 여러 액션을 리스트로 노출합니다.
+ * @example
+ * <ActionSheet
+ *   open={open}
+ *   onClose={() => setOpen(false)}
+ *   actions={[{ label: "삭제", onClick: handleDelete, variant: "danger" }]}
+ * />
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay
+ */
 export function ActionSheet({ open, onClose, title, actions, cancelLabel = "취소", className }: ActionSheetProps) {
   useEffect(() => {
     if (!open) return;

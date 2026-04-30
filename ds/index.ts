@@ -36,3 +36,5 @@ export * from "./providers";
 
 // Utils
 export { cn } from "./utils/cn";
+export { Slot, Slottable, createCompound } from "./utils";
+export type { SlotProps } from "./utils";

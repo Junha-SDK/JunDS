@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useCallback, useRef, useId, createContext, useContext, forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { createCompound } from "../../utils/createCompound";
 import { Portal } from "../../primitives/Portal";
 import type { ReactNode } from "react";
 
@@ -252,7 +253,13 @@ function ModalFooter({ children, className }: ModalFooterProps) {
   );
 }
 
-export const Modal = Object.assign(ModalBase, {
+/**
+ * Modal 컴포넌트
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay
+ */
+export const Modal = createCompound(ModalBase, {
   Header: ModalHeader,
   Footer: ModalFooter,
 });

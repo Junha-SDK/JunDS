@@ -3,11 +3,15 @@ import { forwardRef, useMemo } from "react";
 import { cn } from "../../utils/cn";
 
 export interface PaginationProps {
+  /** 현재 페이지 */
   page: number;
+  /** 전체 페이지 수 */
   totalPages: number;
+  /** 페이지 변경 콜백 */
   onChange: (page: number) => void;
   /** 보여줄 페이지 수 */
   siblings?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -15,6 +19,9 @@ export interface PaginationProps {
  * 페이지네이션
  * @example
  * <Pagination page={1} totalPages={10} onChange={setPage} />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export const Pagination = forwardRef<HTMLElement, PaginationProps>(
   ({ page, totalPages, onChange, siblings = 1, className }, ref) => {

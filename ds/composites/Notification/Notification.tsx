@@ -3,12 +3,19 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface NotificationProps {
+  /** 알림 제목 */
   title: string;
+  /** 보조 설명 */
   description?: string;
+  /** 알림 유형 */
   variant?: "info" | "success" | "warning" | "danger";
+  /** 좌측 아이콘 */
   icon?: ReactNode;
+  /** 하단 액션 영역 */
   action?: ReactNode;
+  /** 닫기 콜백 */
   onClose?: () => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -26,6 +33,14 @@ const iconColors = {
   danger: "text-danger",
 };
 
+/**
+ * 상단에 잠깐 떠오르는 알림 카드.
+ * @example
+ * <Notification title="저장 완료" description="변경사항이 저장되었습니다." variant="success" />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
+ */
 export function Notification({
   title, description, variant = "info", icon, action, onClose, className,
 }: NotificationProps) {

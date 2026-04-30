@@ -9,9 +9,13 @@ export interface TreemapItem {
 }
 
 export interface TreemapChartProps {
+  /** 트리맵 데이터 */
   data: TreemapItem[];
+  /** 차트 너비(px) */
   width?: number;
+  /** 차트 높이(px) */
   height?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -42,6 +46,14 @@ function squarify(items: TreemapItem[], x: number, y: number, w: number, h: numb
   return rects;
 }
 
+/**
+ * 계층 데이터를 사각형 면적으로 표현하는 트리맵.
+ * @example
+ * <TreemapChart data={hierarchy} width={600} height={400} />
+ * @status stable
+ * @since 2.2.0
+ * @tags chart
+ */
 export function TreemapChart({ data, width = 400, height = 250, className }: TreemapChartProps) {
   const sorted = useMemo(() => [...data].sort((a, b) => b.value - a.value), [data]);
   const rects = useMemo(() => squarify(sorted, 0, 0, width, height), [sorted, width, height]);

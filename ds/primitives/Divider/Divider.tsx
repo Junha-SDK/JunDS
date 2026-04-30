@@ -3,9 +3,11 @@ import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface DividerProps {
+  /** 구분선 방향 */
   orientation?: "horizontal" | "vertical";
   /** 구분선 위에 라벨 */
   label?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -15,6 +17,9 @@ export interface DividerProps {
  * <Divider />
  * <Divider label="또는" />
  * <Divider orientation="vertical" />
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
  */
 export const Divider = forwardRef<HTMLDivElement, DividerProps>(function Divider({ orientation = "horizontal", label, className }, ref) {
   if (orientation === "vertical") {

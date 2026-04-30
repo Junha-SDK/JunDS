@@ -3,8 +3,11 @@ import { useState } from "react";
 import { cn } from "../../utils/cn";
 
 export interface JSONViewerProps {
+  /** 표시할 JSON 데이터 */
   data: unknown;
+  /** 초기 펼침 상태 */
   initialExpanded?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -43,6 +46,14 @@ function JSONNode({ name, value, depth = 0, expanded: init = true }: { name?: st
   );
 }
 
+/**
+ * JSON 데이터를 트리 구조로 펼쳐서 보여주는 뷰어.
+ * @example
+ * <JSONViewer data={response} initialExpanded />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function JSONViewer({ data, initialExpanded = true, className }: JSONViewerProps) {
   return (
     <div className={cn("p-3 rounded-xl border border-border bg-gray-950 text-gray-100 text-xs font-mono overflow-auto", className)}>

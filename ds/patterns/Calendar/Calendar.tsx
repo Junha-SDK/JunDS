@@ -19,20 +19,25 @@ export interface CalendarEvent {
 }
 
 export interface CalendarProps {
+  /** 이벤트 목록 */
   events?: CalendarEvent[];
   /** 날짜 셀 렌더 */
   renderDay?: (date: Date, events: CalendarEvent[]) => ReactNode;
+  /** 날짜 클릭 콜백 */
   onDateClick?: (date: Date) => void;
+  /** 추가 클래스 */
   className?: string;
 
   /** Selected date (single mode) */
   selectedDate?: Date | null;
+  /** 단일 날짜 선택 콜백 */
   onDateSelect?: (date: Date) => void;
 
   /** Selection mode */
   selectionMode?: "single" | "range";
   /** Selected date range (controlled, for range mode) */
   selectedRange?: { start: Date | null; end: Date | null };
+  /** 범위 선택 콜백 */
   onRangeSelect?: (range: { start: Date; end: Date }) => void;
 
   /** Min selectable date */
@@ -433,6 +438,9 @@ function DayCell({
  * @example
  * <DsCalendar events={events} onDateClick={handleClick} />
  * <DsCalendar selectionMode="range" onRangeSelect={handleRange} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display, form
  */
 export function DsCalendar({
   events = [],

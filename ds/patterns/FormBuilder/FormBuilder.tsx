@@ -21,13 +21,19 @@ export interface FormField {
 }
 
 export interface FormBuilderProps {
+  /** 필드 정의 배열 */
   fields: FormField[];
+  /** 제출 콜백 */
   onSubmit: (values: Record<string, string>) => void | Promise<void>;
+  /** 제출 버튼 라벨 */
   submitLabel?: string;
   /** 추가 액션 (취소 버튼 등) */
   actions?: ReactNode;
+  /** 로딩 상태 */
   loading?: boolean;
+  /** 컬럼 수 */
   columns?: 1 | 2;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -42,6 +48,9 @@ export interface FormBuilderProps {
  *   ]}
  *   onSubmit={handleSubmit}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags form
  */
 export function FormBuilder({
   fields,

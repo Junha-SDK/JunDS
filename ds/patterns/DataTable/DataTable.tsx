@@ -39,29 +39,39 @@ export interface DataTableColumn<T> {
 export type DensityMode = "compact" | "normal" | "comfortable";
 
 export interface DataTableProps<T> {
+  /** 컬럼 정의 */
   columns: DataTableColumn<T>[];
+  /** 데이터 배열 */
   data: T[];
+  /** 행 고유 키 추출 함수 */
   rowKey: (row: T) => string;
   /* ── 선택 ── */
   selectable?: boolean;
+  /** 선택된 행 키 집합 */
   selectedKeys?: Set<string>;
+  /** 선택 변경 콜백 */
   onSelectionChange?: (keys: Set<string>) => void;
   /* ── 페이지네이션 ── */
   pageSize?: number;
+  /** 페이지 크기 옵션 */
   pageSizeOptions?: number[];
   /* ── 확장 행 ── */
   expandable?: boolean;
+  /** 확장된 행 렌더 함수 */
   expandedRowRender?: (row: T) => ReactNode;
   /* ── 검색/필터 ── */
   searchable?: boolean;
+  /** 검색 입력 플레이스홀더 */
   searchPlaceholder?: string;
   /* ── 내보내기 ── */
   exportable?: boolean;
+  /** 내보내기 파일명 */
   exportFilename?: string;
   /* ── 벌크 액션 ── */
   bulkActions?: { label: string; icon?: ReactNode; onClick: (keys: Set<string>) => void; variant?: "danger" | "default" }[];
   /* ── 밀도 ── */
   density?: DensityMode;
+  /** 밀도 토글 표시 여부 */
   densityToggle?: boolean;
   /* ── 풀스크린 ── */
   fullscreenToggle?: boolean;
@@ -71,26 +81,35 @@ export interface DataTableProps<T> {
   showSummary?: boolean;
   /* ── 가상 스크롤 ── */
   virtualScroll?: boolean;
+  /** 가상 스크롤 행 높이 */
   virtualRowHeight?: number;
   /* ── 행 번호 ── */
   showRowNumbers?: boolean;
   /* ── 행 드래그 정렬 ── */
   draggableRows?: boolean;
+  /** 행 순서 변경 콜백 */
   onRowReorder?: (fromIndex: number, toIndex: number) => void;
   /* ── 행 고정 (상단 pin) ── */
   pinnableRows?: boolean;
+  /** 고정된 행 키 집합 */
   pinnedKeys?: Set<string>;
+  /** 고정 행 변경 콜백 */
   onPinnedChange?: (keys: Set<string>) => void;
   /* ── 행 컨텍스트 메뉴 ── */
   contextMenu?: (row: T) => { label: string; onClick: () => void; danger?: boolean }[];
   /* ── 조건부 서식 ── */
   rowClassName?: (row: T, index: number) => string | undefined;
+  /** 셀별 클래스 반환 함수 */
   cellClassName?: (row: T, column: DataTableColumn<T>) => string | undefined;
   /* ── 서버사이드 모드 ── */
   serverSide?: boolean;
+  /** 서버사이드 전체 행 수 */
   totalRows?: number;
+  /** 페이지 변경 콜백 */
   onPageChange?: (page: number, pageSize: number) => void;
+  /** 정렬 변경 콜백 */
   onSortChange?: (sorts: SortState[]) => void;
+  /** 필터 변경 콜백 */
   onFilterChange?: (search: string, columnFilters: Record<string, string>) => void;
   /* ── 행 그룹핑 ── */
   groupBy?: string;
@@ -98,11 +117,17 @@ export interface DataTableProps<T> {
   copyable?: boolean;
   /* ── 기타 ── */
   emptyMessage?: string;
+  /** 로딩 상태 */
   loading?: boolean;
+  /** 행 클릭 콜백 */
   onRowClick?: (row: T) => void;
+  /** 줄무늬 행 표시 */
   striped?: boolean;
+  /** 헤더 고정 */
   stickyHeader?: boolean;
+  /** 표 캡션 */
   caption?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -135,6 +160,11 @@ const densityText: Record<DensityMode, string> = {
  * 컬럼 숨기기/보이기, 컬럼 고정, CSV/JSON 내보내기, 벌크 액션, 밀도 조절,
  * 풀스크린, 인라인 편집, 컬럼 그룹핑, 행 요약/집계, 키보드 네비게이션,
  * 가상 스크롤
+ * @example
+ * <DataTable columns={columns} data={rows} rowKey="id" selectable pageSize={20} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
  */
 export function DataTable<T>({
   columns: initialColumns,
@@ -648,6 +678,7 @@ export function DataTable<T>({
             >
               {isEditing ? (
                 <input
+                  // eslint-disable-next-line jsx-a11y/no-autofocus -- inline cell-edit: focus must move into the freshly mounted input on dblclick
                   autoFocus
                   value={editValue}
                   onChange={(e) => setEditValue(e.target.value)}

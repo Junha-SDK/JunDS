@@ -5,10 +5,15 @@ import { Portal } from "../../primitives/Portal";
 import type { ReactNode } from "react";
 
 export interface SpotlightProps {
+  /** 강조할 대상 셀렉터 */
   target: string;
+  /** 활성화 여부 */
   active: boolean;
+  /** 컷아웃 여백(px) */
   padding?: number;
+  /** 추가 클래스 */
   className?: string;
+  /** 컷아웃 아래에 표시할 콘텐츠 */
   children?: ReactNode;
 }
 
@@ -24,6 +29,9 @@ interface Rect {
  * @description 특정 요소를 강조하는 어두운 오버레이와 투명 컷아웃을 제공합니다.
  * @example
  * <Spotlight target="#important-section" active={isHighlighted} padding={8} />
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay, navigation
  */
 export function Spotlight({ target, active, padding = 8, className, children }: SpotlightProps) {
   const [rect, setRect] = useState<Rect | null>(null);

@@ -3,17 +3,34 @@ import { useEffect, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface TypewriterProps {
+  /** 순환 표시할 문장 배열 */
   texts: string[];
+  /** 타이핑 속도(ms/char) */
   speed?: number;
+  /** 삭제 속도(ms/char) */
   deleteSpeed?: number;
+  /** 다음 문장 시작 전 지연(ms) */
   delay?: number;
+  /** 무한 반복 */
   loop?: boolean;
+  /** 커서 표시 */
   cursor?: boolean;
+  /** 커서 문자 */
   cursorChar?: string;
+  /** 추가 클래스 */
   className?: string;
+  /** 완료 콜백 */
   onComplete?: () => void;
 }
 
+/**
+ * 글자를 한 글자씩 쳐 나가는 타이핑 효과.
+ * @example
+ * <Typewriter texts={["안녕하세요", "Hello"]} speed={80} loop />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function Typewriter({
   texts,
   speed = 80,

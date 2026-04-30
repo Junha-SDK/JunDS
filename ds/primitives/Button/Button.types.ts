@@ -86,4 +86,22 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * @default false
    */
   fullWidth?: boolean;
+
+  /**
+   * Radix-style Slot 위임. `true`이면 Button은 자체 `<button>`을 렌더하지
+   * 않고, 단일 자식 엘리먼트로 위임합니다. 스피너·아이콘 같은 internal
+   * content는 자식의 children 위치에 자동 합쳐집니다.
+   *
+   * Next의 `<Link>`, 외부 wrapper 등 임의의 element에 Button 디자인을
+   * 적용할 때 사용하세요. `loading`/`disabled`는 element가 button일
+   * 때만 의미를 갖습니다.
+   *
+   * @default false
+   *
+   * @example
+   * <Button asChild leftIcon={<Plus />}>
+   *   <Link href="/new">새로 만들기</Link>
+   * </Button>
+   */
+  asChild?: boolean;
 }

@@ -5,10 +5,15 @@ import { cn } from "../../utils/cn";
 export type TooltipPosition = "top" | "bottom" | "left" | "right";
 
 export interface TooltipProps {
+  /** 툴팁 내용 */
   content: ReactNode;
+  /** 표시 위치 */
   position?: TooltipPosition;
+  /** 표시 지연(ms) */
   delay?: number;
+  /** 트리거 요소 */
   children: ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -23,6 +28,9 @@ const positionStyles: Record<TooltipPosition, string> = {
  * 툴팁
  * @example
  * <Tooltip content="저장합니다"><Button>저장</Button></Tooltip>
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay
  */
 export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
   ({ content, position = "top", delay = 200, children, className }, ref) => {

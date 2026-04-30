@@ -3,12 +3,24 @@ import { useRef, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface ImageCropperProps {
+  /** 이미지 소스 URL */
   src: string;
+  /** 크롭 영역 종횡비 */
   aspectRatio?: number;
+  /** 크롭 결과 콜백 */
   onCrop?: (dataUrl: string) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 이미지를 잘라내는 크로퍼.
+ * @example
+ * <ImageCropper src={imageUrl} aspectRatio={1} onCrop={setCropped} />
+ * @status stable
+ * @since 2.2.0
+ * @tags media
+ */
 export function ImageCropper({ src, aspectRatio = 1, onCrop, className }: ImageCropperProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [crop, setCrop] = useState({ x: 25, y: 25, size: 50 });

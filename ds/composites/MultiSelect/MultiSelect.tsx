@@ -10,14 +10,23 @@ export interface MultiSelectOption {
 }
 
 export interface MultiSelectProps {
+  /** 선택 옵션 목록 */
   options: MultiSelectOption[];
+  /** 선택된 값 목록 */
   value: string[];
+  /** 값 변경 콜백 */
   onChange: (value: string[]) => void;
+  /** 플레이스홀더 텍스트 */
   placeholder?: string;
+  /** 검색 입력 표시 여부 */
   searchable?: boolean;
+  /** 한 번에 표시할 최대 태그 수 */
   maxDisplay?: number;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 오류 상태 표시 */
   error?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -25,6 +34,9 @@ export interface MultiSelectProps {
  * 다중 선택 컴포넌트
  * @example
  * <MultiSelect options={opts} value={selected} onChange={setSelected} searchable />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function MultiSelect({
   options,
@@ -106,6 +118,7 @@ export function MultiSelect({
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="검색..."
                 className="w-full px-2 py-1 text-sm border border-border rounded-md focus:outline-none focus:border-primary"
+                // eslint-disable-next-line jsx-a11y/no-autofocus -- popup search input: focusing on open is the expected pattern (focus already inside the popup)
                 autoFocus
               />
             </div>

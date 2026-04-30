@@ -12,6 +12,7 @@ export interface BatteryIndicatorProps {
   label?: string;
   /** 크기 */
   size?: "sm" | "md" | "lg";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -40,6 +41,9 @@ function getAutoColor(value: number): string {
  * @example
  * <BatteryIndicator value={75} autoColor />
  * <BatteryIndicator value={30} color="warning" size="lg" label="배터리" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function BatteryIndicator({
   value,

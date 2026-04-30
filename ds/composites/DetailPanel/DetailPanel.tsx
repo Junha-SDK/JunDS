@@ -11,14 +11,23 @@ export interface DetailPanelTab {
 }
 
 export interface DetailPanelProps {
+  /** 열림 상태 */
   open: boolean;
+  /** 닫기 콜백 */
   onClose: () => void;
+  /** 패널 제목 */
   title: string;
+  /** 부제목 */
   subtitle?: string;
+  /** 상태 배지 */
   status?: "success" | "warning" | "danger" | "info";
+  /** 탭 목록 */
   tabs?: DetailPanelTab[];
+  /** 탭이 없을 때 표시할 본문 */
   children?: ReactNode;
+  /** 패널 너비(px) */
   width?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -44,6 +53,9 @@ const statusStyles: Record<NonNullable<DetailPanelProps["status"]>, { bg: string
  *     { key: "history", label: "이력", content: <HistoryContent />, badge: 3 },
  *   ]}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function DetailPanel({
   open,

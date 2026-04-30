@@ -7,6 +7,7 @@ export type ScrollOrientation = "vertical" | "horizontal" | "both";
 export interface ScrollAreaProps {
   /** 자식 요소 */
   children: React.ReactNode;
+  /** 추가 클래스 */
   className?: string;
   /** 최대 높이 */
   maxHeight?: string | number;
@@ -30,6 +31,9 @@ const overflowMap: Record<ScrollOrientation, string> = {
  * <ScrollArea orientation="horizontal" maxHeight="200px">
  *   <div className="flex gap-4">...</div>
  * </ScrollArea>
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
  */
 export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
   ({ children, className, maxHeight, orientation = "vertical" }, ref) => {
@@ -41,6 +45,7 @@ export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
         ref={ref}
         role="region"
         aria-label="스크롤 영역"
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- scrollable region must be keyboard-focusable so PageUp/PageDown/arrows scroll it (WAI-ARIA scrollable region pattern)
         tabIndex={0}
         className={cn(
           "relative",

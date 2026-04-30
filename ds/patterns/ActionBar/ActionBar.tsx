@@ -12,6 +12,7 @@ export interface ActionBarProps {
   actions: ReactNode;
   /** 선택 해제 */
   onClear?: () => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -27,6 +28,9 @@ export interface ActionBarProps {
  *     <Button size="sm" variant="danger">삭제</Button>
  *   </>}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export function ActionBar({ count, open, actions, onClear, className }: ActionBarProps) {
   if (!open) return null;

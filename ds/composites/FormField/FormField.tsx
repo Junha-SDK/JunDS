@@ -14,7 +14,9 @@ export interface FormFieldProps {
   hint?: string;
   /** htmlFor */
   htmlFor?: string;
+  /** 입력 요소 */
   children: ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -24,6 +26,9 @@ export interface FormFieldProps {
  * <FormField label="이름" required error={errors.name}>
  *   <Input id="name" error={!!errors.name} />
  * </FormField>
+ * @status stable
+ * @since 2.2.0
+ * @tags form
  */
 export function FormField({ label, required, error, hint, htmlFor, children, className }: FormFieldProps) {
   return (

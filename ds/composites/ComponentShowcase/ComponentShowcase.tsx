@@ -18,11 +18,17 @@ export interface ShowcaseItem {
 }
 
 export interface ComponentShowcaseProps {
+  /** 쇼케이스 항목 목록 */
   items: ShowcaseItem[];
+  /** 검색 입력 표시 여부 */
   searchable?: boolean;
+  /** 카테고리 필터 표시 여부 */
   filterable?: boolean;
+  /** 그리드 컬럼 수 */
   columns?: 2 | 3 | 4;
+  /** 항목 클릭 콜백 */
   onItemClick?: (item: ShowcaseItem) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -79,6 +85,14 @@ const gridCls: Record<2 | 3 | 4, string> = {
 /*  ComponentShowcase                                                  */
 /* ================================================================== */
 
+/**
+ * 검색·필터·그리드/리스트 뷰를 갖춘 컴포넌트 카탈로그.
+ * @example
+ * <ComponentShowcase items={items} searchable columns={3} />
+ * @status stable
+ * @since 2.2.0
+ * @tags misc
+ */
 export function ComponentShowcase({
   items,
   searchable = true,

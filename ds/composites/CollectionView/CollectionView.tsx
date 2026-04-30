@@ -20,6 +20,7 @@ export interface CollectionItem {
 }
 
 export interface CollectionViewProps {
+  /** 컬렉션 항목 목록 */
   items: CollectionItem[];
   /** 뷰 모드 */
   view?: "grid" | "list";
@@ -31,6 +32,7 @@ export interface CollectionViewProps {
   columns?: 2 | 3 | 4;
   /** 빈 상태 메시지 */
   emptyMessage?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -97,6 +99,14 @@ function SearchIcon() {
 
 /* ─── 컬렉션뷰 ─── */
 
+/**
+ * 검색·필터·뷰 전환을 지원하는 컬렉션 뷰어.
+ * @example
+ * <CollectionView items={items} view="grid" searchable filterable />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
+ */
 export function CollectionView({
   items,
   view: initialView = "grid",

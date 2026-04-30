@@ -11,14 +11,28 @@ export interface DataGridColumn<T> {
 }
 
 export interface DataGridProps<T> {
+  /** 표 행 데이터 */
   data: T[];
+  /** 열 정의 */
   columns: DataGridColumn<T>[];
+  /** 페이지당 행 수 */
   pageSize?: number;
+  /** 행 선택 가능 여부 */
   selectable?: boolean;
+  /** 선택 변경 콜백 */
   onSelect?: (selected: T[]) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 페이징·선택이 지원되는 데이터 그리드.
+ * @example
+ * <DataGrid data={rows} columns={cols} pageSize={20} selectable onSelect={setSelected} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
+ */
 export function DataGrid<T extends Record<string, unknown>>({
   data, columns, pageSize = 20, selectable, onSelect, className,
 }: DataGridProps<T>) {

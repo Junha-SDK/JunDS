@@ -5,11 +5,17 @@ import { Portal } from "../../primitives/Portal";
 import type { ReactNode } from "react";
 
 export interface SheetProps {
+  /** 열림 상태 */
   open: boolean;
+  /** 닫기 콜백 */
   onClose: () => void;
+  /** 시트 본문 */
   children: ReactNode;
+  /** 헤더 제목 */
   title?: string;
+  /** 스냅 포인트(vh 단위 배열) */
   snapPoints?: number[];
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -21,6 +27,9 @@ const DRAG_DISMISS_THRESHOLD = 150;
  * <Sheet open={isOpen} onClose={close} title="옵션">
  *   <p>시트 내용</p>
  * </Sheet>
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay
  */
 export function Sheet({
   open,

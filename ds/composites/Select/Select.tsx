@@ -232,6 +232,7 @@ function SelectInner<T extends string = string>({
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="검색..."
                 className="w-full px-2 py-1 text-sm border border-border rounded-md focus:outline-none focus:border-primary"
+                // eslint-disable-next-line jsx-a11y/no-autofocus -- popup search input: focusing on open is the expected pattern (focus already inside the popup)
                 autoFocus
               />
             </li>
@@ -267,9 +268,20 @@ function SelectInner<T extends string = string>({
   );
 }
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(
-  (props, ref) => <SelectInner {...props} innerRef={ref} />,
-) as <T extends string = string>(
+function SelectForwarded(props: SelectProps, ref: React.Ref<HTMLDivElement>) {
+  return <SelectInner {...props} innerRef={ref} />;
+}
+SelectForwarded.displayName = "Select";
+
+/**
+ * 옵션 목록에서 하나를 고르는 셀렉트.
+ * @example
+ * <Select options={options} value={value} onChange={setValue} placeholder="선택하세요" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
+export const Select = forwardRef<HTMLDivElement, SelectProps>(SelectForwarded) as <T extends string = string>(
   props: SelectProps<T> & { ref?: React.Ref<HTMLDivElement> },
 ) => React.ReactElement | null;
 

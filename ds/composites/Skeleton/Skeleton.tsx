@@ -3,10 +3,15 @@ import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface SkeletonProps {
+  /** 스켈레톤 모양 */
   variant?: "text" | "circle" | "rect";
+  /** 너비 */
   width?: string | number;
+  /** 높이 */
   height?: string | number;
+  /** 텍스트 변형의 줄 수 */
   lines?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -16,6 +21,9 @@ export interface SkeletonProps {
  * <Skeleton variant="text" lines={3} />
  * <Skeleton variant="circle" width={40} height={40} />
  * <Skeleton variant="rect" width="100%" height={200} />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
   ({ variant = "text", width, height, lines = 1, className }, ref) => {

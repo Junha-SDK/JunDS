@@ -7,7 +7,9 @@ import type { ReactNode } from "react";
 export interface FilterBarProps {
   /** 검색 입력 */
   searchValue?: string;
+  /** 검색어 변경 콜백 */
   onSearchChange?: (value: string) => void;
+  /** 검색 입력 플레이스홀더 */
   searchPlaceholder?: string;
   /** 필터 요소 (Select, MultiSelect 등) */
   filters?: ReactNode;
@@ -17,6 +19,7 @@ export interface FilterBarProps {
   onReset?: () => void;
   /** 활성 필터 수 */
   activeCount?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -30,6 +33,9 @@ export interface FilterBarProps {
  *   onReset={clearFilters}
  *   activeCount={2}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
 export function FilterBar({
   searchValue,

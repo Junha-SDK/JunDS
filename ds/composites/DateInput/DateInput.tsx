@@ -4,7 +4,9 @@ import { cn } from "../../utils/cn";
 import type { InputHTMLAttributes } from "react";
 
 export interface DateInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+  /** 에러 상태 */
   error?: boolean;
+  /** 값 초기화 콜백 */
   onClear?: () => void;
 }
 
@@ -12,6 +14,9 @@ export interface DateInputProps extends Omit<InputHTMLAttributes<HTMLInputElemen
  * 날짜 입력
  * @example
  * <DateInput value={date} onChange={e => setDate(e.target.value)} onClear={() => setDate("")} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
   ({ error, onClear, value, className, ...props }, ref) => {

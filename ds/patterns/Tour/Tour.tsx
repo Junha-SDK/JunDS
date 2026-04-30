@@ -11,11 +11,17 @@ export interface TourStep {
 }
 
 export interface TourProps {
+  /** 투어 단계 정의 */
   steps: TourStep[];
+  /** 투어 표시 여부 */
   open: boolean;
+  /** 투어 종료 콜백 */
   onClose: () => void;
+  /** 현재 단계 인덱스 */
   current?: number;
+  /** 단계 변경 콜백 */
   onStepChange?: (step: number) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -35,6 +41,9 @@ interface Rect {
  *   onClose={() => setShowTour(false)}
  *   steps={[{ target: "#btn", title: "버튼", description: "여기를 클릭하세요" }]}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay, navigation
  */
 export function Tour({ steps, open, onClose, current: controlledCurrent, onStepChange, className }: TourProps) {
   const [internalCurrent, setInternalCurrent] = useState(0);

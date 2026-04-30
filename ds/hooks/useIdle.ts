@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 
 export function useIdle(timeout: number = 60000) {
   const [isIdle, setIsIdle] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const handleActivity = useCallback(() => {
     setIsIdle(false);

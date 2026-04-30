@@ -126,6 +126,9 @@ const sizeStyles: Record<InputSize, string> = {
  * @example
  * // 에러 상태
  * <Input error placeholder="필수 입력" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ size = "md", error, leftSlot, rightSlot, className, ...props }, ref) => {

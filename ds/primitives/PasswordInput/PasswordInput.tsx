@@ -71,6 +71,9 @@ const strengthConfig: Record<StrengthLevel, { label: string; color: string; bgCo
  *
  * @example
  * <PasswordInput showStrength showRules placeholder="비밀번호" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   ({ error, showStrength, showRules, rules, size = "md", className, value, ...props }, ref) => {

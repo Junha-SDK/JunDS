@@ -4,15 +4,21 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface FileUploadProps {
+  /** 선택된 파일 콜백 */
   onFiles: (files: File[]) => void;
+  /** 허용할 파일 MIME 패턴 */
   accept?: string;
+  /** 다중 선택 허용 */
   multiple?: boolean;
+  /** 파일당 최대 크기(바이트) */
   maxSize?: number; // bytes
+  /** 비활성화 상태 */
   disabled?: boolean;
   /** 커스텀 트리거 (없으면 드롭존) */
   trigger?: ReactNode;
   /** 드롭존 설명 */
   description?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -20,6 +26,9 @@ export interface FileUploadProps {
  * 파일 업로드 (드래그 앤 드롭 + 클릭)
  * @example
  * <FileUpload onFiles={handleFiles} accept="image/*" multiple maxSize={5*1024*1024} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function FileUpload({
   onFiles,

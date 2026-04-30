@@ -3,13 +3,21 @@ import { useState, useCallback, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface RatingProps {
+  /** 현재 평점 값 */
   value: number;
+  /** 값 변경 콜백 */
   onChange?: (value: number) => void;
+  /** 최대 별 개수 */
   max?: number;
+  /** 0.5 단위 평점 허용 여부 */
   half?: boolean;
+  /** 별 크기 */
   size?: "sm" | "md" | "lg";
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 읽기 전용 여부 */
   readOnly?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -19,6 +27,9 @@ const sizes = { sm: 16, md: 20, lg: 28 };
  * 평점 입력 컴포넌트
  * @example
  * <Rating value={3} onChange={setValue} max={5} half />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const Rating = forwardRef<HTMLDivElement, RatingProps>(
   ({
@@ -36,6 +47,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(
   }, [interactive, onChange, half]);
 
   return (
+    // eslint-disable-next-line jsx-a11y/interactive-supports-focus -- radiogroup is a container; the underlying <button> stars are individually focusable
     <div
       ref={ref}
       className={cn("inline-flex items-center gap-0.5", disabled && "opacity-50", className)}

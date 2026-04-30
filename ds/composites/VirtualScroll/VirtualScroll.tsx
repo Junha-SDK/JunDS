@@ -3,14 +3,32 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface VirtualScrollProps<T> {
+  /** 렌더링할 항목 배열 */
   items: T[];
+  /** 항목 고정 높이(px) */
   itemHeight: number;
+  /** 항목 렌더 함수 */
   renderItem: (item: T, index: number) => React.ReactNode;
+  /** 뷰포트 외 추가 렌더 개수 */
   overscan?: number;
+  /** 추가 클래스 */
   className?: string;
+  /** 추가 스타일 */
   style?: React.CSSProperties;
 }
 
+/**
+ * 대량 리스트를 가상화로 렌더링하는 스크롤러.
+ * @example
+ * <VirtualScroll
+ *   items={items}
+ *   itemHeight={48}
+ *   renderItem={(item) => <Row item={item} />}
+ * />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
+ */
 export function VirtualScroll<T>({
   items, itemHeight, renderItem, overscan = 5, className, style,
 }: VirtualScrollProps<T>) {

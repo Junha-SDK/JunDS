@@ -4,13 +4,31 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface SwipeActionProps {
+  /** 자식 콘텐츠 */
   children: ReactNode;
+  /** 왼쪽 스와이프 시 노출할 액션 목록 */
   leftActions?: { label: string; color: string; onClick: () => void }[];
+  /** 오른쪽 스와이프 시 노출할 액션 목록 */
   rightActions?: { label: string; color: string; onClick: () => void }[];
+  /** 스와이프 임계 거리(px) */
   threshold?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 좌/우로 스와이프 시 액션이 노출되는 행 래퍼.
+ * @example
+ * <SwipeAction
+ *   leftActions={[{ label: "보관", onClick: archive }]}
+ *   rightActions={[{ label: "삭제", onClick: remove, variant: "danger" }]}
+ * >
+ *   <ListItem />
+ * </SwipeAction>
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
+ */
 export function SwipeAction({ children, leftActions = [], rightActions = [], threshold = 80, className }: SwipeActionProps) {
   const [offset, setOffset] = useState(0);
   const startX = useRef(0);

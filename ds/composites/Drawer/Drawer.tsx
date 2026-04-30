@@ -8,14 +8,23 @@ export type DrawerSide = "left" | "right" | "bottom";
 export type DrawerSize = "sm" | "md" | "lg" | "xl";
 
 export interface DrawerProps {
+  /** 열림 상태 */
   open: boolean;
+  /** 닫기 콜백 */
   onClose: () => void;
+  /** 열리는 방향 */
   side?: DrawerSide;
+  /** 드로어 크기 */
   size?: DrawerSize;
+  /** 헤더 제목 */
   title?: string;
+  /** 본문 콘텐츠 */
   children: ReactNode;
+  /** 푸터 영역 */
   footer?: ReactNode;
+  /** 외부 클릭/ESC로 닫기 허용 */
   dismissible?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -50,6 +59,9 @@ const positionClass: Record<DrawerSide, string> = {
  * <Drawer open={isOpen} onClose={close} side="right" title="필터">
  *   <FilterContent />
  * </Drawer>
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay
  */
 export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
   ({

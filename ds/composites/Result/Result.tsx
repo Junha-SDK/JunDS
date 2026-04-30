@@ -3,11 +3,17 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface ResultProps {
+  /** 결과 상태 */
   status: "success" | "error" | "warning" | "info" | "404" | "403";
+  /** 결과 제목 */
   title: string;
+  /** 보조 설명 */
   description?: string;
+  /** 하단 액션 영역 */
   extra?: ReactNode;
+  /** 커스텀 아이콘 */
   icon?: ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -60,6 +66,9 @@ const statusIcons: Record<ResultProps["status"], ReactNode> = {
  * @description 성공, 실패, 경고, 정보 등의 결과 상태를 표시합니다.
  * @example
  * <Result status="success" title="결제가 완료되었습니다" description="주문 내역을 확인해주세요" extra={<Button>홈으로</Button>} />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export function Result({ status, title, description, extra, icon, className }: ResultProps) {
   return (

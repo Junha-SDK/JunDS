@@ -39,22 +39,39 @@ export interface FlowConnection {
 }
 
 export interface FlowDiagramProps {
+  /** 노드 목록 */
   nodes: FlowNode[];
+  /** 연결선 목록 */
   connections: FlowConnection[];
+  /** 노드 이동 콜백 */
   onNodeMove?: (nodeId: string, x: number, y: number) => void;
+  /** 노드 클릭 콜백 */
   onNodeClick?: (nodeId: string) => void;
+  /** 연결 생성 콜백 */
   onConnect?: (from: string, to: string) => void;
+  /** 연결 해제 콜백 */
   onDisconnect?: (connectionId: string) => void;
+  /** 선택된 노드 ID 목록 */
   selectedIds?: string[];
+  /** 선택 변경 콜백 */
   onSelectionChange?: (ids: string[]) => void;
+  /** 노드 삭제 콜백 */
   onNodeDelete?: (nodeIds: string[]) => void;
+  /** 노드 더블 클릭 콜백 */
   onNodeDoubleClick?: (nodeId: string) => void;
+  /** 추가 클래스 */
   className?: string;
+  /** 그리드 표시 여부 */
   showGrid?: boolean;
+  /** 미니맵 표시 여부 */
   showMinimap?: boolean;
+  /** 화면 맞춤 활성화 */
   fitToView?: boolean;
+  /** 읽기 전용 */
   readonly?: boolean;
+  /** 연결선 스타일 */
   connectionStyle?: "bezier" | "straight" | "step";
+  /** 연결선 애니메이션 */
   animateConnections?: boolean;
 }
 
@@ -348,6 +365,14 @@ function Minimap({ nodes, connections, zoom, pan, cw, ch, heights }: {
 /*  Main FlowDiagram                                                   */
 /* ================================================================== */
 
+/**
+ * 노드와 연결선으로 구성된 플로우 다이어그램 에디터.
+ * @example
+ * <FlowDiagram nodes={nodes} connections={connections} onNodeMove={updateNode} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function FlowDiagram({
   nodes, connections,
   onNodeMove, onNodeClick, onConnect, onDisconnect,

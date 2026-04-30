@@ -3,7 +3,9 @@ import { useState, useMemo } from "react";
 import { cn } from "../../utils/cn";
 
 export interface EmojiPickerProps {
+  /** 이모지 선택 콜백 */
   onSelect: (emoji: string) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -17,6 +19,14 @@ const CATEGORIES: Record<string, string[]> = {
   "기호": ["❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💔","❣️","💕","💞","💓","💗","💖","💝","💘","💌","💤","💢","💥","💦","💨","🕳️","💣","💬","🔔","🔕","📢"],
 };
 
+/**
+ * 카테고리별 이모지를 선택할 수 있는 피커.
+ * @example
+ * <EmojiPicker onSelect={(emoji) => append(emoji)} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function EmojiPicker({ onSelect, className }: EmojiPickerProps) {
   const [category, setCategory] = useState("자주 쓰는");
   const [search, setSearch] = useState("");

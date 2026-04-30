@@ -3,11 +3,13 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface ButtonGroupProps {
+  /** 자식 버튼 요소 */
   children: ReactNode;
   /** 버튼 간 구분선 */
   separated?: boolean;
   /** 전체 너비 */
   fullWidth?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -19,6 +21,9 @@ export interface ButtonGroupProps {
  *   <Button variant="secondary">중앙</Button>
  *   <Button variant="secondary">오른쪽</Button>
  * </ButtonGroup>
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
 export function ButtonGroup({ children, separated, fullWidth, className }: ButtonGroupProps) {
   return (

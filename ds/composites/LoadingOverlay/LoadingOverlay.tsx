@@ -3,13 +3,28 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface LoadingOverlayProps {
+  /** 로딩 활성 여부 */
   active: boolean;
+  /** 자식 요소 */
   children: ReactNode;
+  /** 로딩 라벨 텍스트 */
   label?: string;
+  /** 배경 블러 효과 적용 여부 */
   blur?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 로딩 중 자식 영역 위에 덮이는 오버레이.
+ * @example
+ * <LoadingOverlay active={loading} label="불러오는 중...">
+ *   <Content />
+ * </LoadingOverlay>
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback, overlay
+ */
 export function LoadingOverlay({ active, children, label = "로딩 중...", blur, className }: LoadingOverlayProps) {
   return (
     <div className={cn("relative", className)}>

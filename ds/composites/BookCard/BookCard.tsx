@@ -13,17 +13,30 @@ import { cn } from "../../utils";
  * - 커버 없을 시 그라데이션 폴백
  */
 export interface BookCardProps {
+  /** 작품 제목 */
   title: string;
+  /** 저자명 */
   author?: string;
+  /** 커버 이미지 URL */
   coverImage?: string;
   /** 잠금 상태 */
   locked?: boolean;
   /** 작품 유형 */
   kind?: string;
+  /** 카드 클릭 콜백 */
   onClick?: () => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 책 표지 + 제목 + 저자 정보를 담은 책 형태의 카드.
+ * @example
+ * <BookCard title="Atomic Design" author="Brad Frost" coverImage="/cover.jpg" />
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
+ */
 export function BookCard({
   title,
   author,

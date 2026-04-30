@@ -11,9 +11,11 @@ export interface TrustItem {
 }
 
 export interface TrustIndicatorProps {
+  /** 신뢰 지표 항목 */
   items: TrustItem[];
   /** 제목 */
   title?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -67,6 +69,9 @@ const statusConfig = {
  *   { key:"ssl", label:"SSL 인증서", status:"pass" },
  *   { key:"2fa", label:"2단계 인증", status:"fail", description:"설정이 필요합니다" },
  * ]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function TrustIndicator({ items, title, className }: TrustIndicatorProps) {
   const passCount = items.filter((i) => i.status === "pass").length;

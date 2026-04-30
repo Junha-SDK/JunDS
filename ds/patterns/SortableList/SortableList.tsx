@@ -8,11 +8,15 @@ export interface SortableItem {
 }
 
 export interface SortableListProps<T extends SortableItem> {
+  /** 정렬 가능한 항목 */
   items: T[];
+  /** 항목 렌더 함수 */
   renderItem: (item: T, index: number) => ReactNode;
+  /** 재정렬 콜백 */
   onReorder: (items: T[]) => void;
   /** 드래그 핸들 표시 */
   showHandle?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -20,6 +24,9 @@ export interface SortableListProps<T extends SortableItem> {
  * 드래그 앤 드롭 정렬 리스트 (네이티브 API)
  * @example
  * <SortableList items={tasks} renderItem={(t)=><div>{t.name}</div>} onReorder={setTasks} showHandle />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
  */
 export function SortableList<T extends SortableItem>({
   items,

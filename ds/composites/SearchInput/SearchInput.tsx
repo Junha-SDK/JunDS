@@ -3,14 +3,23 @@ import { useState, useEffect, useRef, forwardRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface SearchInputProps {
+  /** 입력 값 */
   value?: string;
+  /** 값 변경 콜백 */
   onChange?: (value: string) => void;
+  /** 검색 실행 콜백 (debounce 적용) */
   onSearch?: (value: string) => void;
+  /** 플레이스홀더 텍스트 */
   placeholder?: string;
+  /** 디바운스 지연(ms) */
   debounce?: number;
+  /** 로딩 상태 표시 */
   loading?: boolean;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 입력 크기 */
   size?: "sm" | "md" | "lg";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -24,6 +33,9 @@ const sizeStyles = {
  * 검색 입력 컴포넌트
  * @example
  * <SearchInput value={query} onChange={setQuery} onSearch={handleSearch} placeholder="검색..." />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
   ({
@@ -39,7 +51,7 @@ export const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(
 }, ref) => {
   const [internal, setInternal] = useState(controlledValue ?? "");
   const value = controlledValue ?? internal;
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     if (controlledValue !== undefined) setInternal(controlledValue);

@@ -39,6 +39,9 @@ const barSizes = {
  * @example
  * <ProgressBar value={75} showLabel />
  * <ProgressBar value={30} variant="danger" size="lg" />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export function ProgressBar({
   value,

@@ -7,6 +7,7 @@ export interface TableColumn<T = any> {
   key: string;
   header: string;
   render?: (value: any, row: T) => ReactNode;
+  /** 추가 클래스 */
   className?: string;
   /** 텍스트 정렬 */
   align?: "left" | "center" | "right";
@@ -31,6 +32,7 @@ export interface TableProps<T = any> {
   maxHeight?: string | number;
   /** 셀 테두리 표시 */
   bordered?: boolean;
+  /** 추가 클래스 */
   className?: string;
   /** 행 클릭 핸들러 */
   onRowClick?: (row: T, index: number) => void;
@@ -153,6 +155,14 @@ function TableInner<T extends Record<string, any>>({
   );
 }
 
+/**
+ * 컬럼 정의 + 데이터 행으로 구성된 기본 테이블.
+ * @example
+ * <Table columns={columns} data={rows} striped hoverable />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
+ */
 export function Table<T extends Record<string, any>>(
   props: TableProps<T> & { ref?: React.Ref<HTMLDivElement> },
 ) {

@@ -8,9 +8,13 @@ export interface FilterOption {
 }
 
 export interface FilterButtonGroupProps {
+  /** 필터 옵션 목록 */
   options: FilterOption[];
+  /** 선택된 값 */
   value: string;
+  /** 값 변경 콜백 */
   onChange: (key: string) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -27,6 +31,9 @@ export interface FilterButtonGroupProps {
  *   value={filter}
  *   onChange={setFilter}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
 export function FilterButtonGroup({ options, value, onChange, className }: FilterButtonGroupProps) {
   return (

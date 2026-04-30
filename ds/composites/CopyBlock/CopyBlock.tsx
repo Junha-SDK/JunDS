@@ -3,12 +3,24 @@ import { useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface CopyBlockProps {
+  /** 표시할 코드 텍스트 */
   code: string;
+  /** 언어 라벨 */
   language?: string;
+  /** 줄 번호 표시 여부 */
   showLineNumbers?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 코드 블록 + 복사 버튼이 포함된 코드 미리보기.
+ * @example
+ * <CopyBlock code={"npm install @junds/ui"} language="bash" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function CopyBlock({ code, language, showLineNumbers = false, className }: CopyBlockProps) {
   const [copied, setCopied] = useState(false);
 

@@ -3,14 +3,28 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface InlineEditProps {
+  /** 현재 값 */
   value: string;
+  /** 값 변경 콜백 */
   onChange: (value: string) => void;
+  /** 빈 값일 때 표시할 안내 문구 */
   placeholder?: string;
+  /** 편집 비활성화 여부 */
   disabled?: boolean;
+  /** 렌더링할 태그 */
   as?: "span" | "h1" | "h2" | "h3" | "p";
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 클릭으로 인라인 편집 모드로 전환되는 텍스트.
+ * @example
+ * <InlineEdit value={title} onChange={setTitle} placeholder="제목을 입력하세요" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function InlineEdit({
   value,
   onChange,

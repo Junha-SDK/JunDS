@@ -4,12 +4,17 @@ import { cn } from "../../utils/cn";
 import { IconButton } from "../../primitives/IconButton";
 
 export interface RichTextEditorProps {
+  /** HTML 값 */
   value?: string;
+  /** 값 변경 콜백 */
   onChange?: (html: string) => void;
+  /** 플레이스홀더 */
   placeholder?: string;
   /** 최소 높이 */
   minHeight?: number;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -29,6 +34,9 @@ const tools: { cmd: Cmd; arg?: string; icon: string; label: string }[] = [
  * 리치 텍스트 에디터 (contentEditable 기반)
  * @example
  * <RichTextEditor value={html} onChange={setHtml} placeholder="내용을 입력하세요..." />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function RichTextEditor({
   value,

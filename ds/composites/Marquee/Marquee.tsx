@@ -3,14 +3,30 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface MarqueeProps {
+  /** 흐를 콘텐츠 */
   children: ReactNode;
+  /** 한 바퀴 도는 속도(초) */
   speed?: number;
+  /** 흐름 방향 */
   direction?: "left" | "right";
+  /** 호버 시 일시 정지 여부 */
   pauseOnHover?: boolean;
+  /** 항목 사이 간격(px) */
   gap?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 가로 방향으로 무한 스크롤되는 텍스트/요소 표시기.
+ * @example
+ * <Marquee speed={20} pauseOnHover>
+ *   <span>NEW</span><span>SALE</span>
+ * </Marquee>
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function Marquee({
   children,
   speed = 30,

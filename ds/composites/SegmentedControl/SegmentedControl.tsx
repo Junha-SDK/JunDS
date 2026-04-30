@@ -11,11 +11,17 @@ export interface SegmentOption {
 }
 
 export interface SegmentedControlProps {
+  /** 세그먼트 옵션 목록 */
   options: SegmentOption[];
+  /** 선택된 값 */
   value: string;
+  /** 값 변경 콜백 */
   onChange: (value: string) => void;
+  /** 크기 */
   size?: "sm" | "md" | "lg";
+  /** 컨테이너 가로 채우기 여부 */
   fullWidth?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -33,6 +39,9 @@ const sizeClasses = {
  *   value={view}
  *   onChange={setView}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
 export function SegmentedControl({
   options,

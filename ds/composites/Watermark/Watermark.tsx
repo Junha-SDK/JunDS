@@ -4,12 +4,19 @@ import { useMemo } from "react";
 import type { ReactNode } from "react";
 
 export interface WatermarkProps {
+  /** 워터마크 텍스트 */
   text: string;
+  /** 감쌀 콘텐츠 */
   children: ReactNode;
+  /** 글자 크기(px) */
   fontSize?: number;
+  /** 텍스트 색상 */
   color?: string;
+  /** 회전 각도(deg) */
   rotate?: number;
+  /** 패턴 간격(px) */
   gap?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -20,6 +27,9 @@ export interface WatermarkProps {
  * <Watermark text="기밀 문서">
  *   <div>보호할 콘텐츠</div>
  * </Watermark>
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
  */
 export function Watermark({
   text,

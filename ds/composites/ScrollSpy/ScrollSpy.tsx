@@ -9,8 +9,11 @@ export interface ScrollSpySection {
 }
 
 export interface ScrollSpyProps {
+  /** 추적할 섹션 목록 */
   sections: ScrollSpySection[];
+  /** 활성 판정 오프셋(px) */
   offset?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -19,6 +22,9 @@ export interface ScrollSpyProps {
  * @description 현재 보이는 섹션을 하이라이트하는 사이드 네비게이션을 제공합니다.
  * @example
  * <ScrollSpy sections={[{ key: "intro", label: "소개", targetId: "section-intro" }]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export function ScrollSpy({ sections, offset = 80, className }: ScrollSpyProps) {
   const [activeKey, setActiveKey] = useState<string>(sections[0]?.key ?? "");

@@ -12,9 +12,11 @@ export interface AccordionItem {
 }
 
 export interface AccordionProps {
+  /** 아코디언 항목 목록 */
   items: AccordionItem[];
   /** 하나만 열기 모드 */
   single?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -22,6 +24,9 @@ export interface AccordionProps {
  * 아코디언
  * @example
  * <Accordion items={[{key:"1",title:"FAQ",content:<p>답변</p>}]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags disclosure
  */
 export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
   ({ items, single, className }, ref) => {

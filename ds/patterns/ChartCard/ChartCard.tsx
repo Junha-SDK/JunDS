@@ -36,15 +36,23 @@ export interface ChartTrend {
 }
 
 export interface ChartCardProps {
+  /** 카드 제목 */
   title: string;
+  /** 차트 종류 */
   type: ChartType;
+  /** 데이터 배열 */
   data: ChartDataPoint[];
+  /** 설명 텍스트 */
   description?: string;
   /** 헤더에 크게 표시할 KPI 값 */
   value?: ReactNode;
+  /** 추세 정보 */
   trend?: ChartTrend;
+  /** 헤더 배지 */
   badge?: ReactNode;
+  /** 헤더 액션 영역 */
   actions?: ReactNode;
+  /** 푸터 영역 */
   footer?: ReactNode;
   /** 차트 영역 높이 */
   height?: number;
@@ -52,13 +60,21 @@ export interface ChartCardProps {
   max?: number;
   /** 숫자 포맷터 */
   formatValue?: (value: number) => string;
+  /** 범례 표시 여부 */
   showLegend?: boolean;
+  /** 그리드 표시 여부 */
   showGrid?: boolean;
+  /** 축 표시 여부 */
   showAxis?: boolean;
+  /** 로딩 상태 */
   loading?: boolean;
+  /** 빈 상태 메시지 */
   emptyMessage?: string;
+  /** 색상 톤 */
   tone?: ChartTone;
+  /** 카드/플레인 변형 */
   variant?: "card" | "plain";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -117,6 +133,9 @@ const defaultHeights: Record<ChartType, number> = {
  * @example
  * <ChartCard title="주간 완료" type="bar" data={[{label:"월",value:12},{label:"화",value:8}]} />
  * <ChartCard title="전환율" type="radial" value="72%" data={[{label:"전환",value:72}]} max={100} />
+ * @status stable
+ * @since 2.2.0
+ * @tags chart
  */
 export function ChartCard({
   title,

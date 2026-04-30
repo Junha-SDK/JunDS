@@ -12,6 +12,9 @@ export interface KbdProps extends HTMLAttributes<HTMLElement> {
  * 키보드 단축키 표시
  * @example
  * <Kbd keys={["⌘", "K"]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export const Kbd = forwardRef<HTMLElement, KbdProps>(function Kbd({ keys, className, children, ...props }, ref) {
   return (

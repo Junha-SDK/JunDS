@@ -10,9 +10,13 @@ export interface StepItem {
 }
 
 export interface StepperProps {
+  /** 단계 목록 */
   steps: StepItem[];
+  /** 현재 단계 인덱스 */
   current: number;
+  /** 진행 방향 */
   direction?: "horizontal" | "vertical";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -20,6 +24,9 @@ export interface StepperProps {
  * 스텝퍼 — 단계별 진행 표시 컴포넌트
  * @example
  * <Stepper steps={[{key:"1",title:"정보 입력"},{key:"2",title:"확인"},{key:"3",title:"완료"}]} current={1} />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export function Stepper({ steps, current, direction = "horizontal", className }: StepperProps) {
   const isVertical = direction === "vertical";

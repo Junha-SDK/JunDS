@@ -2,13 +2,24 @@
 import { cn } from "../../utils/cn";
 
 export interface FunnelChartProps {
+  /** 퍼널 단계 데이터 */
   data: { label: string; value: number; color?: string }[];
+  /** 차트 높이(px) */
   height?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
 const DEFAULT_COLORS = ["var(--primary)", "var(--info)", "var(--success)", "var(--warning)", "var(--danger)"];
 
+/**
+ * 단계별 전환율을 시각화하는 퍼널 차트.
+ * @example
+ * <FunnelChart data={[{ label: "방문", value: 1000 }, { label: "구매", value: 200 }]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags chart
+ */
 export function FunnelChart({ data, height = 300, className }: FunnelChartProps) {
   if (data.length === 0) return null;
   const maxVal = Math.max(...data.map((d) => d.value));

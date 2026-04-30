@@ -4,12 +4,20 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface CollapsibleProps {
+  /** 열림 상태 (controlled) */
   open?: boolean;
+  /** 열림 상태 변경 콜백 */
   onOpenChange?: (open: boolean) => void;
+  /** 트리거 요소 */
   trigger: ReactNode;
+  /** 펼쳐졌을 때 보여줄 내용 */
   children: ReactNode;
+  /** 초기 열림 상태 (uncontrolled) */
   defaultOpen?: boolean;
+  /** 추가 클래스 */
   className?: string;
+  /** 트리거가 텍스트가 아닌 경우 사용할 접근성 라벨 */
+  "aria-label"?: string;
 }
 
 /**
@@ -18,6 +26,9 @@ export interface CollapsibleProps {
  * <Collapsible trigger={<span>더보기</span>}>
  *   <p>숨겨진 내용</p>
  * </Collapsible>
+ * @status stable
+ * @since 2.2.0
+ * @tags disclosure
  */
 export function Collapsible({
   open: controlledOpen,
@@ -26,6 +37,7 @@ export function Collapsible({
   children,
   defaultOpen = false,
   className,
+  ...rest
 }: CollapsibleProps) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const isControlled = controlledOpen !== undefined;
@@ -44,6 +56,7 @@ export function Collapsible({
         onClick={toggle}
         className="w-full cursor-pointer"
         aria-expanded={isOpen}
+        aria-label={rest["aria-label"] ?? (typeof trigger === "string" ? trigger : "토글")}
       >
         {trigger}
       </button>

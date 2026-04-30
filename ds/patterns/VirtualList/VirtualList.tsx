@@ -3,14 +3,19 @@ import { useState, useRef, useEffect, useCallback, type ReactNode } from "react"
 import { cn } from "../../utils/cn";
 
 export interface VirtualListProps<T> {
+  /** 렌더할 항목 배열 */
   items: T[];
+  /** 항목 고정 높이(px) */
   itemHeight: number;
+  /** 항목 렌더 함수 */
   renderItem: (item: T, index: number) => ReactNode;
+  /** 키 추출 함수 */
   keyExtractor: (item: T) => string;
   /** 뷰포트 높이 */
   height: number;
   /** 오버스캔 행 수 */
   overscan?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -18,6 +23,9 @@ export interface VirtualListProps<T> {
  * 가상화 리스트 — 10,000+ 행도 부드럽게
  * @example
  * <VirtualList items={bigData} itemHeight={40} height={400} renderItem={(item)=><Row>{item.name}</Row>} keyExtractor={i=>i.id} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
  */
 export function VirtualList<T>({
   items,

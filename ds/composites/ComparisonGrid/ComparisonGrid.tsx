@@ -13,8 +13,11 @@ export interface ComparisonCard {
 }
 
 export interface ComparisonGridProps {
+  /** 비교 카드 목록 */
   cards: ComparisonCard[];
+  /** 그리드 컬럼 수 */
   columns?: 2 | 3 | 4;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -34,6 +37,9 @@ const columnStyles: Record<2 | 3 | 4, string> = {
  *     { key: "diff", label: "차이", value: 3, hasVariance: true, change: { value: "+3", direction: "up" } },
  *   ]}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags data
  */
 export function ComparisonGrid({ cards, columns = 4, className }: ComparisonGridProps) {
   return (

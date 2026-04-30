@@ -3,15 +3,32 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface ChatBubbleProps {
+  /** 메시지 본문 */
   children: ReactNode;
+  /** 보낸 사람 이름 */
   sender?: string;
+  /** 아바타 요소 */
   avatar?: ReactNode;
+  /** 타임스탬프 텍스트 */
   timestamp?: string;
+  /** 말풍선 정렬 위치 */
   side?: "left" | "right";
+  /** 말풍선 스타일 변형 */
   variant?: "default" | "primary";
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 채팅 메시지 말풍선.
+ * @example
+ * <ChatBubble sender="홍길동" side="left" timestamp="오후 3:24">
+ *   안녕하세요!
+ * </ChatBubble>
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function ChatBubble({
   children, sender, avatar, timestamp, side = "left", variant = "default", className,
 }: ChatBubbleProps) {

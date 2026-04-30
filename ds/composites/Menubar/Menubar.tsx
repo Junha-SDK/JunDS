@@ -20,6 +20,7 @@ export interface MenubarItem {
 export interface MenubarProps {
   /** 메뉴 바 항목 목록 */
   items: MenubarItem[];
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -28,6 +29,9 @@ export interface MenubarProps {
  * macOS 스타일의 메뉴 바. 클릭으로 열고, 열린 상태에서 호버로 메뉴 전환
  * @example
  * <Menubar items={[{key:"file",label:"파일",items:[{key:"new",label:"새 파일",shortcut:"⌘N"}]}]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
  */
 export function Menubar({ items, className }: MenubarProps) {
   const [openKey, setOpenKey] = useState<string | null>(null);

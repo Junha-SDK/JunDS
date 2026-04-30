@@ -90,6 +90,7 @@ export function ColumnFilter({ value, onChange }: { value: string; onChange: (v:
       {open && (
         <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-border rounded-lg shadow-lg p-2 animate-fade-in-scale" onClick={(e) => e.stopPropagation()}>
           <input
+            // eslint-disable-next-line jsx-a11y/no-autofocus -- column filter popover: focus must move into the search input when the popover opens
             autoFocus
             value={value}
             onChange={(e) => onChange(e.target.value)}

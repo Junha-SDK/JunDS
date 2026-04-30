@@ -4,13 +4,28 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface FocusGuardProps {
+  /** 포커스를 가둘 자식 트리 */
   children: ReactNode;
+  /** 포커스 트랩 활성화 여부 */
   active?: boolean;
+  /** 마운트 시 첫 요소에 자동 포커스 */
   autoFocus?: boolean;
+  /** 언마운트 시 이전 포커스 복원 */
   returnFocus?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 지정 영역 내부에 포커스를 가두는(trap) 래퍼. 모달·드로어 등에 사용합니다.
+ * @example
+ * <FocusGuard active={open} returnFocus>
+ *   <DialogContent />
+ * </FocusGuard>
+ * @status stable
+ * @since 2.2.0
+ * @tags accessibility
+ */
 export function FocusGuard({
   children,
   active = true,

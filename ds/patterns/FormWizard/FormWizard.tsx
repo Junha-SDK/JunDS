@@ -31,11 +31,22 @@ export interface FormWizardStep {
 }
 
 export interface FormWizardProps {
+  /** 위저드 단계 목록 */
   steps: FormWizardStep[];
+  /** 완료 콜백 */
   onComplete?: (data: Record<string, unknown>) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 단계별 폼 마법사(스텝 폼).
+ * @example
+ * <FormWizard steps={steps} onComplete={(values) => submit(values)} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, navigation
+ */
 export function FormWizard({ steps, onComplete, className }: FormWizardProps) {
   const [current, setCurrent] = useState(0);
   const [data, setAllData] = useState<Record<string, unknown>>({});

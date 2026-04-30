@@ -3,15 +3,30 @@ import { useRef } from "react";
 import { cn } from "../../utils/cn";
 
 export interface CodeEditorProps {
+  /** 편집기 코드 값 */
   value: string;
+  /** 값 변경 콜백 */
   onChange?: (value: string) => void;
+  /** 언어 라벨 (상단 표시) */
   language?: string;
+  /** 읽기 전용 여부 */
   readOnly?: boolean;
+  /** 줄 번호 표시 여부 */
   lineNumbers?: boolean;
+  /** 최소 높이(px) */
   minHeight?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 신택스 하이라이팅이 적용된 코드 편집기.
+ * @example
+ * <CodeEditor value={code} onChange={setCode} language="typescript" lineNumbers />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function CodeEditor({
   value, onChange, language, readOnly, lineNumbers = true, minHeight = 200, className,
 }: CodeEditorProps) {

@@ -2,15 +2,30 @@
 import { cn } from "../../utils/cn";
 
 export interface GaugeChartProps {
+  /** 현재 값 */
   value: number;
+  /** 최솟값 */
   min?: number;
+  /** 최댓값 */
   max?: number;
+  /** 중앙 라벨 */
   label?: string;
+  /** 차트 크기(px) */
   size?: number;
+  /** 구간별 색상 정의 */
   segments?: { color: string; from: number; to: number }[];
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 반원형 게이지로 단일 값을 시각화합니다.
+ * @example
+ * <GaugeChart value={72} min={0} max={100} label="진행률" />
+ * @status stable
+ * @since 2.2.0
+ * @tags chart
+ */
 export function GaugeChart({
   value, min = 0, max = 100, label, size = 160,
   segments = [

@@ -3,16 +3,37 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface FormArrayProps<T> {
+  /** 항목 배열 값 */
   value: T[];
+  /** 값 변경 콜백 */
   onChange: (value: T[]) => void;
+  /** 항목 렌더 함수 */
   renderItem: (item: T, index: number, helpers: { remove: () => void; update: (val: T) => void }) => ReactNode;
+  /** 새 항목 기본값 */
   defaultItem: T;
+  /** 최대 항목 수 */
   maxItems?: number;
+  /** 최소 항목 수 */
   minItems?: number;
+  /** 추가 버튼 라벨 */
   addLabel?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 배열형 폼 필드(추가/삭제 가능한 반복 항목)를 관리합니다.
+ * @example
+ * <FormArray
+ *   value={items}
+ *   onChange={setItems}
+ *   defaultItem={{ name: "" }}
+ *   renderItem={(item, idx) => <Input value={item.name} />}
+ * />
+ * @status stable
+ * @since 2.2.0
+ * @tags form
+ */
 export function FormArray<T>({
   value, onChange, renderItem, defaultItem, maxItems, minItems = 0, addLabel = "항목 추가", className,
 }: FormArrayProps<T>) {

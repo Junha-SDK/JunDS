@@ -3,9 +3,13 @@ import { Component, type ReactNode, type ErrorInfo } from "react";
 import { cn } from "../../utils/cn";
 
 export interface ErrorBoundaryProps {
+  /** 보호할 자식 트리 */
   children: ReactNode;
+  /** 에러 시 표시할 대체 UI 또는 렌더 함수 */
   fallback?: ReactNode | ((error: Error, reset: () => void) => ReactNode);
+  /** 에러 발생 시 호출되는 콜백 */
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -14,6 +18,16 @@ interface State {
   error: Error | null;
 }
 
+/**
+ * 하위 컴포넌트의 렌더링 오류를 잡아 폴백 UI로 대체하는 에러 경계.
+ * @example
+ * <ErrorBoundary fallback={<p>문제가 발생했어요</p>}>
+ *   <App />
+ * </ErrorBoundary>
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
+ */
 export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
   state: State = { hasError: false, error: null };
 

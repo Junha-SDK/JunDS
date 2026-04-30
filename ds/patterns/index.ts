@@ -35,7 +35,7 @@ export { ChartCard } from "./ChartCard";
 export type { ChartCardProps, ChartDataPoint, ChartSegment, ChartTone, ChartTrend, ChartType } from "./ChartCard";
 
 export { NotificationCenter } from "./NotificationCenter";
-export type { NotificationCenterProps, Notification } from "./NotificationCenter";
+export type { NotificationCenterProps, NotificationItem } from "./NotificationCenter";
 
 export { SortableList } from "./SortableList";
 export type { SortableListProps, SortableItem } from "./SortableList";

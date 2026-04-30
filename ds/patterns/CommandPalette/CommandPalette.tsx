@@ -17,10 +17,13 @@ export interface CommandItem {
 }
 
 export interface CommandPaletteProps {
+  /** 명령어 항목 목록 */
   items: CommandItem[];
+  /** 검색 입력 플레이스홀더 */
   placeholder?: string;
   /** 외부 open 제어 */
   open?: boolean;
+  /** 열림 상태 변경 콜백 */
   onOpenChange?: (open: boolean) => void;
 }
 
@@ -28,6 +31,9 @@ export interface CommandPaletteProps {
  * 커맨드 팔레트 (⌘K)
  * @example
  * <CommandPalette items={[{id:"1",label:"설정",action:()=>router.push("/settings")}]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags overlay, navigation
  */
 export function CommandPalette({ items, placeholder = "검색 또는 명령어 입력...", open: controlledOpen, onOpenChange }: CommandPaletteProps) {
   const [internalOpen, setInternalOpen] = useState(false);

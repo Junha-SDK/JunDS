@@ -14,6 +14,7 @@ export interface SwitchProps {
   size?: SwitchSize;
   /** 레이블 */
   label?: string;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -41,6 +42,9 @@ const thumbTranslate: Record<SwitchSize, string> = {
  * @example
  * <Switch checked={on} onChange={setOn} label="알림 수신" />
  * <Switch checked={on} onChange={setOn} size="lg" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export function Switch({
   checked,

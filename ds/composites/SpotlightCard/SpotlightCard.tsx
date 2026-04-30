@@ -4,12 +4,26 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface SpotlightCardProps {
+  /** 카드 내부 콘텐츠 */
   children: ReactNode;
+  /** 스포트라이트 색상 */
   spotlightColor?: string;
+  /** 스포트라이트 반경(px) */
   spotlightSize?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 마우스 위치에 스포트라이트 글로우가 따라오는 카드.
+ * @example
+ * <SpotlightCard spotlightColor="rgba(59,130,246,0.2)" spotlightSize={300}>
+ *   <Card>...</Card>
+ * </SpotlightCard>
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
+ */
 export function SpotlightCard({
   children,
   spotlightColor = "rgba(var(--primary-rgb, 91, 76, 199), 0.08)",

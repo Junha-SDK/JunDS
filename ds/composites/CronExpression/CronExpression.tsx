@@ -3,8 +3,11 @@ import { useState, useMemo } from "react";
 import { cn } from "../../utils/cn";
 
 export interface CronExpressionProps {
+  /** Cron 표현식 값 */
   value: string;
+  /** 값 변경 콜백 */
   onChange: (value: string) => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -31,6 +34,14 @@ function describeCron(parts: string[]): string {
   return descs.join(" ") + " 실행";
 }
 
+/**
+ * cron 표현식을 시각적으로 편집하는 입력기.
+ * @example
+ * <CronExpression value={cron} onChange={setCron} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function CronExpression({ value, onChange, className }: CronExpressionProps) {
   const parts = value.split(" ");
   const safeParts = parts.length === 5 ? parts : ["*","*","*","*","*"];

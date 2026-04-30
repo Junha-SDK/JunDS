@@ -16,6 +16,7 @@ export interface CarouselProps {
   showArrows?: boolean;
   /** 무한 반복 */
   loop?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -26,6 +27,9 @@ export interface CarouselProps {
  * <Carousel showDots showArrows autoPlay interval={3000}>
  *   <img src="/a.jpg" /><img src="/b.jpg" />
  * </Carousel>
+ * @status stable
+ * @since 2.2.0
+ * @tags media
  */
 export function Carousel({
   children,

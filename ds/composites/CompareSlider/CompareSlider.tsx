@@ -3,14 +3,28 @@ import { useRef, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface CompareSliderProps {
+  /** Before 이미지 URL */
   before: string;
+  /** After 이미지 URL */
   after: string;
+  /** Before 라벨 */
   beforeLabel?: string;
+  /** After 라벨 */
   afterLabel?: string;
+  /** 초기 슬라이더 위치(%) */
   initialPosition?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 두 이미지를 좌/우로 비교하는 슬라이더.
+ * @example
+ * <CompareSlider before="/before.jpg" after="/after.jpg" beforeLabel="이전" afterLabel="이후" />
+ * @status stable
+ * @since 2.2.0
+ * @tags media
+ */
 export function CompareSlider({
   before,
   after,
@@ -48,6 +62,7 @@ export function CompareSlider({
       onMouseLeave={handleMouseUp}
       onTouchMove={handleTouchMove}
       role="slider"
+      tabIndex={0}
       aria-valuenow={Math.round(position)}
       aria-valuemin={0}
       aria-valuemax={100}

@@ -92,6 +92,9 @@ export interface ToastProviderProps {
  *
  * const { toast } = useDsToast();
  * toast("저장되었습니다", "success");
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export function DsToastProvider({ children, position = "bottom-right", maxToasts = 5 }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);

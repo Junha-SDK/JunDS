@@ -3,16 +3,32 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface ProgressRingProps {
+  /** 진행 값 */
   value: number;
+  /** 최댓값 */
   max?: number;
+  /** 링 크기(px) */
   size?: number;
+  /** 선 두께(px) */
   strokeWidth?: number;
+  /** 진행 색상 */
   color?: string;
+  /** 트랙 배경 색상 */
   trackColor?: string;
+  /** 중앙에 표시할 콘텐츠 */
   children?: ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 원형 진행률 표시기.
+ * @example
+ * <ProgressRing value={75} max={100} size={64} strokeWidth={6} />
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
+ */
 export function ProgressRing({
   value, max = 100, size = 80, strokeWidth = 6,
   color = "var(--primary)", trackColor = "var(--border)",

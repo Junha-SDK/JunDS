@@ -2,13 +2,26 @@
 import { cn } from "../../utils/cn";
 
 export interface GlobeProps {
+  /** 글로브 크기(px) */
   size?: number;
+  /** 기본 색상 */
   color?: string;
+  /** 점 색상 */
   dotColor?: string;
+  /** 회전 속도 */
   speed?: number;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 회전하는 인터랙티브 3D 지구본.
+ * @example
+ * <Globe size={400} dotColor="#3b82f6" speed={0.5} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
+ */
 export function Globe({
   size = 300,
   color = "var(--primary)",

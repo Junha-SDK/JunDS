@@ -7,8 +7,11 @@ export type IconButtonVariant = "ghost" | "outline" | "filled";
 export type IconButtonSize = "xs" | "sm" | "md" | "lg";
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** 표시할 아이콘 */
   icon: ReactNode;
+  /** 버튼 변형 */
   variant?: IconButtonVariant;
+  /** 버튼 크기 */
   size?: IconButtonSize;
   /** 접근성 라벨 */
   label: string;
@@ -31,6 +34,9 @@ const sizeStyles: Record<IconButtonSize, string> = {
  * 아이콘 전용 버튼
  * @example
  * <IconButton icon={<CloseIcon />} label="닫기" variant="ghost" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ icon, variant = "ghost", size = "md", label, className, ...props }, ref) => {

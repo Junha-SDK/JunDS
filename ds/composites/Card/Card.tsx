@@ -1,6 +1,8 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot } from "../../utils/Slot";
+import { createCompound } from "../../utils/createCompound";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
@@ -47,6 +49,22 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
    * <Card className="max-w-sm mx-auto">...</Card>
    */
   className?: string;
+
+  /**
+   * 자식 엘리먼트로 렌더 위임 (Radix-style asChild).
+   *
+   * `true`이면 Card는 자체 `<div>`를 렌더하지 않고, 단일 React child의 root에
+   * className/style/이벤트를 합쳐 cloneElement합니다. `<Link>`, `<button>`,
+   * 외부 컨테이너 등으로 자유롭게 위임할 때 사용하세요.
+   *
+   * @default false
+   *
+   * @example
+   * <Card asChild hoverable>
+   *   <Link href="/profile">프로필로 이동</Link>
+   * </Card>
+   */
+  asChild?: boolean;
 }
 
 /**
@@ -71,10 +89,11 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
  * </Card>
  */
 const CardBase = forwardRef<HTMLDivElement, CardProps>(
-  ({ hoverable, noPadding, className, children, ...props }, ref) => {
+  ({ hoverable, noPadding, asChild, className, children, ...props }, ref) => {
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         "bg-white/95 backdrop-blur-sm border border-border/60 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] transition-all duration-300 ease-out",
         !noPadding && "p-0",
@@ -84,7 +103,7 @@ const CardBase = forwardRef<HTMLDivElement, CardProps>(
       {...props}
     >
       {children}
-    </div>
+    </Comp>
   );
 },
 );
@@ -157,7 +176,13 @@ function CardFooter({ className, children, ...props }: HTMLAttributes<HTMLDivEle
   );
 }
 
-export const Card = Object.assign(CardBase, {
+/**
+ * Card 컴포넌트
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
+ */
+export const Card = createCompound(CardBase, {
   Header: CardHeader,
   Body: CardBody,
   Footer: CardFooter,

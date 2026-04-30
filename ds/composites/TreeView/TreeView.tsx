@@ -12,10 +12,15 @@ export interface TreeNode {
 }
 
 export interface TreeViewProps {
+  /** 트리 노드 */
   nodes: TreeNode[];
+  /** 선택된 노드 ID */
   selected?: string;
+  /** 노드 선택 콜백 */
   onSelect?: (key: string) => void;
+  /** 기본으로 펼쳐진 노드 ID 배열 */
   defaultExpanded?: string[];
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -27,6 +32,9 @@ export interface TreeViewProps {
  *   selected={selected}
  *   onSelect={setSelected}
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function TreeView({ nodes, selected, onSelect, defaultExpanded = [], className }: TreeViewProps) {
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(defaultExpanded));

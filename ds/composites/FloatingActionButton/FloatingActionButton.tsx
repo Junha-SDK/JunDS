@@ -12,9 +12,11 @@ export interface FloatingAction {
 }
 
 export interface FloatingActionButtonProps {
+  /** 표시할 액션 목록 */
   actions: FloatingAction[];
   /** 위치 */
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -42,6 +44,9 @@ const variantStyles: Record<NonNullable<FloatingAction["variant"]>, string> = {
  *   ]}
  *   position="bottom-right"
  * />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, control
  */
 export function FloatingActionButton({
   actions,

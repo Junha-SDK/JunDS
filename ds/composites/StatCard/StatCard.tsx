@@ -3,17 +3,21 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface StatCardProps {
+  /** 지표 라벨 */
   label: string;
+  /** 표시할 값 */
   value: string | number;
   /** 변화량 (+12%, -5 등) */
   change?: string;
   /** 변화 방향 */
   trend?: "up" | "down" | "neutral";
+  /** 우측 아이콘 */
   icon?: ReactNode;
   /** 부가 설명 */
   description?: string;
   /** 클릭 가능 */
   onClick?: () => void;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -22,6 +26,9 @@ export interface StatCardProps {
  * @example
  * <StatCard label="총 업무" value={142} change="+12%" trend="up" />
  * <StatCard label="완료율" value="78%" change="-3%" trend="down" />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function StatCard({
   label,

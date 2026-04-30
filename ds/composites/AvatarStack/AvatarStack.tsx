@@ -4,10 +4,13 @@ import { Avatar } from "../../primitives/Avatar";
 import type { AvatarSize } from "../../primitives/Avatar";
 
 export interface AvatarStackProps {
+  /** 표시할 이름 목록 */
   names: string[];
   /** 최대 표시 수 */
   max?: number;
+  /** 아바타 크기 */
   size?: AvatarSize;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -15,6 +18,9 @@ export interface AvatarStackProps {
  * 아바타 스택 (겹쳐진 그룹)
  * @example
  * <AvatarStack names={["김준하","이서연","박민수","최유진","정다은"]} max={3} />
+ * @status stable
+ * @since 2.2.0
+ * @tags data-display
  */
 export function AvatarStack({ names, max = 4, size = "sm", className }: AvatarStackProps) {
   const visible = names.slice(0, max);

@@ -4,11 +4,17 @@ import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
 export interface BannerProps {
+  /** 자식 요소 */
   children: ReactNode;
+  /** 배너 유형 */
   variant?: "info" | "success" | "warning" | "danger";
+  /** 닫기 버튼 표시 여부 */
   dismissible?: boolean;
+  /** 좌측 아이콘 */
   icon?: ReactNode;
+  /** 우측 액션 영역 */
   action?: ReactNode;
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -23,6 +29,9 @@ const variantStyles = {
  * 배너 알림 컴포넌트
  * @example
  * <Banner variant="info" dismissible>중요한 공지사항입니다.</Banner>
+ * @status stable
+ * @since 2.2.0
+ * @tags feedback
  */
 export const Banner = forwardRef<HTMLDivElement, BannerProps>(
   ({ children, variant = "info", dismissible = true, icon, action, className }, ref) => {

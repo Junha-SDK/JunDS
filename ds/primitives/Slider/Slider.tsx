@@ -3,11 +3,17 @@ import { forwardRef, useState, useRef, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface SliderProps {
+  /** 현재 값 */
   value?: number;
+  /** 값 변경 콜백 */
   onChange?: (value: number) => void;
+  /** 허용 최소값 */
   min?: number;
+  /** 허용 최대값 */
   max?: number;
+  /** 증감 단위 */
   step?: number;
+  /** 비활성화 상태 */
   disabled?: boolean;
   /** 값 표시 */
   showValue?: boolean;
@@ -17,7 +23,9 @@ export interface SliderProps {
   marks?: { value: number; label?: string }[];
   /** 색상 */
   color?: "primary" | "success" | "warning" | "danger";
+  /** 슬라이더 크기 */
   size?: "sm" | "md";
+  /** 추가 클래스 */
   className?: string;
 }
 
@@ -40,6 +48,9 @@ const thumbColorMap = {
  * @example
  * <Slider value={50} onChange={setValue} min={0} max={100} showValue />
  * <Slider marks={[{value:0,label:"0%"},{value:50,label:"50%"},{value:100,label:"100%"}]} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
  */
 export const Slider = forwardRef<HTMLDivElement, SliderProps>(
   ({

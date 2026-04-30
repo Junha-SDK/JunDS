@@ -4,11 +4,17 @@ import { cn } from "../../utils/cn";
 import type { InputHTMLAttributes } from "react";
 
 export interface CurrencyInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "value" | "size"> {
+  /** 숫자 값 */
   value?: number;
+  /** 값 변경 콜백 */
   onChange?: (value: number) => void;
+  /** ISO 4217 통화 코드 */
   currency?: string;
+  /** BCP 47 로케일 */
   locale?: string;
+  /** 입력 필드 크기 */
   size?: "sm" | "md" | "lg";
+  /** 에러 상태 표시 */
   error?: boolean;
 }
 
@@ -18,6 +24,14 @@ const sizeStyles = {
   lg: "h-11 text-base px-4 rounded-xl",
 };
 
+/**
+ * 통화 단위 + 숫자 자동 포맷이 적용된 금액 입력 필드.
+ * @example
+ * <CurrencyInput value={amount} onChange={setAmount} currency="KRW" />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
   ({ value, onChange, currency = "KRW", locale = "ko-KR", size = "md", error, className, disabled, ...props }, ref) => {
     const [focused, setFocused] = useState(false);

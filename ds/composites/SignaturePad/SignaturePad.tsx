@@ -3,15 +3,30 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../../utils/cn";
 
 export interface SignaturePadProps {
+  /** 저장 콜백 (data URL 전달) */
   onSave?: (dataUrl: string) => void;
+  /** 패드 너비(px) */
   width?: number;
+  /** 패드 높이(px) */
   height?: number;
+  /** 선 색상 */
   strokeColor?: string;
+  /** 선 두께(px) */
   strokeWidth?: number;
+  /** 비활성화 여부 */
   disabled?: boolean;
+  /** 추가 클래스 */
   className?: string;
 }
 
+/**
+ * 마우스/터치로 서명을 그리는 패드.
+ * @example
+ * <SignaturePad onSave={(dataUrl) => upload(dataUrl)} width={400} height={200} />
+ * @status stable
+ * @since 2.2.0
+ * @tags form, input
+ */
 export function SignaturePad({
   onSave,
   width = 400,
