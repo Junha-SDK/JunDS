@@ -1,0 +1,182 @@
+#!/usr/bin/env node
+/**
+ * Per-component bundle size report.
+ *
+ * Bundles each `ds/<kind>/<Name>/<Name>.tsx` with esbuild in tree-shaking
+ * mode (React/clsx/tailwind-merge marked external) and records raw +
+ * gzipped output bytes. Falls back to a raw-source size estimate if
+ * esbuild is unavailable.
+ *
+ * Output: `.ai/bundle.json`
+ */
+import { readdir, stat, mkdir, writeFile, readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { join, relative, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { gzipSync } from "node:zlib";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(__dirname, "..");
+const DS = join(ROOT, "ds");
+const OUT = join(ROOT, ".ai", "bundle.json");
+
+const KINDS = [
+  { dir: "primitives", kind: "primitive" },
+  { dir: "composites", kind: "composite" },
+  { dir: "patterns", kind: "pattern" },
+];
+
+const EXTERNAL = ["react", "react-dom", "react/jsx-runtime", "clsx", "tailwind-merge"];
+
+async function listEntries() {
+  const entries = [];
+  for (const { dir, kind } of KINDS) {
+    const root = join(DS, dir);
+    if (!existsSync(root)) continue;
+    const names = await readdir(root, { withFileTypes: true });
+    for (const dirent of names) {
+      if (!dirent.isDirectory()) continue;
+      const name = dirent.name;
+      const file = join(root, name, `${name}.tsx`);
+      try {
+        await stat(file);
+      } catch {
+        continue;
+      }
+      // Skip stories / tests defensively (these shouldn't match Name/Name.tsx,
+      // but guard anyway).
+      if (file.includes(".stories.") || file.includes(".test.")) continue;
+      entries.push({ name, kind, file });
+    }
+  }
+  return entries;
+}
+
+async function tryLoadEsbuild() {
+  try {
+    const mod = await import("esbuild");
+    return mod;
+  } catch {
+    return null;
+  }
+}
+
+async function bundleWithEsbuild(esbuild, file) {
+  const result = await esbuild.build({
+    entryPoints: [file],
+    bundle: true,
+    format: "esm",
+    platform: "neutral",
+    target: "es2020",
+    jsx: "automatic",
+    treeShaking: true,
+    minify: false,
+    sourcemap: false,
+    write: false,
+    logLevel: "silent",
+    external: EXTERNAL,
+    loader: { ".tsx": "tsx", ".ts": "ts" },
+    absWorkingDir: ROOT,
+    metafile: false,
+  });
+  if (!result.outputFiles || result.outputFiles.length === 0) {
+    throw new Error("no output produced");
+  }
+  // Use the JS output (esbuild may produce additional CSS files etc.)
+  const jsOut = result.outputFiles.find((f) => f.path.endsWith(".js")) || result.outputFiles[0];
+  const text = jsOut.text;
+  const raw = Buffer.byteLength(text, "utf8");
+  const gz = gzipSync(text).length;
+  return { rawBytes: raw, gzipBytes: gz };
+}
+
+async function fallbackSize(file) {
+  // Crude fallback: source bytes + bytes of resolvable internal deps.
+  // We don't recursively walk; this is purely defensive.
+  const buf = await readFile(file);
+  const raw = buf.byteLength;
+  const gz = gzipSync(buf).length;
+  return { rawBytes: raw, gzipBytes: gz };
+}
+
+function aggregate(components) {
+  const totals = { byKind: {}, all: { rawBytes: 0, gzipBytes: 0, count: 0 } };
+  for (const c of components) {
+    if (!totals.byKind[c.kind]) {
+      totals.byKind[c.kind] = { rawBytes: 0, gzipBytes: 0, count: 0 };
+    }
+    totals.byKind[c.kind].rawBytes += c.rawBytes;
+    totals.byKind[c.kind].gzipBytes += c.gzipBytes;
+    totals.byKind[c.kind].count += 1;
+    totals.all.rawBytes += c.rawBytes;
+    totals.all.gzipBytes += c.gzipBytes;
+    totals.all.count += 1;
+  }
+  return totals;
+}
+
+async function main() {
+  const entries = await listEntries();
+  const esbuild = await tryLoadEsbuild();
+  const mode = esbuild ? "esbuild" : "fallback";
+  console.log(`[bundle-report] Found ${entries.length} components. Mode: ${mode}.`);
+
+  const components = [];
+  let failed = 0;
+  let i = 0;
+  for (const entry of entries) {
+    i += 1;
+    let sizes;
+    try {
+      if (esbuild) {
+        sizes = await bundleWithEsbuild(esbuild, entry.file);
+      } else {
+        sizes = await fallbackSize(entry.file);
+      }
+    } catch (err) {
+      failed += 1;
+      console.warn(
+        `[bundle-report] (${i}/${entries.length}) ${entry.name} failed: ${err.message}. Falling back to source size.`,
+      );
+      sizes = await fallbackSize(entry.file);
+    }
+    components.push({
+      name: entry.name,
+      kind: entry.kind,
+      file: relative(ROOT, entry.file).replace(/\\/g, "/"),
+      rawBytes: sizes.rawBytes,
+      gzipBytes: sizes.gzipBytes,
+    });
+  }
+
+  components.sort((a, b) => b.gzipBytes - a.gzipBytes);
+
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    mode,
+    external: EXTERNAL,
+    components,
+    totals: aggregate(components),
+  };
+
+  await mkdir(dirname(OUT), { recursive: true });
+  await writeFile(OUT, JSON.stringify(payload, null, 2) + "\n", "utf8");
+
+  console.log(
+    `[bundle-report] Wrote ${relative(ROOT, OUT)}: ${components.length} components, ` +
+      `${failed} fell back. Total raw=${payload.totals.all.rawBytes}B, gzip=${payload.totals.all.gzipBytes}B.`,
+  );
+  console.log("[bundle-report] Top 5 by gzipBytes:");
+  for (const c of components.slice(0, 5)) {
+    console.log(
+      `  - ${c.name.padEnd(24)} ${c.kind.padEnd(10)} raw=${c.rawBytes
+        .toString()
+        .padStart(7)}B gzip=${c.gzipBytes.toString().padStart(6)}B`,
+    );
+  }
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

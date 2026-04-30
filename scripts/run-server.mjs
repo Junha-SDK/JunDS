@@ -2,7 +2,9 @@
 
 import { spawn } from "node:child_process";
 import net from "node:net";
+import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 const args = process.argv.slice(2);
 const subcommand = args[0];
@@ -83,9 +85,12 @@ const passthrough = args.filter((_, i) => {
   return true;
 });
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const nextBin = path.resolve(__dirname, "../node_modules/next/dist/bin/next");
+
 const child = spawn(
-  "npx",
-  ["next", subcommand, "-p", String(port), ...passthrough],
+  process.execPath,
+  [nextBin, subcommand, "-p", String(port), ...passthrough],
   { stdio: "inherit", env: { ...process.env, PORT: String(port) } },
 );
 
