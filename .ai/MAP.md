@@ -10,7 +10,7 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-04-30T01:10:10.221Z
+Generated: 2026-04-30T01:11:26.878Z
 
 ---
 
@@ -420,8 +420,9 @@ _11 files_
 
 ## Hooks  (`ds/hooks/`)
 
-_30 files_
+_38 files_
 
+- `ds/hooks/useAsync.ts`
 - `ds/hooks/useBreakpoint.ts`
 - `ds/hooks/useClickOutside.ts`
 - `ds/hooks/useClipboard.ts`
@@ -429,10 +430,14 @@ _30 files_
 - `ds/hooks/useCountUp.ts`
 - `ds/hooks/useDebounce.ts`
 - `ds/hooks/useDisclosure.ts`
+- `ds/hooks/useDocumentTitle.ts`
 - `ds/hooks/useElementSize.ts`
 - `ds/hooks/useEventListener.ts`
+- `ds/hooks/useFavicon.ts`
 - `ds/hooks/useFocusMode.ts`
+- `ds/hooks/useFocusTrap.ts`
 - `ds/hooks/useForm.ts`
+- `ds/hooks/useFullscreen.ts`
 - `ds/hooks/useHotkeys.ts`
 - `ds/hooks/useIdle.ts`
 - `ds/hooks/useIntersectionObserver.ts`
@@ -447,9 +452,12 @@ _30 files_
 - `ds/hooks/usePrefersColorScheme.ts`
 - `ds/hooks/usePrevious.ts`
 - `ds/hooks/useReducedMotion.ts`
+- `ds/hooks/useResizeObserver.ts`
+- `ds/hooks/useScrollLock.ts`
 - `ds/hooks/useScrollSpy.ts`
 - `ds/hooks/useSteps.ts`
 - `ds/hooks/useThrottle.ts`
+- `ds/hooks/useTimeout.ts`
 - `ds/hooks/useToggle.ts`
 - `ds/hooks/useWindowScroll.ts`
 
@@ -752,7 +760,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_233 files_
+_237 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -904,11 +912,15 @@ _233 files_
 - `ds/__tests__/core/Heading.test.tsx`
 - `ds/__tests__/core/Page.test.tsx`
 - `ds/__tests__/core/Text.test.tsx`
+- `ds/__tests__/hooks/useAsync.test.ts`
 - `ds/__tests__/hooks/useClickOutside.test.tsx`
 - `ds/__tests__/hooks/useCopyToClipboard.test.ts`
 - `ds/__tests__/hooks/useDebounce.test.ts`
 - `ds/__tests__/hooks/useDisclosure.test.ts`
+- `ds/__tests__/hooks/useDocumentTitle.test.ts`
 - `ds/__tests__/hooks/useLocalStorage.test.ts`
+- `ds/__tests__/hooks/useScrollLock.test.ts`
+- `ds/__tests__/hooks/useTimeout.test.ts`
 - `ds/__tests__/hooks/useToggle.test.ts`
 - `ds/__tests__/layout/Stack.test.tsx`
 - `ds/__tests__/patterns/ActionBar.test.tsx`
@@ -990,4 +1002,4 @@ _233 files_
 
 ---
 
-**Total indexed files:** 919
+**Total indexed files:** 931
