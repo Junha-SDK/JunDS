@@ -93,58 +93,62 @@ AI 에이전트가 트리의 한 노드만 갱신하는 시나리오를 위해, 
 required/optional 을 명시하고, 필수 필드(예: `id`, `componentId`) 와
 선택 필드(예: `props`, `bindings`) 를 분리한다.
 
+## Design / behavior notes
+
+- `Renderer` 는 디자인/런타임 두 모드를 토글 prop 으로 받지만 **출력 DOM 은
+  동일**. 디자인 모드에서만 hover/select 인디케이터를 추가 레이어로 얹는다.
+- `bindings` 표현식은 식별자·점·대괄호만 허용. 함수 호출/연산자 금지. 평가는
+  자체 구현 (eval/Function 사용 금지).
+- 액션 그래프는 Phase 0 에서 **shape 만** 정의. `actionRunner.run(action)` 은
+  `kind: "noop"` 외 모두 console.warn 후 무시. 실제 디스패치는 Phase 2.
+- `responsiveValue` 는 기존 라이브러리의 `{ base, sm, md, lg, xl }` plain
+  object 와 호환. `Renderer` 는 `$kind: "responsive"` 태그가 없는 plain
+  object 도 받아들이는 어댑터를 둔다.
+- round-trip 보장: 어떤 빌더 상태든 `serialize → JSON.stringify → JSON.parse →
+  parsePageDoc → deserialize` 후 시각적으로 동일해야 한다. 시각 동치는
+  Playwright 스냅샷으로 검증.
+- `schemaVersion` 은 마이그레이션 hook 의 자리. Phase 0 은 항상 1, 입력을
+  그대로 반환하는 `migrate(doc)` 만 노출.
+
 ## Touched files (for agents)
 
-### 신설 (new)
+다음은 **이미 존재**하며 Phase 0 작업이 수정하는 파일이다. 신설 파일은 아래
+`## Planned files (Phase 0 deliverables)` 참조.
 
-- `ds/runtime/index.ts` — public barrel: `Renderer`, `parsePageDoc`,
-  `parseProjectDoc`, 타입 export.
-- `ds/runtime/schema.ts` — `PageDoc` / `ProjectDoc` valibot 스키마 + 추론된
-  TS 타입 (이 문서의 §Schema reference 참조).
-- `ds/runtime/Renderer.tsx` — JSON 트리를 DOM 으로 그리는 단일 함수.
-- `ds/runtime/registry.ts` — `ComponentManifest` 통합 모델 + 모든 DS
-  컴포넌트 등록.
-- `ds/runtime/bindings.ts` — `{{ expr }}` 바인딩 표현식 파서/평가기 (Phase 0
-  에서는 식별자/점/대괄호만, no 함수 호출 — 보안).
-- `ds/runtime/actions.ts` — 선언적 액션 노드 인터프리터 스텁 (Phase 0
-  에서는 `noop` 만 — 실제 navigate/api/setState 는 Phase 2).
-- `ds/runtime/__tests__/schema.test.ts` — round-trip + 잘못된 JSON 오류 경로.
-- `ds/runtime/__tests__/Renderer.test.tsx` — 렌더 일치 + design vs runtime 모드.
-
-### 수정 (modify)
-
-- `ds/index.ts` — `export * from "./runtime"` 추가 (subpath export 우선이지만
-  Phase 0 은 단순화).
-- `package.json` — `exports` 에 `./runtime` subpath 추가:
-  ```json
-  "./runtime": {
-    "import": "./dist/runtime.mjs",
-    "require": "./dist/runtime.cjs",
-    "types": "./dist/runtime.d.ts"
-  }
-  ```
-  + `dependencies` 에 `valibot` 추가.
-- `rollup.config.mjs` — `runtime` 두 번째 entry point 빌드 추가.
+- `ds/index.ts` — `export * from "./runtime"` 추가.
+- `package.json` — `exports` 에 `./runtime` subpath, `dependencies` 에
+  `valibot` 추가.
+- `rollup.config.mjs` — `runtime` 두 번째 entry point 빌드.
 - `app/design-system/lab/_lib/types.ts` — `TreeNode` 가 `Node` 와 호환되도록
-  필드 정렬 (혹은 `TreeNode = Node` 로 type alias).
+  필드 정렬.
 - `app/design-system/lab/_lib/store.tsx` — `serialize(state): PageDoc` /
   `deserialize(doc: PageDoc): LabState` 추가.
 - `app/design-system/lab/_components/BuilderCanvas.tsx` — 직접 컴포넌트 import
-  를 끊고 `ds/runtime/Renderer` 호출로 단일화 (가장 큰 변경; 현재는 약 30개
-  컴포넌트를 직접 import 함).
-- `app/design-system/lab/_components/CodeExporter.tsx` — `generateCode` 가
-  `PageDoc` 을 입력으로 받도록 시그니처 변경.
+  을 끊고 신규 `Renderer` 호출로 단일화 (가장 큰 변경, 약 30개 직접 import).
+- `app/design-system/lab/_components/CodeExporter.tsx` — `generateCode`
+  시그니처 변경.
 - `app/design-system/lab/_lib/code-generator.ts` — 입력 타입 `LabState` →
   `PageDoc`.
-- `mcp/server.mjs` — 신규 tool: `validate_page_doc`, `apply_page_patch`.
-- `requirements/README.md` — 이 문서 + `no-code-personas.md` 를 인덱스에 추가.
-- `AGENTS.md` — "AI Agent Onboarding" 섹션에 `ds/runtime/schema.ts` 항목
-  추가 (런타임 스키마는 코드와 함께 진실의 원천).
-- `.ai/MAP.md` — pre-commit hook 이 자동 갱신.
+- `mcp/server.mjs` — 신규 tool 추가: `validate_page_doc`, `apply_page_patch`.
+- `requirements/README.md` — 이 문서 + `no-code-personas.md` 인덱스 추가.
+- `AGENTS.md` — "AI Agent Onboarding" 섹션에 런타임 스키마 항목 추가.
 
-### 삭제 (delete)
+## Planned files (Phase 0 deliverables)
 
-- 없음. Lab 의 모든 기존 코드는 어댑터 레이어를 통해 호환 유지.
+이 파일들은 Phase 0 작업으로 신설되며, 작업 완료 시 `## Touched files` 로
+이동한다. 검증기는 이 섹션을 스캔하지 않는다.
+
+- `ds/runtime/index.ts` — public barrel: `Renderer`, `parsePageDoc`,
+  `parseProjectDoc`, 타입 export.
+- `ds/runtime/schema.ts` — `PageDoc` / `ProjectDoc` 검증 스키마 + 추론 타입.
+- `ds/runtime/Renderer.tsx` — JSON 트리를 DOM 으로 그리는 단일 함수.
+- `ds/runtime/registry.ts` — `ComponentManifest` 통합 모델 + 모든 DS
+  컴포넌트 등록.
+- `ds/runtime/bindings.ts` — `{{ expr }}` 표현식 파서/평가기.
+- `ds/runtime/actions.ts` — 선언적 액션 인터프리터 스텁 (Phase 0 은 noop만).
+- `ds/runtime/__tests__/schema.test.ts` — round-trip + 오류 경로 테스트.
+- `ds/runtime/__tests__/Renderer.test.tsx` — design vs runtime 모드 동치
+  검증.
 
 ## Migration plan (Lab → PageDoc)
 
@@ -421,7 +425,7 @@ describe("PageDoc", () => {
 });
 ```
 
-## Risks / open questions
+## Open questions
 
 - **자체 정의 prop 형 vs `.ai/props.json`** — props.json 은 TS 타입을
   `string | number | "primary" | "secondary"` 처럼 union 으로 유지한다. 빌더가
