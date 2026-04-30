@@ -24,28 +24,43 @@ function FullReadout() {
   );
 }
 
+function mockFetchOk(body: unknown) {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockResolvedValue(
+      new Response(JSON.stringify(body), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    ),
+  );
+}
+
+function mockFetchPending() {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockImplementation(() => new Promise(() => {})),
+  );
+}
+
 beforeEach(() => {
+  vi.unstubAllGlobals();
   sessionStorage.clear();
-  vi.restoreAllMocks();
 });
 
 afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
   sessionStorage.clear();
 });
 
 describe("JunDSProvider — happy path", () => {
   it("transitions pending → valid and renders children", async () => {
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          valid: true,
-          plan: "pro",
-          expiresAt: "2099-01-01T00:00:00Z",
-          domains: ["*"],
-        }),
-        { status: 200 },
-      ),
-    );
+    mockFetchOk({
+      valid: true,
+      plan: "pro",
+      expiresAt: "2099-01-01T00:00:00Z",
+    });
 
     render(
       <JunDSProvider licenseKey={VALID_KEY}>
@@ -61,9 +76,7 @@ describe("JunDSProvider — happy path", () => {
   });
 
   it("renders fallback while pending", () => {
-    vi.spyOn(globalThis, "fetch").mockImplementation(
-      () => new Promise(() => {}), // never resolves
-    );
+    mockFetchPending();
 
     render(
       <JunDSProvider
@@ -80,6 +93,7 @@ describe("JunDSProvider — happy path", () => {
 
 describe("JunDSProvider — error paths", () => {
   it("renders the invalid-license screen when format is bad", async () => {
+    mockFetchPending(); // never used because format check rejects first
     render(
       <JunDSProvider licenseKey="not-a-license">
         <StatusReadout />
@@ -92,16 +106,11 @@ describe("JunDSProvider — error paths", () => {
   });
 
   it("transitions to expired when expiresAt is in the past", async () => {
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          valid: true,
-          plan: "starter",
-          expiresAt: "2000-01-01T00:00:00Z",
-        }),
-        { status: 200 },
-      ),
-    );
+    mockFetchOk({
+      valid: true,
+      plan: "starter",
+      expiresAt: "2000-01-01T00:00:00Z",
+    });
 
     render(
       <JunDSProvider licenseKey={VALID_KEY}>
@@ -115,10 +124,8 @@ describe("JunDSProvider — error paths", () => {
   });
 
   it("invokes onLicenseError on invalid", async () => {
+    mockFetchOk({ valid: false });
     const onErr = vi.fn();
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(JSON.stringify({ valid: false }), { status: 200 }),
-    );
 
     render(
       <JunDSProvider licenseKey={VALID_KEY} onLicenseError={onErr}>
@@ -138,16 +145,11 @@ describe("JunDSProvider — error paths", () => {
       value: { ...originalLocation, hostname: "evil.example.com" },
     });
     try {
-      vi.spyOn(globalThis, "fetch").mockResolvedValue(
-        new Response(
-          JSON.stringify({
-            valid: true,
-            plan: "pro",
-            domains: ["only.allowed.com"],
-          }),
-          { status: 200 },
-        ),
-      );
+      mockFetchOk({
+        valid: true,
+        plan: "pro",
+        domains: ["only.allowed.com"],
+      });
 
       const onErr = vi.fn();
       render(
@@ -175,11 +177,7 @@ describe("useJunDS / useLicenseStatus", () => {
   });
 
   it("useJunDS exposes the license object", async () => {
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(JSON.stringify({ valid: true, plan: "team" }), {
-        status: 200,
-      }),
-    );
+    mockFetchOk({ valid: true, plan: "team" });
 
     render(
       <JunDSProvider licenseKey={VALID_KEY}>
@@ -196,9 +194,7 @@ describe("useJunDS / useLicenseStatus", () => {
 
 describe("JunDSProvider — lifecycle", () => {
   it("clears its revalidation interval on unmount", async () => {
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response(JSON.stringify({ valid: true }), { status: 200 }),
-    );
+    mockFetchOk({ valid: true });
     const clearSpy = vi.spyOn(globalThis, "clearInterval");
 
     const { unmount } = render(
