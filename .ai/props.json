@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-30T01:03:18.667Z",
+  "generatedAt": "2026-04-30T01:03:27.146Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -581,6 +581,43 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "Icon",
+      "kind": "primitive",
+      "file": "ds/primitives/Icon/Icon.tsx",
+      "interface": "IconProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "data-display"
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "IconSize",
+          "optional": true,
+          "description": "아이콘 크기 (토큰 또는 px 숫자)"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true,
+          "description": "색상 (currentColor 기본)"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true,
+          "description": "aria-label (없으면 aria-hidden=true)"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "SVG 내부 path/group"
         }
       ]
     },

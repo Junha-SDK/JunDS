@@ -13,3 +13,5 @@ export { opacity } from "./opacity";
 export type { OpacityScale } from "./opacity";
 export { borderWidth } from "./borderWidth";
 export type { BorderWidthScale } from "./borderWidth";
+export { gradients } from "./gradients";
+export type { GradientPreset } from "./gradients";
