@@ -10,7 +10,7 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-04-30T00:58:45.451Z
+Generated: 2026-04-30T01:03:15.954Z
 
 ---
 
@@ -32,7 +32,7 @@ _11 files_
 
 ## Primitives  (`ds/primitives/`)
 
-_72 files_
+_77 files_
 
 - `ds/primitives/Announcer/Announcer.tsx`
 - `ds/primitives/AspectRatio/AspectRatio.stories.tsx`
@@ -49,6 +49,7 @@ _72 files_
 - `ds/primitives/Button/Button.tsx`
 - `ds/primitives/Checkbox/Checkbox.stories.tsx`
 - `ds/primitives/Checkbox/Checkbox.tsx`
+- `ds/primitives/Code/Code.tsx`
 - `ds/primitives/CopyButton/CopyButton.stories.tsx`
 - `ds/primitives/CopyButton/CopyButton.tsx`
 - `ds/primitives/CurrencyInput/CurrencyInput.stories.tsx`
@@ -61,14 +62,18 @@ _72 files_
 - `ds/primitives/FileUpload/FileUpload.tsx`
 - `ds/primitives/FocusGuard/FocusGuard.stories.tsx`
 - `ds/primitives/FocusGuard/FocusGuard.tsx`
+- `ds/primitives/Icon/Icon.tsx`
 - `ds/primitives/IconButton/IconButton.stories.tsx`
 - `ds/primitives/IconButton/IconButton.tsx`
+- `ds/primitives/Image/Image.tsx`
 - `ds/primitives/Input/Input.stories.tsx`
 - `ds/primitives/Input/Input.tsx`
 - `ds/primitives/Kbd/Kbd.stories.tsx`
 - `ds/primitives/Kbd/Kbd.tsx`
 - `ds/primitives/Label/Label.stories.tsx`
 - `ds/primitives/Label/Label.tsx`
+- `ds/primitives/Link/Link.tsx`
+- `ds/primitives/Mark/Mark.tsx`
 - `ds/primitives/NumberFormatter/NumberFormatter.stories.tsx`
 - `ds/primitives/NumberFormatter/NumberFormatter.tsx`
 - `ds/primitives/NumberInput/NumberInput.stories.tsx`
@@ -435,12 +440,13 @@ _29 files_
 
 ## Tokens  (`ds/tokens/`)
 
-_10 files_
+_11 files_
 
 - `ds/tokens/animation.ts`
 - `ds/tokens/borderWidth.ts`
 - `ds/tokens/breakpoints.ts`
 - `ds/tokens/colors.ts`
+- `ds/tokens/gradients.ts`
 - `ds/tokens/opacity.ts`
 - `ds/tokens/radius.ts`
 - `ds/tokens/shadows.ts`
@@ -484,7 +490,7 @@ _29 files_
 
 ## Showcase routes  (`app/**/page.tsx`)
 
-_214 files_
+_219 files_
 
 - `app/design-system/advanced/ai-prompt/page.tsx`
 - `app/design-system/advanced/changelog/page.tsx`
@@ -652,6 +658,7 @@ _214 files_
 - `app/design-system/primitives/battery-indicator/page.tsx`
 - `app/design-system/primitives/button/page.tsx`
 - `app/design-system/primitives/checkbox/page.tsx`
+- `app/design-system/primitives/code/page.tsx`
 - `app/design-system/primitives/copy-button/page.tsx`
 - `app/design-system/primitives/currency-input/page.tsx`
 - `app/design-system/primitives/divider/page.tsx`
@@ -659,9 +666,13 @@ _214 files_
 - `app/design-system/primitives/file-upload/page.tsx`
 - `app/design-system/primitives/focus-guard/page.tsx`
 - `app/design-system/primitives/icon-button/page.tsx`
+- `app/design-system/primitives/icon/page.tsx`
+- `app/design-system/primitives/image/page.tsx`
 - `app/design-system/primitives/input/page.tsx`
 - `app/design-system/primitives/kbd/page.tsx`
 - `app/design-system/primitives/label/page.tsx`
+- `app/design-system/primitives/link/page.tsx`
+- `app/design-system/primitives/mark/page.tsx`
 - `app/design-system/primitives/number-formatter/page.tsx`
 - `app/design-system/primitives/number-input/page.tsx`
 - `app/design-system/primitives/otp-input/page.tsx`
@@ -712,7 +723,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_205 files_
+_210 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -885,6 +896,7 @@ _205 files_
 - `ds/__tests__/primitives/Button.a11y.test.tsx`
 - `ds/__tests__/primitives/Button.test.tsx`
 - `ds/__tests__/primitives/Checkbox.test.tsx`
+- `ds/__tests__/primitives/Code.test.tsx`
 - `ds/__tests__/primitives/CopyButton.test.tsx`
 - `ds/__tests__/primitives/CurrencyInput.test.tsx`
 - `ds/__tests__/primitives/Divider.test.tsx`
@@ -892,11 +904,15 @@ _205 files_
 - `ds/__tests__/primitives/FileUpload.a11y.test.tsx`
 - `ds/__tests__/primitives/FileUpload.test.tsx`
 - `ds/__tests__/primitives/FocusGuard.test.tsx`
+- `ds/__tests__/primitives/Icon.test.tsx`
 - `ds/__tests__/primitives/IconButton.test.tsx`
+- `ds/__tests__/primitives/Image.test.tsx`
 - `ds/__tests__/primitives/Input.a11y.test.tsx`
 - `ds/__tests__/primitives/Input.test.tsx`
 - `ds/__tests__/primitives/Kbd.test.tsx`
 - `ds/__tests__/primitives/Label.test.tsx`
+- `ds/__tests__/primitives/Link.test.tsx`
+- `ds/__tests__/primitives/Mark.test.tsx`
 - `ds/__tests__/primitives/NumberFormatter.test.tsx`
 - `ds/__tests__/primitives/NumberInput.a11y.test.tsx`
 - `ds/__tests__/primitives/NumberInput.test.tsx`
@@ -922,4 +938,4 @@ _205 files_
 
 ---
 
-**Total indexed files:** 851
+**Total indexed files:** 867

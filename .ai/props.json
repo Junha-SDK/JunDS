@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-30T00:58:47.882Z",
+  "generatedAt": "2026-04-30T01:03:18.667Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -281,6 +281,31 @@
         {
           "name": "size",
           "type": "\"sm\" | \"md\"",
+          "optional": true,
+          "description": "크기"
+        }
+      ]
+    },
+    {
+      "name": "Code",
+      "kind": "primitive",
+      "file": "ds/primitives/Code/Code.tsx",
+      "interface": "CodeProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "data-display"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "CodeVariant",
+          "optional": true,
+          "description": "색상 변형"
+        },
+        {
+          "name": "size",
+          "type": "CodeSize",
           "optional": true,
           "description": "크기"
         }
@@ -598,6 +623,49 @@
       ]
     },
     {
+      "name": "Image",
+      "kind": "primitive",
+      "file": "ds/primitives/Image/Image.tsx",
+      "interface": "ImageProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "media"
+      ],
+      "props": [
+        {
+          "name": "fit",
+          "type": "ImageFit",
+          "optional": true,
+          "description": "object-fit 모드"
+        },
+        {
+          "name": "radius",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"none\" | \"full\"",
+          "optional": true,
+          "description": "라운드 코너"
+        },
+        {
+          "name": "ratio",
+          "type": "string",
+          "optional": true,
+          "description": "종횡비 (예: \"16/9\", \"1/1\")"
+        },
+        {
+          "name": "placeholder",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "로딩 중 placeholder"
+        },
+        {
+          "name": "fallback",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "로드 실패 시 fallback"
+        }
+      ]
+    },
+    {
       "name": "Input",
       "kind": "primitive",
       "file": "ds/primitives/Input/Input.tsx",
@@ -688,6 +756,68 @@
           "type": "boolean",
           "optional": true,
           "description": "필수 입력 표시(*)"
+        }
+      ]
+    },
+    {
+      "name": "Link",
+      "kind": "primitive",
+      "file": "ds/primitives/Link/Link.tsx",
+      "interface": "LinkProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "navigation"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "LinkVariant",
+          "optional": true,
+          "description": "색상 변형"
+        },
+        {
+          "name": "underline",
+          "type": "LinkUnderline",
+          "optional": true,
+          "description": "밑줄 스타일"
+        },
+        {
+          "name": "external",
+          "type": "boolean",
+          "optional": true,
+          "description": "외부 링크 (target=_blank + rel + 아이콘)"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "링크 컨텐츠"
+        }
+      ]
+    },
+    {
+      "name": "Mark",
+      "kind": "primitive",
+      "file": "ds/primitives/Mark/Mark.tsx",
+      "interface": "MarkProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "data-display"
+      ],
+      "props": [
+        {
+          "name": "color",
+          "type": "MarkColor",
+          "optional": true,
+          "description": "형광펜 색상"
+        },
+        {
+          "name": "underline",
+          "type": "boolean",
+          "optional": true,
+          "description": "밑줄형 (배경 대신 underline)"
         }
       ]
     },
@@ -2054,7 +2184,7 @@
         },
         {
           "name": "transition",
-          "type": "\"fade\" | \"slide-up\" | \"slide-left\" | \"scale\" | \"crossfade\" | \"none\"",
+          "type": "\"none\" | \"fade\" | \"slide-up\" | \"slide-left\" | \"scale\" | \"crossfade\"",
           "optional": true,
           "description": "전환 애니메이션"
         },
@@ -2287,7 +2417,7 @@
         },
         {
           "name": "height",
-          "type": "\"auto\" | \"half\" | \"full\"",
+          "type": "\"full\" | \"auto\" | \"half\"",
           "optional": true,
           "description": "시트 높이 모드"
         },

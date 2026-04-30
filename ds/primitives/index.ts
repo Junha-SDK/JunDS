@@ -110,3 +110,18 @@ export type { FocusGuardProps } from "./FocusGuard";
 
 export { RangeSlider } from "./RangeSlider";
 export type { RangeSliderProps } from "./RangeSlider";
+
+export { Link } from "./Link";
+export type { LinkProps } from "./Link";
+
+export { Image } from "./Image";
+export type { ImageProps } from "./Image";
+
+export { Code } from "./Code";
+export type { CodeProps } from "./Code";
+
+export { Mark } from "./Mark";
+export type { MarkProps } from "./Mark";
+
+export { Icon } from "./Icon";
+export type { IconProps } from "./Icon";
