@@ -116,7 +116,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "export-tokens": "node scripts/export-tokens.mjs",
-    "prepare": "husky"
+    "prepare": "(husky 2>/dev/null || true) && npm run build:lib"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
