@@ -30,6 +30,7 @@ const NAV_SECTIONS: NavSection[] = [
     title: "마켓",
     items: [
       { href: "/dashboard", label: "대시보드", icon: "layoutDashboard" },
+      { href: "/workspace", label: "워크스페이스", icon: "grid2x2" },
       { href: "/realtime", label: "실시간", icon: "activity" },
       { href: "/clock", label: "한국시간", icon: "clock" },
       { href: "/pulse", label: "마켓 펄스", icon: "activity" },

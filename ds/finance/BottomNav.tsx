@@ -31,6 +31,7 @@ const SHEET_SECTIONS: { title: string; items: SheetItem[] }[] = [
   {
     title: "버터 데이터",
     items: [
+      { href: "/workspace", label: "워크스페이스", icon: "grid2x2", description: "위젯으로 조립하는 내 화면" },
       { href: "/feed", label: "정보 피드", icon: "newspaper", description: "뉴스·거시·외국인 매매 통합" },
       { href: "/themes/daily", label: "일별버터", icon: "calendarCheck", description: "일자별 주도 테마와 코스피·평가금액" },
       { href: "/themes/monthly", label: "월별버터", icon: "calendar", description: "월간 코스피·평가금액·테마 추이" },
