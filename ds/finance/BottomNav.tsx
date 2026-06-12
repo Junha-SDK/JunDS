@@ -53,6 +53,7 @@ const SHEET_SECTIONS: { title: string; items: SheetItem[] }[] = [
     items: [
       { href: "/portfolio", label: "매매손익", icon: "banknote" },
       { href: "/portfolio/holdings", label: "보유 종목", icon: "wallet" },
+      { href: "/notes", label: "리서치 노트", icon: "pencil", description: "작성 시점 가격과 함께 복기" },
       { href: "/alerts", label: "가격 알림", icon: "bell" },
       { href: "/search", label: "검색", icon: "search" },
       { href: "/settings", label: "설정", icon: "settings" },

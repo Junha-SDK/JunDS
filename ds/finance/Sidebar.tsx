@@ -64,6 +64,7 @@ const NAV_SECTIONS: NavSection[] = [
       { href: "/portfolio/holdings", label: "보유 종목", icon: "wallet" },
       { href: "/portfolio/council", label: "포지션 × 위원회", icon: "sparkles" },
       { href: "/journal", label: "매매 일지", icon: "newspaper" },
+      { href: "/notes", label: "리서치 노트", icon: "pencil" },
       { href: "/alerts", label: "가격 알림", icon: "bell" },
       { href: "/search", label: "검색", icon: "search" },
       { href: "/settings", label: "설정", icon: "settings" },
