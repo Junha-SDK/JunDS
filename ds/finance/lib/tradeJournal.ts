@@ -23,6 +23,14 @@ export interface TradeEntry {
   note?: string;
   /** Optional tags ("실적기대", "급등주", "장기보유" ...). */
   tags?: string[];
+  /**
+   * Behavior/emotion preset at record time
+   * ("계획매매", "뇌동", "물타기", "익절", "손절지연" ...). Additive — old
+   * entries without this field remain valid.
+   */
+  emotion?: string;
+  /** IDs of trading rules the user marked as violated for this trade. */
+  violations?: string[];
 }
 
 export interface TradeReview {
@@ -100,6 +108,8 @@ export function useTradeJournal() {
       price: entry.price,
       note: entry.note,
       tags: entry.tags,
+      emotion: entry.emotion,
+      violations: entry.violations,
     };
     const all = [next, ...cur];
     write(all);
@@ -114,7 +124,10 @@ export function useTradeJournal() {
   }, []);
 
   const update = useCallback(
-    (id: string, patch: Partial<Pick<TradeEntry, "note" | "tags">>) => {
+    (
+      id: string,
+      patch: Partial<Pick<TradeEntry, "note" | "tags" | "emotion" | "violations">>,
+    ) => {
       const next = read().map((t) => (t.id === id ? { ...t, ...patch } : t));
       write(next);
       setItems(next);
