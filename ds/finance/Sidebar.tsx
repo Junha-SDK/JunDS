@@ -47,6 +47,7 @@ const NAV_SECTIONS: NavSection[] = [
   {
     title: "분석",
     items: [
+      { href: "/screener", label: "스크리너", icon: "sliders" },
       { href: "/fzone", label: "F존", icon: "target" },
       { href: "/compare", label: "종목 비교", icon: "swap" },
       { href: "/investors", label: "AI 위원회", icon: "sparkles" },

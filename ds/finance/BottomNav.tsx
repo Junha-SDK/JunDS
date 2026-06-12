@@ -42,6 +42,7 @@ const SHEET_SECTIONS: { title: string; items: SheetItem[] }[] = [
   {
     title: "분석",
     items: [
+      { href: "/screener", label: "스크리너", icon: "sliders", description: "조건 결합 종목 발굴" },
       { href: "/compare", label: "종목 비교", icon: "swap" },
       { href: "/schedule", label: "마켓 일정", icon: "calendar", description: "실적·박람회·휴장일·배당" },
       { href: "/tax", label: "세금 계산기", icon: "banknote", description: "양도소득세·배당세 추정" },
