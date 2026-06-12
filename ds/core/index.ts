@@ -26,7 +26,7 @@ export { Heading } from "./Heading";
 export type { HeadingProps } from "./Heading";
 
 export { Page } from "./Page";
-export type { PageProps, PageHeaderProps, PageBodyProps } from "./Page";
+export type { PageProps, PageBodyProps } from "./Page";
 
 export { Section } from "./Section";
 export type { SectionProps } from "./Section";

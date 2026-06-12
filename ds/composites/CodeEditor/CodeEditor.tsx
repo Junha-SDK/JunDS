@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { cn } from "../../utils/cn";
+import { useT } from "../../providers/I18nProvider";
 
 export interface CodeEditorProps {
   /** 편집기 코드 값 */
@@ -17,6 +18,8 @@ export interface CodeEditorProps {
   minHeight?: number;
   /** 추가 클래스 */
   className?: string;
+  /** 스크린리더용 라벨 (기본 "코드 편집기") */
+  "aria-label"?: string;
 }
 
 /**
@@ -29,7 +32,9 @@ export interface CodeEditorProps {
  */
 export function CodeEditor({
   value, onChange, language, readOnly, lineNumbers = true, minHeight = 200, className,
+  "aria-label": ariaLabel,
 }: CodeEditorProps) {
+  const t = useT();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const lines = value.split("\n");
 
@@ -67,6 +72,7 @@ export function CodeEditor({
           onKeyDown={handleKeyDown}
           readOnly={readOnly}
           spellCheck={false}
+          aria-label={ariaLabel ?? (language ? t("ariaCodeEditorOf", { language }) : t("ariaCodeEditor"))}
           className={cn(
             "flex-1 p-3 text-sm text-gray-100 bg-transparent outline-none resize-none font-mono leading-relaxed",
             "placeholder:text-gray-500",

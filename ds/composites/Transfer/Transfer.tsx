@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { cn } from "../../utils/cn";
+import { useT } from "../../providers/I18nProvider";
 
 export interface TransferItem {
   key: string;
@@ -49,6 +50,7 @@ export function Transfer({
   searchable = false,
   className,
 }: TransferProps) {
+  const t = useT();
   const [sourceChecked, setSourceChecked] = useState<Set<string>>(new Set());
   const [targetChecked, setTargetChecked] = useState<Set<string>>(new Set());
   const [sourceSearch, setSourceSearch] = useState("");
@@ -149,13 +151,14 @@ export function Transfer({
           type="button"
           disabled={sourceChecked.size === 0}
           onClick={moveToTarget}
+          aria-label={t("ariaTransferTo", { target: targetTitle })}
           className={cn(
             "p-1.5 rounded-md border border-border transition-colors cursor-pointer",
             "disabled:opacity-40 disabled:cursor-not-allowed",
             "hover:bg-gray-100",
           )}
         >
-          <svg className="w-4 h-4 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-4 h-4 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -163,13 +166,14 @@ export function Transfer({
           type="button"
           disabled={targetChecked.size === 0}
           onClick={moveToSource}
+          aria-label={t("ariaTransferTo", { target: sourceTitle })}
           className={cn(
             "p-1.5 rounded-md border border-border transition-colors cursor-pointer",
             "disabled:opacity-40 disabled:cursor-not-allowed",
             "hover:bg-gray-100",
           )}
         >
-          <svg className="w-4 h-4 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-4 h-4 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>

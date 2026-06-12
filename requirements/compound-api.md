@@ -20,6 +20,82 @@ JunDS의 모든 복합 컴포넌트가 **레고 블록처럼 조립** 가능하�
 이 규약을 지키면 외부 사용자가 137개 composite를 동일한 멘탈 모델로 조립할 수
 있고, 새 사용 사례마다 새 prop을 추가할 필요가 없어진다.
 
+## Scope
+
+**대상**
+
+- `ds/composites/**` 의 모든 복합 컴포넌트 (137종)
+- 영역(헤더/본문/푸터/액션 등) 분리가 의미 있는 `ds/patterns/**` 패턴
+- 신규 작성되는 모든 composite — `npm run scaffold composite <Name>` 템플릿이
+  `createCompound` + `Slot` 골격을 자동 주입한다.
+
+**대상 외**
+
+- `ds/primitives/**` — 단일 영역만 가지므로 멤버 분리가 무의미. `asChild`만
+  필요하면 root에 단독 적용한다 (`Button`이 reference).
+- `ds/layout/**` — `Stack`/`Grid`는 children 자체가 사용자 정의이므로
+  멤버 패턴이 적용되지 않는다.
+- 외부에서 import 되는 third-party wrapper.
+
+## User stories / acceptance criteria
+
+- **As a 사용자** I can `<Card asChild><Link href="/x"><Card.Body>…` 처럼
+  root만 `<Link>`로 위임해도 패딩/그림자/hover 스타일이 유지된다.
+  → AC: `asChild` 적용 시 `cn()` 클래스 + `forwardRef`/`onClick` 전부 자식에
+  병합되며 추가 wrapper element가 발생하지 않는다.
+- **As a 사용자** I can `<Modal>`에서 `Modal.Header`만 빼거나 `Modal.Footer`를
+  맨 위로 이동해도 동작한다.
+  → AC: 멤버는 위치 의존이 없고, 부재해도 root 렌더링이 깨지지 않는다.
+- **As a 라이브러리 작성자** I can grep으로 `Object.assign(Root, { ` 사용처를
+  0건으로 유지한다.
+  → AC: lint/CI에서 `Object.assign(<PascalCase>, {` 패턴이 검출되면 실패.
+- **As a 사용자** I can sub-member에 `asChild`를 시도하면 dev 콘솔에 명확한
+  에러가 뜬다 — 두 단계 cloneElement를 디버그하지 않아도 된다.
+  → AC: `Card.Header asChild` → dev에서 `console.error("[JunDS] sub-member에는 asChild를 사용할 수 없습니다…")`.
+
+## Design / behavior notes
+
+- **Slot 단일 자식 룰.** `Slot`은 `React.Children.only`로 강제하지 않고
+  dev에서 warn 후 `null` 반환한다. throw하지 않는 이유: 테스트/스토리북에서
+  순간적으로 children이 비는 상황이 흔하고, throw하면 트리 전체가 깨진다.
+- **이벤트 머지 순서.** Slot → user 자식 순서로 같은 이름의 핸들러를
+  실행한다. user의 `e.preventDefault()`가 라이브러리 동작을 막을 수 있게 하기
+  위함. 라이브러리 측 핸들러가 항상 먼저 실행되어 user가 그 결과 위에서
+  결정할 수 있어야 한다.
+- **className 병합.** `cn(slotClass, props.className)` — 즉 user className이
+  뒤에 와서 충돌 시 우선한다. tailwind-merge가 conflicting utility를 정리한다.
+- **ref 합성.** root에 `forwardRef` + `useComposedRefs`를 사용. asChild가
+  아니어도 user ref와 internal ref 병행이 필요한 경우(focus trap 등) 같은
+  훅을 재사용한다.
+- **dev-only 검사.** `createCompound`는 dev 환경에서 멤버 키 중복 시 warn한다
+  (`Object.assign`은 silent overwrite여서 막지 못함).
+
+## Touched files
+
+- `ds/utils/Slot.tsx` — Slot 컴포넌트 본체 (단일 자식 검사 + cloneElement + ref 병합).
+- `ds/utils/createCompound.ts` — 멤버 부착 + dev 중복 검사 + 타입 추론.
+- `ds/utils/polymorphic.ts` — `as`/`asChild` 보조 타입.
+- `ds/composites/Card/Card.tsx` — reference 구현 (요건 변경 시 항상 함께 업데이트).
+- `ds/composites/Modal/Modal.tsx` — 두 번째 reference (asChild + 멤버 4개 + portal).
+- `scripts/scaffold.mjs` — composite 템플릿이 항상 이 규약을 만족하게 유지.
+- `requirements/design-system-library.md` — 전체 라이브러리 정책의 cross-link.
+
+## Open questions
+
+- **`asChild` + portal 조합.** `Modal` 같은 portal 컴포넌트의 root에 asChild를
+  허용해야 하는가? 현재는 미허용 — portal 타깃이 user wrapper로 바뀌면 z-index
+  / focus trap의 가정이 깨진다. 차후 `Tooltip`처럼 trigger에 asChild를 따로
+  두는 패턴으로 대체 검토 필요.
+- **server component compatibility.** Slot이 cloneElement를 쓰므로 RSC에서
+  `'use client'` 경계를 통과해야 한다. composite 단위로 `'use client'`를
+  이미 박았지만, asChild로 RSC 자식을 넘기는 케이스의 동작은 아직 검증 전.
+- **codemod.** 137개 일괄 변환 비용 vs 수동 PR 관리 비용. 현재 결정은 "수동",
+  근거는 root 시그니처 다양성. 자동 변환 가능한 부분집합(`Object.assign(Root,
+  flatObj)` only)을 도려낸 부분 codemod는 검토 가치 있음.
+- **`asChild` prop 이름.** Radix와 일치하지만 일부 사용자에게 의미가
+  불명확하다는 피드백. `as` prop과의 차이(런타임 vs polymorphism)를 문서에
+  명시해야 한다.
+
 ## 원칙
 
 - **Object.assign 직접 호출 금지.** 항상 `createCompound(Root, { ... })`를

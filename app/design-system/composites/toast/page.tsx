@@ -9,6 +9,7 @@ import {
   CodeExample,
   VariantGrid,
   VariantItem,
+  DecisionMatrix,
 } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { DsToastProvider, useDsToast } from "@/ds/composites/Toast";
@@ -133,11 +134,8 @@ export default function ToastPage() {
       >
         {/* ── 개요 ── */}
         <Section title="개요" description="버튼을 클릭하여 각 유형의 토스트를 확인해보세요. 토스트는 일정 시간 후 자동으로 사라집니다.">
-          <Preview>
-            <BasicToastDemo />
-          </Preview>
-          <CodeExample
-            code={`// 1. 앱 루트에 Provider 설정
+          <Preview
+            sourceCode={`// 1. 앱 루트에 Provider 설정
 <DsToastProvider position="bottom-right">
   <App />
 </DsToastProvider>
@@ -145,14 +143,13 @@ export default function ToastPage() {
 // 2. 컴포넌트에서 훅 사용
 function MyComponent() {
   const { success, error, warning, info } = useDsToast();
-
   return (
-    <Button onClick={() => success("저장되었습니다!")}>
-      저장
-    </Button>
+    <Button onClick={() => success("저장되었습니다!")}>저장</Button>
   );
 }`}
-          />
+          >
+            <BasicToastDemo />
+          </Preview>
         </Section>
 
         {/* ── 구조 ── */}
@@ -170,25 +167,41 @@ function MyComponent() {
         {/* ── 유형 ── */}
         <Section title="유형 (Types)" description="4가지 기본 유형의 토스트를 지원합니다. 메시지의 성격에 맞는 유형을 선택하세요.">
           <VariantGrid cols={2}>
-            <VariantItem label="Success" description="작업이 성공적으로 완료되었을 때">
+            <VariantItem
+              label="Success"
+              description="작업이 성공적으로 완료되었을 때"
+              sourceCode={`success("저장되었습니다!");`}
+            >
               <div className="text-center">
                 <span className="text-2xl mb-1 block">✅</span>
                 <p className="text-xs text-muted">저장, 생성, 업데이트 완료 등</p>
               </div>
             </VariantItem>
-            <VariantItem label="Error" description="오류가 발생하여 작업이 실패했을 때">
+            <VariantItem
+              label="Error"
+              description="오류가 발생하여 작업이 실패했을 때"
+              sourceCode={`error("저장에 실패했습니다.");`}
+            >
               <div className="text-center">
                 <span className="text-2xl mb-1 block">❌</span>
                 <p className="text-xs text-muted">네트워크 에러, 유효성 실패 등</p>
               </div>
             </VariantItem>
-            <VariantItem label="Warning" description="주의가 필요한 상황을 알릴 때">
+            <VariantItem
+              label="Warning"
+              description="주의가 필요한 상황을 알릴 때"
+              sourceCode={`warning("세션이 곧 만료됩니다.");`}
+            >
               <div className="text-center">
                 <span className="text-2xl mb-1 block">⚠️</span>
                 <p className="text-xs text-muted">세션 만료 경고, 용량 부족 등</p>
               </div>
             </VariantItem>
-            <VariantItem label="Info" description="참고할 만한 일반 정보를 전달할 때">
+            <VariantItem
+              label="Info"
+              description="참고할 만한 일반 정보를 전달할 때"
+              sourceCode={`info("상태가 변경되었습니다.");`}
+            >
               <div className="text-center">
                 <span className="text-2xl mb-1 block">ℹ️</span>
                 <p className="text-xs text-muted">상태 변경, 안내 메시지 등</p>
@@ -197,9 +210,63 @@ function MyComponent() {
           </VariantGrid>
         </Section>
 
+        {/* ── Decision Matrix ── */}
+        <Section title="비슷한 알림 컴포넌트 비교" description="알림에는 영속성·강조·위치에 따라 여러 컴포넌트가 있습니다. 의도에 맞춰 선택하세요.">
+          <DecisionMatrix
+            rows={[
+              {
+                name: "Toast",
+                href: "/design-system/composites/toast",
+                signature: "일시적 피드백",
+                useWhen: "작업 완료·실패·실행취소처럼 잠깐 보이고 사라져야 하는 짧은 피드백.",
+                avoidWhen: "사용자가 반드시 읽어야 하는 영속 메시지 — Banner/Alert.",
+              },
+              {
+                name: "Alert",
+                href: "/design-system/composites/alert",
+                signature: "인라인 영속 알림",
+                useWhen: "폼 위·페이지 안에 영속적으로 노출되는 상태 메시지(에러·정보·성공).",
+                avoidWhen: "잠깐 보일 메시지 — Toast.",
+              },
+              {
+                name: "Banner",
+                href: "/design-system/composites/banner",
+                signature: "전역 공지",
+                useWhen: "헤더 위 / 페이지 상단에 걸쳐 모든 사용자가 봐야 하는 공지·점검 안내.",
+                avoidWhen: "사용자별 개인 메시지 — Toast/Notification.",
+              },
+              {
+                name: "Snackbar",
+                href: "/design-system/composites/snackbar",
+                signature: "Material식 토스트",
+                useWhen: "모바일에서 하단 중앙에 짧게 노출되는 가벼운 피드백 (Material Design 스타일).",
+                avoidWhen: "데스크탑 — Toast로 일관.",
+              },
+              {
+                name: "Notification",
+                href: "/design-system/composites/notification",
+                signature: "리스트형 알림",
+                useWhen: "알림 센터에 누적되는 사용자별 메시지 (메시지·멘션·시스템 이벤트).",
+                avoidWhen: "한 번 보고 사라질 피드백 — Toast.",
+              },
+              {
+                name: "Callout",
+                href: "/design-system/composites/callout",
+                signature: "문서 강조 박스",
+                useWhen: "문서·설정 페이지에서 팁·주의사항을 강조하는 컬러 박스.",
+                avoidWhen: "동적인 시스템 알림 — Alert/Toast.",
+              },
+            ]}
+          />
+        </Section>
+
         {/* ── 위치 ── */}
         <Section title="위치 (Positions)" description="DsToastProvider의 position prop으로 토스트가 나타나는 위치를 지정합니다.">
-          <Preview>
+          <Preview
+            sourceCode={`<DsToastProvider position="bottom-right">{/* 또는 top-right · top-center · bottom-center */}
+  {children}
+</DsToastProvider>`}
+          >
             <div className="relative w-full h-48 border border-border-light rounded-xl bg-gray-50/50">
               <div className="absolute top-3 right-3 flex flex-col gap-1">
                 <div className="px-3 py-1.5 bg-primary/10 text-primary text-[10px] font-semibold rounded-lg border border-primary/20">top-right</div>

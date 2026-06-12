@@ -52,12 +52,22 @@ export function FormWizard({ steps, onComplete, className }: FormWizardProps) {
   const [data, setAllData] = useState<Record<string, unknown>>({});
   const [error, setError] = useState<string | null>(null);
 
+  if (!steps || steps.length === 0) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("[JunDS] FormWizard: `steps`가 비어 있습니다.");
+    }
+    return null;
+  }
+  const safeIndex = Math.min(Math.max(current, 0), steps.length - 1);
+  const activeStep = steps[safeIndex];
+
   const setData = useCallback((key: string, value: unknown) => {
     setAllData((prev) => ({ ...prev, [key]: value }));
   }, []);
 
   const next = useCallback(() => {
     const step = steps[current];
+    if (!step) return;
     if (step.validate) {
       const result = step.validate(data);
       if (result !== true) {
@@ -115,14 +125,14 @@ export function FormWizard({ steps, onComplete, className }: FormWizardProps) {
 
         {/* Step info */}
         <div className="mb-4">
-          <h3 className="text-lg font-semibold text-foreground">{steps[current].title}</h3>
-          {steps[current].description && (
-            <p className="text-sm text-muted mt-0.5">{steps[current].description}</p>
+          <h3 className="text-lg font-semibold text-foreground">{activeStep.title}</h3>
+          {activeStep.description && (
+            <p className="text-sm text-muted mt-0.5">{activeStep.description}</p>
           )}
         </div>
 
         {/* Content */}
-        <div className="mb-6">{steps[current].content}</div>
+        <div className="mb-6">{activeStep.content}</div>
 
         {/* Error */}
         {error && (

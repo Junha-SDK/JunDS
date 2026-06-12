@@ -13,7 +13,10 @@ export default function PricingPagePage() {
     >
       <Section title="Default">
         <Preview>
-          <PricingPage />
+          <PricingPage title="요금제" description="필요한 만큼만 결제하세요" monthlyPlans={[
+            { id:"free", name:"Free", price:"₩0", features:["기본"], ctaLabel:"시작" },
+            { id:"pro", name:"Pro", price:"₩19,900", features:["전부"], ctaLabel:"업그레이드", highlighted:true },
+          ]} />
         </Preview>
       </Section>
     </ComponentPage>

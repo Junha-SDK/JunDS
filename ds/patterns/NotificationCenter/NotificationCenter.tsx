@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { cn } from "../../utils/cn";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { useT } from "../../providers/I18nProvider";
 import { Badge } from "../../primitives/Badge";
 import type { ReactNode } from "react";
 
@@ -35,6 +36,7 @@ export interface NotificationCenterProps {
  * @tags feedback
  */
 export function NotificationCenter({ notifications, onMarkAllRead, onClear, className }: NotificationCenterProps) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, () => setOpen(false), open);
@@ -46,9 +48,11 @@ export function NotificationCenter({ notifications, onMarkAllRead, onClear, clas
       <button
         type="button"
         onClick={() => setOpen(!open)}
+        aria-label={unread > 0 ? t("ariaNotificationsUnread", { count: unread }) : t("ariaNotifications")}
+        aria-expanded={open}
         className="relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer"
       >
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-muted">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-muted" aria-hidden="true">
           <path d="M13.5 6.75a4.5 4.5 0 10-9 0c0 5.25-2.25 6.75-2.25 6.75h13.5s-2.25-1.5-2.25-6.75M10.3 15.75a1.5 1.5 0 01-2.6 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         {unread > 0 && (

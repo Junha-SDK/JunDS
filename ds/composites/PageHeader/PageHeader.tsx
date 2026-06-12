@@ -8,7 +8,7 @@ export interface PageHeaderBreadcrumb {
   href?: string;
 }
 
-export interface PageHeaderProps extends HTMLAttributes<HTMLElement> {
+export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
   /** 메인 제목 */
   title: ReactNode;
   /** 부제 / 설명 */

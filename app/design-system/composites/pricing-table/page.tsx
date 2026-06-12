@@ -13,7 +13,11 @@ export default function PricingTablePage() {
     >
       <Section title="Default">
         <Preview>
-          <PricingTable />
+          <PricingTable plans={[
+            { id:"free", name:"Free", price:"₩0", priceSuffix:"/월", features:["사용자 1명","기본 기능"], ctaLabel:"시작하기" },
+            { id:"pro", name:"Pro", price:"₩19,900", priceSuffix:"/월", features:["사용자 10명","모든 기능","우선 지원"], ctaLabel:"업그레이드", highlighted:true, badge:"인기" },
+            { id:"team", name:"Team", price:"₩49,900", priceSuffix:"/월", features:["무제한 사용자","SSO","SLA 99.9%"], ctaLabel:"문의하기" },
+          ]} />
         </Preview>
       </Section>
     </ComponentPage>

@@ -32,6 +32,23 @@
 | [command-palette](./command-palette.md) | ⌘K 명령 검색 + Kbd 힌트 + Spotlight 강조 | CommandPalette, Kbd, Spotlight, Button |
 | [form-wizard](./form-wizard.md) | 3단계 폼 마법사 + 단계별 검증 | FormWizard, Stepper, FormField, Input, Select, Checkbox |
 | [notification-stack](./notification-stack.md) | DsToastProvider + useDsToast + NotificationCenter 통합 | DsToastProvider, useDsToast, NotificationCenter, Button |
+| [marketing-landing](./marketing-landing.md) | Hero → 신뢰 로고 → 가치 → 뉴스레터 → CTA 랜딩 | HeroSection, LogoCloud, FeatureGrid, Newsletter, CTASection |
+| [pricing-page-full](./pricing-page-full.md) | Hero + 통계 + PricingTable + FAQ + CTA 가격 페이지 | HeroSection, Stat, PricingTable, PriceDisplay, FAQ, CTASection |
+| [product-detail](./product-detail.md) | 가격/수량/리액션/공유/탭/관련 상품을 묶은 상세 페이지 | ProductCard, PriceDisplay, QuantitySelector, EmojiReaction, SocialShare, Tabs |
+| [blog-article](./blog-article.md) | TOC + ScrollProgress + Blockquote + Newsletter 블로그 글 | BlogPost, TableOfContents, ScrollProgress, Blockquote, Newsletter |
+| [charts-dashboard](./charts-dashboard.md) | Stat + Area/Bar/Line/Pie 차트 대시보드 | Stat, AreaChart, BarChart, LineChart, PieChart, Card |
+| [checkout-flow](./checkout-flow.md) | 장바구니 + 위저드 + 오프라인/로딩 결제 플로우 | CartItem, PriceDisplay, FormWizard, OfflineIndicator, LoadingButton, EmptyState |
+| [rhf-zod-form](./rhf-zod-form.md) | React Hook Form + Zod 검증을 JunDS Input/Select/Switch와 결합 | Form, FormField, Input, Select, Switch, Checkbox, Textarea, Button |
+| [book-reader-page](./book-reader-page.md) | 챕터 목차 + 본문 + 진행률 + 메모를 묶은 책 리더 화면 | BookReader, ChapterList, ReadingProgress, BookmarkButton, ScrollProgress, AnnotationNote, useReadingProgress |
+| [photo-album-page](./photo-album-page.md) | 업로드 + 태그 필터 + 그리드 + 라이트박스 앨범 | PhotoAlbum, PhotoUploader, useImagePreload |
+| [social-feed](./social-feed.md) | 스토리 바 + 무한 스크롤 + @멘션/#해시태그 칩 | SocialFeed, PostCard, StoryCircle, Mention, Hashtag, useInfiniteFeed |
+| [user-profile](./user-profile.md) | 프로필 헤더 + 팔로우 버튼 + 게시물/사진/좋아요 탭 | ProfileHeader, FollowButton, Tabs, PhotoAlbum, PostCard |
+| [story-bar](./story-bar.md) | 가로 스토리 링 + 풀스크린 시퀀스 뷰어 | StoryCircle, PhotoLightbox, useImagePreload |
+| [chat-app](./chat-app.md) | 1:1/그룹 채팅 — 좌측 대화 목록 + 우측 ChatThread + composer | ChatThread, useResource, useMutation, useOptimisticState |
+| [calendar-page](./calendar-page.md) | 월간 캘린더 + 이벤트 패널 + 새 이벤트 모달 | CalendarMonth, Modal, useResource, useMutation |
+| [email-app](./email-app.md) | Gmail 스타일 3-pane 메일 클라이언트 | EmailInbox, Modal, useResource, useMutation |
+| [brand-switching](./brand-switching.md) | 5종 브랜드 즉시 전환 + 사용자 정의 브랜드 추가 | BrandProvider, BrandSwitcher, generateTheme |
+| [form-validation](./form-validation.md) | 자체 useForm + valibot 통합 (외부 dep 0 / 외부 dep 가벼움) | useForm, valibot, Form, Input, Button |
 
 ## Conventions
 

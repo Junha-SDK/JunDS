@@ -195,6 +195,8 @@ body {
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-hover: var(--card-hover);
+  --color-surface: var(--card);
+  --color-surface-soft: var(--card-hover);
   --color-border: var(--border);
   --color-border-light: var(--border-light);
   --color-primary: var(--primary);
@@ -901,6 +903,40 @@ button, a, input, textarea, select, [role="button"] {
   50% { opacity: 0.4; transform: scale(1.6); }
 }
 
+/* ── Motion primitive presets ── */
+@keyframes mFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes mFadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes mFadeDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes mScale {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes mSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes mSlideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes mSlideLeft {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes mSlideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -987,4 +1023,42 @@ img {
 .backdrop-premium {
   backdrop-filter: blur(8px) saturate(180%);
   -webkit-backdrop-filter: blur(8px) saturate(180%);
+}
+
+/* ──────────────────────────────────────────────────────────────────
+ * Smooth expand/collapse via grid-template-rows
+ * Modern browsers (Chrome 117+, Safari 17.4+, Firefox 137+) animate
+ * `grid-template-rows: 0fr → 1fr`. Older browsers degrade to a snap.
+ * Usage:
+ *   <div className="smooth-expand" data-open={open}>
+ *     <div className="smooth-expand__inner">{children}</div>
+ *   </div>
+ * ──────────────────────────────────────────────────────────────── */
+.smooth-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.smooth-expand[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.smooth-expand__inner {
+  overflow: hidden;
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition:
+    opacity 180ms cubic-bezier(0.16, 1, 0.3, 1) 40ms,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.smooth-expand[data-open="true"] .smooth-expand__inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smooth-expand,
+  .smooth-expand__inner {
+    transition: none;
+  }
 }

@@ -10,29 +10,36 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-04-30T01:11:26.878Z
+Generated: 2026-06-12T07:08:57.242Z
 
 ---
 
 ## Requirements (read FIRST for any feature work)
 
-_11 files_
+_18 files_
 
 - `requirements/_template.md`
 - `requirements/agent-onboarding.md`
+- `requirements/book-domain.md`
 - `requirements/compound-api.md`
+- `requirements/data-layer.md`
 - `requirements/design-system-library.md`
+- `requirements/forms.md`
 - `requirements/i18n.md`
 - `requirements/license-and-auth.md`
+- `requirements/motion.md`
+- `requirements/multi-brand-theming.md`
 - `requirements/no-code-framework-phase-0.md`
 - `requirements/no-code-personas.md`
+- `requirements/photo-domain.md`
 - `requirements/README.md`
 - `requirements/showcase-site.md`
+- `requirements/sns-domain.md`
 - `requirements/theming.md`
 
 ## Primitives  (`ds/primitives/`)
 
-_77 files_
+_85 files_
 
 - `ds/primitives/Announcer/Announcer.tsx`
 - `ds/primitives/AspectRatio/AspectRatio.stories.tsx`
@@ -45,6 +52,7 @@ _77 files_
 - `ds/primitives/Badge/Badge.tsx`
 - `ds/primitives/BatteryIndicator/BatteryIndicator.stories.tsx`
 - `ds/primitives/BatteryIndicator/BatteryIndicator.tsx`
+- `ds/primitives/BookmarkButton/BookmarkButton.tsx`
 - `ds/primitives/Button/Button.stories.tsx`
 - `ds/primitives/Button/Button.tsx`
 - `ds/primitives/Checkbox/Checkbox.stories.tsx`
@@ -62,6 +70,9 @@ _77 files_
 - `ds/primitives/FileUpload/FileUpload.tsx`
 - `ds/primitives/FocusGuard/FocusGuard.stories.tsx`
 - `ds/primitives/FocusGuard/FocusGuard.tsx`
+- `ds/primitives/FollowButton/FollowButton.tsx`
+- `ds/primitives/Hashtag/Hashtag.tsx`
+- `ds/primitives/Highlight/Highlight.tsx`
 - `ds/primitives/Icon/Icon.tsx`
 - `ds/primitives/IconButton/IconButton.stories.tsx`
 - `ds/primitives/IconButton/IconButton.tsx`
@@ -70,10 +81,14 @@ _77 files_
 - `ds/primitives/Input/Input.tsx`
 - `ds/primitives/Kbd/Kbd.stories.tsx`
 - `ds/primitives/Kbd/Kbd.tsx`
+- `ds/primitives/KeyCap/KeyCap.tsx`
 - `ds/primitives/Label/Label.stories.tsx`
 - `ds/primitives/Label/Label.tsx`
+- `ds/primitives/LikeButton/LikeButton.tsx`
 - `ds/primitives/Link/Link.tsx`
 - `ds/primitives/Mark/Mark.tsx`
+- `ds/primitives/MentionChip/MentionChip.tsx`
+- `ds/primitives/Motion/Motion.tsx`
 - `ds/primitives/NumberFormatter/NumberFormatter.stories.tsx`
 - `ds/primitives/NumberFormatter/NumberFormatter.tsx`
 - `ds/primitives/NumberInput/NumberInput.stories.tsx`
@@ -114,7 +129,7 @@ _77 files_
 
 ## Composites  (`ds/composites/`)
 
-_237 files_
+_293 files_
 
 - `ds/composites/Accordion/Accordion.stories.tsx`
 - `ds/composites/Accordion/Accordion.tsx`
@@ -130,7 +145,9 @@ _237 files_
 - `ds/composites/AlertDialog/AlertDialog.tsx`
 - `ds/composites/AnimatedCounter/AnimatedCounter.stories.tsx`
 - `ds/composites/AnimatedCounter/AnimatedCounter.tsx`
+- `ds/composites/AnnotationNote/AnnotationNote.tsx`
 - `ds/composites/AnnouncementBar/AnnouncementBar.tsx`
+- `ds/composites/AreaChart/AreaChart.tsx`
 - `ds/composites/AudioPlayer/AudioPlayer.stories.tsx`
 - `ds/composites/AudioPlayer/AudioPlayer.tsx`
 - `ds/composites/AutoComplete/AutoComplete.stories.tsx`
@@ -143,12 +160,18 @@ _237 files_
 - `ds/composites/AvatarStack/AvatarStack.tsx`
 - `ds/composites/Banner/Banner.stories.tsx`
 - `ds/composites/Banner/Banner.tsx`
+- `ds/composites/BarChart/BarChart.tsx`
 - `ds/composites/BentoGrid/BentoGrid.stories.tsx`
 - `ds/composites/BentoGrid/BentoGrid.tsx`
+- `ds/composites/Blockquote/Blockquote.tsx`
 - `ds/composites/BookCard/BookCard.stories.tsx`
 - `ds/composites/BookCard/BookCard.tsx`
+- `ds/composites/BookCover/BookCover.tsx`
+- `ds/composites/BookRating/BookRating.tsx`
+- `ds/composites/BookShelf/BookShelf.tsx`
 - `ds/composites/BottomSheet/BottomSheet.stories.tsx`
 - `ds/composites/BottomSheet/BottomSheet.tsx`
+- `ds/composites/BrandSwitcher/BrandSwitcher.tsx`
 - `ds/composites/Breadcrumb/Breadcrumb.stories.tsx`
 - `ds/composites/Breadcrumb/Breadcrumb.tsx`
 - `ds/composites/ButtonGroup/ButtonGroup.stories.tsx`
@@ -159,8 +182,11 @@ _237 files_
 - `ds/composites/Card/Card.tsx`
 - `ds/composites/Carousel/Carousel.stories.tsx`
 - `ds/composites/Carousel/Carousel.tsx`
+- `ds/composites/CartItem/CartItem.tsx`
+- `ds/composites/ChapterList/ChapterList.tsx`
 - `ds/composites/ChatBubble/ChatBubble.stories.tsx`
 - `ds/composites/ChatBubble/ChatBubble.tsx`
+- `ds/composites/CheckboxCardGroup/CheckboxCardGroup.tsx`
 - `ds/composites/Clock/Clock.tsx`
 - `ds/composites/CodeEditor/CodeEditor.stories.tsx`
 - `ds/composites/CodeEditor/CodeEditor.tsx`
@@ -174,6 +200,7 @@ _237 files_
 - `ds/composites/ColorSwatch/ColorSwatch.tsx`
 - `ds/composites/Combobox/Combobox.stories.tsx`
 - `ds/composites/Combobox/Combobox.tsx`
+- `ds/composites/CommentThread/CommentThread.tsx`
 - `ds/composites/CompareSlider/CompareSlider.stories.tsx`
 - `ds/composites/CompareSlider/CompareSlider.tsx`
 - `ds/composites/ComparisonGrid/ComparisonGrid.stories.tsx`
@@ -192,6 +219,7 @@ _237 files_
 - `ds/composites/Countdown/Countdown.tsx`
 - `ds/composites/CronExpression/CronExpression.stories.tsx`
 - `ds/composites/CronExpression/CronExpression.tsx`
+- `ds/composites/CTASection/CTASection.tsx`
 - `ds/composites/DataGrid/DataGrid.stories.tsx`
 - `ds/composites/DataGrid/DataGrid.tsx`
 - `ds/composites/DateInput/DateInput.stories.tsx`
@@ -214,8 +242,10 @@ _237 files_
 - `ds/composites/Dropdown/Dropdown.tsx`
 - `ds/composites/EmojiPicker/EmojiPicker.stories.tsx`
 - `ds/composites/EmojiPicker/EmojiPicker.tsx`
+- `ds/composites/EmojiReaction/EmojiReaction.tsx`
 - `ds/composites/EmptyState/EmptyState.stories.tsx`
 - `ds/composites/EmptyState/EmptyState.tsx`
+- `ds/composites/ExifPanel/ExifPanel.tsx`
 - `ds/composites/FilterButtonGroup/FilterButtonGroup.stories.tsx`
 - `ds/composites/FilterButtonGroup/FilterButtonGroup.tsx`
 - `ds/composites/FloatingActionButton/FloatingActionButton.stories.tsx`
@@ -232,19 +262,27 @@ _237 files_
 - `ds/composites/GradientBorder/GradientBorder.tsx`
 - `ds/composites/Heatmap/Heatmap.stories.tsx`
 - `ds/composites/Heatmap/Heatmap.tsx`
+- `ds/composites/Hint/Hint.tsx`
 - `ds/composites/HoverCard/HoverCard.stories.tsx`
 - `ds/composites/HoverCard/HoverCard.tsx`
+- `ds/composites/ImageCompare/ImageCompare.tsx`
 - `ds/composites/ImageCropper/ImageCropper.stories.tsx`
 - `ds/composites/ImageCropper/ImageCropper.tsx`
 - `ds/composites/ImageLightbox/ImageLightbox.stories.tsx`
 - `ds/composites/ImageLightbox/ImageLightbox.tsx`
+- `ds/composites/ImageWithFallback/ImageWithFallback.tsx`
+- `ds/composites/ImageZoom/ImageZoom.tsx`
 - `ds/composites/InlineEdit/InlineEdit.stories.tsx`
 - `ds/composites/InlineEdit/InlineEdit.tsx`
 - `ds/composites/JSONViewer/JSONViewer.tsx`
 - `ds/composites/KeyValueGrid/KeyValueGrid.stories.tsx`
 - `ds/composites/KeyValueGrid/KeyValueGrid.tsx`
+- `ds/composites/LineChart/LineChart.tsx`
+- `ds/composites/LoadingButton/LoadingButton.tsx`
 - `ds/composites/LoadingOverlay/LoadingOverlay.stories.tsx`
 - `ds/composites/LoadingOverlay/LoadingOverlay.tsx`
+- `ds/composites/LoadingScreen/LoadingScreen.tsx`
+- `ds/composites/LogoCloud/LogoCloud.tsx`
 - `ds/composites/MarkdownViewer/MarkdownViewer.stories.tsx`
 - `ds/composites/MarkdownViewer/MarkdownViewer.tsx`
 - `ds/composites/Marquee/Marquee.stories.tsx`
@@ -264,16 +302,32 @@ _237 files_
 - `ds/composites/MultiSelect/MultiSelect.tsx`
 - `ds/composites/NavigationMenu/NavigationMenu.stories.tsx`
 - `ds/composites/NavigationMenu/NavigationMenu.tsx`
+- `ds/composites/Newsletter/Newsletter.tsx`
 - `ds/composites/Notification/Notification.stories.tsx`
 - `ds/composites/Notification/Notification.tsx`
+- `ds/composites/OfflineIndicator/OfflineIndicator.tsx`
 - `ds/composites/Onboarding/Onboarding.stories.tsx`
 - `ds/composites/Onboarding/Onboarding.tsx`
+- `ds/composites/OnlineStatus/OnlineStatus.tsx`
 - `ds/composites/PageHeader/PageHeader.tsx`
 - `ds/composites/Pagination/Pagination.stories.tsx`
 - `ds/composites/Pagination/Pagination.tsx`
+- `ds/composites/PasswordStrength/PasswordStrength.tsx`
+- `ds/composites/PhotoCard/PhotoCard.tsx`
+- `ds/composites/PhotoCarousel/PhotoCarousel.tsx`
+- `ds/composites/PhotoFilters/PhotoFilters.tsx`
+- `ds/composites/PhotoGrid/PhotoGrid.tsx`
+- `ds/composites/PhotoLightbox/PhotoLightbox.tsx`
+- `ds/composites/PhotoUploader/PhotoUploader.tsx`
+- `ds/composites/PieChart/PieChart.tsx`
+- `ds/composites/PollCard/PollCard.tsx`
 - `ds/composites/Popover/Popover.stories.tsx`
 - `ds/composites/Popover/Popover.tsx`
+- `ds/composites/PostCard/PostCard.tsx`
+- `ds/composites/PriceDisplay/PriceDisplay.tsx`
 - `ds/composites/PricingTable/PricingTable.tsx`
+- `ds/composites/ProductCard/ProductCard.tsx`
+- `ds/composites/ProfileHeader/ProfileHeader.tsx`
 - `ds/composites/Progress/Progress.stories.tsx`
 - `ds/composites/Progress/Progress.tsx`
 - `ds/composites/ProgressRing/ProgressRing.stories.tsx`
@@ -281,14 +335,25 @@ _237 files_
 - `ds/composites/PullToRefresh/PullToRefresh.tsx`
 - `ds/composites/QRCode/QRCode.stories.tsx`
 - `ds/composites/QRCode/QRCode.tsx`
+- `ds/composites/QuantitySelector/QuantitySelector.tsx`
+- `ds/composites/RadarChart/RadarChart.tsx`
+- `ds/composites/RadioCardGroup/RadioCardGroup.tsx`
 - `ds/composites/Rating/Rating.stories.tsx`
 - `ds/composites/Rating/Rating.tsx`
+- `ds/composites/ReactionPicker/ReactionPicker.tsx`
+- `ds/composites/ReadingGoal/ReadingGoal.tsx`
+- `ds/composites/ReadingProgress/ReadingProgress.tsx`
+- `ds/composites/ReadingStats/ReadingStats.tsx`
 - `ds/composites/ReadingTime/ReadingTime.stories.tsx`
 - `ds/composites/ReadingTime/ReadingTime.tsx`
 - `ds/composites/Resizable/Resizable.tsx`
 - `ds/composites/Result/Result.tsx`
+- `ds/composites/SankeyDiagram/SankeyDiagram.tsx`
+- `ds/composites/ScatterPlot/ScatterPlot.tsx`
+- `ds/composites/ScrollProgress/ScrollProgress.tsx`
 - `ds/composites/ScrollSpy/ScrollSpy.stories.tsx`
 - `ds/composites/ScrollSpy/ScrollSpy.tsx`
+- `ds/composites/SearchBar/SearchBar.tsx`
 - `ds/composites/SearchInput/SearchInput.stories.tsx`
 - `ds/composites/SearchInput/SearchInput.tsx`
 - `ds/composites/SecurityBadge/SecurityBadge.tsx`
@@ -304,6 +369,7 @@ _237 files_
 - `ds/composites/Skeleton/Skeleton.tsx`
 - `ds/composites/SkeletonPreset/SkeletonPreset.tsx`
 - `ds/composites/Snackbar/Snackbar.tsx`
+- `ds/composites/SocialShare/SocialShare.tsx`
 - `ds/composites/SplitPane/SplitPane.stories.tsx`
 - `ds/composites/SplitPane/SplitPane.tsx`
 - `ds/composites/SpoilerBlock/SpoilerBlock.stories.tsx`
@@ -312,20 +378,25 @@ _237 files_
 - `ds/composites/Spotlight/Spotlight.tsx`
 - `ds/composites/SpotlightCard/SpotlightCard.stories.tsx`
 - `ds/composites/SpotlightCard/SpotlightCard.tsx`
+- `ds/composites/Stat/Stat.tsx`
 - `ds/composites/StatCard/StatCard.stories.tsx`
 - `ds/composites/StatCard/StatCard.tsx`
 - `ds/composites/Stepper/Stepper.stories.tsx`
 - `ds/composites/Stepper/Stepper.tsx`
 - `ds/composites/Sticky/Sticky.stories.tsx`
 - `ds/composites/Sticky/Sticky.tsx`
+- `ds/composites/StoryCircle/StoryCircle.tsx`
 - `ds/composites/SwipeAction/SwipeAction.stories.tsx`
 - `ds/composites/SwipeAction/SwipeAction.tsx`
 - `ds/composites/Table/Table.stories.tsx`
 - `ds/composites/Table/Table.tsx`
+- `ds/composites/TableOfContents/TableOfContents.tsx`
 - `ds/composites/Tabs/Tabs.stories.tsx`
 - `ds/composites/Tabs/Tabs.tsx`
 - `ds/composites/TagInput/TagInput.stories.tsx`
 - `ds/composites/TagInput/TagInput.tsx`
+- `ds/composites/TestimonialCard/TestimonialCard.tsx`
+- `ds/composites/TextareaAutosize/TextareaAutosize.tsx`
 - `ds/composites/ThinkingIndicator/ThinkingIndicator.tsx`
 - `ds/composites/Timeline/Timeline.stories.tsx`
 - `ds/composites/Timeline/Timeline.tsx`
@@ -356,18 +427,25 @@ _237 files_
 
 ## Patterns  (`ds/patterns/`)
 
-_43 files_
+_55 files_
 
 - `ds/patterns/ActionBar/ActionBar.stories.tsx`
 - `ds/patterns/ActionBar/ActionBar.tsx`
 - `ds/patterns/AuthLayout/AuthLayout.tsx`
+- `ds/patterns/BlogPost/BlogPost.tsx`
+- `ds/patterns/BookReader/BookReader.tsx`
 - `ds/patterns/Calendar/Calendar.tsx`
+- `ds/patterns/CalendarMonth/CalendarMonth.tsx`
 - `ds/patterns/ChartCard/ChartCard.tsx`
+- `ds/patterns/ChatThread/ChatThread.tsx`
 - `ds/patterns/CommandPalette/CommandPalette.stories.tsx`
 - `ds/patterns/CommandPalette/CommandPalette.tsx`
 - `ds/patterns/DataTable/DataTable.tsx`
 - `ds/patterns/DataTable/DataTableIcons.tsx`
 - `ds/patterns/DataTable/DataTableUtils.tsx`
+- `ds/patterns/EmailInbox/EmailInbox.tsx`
+- `ds/patterns/FAQ/FAQ.tsx`
+- `ds/patterns/FeatureGrid/FeatureGrid.tsx`
 - `ds/patterns/FilterBar/FilterBar.stories.tsx`
 - `ds/patterns/FilterBar/FilterBar.tsx`
 - `ds/patterns/FlowDiagram/FlowDiagram.stories.tsx`
@@ -377,7 +455,9 @@ _43 files_
 - `ds/patterns/FormBuilder/FormBuilder.stories.tsx`
 - `ds/patterns/FormBuilder/FormBuilder.tsx`
 - `ds/patterns/FormWizard/FormWizard.tsx`
+- `ds/patterns/ForumThread/ForumThread.tsx`
 - `ds/patterns/GanttChart/GanttChart.tsx`
+- `ds/patterns/HeroSection/HeroSection.tsx`
 - `ds/patterns/InfiniteList/InfiniteList.tsx`
 - `ds/patterns/Kanban/Kanban.tsx`
 - `ds/patterns/LoginForm/LoginForm.stories.tsx`
@@ -386,6 +466,8 @@ _43 files_
 - `ds/patterns/MasonryGrid/MasonryGrid.tsx`
 - `ds/patterns/NotificationCenter/NotificationCenter.stories.tsx`
 - `ds/patterns/NotificationCenter/NotificationCenter.tsx`
+- `ds/patterns/OnboardingTour/OnboardingTour.tsx`
+- `ds/patterns/PhotoAlbum/PhotoAlbum.tsx`
 - `ds/patterns/PricingPage/PricingPage.tsx`
 - `ds/patterns/RichTextEditor/RichTextEditor.stories.tsx`
 - `ds/patterns/RichTextEditor/RichTextEditor.tsx`
@@ -393,6 +475,7 @@ _43 files_
 - `ds/patterns/SecurityChecklist/SecurityChecklist.tsx`
 - `ds/patterns/SettingsLayout/SettingsLayout.tsx`
 - `ds/patterns/Sidebar/Sidebar.tsx`
+- `ds/patterns/SocialFeed/SocialFeed.tsx`
 - `ds/patterns/SortableList/SortableList.tsx`
 - `ds/patterns/Starfield/Starfield.stories.tsx`
 - `ds/patterns/Starfield/Starfield.tsx`
@@ -420,12 +503,14 @@ _11 files_
 
 ## Hooks  (`ds/hooks/`)
 
-_38 files_
+_54 files_
 
+- `ds/hooks/useAnimationFrame.ts`
 - `ds/hooks/useAsync.ts`
 - `ds/hooks/useBreakpoint.ts`
 - `ds/hooks/useClickOutside.ts`
 - `ds/hooks/useClipboard.ts`
+- `ds/hooks/useCookie.ts`
 - `ds/hooks/useCopyToClipboard.ts`
 - `ds/hooks/useCountUp.ts`
 - `ds/hooks/useDebounce.ts`
@@ -436,37 +521,52 @@ _38 files_
 - `ds/hooks/useFavicon.ts`
 - `ds/hooks/useFocusMode.ts`
 - `ds/hooks/useFocusTrap.ts`
+- `ds/hooks/useFocusVisible.ts`
 - `ds/hooks/useForm.ts`
 - `ds/hooks/useFullscreen.ts`
+- `ds/hooks/useGeolocation.ts`
 - `ds/hooks/useHotkeys.ts`
+- `ds/hooks/useHover.ts`
 - `ds/hooks/useIdle.ts`
+- `ds/hooks/useImagePreload.ts`
+- `ds/hooks/useInfiniteFeed.ts`
 - `ds/hooks/useIntersectionObserver.ts`
 - `ds/hooks/useInterval.ts`
+- `ds/hooks/useIsomorphicLayoutEffect.ts`
 - `ds/hooks/useKeyboard.ts`
+- `ds/hooks/useKeyboardShortcut.ts`
 - `ds/hooks/useLocalStorage.ts`
 - `ds/hooks/useLongPress.ts`
 - `ds/hooks/useMediaQuery.ts`
 - `ds/hooks/useMounted.ts`
+- `ds/hooks/useMutation.ts`
 - `ds/hooks/useNetworkStatus.ts`
+- `ds/hooks/useOptimistic.ts`
 - `ds/hooks/usePanelResize.ts`
 - `ds/hooks/usePrefersColorScheme.ts`
 - `ds/hooks/usePrevious.ts`
+- `ds/hooks/useReadingProgress.ts`
 - `ds/hooks/useReducedMotion.ts`
 - `ds/hooks/useResizeObserver.ts`
+- `ds/hooks/useResource.ts`
 - `ds/hooks/useScrollLock.ts`
 - `ds/hooks/useScrollSpy.ts`
+- `ds/hooks/useSessionStorage.ts`
 - `ds/hooks/useSteps.ts`
 - `ds/hooks/useThrottle.ts`
 - `ds/hooks/useTimeout.ts`
 - `ds/hooks/useToggle.ts`
+- `ds/hooks/useUpdateEffect.ts`
 - `ds/hooks/useWindowScroll.ts`
+- `ds/hooks/useWindowSize.ts`
 
 ## Tokens  (`ds/tokens/`)
 
-_11 files_
+_12 files_
 
 - `ds/tokens/animation.ts`
 - `ds/tokens/borderWidth.ts`
+- `ds/tokens/brands.ts`
 - `ds/tokens/breakpoints.ts`
 - `ds/tokens/colors.ts`
 - `ds/tokens/gradients.ts`
@@ -479,7 +579,7 @@ _11 files_
 
 ## Providers / Core / Utils / Auth
 
-_29 files_
+_30 files_
 
 - `ds/auth/crypto.ts`
 - `ds/auth/domain-lock.ts`
@@ -501,6 +601,7 @@ _29 files_
 - `ds/core/styleProps.ts`
 - `ds/core/Text.tsx`
 - `ds/core/VStack.tsx`
+- `ds/providers/BrandProvider.tsx`
 - `ds/providers/I18nProvider.tsx`
 - `ds/providers/ThemeProvider.tsx`
 - `ds/utils/cn.ts`
@@ -513,7 +614,7 @@ _29 files_
 
 ## Showcase routes  (`app/**/page.tsx`)
 
-_233 files_
+_309 files_
 
 - `app/design-system/advanced/ai-prompt/page.tsx`
 - `app/design-system/advanced/changelog/page.tsx`
@@ -529,22 +630,33 @@ _233 files_
 - `app/design-system/composites/alert-dialog/page.tsx`
 - `app/design-system/composites/alert/page.tsx`
 - `app/design-system/composites/animated-counter/page.tsx`
+- `app/design-system/composites/annotation-note/page.tsx`
 - `app/design-system/composites/announcement-bar/page.tsx`
+- `app/design-system/composites/area-chart/page.tsx`
 - `app/design-system/composites/audio-player/page.tsx`
 - `app/design-system/composites/auto-complete/page.tsx`
 - `app/design-system/composites/auto-hide-header/page.tsx`
 - `app/design-system/composites/auto-play-demo/page.tsx`
 - `app/design-system/composites/avatar-stack/page.tsx`
 - `app/design-system/composites/banner/page.tsx`
+- `app/design-system/composites/bar-chart/page.tsx`
 - `app/design-system/composites/bento-grid/page.tsx`
+- `app/design-system/composites/blockquote/page.tsx`
 - `app/design-system/composites/book-card/page.tsx`
+- `app/design-system/composites/book-cover/page.tsx`
+- `app/design-system/composites/book-rating/page.tsx`
+- `app/design-system/composites/book-shelf/page.tsx`
 - `app/design-system/composites/bottom-sheet/page.tsx`
+- `app/design-system/composites/brand-switcher/page.tsx`
 - `app/design-system/composites/breadcrumb/page.tsx`
 - `app/design-system/composites/button-group/page.tsx`
 - `app/design-system/composites/callout/page.tsx`
 - `app/design-system/composites/card/page.tsx`
 - `app/design-system/composites/carousel/page.tsx`
+- `app/design-system/composites/cart-item/page.tsx`
+- `app/design-system/composites/chapter-list/page.tsx`
 - `app/design-system/composites/chat-bubble/page.tsx`
+- `app/design-system/composites/checkbox-card-group/page.tsx`
 - `app/design-system/composites/clock/page.tsx`
 - `app/design-system/composites/code-editor/page.tsx`
 - `app/design-system/composites/collapsible/page.tsx`
@@ -552,6 +664,7 @@ _233 files_
 - `app/design-system/composites/color-picker/page.tsx`
 - `app/design-system/composites/color-swatch/page.tsx`
 - `app/design-system/composites/combobox/page.tsx`
+- `app/design-system/composites/comment-thread/page.tsx`
 - `app/design-system/composites/compare-slider/page.tsx`
 - `app/design-system/composites/comparison-grid/page.tsx`
 - `app/design-system/composites/component-showcase/page.tsx`
@@ -562,6 +675,7 @@ _233 files_
 - `app/design-system/composites/copy-block/page.tsx`
 - `app/design-system/composites/countdown/page.tsx`
 - `app/design-system/composites/cron-expression/page.tsx`
+- `app/design-system/composites/cta-section/page.tsx`
 - `app/design-system/composites/data-grid/page.tsx`
 - `app/design-system/composites/date-input/page.tsx`
 - `app/design-system/composites/date-range-filter/page.tsx`
@@ -574,7 +688,9 @@ _233 files_
 - `app/design-system/composites/drawer/page.tsx`
 - `app/design-system/composites/dropdown/page.tsx`
 - `app/design-system/composites/emoji-picker/page.tsx`
+- `app/design-system/composites/emoji-reaction/page.tsx`
 - `app/design-system/composites/empty-state/page.tsx`
+- `app/design-system/composites/exif-panel/page.tsx`
 - `app/design-system/composites/filter-button-group/page.tsx`
 - `app/design-system/composites/floating-action-button/page.tsx`
 - `app/design-system/composites/form-field/page.tsx`
@@ -583,13 +699,21 @@ _233 files_
 - `app/design-system/composites/globe/page.tsx`
 - `app/design-system/composites/gradient-border/page.tsx`
 - `app/design-system/composites/heatmap/page.tsx`
+- `app/design-system/composites/hint/page.tsx`
 - `app/design-system/composites/hover-card/page.tsx`
+- `app/design-system/composites/image-compare/page.tsx`
 - `app/design-system/composites/image-cropper/page.tsx`
 - `app/design-system/composites/image-lightbox/page.tsx`
+- `app/design-system/composites/image-with-fallback/page.tsx`
+- `app/design-system/composites/image-zoom/page.tsx`
 - `app/design-system/composites/inline-edit/page.tsx`
 - `app/design-system/composites/json-viewer/page.tsx`
 - `app/design-system/composites/key-value-grid/page.tsx`
+- `app/design-system/composites/line-chart/page.tsx`
+- `app/design-system/composites/loading-button/page.tsx`
 - `app/design-system/composites/loading-overlay/page.tsx`
+- `app/design-system/composites/loading-screen/page.tsx`
+- `app/design-system/composites/logo-cloud/page.tsx`
 - `app/design-system/composites/markdown-viewer/page.tsx`
 - `app/design-system/composites/marquee/page.tsx`
 - `app/design-system/composites/mention/page.tsx`
@@ -600,21 +724,48 @@ _233 files_
 - `app/design-system/composites/month-picker/page.tsx`
 - `app/design-system/composites/multi-select/page.tsx`
 - `app/design-system/composites/navigation-menu/page.tsx`
+- `app/design-system/composites/newsletter/page.tsx`
 - `app/design-system/composites/notification/page.tsx`
+- `app/design-system/composites/offline-indicator/page.tsx`
 - `app/design-system/composites/onboarding/page.tsx`
+- `app/design-system/composites/online-status/page.tsx`
 - `app/design-system/composites/page-header/page.tsx`
 - `app/design-system/composites/pagination/page.tsx`
+- `app/design-system/composites/password-strength/page.tsx`
+- `app/design-system/composites/photo-card/page.tsx`
+- `app/design-system/composites/photo-carousel/page.tsx`
+- `app/design-system/composites/photo-filters/page.tsx`
+- `app/design-system/composites/photo-grid/page.tsx`
+- `app/design-system/composites/photo-lightbox/page.tsx`
+- `app/design-system/composites/photo-uploader/page.tsx`
+- `app/design-system/composites/pie-chart/page.tsx`
+- `app/design-system/composites/poll-card/page.tsx`
 - `app/design-system/composites/popover/page.tsx`
+- `app/design-system/composites/post-card/page.tsx`
+- `app/design-system/composites/price-display/page.tsx`
 - `app/design-system/composites/pricing-table/page.tsx`
+- `app/design-system/composites/product-card/page.tsx`
+- `app/design-system/composites/profile-header/page.tsx`
 - `app/design-system/composites/progress-ring/page.tsx`
 - `app/design-system/composites/progress/page.tsx`
 - `app/design-system/composites/pull-to-refresh/page.tsx`
 - `app/design-system/composites/qr-code/page.tsx`
+- `app/design-system/composites/quantity-selector/page.tsx`
+- `app/design-system/composites/radar-chart/page.tsx`
+- `app/design-system/composites/radio-card-group/page.tsx`
 - `app/design-system/composites/rating/page.tsx`
+- `app/design-system/composites/reaction-picker/page.tsx`
+- `app/design-system/composites/reading-goal/page.tsx`
+- `app/design-system/composites/reading-progress/page.tsx`
+- `app/design-system/composites/reading-stats/page.tsx`
 - `app/design-system/composites/reading-time/page.tsx`
 - `app/design-system/composites/resizable/page.tsx`
 - `app/design-system/composites/result/page.tsx`
+- `app/design-system/composites/sankey-diagram/page.tsx`
+- `app/design-system/composites/scatter-plot/page.tsx`
+- `app/design-system/composites/scroll-progress/page.tsx`
 - `app/design-system/composites/scroll-spy/page.tsx`
+- `app/design-system/composites/search-bar/page.tsx`
 - `app/design-system/composites/search-input/page.tsx`
 - `app/design-system/composites/segmented-control/page.tsx`
 - `app/design-system/composites/select/page.tsx`
@@ -623,17 +774,23 @@ _233 files_
 - `app/design-system/composites/skeleton-preset/page.tsx`
 - `app/design-system/composites/skeleton/page.tsx`
 - `app/design-system/composites/snackbar/page.tsx`
+- `app/design-system/composites/social-share/page.tsx`
 - `app/design-system/composites/split-pane/page.tsx`
 - `app/design-system/composites/spoiler-block/page.tsx`
 - `app/design-system/composites/spotlight-card/page.tsx`
 - `app/design-system/composites/spotlight/page.tsx`
 - `app/design-system/composites/stat-card/page.tsx`
+- `app/design-system/composites/stat/page.tsx`
 - `app/design-system/composites/stepper/page.tsx`
 - `app/design-system/composites/sticky/page.tsx`
+- `app/design-system/composites/story-circle/page.tsx`
 - `app/design-system/composites/swipe-action/page.tsx`
+- `app/design-system/composites/table-of-contents/page.tsx`
 - `app/design-system/composites/table/page.tsx`
 - `app/design-system/composites/tabs/page.tsx`
 - `app/design-system/composites/tag-input/page.tsx`
+- `app/design-system/composites/testimonial-card/page.tsx`
+- `app/design-system/composites/textarea-autosize/page.tsx`
 - `app/design-system/composites/thinking-indicator/page.tsx`
 - `app/design-system/composites/time-picker/page.tsx`
 - `app/design-system/composites/timeline/page.tsx`
@@ -663,25 +820,37 @@ _233 files_
 - `app/design-system/page.tsx`
 - `app/design-system/patterns/action-bar/page.tsx`
 - `app/design-system/patterns/auth-layout/page.tsx`
+- `app/design-system/patterns/blog-post/page.tsx`
+- `app/design-system/patterns/book-reader/page.tsx`
+- `app/design-system/patterns/calendar-month/page.tsx`
 - `app/design-system/patterns/calendar/page.tsx`
 - `app/design-system/patterns/chart-card/page.tsx`
+- `app/design-system/patterns/chat-thread/page.tsx`
 - `app/design-system/patterns/command-palette/page.tsx`
 - `app/design-system/patterns/data-table/page.tsx`
+- `app/design-system/patterns/email-inbox/page.tsx`
+- `app/design-system/patterns/faq/page.tsx`
+- `app/design-system/patterns/feature-grid/page.tsx`
 - `app/design-system/patterns/filter-bar/page.tsx`
 - `app/design-system/patterns/flow-diagram/page.tsx`
 - `app/design-system/patterns/form-array/page.tsx`
 - `app/design-system/patterns/form-builder/page.tsx`
 - `app/design-system/patterns/form-wizard/page.tsx`
 - `app/design-system/patterns/form/page.tsx`
+- `app/design-system/patterns/forum-thread/page.tsx`
 - `app/design-system/patterns/gantt-chart/page.tsx`
+- `app/design-system/patterns/hero-section/page.tsx`
 - `app/design-system/patterns/infinite-list/page.tsx`
 - `app/design-system/patterns/kanban/page.tsx`
 - `app/design-system/patterns/masonry-grid/page.tsx`
 - `app/design-system/patterns/notification-center/page.tsx`
+- `app/design-system/patterns/onboarding-tour/page.tsx`
+- `app/design-system/patterns/photo-album/page.tsx`
 - `app/design-system/patterns/pricing-page/page.tsx`
 - `app/design-system/patterns/rich-text-editor/page.tsx`
 - `app/design-system/patterns/settings-layout/page.tsx`
 - `app/design-system/patterns/sidebar/page.tsx`
+- `app/design-system/patterns/social-feed/page.tsx`
 - `app/design-system/patterns/sortable-list/page.tsx`
 - `app/design-system/patterns/starfield/page.tsx`
 - `app/design-system/patterns/stats-grid/page.tsx`
@@ -693,6 +862,7 @@ _233 files_
 - `app/design-system/primitives/back-top/page.tsx`
 - `app/design-system/primitives/badge/page.tsx`
 - `app/design-system/primitives/battery-indicator/page.tsx`
+- `app/design-system/primitives/bookmark-button/page.tsx`
 - `app/design-system/primitives/button/page.tsx`
 - `app/design-system/primitives/checkbox/page.tsx`
 - `app/design-system/primitives/code/page.tsx`
@@ -702,14 +872,21 @@ _233 files_
 - `app/design-system/primitives/error-boundary/page.tsx`
 - `app/design-system/primitives/file-upload/page.tsx`
 - `app/design-system/primitives/focus-guard/page.tsx`
+- `app/design-system/primitives/follow-button/page.tsx`
+- `app/design-system/primitives/hashtag/page.tsx`
+- `app/design-system/primitives/highlight/page.tsx`
 - `app/design-system/primitives/icon-button/page.tsx`
 - `app/design-system/primitives/icon/page.tsx`
 - `app/design-system/primitives/image/page.tsx`
 - `app/design-system/primitives/input/page.tsx`
 - `app/design-system/primitives/kbd/page.tsx`
+- `app/design-system/primitives/key-cap/page.tsx`
 - `app/design-system/primitives/label/page.tsx`
+- `app/design-system/primitives/like-button/page.tsx`
 - `app/design-system/primitives/link/page.tsx`
 - `app/design-system/primitives/mark/page.tsx`
+- `app/design-system/primitives/mention-chip/page.tsx`
+- `app/design-system/primitives/motion/page.tsx`
 - `app/design-system/primitives/number-formatter/page.tsx`
 - `app/design-system/primitives/number-input/page.tsx`
 - `app/design-system/primitives/otp-input/page.tsx`
@@ -760,7 +937,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_237 files_
+_324 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -777,7 +954,9 @@ _237 files_
 - `ds/__tests__/composites/AlertDialog.a11y.test.tsx`
 - `ds/__tests__/composites/AlertDialog.test.tsx`
 - `ds/__tests__/composites/AnimatedCounter.test.tsx`
+- `ds/__tests__/composites/AnnotationNote.test.tsx`
 - `ds/__tests__/composites/AnnouncementBar.test.tsx`
+- `ds/__tests__/composites/AreaChart.test.tsx`
 - `ds/__tests__/composites/AudioPlayer.test.tsx`
 - `ds/__tests__/composites/AutoComplete.a11y.test.tsx`
 - `ds/__tests__/composites/AutoComplete.test.tsx`
@@ -785,16 +964,25 @@ _237 files_
 - `ds/__tests__/composites/AutoPlayDemo.test.tsx`
 - `ds/__tests__/composites/AvatarStack.test.tsx`
 - `ds/__tests__/composites/Banner.test.tsx`
+- `ds/__tests__/composites/BarChart.test.tsx`
 - `ds/__tests__/composites/BentoGrid.test.tsx`
+- `ds/__tests__/composites/Blockquote.test.tsx`
 - `ds/__tests__/composites/BookCard.test.tsx`
+- `ds/__tests__/composites/BookCover.test.tsx`
+- `ds/__tests__/composites/BookRating.test.tsx`
+- `ds/__tests__/composites/BookShelf.test.tsx`
 - `ds/__tests__/composites/BottomSheet.a11y.test.tsx`
 - `ds/__tests__/composites/BottomSheet.test.tsx`
+- `ds/__tests__/composites/BrandSwitcher.test.tsx`
 - `ds/__tests__/composites/Breadcrumb.test.tsx`
 - `ds/__tests__/composites/ButtonGroup.test.tsx`
 - `ds/__tests__/composites/Callout.test.tsx`
 - `ds/__tests__/composites/Card.test.tsx`
 - `ds/__tests__/composites/Carousel.test.tsx`
+- `ds/__tests__/composites/CartItem.test.tsx`
+- `ds/__tests__/composites/ChapterList.test.tsx`
 - `ds/__tests__/composites/ChatBubble.test.tsx`
+- `ds/__tests__/composites/CheckboxCardGroup.test.tsx`
 - `ds/__tests__/composites/Clock.test.tsx`
 - `ds/__tests__/composites/CodeEditor.test.tsx`
 - `ds/__tests__/composites/Collapsible.test.tsx`
@@ -803,6 +991,7 @@ _237 files_
 - `ds/__tests__/composites/ColorSwatch.test.tsx`
 - `ds/__tests__/composites/Combobox.a11y.test.tsx`
 - `ds/__tests__/composites/Combobox.test.tsx`
+- `ds/__tests__/composites/CommentThread.test.tsx`
 - `ds/__tests__/composites/CompareSlider.test.tsx`
 - `ds/__tests__/composites/ComparisonGrid.test.tsx`
 - `ds/__tests__/composites/ComponentShowcase.test.tsx`
@@ -813,6 +1002,7 @@ _237 files_
 - `ds/__tests__/composites/CopyBlock.test.tsx`
 - `ds/__tests__/composites/Countdown.test.tsx`
 - `ds/__tests__/composites/CronExpression.test.tsx`
+- `ds/__tests__/composites/CTASection.test.tsx`
 - `ds/__tests__/composites/DataGrid.test.tsx`
 - `ds/__tests__/composites/DateInput.test.tsx`
 - `ds/__tests__/composites/DateRangeFilter.test.tsx`
@@ -826,7 +1016,9 @@ _237 files_
 - `ds/__tests__/composites/Drawer.test.tsx`
 - `ds/__tests__/composites/Dropdown.test.tsx`
 - `ds/__tests__/composites/EmojiPicker.test.tsx`
+- `ds/__tests__/composites/EmojiReaction.test.tsx`
 - `ds/__tests__/composites/EmptyState.test.tsx`
+- `ds/__tests__/composites/ExifPanel.test.tsx`
 - `ds/__tests__/composites/FilterButtonGroup.test.tsx`
 - `ds/__tests__/composites/FloatingActionButton.test.tsx`
 - `ds/__tests__/composites/FormField.test.tsx`
@@ -835,13 +1027,21 @@ _237 files_
 - `ds/__tests__/composites/Globe.test.tsx`
 - `ds/__tests__/composites/GradientBorder.test.tsx`
 - `ds/__tests__/composites/Heatmap.test.tsx`
+- `ds/__tests__/composites/Hint.test.tsx`
 - `ds/__tests__/composites/HoverCard.test.tsx`
+- `ds/__tests__/composites/ImageCompare.test.tsx`
 - `ds/__tests__/composites/ImageCropper.test.tsx`
 - `ds/__tests__/composites/ImageLightbox.test.tsx`
+- `ds/__tests__/composites/ImageWithFallback.test.tsx`
+- `ds/__tests__/composites/ImageZoom.test.tsx`
 - `ds/__tests__/composites/InlineEdit.test.tsx`
 - `ds/__tests__/composites/JSONViewer.test.tsx`
 - `ds/__tests__/composites/KeyValueGrid.test.tsx`
+- `ds/__tests__/composites/LineChart.test.tsx`
+- `ds/__tests__/composites/LoadingButton.test.tsx`
 - `ds/__tests__/composites/LoadingOverlay.test.tsx`
+- `ds/__tests__/composites/LoadingScreen.test.tsx`
+- `ds/__tests__/composites/LogoCloud.test.tsx`
 - `ds/__tests__/composites/MarkdownViewer.test.tsx`
 - `ds/__tests__/composites/Marquee.test.tsx`
 - `ds/__tests__/composites/Mention.test.tsx`
@@ -853,21 +1053,48 @@ _237 files_
 - `ds/__tests__/composites/MonthPicker.test.tsx`
 - `ds/__tests__/composites/MultiSelect.test.tsx`
 - `ds/__tests__/composites/NavigationMenu.test.tsx`
+- `ds/__tests__/composites/Newsletter.test.tsx`
 - `ds/__tests__/composites/Notification.test.tsx`
+- `ds/__tests__/composites/OfflineIndicator.test.tsx`
 - `ds/__tests__/composites/Onboarding.test.tsx`
+- `ds/__tests__/composites/OnlineStatus.test.tsx`
 - `ds/__tests__/composites/PageHeader.test.tsx`
 - `ds/__tests__/composites/Pagination.test.tsx`
+- `ds/__tests__/composites/PasswordStrength.test.tsx`
+- `ds/__tests__/composites/PhotoCard.test.tsx`
+- `ds/__tests__/composites/PhotoCarousel.test.tsx`
+- `ds/__tests__/composites/PhotoFilters.test.tsx`
+- `ds/__tests__/composites/PhotoGrid.test.tsx`
+- `ds/__tests__/composites/PhotoLightbox.test.tsx`
+- `ds/__tests__/composites/PhotoUploader.test.tsx`
+- `ds/__tests__/composites/PieChart.test.tsx`
+- `ds/__tests__/composites/PollCard.test.tsx`
 - `ds/__tests__/composites/Popover.test.tsx`
+- `ds/__tests__/composites/PostCard.test.tsx`
+- `ds/__tests__/composites/PriceDisplay.test.tsx`
 - `ds/__tests__/composites/PricingTable.test.tsx`
+- `ds/__tests__/composites/ProductCard.test.tsx`
+- `ds/__tests__/composites/ProfileHeader.test.tsx`
 - `ds/__tests__/composites/Progress.test.tsx`
 - `ds/__tests__/composites/ProgressRing.test.tsx`
 - `ds/__tests__/composites/PullToRefresh.test.tsx`
 - `ds/__tests__/composites/QRCode.test.tsx`
+- `ds/__tests__/composites/QuantitySelector.test.tsx`
+- `ds/__tests__/composites/RadarChart.test.tsx`
+- `ds/__tests__/composites/RadioCardGroup.test.tsx`
 - `ds/__tests__/composites/Rating.test.tsx`
+- `ds/__tests__/composites/ReactionPicker.test.tsx`
+- `ds/__tests__/composites/ReadingGoal.test.tsx`
+- `ds/__tests__/composites/ReadingProgress.test.tsx`
+- `ds/__tests__/composites/ReadingStats.test.tsx`
 - `ds/__tests__/composites/ReadingTime.test.tsx`
 - `ds/__tests__/composites/Resizable.test.tsx`
 - `ds/__tests__/composites/Result.test.tsx`
+- `ds/__tests__/composites/SankeyDiagram.test.tsx`
+- `ds/__tests__/composites/ScatterPlot.test.tsx`
+- `ds/__tests__/composites/ScrollProgress.test.tsx`
 - `ds/__tests__/composites/ScrollSpy.test.tsx`
+- `ds/__tests__/composites/SearchBar.test.tsx`
 - `ds/__tests__/composites/SearchInput.test.tsx`
 - `ds/__tests__/composites/SecurityBadge.test.tsx`
 - `ds/__tests__/composites/SegmentedControl.test.tsx`
@@ -879,18 +1106,24 @@ _237 files_
 - `ds/__tests__/composites/Skeleton.test.tsx`
 - `ds/__tests__/composites/SkeletonPreset.test.tsx`
 - `ds/__tests__/composites/Snackbar.test.tsx`
+- `ds/__tests__/composites/SocialShare.test.tsx`
 - `ds/__tests__/composites/SplitPane.test.tsx`
 - `ds/__tests__/composites/SpoilerBlock.test.tsx`
 - `ds/__tests__/composites/Spotlight.test.tsx`
 - `ds/__tests__/composites/SpotlightCard.test.tsx`
+- `ds/__tests__/composites/Stat.test.tsx`
 - `ds/__tests__/composites/StatCard.test.tsx`
 - `ds/__tests__/composites/Stepper.test.tsx`
 - `ds/__tests__/composites/Sticky.test.tsx`
+- `ds/__tests__/composites/StoryCircle.test.tsx`
 - `ds/__tests__/composites/SwipeAction.test.tsx`
 - `ds/__tests__/composites/Table.test.tsx`
+- `ds/__tests__/composites/TableOfContents.test.tsx`
 - `ds/__tests__/composites/Tabs.a11y.test.tsx`
 - `ds/__tests__/composites/Tabs.test.tsx`
 - `ds/__tests__/composites/TagInput.test.tsx`
+- `ds/__tests__/composites/TestimonialCard.test.tsx`
+- `ds/__tests__/composites/TextareaAutosize.test.tsx`
 - `ds/__tests__/composites/ThinkingIndicator.test.tsx`
 - `ds/__tests__/composites/Timeline.test.tsx`
 - `ds/__tests__/composites/TimePicker.test.tsx`
@@ -912,37 +1145,58 @@ _237 files_
 - `ds/__tests__/core/Heading.test.tsx`
 - `ds/__tests__/core/Page.test.tsx`
 - `ds/__tests__/core/Text.test.tsx`
+- `ds/__tests__/hooks/useAnimationFrame.test.ts`
 - `ds/__tests__/hooks/useAsync.test.ts`
 - `ds/__tests__/hooks/useClickOutside.test.tsx`
 - `ds/__tests__/hooks/useCopyToClipboard.test.ts`
 - `ds/__tests__/hooks/useDebounce.test.ts`
 - `ds/__tests__/hooks/useDisclosure.test.ts`
 - `ds/__tests__/hooks/useDocumentTitle.test.ts`
+- `ds/__tests__/hooks/useImagePreload.test.ts`
+- `ds/__tests__/hooks/useInfiniteFeed.test.ts`
+- `ds/__tests__/hooks/useKeyboardShortcut.test.ts`
 - `ds/__tests__/hooks/useLocalStorage.test.ts`
+- `ds/__tests__/hooks/useMutation.test.ts`
+- `ds/__tests__/hooks/useOptimistic.test.ts`
+- `ds/__tests__/hooks/useReadingProgress.test.ts`
+- `ds/__tests__/hooks/useResource.test.ts`
 - `ds/__tests__/hooks/useScrollLock.test.ts`
 - `ds/__tests__/hooks/useTimeout.test.ts`
 - `ds/__tests__/hooks/useToggle.test.ts`
+- `ds/__tests__/hooks/useWindowSize.test.ts`
 - `ds/__tests__/layout/Stack.test.tsx`
 - `ds/__tests__/patterns/ActionBar.test.tsx`
 - `ds/__tests__/patterns/AuthLayout.test.tsx`
+- `ds/__tests__/patterns/BlogPost.test.tsx`
+- `ds/__tests__/patterns/BookReader.test.tsx`
+- `ds/__tests__/patterns/CalendarMonth.test.tsx`
 - `ds/__tests__/patterns/ChartCard.test.tsx`
+- `ds/__tests__/patterns/ChatThread.test.tsx`
 - `ds/__tests__/patterns/CommandPalette.test.tsx`
 - `ds/__tests__/patterns/DataTable.test.tsx`
+- `ds/__tests__/patterns/EmailInbox.test.tsx`
+- `ds/__tests__/patterns/FAQ.test.tsx`
+- `ds/__tests__/patterns/FeatureGrid.test.tsx`
 - `ds/__tests__/patterns/FilterBar.test.tsx`
 - `ds/__tests__/patterns/FlowDiagram.test.tsx`
 - `ds/__tests__/patterns/Form.test.tsx`
 - `ds/__tests__/patterns/FormArray.test.tsx`
 - `ds/__tests__/patterns/FormBuilder.test.tsx`
+- `ds/__tests__/patterns/ForumThread.test.tsx`
 - `ds/__tests__/patterns/GanttChart.test.tsx`
+- `ds/__tests__/patterns/HeroSection.test.tsx`
 - `ds/__tests__/patterns/InfiniteList.test.tsx`
 - `ds/__tests__/patterns/Kanban.test.tsx`
 - `ds/__tests__/patterns/LoginForm.test.tsx`
 - `ds/__tests__/patterns/MasonryGrid.test.tsx`
 - `ds/__tests__/patterns/NotificationCenter.test.tsx`
+- `ds/__tests__/patterns/OnboardingTour.test.tsx`
+- `ds/__tests__/patterns/PhotoAlbum.test.tsx`
 - `ds/__tests__/patterns/PricingPage.test.tsx`
 - `ds/__tests__/patterns/RichTextEditor.test.tsx`
 - `ds/__tests__/patterns/SecurityChecklist.test.tsx`
 - `ds/__tests__/patterns/SettingsLayout.test.tsx`
+- `ds/__tests__/patterns/SocialFeed.test.tsx`
 - `ds/__tests__/patterns/SortableList.test.tsx`
 - `ds/__tests__/patterns/Starfield.test.tsx`
 - `ds/__tests__/patterns/StatsGrid.test.tsx`
@@ -953,6 +1207,7 @@ _237 files_
 - `ds/__tests__/primitives/BackTop.test.tsx`
 - `ds/__tests__/primitives/Badge.test.tsx`
 - `ds/__tests__/primitives/BatteryIndicator.test.tsx`
+- `ds/__tests__/primitives/BookmarkButton.test.tsx`
 - `ds/__tests__/primitives/Button.a11y.test.tsx`
 - `ds/__tests__/primitives/Button.test.tsx`
 - `ds/__tests__/primitives/Checkbox.test.tsx`
@@ -964,15 +1219,22 @@ _237 files_
 - `ds/__tests__/primitives/FileUpload.a11y.test.tsx`
 - `ds/__tests__/primitives/FileUpload.test.tsx`
 - `ds/__tests__/primitives/FocusGuard.test.tsx`
+- `ds/__tests__/primitives/FollowButton.test.tsx`
+- `ds/__tests__/primitives/Hashtag.test.tsx`
+- `ds/__tests__/primitives/Highlight.test.tsx`
 - `ds/__tests__/primitives/Icon.test.tsx`
 - `ds/__tests__/primitives/IconButton.test.tsx`
 - `ds/__tests__/primitives/Image.test.tsx`
 - `ds/__tests__/primitives/Input.a11y.test.tsx`
 - `ds/__tests__/primitives/Input.test.tsx`
 - `ds/__tests__/primitives/Kbd.test.tsx`
+- `ds/__tests__/primitives/KeyCap.test.tsx`
 - `ds/__tests__/primitives/Label.test.tsx`
+- `ds/__tests__/primitives/LikeButton.test.tsx`
 - `ds/__tests__/primitives/Link.test.tsx`
 - `ds/__tests__/primitives/Mark.test.tsx`
+- `ds/__tests__/primitives/MentionChip.test.tsx`
+- `ds/__tests__/primitives/Motion.test.tsx`
 - `ds/__tests__/primitives/NumberFormatter.test.tsx`
 - `ds/__tests__/primitives/NumberInput.a11y.test.tsx`
 - `ds/__tests__/primitives/NumberInput.test.tsx`
@@ -992,8 +1254,10 @@ _237 files_
 - `ds/__tests__/primitives/Tag.test.tsx`
 - `ds/__tests__/primitives/Textarea.test.tsx`
 - `ds/__tests__/primitives/Toggle.test.tsx`
+- `ds/__tests__/providers/I18nProvider.test.tsx`
 - `ds/__tests__/runtime/bindings.test.ts`
 - `ds/__tests__/runtime/labAdapter.test.ts`
+- `ds/__tests__/runtime/previewProps.test.tsx`
 - `ds/__tests__/runtime/Renderer.test.tsx`
 - `ds/__tests__/runtime/schema.test.ts`
 - `ds/__tests__/types/prop-contracts.test.ts`
@@ -1002,4 +1266,4 @@ _237 files_
 
 ---
 
-**Total indexed files:** 931
+**Total indexed files:** 1195

@@ -129,6 +129,10 @@ jobs:
         run: npm run build:lib
       - name: Analyze bundle
         run: npm run analyze
+      - name: Generate per-component bundle report
+        run: npm run bundle:report
+      - name: Enforce per-component budget
+        run: npm run bundle:check
 
   a11y:
     needs: install
@@ -149,8 +153,11 @@ jobs:
       - name: Run accessibility tests (in-suite)
         run: npx vitest run --grep "a11y"
 
-      - name: Run consolidated a11y audit
+      - name: Run consolidated a11y audit (report)
         run: npm run audit:a11y
+
+      - name: Strict a11y audit (fails on critical/serious)
+        run: npm run audit:a11y:strict
 
   validate-requirements:
     needs: install
@@ -167,6 +174,54 @@ jobs:
           key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
       - name: Validate requirements/*.md
         run: npm run validate:requirements
+
+  validate-search-dictionary:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
+      - name: Verify every showcase page is indexed
+        run: npm run validate:search-dictionary
+
+  scan-motion-rtl:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
+      - name: Scan motion + RTL coverage (advisory)
+        run: npm run scan:motion-rtl
+
+  ssr-rsc-smoke:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
+      - name: Verify SSR/RSC compatibility (hooks ↔ "use client")
+        run: npm run scan:ssr-rsc:strict
 
   type-contracts:
     needs: install

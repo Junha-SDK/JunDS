@@ -9,6 +9,7 @@ import {
   CodeExample,
   VariantGrid,
   VariantItem,
+  DecisionMatrix,
 } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { PropsPlayground } from "../../_components/PropsPlayground";
@@ -101,7 +102,19 @@ export default function ButtonPage() {
     >
       {/* ═══════════════════ 1. Overview Preview ═══════════════════ */}
       <Section title="Overview" description="가장 일반적인 사용 형태입니다. Primary 버튼과 Secondary 버튼을 함께 배치하여 주요 행동과 보조 행동을 구분합니다.">
-        <Preview>
+        <Preview
+          sourceCode={`<div className="flex flex-col items-center gap-6">
+  <div className="flex items-center gap-3">
+    <Button variant="primary" leftIcon={<CheckIcon />}>변경사항 저장</Button>
+    <Button variant="secondary">취소</Button>
+  </div>
+  <div className="flex items-center gap-3">
+    <Button variant="danger" leftIcon={<TrashIcon />}>삭제</Button>
+    <Button variant="ghost">건너뛰기</Button>
+    <Button variant="link">자세히 보기</Button>
+  </div>
+</div>`}
+        >
           <div className="flex flex-col items-center gap-6">
             <div className="flex items-center gap-3">
               <Button variant="primary" leftIcon={<CheckIcon />}>변경사항 저장</Button>
@@ -137,7 +150,11 @@ export default function ButtonPage() {
 
       {/* ═══════════════════ 2. Anatomy ═══════════════════ */}
       <Section title="Anatomy" description="Button 컴포넌트를 구성하는 내부 요소들입니다.">
-        <Preview>
+        <Preview
+          sourceCode={`<Button variant="primary" size="lg" leftIcon={<PlusIcon />}>
+  새 항목 추가
+</Button>`}
+        >
           <div className="flex items-center justify-center">
             <Button variant="primary" size="lg" leftIcon={<PlusIcon />}>새 항목 추가</Button>
           </div>
@@ -158,7 +175,12 @@ export default function ButtonPage() {
       <Section title="Variants" description="용도에 따라 6가지 variant를 제공합니다. 각 variant는 시각적 위계와 의미가 다릅니다.">
         <VariantGrid cols={3}>
           {variants.map((v) => (
-            <VariantItem key={v.value} label={v.label} description={v.description}>
+            <VariantItem
+              key={v.value}
+              label={v.label}
+              description={v.description}
+              sourceCode={`<Button variant="${v.value}">${v.label}</Button>`}
+            >
               <Button variant={v.value}>{v.label}</Button>
             </VariantItem>
           ))}
@@ -169,13 +191,22 @@ export default function ButtonPage() {
       <Section title="Sizes" description="UI 밀도와 맥락에 맞게 4가지 크기를 지원합니다.">
         <VariantGrid cols={2}>
           {sizes.map((s) => (
-            <VariantItem key={s.value} label={s.label} description={s.description}>
+            <VariantItem
+              key={s.value}
+              label={s.label}
+              description={s.description}
+              sourceCode={`<Button size="${s.value}">버튼</Button>`}
+            >
               <Button size={s.value}>버튼</Button>
             </VariantItem>
           ))}
         </VariantGrid>
         <div className="mt-4">
-          <Preview>
+          <Preview
+            sourceCode={`<div className="flex items-end gap-3">
+${sizes.map((s) => `  <Button size="${s.value}">${s.label.split(" ")[0]}</Button>`).join("\n")}
+</div>`}
+          >
             <div className="flex items-end gap-3 justify-center">
               {sizes.map((s) => (
                 <Button key={s.value} size={s.value}>{s.label.split(" ")[0]}</Button>
@@ -188,25 +219,45 @@ export default function ButtonPage() {
       {/* ═══════════════════ 5. States ═══════════════════ */}
       <Section title="States" description="로딩, 비활성, 아이콘 등 다양한 상태를 지원합니다.">
         <VariantGrid cols={2}>
-          <VariantItem label="Loading" description="비동기 작업 진행 중. 스피너가 표시되고 클릭이 차단됩니다.">
+          <VariantItem
+            label="Loading"
+            description="비동기 작업 진행 중. 스피너가 표시되고 클릭이 차단됩니다."
+            sourceCode={`<Button loading>저장 중...</Button>
+<Button variant="danger" loading>삭제 중...</Button>`}
+          >
             <div className="flex items-center gap-3">
               <Button loading>저장 중...</Button>
               <Button variant="danger" loading>삭제 중...</Button>
             </div>
           </VariantItem>
-          <VariantItem label="Disabled" description="상호작용이 불가능한 비활성 상태입니다.">
+          <VariantItem
+            label="Disabled"
+            description="상호작용이 불가능한 비활성 상태입니다."
+            sourceCode={`<Button disabled>비활성</Button>
+<Button variant="secondary" disabled>비활성</Button>`}
+          >
             <div className="flex items-center gap-3">
               <Button disabled>비활성</Button>
               <Button variant="secondary" disabled>비활성</Button>
             </div>
           </VariantItem>
-          <VariantItem label="With Left Icon" description="레이블 앞에 아이콘을 추가하여 행동의 의미를 보강합니다.">
+          <VariantItem
+            label="With Left Icon"
+            description="레이블 앞에 아이콘을 추가하여 행동의 의미를 보강합니다."
+            sourceCode={`<Button leftIcon={<PlusIcon />}>추가</Button>
+<Button variant="danger" leftIcon={<TrashIcon />}>삭제</Button>`}
+          >
             <div className="flex items-center gap-3">
               <Button leftIcon={<PlusIcon />}>추가</Button>
               <Button variant="danger" leftIcon={<TrashIcon />}>삭제</Button>
             </div>
           </VariantItem>
-          <VariantItem label="With Right Icon" description="레이블 뒤에 아이콘을 추가합니다. 방향성 표시에 적합합니다.">
+          <VariantItem
+            label="With Right Icon"
+            description="레이블 뒤에 아이콘을 추가합니다. 방향성 표시에 적합합니다."
+            sourceCode={`<Button variant="secondary" rightIcon={<ArrowRightIcon />}>다음</Button>
+<Button variant="outline" rightIcon={<DownloadIcon />}>다운로드</Button>`}
+          >
             <div className="flex items-center gap-3">
               <Button variant="secondary" rightIcon={<ArrowRightIcon />}>다음</Button>
               <Button variant="outline" rightIcon={<DownloadIcon />}>다운로드</Button>
@@ -215,13 +266,54 @@ export default function ButtonPage() {
         </VariantGrid>
 
         <div className="mt-4">
-          <Preview>
+          <Preview
+            sourceCode={`<div className="flex flex-col gap-3">
+  <Button fullWidth variant="primary" leftIcon={<CheckIcon />}>전체 너비 버튼</Button>
+  <Button fullWidth variant="secondary">전체 너비 보조 버튼</Button>
+</div>`}
+          >
             <div className="flex flex-col gap-3">
               <Button fullWidth variant="primary" leftIcon={<CheckIcon />}>전체 너비 버튼</Button>
               <Button fullWidth variant="secondary">전체 너비 보조 버튼</Button>
             </div>
           </Preview>
         </div>
+      </Section>
+
+      {/* ═══════════════════ 5.5 Decision Matrix ═══════════════════ */}
+      <Section title="비슷한 버튼 컴포넌트 비교" description="버튼 형태의 컴포넌트가 여럿 있습니다. 의도에 맞는 것을 선택하세요.">
+        <DecisionMatrix
+          rows={[
+            {
+              name: "Button",
+              href: "/design-system/primitives/button",
+              signature: "텍스트 액션",
+              useWhen: "레이블 텍스트가 있는 일반 액션 — 폼 제출, 모달 닫기, 페이지 이동 등 대부분의 클릭 가능한 행동.",
+              avoidWhen: "아이콘만 있는 액션은 IconButton — 접근성/터치 타겟이 자동 보장됨.",
+            },
+            {
+              name: "IconButton",
+              href: "/design-system/primitives/icon-button",
+              signature: "아이콘 단독",
+              useWhen: "툴바·헤더의 닫기/메뉴/필터 등 아이콘만으로 의미가 분명한 액션. aria-label 필수.",
+              avoidWhen: "아이콘의 의미가 모호하면 Button + leftIcon으로 텍스트를 함께 노출.",
+            },
+            {
+              name: "ButtonGroup",
+              href: "/design-system/composites/button-group",
+              signature: "연속 버튼",
+              useWhen: "정렬·필터·뷰 전환처럼 상호 배타적인 옵션을 한 줄로 묶어 보여줄 때.",
+              avoidWhen: "단일 액션 — 그냥 Button을 사용.",
+            },
+            {
+              name: "FloatingActionButton",
+              href: "/design-system/composites/floating-action-button",
+              signature: "고정 부유",
+              useWhen: "모바일·앱 화면에서 가장 중요한 단일 액션을 우하단에 부유시켜 항상 접근 가능하게.",
+              avoidWhen: "데스크탑 폼·관리자 화면 — 일반 Button이 더 자연스러움.",
+            },
+          ]}
+        />
       </Section>
 
       {/* ═══════════════════ 6. Usage Guidelines ═══════════════════ */}

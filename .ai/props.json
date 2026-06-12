@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-30T01:11:29.343Z",
+  "generatedAt": "2026-06-12T07:09:00.339Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -195,6 +195,35 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "BookmarkButton",
+      "kind": "primitive",
+      "file": "ds/primitives/BookmarkButton/BookmarkButton.tsx",
+      "interface": "BookmarkButtonProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "control"
+      ],
+      "props": [
+        {
+          "name": "bookmarked",
+          "type": "boolean",
+          "optional": false
+        },
+        {
+          "name": "onChange",
+          "type": "(bookmarked: boolean) => void",
+          "optional": false
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "optional": true
         }
       ]
     },
@@ -585,6 +614,131 @@
       ]
     },
     {
+      "name": "FollowButton",
+      "kind": "primitive",
+      "file": "ds/primitives/FollowButton/FollowButton.tsx",
+      "interface": "FollowButtonProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "control"
+      ],
+      "props": [
+        {
+          "name": "following",
+          "type": "boolean",
+          "optional": false,
+          "description": "팔로우 상태"
+        },
+        {
+          "name": "onChange",
+          "type": "(following: boolean) => void",
+          "optional": false,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "optional": true,
+          "description": "크기"
+        },
+        {
+          "name": "unfollowOnHover",
+          "type": "boolean",
+          "optional": true,
+          "description": "팔로우 후 hover 시 \"언팔로우\" 라벨 노출"
+        },
+        {
+          "name": "followLabel",
+          "type": "string",
+          "optional": true,
+          "description": "팔로우 라벨"
+        },
+        {
+          "name": "followingLabel",
+          "type": "string",
+          "optional": true,
+          "description": "팔로잉 라벨"
+        },
+        {
+          "name": "unfollowLabel",
+          "type": "string",
+          "optional": true,
+          "description": "언팔로우 라벨 (hover 시)"
+        }
+      ]
+    },
+    {
+      "name": "Hashtag",
+      "kind": "primitive",
+      "file": "ds/primitives/Hashtag/Hashtag.tsx",
+      "interface": "HashtagProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "tag",
+          "type": "string",
+          "optional": false,
+          "description": "# 없는 태그 (예: \"design\")"
+        },
+        {
+          "name": "trending",
+          "type": "boolean",
+          "optional": true,
+          "description": "인기 태그 강조"
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "optional": true,
+          "description": "게시물 수 (있으면 옆에 표시)"
+        }
+      ]
+    },
+    {
+      "name": "Highlight",
+      "kind": "primitive",
+      "file": "ds/primitives/Highlight/Highlight.tsx",
+      "interface": "HighlightProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "content"
+      ],
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "optional": false,
+          "description": "본문 텍스트"
+        },
+        {
+          "name": "query",
+          "type": "string",
+          "optional": false,
+          "description": "강조할 검색어 (대소문자 무시)"
+        },
+        {
+          "name": "variant",
+          "type": "\"primary\" | \"yellow\" | \"underline\"",
+          "optional": true,
+          "description": "강조 스타일"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
       "name": "Icon",
       "kind": "primitive",
       "file": "ds/primitives/Icon/Icon.tsx",
@@ -778,6 +932,43 @@
       ]
     },
     {
+      "name": "KeyCap",
+      "kind": "primitive",
+      "file": "ds/primitives/KeyCap/KeyCap.tsx",
+      "interface": "KeyCapProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "content"
+      ],
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "키 라벨 (예: \"K\", \"↵\", \"⌘\", \"?\")"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "optional": true,
+          "description": "크기"
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"primary\" | \"muted\"",
+          "optional": true,
+          "description": "시각 변형"
+        },
+        {
+          "name": "pressed",
+          "type": "boolean",
+          "optional": true,
+          "description": "활성 상태 (눌린 모양)"
+        }
+      ]
+    },
+    {
       "name": "Label",
       "kind": "primitive",
       "file": "ds/primitives/Label/Label.tsx",
@@ -793,6 +984,44 @@
           "type": "boolean",
           "optional": true,
           "description": "필수 입력 표시(*)"
+        }
+      ]
+    },
+    {
+      "name": "LikeButton",
+      "kind": "primitive",
+      "file": "ds/primitives/LikeButton/LikeButton.tsx",
+      "interface": "LikeButtonProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "control"
+      ],
+      "props": [
+        {
+          "name": "liked",
+          "type": "boolean",
+          "optional": false,
+          "description": "좋아요 활성 상태"
+        },
+        {
+          "name": "onChange",
+          "type": "(liked: boolean) => void",
+          "optional": false,
+          "description": "토글 콜백"
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "optional": true,
+          "description": "좋아요 수 (옆에 표시)"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "optional": true,
+          "description": "크기"
         }
       ]
     },
@@ -855,6 +1084,82 @@
           "type": "boolean",
           "optional": true,
           "description": "밑줄형 (배경 대신 underline)"
+        }
+      ]
+    },
+    {
+      "name": "MentionChip",
+      "kind": "primitive",
+      "file": "ds/primitives/MentionChip/MentionChip.tsx",
+      "interface": "MentionChipProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "handle",
+          "type": "string",
+          "optional": false,
+          "description": "@ 없는 사용자 핸들 (예: \"junha\")"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true,
+          "description": "표시 라벨 (기본"
+        },
+        {
+          "name": "verified",
+          "type": "boolean",
+          "optional": true,
+          "description": "인증 사용자 표시"
+        }
+      ]
+    },
+    {
+      "name": "Motion",
+      "kind": "primitive",
+      "file": "ds/primitives/Motion/Motion.tsx",
+      "interface": "MotionProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "motion",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "preset",
+          "type": "MotionPreset",
+          "optional": true,
+          "description": "애니메이션 프리셋"
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "optional": true,
+          "description": "진입 지연 (ms)"
+        },
+        {
+          "name": "respectReducedMotion",
+          "type": "boolean",
+          "optional": true,
+          "description": "prefers-reduced-motion 대응 (기본 true: 즉시 표시)"
+        },
+        {
+          "name": "once",
+          "type": "boolean",
+          "optional": true,
+          "description": "한 번만 실행 vs 매 마운트 (기본 단일 실행)"
+        },
+        {
+          "name": "children",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS/node_modules/@types/react/index\").ReactNode",
+          "optional": true,
+          "description": "자식 (애니메이트할 컨텐츠)"
         }
       ]
     },
@@ -1437,6 +1742,18 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "optional": true,
+          "description": "스크린리더용 라벨 (기본 \"슬라이더\")"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "optional": true,
+          "description": "라벨 엘리먼트의 id 참조"
         }
       ]
     },
@@ -2061,6 +2378,60 @@
       ]
     },
     {
+      "name": "AnnotationNote",
+      "kind": "composite",
+      "file": "ds/composites/AnnotationNote/AnnotationNote.tsx",
+      "interface": "AnnotationNoteProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "quote",
+          "type": "ReactNode",
+          "optional": false
+        },
+        {
+          "name": "note",
+          "type": "ReactNode",
+          "optional": true
+        },
+        {
+          "name": "createdAt",
+          "type": "string | Date",
+          "optional": true
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "color",
+          "type": "AnnotationColor",
+          "optional": true
+        },
+        {
+          "name": "onDelete",
+          "type": "() => void",
+          "optional": true
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
       "name": "AnnouncementBar",
       "kind": "composite",
       "file": "ds/composites/AnnouncementBar/AnnouncementBar.tsx",
@@ -2124,6 +2495,79 @@
           "type": "() => void",
           "optional": true,
           "description": "닫힘 콜백"
+        }
+      ]
+    },
+    {
+      "name": "AreaChart",
+      "kind": "composite",
+      "file": "ds/composites/AreaChart/AreaChart.tsx",
+      "interface": "AreaChartProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "chart"
+      ],
+      "props": [
+        {
+          "name": "labels",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "x축 라벨"
+        },
+        {
+          "name": "series",
+          "type": "Array<AreaSeries>",
+          "optional": false,
+          "description": "시리즈"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true,
+          "description": "너비"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true,
+          "description": "높이"
+        },
+        {
+          "name": "mode",
+          "type": "AreaMode",
+          "optional": true,
+          "description": "다중 시리즈 모드"
+        },
+        {
+          "name": "smooth",
+          "type": "boolean",
+          "optional": true,
+          "description": "부드러운 곡선"
+        },
+        {
+          "name": "showGrid",
+          "type": "boolean",
+          "optional": true,
+          "description": "그리드"
+        },
+        {
+          "name": "showYAxis",
+          "type": "boolean",
+          "optional": true,
+          "description": "Y축 라벨"
+        },
+        {
+          "name": "showXAxis",
+          "type": "boolean",
+          "optional": true,
+          "description": "X축 라벨"
+        },
+        {
+          "name": "fillOpacity",
+          "type": "number",
+          "optional": true,
+          "description": "영역 투명도"
         }
       ]
     },
@@ -2288,7 +2732,7 @@
         },
         {
           "name": "transition",
-          "type": "\"none\" | \"fade\" | \"slide-up\" | \"slide-left\" | \"scale\" | \"crossfade\"",
+          "type": "\"none\" | \"fade\" | \"scale\" | \"slide-up\" | \"slide-left\" | \"crossfade\"",
           "optional": true,
           "description": "전환 애니메이션"
         },
@@ -2393,6 +2837,67 @@
       ]
     },
     {
+      "name": "BarChart",
+      "kind": "composite",
+      "file": "ds/composites/BarChart/BarChart.tsx",
+      "interface": "BarChartProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "chart"
+      ],
+      "props": [
+        {
+          "name": "labels",
+          "type": "Array<string>",
+          "optional": false,
+          "description": "카테고리 라벨"
+        },
+        {
+          "name": "series",
+          "type": "Array<BarSeries>",
+          "optional": false,
+          "description": "시리즈"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true,
+          "description": "너비"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true,
+          "description": "높이"
+        },
+        {
+          "name": "orientation",
+          "type": "BarOrientation",
+          "optional": true,
+          "description": "방향"
+        },
+        {
+          "name": "mode",
+          "type": "BarMode",
+          "optional": true,
+          "description": "다중 시리즈 모드"
+        },
+        {
+          "name": "showGrid",
+          "type": "boolean",
+          "optional": true,
+          "description": "그리드 표시"
+        },
+        {
+          "name": "showValues",
+          "type": "boolean",
+          "optional": true,
+          "description": "값 라벨"
+        }
+      ]
+    },
+    {
       "name": "BentoGrid",
       "kind": "composite",
       "file": "ds/composites/BentoGrid/BentoGrid.tsx",
@@ -2426,6 +2931,37 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "Blockquote",
+      "kind": "composite",
+      "file": "ds/composites/Blockquote/Blockquote.tsx",
+      "interface": "BlockquoteProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "data-display"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "BlockquoteVariant",
+          "optional": true,
+          "description": "변형"
+        },
+        {
+          "name": "cite",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "인용 출처 (예: \"— 알베르트 아인슈타인\")"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "인용 본문"
         }
       ]
     },
@@ -2485,6 +3021,132 @@
       ]
     },
     {
+      "name": "BookCover",
+      "kind": "composite",
+      "file": "ds/composites/BookCover/BookCover.tsx",
+      "interface": "BookCoverProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "media"
+      ],
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "author",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "size",
+          "type": "BookCoverSize",
+          "optional": true
+        },
+        {
+          "name": "effect",
+          "type": "BookCoverEffect",
+          "optional": true
+        },
+        {
+          "name": "hue",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "BookRating",
+      "kind": "composite",
+      "file": "ds/composites/BookRating/BookRating.tsx",
+      "interface": "BookRatingProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "rating"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "optional": false
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "reviews",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "distribution",
+          "type": "Array<number>",
+          "optional": true
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "BookShelf",
+      "kind": "composite",
+      "file": "ds/composites/BookShelf/BookShelf.tsx",
+      "interface": "BookShelfProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "책 항목 (`BookCard` 등)"
+        },
+        {
+          "name": "columns",
+          "type": "5 | 3 | 4 | 6 | 8",
+          "optional": true,
+          "description": "행당 책 수 (기본 5)"
+        },
+        {
+          "name": "variant",
+          "type": "BookShelfVariant",
+          "optional": true,
+          "description": "시각 변형"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "책장 라벨 (선반 위 카테고리)"
+        }
+      ]
+    },
+    {
       "name": "BottomSheet",
       "kind": "composite",
       "file": "ds/composites/BottomSheet/BottomSheet.tsx",
@@ -2524,6 +3186,32 @@
           "type": "\"full\" | \"auto\" | \"half\"",
           "optional": true,
           "description": "시트 높이 모드"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "BrandSwitcher",
+      "kind": "composite",
+      "file": "ds/composites/BrandSwitcher/BrandSwitcher.tsx",
+      "interface": "BrandSwitcherProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "theme",
+        "control"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"chips\" | \"list\" | \"select\"",
+          "optional": true,
+          "description": "시각 변형"
         },
         {
           "name": "className",
@@ -2738,6 +3426,124 @@
       ]
     },
     {
+      "name": "CartItem",
+      "kind": "composite",
+      "file": "ds/composites/CartItem/CartItem.tsx",
+      "interface": "CartItemProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "ecommerce"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "상품명"
+        },
+        {
+          "name": "variant",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "옵션/사이즈/색상 등 보조 정보"
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "optional": true,
+          "description": "썸네일 URL"
+        },
+        {
+          "name": "price",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "단가"
+        },
+        {
+          "name": "subtotal",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "합계 (수량 × 단가)"
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "optional": false,
+          "description": "수량"
+        },
+        {
+          "name": "onQuantityChange",
+          "type": "(q: number) => void",
+          "optional": true,
+          "description": "수량 변경 콜백"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "optional": true,
+          "description": "최소 수량"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "optional": true,
+          "description": "최대 수량 (재고)"
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void",
+          "optional": true,
+          "description": "삭제 콜백 (있으면 X 버튼 노출)"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "optional": true,
+          "description": "비활성 (품절 등)"
+        }
+      ]
+    },
+    {
+      "name": "ChapterList",
+      "kind": "composite",
+      "file": "ds/composites/ChapterList/ChapterList.tsx",
+      "interface": "ChapterListProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "navigation"
+      ],
+      "props": [
+        {
+          "name": "chapters",
+          "type": "Array<Chapter>",
+          "optional": false
+        },
+        {
+          "name": "activeId",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "completedIds",
+          "type": "ReadonlyArray<string> | Set<string>",
+          "optional": true
+        },
+        {
+          "name": "onSelect",
+          "type": "(chapter: Chapter) => void",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
       "name": "ChatBubble",
       "kind": "composite",
       "file": "ds/composites/ChatBubble/ChatBubble.tsx",
@@ -2789,6 +3595,55 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "CheckboxCardGroup",
+      "kind": "composite",
+      "file": "ds/composites/CheckboxCardGroup/CheckboxCardGroup.tsx",
+      "interface": "CheckboxCardGroupProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "input"
+      ],
+      "props": [
+        {
+          "name": "options",
+          "type": "Array<CheckboxCardOption>",
+          "optional": false,
+          "description": "옵션"
+        },
+        {
+          "name": "value",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "선택값"
+        },
+        {
+          "name": "defaultValue",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "기본값"
+        },
+        {
+          "name": "onChange",
+          "type": "(values: string[]) => void",
+          "optional": true,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "optional": true,
+          "description": "컬럼 수"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "optional": true,
+          "description": "최대 선택 개수"
         }
       ]
     },
@@ -2888,6 +3743,12 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "optional": true,
+          "description": "스크린리더용 라벨 (기본 \"코드 편집기\")"
         }
       ]
     },
@@ -2965,7 +3826,7 @@
         },
         {
           "name": "view",
-          "type": "\"grid\" | \"list\"",
+          "type": "\"list\" | \"grid\"",
           "optional": true,
           "description": "뷰 모드"
         },
@@ -3177,6 +4038,49 @@
           "type": "string",
           "optional": true,
           "description": "결과 없을 때 메시지"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "CommentThread",
+      "kind": "composite",
+      "file": "ds/composites/CommentThread/CommentThread.tsx",
+      "interface": "CommentThreadProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "comments",
+          "type": "Array<Comment>",
+          "optional": false
+        },
+        {
+          "name": "onToggleLike",
+          "type": "(commentId: string) => void",
+          "optional": true,
+          "description": "좋아요 토글"
+        },
+        {
+          "name": "onReply",
+          "type": "(commentId: string) => void",
+          "optional": true,
+          "description": "답글 작성 콜백"
+        },
+        {
+          "name": "maxDepth",
+          "type": "number",
+          "optional": true,
+          "description": "최대 표시 깊이"
         },
         {
           "name": "className",
@@ -3628,6 +4532,55 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "CTASection",
+      "kind": "composite",
+      "file": "ds/composites/CTASection/CTASection.tsx",
+      "interface": "CTASectionProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "CTAVariant",
+          "optional": true,
+          "description": "변형"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "메인 제목"
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "부제"
+        },
+        {
+          "name": "primaryCta",
+          "type": "CTAButton",
+          "optional": true,
+          "description": "Primary CTA"
+        },
+        {
+          "name": "secondaryCta",
+          "type": "CTAButton",
+          "optional": true,
+          "description": "Secondary CTA"
+        },
+        {
+          "name": "media",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "우측 미디어 (split 전용)"
         }
       ]
     },
@@ -4195,6 +5148,43 @@
       ]
     },
     {
+      "name": "EmojiReaction",
+      "kind": "composite",
+      "file": "ds/composites/EmojiReaction/EmojiReaction.tsx",
+      "interface": "EmojiReactionProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "social"
+      ],
+      "props": [
+        {
+          "name": "reactions",
+          "type": "Array<EmojiReactionItem>",
+          "optional": false,
+          "description": "반응 목록"
+        },
+        {
+          "name": "onToggle",
+          "type": "(emoji: string) => void",
+          "optional": true,
+          "description": "반응 토글"
+        },
+        {
+          "name": "onAddReaction",
+          "type": "() => void",
+          "optional": true,
+          "description": "+ 버튼 클릭 (이모지 피커 열기)"
+        },
+        {
+          "name": "showAddButton",
+          "type": "boolean",
+          "optional": true,
+          "description": "+ 버튼 노출"
+        }
+      ]
+    },
+    {
       "name": "EmptyState",
       "kind": "composite",
       "file": "ds/composites/EmptyState/EmptyState.tsx",
@@ -4228,6 +5218,38 @@
           "type": "ReactNode",
           "optional": true,
           "description": "하단 액션 버튼"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ExifPanel",
+      "kind": "composite",
+      "file": "ds/composites/ExifPanel/ExifPanel.tsx",
+      "interface": "ExifPanelProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "data-display"
+      ],
+      "props": [
+        {
+          "name": "data",
+          "type": "ExifData",
+          "optional": false,
+          "description": "EXIF 메타데이터"
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "optional": true,
+          "description": "컴팩트 표시 (단일 라인)"
         },
         {
           "name": "className",
@@ -4584,6 +5606,37 @@
       ]
     },
     {
+      "name": "Hint",
+      "kind": "composite",
+      "file": "ds/composites/Hint/Hint.tsx",
+      "interface": "HintProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "HintVariant",
+          "optional": true,
+          "description": "변형"
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "좌측 아이콘"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "본문"
+        }
+      ]
+    },
+    {
       "name": "HoverCard",
       "kind": "composite",
       "file": "ds/composites/HoverCard/HoverCard.tsx",
@@ -4623,6 +5676,68 @@
           "type": "number",
           "optional": true,
           "description": "닫힘 지연(ms)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ImageCompare",
+      "kind": "composite",
+      "file": "ds/composites/ImageCompare/ImageCompare.tsx",
+      "interface": "ImageCompareProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "media"
+      ],
+      "props": [
+        {
+          "name": "beforeSrc",
+          "type": "string",
+          "optional": false,
+          "description": "이전 이미지"
+        },
+        {
+          "name": "afterSrc",
+          "type": "string",
+          "optional": false,
+          "description": "이후 이미지"
+        },
+        {
+          "name": "beforeAlt",
+          "type": "string",
+          "optional": false,
+          "description": "이전 alt"
+        },
+        {
+          "name": "afterAlt",
+          "type": "string",
+          "optional": false,
+          "description": "이후 alt"
+        },
+        {
+          "name": "initialSplit",
+          "type": "number",
+          "optional": true,
+          "description": "초기 분할 비율 (0-100)"
+        },
+        {
+          "name": "aspectRatio",
+          "type": "string",
+          "optional": true,
+          "description": "종횡비"
+        },
+        {
+          "name": "showLabels",
+          "type": "boolean",
+          "optional": true,
+          "description": "라벨 표시"
         },
         {
           "name": "className",
@@ -4698,6 +5813,92 @@
           "type": "React.ReactNode",
           "optional": true,
           "description": "썸네일 클릭 시 확대"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ImageWithFallback",
+      "kind": "composite",
+      "file": "ds/composites/ImageWithFallback/ImageWithFallback.tsx",
+      "interface": "ImageWithFallbackProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "media"
+      ],
+      "props": [
+        {
+          "name": "fallbackSrc",
+          "type": "string",
+          "optional": true,
+          "description": "대체 이미지 URL"
+        },
+        {
+          "name": "showSkeleton",
+          "type": "boolean",
+          "optional": true,
+          "description": "로딩 중 스켈레톤 표시"
+        },
+        {
+          "name": "aspectRatio",
+          "type": "string",
+          "optional": true,
+          "description": "종횡비"
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "optional": true,
+          "description": "컨테이너 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ImageZoom",
+      "kind": "composite",
+      "file": "ds/composites/ImageZoom/ImageZoom.tsx",
+      "interface": "ImageZoomProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "media"
+      ],
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "maxZoom",
+          "type": "number",
+          "optional": true,
+          "description": "최대 확대 배율"
+        },
+        {
+          "name": "minZoom",
+          "type": "number",
+          "optional": true,
+          "description": "최소 확대 배율"
+        },
+        {
+          "name": "aspectRatio",
+          "type": "string",
+          "optional": true,
+          "description": "종횡비"
         },
         {
           "name": "className",
@@ -4826,6 +6027,122 @@
       ]
     },
     {
+      "name": "LineChart",
+      "kind": "composite",
+      "file": "ds/composites/LineChart/LineChart.tsx",
+      "interface": "LineChartProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "chart"
+      ],
+      "props": [
+        {
+          "name": "labels",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "x 축 라벨"
+        },
+        {
+          "name": "series",
+          "type": "Array<LineSeries>",
+          "optional": false,
+          "description": "시리즈 (단일/다중)"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true,
+          "description": "너비"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true,
+          "description": "높이"
+        },
+        {
+          "name": "showYAxis",
+          "type": "boolean",
+          "optional": true,
+          "description": "Y축 라벨 표시"
+        },
+        {
+          "name": "showXAxis",
+          "type": "boolean",
+          "optional": true,
+          "description": "X축 라벨 표시"
+        },
+        {
+          "name": "showGrid",
+          "type": "boolean",
+          "optional": true,
+          "description": "그리드 표시"
+        },
+        {
+          "name": "showDots",
+          "type": "boolean",
+          "optional": true,
+          "description": "점 표시"
+        },
+        {
+          "name": "smooth",
+          "type": "boolean",
+          "optional": true,
+          "description": "곡선 보간"
+        }
+      ]
+    },
+    {
+      "name": "LoadingButton",
+      "kind": "composite",
+      "file": "ds/composites/LoadingButton/LoadingButton.tsx",
+      "interface": "LoadingButtonProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "input"
+      ],
+      "props": [
+        {
+          "name": "loading",
+          "type": "boolean",
+          "optional": true,
+          "description": "로딩 상태"
+        },
+        {
+          "name": "loadingText",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "로딩 중 표시할 텍스트 (없으면 기존 children 유지)"
+        },
+        {
+          "name": "variant",
+          "type": "LoadingButtonVariant",
+          "optional": true,
+          "description": "변형"
+        },
+        {
+          "name": "size",
+          "type": "LoadingButtonSize",
+          "optional": true,
+          "description": "크기"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "optional": true,
+          "description": "full-width"
+        },
+        {
+          "name": "leftIcon",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "좌측 아이콘"
+        }
+      ]
+    },
+    {
       "name": "LoadingOverlay",
       "kind": "composite",
       "file": "ds/composites/LoadingOverlay/LoadingOverlay.tsx",
@@ -4866,6 +6183,98 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "LoadingScreen",
+      "kind": "composite",
+      "file": "ds/composites/LoadingScreen/LoadingScreen.tsx",
+      "interface": "LoadingScreenProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "LoadingScreenVariant",
+          "optional": true,
+          "description": "표시 종류"
+        },
+        {
+          "name": "message",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "메시지"
+        },
+        {
+          "name": "progress",
+          "type": "number",
+          "optional": true,
+          "description": "진행률 (0-100, undefined면 indeterminate)"
+        },
+        {
+          "name": "fullscreen",
+          "type": "boolean",
+          "optional": true,
+          "description": "풀스크린 (기본 true)"
+        },
+        {
+          "name": "transparent",
+          "type": "boolean",
+          "optional": true,
+          "description": "배경 투명"
+        },
+        {
+          "name": "logo",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "로고/커스텀 컨텐츠 (variant=logo)"
+        }
+      ]
+    },
+    {
+      "name": "LogoCloud",
+      "kind": "composite",
+      "file": "ds/composites/LogoCloud/LogoCloud.tsx",
+      "interface": "LogoCloudProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "섹션 라벨"
+        },
+        {
+          "name": "logos",
+          "type": "Array<LogoItem>",
+          "optional": false,
+          "description": "로고 목록"
+        },
+        {
+          "name": "columns",
+          "type": "5 | 3 | 4 | 6",
+          "optional": true,
+          "description": "컬럼 수"
+        },
+        {
+          "name": "grayscale",
+          "type": "boolean",
+          "optional": true,
+          "description": "그레이스케일"
+        },
+        {
+          "name": "layout",
+          "type": "LogoCloudLayout",
+          "optional": true,
+          "description": "레이아웃"
         }
       ]
     },
@@ -5320,6 +6729,79 @@
       ]
     },
     {
+      "name": "Newsletter",
+      "kind": "composite",
+      "file": "ds/composites/Newsletter/Newsletter.tsx",
+      "interface": "NewsletterProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "제목"
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "부제"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "optional": true,
+          "description": "인풋 placeholder"
+        },
+        {
+          "name": "submitLabel",
+          "type": "string",
+          "optional": true,
+          "description": "버튼 라벨"
+        },
+        {
+          "name": "successMessage",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "성공 메시지"
+        },
+        {
+          "name": "errorMessage",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "에러 메시지"
+        },
+        {
+          "name": "consentLabel",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "개인정보 동의 라벨"
+        },
+        {
+          "name": "requireConsent",
+          "type": "boolean",
+          "optional": true,
+          "description": "동의 필수 여부"
+        },
+        {
+          "name": "onSubscribe",
+          "type": "(email: string) => Promise<void> | void",
+          "optional": true,
+          "description": "제출 핸들러 (Promise 반환)"
+        },
+        {
+          "name": "variant",
+          "type": "\"stacked\" | \"card\" | \"inline\"",
+          "optional": true,
+          "description": "레이아웃"
+        }
+      ]
+    },
+    {
       "name": "Notification",
       "kind": "composite",
       "file": "ds/composites/Notification/Notification.tsx",
@@ -5375,6 +6857,43 @@
       ]
     },
     {
+      "name": "OfflineIndicator",
+      "kind": "composite",
+      "file": "ds/composites/OfflineIndicator/OfflineIndicator.tsx",
+      "interface": "OfflineIndicatorProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "offlineMessage",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "오프라인 메시지"
+        },
+        {
+          "name": "onlineMessage",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "복구 메시지 (잠깐 표시)"
+        },
+        {
+          "name": "onlineFlashDuration",
+          "type": "number",
+          "optional": true,
+          "description": "복구 메시지 표시 시간(ms)"
+        },
+        {
+          "name": "position",
+          "type": "\"bottom\" | \"top\"",
+          "optional": true,
+          "description": "위치"
+        }
+      ]
+    },
+    {
       "name": "Onboarding",
       "kind": "composite",
       "file": "ds/composites/Onboarding/Onboarding.tsx",
@@ -5415,6 +6934,55 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "OnlineStatus",
+      "kind": "composite",
+      "file": "ds/composites/OnlineStatus/OnlineStatus.tsx",
+      "interface": "OnlineStatusProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "social"
+      ],
+      "props": [
+        {
+          "name": "status",
+          "type": "OnlineStatusValue",
+          "optional": false,
+          "description": "상태"
+        },
+        {
+          "name": "size",
+          "type": "OnlineStatusSize",
+          "optional": true,
+          "description": "크기"
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "optional": true,
+          "description": "라벨 표시"
+        },
+        {
+          "name": "pulse",
+          "type": "boolean",
+          "optional": true,
+          "description": "펄스 애니메이션 (online에만)"
+        },
+        {
+          "name": "lastSeenAt",
+          "type": "string | Date",
+          "optional": true,
+          "description": "마지막 활동 시각 (offline일 때 표시)"
+        },
+        {
+          "name": "labels",
+          "type": "Partial<Record<OnlineStatusValue, string>>",
+          "optional": true,
+          "description": "커스텀 라벨 매핑"
         }
       ]
     },
@@ -5523,6 +7091,448 @@
       ]
     },
     {
+      "name": "PasswordStrength",
+      "kind": "composite",
+      "file": "ds/composites/PasswordStrength/PasswordStrength.tsx",
+      "interface": "PasswordStrengthProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "input"
+      ],
+      "props": [
+        {
+          "name": "password",
+          "type": "string",
+          "optional": false,
+          "description": "비밀번호"
+        },
+        {
+          "name": "rules",
+          "type": "Array<PasswordRule>",
+          "optional": true,
+          "description": "규칙 (없으면 기본 5종)"
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "optional": true,
+          "description": "라벨 노출 (very weak / weak / ...)"
+        },
+        {
+          "name": "showChecklist",
+          "type": "boolean",
+          "optional": true,
+          "description": "규칙 체크리스트 노출"
+        },
+        {
+          "name": "onChange",
+          "type": "(level: StrengthLevel, passedRules: string[]) => void",
+          "optional": true,
+          "description": "강도 변경 콜백"
+        }
+      ]
+    },
+    {
+      "name": "PhotoCard",
+      "kind": "composite",
+      "file": "ds/composites/PhotoCard/PhotoCard.tsx",
+      "interface": "PhotoCardProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "media"
+      ],
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "optional": false,
+          "description": "사진 URL"
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "optional": false,
+          "description": "alt 텍스트 (a11y 필수)"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "캡션"
+        },
+        {
+          "name": "meta",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "부가 정보 (위치, 날짜 등)"
+        },
+        {
+          "name": "likes",
+          "type": "number",
+          "optional": true,
+          "description": "좋아요 수"
+        },
+        {
+          "name": "comments",
+          "type": "number",
+          "optional": true,
+          "description": "댓글 수"
+        },
+        {
+          "name": "aspectRatio",
+          "type": "string",
+          "optional": true,
+          "description": "종횡비 (CSS aspect-ratio 표현)"
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "optional": true,
+          "description": "호버 시 살짝 떠오르는 효과"
+        },
+        {
+          "name": "badge",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "우상단 배지"
+        }
+      ]
+    },
+    {
+      "name": "PhotoCarousel",
+      "kind": "composite",
+      "file": "ds/composites/PhotoCarousel/PhotoCarousel.tsx",
+      "interface": "PhotoCarouselProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "media"
+      ],
+      "props": [
+        {
+          "name": "photos",
+          "type": "Array<CarouselPhoto>",
+          "optional": false
+        },
+        {
+          "name": "autoPlayMs",
+          "type": "number",
+          "optional": true,
+          "description": "자동 재생 (ms 단위, 0=꺼짐)"
+        },
+        {
+          "name": "showIndicators",
+          "type": "boolean",
+          "optional": true,
+          "description": "인디케이터 점 표시"
+        },
+        {
+          "name": "aspectRatio",
+          "type": "string",
+          "optional": true,
+          "description": "종횡비"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "PhotoFilters",
+      "kind": "composite",
+      "file": "ds/composites/PhotoFilters/PhotoFilters.tsx",
+      "interface": "PhotoFiltersProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "control"
+      ],
+      "props": [
+        {
+          "name": "previewSrc",
+          "type": "string",
+          "optional": false,
+          "description": "미리보기 이미지 (썸네일)"
+        },
+        {
+          "name": "filters",
+          "type": "Array<PhotoFilter>",
+          "optional": false,
+          "description": "필터 목록"
+        },
+        {
+          "name": "activeId",
+          "type": "string",
+          "optional": true,
+          "description": "활성 필터 id"
+        },
+        {
+          "name": "onChange",
+          "type": "(id: string) => void",
+          "optional": false,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "PhotoGrid",
+      "kind": "composite",
+      "file": "ds/composites/PhotoGrid/PhotoGrid.tsx",
+      "interface": "PhotoGridProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "사진 카드들"
+        },
+        {
+          "name": "layout",
+          "type": "PhotoGridLayout",
+          "optional": true,
+          "description": "레이아웃 모드"
+        },
+        {
+          "name": "columns",
+          "type": "5 | 2 | 3 | 4",
+          "optional": true,
+          "description": "컬럼 수"
+        },
+        {
+          "name": "gap",
+          "type": "2 | 3 | 4 | 1",
+          "optional": true,
+          "description": "간격 (Tailwind gap 키)"
+        }
+      ]
+    },
+    {
+      "name": "PhotoLightbox",
+      "kind": "composite",
+      "file": "ds/composites/PhotoLightbox/PhotoLightbox.tsx",
+      "interface": "PhotoLightboxProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "overlay"
+      ],
+      "props": [
+        {
+          "name": "photos",
+          "type": "Array<LightboxPhoto>",
+          "optional": false,
+          "description": "표시 사진 목록"
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "optional": false,
+          "description": "현재 인덱스 (controlled)"
+        },
+        {
+          "name": "onIndexChange",
+          "type": "(index: number) => void",
+          "optional": false,
+          "description": "인덱스 변경 콜백"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "optional": false,
+          "description": "닫기 콜백"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "optional": false,
+          "description": "열림 상태"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "PhotoUploader",
+      "kind": "composite",
+      "file": "ds/composites/PhotoUploader/PhotoUploader.tsx",
+      "interface": "PhotoUploaderProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "form",
+        "input"
+      ],
+      "props": [
+        {
+          "name": "onAdd",
+          "type": "(photos: PhotoPreview[]) => void",
+          "optional": false,
+          "description": "새 파일들이 추가될 때 호출"
+        },
+        {
+          "name": "onRemove",
+          "type": "(id: string) => void",
+          "optional": true,
+          "description": "한 항목 제거"
+        },
+        {
+          "name": "photos",
+          "type": "Array<PhotoPreview>",
+          "optional": true,
+          "description": "현재 선택된 항목들 (controlled 미리보기)"
+        },
+        {
+          "name": "maxCount",
+          "type": "number",
+          "optional": true,
+          "description": "최대 개수"
+        },
+        {
+          "name": "maxSize",
+          "type": "number",
+          "optional": true,
+          "description": "파일당 최대 크기(바이트)"
+        },
+        {
+          "name": "accept",
+          "type": "string",
+          "optional": true,
+          "description": "accept (기본 image/*)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "PieChart",
+      "kind": "composite",
+      "file": "ds/composites/PieChart/PieChart.tsx",
+      "interface": "PieChartProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "chart"
+      ],
+      "props": [
+        {
+          "name": "data",
+          "type": "Array<PieSlice>",
+          "optional": false,
+          "description": "데이터"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "optional": true,
+          "description": "크기(px)"
+        },
+        {
+          "name": "innerRatio",
+          "type": "number",
+          "optional": true,
+          "description": "도넛 모드 (안쪽 비율 0~1)"
+        },
+        {
+          "name": "showLegend",
+          "type": "boolean",
+          "optional": true,
+          "description": "범례 표시"
+        },
+        {
+          "name": "centerLabel",
+          "type": "string",
+          "optional": true,
+          "description": "가운데 라벨 (도넛)"
+        }
+      ]
+    },
+    {
+      "name": "PollCard",
+      "kind": "composite",
+      "file": "ds/composites/PollCard/PollCard.tsx",
+      "interface": "PollCardProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "question",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "질문"
+        },
+        {
+          "name": "options",
+          "type": "Array<PollOption>",
+          "optional": false,
+          "description": "옵션"
+        },
+        {
+          "name": "votedId",
+          "type": "string | null",
+          "optional": true,
+          "description": "사용자가 투표한 옵션 id (null 이면 미투표)"
+        },
+        {
+          "name": "onVote",
+          "type": "(id: string) => void",
+          "optional": true,
+          "description": "투표 콜백"
+        },
+        {
+          "name": "closesIn",
+          "type": "string",
+          "optional": true,
+          "description": "마감까지 남은 텍스트"
+        },
+        {
+          "name": "alwaysShowResults",
+          "type": "boolean",
+          "optional": true,
+          "description": "결과를 항상 보여줄지 (false면 투표 후만)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
       "name": "Popover",
       "kind": "composite",
       "file": "ds/composites/Popover/Popover.tsx",
@@ -5566,6 +7576,159 @@
       ]
     },
     {
+      "name": "PostCard",
+      "kind": "composite",
+      "file": "ds/composites/PostCard/PostCard.tsx",
+      "interface": "PostCardProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "author",
+          "type": "PostAuthor",
+          "optional": false,
+          "description": "작성자"
+        },
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "본문 (텍스트/JSX)"
+        },
+        {
+          "name": "createdAt",
+          "type": "string | Date",
+          "optional": true,
+          "description": "작성 시각"
+        },
+        {
+          "name": "media",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "첨부 미디어 (image url 또는 children)"
+        },
+        {
+          "name": "likes",
+          "type": "number",
+          "optional": true,
+          "description": "좋아요 수"
+        },
+        {
+          "name": "comments",
+          "type": "number",
+          "optional": true,
+          "description": "댓글 수"
+        },
+        {
+          "name": "shares",
+          "type": "number",
+          "optional": true,
+          "description": "공유 수"
+        },
+        {
+          "name": "onLike",
+          "type": "() => void",
+          "optional": true,
+          "description": "좋아요 콜백 (있으면 좋아요 버튼 노출)"
+        },
+        {
+          "name": "onComment",
+          "type": "() => void",
+          "optional": true,
+          "description": "댓글 콜백"
+        },
+        {
+          "name": "onShare",
+          "type": "() => void",
+          "optional": true,
+          "description": "공유 콜백"
+        },
+        {
+          "name": "liked",
+          "type": "boolean",
+          "optional": true,
+          "description": "좋아요 활성 상태"
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "optional": true,
+          "description": "클릭 가능한 카드 (전체 클릭)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "PriceDisplay",
+      "kind": "composite",
+      "file": "ds/composites/PriceDisplay/PriceDisplay.tsx",
+      "interface": "PriceDisplayProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "ecommerce"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "string | number",
+          "optional": false,
+          "description": "현재가 (숫자 또는 미리 포맷된 문자열)"
+        },
+        {
+          "name": "original",
+          "type": "string | number",
+          "optional": true,
+          "description": "원가 (할인 표시용)"
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "optional": true,
+          "description": "통화 코드 (Intl.NumberFormat) — value가 숫자일 때만 사용"
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "optional": true,
+          "description": "로케일"
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "optional": true,
+          "description": "단위 접미사 (예: \"/월\")"
+        },
+        {
+          "name": "size",
+          "type": "PriceSize",
+          "optional": true,
+          "description": "크기"
+        },
+        {
+          "name": "showDiscount",
+          "type": "boolean",
+          "optional": true,
+          "description": "할인 라벨 자동 계산 노출"
+        },
+        {
+          "name": "layout",
+          "type": "PriceLayout",
+          "optional": true,
+          "description": "레이아웃"
+        }
+      ]
+    },
+    {
       "name": "PricingTable",
       "kind": "composite",
       "file": "ds/composites/PricingTable/PricingTable.tsx",
@@ -5587,6 +7750,189 @@
           "type": "number",
           "optional": true,
           "description": "컬럼 수 (기본 자동)"
+        }
+      ]
+    },
+    {
+      "name": "ProductCard",
+      "kind": "composite",
+      "file": "ds/composites/ProductCard/ProductCard.tsx",
+      "interface": "ProductCardProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "ecommerce"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "상품명"
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "optional": true,
+          "description": "이미지 URL"
+        },
+        {
+          "name": "imageRatio",
+          "type": "string",
+          "optional": true,
+          "description": "종횡비"
+        },
+        {
+          "name": "price",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "가격 표시 (PriceDisplay 또는 ReactNode)"
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "optional": true,
+          "description": "평점 (0~5)"
+        },
+        {
+          "name": "reviewCount",
+          "type": "number",
+          "optional": true,
+          "description": "리뷰 수"
+        },
+        {
+          "name": "badge",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "좌상단 배지"
+        },
+        {
+          "name": "brand",
+          "type": "string",
+          "optional": true,
+          "description": "카테고리/브랜드"
+        },
+        {
+          "name": "onWishlist",
+          "type": "() => void",
+          "optional": true,
+          "description": "위시리스트 추가 (없으면 버튼 미노출)"
+        },
+        {
+          "name": "wishlisted",
+          "type": "boolean",
+          "optional": true,
+          "description": "위시리스트에 들어있는지"
+        },
+        {
+          "name": "onAddToCart",
+          "type": "() => void",
+          "optional": true,
+          "description": "장바구니 담기"
+        },
+        {
+          "name": "addToCartLabel",
+          "type": "string",
+          "optional": true,
+          "description": "장바구니 담기 라벨"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "optional": true,
+          "description": "비활성 (품절 등)"
+        },
+        {
+          "name": "outOfStockLabel",
+          "type": "string",
+          "optional": true,
+          "description": "품절 텍스트"
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "optional": true,
+          "description": "카드 클릭 (상세 이동)"
+        }
+      ]
+    },
+    {
+      "name": "ProfileHeader",
+      "kind": "composite",
+      "file": "ds/composites/ProfileHeader/ProfileHeader.tsx",
+      "interface": "ProfileHeaderProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "avatar",
+          "type": "string",
+          "optional": true,
+          "description": "프로필 이미지 URL"
+        },
+        {
+          "name": "banner",
+          "type": "string",
+          "optional": true,
+          "description": "배너(커버) 이미지 URL"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "optional": false,
+          "description": "표시 이름"
+        },
+        {
+          "name": "handle",
+          "type": "string",
+          "optional": true,
+          "description": "@핸들"
+        },
+        {
+          "name": "bio",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "자기소개"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "optional": true,
+          "description": "위치"
+        },
+        {
+          "name": "joinedAt",
+          "type": "string",
+          "optional": true,
+          "description": "가입일 또는 시작 시각"
+        },
+        {
+          "name": "stats",
+          "type": "Array<{ label: string; value: string | number; href?: string; }>",
+          "optional": true,
+          "description": "통계 항목"
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "우측 액션 (FollowButton 등)"
+        },
+        {
+          "name": "verified",
+          "type": "boolean",
+          "optional": true,
+          "description": "인증 배지 표시"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
         }
       ]
     },
@@ -5732,6 +8078,183 @@
       ]
     },
     {
+      "name": "QuantitySelector",
+      "kind": "composite",
+      "file": "ds/composites/QuantitySelector/QuantitySelector.tsx",
+      "interface": "QuantitySelectorProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "ecommerce"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "optional": true,
+          "description": "현재 값 (controlled)"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "optional": true,
+          "description": "기본값"
+        },
+        {
+          "name": "onChange",
+          "type": "(q: number) => void",
+          "optional": true,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "optional": true,
+          "description": "최소"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "optional": true,
+          "description": "최대 (재고)"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "optional": true,
+          "description": "증감 단위"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "optional": true,
+          "description": "비활성"
+        },
+        {
+          "name": "size",
+          "type": "QuantitySize",
+          "optional": true,
+          "description": "크기"
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "optional": true,
+          "description": "input 직접 편집 허용"
+        }
+      ]
+    },
+    {
+      "name": "RadarChart",
+      "kind": "composite",
+      "file": "ds/composites/RadarChart/RadarChart.tsx",
+      "interface": "RadarChartProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "chart"
+      ],
+      "props": [
+        {
+          "name": "axes",
+          "type": "Array<string>",
+          "optional": false,
+          "description": "축 라벨 (3개 이상 권장)"
+        },
+        {
+          "name": "series",
+          "type": "Array<RadarSeries>",
+          "optional": false,
+          "description": "시리즈 (각 데이터 길이는 axes.length와 같아야 함)"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "optional": true,
+          "description": "크기(px, 정사각)"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "optional": true,
+          "description": "최대값 (스케일 기준, 미설정이면 자동)"
+        },
+        {
+          "name": "gridSteps",
+          "type": "number",
+          "optional": true,
+          "description": "그리드 단계"
+        },
+        {
+          "name": "fillOpacity",
+          "type": "number",
+          "optional": true,
+          "description": "영역 채움 투명도"
+        },
+        {
+          "name": "showDots",
+          "type": "boolean",
+          "optional": true,
+          "description": "점 표시"
+        },
+        {
+          "name": "showLegend",
+          "type": "boolean",
+          "optional": true,
+          "description": "범례"
+        }
+      ]
+    },
+    {
+      "name": "RadioCardGroup",
+      "kind": "composite",
+      "file": "ds/composites/RadioCardGroup/RadioCardGroup.tsx",
+      "interface": "RadioCardGroupProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "input"
+      ],
+      "props": [
+        {
+          "name": "options",
+          "type": "Array<RadioCardOption>",
+          "optional": false,
+          "description": "옵션 목록"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "optional": true,
+          "description": "선택값"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "optional": true,
+          "description": "기본값"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "optional": true,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "optional": true,
+          "description": "name (form 통합)"
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "optional": true,
+          "description": "컬럼 수"
+        }
+      ]
+    },
+    {
       "name": "Rating",
       "kind": "composite",
       "file": "ds/composites/Rating/Rating.tsx",
@@ -5790,6 +8313,199 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ReactionPicker",
+      "kind": "composite",
+      "file": "ds/composites/ReactionPicker/ReactionPicker.tsx",
+      "interface": "ReactionPickerProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "control"
+      ],
+      "props": [
+        {
+          "name": "emojis",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "사용 가능한 이모지 (기본 6종)"
+        },
+        {
+          "name": "value",
+          "type": "string | null",
+          "optional": true,
+          "description": "선택된 이모지 (단일 선택형)"
+        },
+        {
+          "name": "onChange",
+          "type": "(emoji: string | null) => void",
+          "optional": true,
+          "description": "변경 콜백"
+        },
+        {
+          "name": "triggerLabel",
+          "type": "string",
+          "optional": true,
+          "description": "트리거 라벨 (없으면 + 아이콘)"
+        },
+        {
+          "name": "placement",
+          "type": "\"bottom\" | \"top\"",
+          "optional": true,
+          "description": "위치"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ReadingGoal",
+      "kind": "composite",
+      "file": "ds/composites/ReadingGoal/ReadingGoal.tsx",
+      "interface": "ReadingGoalProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "current",
+          "type": "number",
+          "optional": false
+        },
+        {
+          "name": "target",
+          "type": "number",
+          "optional": false
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "thickness",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "ReadingProgress",
+      "kind": "composite",
+      "file": "ds/composites/ReadingProgress/ReadingProgress.tsx",
+      "interface": "ReadingProgressProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "currentPage",
+          "type": "number",
+          "optional": false,
+          "description": "현재 페이지 (1-base)"
+        },
+        {
+          "name": "totalPages",
+          "type": "number",
+          "optional": false,
+          "description": "총 페이지"
+        },
+        {
+          "name": "chapter",
+          "type": "string",
+          "optional": true,
+          "description": "챕터 제목 (선택)"
+        },
+        {
+          "name": "remainingMinutes",
+          "type": "number",
+          "optional": true,
+          "description": "예상 남은 시간(분)"
+        },
+        {
+          "name": "compact",
+          "type": "boolean",
+          "optional": true,
+          "description": "컴팩트 모드 (한 줄)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ReadingStats",
+      "kind": "composite",
+      "file": "ds/composites/ReadingStats/ReadingStats.tsx",
+      "interface": "ReadingStatsProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "data-display"
+      ],
+      "props": [
+        {
+          "name": "pagesToday",
+          "type": "number",
+          "optional": false
+        },
+        {
+          "name": "pagesGoal",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "streakDays",
+          "type": "number",
+          "optional": false
+        },
+        {
+          "name": "booksCompleted",
+          "type": "number",
+          "optional": false
+        },
+        {
+          "name": "totalMinutes",
+          "type": "number",
+          "optional": false
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
         }
       ]
     },
@@ -5929,6 +8645,171 @@
       ]
     },
     {
+      "name": "SankeyDiagram",
+      "kind": "composite",
+      "file": "ds/composites/SankeyDiagram/SankeyDiagram.tsx",
+      "interface": "SankeyDiagramProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "chart"
+      ],
+      "props": [
+        {
+          "name": "nodes",
+          "type": "Array<SankeyNode>",
+          "optional": false,
+          "description": "노드"
+        },
+        {
+          "name": "links",
+          "type": "Array<SankeyLink>",
+          "optional": false,
+          "description": "링크 (source/target은 node id)"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true,
+          "description": "너비"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true,
+          "description": "높이"
+        },
+        {
+          "name": "nodeWidth",
+          "type": "number",
+          "optional": true,
+          "description": "노드 폭"
+        },
+        {
+          "name": "nodeGap",
+          "type": "number",
+          "optional": true,
+          "description": "노드 사이 간격"
+        }
+      ]
+    },
+    {
+      "name": "ScatterPlot",
+      "kind": "composite",
+      "file": "ds/composites/ScatterPlot/ScatterPlot.tsx",
+      "interface": "ScatterPlotProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "chart"
+      ],
+      "props": [
+        {
+          "name": "series",
+          "type": "Array<ScatterSeries>",
+          "optional": false,
+          "description": "시리즈"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true,
+          "description": "너비"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true,
+          "description": "높이"
+        },
+        {
+          "name": "xDomain",
+          "type": "[number, number]",
+          "optional": true,
+          "description": "X축 도메인 (자동)"
+        },
+        {
+          "name": "yDomain",
+          "type": "[number, number]",
+          "optional": true,
+          "description": "Y축 도메인 (자동)"
+        },
+        {
+          "name": "showGrid",
+          "type": "boolean",
+          "optional": true,
+          "description": "그리드"
+        },
+        {
+          "name": "showYAxis",
+          "type": "boolean",
+          "optional": true,
+          "description": "Y축 라벨"
+        },
+        {
+          "name": "showXAxis",
+          "type": "boolean",
+          "optional": true,
+          "description": "X축 라벨"
+        },
+        {
+          "name": "showLegend",
+          "type": "boolean",
+          "optional": true,
+          "description": "범례"
+        },
+        {
+          "name": "defaultPointSize",
+          "type": "number",
+          "optional": true,
+          "description": "기본 점 크기"
+        }
+      ]
+    },
+    {
+      "name": "ScrollProgress",
+      "kind": "composite",
+      "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
+      "interface": "ScrollProgressProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "feedback"
+      ],
+      "props": [
+        {
+          "name": "position",
+          "type": "\"bottom\" | \"top\"",
+          "optional": true,
+          "description": "위치"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true,
+          "description": "색상 (CSS 값)"
+        },
+        {
+          "name": "thickness",
+          "type": "number",
+          "optional": true,
+          "description": "두께(px)"
+        },
+        {
+          "name": "target",
+          "type": "HTMLElement | null",
+          "optional": true,
+          "description": "추적 대상 (없으면 window)"
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "optional": true,
+          "description": "스크린리더용 라벨 (기본 \"페이지 스크롤 진행률\")"
+        }
+      ]
+    },
+    {
       "name": "ScrollSpy",
       "kind": "composite",
       "file": "ds/composites/ScrollSpy/ScrollSpy.tsx",
@@ -5950,6 +8831,86 @@
           "type": "number",
           "optional": true,
           "description": "활성 판정 오프셋(px)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "SearchBar",
+      "kind": "composite",
+      "file": "ds/composites/SearchBar/SearchBar.tsx",
+      "interface": "SearchBarProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "form",
+        "input"
+      ],
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "optional": true,
+          "description": "입력값 (controlled)"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "optional": true,
+          "description": "초기값 (uncontrolled)"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "optional": true,
+          "description": "입력 변경 (즉시)"
+        },
+        {
+          "name": "onSearch",
+          "type": "(value: string) => void",
+          "optional": true,
+          "description": "디바운스된 변경 콜백 (실 검색 호출에 사용)"
+        },
+        {
+          "name": "debounceMs",
+          "type": "number",
+          "optional": true,
+          "description": "디바운스 ms (기본 250)"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "optional": true,
+          "description": "플레이스홀더"
+        },
+        {
+          "name": "focusShortcut",
+          "type": "string | false",
+          "optional": true,
+          "description": "단축키로 포커스 이동 (예: \"mod+k\", false면 비활성)"
+        },
+        {
+          "name": "endSlot",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "우측 슬롯 (단축키 힌트 등)"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "optional": true,
+          "description": "크기"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "optional": true,
+          "description": "disabled"
         },
         {
           "name": "className",
@@ -6355,7 +9316,7 @@
       "props": [
         {
           "name": "variant",
-          "type": "\"list\" | \"card\" | \"table\" | \"profile\" | \"article\"",
+          "type": "\"card\" | \"list\" | \"table\" | \"profile\" | \"article\"",
           "optional": false,
           "description": "프리셋 종류"
         },
@@ -6431,6 +9392,49 @@
           "type": "() => void",
           "optional": true,
           "description": "닫힘 콜백"
+        }
+      ]
+    },
+    {
+      "name": "SocialShare",
+      "kind": "composite",
+      "file": "ds/composites/SocialShare/SocialShare.tsx",
+      "interface": "SocialShareProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "url",
+          "type": "string",
+          "optional": false,
+          "description": "공유할 URL"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "optional": true,
+          "description": "공유 제목/본문"
+        },
+        {
+          "name": "platforms",
+          "type": "Array<SocialPlatform>",
+          "optional": true,
+          "description": "노출할 플랫폼"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "optional": true,
+          "description": "크기"
+        },
+        {
+          "name": "shape",
+          "type": "\"circle\" | \"square\"",
+          "optional": true,
+          "description": "동그라미 vs 사각형"
         }
       ]
     },
@@ -6608,6 +9612,61 @@
       ]
     },
     {
+      "name": "Stat",
+      "kind": "composite",
+      "file": "ds/composites/Stat/Stat.tsx",
+      "interface": "StatProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "data-display"
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "라벨"
+        },
+        {
+          "name": "value",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "값"
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "optional": true,
+          "description": "보조 단위/접미사"
+        },
+        {
+          "name": "change",
+          "type": "number",
+          "optional": true,
+          "description": "변화율 (%)"
+        },
+        {
+          "name": "trend",
+          "type": "StatTrend",
+          "optional": true,
+          "description": "트렌드 (자동 계산되지만 override 가능)"
+        },
+        {
+          "name": "hint",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "부가 설명"
+        },
+        {
+          "name": "align",
+          "type": "\"left\" | \"center\"",
+          "optional": true,
+          "description": "레이아웃 정렬"
+        }
+      ]
+    },
+    {
       "name": "StatCard",
       "kind": "composite",
       "file": "ds/composites/StatCard/StatCard.tsx",
@@ -6733,6 +9792,56 @@
           "type": "number",
           "optional": true,
           "description": "z-index 값"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "StoryCircle",
+      "kind": "composite",
+      "file": "ds/composites/StoryCircle/StoryCircle.tsx",
+      "interface": "StoryCircleProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "media"
+      ],
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "optional": false,
+          "description": "사용자 표시 이름"
+        },
+        {
+          "name": "avatar",
+          "type": "string",
+          "optional": true,
+          "description": "아바타 이미지 URL"
+        },
+        {
+          "name": "state",
+          "type": "StoryRingState",
+          "optional": true,
+          "description": "링 상태"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "optional": true,
+          "description": "크기 (px)"
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "optional": true,
+          "description": "클릭 콜백"
         },
         {
           "name": "className",
@@ -6872,6 +9981,55 @@
       ]
     },
     {
+      "name": "TableOfContents",
+      "kind": "composite",
+      "file": "ds/composites/TableOfContents/TableOfContents.tsx",
+      "interface": "TableOfContentsProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "navigation"
+      ],
+      "props": [
+        {
+          "name": "items",
+          "type": "Array<TocItem>",
+          "optional": true,
+          "description": "명시적 항목 (없으면 selector로 자동 수집)"
+        },
+        {
+          "name": "selector",
+          "type": "string",
+          "optional": true,
+          "description": "자동 수집할 헤딩 셀렉터"
+        },
+        {
+          "name": "rootSelector",
+          "type": "string",
+          "optional": true,
+          "description": "컨테이너 셀렉터 (없으면 document)"
+        },
+        {
+          "name": "activeTracking",
+          "type": "boolean",
+          "optional": true,
+          "description": "활성 항목 추적 활성화"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "optional": true,
+          "description": "상단 라벨"
+        },
+        {
+          "name": "smooth",
+          "type": "boolean",
+          "optional": true,
+          "description": "클릭 시 부드러운 스크롤"
+        }
+      ]
+    },
+    {
       "name": "Tabs",
       "kind": "composite",
       "file": "ds/composites/Tabs/Tabs.tsx",
@@ -6979,6 +10137,98 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "TestimonialCard",
+      "kind": "composite",
+      "file": "ds/composites/TestimonialCard/TestimonialCard.tsx",
+      "interface": "TestimonialCardProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "TestimonialVariant",
+          "optional": true,
+          "description": "변형"
+        },
+        {
+          "name": "quote",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "후기 본문"
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "optional": true,
+          "description": "평점 (1~5)"
+        },
+        {
+          "name": "authorName",
+          "type": "string",
+          "optional": false,
+          "description": "작성자 이름"
+        },
+        {
+          "name": "authorRole",
+          "type": "string",
+          "optional": true,
+          "description": "작성자 직책/회사"
+        },
+        {
+          "name": "authorAvatar",
+          "type": "string",
+          "optional": true,
+          "description": "작성자 아바타 URL"
+        },
+        {
+          "name": "companyLogo",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "작성자 회사 로고"
+        },
+        {
+          "name": "highlighted",
+          "type": "boolean",
+          "optional": true,
+          "description": "강조 표시"
+        }
+      ]
+    },
+    {
+      "name": "TextareaAutosize",
+      "kind": "composite",
+      "file": "ds/composites/TextareaAutosize/TextareaAutosize.tsx",
+      "interface": "TextareaAutosizeProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "input"
+      ],
+      "props": [
+        {
+          "name": "minRows",
+          "type": "number",
+          "optional": true,
+          "description": "최소 행 수"
+        },
+        {
+          "name": "maxRows",
+          "type": "number",
+          "optional": true,
+          "description": "최대 행 수 (넘으면 스크롤)"
+        },
+        {
+          "name": "showCount",
+          "type": "boolean",
+          "optional": true,
+          "description": "글자 수 표시 (maxLength와 함께)"
         }
       ]
     },
@@ -7727,6 +10977,165 @@
       ]
     },
     {
+      "name": "BlogPost",
+      "kind": "pattern",
+      "file": "ds/patterns/BlogPost/BlogPost.tsx",
+      "interface": "BlogPostProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "제목"
+        },
+        {
+          "name": "excerpt",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "부제 / 요약"
+        },
+        {
+          "name": "publishedAt",
+          "type": "string | Date",
+          "optional": true,
+          "description": "발행일"
+        },
+        {
+          "name": "readingMinutes",
+          "type": "number",
+          "optional": true,
+          "description": "읽기 시간(분)"
+        },
+        {
+          "name": "author",
+          "type": "BlogAuthor",
+          "optional": true,
+          "description": "작성자"
+        },
+        {
+          "name": "tags",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "카테고리/태그"
+        },
+        {
+          "name": "coverImage",
+          "type": "string",
+          "optional": true,
+          "description": "커버 이미지 URL"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "본문 (children)"
+        },
+        {
+          "name": "sidebar",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "우측 사이드바 (TOC 등)"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "하단 영역 (관련 글, 공유 등)"
+        }
+      ]
+    },
+    {
+      "name": "BookReader",
+      "kind": "pattern",
+      "file": "ds/patterns/BookReader/BookReader.tsx",
+      "interface": "BookReaderProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "book",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "optional": false,
+          "description": "책 제목"
+        },
+        {
+          "name": "author",
+          "type": "string",
+          "optional": true,
+          "description": "저자"
+        },
+        {
+          "name": "chapters",
+          "type": "Array<Chapter>",
+          "optional": false,
+          "description": "챕터 트리"
+        },
+        {
+          "name": "activeChapterId",
+          "type": "string",
+          "optional": false,
+          "description": "활성 챕터 id"
+        },
+        {
+          "name": "onChapterChange",
+          "type": "(id: string) => void",
+          "optional": false,
+          "description": "활성 챕터 변경 콜백"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "본문 (현재 챕터 콘텐츠)"
+        },
+        {
+          "name": "currentPage",
+          "type": "number",
+          "optional": false,
+          "description": "현재 페이지"
+        },
+        {
+          "name": "totalPages",
+          "type": "number",
+          "optional": false,
+          "description": "총 페이지"
+        },
+        {
+          "name": "bookmarked",
+          "type": "boolean",
+          "optional": true,
+          "description": "북마크 상태"
+        },
+        {
+          "name": "onBookmarkChange",
+          "type": "(next: boolean) => void",
+          "optional": true,
+          "description": "북마크 토글"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "optional": true,
+          "description": "닫기 콜백"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
       "name": "Calendar",
       "kind": "pattern",
       "file": "ds/patterns/Calendar/Calendar.tsx",
@@ -7809,6 +11218,68 @@
           "type": "\"month\" | \"week\"",
           "optional": true,
           "description": "Calendar view mode"
+        }
+      ]
+    },
+    {
+      "name": "CalendarMonth",
+      "kind": "pattern",
+      "file": "ds/patterns/CalendarMonth/CalendarMonth.tsx",
+      "interface": "CalendarMonthProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "calendar",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "month",
+          "type": "Date",
+          "optional": false,
+          "description": "표시할 월 (Date — 일은 무시)"
+        },
+        {
+          "name": "onMonthChange",
+          "type": "(next: Date) => void",
+          "optional": true,
+          "description": "월 변경 콜백 (이전/다음 버튼 누름)"
+        },
+        {
+          "name": "selectedDate",
+          "type": "Date",
+          "optional": true,
+          "description": "선택된 날짜"
+        },
+        {
+          "name": "onSelectDate",
+          "type": "(date: Date) => void",
+          "optional": true,
+          "description": "날짜 선택 콜백"
+        },
+        {
+          "name": "events",
+          "type": "Array<CalendarEvent>",
+          "optional": true,
+          "description": "이벤트 목록 (시작일 기준 그룹핑)"
+        },
+        {
+          "name": "onEventClick",
+          "type": "(event: CalendarEvent) => void",
+          "optional": true,
+          "description": "이벤트 클릭 콜백"
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "0 | 1",
+          "optional": true,
+          "description": "주의 시작 요일 (0=일, 1=월) — 기본 0"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
         }
       ]
     },
@@ -7936,6 +11407,68 @@
           "type": "\"card\" | \"plain\"",
           "optional": true,
           "description": "카드/플레인 변형"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "ChatThread",
+      "kind": "pattern",
+      "file": "ds/patterns/ChatThread/ChatThread.tsx",
+      "interface": "ChatThreadProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "chat",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "messages",
+          "type": "Array<ChatMessage>",
+          "optional": false,
+          "description": "메시지 목록 (시간순 오름차순)"
+        },
+        {
+          "name": "currentUserId",
+          "type": "string",
+          "optional": false,
+          "description": "현재 사용자 id (메시지 정렬 좌/우 결정)"
+        },
+        {
+          "name": "typingUsers",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "타이핑 중인 사용자 (이름 또는 id 배열)"
+        },
+        {
+          "name": "onMessageClick",
+          "type": "(msg: ChatMessage) => void",
+          "optional": true,
+          "description": "메시지 클릭 콜백"
+        },
+        {
+          "name": "onRetry",
+          "type": "(msg: ChatMessage) => void",
+          "optional": true,
+          "description": "메시지 재전송 (실패 시 표시)"
+        },
+        {
+          "name": "composer",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "입력 슬롯 — 보통 `<form>` + `<Input>` + `<Button>`"
+        },
+        {
+          "name": "autoScroll",
+          "type": "boolean",
+          "optional": true,
+          "description": "새 메시지 추가 시 자동 하단 스크롤 (기본 true)"
         },
         {
           "name": "className",
@@ -8263,6 +11796,172 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "EmailInbox",
+      "kind": "pattern",
+      "file": "ds/patterns/EmailInbox/EmailInbox.tsx",
+      "interface": "EmailInboxProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "email",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "folders",
+          "type": "Array<EmailFolder>",
+          "optional": false,
+          "description": "좌측 폴더 목록"
+        },
+        {
+          "name": "messages",
+          "type": "Array<EmailMessage>",
+          "optional": false,
+          "description": "모든 메일 (folderId로 필터링)"
+        },
+        {
+          "name": "activeFolderId",
+          "type": "string",
+          "optional": false,
+          "description": "활성 폴더 id"
+        },
+        {
+          "name": "onFolderChange",
+          "type": "(id: string) => void",
+          "optional": false,
+          "description": "폴더 변경 콜백"
+        },
+        {
+          "name": "activeMessageId",
+          "type": "string | null",
+          "optional": true,
+          "description": "활성 메일 id (본문 패널 표시)"
+        },
+        {
+          "name": "onMessageSelect",
+          "type": "(msg: EmailMessage) => void",
+          "optional": false,
+          "description": "메일 선택 콜백"
+        },
+        {
+          "name": "onToggleStar",
+          "type": "(id: string) => void",
+          "optional": true,
+          "description": "별표 토글"
+        },
+        {
+          "name": "search",
+          "type": "string",
+          "optional": true,
+          "description": "검색 텍스트"
+        },
+        {
+          "name": "onSearchChange",
+          "type": "(q: string) => void",
+          "optional": true,
+          "description": "검색 변경"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "FAQ",
+      "kind": "pattern",
+      "file": "ds/patterns/FAQ/FAQ.tsx",
+      "interface": "FAQProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "섹션 제목"
+        },
+        {
+          "name": "subtitle",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "부제"
+        },
+        {
+          "name": "items",
+          "type": "Array<FAQItem>",
+          "optional": false,
+          "description": "FAQ 목록"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "optional": true,
+          "description": "다중 펼침 허용"
+        },
+        {
+          "name": "showCategoryFilter",
+          "type": "boolean",
+          "optional": true,
+          "description": "카테고리 필터 노출"
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "optional": true,
+          "description": "검색 입력 노출"
+        }
+      ]
+    },
+    {
+      "name": "FeatureGrid",
+      "kind": "pattern",
+      "file": "ds/patterns/FeatureGrid/FeatureGrid.tsx",
+      "interface": "FeatureGridProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "섹션 제목"
+        },
+        {
+          "name": "subtitle",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "섹션 부제"
+        },
+        {
+          "name": "features",
+          "type": "Array<FeatureItem>",
+          "optional": false,
+          "description": "기능 목록"
+        },
+        {
+          "name": "columns",
+          "type": "2 | 3 | 4",
+          "optional": true,
+          "description": "컬럼 수 (반응형 자동 조정)"
+        },
+        {
+          "name": "layout",
+          "type": "FeatureGridLayout",
+          "optional": true,
+          "description": "레이아웃 종류"
         }
       ]
     },
@@ -8653,6 +12352,60 @@
       ]
     },
     {
+      "name": "ForumThread",
+      "kind": "pattern",
+      "file": "ds/patterns/ForumThread/ForumThread.tsx",
+      "interface": "ForumThreadProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "forum",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "tags",
+          "type": "Array<string>",
+          "optional": true
+        },
+        {
+          "name": "opening",
+          "type": "ForumPost",
+          "optional": false
+        },
+        {
+          "name": "answers",
+          "type": "Array<ForumPost>",
+          "optional": false
+        },
+        {
+          "name": "onVote",
+          "type": "(postId: string, dir: 1 | -1 | 0) => void",
+          "optional": true
+        },
+        {
+          "name": "onAccept",
+          "type": "(postId: string) => void",
+          "optional": true
+        },
+        {
+          "name": "replyComposer",
+          "type": "ReactNode",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
       "name": "GanttChart",
       "kind": "pattern",
       "file": "ds/patterns/GanttChart/GanttChart.tsx",
@@ -8692,6 +12445,73 @@
           "type": "(task: GanttTask) => void",
           "optional": true,
           "description": "태스크 선택 콜백"
+        }
+      ]
+    },
+    {
+      "name": "HeroSection",
+      "kind": "pattern",
+      "file": "ds/patterns/HeroSection/HeroSection.tsx",
+      "interface": "HeroSectionProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "marketing"
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "HeroVariant",
+          "optional": true,
+          "description": "변형"
+        },
+        {
+          "name": "eyebrow",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "상단 eyebrow 텍스트/배지"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "메인 제목"
+        },
+        {
+          "name": "subtitle",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "부제"
+        },
+        {
+          "name": "primaryCta",
+          "type": "{ label: string; href?: string; onClick?: () => void; }",
+          "optional": true,
+          "description": "Primary CTA"
+        },
+        {
+          "name": "secondaryCta",
+          "type": "{ label: string; href?: string; onClick?: () => void; }",
+          "optional": true,
+          "description": "Secondary CTA"
+        },
+        {
+          "name": "media",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "우측 미디어 (split 전용)"
+        },
+        {
+          "name": "bgImage",
+          "type": "string",
+          "optional": true,
+          "description": "배경 이미지 URL (imageBg 전용)"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "푸터 영역 (소셜 프루프, 로고 등)"
         }
       ]
     },
@@ -8965,6 +12785,95 @@
       ]
     },
     {
+      "name": "OnboardingTour",
+      "kind": "pattern",
+      "file": "ds/patterns/OnboardingTour/OnboardingTour.tsx",
+      "interface": "OnboardingTourProps",
+      "status": "stable",
+      "since": "2.5.0",
+      "tags": [
+        "onboarding",
+        "overlay"
+      ],
+      "props": [
+        {
+          "name": "steps",
+          "type": "Array<OnboardingStep>",
+          "optional": false
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "optional": false
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "optional": false
+        },
+        {
+          "name": "onComplete",
+          "type": "() => void",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "PhotoAlbum",
+      "kind": "pattern",
+      "file": "ds/patterns/PhotoAlbum/PhotoAlbum.tsx",
+      "interface": "PhotoAlbumProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "photo",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "photos",
+          "type": "Array<PhotoAlbumItem>",
+          "optional": false,
+          "description": "사진 목록"
+        },
+        {
+          "name": "layout",
+          "type": "PhotoGridLayout",
+          "optional": true,
+          "description": "그리드 레이아웃"
+        },
+        {
+          "name": "columns",
+          "type": "5 | 2 | 3 | 4",
+          "optional": true,
+          "description": "컬럼 수"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "optional": true,
+          "description": "앨범 제목"
+        },
+        {
+          "name": "emptyTitle",
+          "type": "string",
+          "optional": true,
+          "description": "비었을 때 메시지"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
       "name": "PricingPage",
       "kind": "pattern",
       "file": "ds/patterns/PricingPage/PricingPage.tsx",
@@ -9189,6 +13098,74 @@
           "type": "number",
           "optional": true,
           "description": "접힌 상태 너비(px)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "SocialFeed",
+      "kind": "pattern",
+      "file": "ds/patterns/SocialFeed/SocialFeed.tsx",
+      "interface": "SocialFeedProps",
+      "status": "stable",
+      "since": "2.4.0",
+      "tags": [
+        "sns",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "stories",
+          "type": "Array<SocialFeedStory>",
+          "optional": true,
+          "description": "상단 스토리 바 (선택)"
+        },
+        {
+          "name": "onStoryClick",
+          "type": "(id: string) => void",
+          "optional": true,
+          "description": "스토리 클릭 콜백"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false,
+          "description": "게시물 노드 (대체로 PostCard 리스트)"
+        },
+        {
+          "name": "hasMore",
+          "type": "boolean",
+          "optional": true,
+          "description": "더 불러올 데이터 있는지"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "optional": true,
+          "description": "로딩 중 표시"
+        },
+        {
+          "name": "onLoadMore",
+          "type": "() => void",
+          "optional": true,
+          "description": "무한 스크롤 트리거 (관찰자가 화면에 들어오면 호출)"
+        },
+        {
+          "name": "emptyTitle",
+          "type": "string",
+          "optional": true,
+          "description": "데이터 비었을 때 표시할 엠티 메시지"
+        },
+        {
+          "name": "emptyDescription",
+          "type": "string",
+          "optional": true,
+          "description": "비었을 때 표시할 설명"
         },
         {
           "name": "className",

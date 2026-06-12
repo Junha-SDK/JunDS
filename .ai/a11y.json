@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-30T01:01:56.246Z",
+  "generatedAt": "2026-05-06T00:58:25.456Z",
   "tooling": "axe-core@4.11.3",
-  "strict": false,
+  "strict": true,
   "summary": {
-    "total": 164,
-    "withViolations": 19,
-    "withErrors": 1,
+    "total": 256,
+    "withViolations": 0,
+    "withErrors": 0,
     "byImpact": {
-      "critical": 18,
-      "serious": 1,
+      "critical": 0,
+      "serious": 0,
       "moderate": 0,
       "minor": 0
     }
@@ -50,6 +50,21 @@
       "violations": []
     },
     {
+      "name": "AnnotationNote",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "AnnouncementBar",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "AreaChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "AudioPlayer",
       "kind": "composite",
       "violations": []
@@ -80,7 +95,17 @@
       "violations": []
     },
     {
+      "name": "BarChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "BentoGrid",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Blockquote",
       "kind": "composite",
       "violations": []
     },
@@ -90,7 +115,27 @@
       "violations": []
     },
     {
+      "name": "BookCover",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "BookRating",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "BookShelf",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "BottomSheet",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "BrandSwitcher",
       "kind": "composite",
       "violations": []
     },
@@ -120,30 +165,34 @@
       "violations": []
     },
     {
+      "name": "CartItem",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ChapterList",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "ChatBubble",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "CheckboxCardGroup",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Clock",
       "kind": "composite",
       "violations": []
     },
     {
       "name": "CodeEditor",
       "kind": "composite",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<textarea spellcheck=\"false\" class=\"flex-1 p-3 text-sm text-gray-100 bg-transparent outline-none resize-none font-mono leading-relaxed placeholder:text-gray-500\" style=\"min-height: 200px; tab-size: 2;\">sample</textarea>",
-              "target": [
-                "textarea"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "Collapsible",
@@ -167,6 +216,11 @@
     },
     {
       "name": "Combobox",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "CommentThread",
       "kind": "composite",
       "violations": []
     },
@@ -201,12 +255,27 @@
       "violations": []
     },
     {
+      "name": "CookieConsent",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "CopyBlock",
       "kind": "composite",
       "violations": []
     },
     {
+      "name": "Countdown",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "CronExpression",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "CTASection",
       "kind": "composite",
       "violations": []
     },
@@ -218,51 +287,12 @@
     {
       "name": "DateInput",
       "kind": "composite",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input class=\"w-full h-9 px-3 text-sm border bg-white rounded-lg transition-all duration-150 focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)] disabled:opacity-50 disabled:cursor-not-allowed border-border\" type=\"date\">",
-              "target": [
-                "input"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "DateRangeFilter",
       "kind": "composite",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input class=\"h-9 px-3 text-sm border border-border bg-white rounded-lg transition-all duration-150 focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]\" type=\"date\" value=\"sample\">",
-              "target": [
-                "input:nth-child(1)"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "html": "<input class=\"h-9 px-3 text-sm border border-border bg-white rounded-lg transition-all duration-150 focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]\" type=\"date\" value=\"sample\">",
-              "target": [
-                "input:nth-child(3)"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "Descriptions",
@@ -272,23 +302,7 @@
     {
       "name": "DetailPanel",
       "kind": "composite",
-      "violations": [
-        {
-          "id": "button-name",
-          "impact": "critical",
-          "help": "Buttons must have discernible text",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<button type=\"button\" class=\"text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer shrink-0 ml-2\">",
-              "target": [
-                "button"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "DiffViewer",
@@ -317,6 +331,11 @@
     },
     {
       "name": "EmojiPicker",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "EmojiReaction",
       "kind": "composite",
       "violations": []
     },
@@ -366,7 +385,17 @@
       "violations": []
     },
     {
+      "name": "Hint",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "HoverCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ImageCompare",
       "kind": "composite",
       "violations": []
     },
@@ -381,6 +410,16 @@
       "violations": []
     },
     {
+      "name": "ImageWithFallback",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ImageZoom",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "InlineEdit",
       "kind": "composite",
       "violations": []
@@ -391,7 +430,27 @@
       "violations": []
     },
     {
+      "name": "LineChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "LoadingButton",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "LoadingOverlay",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "LoadingScreen",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "LogoCloud",
       "kind": "composite",
       "violations": []
     },
@@ -431,6 +490,11 @@
       "violations": []
     },
     {
+      "name": "MonthPicker",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "MultiSelect",
       "kind": "composite",
       "violations": []
@@ -441,7 +505,17 @@
       "violations": []
     },
     {
+      "name": "Newsletter",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "Notification",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "OfflineIndicator",
       "kind": "composite",
       "violations": []
     },
@@ -451,12 +525,82 @@
       "violations": []
     },
     {
+      "name": "PageHeader",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "Pagination",
       "kind": "composite",
       "violations": []
     },
     {
+      "name": "PasswordStrength",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PhotoCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PhotoCarousel",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PhotoFilters",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PhotoGrid",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PhotoLightbox",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PhotoUploader",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PieChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PollCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "Popover",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PriceDisplay",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "PricingTable",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ProductCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ProfileHeader",
       "kind": "composite",
       "violations": []
     },
@@ -476,7 +620,42 @@
       "violations": []
     },
     {
+      "name": "QuantitySelector",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "RadarChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "RadioCardGroup",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "Rating",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ReactionPicker",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ReadingGoal",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ReadingProgress",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ReadingStats",
       "kind": "composite",
       "violations": []
     },
@@ -491,7 +670,27 @@
       "violations": []
     },
     {
+      "name": "SankeyDiagram",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ScatterPlot",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ScrollProgress",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "ScrollSpy",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "SearchBar",
       "kind": "composite",
       "violations": []
     },
@@ -526,6 +725,16 @@
       "violations": []
     },
     {
+      "name": "Snackbar",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "SocialShare",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "SplitPane",
       "kind": "composite",
       "violations": []
@@ -546,6 +755,11 @@
       "violations": []
     },
     {
+      "name": "Stat",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "StatCard",
       "kind": "composite",
       "violations": []
@@ -561,6 +775,11 @@
       "violations": []
     },
     {
+      "name": "StoryCircle",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "SwipeAction",
       "kind": "composite",
       "violations": []
@@ -571,7 +790,27 @@
       "violations": []
     },
     {
+      "name": "TableOfContents",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "TagInput",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "TestimonialCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "TextareaAutosize",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ThinkingIndicator",
       "kind": "composite",
       "violations": []
     },
@@ -593,30 +832,7 @@
     {
       "name": "Transfer",
       "kind": "composite",
-      "violations": [
-        {
-          "id": "button-name",
-          "impact": "critical",
-          "help": "Buttons must have discernible text",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<button type=\"button\" disabled=\"\" class=\"p-1.5 rounded-md border border-border transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100\">",
-              "target": [
-                "button:nth-child(1)"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            },
-            {
-              "html": "<button type=\"button\" disabled=\"\" class=\"p-1.5 rounded-md border border-border transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-100\">",
-              "target": [
-                "button:nth-child(2)"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "TreemapChart",
@@ -659,7 +875,32 @@
       "violations": []
     },
     {
+      "name": "YearPicker",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "ActionBar",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "AuthLayout",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "BlogPost",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "BookReader",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "ChatThread",
       "kind": "pattern",
       "violations": []
     },
@@ -671,23 +912,22 @@
     {
       "name": "DataTable",
       "kind": "pattern",
-      "violations": [
-        {
-          "id": "aria-required-children",
-          "impact": "critical",
-          "help": "Certain ARIA roles must contain particular children",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-required-children?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<div class=\"overflow-x-auto\" tabindex=\"0\" role=\"grid\">",
-              "target": [
-                ".overflow-x-auto"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element has children which are not allowed: table[tabindex]"
-            }
-          ]
-        }
-      ]
+      "violations": []
+    },
+    {
+      "name": "EmailInbox",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "FAQ",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "FeatureGrid",
+      "kind": "pattern",
+      "violations": []
     },
     {
       "name": "FilterBar",
@@ -712,8 +952,17 @@
     {
       "name": "FormWizard",
       "kind": "pattern",
-      "violations": [],
-      "error": "render failed: Cannot read properties of undefined (reading 'title')"
+      "violations": []
+    },
+    {
+      "name": "GanttChart",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "HeroSection",
+      "kind": "pattern",
+      "violations": []
     },
     {
       "name": "InfiniteList",
@@ -738,23 +987,22 @@
     {
       "name": "NotificationCenter",
       "kind": "pattern",
-      "violations": [
-        {
-          "id": "button-name",
-          "impact": "critical",
-          "help": "Buttons must have discernible text",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<button type=\"button\" class=\"relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer\">",
-              "target": [
-                "button"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
+    },
+    {
+      "name": "OnboardingTour",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "PhotoAlbum",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "PricingPage",
+      "kind": "pattern",
+      "violations": []
     },
     {
       "name": "RichTextEditor",
@@ -763,6 +1011,16 @@
     },
     {
       "name": "SecurityChecklist",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "SettingsLayout",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "SocialFeed",
       "kind": "pattern",
       "violations": []
     },
@@ -783,6 +1041,11 @@
     },
     {
       "name": "Tour",
+      "kind": "pattern",
+      "violations": []
+    },
+    {
+      "name": "VideoPlayer",
       "kind": "pattern",
       "violations": []
     },
@@ -817,46 +1080,24 @@
       "violations": []
     },
     {
+      "name": "BookmarkButton",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
       "name": "Button",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "button-name",
-          "impact": "critical",
-          "help": "Buttons must have discernible text",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<button class=\"inline-flex items-ce...\">",
-              "target": [
-                "button"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "Checkbox",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input aria-checked=\"false\" class=\"w-4 h-4 rounded bord...\" type=\"checkbox\">",
-              "target": [
-                "input"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
+    },
+    {
+      "name": "Code",
+      "kind": "primitive",
+      "violations": []
     },
     {
       "name": "CopyButton",
@@ -866,23 +1107,7 @@
     {
       "name": "CurrencyInput",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input inputmode=\"numeric\" class=\"w-full border bg-whi...\" type=\"text\" value=\"\">",
-              "target": [
-                "input"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "Divider",
@@ -897,26 +1122,30 @@
     {
       "name": "FileUpload",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input class=\"hidden\" type=\"file\">",
-              "target": [
-                "input"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "FocusGuard",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "FollowButton",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Hashtag",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Highlight",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Icon",
       "kind": "primitive",
       "violations": []
     },
@@ -926,25 +1155,14 @@
       "violations": []
     },
     {
+      "name": "Image",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
       "name": "Input",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input class=\"w-full border bg-whi...\">",
-              "target": [
-                "input"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "Kbd",
@@ -952,7 +1170,42 @@
       "violations": []
     },
     {
+      "name": "KeyCap",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
       "name": "Label",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "LikeButton",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Link",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Mark",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Marquee",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "MentionChip",
+      "kind": "primitive",
+      "violations": []
+    },
+    {
+      "name": "Motion",
       "kind": "primitive",
       "violations": []
     },
@@ -964,23 +1217,7 @@
     {
       "name": "NumberInput",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input step=\"1\" class=\"w-16 text-center border-0 outline-none bg-transparent tabular-nums [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none h-9 text-sm\" type=\"number\" value=\"\">",
-              "target": [
-                "input"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "OTPInput",
@@ -990,44 +1227,12 @@
     {
       "name": "PasswordInput",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input autocomplete=\"new-password\" class=\"w-full border bg-whi...\" type=\"password\">",
-              "target": [
-                "input"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "PhoneInput",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<input class=\"flex-1 px-3 outline-none bg-transparent min-w-0 tabular-nums h-9 text-sm\" type=\"tel\" value=\"\">",
-              "target": [
-                "input"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "PinInput",
@@ -1042,30 +1247,7 @@
     {
       "name": "RangeSlider",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "aria-required-attr",
-          "impact": "critical",
-          "help": "Required ARIA attributes must be provided",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-required-attr?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<div role=\"slider\" tabindex=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"최솟값\" class=\"absolute w-5 h-5 bg-white border-2 border-primary rounded-full shadow-sm -translate-x-1/2 cursor-grab focus:outline-none focus:ring-2 focus:ring-primary/40 hover:scale-110 transition-transform\"></div>",
-              "target": [
-                "div[aria-label=\"최솟값\"]"
-              ],
-              "failureSummary": "Fix any of the following:\n  Required ARIA attribute not present: aria-valuenow"
-            },
-            {
-              "html": "<div role=\"slider\" tabindex=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"최댓값\" class=\"absolute w-5 h-5 bg-white border-2 border-primary rounded-full shadow-sm -translate-x-1/2 cursor-grab focus:outline-none focus:ring-2 focus:ring-primary/40 hover:scale-110 transition-transform\"></div>",
-              "target": [
-                "div[aria-label=\"최댓값\"]"
-              ],
-              "failureSummary": "Fix any of the following:\n  Required ARIA attribute not present: aria-valuenow"
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "ScrollArea",
@@ -1075,23 +1257,7 @@
     {
       "name": "Slider",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "aria-input-field-name",
-          "impact": "serious",
-          "help": "ARIA input fields must have an accessible name",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-input-field-name?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<div class=\"relative w-full rounded-full bg-gray-200 cursor-pointer select-none h-1.5\" role=\"slider\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\" tabindex=\"0\">",
-              "target": [
-                ".relative"
-              ],
-              "failureSummary": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "Spinner",
@@ -1111,23 +1277,7 @@
     {
       "name": "Switch",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "button-name",
-          "impact": "critical",
-          "help": "Buttons must have discernible text",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<button type=\"button\" role=\"switch\" aria-checked=\"false\" class=\"relative inline-flex shrink-0 rounded-full transition-colors duration-200 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 w-11 h-6 bg-gray-300\">",
-              "target": [
-                "button"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "Tag",
@@ -1137,23 +1287,7 @@
     {
       "name": "Textarea",
       "kind": "primitive",
-      "violations": [
-        {
-          "id": "label",
-          "impact": "critical",
-          "help": "Form elements must have labels",
-          "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/label?application=axeAPI",
-          "nodes": [
-            {
-              "html": "<textarea class=\"w-full border bg-whi...\">",
-              "target": [
-                "textarea"
-              ],
-              "failureSummary": "Fix any of the following:\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element has no placeholder attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
-            }
-          ]
-        }
-      ]
+      "violations": []
     },
     {
       "name": "Toggle",

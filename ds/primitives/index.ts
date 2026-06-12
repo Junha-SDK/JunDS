@@ -125,3 +125,27 @@ export type { MarkProps } from "./Mark";
 
 export { Icon } from "./Icon";
 export type { IconProps } from "./Icon";
+
+export { BookmarkButton } from "./BookmarkButton";
+export type { BookmarkButtonProps } from "./BookmarkButton";
+
+export { LikeButton } from "./LikeButton";
+export type { LikeButtonProps } from "./LikeButton";
+
+export { FollowButton } from "./FollowButton";
+export type { FollowButtonProps } from "./FollowButton";
+
+export { MentionChip } from "./MentionChip";
+export type { MentionChipProps } from "./MentionChip";
+
+export { Hashtag } from "./Hashtag";
+export type { HashtagProps } from "./Hashtag";
+
+export { Motion } from "./Motion";
+export type { MotionProps } from "./Motion";
+
+export { Highlight } from "./Highlight";
+export type { HighlightProps } from "./Highlight";
+
+export { KeyCap } from "./KeyCap";
+export type { KeyCapProps } from "./KeyCap";

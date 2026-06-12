@@ -154,7 +154,8 @@ export default function ShowcasePage() {
                 onClick={() => setIntent(null)}
                 aria-pressed={intent === null}
                 className={cn(
-                  "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors cursor-pointer border",
+                  "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium cursor-pointer border",
+                  "transition-all duration-200 active:scale-95",
                   intent === null
                     ? "bg-foreground text-background border-foreground"
                     : "bg-white text-muted border-border hover:border-primary/30 hover:text-foreground",
@@ -174,7 +175,8 @@ export default function ShowcasePage() {
                     onClick={() => setIntent(active ? null : i.id)}
                     aria-pressed={active}
                     className={cn(
-                      "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium transition-colors cursor-pointer border",
+                      "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium cursor-pointer border",
+                      "transition-all duration-200 active:scale-95",
                       active
                         ? "bg-primary text-white border-primary"
                         : "bg-white text-muted border-border hover:border-primary/30 hover:text-foreground",

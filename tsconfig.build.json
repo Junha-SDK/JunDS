@@ -15,7 +15,8 @@
     "declarationDir": "dist/types",
     "outDir": "dist",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@junds/ui": ["./ds/index.ts"]
     }
   },
   "include": ["ds/**/*.ts", "ds/**/*.tsx"],

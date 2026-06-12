@@ -5,7 +5,7 @@ import type { HTMLAttributes, ReactNode } from "react";
 
 export type AuthVariant = "centered" | "split" | "branded";
 
-export interface AuthLayoutProps extends HTMLAttributes<HTMLDivElement> {
+export interface AuthLayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** 레이아웃 변형 */
   variant?: AuthVariant;
   /** 좌측 브랜드 영역 (split / branded 전용) */

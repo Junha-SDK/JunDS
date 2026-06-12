@@ -33,6 +33,10 @@ export function RangeSlider({
   min = 0, max = 100, step = 1,
   value, onChange, disabled, showValues, className,
 }: RangeSliderProps) {
+  const safeValue: [number, number] = [
+    typeof value?.[0] === "number" ? value[0] : min,
+    typeof value?.[1] === "number" ? value[1] : max,
+  ];
   const trackRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState<"min" | "max" | null>(null);
 
@@ -56,8 +60,8 @@ export function RangeSlider({
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!dragging) return;
     const v = valueFromX(e.clientX);
-    if (dragging === "min") onChange([Math.min(v, value[1] - step), value[1]]);
-    else onChange([value[0], Math.max(v, value[0] + step)]);
+    if (dragging === "min") onChange([Math.min(v, safeValue[1] - step), safeValue[1]]);
+    else onChange([safeValue[0], Math.max(v, safeValue[0] + step)]);
   }, [dragging, valueFromX, onChange, value, step]);
 
   const handlePointerUp = useCallback(() => setDragging(null), []);
@@ -66,7 +70,7 @@ export function RangeSlider({
     <div className={cn("w-full", disabled && "opacity-50", className)}>
       {showValues && (
         <div className="flex justify-between text-xs text-muted mb-1 tabular-nums">
-          <span>{value[0]}</span><span>{value[1]}</span>
+          <span>{safeValue[0]}</span><span>{safeValue[1]}</span>
         </div>
       )}
       <div
@@ -80,14 +84,14 @@ export function RangeSlider({
         <div className="absolute inset-x-0 h-1.5 bg-gray-200 rounded-full" />
         <div
           className="absolute h-1.5 bg-primary rounded-full"
-          style={{ left: `${pct(value[0])}%`, right: `${100 - pct(value[1])}%` }}
+          style={{ left: `${pct(safeValue[0])}%`, right: `${100 - pct(safeValue[1])}%` }}
         />
         {(["min", "max"] as const).map((handle, i) => (
           <div
             key={handle}
             role="slider"
             tabIndex={disabled ? -1 : 0}
-            aria-valuenow={value[i]}
+            aria-valuenow={safeValue[i]}
             aria-valuemin={min}
             aria-valuemax={max}
             aria-label={handle === "min" ? "최솟값" : "최댓값"}
@@ -97,9 +101,9 @@ export function RangeSlider({
               const d = e.key === "ArrowRight" || e.key === "ArrowUp" ? step : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -step : 0;
               if (!d) return;
               e.preventDefault();
-              const nv = value[i] + d;
-              if (handle === "min") onChange([Math.min(nv, value[1] - step), value[1]]);
-              else onChange([value[0], Math.max(nv, value[0] + step)]);
+              const nv = safeValue[i] + d;
+              if (handle === "min") onChange([Math.min(nv, safeValue[1] - step), safeValue[1]]);
+              else onChange([safeValue[0], Math.max(nv, safeValue[0] + step)]);
             }}
             className={cn(
               "absolute w-5 h-5 bg-white border-2 border-primary rounded-full shadow-sm -translate-x-1/2 cursor-grab",
@@ -107,7 +111,7 @@ export function RangeSlider({
               "hover:scale-110 transition-transform",
               dragging === handle && "cursor-grabbing scale-110",
             )}
-            style={{ left: `${pct(value[i])}%` }}
+            style={{ left: `${pct(safeValue[i])}%` }}
           />
         ))}
       </div>

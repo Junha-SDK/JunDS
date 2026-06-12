@@ -26,11 +26,15 @@ export type BoxProps<C extends ElementType = "div"> = BoxOwnProps &
  */
 export const Box = forwardRef<HTMLElement, BoxProps>(
   ({ as: Component = "div", children, className, style, ...rest }, ref) => {
+    const reactId = useId();
     const { styleProps, rest: htmlProps } = splitStyleProps(rest);
     const hasResponsive = hasResponsiveProps(styleProps);
 
     if (hasResponsive) {
-      const responsive = generateResponsiveCSS(styleProps);
+      // useId() returns ":r0:" etc; sanitize to a CSS-safe class name.
+      // Stable across SSR/CSR — prevents hydration mismatch.
+      const stableId = `jds-r${reactId.replace(/:/g, "")}`;
+      const responsive = generateResponsiveCSS(styleProps, stableId);
       if (responsive) {
         return (
           <>

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-04-29T08:23:10.049Z",
-  "componentCount": 179,
+  "generatedAt": "2026-05-06T00:57:26.557Z",
+  "componentCount": 277,
   "graph": {
     "Announcer": {
       "kind": "primitive",
@@ -68,6 +68,19 @@
       ],
       "importedBy": []
     },
+    "BookmarkButton": {
+      "kind": "primitive",
+      "file": "ds/primitives/BookmarkButton/BookmarkButton.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "BookReader"
+      ]
+    },
     "Button": {
       "kind": "primitive",
       "file": "ds/primitives/Button/Button.tsx",
@@ -75,6 +88,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": [
@@ -99,6 +116,17 @@
         "DataTable",
         "LoginForm"
       ]
+    },
+    "Code": {
+      "kind": "primitive",
+      "file": "ds/primitives/Code/Code.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
     },
     "CopyButton": {
       "kind": "primitive",
@@ -168,6 +196,50 @@
       ],
       "importedBy": []
     },
+    "FollowButton": {
+      "kind": "primitive",
+      "file": "ds/primitives/FollowButton/FollowButton.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Hashtag": {
+      "kind": "primitive",
+      "file": "ds/primitives/Hashtag/Hashtag.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Highlight": {
+      "kind": "primitive",
+      "file": "ds/primitives/Highlight/Highlight.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Icon": {
+      "kind": "primitive",
+      "file": "ds/primitives/Icon/Icon.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "IconButton": {
       "kind": "primitive",
       "file": "ds/primitives/IconButton/IconButton.tsx",
@@ -181,6 +253,17 @@
         "Calendar",
         "RichTextEditor"
       ]
+    },
+    "Image": {
+      "kind": "primitive",
+      "file": "ds/primitives/Image/Image.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
     },
     "Input": {
       "kind": "primitive",
@@ -210,6 +293,17 @@
         "CommandPalette"
       ]
     },
+    "KeyCap": {
+      "kind": "primitive",
+      "file": "ds/primitives/KeyCap/KeyCap.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "Label": {
       "kind": "primitive",
       "file": "ds/primitives/Label/Label.tsx",
@@ -224,6 +318,76 @@
         "FormField",
         "LoginForm"
       ]
+    },
+    "LikeButton": {
+      "kind": "primitive",
+      "file": "ds/primitives/LikeButton/LikeButton.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Link": {
+      "kind": "primitive",
+      "file": "ds/primitives/Link/Link.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Mark": {
+      "kind": "primitive",
+      "file": "ds/primitives/Mark/Mark.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Marquee": {
+      "kind": "composite",
+      "file": "ds/composites/Marquee/Marquee.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "MentionChip": {
+      "kind": "primitive",
+      "file": "ds/primitives/MentionChip/MentionChip.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Motion": {
+      "kind": "primitive",
+      "file": "ds/primitives/Motion/Motion.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useReducedMotion"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
     },
     "NumberFormatter": {
       "kind": "primitive",
@@ -379,7 +543,8 @@
       "importedBy": [
         "AutoComplete",
         "Combobox",
-        "InfiniteList"
+        "InfiniteList",
+        "SocialFeed"
       ]
     },
     "StarRating": {
@@ -545,6 +710,39 @@
       ],
       "importedBy": []
     },
+    "AnnotationNote": {
+      "kind": "composite",
+      "file": "ds/composites/AnnotationNote/AnnotationNote.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AnnouncementBar": {
+      "kind": "composite",
+      "file": "ds/composites/AnnouncementBar/AnnouncementBar.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AreaChart": {
+      "kind": "composite",
+      "file": "ds/composites/AreaChart/AreaChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "AudioPlayer": {
       "kind": "composite",
       "file": "ds/composites/AudioPlayer/AudioPlayer.tsx",
@@ -627,9 +825,31 @@
       ],
       "importedBy": []
     },
+    "BarChart": {
+      "kind": "composite",
+      "file": "ds/composites/BarChart/BarChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "BentoGrid": {
       "kind": "composite",
       "file": "ds/composites/BentoGrid/BentoGrid.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Blockquote": {
+      "kind": "composite",
+      "file": "ds/composites/Blockquote/Blockquote.tsx",
       "imports": [
         {
           "kind": "util",
@@ -644,6 +864,39 @@
       "imports": [],
       "importedBy": []
     },
+    "BookCover": {
+      "kind": "composite",
+      "file": "ds/composites/BookCover/BookCover.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "BookRating": {
+      "kind": "composite",
+      "file": "ds/composites/BookRating/BookRating.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "BookShelf": {
+      "kind": "composite",
+      "file": "ds/composites/BookShelf/BookShelf.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "BottomSheet": {
       "kind": "composite",
       "file": "ds/composites/BottomSheet/BottomSheet.tsx",
@@ -652,6 +905,17 @@
           "kind": "primitive",
           "name": "Portal"
         },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "BrandSwitcher": {
+      "kind": "composite",
+      "file": "ds/composites/BrandSwitcher/BrandSwitcher.tsx",
+      "imports": [
         {
           "kind": "util",
           "name": "cn"
@@ -673,6 +937,17 @@
     "ButtonGroup": {
       "kind": "composite",
       "file": "ds/composites/ButtonGroup/ButtonGroup.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CTASection": {
+      "kind": "composite",
+      "file": "ds/composites/CTASection/CTASection.tsx",
       "imports": [
         {
           "kind": "util",
@@ -717,9 +992,55 @@
       ],
       "importedBy": []
     },
+    "CartItem": {
+      "kind": "composite",
+      "file": "ds/composites/CartItem/CartItem.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ChapterList": {
+      "kind": "composite",
+      "file": "ds/composites/ChapterList/ChapterList.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "BookReader"
+      ]
+    },
     "ChatBubble": {
       "kind": "composite",
       "file": "ds/composites/ChatBubble/ChatBubble.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "CheckboxCardGroup": {
+      "kind": "composite",
+      "file": "ds/composites/CheckboxCardGroup/CheckboxCardGroup.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Clock": {
+      "kind": "composite",
+      "file": "ds/composites/Clock/Clock.tsx",
       "imports": [
         {
           "kind": "util",
@@ -814,6 +1135,17 @@
       ],
       "importedBy": []
     },
+    "CommentThread": {
+      "kind": "composite",
+      "file": "ds/composites/CommentThread/CommentThread.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "CompareSlider": {
       "kind": "composite",
       "file": "ds/composites/CompareSlider/CompareSlider.tsx",
@@ -884,9 +1216,31 @@
       ],
       "importedBy": []
     },
+    "CookieConsent": {
+      "kind": "composite",
+      "file": "ds/composites/CookieConsent/CookieConsent.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "CopyBlock": {
       "kind": "composite",
       "file": "ds/composites/CopyBlock/CopyBlock.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Countdown": {
+      "kind": "composite",
+      "file": "ds/composites/Countdown/Countdown.tsx",
       "imports": [
         {
           "kind": "util",
@@ -991,6 +1345,25 @@
       ],
       "importedBy": []
     },
+    "Disclosure": {
+      "kind": "composite",
+      "file": "ds/composites/Disclosure/Disclosure.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "createCompound"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
+        }
+      ],
+      "importedBy": []
+    },
     "Dock": {
       "kind": "composite",
       "file": "ds/composites/Dock/Dock.tsx",
@@ -1043,6 +1416,17 @@
       ],
       "importedBy": []
     },
+    "EmojiReaction": {
+      "kind": "composite",
+      "file": "ds/composites/EmojiReaction/EmojiReaction.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "EmptyState": {
       "kind": "composite",
       "file": "ds/composites/EmptyState/EmptyState.tsx",
@@ -1053,8 +1437,22 @@
         }
       ],
       "importedBy": [
-        "DataTable"
+        "DataTable",
+        "EmailInbox",
+        "PhotoAlbum",
+        "SocialFeed"
       ]
+    },
+    "ExifPanel": {
+      "kind": "composite",
+      "file": "ds/composites/ExifPanel/ExifPanel.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
     },
     "FilterButtonGroup": {
       "kind": "composite",
@@ -1148,9 +1546,31 @@
       ],
       "importedBy": []
     },
+    "Hint": {
+      "kind": "composite",
+      "file": "ds/composites/Hint/Hint.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "HoverCard": {
       "kind": "composite",
       "file": "ds/composites/HoverCard/HoverCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ImageCompare": {
+      "kind": "composite",
+      "file": "ds/composites/ImageCompare/ImageCompare.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1174,6 +1594,28 @@
       "kind": "composite",
       "file": "ds/composites/ImageLightbox/ImageLightbox.tsx",
       "imports": [],
+      "importedBy": []
+    },
+    "ImageWithFallback": {
+      "kind": "composite",
+      "file": "ds/composites/ImageWithFallback/ImageWithFallback.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ImageZoom": {
+      "kind": "composite",
+      "file": "ds/composites/ImageZoom/ImageZoom.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
       "importedBy": []
     },
     "InlineEdit": {
@@ -1209,6 +1651,28 @@
       ],
       "importedBy": []
     },
+    "LineChart": {
+      "kind": "composite",
+      "file": "ds/composites/LineChart/LineChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "LoadingButton": {
+      "kind": "composite",
+      "file": "ds/composites/LoadingButton/LoadingButton.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "LoadingOverlay": {
       "kind": "composite",
       "file": "ds/composites/LoadingOverlay/LoadingOverlay.tsx",
@@ -1220,9 +1684,9 @@
       ],
       "importedBy": []
     },
-    "MarkdownViewer": {
+    "LoadingScreen": {
       "kind": "composite",
-      "file": "ds/composites/MarkdownViewer/MarkdownViewer.tsx",
+      "file": "ds/composites/LoadingScreen/LoadingScreen.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1231,9 +1695,20 @@
       ],
       "importedBy": []
     },
-    "Marquee": {
+    "LogoCloud": {
       "kind": "composite",
-      "file": "ds/composites/Marquee/Marquee.tsx",
+      "file": "ds/composites/LogoCloud/LogoCloud.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "MarkdownViewer": {
+      "kind": "composite",
+      "file": "ds/composites/MarkdownViewer/MarkdownViewer.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1313,6 +1788,17 @@
       ],
       "importedBy": []
     },
+    "MonthPicker": {
+      "kind": "composite",
+      "file": "ds/composites/MonthPicker/MonthPicker.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "MultiSelect": {
       "kind": "composite",
       "file": "ds/composites/MultiSelect/MultiSelect.tsx",
@@ -1343,6 +1829,17 @@
       ],
       "importedBy": []
     },
+    "Newsletter": {
+      "kind": "composite",
+      "file": "ds/composites/Newsletter/Newsletter.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "Notification": {
       "kind": "composite",
       "file": "ds/composites/Notification/Notification.tsx",
@@ -1354,9 +1851,42 @@
       ],
       "importedBy": []
     },
+    "OfflineIndicator": {
+      "kind": "composite",
+      "file": "ds/composites/OfflineIndicator/OfflineIndicator.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "Onboarding": {
       "kind": "composite",
       "file": "ds/composites/Onboarding/Onboarding.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "OnlineStatus": {
+      "kind": "composite",
+      "file": "ds/composites/OnlineStatus/OnlineStatus.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PageHeader": {
+      "kind": "composite",
+      "file": "ds/composites/PageHeader/PageHeader.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1378,6 +1908,111 @@
         "DataTable"
       ]
     },
+    "PasswordStrength": {
+      "kind": "composite",
+      "file": "ds/composites/PasswordStrength/PasswordStrength.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PhotoCard": {
+      "kind": "composite",
+      "file": "ds/composites/PhotoCard/PhotoCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "PhotoAlbum"
+      ]
+    },
+    "PhotoCarousel": {
+      "kind": "composite",
+      "file": "ds/composites/PhotoCarousel/PhotoCarousel.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PhotoFilters": {
+      "kind": "composite",
+      "file": "ds/composites/PhotoFilters/PhotoFilters.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PhotoGrid": {
+      "kind": "composite",
+      "file": "ds/composites/PhotoGrid/PhotoGrid.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "PhotoAlbum"
+      ]
+    },
+    "PhotoLightbox": {
+      "kind": "composite",
+      "file": "ds/composites/PhotoLightbox/PhotoLightbox.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "PhotoAlbum"
+      ]
+    },
+    "PhotoUploader": {
+      "kind": "composite",
+      "file": "ds/composites/PhotoUploader/PhotoUploader.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PieChart": {
+      "kind": "composite",
+      "file": "ds/composites/PieChart/PieChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PollCard": {
+      "kind": "composite",
+      "file": "ds/composites/PollCard/PollCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "Popover": {
       "kind": "composite",
       "file": "ds/composites/Popover/Popover.tsx",
@@ -1386,6 +2021,63 @@
           "kind": "hook",
           "name": "useClickOutside"
         },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PostCard": {
+      "kind": "composite",
+      "file": "ds/composites/PostCard/PostCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PriceDisplay": {
+      "kind": "composite",
+      "file": "ds/composites/PriceDisplay/PriceDisplay.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PricingTable": {
+      "kind": "composite",
+      "file": "ds/composites/PricingTable/PricingTable.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "PricingPage"
+      ]
+    },
+    "ProductCard": {
+      "kind": "composite",
+      "file": "ds/composites/ProductCard/ProductCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ProfileHeader": {
+      "kind": "composite",
+      "file": "ds/composites/ProfileHeader/ProfileHeader.tsx",
+      "imports": [
         {
           "kind": "util",
           "name": "cn"
@@ -1437,9 +2129,88 @@
       ],
       "importedBy": []
     },
+    "QuantitySelector": {
+      "kind": "composite",
+      "file": "ds/composites/QuantitySelector/QuantitySelector.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "RadarChart": {
+      "kind": "composite",
+      "file": "ds/composites/RadarChart/RadarChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "RadioCardGroup": {
+      "kind": "composite",
+      "file": "ds/composites/RadioCardGroup/RadioCardGroup.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "Rating": {
       "kind": "composite",
       "file": "ds/composites/Rating/Rating.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ReactionPicker": {
+      "kind": "composite",
+      "file": "ds/composites/ReactionPicker/ReactionPicker.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ReadingGoal": {
+      "kind": "composite",
+      "file": "ds/composites/ReadingGoal/ReadingGoal.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ReadingProgress": {
+      "kind": "composite",
+      "file": "ds/composites/ReadingProgress/ReadingProgress.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "BookReader"
+      ]
+    },
+    "ReadingStats": {
+      "kind": "composite",
+      "file": "ds/composites/ReadingStats/ReadingStats.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1481,10 +2252,64 @@
       ],
       "importedBy": []
     },
+    "SankeyDiagram": {
+      "kind": "composite",
+      "file": "ds/composites/SankeyDiagram/SankeyDiagram.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ScatterPlot": {
+      "kind": "composite",
+      "file": "ds/composites/ScatterPlot/ScatterPlot.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ScrollProgress": {
+      "kind": "composite",
+      "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "BookReader"
+      ]
+    },
     "ScrollSpy": {
       "kind": "composite",
       "file": "ds/composites/ScrollSpy/ScrollSpy.tsx",
       "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SearchBar": {
+      "kind": "composite",
+      "file": "ds/composites/SearchBar/SearchBar.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useDebounce"
+        },
+        {
+          "kind": "hook",
+          "name": "useKeyboardShortcut"
+        },
         {
           "kind": "util",
           "name": "cn"
@@ -1590,6 +2415,28 @@
       ],
       "importedBy": []
     },
+    "Snackbar": {
+      "kind": "composite",
+      "file": "ds/composites/Snackbar/Snackbar.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SocialShare": {
+      "kind": "composite",
+      "file": "ds/composites/SocialShare/SocialShare.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "SplitPane": {
       "kind": "composite",
       "file": "ds/composites/SplitPane/SplitPane.tsx",
@@ -1633,6 +2480,17 @@
       ],
       "importedBy": []
     },
+    "Stat": {
+      "kind": "composite",
+      "file": "ds/composites/Stat/Stat.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "StatCard": {
       "kind": "composite",
       "file": "ds/composites/StatCard/StatCard.tsx",
@@ -1668,6 +2526,19 @@
       ],
       "importedBy": []
     },
+    "StoryCircle": {
+      "kind": "composite",
+      "file": "ds/composites/StoryCircle/StoryCircle.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": [
+        "SocialFeed"
+      ]
+    },
     "SwipeAction": {
       "kind": "composite",
       "file": "ds/composites/SwipeAction/SwipeAction.tsx",
@@ -1690,6 +2561,17 @@
       ],
       "importedBy": []
     },
+    "TableOfContents": {
+      "kind": "composite",
+      "file": "ds/composites/TableOfContents/TableOfContents.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "Tabs": {
       "kind": "composite",
       "file": "ds/composites/Tabs/Tabs.tsx",
@@ -1704,6 +2586,39 @@
     "TagInput": {
       "kind": "composite",
       "file": "ds/composites/TagInput/TagInput.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "TestimonialCard": {
+      "kind": "composite",
+      "file": "ds/composites/TestimonialCard/TestimonialCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "TextareaAutosize": {
+      "kind": "composite",
+      "file": "ds/composites/TextareaAutosize/TextareaAutosize.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ThinkingIndicator": {
+      "kind": "composite",
+      "file": "ds/composites/ThinkingIndicator/ThinkingIndicator.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1835,8 +2750,8 @@
       "importedBy": []
     },
     "VideoPlayer": {
-      "kind": "composite",
-      "file": "ds/composites/VideoPlayer/VideoPlayer.tsx",
+      "kind": "pattern",
+      "file": "ds/patterns/VideoPlayer/VideoPlayer.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1867,6 +2782,17 @@
       ],
       "importedBy": []
     },
+    "YearPicker": {
+      "kind": "composite",
+      "file": "ds/composites/YearPicker/YearPicker.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "ActionBar": {
       "kind": "pattern",
       "file": "ds/patterns/ActionBar/ActionBar.tsx",
@@ -1874,6 +2800,55 @@
         {
           "kind": "primitive",
           "name": "Portal"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AuthLayout": {
+      "kind": "pattern",
+      "file": "ds/patterns/AuthLayout/AuthLayout.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "BlogPost": {
+      "kind": "pattern",
+      "file": "ds/patterns/BlogPost/BlogPost.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "BookReader": {
+      "kind": "pattern",
+      "file": "ds/patterns/BookReader/BookReader.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "ChapterList"
+        },
+        {
+          "kind": "composite",
+          "name": "ReadingProgress"
+        },
+        {
+          "kind": "composite",
+          "name": "ScrollProgress"
+        },
+        {
+          "kind": "primitive",
+          "name": "BookmarkButton"
         },
         {
           "kind": "util",
@@ -1901,9 +2876,31 @@
       ],
       "importedBy": []
     },
+    "CalendarMonth": {
+      "kind": "pattern",
+      "file": "ds/patterns/CalendarMonth/CalendarMonth.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "ChartCard": {
       "kind": "pattern",
       "file": "ds/patterns/ChartCard/ChartCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ChatThread": {
+      "kind": "pattern",
+      "file": "ds/patterns/ChatThread/ChatThread.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1951,6 +2948,43 @@
           "kind": "primitive",
           "name": "Checkbox"
         },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "EmailInbox": {
+      "kind": "pattern",
+      "file": "ds/patterns/EmailInbox/EmailInbox.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "EmptyState"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FAQ": {
+      "kind": "pattern",
+      "file": "ds/patterns/FAQ/FAQ.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "FeatureGrid": {
+      "kind": "pattern",
+      "file": "ds/patterns/FeatureGrid/FeatureGrid.tsx",
+      "imports": [
         {
           "kind": "util",
           "name": "cn"
@@ -2044,6 +3078,39 @@
     "FormWizard": {
       "kind": "pattern",
       "file": "ds/patterns/FormWizard/FormWizard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "ForumThread": {
+      "kind": "pattern",
+      "file": "ds/patterns/ForumThread/ForumThread.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "GanttChart": {
+      "kind": "pattern",
+      "file": "ds/patterns/GanttChart/GanttChart.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "HeroSection": {
+      "kind": "pattern",
+      "file": "ds/patterns/HeroSection/HeroSection.tsx",
       "imports": [
         {
           "kind": "util",
@@ -2146,6 +3213,59 @@
       ],
       "importedBy": []
     },
+    "OnboardingTour": {
+      "kind": "pattern",
+      "file": "ds/patterns/OnboardingTour/OnboardingTour.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PhotoAlbum": {
+      "kind": "pattern",
+      "file": "ds/patterns/PhotoAlbum/PhotoAlbum.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "EmptyState"
+        },
+        {
+          "kind": "composite",
+          "name": "PhotoCard"
+        },
+        {
+          "kind": "composite",
+          "name": "PhotoGrid"
+        },
+        {
+          "kind": "composite",
+          "name": "PhotoLightbox"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "PricingPage": {
+      "kind": "pattern",
+      "file": "ds/patterns/PricingPage/PricingPage.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "PricingTable"
+        },
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "RichTextEditor": {
       "kind": "pattern",
       "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx",
@@ -2176,10 +3296,44 @@
       ],
       "importedBy": []
     },
+    "SettingsLayout": {
+      "kind": "pattern",
+      "file": "ds/patterns/SettingsLayout/SettingsLayout.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "Sidebar": {
       "kind": "pattern",
       "file": "ds/patterns/Sidebar/Sidebar.tsx",
       "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "SocialFeed": {
+      "kind": "pattern",
+      "file": "ds/patterns/SocialFeed/SocialFeed.tsx",
+      "imports": [
+        {
+          "kind": "composite",
+          "name": "EmptyState"
+        },
+        {
+          "kind": "composite",
+          "name": "StoryCircle"
+        },
+        {
+          "kind": "primitive",
+          "name": "Spinner"
+        },
         {
           "kind": "util",
           "name": "cn"
@@ -2259,17 +3413,22 @@
         "count": 6
       },
       {
+        "name": "Spinner",
+        "kind": "primitive",
+        "count": 4
+      },
+      {
+        "name": "EmptyState",
+        "kind": "composite",
+        "count": 4
+      },
+      {
         "name": "Input",
         "kind": "primitive",
         "count": 3
       },
       {
         "name": "Label",
-        "kind": "primitive",
-        "count": 3
-      },
-      {
-        "name": "Spinner",
         "kind": "primitive",
         "count": 3
       },
@@ -2292,11 +3451,6 @@
         "name": "Avatar",
         "kind": "primitive",
         "count": 1
-      },
-      {
-        "name": "Divider",
-        "kind": "primitive",
-        "count": 1
       }
     ],
     "heaviestImporters": [
@@ -2311,7 +3465,22 @@
         "count": 5
       },
       {
+        "name": "BookReader",
+        "kind": "pattern",
+        "count": 4
+      },
+      {
+        "name": "PhotoAlbum",
+        "kind": "pattern",
+        "count": 4
+      },
+      {
         "name": "DataTable",
+        "kind": "pattern",
+        "count": 3
+      },
+      {
+        "name": "SocialFeed",
         "kind": "pattern",
         "count": 3
       },
@@ -2334,21 +3503,6 @@
         "name": "FilterBar",
         "kind": "pattern",
         "count": 2
-      },
-      {
-        "name": "ActionSheet",
-        "kind": "composite",
-        "count": 1
-      },
-      {
-        "name": "AlertDialog",
-        "kind": "composite",
-        "count": 1
-      },
-      {
-        "name": "AvatarStack",
-        "kind": "composite",
-        "count": 1
       }
     ],
     "cycles": []

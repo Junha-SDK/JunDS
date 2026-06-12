@@ -13,7 +13,7 @@ export default function PageHeaderPage() {
     >
       <Section title="Default">
         <Preview>
-          <PageHeader />
+          <PageHeader title="사용자 관리" description="조직 내 사용자를 관리하세요" breadcrumb={[{label:"홈",href:"#"},{label:"사용자"}]} />
         </Preview>
       </Section>
     </ComponentPage>

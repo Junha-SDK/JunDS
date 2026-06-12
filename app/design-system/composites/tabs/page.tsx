@@ -44,7 +44,16 @@ export default function TabsPage() {
     >
       {/* ── Overview ── */}
       <Section title="Overview" description="탭을 사용하면 한 화면에서 여러 카테고리의 콘텐츠를 페이지 전환 없이 빠르게 탐색할 수 있습니다.">
-        <Preview>
+        <Preview
+          sourceCode={`const [tab, setTab] = useState("overview");
+const tabs = [
+  { value: "overview", label: "개요" },
+  { value: "spec", label: "스펙" },
+  { value: "review", label: "리뷰" },
+];
+
+<Tabs tabs={tabs} value={tab} onChange={setTab} />`}
+        >
           <Tabs tabs={simpleTabs} value={simple} onChange={setSimple} />
         </Preview>
       </Section>
@@ -63,20 +72,32 @@ export default function TabsPage() {
       {/* ── Variants ── */}
       <Section title="Variants" description="3가지 시각 변형으로 다양한 맥락에 맞는 탭 UI를 구성할 수 있습니다.">
         <VariantGrid cols={1}>
-          <VariantItem label="Underline" description="기본 스타일. 하단 border로 활성 탭을 표시합니다. 페이지 상단 네비게이션에 적합합니다.">
+          <VariantItem
+            label="Underline"
+            description="기본 스타일. 하단 border로 활성 탭을 표시합니다. 페이지 상단 네비게이션에 적합합니다."
+            sourceCode={`<Tabs tabs={tabs} value={v} onChange={setV} variant="underline" />`}
+          >
             <Tabs tabs={demoTabs} value={v} onChange={setV} variant="underline" />
           </VariantItem>
         </VariantGrid>
         <div className="mt-4">
           <VariantGrid cols={1}>
-            <VariantItem label="Pills" description="둥근 pill 형태로 활성 탭을 강조합니다. 필터링 UI에 적합합니다.">
+            <VariantItem
+              label="Pills"
+              description="둥근 pill 형태로 활성 탭을 강조합니다. 필터링 UI에 적합합니다."
+              sourceCode={`<Tabs tabs={tabs} value={v} onChange={setV} variant="pills" />`}
+            >
               <Tabs tabs={demoTabs} value={v} onChange={setV} variant="pills" />
             </VariantItem>
           </VariantGrid>
         </div>
         <div className="mt-4">
           <VariantGrid cols={1}>
-            <VariantItem label="Segment" description="SegmentedControl 스타일입니다. 토글 형태의 선택 UI에 적합합니다.">
+            <VariantItem
+              label="Segment"
+              description="SegmentedControl 스타일입니다. 토글 형태의 선택 UI에 적합합니다."
+              sourceCode={`<Tabs tabs={tabs} value={v} onChange={setV} variant="segment" />`}
+            >
               <Tabs tabs={demoTabs} value={v} onChange={setV} variant="segment" />
             </VariantItem>
           </VariantGrid>
@@ -86,10 +107,18 @@ export default function TabsPage() {
       {/* ── Sizes ── */}
       <Section title="Sizes" description="2가지 크기를 제공합니다.">
         <VariantGrid cols={2}>
-          <VariantItem label="Small (sm)" description="밀도가 높은 UI, 카드 내부 등에 적합합니다.">
+          <VariantItem
+            label="Small (sm)"
+            description="밀도가 높은 UI, 카드 내부 등에 적합합니다."
+            sourceCode={`<Tabs tabs={tabs} value={v} onChange={setV} size="sm" />`}
+          >
             <Tabs tabs={simpleTabs} value={simple} onChange={setSimple} variant="underline" size="sm" />
           </VariantItem>
-          <VariantItem label="Medium (md)" description="기본 크기입니다. 페이지 레벨 탭에 적합합니다.">
+          <VariantItem
+            label="Medium (md)"
+            description="기본 크기입니다. 페이지 레벨 탭에 적합합니다."
+            sourceCode={`<Tabs tabs={tabs} value={v} onChange={setV} size="md" />`}
+          >
             <Tabs tabs={simpleTabs} value={simple} onChange={setSimple} variant="underline" size="md" />
           </VariantItem>
         </VariantGrid>

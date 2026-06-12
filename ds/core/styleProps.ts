@@ -263,11 +263,16 @@ function getBaseValue<T>(value: Responsive<T>): T | undefined {
   return value as T;
 }
 
-/** 반응형 CSS를 생성하여 <style> 태그용 문자열 반환 */
+/**
+ * 반응형 CSS를 생성하여 <style> 태그용 문자열 반환.
+ * `id`는 호출자가 hydration-safe하게 (예: useId 결과를 sanitize한 값) 전달해야 한다.
+ * id를 생략하면 module-level 카운터를 쓰지만 SSR/CSR 불일치를 유발하므로 권장하지 않음.
+ */
 let responsiveCounter = 0;
 
 export function generateResponsiveCSS(
   props: StyleProps,
+  id?: string,
 ): { baseStyle: React.CSSProperties; responsiveCSS: string; className: string } | null {
   const responsiveEntries: { bp: BreakpointKey; prop: string; value: string }[] = [];
 
@@ -320,7 +325,7 @@ export function generateResponsiveCSS(
 
   if (responsiveEntries.length === 0) return null;
 
-  const id = `jds-r-${++responsiveCounter}`;
+  const finalId = id ?? `jds-r-${++responsiveCounter}`;
 
   // Group by breakpoint
   const byBp: Record<string, string[]> = {};
@@ -333,7 +338,7 @@ export function generateResponsiveCSS(
 
   let css = "";
   for (const [bpPx, rules] of Object.entries(byBp).sort((a, b) => Number(a[0]) - Number(b[0]))) {
-    css += `@media (min-width: ${bpPx}px) { .${id} { ${rules.join(" ")} } } `;
+    css += `@media (min-width: ${bpPx}px) { .${finalId} { ${rules.join(" ")} } } `;
   }
 
   // Resolve base style (non-responsive or base values)
@@ -356,7 +361,7 @@ export function generateResponsiveCSS(
     ...(isResponsive(props.h) ? { h: getBaseValue(props.h) } : {}),
   } as StyleProps);
 
-  return { baseStyle, responsiveCSS: css, className: id };
+  return { baseStyle, responsiveCSS: css, className: finalId };
 }
 
 /* ═══════════════════════════ Main Resolver ═══════════════════════════ */

@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "../../utils/cn";
+import { useT } from "../../providers/I18nProvider";
 
 export type SwitchSize = "sm" | "md" | "lg";
 
@@ -54,6 +55,7 @@ export function Switch({
   label,
   className,
 }: SwitchProps) {
+  const t = useT();
   return (
     <label
       className={cn(
@@ -66,7 +68,7 @@ export function Switch({
         type="button"
         role="switch"
         aria-checked={checked}
-        aria-label={label}
+        aria-label={label ?? t("ariaSwitch")}
         disabled={disabled}
         onClick={() => onChange(!checked)}
         className={cn(

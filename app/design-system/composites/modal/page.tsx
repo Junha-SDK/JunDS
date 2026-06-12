@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ComponentPage, Section, Guidelines, Anatomy, UsageNote, AccessibilityNote, CodeExample, VariantGrid, VariantItem } from "../../_components/ComponentPage";
+import { ComponentPage, Section, Guidelines, Anatomy, UsageNote, AccessibilityNote, CodeExample, VariantGrid, VariantItem, DecisionMatrix } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { Modal } from "@/ds/composites/Modal";
 import { Button } from "@/ds/primitives/Button";
@@ -33,7 +33,24 @@ export default function ModalPage() {
     >
       {/* ── Overview ── */}
       <Section title="Overview" description="모달은 현재 페이지 위에 떠오르는 대화 상자입니다. 사용자가 중요한 결정을 내리거나, 추가 정보를 입력하거나, 경고를 확인해야 할 때 사용합니다. 아래 버튼을 클릭하여 직접 체험해 보세요.">
-        <Preview>
+        <Preview
+          sourceCode={`const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>모달 열기</Button>
+
+<Modal open={open} onClose={() => setOpen(false)} size="md">
+  <Modal.Header onClose={() => setOpen(false)}>
+    제목
+  </Modal.Header>
+  <div className="p-5">
+    <p>모달 콘텐츠 영역입니다.</p>
+  </div>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setOpen(false)}>취소</Button>
+    <Button onClick={() => setOpen(false)}>확인</Button>
+  </Modal.Footer>
+</Modal>`}
+        >
           <div className="flex gap-3 flex-wrap">
             {(["sm", "md", "lg", "xl", "full"] as const).map((s) => (
               <Button
@@ -85,26 +102,110 @@ export default function ModalPage() {
       {/* ── Sizes ── */}
       <Section title="Sizes" description="콘텐츠의 양과 복잡도에 따라 5가지 크기를 선택할 수 있습니다.">
         <VariantGrid cols={3}>
-          <VariantItem label="Small (sm)" description="간단한 확인, 짧은 메시지 표시">
+          <VariantItem
+            label="Small (sm)"
+            description="간단한 확인, 짧은 메시지 표시"
+            sourceCode={`<Modal open={open} onClose={onClose} size="sm">...</Modal>`}
+          >
             <code className="text-xs text-muted">max-w-md</code>
           </VariantItem>
-          <VariantItem label="Medium (md)" description="기본 크기. 폼, 상세 정보 표시">
+          <VariantItem
+            label="Medium (md)"
+            description="기본 크기. 폼, 상세 정보 표시"
+            sourceCode={`<Modal open={open} onClose={onClose} size="md">...</Modal>`}
+          >
             <code className="text-xs text-muted">max-w-lg</code>
           </VariantItem>
-          <VariantItem label="Large (lg)" description="복잡한 폼, 테이블 포함 콘텐츠">
+          <VariantItem
+            label="Large (lg)"
+            description="복잡한 폼, 테이블 포함 콘텐츠"
+            sourceCode={`<Modal open={open} onClose={onClose} size="lg">...</Modal>`}
+          >
             <code className="text-xs text-muted">max-w-2xl</code>
           </VariantItem>
         </VariantGrid>
         <div className="mt-4">
           <VariantGrid cols={2}>
-            <VariantItem label="Extra Large (xl)" description="대시보드, 미리보기 등 넓은 콘텐츠">
+            <VariantItem
+              label="Extra Large (xl)"
+              description="대시보드, 미리보기 등 넓은 콘텐츠"
+              sourceCode={`<Modal open={open} onClose={onClose} size="xl">...</Modal>`}
+            >
               <code className="text-xs text-muted">max-w-4xl</code>
             </VariantItem>
-            <VariantItem label="Full" description="전체 화면에 가까운 크기. 에디터, 갤러리 등">
+            <VariantItem
+              label="Full"
+              description="전체 화면에 가까운 크기. 에디터, 갤러리 등"
+              sourceCode={`<Modal open={open} onClose={onClose} size="full">...</Modal>`}
+            >
               <code className="text-xs text-muted">max-w / max-h with 2rem margin</code>
             </VariantItem>
           </VariantGrid>
         </div>
+      </Section>
+
+      {/* ── Decision Matrix ── */}
+      <Section title="비슷한 오버레이 컴포넌트 비교" description="모달 외에도 화면 위에 떠오르는 컴포넌트가 다양합니다. 의도와 화면 비율에 맞는 것을 선택하세요.">
+        <DecisionMatrix
+          rows={[
+            {
+              name: "Modal",
+              href: "/design-system/composites/modal",
+              signature: "중앙 다이얼로그",
+              useWhen: "확인·폼·상세 정보 등 사용자의 흐름을 잠시 멈추고 집중시키는 일반 다이얼로그.",
+              avoidWhen: "한 글자 답변(예/아니오) — AlertDialog · ConfirmDialog가 더 명확.",
+            },
+            {
+              name: "AlertDialog",
+              href: "/design-system/composites/alert-dialog",
+              signature: "단순 알림",
+              useWhen: "에러·경고 등 단방향 메시지에 '확인' 한 개의 버튼만 필요할 때.",
+              avoidWhen: "사용자 입력이나 선택 필요 — Modal로.",
+            },
+            {
+              name: "ConfirmDialog",
+              href: "/design-system/composites/confirm-dialog",
+              signature: "예/아니오 확인",
+              useWhen: "삭제·로그아웃 등 되돌릴 수 없는 액션에 대한 확인. 두 개 버튼.",
+              avoidWhen: "복잡한 입력 폼 — Modal.",
+            },
+            {
+              name: "Drawer",
+              href: "/design-system/composites/drawer",
+              signature: "측면 슬라이드",
+              useWhen: "필터·상세 패널처럼 메인 화면의 맥락을 유지한 채 좌/우에서 슬라이드되는 보조 화면.",
+              avoidWhen: "주의를 강하게 끌어야 하는 상황 — Modal.",
+            },
+            {
+              name: "Sheet",
+              href: "/design-system/composites/sheet",
+              signature: "측면 시트",
+              useWhen: "Drawer와 유사하지만 더 가벼운 인터랙션. 설정·도움말 등 짧은 보조 정보.",
+              avoidWhen: "주요 폼이나 필수 결정 — Modal/Drawer.",
+            },
+            {
+              name: "BottomSheet",
+              href: "/design-system/composites/bottom-sheet",
+              signature: "하단 시트 (모바일)",
+              useWhen: "모바일에서 하단부터 올라오는 시트 — 옵션 선택·공유·필터.",
+              avoidWhen: "데스크탑 — Modal/Drawer가 더 자연스러움.",
+            },
+            {
+              name: "ActionSheet",
+              href: "/design-system/composites/action-sheet",
+              signature: "iOS 스타일 액션 목록",
+              useWhen: "모바일에서 컨텍스트 액션 목록을 보여줄 때 (공유·삭제·편집 등).",
+              avoidWhen: "복잡한 콘텐츠 — BottomSheet/Modal.",
+            },
+            {
+              name: "Popover",
+              href: "/design-system/composites/popover",
+              signature: "트리거 옆 부유",
+              useWhen: "특정 요소(아이콘·버튼) 옆에 작은 정보 패널을 띄울 때 — 백드롭 없음.",
+              avoidWhen: "주의를 집중시켜야 하면 Modal.",
+            },
+          ]}
+        />
       </Section>
 
       {/* ── Features ── */}

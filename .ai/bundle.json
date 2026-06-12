@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-29T08:23:09.911Z",
+  "generatedAt": "2026-05-06T00:57:26.441Z",
   "mode": "esbuild",
   "external": [
     "react",
@@ -13,8 +13,22 @@
       "name": "DataTable",
       "kind": "pattern",
       "file": "ds/patterns/DataTable/DataTable.tsx",
-      "rawBytes": 63592,
-      "gzipBytes": 12610
+      "rawBytes": 63674,
+      "gzipBytes": 12626
+    },
+    {
+      "name": "Calendar",
+      "kind": "pattern",
+      "file": "ds/patterns/Calendar/Calendar.tsx",
+      "rawBytes": 30449,
+      "gzipBytes": 7433
+    },
+    {
+      "name": "LoginForm",
+      "kind": "pattern",
+      "file": "ds/patterns/LoginForm/LoginForm.tsx",
+      "rawBytes": 28593,
+      "gzipBytes": 6874
     },
     {
       "name": "FlowDiagram",
@@ -24,18 +38,11 @@
       "gzipBytes": 6668
     },
     {
-      "name": "Calendar",
+      "name": "FormBuilder",
       "kind": "pattern",
-      "file": "ds/patterns/Calendar/Calendar.tsx",
-      "rawBytes": 27045,
-      "gzipBytes": 6422
-    },
-    {
-      "name": "LoginForm",
-      "kind": "pattern",
-      "file": "ds/patterns/LoginForm/LoginForm.tsx",
-      "rawBytes": 25175,
-      "gzipBytes": 5862
+      "file": "ds/patterns/FormBuilder/FormBuilder.tsx",
+      "rawBytes": 22833,
+      "gzipBytes": 5932
     },
     {
       "name": "ChartCard",
@@ -45,18 +52,81 @@
       "gzipBytes": 5118
     },
     {
-      "name": "FormBuilder",
+      "name": "BookReader",
       "kind": "pattern",
-      "file": "ds/patterns/FormBuilder/FormBuilder.tsx",
-      "rawBytes": 19429,
-      "gzipBytes": 4924
+      "file": "ds/patterns/BookReader/BookReader.tsx",
+      "rawBytes": 16017,
+      "gzipBytes": 4741
+    },
+    {
+      "name": "PhotoAlbum",
+      "kind": "pattern",
+      "file": "ds/patterns/PhotoAlbum/PhotoAlbum.tsx",
+      "rawBytes": 15380,
+      "gzipBytes": 4623
     },
     {
       "name": "ConfirmDialog",
       "kind": "composite",
       "file": "ds/composites/ConfirmDialog/ConfirmDialog.tsx",
-      "rawBytes": 11165,
-      "gzipBytes": 3169
+      "rawBytes": 14566,
+      "gzipBytes": 4215
+    },
+    {
+      "name": "SocialFeed",
+      "kind": "pattern",
+      "file": "ds/patterns/SocialFeed/SocialFeed.tsx",
+      "rawBytes": 10295,
+      "gzipBytes": 3628
+    },
+    {
+      "name": "NotificationCenter",
+      "kind": "pattern",
+      "file": "ds/patterns/NotificationCenter/NotificationCenter.tsx",
+      "rawBytes": 10303,
+      "gzipBytes": 3515
+    },
+    {
+      "name": "BrandSwitcher",
+      "kind": "composite",
+      "file": "ds/composites/BrandSwitcher/BrandSwitcher.tsx",
+      "rawBytes": 10792,
+      "gzipBytes": 3369
+    },
+    {
+      "name": "SecurityChecklist",
+      "kind": "pattern",
+      "file": "ds/patterns/SecurityChecklist/SecurityChecklist.tsx",
+      "rawBytes": 11982,
+      "gzipBytes": 3354
+    },
+    {
+      "name": "FilterBar",
+      "kind": "pattern",
+      "file": "ds/patterns/FilterBar/FilterBar.tsx",
+      "rawBytes": 11092,
+      "gzipBytes": 3234
+    },
+    {
+      "name": "Slider",
+      "kind": "primitive",
+      "file": "ds/primitives/Slider/Slider.tsx",
+      "rawBytes": 8651,
+      "gzipBytes": 3073
+    },
+    {
+      "name": "DetailPanel",
+      "kind": "composite",
+      "file": "ds/composites/DetailPanel/DetailPanel.tsx",
+      "rawBytes": 8704,
+      "gzipBytes": 3049
+    },
+    {
+      "name": "Transfer",
+      "kind": "composite",
+      "file": "ds/composites/Transfer/Transfer.tsx",
+      "rawBytes": 9326,
+      "gzipBytes": 3004
     },
     {
       "name": "ComponentShowcase",
@@ -66,6 +136,13 @@
       "gzipBytes": 2985
     },
     {
+      "name": "EmailInbox",
+      "kind": "pattern",
+      "file": "ds/patterns/EmailInbox/EmailInbox.tsx",
+      "rawBytes": 10567,
+      "gzipBytes": 2953
+    },
+    {
       "name": "DateRangePicker",
       "kind": "composite",
       "file": "ds/composites/DateRangePicker/DateRangePicker.tsx",
@@ -73,11 +150,32 @@
       "gzipBytes": 2824
     },
     {
+      "name": "FileUpload",
+      "kind": "primitive",
+      "file": "ds/primitives/FileUpload/FileUpload.tsx",
+      "rawBytes": 7546,
+      "gzipBytes": 2765
+    },
+    {
+      "name": "PhotoCarousel",
+      "kind": "composite",
+      "file": "ds/composites/PhotoCarousel/PhotoCarousel.tsx",
+      "rawBytes": 7241,
+      "gzipBytes": 2751
+    },
+    {
       "name": "AutoComplete",
       "kind": "composite",
       "file": "ds/composites/AutoComplete/AutoComplete.tsx",
       "rawBytes": 8153,
       "gzipBytes": 2672
+    },
+    {
+      "name": "DateRangeFilter",
+      "kind": "composite",
+      "file": "ds/composites/DateRangeFilter/DateRangeFilter.tsx",
+      "rawBytes": 7869,
+      "gzipBytes": 2642
     },
     {
       "name": "Combobox",
@@ -94,11 +192,32 @@
       "gzipBytes": 2520
     },
     {
+      "name": "CalendarMonth",
+      "kind": "pattern",
+      "file": "ds/patterns/CalendarMonth/CalendarMonth.tsx",
+      "rawBytes": 8754,
+      "gzipBytes": 2514
+    },
+    {
+      "name": "PhotoLightbox",
+      "kind": "composite",
+      "file": "ds/composites/PhotoLightbox/PhotoLightbox.tsx",
+      "rawBytes": 6819,
+      "gzipBytes": 2478
+    },
+    {
       "name": "CollectionView",
       "kind": "composite",
       "file": "ds/composites/CollectionView/CollectionView.tsx",
       "rawBytes": 10804,
       "gzipBytes": 2408
+    },
+    {
+      "name": "LoadingButton",
+      "kind": "composite",
+      "file": "ds/composites/LoadingButton/LoadingButton.tsx",
+      "rawBytes": 5802,
+      "gzipBytes": 2400
     },
     {
       "name": "TimePicker",
@@ -108,18 +227,25 @@
       "gzipBytes": 2389
     },
     {
+      "name": "Button",
+      "kind": "primitive",
+      "file": "ds/primitives/Button/Button.tsx",
+      "rawBytes": 6988,
+      "gzipBytes": 2356
+    },
+    {
+      "name": "CodeEditor",
+      "kind": "composite",
+      "file": "ds/composites/CodeEditor/CodeEditor.tsx",
+      "rawBytes": 5759,
+      "gzipBytes": 2352
+    },
+    {
       "name": "Mention",
       "kind": "composite",
       "file": "ds/composites/Mention/Mention.tsx",
       "rawBytes": 7171,
       "gzipBytes": 2338
-    },
-    {
-      "name": "SecurityChecklist",
-      "kind": "pattern",
-      "file": "ds/patterns/SecurityChecklist/SecurityChecklist.tsx",
-      "rawBytes": 8578,
-      "gzipBytes": 2311
     },
     {
       "name": "Toast",
@@ -136,6 +262,13 @@
       "gzipBytes": 2256
     },
     {
+      "name": "ScrollProgress",
+      "kind": "composite",
+      "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
+      "rawBytes": 5456,
+      "gzipBytes": 2245
+    },
+    {
       "name": "PasswordInput",
       "kind": "primitive",
       "file": "ds/primitives/PasswordInput/PasswordInput.tsx",
@@ -150,18 +283,39 @@
       "gzipBytes": 2212
     },
     {
-      "name": "FilterBar",
-      "kind": "pattern",
-      "file": "ds/patterns/FilterBar/FilterBar.tsx",
-      "rawBytes": 7688,
-      "gzipBytes": 2194
+      "name": "Switch",
+      "kind": "primitive",
+      "file": "ds/primitives/Switch/Switch.tsx",
+      "rawBytes": 5387,
+      "gzipBytes": 2211
     },
     {
-      "name": "NotificationCenter",
+      "name": "VideoPlayer",
       "kind": "pattern",
-      "file": "ds/patterns/NotificationCenter/NotificationCenter.tsx",
-      "rawBytes": 6778,
-      "gzipBytes": 2162
+      "file": "ds/patterns/VideoPlayer/VideoPlayer.tsx",
+      "rawBytes": 7109,
+      "gzipBytes": 2190
+    },
+    {
+      "name": "SearchBar",
+      "kind": "composite",
+      "file": "ds/composites/SearchBar/SearchBar.tsx",
+      "rawBytes": 5864,
+      "gzipBytes": 2143
+    },
+    {
+      "name": "Disclosure",
+      "kind": "composite",
+      "file": "ds/composites/Disclosure/Disclosure.tsx",
+      "rawBytes": 6421,
+      "gzipBytes": 1992
+    },
+    {
+      "name": "PricingPage",
+      "kind": "pattern",
+      "file": "ds/patterns/PricingPage/PricingPage.tsx",
+      "rawBytes": 7041,
+      "gzipBytes": 1939
     },
     {
       "name": "ColorPicker",
@@ -169,6 +323,13 @@
       "file": "ds/composites/ColorPicker/ColorPicker.tsx",
       "rawBytes": 5790,
       "gzipBytes": 1913
+    },
+    {
+      "name": "SankeyDiagram",
+      "kind": "composite",
+      "file": "ds/composites/SankeyDiagram/SankeyDiagram.tsx",
+      "rawBytes": 5612,
+      "gzipBytes": 1870
     },
     {
       "name": "Modal",
@@ -185,6 +346,27 @@
       "gzipBytes": 1832
     },
     {
+      "name": "ChatThread",
+      "kind": "pattern",
+      "file": "ds/patterns/ChatThread/ChatThread.tsx",
+      "rawBytes": 6069,
+      "gzipBytes": 1826
+    },
+    {
+      "name": "OnboardingTour",
+      "kind": "pattern",
+      "file": "ds/patterns/OnboardingTour/OnboardingTour.tsx",
+      "rawBytes": 5615,
+      "gzipBytes": 1787
+    },
+    {
+      "name": "AreaChart",
+      "kind": "composite",
+      "file": "ds/composites/AreaChart/AreaChart.tsx",
+      "rawBytes": 4890,
+      "gzipBytes": 1777
+    },
+    {
       "name": "Tour",
       "kind": "pattern",
       "file": "ds/patterns/Tour/Tour.tsx",
@@ -192,11 +374,18 @@
       "gzipBytes": 1777
     },
     {
-      "name": "DetailPanel",
+      "name": "ForumThread",
+      "kind": "pattern",
+      "file": "ds/patterns/ForumThread/ForumThread.tsx",
+      "rawBytes": 5864,
+      "gzipBytes": 1772
+    },
+    {
+      "name": "Card",
       "kind": "composite",
-      "file": "ds/composites/DetailPanel/DetailPanel.tsx",
-      "rawBytes": 5294,
-      "gzipBytes": 1703
+      "file": "ds/composites/Card/Card.tsx",
+      "rawBytes": 5146,
+      "gzipBytes": 1768
     },
     {
       "name": "Sheet",
@@ -206,11 +395,25 @@
       "gzipBytes": 1684
     },
     {
+      "name": "PhotoUploader",
+      "kind": "composite",
+      "file": "ds/composites/PhotoUploader/PhotoUploader.tsx",
+      "rawBytes": 4301,
+      "gzipBytes": 1675
+    },
+    {
       "name": "DataGrid",
       "kind": "composite",
       "file": "ds/composites/DataGrid/DataGrid.tsx",
       "rawBytes": 5060,
       "gzipBytes": 1669
+    },
+    {
+      "name": "FormWizard",
+      "kind": "pattern",
+      "file": "ds/patterns/FormWizard/FormWizard.tsx",
+      "rawBytes": 4969,
+      "gzipBytes": 1668
     },
     {
       "name": "AlertDialog",
@@ -220,11 +423,18 @@
       "gzipBytes": 1663
     },
     {
-      "name": "Slider",
-      "kind": "primitive",
-      "file": "ds/primitives/Slider/Slider.tsx",
-      "rawBytes": 5043,
-      "gzipBytes": 1646
+      "name": "CookieConsent",
+      "kind": "composite",
+      "file": "ds/composites/CookieConsent/CookieConsent.tsx",
+      "rawBytes": 4815,
+      "gzipBytes": 1661
+    },
+    {
+      "name": "GanttChart",
+      "kind": "pattern",
+      "file": "ds/patterns/GanttChart/GanttChart.tsx",
+      "rawBytes": 4905,
+      "gzipBytes": 1629
     },
     {
       "name": "EmojiPicker",
@@ -234,13 +444,6 @@
       "gzipBytes": 1626
     },
     {
-      "name": "Transfer",
-      "kind": "composite",
-      "file": "ds/composites/Transfer/Transfer.tsx",
-      "rawBytes": 5768,
-      "gzipBytes": 1625
-    },
-    {
       "name": "Kanban",
       "kind": "pattern",
       "file": "ds/patterns/Kanban/Kanban.tsx",
@@ -248,18 +451,39 @@
       "gzipBytes": 1624
     },
     {
+      "name": "FAQ",
+      "kind": "pattern",
+      "file": "ds/patterns/FAQ/FAQ.tsx",
+      "rawBytes": 5101,
+      "gzipBytes": 1607
+    },
+    {
+      "name": "ProductCard",
+      "kind": "composite",
+      "file": "ds/composites/ProductCard/ProductCard.tsx",
+      "rawBytes": 4597,
+      "gzipBytes": 1579
+    },
+    {
+      "name": "Newsletter",
+      "kind": "composite",
+      "file": "ds/composites/Newsletter/Newsletter.tsx",
+      "rawBytes": 4678,
+      "gzipBytes": 1574
+    },
+    {
+      "name": "LineChart",
+      "kind": "composite",
+      "file": "ds/composites/LineChart/LineChart.tsx",
+      "rawBytes": 4039,
+      "gzipBytes": 1552
+    },
+    {
       "name": "Starfield",
       "kind": "pattern",
       "file": "ds/patterns/Starfield/Starfield.tsx",
       "rawBytes": 4296,
       "gzipBytes": 1530
-    },
-    {
-      "name": "FormWizard",
-      "kind": "pattern",
-      "file": "ds/patterns/FormWizard/FormWizard.tsx",
-      "rawBytes": 4643,
-      "gzipBytes": 1520
     },
     {
       "name": "PhoneInput",
@@ -276,6 +500,20 @@
       "gzipBytes": 1511
     },
     {
+      "name": "BarChart",
+      "kind": "composite",
+      "file": "ds/composites/BarChart/BarChart.tsx",
+      "rawBytes": 4758,
+      "gzipBytes": 1488
+    },
+    {
+      "name": "RangeSlider",
+      "kind": "primitive",
+      "file": "ds/primitives/RangeSlider/RangeSlider.tsx",
+      "rawBytes": 4193,
+      "gzipBytes": 1486
+    },
+    {
       "name": "Drawer",
       "kind": "composite",
       "file": "ds/composites/Drawer/Drawer.tsx",
@@ -283,11 +521,11 @@
       "gzipBytes": 1483
     },
     {
-      "name": "FileUpload",
-      "kind": "primitive",
-      "file": "ds/primitives/FileUpload/FileUpload.tsx",
-      "rawBytes": 4081,
-      "gzipBytes": 1472
+      "name": "TableOfContents",
+      "kind": "composite",
+      "file": "ds/composites/TableOfContents/TableOfContents.tsx",
+      "rawBytes": 3547,
+      "gzipBytes": 1478
     },
     {
       "name": "BookCard",
@@ -295,6 +533,13 @@
       "file": "ds/composites/BookCard/BookCard.tsx",
       "rawBytes": 4418,
       "gzipBytes": 1468
+    },
+    {
+      "name": "SocialShare",
+      "kind": "composite",
+      "file": "ds/composites/SocialShare/SocialShare.tsx",
+      "rawBytes": 3569,
+      "gzipBytes": 1464
     },
     {
       "name": "Dropdown",
@@ -318,11 +563,11 @@
       "gzipBytes": 1440
     },
     {
-      "name": "RangeSlider",
-      "kind": "primitive",
-      "file": "ds/primitives/RangeSlider/RangeSlider.tsx",
-      "rawBytes": 4001,
-      "gzipBytes": 1439
+      "name": "PostCard",
+      "kind": "composite",
+      "file": "ds/composites/PostCard/PostCard.tsx",
+      "rawBytes": 4793,
+      "gzipBytes": 1432
     },
     {
       "name": "StarRating",
@@ -339,13 +584,6 @@
       "gzipBytes": 1413
     },
     {
-      "name": "Card",
-      "kind": "composite",
-      "file": "ds/composites/Card/Card.tsx",
-      "rawBytes": 3815,
-      "gzipBytes": 1398
-    },
-    {
       "name": "ImageCropper",
       "kind": "composite",
       "file": "ds/composites/ImageCropper/ImageCropper.tsx",
@@ -360,6 +598,13 @@
       "gzipBytes": 1389
     },
     {
+      "name": "ScatterPlot",
+      "kind": "composite",
+      "file": "ds/composites/ScatterPlot/ScatterPlot.tsx",
+      "rawBytes": 3886,
+      "gzipBytes": 1387
+    },
+    {
       "name": "RichTextEditor",
       "kind": "pattern",
       "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx",
@@ -372,6 +617,13 @@
       "file": "ds/primitives/OTPInput/OTPInput.tsx",
       "rawBytes": 3230,
       "gzipBytes": 1358
+    },
+    {
+      "name": "ImageCompare",
+      "kind": "composite",
+      "file": "ds/composites/ImageCompare/ImageCompare.tsx",
+      "rawBytes": 3718,
+      "gzipBytes": 1350
     },
     {
       "name": "SearchInput",
@@ -395,11 +647,11 @@
       "gzipBytes": 1315
     },
     {
-      "name": "Button",
-      "kind": "primitive",
-      "file": "ds/primitives/Button/Button.tsx",
-      "rawBytes": 3620,
-      "gzipBytes": 1304
+      "name": "RadarChart",
+      "kind": "composite",
+      "file": "ds/composites/RadarChart/RadarChart.tsx",
+      "rawBytes": 3574,
+      "gzipBytes": 1299
     },
     {
       "name": "PinInput",
@@ -409,11 +661,11 @@
       "gzipBytes": 1287
     },
     {
-      "name": "DateRangeFilter",
+      "name": "MonthPicker",
       "kind": "composite",
-      "file": "ds/composites/DateRangeFilter/DateRangeFilter.tsx",
-      "rawBytes": 4417,
-      "gzipBytes": 1277
+      "file": "ds/composites/MonthPicker/MonthPicker.tsx",
+      "rawBytes": 3580,
+      "gzipBytes": 1257
     },
     {
       "name": "NumberInput",
@@ -430,6 +682,20 @@
       "gzipBytes": 1251
     },
     {
+      "name": "HeroSection",
+      "kind": "pattern",
+      "file": "ds/patterns/HeroSection/HeroSection.tsx",
+      "rawBytes": 4173,
+      "gzipBytes": 1250
+    },
+    {
+      "name": "TestimonialCard",
+      "kind": "composite",
+      "file": "ds/composites/TestimonialCard/TestimonialCard.tsx",
+      "rawBytes": 3558,
+      "gzipBytes": 1240
+    },
+    {
       "name": "AudioPlayer",
       "kind": "composite",
       "file": "ds/composites/AudioPlayer/AudioPlayer.tsx",
@@ -437,11 +703,25 @@
       "gzipBytes": 1237
     },
     {
+      "name": "PieChart",
+      "kind": "composite",
+      "file": "ds/composites/PieChart/PieChart.tsx",
+      "rawBytes": 3132,
+      "gzipBytes": 1235
+    },
+    {
       "name": "ImageLightbox",
       "kind": "composite",
       "file": "ds/composites/ImageLightbox/ImageLightbox.tsx",
       "rawBytes": 4073,
       "gzipBytes": 1229
+    },
+    {
+      "name": "CommentThread",
+      "kind": "composite",
+      "file": "ds/composites/CommentThread/CommentThread.tsx",
+      "rawBytes": 3532,
+      "gzipBytes": 1212
     },
     {
       "name": "NavigationMenu",
@@ -479,6 +759,13 @@
       "gzipBytes": 1204
     },
     {
+      "name": "ReactionPicker",
+      "kind": "composite",
+      "file": "ds/composites/ReactionPicker/ReactionPicker.tsx",
+      "rawBytes": 3158,
+      "gzipBytes": 1198
+    },
+    {
       "name": "BottomSheet",
       "kind": "composite",
       "file": "ds/composites/BottomSheet/BottomSheet.tsx",
@@ -493,6 +780,48 @@
       "gzipBytes": 1177
     },
     {
+      "name": "Clock",
+      "kind": "composite",
+      "file": "ds/composites/Clock/Clock.tsx",
+      "rawBytes": 3179,
+      "gzipBytes": 1175
+    },
+    {
+      "name": "ImageZoom",
+      "kind": "composite",
+      "file": "ds/composites/ImageZoom/ImageZoom.tsx",
+      "rawBytes": 3026,
+      "gzipBytes": 1174
+    },
+    {
+      "name": "BlogPost",
+      "kind": "pattern",
+      "file": "ds/patterns/BlogPost/BlogPost.tsx",
+      "rawBytes": 3451,
+      "gzipBytes": 1173
+    },
+    {
+      "name": "BookRating",
+      "kind": "composite",
+      "file": "ds/composites/BookRating/BookRating.tsx",
+      "rawBytes": 3163,
+      "gzipBytes": 1170
+    },
+    {
+      "name": "PricingTable",
+      "kind": "composite",
+      "file": "ds/composites/PricingTable/PricingTable.tsx",
+      "rawBytes": 3289,
+      "gzipBytes": 1169
+    },
+    {
+      "name": "PollCard",
+      "kind": "composite",
+      "file": "ds/composites/PollCard/PollCard.tsx",
+      "rawBytes": 3266,
+      "gzipBytes": 1168
+    },
+    {
       "name": "TrustIndicator",
       "kind": "composite",
       "file": "ds/composites/TrustIndicator/TrustIndicator.tsx",
@@ -505,6 +834,48 @@
       "file": "ds/composites/CronExpression/CronExpression.tsx",
       "rawBytes": 3041,
       "gzipBytes": 1166
+    },
+    {
+      "name": "ChapterList",
+      "kind": "composite",
+      "file": "ds/composites/ChapterList/ChapterList.tsx",
+      "rawBytes": 3198,
+      "gzipBytes": 1156
+    },
+    {
+      "name": "Snackbar",
+      "kind": "composite",
+      "file": "ds/composites/Snackbar/Snackbar.tsx",
+      "rawBytes": 2852,
+      "gzipBytes": 1155
+    },
+    {
+      "name": "LoadingScreen",
+      "kind": "composite",
+      "file": "ds/composites/LoadingScreen/LoadingScreen.tsx",
+      "rawBytes": 2916,
+      "gzipBytes": 1131
+    },
+    {
+      "name": "QuantitySelector",
+      "kind": "composite",
+      "file": "ds/composites/QuantitySelector/QuantitySelector.tsx",
+      "rawBytes": 3189,
+      "gzipBytes": 1127
+    },
+    {
+      "name": "PasswordStrength",
+      "kind": "composite",
+      "file": "ds/composites/PasswordStrength/PasswordStrength.tsx",
+      "rawBytes": 2889,
+      "gzipBytes": 1126
+    },
+    {
+      "name": "SettingsLayout",
+      "kind": "pattern",
+      "file": "ds/patterns/SettingsLayout/SettingsLayout.tsx",
+      "rawBytes": 3093,
+      "gzipBytes": 1125
     },
     {
       "name": "Confetti",
@@ -526,6 +897,13 @@
       "file": "ds/composites/FloatingActionButton/FloatingActionButton.tsx",
       "rawBytes": 3122,
       "gzipBytes": 1109
+    },
+    {
+      "name": "CartItem",
+      "kind": "composite",
+      "file": "ds/composites/CartItem/CartItem.tsx",
+      "rawBytes": 3477,
+      "gzipBytes": 1107
     },
     {
       "name": "CopyBlock",
@@ -563,11 +941,53 @@
       "gzipBytes": 1094
     },
     {
+      "name": "Countdown",
+      "kind": "composite",
+      "file": "ds/composites/Countdown/Countdown.tsx",
+      "rawBytes": 3026,
+      "gzipBytes": 1089
+    },
+    {
+      "name": "AnnouncementBar",
+      "kind": "composite",
+      "file": "ds/composites/AnnouncementBar/AnnouncementBar.tsx",
+      "rawBytes": 2710,
+      "gzipBytes": 1084
+    },
+    {
+      "name": "PhotoFilters",
+      "kind": "composite",
+      "file": "ds/composites/PhotoFilters/PhotoFilters.tsx",
+      "rawBytes": 2526,
+      "gzipBytes": 1084
+    },
+    {
+      "name": "ProfileHeader",
+      "kind": "composite",
+      "file": "ds/composites/ProfileHeader/ProfileHeader.tsx",
+      "rawBytes": 3410,
+      "gzipBytes": 1082
+    },
+    {
       "name": "Spotlight",
       "kind": "composite",
       "file": "ds/composites/Spotlight/Spotlight.tsx",
       "rawBytes": 3148,
       "gzipBytes": 1078
+    },
+    {
+      "name": "YearPicker",
+      "kind": "composite",
+      "file": "ds/composites/YearPicker/YearPicker.tsx",
+      "rawBytes": 3038,
+      "gzipBytes": 1070
+    },
+    {
+      "name": "CTASection",
+      "kind": "composite",
+      "file": "ds/composites/CTASection/CTASection.tsx",
+      "rawBytes": 3386,
+      "gzipBytes": 1064
     },
     {
       "name": "InlineEdit",
@@ -584,6 +1004,13 @@
       "gzipBytes": 1059
     },
     {
+      "name": "CheckboxCardGroup",
+      "kind": "composite",
+      "file": "ds/composites/CheckboxCardGroup/CheckboxCardGroup.tsx",
+      "rawBytes": 2802,
+      "gzipBytes": 1057
+    },
+    {
       "name": "SegmentedControl",
       "kind": "composite",
       "file": "ds/composites/SegmentedControl/SegmentedControl.tsx",
@@ -595,6 +1022,13 @@
       "kind": "composite",
       "file": "ds/composites/GaugeChart/GaugeChart.tsx",
       "rawBytes": 2545,
+      "gzipBytes": 1045
+    },
+    {
+      "name": "ReadingProgress",
+      "kind": "composite",
+      "file": "ds/composites/ReadingProgress/ReadingProgress.tsx",
+      "rawBytes": 3336,
       "gzipBytes": 1045
     },
     {
@@ -610,6 +1044,13 @@
       "file": "ds/composites/Tabs/Tabs.tsx",
       "rawBytes": 4080,
       "gzipBytes": 1034
+    },
+    {
+      "name": "AnnotationNote",
+      "kind": "composite",
+      "file": "ds/composites/AnnotationNote/AnnotationNote.tsx",
+      "rawBytes": 2708,
+      "gzipBytes": 1030
     },
     {
       "name": "CopyButton",
@@ -633,6 +1074,13 @@
       "gzipBytes": 1023
     },
     {
+      "name": "PageHeader",
+      "kind": "composite",
+      "file": "ds/composites/PageHeader/PageHeader.tsx",
+      "rawBytes": 2845,
+      "gzipBytes": 1020
+    },
+    {
       "name": "ScrollSpy",
       "kind": "composite",
       "file": "ds/composites/ScrollSpy/ScrollSpy.tsx",
@@ -654,11 +1102,46 @@
       "gzipBytes": 1007
     },
     {
+      "name": "AuthLayout",
+      "kind": "pattern",
+      "file": "ds/patterns/AuthLayout/AuthLayout.tsx",
+      "rawBytes": 3127,
+      "gzipBytes": 1003
+    },
+    {
+      "name": "FeatureGrid",
+      "kind": "pattern",
+      "file": "ds/patterns/FeatureGrid/FeatureGrid.tsx",
+      "rawBytes": 2739,
+      "gzipBytes": 997
+    },
+    {
       "name": "Textarea",
       "kind": "primitive",
       "file": "ds/primitives/Textarea/Textarea.tsx",
       "rawBytes": 2292,
       "gzipBytes": 995
+    },
+    {
+      "name": "LogoCloud",
+      "kind": "composite",
+      "file": "ds/composites/LogoCloud/LogoCloud.tsx",
+      "rawBytes": 2346,
+      "gzipBytes": 995
+    },
+    {
+      "name": "ReadingGoal",
+      "kind": "composite",
+      "file": "ds/composites/ReadingGoal/ReadingGoal.tsx",
+      "rawBytes": 2799,
+      "gzipBytes": 992
+    },
+    {
+      "name": "LikeButton",
+      "kind": "primitive",
+      "file": "ds/primitives/LikeButton/LikeButton.tsx",
+      "rawBytes": 2246,
+      "gzipBytes": 991
     },
     {
       "name": "JSONViewer",
@@ -696,6 +1179,13 @@
       "gzipBytes": 971
     },
     {
+      "name": "TextareaAutosize",
+      "kind": "composite",
+      "file": "ds/composites/TextareaAutosize/TextareaAutosize.tsx",
+      "rawBytes": 2356,
+      "gzipBytes": 968
+    },
+    {
       "name": "Globe",
       "kind": "composite",
       "file": "ds/composites/Globe/Globe.tsx",
@@ -717,11 +1207,18 @@
       "gzipBytes": 964
     },
     {
-      "name": "CodeEditor",
+      "name": "OnlineStatus",
       "kind": "composite",
-      "file": "ds/composites/CodeEditor/CodeEditor.tsx",
-      "rawBytes": 2259,
-      "gzipBytes": 946
+      "file": "ds/composites/OnlineStatus/OnlineStatus.tsx",
+      "rawBytes": 2169,
+      "gzipBytes": 957
+    },
+    {
+      "name": "RadioCardGroup",
+      "kind": "composite",
+      "file": "ds/composites/RadioCardGroup/RadioCardGroup.tsx",
+      "rawBytes": 2521,
+      "gzipBytes": 947
     },
     {
       "name": "SecurityBadge",
@@ -752,6 +1249,27 @@
       "gzipBytes": 930
     },
     {
+      "name": "PhotoCard",
+      "kind": "composite",
+      "file": "ds/composites/PhotoCard/PhotoCard.tsx",
+      "rawBytes": 2295,
+      "gzipBytes": 929
+    },
+    {
+      "name": "ThinkingIndicator",
+      "kind": "composite",
+      "file": "ds/composites/ThinkingIndicator/ThinkingIndicator.tsx",
+      "rawBytes": 3082,
+      "gzipBytes": 927
+    },
+    {
+      "name": "StoryCircle",
+      "kind": "composite",
+      "file": "ds/composites/StoryCircle/StoryCircle.tsx",
+      "rawBytes": 2128,
+      "gzipBytes": 923
+    },
+    {
       "name": "PullToRefresh",
       "kind": "composite",
       "file": "ds/composites/PullToRefresh/PullToRefresh.tsx",
@@ -764,6 +1282,13 @@
       "file": "ds/primitives/BackTop/BackTop.tsx",
       "rawBytes": 1958,
       "gzipBytes": 913
+    },
+    {
+      "name": "Image",
+      "kind": "primitive",
+      "file": "ds/primitives/Image/Image.tsx",
+      "rawBytes": 2398,
+      "gzipBytes": 910
     },
     {
       "name": "TreemapChart",
@@ -787,6 +1312,27 @@
       "gzipBytes": 896
     },
     {
+      "name": "ExifPanel",
+      "kind": "composite",
+      "file": "ds/composites/ExifPanel/ExifPanel.tsx",
+      "rawBytes": 2145,
+      "gzipBytes": 895
+    },
+    {
+      "name": "OfflineIndicator",
+      "kind": "composite",
+      "file": "ds/composites/OfflineIndicator/OfflineIndicator.tsx",
+      "rawBytes": 2108,
+      "gzipBytes": 894
+    },
+    {
+      "name": "PriceDisplay",
+      "kind": "composite",
+      "file": "ds/composites/PriceDisplay/PriceDisplay.tsx",
+      "rawBytes": 2322,
+      "gzipBytes": 889
+    },
+    {
       "name": "Watermark",
       "kind": "composite",
       "file": "ds/composites/Watermark/Watermark.tsx",
@@ -794,11 +1340,32 @@
       "gzipBytes": 883
     },
     {
+      "name": "Marquee",
+      "kind": "primitive",
+      "file": "ds/primitives/Marquee/Marquee.tsx",
+      "rawBytes": 2130,
+      "gzipBytes": 879
+    },
+    {
+      "name": "BookCover",
+      "kind": "composite",
+      "file": "ds/composites/BookCover/BookCover.tsx",
+      "rawBytes": 1909,
+      "gzipBytes": 879
+    },
+    {
       "name": "Input",
       "kind": "primitive",
       "file": "ds/primitives/Input/Input.tsx",
       "rawBytes": 2708,
       "gzipBytes": 875
+    },
+    {
+      "name": "ReadingStats",
+      "kind": "composite",
+      "file": "ds/composites/ReadingStats/ReadingStats.tsx",
+      "rawBytes": 3374,
+      "gzipBytes": 873
     },
     {
       "name": "Popover",
@@ -857,6 +1424,20 @@
       "gzipBytes": 842
     },
     {
+      "name": "FollowButton",
+      "kind": "primitive",
+      "file": "ds/primitives/FollowButton/FollowButton.tsx",
+      "rawBytes": 1956,
+      "gzipBytes": 840
+    },
+    {
+      "name": "Link",
+      "kind": "primitive",
+      "file": "ds/primitives/Link/Link.tsx",
+      "rawBytes": 1922,
+      "gzipBytes": 838
+    },
+    {
       "name": "Tooltip",
       "kind": "composite",
       "file": "ds/composites/Tooltip/Tooltip.tsx",
@@ -876,13 +1457,6 @@
       "file": "ds/composites/AnimatedCounter/AnimatedCounter.tsx",
       "rawBytes": 1976,
       "gzipBytes": 826
-    },
-    {
-      "name": "Switch",
-      "kind": "primitive",
-      "file": "ds/primitives/Switch/Switch.tsx",
-      "rawBytes": 2006,
-      "gzipBytes": 823
     },
     {
       "name": "ComparisonGrid",
@@ -941,10 +1515,24 @@
       "gzipBytes": 795
     },
     {
+      "name": "EmojiReaction",
+      "kind": "composite",
+      "file": "ds/composites/EmojiReaction/EmojiReaction.tsx",
+      "rawBytes": 2061,
+      "gzipBytes": 792
+    },
+    {
       "name": "Banner",
       "kind": "composite",
       "file": "ds/composites/Banner/Banner.tsx",
       "rawBytes": 1690,
+      "gzipBytes": 783
+    },
+    {
+      "name": "ImageWithFallback",
+      "kind": "composite",
+      "file": "ds/composites/ImageWithFallback/ImageWithFallback.tsx",
+      "rawBytes": 1821,
       "gzipBytes": 783
     },
     {
@@ -976,6 +1564,13 @@
       "gzipBytes": 759
     },
     {
+      "name": "Motion",
+      "kind": "primitive",
+      "file": "ds/primitives/Motion/Motion.tsx",
+      "rawBytes": 1943,
+      "gzipBytes": 758
+    },
+    {
       "name": "ActionBar",
       "kind": "pattern",
       "file": "ds/patterns/ActionBar/ActionBar.tsx",
@@ -988,6 +1583,13 @@
       "file": "ds/primitives/Checkbox/Checkbox.tsx",
       "rawBytes": 1770,
       "gzipBytes": 753
+    },
+    {
+      "name": "BookmarkButton",
+      "kind": "primitive",
+      "file": "ds/primitives/BookmarkButton/BookmarkButton.tsx",
+      "rawBytes": 1639,
+      "gzipBytes": 752
     },
     {
       "name": "DateInput",
@@ -1025,6 +1627,13 @@
       "gzipBytes": 730
     },
     {
+      "name": "Stat",
+      "kind": "composite",
+      "file": "ds/composites/Stat/Stat.tsx",
+      "rawBytes": 1757,
+      "gzipBytes": 722
+    },
+    {
       "name": "StatCard",
       "kind": "composite",
       "file": "ds/composites/StatCard/StatCard.tsx",
@@ -1051,6 +1660,13 @@
       "file": "ds/composites/FilterButtonGroup/FilterButtonGroup.tsx",
       "rawBytes": 1593,
       "gzipBytes": 700
+    },
+    {
+      "name": "Highlight",
+      "kind": "primitive",
+      "file": "ds/primitives/Highlight/Highlight.tsx",
+      "rawBytes": 1423,
+      "gzipBytes": 690
     },
     {
       "name": "HoverCard",
@@ -1102,6 +1718,27 @@
       "gzipBytes": 663
     },
     {
+      "name": "Hashtag",
+      "kind": "primitive",
+      "file": "ds/primitives/Hashtag/Hashtag.tsx",
+      "rawBytes": 1380,
+      "gzipBytes": 648
+    },
+    {
+      "name": "BookShelf",
+      "kind": "composite",
+      "file": "ds/composites/BookShelf/BookShelf.tsx",
+      "rawBytes": 1337,
+      "gzipBytes": 643
+    },
+    {
+      "name": "KeyCap",
+      "kind": "primitive",
+      "file": "ds/primitives/KeyCap/KeyCap.tsx",
+      "rawBytes": 1233,
+      "gzipBytes": 627
+    },
+    {
       "name": "Spinner",
       "kind": "primitive",
       "file": "ds/primitives/Spinner/Spinner.tsx",
@@ -1137,6 +1774,13 @@
       "gzipBytes": 612
     },
     {
+      "name": "Mark",
+      "kind": "primitive",
+      "file": "ds/primitives/Mark/Mark.tsx",
+      "rawBytes": 1489,
+      "gzipBytes": 595
+    },
+    {
       "name": "AutoHideHeader",
       "kind": "composite",
       "file": "ds/composites/AutoHideHeader/AutoHideHeader.tsx",
@@ -1165,6 +1809,27 @@
       "gzipBytes": 568
     },
     {
+      "name": "Icon",
+      "kind": "primitive",
+      "file": "ds/primitives/Icon/Icon.tsx",
+      "rawBytes": 1097,
+      "gzipBytes": 567
+    },
+    {
+      "name": "PhotoGrid",
+      "kind": "composite",
+      "file": "ds/composites/PhotoGrid/PhotoGrid.tsx",
+      "rawBytes": 1529,
+      "gzipBytes": 566
+    },
+    {
+      "name": "Code",
+      "kind": "primitive",
+      "file": "ds/primitives/Code/Code.tsx",
+      "rawBytes": 1153,
+      "gzipBytes": 546
+    },
+    {
       "name": "BentoGrid",
       "kind": "composite",
       "file": "ds/composites/BentoGrid/BentoGrid.tsx",
@@ -1179,11 +1844,32 @@
       "gzipBytes": 535
     },
     {
+      "name": "MentionChip",
+      "kind": "primitive",
+      "file": "ds/primitives/MentionChip/MentionChip.tsx",
+      "rawBytes": 1040,
+      "gzipBytes": 528
+    },
+    {
+      "name": "Hint",
+      "kind": "composite",
+      "file": "ds/composites/Hint/Hint.tsx",
+      "rawBytes": 1057,
+      "gzipBytes": 519
+    },
+    {
       "name": "Form",
       "kind": "pattern",
       "file": "ds/patterns/Form/Form.tsx",
       "rawBytes": 1053,
       "gzipBytes": 513
+    },
+    {
+      "name": "Blockquote",
+      "kind": "composite",
+      "file": "ds/composites/Blockquote/Blockquote.tsx",
+      "rawBytes": 1111,
+      "gzipBytes": 511
     },
     {
       "name": "Divider",
@@ -1266,25 +1952,25 @@
   "totals": {
     "byKind": {
       "pattern": {
-        "rawBytes": 259356,
-        "gzipBytes": 66356,
-        "count": 24
+        "rawBytes": 399623,
+        "gzipBytes": 109744,
+        "count": 41
       },
       "composite": {
-        "rawBytes": 397813,
-        "gzipBytes": 136938,
-        "count": 117
+        "rawBytes": 649055,
+        "gzipBytes": 228843,
+        "count": 184
       },
       "primitive": {
-        "rawBytes": 87504,
-        "gzipBytes": 34501,
-        "count": 38
+        "rawBytes": 124567,
+        "gzipBytes": 49877,
+        "count": 52
       }
     },
     "all": {
-      "rawBytes": 744673,
-      "gzipBytes": 237795,
-      "count": 179
+      "rawBytes": 1173245,
+      "gzipBytes": 388464,
+      "count": 277
     }
   }
 }

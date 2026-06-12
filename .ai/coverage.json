@@ -1,55 +1,13 @@
 {
-  "generatedAt": "2026-04-29T08:23:54.234Z",
+  "generatedAt": "2026-05-04T09:16:20.796Z",
   "total": {
-    "lines": 42.5,
-    "statements": 39.12,
-    "functions": 33.95,
-    "branches": 33.39
+    "lines": 53.28,
+    "statements": 49.18,
+    "functions": 41.74,
+    "branches": 41.8
   },
-  "fileCount": 251,
+  "fileCount": 361,
   "lowestCovered": [
-    {
-      "file": "ds/auth/JunDSProvider.tsx",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 0
-    },
-    {
-      "file": "ds/auth/crypto.ts",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 100
-    },
-    {
-      "file": "ds/auth/domain-lock.ts",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 0
-    },
-    {
-      "file": "ds/auth/integrity.ts",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 0
-    },
-    {
-      "file": "ds/auth/license-validator.ts",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 0
-    },
-    {
-      "file": "ds/auth/withLicense.tsx",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 0
-    },
     {
       "file": "ds/core/Center.tsx",
       "lines": 0,
@@ -65,14 +23,56 @@
       "branches": 0
     },
     {
-      "file": "ds/core/Flex.tsx",
+      "file": "ds/core/GridLayout.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 0
     },
     {
-      "file": "ds/core/GridLayout.tsx",
+      "file": "ds/core/Group.tsx",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/core/HStack.tsx",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/core/JunDSProvider.tsx",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/core/Section.tsx",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/core/VStack.tsx",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/hooks/useBreakpoint.ts",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/hooks/useClipboard.ts",
       "lines": 0,
       "statements": 0,
       "functions": 0,

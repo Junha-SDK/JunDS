@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "../../utils/cn";
+import { useT } from "../../providers/I18nProvider";
 
 export interface DatePreset {
   key: string;
@@ -99,6 +100,7 @@ export function DateRangeFilter({
   presets = defaultPresets,
   className,
 }: DateRangeFilterProps) {
+  const t = useT();
   const activePresetKey = presets.find((p) => {
     const range = p.getRange();
     return formatDate(range.start) === startDate && formatDate(range.end) === endDate;
@@ -117,6 +119,7 @@ export function DateRangeFilter({
           type="date"
           value={startDate}
           onChange={(e) => onStartChange(e.target.value)}
+          aria-label={t("ariaDateStart")}
           className={cn(
             "h-9 px-3 text-sm border border-border bg-white rounded-lg transition-all duration-150",
             "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
@@ -127,6 +130,7 @@ export function DateRangeFilter({
           type="date"
           value={endDate}
           onChange={(e) => onEndChange(e.target.value)}
+          aria-label={t("ariaDateEnd")}
           className={cn(
             "h-9 px-3 text-sm border border-border bg-white rounded-lg transition-all duration-150",
             "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",

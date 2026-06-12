@@ -166,7 +166,8 @@ function McpHint({ name }: { name: string }) {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         className={cn(
-          "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-medium transition-colors cursor-pointer",
+          "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-medium cursor-pointer",
+          "transition-all duration-200 active:scale-95",
           "bg-primary/5 border border-primary/15 text-primary hover:bg-primary/10 hover:border-primary/30",
         )}
       >
@@ -177,63 +178,90 @@ function McpHint({ name }: { name: string }) {
           height="10"
           viewBox="0 0 12 12"
           fill="none"
-          className={cn("transition-transform", open ? "rotate-180" : undefined)}
+          className={cn("transition-transform duration-200", open ? "rotate-180" : undefined)}
           aria-hidden
         >
           <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
-      {open && (
-        <Box mt={2} radius="xl" border p={4} className="bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
-          <Text fontSize="xs" dimmed mb={3} lineHeight="relaxed">
-            Cursor / Claude Code에서 다음 도구를 호출하면 hallucination 없이 정확한 정보를 받을 수 있습니다.
-          </Text>
-          <VStack gap={1.5} align="stretch">
-            {lines.map((l) => {
-              const call = `${l.tool}(${l.arg})`;
-              const isCopied = copied === call;
-              return (
-                <Flex key={l.tool} align="center" gap={2} className="bg-white border border-border rounded-lg px-3 py-2">
-                  <Box as="code" fontSize="xs" className="font-mono text-foreground flex-1 truncate">
-                    <span className="text-primary">{l.tool}</span>
-                    <span className="text-muted">(</span>
-                    <span className="text-emerald-600">{l.arg}</span>
-                    <span className="text-muted">)</span>
-                  </Box>
-                  <Text as="span" fontSize="2xs" dimmed mb={0} className="hidden sm:inline">
-                    {l.desc}
-                  </Text>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(call)}
-                    aria-label={isCopied ? "복사됨" : "도구 호출 복사"}
-                    className={cn(
-                      "shrink-0 p-1 rounded-md transition-colors cursor-pointer",
-                      isCopied ? "text-success" : "text-muted hover:text-primary hover:bg-primary/5",
-                    )}
+      <div className="smooth-expand" data-open={open}>
+        <div className="smooth-expand__inner">
+          <Box mt={2} radius="xl" border p={4} className="bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
+            <Text fontSize="xs" dimmed mb={3} lineHeight="relaxed">
+              Cursor / Claude Code에서 다음 도구를 호출하면 hallucination 없이 정확한 정보를 받을 수 있습니다.
+            </Text>
+            <VStack gap={1.5} align="stretch">
+              {lines.map((l) => {
+                const call = `${l.tool}(${l.arg})`;
+                const isCopied = copied === call;
+                return (
+                  <Flex
+                    key={l.tool}
+                    align="center"
+                    gap={2}
+                    className="bg-white border border-border rounded-lg px-3 py-2 transition-colors duration-200 hover:border-primary/30"
                   >
-                    {isCopied ? (
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                        <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    ) : (
-                      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
-                        <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-                        <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
-                      </svg>
-                    )}
-                  </button>
-                </Flex>
-              );
-            })}
-          </VStack>
-          <Text fontSize="2xs" dimmed mt={3} mb={0} lineHeight="relaxed">
-            <Box as="code" className="px-1 py-0.5 rounded bg-white border border-border font-mono text-[10px]">.mcp.json</Box>
-            은 저장소 루트에 이미 포함되어 있습니다 — AI 에디터로 프로젝트를 열면 자동 연결.
-          </Text>
-        </Box>
-      )}
+                    <Box as="code" fontSize="xs" className="font-mono text-foreground flex-1 truncate">
+                      <span className="text-primary">{l.tool}</span>
+                      <span className="text-muted">(</span>
+                      <span className="text-emerald-600">{l.arg}</span>
+                      <span className="text-muted">)</span>
+                    </Box>
+                    <Text as="span" fontSize="2xs" dimmed mb={0} className="hidden sm:inline">
+                      {l.desc}
+                    </Text>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(call)}
+                      aria-label={isCopied ? "복사됨" : "도구 호출 복사"}
+                      className={cn(
+                        "shrink-0 p-1 rounded-md cursor-pointer",
+                        "transition-all duration-200 active:scale-90",
+                        isCopied ? "text-success" : "text-muted hover:text-primary hover:bg-primary/5",
+                      )}
+                    >
+                      <span className="relative inline-flex w-3 h-3">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          aria-hidden
+                          className={cn(
+                            "absolute inset-0 transition-all duration-200",
+                            isCopied ? "opacity-100 scale-100" : "opacity-0 scale-50",
+                          )}
+                        >
+                          <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                          aria-hidden
+                          className={cn(
+                            "absolute inset-0 transition-all duration-200",
+                            isCopied ? "opacity-0 scale-50" : "opacity-100 scale-100",
+                          )}
+                        >
+                          <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                          <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+                        </svg>
+                      </span>
+                    </button>
+                  </Flex>
+                );
+              })}
+            </VStack>
+            <Text fontSize="2xs" dimmed mt={3} mb={0} lineHeight="relaxed">
+              <Box as="code" className="px-1 py-0.5 rounded bg-white border border-border font-mono text-[10px]">.mcp.json</Box>
+              은 저장소 루트에 이미 포함되어 있습니다 — AI 에디터로 프로젝트를 열면 자동 연결.
+            </Text>
+          </Box>
+        </div>
+      </div>
     </Box>
   );
 }
@@ -408,28 +436,43 @@ export function CodeExample({ code, language = "tsx" }: { code: string; language
           onClick={handleCopy}
           aria-label={copied ? "코드가 복사되었습니다" : "코드 복사"}
           className={cn(
-            "flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium transition-colors cursor-pointer",
+            "flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium cursor-pointer",
+            "transition-all duration-200 active:scale-95",
             copied
               ? "bg-success/10 text-success"
               : "text-muted hover:text-primary hover:bg-gray-100",
           )}
         >
-          {copied ? (
-            <>
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span>복사됨</span>
-            </>
-          ) : (
-            <>
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-                <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
-              </svg>
-              <span>복사</span>
-            </>
-          )}
+          <span className="relative inline-flex w-3 h-3">
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              aria-hidden
+              className={cn(
+                "absolute inset-0 transition-all duration-200",
+                copied ? "opacity-100 scale-100" : "opacity-0 scale-50",
+              )}
+            >
+              <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden
+              className={cn(
+                "absolute inset-0 transition-all duration-200",
+                copied ? "opacity-0 scale-50" : "opacity-100 scale-100",
+              )}
+            >
+              <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+              <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+            </svg>
+          </span>
+          <span>{copied ? "복사됨" : "복사"}</span>
         </button>
       </Flex>
       <pre className="p-4 text-xs leading-relaxed overflow-x-auto bg-gray-950 text-gray-100">
@@ -492,28 +535,43 @@ export function VariantItem({
             onClick={handleCopy}
             aria-label={copied ? "코드가 복사되었습니다" : "이 변형의 코드 복사"}
             className={cn(
-              "shrink-0 flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-colors cursor-pointer border",
+              "shrink-0 flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium cursor-pointer border",
+              "transition-all duration-200 active:scale-95",
               copied
                 ? "bg-success/10 text-success border-success/20"
                 : "bg-white text-muted border-border hover:text-primary hover:border-primary/30",
             )}
           >
-            {copied ? (
-              <>
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
-                  <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span>복사됨</span>
-              </>
-            ) : (
-              <>
-                <svg width="11" height="11" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-                  <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
-                </svg>
-                <span>코드</span>
-              </>
-            )}
+            <span className="relative inline-flex w-[11px] h-[11px]">
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 12 12"
+                fill="none"
+                aria-hidden
+                className={cn(
+                  "absolute inset-0 transition-all duration-200",
+                  copied ? "opacity-100 scale-100" : "opacity-0 scale-50",
+                )}
+              >
+                <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden
+                className={cn(
+                  "absolute inset-0 transition-all duration-200",
+                  copied ? "opacity-0 scale-50" : "opacity-100 scale-100",
+                )}
+              >
+                <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+              </svg>
+            </span>
+            <span>{copied ? "복사됨" : "코드"}</span>
           </button>
         )}
       </Flex>
@@ -562,10 +620,20 @@ export function DecisionMatrix({
           </thead>
           <tbody>
             {rows.map((row, i) => (
-              <tr key={row.name} className={cn("border-b border-border last:border-0", i % 2 === 1 ? "bg-gray-50/30" : "bg-white")}>
+              <tr
+                key={row.name}
+                className={cn(
+                  "border-b border-border last:border-0 transition-colors duration-200",
+                  i % 2 === 1 ? "bg-gray-50/30" : "bg-white",
+                  "hover:bg-primary/5",
+                )}
+              >
                 <td className="px-4 py-3 align-top">
                   {row.href ? (
-                    <a href={row.href} className="font-mono text-[12px] font-semibold text-primary hover:underline">
+                    <a
+                      href={row.href}
+                      className="font-mono text-[12px] font-semibold text-primary transition-colors duration-200 hover:underline"
+                    >
                       {row.name}
                     </a>
                   ) : (

@@ -96,3 +96,6 @@ JunDS 는 상용 라이브러리이므로 호스트 앱이 유효한 라이선�
 ## Changelog
 
 - 2026-04-29 — created.
+- 2026-04-30 — auth 서브시스템 단위 테스트 추가 (54 tests). 커버리지 0% →
+  88.58% lines / 80.34% branches. crypto / domain-lock / license-validator /
+  integrity / withLicense / JunDSProvider 6개 모듈 모두 커버.

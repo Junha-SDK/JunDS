@@ -40,51 +40,51 @@ export default function BadgePage() {
     >
       {/* ── 개요 ── */}
       <Section title="개요" description="Badge는 짧은 텍스트로 상태, 카테고리, 숫자 등의 정보를 시각적으로 전달합니다.">
-        <Preview>
+        <Preview
+          sourceCode={`<Badge variant="primary">Primary</Badge>
+<Badge variant="success">Success</Badge>
+<Badge variant="danger">Danger</Badge>
+<Badge variant="outline">Outline</Badge>`}
+        >
           <div className="flex items-center gap-2 flex-wrap">
             {allVariants.map((v) => (
               <Badge key={v} variant={v}>{v}</Badge>
             ))}
           </div>
         </Preview>
-        <CodeExample
-          code={`<Badge variant="primary">Primary</Badge>
-<Badge variant="success">Success</Badge>
-<Badge variant="danger">Danger</Badge>
-<Badge variant="outline">Outline</Badge>`}
-        />
       </Section>
 
       {/* ── 변형 ── */}
       <Section title="변형 (Variants)" description="7가지 색상 변형을 제공합니다. 정보의 성격에 맞는 변형을 선택하세요.">
         <VariantGrid cols={3}>
-          <VariantItem label="Default" description="일반적인 라벨 표시에 사용">
-            <Badge variant="default">Default</Badge>
-          </VariantItem>
-          <VariantItem label="Primary" description="주요 정보, 브랜드 강조에 사용">
-            <Badge variant="primary">Primary</Badge>
-          </VariantItem>
-          <VariantItem label="Success" description="성공, 완료, 활성 상태 표시">
-            <Badge variant="success">Success</Badge>
-          </VariantItem>
-          <VariantItem label="Warning" description="주의가 필요한 상태 표시">
-            <Badge variant="warning">Warning</Badge>
-          </VariantItem>
-          <VariantItem label="Danger" description="에러, 삭제, 위험 상태 표시">
-            <Badge variant="danger">Danger</Badge>
-          </VariantItem>
-          <VariantItem label="Info" description="참고 정보, 부가 설명 표시">
-            <Badge variant="info">Info</Badge>
-          </VariantItem>
-          <VariantItem label="Outline" description="배경 없이 테두리만 사용하는 미니멀한 스타일">
-            <Badge variant="outline">Outline</Badge>
-          </VariantItem>
+          {allVariants.map((v) => (
+            <VariantItem
+              key={v}
+              label={v.charAt(0).toUpperCase() + v.slice(1)}
+              description={
+                v === "default" ? "일반적인 라벨 표시에 사용"
+                : v === "primary" ? "주요 정보, 브랜드 강조에 사용"
+                : v === "success" ? "성공, 완료, 활성 상태 표시"
+                : v === "warning" ? "주의가 필요한 상태 표시"
+                : v === "danger" ? "에러, 삭제, 위험 상태 표시"
+                : v === "info" ? "참고 정보, 부가 설명 표시"
+                : "배경 없이 테두리만 사용하는 미니멀한 스타일"
+              }
+              sourceCode={`<Badge variant="${v}">${v.charAt(0).toUpperCase() + v.slice(1)}</Badge>`}
+            >
+              <Badge variant={v}>{v.charAt(0).toUpperCase() + v.slice(1)}</Badge>
+            </VariantItem>
+          ))}
         </VariantGrid>
       </Section>
 
       {/* ── 크기 ── */}
       <Section title="크기 (Sizes)" description="sm, md, lg 세 가지 크기를 지원합니다. 주변 텍스트와 조화를 이루도록 적절한 크기를 선택하세요.">
-        <Preview>
+        <Preview
+          sourceCode={`<Badge size="sm" variant="primary">Small</Badge>
+<Badge size="md" variant="primary">Medium</Badge>
+<Badge size="lg" variant="primary">Large</Badge>`}
+        >
           <div className="flex items-center gap-3">
             <Badge size="sm" variant="primary">Small</Badge>
             <Badge size="md" variant="primary">Medium</Badge>
@@ -98,23 +98,27 @@ export default function BadgePage() {
 
       {/* ── Dot 인디케이터 ── */}
       <Section title="Dot 인디케이터" description="dot 속성을 추가하면 라벨 앞에 현재 상태를 나타내는 컬러 점이 표시됩니다. 실시간 상태 표시에 유용합니다.">
-        <Preview>
+        <Preview
+          sourceCode={`<Badge variant="success" dot>온라인</Badge>
+<Badge variant="danger" dot>오프라인</Badge>
+<Badge variant="warning" dot>자리 비움</Badge>`}
+        >
           <div className="flex items-center gap-2 flex-wrap">
             {allVariants.map((v) => (
               <Badge key={v} variant={v} dot>{v}</Badge>
             ))}
           </div>
         </Preview>
-        <CodeExample
-          code={`<Badge variant="success" dot>온라인</Badge>
-<Badge variant="danger" dot>오프라인</Badge>
-<Badge variant="warning" dot>자리 비움</Badge>`}
-        />
       </Section>
 
       {/* ── 카운트 배지 ── */}
       <Section title="카운트 배지" description="count 속성을 사용하면 숫자를 표시하는 카운트 모드로 전환됩니다. 알림 수, 메시지 수 등에 활용합니다.">
-        <Preview>
+        <Preview
+          sourceCode={`<Badge count={5} />
+<Badge count={42} />
+<Badge count={150} maxCount={99} />  {/* "99+" 표시 */}
+<Badge count={999} maxCount={999} />`}
+        >
           <div className="flex items-center gap-4">
             <div className="flex flex-col items-center gap-1">
               <Badge count={5} />

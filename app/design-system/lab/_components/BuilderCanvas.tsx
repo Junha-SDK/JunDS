@@ -1,40 +1,16 @@
 "use client";
 
-import { type ReactNode, useCallback, useState } from "react";
+import { type ReactNode, useCallback, useMemo } from "react";
 import { cn } from "@/ds/utils/cn";
+import { Renderer, type PageDoc } from "@/ds/runtime";
 import { useLab } from "../_lib/store";
 import { componentDefMap } from "../_lib/registry";
+import { labRegistry } from "../_lib/render-registry";
 import type { PropValue, TreeNode } from "../_lib/types";
 
-// ── DS component imports ──────────────────────────────────────────────
-import { Button } from "@/ds/primitives/Button";
-import { Input } from "@/ds/primitives/Input";
-import { Textarea } from "@/ds/primitives/Textarea";
-import { Badge } from "@/ds/primitives/Badge";
-import { Avatar } from "@/ds/primitives/Avatar";
-import { Spinner } from "@/ds/primitives/Spinner";
-import { Divider } from "@/ds/primitives/Divider";
-import { Toggle } from "@/ds/primitives/Toggle";
-import { Checkbox } from "@/ds/primitives/Checkbox";
-import { Switch } from "@/ds/primitives/Switch";
-import { StarRating } from "@/ds/primitives/StarRating";
-import { Tag as DsTag } from "@/ds/primitives/Tag";
-import { Label } from "@/ds/primitives/Label";
-import { IconButton } from "@/ds/primitives/IconButton";
-import { Kbd } from "@/ds/primitives/Kbd";
-import { StatusDot } from "@/ds/primitives/StatusDot";
-import { Slider } from "@/ds/primitives/Slider";
 import { Card } from "@/ds/composites/Card";
 import { Alert } from "@/ds/composites/Alert";
-import { Skeleton } from "@/ds/composites/Skeleton";
-import { ProgressBar } from "@/ds/composites/Progress";
-import { EmptyState } from "@/ds/composites/EmptyState";
-import { StatCard } from "@/ds/composites/StatCard";
-import { SegmentedControl } from "@/ds/composites/SegmentedControl";
-import { Stepper } from "@/ds/composites/Stepper";
-import { Result } from "@/ds/composites/Result";
 
-// ── Layout tags ───────────────────────────────────────────────────────
 const LAYOUT_IDS = new Set([
   "div",
   "section",
@@ -45,7 +21,6 @@ const LAYOUT_IDS = new Set([
   "nav",
 ]);
 
-// ── Layout className generation ───────────────────────────────────────
 const padMap: Record<string, string> = {
   "4": "p-1",
   "8": "p-2",
@@ -92,185 +67,32 @@ function layoutClassName(props: Record<string, PropValue>): string {
   return cn(...classes.filter(Boolean));
 }
 
-// ── Leaf component renderer ───────────────────────────────────────────
-function renderLeaf(
-  node: TreeNode,
-  _def: NonNullable<ReturnType<typeof componentDefMap.get>>,
-): ReactNode {
-  const p = node.props;
-  const text = node.children ?? "";
-
-  switch (node.componentId) {
-    case "Button":
-      return (
-        <Button
-          variant={p.variant as any}
-          size={p.size as any}
-          disabled={!!p.disabled}
-          fullWidth={!!p.fullWidth}
-        >
-          {text || "Button"}
-        </Button>
-      );
-    case "Input":
-      return (
-        <Input
-          placeholder={(p.placeholder as string) || "입력..."}
-          size={p.size as any}
-          disabled={!!p.disabled}
-          readOnly
-        />
-      );
-    case "Textarea":
-      return (
-        <Textarea
-          placeholder={(p.placeholder as string) || "입력..."}
-          rows={(p.rows as number) || 3}
-          disabled={!!p.disabled}
-          readOnly
-        />
-      );
-    case "Label":
-      return <Label required={!!p.required}>{text || "Label"}</Label>;
-    case "Badge":
-      return (
-        <Badge variant={p.variant as any} size={p.size as any}>
-          {text || "Badge"}
-        </Badge>
-      );
-    case "Avatar":
-      return <Avatar size={p.size as any} />;
-    case "Spinner":
-      return <Spinner size={p.size as any} />;
-    case "Divider":
-      return <Divider />;
-    case "Tag":
-      return <DsTag color={p.color as any}>{text || "Tag"}</DsTag>;
-    case "Toggle":
-      return (
-        <Toggle
-          size={p.size as any}
-          label={(p.label as string) || undefined}
-          checked={false}
-          onChange={() => {}}
-        />
-      );
-    case "Checkbox":
-      return (
-        <Checkbox label={(p.label as string) || "체크박스"} />
-      );
-    case "Switch":
-      return (
-        <Switch
-          checked={false}
-          onChange={() => {}}
-          size={p.size as any}
-          label={(p.label as string) || undefined}
-        />
-      );
-    case "Slider":
-      return <Slider value={50} onChange={() => {}} />;
-    case "StarRating":
-      return (
-        <StarRating
-          value={(p.value as number) ?? 3}
-          max={(p.max as number) ?? 5}
-          size={p.size as any}
-          onChange={() => {}}
-        />
-      );
-    case "IconButton":
-      return (
-        <IconButton
-          icon={
-            <svg
-              className="w-4 h-4"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path d="M8 3v10M3 8h10" />
-            </svg>
-          }
-          variant={p.variant as any}
-          size={p.size as any}
-          label="아이콘 버튼"
-        />
-      );
-    case "Kbd":
-      return <Kbd>{text || "\u2318K"}</Kbd>;
-    case "StatusDot":
-      return <StatusDot status={p.status as any} />;
-    case "Skeleton":
-      return (
-        <Skeleton
-          width={(p.width as string) || "100%"}
-          height={(p.height as string) || "40px"}
-        />
-      );
-    case "ProgressBar":
-      return (
-        <ProgressBar
-          value={(p.value as number) ?? 60}
-          max={(p.max as number) ?? 100}
-          showLabel={!!p.showLabel}
-        />
-      );
-    case "StatCard":
-      return (
-        <StatCard
-          label={(p.title as string) || "통계"}
-          value={(p.value as string) || "1,234"}
-        />
-      );
-    case "EmptyState":
-      return (
-        <EmptyState title={(p.title as string) || "데이터 없음"} />
-      );
-    case "SegmentedControl":
-      return (
-        <SegmentedControl
-          options={[
-            { key: "1", label: "옵션 1" },
-            { key: "2", label: "옵션 2" },
-            { key: "3", label: "옵션 3" },
-          ]}
-          value="1"
-          onChange={() => {}}
-          size={p.size as any}
-          fullWidth={!!p.fullWidth}
-        />
-      );
-    case "Stepper":
-      return (
-        <Stepper
-          steps={[
-            { key: "1", title: "정보 입력" },
-            { key: "2", title: "확인" },
-            { key: "3", title: "완료" },
-          ]}
-          current={(p.current as number) ?? 0}
-          direction={p.direction as any}
-        />
-      );
-    case "Result":
-      return (
-        <Result
-          status={(p.status as any) ?? "success"}
-          title={(p.title as string) || "완료"}
-        />
-      );
-    default:
-      return (
-        <div className="px-3 py-2 border border-dashed border-border rounded text-xs text-muted">
-          {node.componentId}
-        </div>
-      );
+function leafToPageDoc(node: TreeNode): PageDoc {
+  const props: Record<string, string | number | boolean> = {};
+  for (const [key, value] of Object.entries(node.props)) {
+    if (
+      typeof value === "string" ||
+      typeof value === "number" ||
+      typeof value === "boolean"
+    ) {
+      props[key] = value;
+    }
   }
+  return {
+    schemaVersion: 1,
+    id: `lab_${node.id}`,
+    route: "/",
+    tree: [
+      {
+        id: node.id,
+        componentId: node.componentId,
+        ...(Object.keys(props).length > 0 ? { props } : {}),
+        ...(node.children ? { children: node.children } : {}),
+      },
+    ],
+  };
 }
 
-// ── Node toolbar ──────────────────────────────────────────────────────
 function NodeToolbar({
   node,
   onMoveUp,
@@ -344,7 +166,6 @@ function NodeToolbar({
   );
 }
 
-// ── Render a single node ──────────────────────────────────────────────
 function RenderNode({ nodeId }: { nodeId: string }) {
   const { state, dispatch } = useLab();
   const node = state.nodes[nodeId];
@@ -353,7 +174,7 @@ function RenderNode({ nodeId }: { nodeId: string }) {
   const handleSelect = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      dispatch({ type: "SELECT", nodeId: nodeId });
+      dispatch({ type: "SELECT", nodeId });
     },
     [dispatch, nodeId],
   );
@@ -361,7 +182,7 @@ function RenderNode({ nodeId }: { nodeId: string }) {
   const handleMouseEnter = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      dispatch({ type: "HOVER", nodeId: nodeId });
+      dispatch({ type: "HOVER", nodeId });
     },
     [dispatch, nodeId],
   );
@@ -387,21 +208,27 @@ function RenderNode({ nodeId }: { nodeId: string }) {
     const idx = siblings.indexOf(nodeId);
     if (idx < siblings.length - 1) dispatch({ type: "MOVE_NODE", nodeId, newParentId: parentId, index: idx + 1 });
   }, [dispatch, nodeId, parentId, state.nodes, state.rootIds]);
+
   const handleDuplicate = useCallback(
-    () => dispatch({ type: "DUPLICATE_NODE", nodeId: nodeId }),
+    () => dispatch({ type: "DUPLICATE_NODE", nodeId }),
     [dispatch, nodeId],
   );
   const handleDelete = useCallback(
-    () => dispatch({ type: "DELETE_NODE", nodeId: nodeId }),
+    () => dispatch({ type: "DELETE_NODE", nodeId }),
     [dispatch, nodeId],
   );
 
   const handleAddInside = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      dispatch({ type: "SELECT", nodeId: nodeId });
+      dispatch({ type: "SELECT", nodeId });
     },
     [dispatch, nodeId],
+  );
+
+  const leafDoc = useMemo(
+    () => (node ? leafToPageDoc(node) : null),
+    [node],
   );
 
   if (!node) return null;
@@ -409,17 +236,14 @@ function RenderNode({ nodeId }: { nodeId: string }) {
   const def = componentDefMap.get(node.componentId);
   const isSelected = state.selectedId === nodeId;
   const isHovered = state.hoveredId === nodeId;
-  const isContainer = def?.isContainer ?? false;
   const isLayout = LAYOUT_IDS.has(node.componentId);
 
-  // ── Wrapper classes ─────────────────────────────────────────────────
   const wrapperCls = cn(
     "relative group",
     isSelected && "ring-2 ring-primary rounded-sm",
     !isSelected && isHovered && "ring-1 ring-dashed ring-primary/30 rounded-sm",
   );
 
-  // ── Container content ───────────────────────────────────────────────
   function renderContainerContent(): ReactNode {
     if (node.childNodes.length === 0) {
       return (
@@ -456,7 +280,6 @@ function RenderNode({ nodeId }: { nodeId: string }) {
     );
   }
 
-  // ── Name badge ──────────────────────────────────────────────────────
   const nameBadge = (isSelected || isHovered) && (
     <span
       className={cn(
@@ -472,7 +295,6 @@ function RenderNode({ nodeId }: { nodeId: string }) {
     </span>
   );
 
-  // ── Render layout containers as HTML elements ───────────────────────
   if (isLayout) {
     const Tag = node.componentId as keyof React.JSX.IntrinsicElements;
     const lc = layoutClassName(node.props);
@@ -497,17 +319,13 @@ function RenderNode({ nodeId }: { nodeId: string }) {
           />
         )}
         {nameBadge}
-        <Tag
-          className={cn(lc, "min-h-[2rem]")}
-          style={bgStyle}
-        >
+        <Tag className={cn(lc, "min-h-[2rem]")} style={bgStyle}>
           {renderContainerContent()}
         </Tag>
       </div>
     );
   }
 
-  // ── Render Card as container ────────────────────────────────────────
   if (node.componentId === "Card") {
     return (
       <div
@@ -536,7 +354,6 @@ function RenderNode({ nodeId }: { nodeId: string }) {
     );
   }
 
-  // ── Render Alert as container ───────────────────────────────────────
   if (node.componentId === "Alert") {
     return (
       <div
@@ -555,7 +372,7 @@ function RenderNode({ nodeId }: { nodeId: string }) {
           />
         )}
         {nameBadge}
-        <Alert variant={node.props.variant as any}>
+        <Alert variant={node.props.variant as "info" | "success" | "warning" | "danger" | undefined}>
           {node.childNodes.length > 0 ? (
             node.childNodes.map((childId) => (
               <RenderNode key={childId} nodeId={childId} />
@@ -568,7 +385,6 @@ function RenderNode({ nodeId }: { nodeId: string }) {
     );
   }
 
-  // ── Render leaf components ──────────────────────────────────────────
   return (
     <div
       className={wrapperCls}
@@ -587,7 +403,9 @@ function RenderNode({ nodeId }: { nodeId: string }) {
       )}
       {nameBadge}
       <div className="pointer-events-none">
-        {def ? renderLeaf(node, def) : (
+        {leafDoc && labRegistry.has(node.componentId) ? (
+          <Renderer doc={leafDoc} registry={labRegistry} mode="design" />
+        ) : (
           <div className="px-3 py-2 border border-dashed border-border rounded text-xs text-muted">
             {node.componentId}
           </div>
@@ -597,7 +415,6 @@ function RenderNode({ nodeId }: { nodeId: string }) {
   );
 }
 
-// ── Main canvas ───────────────────────────────────────────────────────
 export function BuilderCanvas() {
   const { state, dispatch } = useLab();
 

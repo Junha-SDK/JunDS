@@ -1,0 +1,490 @@
+{
+  "generatedAt": "2026-05-07T08:28:44.287Z",
+  "summary": {
+    "hookWithoutUseClient": 0,
+    "browserGlobalAtTopLevel": 0,
+    "nextNavigationInServerFile": 0,
+    "unnecessaryUseClient": 158
+  },
+  "findings": {
+    "hookWithoutUseClient": [],
+    "browserGlobalAtTopLevel": [],
+    "nextNavigationInServerFile": [],
+    "unnecessaryUseClient": [
+      {
+        "file": "ds/primitives/AspectRatio/AspectRatio.tsx"
+      },
+      {
+        "file": "ds/primitives/Avatar/Avatar.tsx"
+      },
+      {
+        "file": "ds/primitives/Badge/Badge.tsx"
+      },
+      {
+        "file": "ds/primitives/BatteryIndicator/BatteryIndicator.tsx"
+      },
+      {
+        "file": "ds/primitives/BookmarkButton/BookmarkButton.tsx"
+      },
+      {
+        "file": "ds/primitives/Button/Button.tsx"
+      },
+      {
+        "file": "ds/primitives/Checkbox/Checkbox.tsx"
+      },
+      {
+        "file": "ds/primitives/Code/Code.tsx"
+      },
+      {
+        "file": "ds/primitives/Divider/Divider.tsx"
+      },
+      {
+        "file": "ds/primitives/ErrorBoundary/ErrorBoundary.tsx"
+      },
+      {
+        "file": "ds/primitives/Hashtag/Hashtag.tsx"
+      },
+      {
+        "file": "ds/primitives/Highlight/Highlight.tsx"
+      },
+      {
+        "file": "ds/primitives/Icon/Icon.tsx"
+      },
+      {
+        "file": "ds/primitives/IconButton/IconButton.tsx"
+      },
+      {
+        "file": "ds/primitives/Input/Input.tsx"
+      },
+      {
+        "file": "ds/primitives/Kbd/Kbd.tsx"
+      },
+      {
+        "file": "ds/primitives/KeyCap/KeyCap.tsx"
+      },
+      {
+        "file": "ds/primitives/Label/Label.tsx"
+      },
+      {
+        "file": "ds/primitives/LikeButton/LikeButton.tsx"
+      },
+      {
+        "file": "ds/primitives/Link/Link.tsx"
+      },
+      {
+        "file": "ds/primitives/Mark/Mark.tsx"
+      },
+      {
+        "file": "ds/primitives/Marquee/Marquee.tsx"
+      },
+      {
+        "file": "ds/primitives/MentionChip/MentionChip.tsx"
+      },
+      {
+        "file": "ds/primitives/Motion/Motion.tsx"
+      },
+      {
+        "file": "ds/primitives/NumberFormatter/NumberFormatter.tsx"
+      },
+      {
+        "file": "ds/primitives/NumberInput/NumberInput.tsx"
+      },
+      {
+        "file": "ds/primitives/OTPInput/OTPInput.tsx"
+      },
+      {
+        "file": "ds/primitives/PinInput/PinInput.tsx"
+      },
+      {
+        "file": "ds/primitives/Radio/Radio.tsx"
+      },
+      {
+        "file": "ds/primitives/RangeSlider/RangeSlider.tsx"
+      },
+      {
+        "file": "ds/primitives/ScrollArea/ScrollArea.tsx"
+      },
+      {
+        "file": "ds/primitives/SeverityBadge/SeverityBadge.tsx"
+      },
+      {
+        "file": "ds/primitives/Spinner/Spinner.tsx"
+      },
+      {
+        "file": "ds/primitives/StarRating/StarRating.tsx"
+      },
+      {
+        "file": "ds/primitives/StatusDot/StatusDot.tsx"
+      },
+      {
+        "file": "ds/primitives/Switch/Switch.tsx"
+      },
+      {
+        "file": "ds/primitives/Tag/Tag.tsx"
+      },
+      {
+        "file": "ds/primitives/Toggle/Toggle.tsx"
+      },
+      {
+        "file": "ds/primitives/VisuallyHidden/VisuallyHidden.tsx"
+      },
+      {
+        "file": "ds/composites/Accordion/Accordion.tsx"
+      },
+      {
+        "file": "ds/composites/Affix/Affix.tsx"
+      },
+      {
+        "file": "ds/composites/Alert/Alert.tsx"
+      },
+      {
+        "file": "ds/composites/AnnotationNote/AnnotationNote.tsx"
+      },
+      {
+        "file": "ds/composites/AreaChart/AreaChart.tsx"
+      },
+      {
+        "file": "ds/composites/AvatarStack/AvatarStack.tsx"
+      },
+      {
+        "file": "ds/composites/BarChart/BarChart.tsx"
+      },
+      {
+        "file": "ds/composites/BentoGrid/BentoGrid.tsx"
+      },
+      {
+        "file": "ds/composites/Blockquote/Blockquote.tsx"
+      },
+      {
+        "file": "ds/composites/BookCard/BookCard.tsx"
+      },
+      {
+        "file": "ds/composites/BookCover/BookCover.tsx"
+      },
+      {
+        "file": "ds/composites/BookRating/BookRating.tsx"
+      },
+      {
+        "file": "ds/composites/BookShelf/BookShelf.tsx"
+      },
+      {
+        "file": "ds/composites/BrandSwitcher/BrandSwitcher.tsx"
+      },
+      {
+        "file": "ds/composites/Breadcrumb/Breadcrumb.tsx"
+      },
+      {
+        "file": "ds/composites/ButtonGroup/ButtonGroup.tsx"
+      },
+      {
+        "file": "ds/composites/CTASection/CTASection.tsx"
+      },
+      {
+        "file": "ds/composites/Card/Card.tsx"
+      },
+      {
+        "file": "ds/composites/CartItem/CartItem.tsx"
+      },
+      {
+        "file": "ds/composites/ChapterList/ChapterList.tsx"
+      },
+      {
+        "file": "ds/composites/ChatBubble/ChatBubble.tsx"
+      },
+      {
+        "file": "ds/composites/CheckboxCardGroup/CheckboxCardGroup.tsx"
+      },
+      {
+        "file": "ds/composites/CodeEditor/CodeEditor.tsx"
+      },
+      {
+        "file": "ds/composites/ColorSwatch/ColorSwatch.tsx"
+      },
+      {
+        "file": "ds/composites/CommentThread/CommentThread.tsx"
+      },
+      {
+        "file": "ds/composites/ComparisonGrid/ComparisonGrid.tsx"
+      },
+      {
+        "file": "ds/composites/ConfirmDialog/ConfirmDialog.tsx"
+      },
+      {
+        "file": "ds/composites/CronExpression/CronExpression.tsx"
+      },
+      {
+        "file": "ds/composites/DateInput/DateInput.tsx"
+      },
+      {
+        "file": "ds/composites/DateRangeFilter/DateRangeFilter.tsx"
+      },
+      {
+        "file": "ds/composites/Descriptions/Descriptions.tsx"
+      },
+      {
+        "file": "ds/composites/DiffViewer/DiffViewer.tsx"
+      },
+      {
+        "file": "ds/composites/EmojiReaction/EmojiReaction.tsx"
+      },
+      {
+        "file": "ds/composites/EmptyState/EmptyState.tsx"
+      },
+      {
+        "file": "ds/composites/ExifPanel/ExifPanel.tsx"
+      },
+      {
+        "file": "ds/composites/FilterButtonGroup/FilterButtonGroup.tsx"
+      },
+      {
+        "file": "ds/composites/FloatingActionButton/FloatingActionButton.tsx"
+      },
+      {
+        "file": "ds/composites/FormField/FormField.tsx"
+      },
+      {
+        "file": "ds/composites/FunnelChart/FunnelChart.tsx"
+      },
+      {
+        "file": "ds/composites/GaugeChart/GaugeChart.tsx"
+      },
+      {
+        "file": "ds/composites/Globe/Globe.tsx"
+      },
+      {
+        "file": "ds/composites/GradientBorder/GradientBorder.tsx"
+      },
+      {
+        "file": "ds/composites/Heatmap/Heatmap.tsx"
+      },
+      {
+        "file": "ds/composites/Hint/Hint.tsx"
+      },
+      {
+        "file": "ds/composites/ImageWithFallback/ImageWithFallback.tsx"
+      },
+      {
+        "file": "ds/composites/KeyValueGrid/KeyValueGrid.tsx"
+      },
+      {
+        "file": "ds/composites/LineChart/LineChart.tsx"
+      },
+      {
+        "file": "ds/composites/LoadingButton/LoadingButton.tsx"
+      },
+      {
+        "file": "ds/composites/LoadingOverlay/LoadingOverlay.tsx"
+      },
+      {
+        "file": "ds/composites/LoadingScreen/LoadingScreen.tsx"
+      },
+      {
+        "file": "ds/composites/LogoCloud/LogoCloud.tsx"
+      },
+      {
+        "file": "ds/composites/MarkdownViewer/MarkdownViewer.tsx"
+      },
+      {
+        "file": "ds/composites/Marquee/Marquee.tsx"
+      },
+      {
+        "file": "ds/composites/MetricCard/MetricCard.tsx"
+      },
+      {
+        "file": "ds/composites/MiniChart/MiniChart.tsx"
+      },
+      {
+        "file": "ds/composites/NavigationMenu/NavigationMenu.tsx"
+      },
+      {
+        "file": "ds/composites/Notification/Notification.tsx"
+      },
+      {
+        "file": "ds/composites/Onboarding/Onboarding.tsx"
+      },
+      {
+        "file": "ds/composites/OnlineStatus/OnlineStatus.tsx"
+      },
+      {
+        "file": "ds/composites/PageHeader/PageHeader.tsx"
+      },
+      {
+        "file": "ds/composites/Pagination/Pagination.tsx"
+      },
+      {
+        "file": "ds/composites/PasswordStrength/PasswordStrength.tsx"
+      },
+      {
+        "file": "ds/composites/PhotoCard/PhotoCard.tsx"
+      },
+      {
+        "file": "ds/composites/PhotoFilters/PhotoFilters.tsx"
+      },
+      {
+        "file": "ds/composites/PhotoGrid/PhotoGrid.tsx"
+      },
+      {
+        "file": "ds/composites/PieChart/PieChart.tsx"
+      },
+      {
+        "file": "ds/composites/PollCard/PollCard.tsx"
+      },
+      {
+        "file": "ds/composites/PostCard/PostCard.tsx"
+      },
+      {
+        "file": "ds/composites/PriceDisplay/PriceDisplay.tsx"
+      },
+      {
+        "file": "ds/composites/PricingTable/PricingTable.tsx"
+      },
+      {
+        "file": "ds/composites/ProductCard/ProductCard.tsx"
+      },
+      {
+        "file": "ds/composites/ProfileHeader/ProfileHeader.tsx"
+      },
+      {
+        "file": "ds/composites/Progress/Progress.tsx"
+      },
+      {
+        "file": "ds/composites/ProgressRing/ProgressRing.tsx"
+      },
+      {
+        "file": "ds/composites/QRCode/QRCode.tsx"
+      },
+      {
+        "file": "ds/composites/RadarChart/RadarChart.tsx"
+      },
+      {
+        "file": "ds/composites/Rating/Rating.tsx"
+      },
+      {
+        "file": "ds/composites/ReadingGoal/ReadingGoal.tsx"
+      },
+      {
+        "file": "ds/composites/ReadingProgress/ReadingProgress.tsx"
+      },
+      {
+        "file": "ds/composites/ReadingStats/ReadingStats.tsx"
+      },
+      {
+        "file": "ds/composites/ReadingTime/ReadingTime.tsx"
+      },
+      {
+        "file": "ds/composites/Result/Result.tsx"
+      },
+      {
+        "file": "ds/composites/SankeyDiagram/SankeyDiagram.tsx"
+      },
+      {
+        "file": "ds/composites/ScatterPlot/ScatterPlot.tsx"
+      },
+      {
+        "file": "ds/composites/SecurityBadge/SecurityBadge.tsx"
+      },
+      {
+        "file": "ds/composites/Skeleton/Skeleton.tsx"
+      },
+      {
+        "file": "ds/composites/SkeletonPreset/SkeletonPreset.tsx"
+      },
+      {
+        "file": "ds/composites/Stat/Stat.tsx"
+      },
+      {
+        "file": "ds/composites/StatCard/StatCard.tsx"
+      },
+      {
+        "file": "ds/composites/Stepper/Stepper.tsx"
+      },
+      {
+        "file": "ds/composites/Sticky/Sticky.tsx"
+      },
+      {
+        "file": "ds/composites/StoryCircle/StoryCircle.tsx"
+      },
+      {
+        "file": "ds/composites/Table/Table.tsx"
+      },
+      {
+        "file": "ds/composites/TestimonialCard/TestimonialCard.tsx"
+      },
+      {
+        "file": "ds/composites/ThinkingIndicator/ThinkingIndicator.tsx"
+      },
+      {
+        "file": "ds/composites/Timeline/Timeline.tsx"
+      },
+      {
+        "file": "ds/composites/TreeNav/TreeNav.tsx"
+      },
+      {
+        "file": "ds/composites/TreeView/TreeView.tsx"
+      },
+      {
+        "file": "ds/composites/TreemapChart/TreemapChart.tsx"
+      },
+      {
+        "file": "ds/composites/TrustIndicator/TrustIndicator.tsx"
+      },
+      {
+        "file": "ds/composites/Watermark/Watermark.tsx"
+      },
+      {
+        "file": "ds/patterns/ActionBar/ActionBar.tsx"
+      },
+      {
+        "file": "ds/patterns/AuthLayout/AuthLayout.tsx"
+      },
+      {
+        "file": "ds/patterns/BlogPost/BlogPost.tsx"
+      },
+      {
+        "file": "ds/patterns/CalendarMonth/CalendarMonth.tsx"
+      },
+      {
+        "file": "ds/patterns/DataTable/DataTableIcons.tsx"
+      },
+      {
+        "file": "ds/patterns/FeatureGrid/FeatureGrid.tsx"
+      },
+      {
+        "file": "ds/patterns/FilterBar/FilterBar.tsx"
+      },
+      {
+        "file": "ds/patterns/FormArray/FormArray.tsx"
+      },
+      {
+        "file": "ds/patterns/FormBuilder/FormBuilder.tsx"
+      },
+      {
+        "file": "ds/patterns/ForumThread/ForumThread.tsx"
+      },
+      {
+        "file": "ds/patterns/GanttChart/GanttChart.tsx"
+      },
+      {
+        "file": "ds/patterns/HeroSection/HeroSection.tsx"
+      },
+      {
+        "file": "ds/patterns/Kanban/Kanban.tsx"
+      },
+      {
+        "file": "ds/patterns/MasonryGrid/MasonryGrid.tsx"
+      },
+      {
+        "file": "ds/patterns/PhotoAlbum/PhotoAlbum.tsx"
+      },
+      {
+        "file": "ds/patterns/SecurityChecklist/SecurityChecklist.tsx"
+      },
+      {
+        "file": "ds/patterns/SortableList/SortableList.tsx"
+      },
+      {
+        "file": "ds/patterns/StatsGrid/StatsGrid.tsx"
+      }
+    ]
+  }
+}

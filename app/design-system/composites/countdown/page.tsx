@@ -13,7 +13,7 @@ export default function CountdownPage() {
     >
       <Section title="Default">
         <Preview>
-          <Countdown />
+          <Countdown to="2099-12-31T00:00:00Z" />
         </Preview>
       </Section>
     </ComponentPage>

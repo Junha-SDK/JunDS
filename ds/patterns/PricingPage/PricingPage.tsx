@@ -9,7 +9,7 @@ export interface PricingFAQ {
   answer: ReactNode;
 }
 
-export interface PricingPageProps extends HTMLAttributes<HTMLDivElement> {
+export interface PricingPageProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** 페이지 제목 */
   title?: ReactNode;
   /** 페이지 설명 */

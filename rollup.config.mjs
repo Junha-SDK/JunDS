@@ -11,6 +11,17 @@ const external = [
   "react-dom",
   "react/jsx-runtime",
   "react-dom/client",
+  // The finance subpath imports from "@junds/ui" so React contexts
+  // (CoreProvider, DsToastProvider, …) resolve to the SAME instance
+  // the consumer already loaded from the root barrel. Keep it external
+  // for every bundle — the root bundle never imports the package name.
+  "@junds/ui",
+  "next/dynamic",
+  "next/link",
+  "next/navigation",
+  "next/image",
+  "lucide-react",
+  "yahoo-finance2",
 ];
 
 const terserOptions = {
@@ -100,6 +111,7 @@ const SUB_ENTRIES = [
   "providers",
   "auth",
   "utils",
+  "finance",
 ];
 
 function entryConfigs({ input, esmOut, cjsOut, dtsOut, extractCss = false }) {
@@ -144,7 +156,9 @@ function entryConfigs({ input, esmOut, cjsOut, dtsOut, extractCss = false }) {
       input,
       onwarn,
       output: { file: dtsOut, format: "esm" },
-      external,
+      // dts() doesn't speak CSS — externalize any .css side-effect imports
+      // so type emission can ignore them.
+      external: [...external, /\.css$/],
       plugins: [dts({ tsconfig: "./tsconfig.build.json" })],
     },
   ];
@@ -174,7 +188,92 @@ const subEntries = SUB_ENTRIES.flatMap((entry) =>
   }),
 );
 
+/**
+ * finance/lib is built with preserveModules so each source file becomes its
+ * own output file. This lets server-only consumers (Next.js middleware /
+ * Edge runtime, RSC route handlers) import a specific module like
+ * `@junds/ui/finance/lib/auth` without dragging React-hook code from
+ * sibling modules into the bundle.
+ */
+import { readdirSync } from "node:fs";
+
+const FINANCE_LIB_DIR = "ds/finance/lib";
+const financeLibInputs = Object.fromEntries(
+  readdirSync(FINANCE_LIB_DIR)
+    .filter((f) => /\.ts$/.test(f))
+    .map((f) => [f.replace(/\.ts$/, ""), `${FINANCE_LIB_DIR}/${f}`]),
+);
+
+// preserveModules treats every imported file as a separate output, so we
+// just point Rollup at the barrel (which transitively pulls every sibling).
+const financeLibSingleInput = `${FINANCE_LIB_DIR}/index.ts`;
+
+// Files that declare `"use client"` at the source — the directive is
+// stripped during bundling, so we restore it per-chunk in the output banner.
+const FINANCE_LIB_CLIENT_MODULES = new Set([
+  "accentColor",
+  "alerts",
+  "brokerages",
+  "holdings",
+  "livePrices",
+  "recentlyViewed",
+  "snapshots",
+  "themeMode",
+  "useMarketStatus",
+  "watchlist",
+]);
+
+const financeLibBanner = (chunk) => {
+  const id = chunk.facadeModuleId ?? "";
+  const base = id.split("/").pop()?.replace(/\.tsx?$/, "");
+  return base && FINANCE_LIB_CLIENT_MODULES.has(base) ? '"use client";' : "";
+};
+
+const financeLib = [
+  {
+    input: financeLibSingleInput,
+    onwarn,
+    output: {
+      dir: "dist/finance/lib",
+      format: "esm",
+      entryFileNames: "[name].mjs",
+      sourcemap: false,
+      // Restore "use client" only on chunks whose source had it — keeps
+      // pure server modules (auth, format, …) safely importable from the
+      // Edge runtime / RSC handlers.
+      banner: financeLibBanner,
+      preserveModules: true,
+      preserveModulesRoot: FINANCE_LIB_DIR,
+    },
+    external,
+    plugins: [...sharedJsPlugins(), postcss({ extract: false }), terser(terserOptions)],
+  },
+  {
+    input: financeLibSingleInput,
+    onwarn,
+    output: {
+      dir: "dist/finance/lib",
+      format: "cjs",
+      entryFileNames: "[name].cjs",
+      sourcemap: false,
+      banner: financeLibBanner,
+      preserveModules: true,
+      preserveModulesRoot: FINANCE_LIB_DIR,
+    },
+    external,
+    plugins: [...sharedJsPlugins(), postcss({ extract: false }), terser(terserOptions)],
+  },
+  // Per-module .d.ts so subpath imports get correctly typed.
+  ...Object.entries(financeLibInputs).map(([name, input]) => ({
+    input,
+    onwarn,
+    output: { file: `dist/finance/lib/${name}.d.ts`, format: "esm" },
+    external,
+    plugins: [dts({ tsconfig: "./tsconfig.build.json" })],
+  })),
+];
+
 /** @type {import('rollup').RollupOptions[]} */
-const config = [...root, ...runtime, ...subEntries];
+const config = [...root, ...runtime, ...subEntries, ...financeLib];
 
 export default config;

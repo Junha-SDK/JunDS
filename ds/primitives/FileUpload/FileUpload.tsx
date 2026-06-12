@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
+import { useT } from "../../providers/I18nProvider";
 import type { ReactNode } from "react";
 
 export interface FileUploadProps {
@@ -40,6 +41,7 @@ export function FileUpload({
   description = "파일을 드래그하거나 클릭하여 업로드",
   className,
 }: FileUploadProps) {
+  const t = useT();
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -76,7 +78,7 @@ export function FileUpload({
         <div onClick={() => inputRef.current?.click()} className={cn("cursor-pointer", className)}>
           {trigger}
         </div>
-        <input ref={inputRef} type="file" accept={accept} multiple={multiple} className="hidden" onChange={(e) => processFiles(e.target.files)} />
+        <input ref={inputRef} type="file" accept={accept} multiple={multiple} aria-label={t("ariaFilePicker")} tabIndex={-1} className="hidden" onChange={(e) => processFiles(e.target.files)} />
       </>
     );
   }
@@ -109,7 +111,7 @@ export function FileUpload({
         {maxSize && <p className="text-[10px] text-muted-light">최대 {(maxSize / 1024 / 1024).toFixed(0)}MB</p>}
       </div>
       {error && <p className="text-xs text-danger mt-1.5">{error}</p>}
-      <input ref={inputRef} type="file" accept={accept} multiple={multiple} className="hidden" onChange={(e) => processFiles(e.target.files)} />
+      <input ref={inputRef} type="file" accept={accept} multiple={multiple} aria-label={t("ariaFilePicker")} tabIndex={-1} className="hidden" onChange={(e) => processFiles(e.target.files)} />
     </div>
   );
 }

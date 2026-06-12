@@ -81,3 +81,39 @@ export type { PricingPageProps } from "./PricingPage";
 
 export { GanttChart } from "./GanttChart";
 export type { GanttChartProps } from "./GanttChart";
+
+export { HeroSection } from "./HeroSection";
+export type { HeroSectionProps } from "./HeroSection";
+
+export { FeatureGrid } from "./FeatureGrid";
+export type { FeatureGridProps } from "./FeatureGrid";
+
+export { FAQ } from "./FAQ";
+export type { FAQProps } from "./FAQ";
+
+export { BlogPost } from "./BlogPost";
+export type { BlogPostProps } from "./BlogPost";
+
+export { BookReader } from "./BookReader";
+export type { BookReaderProps } from "./BookReader";
+
+export { SocialFeed } from "./SocialFeed";
+export type { SocialFeedProps } from "./SocialFeed";
+
+export { PhotoAlbum } from "./PhotoAlbum";
+export type { PhotoAlbumProps } from "./PhotoAlbum";
+
+export { ChatThread } from "./ChatThread";
+export type { ChatThreadProps } from "./ChatThread";
+
+export { CalendarMonth } from "./CalendarMonth";
+export type { CalendarMonthProps } from "./CalendarMonth";
+
+export { EmailInbox } from "./EmailInbox";
+export type { EmailInboxProps } from "./EmailInbox";
+
+export { ForumThread } from "./ForumThread";
+export type { ForumThreadProps } from "./ForumThread";
+
+export { OnboardingTour } from "./OnboardingTour";
+export type { OnboardingTourProps } from "./OnboardingTour";

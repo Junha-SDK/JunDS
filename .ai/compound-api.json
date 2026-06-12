@@ -1,0 +1,1828 @@
+{
+  "generatedAt": "2026-05-06T00:57:27.741Z",
+  "summary": {
+    "migrated": 2,
+    "partial": 1,
+    "flat": 224,
+    "legacy": 0,
+    "total": 227
+  },
+  "items": [
+    {
+      "file": "ds/composites/Accordion/Accordion.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ActionSheet/ActionSheet.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AddressInput/AddressInput.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Affix/Affix.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Alert/Alert.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AlertDialog/AlertDialog.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AnimatedCounter/AnimatedCounter.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AnnotationNote/AnnotationNote.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AnnouncementBar/AnnouncementBar.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AreaChart/AreaChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AudioPlayer/AudioPlayer.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AutoComplete/AutoComplete.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AutoHideHeader/AutoHideHeader.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AutoPlayDemo/AutoPlayDemo.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AvatarStack/AvatarStack.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Banner/Banner.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/BarChart/BarChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/BentoGrid/BentoGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Blockquote/Blockquote.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/BookCard/BookCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/BookCover/BookCover.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/BookRating/BookRating.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/BookShelf/BookShelf.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/BottomSheet/BottomSheet.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/BrandSwitcher/BrandSwitcher.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Breadcrumb/Breadcrumb.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ButtonGroup/ButtonGroup.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CTASection/CTASection.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Callout/Callout.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Card/Card.tsx",
+      "status": "migrated",
+      "usesCreateCompound": true,
+      "usesObjectAssign": false,
+      "usesAsChild": true,
+      "usesSlot": true
+    },
+    {
+      "file": "ds/composites/Carousel/Carousel.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CartItem/CartItem.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ChapterList/ChapterList.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ChatBubble/ChatBubble.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CheckboxCardGroup/CheckboxCardGroup.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Clock/Clock.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CodeEditor/CodeEditor.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Collapsible/Collapsible.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CollectionView/CollectionView.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ColorPicker/ColorPicker.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ColorSwatch/ColorSwatch.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Combobox/Combobox.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CommentThread/CommentThread.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CompareSlider/CompareSlider.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ComparisonGrid/ComparisonGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ComponentShowcase/ComponentShowcase.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Confetti/Confetti.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ConfirmDialog/ConfirmDialog.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ContextMenu/ContextMenu.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CookieConsent/CookieConsent.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CopyBlock/CopyBlock.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Countdown/Countdown.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/CronExpression/CronExpression.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/DataGrid/DataGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/DateInput/DateInput.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/DateRangeFilter/DateRangeFilter.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/DateRangePicker/DateRangePicker.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Descriptions/Descriptions.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/DetailPanel/DetailPanel.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/DiffViewer/DiffViewer.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Disclosure/Disclosure.tsx",
+      "status": "migrated",
+      "usesCreateCompound": true,
+      "usesObjectAssign": false,
+      "usesAsChild": true,
+      "usesSlot": true
+    },
+    {
+      "file": "ds/composites/Dock/Dock.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Drawer/Drawer.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Dropdown/Dropdown.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/EmojiPicker/EmojiPicker.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/EmojiReaction/EmojiReaction.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/EmptyState/EmptyState.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ExifPanel/ExifPanel.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/FilterButtonGroup/FilterButtonGroup.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/FloatingActionButton/FloatingActionButton.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/FormField/FormField.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/FunnelChart/FunnelChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/GaugeChart/GaugeChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Globe/Globe.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/GradientBorder/GradientBorder.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Heatmap/Heatmap.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Hint/Hint.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/HoverCard/HoverCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ImageCompare/ImageCompare.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ImageCropper/ImageCropper.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ImageLightbox/ImageLightbox.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ImageWithFallback/ImageWithFallback.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ImageZoom/ImageZoom.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/InlineEdit/InlineEdit.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/JSONViewer/JSONViewer.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/KeyValueGrid/KeyValueGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/LineChart/LineChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/LoadingButton/LoadingButton.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/LoadingOverlay/LoadingOverlay.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/LoadingScreen/LoadingScreen.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/LogoCloud/LogoCloud.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/MarkdownViewer/MarkdownViewer.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Marquee/Marquee.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Mention/Mention.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Menubar/Menubar.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/MetricCard/MetricCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/MiniChart/MiniChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Modal/Modal.tsx",
+      "status": "partial",
+      "usesCreateCompound": true,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/MonthPicker/MonthPicker.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/MultiSelect/MultiSelect.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/NavigationMenu/NavigationMenu.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Newsletter/Newsletter.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Notification/Notification.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/OfflineIndicator/OfflineIndicator.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Onboarding/Onboarding.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/OnlineStatus/OnlineStatus.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PageHeader/PageHeader.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Pagination/Pagination.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PasswordStrength/PasswordStrength.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PhotoCard/PhotoCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PhotoCarousel/PhotoCarousel.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PhotoFilters/PhotoFilters.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PhotoGrid/PhotoGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PhotoLightbox/PhotoLightbox.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PhotoUploader/PhotoUploader.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PieChart/PieChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PollCard/PollCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Popover/Popover.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PostCard/PostCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PriceDisplay/PriceDisplay.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PricingTable/PricingTable.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ProductCard/ProductCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ProfileHeader/ProfileHeader.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Progress/Progress.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ProgressRing/ProgressRing.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/PullToRefresh/PullToRefresh.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/QRCode/QRCode.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/QuantitySelector/QuantitySelector.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/RadarChart/RadarChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/RadioCardGroup/RadioCardGroup.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Rating/Rating.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ReactionPicker/ReactionPicker.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ReadingGoal/ReadingGoal.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ReadingProgress/ReadingProgress.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ReadingStats/ReadingStats.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ReadingTime/ReadingTime.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Resizable/Resizable.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Result/Result.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SankeyDiagram/SankeyDiagram.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ScatterPlot/ScatterPlot.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ScrollSpy/ScrollSpy.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SearchBar/SearchBar.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SearchInput/SearchInput.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SecurityBadge/SecurityBadge.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SegmentedControl/SegmentedControl.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Select/Select.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Sheet/Sheet.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SignaturePad/SignaturePad.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Skeleton/Skeleton.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SkeletonPreset/SkeletonPreset.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Snackbar/Snackbar.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SocialShare/SocialShare.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SplitPane/SplitPane.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SpoilerBlock/SpoilerBlock.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Spotlight/Spotlight.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SpotlightCard/SpotlightCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Stat/Stat.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/StatCard/StatCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Stepper/Stepper.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Sticky/Sticky.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/StoryCircle/StoryCircle.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SwipeAction/SwipeAction.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Table/Table.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TableOfContents/TableOfContents.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Tabs/Tabs.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TagInput/TagInput.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TestimonialCard/TestimonialCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TextareaAutosize/TextareaAutosize.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/ThinkingIndicator/ThinkingIndicator.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TimePicker/TimePicker.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Timeline/Timeline.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Toast/Toast.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Tooltip/Tooltip.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Transfer/Transfer.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TreeNav/TreeNav.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TreeView/TreeView.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TreemapChart/TreemapChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/TrustIndicator/TrustIndicator.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Typewriter/Typewriter.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/VideoPlayer/VideoPlayer.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/VirtualScroll/VirtualScroll.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Watermark/Watermark.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/YearPicker/YearPicker.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/ActionBar/ActionBar.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/AuthLayout/AuthLayout.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/BlogPost/BlogPost.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/BookReader/BookReader.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/Calendar/Calendar.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/CalendarMonth/CalendarMonth.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/ChartCard/ChartCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/ChatThread/ChatThread.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/CommandPalette/CommandPalette.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/DataTable/DataTable.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/DataTable/DataTableIcons.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/DataTable/DataTableUtils.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/EmailInbox/EmailInbox.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/FAQ/FAQ.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/FeatureGrid/FeatureGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/FilterBar/FilterBar.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/FlowDiagram/FlowDiagram.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/Form/Form.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/FormArray/FormArray.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/FormBuilder/FormBuilder.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/FormWizard/FormWizard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/ForumThread/ForumThread.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/GanttChart/GanttChart.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/HeroSection/HeroSection.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/InfiniteList/InfiniteList.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/Kanban/Kanban.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/LoginForm/LoginForm.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/MasonryGrid/MasonryGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/NotificationCenter/NotificationCenter.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/OnboardingTour/OnboardingTour.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/PhotoAlbum/PhotoAlbum.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/PricingPage/PricingPage.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/SecurityChecklist/SecurityChecklist.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/SettingsLayout/SettingsLayout.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/Sidebar/Sidebar.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/SocialFeed/SocialFeed.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/SortableList/SortableList.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/Starfield/Starfield.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/StatsGrid/StatsGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/Tour/Tour.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/VideoPlayer/VideoPlayer.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/patterns/VirtualList/VirtualList.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    }
+  ]
+}

@@ -139,6 +139,11 @@ function renderNode(node: Node, ctx: RenderContext): ReactNode {
   const resolvedProps = resolveProps(node.props, ctx.scope, ctx.breakpoint);
   const handlers = buildEventHandlers(node.events, ctx);
 
+  const previewProps =
+    ctx.mode === "design" && entry.previewProps
+      ? entry.previewProps()
+      : undefined;
+
   const designProps =
     ctx.mode === "design"
       ? {
@@ -155,6 +160,7 @@ function renderNode(node: Node, ctx: RenderContext): ReactNode {
       : {};
 
   const finalProps: Record<string, unknown> = {
+    ...previewProps,
     ...resolvedProps,
     ...handlers,
     ...designProps,

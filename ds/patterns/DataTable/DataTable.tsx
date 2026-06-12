@@ -887,7 +887,8 @@ export function DataTable<T>({
           } : undefined}
           onKeyDown={handleTableKeyDown}
           tabIndex={0}
-          role="grid"
+          role="region"
+          aria-label={caption ?? "데이터 테이블"}
         >
           <table className={cn("min-w-full border-separate border-spacing-0", textSize)} aria-busy={loading}>
             {caption && <caption className="sr-only">{caption}</caption>}

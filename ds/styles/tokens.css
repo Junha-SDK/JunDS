@@ -1,0 +1,177 @@
+/**
+ * JunDS design tokens — importable by any consumer app.
+ *
+ * Usage in a consumer's `globals.css` (Tailwind v4):
+ *
+ *     @import "tailwindcss";
+ *     @import "@junds/ui/styles.css";
+ *
+ * The `@theme inline` block below registers JunDS color/font tokens with
+ * Tailwind so utility classes like `text-foreground`, `bg-primary-light`,
+ * `border-border-light`, `text-muted` resolve correctly. Without this file,
+ * any JunDS component (Modal, ConfirmDialog, Toast, …) renders unstyled.
+ */
+
+/* ─── Framework runtime knobs (font scale, density, radius) ──────────── */
+:root {
+  --jds-font-scale: 1;
+  --jds-font-base: 15px;
+  --jds-density-px: 16px;
+  --jds-density-py: 8px;
+  --jds-density-text: 0.875rem;
+  --jds-radius-sm: 4px;
+  --jds-radius-md: 8px;
+  --jds-radius-lg: 12px;
+  --jds-radius-xl: 16px;
+  --jds-spacing-mult: 1;
+}
+
+[data-density="compact"] .jds-density-text { font-size: 0.75rem; }
+[data-density="normal"] .jds-density-text,
+[data-density="comfortable"] .jds-density-text { font-size: 0.875rem; }
+
+[data-radius="none"] .jds-radius { border-radius: 0; }
+[data-radius="sm"] .jds-radius { border-radius: var(--jds-radius-md); }
+[data-radius="md"] .jds-radius { border-radius: var(--jds-radius-md); }
+[data-radius="lg"] .jds-radius { border-radius: var(--jds-radius-lg); }
+[data-radius="full"] .jds-radius { border-radius: 9999px; }
+
+[data-radius="none"] input,
+[data-radius="none"] button,
+[data-radius="none"] select,
+[data-radius="none"] textarea,
+[data-radius="none"] .rounded-lg,
+[data-radius="none"] .rounded-xl,
+[data-radius="none"] .rounded-2xl,
+[data-radius="none"] .rounded-3xl { border-radius: 0 !important; }
+
+[data-radius="full"] input,
+[data-radius="full"] button,
+[data-radius="full"] select,
+[data-radius="full"] textarea { border-radius: 9999px !important; }
+
+.jds-spacing { gap: calc(var(--jds-spacing-mult) * 1rem); }
+
+/* ─── Light theme tokens ─────────────────────────────────────────────── */
+:root {
+  --background: #f5f4f8;
+  --foreground: #1a1726;
+  --card: #ffffff;
+  --card-hover: #f9f8fc;
+  --border: #e2dfe8;
+  --border-light: #efedf4;
+  --primary: #5b4cc7;
+  --primary-hover: #4a3db0;
+  --primary-light: #eceafc;
+  --primary-glow: rgba(91, 76, 199, 0.18);
+  --accent: #7c5ce7;
+  --accent-light: #efebff;
+  --danger: #dc3f3f;
+  --danger-hover: #b92f2f;
+  --danger-light: #fff1f1;
+  --muted: #6b6880;
+  --muted-light: #9895a8;
+  --success: #2f8f57;
+  --success-light: #eaf6ee;
+  --warning: #b7791f;
+  --warning-light: #fff7e6;
+  --sidebar-bg: #1a1726;
+  --sidebar-hover: #272338;
+  --sidebar-text: #a09cb0;
+  --sidebar-active: #9580fa;
+  --info: #3b82f6;
+  --info-light: #eff6ff;
+}
+
+/* ─── Dark theme overrides ───────────────────────────────────────────── */
+[data-theme="dark"] {
+  --background: #0c0a14;
+  --foreground: #e4e2ee;
+  --card: #161329;
+  --card-hover: #1c1932;
+  --border: #2a2744;
+  --border-light: #22203a;
+  --muted: #a09cb5;
+  --muted-light: #706d88;
+  --primary-light: rgba(91, 76, 199, 0.15);
+  --accent-light: rgba(124, 92, 231, 0.12);
+  --danger-light: rgba(220, 63, 63, 0.15);
+  --success-light: rgba(47, 143, 87, 0.15);
+  --warning-light: rgba(183, 121, 31, 0.15);
+  --info-light: rgba(59, 130, 246, 0.15);
+  --dm-surface: #161329;
+  --dm-surface-raised: #1c1932;
+  --dm-surface-overlay: #22203a;
+  color-scheme: dark;
+}
+
+[data-theme="dark"] {
+  & .bg-white { background-color: var(--dm-surface); }
+  & .bg-gray-50, & .bg-gray-50\/50, & .bg-gray-50\/80 { background-color: var(--dm-surface-raised); }
+  & .bg-gray-100 { background-color: var(--dm-surface-overlay); }
+  & .bg-gray-200 { background-color: #2a2744; }
+  & .bg-gray-900 { background-color: #08060f; }
+  & .text-foreground { color: var(--foreground); }
+  & .text-gray-700, & .text-gray-800 { color: #d0cee0; }
+  & .text-gray-600 { color: #a8a5be; }
+  & .text-gray-500 { color: #8885a0; }
+  & .text-gray-400 { color: #706d88; }
+  & .hover\:bg-gray-50:hover { background-color: var(--dm-surface-raised); }
+  & .hover\:bg-gray-100:hover { background-color: var(--dm-surface-overlay); }
+  & input, & textarea, & select {
+    background-color: var(--dm-surface);
+    color: var(--foreground);
+    border-color: var(--border);
+  }
+  & input::placeholder, & textarea::placeholder { color: var(--muted-light); }
+  & input[type="date"] { color-scheme: dark; }
+  & .border-border { border-color: var(--border); }
+  & .border-border-light { border-color: var(--border-light); }
+  & .divide-border > :not(:last-child) { border-color: var(--border); }
+  & .divide-border-light > :not(:last-child) { border-color: var(--border-light); }
+}
+
+/* ─── Tailwind v4 utility registration ───────────────────────────────── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-surface: var(--card);
+  --color-surface-soft: var(--card-hover);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-primary-glow: var(--primary-glow);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-danger-light: var(--danger-light);
+  --color-muted: var(--muted);
+  --color-muted-light: var(--muted-light);
+  --color-success: var(--success);
+  --color-success-light: var(--success-light);
+  --color-warning: var(--warning);
+  --color-warning-light: var(--warning-light);
+  --color-info: var(--info);
+  --color-info-light: var(--info-light);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-text: var(--sidebar-text);
+  --color-sidebar-active: var(--sidebar-active);
+}
+
+/* ─── Animations used by Modal/Toast/Tooltip ─────────────────────────── */
+@keyframes jds-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes jds-fade-in-scale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-fade-in { animation: jds-fade-in 0.18s ease-out; }
+.animate-fade-in-scale { animation: jds-fade-in-scale 0.2s cubic-bezier(0.16, 1, 0.3, 1); }

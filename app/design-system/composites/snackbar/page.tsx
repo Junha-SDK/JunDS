@@ -13,7 +13,7 @@ export default function SnackbarPage() {
     >
       <Section title="Default">
         <Preview>
-          <Snackbar />
+          <Snackbar open message="저장되었습니다" actionLabel="실행 취소" />
         </Preview>
       </Section>
     </ComponentPage>

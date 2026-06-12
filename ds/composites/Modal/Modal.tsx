@@ -144,29 +144,38 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
   const titleId = useId();
   const descId = useId();
 
-  const handleEsc = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Escape") onClose();
+  // 최신 onClose 를 ref 로 안정화 — 부모가 매 렌더마다 새 onClose 화살표를 넘기더라도
+  // ESC 리스너/effect 가 재실행되지 않게(중요: 그 effect 가 focus 도 훔쳤음).
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
   }, [onClose]);
 
+  // ESC + 스크롤 락 — 열림 트랜지션에만 한 번 setup, dep 은 [open] 만.
   useEffect(() => {
     if (!open) return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCloseRef.current();
+    };
     document.addEventListener("keydown", handleEsc);
     document.body.style.overflow = "hidden";
-
-    // Focus first focusable element
-    const dialog = dialogRef.current;
-    if (dialog) {
-      const focusable = dialog.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusable.length > 0) focusable[0].focus();
-    }
-
     return () => {
       document.removeEventListener("keydown", handleEsc);
       document.body.style.overflow = "";
     };
-  }, [open, handleEsc]);
+  }, [open]);
+
+  // 첫 focusable 로 포커스 이동 — 열림 트랜지션에만 1회. 사용자가 input 에 타이핑 중일 때
+  // 부모 리렌더로 effect 가 다시 돌지 않도록 dep 은 [open] 만.
+  useEffect(() => {
+    if (!open) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const focusable = dialog.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length > 0) focusable[0].focus();
+  }, [open]);
 
   // Focus trap
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {

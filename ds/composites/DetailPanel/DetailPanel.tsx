@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { cn } from "../../utils/cn";
+import { useT } from "../../providers/I18nProvider";
 import type { ReactNode } from "react";
 
 export interface DetailPanelTab {
@@ -68,6 +69,7 @@ export function DetailPanel({
   width = 420,
   className,
 }: DetailPanelProps) {
+  const t = useT();
   const [activeTab, setActiveTab] = useState<string | null>(null);
 
   // 탭이 있고 activeTab이 없으면 첫 번째 탭 선택
@@ -129,6 +131,7 @@ export function DetailPanel({
         <button
           type="button"
           onClick={onClose}
+          aria-label={t("close")}
           className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer shrink-0 ml-2"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">

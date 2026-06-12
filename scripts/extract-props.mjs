@@ -21,6 +21,7 @@ import ts from "typescript";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = path.join(repoRoot, ".ai");
 const outFile = path.join(outDir, "props.json");
+const cacheFile = path.join(outDir, ".props-cache.json");
 
 /**
  * Read the current package version once at startup. Used as a sensible default
@@ -46,7 +47,7 @@ const KINDS = [
 
 const SKIP_DIRS = new Set([".git", "node_modules", "dist", ".next", "coverage"]);
 
-/** Recursively collect files under a directory. */
+/** Recursively collect files under a directory (subdirs walked in parallel). */
 async function walk(absRoot) {
   const out = [];
   async function recur(abs) {
@@ -56,12 +57,14 @@ async function walk(absRoot) {
     } catch {
       return;
     }
+    const subdirs = [];
     for (const e of entries) {
       if (SKIP_DIRS.has(e.name)) continue;
       const next = path.join(abs, e.name);
-      if (e.isDirectory()) await recur(next);
+      if (e.isDirectory()) subdirs.push(next);
       else if (e.isFile()) out.push(next);
     }
+    await Promise.all(subdirs.map(recur));
   }
   await recur(absRoot);
   return out;
@@ -324,6 +327,47 @@ function extractMetadata(node) {
   return { status, since, tags: tagList };
 }
 
+/** Best-effort mtime of a file (returns 0 if missing). */
+async function mtimeOf(p) {
+  try {
+    return (await stat(p)).mtimeMs;
+  } catch {
+    return 0;
+  }
+}
+
+/**
+ * Build a stable mtime signature covering every input that could change the
+ * extraction result: each component's `.tsx`, its sibling `.types.ts`/`.tsx`,
+ * tsconfig, and package.json (for the `since` fallback).
+ */
+async function buildSignature(allComponents) {
+  const probes = [
+    path.join(repoRoot, "tsconfig.json"),
+    path.join(repoRoot, "package.json"),
+  ];
+  for (const c of allComponents) {
+    probes.push(c.abs);
+    probes.push(c.abs.replace(/\.tsx$/, ".types.ts"));
+    probes.push(c.abs.replace(/\.tsx$/, ".types.tsx"));
+  }
+  const mtimes = await Promise.all(probes.map(mtimeOf));
+  const sig = {};
+  probes.forEach((p, i) => {
+    if (mtimes[i] > 0) sig[path.relative(repoRoot, p).split(path.sep).join("/")] = mtimes[i];
+  });
+  return sig;
+}
+
+function signaturesEqual(a, b) {
+  if (!a || !b) return false;
+  const ka = Object.keys(a);
+  const kb = Object.keys(b);
+  if (ka.length !== kb.length) return false;
+  for (const k of ka) if (a[k] !== b[k]) return false;
+  return true;
+}
+
 async function main() {
   const t0 = Date.now();
   const pkgVersion = await readPackageVersion();
@@ -333,6 +377,29 @@ async function main() {
   for (const { kind, root } of KINDS) {
     const found = await discoverComponents(kind, root);
     allComponents.push(...found);
+  }
+
+  // Mtime fast path: if every input file has the same mtime as last run AND
+  // the previous output is still on disk, just print and exit. This is the
+  // common pre-commit case (only docs/tests changed).
+  const signature = await buildSignature(allComponents);
+  let cache;
+  try {
+    cache = JSON.parse(await readFile(cacheFile, "utf8"));
+  } catch {
+    cache = null;
+  }
+  if (cache && signaturesEqual(cache.signature, signature)) {
+    try {
+      await stat(outFile);
+      const ms = Date.now() - t0;
+      console.log(
+        `[extract-props] up-to-date — ${cache.componentCount ?? "?"} components (${ms}ms, mtime cache hit)`,
+      );
+      return;
+    } catch {
+      // outFile missing — fall through to a real run
+    }
   }
 
   // Build ONE TS Program for the whole repo (uses tsconfig.json so module
@@ -419,7 +486,14 @@ async function main() {
   };
 
   await mkdir(outDir, { recursive: true });
-  await writeFile(outFile, JSON.stringify(payload, null, 2) + "\n", "utf8");
+  await Promise.all([
+    writeFile(outFile, JSON.stringify(payload, null, 2) + "\n", "utf8"),
+    writeFile(
+      cacheFile,
+      JSON.stringify({ signature, componentCount: extractedComponents }),
+      "utf8",
+    ),
+  ]);
 
   const ms = Date.now() - t0;
   console.log(

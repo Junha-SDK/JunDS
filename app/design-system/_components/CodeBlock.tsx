@@ -23,7 +23,8 @@ export function CodeBlock({ code, language = "tsx" }: { code: string; language?:
         onClick={handleCopy}
         aria-label={copied ? "코드가 복사되었습니다" : "코드 복사"}
         className={cn(
-          "absolute top-2 right-2 px-2 py-1 text-[10px] rounded-md transition-colors cursor-pointer",
+          "absolute top-2 right-2 px-2 py-1 text-[10px] rounded-md cursor-pointer",
+          "transition-all duration-200 active:scale-95",
           copied
             ? "bg-success text-white"
             : "bg-white/10 text-white/70 hover:bg-white/20",

@@ -1,0 +1,716 @@
+{
+  "generatedAt": "2026-04-30T10:13:33.244Z",
+  "summary": {
+    "motionWithoutReduce": 155,
+    "leftRightWithoutRtl": 80
+  },
+  "motionFindings": [
+    {
+      "file": "ds/primitives/BackTop/BackTop.tsx"
+    },
+    {
+      "file": "ds/primitives/BatteryIndicator/BatteryIndicator.tsx"
+    },
+    {
+      "file": "ds/primitives/Button/Button.tsx"
+    },
+    {
+      "file": "ds/primitives/Checkbox/Checkbox.tsx"
+    },
+    {
+      "file": "ds/primitives/CopyButton/CopyButton.tsx"
+    },
+    {
+      "file": "ds/primitives/CurrencyInput/CurrencyInput.tsx"
+    },
+    {
+      "file": "ds/primitives/ErrorBoundary/ErrorBoundary.tsx"
+    },
+    {
+      "file": "ds/primitives/FileUpload/FileUpload.tsx"
+    },
+    {
+      "file": "ds/primitives/IconButton/IconButton.tsx"
+    },
+    {
+      "file": "ds/primitives/Image/Image.tsx"
+    },
+    {
+      "file": "ds/primitives/Input/Input.tsx"
+    },
+    {
+      "file": "ds/primitives/Link/Link.tsx"
+    },
+    {
+      "file": "ds/primitives/NumberInput/NumberInput.tsx"
+    },
+    {
+      "file": "ds/primitives/OTPInput/OTPInput.tsx"
+    },
+    {
+      "file": "ds/primitives/PasswordInput/PasswordInput.tsx"
+    },
+    {
+      "file": "ds/primitives/PhoneInput/PhoneInput.tsx"
+    },
+    {
+      "file": "ds/primitives/PinInput/PinInput.tsx"
+    },
+    {
+      "file": "ds/primitives/RangeSlider/RangeSlider.tsx"
+    },
+    {
+      "file": "ds/primitives/SeverityBadge/SeverityBadge.tsx"
+    },
+    {
+      "file": "ds/primitives/Slider/Slider.tsx"
+    },
+    {
+      "file": "ds/primitives/Spinner/Spinner.tsx"
+    },
+    {
+      "file": "ds/primitives/StarRating/StarRating.tsx"
+    },
+    {
+      "file": "ds/primitives/StatusDot/StatusDot.tsx"
+    },
+    {
+      "file": "ds/primitives/Switch/Switch.tsx"
+    },
+    {
+      "file": "ds/primitives/Tag/Tag.tsx"
+    },
+    {
+      "file": "ds/primitives/Textarea/Textarea.tsx"
+    },
+    {
+      "file": "ds/primitives/Toggle/Toggle.tsx"
+    },
+    {
+      "file": "ds/composites/Accordion/Accordion.tsx"
+    },
+    {
+      "file": "ds/composites/ActionSheet/ActionSheet.tsx"
+    },
+    {
+      "file": "ds/composites/AddressInput/AddressInput.tsx"
+    },
+    {
+      "file": "ds/composites/Alert/Alert.tsx"
+    },
+    {
+      "file": "ds/composites/AlertDialog/AlertDialog.tsx"
+    },
+    {
+      "file": "ds/composites/AnimatedCounter/AnimatedCounter.tsx"
+    },
+    {
+      "file": "ds/composites/AnnouncementBar/AnnouncementBar.tsx"
+    },
+    {
+      "file": "ds/composites/AudioPlayer/AudioPlayer.tsx"
+    },
+    {
+      "file": "ds/composites/AutoComplete/AutoComplete.tsx"
+    },
+    {
+      "file": "ds/composites/AutoHideHeader/AutoHideHeader.tsx"
+    },
+    {
+      "file": "ds/composites/AutoPlayDemo/AutoPlayDemo.tsx"
+    },
+    {
+      "file": "ds/composites/Banner/Banner.tsx"
+    },
+    {
+      "file": "ds/composites/BentoGrid/BentoGrid.tsx"
+    },
+    {
+      "file": "ds/composites/BookCard/BookCard.tsx"
+    },
+    {
+      "file": "ds/composites/BottomSheet/BottomSheet.tsx"
+    },
+    {
+      "file": "ds/composites/Breadcrumb/Breadcrumb.tsx"
+    },
+    {
+      "file": "ds/composites/CTASection/CTASection.tsx"
+    },
+    {
+      "file": "ds/composites/Callout/Callout.tsx"
+    },
+    {
+      "file": "ds/composites/Card/Card.tsx"
+    },
+    {
+      "file": "ds/composites/Carousel/Carousel.tsx"
+    },
+    {
+      "file": "ds/composites/CartItem/CartItem.tsx"
+    },
+    {
+      "file": "ds/composites/CheckboxCardGroup/CheckboxCardGroup.tsx"
+    },
+    {
+      "file": "ds/composites/Collapsible/Collapsible.tsx"
+    },
+    {
+      "file": "ds/composites/CollectionView/CollectionView.tsx"
+    },
+    {
+      "file": "ds/composites/ColorPicker/ColorPicker.tsx"
+    },
+    {
+      "file": "ds/composites/ColorSwatch/ColorSwatch.tsx"
+    },
+    {
+      "file": "ds/composites/Combobox/Combobox.tsx"
+    },
+    {
+      "file": "ds/composites/ComparisonGrid/ComparisonGrid.tsx"
+    },
+    {
+      "file": "ds/composites/ComponentShowcase/ComponentShowcase.tsx"
+    },
+    {
+      "file": "ds/composites/ContextMenu/ContextMenu.tsx"
+    },
+    {
+      "file": "ds/composites/CopyBlock/CopyBlock.tsx"
+    },
+    {
+      "file": "ds/composites/DataGrid/DataGrid.tsx"
+    },
+    {
+      "file": "ds/composites/DateInput/DateInput.tsx"
+    },
+    {
+      "file": "ds/composites/DateRangeFilter/DateRangeFilter.tsx"
+    },
+    {
+      "file": "ds/composites/DateRangePicker/DateRangePicker.tsx"
+    },
+    {
+      "file": "ds/composites/DetailPanel/DetailPanel.tsx"
+    },
+    {
+      "file": "ds/composites/Dock/Dock.tsx"
+    },
+    {
+      "file": "ds/composites/Drawer/Drawer.tsx"
+    },
+    {
+      "file": "ds/composites/Dropdown/Dropdown.tsx"
+    },
+    {
+      "file": "ds/composites/EmojiPicker/EmojiPicker.tsx"
+    },
+    {
+      "file": "ds/composites/EmojiReaction/EmojiReaction.tsx"
+    },
+    {
+      "file": "ds/composites/FilterButtonGroup/FilterButtonGroup.tsx"
+    },
+    {
+      "file": "ds/composites/FloatingActionButton/FloatingActionButton.tsx"
+    },
+    {
+      "file": "ds/composites/FunnelChart/FunnelChart.tsx"
+    },
+    {
+      "file": "ds/composites/HoverCard/HoverCard.tsx"
+    },
+    {
+      "file": "ds/composites/ImageCropper/ImageCropper.tsx"
+    },
+    {
+      "file": "ds/composites/ImageLightbox/ImageLightbox.tsx"
+    },
+    {
+      "file": "ds/composites/InlineEdit/InlineEdit.tsx"
+    },
+    {
+      "file": "ds/composites/JSONViewer/JSONViewer.tsx"
+    },
+    {
+      "file": "ds/composites/KeyValueGrid/KeyValueGrid.tsx"
+    },
+    {
+      "file": "ds/composites/LoadingButton/LoadingButton.tsx"
+    },
+    {
+      "file": "ds/composites/LoadingOverlay/LoadingOverlay.tsx"
+    },
+    {
+      "file": "ds/composites/LoadingScreen/LoadingScreen.tsx"
+    },
+    {
+      "file": "ds/composites/LogoCloud/LogoCloud.tsx"
+    },
+    {
+      "file": "ds/composites/Mention/Mention.tsx"
+    },
+    {
+      "file": "ds/composites/Menubar/Menubar.tsx"
+    },
+    {
+      "file": "ds/composites/Modal/Modal.tsx"
+    },
+    {
+      "file": "ds/composites/MonthPicker/MonthPicker.tsx"
+    },
+    {
+      "file": "ds/composites/MultiSelect/MultiSelect.tsx"
+    },
+    {
+      "file": "ds/composites/NavigationMenu/NavigationMenu.tsx"
+    },
+    {
+      "file": "ds/composites/Notification/Notification.tsx"
+    },
+    {
+      "file": "ds/composites/Onboarding/Onboarding.tsx"
+    },
+    {
+      "file": "ds/composites/OnlineStatus/OnlineStatus.tsx"
+    },
+    {
+      "file": "ds/composites/PageHeader/PageHeader.tsx"
+    },
+    {
+      "file": "ds/composites/Pagination/Pagination.tsx"
+    },
+    {
+      "file": "ds/composites/PasswordStrength/PasswordStrength.tsx"
+    },
+    {
+      "file": "ds/composites/Popover/Popover.tsx"
+    },
+    {
+      "file": "ds/composites/PricingTable/PricingTable.tsx"
+    },
+    {
+      "file": "ds/composites/ProductCard/ProductCard.tsx"
+    },
+    {
+      "file": "ds/composites/Progress/Progress.tsx"
+    },
+    {
+      "file": "ds/composites/ProgressRing/ProgressRing.tsx"
+    },
+    {
+      "file": "ds/composites/PullToRefresh/PullToRefresh.tsx"
+    },
+    {
+      "file": "ds/composites/RadioCardGroup/RadioCardGroup.tsx"
+    },
+    {
+      "file": "ds/composites/Resizable/Resizable.tsx"
+    },
+    {
+      "file": "ds/composites/Result/Result.tsx"
+    },
+    {
+      "file": "ds/composites/ScrollProgress/ScrollProgress.tsx"
+    },
+    {
+      "file": "ds/composites/ScrollSpy/ScrollSpy.tsx"
+    },
+    {
+      "file": "ds/composites/SearchInput/SearchInput.tsx"
+    },
+    {
+      "file": "ds/composites/SegmentedControl/SegmentedControl.tsx"
+    },
+    {
+      "file": "ds/composites/Select/Select.tsx"
+    },
+    {
+      "file": "ds/composites/Sheet/Sheet.tsx"
+    },
+    {
+      "file": "ds/composites/SignaturePad/SignaturePad.tsx"
+    },
+    {
+      "file": "ds/composites/Skeleton/Skeleton.tsx"
+    },
+    {
+      "file": "ds/composites/SkeletonPreset/SkeletonPreset.tsx"
+    },
+    {
+      "file": "ds/composites/Snackbar/Snackbar.tsx"
+    },
+    {
+      "file": "ds/composites/SocialShare/SocialShare.tsx"
+    },
+    {
+      "file": "ds/composites/SplitPane/SplitPane.tsx"
+    },
+    {
+      "file": "ds/composites/SpoilerBlock/SpoilerBlock.tsx"
+    },
+    {
+      "file": "ds/composites/SpotlightCard/SpotlightCard.tsx"
+    },
+    {
+      "file": "ds/composites/StatCard/StatCard.tsx"
+    },
+    {
+      "file": "ds/composites/Stepper/Stepper.tsx"
+    },
+    {
+      "file": "ds/composites/SwipeAction/SwipeAction.tsx"
+    },
+    {
+      "file": "ds/composites/Table/Table.tsx"
+    },
+    {
+      "file": "ds/composites/TableOfContents/TableOfContents.tsx"
+    },
+    {
+      "file": "ds/composites/Tabs/Tabs.tsx"
+    },
+    {
+      "file": "ds/composites/TagInput/TagInput.tsx"
+    },
+    {
+      "file": "ds/composites/TestimonialCard/TestimonialCard.tsx"
+    },
+    {
+      "file": "ds/composites/ThinkingIndicator/ThinkingIndicator.tsx"
+    },
+    {
+      "file": "ds/composites/TimePicker/TimePicker.tsx"
+    },
+    {
+      "file": "ds/composites/Toast/Toast.tsx"
+    },
+    {
+      "file": "ds/composites/Tooltip/Tooltip.tsx"
+    },
+    {
+      "file": "ds/composites/Transfer/Transfer.tsx"
+    },
+    {
+      "file": "ds/composites/TreeNav/TreeNav.tsx"
+    },
+    {
+      "file": "ds/composites/TreeView/TreeView.tsx"
+    },
+    {
+      "file": "ds/composites/Typewriter/Typewriter.tsx"
+    },
+    {
+      "file": "ds/composites/VideoPlayer/VideoPlayer.tsx"
+    },
+    {
+      "file": "ds/composites/YearPicker/YearPicker.tsx"
+    },
+    {
+      "file": "ds/patterns/ActionBar/ActionBar.tsx"
+    },
+    {
+      "file": "ds/patterns/Calendar/Calendar.tsx"
+    },
+    {
+      "file": "ds/patterns/ChartCard/ChartCard.tsx"
+    },
+    {
+      "file": "ds/patterns/CommandPalette/CommandPalette.tsx"
+    },
+    {
+      "file": "ds/patterns/DataTable/DataTable.tsx"
+    },
+    {
+      "file": "ds/patterns/DataTable/DataTableUtils.tsx"
+    },
+    {
+      "file": "ds/patterns/FAQ/FAQ.tsx"
+    },
+    {
+      "file": "ds/patterns/FeatureGrid/FeatureGrid.tsx"
+    },
+    {
+      "file": "ds/patterns/FlowDiagram/FlowDiagram.tsx"
+    },
+    {
+      "file": "ds/patterns/FormArray/FormArray.tsx"
+    },
+    {
+      "file": "ds/patterns/FormWizard/FormWizard.tsx"
+    },
+    {
+      "file": "ds/patterns/GanttChart/GanttChart.tsx"
+    },
+    {
+      "file": "ds/patterns/HeroSection/HeroSection.tsx"
+    },
+    {
+      "file": "ds/patterns/NotificationCenter/NotificationCenter.tsx"
+    },
+    {
+      "file": "ds/patterns/PricingPage/PricingPage.tsx"
+    },
+    {
+      "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx"
+    },
+    {
+      "file": "ds/patterns/SecurityChecklist/SecurityChecklist.tsx"
+    },
+    {
+      "file": "ds/patterns/SettingsLayout/SettingsLayout.tsx"
+    },
+    {
+      "file": "ds/patterns/Sidebar/Sidebar.tsx"
+    },
+    {
+      "file": "ds/patterns/SortableList/SortableList.tsx"
+    },
+    {
+      "file": "ds/patterns/Tour/Tour.tsx"
+    }
+  ],
+  "rtlFindings": [
+    {
+      "file": "ds/primitives/Avatar/Avatar.tsx"
+    },
+    {
+      "file": "ds/primitives/BackTop/BackTop.tsx"
+    },
+    {
+      "file": "ds/primitives/BatteryIndicator/BatteryIndicator.tsx"
+    },
+    {
+      "file": "ds/primitives/Input/Input.tsx"
+    },
+    {
+      "file": "ds/primitives/Label/Label.tsx"
+    },
+    {
+      "file": "ds/primitives/NumberInput/NumberInput.tsx"
+    },
+    {
+      "file": "ds/primitives/PasswordInput/PasswordInput.tsx"
+    },
+    {
+      "file": "ds/primitives/PhoneInput/PhoneInput.tsx"
+    },
+    {
+      "file": "ds/primitives/RangeSlider/RangeSlider.tsx"
+    },
+    {
+      "file": "ds/primitives/Slider/Slider.tsx"
+    },
+    {
+      "file": "ds/primitives/Switch/Switch.tsx"
+    },
+    {
+      "file": "ds/primitives/Tag/Tag.tsx"
+    },
+    {
+      "file": "ds/primitives/Textarea/Textarea.tsx"
+    },
+    {
+      "file": "ds/primitives/Toggle/Toggle.tsx"
+    },
+    {
+      "file": "ds/composites/Alert/Alert.tsx"
+    },
+    {
+      "file": "ds/composites/AnnouncementBar/AnnouncementBar.tsx"
+    },
+    {
+      "file": "ds/composites/AutoPlayDemo/AutoPlayDemo.tsx"
+    },
+    {
+      "file": "ds/composites/Banner/Banner.tsx"
+    },
+    {
+      "file": "ds/composites/Blockquote/Blockquote.tsx"
+    },
+    {
+      "file": "ds/composites/BottomSheet/BottomSheet.tsx"
+    },
+    {
+      "file": "ds/composites/ButtonGroup/ButtonGroup.tsx"
+    },
+    {
+      "file": "ds/composites/Callout/Callout.tsx"
+    },
+    {
+      "file": "ds/composites/Carousel/Carousel.tsx"
+    },
+    {
+      "file": "ds/composites/ChatBubble/ChatBubble.tsx"
+    },
+    {
+      "file": "ds/composites/CollectionView/CollectionView.tsx"
+    },
+    {
+      "file": "ds/composites/ColorSwatch/ColorSwatch.tsx"
+    },
+    {
+      "file": "ds/composites/CompareSlider/CompareSlider.tsx"
+    },
+    {
+      "file": "ds/composites/ComparisonGrid/ComparisonGrid.tsx"
+    },
+    {
+      "file": "ds/composites/ComponentShowcase/ComponentShowcase.tsx"
+    },
+    {
+      "file": "ds/composites/ContextMenu/ContextMenu.tsx"
+    },
+    {
+      "file": "ds/composites/CookieConsent/CookieConsent.tsx"
+    },
+    {
+      "file": "ds/composites/CopyBlock/CopyBlock.tsx"
+    },
+    {
+      "file": "ds/composites/DateInput/DateInput.tsx"
+    },
+    {
+      "file": "ds/composites/Descriptions/Descriptions.tsx"
+    },
+    {
+      "file": "ds/composites/DetailPanel/DetailPanel.tsx"
+    },
+    {
+      "file": "ds/composites/DiffViewer/DiffViewer.tsx"
+    },
+    {
+      "file": "ds/composites/Drawer/Drawer.tsx"
+    },
+    {
+      "file": "ds/composites/Dropdown/Dropdown.tsx"
+    },
+    {
+      "file": "ds/composites/FilterButtonGroup/FilterButtonGroup.tsx"
+    },
+    {
+      "file": "ds/composites/FloatingActionButton/FloatingActionButton.tsx"
+    },
+    {
+      "file": "ds/composites/Globe/Globe.tsx"
+    },
+    {
+      "file": "ds/composites/HoverCard/HoverCard.tsx"
+    },
+    {
+      "file": "ds/composites/ImageCropper/ImageCropper.tsx"
+    },
+    {
+      "file": "ds/composites/ImageLightbox/ImageLightbox.tsx"
+    },
+    {
+      "file": "ds/composites/InlineEdit/InlineEdit.tsx"
+    },
+    {
+      "file": "ds/composites/JSONViewer/JSONViewer.tsx"
+    },
+    {
+      "file": "ds/composites/MarkdownViewer/MarkdownViewer.tsx"
+    },
+    {
+      "file": "ds/composites/Menubar/Menubar.tsx"
+    },
+    {
+      "file": "ds/composites/MultiSelect/MultiSelect.tsx"
+    },
+    {
+      "file": "ds/composites/NavigationMenu/NavigationMenu.tsx"
+    },
+    {
+      "file": "ds/composites/OfflineIndicator/OfflineIndicator.tsx"
+    },
+    {
+      "file": "ds/composites/Popover/Popover.tsx"
+    },
+    {
+      "file": "ds/composites/PriceDisplay/PriceDisplay.tsx"
+    },
+    {
+      "file": "ds/composites/PricingTable/PricingTable.tsx"
+    },
+    {
+      "file": "ds/composites/ProductCard/ProductCard.tsx"
+    },
+    {
+      "file": "ds/composites/Resizable/Resizable.tsx"
+    },
+    {
+      "file": "ds/composites/ScrollProgress/ScrollProgress.tsx"
+    },
+    {
+      "file": "ds/composites/ScrollSpy/ScrollSpy.tsx"
+    },
+    {
+      "file": "ds/composites/SearchInput/SearchInput.tsx"
+    },
+    {
+      "file": "ds/composites/Select/Select.tsx"
+    },
+    {
+      "file": "ds/composites/Sheet/Sheet.tsx"
+    },
+    {
+      "file": "ds/composites/Snackbar/Snackbar.tsx"
+    },
+    {
+      "file": "ds/composites/SwipeAction/SwipeAction.tsx"
+    },
+    {
+      "file": "ds/composites/TableOfContents/TableOfContents.tsx"
+    },
+    {
+      "file": "ds/composites/TestimonialCard/TestimonialCard.tsx"
+    },
+    {
+      "file": "ds/composites/TextareaAutosize/TextareaAutosize.tsx"
+    },
+    {
+      "file": "ds/composites/Toast/Toast.tsx"
+    },
+    {
+      "file": "ds/composites/Tooltip/Tooltip.tsx"
+    },
+    {
+      "file": "ds/composites/TreeNav/TreeNav.tsx"
+    },
+    {
+      "file": "ds/composites/Typewriter/Typewriter.tsx"
+    },
+    {
+      "file": "ds/composites/VideoPlayer/VideoPlayer.tsx"
+    },
+    {
+      "file": "ds/patterns/ActionBar/ActionBar.tsx"
+    },
+    {
+      "file": "ds/patterns/Calendar/Calendar.tsx"
+    },
+    {
+      "file": "ds/patterns/DataTable/DataTable.tsx"
+    },
+    {
+      "file": "ds/patterns/DataTable/DataTableUtils.tsx"
+    },
+    {
+      "file": "ds/patterns/FilterBar/FilterBar.tsx"
+    },
+    {
+      "file": "ds/patterns/FlowDiagram/FlowDiagram.tsx"
+    },
+    {
+      "file": "ds/patterns/GanttChart/GanttChart.tsx"
+    },
+    {
+      "file": "ds/patterns/NotificationCenter/NotificationCenter.tsx"
+    },
+    {
+      "file": "ds/patterns/Sidebar/Sidebar.tsx"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 //
 // Run after structural changes:  npm run map
 
-import { readdir, writeFile, mkdir, stat } from "node:fs/promises";
+import { readdir, writeFile, mkdir, stat, readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -13,6 +13,7 @@ import { fileURLToPath } from "node:url";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outDir = path.join(repoRoot, ".ai");
 const outFile = path.join(outDir, "MAP.md");
+const cacheFile = path.join(outDir, ".map-cache.json");
 
 const SECTIONS = [
   {
@@ -84,8 +85,11 @@ const SKIP_DIRS = new Set([
   ".turbo",
 ]);
 
+// Walks a directory tree once, returning relative paths and the latest mtime
+// observed (so callers can skip re-walking when nothing changed).
 async function walk(absRoot) {
   const out = [];
+  let latestMtime = 0;
   async function recur(abs) {
     let entries;
     try {
@@ -93,18 +97,26 @@ async function walk(absRoot) {
     } catch {
       return;
     }
+    const subdirs = [];
     for (const e of entries) {
       if (SKIP_DIRS.has(e.name)) continue;
       const next = path.join(abs, e.name);
       if (e.isDirectory()) {
-        await recur(next);
+        subdirs.push(next);
       } else if (e.isFile()) {
         out.push(path.relative(absRoot, next));
       }
     }
+    // Stat the directory itself — directory mtime updates whenever a child is
+    // added/removed/renamed, which is the cheapest invalidation signal.
+    try {
+      const s = await stat(abs);
+      if (s.mtimeMs > latestMtime) latestMtime = s.mtimeMs;
+    } catch {}
+    await Promise.all(subdirs.map(recur));
   }
   await recur(absRoot);
-  return out;
+  return { files: out, latestMtime };
 }
 
 async function dirExists(p) {
@@ -142,11 +154,52 @@ lines.push("");
 
 let totalFiles = 0;
 
-for (const section of SECTIONS) {
-  const absRoot = path.join(repoRoot, section.root);
-  if (!(await dirExists(absRoot))) continue;
+// Walk each unique root in parallel and reuse the result across sections that
+// share the same root (e.g. requirements/, app/, ds/__tests__/). This replaces
+// the old per-section sequential walk.
+const uniqueRoots = [...new Set(SECTIONS.map((s) => s.root))];
+const walkResults = new Map();
+const rootSignatures = {};
+await Promise.all(
+  uniqueRoots.map(async (root) => {
+    const absRoot = path.join(repoRoot, root);
+    if (!(await dirExists(absRoot))) return;
+    const result = await walk(absRoot);
+    walkResults.set(root, result);
+    rootSignatures[root] = {
+      mtimeMs: result.latestMtime,
+      fileCount: result.files.length,
+    };
+  }),
+);
 
-  const files = (await walk(absRoot))
+// Mtime-based fast path: if every walked root has the same signature as the
+// last successful run, the input set is unchanged and we can skip re-emitting.
+let cache;
+try {
+  cache = JSON.parse(await readFile(cacheFile, "utf8"));
+} catch {
+  cache = null;
+}
+const sigEqual =
+  cache &&
+  Object.keys(rootSignatures).length === Object.keys(cache.signatures || {}).length &&
+  Object.entries(rootSignatures).every(([root, sig]) => {
+    const prev = cache.signatures?.[root];
+    return prev && prev.mtimeMs === sig.mtimeMs && prev.fileCount === sig.fileCount;
+  });
+if (sigEqual) {
+  console.log(
+    `[build-map] up-to-date — ${cache.totalFiles} files (${path.relative(repoRoot, outFile)})`,
+  );
+  process.exit(0);
+}
+
+for (const section of SECTIONS) {
+  const result = walkResults.get(section.root);
+  if (!result) continue;
+
+  const files = result.files
     .filter((rel) => section.accept(rel))
     .sort((a, b) => a.localeCompare(b));
 
@@ -169,6 +222,13 @@ lines.push(`**Total indexed files:** ${totalFiles}`);
 lines.push("");
 
 await mkdir(outDir, { recursive: true });
-await writeFile(outFile, lines.join("\n"), "utf8");
+await Promise.all([
+  writeFile(outFile, lines.join("\n"), "utf8"),
+  writeFile(
+    cacheFile,
+    JSON.stringify({ signatures: rootSignatures, totalFiles }),
+    "utf8",
+  ),
+]);
 
 console.log(`[build-map] wrote ${path.relative(repoRoot, outFile)} — ${totalFiles} files`);

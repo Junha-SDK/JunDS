@@ -43,25 +43,22 @@ const IMPORT_RE = /import\s+(?:type\s+)?{[^}]*}\s+from\s+["']([^"']+)["']/g;
 const DEFAULT_IMPORT_RE = /import\s+(?:type\s+)?(?:[A-Za-z_$][\w$]*\s*,\s*)?(?:[A-Za-z_$][\w$]*|\*\s+as\s+[A-Za-z_$][\w$]*)\s+from\s+["']([^"']+)["']/g;
 
 async function listEntries() {
-  const entries = [];
-  for (const { dir, kind } of KINDS) {
-    const root = join(DS, dir);
-    if (!existsSync(root)) continue;
-    const names = await readdir(root, { withFileTypes: true });
-    for (const dirent of names) {
-      if (!dirent.isDirectory()) continue;
-      const name = dirent.name;
-      const file = join(root, name, `${name}.tsx`);
-      try {
-        await stat(file);
-      } catch {
-        continue;
-      }
-      if (file.includes(".stories.") || file.includes(".test.")) continue;
-      entries.push({ name, kind, file });
-    }
-  }
-  return entries;
+  const lists = await Promise.all(
+    KINDS.map(async ({ dir, kind }) => {
+      const root = join(DS, dir);
+      if (!existsSync(root)) return [];
+      const names = await readdir(root, { withFileTypes: true });
+      const candidates = names
+        .filter((d) => d.isDirectory())
+        .map((d) => ({ name: d.name, kind, file: join(root, d.name, `${d.name}.tsx`) }))
+        .filter((e) => !e.file.includes(".stories.") && !e.file.includes(".test."));
+      const stats = await Promise.all(
+        candidates.map((c) => stat(c.file).then(() => c).catch(() => null)),
+      );
+      return stats.filter(Boolean);
+    }),
+  );
+  return lists.flat();
 }
 
 function extractImportPaths(source) {

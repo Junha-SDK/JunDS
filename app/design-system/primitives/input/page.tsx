@@ -1,5 +1,5 @@
 "use client";
-import { ComponentPage, Section, Guidelines, Anatomy, UsageNote, AccessibilityNote, CodeExample, VariantGrid, VariantItem } from "../../_components/ComponentPage";
+import { ComponentPage, Section, Guidelines, Anatomy, UsageNote, AccessibilityNote, CodeExample, VariantGrid, VariantItem, DecisionMatrix } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { Input } from "@/ds/primitives/Input";
 
@@ -28,7 +28,7 @@ export default function InputPage() {
     >
       {/* ── Overview ── */}
       <Section title="Overview" description="기본적인 텍스트 입력 필드입니다. 대부분의 폼에서 이름, 이메일, 주소 등 한 줄짜리 텍스트 데이터를 수집할 때 사용합니다.">
-        <Preview>
+        <Preview sourceCode={`<Input placeholder="이름을 입력하세요" />`}>
           <div className="flex flex-col gap-3 max-w-sm">
             <Input placeholder="이름을 입력하세요" />
           </div>
@@ -50,13 +50,25 @@ export default function InputPage() {
       {/* ── Sizes ── */}
       <Section title="Sizes" description="주변 레이아웃의 밀도에 맞춰 3가지 크기를 제공합니다. 기본값은 md이며, 대부분의 경우 md를 권장합니다.">
         <VariantGrid cols={3}>
-          <VariantItem label="Small (sm)" description="밀도가 높은 UI, 테이블 내 인라인 편집 등에 적합합니다.">
+          <VariantItem
+            label="Small (sm)"
+            description="밀도가 높은 UI, 테이블 내 인라인 편집 등에 적합합니다."
+            sourceCode={`<Input size="sm" placeholder="Small input" />`}
+          >
             <Input size="sm" placeholder="Small input" />
           </VariantItem>
-          <VariantItem label="Medium (md)" description="기본 크기입니다. 일반적인 폼 필드에 사용합니다.">
+          <VariantItem
+            label="Medium (md)"
+            description="기본 크기입니다. 일반적인 폼 필드에 사용합니다."
+            sourceCode={`<Input size="md" placeholder="Medium input" />`}
+          >
             <Input size="md" placeholder="Medium input" />
           </VariantItem>
-          <VariantItem label="Large (lg)" description="강조가 필요한 입력, 랜딩 페이지 검색창 등에 적합합니다.">
+          <VariantItem
+            label="Large (lg)"
+            description="강조가 필요한 입력, 랜딩 페이지 검색창 등에 적합합니다."
+            sourceCode={`<Input size="lg" placeholder="Large input" />`}
+          >
             <Input size="lg" placeholder="Large input" />
           </VariantItem>
         </VariantGrid>
@@ -65,16 +77,35 @@ export default function InputPage() {
       {/* ── States ── */}
       <Section title="States" description="Input은 상호작용 상태에 따라 시각적 피드백을 제공합니다.">
         <VariantGrid cols={2}>
-          <VariantItem label="Default" description="기본 상태입니다. 클릭하면 focus ring이 나타납니다.">
+          <VariantItem
+            label="Default"
+            description="기본 상태입니다. 클릭하면 focus ring이 나타납니다."
+            sourceCode={`<Input placeholder="기본 상태" />`}
+          >
             <Input placeholder="기본 상태" />
           </VariantItem>
-          <VariantItem label="Error" description="유효성 검증 실패 시 빨간색 border로 에러를 표시합니다.">
+          <VariantItem
+            label="Error"
+            description="유효성 검증 실패 시 빨간색 border로 에러를 표시합니다."
+            sourceCode={`<Input error placeholder="에러 상태" />`}
+          >
             <Input error placeholder="에러 상태" />
           </VariantItem>
-          <VariantItem label="Disabled" description="비활성화 상태입니다. 클릭과 입력이 차단됩니다.">
+          <VariantItem
+            label="Disabled"
+            description="비활성화 상태입니다. 클릭과 입력이 차단됩니다."
+            sourceCode={`<Input disabled placeholder="비활성화 상태" />`}
+          >
             <Input disabled placeholder="비활성화 상태" />
           </VariantItem>
-          <VariantItem label="With Icon" description="leftSlot을 활용해 검색 아이콘을 배치한 예시입니다.">
+          <VariantItem
+            label="With Icon"
+            description="leftSlot을 활용해 검색 아이콘을 배치한 예시입니다."
+            sourceCode={`<Input
+  placeholder="검색..."
+  leftSlot={<SearchIcon />}
+/>`}
+          >
             <Input
               placeholder="검색..."
               leftSlot={
@@ -90,7 +121,11 @@ export default function InputPage() {
 
       {/* ── With Slots ── */}
       <Section title="슬롯 활용 예시" description="leftSlot과 rightSlot을 조합하면 다양한 입력 패턴을 만들 수 있습니다.">
-        <Preview>
+        <Preview
+          sourceCode={`<Input placeholder="검색어를 입력하세요" leftSlot={<SearchIcon />} />
+<Input placeholder="0" rightSlot={<span>원</span>} />
+<Input placeholder="이메일" leftSlot={<MailIcon />} />`}
+        >
           <div className="flex flex-col gap-3 max-w-sm">
             <Input
               placeholder="검색어를 입력하세요"
@@ -116,6 +151,63 @@ export default function InputPage() {
             />
           </div>
         </Preview>
+      </Section>
+
+      {/* ── Decision Matrix ── */}
+      <Section title="비슷한 입력 컴포넌트 비교" description="텍스트 입력 외에도 옵션 선택·검색·태그 입력 등 의도가 다른 입력 컴포넌트들이 있습니다.">
+        <DecisionMatrix
+          rows={[
+            {
+              name: "Input",
+              href: "/design-system/primitives/input",
+              signature: "단일 텍스트",
+              useWhen: "이름·이메일·주소 등 자유 텍스트 한 줄 입력. 가장 기본적인 선택.",
+              avoidWhen: "여러 줄(Textarea), 비밀번호(PasswordInput), 검색(SearchInput) 등 의도가 분명할 때.",
+            },
+            {
+              name: "Textarea",
+              href: "/design-system/primitives/textarea",
+              signature: "여러 줄 텍스트",
+              useWhen: "메모·설명·리뷰 등 줄바꿈이 필요한 긴 텍스트.",
+              avoidWhen: "한 줄 입력 — 시각적 무게가 과해짐.",
+            },
+            {
+              name: "SearchInput",
+              href: "/design-system/composites/search-input",
+              signature: "검색 패턴",
+              useWhen: "돋보기 아이콘·클리어 버튼·debounce가 필요한 전형적인 검색 입력.",
+              avoidWhen: "검색 외 일반 입력 — Input + leftSlot으로 충분.",
+            },
+            {
+              name: "Combobox",
+              href: "/design-system/composites/combobox",
+              signature: "검색 + 옵션 선택",
+              useWhen: "옵션 목록에서 자동완성으로 하나를 고르는 입력 — 자유 텍스트도 허용.",
+              avoidWhen: "옵션이 적고 자유 입력이 불필요하면 Select.",
+            },
+            {
+              name: "Select",
+              href: "/design-system/composites/select",
+              signature: "단일 옵션 선택",
+              useWhen: "정해진 옵션에서 하나만 선택. 자유 텍스트가 필요 없을 때.",
+              avoidWhen: "옵션이 많고 검색/필터가 필요하면 Combobox.",
+            },
+            {
+              name: "MultiSelect",
+              href: "/design-system/composites/multi-select",
+              signature: "복수 옵션 선택",
+              useWhen: "여러 태그·카테고리를 동시에 선택. 칩 형태로 표시.",
+              avoidWhen: "단일 선택이면 Select.",
+            },
+            {
+              name: "TagInput",
+              href: "/design-system/composites/tag-input",
+              signature: "자유 태그 입력",
+              useWhen: "사용자가 임의의 태그를 직접 입력·추가할 때 (옵션 목록 없음).",
+              avoidWhen: "태그가 정해져 있으면 MultiSelect.",
+            },
+          ]}
+        />
       </Section>
 
       {/* ── Guidelines ── */}

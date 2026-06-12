@@ -16,7 +16,7 @@ export interface SettingsSection {
   content?: ReactNode;
 }
 
-export interface SettingsLayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+export interface SettingsLayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "title"> {
   /** 섹션 목록 */
   sections: SettingsSection[];
   /** 현재 활성 섹션 ID (controlled) */

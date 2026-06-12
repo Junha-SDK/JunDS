@@ -38,6 +38,9 @@ const OVERRIDES = {
   // 25-feature DataTable (filter, sort, virtualize, CSV, inline edit, etc.)
   // Single largest deliberate component in the library. Hard cap at 15 KB.
   DataTable: 15 * 1024,
+  // Slider gained aria-label/i18n forwarding + safeValue gates — 3.0KB → 3.1KB.
+  // Acceptable for an interactive form primitive with full a11y.
+  Slider: 3.5 * 1024,
 };
 
 function fmtKB(bytes) {

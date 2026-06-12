@@ -19,6 +19,13 @@ import { Textarea } from "../primitives/Textarea";
 import { Toggle } from "../primitives/Toggle";
 import { Alert } from "../composites/Alert";
 import { Card } from "../composites/Card";
+import { EmptyState } from "../composites/EmptyState";
+import { ProgressBar } from "../composites/Progress";
+import { Result } from "../composites/Result";
+import { SegmentedControl } from "../composites/SegmentedControl";
+import { Skeleton } from "../composites/Skeleton";
+import { StatCard } from "../composites/StatCard";
+import { Stepper } from "../composites/Stepper";
 
 export type SlotName = string;
 
@@ -36,7 +43,16 @@ export type ComponentEntry = {
    * Most components use the conventional `"default"` slot.
    */
   defaultSlot: SlotName;
+  /**
+   * Design-mode preview defaults. Merged into resolved props **only** when
+   * `Renderer` runs in `mode: "design"`. Lets a builder show meaningful
+   * preview content (icons, options arrays, hardcoded steps) without putting
+   * those defaults into runtime output.
+   */
+  previewProps?: () => Record<string, unknown>;
 };
+
+const cast = <T,>(c: T) => c as unknown as ComponentType<Record<string, unknown>>;
 
 const layoutTags = ["div", "section", "header", "footer", "main", "aside", "nav"] as const;
 
@@ -50,25 +66,32 @@ const layoutEntries: ComponentEntry[] = layoutTags.map((tag) => ({
 
 const componentEntries: ComponentEntry[] = [
   ...layoutEntries,
-  { id: "Button", Component: Button as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Input", Component: Input as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Textarea", Component: Textarea as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Badge", Component: Badge as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Avatar", Component: Avatar as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Spinner", Component: Spinner as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Divider", Component: Divider as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Toggle", Component: Toggle as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Checkbox", Component: Checkbox as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Switch", Component: Switch as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Slider", Component: Slider as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "StarRating", Component: StarRating as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Tag", Component: Tag as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Label", Component: Label as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "IconButton", Component: IconButton as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Kbd", Component: Kbd as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "StatusDot", Component: StatusDot as unknown as ComponentType<Record<string, unknown>>, isContainer: false, defaultSlot: "default" },
-  { id: "Card", Component: Card as unknown as ComponentType<Record<string, unknown>>, isContainer: true, defaultSlot: "default" },
-  { id: "Alert", Component: Alert as unknown as ComponentType<Record<string, unknown>>, isContainer: true, defaultSlot: "default" },
+  { id: "Button", Component: cast(Button), isContainer: false, defaultSlot: "default" },
+  { id: "Input", Component: cast(Input), isContainer: false, defaultSlot: "default" },
+  { id: "Textarea", Component: cast(Textarea), isContainer: false, defaultSlot: "default" },
+  { id: "Badge", Component: cast(Badge), isContainer: false, defaultSlot: "default" },
+  { id: "Avatar", Component: cast(Avatar), isContainer: false, defaultSlot: "default" },
+  { id: "Spinner", Component: cast(Spinner), isContainer: false, defaultSlot: "default" },
+  { id: "Divider", Component: cast(Divider), isContainer: false, defaultSlot: "default" },
+  { id: "Toggle", Component: cast(Toggle), isContainer: false, defaultSlot: "default" },
+  { id: "Checkbox", Component: cast(Checkbox), isContainer: false, defaultSlot: "default" },
+  { id: "Switch", Component: cast(Switch), isContainer: false, defaultSlot: "default" },
+  { id: "Slider", Component: cast(Slider), isContainer: false, defaultSlot: "default" },
+  { id: "StarRating", Component: cast(StarRating), isContainer: false, defaultSlot: "default" },
+  { id: "Tag", Component: cast(Tag), isContainer: false, defaultSlot: "default" },
+  { id: "Label", Component: cast(Label), isContainer: false, defaultSlot: "default" },
+  { id: "IconButton", Component: cast(IconButton), isContainer: false, defaultSlot: "default" },
+  { id: "Kbd", Component: cast(Kbd), isContainer: false, defaultSlot: "default" },
+  { id: "StatusDot", Component: cast(StatusDot), isContainer: false, defaultSlot: "default" },
+  { id: "Card", Component: cast(Card), isContainer: true, defaultSlot: "default" },
+  { id: "Alert", Component: cast(Alert), isContainer: true, defaultSlot: "default" },
+  { id: "Skeleton", Component: cast(Skeleton), isContainer: false, defaultSlot: "default" },
+  { id: "ProgressBar", Component: cast(ProgressBar), isContainer: false, defaultSlot: "default" },
+  { id: "EmptyState", Component: cast(EmptyState), isContainer: false, defaultSlot: "default" },
+  { id: "StatCard", Component: cast(StatCard), isContainer: false, defaultSlot: "default" },
+  { id: "SegmentedControl", Component: cast(SegmentedControl), isContainer: false, defaultSlot: "default" },
+  { id: "Stepper", Component: cast(Stepper), isContainer: false, defaultSlot: "default" },
+  { id: "Result", Component: cast(Result), isContainer: false, defaultSlot: "default" },
 ];
 
 const entryMap = new Map<string, ComponentEntry>(

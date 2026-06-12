@@ -11,6 +11,7 @@
  */
 import { readdir, stat, mkdir, writeFile, readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
+import { cpus } from "node:os";
 import { join, relative, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gzipSync } from "node:zlib";
@@ -19,6 +20,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const DS = join(ROOT, "ds");
 const OUT = join(ROOT, ".ai", "bundle.json");
+const CACHE = join(ROOT, ".ai", ".bundle-cache.json");
+const CONCURRENCY = Math.max(2, Math.min(8, (cpus()?.length || 4)));
 
 const KINDS = [
   { dir: "primitives", kind: "primitive" },
@@ -29,27 +32,21 @@ const KINDS = [
 const EXTERNAL = ["react", "react-dom", "react/jsx-runtime", "clsx", "tailwind-merge"];
 
 async function listEntries() {
-  const entries = [];
-  for (const { dir, kind } of KINDS) {
+  const tasks = KINDS.map(async ({ dir, kind }) => {
     const root = join(DS, dir);
-    if (!existsSync(root)) continue;
+    if (!existsSync(root)) return [];
     const names = await readdir(root, { withFileTypes: true });
-    for (const dirent of names) {
-      if (!dirent.isDirectory()) continue;
-      const name = dirent.name;
-      const file = join(root, name, `${name}.tsx`);
-      try {
-        await stat(file);
-      } catch {
-        continue;
-      }
-      // Skip stories / tests defensively (these shouldn't match Name/Name.tsx,
-      // but guard anyway).
-      if (file.includes(".stories.") || file.includes(".test.")) continue;
-      entries.push({ name, kind, file });
-    }
-  }
-  return entries;
+    const candidates = names
+      .filter((d) => d.isDirectory())
+      .map((d) => ({ name: d.name, kind, file: join(root, d.name, `${d.name}.tsx`) }))
+      .filter((e) => !e.file.includes(".stories.") && !e.file.includes(".test."));
+    const stats = await Promise.all(
+      candidates.map((c) => stat(c.file).then((s) => ({ ...c, mtimeMs: s.mtimeMs })).catch(() => null)),
+    );
+    return stats.filter(Boolean);
+  });
+  const lists = await Promise.all(tasks);
+  return lists.flat();
 }
 
 async function tryLoadEsbuild() {
@@ -115,39 +112,67 @@ function aggregate(components) {
   return totals;
 }
 
-async function main() {
-  const entries = await listEntries();
-  const esbuild = await tryLoadEsbuild();
-  const mode = esbuild ? "esbuild" : "fallback";
-  console.log(`[bundle-report] Found ${entries.length} components. Mode: ${mode}.`);
-
-  const components = [];
-  let failed = 0;
-  let i = 0;
-  for (const entry of entries) {
-    i += 1;
-    let sizes;
-    try {
-      if (esbuild) {
-        sizes = await bundleWithEsbuild(esbuild, entry.file);
-      } else {
-        sizes = await fallbackSize(entry.file);
-      }
-    } catch (err) {
-      failed += 1;
-      console.warn(
-        `[bundle-report] (${i}/${entries.length}) ${entry.name} failed: ${err.message}. Falling back to source size.`,
-      );
-      sizes = await fallbackSize(entry.file);
-    }
-    components.push({
-      name: entry.name,
-      kind: entry.kind,
-      file: relative(ROOT, entry.file).replace(/\\/g, "/"),
-      rawBytes: sizes.rawBytes,
-      gzipBytes: sizes.gzipBytes,
-    });
+async function loadCache() {
+  try {
+    return JSON.parse(await readFile(CACHE, "utf8"));
+  } catch {
+    return { entries: {} };
   }
+}
+
+async function main() {
+  const [entries, esbuild, cache] = await Promise.all([
+    listEntries(),
+    tryLoadEsbuild(),
+    loadCache(),
+  ]);
+  const mode = esbuild ? "esbuild" : "fallback";
+  console.log(
+    `[bundle-report] Found ${entries.length} components. Mode: ${mode}. Concurrency: ${CONCURRENCY}.`,
+  );
+
+  const components = new Array(entries.length);
+  let failed = 0;
+  let cached = 0;
+  let cursor = 0;
+  const cacheKey = (e) => `${mode}:${e.kind}:${e.name}`;
+
+  async function worker() {
+    while (true) {
+      const idx = cursor++;
+      if (idx >= entries.length) return;
+      const entry = entries[idx];
+      const key = cacheKey(entry);
+      const prev = cache.entries[key];
+      let sizes;
+      if (prev && prev.mtimeMs === entry.mtimeMs) {
+        sizes = { rawBytes: prev.rawBytes, gzipBytes: prev.gzipBytes };
+        cached += 1;
+      } else {
+        try {
+          sizes = esbuild
+            ? await bundleWithEsbuild(esbuild, entry.file)
+            : await fallbackSize(entry.file);
+        } catch (err) {
+          failed += 1;
+          console.warn(
+            `[bundle-report] (${idx + 1}/${entries.length}) ${entry.name} failed: ${err.message}. Falling back to source size.`,
+          );
+          sizes = await fallbackSize(entry.file);
+        }
+        cache.entries[key] = { ...sizes, mtimeMs: entry.mtimeMs };
+      }
+      components[idx] = {
+        name: entry.name,
+        kind: entry.kind,
+        file: relative(ROOT, entry.file).replace(/\\/g, "/"),
+        rawBytes: sizes.rawBytes,
+        gzipBytes: sizes.gzipBytes,
+      };
+    }
+  }
+
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
   components.sort((a, b) => b.gzipBytes - a.gzipBytes);
 
@@ -160,11 +185,14 @@ async function main() {
   };
 
   await mkdir(dirname(OUT), { recursive: true });
-  await writeFile(OUT, JSON.stringify(payload, null, 2) + "\n", "utf8");
+  await Promise.all([
+    writeFile(OUT, JSON.stringify(payload, null, 2) + "\n", "utf8"),
+    writeFile(CACHE, JSON.stringify(cache), "utf8"),
+  ]);
 
   console.log(
     `[bundle-report] Wrote ${relative(ROOT, OUT)}: ${components.length} components, ` +
-      `${failed} fell back. Total raw=${payload.totals.all.rawBytes}B, gzip=${payload.totals.all.gzipBytes}B.`,
+      `${cached} cached, ${failed} fell back. Total raw=${payload.totals.all.rawBytes}B, gzip=${payload.totals.all.gzipBytes}B.`,
   );
   console.log("[bundle-report] Top 5 by gzipBytes:");
   for (const c of components.slice(0, 5)) {

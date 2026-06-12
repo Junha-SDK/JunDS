@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState, useRef, useCallback } from "react";
 import { cn } from "../../utils/cn";
+import { useT } from "../../providers/I18nProvider";
 
 export interface SliderProps {
   /** 현재 값 */
@@ -27,6 +28,10 @@ export interface SliderProps {
   size?: "sm" | "md";
   /** 추가 클래스 */
   className?: string;
+  /** 스크린리더용 라벨 (기본 "슬라이더") */
+  "aria-label"?: string;
+  /** 라벨 엘리먼트의 id 참조 */
+  "aria-labelledby"?: string;
 }
 
 const colorMap = {
@@ -66,7 +71,10 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
     color = "primary",
     size = "md",
     className,
+    "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledBy,
   }, ref) => {
+    const t = useT();
     const trackRef = useRef<HTMLDivElement>(null);
     const [dragging, setDragging] = useState(false);
 
@@ -129,6 +137,9 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={value}
+          aria-label={ariaLabelledBy ? undefined : (ariaLabel ?? t("ariaSlider"))}
+          aria-labelledby={ariaLabelledBy}
+          aria-disabled={disabled || undefined}
           tabIndex={disabled ? -1 : 0}
           onKeyDown={handleKeyDown}
         >

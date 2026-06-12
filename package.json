@@ -6,6 +6,7 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "style": "dist/styles.css",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -62,12 +63,66 @@
       "require": "./dist/utils/index.cjs",
       "types": "./dist/utils/index.d.ts"
     },
+    "./finance": {
+      "import": "./dist/finance/index.mjs",
+      "require": "./dist/finance/index.cjs",
+      "types": "./dist/finance/index.d.ts"
+    },
+    "./finance/lib": {
+      "import": "./dist/finance/lib/index.mjs",
+      "require": "./dist/finance/lib/index.cjs",
+      "types": "./dist/finance/lib/index.d.ts"
+    },
+    "./finance/lib/*": {
+      "import": "./dist/finance/lib/*.mjs",
+      "require": "./dist/finance/lib/*.cjs",
+      "types": "./dist/finance/lib/*.d.ts"
+    },
+    "./finance/lib/accentColor": { "import": "./dist/finance/lib/accentColor.mjs", "require": "./dist/finance/lib/accentColor.cjs", "types": "./dist/finance/lib/accentColor.d.ts" },
+    "./finance/lib/alerts": { "import": "./dist/finance/lib/alerts.mjs", "require": "./dist/finance/lib/alerts.cjs", "types": "./dist/finance/lib/alerts.d.ts" },
+    "./finance/lib/auth": { "import": "./dist/finance/lib/auth.mjs", "require": "./dist/finance/lib/auth.cjs", "types": "./dist/finance/lib/auth.d.ts" },
+    "./finance/lib/backtest": { "import": "./dist/finance/lib/backtest.mjs", "require": "./dist/finance/lib/backtest.cjs", "types": "./dist/finance/lib/backtest.d.ts" },
+    "./finance/lib/brokerages": { "import": "./dist/finance/lib/brokerages.mjs", "require": "./dist/finance/lib/brokerages.cjs", "types": "./dist/finance/lib/brokerages.d.ts" },
+    "./finance/lib/compareData": { "import": "./dist/finance/lib/compareData.mjs", "require": "./dist/finance/lib/compareData.cjs", "types": "./dist/finance/lib/compareData.d.ts" },
+    "./finance/lib/consensus": { "import": "./dist/finance/lib/consensus.mjs", "require": "./dist/finance/lib/consensus.cjs", "types": "./dist/finance/lib/consensus.d.ts" },
+    "./finance/lib/dailyThemes": { "import": "./dist/finance/lib/dailyThemes.mjs", "require": "./dist/finance/lib/dailyThemes.cjs", "types": "./dist/finance/lib/dailyThemes.d.ts" },
+    "./finance/lib/disclosureTone": { "import": "./dist/finance/lib/disclosureTone.mjs", "require": "./dist/finance/lib/disclosureTone.cjs", "types": "./dist/finance/lib/disclosureTone.d.ts" },
+    "./finance/lib/ecos": { "import": "./dist/finance/lib/ecos.mjs", "require": "./dist/finance/lib/ecos.cjs", "types": "./dist/finance/lib/ecos.d.ts" },
+    "./finance/lib/financials": { "import": "./dist/finance/lib/financials.mjs", "require": "./dist/finance/lib/financials.cjs", "types": "./dist/finance/lib/financials.d.ts" },
+    "./finance/lib/format": { "import": "./dist/finance/lib/format.mjs", "require": "./dist/finance/lib/format.cjs", "types": "./dist/finance/lib/format.d.ts" },
+    "./finance/lib/fred": { "import": "./dist/finance/lib/fred.mjs", "require": "./dist/finance/lib/fred.cjs", "types": "./dist/finance/lib/fred.d.ts" },
+    "./finance/lib/heatmapColor": { "import": "./dist/finance/lib/heatmapColor.mjs", "require": "./dist/finance/lib/heatmapColor.cjs", "types": "./dist/finance/lib/heatmapColor.d.ts" },
+    "./finance/lib/heatmapData": { "import": "./dist/finance/lib/heatmapData.mjs", "require": "./dist/finance/lib/heatmapData.cjs", "types": "./dist/finance/lib/heatmapData.d.ts" },
+    "./finance/lib/holdings": { "import": "./dist/finance/lib/holdings.mjs", "require": "./dist/finance/lib/holdings.cjs", "types": "./dist/finance/lib/holdings.d.ts" },
+    "./finance/lib/investorFlow": { "import": "./dist/finance/lib/investorFlow.mjs", "require": "./dist/finance/lib/investorFlow.cjs", "types": "./dist/finance/lib/investorFlow.d.ts" },
+    "./finance/lib/investors": { "import": "./dist/finance/lib/investors.mjs", "require": "./dist/finance/lib/investors.cjs", "types": "./dist/finance/lib/investors.d.ts" },
+    "./finance/lib/kis": { "import": "./dist/finance/lib/kis.mjs", "require": "./dist/finance/lib/kis.cjs", "types": "./dist/finance/lib/kis.d.ts" },
+    "./finance/lib/livePrices": { "import": "./dist/finance/lib/livePrices.mjs", "require": "./dist/finance/lib/livePrices.cjs", "types": "./dist/finance/lib/livePrices.d.ts" },
+    "./finance/lib/marketHolidays": { "import": "./dist/finance/lib/marketHolidays.mjs", "require": "./dist/finance/lib/marketHolidays.cjs", "types": "./dist/finance/lib/marketHolidays.d.ts" },
+    "./finance/lib/marketSignals": { "import": "./dist/finance/lib/marketSignals.mjs", "require": "./dist/finance/lib/marketSignals.cjs", "types": "./dist/finance/lib/marketSignals.d.ts" },
+    "./finance/lib/mock": { "import": "./dist/finance/lib/mock.mjs", "require": "./dist/finance/lib/mock.cjs", "types": "./dist/finance/lib/mock.d.ts" },
+    "./finance/lib/monthlyThemes": { "import": "./dist/finance/lib/monthlyThemes.mjs", "require": "./dist/finance/lib/monthlyThemes.cjs", "types": "./dist/finance/lib/monthlyThemes.d.ts" },
+    "./finance/lib/newsSummary": { "import": "./dist/finance/lib/newsSummary.mjs", "require": "./dist/finance/lib/newsSummary.cjs", "types": "./dist/finance/lib/newsSummary.d.ts" },
+    "./finance/lib/recentlyViewed": { "import": "./dist/finance/lib/recentlyViewed.mjs", "require": "./dist/finance/lib/recentlyViewed.cjs", "types": "./dist/finance/lib/recentlyViewed.d.ts" },
+    "./finance/lib/rss": { "import": "./dist/finance/lib/rss.mjs", "require": "./dist/finance/lib/rss.cjs", "types": "./dist/finance/lib/rss.d.ts" },
+    "./finance/lib/stocks": { "import": "./dist/finance/lib/stocks.mjs", "require": "./dist/finance/lib/stocks.cjs", "types": "./dist/finance/lib/stocks.d.ts" },
+    "./finance/lib/strategy": { "import": "./dist/finance/lib/strategy.mjs", "require": "./dist/finance/lib/strategy.cjs", "types": "./dist/finance/lib/strategy.d.ts" },
+    "./finance/lib/tax": { "import": "./dist/finance/lib/tax.mjs", "require": "./dist/finance/lib/tax.cjs", "types": "./dist/finance/lib/tax.d.ts" },
+    "./finance/lib/themeMode": { "import": "./dist/finance/lib/themeMode.mjs", "require": "./dist/finance/lib/themeMode.cjs", "types": "./dist/finance/lib/themeMode.d.ts" },
+    "./finance/lib/tickers": { "import": "./dist/finance/lib/tickers.mjs", "require": "./dist/finance/lib/tickers.cjs", "types": "./dist/finance/lib/tickers.d.ts" },
+    "./finance/lib/tradeJournal": { "import": "./dist/finance/lib/tradeJournal.mjs", "require": "./dist/finance/lib/tradeJournal.cjs", "types": "./dist/finance/lib/tradeJournal.d.ts" },
+    "./finance/lib/useMarketStatus": { "import": "./dist/finance/lib/useMarketStatus.mjs", "require": "./dist/finance/lib/useMarketStatus.cjs", "types": "./dist/finance/lib/useMarketStatus.d.ts" },
+    "./finance/lib/watchlist": { "import": "./dist/finance/lib/watchlist.mjs", "require": "./dist/finance/lib/watchlist.cjs", "types": "./dist/finance/lib/watchlist.d.ts" },
+    "./finance/lib/yahoo": { "import": "./dist/finance/lib/yahoo.mjs", "require": "./dist/finance/lib/yahoo.cjs", "types": "./dist/finance/lib/yahoo.d.ts" },
     "./runtime": {
       "import": "./dist/runtime.mjs",
       "require": "./dist/runtime.cjs",
       "types": "./dist/runtime.d.ts"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": {
+      "style": "./dist/styles.css",
+      "default": "./dist/styles.css"
+    }
   },
   "files": [
     "dist",
@@ -77,7 +132,8 @@
   "scripts": {
     "dev": "node scripts/run-server.mjs dev --port 6100",
     "build": "next build",
-    "build:lib": "rimraf dist && rollup -c rollup.config.mjs",
+    "build:lib": "NODE_OPTIONS='--max-old-space-size=8192' rollup -c rollup.config.mjs && node scripts/ensure-use-client-banner.mjs",
+    "build:lib:clean": "rimraf dist && npm run build:lib",
     "start": "node scripts/run-server.mjs start --port 6100",
     "locate": "node scripts/locate.mjs",
     "where": "node scripts/locate.mjs",
@@ -98,6 +154,15 @@
     "stories:gen": "node scripts/generate-stories.mjs",
     "test:types": "vitest run ds/__tests__/types/",
     "validate:requirements": "node scripts/validate-requirements.mjs",
+    "validate:search-dictionary": "node scripts/validate-search-dictionary.mjs",
+    "doctor": "node scripts/junds-doctor.mjs",
+    "add": "node scripts/junds-add.mjs",
+    "create-app": "node scripts/create-junds-app.mjs",
+    "audit:compound": "node scripts/audit-compound-api.mjs",
+    "scan:motion-rtl": "node scripts/scan-motion-rtl.mjs",
+    "scan:motion-rtl:strict": "node scripts/scan-motion-rtl.mjs --strict",
+    "scan:ssr-rsc": "node scripts/scan-ssr-rsc.mjs",
+    "scan:ssr-rsc:strict": "node scripts/scan-ssr-rsc.mjs --strict",
     "audit:a11y": "vitest run --config vitest.a11y.config.ts ds/__tests__/a11y/audit.test.tsx",
     "audit:a11y:strict": "JUNDS_AUDIT_STRICT=1 vitest run --config vitest.a11y.config.ts ds/__tests__/a11y/audit.test.tsx",
     "coverage": "vitest run --coverage --coverage.reporter=json-summary --coverage.reporter=text",
@@ -119,8 +184,10 @@
     "prepare": "(husky 2>/dev/null || true) && npm run build:lib"
   },
   "peerDependencies": {
+    "lucide-react": "^1.14.0",
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react-dom": ">=18.0.0",
+    "yahoo-finance2": "^3.14.0"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -154,6 +221,7 @@
     "expect-type": "^1.3.0",
     "husky": "^9.1.7",
     "jsdom": "^29.0.2",
+    "lucide-react": "^1.14.0",
     "next": "16.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -167,6 +235,7 @@
     "tailwindcss": "^4",
     "tslib": "^2.8.1",
     "typescript": "^5",
-    "vitest": "^4.1.4"
+    "vitest": "^4.1.4",
+    "yahoo-finance2": "^3.14.0"
   }
 }

@@ -1,5 +1,10 @@
 // ─── junDS Design System ─────────────────────
 // 전체 barrel export
+//
+// CSS 토큰을 import 해두면 rollup-plugin-postcss(extract)가
+// dist/styles.css 로 추출한다. 소비자는 globals.css 등에서
+// `@import "@junds/ui/styles.css";` 한 줄로 모든 디자인 토큰을 받는다.
+import "./styles/tokens.css";
 
 // Auth (License)
 export {
