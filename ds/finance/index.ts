@@ -15,7 +15,12 @@ export { BottomNav } from "./BottomNav";
 export { CandleChart } from "./CandleChart";
 export type { MarkerLine } from "./CandleChart";
 export { ChartRangePicker } from "./ChartRangePicker";
-export { CommandPaletteHost } from "./CommandPaletteHost";
+export {
+  CommandPaletteHost,
+  registerCommandItemsProvider,
+  notifyCommandItemsChanged,
+} from "./CommandPaletteHost";
+export type { CommandItemsProvider } from "./CommandPaletteHost";
 export { ConsensusScreener } from "./ConsensusScreener";
 export { BacktestRunner } from "./BacktestRunner";
 export { DisclosureToneBadge } from "./DisclosureToneBadge";

@@ -1,7 +1,7 @@
 "use client";
 
 import { CommandPalette, type CommandItem } from "@junds/ui";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { STOCKS } from "./lib/stocks";
 
@@ -23,13 +23,65 @@ const PAGES: { label: string; href: string; description: string; group: string }
   { label: "보유 종목", href: "/portfolio/holdings", description: "현재 포지션과 평가손익", group: "내 정보" },
   { label: "포지션 × 위원회", href: "/portfolio/council", description: "내 종목별 거장 의견", group: "내 정보" },
   { label: "매매 일지", href: "/journal", description: "매매 기록과 회고", group: "내 정보" },
+  { label: "리서치 노트", href: "/notes", description: "종목별 투자 아이디어 복기", group: "내 정보" },
   { label: "가격 알림", href: "/alerts", description: "목표가 모니터링", group: "내 정보" },
   { label: "설정", href: "/settings", description: "테마·밀도·폰트 설정", group: "내 정보" },
 ];
 
+/* ──────────────────────────────────────────────────────────────
+ * 앱 측 확장 API — 동적 항목 프로바이더 등록.
+ *
+ * 앱(예: ButterMoney 리서치 노트)이 자체 데이터를 팔레트에 노출할 수 있게
+ * 하는 최소 훅. 프로바이더는 현재 시점의 CommandItem[] 을 반환하고,
+ * 데이터가 바뀌면 등록 해제 없이 notifyCommandItemsChanged() 만 호출하면
+ * 열린 팔레트에도 반영된다.
+ *
+ *   const off = registerCommandItemsProvider(() => noteItems);
+ *   // 데이터 갱신 시: notifyCommandItemsChanged();
+ *   // 언마운트 시: off();
+ * ────────────────────────────────────────────────────────────── */
+export type CommandItemsProvider = () => CommandItem[];
+
+const providers = new Set<CommandItemsProvider>();
+const providerListeners = new Set<() => void>();
+let providersVersion = 0;
+
+function emitProvidersChanged() {
+  providersVersion += 1;
+  for (const cb of providerListeners) cb();
+}
+
+export function registerCommandItemsProvider(provider: CommandItemsProvider): () => void {
+  providers.add(provider);
+  emitProvidersChanged();
+  return () => {
+    providers.delete(provider);
+    emitProvidersChanged();
+  };
+}
+
+/** 프로바이더가 반환할 데이터가 바뀌었을 때 호출 — 팔레트 항목 재수집. */
+export function notifyCommandItemsChanged(): void {
+  emitProvidersChanged();
+}
+
+function subscribeProviders(cb: () => void): () => void {
+  providerListeners.add(cb);
+  return () => providerListeners.delete(cb);
+}
+
+function getProvidersVersion(): number {
+  return providersVersion;
+}
+
 export function CommandPaletteHost() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const extraVersion = useSyncExternalStore(
+    subscribeProviders,
+    getProvidersVersion,
+    getProvidersVersion,
+  );
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -69,8 +121,18 @@ export function CommandPaletteHost() {
       },
     }));
 
-    return [...pageItems, ...stockItems];
-  }, [router]);
+    const extraItems: CommandItem[] = [];
+    for (const provider of providers) {
+      try {
+        extraItems.push(...provider());
+      } catch {
+        /* 한 프로바이더 실패가 팔레트 전체를 막지 않게 */
+      }
+    }
+
+    return [...pageItems, ...extraItems, ...stockItems];
+    // extraVersion: 프로바이더 등록/데이터 변경 시 재수집
+  }, [router, extraVersion]);
 
   return (
     <CommandPalette
