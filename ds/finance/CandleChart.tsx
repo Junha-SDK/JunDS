@@ -110,11 +110,11 @@ interface CandleChartProps {
 }
 
 const MA_PALETTE: Record<number, string> = {
-  5: "#a855f7",
-  10: "#1d4ed8",
-  20: "var(--bm-warning)",
-  60: "var(--bm-success)",
-  120: "#475569",
+  5: "var(--bm-cat-2)",
+  10: "var(--bm-cat-1)",
+  20: "var(--bm-cat-4)",
+  60: "var(--bm-cat-6)",
+  120: "var(--bm-cat-7)",
 };
 
 function computeMA(candles: Candle[], period: number): (number | null)[] {
