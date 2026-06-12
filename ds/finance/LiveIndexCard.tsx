@@ -102,9 +102,10 @@ export function LiveIndexCard({
         </span>
       </header>
       <div className="px-3.5 pt-2.5 pb-3">
+        {/* 큰 지수 값은 본문색 고정 — 등락 착색은 diff/pct 라인만 (가격색 도배 방지) */}
         <div
           className="bm-num font-extrabold leading-tight"
-          style={{ color, fontSize: valueSize }}
+          style={{ color: "var(--bm-text)", fontSize: valueSize }}
         >
           {value.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}
         </div>
