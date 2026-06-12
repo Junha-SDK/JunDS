@@ -119,7 +119,7 @@ export function Sidebar() {
                     <Link
                       href={item.href}
                       prefetch
-                      className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13.5px] font-semibold transition-colors${
+                      className={`relative flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13.5px] font-semibold transition-colors${
                         active ? "" : " hover:bg-[color:var(--bm-soft-100)]"
                       }`}
                       style={{
@@ -127,6 +127,22 @@ export function Sidebar() {
                         color: active ? "var(--bm-accent-strong)" : "var(--bm-text)",
                       }}
                     >
+                      {active ? (
+                        /* 현재 페이지 레일 — 좌측 2px 액센트 바 (X-style 마커) */
+                        <span
+                          aria-hidden
+                          style={{
+                            position: "absolute",
+                            left: 0,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            width: 2,
+                            height: 16,
+                            borderRadius: 2,
+                            background: "var(--bm-accent-strong)",
+                          }}
+                        />
+                      ) : null}
                       <span
                         className="grid place-items-center w-5 shrink-0"
                         style={{ color: active ? "var(--bm-accent-strong)" : "var(--bm-muted)" }}

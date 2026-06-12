@@ -22,6 +22,22 @@ function apply(mode: ThemeMode): void {
   document.documentElement.setAttribute("data-theme", mode);
 }
 
+/* 테마 플립 시 색이 스냅 대신 ~200ms 크로스페이드 되도록 html 에 잠깐
+ * .bm-theme-x 를 붙인다. 실제 트랜지션 규칙은 앱 globals.css 가
+ * prefers-reduced-motion: no-preference 안에서 정의 — 모션 감소 사용자는
+ * 클래스가 붙어도 아무 효과 없음. */
+let crossfadeTimer: ReturnType<typeof setTimeout> | null = null;
+function crossfade(): void {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  root.classList.add("bm-theme-x");
+  if (crossfadeTimer != null) clearTimeout(crossfadeTimer);
+  crossfadeTimer = setTimeout(() => {
+    root.classList.remove("bm-theme-x");
+    crossfadeTimer = null;
+  }, 250);
+}
+
 export function useThemeMode() {
   const [mode, setMode] = useState<ThemeMode>("light");
   const [hydrated, setHydrated] = useState(false);
@@ -43,6 +59,7 @@ export function useThemeMode() {
 
   function toggle() {
     const next: ThemeMode = mode === "dark" ? "light" : "dark";
+    crossfade();
     setMode(next);
     apply(next);
     try {
