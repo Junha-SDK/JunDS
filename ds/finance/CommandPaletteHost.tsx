@@ -85,6 +85,10 @@ export function CommandPaletteHost() {
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
+      // ⌘K(Meta+K)는 CommandPalette 내부 useKeyboard(document 리스너)가 먼저
+      // 처리하고 preventDefault 한다 — 여기서 또 토글하면 같은 키 한 번에
+      // 열림+닫힘이 겹쳐 macOS 에서 팔레트가 영영 열리지 않는다.
+      if (e.defaultPrevented) return;
       const isMeta = e.metaKey || e.ctrlKey;
       if (isMeta && e.key.toLowerCase() === "k") {
         e.preventDefault();
