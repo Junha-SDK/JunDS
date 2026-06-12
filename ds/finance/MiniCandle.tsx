@@ -16,8 +16,8 @@ export function MiniCandle({
   const max = Math.max(...candles.map((c) => c.h));
   const range = max - min || 1;
   const slot = width / candles.length;
-  const upColor = "#ef4444";
-  const downColor = "#3b82f6";
+  const upColor = "var(--bm-up)";
+  const downColor = "var(--bm-down)";
   return (
     <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
       {candles.map((c, i) => {

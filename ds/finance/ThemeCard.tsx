@@ -44,7 +44,7 @@ export function ThemeCard({
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
             {theme.starred ? (
-              <span aria-hidden style={{ color: "#facc15", fontSize: 14 }}>★</span>
+              <span aria-hidden style={{ color: "var(--bm-warning)", fontSize: 14 }}>★</span>
             ) : null}
             <h3 className="font-extrabold text-[15px] tracking-tight truncate">{theme.name}</h3>
           </div>
@@ -57,7 +57,7 @@ export function ThemeCard({
 
       {trend && trend.length > 1 ? (
         <div className="px-4 pb-1 -mb-1 opacity-90">
-          <MiniChart data={trend} type="area" width={400} height={32} color="#14b8a6" />
+          <MiniChart data={trend} type="area" width={400} height={32} color="var(--bm-accent)" />
         </div>
       ) : null}
 
@@ -91,7 +91,7 @@ function StockRow({ stock }: { stock: ThemeStock }) {
       className="flex items-center gap-2 px-3 py-2.5 transition-colors hover:bg-[color:var(--bm-soft-100)]"
     >
       <div className="min-w-0 flex-1 flex items-center gap-1.5">
-        {stock.king ? <span style={{ color: "#f59e0b" }}>♛</span> : null}
+        {stock.king ? <span style={{ color: "var(--bm-warning)" }}>♛</span> : null}
         {stock.hot ? (
           <span
             className="inline-block size-1.5 rounded-full shrink-0"

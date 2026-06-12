@@ -69,9 +69,7 @@ export function SegmentedPill({
             style={{
               color: selected ? "var(--bm-text)" : "var(--bm-muted)",
               background: selected ? "var(--bm-card)" : "transparent",
-              boxShadow: selected
-                ? "0 1px 2px rgba(15,23,42,0.08), 0 4px 12px rgba(15,23,42,0.06)"
-                : "none",
+              boxShadow: selected ? "var(--bm-shadow-sm)" : "none",
             }}
           >
             {option.icon ? <span className="shrink-0">{option.icon}</span> : null}

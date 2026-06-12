@@ -114,7 +114,7 @@ function TradeRow({
     수익실현: "var(--bm-up)",
     손절: "var(--bm-down)",
     추격매수: "#a855f7",
-    물타기: "#f59e0b",
+    물타기: "var(--bm-warning)",
   };
   return (
     <li

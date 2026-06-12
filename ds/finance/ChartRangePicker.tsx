@@ -50,7 +50,7 @@ export function ChartRangePicker({
             className="px-3 py-1.5 rounded-full text-[12px] font-extrabold transition-colors"
             style={{
               background: active ? "rgba(20,184,166,0.12)" : "var(--bm-soft-100)",
-              color: active ? "#0d9488" : "var(--bm-text)",
+              color: active ? "var(--bm-accent-strong)" : "var(--bm-text)",
               border: `1px solid ${active ? "rgba(20,184,166,0.3)" : "var(--bm-border)"}`,
             }}
           >

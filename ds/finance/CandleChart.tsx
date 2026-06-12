@@ -112,8 +112,8 @@ interface CandleChartProps {
 const MA_PALETTE: Record<number, string> = {
   5: "#a855f7",
   10: "#1d4ed8",
-  20: "#f59e0b",
-  60: "#22c55e",
+  20: "var(--bm-warning)",
+  60: "var(--bm-success)",
   120: "#475569",
 };
 
@@ -636,7 +636,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#10b981"
+            stroke="var(--bm-success)"
             strokeWidth={1}
             strokeDasharray="2 3"
             opacity={0.7}
@@ -651,7 +651,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#10b981"
+            stroke="var(--bm-success)"
             strokeWidth={1}
             opacity={0.5}
           />
@@ -665,7 +665,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#10b981"
+            stroke="var(--bm-success)"
             strokeWidth={1}
             strokeDasharray="2 3"
             opacity={0.7}
@@ -681,14 +681,14 @@ export function CandleChart({
           ) : null}
           <defs>
             <linearGradient id="bm-area-grad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ef4444" stopOpacity={0.45} />
-              <stop offset="100%" stopColor="#ef4444" stopOpacity={0} />
+              <stop offset="0%" stopColor="var(--bm-up)" stopOpacity={0.45} />
+              <stop offset="100%" stopColor="var(--bm-up)" stopOpacity={0} />
             </linearGradient>
           </defs>
           <polyline
             points={closeLinePoints.join(" ")}
             fill="none"
-            stroke="#ef4444"
+            stroke="var(--bm-up)"
             strokeWidth={1.6}
             strokeLinejoin="round"
             strokeLinecap="round"
@@ -698,7 +698,7 @@ export function CandleChart({
         displayCandles.map((c, i) => {
           const cx = layout.padL + i * layout.slot + layout.slot / 2;
           const up = c.c >= c.o;
-          const color = up ? "#ef4444" : "#3b82f6";
+          const color = up ? "var(--bm-up)" : "var(--bm-down)";
           const yOpen = layout.yPrice(c.o);
           const yClose = layout.yPrice(c.c);
           const yHigh = layout.yPrice(c.h);
@@ -837,7 +837,7 @@ export function CandleChart({
         (() => {
           const y = layout.yPrice(last.c);
           const up = last.c >= last.o;
-          const color = up ? "#ef4444" : "#3b82f6";
+          const color = up ? "var(--bm-up)" : "var(--bm-down)";
           return (
             <g>
               <line
@@ -921,7 +921,7 @@ export function CandleChart({
                   x2={width - layout.padR}
                   y1={y}
                   y2={y}
-                  stroke={lev === 30 ? "#3b82f6" : "#ef4444"}
+                  stroke={lev === 30 ? "var(--bm-down)" : "var(--bm-up)"}
                   strokeDasharray="3 3"
                   opacity={0.5}
                 />
@@ -1026,7 +1026,7 @@ export function CandleChart({
                   .filter(Boolean)
                   .join(" ")}
                 fill="none"
-                stroke="#f59e0b"
+                stroke="var(--bm-warning)"
                 strokeWidth={1.4}
                 strokeLinejoin="round"
               />
@@ -1058,7 +1058,7 @@ export function CandleChart({
                   x2={width - layout.padR}
                   y1={y}
                   y2={y}
-                  stroke={lev === 20 ? "#3b82f6" : "#ef4444"}
+                  stroke={lev === 20 ? "var(--bm-down)" : "var(--bm-up)"}
                   strokeDasharray="3 3"
                   opacity={0.5}
                 />
@@ -1122,7 +1122,7 @@ export function CandleChart({
                 x2={width - layout.padR}
                 y1={y}
                 y2={y}
-                stroke={lev === -80 ? "#3b82f6" : "#ef4444"}
+                stroke={lev === -80 ? "var(--bm-down)" : "var(--bm-up)"}
                 strokeDasharray="3 3"
                 opacity={0.5}
               />
@@ -1171,7 +1171,7 @@ export function CandleChart({
                   x2={width - layout.padR}
                   y1={yCci(lev)}
                   y2={yCci(lev)}
-                  stroke={lev === 100 ? "#ef4444" : "#3b82f6"}
+                  stroke={lev === 100 ? "var(--bm-up)" : "var(--bm-down)"}
                   strokeDasharray="3 3"
                   opacity={0.45}
                 />
@@ -1231,7 +1231,7 @@ export function CandleChart({
                   .filter(Boolean)
                   .join(" ")}
                 fill="none"
-                stroke="#f59e0b"
+                stroke="var(--bm-warning)"
                 strokeWidth={1.3}
               />
               <text x={layout.padL + 4} y={layout.atrTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
@@ -1268,7 +1268,7 @@ export function CandleChart({
                   })
                   .join(" ")}
                 fill="none"
-                stroke="#22c55e"
+                stroke="var(--bm-success)"
                 strokeWidth={1.3}
               />
               <text x={layout.padL + 4} y={layout.obvTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
@@ -1284,12 +1284,12 @@ export function CandleChart({
         <g opacity={0.75}>
           {(
             [
-              ["R3", pivot.r3, "#ef4444"],
+              ["R3", pivot.r3, "var(--bm-up)"],
               ["R2", pivot.r2, "#f87171"],
               ["R1", pivot.r1, "#fb923c"],
               ["P",  pivot.pivot, "#94a3b8"],
               ["S1", pivot.s1, "#60a5fa"],
-              ["S2", pivot.s2, "#3b82f6"],
+              ["S2", pivot.s2, "var(--bm-down)"],
               ["S3", pivot.s3, "#1d4ed8"],
             ] as const
           ).map(([label, price, color]) => {
@@ -1443,7 +1443,7 @@ export function CandleChart({
             .filter(Boolean)
             .join(" ")}
           fill="none"
-          stroke="#f59e0b"
+          stroke="var(--bm-warning)"
           strokeWidth={1.5}
           strokeDasharray="4 2"
           opacity={0.85}
@@ -1511,7 +1511,7 @@ export function CandleChart({
         const cx = layout.padL + p.endIndex * layout.slot + layout.slot / 2;
         if (p.kind === "golden-cross" || p.kind === "dead-cross") {
           const isGolden = p.kind === "golden-cross";
-          const color = isGolden ? "#22c55e" : "#ef4444";
+          const color = isGolden ? "var(--bm-success)" : "var(--bm-up)";
           const y = layout.padT + layout.candleH - 8;
           return (
             <g key={`pat-${i}`}>
@@ -1533,7 +1533,7 @@ export function CandleChart({
         const startCx = layout.padL + p.startIndex * layout.slot + layout.slot / 2;
         const endCx = layout.padL + p.endIndex * layout.slot + layout.slot / 2;
         const w = Math.max(8, endCx - startCx);
-        const color = isTop ? "#ef4444" : "#22c55e";
+        const color = isTop ? "var(--bm-up)" : "var(--bm-success)";
         return (
           <g key={`pat-${i}`} opacity={0.6}>
             <rect
@@ -1617,7 +1617,7 @@ export function CandleChart({
             if (tx + tooltipW > width - layout.padR) tx = hover.x - tooltipW - 10;
             const ty = layout.padT + 6;
             const up = hovered.c >= hovered.o;
-            const tone = up ? "#ef4444" : "#3b82f6";
+            const tone = up ? "var(--bm-up)" : "var(--bm-down)";
             return (
               <g transform={`translate(${tx}, ${ty})`}>
                 <rect

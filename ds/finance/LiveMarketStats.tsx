@@ -89,7 +89,7 @@ export function LiveMarketStats() {
           <span
             className="bm-pill text-[10.5px] font-extrabold"
             style={{
-              background: `${sentimentColor}1F`,
+              background: `color-mix(in srgb, ${sentimentColor} 12%, transparent)`,
               color: sentimentColor,
               padding: "2px 8px",
             }}

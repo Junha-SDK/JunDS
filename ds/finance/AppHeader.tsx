@@ -73,7 +73,7 @@ function HeaderButton({
   return (
     <button
       type="button"
-      className="size-9 rounded-full grid place-items-center text-[18px] text-[color:var(--bm-muted)] hover:bg-slate-100"
+      className="size-9 rounded-full grid place-items-center text-[18px] text-[color:var(--bm-muted)] hover:bg-[color:var(--bm-soft-100)]"
       {...rest}
     >
       {children}

@@ -8,7 +8,8 @@ import { holidayName } from "./lib/marketHolidays";
 import type { DailyThemeEntry } from "./lib/dailyThemes";
 
 const THEME_COLORS = [
-  "#0d9488", "#a855f7", "#ef4444", "#f59e0b", "#3b82f6", "#ec4899", "#14b8a6", "#475569",
+  "var(--bm-cat-1)", "var(--bm-cat-2)", "var(--bm-cat-3)", "var(--bm-cat-4)",
+  "var(--bm-cat-5)", "var(--bm-cat-6)", "var(--bm-cat-7)", "var(--bm-cat-8)",
 ];
 
 function colorFor(theme: string): string {
@@ -57,7 +58,7 @@ export function DailyThemesCalendar({
             className="py-2.5"
             style={{
               borderLeft: "1px solid var(--bm-border)",
-              color: "#0d9488",
+              color: "var(--bm-accent-strong)",
             }}
           >
             주간 요약
@@ -180,7 +181,7 @@ function DayCell({
       <button
         type="button"
         onClick={onPick}
-        className="w-full text-left transition-colors hover:bg-slate-50"
+        className="w-full text-left transition-colors hover:bg-[color:var(--bm-soft-100)]"
         style={{
           background: entry.isToday ? "rgba(236,72,153,0.06)" : "transparent",
           border: entry.isToday ? "2px solid #ec4899" : "none",
@@ -254,9 +255,9 @@ function DayCell({
                   }}
                   className="text-[10px] font-extrabold rounded-full px-2 py-[2px] cursor-pointer hover:brightness-110"
                   style={{
-                    background: `${c}1a`,
+                    background: `color-mix(in srgb, ${c} 10%, transparent)`,
                     color: c,
-                    border: `1px solid ${c}33`,
+                    border: `1px solid color-mix(in srgb, ${c} 20%, transparent)`,
                   }}
                 >
                   {theme}
@@ -275,7 +276,7 @@ function DayCell({
                   key={leader.name}
                   className="text-[10.5px] flex items-center gap-1"
                 >
-                  <AppIcon name="crown" size={10} strokeWidth={2.4} color="#f59e0b" />
+                  <AppIcon name="crown" size={10} strokeWidth={2.4} color="var(--bm-warning)" />
                   <span
                     className="font-bold truncate"
                     style={{ color: "var(--bm-text)" }}
@@ -447,9 +448,9 @@ function WeekSummary({
                 onClick={() => onPickTheme(t)}
                 className="text-[9.5px] font-extrabold rounded-full px-1.5 py-[1px] hover:brightness-110"
                 style={{
-                  background: "rgba(13,148,136,0.12)",
-                  color: "#0d9488",
-                  border: "1px solid rgba(13,148,136,0.28)",
+                  background: "color-mix(in srgb, var(--bm-accent-strong) 10%, transparent)",
+                  color: "var(--bm-accent-strong)",
+                  border: "1px solid color-mix(in srgb, var(--bm-accent-strong) 24%, transparent)",
                   cursor: "pointer",
                 }}
               >
@@ -471,7 +472,7 @@ function WeekSummary({
                 className="text-[10px] font-bold flex items-center gap-1 truncate"
                 style={{ color: "var(--bm-text)" }}
               >
-                <AppIcon name="crown" size={9} strokeWidth={2.4} color="#f59e0b" />
+                <AppIcon name="crown" size={9} strokeWidth={2.4} color="var(--bm-warning)" />
                 {n}
               </li>
             ))}

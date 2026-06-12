@@ -195,13 +195,14 @@ export function SearchBox({
           style={{ background: "var(--bm-card)", border: "1px solid var(--bm-border)" }}
         >
           {results.length > 0 ? (
-            <ul className="divide-y divide-slate-100 max-h-[60vh] overflow-y-auto">
+            <ul className="divide-y divide-[color:var(--bm-border)] max-h-[60vh] overflow-y-auto">
               {results.map((s) => (
                 <li key={s.key}>
                   <Link
                     href={s.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-between px-3 py-2 hover:bg-[color:var(--bm-soft-100)]"
+                    className="flex items-center justify-between hover:bg-[color:var(--bm-soft-100)]"
+                    style={{ padding: "12px 18px" }}
                   >
                     <span className="flex items-center gap-2 min-w-0">
                       <span className="font-bold text-[13.5px] truncate">{s.name}</span>
@@ -250,7 +251,7 @@ export function SearchBox({
             <button
               type="button"
               onClick={submitToSearch}
-              className="w-full px-3 py-2 text-[12.5px] text-[color:#0d9488] font-bold flex items-center justify-center gap-1"
+              className="w-full px-3 py-2 text-[12.5px] text-[color:var(--bm-accent-strong)] font-bold flex items-center justify-center gap-1"
               style={{ borderTop: "1px solid var(--bm-border)", background: "var(--bm-soft-100)" }}
             >
               ‘{value}’ 전체 검색결과 보기 <AppIcon name="chevronRight" size={12} strokeWidth={2.5} />

@@ -87,8 +87,8 @@ export function InvestorFlowChart({ data, width = 800, height = 240 }: InvestorF
               v={d.foreign}
               y0={yOf(0)}
               y={yOf(d.foreign)}
-              colorPos="#ef4444"
-              colorNeg="#3b82f6"
+              colorPos="var(--bm-up)"
+              colorNeg="var(--bm-down)"
             />
             <Bar
               x={cx - barW * 0.5}
@@ -105,7 +105,7 @@ export function InvestorFlowChart({ data, width = 800, height = 240 }: InvestorF
               v={d.individual}
               y0={yOf(0)}
               y={yOf(d.individual)}
-              colorPos="#f59e0b"
+              colorPos="var(--bm-warning)"
               colorNeg="#64748b"
             />
             {i % Math.ceil(data.length / 8) === 0 ? (
@@ -123,9 +123,9 @@ export function InvestorFlowChart({ data, width = 800, height = 240 }: InvestorF
         );
       })}
       <g transform={`translate(${padL}, 0)`}>
-        <Legend label="외국인" color="#ef4444" x={0} />
+        <Legend label="외국인" color="var(--bm-up)" x={0} />
         <Legend label="기관" color="#a855f7" x={64} />
-        <Legend label="개인" color="#f59e0b" x={120} />
+        <Legend label="개인" color="var(--bm-warning)" x={120} />
       </g>
     </svg>
   );

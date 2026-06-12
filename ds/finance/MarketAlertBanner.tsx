@@ -56,7 +56,7 @@ export function MarketAlertBanner({ symbol, pct }: MarketAlertBannerProps = {}) 
           aria-hidden
           className="grid place-items-center size-7 rounded-full shrink-0"
           style={{
-            background: "#f59e0b",
+            background: "var(--bm-warning)",
             color: "white",
           }}
         >
@@ -67,20 +67,26 @@ export function MarketAlertBanner({ symbol, pct }: MarketAlertBannerProps = {}) 
           <div className="flex items-center gap-1.5 flex-wrap">
             <span
               className="bm-num font-extrabold text-[11.5px] px-1.5 py-0.5 rounded"
-              style={{ background: "rgba(146, 64, 14, 0.15)", color: "#78350f" }}
+              style={{
+                background: "var(--bm-warning-bg)",
+                color: "color-mix(in srgb, var(--bm-warning) 55%, var(--bm-text))",
+              }}
             >
               {time}
             </span>
-            <span className="font-extrabold text-[11.5px]" style={{ color: "#78350f" }}>
+            <span
+              className="font-extrabold text-[11.5px]"
+              style={{ color: "color-mix(in srgb, var(--bm-warning) 55%, var(--bm-text))" }}
+            >
               실시간 상승률 1위
             </span>
           </div>
           <p
             className="text-[12.5px] font-bold mt-0.5 leading-snug truncate"
-            style={{ color: "#1f2937" }}
+            style={{ color: "var(--bm-text)" }}
           >
             <span className="font-extrabold">{displaySymbol}</span>
-            <span className="mx-1" style={{ color: "#92400e" }}>·</span>
+            <span className="mx-1" style={{ color: "var(--bm-muted)" }}>·</span>
             {headline}
           </p>
         </div>
@@ -88,8 +94,8 @@ export function MarketAlertBanner({ symbol, pct }: MarketAlertBannerProps = {}) 
         <span
           className="bm-num font-extrabold text-[12.5px] px-2 py-1 rounded-md shrink-0 inline-flex items-center gap-0.5"
           style={{
-            background: up ? "#fee2e2" : "#dbeafe",
-            color: up ? "#b91c1c" : "#1d4ed8",
+            background: up ? "var(--bm-up-soft)" : "var(--bm-down-soft)",
+            color: up ? "var(--bm-up)" : "var(--bm-down)",
           }}
         >
           {up ? "▲" : "▼"} {fmtSignedPct(displayPct, 1)}

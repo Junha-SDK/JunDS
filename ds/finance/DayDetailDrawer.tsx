@@ -164,7 +164,7 @@ export function DayDetailDrawer({ entry, onClose }: DayDetailDrawerProps) {
                   className="text-[11px] font-extrabold rounded-full px-2.5 py-1"
                   style={{
                     background: "rgba(13,148,136,0.12)",
-                    color: "#0d9488",
+                    color: "var(--bm-accent-strong)",
                     border: "1px solid rgba(13,148,136,0.28)",
                   }}
                 >
@@ -183,9 +183,9 @@ export function DayDetailDrawer({ entry, onClose }: DayDetailDrawerProps) {
         <section className="px-4 pb-4">
           <SectionTitle title="투자자별 순매수 (당일 누적)" />
           <div className="grid grid-cols-3 gap-2">
-            <NetCard label="외국인" value={totalForeign} color="#ef4444" />
+            <NetCard label="외국인" value={totalForeign} color="var(--bm-up)" />
             <NetCard label="기관" value={totalInst} color="#a855f7" />
-            <NetCard label="개인" value={totalInd} color="#f59e0b" />
+            <NetCard label="개인" value={totalInd} color="var(--bm-warning)" />
           </div>
           <DayFlowChart flow={flow} />
         </section>
@@ -210,7 +210,7 @@ export function DayDetailDrawer({ entry, onClose }: DayDetailDrawerProps) {
                       background: i % 2 === 0 ? "transparent" : "var(--bm-soft-100)",
                     }}
                   >
-                    <AppIcon name="crown" size={14} strokeWidth={2.4} color="#f59e0b" />
+                    <AppIcon name="crown" size={14} strokeWidth={2.4} color="var(--bm-warning)" />
                     <span className="font-extrabold text-[12.5px] truncate">
                       {l.name}
                     </span>
@@ -369,9 +369,9 @@ function DayFlowChart({
         const cx = pad + slot * (i + 0.5);
         return (
           <g key={i}>
-            <Bar x={cx - barW * 1.55} barW={barW} v={f.foreign} y0={yOf(0)} y={yOf(f.foreign)} color="#ef4444" />
+            <Bar x={cx - barW * 1.55} barW={barW} v={f.foreign} y0={yOf(0)} y={yOf(f.foreign)} color="var(--bm-up)" />
             <Bar x={cx - barW * 0.5} barW={barW} v={f.institution} y0={yOf(0)} y={yOf(f.institution)} color="#a855f7" />
-            <Bar x={cx + barW * 0.55} barW={barW} v={f.individual} y0={yOf(0)} y={yOf(f.individual)} color="#f59e0b" />
+            <Bar x={cx + barW * 0.55} barW={barW} v={f.individual} y0={yOf(0)} y={yOf(f.individual)} color="var(--bm-warning)" />
           </g>
         );
       })}

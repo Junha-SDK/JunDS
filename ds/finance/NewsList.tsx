@@ -66,8 +66,8 @@ export function NewsList({ query, limit = 6, showOriginBadge = true }: NewsListP
       <div className="bm-card px-3 py-3 space-y-2">
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="space-y-1.5">
-            <div className="h-3 rounded bg-slate-100 w-3/4 bm-shine" />
-            <div className="h-3 rounded bg-slate-100 w-full bm-shine" />
+            <div className="h-3 rounded bg-[color:var(--bm-soft-100)] w-3/4 bm-shine" />
+            <div className="h-3 rounded bg-[color:var(--bm-soft-100)] w-full bm-shine" />
           </div>
         ))}
       </div>
@@ -101,14 +101,14 @@ export function NewsList({ query, limit = 6, showOriginBadge = true }: NewsListP
           </span>
         </div>
       ) : null}
-      <ul className="divide-y divide-slate-100">
+      <ul className="divide-y divide-[color:var(--bm-border)]">
         {items.map((item, i) => (
           <li key={`${item.link}-${i}`}>
             <a
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block px-3 py-2.5 active:bg-slate-50"
+              className="block px-3 py-2.5 active:bg-[color:var(--bm-soft-100)]"
             >
               <div className="flex items-start gap-2">
                 <div className="flex-1 min-w-0">

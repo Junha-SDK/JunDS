@@ -86,7 +86,7 @@ export function MarketHeaderBadge() {
       style={{ background: "rgba(20,184,166,0.10)" }}
       title={`출처: 한국투자증권 KIS · ${new Date(snap.asOf).toLocaleTimeString("ko-KR")}`}
     >
-      <span className="font-extrabold" style={{ color: "#0d9488" }}>
+      <span className="font-extrabold" style={{ color: "var(--bm-accent-strong)" }}>
         코스피
       </span>
       <span className="font-extrabold">

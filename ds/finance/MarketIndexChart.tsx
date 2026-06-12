@@ -52,7 +52,7 @@ export function MarketIndexChart({
               className="bm-pill"
               style={{
                 background: active ? "rgba(20,184,166,0.12)" : "var(--bm-soft-100)",
-                color: active ? "#0d9488" : "var(--bm-muted)",
+                color: active ? "var(--bm-accent-strong)" : "var(--bm-muted)",
                 fontWeight: active ? 700 : 500,
               }}
             >
@@ -66,8 +66,8 @@ export function MarketIndexChart({
             [
               ["#a855f7", "5"],
               ["#1d4ed8", "10"],
-              ["#f59e0b", "20"],
-              ["#22c55e", "60"],
+              ["var(--bm-warning)", "20"],
+              ["var(--bm-success)", "60"],
               ["#475569", "120"],
             ] as const
           ).map(([color, label]) => (

@@ -7,7 +7,7 @@ interface SparklineProps {
   width?: number;
   height?: number;
   color?: string;
-  /** Gradient fill color. Pass a base color (e.g. "#ef4444"). */
+  /** Gradient fill color. Pass a base color (e.g. "var(--bm-up)"). */
   fill?: string;
   className?: string;
   /** Render dot at the latest value. */
@@ -21,7 +21,7 @@ export function Sparkline({
   data,
   width = 80,
   height = 24,
-  color = "#ef4444",
+  color = "var(--bm-up)",
   fill,
   className,
   showEndDot = true,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { heatmapColor as pctColor } from "./lib/heatmapColor";
 import { useLivePrice } from "./lib/livePrices";
 
@@ -105,13 +105,38 @@ function worstRatio(row: { area: number }[], shorter: number): number {
 
 export function MarketHeatmap({
   data,
-  width = 380,
-  height = 540,
+  width: widthProp = 380,
+  height: heightProp = 540,
   groups,
   onCellClick,
   className,
   scale = 6,
 }: MarketHeatmapProps) {
+  // 부모 크기 측정(ResizeObserver) — 측정값이 있으면 그것이 진실,
+  // 없으면(SSR/초기 렌더) width/height props가 폴백 기본값.
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [measured, setMeasured] = useState<{ w: number; h: number } | null>(null);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      const { width: w, height: h } = entry.contentRect;
+      setMeasured((prev) => {
+        const next = { w: Math.round(w), h: Math.round(h) };
+        if (prev && prev.w === next.w && prev.h === next.h) return prev;
+        return next;
+      });
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const width = measured && measured.w > 0 ? measured.w : widthProp;
+  const height = measured && measured.h > 40 ? measured.h : heightProp;
+
   const cells = useMemo(() => {
     if (groups && groups.length > 0) {
       const totals = groups.map((g) => ({
@@ -151,75 +176,76 @@ export function MarketHeatmap({
   }, [data, width, height, groups]);
 
   return (
-    <svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      className={className}
-      style={{ display: "block", maxWidth: "100%" }}
-    >
-      {/* Self-contained dark backdrop so the chart looks consistent in light/dark themes */}
-      <rect x={0} y={0} width={width} height={height} fill="#0b1220" />
-      {cells.mode === "groups" ? (
-        <>
-          {cells.groupRects.map((gr, i) => {
-            const headerH = Math.min(20, gr.rect.h * 0.16);
-            const charW = 7.5;
-            const maxChars = Math.max(2, Math.floor((gr.rect.w - 12) / charW));
-            const label =
-              gr.name.length > maxChars ? `${gr.name.slice(0, maxChars - 1)}…` : gr.name;
-            return (
-              <g key={`g-${gr.name}-${i}`}>
-                <rect
-                  x={gr.rect.x}
-                  y={gr.rect.y}
-                  width={gr.rect.w}
-                  height={headerH}
-                  fill="rgba(11,18,32,0.96)"
+    <div ref={wrapRef} className={className} style={{ width: "100%" }}>
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        style={{ display: "block", maxWidth: "100%" }}
+      >
+        {/* Theme-aware backdrop — light 테마에서는 라이트하게, dark 테마에서는 다크하게 */}
+        <rect x={0} y={0} width={width} height={height} fill="var(--bm-bg-elev)" />
+        {cells.mode === "groups" ? (
+          <>
+            {cells.groupRects.map((gr, i) => {
+              const headerH = Math.min(20, gr.rect.h * 0.16);
+              const charW = 7.5;
+              const maxChars = Math.max(2, Math.floor((gr.rect.w - 12) / charW));
+              const label =
+                gr.name.length > maxChars ? `${gr.name.slice(0, maxChars - 1)}…` : gr.name;
+              return (
+                <g key={`g-${gr.name}-${i}`}>
+                  <rect
+                    x={gr.rect.x}
+                    y={gr.rect.y}
+                    width={gr.rect.w}
+                    height={headerH}
+                    fill="color-mix(in srgb, var(--bm-bg-elev) 96%, transparent)"
+                  />
+                  <rect
+                    x={gr.rect.x}
+                    y={gr.rect.y + headerH - 1}
+                    width={gr.rect.w}
+                    height={1}
+                    fill="color-mix(in srgb, var(--bm-text) 6%, transparent)"
+                  />
+                  <text
+                    x={gr.rect.x + 8}
+                    y={gr.rect.y + headerH / 2 + 1}
+                    fontSize={11}
+                    fill="var(--bm-text)"
+                    fontWeight={800}
+                    dominantBaseline="middle"
+                    letterSpacing={0.2}
+                  >
+                    {label}
+                  </text>
+                </g>
+              );
+            })}
+            {cells.placed.flatMap((g) =>
+              g.placed.map((c, i) => (
+                <Cell
+                  key={`${g.group}-${c.name}-${i}`}
+                  cell={c}
+                  onClick={onCellClick}
+                  scale={scale}
                 />
-                <rect
-                  x={gr.rect.x}
-                  y={gr.rect.y + headerH - 1}
-                  width={gr.rect.w}
-                  height={1}
-                  fill="rgba(255,255,255,0.06)"
-                />
-                <text
-                  x={gr.rect.x + 8}
-                  y={gr.rect.y + headerH / 2 + 1}
-                  fontSize={11}
-                  fill="rgba(226,232,240,0.95)"
-                  fontWeight={800}
-                  dominantBaseline="middle"
-                  letterSpacing={0.2}
-                >
-                  {label}
-                </text>
-              </g>
-            );
-          })}
-          {cells.placed.flatMap((g) =>
-            g.placed.map((c, i) => (
-              <Cell
-                key={`${g.group}-${c.name}-${i}`}
-                cell={c}
-                onClick={onCellClick}
-                scale={scale}
-              />
-            )),
-          )}
-        </>
-      ) : (
-        cells.placed.map((c, i) => (
-          <Cell
-            key={`${c.name}-${i}`}
-            cell={c}
-            onClick={onCellClick}
-            scale={scale}
-          />
-        ))
-      )}
-    </svg>
+              )),
+            )}
+          </>
+        ) : (
+          cells.placed.map((c, i) => (
+            <Cell
+              key={`${c.name}-${i}`}
+              cell={c}
+              onClick={onCellClick}
+              scale={scale}
+            />
+          ))
+        )}
+      </svg>
+    </div>
   );
 }
 
@@ -264,7 +290,7 @@ function Cell({
         width={Math.max(0, rect.w - 1)}
         height={Math.max(0, rect.h - 1)}
         fill={fill}
-        stroke="rgba(8,12,22,0.85)"
+        stroke="color-mix(in srgb, var(--bm-bg-elev) 85%, transparent)"
         strokeWidth={1}
       />
       {showName ? (

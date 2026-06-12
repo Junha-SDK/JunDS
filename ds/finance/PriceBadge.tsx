@@ -1,4 +1,5 @@
 import { fmtSignedPct } from "./lib/format";
+import { AppIcon } from "./AppIcon";
 
 export function PriceBadge({
   pct,
@@ -20,7 +21,9 @@ export function PriceBadge({
       className="inline-flex items-center gap-[2px] bm-num"
       style={{ color, fontSize: fs, fontWeight: bold ? 700 : 500 }}
     >
-      {showArrow && !flat ? (up ? "▲" : "▼") : null}
+      {showArrow && !flat ? (
+        <AppIcon name={up ? "trendingUp" : "trendingDown"} size={11} strokeWidth={2.4} />
+      ) : null}
       {fmtSignedPct(pct)}
     </span>
   );
@@ -31,7 +34,8 @@ export function HotPctChip({ pct }: { pct: number }) {
     <span
       className="bm-pill bm-num"
       style={{
-        background: "linear-gradient(180deg, #ff6f43 0%, #ef4444 100%)",
+        background:
+          "linear-gradient(180deg, color-mix(in srgb, var(--bm-up) 72%, #ffffff) 0%, var(--bm-up) 100%)",
         color: "white",
         fontSize: 12,
         fontWeight: 800,

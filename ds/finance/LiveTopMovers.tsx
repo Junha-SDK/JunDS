@@ -92,9 +92,9 @@ export function LiveTopMovers({ rows = 8, market = "KOSPI" as "KOSPI" | "KOSDAQ"
 
   const dotColor =
     source === "live"
-      ? "#ef4444"
+      ? "var(--bm-success)"
       : source === "loading"
-      ? "#f59e0b"
+      ? "var(--bm-warning)"
       : "var(--bm-muted)";
   const liveLabel =
     source === "live"
@@ -138,8 +138,8 @@ export function LiveTopMovers({ rows = 8, market = "KOSPI" as "KOSPI" | "KOSDAQ"
               onClick={() => setActiveMarket(m)}
               className="px-2 py-0.5 text-[10.5px] font-extrabold"
               style={{
-                background: activeMarket === m ? "#0d9488" : "transparent",
-                color: activeMarket === m ? "white" : "var(--bm-muted)",
+                background: activeMarket === m ? "var(--bm-accent-strong)" : "transparent",
+                color: activeMarket === m ? "var(--bm-card)" : "var(--bm-muted)",
               }}
             >
               {m === "KOSPI" ? "코스피" : "코스닥"}

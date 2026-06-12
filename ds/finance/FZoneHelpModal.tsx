@@ -35,7 +35,7 @@ const TAB_CONTENT: Record<TabKey, TabContent> = {
     ],
     example:
       "예) ‘대원전선 B1 17,940’은 현재가가 17,940원 부근에서 1차 매수 후보 구간에 진입했다는 뜻입니다.",
-    color: "#ef4444",
+    color: "var(--bm-up)",
     colorB: "#fb923c",
     emoji: "🎯",
   },
@@ -61,7 +61,7 @@ const TAB_CONTENT: Record<TabKey, TabContent> = {
       "신호 강도가 높은 만큼 진입가·손절가를 더 명확히 잡을 수 있습니다.",
     ],
     color: "#8b5cf6",
-    colorB: "#3b82f6",
+    colorB: "var(--bm-down)",
     emoji: "💎",
   },
   골드존: {
@@ -72,8 +72,8 @@ const TAB_CONTENT: Record<TabKey, TabContent> = {
       "G1이 가장 가까운 1차 누적 후보, G3로 갈수록 더 깊은 조정 시의 분할매수 후보입니다.",
       "단기 매매보다 ‘분할 적립’ 관점으로 활용하기 좋습니다.",
     ],
-    color: "#f59e0b",
-    colorB: "#facc15",
+    color: "var(--bm-warning)",
+    colorB: "var(--bm-warning)",
     emoji: "🏆",
   },
   "38스윙": {
@@ -87,7 +87,7 @@ const TAB_CONTENT: Record<TabKey, TabContent> = {
     ],
     example:
       "예) ‘10,000원→13,000원’ 상승 후 11,860원 부근까지 눌리면 38% 되돌림 자리입니다.",
-    color: "#14b8a6",
+    color: "var(--bm-cat-3)",
     colorB: "#0ea5e9",
     emoji: "⚡",
   },
@@ -104,17 +104,17 @@ const SHARED_TERMS: Term[] = [
     term: "B1·B2·B3",
     meaning:
       "단기 매수 후보 가격(1차→3차). 숫자가 커질수록 더 깊게 조정받았을 때의 분할매수 자리.",
-    color: "#ef4444",
+    color: "var(--bm-up)",
   },
   {
     term: "G1·G2·G3",
     meaning: "골드존 — 중장기 누적 매수 후보 가격대 (1차~3차).",
-    color: "#f59e0b",
+    color: "var(--bm-warning)",
   },
   {
     term: "J1·J2·J3",
     meaning: "38스윙 — 단기 되돌림 진입 후보 가격대 (1차~3차).",
-    color: "#14b8a6",
+    color: "var(--bm-cat-3)",
   },
   {
     term: "저항선",
@@ -157,7 +157,7 @@ export function FZoneHelpModal({
               style={{
                 width: 56,
                 height: 56,
-                background: "#facc15",
+                background: "var(--bm-warning)",
                 fontSize: 28,
               }}
             >
@@ -185,9 +185,9 @@ export function FZoneHelpModal({
                 key={t.term}
                 className="bm-pill text-[11px] font-extrabold"
                 style={{
-                  background: `${t.color}1F`,
+                  background: `color-mix(in srgb, ${t.color} 12%, transparent)`,
                   color: t.color,
-                  border: `1px solid ${t.color}33`,
+                  border: `1px solid color-mix(in srgb, ${t.color} 20%, transparent)`,
                   padding: "3px 10px",
                 }}
               >
@@ -202,14 +202,14 @@ export function FZoneHelpModal({
           <Section
             title="카드 읽는 법"
             icon="📖"
-            accent="#ef4444"
+            accent="var(--bm-up)"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {[
                 {
                   title: "현재가 색상",
                   body: "빨강 = 상승, 파랑 = 하락",
-                  color: "#ef4444",
+                  color: "var(--bm-up)",
                 },
                 {
                   title: "우측 상단 배지",
@@ -266,16 +266,20 @@ export function FZoneHelpModal({
                     key={tab}
                     className="rounded-xl overflow-hidden"
                     style={{
-                      border: `1px solid ${isFirst ? content.color + "55" : "var(--bm-border)"}`,
+                      border: `1px solid ${
+                        isFirst
+                          ? `color-mix(in srgb, ${content.color} 33%, transparent)`
+                          : "var(--bm-border)"
+                      }`,
                       boxShadow: isFirst
-                        ? `0 4px 14px ${content.color}1A`
+                        ? `0 4px 14px color-mix(in srgb, ${content.color} 10%, transparent)`
                         : undefined,
                     }}
                   >
                     <header
                       className="px-3.5 py-2.5 flex items-center gap-2"
                       style={{
-                        background: `${content.color}10`,
+                        background: `color-mix(in srgb, ${content.color} 6%, transparent)`,
                         borderBottom: "1px solid var(--bm-border)",
                       }}
                     >
@@ -304,8 +308,8 @@ export function FZoneHelpModal({
                         <span
                           className="bm-pill text-[10px] font-extrabold ml-1"
                           style={{
-                            background: "rgba(34,197,94,0.14)",
-                            color: "#16a34a",
+                            background: "var(--bm-success-bg)",
+                            color: "var(--bm-success)",
                             padding: "1px 6px",
                           }}
                         >
@@ -341,8 +345,8 @@ export function FZoneHelpModal({
                         <div
                           className="mt-3 rounded-lg px-3 py-2 text-[12px] leading-relaxed flex gap-2"
                           style={{
-                            background: `${content.color}0A`,
-                            border: `1px dashed ${content.color}55`,
+                            background: `color-mix(in srgb, ${content.color} 4%, transparent)`,
+                            border: `1px dashed color-mix(in srgb, ${content.color} 33%, transparent)`,
                           }}
                         >
                           <span
@@ -367,7 +371,7 @@ export function FZoneHelpModal({
           </Section>
 
           {/* 용어 사전 */}
-          <Section title="용어 한눈에 보기" icon="📚" accent="#0d9488">
+          <Section title="용어 한눈에 보기" icon="📚" accent="var(--bm-accent-strong)">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {SHARED_TERMS.map(({ term, meaning, color }) => (
                 <div
@@ -381,7 +385,7 @@ export function FZoneHelpModal({
                   <span
                     className="bm-pill text-[10.5px] font-extrabold shrink-0 self-start"
                     style={{
-                      background: `${color}1F`,
+                      background: `color-mix(in srgb, ${color} 12%, transparent)`,
                       color,
                       padding: "2px 8px",
                       whiteSpace: "nowrap",
@@ -403,9 +407,9 @@ export function FZoneHelpModal({
           <div
             className="mt-5 rounded-lg px-3 py-2.5 text-[11.5px] leading-relaxed flex gap-2"
             style={{
-              background: "rgba(250,204,21,0.10)",
-              border: "1px solid rgba(250,204,21,0.30)",
-              color: "#7c2d12",
+              background: "var(--bm-warning-bg)",
+              border: "1px solid color-mix(in srgb, var(--bm-warning) 30%, transparent)",
+              color: "color-mix(in srgb, var(--bm-warning) 40%, var(--bm-text))",
             }}
           >
             <span className="shrink-0">⚠️</span>
@@ -438,7 +442,7 @@ function Section({
           style={{
             width: 22,
             height: 22,
-            background: `${accent}1F`,
+            background: `color-mix(in srgb, ${accent} 12%, transparent)`,
             fontSize: 12,
           }}
         >

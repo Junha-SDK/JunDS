@@ -110,16 +110,16 @@ export function LiveStockTable() {
         <span className="relative flex size-2.5">
           <span
             className="absolute inline-flex h-full w-full rounded-full opacity-75"
-            style={{ background: "#ef4444", animation: "bm-pulse 1.4s ease-out infinite" }}
+            style={{ background: "var(--bm-success)", animation: "bm-pulse 1.4s ease-out infinite" }}
           />
           <span
             className="relative inline-flex rounded-full size-2.5"
-            style={{ background: "#ef4444" }}
+            style={{ background: "var(--bm-success)" }}
           />
         </span>
         <span
           className="text-[11px] font-extrabold tracking-[0.06em]"
-          style={{ color: "#ef4444" }}
+          style={{ color: "var(--bm-success)" }}
         >
           LIVE
         </span>
@@ -148,8 +148,8 @@ export function LiveStockTable() {
               onClick={() => setMarketFilter(m)}
               className="px-2 py-0.5 text-[10.5px] font-extrabold"
               style={{
-                background: marketFilter === m ? "#0d9488" : "transparent",
-                color: marketFilter === m ? "white" : "var(--bm-muted)",
+                background: marketFilter === m ? "var(--bm-accent-strong)" : "transparent",
+                color: marketFilter === m ? "var(--bm-card)" : "var(--bm-muted)",
               }}
             >
               {m === "ALL" ? "전체" : m === "KOSPI" ? "코스피" : "코스닥"}

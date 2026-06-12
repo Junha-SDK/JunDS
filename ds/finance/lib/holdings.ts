@@ -8,7 +8,7 @@ export interface Holding {
   qty: number;
   avgCost: number;
   sector?: string;
-  /** 사용자 색 태그 — 보유 리스트 시각 그룹핑용. HEX (e.g. "#22c55e") 또는 토큰. */
+  /** 사용자 색 태그 — 보유 리스트 시각 그룹핑용. HEX (e.g. "var(--bm-success)") 또는 토큰. */
   color?: string;
 }
 

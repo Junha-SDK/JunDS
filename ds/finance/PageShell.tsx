@@ -1,12 +1,28 @@
 import type { ReactNode } from "react";
 
+/** 컨테이너 폭 프리셋 — 숫자 지정도 계속 허용(하위호환) */
+export type PageShellWidth =
+  | number
+  | "narrow"
+  | "content"
+  | "default"
+  | "wide"
+  | "full";
+
+const WIDTH_PRESETS: Record<Exclude<PageShellWidth, number | "full">, number> = {
+  narrow: 920,
+  content: 1180,
+  default: 1440,
+  wide: 1600,
+};
+
 interface PageShellProps {
   title?: string;
   description?: string;
   actions?: ReactNode;
   children: ReactNode;
   /** Limit page max width; default keeps content readable on huge screens */
-  maxWidth?: number | "full";
+  maxWidth?: PageShellWidth;
 }
 
 export function PageShell({
@@ -14,10 +30,15 @@ export function PageShell({
   description,
   actions,
   children,
-  maxWidth = 1440,
+  maxWidth = "default",
 }: PageShellProps) {
-  const widthStyle =
-    maxWidth === "full" ? undefined : { maxWidth: `${maxWidth}px` };
+  const resolved =
+    typeof maxWidth === "number"
+      ? maxWidth
+      : maxWidth === "full"
+        ? null
+        : WIDTH_PRESETS[maxWidth];
+  const widthStyle = resolved === null ? undefined : { maxWidth: `${resolved}px` };
   return (
     <div className="px-4 lg:px-6 py-5 lg:py-7">
       <div className="mx-auto" style={widthStyle}>

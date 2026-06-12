@@ -45,8 +45,8 @@ export function AreaChart({
   const baselineY = baseline != null ? yOf(baseline) : padT + innerH / 2;
   const last = data[data.length - 1];
   const tone = last > (baseline ?? data[0]) ? "up" : "down";
-  const upColor = "#ef4444";
-  const downColor = "#3b82f6";
+  const upColor = "var(--bm-up)";
+  const downColor = "var(--bm-down)";
   const stroke = tone === "up" ? upColor : downColor;
 
   const top = padT;

@@ -112,18 +112,18 @@ export function LiveTicker() {
             <span
               className="absolute inline-flex h-full w-full rounded-full opacity-75"
               style={{
-                background: isOpen ? "#ef4444" : "var(--bm-muted)",
+                background: isOpen ? "var(--bm-success)" : "var(--bm-muted)",
                 animation: isOpen ? "bm-pulse 1.4s ease-out infinite" : "none",
               }}
             />
             <span
               className="relative inline-flex rounded-full size-2"
-              style={{ background: isOpen ? "#ef4444" : "var(--bm-muted)" }}
+              style={{ background: isOpen ? "var(--bm-success)" : "var(--bm-muted)" }}
             />
           </span>
           <span
             className="text-[10.5px] font-extrabold tracking-[0.06em]"
-            style={{ color: isOpen ? "#ef4444" : "var(--bm-muted)" }}
+            style={{ color: isOpen ? "var(--bm-success)" : "var(--bm-muted)" }}
           >
             {isOpen ? "LIVE" : marketStatus === "휴장" ? "휴장" : "장마감"}
           </span>

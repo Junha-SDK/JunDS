@@ -30,9 +30,9 @@ const TAG_COLORS: Record<
 };
 
 const PALETTE: Record<Disclosure["category"], string> = {
-  정기: "#3b82f6",
-  수시: "#f59e0b",
-  주요사항: "#ef4444",
+  정기: "var(--bm-info)",
+  수시: "var(--bm-warning)",
+  주요사항: "var(--bm-danger)",
   지분: "#16a34a",
   기타: "#94a3b8",
 };
@@ -111,7 +111,7 @@ export function DisclosuresClient({
           icon="📑"
           label="전체 공시"
           value={items.length}
-          accent="#0d9488"
+          accent="var(--bm-accent-strong)"
         />
         <SummaryCard
           icon="🆕"
@@ -123,13 +123,13 @@ export function DisclosuresClient({
           icon="⚠️"
           label="주요사항"
           value={major}
-          accent="#ef4444"
+          accent="var(--bm-danger)"
         />
         <SummaryCard
           icon="🔍"
           label="현재 필터"
           value={filtered.length}
-          accent="#f59e0b"
+          accent="var(--bm-warning)"
           hint={filter === "all" ? "전체" : filter}
         />
       </section>
@@ -241,7 +241,7 @@ function SummaryCard({
         style={{
           width: 36,
           height: 36,
-          background: `${accent}1F`,
+          background: `color-mix(in srgb, ${accent} 12%, transparent)`,
           fontSize: 18,
         }}
       >
@@ -300,7 +300,7 @@ function FilterChip({
         color: active ? "white" : baseColor,
         border: active
           ? "none"
-          : `1px solid ${accent ? `${accent}55` : "var(--bm-border)"}`,
+          : `1px solid ${accent ? `color-mix(in srgb, ${accent} 33%, transparent)` : "var(--bm-border)"}`,
         padding: "6px 12px",
         fontSize: 12,
       }}

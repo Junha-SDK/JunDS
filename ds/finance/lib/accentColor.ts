@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 
 const KEY = "buttermoney.accent.v1";
-export const DEFAULT_ACCENT = "#14b8a6";
+/** 모노크롬 잉크 — 옛 teal(#14b8a6)을 대체하는 기본 액센트 */
+export const DEFAULT_ACCENT = "#1a1f24";
 
 export type AccentPreset = {
   id: string;
@@ -133,6 +134,9 @@ export function applyAccent(input: string): AccentTokens {
   const tokens = buildAccentTokens(input);
   if (typeof document === "undefined") return tokens;
   const root = document.documentElement;
+  // 앱이 모노크롬 액센트로 잠근 경우(data-accent-lock="mono") 런타임 액센트
+  // 살포를 전면 중단 — CSS 토큰 정의가 그대로 진실이 된다.
+  if (root.getAttribute("data-accent-lock") === "mono") return tokens;
   root.style.setProperty("--bm-accent", tokens.accent);
   root.style.setProperty("--bm-accent-light", tokens.light);
   root.style.setProperty("--bm-accent-strong", tokens.strong);

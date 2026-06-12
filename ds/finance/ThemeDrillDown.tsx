@@ -72,7 +72,7 @@ export function ThemeDrillDown({ theme, entries, onClose, onPickDay }: ThemeDril
             className="text-[14px] font-extrabold rounded-full px-3 py-1"
             style={{
               background: "rgba(13,148,136,0.12)",
-              color: "#0d9488",
+              color: "var(--bm-accent-strong)",
               border: "1px solid rgba(13,148,136,0.32)",
             }}
           >
@@ -146,7 +146,7 @@ export function ThemeDrillDown({ theme, entries, onClose, onPickDay }: ThemeDril
                             className="text-[9.5px] font-extrabold rounded-full px-1.5 py-[1px]"
                             style={{
                               background: t === theme ? "rgba(13,148,136,0.18)" : "var(--bm-soft-100)",
-                              color: t === theme ? "#0d9488" : "var(--bm-muted)",
+                              color: t === theme ? "var(--bm-accent-strong)" : "var(--bm-muted)",
                               border: t === theme ? "1px solid rgba(13,148,136,0.36)" : "1px solid var(--bm-border)",
                             }}
                           >
@@ -187,7 +187,7 @@ export function ThemeDrillDown({ theme, entries, onClose, onPickDay }: ThemeDril
                           background: i % 2 === 0 ? "transparent" : "var(--bm-soft-100)",
                         }}
                       >
-                        <AppIcon name="crown" size={13} strokeWidth={2.4} color="#f59e0b" />
+                        <AppIcon name="crown" size={13} strokeWidth={2.4} color="var(--bm-warning)" />
                         <span className="font-extrabold text-[12.5px] truncate">
                           {l.name}
                         </span>

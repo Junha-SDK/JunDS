@@ -18,8 +18,8 @@ export function WatchlistWidget() {
   }
 
   const sourceLabel: Record<typeof source, { text: string; color: string } | null> = {
-    kis: { text: "KIS 실시간", color: "#ef4444" },
-    yahoo: { text: "Yahoo (15분 지연)", color: "#f59e0b" },
+    kis: { text: "KIS 실시간", color: "var(--bm-success)" },
+    yahoo: { text: "Yahoo (15분 지연)", color: "var(--bm-warning)" },
     pending: { text: "연결 중", color: "#94a3b8" },
     error: { text: "데이터 없음", color: "#94a3b8" },
   };
@@ -29,7 +29,7 @@ export function WatchlistWidget() {
     <section className="bm-card overflow-hidden">
       <header className="flex items-center justify-between px-4 py-3" style={{ borderBottom: items.length > 0 ? "1px solid var(--bm-border)" : "none" }}>
         <div className="flex items-center gap-2">
-          <span style={{ color: "#facc15", fontSize: 15 }}>★</span>
+          <span style={{ color: "var(--bm-warning)", fontSize: 15 }}>★</span>
           <h2 className="font-extrabold text-[14px]">관심종목</h2>
           <Badge variant="info" size="sm">
             {items.length}

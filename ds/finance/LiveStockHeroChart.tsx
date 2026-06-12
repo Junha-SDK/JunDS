@@ -95,8 +95,8 @@ export function LiveStockHeroChart({
         price: s.takeProfitZones[1]?.price ?? 0,
         color: "#8b5cf6",
       },
-      { label: s.buyZones[0].label, price: s.buyZones[0].price, color: "#22c55e" },
-      { label: s.buyZones[1].label, price: s.buyZones[1].price, color: "#3b82f6" },
+      { label: s.buyZones[0].label, price: s.buyZones[0].price, color: "var(--bm-success)" },
+      { label: s.buyZones[1].label, price: s.buyZones[1].price, color: "var(--bm-down)" },
       { label: s.buyZones[2].label, price: s.buyZones[2].price, color: "#7c3aed" },
     ];
   }, [symbol]);
@@ -125,23 +125,23 @@ export function LiveStockHeroChart({
   return (
     <div className="relative">
       {/* LIVE 배지 */}
-      <div className="absolute top-2 left-2 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/80 backdrop-blur">
+      <div className="absolute top-2 left-2 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-full backdrop-blur" style={{ background: "color-mix(in srgb, var(--bm-card) 80%, transparent)" }}>
         <span className="relative flex size-2">
           <span
             className="absolute inline-flex h-full w-full rounded-full opacity-75"
             style={{
-              background: isOpen ? "#ef4444" : "var(--bm-muted)",
+              background: isOpen ? "var(--bm-success)" : "var(--bm-muted)",
               animation: isOpen ? "bm-pulse 1.4s ease-out infinite" : "none",
             }}
           />
           <span
             className="relative inline-flex rounded-full size-2"
-            style={{ background: isOpen ? "#ef4444" : "var(--bm-muted)" }}
+            style={{ background: isOpen ? "var(--bm-success)" : "var(--bm-muted)" }}
           />
         </span>
         <span
           className="text-[10px] font-extrabold tracking-[0.06em]"
-          style={{ color: isOpen ? "#ef4444" : "var(--bm-muted)" }}
+          style={{ color: isOpen ? "var(--bm-success)" : "var(--bm-muted)" }}
         >
           {isOpen ? "LIVE · KIS" : status === "휴장" ? "휴장" : "장마감 스냅샷"}
         </span>

@@ -66,7 +66,7 @@ export function BmSwitch({
         }}
       >
         <span
-          className="absolute top-1/2 rounded-full bg-white transition-transform duration-200"
+          className="absolute top-1/2 rounded-full bg-[color:var(--bm-card)] transition-transform duration-200"
           style={{
             width: thumb,
             height: thumb,

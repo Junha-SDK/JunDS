@@ -47,8 +47,8 @@ const CAT_LABEL: Record<Cat, string> = {
 };
 
 const CAT_COLOR: Record<Cat, string> = {
-  fx: "#0d9488",
-  commodity: "#f59e0b",
+  fx: "var(--bm-accent-strong)",
+  commodity: "var(--bm-warning)",
   crypto: "#a855f7",
 };
 
@@ -98,16 +98,16 @@ export function FXBoard() {
         <span className="relative flex size-2.5">
           <span
             className="absolute inline-flex h-full w-full rounded-full opacity-75"
-            style={{ background: "#ef4444", animation: "bm-pulse 1.4s ease-out infinite" }}
+            style={{ background: "var(--bm-success)", animation: "bm-pulse 1.4s ease-out infinite" }}
           />
           <span
             className="relative inline-flex rounded-full size-2.5"
-            style={{ background: "#ef4444" }}
+            style={{ background: "var(--bm-success)" }}
           />
         </span>
         <span
           className="text-[11px] font-extrabold tracking-[0.06em]"
-          style={{ color: "#ef4444" }}
+          style={{ color: "var(--bm-success)" }}
         >
           LIVE
         </span>
@@ -172,7 +172,7 @@ function FXCell({
         <span
           className="text-[8.5px] font-bold ml-auto rounded-full px-1.5 py-[1px]"
           style={{
-            background: `${CAT_COLOR[item.cat]}1a`,
+            background: `color-mix(in srgb, ${CAT_COLOR[item.cat]} 10%, transparent)`,
             color: CAT_COLOR[item.cat],
           }}
         >

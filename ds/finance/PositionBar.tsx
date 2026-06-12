@@ -12,7 +12,7 @@ export function PositionBar({ low, high, cur, tone = "up" }: PositionBarProps) {
   const color = tone === "up" ? "var(--bm-up)" : "var(--bm-down)";
 
   return (
-    <div className="relative h-2 rounded-full bg-slate-100 overflow-visible">
+    <div className="relative h-2 rounded-full bg-[color:var(--bm-soft-100)] overflow-visible">
       <div
         className="absolute top-0 h-full rounded-full"
         style={{

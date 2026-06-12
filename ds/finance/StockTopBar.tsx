@@ -10,9 +10,19 @@ import { fmtKR억 } from "./lib/format";
 import { findStock } from "./lib/stocks";
 import { useLivePrice } from "./lib/livePrices";
 
+import type { ReactNode } from "react";
+
 interface StockTopBarProps {
   symbol: string;
-  active: "info" | "chart" | "order" | "financials" | "disclosures" | "investor";
+  active:
+    | "info"
+    | "chart"
+    | "order"
+    | "financials"
+    | "valuation"
+    | "analytics"
+    | "disclosures"
+    | "investor";
   /** Optional manual override; otherwise derived from findStock + live ticker */
   price?: number;
   diff?: number;
@@ -24,6 +34,8 @@ interface StockTopBarProps {
    * 미지정 시 `findStock(symbol)` → URL 디코드 순으로 폴백.
    */
   displayName?: string;
+  /** Row 1 우측(가격 블록 옆)에 렌더되는 추가 슬롯 — NXT 세션 알약 등 */
+  trailing?: ReactNode;
 }
 
 const TABS = [
@@ -31,11 +43,13 @@ const TABS = [
   { key: "chart", label: "차트", suffix: "/chart" },
   { key: "order", label: "호가", suffix: "/order" },
   { key: "financials", label: "재무", suffix: "/financials" },
+  { key: "valuation", label: "밸류에이션", suffix: "/valuation" },
+  { key: "analytics", label: "분석", suffix: "/analytics" },
   { key: "disclosures", label: "공시", suffix: "/disclosures" },
   { key: "investor", label: "AI 위원회", suffix: "/investor" },
 ] as const;
 
-export function StockTopBar({ symbol, active, price, diff, pct, amount억, displayName }: StockTopBarProps) {
+export function StockTopBar({ symbol, active, price, diff, pct, amount억, displayName, trailing }: StockTopBarProps) {
   const router = useRouter();
   const decoded = decodeURIComponent(symbol);
   const stock = findStock(decoded);
@@ -57,7 +71,6 @@ export function StockTopBar({ symbol, active, price, diff, pct, amount억, displ
 
   const up = displayPct >= 0;
   const trendColor = up ? "var(--bm-up)" : "var(--bm-down)";
-  const arrow = up ? "▲" : "▼";
 
   return (
     <header
@@ -123,10 +136,11 @@ export function StockTopBar({ symbol, active, price, diff, pct, amount억, displ
               </div>
               <div className="flex items-center gap-1 sm:gap-1.5 justify-end mt-0.5 sm:mt-1 whitespace-nowrap">
                 <span
-                  className="bm-num font-bold text-[11px] sm:text-[12px]"
+                  className="bm-num font-bold text-[11px] sm:text-[12px] inline-flex items-center gap-[2px]"
                   style={{ color: trendColor }}
                 >
-                  {arrow} {Math.abs(Math.round(displayDiff)).toLocaleString("ko-KR")}
+                  <AppIcon name={up ? "trendingUp" : "trendingDown"} size={11} strokeWidth={2.4} />
+                  {Math.abs(Math.round(displayDiff)).toLocaleString("ko-KR")}
                 </span>
                 <PriceBadge pct={displayPct} bold size="sm" showArrow={false} />
               </div>
@@ -134,6 +148,9 @@ export function StockTopBar({ symbol, active, price, diff, pct, amount억, displ
             <div className="hidden sm:block">
               <AlertButton name={decoded} />
             </div>
+            {trailing ? (
+              <div className="hidden md:flex items-center gap-1.5">{trailing}</div>
+            ) : null}
           </div>
         </div>
 

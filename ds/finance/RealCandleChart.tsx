@@ -154,7 +154,7 @@ export function RealCandleChart({
           >
             <span
               className="size-1.5 rounded-full"
-              style={{ background: state.source === "yahoo" ? "#22c55e" : "var(--bm-muted)" }}
+              style={{ background: state.source === "yahoo" ? "var(--bm-success)" : "var(--bm-muted)" }}
             />
             {state.source === "yahoo"
               ? "Yahoo Finance · 실시간"

@@ -45,12 +45,8 @@ export function TopBar() {
 
   const now = koreaNow;
   const status = marketStatusLabel(now);
-  const statusColor =
-    status === "장중"
-      ? "var(--bm-up)"
-      : status === "휴장"
-        ? "var(--bm-down)"
-        : "var(--bm-muted)";
+  // 시스템 상태 의미론: 장중 = success, 휴장/그 외 = muted (가격 색과 혼용 금지)
+  const statusColor = status === "장중" ? "var(--bm-success)" : "var(--bm-muted)";
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -94,18 +90,21 @@ export function TopBar() {
           ) : null}
           {status ? (
             <span
-              className="text-[10.5px] font-extrabold rounded-full px-1.5 py-[1px]"
+              className="inline-flex items-center gap-1 text-[10.5px] font-extrabold rounded-full px-1.5 py-[1px]"
               style={{
                 background:
                   status === "장중"
-                    ? "rgba(34,197,94,0.14)"
-                    : status === "휴장"
-                      ? "rgba(239,68,68,0.12)"
-                      : "var(--bm-soft-100)",
+                    ? "color-mix(in srgb, var(--bm-success) 14%, transparent)"
+                    : "var(--bm-soft-100)",
                 color: statusColor,
               }}
             >
-              ● {status}
+              <span
+                aria-hidden
+                className={`size-1.5 rounded-full shrink-0${status === "장중" ? " animate-pulse" : ""}`}
+                style={{ background: "currentColor" }}
+              />
+              {status}
             </span>
           ) : null}
         </div>

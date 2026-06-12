@@ -10,12 +10,33 @@ import {
 } from "./lib/strategy";
 import { AppIcon } from "./AppIcon";
 
+// REC 5단계 톤 — 가격 의미론(up=빨강/down=파랑) 토큰 기반
 const RECO_TONE: Record<string, { color: string; bg: string; icon: "trendingUp" | "trendingDown" | "activity" }> = {
-  강력매수: { color: "#ef4444", bg: "rgba(239,68,68,0.12)", icon: "trendingUp" },
-  매수: { color: "#f97316", bg: "rgba(249,115,22,0.12)", icon: "trendingUp" },
-  관망: { color: "#64748b", bg: "rgba(100,116,139,0.12)", icon: "activity" },
-  매도: { color: "#3b82f6", bg: "rgba(59,130,246,0.12)", icon: "trendingDown" },
-  강력매도: { color: "#1d4ed8", bg: "rgba(29,78,216,0.12)", icon: "trendingDown" },
+  강력매수: {
+    color: "var(--bm-up)",
+    bg: "color-mix(in srgb, var(--bm-up) 12%, transparent)",
+    icon: "trendingUp",
+  },
+  매수: {
+    color: "color-mix(in srgb, var(--bm-up) 55%, var(--bm-muted))",
+    bg: "color-mix(in srgb, var(--bm-up) 8%, transparent)",
+    icon: "trendingUp",
+  },
+  관망: {
+    color: "var(--bm-muted)",
+    bg: "color-mix(in srgb, var(--bm-muted) 12%, transparent)",
+    icon: "activity",
+  },
+  매도: {
+    color: "color-mix(in srgb, var(--bm-down) 55%, var(--bm-muted))",
+    bg: "color-mix(in srgb, var(--bm-down) 8%, transparent)",
+    icon: "trendingDown",
+  },
+  강력매도: {
+    color: "var(--bm-down)",
+    bg: "color-mix(in srgb, var(--bm-down) 12%, transparent)",
+    icon: "trendingDown",
+  },
 };
 
 export function StrategyPanel({ name }: { name: string }) {
@@ -35,7 +56,7 @@ export function StrategyPanel({ name }: { name: string }) {
         style={{ borderBottom: "1px solid var(--bm-border)" }}
       >
         <div className="flex items-center gap-2">
-          <AppIcon name="target" size={16} strokeWidth={2.2} color="#0d9488" />
+          <AppIcon name="target" size={16} strokeWidth={2.2} color="var(--bm-accent-strong)" />
           <h2 className="font-extrabold text-[14px]">매매 전략</h2>
           <Badge variant="info" size="sm">
             데모 알고리즘
@@ -116,9 +137,9 @@ export function StrategyPanel({ name }: { name: string }) {
         className="px-4 py-3 grid grid-cols-1 md:grid-cols-3 gap-3"
         style={{ background: "var(--bm-soft-100)", borderTop: "1px solid var(--bm-border)" }}
       >
-        <PositionTile label="안전형" pct={strategy.positionSize.conservative} color="#3b82f6" />
-        <PositionTile label="균형형" pct={strategy.positionSize.balanced} color="#0d9488" />
-        <PositionTile label="공격형" pct={strategy.positionSize.aggressive} color="#ef4444" />
+        <PositionTile label="안전형" pct={strategy.positionSize.conservative} color="var(--bm-info)" />
+        <PositionTile label="균형형" pct={strategy.positionSize.balanced} color="var(--bm-accent-strong)" />
+        <PositionTile label="공격형" pct={strategy.positionSize.aggressive} color="var(--bm-up)" />
       </div>
 
       {strategy.notes.length > 0 ? (
@@ -180,7 +201,7 @@ function ZoneColumn({
   levels: StrategyLevel[];
   current: number;
 }) {
-  const accent = tone === "buy" ? "var(--bm-up)" : "#0d9488";
+  const accent = tone === "buy" ? "var(--bm-up)" : "var(--bm-accent-strong)";
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-1.5 px-1">
@@ -229,16 +250,16 @@ function StopColumn({ level, current }: { level: StrategyLevel; current: number 
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-1.5 px-1">
-        <AppIcon name="alert" size={13} strokeWidth={2.4} color="#3b82f6" />
-        <h3 className="text-[12.5px] font-extrabold" style={{ color: "#3b82f6" }}>
+        <AppIcon name="alert" size={13} strokeWidth={2.4} color="var(--bm-down)" />
+        <h3 className="text-[12.5px] font-extrabold" style={{ color: "var(--bm-down)" }}>
           손절선
         </h3>
       </div>
       <div
         className="rounded-xl px-3 py-3.5"
         style={{
-          border: "1px solid rgba(59,130,246,0.3)",
-          background: "rgba(59,130,246,0.05)",
+          border: "1px solid color-mix(in srgb, var(--bm-down) 30%, transparent)",
+          background: "color-mix(in srgb, var(--bm-down) 5%, transparent)",
         }}
       >
         <div className="flex items-center justify-between">
@@ -258,7 +279,7 @@ function StopColumn({ level, current }: { level: StrategyLevel; current: number 
             </div>
           </div>
         </div>
-        <p className="text-[12px] mt-2 font-semibold leading-relaxed" style={{ color: "#3b82f6" }}>
+        <p className="text-[12px] mt-2 font-semibold leading-relaxed" style={{ color: "var(--bm-down)" }}>
           {level.description}
         </p>
       </div>

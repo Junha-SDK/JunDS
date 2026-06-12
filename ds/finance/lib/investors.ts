@@ -125,7 +125,7 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     korean: "찰리 멍거",
     era: "1962–2023 · 버크셔 부회장",
     emoji: "🧠",
-    accent: "#0d9488",
+    accent: "var(--bm-accent-strong)",
     tagline: "위대한 사업을 적정 가격에 · 멍청한 짓을 피하는 것",
     koreanContext:
       "삼성전자·NAVER·카카오 같이 한국에서도 산업 1위에 가까운, 자본수익률이 꾸준히 높은 ‘훌륭한 회사’를 선호합니다. 단기 트레이딩, 레버리지, IPO 직후 종목은 멀리합니다.",
@@ -254,7 +254,7 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     korean: "레이 달리오",
     era: "1975–현재 · Bridgewater",
     emoji: "🌐",
-    accent: "#f59e0b",
+    accent: "var(--bm-warning)",
     tagline: "모든 계절에 대비 · 분산 · 부채 사이클",
     koreanContext:
       "한국 시장 자체를 매크로 사이클(금리·환율·중국 모멘텀) 안에서 봅니다. 개별 종목보다 ‘섹터 분산’과 ‘리스크 패리티’를 강조 — 반도체·바이오·내수·금리 4축에 걸쳐 분산.",
@@ -285,7 +285,7 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     korean: "빌 애크먼",
     era: "2004–현재 · Pershing Square",
     emoji: "🎯",
-    accent: "#ef4444",
+    accent: "var(--bm-up)",
     tagline: "집중투자 · 단순한 비즈니스 · 행동주의",
     koreanContext:
       "10개 미만의 종목에 집중투자. 한국에선 지배구조 개선·자사주 소각·배당 확대 가능성이 있는 대형 지주사·블루칩에 관심. 변동성을 ‘기회’로 봅니다.",

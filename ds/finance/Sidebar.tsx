@@ -21,52 +21,65 @@ interface NavSection {
   items: NavItem[];
 }
 
+/**
+ * 단일 NAV 소스 — BottomNav(탭바 + 더보기 시트)가 노출하는 모든 경로를
+ * 포함하도록 정렬한다. BottomNav 항목을 바꾸면 여기도 함께 맞출 것.
+ */
+const NAV_SECTIONS: NavSection[] = [
+  {
+    title: "마켓",
+    items: [
+      { href: "/dashboard", label: "대시보드", icon: "layoutDashboard" },
+      { href: "/realtime", label: "실시간", icon: "activity" },
+      { href: "/clock", label: "한국시간", icon: "clock" },
+      { href: "/pulse", label: "마켓 펄스", icon: "activity" },
+      { href: "/briefing", label: "오늘 한눈에", icon: "flame" },
+      { href: "/", label: "마켓중심", icon: "layoutGrid" },
+      { href: "/heatmap", label: "히트맵", icon: "barChart" },
+      { href: "/feed", label: "정보 피드", icon: "newspaper" },
+      { href: "/nxt", label: "NXT 랭킹", icon: "listOrdered" },
+      { href: "/themes/daily", label: "일별버터", icon: "calendarCheck" },
+      { href: "/themes/monthly", label: "월별버터", icon: "calendar" },
+      { href: "/market", label: "시장종합", icon: "lineChart" },
+    ],
+  },
+  {
+    title: "분석",
+    items: [
+      { href: "/fzone", label: "F존", icon: "target" },
+      { href: "/compare", label: "종목 비교", icon: "swap" },
+      { href: "/investors", label: "AI 위원회", icon: "sparkles" },
+      { href: "/investors/consensus", label: "합의 스크리너", icon: "trendingUp" },
+      { href: "/backtest", label: "백테스트", icon: "lineChart" },
+      { href: "/schedule", label: "마켓 일정", icon: "calendar" },
+      { href: "/tax", label: "세금 계산기", icon: "banknote" },
+    ],
+  },
+  {
+    title: "내 정보",
+    items: [
+      { href: "/portfolio", label: "매매손익", icon: "banknote" },
+      { href: "/portfolio/holdings", label: "보유 종목", icon: "wallet" },
+      { href: "/portfolio/council", label: "포지션 × 위원회", icon: "sparkles" },
+      { href: "/journal", label: "매매 일지", icon: "newspaper" },
+      { href: "/alerts", label: "가격 알림", icon: "bell" },
+      { href: "/search", label: "검색", icon: "search" },
+      { href: "/settings", label: "설정", icon: "settings" },
+    ],
+  },
+];
+
 export function Sidebar() {
   const path = usePathname();
   const { items: alerts } = useAlerts();
   const activeAlerts = alerts.filter((a) => a.active).length;
 
-  const sections: NavSection[] = [
-    {
-      title: "마켓",
-      items: [
-        { href: "/dashboard", label: "대시보드", icon: "layoutDashboard" },
-        { href: "/realtime", label: "실시간", icon: "activity" },
-        { href: "/clock", label: "한국시간", icon: "clock" },
-        { href: "/pulse", label: "마켓 펄스", icon: "activity" },
-        { href: "/briefing", label: "오늘 한눈에", icon: "flame" },
-        { href: "/", label: "마켓중심", icon: "layoutGrid" },
-        { href: "/heatmap", label: "히트맵", icon: "barChart" },
-        { href: "/nxt", label: "NXT 랭킹", icon: "listOrdered" },
-        { href: "/themes/daily", label: "일별버터", icon: "calendarCheck" },
-        { href: "/themes/monthly", label: "월별버터", icon: "calendar" },
-        { href: "/market", label: "시장종합", icon: "lineChart" },
-      ],
-    },
-    {
-      title: "분석",
-      items: [
-        { href: "/fzone", label: "F존", icon: "target" },
-        { href: "/compare", label: "종목 비교", icon: "swap" },
-        { href: "/investors", label: "AI 위원회", icon: "sparkles" },
-        { href: "/investors/consensus", label: "합의 스크리너", icon: "trendingUp" },
-        { href: "/backtest", label: "백테스트", icon: "lineChart" },
-        { href: "/schedule", label: "마켓 일정", icon: "calendar" },
-      ],
-    },
-    {
-      title: "내 정보",
-      items: [
-        { href: "/portfolio", label: "매매손익", icon: "banknote" },
-        { href: "/portfolio/holdings", label: "보유 종목", icon: "wallet" },
-        { href: "/portfolio/council", label: "포지션 × 위원회", icon: "sparkles" },
-        { href: "/journal", label: "매매 일지", icon: "newspaper" },
-        { href: "/alerts", label: "가격 알림", icon: "bell", badge: activeAlerts },
-        { href: "/search", label: "검색", icon: "search" },
-        { href: "/settings", label: "설정", icon: "settings" },
-      ],
-    },
-  ];
+  const sections: NavSection[] = NAV_SECTIONS.map((section) => ({
+    ...section,
+    items: section.items.map((item) =>
+      item.href === "/alerts" ? { ...item, badge: activeAlerts } : item,
+    ),
+  }));
 
   if (path === "/login") return null;
 
@@ -106,9 +119,11 @@ export function Sidebar() {
                     <Link
                       href={item.href}
                       prefetch
-                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13.5px] font-semibold transition-colors"
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13.5px] font-semibold transition-colors${
+                        active ? "" : " hover:bg-[color:var(--bm-soft-100)]"
+                      }`}
                       style={{
-                        background: active ? "var(--bm-accent-soft-bg)" : "transparent",
+                        background: active ? "var(--bm-accent-soft-bg)" : undefined,
                         color: active ? "var(--bm-accent-strong)" : "var(--bm-text)",
                       }}
                     >

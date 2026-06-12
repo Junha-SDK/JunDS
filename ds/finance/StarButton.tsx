@@ -30,7 +30,7 @@ export function StarButton({ name, size = 18, className, onChange }: StarButtonP
         border: "none",
         padding: 4,
         cursor: "pointer",
-        color: active ? "#facc15" : "var(--bm-muted)",
+        color: active ? "var(--bm-warning)" : "var(--bm-muted)",
         lineHeight: 0,
       }}
     >
@@ -38,7 +38,7 @@ export function StarButton({ name, size = 18, className, onChange }: StarButtonP
         name="star"
         size={size}
         strokeWidth={2}
-        color={active ? "#facc15" : undefined}
+        color={active ? "var(--bm-warning)" : undefined}
       />
       {active ? (
         <span style={{ display: "none" }}>

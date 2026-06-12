@@ -3,11 +3,11 @@
 import Link from "next/link";
 
 const ACCENTS = [
-  { fg: "#0d9488", bg: "rgba(20, 184, 166, 0.12)" },
-  { fg: "#9333ea", bg: "rgba(147, 51, 234, 0.12)" },
-  { fg: "#ea580c", bg: "rgba(234, 88, 12, 0.12)" },
-  { fg: "#0284c7", bg: "rgba(2, 132, 199, 0.12)" },
-  { fg: "#db2777", bg: "rgba(219, 39, 119, 0.12)" },
+  { fg: "var(--bm-cat-3)", bg: "color-mix(in srgb, var(--bm-cat-3) 12%, transparent)" },
+  { fg: "var(--bm-cat-2)", bg: "color-mix(in srgb, var(--bm-cat-2) 12%, transparent)" },
+  { fg: "var(--bm-cat-4)", bg: "color-mix(in srgb, var(--bm-cat-4) 12%, transparent)" },
+  { fg: "var(--bm-cat-8)", bg: "color-mix(in srgb, var(--bm-cat-8) 12%, transparent)" },
+  { fg: "var(--bm-cat-5)", bg: "color-mix(in srgb, var(--bm-cat-5) 12%, transparent)" },
 ];
 
 export function ThemeTagList({ themes }: { themes: string[] }) {

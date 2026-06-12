@@ -54,7 +54,7 @@ export function FZoneCard({ card }: { card: TFZoneCard }) {
         </span>
         <span
           className="bm-pill text-white"
-          style={{ background: "#ef4444", fontSize: 12 }}
+          style={{ background: "var(--bm-up)", fontSize: 12 }}
         >
           {liveStatus}
         </span>

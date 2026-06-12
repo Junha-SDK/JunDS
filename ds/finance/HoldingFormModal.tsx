@@ -199,7 +199,7 @@ export function HoldingFormModal({
                     type="button"
                     onClick={applyMarketPrice}
                     className="text-[10.5px] font-bold"
-                    style={{ color: "#0d9488" }}
+                    style={{ color: "var(--bm-accent-strong)" }}
                   >
                     현재가로 채우기
                   </button>
@@ -249,8 +249,12 @@ export function HoldingFormModal({
             type="button"
             disabled={!valid}
             onClick={submit}
-            className="px-4 h-9 rounded-lg text-[13px] font-bold text-white"
-            style={{ background: valid ? "#0d9488" : "var(--bm-muted)", opacity: valid ? 1 : 0.6 }}
+            className="px-4 h-9 rounded-lg text-[13px] font-bold"
+            style={{
+              background: valid ? "var(--bm-accent-strong)" : "var(--bm-muted)",
+              color: "var(--bm-card)",
+              opacity: valid ? 1 : 0.6,
+            }}
           >
             {submitLabel ?? (initial ? "저장" : "추가")}
           </button>

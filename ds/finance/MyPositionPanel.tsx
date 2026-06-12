@@ -45,8 +45,8 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
           <button
             type="button"
             onClick={() => setAddOpen(true)}
-            className="shrink-0 inline-flex items-center gap-1 px-2.5 h-7 rounded-lg text-[12px] font-extrabold text-white"
-            style={{ background: "#0d9488" }}
+            className="shrink-0 inline-flex items-center gap-1 px-2.5 h-7 rounded-lg text-[12px] font-extrabold"
+            style={{ background: "var(--bm-accent-strong)", color: "var(--bm-card)" }}
           >
             <AppIcon name="plus" size={12} strokeWidth={2.6} />
             보유 등록
@@ -54,7 +54,7 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
           <Link
             href={`/portfolio/holdings`}
             className="shrink-0 inline-flex items-center gap-0.5 text-[12px] font-bold"
-            style={{ color: "#0d9488" }}
+            style={{ color: "var(--bm-accent-strong)" }}
           >
             전체
             <AppIcon name="chevronRight" size={12} strokeWidth={2.5} />
@@ -86,7 +86,7 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
         style={{ borderBottom: "1px solid var(--bm-border)" }}
       >
         <div className="flex items-center gap-2">
-          <AppIcon name="wallet" size={16} strokeWidth={2.2} color="#0d9488" />
+          <AppIcon name="wallet" size={16} strokeWidth={2.2} color="var(--bm-accent-strong)" />
           <h2 className="font-extrabold text-[14px]">내 포지션</h2>
         </div>
         <Tag color={profit >= 0 ? "red" : "blue"}>

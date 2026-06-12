@@ -23,9 +23,9 @@ const INVESTOR_LABEL: Record<InvestorKey, string> = {
 };
 
 const INVESTOR_COLOR: Record<InvestorKey, string> = {
-  foreign: "#ef4444",
+  foreign: "var(--bm-up)",
   institution: "#a855f7",
-  individual: "#f59e0b",
+  individual: "var(--bm-warning)",
 };
 
 function hashSeed(s: string): number {

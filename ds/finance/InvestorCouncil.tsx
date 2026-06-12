@@ -54,7 +54,7 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
     return (
       <section className="bm-card px-4 py-6">
         <div className="flex items-center justify-center gap-2 text-[12px] text-[color:var(--bm-muted)]">
-          <span className="size-2 rounded-full animate-pulse" style={{ background: "#0d9488" }} />
+          <span className="size-2 rounded-full animate-pulse" style={{ background: "var(--bm-accent-strong)" }} />
           AI 투자자 위원회 소집 중…
         </div>
       </section>
@@ -117,7 +117,7 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
                     <span
                       className="inline-flex items-center justify-center size-9 rounded-xl text-[18px] shrink-0"
                       style={{
-                        background: `${p.accent}1a`,
+                        background: `color-mix(in srgb,  10%, transparent)`,
                         color: p.accent,
                       }}
                     >
@@ -157,7 +157,7 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
           <header className="flex items-start gap-3 mb-4">
             <span
               className="inline-flex items-center justify-center size-12 rounded-2xl text-[26px] shrink-0"
-              style={{ background: `${profile.accent}1a`, color: profile.accent }}
+              style={{ background: `color-mix(in srgb,  10%, transparent)`, color: profile.accent }}
             >
               {profile.emoji}
             </span>
@@ -186,8 +186,8 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
           <div
             className="rounded-xl px-4 py-3 mb-4 flex items-center gap-3"
             style={{
-              background: `${verdictColorFor(active.verdict)}14`,
-              border: `1px solid ${verdictColorFor(active.verdict)}40`,
+              background: `color-mix(in srgb, ${verdictColorFor(active.verdict)} 8%, transparent)`,
+              border: `1px solid color-mix(in srgb, ${verdictColorFor(active.verdict)} 25%, transparent)`,
             }}
           >
             <div
@@ -513,14 +513,14 @@ function PlanCell({
 function verdictColorFor(verdict: InvestorScoreCard["verdict"]): string {
   switch (verdict) {
     case "강력매수":
-      return "#dc2626";
+      return "var(--bm-up)";
     case "매수":
-      return "#ef4444";
+      return "color-mix(in srgb, var(--bm-up) 55%, var(--bm-muted))";
     case "관망":
-      return "#64748b";
+      return "var(--bm-muted)";
     case "매도":
-      return "#3b82f6";
+      return "color-mix(in srgb, var(--bm-down) 55%, var(--bm-muted))";
     case "강력매도":
-      return "#1d4ed8";
+      return "var(--bm-down)";
   }
 }

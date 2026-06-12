@@ -14,17 +14,28 @@ const SIZE: Record<NonNullable<LogoProps["size"]>, { fs: number; gap: number }> 
 
 export function Logo({ size = "md", href, showSubtitle = false }: LogoProps) {
   const { fs, gap } = SIZE[size];
+  const dot = Math.max(4, Math.round(fs * 0.22));
   const inner = (
     <span className="inline-flex items-baseline" style={{ gap }}>
       <span
-        className="font-extrabold tracking-tight"
+        className="inline-flex items-baseline font-extrabold tracking-tight"
         style={{
-          color: "var(--bm-accent-light)",
+          color: "var(--bm-text)",
           fontSize: fs,
           letterSpacing: "-0.02em",
         }}
       >
         버터
+        <span
+          aria-hidden
+          className="inline-block rounded-full shrink-0"
+          style={{
+            width: dot,
+            height: dot,
+            marginLeft: 2,
+            background: "var(--bm-brand, #f5b800)",
+          }}
+        />
       </span>
       {showSubtitle ? (
         <span
