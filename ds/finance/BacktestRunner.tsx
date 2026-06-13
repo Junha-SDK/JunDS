@@ -135,8 +135,10 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
                   onClick={() => setBars(r.key)}
                   className="flex-1 h-10 rounded-lg text-[13px] font-extrabold transition-colors"
                   style={{
+                    // on-accent: accent-strong 은 다크모드에서 거의 흰색이라 #fff 면
+                    // 글씨가 사라진다 (라이트 on-accent=#fff 라 외형 동일).
                     background: bars === r.key ? "var(--bm-accent-strong)" : "var(--bm-soft-100)",
-                    color: bars === r.key ? "#fff" : "var(--bm-text)",
+                    color: bars === r.key ? "var(--bm-on-accent)" : "var(--bm-text)",
                     border: `1px solid ${bars === r.key ? "var(--bm-accent-strong)" : "var(--bm-border)"}`,
                   }}
                 >

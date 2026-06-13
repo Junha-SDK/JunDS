@@ -243,6 +243,7 @@ function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
         <button
           type="button"
           onClick={onClose}
+          aria-label="닫기"
           className="text-muted hover:text-foreground transition-colors p-1.5 rounded-xl hover:bg-gray-100 cursor-pointer"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">

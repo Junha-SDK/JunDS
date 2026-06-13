@@ -120,9 +120,12 @@ export function FXBoard() {
         </span>
       </div>
       <div
-        className="grid"
+        className="grid overflow-x-auto"
         style={{
-          gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`,
+          // minmax(110px,…): 넓으면 1fr 로 균등 분배(데스크톱 그대로), 좁으면 셀이
+          // 110px 를 유지하며 가로 스크롤 — 모바일에서 라벨·숫자가 세로로 쪼개지고
+          // 겹치던 현상(390px 에 9칸 욱여넣기) 해소.
+          gridTemplateColumns: `repeat(${items.length}, minmax(110px, 1fr))`,
         }}
       >
         {items.map((it, i) => {

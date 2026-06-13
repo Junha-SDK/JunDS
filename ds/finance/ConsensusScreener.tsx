@@ -89,7 +89,8 @@ export function ConsensusScreener({ rows, bullishness }: ConsensusScreenerProps)
               className="h-7 min-w-[34px] rounded-md text-[12px] font-extrabold transition-colors"
               style={{
                 background: minBulls === n ? "var(--bm-accent-strong)" : "var(--bm-soft-100)",
-                color: minBulls === n ? "#fff" : "var(--bm-text)",
+                // on-accent: accent-strong 은 다크모드 거의 흰색 — #fff 면 글씨 소실 (라이트 동일).
+                color: minBulls === n ? "var(--bm-on-accent)" : "var(--bm-text)",
                 border: `1px solid ${minBulls === n ? "var(--bm-accent-strong)" : "var(--bm-border)"}`,
               }}
             >

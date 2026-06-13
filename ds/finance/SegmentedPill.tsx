@@ -37,7 +37,9 @@ export function SegmentedPill({
     <div
       role="tablist"
       className={[
-        "relative inline-flex items-center rounded-full p-1",
+        // max-w-full + overflow-x-auto: 탭 폭 합이 부모보다 크면(좁은 모바일) 페이지를
+        // 밀어내는 대신 내부에서 가로 스크롤. 데스크톱(탭이 다 들어감)에선 무변화.
+        "relative inline-flex items-center rounded-full p-1 max-w-full overflow-x-auto",
         fullWidth ? "w-full" : "",
         className ?? "",
       ]
@@ -78,8 +80,9 @@ export function SegmentedPill({
               <span
                 className="bm-num inline-flex min-w-[18px] items-center justify-center rounded-full px-1.5 text-[10.5px] font-extrabold"
                 style={{
+                  // on-accent: accent 는 다크모드 화이트 — 선택된 배지의 #fff 가 사라진다 (라이트 동일).
                   background: selected ? "var(--bm-accent)" : "var(--bm-soft-200)",
-                  color: selected ? "#fff" : "var(--bm-muted)",
+                  color: selected ? "var(--bm-on-accent)" : "var(--bm-muted)",
                 }}
               >
                 {option.badge}
