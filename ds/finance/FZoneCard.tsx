@@ -60,7 +60,7 @@ export function FZoneCard({ card }: { card: TFZoneCard }) {
         </span>
       </header>
 
-      <div className="px-3 pt-3 pb-2 grid grid-cols-[1fr_18px] gap-2">
+      <div className="px-3 pt-3 pb-2 grid grid-cols-[1fr_34px] gap-2.5">
         <div>
           <div className="flex items-center justify-between">
             <span className="text-[12px] text-[color:var(--bm-muted)]">현재가</span>
@@ -84,7 +84,13 @@ export function FZoneCard({ card }: { card: TFZoneCard }) {
           </div>
         </div>
 
-        <MarkerColumn marker={card.marker} />
+        <PriceGauge
+          resistance={card.resistance}
+          b1={card.b1}
+          b3={card.b3}
+          price={price}
+          up={pct >= 0}
+        />
       </div>
     </Link>
   );
@@ -123,16 +129,98 @@ function Row({
   );
 }
 
-function MarkerColumn({ marker }: { marker: "high" | "mid" | "low" }) {
-  const top = marker === "high" ? "var(--bm-up)" : "transparent";
-  const mid = marker === "mid" ? "var(--bm-down)" : "transparent";
-  const bot = marker === "low" ? "var(--bm-down)" : "transparent";
+/**
+ * 현재가 위치 게이지 — 저항선(위)~매수 후보 구간(아래) 범위에서 현재가가 실제로
+ * 어디에 있는지 세로 막대로 보여준다. 매수 후보 구간(B1~B3)을 밴드로 강조하고,
+ * 각 레벨에 눈금을, 현재가에 굵은 마커선+점을 찍어 "지금 어느 시점인가"를 한눈에.
+ */
+function PriceGauge({
+  resistance,
+  b1,
+  b3,
+  price,
+  up,
+}: {
+  resistance: number;
+  b1: number;
+  b3: number;
+  price: number;
+  up: boolean;
+}) {
+  const W = 32;
+  const H = 156;
+  const pad = 10;
+  const cx = W / 2;
+  // 프레임 고정 스케일 — 저항선~B3 레벨 구조가 게이지 중앙 ~70% 를 항상 차지하도록
+  // 위/아래 여백을 둔다. 현재가가 프레임을 벗어나면 가장자리에 고정(존임박 = 위 고정).
+  const levelRange = Math.max(1, resistance - b3);
+  const margin = levelRange * 0.22;
+  const top = resistance + margin;
+  const bottom = b3 - margin;
+  const span = top - bottom;
+  const yRaw = (v: number) => pad + (1 - (v - bottom) / span) * (H - 2 * pad);
+  const clampY = (yv: number) => Math.max(pad, Math.min(H - pad, yv));
+  const y = (v: number) => clampY(yRaw(v));
+  const pColor = up ? "var(--bm-up)" : "var(--bm-down)";
+  const yB1 = y(b1);
+  const yB3 = y(b3);
+  const yPrice = y(price);
   return (
-    <svg width={18} height={108} viewBox="0 0 18 108">
-      <line x1={9} x2={9} y1={2} y2={106} stroke="rgba(15,23,42,0.15)" />
-      <rect x={5} y={4} width={8} height={20} fill={top} rx={2} />
-      <rect x={5} y={42} width={8} height={28} fill={mid} rx={2} />
-      <rect x={5} y={84} width={8} height={20} fill={bot} rx={2} />
+    <svg
+      width={W}
+      height={H}
+      viewBox={`0 0 ${W} ${H}`}
+      role="img"
+      aria-label="현재가 위치"
+    >
+      {/* 트랙 */}
+      <rect
+        x={cx - 3.5}
+        y={pad - 5}
+        width={7}
+        height={H - 2 * (pad - 5)}
+        rx={3.5}
+        fill="var(--bm-soft-100)"
+      />
+      {/* 매수 후보 구간 (B1~B3) 강조 밴드 */}
+      <rect
+        x={cx - 3.5}
+        y={yB1}
+        width={7}
+        height={Math.max(3, yB3 - yB1)}
+        rx={3}
+        fill="color-mix(in srgb, var(--bm-down) 28%, transparent)"
+      />
+      {/* 레벨 눈금 (저항선 / B1 / B3) */}
+      {[resistance, b1, b3].map((v, i) => (
+        <line
+          key={i}
+          x1={cx - 7.5}
+          x2={cx + 7.5}
+          y1={y(v)}
+          y2={y(v)}
+          stroke="var(--bm-border-strong)"
+          strokeWidth={1}
+        />
+      ))}
+      {/* 현재가 마커 — 굵은 가로선 + 점 */}
+      <line
+        x1={1.5}
+        x2={W - 1.5}
+        y1={yPrice}
+        y2={yPrice}
+        stroke={pColor}
+        strokeWidth={2.6}
+        strokeLinecap="round"
+      />
+      <circle
+        cx={cx}
+        cy={yPrice}
+        r={3.8}
+        fill={pColor}
+        stroke="var(--bm-card)"
+        strokeWidth={1.6}
+      />
     </svg>
   );
 }
