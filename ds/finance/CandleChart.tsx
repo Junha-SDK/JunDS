@@ -16,6 +16,10 @@ import {
   computeVolumeProfile,
   computeVWAP,
   computeWilliamsR,
+  computeDonchian,
+  computeKeltner,
+  computeSupertrend,
+  computeParabolicSAR,
   detectPatterns,
   toHeikinAshi,
 } from "./lib/chartIndicators";
@@ -73,6 +77,14 @@ export interface ChartIndicators {
   volumeHeatmap?: boolean;
   /** 시간대 음영 — intraday 차트에서 09:00~09:30, 14:30~15:30 같은 특수 시간대 표시 */
   sessionShading?: boolean;
+  /** 슈퍼트렌드 — ATR 밴드 기반 추세추종 라인(상승 적/하락 청) */
+  supertrend?: boolean | { period?: number; multiplier?: number };
+  /** 파라볼릭 SAR — 추세추종 점(상승 아래/하락 위) */
+  psar?: boolean | { step?: number; max?: number };
+  /** 돈치안 채널 — N봉 최고/최저 */
+  donchian?: boolean | { period?: number };
+  /** 켈트너 채널 — EMA ± mult×ATR */
+  keltner?: boolean | { period?: number; atrPeriod?: number; mult?: number };
 }
 
 export interface CompareLine {
@@ -195,6 +207,36 @@ export function CandleChart({
       volumeHeatmap: !!indicators.volumeHeatmap,
       sessionShading: !!indicators.sessionShading,
       vp: vp ? { bins: typeof vp === "object" ? (vp.bins ?? 24) : 24 } : null,
+      supertrend: indicators.supertrend
+        ? {
+            period:
+              typeof indicators.supertrend === "object" ? (indicators.supertrend.period ?? 10) : 10,
+            multiplier:
+              typeof indicators.supertrend === "object"
+                ? (indicators.supertrend.multiplier ?? 3)
+                : 3,
+          }
+        : null,
+      psar: indicators.psar
+        ? {
+            step: typeof indicators.psar === "object" ? (indicators.psar.step ?? 0.02) : 0.02,
+            max: typeof indicators.psar === "object" ? (indicators.psar.max ?? 0.2) : 0.2,
+          }
+        : null,
+      donchian: indicators.donchian
+        ? {
+            period:
+              typeof indicators.donchian === "object" ? (indicators.donchian.period ?? 20) : 20,
+          }
+        : null,
+      keltner: indicators.keltner
+        ? {
+            period: typeof indicators.keltner === "object" ? (indicators.keltner.period ?? 20) : 20,
+            atrPeriod:
+              typeof indicators.keltner === "object" ? (indicators.keltner.atrPeriod ?? 10) : 10,
+            mult: typeof indicators.keltner === "object" ? (indicators.keltner.mult ?? 2) : 2,
+          }
+        : null,
     };
   }, [indicators]);
 
@@ -253,6 +295,28 @@ export function CandleChart({
     () => (ind.regression ? computeRegression(candles.map((c) => c.c)) : null),
     [candles, ind.regression],
   );
+  const donchianData = useMemo(
+    () => (ind.donchian ? computeDonchian(displayCandles, ind.donchian.period) : null),
+    [displayCandles, ind.donchian],
+  );
+  const keltnerData = useMemo(
+    () =>
+      ind.keltner
+        ? computeKeltner(displayCandles, ind.keltner.period, ind.keltner.atrPeriod, ind.keltner.mult)
+        : null,
+    [displayCandles, ind.keltner],
+  );
+  const supertrendData = useMemo(
+    () =>
+      ind.supertrend
+        ? computeSupertrend(displayCandles, ind.supertrend.period, ind.supertrend.multiplier)
+        : null,
+    [displayCandles, ind.supertrend],
+  );
+  const psarData = useMemo(
+    () => (ind.psar ? computeParabolicSAR(displayCandles, ind.psar.step, ind.psar.max) : null),
+    [displayCandles, ind.psar],
+  );
 
   // ── 레이아웃 (subpanel 높이 누적) ──
   const layout = useMemo(() => {
@@ -293,6 +357,28 @@ export function CandleChart({
     if (bbData) {
       for (const v of bbData.upper) if (v != null && v > max) max = v;
       for (const v of bbData.lower) if (v != null && v < min) min = v;
+    }
+    if (donchianData) {
+      for (const v of donchianData.upper) if (v != null && v > max) max = v;
+      for (const v of donchianData.lower) if (v != null && v < min) min = v;
+    }
+    if (keltnerData) {
+      for (const v of keltnerData.upper) if (v != null && v > max) max = v;
+      for (const v of keltnerData.lower) if (v != null && v < min) min = v;
+    }
+    if (supertrendData) {
+      for (const v of supertrendData.value)
+        if (v != null) {
+          if (v > max) max = v;
+          if (v < min) min = v;
+        }
+    }
+    if (psarData) {
+      for (const v of psarData.value)
+        if (v != null) {
+          if (v > max) max = v;
+          if (v < min) min = v;
+        }
     }
     // 비교 라인이 있으면 그것도 범위에 포함 (잘리지 않도록)
     if (compareLine) {
@@ -401,6 +487,10 @@ export function CandleChart({
     markers,
     showVolume,
     bbData,
+    donchianData,
+    keltnerData,
+    supertrendData,
+    psarData,
     compareLine,
     ind.rsi,
     ind.macd,
@@ -670,6 +760,112 @@ export function CandleChart({
             strokeDasharray="2 3"
             opacity={0.7}
           />
+        </g>
+      ) : null}
+
+      {/* Donchian 채널 */}
+      {donchianData ? (
+        <g>
+          {(["upper", "lower"] as const).map((key) => (
+            <polyline
+              key={`dc-${key}`}
+              points={donchianData[key]
+                .map((v, i) =>
+                  v == null
+                    ? null
+                    : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout.yPrice(v).toFixed(1)}`,
+                )
+                .filter(Boolean)
+                .join(" ")}
+              fill="none"
+              stroke="var(--bm-cat-6)"
+              strokeWidth={1}
+              opacity={0.75}
+            />
+          ))}
+          <polyline
+            points={donchianData.middle
+              .map((v, i) =>
+                v == null
+                  ? null
+                  : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout.yPrice(v).toFixed(1)}`,
+              )
+              .filter(Boolean)
+              .join(" ")}
+            fill="none"
+            stroke="var(--bm-cat-6)"
+            strokeWidth={1}
+            strokeDasharray="3 3"
+            opacity={0.4}
+          />
+        </g>
+      ) : null}
+
+      {/* Keltner 채널 */}
+      {keltnerData ? (
+        <g>
+          {(["upper", "lower"] as const).map((key) => (
+            <polyline
+              key={`kc-${key}`}
+              points={keltnerData[key]
+                .map((v, i) =>
+                  v == null
+                    ? null
+                    : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout.yPrice(v).toFixed(1)}`,
+                )
+                .filter(Boolean)
+                .join(" ")}
+              fill="none"
+              stroke="var(--bm-cat-2)"
+              strokeWidth={1}
+              strokeDasharray="4 2"
+              opacity={0.7}
+            />
+          ))}
+        </g>
+      ) : null}
+
+      {/* Supertrend — 방향색 세그먼트(상승 적/하락 청), 전환점 끊김 */}
+      {supertrendData ? (
+        <g>
+          {supertrendData.value.map((v, i) => {
+            if (i === 0) return null;
+            const p = supertrendData.value[i - 1];
+            if (v == null || p == null) return null;
+            if (supertrendData.dir[i] !== supertrendData.dir[i - 1]) return null;
+            const x1 = layout.padL + (i - 1) * layout.slot + layout.slot / 2;
+            const x2 = layout.padL + i * layout.slot + layout.slot / 2;
+            return (
+              <line
+                key={`st-${i}`}
+                x1={x1.toFixed(1)}
+                y1={layout.yPrice(p).toFixed(1)}
+                x2={x2.toFixed(1)}
+                y2={layout.yPrice(v).toFixed(1)}
+                stroke={supertrendData.dir[i] === 1 ? "var(--bm-up)" : "var(--bm-down)"}
+                strokeWidth={1.5}
+                opacity={0.9}
+              />
+            );
+          })}
+        </g>
+      ) : null}
+
+      {/* Parabolic SAR — 방향색 점 */}
+      {psarData ? (
+        <g>
+          {psarData.value.map((v, i) =>
+            v == null ? null : (
+              <circle
+                key={`ps-${i}`}
+                cx={(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)}
+                cy={layout.yPrice(v).toFixed(1)}
+                r={1.4}
+                fill={psarData.dir[i] === 1 ? "var(--bm-up)" : "var(--bm-down)"}
+                opacity={0.85}
+              />
+            ),
+          )}
         </g>
       ) : null}
 

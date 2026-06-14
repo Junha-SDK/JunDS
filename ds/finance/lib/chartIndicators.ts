@@ -633,3 +633,152 @@ export function computeVolumeProfile(
   }
   return out;
 }
+
+/* ─────────────────────── Donchian / Keltner 채널 ─────────────────────── */
+
+export interface ChannelBand {
+  upper: (number | null)[];
+  middle: (number | null)[];
+  lower: (number | null)[];
+}
+
+/** 돈치안 채널 — period 봉 최고/최저(돌파 추종). */
+export function computeDonchian(bars: Bar[], period = 20): ChannelBand {
+  const n = bars.length;
+  const upper: (number | null)[] = new Array(n).fill(null);
+  const middle: (number | null)[] = new Array(n).fill(null);
+  const lower: (number | null)[] = new Array(n).fill(null);
+  for (let i = period - 1; i < n; i++) {
+    let hi = -Infinity;
+    let lo = Infinity;
+    for (let j = i - period + 1; j <= i; j++) {
+      if (bars[j].h > hi) hi = bars[j].h;
+      if (bars[j].l < lo) lo = bars[j].l;
+    }
+    upper[i] = hi;
+    lower[i] = lo;
+    middle[i] = (hi + lo) / 2;
+  }
+  return { upper, middle, lower };
+}
+
+/** 켈트너 채널 — EMA(period) ± mult×ATR(atrPeriod). */
+export function computeKeltner(
+  bars: Bar[],
+  period = 20,
+  atrPeriod = 10,
+  mult = 2,
+): ChannelBand {
+  const n = bars.length;
+  const ema = computeEMA(
+    bars.map((b) => b.c),
+    period,
+  );
+  const atr = computeATR(bars, atrPeriod);
+  const upper: (number | null)[] = new Array(n).fill(null);
+  const middle: (number | null)[] = new Array(n).fill(null);
+  const lower: (number | null)[] = new Array(n).fill(null);
+  for (let i = 0; i < n; i++) {
+    const m = ema[i];
+    const a = atr[i];
+    if (m == null || a == null) continue;
+    middle[i] = m;
+    upper[i] = m + mult * a;
+    lower[i] = m - mult * a;
+  }
+  return { upper, middle, lower };
+}
+
+/* ─────────────────────── Supertrend / Parabolic SAR ─────────────────────── */
+
+export interface DirLine {
+  value: (number | null)[];
+  /** +1 상승추세(라인이 가격 아래·지지), -1 하락추세(위·저항). */
+  dir: (1 | -1 | null)[];
+}
+
+/** 슈퍼트렌드 — ATR 밴드 기반 추세추종 라인. */
+export function computeSupertrend(bars: Bar[], period = 10, multiplier = 3): DirLine {
+  const n = bars.length;
+  const value: (number | null)[] = new Array(n).fill(null);
+  const dir: (1 | -1 | null)[] = new Array(n).fill(null);
+  const atr = computeATR(bars, period);
+  const start = atr.findIndex((a) => a != null);
+  if (start < 0) return { value, dir };
+  const finalUpper: number[] = new Array(n).fill(0);
+  const finalLower: number[] = new Array(n).fill(0);
+  let prevDir: 1 | -1 = 1;
+  for (let i = start; i < n; i++) {
+    const a = atr[i] as number;
+    const hl2 = (bars[i].h + bars[i].l) / 2;
+    const basicUpper = hl2 + multiplier * a;
+    const basicLower = hl2 - multiplier * a;
+    if (i === start) {
+      finalUpper[i] = basicUpper;
+      finalLower[i] = basicLower;
+      prevDir = bars[i].c >= hl2 ? 1 : -1;
+      value[i] = prevDir === 1 ? finalLower[i] : finalUpper[i];
+      dir[i] = prevDir;
+      continue;
+    }
+    finalUpper[i] =
+      basicUpper < finalUpper[i - 1] || bars[i - 1].c > finalUpper[i - 1]
+        ? basicUpper
+        : finalUpper[i - 1];
+    finalLower[i] =
+      basicLower > finalLower[i - 1] || bars[i - 1].c < finalLower[i - 1]
+        ? basicLower
+        : finalLower[i - 1];
+    const d: 1 | -1 =
+      prevDir === 1 ? (bars[i].c < finalLower[i] ? -1 : 1) : bars[i].c > finalUpper[i] ? 1 : -1;
+    value[i] = d === 1 ? finalLower[i] : finalUpper[i];
+    dir[i] = d;
+    prevDir = d;
+  }
+  return { value, dir };
+}
+
+/** 파라볼릭 SAR — 추세추종 트레일링 스톱 점(Wilder). */
+export function computeParabolicSAR(bars: Bar[], step = 0.02, max = 0.2): DirLine {
+  const n = bars.length;
+  const value: (number | null)[] = new Array(n).fill(null);
+  const dir: (1 | -1 | null)[] = new Array(n).fill(null);
+  if (n < 3) return { value, dir };
+  let up = bars[1].c >= bars[0].c;
+  let sar = up ? bars[0].l : bars[0].h;
+  let ep = up ? bars[1].h : bars[1].l;
+  let af = step;
+  value[1] = sar;
+  dir[1] = up ? 1 : -1;
+  for (let i = 2; i < n; i++) {
+    sar = sar + af * (ep - sar);
+    if (up) {
+      sar = Math.min(sar, bars[i - 1].l, bars[i - 2].l);
+      if (bars[i].h > ep) {
+        ep = bars[i].h;
+        af = Math.min(af + step, max);
+      }
+      if (bars[i].l < sar) {
+        up = false;
+        sar = ep;
+        ep = bars[i].l;
+        af = step;
+      }
+    } else {
+      sar = Math.max(sar, bars[i - 1].h, bars[i - 2].h);
+      if (bars[i].l < ep) {
+        ep = bars[i].l;
+        af = Math.min(af + step, max);
+      }
+      if (bars[i].h > sar) {
+        up = true;
+        sar = ep;
+        ep = bars[i].h;
+        af = step;
+      }
+    }
+    value[i] = sar;
+    dir[i] = up ? 1 : -1;
+  }
+  return { value, dir };
+}
