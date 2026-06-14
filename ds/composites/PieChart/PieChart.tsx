@@ -25,7 +25,7 @@ export interface PieChartProps extends HTMLAttributes<HTMLDivElement> {
   centerLabel?: string;
 }
 
-const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b82f6", "#a855f7", "#ec4899"];
+const DEFAULT_COLORS = ["var(--bm-cat-1)", "var(--bm-cat-2)", "var(--bm-cat-3)", "var(--bm-cat-4)", "var(--bm-cat-5)", "var(--bm-cat-6)", "var(--bm-cat-7)"];
 
 function arcPath(cx: number, cy: number, r: number, ir: number, startAngle: number, endAngle: number): string {
   const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;

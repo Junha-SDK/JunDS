@@ -444,7 +444,7 @@ export function CandleChart({
         .map((p) => ({
           period: p,
           values: computeMA(displayCandles, p),
-          color: MA_PALETTE[p] ?? "#94a3b8",
+          color: MA_PALETTE[p] ?? "var(--bm-muted-strong)",
         })),
     [displayCandles, movingAverages],
   );
@@ -864,7 +864,7 @@ export function CandleChart({
         ? candles.map((c, i) => {
             const cx = layout.padL + i * layout.slot + layout.slot / 2;
             const up = c.c >= c.o;
-            const color = up ? "rgba(239,68,68,0.55)" : "rgba(59,130,246,0.55)";
+            const color = up ? "var(--bm-up)" : "var(--bm-down)";
             const h = ((c.v / layout.maxVol) * (layout.volH - 8)) | 0;
             return (
               <rect
@@ -874,6 +874,7 @@ export function CandleChart({
                 width={layout.bodyW}
                 height={Math.max(1, h)}
                 fill={color}
+                fillOpacity={0.5}
               />
             );
           })
@@ -894,7 +895,7 @@ export function CandleChart({
                 y={yTop}
                 width={w}
                 height={h}
-                fill="#94a3b8"
+                fill="var(--bm-muted-strong)"
               />
             );
           })}
@@ -942,7 +943,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#a855f7"
+            stroke="var(--bm-cat-2)"
             strokeWidth={1.4}
             strokeLinejoin="round"
             strokeLinecap="round"
@@ -998,7 +999,8 @@ export function CandleChart({
                     y={yTop}
                     width={layout.bodyW}
                     height={Math.max(1, yBot - yTop)}
-                    fill={v >= 0 ? "rgba(34,197,94,0.55)" : "rgba(244,63,94,0.55)"}
+                    fill={v >= 0 ? "var(--bm-up)" : "var(--bm-down)"}
+                    fillOpacity={0.55}
                   />
                 );
               })}
@@ -1012,7 +1014,7 @@ export function CandleChart({
                   .filter(Boolean)
                   .join(" ")}
                 fill="none"
-                stroke="#1d4ed8"
+                stroke="var(--bm-cat-1)"
                 strokeWidth={1.4}
                 strokeLinejoin="round"
               />
@@ -1079,7 +1081,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#06b6d4"
+            stroke="var(--bm-cat-8)"
             strokeWidth={1.3}
           />
           <polyline
@@ -1093,7 +1095,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#f97316"
+            stroke="var(--bm-cat-4)"
             strokeWidth={1.3}
           />
           <text x={layout.padL + 4} y={layout.stochTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
@@ -1139,7 +1141,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#ec4899"
+            stroke="var(--bm-cat-5)"
             strokeWidth={1.3}
           />
           <text x={layout.padL + 4} y={layout.wrTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
@@ -1195,7 +1197,7 @@ export function CandleChart({
                   .filter(Boolean)
                   .join(" ")}
                 fill="none"
-                stroke="#8b5cf6"
+                stroke="var(--bm-cat-2)"
                 strokeWidth={1.3}
               />
               <text x={layout.padL + 4} y={layout.cciTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
@@ -1285,12 +1287,12 @@ export function CandleChart({
           {(
             [
               ["R3", pivot.r3, "var(--bm-up)"],
-              ["R2", pivot.r2, "#f87171"],
-              ["R1", pivot.r1, "#fb923c"],
-              ["P",  pivot.pivot, "#94a3b8"],
-              ["S1", pivot.s1, "#60a5fa"],
+              ["R2", pivot.r2, "var(--bm-up)"],
+              ["R1", pivot.r1, "var(--bm-cat-4)"],
+              ["P",  pivot.pivot, "var(--bm-muted-strong)"],
+              ["S1", pivot.s1, "var(--bm-cat-1)"],
               ["S2", pivot.s2, "var(--bm-down)"],
-              ["S3", pivot.s3, "#1d4ed8"],
+              ["S3", pivot.s3, "var(--bm-cat-1)"],
             ] as const
           ).map(([label, price, color]) => {
             if (price <= 0) return null;
@@ -1358,12 +1360,12 @@ export function CandleChart({
                 y1={yMid1}
                 x2={x2}
                 y2={yMid2}
-                stroke="#0ea5e9"
+                stroke="var(--bm-cat-8)"
                 strokeWidth={1.4}
               />
               {/* 상/하 채널선 */}
-              <line x1={x1} y1={yU1} x2={x2} y2={yU2} stroke="#0ea5e9" strokeWidth={1} strokeDasharray="3 3" />
-              <line x1={x1} y1={yL1} x2={x2} y2={yL2} stroke="#0ea5e9" strokeWidth={1} strokeDasharray="3 3" />
+              <line x1={x1} y1={yU1} x2={x2} y2={yU2} stroke="var(--bm-cat-8)" strokeWidth={1} strokeDasharray="3 3" />
+              <line x1={x1} y1={yL1} x2={x2} y2={yL2} stroke="var(--bm-cat-8)" strokeWidth={1} strokeDasharray="3 3" />
               {/* R² 라벨 */}
               <rect
                 x={layout.padL + 4}
@@ -1484,7 +1486,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#06b6d4"
+            stroke="var(--bm-cat-8)"
             strokeWidth={1.2}
             opacity={0.85}
           />
@@ -1499,7 +1501,7 @@ export function CandleChart({
               .filter(Boolean)
               .join(" ")}
             fill="none"
-            stroke="#ec4899"
+            stroke="var(--bm-cat-5)"
             strokeWidth={1.2}
             opacity={0.85}
           />
@@ -1588,27 +1590,27 @@ export function CandleChart({
           />
           {(() => {
             const lines: { label: string; value: string; color: string }[] = [
-              { label: "시", value: Math.round(hovered.o).toLocaleString("ko-KR"), color: "#cbd5e1" },
-              { label: "고", value: Math.round(hovered.h).toLocaleString("ko-KR"), color: "#fda4af" },
-              { label: "저", value: Math.round(hovered.l).toLocaleString("ko-KR"), color: "#93c5fd" },
-              { label: "종", value: Math.round(hovered.c).toLocaleString("ko-KR"), color: hovered.c >= hovered.o ? "#fda4af" : "#93c5fd" },
-              { label: "거래량", value: hovered.v.toLocaleString("ko-KR"), color: "#cbd5e1" },
+              { label: "시", value: Math.round(hovered.o).toLocaleString("ko-KR"), color: "var(--bm-text-soft)" },
+              { label: "고", value: Math.round(hovered.h).toLocaleString("ko-KR"), color: "var(--bm-up)" },
+              { label: "저", value: Math.round(hovered.l).toLocaleString("ko-KR"), color: "var(--bm-down)" },
+              { label: "종", value: Math.round(hovered.c).toLocaleString("ko-KR"), color: hovered.c >= hovered.o ? "var(--bm-up)" : "var(--bm-down)" },
+              { label: "거래량", value: hovered.v.toLocaleString("ko-KR"), color: "var(--bm-text-soft)" },
             ];
             if (rsiData) {
               const v = rsiData[hover.idx];
-              if (v != null) lines.push({ label: "RSI", value: v.toFixed(1), color: "#c4b5fd" });
+              if (v != null) lines.push({ label: "RSI", value: v.toFixed(1), color: "var(--bm-cat-2)" });
             }
             if (macdData) {
               const v = macdData.macd[hover.idx];
               const s = macdData.signal[hover.idx];
-              if (v != null) lines.push({ label: "MACD", value: v.toFixed(2), color: "#93c5fd" });
-              if (s != null) lines.push({ label: "Signal", value: s.toFixed(2), color: "#fcd34d" });
+              if (v != null) lines.push({ label: "MACD", value: v.toFixed(2), color: "var(--bm-down)" });
+              if (s != null) lines.push({ label: "Signal", value: s.toFixed(2), color: "var(--bm-cat-4)" });
             }
             if (bbData) {
               const u = bbData.upper[hover.idx];
               const l = bbData.lower[hover.idx];
-              if (u != null) lines.push({ label: "BB↑", value: Math.round(u).toLocaleString("ko-KR"), color: "#6ee7b7" });
-              if (l != null) lines.push({ label: "BB↓", value: Math.round(l).toLocaleString("ko-KR"), color: "#6ee7b7" });
+              if (u != null) lines.push({ label: "BB↑", value: Math.round(u).toLocaleString("ko-KR"), color: "var(--bm-cat-3)" });
+              if (l != null) lines.push({ label: "BB↓", value: Math.round(l).toLocaleString("ko-KR"), color: "var(--bm-cat-3)" });
             }
 
             const tooltipW = 170;

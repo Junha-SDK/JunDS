@@ -28,7 +28,7 @@ export interface RadarChartProps extends HTMLAttributes<HTMLDivElement> {
   showLegend?: boolean;
 }
 
-const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b82f6"];
+const DEFAULT_COLORS = ["var(--bm-cat-1)", "var(--bm-cat-2)", "var(--bm-cat-3)", "var(--bm-cat-4)", "var(--bm-cat-5)"];
 
 /**
  * SVG 레이더(스파이더) 차트 — 다축 비교용.

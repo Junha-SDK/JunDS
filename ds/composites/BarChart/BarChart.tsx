@@ -31,7 +31,7 @@ export interface BarChartProps extends HTMLAttributes<HTMLDivElement> {
   showValues?: boolean;
 }
 
-const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b82f6"];
+const DEFAULT_COLORS = ["var(--bm-cat-1)", "var(--bm-cat-2)", "var(--bm-cat-3)", "var(--bm-cat-4)", "var(--bm-cat-5)"];
 const PADDING = { top: 12, right: 12, bottom: 28, left: 36 };
 
 /**

@@ -199,8 +199,9 @@ export function MultiLineChart({
             <rect
               width={tipW}
               height={tipH}
-              rx={6}
-              fill="rgba(15, 23, 42, 0.92)"
+              rx={8}
+              fill="var(--bm-card-elev)"
+              stroke="var(--bm-border)"
             />
             {labels?.[hoverIdx] ? (
               <text
@@ -208,7 +209,7 @@ export function MultiLineChart({
                 y={tipLineH - 1}
                 fontSize={10}
                 fontWeight={700}
-                fill="rgba(226, 232, 240, 0.85)"
+                fill="var(--bm-text)"
               >
                 {labels[hoverIdx]}
               </text>
@@ -224,7 +225,7 @@ export function MultiLineChart({
                     y={yPos}
                     fontSize={11}
                     fontWeight={600}
-                    fill="rgba(226, 232, 240, 0.85)"
+                    fill="var(--bm-text)"
                   >
                     {s.name}
                   </text>

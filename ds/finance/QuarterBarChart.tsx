@@ -25,8 +25,8 @@ export function QuarterBarChart({
   const slot = innerW / data.length;
   const barWidth = slot * 0.32;
 
-  const aColor = "#5cdcd0";
-  const bColor = metric === "revenue-op" ? "#0f766e" : "#a855f7";
+  const aColor = "var(--bm-cat-3)";
+  const bColor = metric === "revenue-op" ? "var(--bm-cat-6)" : "var(--bm-cat-2)";
   const aKey = "revenue" as const;
   const bKey = metric === "revenue-op" ? ("operatingIncome" as const) : ("netIncome" as const);
   const bLabel = metric === "revenue-op" ? "영업이익" : "순이익";
