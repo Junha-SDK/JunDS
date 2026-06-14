@@ -85,7 +85,10 @@ export function derivePositionsFromTrades(trades: TradeEntry[]): DerivedPosition
         consumedCost += take * lot.price;
         lot.qty -= take;
         remaining -= take;
-        if (lot.qty === 0) state.lots.shift();
+        // 부동소수점 잔여 방지: 소수점 주식을 분할 매수 후 전량 매도하면
+        // (예: 0.1 + 0.2 매수 → 0.3 매도) lot.qty 가 정확히 0 이 아닌 ~1e-17 로
+        // 남아 유령 보유 lot 이 생긴다. ===0 대신 epsilon 비교로 닫는다.
+        if (lot.qty <= 1e-9) state.lots.shift();
       }
       const soldQty = t.qty - remaining;
       if (soldQty > 0) {
