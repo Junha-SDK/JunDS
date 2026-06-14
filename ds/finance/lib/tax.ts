@@ -76,7 +76,10 @@ export function estimateDomesticGain(input: DomesticGainInput): DomesticGainResu
 
   const totalTax = capitalGainsTax + transactionTax;
   const afterTax = sellAmount - transactionTax - capitalGainsTax - commissions;
-  return { netGain, taxable: Math.max(0, netGain - KR_BASIC_DEDUCTION), capitalGainsTax, transactionTax, totalTax, afterTax, notes };
+  // 소액주주는 양도세 과세 대상 자체가 없으므로 taxable 도 0.
+  // (대주주 기준 과세표준이 다른 소비처로 새지 않도록 소스에서 게이팅한다.)
+  const taxable = isLargeShareholder ? Math.max(0, netGain - KR_BASIC_DEDUCTION) : 0;
+  return { netGain, taxable, capitalGainsTax, transactionTax, totalTax, afterTax, notes };
 }
 
 export interface ForeignGainInput {
