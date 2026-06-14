@@ -80,6 +80,8 @@ export function Sparkline({
       ) : null}
       <polyline
         points={polyPts}
+        pathLength={1}
+        className="bm-draw-in"
         fill="none"
         stroke={color}
         strokeWidth={strokeWidth}

@@ -547,8 +547,8 @@ export function CandleChart({
       {ind.sessionShading
         ? (() => {
             const SHADING_RANGES: { fromHour: number; fromMin: number; toHour: number; toMin: number; color: string; label: string }[] = [
-              { fromHour: 9, fromMin: 0, toHour: 9, toMin: 30, color: "rgba(34, 197, 94, 0.06)", label: "opening" },
-              { fromHour: 14, fromMin: 30, toHour: 15, toMin: 30, color: "rgba(239, 68, 68, 0.06)", label: "closing" },
+              { fromHour: 9, fromMin: 0, toHour: 9, toMin: 30, color: "rgba(148, 163, 184, 0.05)", label: "opening" },
+              { fromHour: 14, fromMin: 30, toHour: 15, toMin: 30, color: "rgba(148, 163, 184, 0.05)", label: "closing" },
             ];
             const tToHourMin = (t: string): { h: number; m: number } | null => {
               const n = Number(t);

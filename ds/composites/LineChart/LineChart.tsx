@@ -114,7 +114,7 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(function Lin
         {seriesPaths.map((s, si) => (
           <g key={si}>
             {s.area && <path d={s.areaPath} fill={s.color} fillOpacity={0.15} />}
-            <path d={s.linePath} fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            <path d={s.linePath} pathLength={1} className="bm-draw-in" fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
             {showDots && s.points.map((p, i) => (
               <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={s.color} />
             ))}

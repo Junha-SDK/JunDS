@@ -138,7 +138,7 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(function Are
         {computed.map((c, i) => (
           <g key={i}>
             <path d={c.areaPath} fill={c.color} fillOpacity={fillOpacity} />
-            <path d={c.topPath} fill="none" stroke={c.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            <path d={c.topPath} pathLength={1} className="bm-draw-in" fill="none" stroke={c.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
           </g>
         ))}
       </svg>

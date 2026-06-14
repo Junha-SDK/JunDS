@@ -50,7 +50,7 @@ export function MiniChart({ data, type = "line", width = 120, height = 32, color
       ) : (
         <>
           {type === "area" && <path d={areaD} fill={color} opacity={0.1} />}
-          <path d={pathD} fill="none" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+          <path d={pathD} pathLength={1} className="bm-draw-in" fill="none" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
           <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r={2} fill={color} />
         </>
       )}
