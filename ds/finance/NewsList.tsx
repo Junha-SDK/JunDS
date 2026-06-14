@@ -8,7 +8,7 @@ export interface NewsItem {
   link: string;
   source?: string;
   publishedAt: string;
-  origin: "naver" | "mock";
+  origin: "naver" | "rss" | "google" | "mock";
 }
 
 interface NewsListProps {
@@ -30,7 +30,7 @@ function timeAgo(iso: string): string {
 
 export function NewsList({ query, limit = 6, showOriginBadge = true }: NewsListProps) {
   const [items, setItems] = useState<NewsItem[] | null>(null);
-  const [origin, setOrigin] = useState<"naver" | "mock" | null>(null);
+  const [origin, setOrigin] = useState<"naver" | "rss" | "google" | "mock" | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export function NewsList({ query, limit = 6, showOriginBadge = true }: NewsListP
     const url = `/api/news?q=${encodeURIComponent(query)}&limit=${limit}`;
     fetch(url)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-      .then((data: { items: NewsItem[]; origin: "naver" | "mock" }) => {
+      .then((data: { items: NewsItem[]; origin: "naver" | "rss" | "google" | "mock" }) => {
         if (cancelled) return;
         setItems(data.items);
         setOrigin(data.origin);
@@ -88,13 +88,17 @@ export function NewsList({ query, limit = 6, showOriginBadge = true }: NewsListP
           <span
             className="bm-pill"
             style={{
-              background: origin === "naver" ? "#03C75A" : "rgba(15,23,42,0.08)",
-              color: origin === "naver" ? "white" : "var(--bm-muted)",
+              background: origin === "mock" ? "rgba(15,23,42,0.08)" : "#03C75A",
+              color: origin === "mock" ? "var(--bm-muted)" : "white",
               fontSize: 11,
               padding: "2px 8px",
             }}
           >
-            {origin === "naver" ? "실시간 네이버 뉴스" : "샘플 뉴스"}
+            {origin === "mock"
+              ? "샘플 뉴스"
+              : origin === "naver"
+                ? "실시간 네이버 뉴스"
+                : "실시간 뉴스"}
           </span>
           <span className="text-[11px] text-[color:var(--bm-muted)]">
             검색어: <span className="font-bold">{query}</span>
