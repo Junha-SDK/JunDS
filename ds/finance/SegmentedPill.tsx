@@ -69,7 +69,7 @@ export function SegmentedPill({
               .filter(Boolean)
               .join(" ")}
             style={{
-              color: selected ? "var(--bm-text)" : "var(--bm-muted)",
+              color: selected ? "var(--bm-accent-ink)" : "var(--bm-muted)",
               background: selected ? "var(--bm-card)" : "transparent",
               boxShadow: selected ? "var(--bm-shadow-sm)" : "none",
             }}
