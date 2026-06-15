@@ -31,6 +31,8 @@ export interface TradeEntry {
   emotion?: string;
   /** IDs of trading rules the user marked as violated for this trade. */
   violations?: string[];
+  /** 소속 계좌 id. 미지정이면 기본 계좌("default") — 레거시 데이터 호환. */
+  accountId?: string;
 }
 
 export interface TradeReview {
@@ -110,6 +112,7 @@ export function useTradeJournal() {
       tags: entry.tags,
       emotion: entry.emotion,
       violations: entry.violations,
+      accountId: entry.accountId,
     };
     const all = [next, ...cur];
     write(all);

@@ -108,6 +108,8 @@ export { HEATMAP_FLAT, HEATMAP_GROUPS } from "./lib/heatmapData";
 export type { HeatmapGroup } from "./lib/heatmapData";
 export { useHoldings } from "./lib/holdings";
 export type { Holding } from "./lib/holdings";
+export { useAccounts, accountName, DEFAULT_ACCOUNT } from "./lib/accounts";
+export type { Account } from "./lib/accounts";
 export type { DayFlow } from "./lib/investorFlow";
 export { INVESTORS, INVESTOR_LIST, scoreAllInvestors, scoreForInvestor } from "./lib/investors";
 export type { FundamentalSnapshot, InvestorId, InvestorProfile, InvestorScoreCard } from "./lib/investors";

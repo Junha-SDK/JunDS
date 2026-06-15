@@ -10,6 +10,13 @@ export interface Holding {
   sector?: string;
   /** 사용자 색 태그 — 보유 리스트 시각 그룹핑용. HEX (e.g. "var(--bm-success)") 또는 토큰. */
   color?: string;
+  /** 소속 계좌 id. 미지정이면 기본 계좌("default") — 레거시 데이터 호환. */
+  accountId?: string;
+}
+
+/** accountId 미지정은 기본 계좌로 간주. 보유 병합·필터의 계좌 키. */
+function accId(h: { accountId?: string }): string {
+  return h.accountId ?? "default";
 }
 
 const SEED: Holding[] = [
@@ -52,6 +59,7 @@ function read(): Holding[] {
         qty: h.qty,
         avgCost: h.avgCost,
         color: typeof h.color === "string" ? h.color : undefined,
+        accountId: typeof h.accountId === "string" ? h.accountId : undefined,
       }))
       .map(withSector);
   } catch {
@@ -65,7 +73,13 @@ function write(items: Holding[]): void {
     window.localStorage.setItem(
       KEY,
       JSON.stringify(
-        items.map(({ name, qty, avgCost, color }) => ({ name, qty, avgCost, color })),
+        items.map(({ name, qty, avgCost, color, accountId }) => ({
+          name,
+          qty,
+          avgCost,
+          color,
+          accountId,
+        })),
       ),
     );
     window.dispatchEvent(new CustomEvent(EVENT));
@@ -92,7 +106,8 @@ export function useHoldings() {
 
   const add = useCallback((h: Holding) => {
     const cur = read();
-    const idx = cur.findIndex((x) => x.name === h.name);
+    // 같은 종목이라도 계좌가 다르면 병합하지 않는다(계좌별 분리 보유).
+    const idx = cur.findIndex((x) => x.name === h.name && accId(x) === accId(h));
     let next: Holding[];
     if (idx >= 0) {
       // Merge: weighted average cost. 색은 새로 들어온 값이 있으면 덮어쓰고, 없으면 기존 유지.
@@ -104,6 +119,7 @@ export function useHoldings() {
         avgCost:
           totalQty === 0 ? h.avgCost : (prev.qty * prev.avgCost + h.qty * h.avgCost) / totalQty,
         color: h.color ?? prev.color,
+        accountId: h.accountId ?? prev.accountId,
       };
       next = [...cur];
       next[idx] = withSector(merged);
@@ -114,15 +130,28 @@ export function useHoldings() {
     setItems(next);
   }, []);
 
-  const update = useCallback((name: string, patch: Partial<Pick<Holding, "qty" | "avgCost" | "color">>) => {
-    const cur = read();
-    const next = cur.map((h) => (h.name === name ? withSector({ ...h, ...patch }) : h));
-    write(next);
-    setItems(next);
-  }, []);
+  const update = useCallback(
+    (
+      name: string,
+      patch: Partial<Pick<Holding, "qty" | "avgCost" | "color">>,
+      accountId?: string,
+    ) => {
+      const cur = read();
+      const next = cur.map((h) =>
+        h.name === name && (accountId == null || accId(h) === accountId)
+          ? withSector({ ...h, ...patch })
+          : h,
+      );
+      write(next);
+      setItems(next);
+    },
+    [],
+  );
 
-  const remove = useCallback((name: string) => {
-    const next = read().filter((h) => h.name !== name);
+  const remove = useCallback((name: string, accountId?: string) => {
+    const next = read().filter(
+      (h) => !(h.name === name && (accountId == null || accId(h) === accountId)),
+    );
     write(next);
     setItems(next);
   }, []);
