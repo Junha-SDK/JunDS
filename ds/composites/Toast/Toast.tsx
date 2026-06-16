@@ -14,6 +14,8 @@ interface ToastItem {
   action?: { label: string; onClick: () => void };
   blocking?: boolean;
   duration: number;
+  /** 퇴장 애니메이션 진행 중 — true 면 슬라이드 아웃 후 실제 제거. */
+  leaving?: boolean;
 }
 
 interface ToastOptions {
@@ -86,7 +88,7 @@ export interface ToastProviderProps {
 /**
  * 토스트 프로바이더
  * @example
- * <DsToastProvider position="bottom-right">
+ * <DsToastProvider position="top-right">
  *   <App />
  * </DsToastProvider>
  *
@@ -100,12 +102,22 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   const addToast = useCallback((message: string, type: ToastType = "info", duration = 3500, extra?: Partial<Pick<ToastItem, "content" | "action" | "blocking">>) => {
-    const id = nextId++;
-    const blocking = extra?.blocking ?? false;
-    setToasts((prev) => [...prev.slice(-(maxToasts - 1)), { id, type, message, duration, content: extra?.content, action: extra?.action, blocking }]);
+    setToasts((prev) => {
+      // 직전 토스트와 타입·메시지가 같으면 중복 — 다시 쌓지 않는다(같은 알림 연타 방지).
+      const last = prev[prev.length - 1];
+      if (last && !last.leaving && !extra?.content && last.type === type && last.message === message) {
+        return prev;
+      }
+      const blocking = extra?.blocking ?? false;
+      return [...prev.slice(-(maxToasts - 1)), { id: nextId++, type, message, duration, content: extra?.content, action: extra?.action, blocking }];
+    });
   }, [maxToasts]);
 
-  const remove = useCallback((id: number) => {
+  // 퇴장 시작 — 슬라이드 아웃 클래스를 입히고, 실제 제거는 onAnimationEnd 이후.
+  const beginRemove = useCallback((id: number) => {
+    setToasts((prev) => prev.map((t) => (t.id === id ? { ...t, leaving: true } : t)));
+  }, []);
+  const finishRemove = useCallback((id: number) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
@@ -125,14 +137,14 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
           <div className="flex gap-2 justify-end">
             {onCancel && (
               <button
-                onClick={() => { onCancel(); remove(nextId - 1); }}
+                onClick={() => { onCancel(); beginRemove(nextId - 1); }}
                 className="px-3 py-1 text-xs rounded-lg border border-border text-muted hover:text-foreground transition-colors cursor-pointer"
               >
                 취소
               </button>
             )}
             <button
-              onClick={() => { onConfirm(); remove(nextId - 1); }}
+              onClick={() => { onConfirm(); beginRemove(nextId - 1); }}
               className="px-3 py-1 text-xs rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors cursor-pointer"
             >
               확인
@@ -147,12 +159,12 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
     <ToastContext.Provider value={ctx}>
       {children}
       <Portal>
-        {toasts.some((t) => t.blocking) && (
+        {toasts.some((t) => t.blocking && !t.leaving) && (
           <div className="fixed inset-0 z-69 bg-black/10 pointer-events-auto" />
         )}
         <div aria-live="polite" className={cn("fixed z-70 flex flex-col gap-2 pointer-events-none", positionStyles[position])}>
           {toasts.map((t) => (
-            <SingleToast key={t.id} item={t} onRemove={remove} />
+            <SingleToast key={t.id} item={t} onBeginRemove={beginRemove} onFinishRemove={finishRemove} />
           ))}
         </div>
       </Portal>
@@ -160,29 +172,33 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
   );
 }
 
-function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: number) => void }) {
+function SingleToast({ item, onBeginRemove, onFinishRemove }: { item: ToastItem; onBeginRemove: (id: number) => void; onFinishRemove: (id: number) => void }) {
   useEffect(() => {
-    if (item.blocking || item.duration === 0) return;
-    const timer = setTimeout(() => onRemove(item.id), item.duration);
+    if (item.blocking || item.duration === 0 || item.leaving) return;
+    const timer = setTimeout(() => onBeginRemove(item.id), item.duration);
     return () => clearTimeout(timer);
-  }, [item, onRemove]);
+  }, [item, onBeginRemove]);
 
   useEffect(() => {
     if (item.blocking) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onRemove(item.id);
+      if (e.key === "Escape") onBeginRemove(item.id);
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [item, onRemove]);
+  }, [item, onBeginRemove]);
 
   return (
     <div
       role="alert"
       aria-atomic="true"
+      // 슬라이드 인(우→정위치) → 퇴장 시 슬라이드 아웃(정위치→우). onAnimationEnd 는 입장에도
+      // 발화하므로 leaving 일 때만 실제 제거한다.
+      onAnimationEnd={() => { if (item.leaving) onFinishRemove(item.id); }}
       className={cn(
         "pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-[0_8px_30px_rgba(0,0,0,0.12)]",
-        "animate-slide-in-right min-w-[280px] max-w-md",
+        "min-w-[280px] max-w-md",
+        item.leaving ? "animate-slide-out-right" : "animate-slide-in-right",
         typeStyles[item.type],
       )}
     >
@@ -194,7 +210,7 @@ function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: numbe
           <p className="text-sm text-foreground flex-1">{item.message}</p>
           {item.action && (
             <button
-              onClick={() => { item.action!.onClick(); onRemove(item.id); }}
+              onClick={() => { item.action!.onClick(); onBeginRemove(item.id); }}
               className="px-2 py-1 text-xs font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors shrink-0 cursor-pointer"
             >
               {item.action.label}
@@ -204,7 +220,7 @@ function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: numbe
       )}
       {!item.blocking && (
         <button
-          onClick={() => onRemove(item.id)}
+          onClick={() => onBeginRemove(item.id)}
           className="text-muted hover:text-foreground transition-colors shrink-0 cursor-pointer"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

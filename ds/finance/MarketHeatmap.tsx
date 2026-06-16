@@ -270,11 +270,31 @@ function Cell({
   const showPrice = rect.w > 78 && rect.h > 58;
   const sign = change > 0 ? "+" : "";
 
-  // Truncate name to fit width when very narrow
+  // 라벨이 타일을 넘지 않게 맞춘다. 기존엔 글자폭을 0.62×font 로 고정 추정해
+  // 한글(전각) 종목명("TIGER 미국S&P500" 등)이 잘렸다. 한글/전각은 ~1.0×, ASCII 는
+  // ~0.58× 로 폭을 추정해 ① 전체가 들어가도록 폰트를 줄이고 ② 그래도 넘치면 말줄임.
   const baseFont = Math.max(8.5, Math.min(rect.w * 0.13, rect.h * 0.24, 19));
-  const charW = baseFont * 0.62;
-  const maxChars = Math.max(1, Math.floor((rect.w - 8) / charW));
-  const labelText = (cell.ticker ?? cell.name).slice(0, maxChars);
+  const isWide = (ch: string) =>
+    /[ᄀ-ᇿ⺀-鿿　-〿㄰-㆏가-힣＀-￯]/.test(ch);
+  const textWidth = (s: string, fs: number) => {
+    let w = 0;
+    for (const ch of s) w += fs * (isWide(ch) ? 1.0 : 0.58);
+    return w;
+  };
+  const fullLabel = cell.ticker ?? cell.name;
+  const avail = Math.max(1, rect.w - 8);
+  // 전체 라벨이 들어가도록 폰트 축소(가독 최소 7.5). 한 글자 폭 기준 상한도 둠.
+  let nameFont = baseFont;
+  if (textWidth(fullLabel, nameFont) > avail) {
+    nameFont = Math.max(7.5, avail / Math.max(1, textWidth(fullLabel, 1)));
+  }
+  // 최소 폰트로도 안 들어가면 말줄임(…)으로 자른다.
+  let labelText = fullLabel;
+  if (textWidth(fullLabel, nameFont) > avail) {
+    let fit = fullLabel;
+    while (fit.length > 1 && textWidth(fit + "…", nameFont) > avail) fit = fit.slice(0, -1);
+    labelText = fit + "…";
+  }
 
   // Light text glow improves legibility on saturated reds/blues
   const textShadow = "drop-shadow(0 1px 1.5px rgba(0,0,0,0.55))";
@@ -297,7 +317,7 @@ function Cell({
         <text
           x={rect.x + rect.w / 2}
           y={rect.y + rect.h / 2 - (showSubtext ? baseFont * 0.55 : 0)}
-          fontSize={baseFont}
+          fontSize={nameFont}
           fontWeight={800}
           fill="white"
           textAnchor="middle"
@@ -310,7 +330,7 @@ function Cell({
         <text
           x={rect.x + rect.w / 2}
           y={rect.y + rect.h / 2}
-          fontSize={Math.max(7.5, baseFont * 0.85)}
+          fontSize={Math.min(nameFont, Math.max(7.5, baseFont * 0.85))}
           fontWeight={800}
           fill="white"
           textAnchor="middle"
