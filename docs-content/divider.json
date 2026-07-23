@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-divider></jd-divider>\n\n<!-- primitives Divider는 별칭 — 신규 태그 없음(R12·DEC-014-5). 무여백이 필요하면: -->\n<jd-divider my=\"0\"></jd-divider>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

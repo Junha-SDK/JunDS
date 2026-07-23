@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-badge>기본</jd-badge>\n<jd-badge variant=\"success\" dot>온라인</jd-badge>\n<jd-badge variant=\"danger\" count=\"120\" max-count=\"99\"></jd-badge>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

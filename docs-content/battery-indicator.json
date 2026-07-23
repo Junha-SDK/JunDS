@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-battery-indicator value=\"82\" auto-color size=\"lg\" label=\"배터리\"></jd-battery-indicator>\n<jd-battery-indicator value=\"18\" auto-color></jd-battery-indicator>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-avatar name=\"박준하\" status=\"online\"></jd-avatar>\n<jd-avatar src=\"/me.jpg\" name=\"박준하\" size=\"lg\"></jd-avatar>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-kbd keys=\"⌘ K\"></jd-kbd>\n<jd-kbd>Esc</jd-kbd>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

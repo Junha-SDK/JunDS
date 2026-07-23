@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-status-dot status=\"success\" label=\"정상\"></jd-status-dot>\n<jd-status-dot status=\"warning\" label=\"점검 중\" size=\"lg\"></jd-status-dot>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

@@ -10,7 +10,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-key-cap>⌘</jd-key-cap>\n<jd-key-cap variant=\"primary\" size=\"lg\">Enter</jd-key-cap>\n<jd-key-cap pressed>K</jd-key-cap>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": null

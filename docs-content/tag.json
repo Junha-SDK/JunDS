@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-tag>기본</jd-tag>\n<jd-tag color=\"purple\" closable>필터</jd-tag>\n\n<script>\n  // closable ✕ 클릭 → jd-remove 사후 통지(제거는 소비자 몫 — v2 onClose 동형)\n  document.querySelector(\"jd-tag[closable]\").addEventListener(\"jd-remove\", (e) => e.target.remove());\n</script>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

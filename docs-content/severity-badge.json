@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-severity-badge severity=\"critical\" dot>심각</jd-severity-badge>\n<jd-severity-badge severity=\"low\" size=\"sm\">낮음</jd-severity-badge>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-spinner></jd-spinner>\n<jd-spinner size=\"lg\" color=\"muted\" label=\"불러오는 중\"></jd-spinner>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {
