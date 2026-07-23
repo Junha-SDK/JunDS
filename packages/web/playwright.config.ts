@@ -20,7 +20,8 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
-    // DEC-004 지원선의 실설치 가용 브라우저. webkit(Safari 등가)은 CI 매트릭스 과제.
-    { name: "chromium", use: { browserName: "chromium" } },
+    // 시스템 Chrome 채널 — ms-playwright 캐시 빌드/패키지 버전 불일치와 무관하게 동작
+    // (레포 검증 관례: 시스템 Chrome). webkit(Safari 등가)은 CI 매트릭스 과제.
+    { name: "chromium", use: { browserName: "chromium", channel: "chrome" } },
   ],
 });

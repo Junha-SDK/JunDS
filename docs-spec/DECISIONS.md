@@ -4,6 +4,31 @@
 
 ---
 
+## 2026-07-24 — Playwright 실브라우저 상호작용 스위트 신설 (03 §9 의무 구간)
+
+### DEC-020. 웹 e2e 스위트 판단 3건
+1. **자체 config (03 §9.1 "루트 playwright.config.ts에 프로젝트 추가" 이탈)**:
+   루트 config의 webServer는 v2 문서앱(next dev :6100)을 전역 부팅한다 — 프로젝트 선택과
+   무관하게 기동되므로 CE 스위트(서버 불요, dist 주입 setContent)에 비용·포트 충돌만 낳는다.
+   `packages/web/playwright.config.ts` 독립 config로 확정, 실행은
+   `npx playwright test -c packages/web/playwright.config.ts` (전제: dist 빌드).
+   루트 스크립트 합류는 package.json 경합 해소 후(웹 트랙 몫).
+2. **브라우저는 시스템 Chrome 채널(channel:"chrome")**: ms-playwright 캐시의 브라우저
+   빌드(1228)와 레포 @playwright/test 요구 빌드(1217)가 불일치 — 캐시 재다운로드 대신
+   시스템 Chrome을 채널로 고정(레포 검증 관례와 일치). webkit(Safari 16.4 등가) 매트릭스는
+   CI 과제로 이월.
+3. **실브라우저에서만 드러난 판정 규약 2건**(테스트 저작 규범): (a) flex 아이템은
+   blockification으로 지정 inline-flex가 computed "flex" — 내부 골격의 display 판정은
+   호스트로 한다. (b) `.jd-button`의 `transition: all` 탓에 소비자 오버라이드 직후 계산값은
+   전이 중간값 — 수렴 판정(toHaveCSS 자동 재시도)으로 단언한다.
+- 커버리지 16케이스: focus-trap 실 Tab 순환·복귀, ESC/백드롭/persistent/jd-request-close
+  취소, 스크롤 락, 네이티브 폼 참여(FormData·라벨·submit·disabled/aria-busy), :defined
+  FOUC, adoptedStyleSheets 실적용·@layer 소비자 승리, style-props 반응형 실 미디어쿼리,
+  jd-page box-sizing 회귀(DEC-014-9). 전부 커밋된 표면(G1+B1)만 검증.
+- 결정자: 실측 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — G2-B2 layout 배치 구현 중 발견 (layout 12행 + gen-exports)
 
 ### DEC-018. B2 layout 배치 판단 7건 + 검수 P1-1 해소
