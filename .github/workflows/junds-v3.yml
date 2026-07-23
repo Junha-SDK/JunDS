@@ -62,6 +62,10 @@ concurrency:
 jobs:
   # ── 인프라: node_modules 캐시 워머 — v3 레인은 node 22 (tokens 생성기의 명시 전제.
   #    v2 레인 node 20과 캐시 키 분리: deps-*-node22-*) ──
+  # npm ci는 전 잡 --ignore-scripts: 루트 prepare가 v2 build:lib(+절대경로 하드코딩된
+  # ensure-use-client-banner.mjs)를 태워 러너에서 ENOENT — CI v3 첫 실행(run 30021418706)
+  # 실측. v3 게이트는 v2 dist 불요, 의존성 바이너리(esbuild 등)는 플랫폼 패키지
+  # 모델이라 lifecycle 스크립트 없이 동작한다.
   install:
     runs-on: ubuntu-latest
     steps:
@@ -77,7 +81,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
 
   # ── 게이트 1/11: tokens-fresh — 재생성 후 산출물 3종 diff 0 (01 §9) ──
   tokens-fresh:
@@ -96,7 +100,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Regenerate tokens and verify outputs committed
         run: npm run tokens:fresh
 
@@ -117,7 +121,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Run token tests
         run: npm run tokens:test
 
@@ -138,7 +142,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Typecheck @junds/web
         run: npm run typecheck -w @junds/web
       - name: Build @junds/web (esbuild 4산출물)
@@ -161,7 +165,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Run @junds/web unit tests (vitest, happy-dom)
         run: npm run test -w @junds/web
       # Playwright 스위트 자동 활성 가드 — 1순위: packages/web/e2e/*.spec.ts (자체 config,
@@ -197,7 +201,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
@@ -227,7 +231,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Enforce size budgets (benchmarks/size-gate.mjs)
         run: npm run size:web
 
@@ -248,7 +252,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Build + typecheck @junds/react
         run: |
           if ! node -e "const s=require('./packages/react/package.json').scripts||{};process.exit(s.build?0:1)"; then
@@ -274,7 +278,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Test @junds/finance-data
         run: |
           if ! node -e "const s=require('./packages/finance-data/package.json').scripts||{};process.exit(s.test?0:1)"; then
@@ -332,7 +336,7 @@ jobs:
           key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
