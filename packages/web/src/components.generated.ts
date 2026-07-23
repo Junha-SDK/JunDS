@@ -5,6 +5,7 @@ export { JdAspectRatioBox } from "./components/aspect-ratio-box/element.js";
 export { JdBox } from "./components/box/element.js";
 export { JdButton } from "./components/button/element.js";
 export { JdCenter } from "./components/center/element.js";
+export { JdCheckbox } from "./components/checkbox/element.js";
 export { JdContainer } from "./components/container/element.js";
 export { JdDivider } from "./components/divider/element.js";
 export { JdFlex } from "./components/flex/element.js";
@@ -13,16 +14,24 @@ export { JdGridLayout } from "./components/grid-layout/element.js";
 export { JdGroup } from "./components/group/element.js";
 export { JdHeading } from "./components/heading/element.js";
 export { JdHStack } from "./components/hstack/element.js";
+export { JdIconButton } from "./components/icon-button/element.js";
+export { JdLabel } from "./components/label/element.js";
 export { JdModal } from "./components/modal/element.js";
 export { JdOverlay } from "./components/overlay/element.js";
 export { JdPage, JdPageHeader, JdPageBody } from "./components/page/element.js";
+export { JdRadioGroup } from "./components/radio-group/element.js";
+export { JdRangeSlider } from "./components/range-slider/element.js";
 export { JdSection } from "./components/section/element.js";
 export { JdShow, JdHide } from "./components/show/element.js";
 export { JdSimpleGrid } from "./components/simple-grid/element.js";
+export { JdSlider } from "./components/slider/element.js";
 export { JdSpacer } from "./components/spacer/element.js";
 export { JdStack } from "./components/stack/element.js";
+export { JdSwitch } from "./components/switch/element.js";
 export { JdText } from "./components/text/element.js";
 export { JdTextField } from "./components/text-field/element.js";
+export { JdTextarea } from "./components/textarea/element.js";
+export { JdToggle } from "./components/toggle/element.js";
 export { JdVStack } from "./components/vstack/element.js";
 export { JdWrap } from "./components/wrap/element.js";
 
@@ -31,6 +40,7 @@ import { JdAspectRatioBox } from "./components/aspect-ratio-box/element.js";
 import { JdBox } from "./components/box/element.js";
 import { JdButton } from "./components/button/element.js";
 import { JdCenter } from "./components/center/element.js";
+import { JdCheckbox } from "./components/checkbox/element.js";
 import { JdContainer } from "./components/container/element.js";
 import { JdDivider } from "./components/divider/element.js";
 import { JdFlex } from "./components/flex/element.js";
@@ -39,16 +49,24 @@ import { JdGridLayout } from "./components/grid-layout/element.js";
 import { JdGroup } from "./components/group/element.js";
 import { JdHeading } from "./components/heading/element.js";
 import { JdHStack } from "./components/hstack/element.js";
+import { JdIconButton } from "./components/icon-button/element.js";
+import { JdLabel } from "./components/label/element.js";
 import { JdModal } from "./components/modal/element.js";
 import { JdOverlay } from "./components/overlay/element.js";
 import { JdPage, JdPageHeader, JdPageBody } from "./components/page/element.js";
+import { JdRadioGroup } from "./components/radio-group/element.js";
+import { JdRangeSlider } from "./components/range-slider/element.js";
 import { JdSection } from "./components/section/element.js";
 import { JdShow, JdHide } from "./components/show/element.js";
 import { JdSimpleGrid } from "./components/simple-grid/element.js";
+import { JdSlider } from "./components/slider/element.js";
 import { JdSpacer } from "./components/spacer/element.js";
 import { JdStack } from "./components/stack/element.js";
+import { JdSwitch } from "./components/switch/element.js";
 import { JdText } from "./components/text/element.js";
 import { JdTextField } from "./components/text-field/element.js";
+import { JdTextarea } from "./components/textarea/element.js";
+import { JdToggle } from "./components/toggle/element.js";
 import { JdVStack } from "./components/vstack/element.js";
 import { JdWrap } from "./components/wrap/element.js";
 
@@ -59,6 +77,7 @@ export const ALL_COMPONENTS = [
   JdBox,
   JdButton,
   JdCenter,
+  JdCheckbox,
   JdContainer,
   JdDivider,
   JdFlex,
@@ -67,19 +86,27 @@ export const ALL_COMPONENTS = [
   JdGroup,
   JdHeading,
   JdHStack,
+  JdIconButton,
+  JdLabel,
   JdModal,
   JdOverlay,
   JdPage,
   JdPageHeader,
   JdPageBody,
+  JdRadioGroup,
+  JdRangeSlider,
   JdSection,
   JdShow,
   JdHide,
   JdSimpleGrid,
+  JdSlider,
   JdSpacer,
   JdStack,
+  JdSwitch,
   JdText,
   JdTextField,
+  JdTextarea,
+  JdToggle,
   JdVStack,
   JdWrap,
 ] as const;

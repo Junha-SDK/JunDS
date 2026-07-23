@@ -37,4 +37,15 @@
   jd-show:not(:defined),
   jd-hide:not(:defined) { display: contents; }
   jd-overlay:not(:defined) { position: absolute; inset: 0; }
+
+  /* B3 primitives 폼 코어 */
+  jd-icon-button:not(:defined),
+  jd-label:not(:defined),
+  jd-checkbox:not(:defined),
+  jd-toggle:not(:defined),
+  jd-switch:not(:defined) { display: inline-flex; }
+  jd-textarea:not(:defined),
+  jd-slider:not(:defined),
+  jd-range-slider:not(:defined) { display: block; }
+  jd-radio-group:not(:defined) { display: flex; flex-direction: column; }
 }

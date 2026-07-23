@@ -17,6 +17,7 @@ export default css`
 
   .jd-app-shell__sidebar {
     flex-shrink: 0;
+    box-sizing: border-box; /* width+border-right 병용 — 레일 총폭=지정폭 (DEC-014-9) */
     overflow: auto;
     width: var(--_jd-shell-rail, 260px);
     background: #ffffff;

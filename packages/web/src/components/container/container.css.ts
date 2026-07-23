@@ -8,6 +8,7 @@ export default css`
 @layer junds.components {
   jd-container {
     display: block;
+    box-sizing: border-box; /* width:100%+padding-inline 병용 — v2 preflight 등가 (DEC-014-9) */
     width: 100%;
     margin-inline: auto;
     max-width: 1024px;

@@ -4,6 +4,40 @@
 
 ---
 
+## 2026-07-24 — G2-B3 primitives 폼 코어 구현 중 발견 (신규 9행)
+
+### DEC-023. B3 폼 코어 판단 6건
+1. **Slider는 네이티브 range 위임으로 재작성**: v2는 마우스·키보드를 수제 구현했으나
+   §1.6-1 원칙대로 input[type=range] 위임 — 키보드(화살표/Home/End)·aria·터치·폼 참여가
+   브라우저 기본. 시각 패리티(채움 트랙)는 appearance:none + 그라디언트 %
+   (--_jd-slider-pct, update() 공급) + ::-moz-range-progress로 재현. v2와 달리
+   드래그 중 트랙 어디를 눌러도 네이티브 시킹이 동작(상위집합).
+2. **RangeSlider는 수제 유지(위임 예외)**: 네이티브 range는 단일 값 — v2의 포인터 캡처
+   구현을 이식(썸 2개 role=slider + 키보드 + step 간격 클램프). v2 value:[a,b] 튜플은
+   복합 attribute 금지(WEB-03) → min-value/max-value 스칼라 2프롭으로 분해.
+   드래그 중 jd-input · 확정 시 jd-change(§1.5 canonical 분리 — v2는 단일 onChange).
+3. **RadioGroup 옵션 입력 2경로**: options 프로퍼티(Array) + 자식
+   <script type="application/json"> 슬롯(§1.3 명시 허용 패턴 첫 사용례 — Slider marks도
+   동일). 네이티브 radio 묶음이라 화살표 순회·단일 탭스톱·폼 참여가 공짜(roving Behavior
+   불필요). name 미지정 시 jdUid 자동 발급(문서 유일 그룹 보장).
+4. **Checkbox indeterminate는 네이티브 프로퍼티만**: v2의 수동 aria-checked="mixed"는
+   불필요(브라우저가 mixed를 AT에 전달). 사용자 조작 시 mixed 해제(네이티브 정합).
+   Textarea error는 v2 그대로 boolean(TextField의 메시지 문자열과 표면 상이 — v2 실태 승계).
+5. **Switch = Toggle 파생(단일 구현)**: 로직 전량 공유, baseClass/시트/기본 aria 라벨만
+   재정의(jd-switch__* 골격). v2 Switch의 i18n 기본 라벨 t("ariaSwitch")는 상수 "스위치"로
+   — i18n Behavior 합류 시 재연결. Toggle/Switch/Checkbox의 라벨 클릭 토글은 label 래핑의
+   네이티브 연결(첫 labelable 자손)로 공짜.
+6. **gen-exports 첫 실전 배치**: B3 9종 추가에 수기 배선 0곳 — 생성기 재실행만으로
+   exports 75엔트리·ALL_COMPONENTS 37종 갱신, drift 게이트가 npm test 선두에서 검증
+   (DEC-018-1 설계 검증 완료). gray-300/200 리터럴(#d1d5db·#e5e7eb — 토글 트랙·슬라이더
+   레일 미채움)은 v2 Tailwind gray 승계 — G2 gray 어휘 재심의 목록에 추가.
+- 검증: vitest 194/194 · size-gate PASS(평균 0.97KB·p95 2.22KB) · demo/form.html
+  puppeteer 실측 — 토글 aria 반전·autoResize 성장·카운터·라디오 선택 이벤트·슬라이더
+  채움 %·듀얼 썸 aria 전부 재현, 콘솔 에러 0.
+- 결정자: B3 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — 릴리스·CI 준비 트랙 (v3 레인 11게이트 + 드라이런 + 스코프 조사)
 
 ### DEC-22. 릴리스 체인 준비 — 판단·실측 7건

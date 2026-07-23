@@ -2,7 +2,10 @@
  * gen-exports — exports 맵·컴포넌트 목록 생성기 (03-web-arch §6.2, 검수 P1-1 해소).
  *
  * src/components/<dir>/element.ts 를 스캔해 3곳의 수기 동기화를 제거한다:
- *  1. package.json "exports" — 고정 엔트리 + ./<dir>·./<dir>/element (dir 알파벳순)
+ *  1. package.json "exports" — 고정 엔트리 + ./<dir>·./<dir>/element (dir 알파벳순).
+ *     JS 엔트리는 { types, default } 객체로 방출(types 조건 선행 — moduleResolution
+ *     bundler/node16에서 d.ts 해석은 exports types 조건이 유일 경로, TS7016 방지.
+ *     릴리스 드라이런 실측·release/CHECKLIST.md §0). 톱레벨 "types"도 함께 동기화.
  *  2. src/components.generated.ts — 전 컴포넌트 클래스 import/re-export + ALL_COMPONENTS
  *     (define.ts·index.ts가 이것만 소비 — 수기 배열 폐지)
  *  3. --check: 재생성 결과가 디스크와 다르면 exit 1 (drift 게이트 — `npm test` 선두에서 실행)
