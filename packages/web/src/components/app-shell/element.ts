@@ -55,6 +55,9 @@ export class JdAppShell extends JdElement {
     } else {
       this.#build();
     }
+    // 본문이 유일한 스크롤러 — 포커서블 자손이 없어도 키보드 스크롤 보장
+    // (axe scrollable-region-focusable serious, DEC-027). 입양 마크업에도 소급.
+    this.#content.tabIndex = 0;
     this.update();
   }
 

@@ -19,7 +19,8 @@
   header { display: flex; justify-content: space-between; align-items: center; }
   .modal-body { padding: 1.5rem; display: grid; gap: 1rem; }
   .modal-actions { display: flex; justify-content: end; gap: .5rem; }
-  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted-light); min-height: 1.2em; }
+  /* 이벤트 로그 텍스트도 AA — muted-light(2.7:1) 대신 muted */
+  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted); min-height: 1.2em; }
 </style>
 </head>
 <body>

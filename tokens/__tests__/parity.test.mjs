@@ -66,12 +66,28 @@ const aliasToV2 = (value) =>
     return `var(${v2Name})`;
   });
 
+/**
+ * 승인된 패리티 이탈 — "값 임의 변경 금지" 원칙의 유일한 합법 통로 (DECISIONS 기록 의무).
+ * 각 항목: v3 변수 → { v2: 동결본 기대값(전제 검증 — v2가 바뀌면 재심의), v3: 승인값, dec: 근거 }.
+ * 여기 없는 이탈은 여전히 테스트 실패다.
+ */
+const SANCTIONED_DEVIATIONS = {
+  // web-a11y 게이트 실측: 흰 글자 on #dc3f3f 4.35:1 등 WCAG AA 미달 → 라이트만 보정
+  "--jd-color-danger": { v2: "#dc3f3f", v3: "#c93636", dec: "DEC-027" },
+};
+
 describe("v2 CSS ↔ 생성 CSS 패리티 (legacy-map 전량)", () => {
-  test("라이트 27변수 — 값 전 항목 일치", () => {
+  test("라이트 27변수 — 값 전 항목 일치 (승인 이탈은 승인값으로 고정)", () => {
     expect(Object.keys(v2Light).sort()).toEqual(Object.keys(legacyLightColorMap).sort());
     expect(Object.keys(v2Light)).toHaveLength(27);
     for (const [v2Name, v3Name] of Object.entries(legacyLightColorMap)) {
-      expect(v3Root[v3Name], `${v2Name} → ${v3Name}`).toBe(v2Light[v2Name]);
+      const dev = SANCTIONED_DEVIATIONS[v3Name];
+      if (dev) {
+        expect(v2Light[v2Name], `${v2Name} 동결본 전제 (${dev.dec} 재심의 필요)`).toBe(dev.v2);
+        expect(v3Root[v3Name], `${v2Name} → ${v3Name} 승인값 (${dev.dec})`).toBe(dev.v3);
+      } else {
+        expect(v3Root[v3Name], `${v2Name} → ${v3Name}`).toBe(v2Light[v2Name]);
+      }
     }
   });
 

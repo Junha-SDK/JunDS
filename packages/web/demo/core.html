@@ -11,7 +11,8 @@
   /* 데모 셸 전용 스타일 — 라이브러리와 무관 */
   body { margin: 0; font-family: var(--jd-font-sans);
          background: var(--jd-color-background); color: var(--jd-color-foreground); }
-  .demo-label { font-size: var(--jd-text-xs); color: var(--jd-color-muted-light);
+  /* muted-light는 배경 위 2.7:1(AA 미달) — 캡션도 muted로 (web-a11y 게이트) */
+  .demo-label { font-size: var(--jd-text-xs); color: var(--jd-color-muted);
                 text-transform: uppercase; letter-spacing: .08em; margin: 0 0 .5rem; }
   .chip { background: var(--jd-color-primary-light); color: var(--jd-color-primary);
           border-radius: 8px; padding: .35rem .8rem; font-size: var(--jd-text-sm); }

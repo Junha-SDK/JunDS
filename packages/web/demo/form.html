@@ -11,7 +11,8 @@
   body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
          background: var(--jd-color-background); color: var(--jd-color-foreground); }
   main { max-width: 44rem; margin-inline: auto; }
-  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted-light); min-height: 1.2em; }
+  /* 이벤트 로그 텍스트도 AA — muted-light(2.7:1) 대신 muted */
+  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted); min-height: 1.2em; }
 </style>
 </head>
 <body>
@@ -39,7 +40,8 @@
         <jd-textarea id="bio" name="bio" placeholder="여기에 입력하면 높이가 자동으로 늘어납니다…"
                      auto-resize show-count maxlength="120"></jd-textarea>
       </jd-vstack>
-      <jd-textarea error value="에러 상태의 텍스트영역"></jd-textarea>
+      <!-- placeholder가 접근 가능한 이름 폴백 — 이름 없는 폼 요소는 axe critical -->
+      <jd-textarea error placeholder="에러 상태 예시" value="에러 상태의 텍스트영역"></jd-textarea>
     </jd-section>
 
     <jd-section title="jd-checkbox + jd-radio-group">

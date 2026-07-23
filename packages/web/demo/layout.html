@@ -10,7 +10,8 @@
 <style>
   /* 데모 셸 전용 스타일 — 라이브러리와 무관 */
   body { margin: 0; font-family: var(--jd-font-sans); color: var(--jd-color-foreground); }
-  .demo-label { font-size: var(--jd-text-xs); color: var(--jd-color-muted-light);
+  /* muted-light는 배경 위 2.7:1(AA 미달) — 캡션도 muted로 (web-a11y 게이트) */
+  .demo-label { font-size: var(--jd-text-xs); color: var(--jd-color-muted);
                 text-transform: uppercase; letter-spacing: .08em; margin: 1.25rem 0 .5rem; }
   .demo-label:first-child { margin-top: 0; }
   .cell { background: var(--jd-color-card); border: 1px solid var(--jd-color-border);

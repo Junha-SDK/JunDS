@@ -46,7 +46,7 @@ public enum JdToken {
         public static let primaryGlow = JdDynamicColor(light: 0x5B4CC72E, dark: 0x5B4CC72E)
         public static let accent = JdDynamicColor(light: 0x7C5CE7FF, dark: 0x7C5CE7FF)
         public static let accentLight = JdDynamicColor(light: 0xEFEBFFFF, dark: 0x7C5CE71F)
-        public static let danger = JdDynamicColor(light: 0xDC3F3FFF, dark: 0xDC3F3FFF)
+        public static let danger = JdDynamicColor(light: 0xC93636FF, dark: 0xDC3F3FFF)
         public static let dangerHover = JdDynamicColor(light: 0xB92F2FFF, dark: 0xB92F2FFF)
         public static let dangerLight = JdDynamicColor(light: 0xFFF1F1FF, dark: 0xDC3F3F26)
         public static let muted = JdDynamicColor(light: 0x6B6880FF, dark: 0xA09CB5FF)

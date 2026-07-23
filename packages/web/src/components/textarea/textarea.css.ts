@@ -43,7 +43,7 @@ export default css`
 
   .jd-textarea__count {
     position: absolute; bottom: var(--jd-space-2); right: var(--jd-space-3);
-    /* muted-light(2.8:1)는 유리 배경 위 AA 미달 — muted로 보정 (DEC-025 web-a11y) */
+    /* muted-light(2.8:1)는 유리 배경 위 AA 미달 — muted로 보정 (DEC-027 web-a11y) */
     font-size: var(--jd-text-xs); color: var(--jd-color-muted);
     pointer-events: none;
   }

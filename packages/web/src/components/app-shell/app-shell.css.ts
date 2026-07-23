@@ -91,6 +91,12 @@ export default css`
     flex-grow: 1;
     overflow: auto;
   }
+  /* tabindex=0 스크롤러(DEC-027) — 키보드 포커스만 안쪽 링 표시 */
+  .jd-app-shell__content:focus-visible {
+    outline: var(--jd-border-medium) solid
+      color-mix(in srgb, var(--jd-color-primary) 40%, transparent);
+    outline-offset: -2px;
+  }
 
   .jd-app-shell__footer {
     flex-shrink: 0;

@@ -4,6 +4,49 @@
 
 ---
 
+## 2026-07-24 — web-a11y 게이트 실측 위반 수정 (critical/serious 6건 → 0)
+
+### DEC-027. danger 토큰 승인 이탈(첫 사례) + 컴포넌트·데모 a11y 보정 5건
+(번호 주: 025·026은 B4·MCP 트랙이 선점 — 027로 비켜 부여.)
+web-a11y 게이트(.github/scripts/web-a11y-audit.mjs, axe-core·실브라우저)가 데모 4페이지에서
+critical 1(label)·serious 5(color-contrast 4그룹 + scrollable-region-focusable)를 실측 —
+전부 수정. jsdom 기반이던 v2 audit은 색 대비를 계산하지 못해 v2 값이 그대로 통과해 왔다.
+1. **danger 토큰 라이트 보정 — 시각 패리티 원칙의 첫 승인 이탈**: v2 `#dc3f3f`는 라이트에서
+   흰 글자 4.35:1, `--jd-color-background` 위 텍스트 3.97:1, danger-light 위 3.96:1로 전부
+   WCAG AA(4.5) 미달. `{ light: "#c93636", dark: "#dc3f3f" }` 모드 리프로 분리 — 라이트는
+   흰 글자 5.17·bg 4.72·danger-light 4.70으로 통과, 다크는 v2 값 유지(다크 배경 위 텍스트
+   4.51 통과 — 더 어둡히면 이쪽이 깨진다. 흰 글자 4.5↑와 다크 바탕 텍스트 4.5↑는 단일 값으로
+   양립 불가: L≤0.183 vs L≥0.191). 동일 색상(H=0)·명도만 강하. dangerHover(#b92f2f, 여전히
+   danger보다 어두움)·dangerLight·focus-ring-danger는 미변경.
+   - **집행 경로**: 패리티 테스트에 `SANCTIONED_DEVIATIONS` 표 신설(02-tokens §6 개정) —
+     v2 동결본 기대값 + 승인값 + DEC 번호를 함께 고정해, 제3의 값 드리프트와 동결본 변경
+     양쪽 모두 여전히 실패한다. iOS `JdDynamicColor(light: 0xC93636FF, dark: 0xDC3F3FFF)`
+     동반 갱신(생성기 산출). react 표면은 var() 참조라 무변경.
+   - **귀결**: v2 시각 패리티 기준 캡처의 danger 계열(버튼 danger·에러 텍스트 등)은 의도된
+     delta. 다크 모드의 danger 버튼(흰 글자 on #dc3f3f = 4.35)은 게이트 밖(감사는 라이트
+     초기 상태)이며 값 상충상 토큰 단독으론 불가 — 표면 분리(danger-surface) 여부는 G2
+     시각 재심의 목록으로 이월.
+2. **jd-textarea 카운트 배지**: `muted-light`(유리 배경 위 2.8:1) → `muted`(5.2:1).
+3. **jd-toggle/jd-switch disabled**: v2의 행 전체 `opacity: 50%`는 라벨 텍스트를 2.9:1로
+   떨어뜨림 — axe는 `<label>` 연결 disabled 면제를 input/select/textarea에만 주고 내부
+   `<button role="switch">`에는 주지 않는다(axe-core color-contrast-matches 실측). 반투명은
+   트랙·썸에만 한정하고 라벨은 `muted` 실색으로 분리(양 컴포넌트 동형 적용).
+4. **jd-app-shell 본문 스크롤러**: `<main class="__content">`(overflow:auto)가 포커서블
+   자손 없는 페이지에서 키보드 스크롤 불가(serious) → `tabIndex=0` 상시 부여 + 안쪽
+   `:focus-visible` 링. 사이드바는 관례상 포커서블 내용(nav)을 담아 비대상.
+5. **jd-button danger 호버 글로우**: 리터럴 `rgba(220,63,63,.25)` →
+   `color-mix(in srgb, var(--jd-color-danger) 25%, transparent)` — 토큰 보정 자동 추종.
+6. **데모 셸**: `.demo-label`(core·layout)·`#log`(index·form)의 `muted-light`(2.7:1) →
+   `muted`(4.9:1). form.html의 이름 없는 error 텍스트영역(critical)은 placeholder 부여 —
+   첫 텍스트영역과 동일한 이름 폴백 메커니즘. (jd-label for → 호스트 id 연결이 네이티브로
+   성립하지 않는 갭은 본 트랙 범위 밖 — B3 후속.)
+- 검증: `npm run tokens:test` 15/15 · `npm run build -w @junds/web` 후
+  `node .github/scripts/web-a11y-audit.mjs` 4페이지 critical/serious 0 (advisory
+  heading-order·landmark·region은 게이트 밖 — 미수리).
+- 결정자: 게이트 실측 근거로 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — MCP 구현 완료 (도구 5종 + 콘텐츠 정본 통일)
 
 ### DEC-026. MCP 구현 판단 4건 — 콘텐츠 정본은 콘텐츠 트랙 채택
@@ -27,7 +70,7 @@
   스냅샷 동일성) + build-index 445건 통과 + stdio JSON-RPC 실왕복(initialize→tools/call).
 - 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
 
-
+---
 
 ## 2026-07-24 — G2-B4 primitives 표시 구현 중 발견 (10행 — Divider 별칭 포함)
 

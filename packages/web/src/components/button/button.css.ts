@@ -79,7 +79,7 @@ export default css`
     box-shadow: 0 1px 2px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.15);
   }
   jd-button[variant="danger"] > .jd-button:hover {
-    /* 글로우는 danger 토큰 파생 — DEC-025 라이트 보정(#c93636)에 자동 추종 */
+    /* 글로우는 danger 토큰 파생 — DEC-027 라이트 보정(#c93636)에 자동 추종 */
     box-shadow: 0 4px 12px color-mix(in srgb, var(--jd-color-danger) 25%, transparent),
       0 1px 2px rgba(0,0,0,.1);
     filter: brightness(1.1);

@@ -11,7 +11,7 @@
   "primaryGlow":   "rgba(91, 76, 199, 0.18)",
   "accent":        "#7c5ce7",
   "accentLight":   { "light": "#efebff", "dark": "rgba(124, 92, 231, 0.12)" },
-  "danger":        "#dc3f3f",
+  "danger":        { "light": "#c93636", "dark": "#dc3f3f", "$note": "DEC-027 승인 이탈 — v2 #dc3f3f는 라이트에서 흰 글자 4.35:1·연배경 위 3.96:1로 WCAG AA(4.5) 미달(axe serious). 라이트만 #c93636(흰 글자 5.17·bg 4.72·danger-light 4.70)로 보정, 다크는 v2 값 유지(#0c0a14 위 4.51 통과)" },
   "dangerHover":   "#b92f2f",
   "dangerLight":   { "light": "#fff1f1", "dark": "rgba(220, 63, 63, 0.15)" },
   "muted":         { "light": "#6b6880", "dark": "#a09cb5" },

@@ -2,6 +2,8 @@
 
 작성일: 2026-07-23 · 전제: 00-inventory.md, DECISIONS.md D5 (tokens/*.json 단일 소스 → CSS 변수 + Swift 상수 동시 생성)
 대원칙: **시각 패리티** — 기존 값을 그대로 추출한다. 값의 임의 변경 금지. 이름만 `--jd-*` 규칙으로 재편한다.
+(예외 통로: 접근성 게이트 등으로 값 보정이 불가피하면 DECISIONS 항목 + 패리티 테스트의
+`SANCTIONED_DEVIATIONS` 등재를 통해서만 이탈한다 — 현행 1건: danger 라이트 #c93636, DEC-027.)
 
 ---
 
@@ -74,7 +76,7 @@
   "primaryGlow":  "rgba(91, 76, 199, 0.18)",
   "accent":       "#7c5ce7",
   "accentLight":  { "light": "#efebff",  "dark": "rgba(124, 92, 231, 0.12)" },
-  "danger":       "#dc3f3f",
+  "danger":       { "light": "#c93636",  "dark": "#dc3f3f" }, // DEC-027: v2 #dc3f3f는 라이트 AA 미달 → 라이트만 보정
   "dangerHover":  "#b92f2f",
   "dangerLight":  { "light": "#fff1f1",  "dark": "rgba(220, 63, 63, 0.15)" },
   "muted":        { "light": "#6b6880",  "dark": "#a09cb5" },
@@ -321,7 +323,7 @@ export const zIndex = { hide: -1, base: 0, dropdown: 10, /* … */ } as const;
 `tokens/__tests__/` (node --test, 의존성 0):
 
 1. **스냅샷 테스트**: 산출물 3종의 전문(full text)을 `__snapshots__/`의 기대 파일과 문자열 비교. 갱신은 `UPDATE_SNAPSHOTS=1 node --test …`로만 — 리뷰에서 토큰 diff가 그대로 보인다.
-2. **v2 패리티 테스트 (핵심)**: `ds/styles/tokens.css`(동결본)를 정규식으로 파싱해 `--변수: 값` 맵을 만들고, `legacy-map.mjs`의 구명→신명 매핑을 통해 생성된 v3 CSS의 값과 **전 항목 일치**를 단언한다. 라이트·다크 각각. TS 리터럴 토큰(spacing 등)은 `ds/tokens/*.ts`를 동적 import해 동일 비교. 이 테스트가 "임의 변경 금지" 원칙의 기계적 집행자다.
+2. **v2 패리티 테스트 (핵심)**: `ds/styles/tokens.css`(동결본)를 정규식으로 파싱해 `--변수: 값` 맵을 만들고, `legacy-map.mjs`의 구명→신명 매핑을 통해 생성된 v3 CSS의 값과 **전 항목 일치**를 단언한다. 라이트·다크 각각. TS 리터럴 토큰(spacing 등)은 `ds/tokens/*.ts`를 동적 import해 동일 비교. 이 테스트가 "임의 변경 금지" 원칙의 기계적 집행자다. 승인된 이탈은 테스트 내 `SANCTIONED_DEVIATIONS` 표(v2 기대값 + 승인값 + DEC 번호)로만 허용 — v2 값도 승인값도 아닌 제3의 값은 여전히 실패하고, 동결본이 바뀌어도 실패해 재심의를 강제한다.
 3. **Swift 값 검증**: 생성기 내 hex 파서를 패리티 테스트에서 재사용해 `JdToken.swift` 안의 `0xRRGGBBAA` 리터럴을 재파싱→원본 JSON과 대조(정규식 추출). 컴파일 가능성은 CI `ios-build`가, 다이나믹 컬러 해소는 `JunDSCoreTests`의 XCTest(라이트/다크 trait로 `uiColor` 해소값 비교) 가 커버.
 4. CI 연결: `tokens-test` + `tokens-fresh` 게이트 (01-repo-structure §9).
 

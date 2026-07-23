@@ -27,6 +27,14 @@ public enum JdFontBridge {
         return UIFontMetrics(forTextStyle: textStyle(forSize: size))
             .scaledFont(for: base, compatibleWith: traits)
     }
+
+    // 모노스페이스 변형 — 베이스만 monospacedSystemFont로 바꾸고 스케일 규칙은 동일 (DESIGN §2.3)
+    public static func scaledMonoFont(size: CGFloat, weight: CGFloat,
+                                      compatibleWith traits: UITraitCollection? = nil) -> UIFont {
+        let base = UIFont.monospacedSystemFont(ofSize: size, weight: uiWeight(weight))
+        return UIFontMetrics(forTextStyle: textStyle(forSize: size))
+            .scaledFont(for: base, compatibleWith: traits)
+    }
 }
 
 // JdMotion(Core) 부트스트랩 — 앱 시작 시 1회 호출 (04 §7.3)
