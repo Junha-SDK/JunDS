@@ -4,6 +4,56 @@
 
 ---
 
+## 2026-07-24 — iOS 확장 지령 1차: 네이티브 쇼룸 + B-core 12종 + 성능 체계
+
+### DEC-028. 쇼룸 개편·core 이식·벤치 체계 판단 9건
+1. **쇼룸은 원장 파생 (손 관리 금지)**: `demo/tools/gen-catalog.mjs`(의존성 0 node)가
+   ledger.json 445행 → `Generated/ShowroomCatalog.swift`를 방출한다. 카테고리 7종 인덱스·
+   검색·상태 배지(iOS done/예정/n·a·웹 done)·진행률이 전부 원장 값이며, **미구현 컴포넌트도
+   목록에 남긴다**(진행률 가시성이 쇼룸의 가치). 중복 id 실존(AreaChart)이라 Identifiable 키는
+   `category/id` 복합키.
+2. **상세 화면은 선언적 스키마 구동 (수제 화면 금지)**: `ComponentDemo`(controls +
+   스테이지 클로저) 하나만 선언하면 `ComponentDetail`이 스테이지·컨트롤·환경·원장 섹션을
+   일괄 렌더한다. 컨트롤 4종(options/toggle/slider/text)으로 15종 데모를 전부 표현했고,
+   배치마다 파일 1개 추가 + `DemoRegistry.all` 한 줄 등록만 늘어난다(레지스트리 단일 지점
+   갱신 = 병렬 배치의 병합 충돌 회피).
+3. **다크·Dynamic Type 시뮬레이션은 트레이트 오버라이드로 (프로세스 설정 변경 금지)**:
+   `StageHost`(UIViewControllerRepresentable)가 자식 UIHostingController에
+   `setOverrideTraitCollection(userInterfaceStyle + preferredContentSizeCategory)`를 건다.
+   컨테이너 단위라 쇼룸 UI는 정상 크기를 유지한 채 스테이지만 XS~AX5·다크로 바뀐다.
+4. **폰트 브리지 실측 버그 수정 (선행 구현의 결함)**: `UIFontMetrics.scaledFont(for:)`는
+   **프로세스 전역** 설정만 따라 트레이트 오버라이드를 무시했다 → `compatibleWith: traits`
+   (UIKit) / `category:` 명시 전달(SwiftUI) 경로를 추가하고 전 컴포넌트 호출부를 이관.
+   이 수정 없이는 04 §7.2의 "AX5 스냅샷 2종" 게이트 자체가 성립하지 않는다.
+5. **스테이지 배경은 오버라이드 안쪽에서 칠한다**: 바깥(List 행)에서
+   `JdToken.Color.background`를 칠하면 **바깥 트레이트(라이트)로 해석**돼 다크 스테이지가
+   배경만 밝게 남는다(실측). 배경은 오버라이드를 받는 `hosting.view`가 소유한다 —
+   다이나믹 컬러의 해석 주체가 "칠하는 뷰의 트레이트"라는 일반 규칙의 사례.
+6. **core 12종은 실컴포넌트 4 + 레시피 8로 분할 (04 §10.1 준수)**: 실구현은
+   JdText/JdTextView·JdHeading/JdHeadingView·JdDivider/JdDividerView·JdStackView
+   (+SwiftUI wrap 전용 JdFlowLayout). Box·Center·Flex·GridLayout·HStack·VStack·Page·Section은
+   **iOS 신규 타입을 만들지 않고** `packages/ios/RECIPES.md` + 쇼룸 데모(recipe 필드)로 제공한다.
+   ledger 12행 notes에 실구현/레시피를 행별로 명시해 "done"의 의미를 사실대로 남겼다.
+7. **타이포 사다리는 v2 리터럴 (토큰 참조 불가 — 하드코딩 예외)**: JdTextSpec의 pt 사다리
+   (2xs=10…4xl=36)는 DEC-014-1의 v2 패리티 어휘라 `JdToken.FontSize`(sm=13/md=14)와 값이
+   어긋난다. 스펙 상수로 1회 기입하고 헤딩 램프는 JdTextSpec을 경유해 중복을 없앴다.
+   어휘 통합은 G2 radius/fontSize 재심의와 함께.
+8. **UIKit 한계 2건은 폴백 + 문서화**: (a) UIStackView는 wrap 미지원 → Group의 줄바꿈은
+   SwiftUI JdFlowLayout 전담, UIKit은 no-wrap 폴백(데모 UIKit 탭에 각주 표시). (b) UILabel의
+   intrinsic 가로폭은 한 줄 전체라 Representable에서 **가로 압축 저항을 낮춰야** 줄바꿈이
+   실제로 일어난다(실측 — 낮추기 전 헤딩이 화면 밖으로 넘쳤다).
+9. **벤치 체계 신설 + 기준선 확보**: `packages/ios/tools/{run-bench.mjs,bench-gate.mjs,
+   bench-budgets.json}`(의존성 0) + XCTest measure 8종. 게이트는 절대 예산(05-perf I1)과
+   기준선 ±10%를 함께 본다. **2026-07-24 시뮬레이터 참고치**(iPhone 17/iOS 26.2, 디버그 빌드):
+   JdButtonView init **0.27ms/개**, JdTextFieldView init **0.83ms/개** — 둘 다 I1(S·M <1ms) 이내,
+   레이아웃 DSL 100뷰×4제약 2ms·diff 재호출 0.01ms/회. **실기기 확정은 Xcode 복구 후**
+   (시뮬레이터 수치엔 label로 딱지를 박아 결과 JSON에 남긴다).
+- 검증: 시뮬레이터 빌드 에러 0 · **XCTest 76/76**(31→76) · 쇼룸 15종 데모 실기동
+  (카탈로그·상세·다크·AX5·UIKit 탭·예정 화면) · 벤치 게이트 PASS 8건.
+- 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — web-a11y 게이트 실측 위반 수정 (critical/serious 7건 → 0)
 
 ### DEC-027. danger 토큰 승인 이탈(첫 사례) + 컴포넌트·데모 a11y 보정 7건

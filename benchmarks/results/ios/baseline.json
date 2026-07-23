@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "device": "iPhone 17",
+    "os": "iOS 26.2",
+    "simulator": true,
+    "toolchain": "CLT Swift 6.2.3",
+    "label": "시뮬레이터 참고치"
+  },
+  "results": {
+    "JdBenchCoreTests.test_bench_buttonSpec_resolve_allCombos_x1000": {
+      "avgSeconds": 0.003
+    },
+    "JdBenchCoreTests.test_bench_textFieldSpec_resolve_x3000": {
+      "avgSeconds": 0
+    },
+    "JdBenchCoreTests.test_bench_typographySpec_resolve_allValues_x1000": {
+      "avgSeconds": 0.002
+    },
+    "JdBenchUIKitTests.test_bench_buttonView_init_x100": {
+      "avgSeconds": 0.027
+    },
+    "JdBenchUIKitTests.test_bench_layoutDSL_batch_100views_4constraints": {
+      "avgSeconds": 0.002
+    },
+    "JdBenchUIKitTests.test_bench_layoutDSL_relayout_diff_x100": {
+      "avgSeconds": 0.001
+    },
+    "JdBenchUIKitTests.test_bench_stackView_vertical_100labels_layoutIfNeeded": {
+      "avgSeconds": 0.01
+    },
+    "JdBenchUIKitTests.test_bench_textFieldView_init_x100": {
+      "avgSeconds": 0.083
+    }
+  }
+}

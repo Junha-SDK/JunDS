@@ -106,8 +106,8 @@ struct DemoScreen: View {
                 }
                 #endif
             }
+            // 스테이지 배경은 StageHost 내부(트레이트 오버라이드를 받는 쪽)에서 칠한다
             .listRowInsets(EdgeInsets())
-            .background(dark ? JdToken.Color.background.color : Color(.systemBackground))
 
             if availableImpls.count > 1 {
                 Picker("구현", selection: $impl) {

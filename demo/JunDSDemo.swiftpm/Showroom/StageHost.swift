@@ -68,7 +68,9 @@ final class StageHostController: UIViewController {
             hosting.rootView = content
         } else {
             hosting = UIHostingController(rootView: content)
-            hosting.view.backgroundColor = .clear
+            // 배경은 반드시 오버라이드를 받는 자식(hosting.view) 쪽에서 칠한다 —
+            // 바깥(List 행)에서 칠하면 바깥 트레이트(라이트)로 해석돼 다크 스테이지가 안 먹는다.
+            hosting.view.backgroundColor = JdToken.Color.background.uiColor
             addChild(hosting)
             view.addSubview(hosting.view)
             hosting.view.jd.layout { $0.edges.equalToSuperview() }

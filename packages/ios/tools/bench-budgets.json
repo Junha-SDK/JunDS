@@ -1,0 +1,43 @@
+{
+  "$comment": "iOS 벤치 절대 예산 (05-perf §1 I1 · §3.2). 키 = '클래스.테스트명'(run-bench.mjs 결과 키와 동일). maxAvgSeconds = measure 평균 상한(초), perInstanceDivisor = 인스턴스당 환산 나눗수(벤치 코드의 JdBenchReps와 일치 필수). 조정은 DECISIONS 항목 추가로만 한다.",
+  "JdBenchCoreTests.test_bench_buttonSpec_resolve_allCombos_x1000": {
+    "maxAvgSeconds": 0.05,
+    "perInstanceDivisor": 12000,
+    "note": "회귀 감지선 — 순수 함수 resolve 12,000회(variant 4 × size 3 × 1000). I1(뷰 init) 예산 대상이 아니며, Core 1회 구현 구조(04 §4.2)의 기준 수치. 0.05s면 resolve당 ~4µs로 디버그 빌드에서도 넉넉한 상한."
+  },
+  "JdBenchCoreTests.test_bench_textFieldSpec_resolve_x3000": {
+    "maxAvgSeconds": 0.05,
+    "perInstanceDivisor": 3000,
+    "note": "회귀 감지선 — JdTextFieldSpec.resolve 3,000회(size 3종 순환). 0.05s면 resolve당 ~16µs 상한."
+  },
+  "JdBenchCoreTests.test_bench_typographySpec_resolve_allValues_x1000": {
+    "maxAvgSeconds": 0.05,
+    "perInstanceDivisor": 15000,
+    "note": "회귀 감지선 — JdTextSpec 9종 + JdHeadingSpec 6종 전수 × 1000 = 15,000회. 헤딩은 내부에서 JdTextSpec 중첩 resolve를 포함."
+  },
+  "JdBenchUIKitTests.test_bench_buttonView_init_x100": {
+    "maxAvgSeconds": 0.1,
+    "perInstanceDivisor": 100,
+    "note": "I1 절대 예산: S·M 컴포넌트 init 인스턴스당 <1ms → 100회 평균 0.1s. 뷰 계층 생성만 계측(데이터 준비 제외)."
+  },
+  "JdBenchUIKitTests.test_bench_textFieldView_init_x100": {
+    "maxAvgSeconds": 0.1,
+    "perInstanceDivisor": 100,
+    "note": "I1 절대 예산: S·M 컴포넌트 init 인스턴스당 <1ms → 100회 평균 0.1s. 라벨/필드/에러 행 3단 스택 조립 포함."
+  },
+  "JdBenchUIKitTests.test_bench_stackView_vertical_100labels_layoutIfNeeded": {
+    "maxAvgSeconds": 0.1,
+    "perInstanceDivisor": 100,
+    "note": "I1 준용: 스택 마운트 + 1회 레이아웃 패스를 라벨 1개당 <1ms로 환산(divisor=라벨 수). 라벨 생성은 계측 밖."
+  },
+  "JdBenchUIKitTests.test_bench_layoutDSL_batch_100views_4constraints": {
+    "maxAvgSeconds": 0.1,
+    "perInstanceDivisor": 100,
+    "note": "I1 준용: 뷰 1개당 제약 4개 생성+일괄 activate <1ms(divisor=뷰 수, 총 400 제약). 뷰 생성·addSubview는 계측 밖."
+  },
+  "JdBenchUIKitTests.test_bench_layoutDSL_relayout_diff_x100": {
+    "maxAvgSeconds": 0.05,
+    "perInstanceDivisor": 100,
+    "note": "회귀 감지선 — diff 경로는 제약 생성 0건(키 일치 → 재사용)이므로 재호출당 <0.5ms. 신규 설치(위 batch)의 절반 상한으로 diff 이점이 사라지는 회귀를 잡는다."
+  }
+}

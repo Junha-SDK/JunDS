@@ -18,33 +18,33 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-box> — style-props 원형 컨테이너. as 폴리모피즘은 react 어댑터 몫(DEC-014-3)"
+      "notes": "B1 <jd-box> — style-props 원형 컨테이너. as 폴리모피즘은 react 어댑터 몫(DEC-014-3) / iOS B-core(2026-07-24, DEC-028): 레시피(신규 타입 없음) — 스타일 모디파이어 번들, RECIPES.md + 쇼룸 데모 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "Center",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-center> — Box 파생(양축 중앙)"
+      "notes": "B1 <jd-center> — Box 파생(양축 중앙) / iOS B-core(2026-07-24, DEC-028): 레시피 — ZStack/frame 중앙 정렬, RECIPES.md + 쇼룸 데모 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "CoreDivider",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-divider> — 구분선 단일 정본(R12·DEC-014-5), LayoutDivider(B2)·primitives Divider(B4)는 별칭 예정"
+      "notes": "B1 <jd-divider> — 구분선 단일 정본(R12·DEC-014-5), LayoutDivider(B2)·primitives Divider(B4)는 별칭 예정 / iOS B-core(2026-07-24, DEC-028): JdDivider(SwiftUI)·JdDividerView(UIKit) 실구현 — 라벨 모드 line—label—line 동형 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "CoreProvider",
@@ -62,99 +62,99 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-flex> — Box 파생, inline 프롭"
+      "notes": "B1 <jd-flex> — Box 파생, inline 프롭 / iOS B-core(2026-07-24, DEC-028): 레시피 — direction별 HStack/VStack 관용구 + JdGap — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "GridLayout",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-grid-layout> — Box 파생. layout Grid 단일화는 B2 별칭(R12)"
+      "notes": "B1 <jd-grid-layout> — Box 파생. layout Grid 단일화는 B2 별칭(R12) / iOS B-core(2026-07-24, DEC-028): 레시피 — LazyVGrid(cols/adaptive), autoFit→GridItem(.adaptive) — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "Group",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-group> — Box 파생, no-wrap 프롭"
+      "notes": "B1 <jd-group> — Box 파생, no-wrap 프롭 / iOS B-core(2026-07-24, DEC-028): JdFlowLayout(SwiftUI 실구현, wrap) / UIKit은 JdStackView no-wrap 폴백(UIStackView 한계) — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "HStack",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-hstack> — Box 파생(row·gap sm·align center)"
+      "notes": "B1 <jd-hstack> — Box 파생(row·gap sm·align center) / iOS B-core(2026-07-24, DEC-028): JdStackView.horizontal(UIKit) + SwiftUI HStack 레시피 — 웹 기본 gap sm·center 동형 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "Heading",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-heading> — 내부 h1~h6 렌더·레벨 교체(children 보존)"
+      "notes": "B1 <jd-heading> — 내부 h1~h6 렌더·레벨 교체(children 보존) / iOS B-core(2026-07-24, DEC-028): JdHeading(SwiftUI)·JdHeadingView(UIKit) 실구현 — 레벨 램프 L1~L6, .isHeader/헤딩레벨, L6 uppercase(원문 보존) — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "Page",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 컴파운드 3태그 jd-page/jd-page-header/jd-page-body = 1행(DEC-014-4), 기본 패딩 @media 정상화"
+      "notes": "B1 컴파운드 3태그 jd-page/jd-page-header/jd-page-body = 1행(DEC-014-4), 기본 패딩 @media 정상화 / iOS B-core(2026-07-24, DEC-028): 레시피 — NavigationStack+ScrollView, max-width 프리셋 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "Section",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-section> — 헤더+본문 입양, gap은 본문 flex 적용(skip 규약)"
+      "notes": "B1 <jd-section> — 헤더+본문 입양, gap은 본문 flex 적용(skip 규약) / iOS B-core(2026-07-24, DEC-028): 레시피 — 헤더(h4+dimmed)+본문 VStack, border 시 radius xl2+stroke — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "Text",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-text> — 내부 시맨틱 요소(as), dimmed 우선·line-clamp·mono"
+      "notes": "B1 <jd-text> — 내부 시맨틱 요소(as), dimmed 우선·line-clamp·mono / iOS B-core(2026-07-24, DEC-028): JdText(SwiftUI)·JdTextView(UIKit) 실구현 — 사다리 9종(2xs~4xl)·dimmed·mono·lineLimit — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "VStack",
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B1 <jd-vstack> — Box 파생(column·gap md)"
+      "notes": "B1 <jd-vstack> — Box 파생(column·gap md) / iOS B-core(2026-07-24, DEC-028): JdStackView.vertical(UIKit) + SwiftUI VStack 레시피 — 웹 stretch 기본 주의 문서화 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
     },
     {
       "id": "Stack",

@@ -23,8 +23,10 @@ echo "② 라이브러리 빌드 (iOS 16 시뮬레이터)"
 echo "③ 데모 실행 파일 링크"
 rm -rf "$APP_DIR" && mkdir -p "$APP_DIR"
 DEMO_SOURCES=($(find "$REPO/demo/JunDSDemo.swiftpm" -name '*.swift' ! -name 'Package.swift' | sort))
+# -D DEBUG: fps 오버레이 등 개발 전용 계측을 켠다(릴리스 빌드에선 제외되는 코드)
 "$CLT/swiftc" \
   -sdk "$SDK" -target arm64-apple-ios16.0-simulator -parse-as-library \
+  -D DEBUG \
   -I "$B/Modules" \
   "${DEMO_SOURCES[@]}" \
   "$B"/JunDSCore.build/*.o "$B"/JunDSUIKit.build/*.o "$B"/JunDSSwiftUI.build/*.o "$B"/JunDS.build/*.o \
