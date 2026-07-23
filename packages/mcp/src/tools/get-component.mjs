@@ -1,7 +1,7 @@
 /**
  * get_component — 원장 행 + docs-content + 사이즈 통합 상세 (08-mcp §4.2).
  * v2 get_component_props + get_bundle_info의 통합 후계. 진행 상태가 1급 응답이다.
- * 콘텐츠 정본은 루트 docs-content/(DEC-021·DEC-022) — controls·tokensUsed·a11y 표 포함.
+ * 콘텐츠 정본은 루트 docs-content/(DEC-021·DEC-026) — controls·tokensUsed·a11y 표 포함.
  */
 import { contentFor, findRow, meta, snippetPlatforms, suggest } from "./common.mjs";
 

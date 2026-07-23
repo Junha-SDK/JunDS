@@ -12,7 +12,7 @@ v3는 전환 중인 시스템이므로 **진행 상태가 응답의 1급 시민*
 | 도구 | 입력 | 응답 요지 |
 |---|---|---|
 | `search_components` | `query?` `category?` `platform?` `status?` | 원장+콘텐츠 랭킹 검색. platform 단독 = 그 플랫폼에서 지금 쓸 수 있는 것(done). 상한 50 + `truncated` 명시 |
-| `get_component` | `id` | 원장 행(웹/iOS/docs/tests/bench 상태)+notes+태그·속성 표·a11y·저작된 스니펫 플랫폼·gzip 사이즈. 미발견 시 `suggestions` |
+| `get_component` | `id` | 원장 행(웹/iOS/docs/tests/bench 상태)+notes+태그·controls·사용 토큰 표·a11y·저작된 스니펫 플랫폼·gzip 사이즈. 미발견 시 `suggestions` |
 | `get_usage` | `id` `platform`(web·swiftui·uikit·react) | `{imp, code}` 스니펫. 미전환·미저작이면 **에러가 아니라** `{available:false, status, alternatives}` 구조화 응답 |
 | `get_tokens` | `group?` `name?` | `{path, cssVar(--jd-*), value, swift(JdToken.*)}`. 무인자는 그룹 요약만. name은 정확 일치 우선 → 부분 일치 |
 | `get_status` | `category?` | 원장 집계 대시보드 — 카테고리×플랫폼 done/wip/todo/na |
@@ -50,30 +50,24 @@ claude mcp add junds -- npx -y @junds/mcp
 ```
 
 소스 4계열: `docs-spec/registry/ledger.json`(상태 정본 445행) ·
-`docs-spec/registry/docs-content/*.json`(설명·태그·스니펫) · `tokens/*.json`(12그룹,
-파생 이름은 생성기 `cssVarName`/`swiftKey` 재사용) · `docs-spec/registry/size-baseline.json`.
+루트 `docs-content/*.json`(콘텐츠 정본 445건 — oneLiner·controls·snippets 4탭·tokens·a11y,
+계약은 DEC-021과 `docs-content/build-index.mjs` 헤더) · `tokens/*.json`(12그룹, 파생
+이름은 생성기 `cssVarName`/`swiftKey` 재사용) · `docs-spec/registry/size-baseline.json`.
+
+CE 태그(`tag` 응답 필드·사이즈 매핑 키)는 web 스니펫의 첫 `<jd-*>`에서 파생한다 —
+정본 파일에는 태그 필드가 없고, 스니펫 태그는 검증기가 실물 대조한다(DEC-026-2).
+`get_usage`의 web 코드는 `{prop}` 템플릿 토큰을 controls 기본값으로 치환해 반환한다.
 
 스냅샷 생성: `npm run build:data -w @junds/mcp` (커밋하지 않는 생성물 — 퍼블리시 전용).
 
-## docs-content 저작 규약 (DEC-016-2)
+## docs-content 저작 게이트 (DEC-016-2·DEC-026-3)
 
-`docs-spec/registry/docs-content/<id>.json` — 파일명 = ledger id 정확 일치.
-
-```jsonc
-{
-  "id": "Button",                     // 필수 — ledger id
-  "desc": "…", "tags": ["…"],         // 필수
-  "tag": "jd-button",                 // CE 태그 (사이즈 매핑 키로도 사용 — Input↔jd-text-field)
-  "attributes": [{ "name": "variant", "values": ["primary"], "default": "primary" }],
-  "snippets": { "web|swiftui|uikit|react": { "imp": "…", "code": "…", "note": "…" } },
-  "a11y": [{ "item": "…", "note": "…" }],
-  "note": "…"
-}
-```
-
-**저작 게이트**: `web:done*` 원장 행은 docs-content가 반드시 존재해야 한다 —
+콘텐츠 저작은 루트 `docs-content/<kebab>.json` 직접 편집(정본 계약 DEC-021 —
+스키마·전단사·실물 대조는 `node docs-content/build-index.mjs`가 강제). MCP가 보태는
+보완 게이트: **`web:done*` 원장 행은 web 스니펫이 비-null이어야 한다** —
 `content-gate.test.mjs`가 v3:test에서 강제한다. 배치에서 web 상태를 done으로
-갱신할 때 저작이 DoD다. 수동 점검: `npm run validate:content -w @junds/mcp`.
+갱신할 때 스니펫 저작이 DoD다. 수동 점검: `npm run validate:content -w @junds/mcp`
+(정본 검증기로 위임).
 
 ## 테스트
 

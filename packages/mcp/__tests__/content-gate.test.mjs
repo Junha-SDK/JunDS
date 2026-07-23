@@ -1,5 +1,5 @@
 /**
- * 콘텐츠 게이트(08-mcp §7-2·DEC-022) — 정본은 루트 docs-content/(콘텐츠 트랙 DEC-021).
+ * 콘텐츠 게이트(08-mcp §7-2·DEC-026) — 정본은 루트 docs-content/(콘텐츠 트랙 DEC-021).
  * 스키마·전단사·실물 대조는 정본의 build-index.mjs가 강제하므로 여기서는
  *   1) build-index 실행이 성공하는지(검증기 위임 — 로직 중복 저작 금지)
  *   2) MCP 보완 게이트: web done* 행은 web 스니펫이 저작돼 있어야 한다
@@ -45,7 +45,7 @@ describe("docs-content 게이트", () => {
     expect(
       missing,
       `web:done인데 web 스니펫 미저작: ${missing.join(", ")} — ` +
-        "docs-content/<id>.json 저작이 배치 DoD다(DEC-016-2·DEC-022)",
+        "docs-content/<id>.json 저작이 배치 DoD다(DEC-016-2·DEC-026)",
     ).toEqual([]);
   });
 });

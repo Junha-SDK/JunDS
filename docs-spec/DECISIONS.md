@@ -4,6 +4,31 @@
 
 ---
 
+## 2026-07-24 — MCP 구현 완료 (도구 5종 + 콘텐츠 정본 통일)
+
+### DEC-026. MCP 구현 판단 4건 — 콘텐츠 정본은 콘텐츠 트랙 채택
+(번호 주: 022~025는 react·B3·e2e·B4 트랙이 선점 — 026 부여. 본 트랙 게이트 승인분은 DEC-016.)
+1. **docs-content 정본 통일**: DEC-016-2가 계획한 `docs-spec/registry/docs-content/`는
+   구현 중 콘텐츠 트랙이 선착시킨 루트 `docs-content/` 445건(DEC-021, d88592b)으로
+   대체 — 같은 목적의 저장소 이원화 금지. 초판 28건은 미커밋 상태에서 회수. Q2 승인의
+   원칙(단일 저작점·ledger 정합)은 그대로, 위치·스키마만 정본 채택. 08-mcp §3.2 개정.
+2. **CE 태그 파생**: 정본 파일에 태그 필드가 없어 web 스니펫의 첫 `<jd-*>`에서 파생
+   (build-index가 실물 대조하는 값이라 근거 충분) — size-baseline(kebab 키) 매핑·응답
+   tag 필드의 원천. 조인 키는 (ledgerId, category) — 원장 중복 id(AreaChart) 대응.
+3. **게이트 역할 분담**: 스키마·전단사·실물 대조는 정본 검증기(build-index.mjs)에 위임
+   (로직 중복 저작 금지). MCP 보완 게이트 1건만 신설 — 정본 게이트는 ¬done ⇒ null
+   방향만 강제하므로 역방향 "web done* ⇒ web 스니펫 저작"을 content-gate.test가 강제
+   (DEC-016-2 계승). 실효 확인: 도입 즉시 B3 폼 코어 9종의 미저작을 실검출, 실물
+   (element.ts props·demo/form.html) 근거로 충전해 그린 (web 스니펫 28→37).
+4. **get_usage 템플릿 토큰 치환**: web 스니펫의 `{prop}`(06 §2.3)은 controls 기본값을
+   주입해 반환 — "복사해 바로 동작"이 MCP 계약. react 플랫폼은 정본의 v2 참고 스니펫
+   (Example 169 이관분)을 "v2 참고" note와 함께 반환.
+- 검증: nvm22 vitest 47/47(단위·정합 게이트·토큰 패리티 전수 대조·InMemory 왕복·
+  스냅샷 동일성) + build-index 445건 통과 + stdio JSON-RPC 실왕복(initialize→tools/call).
+- 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+
+
 ## 2026-07-24 — G2-B4 primitives 표시 구현 중 발견 (10행 — Divider 별칭 포함)
 
 ### DEC-025. B4 표시 프리미티브 판단 5건

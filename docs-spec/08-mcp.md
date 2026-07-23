@@ -80,41 +80,38 @@ v2 서버(`mcp/`)는 v2 동결 구역과 함께 그대로 존치한다 — 01 §
 | 소스 | 내용 | 스키마 근거 |
 |---|---|---|
 | `docs-spec/registry/ledger.json` | 445행 전환 원장 `{id, category, tier, web, ios, docs, tests, bench, notes}` | 실측·07 §4 (상태 정본) |
-| `docs-spec/registry/docs-content/<id>.json` | **신설** — 컴포넌트별 설명·태그·플랫폼 스니펫 (§3.2) | 06 §2.2 JunUsageV3 정렬 |
+| `docs-content/<kebab>.json` (레포 루트) | 컴포넌트별 콘텐츠 정본 445건 — oneLiner·tags·controls·snippets 4탭·tokens·a11y | 콘텐츠 트랙 DEC-021 (06 §2.2+§2.3 정렬) — §3.2 |
 | `tokens/*.json` (12그룹) | 토큰 단일 소스. 파생 네이밍은 생성기 규약: CSS `--jd-<prefix>-<kebab>`, Swift `JdToken.<Group>.<name>` | 02·tokens/build/generate.mjs 실측 |
 | `docs-spec/registry/size-baseline.json` | 컴포넌트별 gzip bytes `{core, components: {<kebab>: bytes}}` | 실측 (05 게이트 산출물) |
 
-### 3.2 docs-content — 신설 콘텐츠 정본
+### 3.2 docs-content — 콘텐츠 정본 (DEC-026 개정: 콘텐츠 트랙 정본 채택)
 
-```jsonc
-// docs-spec/registry/docs-content/Button.json — 파일명 = ledger id (정확 일치)
-{
-  "id": "Button",
-  "desc": "기본 동작 버튼 — variant 6종 · size 3종",
-  "tags": ["button", "action", "form", "버튼", "cta"],
-  "attributes": [   // 웹 CE 속성 표 (선택 — 저작 시 실제 표면에서 확인)
-    { "name": "variant", "values": ["primary","secondary","danger","ghost","outline","link"], "default": "primary" },
-    { "name": "size", "values": ["sm","md","lg"], "default": "md" }
-  ],
-  "snippets": {     // 플랫폼별 선택적 — 없는 플랫폼은 ledger 상태로 응답(§4.3)
-    "web":     { "imp": "import \"@junds/web/button\";", "code": "<jd-button variant=\"primary\">저장</jd-button>" },
-    "swiftui": { "imp": "import JunDS", "code": "JdButton(\"저장\", variant: .primary) { save() }" },
-    "uikit":   { "imp": "import JunDS", "code": "let button = JdButtonView()\nbutton.variant = .primary" }
-  },
-  "a11y": [ { "item": "role", "note": "내부 <button> 시맨틱 — 키보드·포커스 기본 제공" } ]
-}
-```
+Q2 승인의 원칙(문서 화면과 MCP의 **단일 저작점** + ledger 정합 게이트)은 유지하되,
+위치·스키마는 본 트랙 구현 중 병행 콘텐츠 트랙이 선착시킨 **레포 루트
+`docs-content/<kebab>.json` 445건**(DEC-021, d88592b)을 정본으로 채택한다 — 같은
+목적의 저장소 이원화 금지. 초판이 계획한 `docs-spec/registry/docs-content/`는
+폐기(미커밋 상태에서 회수, DEC-026).
 
-- **id는 ledger id와 정확 일치** — `packages/mcp/scripts/validate-content.mjs`가
-  전수 검증(원장 미존재 id·잘못된 플랫폼 키·JSON 오류 = 실패)하고 vitest가 게이트로 돈다.
-  조용한 드리프트 금지(06 §2.1 "미매핑은 빌드 실패" 규약과 동형).
-- **초기 저작 범위**: ledger `web:"done*"` 행 전수(실측 16건 — core 13 = CE 12 +
-  CoreProvider 내부화, + 파일럿 Button/Input/Modal)를 손저작. (DEC-016-4 정정)
-  이후 배치 DoD(07 §3-4 "문서")에 docs-content 저작을 편입해 배치마다 함께 증가.
-- **06 파이프라인과 공유 정본**: 06 §2.2의 코드 탭 3종(웹/SwiftUI/UIKit) 스니펫 생성
-  경로(스펙 예제·DocC 추출)는 미구현 상태다. docs-content가 그 손저작 선행 형태이며,
-  후속 게이트에서 `emit-docs-catalog.mjs`(06 §2.1)가 이 파일들을 소비하도록 06을
-  개정 제안한다 — 문서 화면과 MCP가 같은 스니펫을 답하게 하는 단일 저작점. (§9-Q2)
+정본 계약(요지 — 상세는 DEC-021과 `docs-content/build-index.mjs` 헤더):
+
+- 스키마 `{id(kebab), ledgerId, category, title, oneLiner, tags, controls, snippets, tokens, a11y}`
+  — 06 §2.2(코드 탭 4종)·§2.3(ControlDef) 정렬. 조인 키는 **(ledgerId, category)**
+  (원장 중복 id AreaChart 2건 때문에 id 단독 불가).
+- 상태(web/ios)는 파일에 저장하지 않는다 — ledger가 유일 정본, 검증기가 조인.
+- 스니펫 게이트: ledger가 done*일 때만 비-null + **실물 대조**(웹 태그·서브패스·iOS 식별자).
+- web 스니펫의 `{prop}` 템플릿 토큰(06 §2.3)은 controls와 연동.
+
+MCP 측 어댑테이션:
+
+- CE 태그는 파일에 없으므로 **web 스니펫의 첫 `<jd-*>`에서 파생**(검증기가 실물과
+  대조하는 값이라 근거 충분) — size-baseline(kebab 키) 매핑과 응답 `tag` 필드의 원천.
+- `get_usage`는 web 스니펫의 `{prop}` 토큰을 controls 기본값으로 **치환해** 반환한다
+  (06 §2.3 "복사도 주입값 기준") — 복사해 바로 동작하는 코드가 계약.
+- 검증은 정본 검증기(build-index.mjs)에 위임 — 로직 중복 저작 금지. MCP가 보태는
+  **보완 게이트 1건**: 정본 게이트는 ¬done ⇒ null 방향만 강제하므로, 역방향
+  **"web done* ⇒ web 스니펫 저작"** 커버리지를 `content-gate.test.mjs`가 강제한다
+  (DEC-016-2 저작 게이트의 계승) — 배치가 web 상태를 done으로 갱신하면
+  스니펫 저작이 DoD다.
 
 ### 3.3 데이터 해석 우선순위 — 라이브 우선, 스냅샷 폴백
 
@@ -160,9 +157,10 @@ v2 서버(`mcp/`)는 v2 동결 구역과 함께 그대로 존치한다 — 01 §
 응답: { ok, id, category, tier,
         status: { web, ios, docs, tests, bench },   // ledger 행 그대로 — 진행 상태가 1급 응답
         notes,                                       // ledger notes (구현 결정 요약)
-        desc?, tags?, attributes?, a11y?,            // docs-content (있을 때)
-        snippetPlatforms: ["web", ...],              // 저작된 스니펫 플랫폼 목록
-        gzipBytes?,                                  // size-baseline (있을 때)
+        tag?, title?, desc?, tags?,                  // docs-content (desc = oneLiner)
+        controls?, tokensUsed?, a11y?,               // 06 §2.3 ControlDef·토큰 표·접근성 표
+        snippetPlatforms: ["web", ...],              // 비-null 스니펫 플랫폼 목록
+        gzipBytes?,                                  // size-baseline (스니펫 파생 tag 키)
         generatedAt }
 ```
 
@@ -176,13 +174,14 @@ v2 서버(`mcp/`)는 v2 동결 구역과 함께 그대로 존치한다 — 01 §
 입력: { id: string, platform: "web"|"swiftui"|"uikit"|"react" }
 ```
 
-- 스니펫 있음: `{ ok, id, platform, imp, code, attributes?, note? }`.
-- 스니펫 없음·플랫폼 미전환: **에러가 아니라 구조화 응답** —
+- 스니펫 있음: `{ ok, id, platform, tag, imp, code, controls?, note? }` — web은
+  `{prop}` 템플릿 토큰을 controls 기본값으로 치환한 코드(§3.2).
+- 스니펫 없음(null)·플랫폼 미전환: **에러가 아니라 구조화 응답** —
   `{ ok: true, id, platform, available: false, status: "todo", alternatives: ["web"], note }`.
   "아직 없음"은 질문에 대한 정답이지 실패가 아니다 — AI가 이 응답으로
   "iOS는 예정, 웹은 지금 가능"을 정확히 말할 수 있어야 한다.
-- `platform: "react"`: v3 어댑터 미착수 동안 v2 `@junds/ui` 사용 안내를 note로 반환
-  (전환기 정책 01 §8과 정합).
+- `platform: "react"`: 정본의 react 스니펫(v2 COMPONENTS.md Example 이관분)이 있으면
+  "v2 참고" note와 함께 반환, 없으면 v2 `@junds/ui` 사용 안내(전환기 정책 01 §8).
 
 ### 4.4 `get_tokens`
 
@@ -246,8 +245,8 @@ packages/mcp/
 │  ├─ data.mjs           # §3.3 해석 우선순위 + 로더 (라이브/스냅샷 공통 인터페이스)
 │  └─ tools/*.mjs        # 도구 5종 — 순수 함수(데이터 인자 주입)로 분리 → 단위 테스트 직결
 ├─ scripts/
-│  ├─ build-data.mjs     # 4계열 → data/snapshot.json (prepublishOnly, 커밋 안 함)
-│  └─ validate-content.mjs  # docs-content ↔ ledger 정합 전수 검증 (vitest 게이트)
+│  └─ build-data.mjs     # 4계열 → data/snapshot.json (prepublishOnly, 커밋 안 함)
+│                        # (콘텐츠 검증은 정본 docs-content/build-index.mjs에 위임 — §3.2)
 ├─ __tests__/            # vitest node 환경 (§7)
 └─ README.md             # 도구 표 + Claude Code 연결·실검증 절차
 ```
@@ -297,9 +296,9 @@ npm publish는 DEC-005대로 요청 시에만 — 본 트랙은 publish하지 �
 
 1. **단위 (도구별)**: 도구 함수에 픽스처 데이터 주입 — 매칭·랭킹·절단·미발견 제안·
    미전환 구조화 응답(§4.3) 전부. vitest node 환경, 루트 러너에 워크스페이스로 편입.
-2. **정합 게이트**: validate-content.mjs를 vitest로 — 라이브 docs-content 전수가
-   ledger와 정합해야 통과. 토큰 파생 이름은 생성물 `tokens.css`/`JdToken.swift`의
-   실제 이름과 대조(생성기 규칙 재사용 검증).
+2. **정합 게이트**: 정본 검증기(docs-content/build-index.mjs) 실행 성공 + 보완
+   게이트(web done* ⇒ web 스니펫, §3.2)를 vitest로. 토큰 파생 이름은 생성물
+   `tokens.css`/`JdToken.swift`의 실제 이름과 전수 대조(생성기 규칙 재사용 검증).
 3. **통합 (프로토콜 왕복)**: SDK `InMemoryTransport`로 클라이언트↔서버 실왕복 —
    도구 목록 조회 + 도구 5종 호출 각 1건. 프로세스 spawn 없이 CI 안정.
 4. **스냅샷 모드**: build-data.mjs 실행 → 레포 탐지를 차단한 로더로 동일 질의 → 라이브
@@ -315,7 +314,7 @@ DEC-014-8 프로토콜(node_modules/.vite 삭제) 준수.
 
 1. 도구 5종 구현 + zod 입력 스키마 + 응답 메타(generatedAt) 전 도구 일관.
 2. §7의 1~4 테스트 전부 통과 (nvm22).
-3. docs-content 초기 16건(ledger web:done 전수, DEC-016-4) 저작 + 정합 게이트 통과.
+3. 콘텐츠 정본(루트 docs-content/) 소비 + web done* 전수 스니펫 커버(게이트 통과, DEC-026).
 4. eslint 에러 0, 루트 `v3:test` 무해 통과(--if-present 편입 확인).
 5. README(도구 표·연결·실검증 절차) + Claude Code 실검증 수행.
 6. DECISIONS.md append(승인 결과 기록) + 커밋 1건(내 경로만 스테이징).
