@@ -1,0 +1,21 @@
+{
+  "id": "bm-switch",
+  "ledgerId": "BmSwitch",
+  "category": "finance",
+  "title": "BmSwitch",
+  "oneLiner": "금융 테마 스위치 토글 — sm·md·lg.",
+  "tags": [
+    "finance",
+    "form",
+    "토글"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "live-price-text",
+  "ledgerId": "LivePriceText",
+  "category": "finance",
+  "title": "LivePriceText",
+  "oneLiner": "실시간 가격 텍스트 셀.",
+  "tags": [
+    "finance",
+    "live",
+    "가격"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

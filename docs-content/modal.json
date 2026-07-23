@@ -1,0 +1,91 @@
+{
+  "id": "modal",
+  "ledgerId": "Modal",
+  "category": "composites",
+  "title": "Modal",
+  "oneLiner": "오버레이 다이얼로그 — 포커스 감금·스크롤 락·닫기 요청 이벤트. iOS는 시스템 시트로 번역.",
+  "tags": [
+    "overlay",
+    "dialog",
+    "모달"
+  ],
+  "controls": [
+    {
+      "prop": "open",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "size",
+      "kind": "select",
+      "options": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "full"
+      ],
+      "default": "md"
+    },
+    {
+      "prop": "persistent",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-modal size=\"{size}\">\n  <h2>제목</h2>\n  <p>내용…</p>\n  <jd-button data-autofocus>확인</jd-button>\n</jd-modal>\n\n<script>\n  const modal = document.querySelector(\"jd-modal\");\n  modal.showModal();                       // 열기 (open 프로퍼티와 동치)\n  modal.addEventListener(\"jd-request-close\", (e) => {\n    // reason: \"escape\" | \"backdrop\" | \"close\" — preventDefault로 닫기 거부\n    if (isDirty) e.preventDefault();\n  });\n  modal.addEventListener(\"jd-close\", () => console.log(\"닫힘\"));\n  modal.close();\n</script>"
+    },
+    "swiftui": {
+      "imp": "import JunDS",
+      "code": "@State private var showSettings = false\n\ncontent.jdModal(isPresented: $showSettings,\n                size: .md,              // sm·md = medium+large 디텐트, lg = large\n                persistent: false,      // true면 스와이프 다운 차단\n                onClose: { print(\"닫힘\") }) {\n    SettingsView()\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS",
+      "code": "let modal = JdModalViewController(size: .md, persistent: false)\nmodal.contentView.addSubview(body)\nmodal.onRequestClose = { reason in    // 웹 jd-request-close 등가\n    reason != .backdrop               // false 반환 시 닫기 중단\n}\nmodal.onClose = { print(\"닫힘\") }\nmodal.present(from: self)\n\nmodal.requestClose(.close)            // 코드로 닫기 요청"
+    },
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-z-modal",
+      "usage": "오버레이 z-index"
+    },
+    {
+      "token": "--jd-color-card",
+      "usage": "패널 배경 (iOS 시트 배경 동일 토큰)"
+    },
+    {
+      "token": "--jd-radius-2xl",
+      "usage": "패널 모서리"
+    },
+    {
+      "token": "--jd-duration-normal / --jd-easing-default",
+      "usage": "진입·이탈 모션"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "role",
+      "note": "패널에 role=dialog + aria-modal=true 자동 부여"
+    },
+    {
+      "item": "포커스 감금",
+      "note": "createFocusTrap Behavior — 열릴 때 [data-autofocus] 우선 포커스, 닫히면 원위치 복귀"
+    },
+    {
+      "item": "ESC",
+      "note": "persistent여도 항상 닫기 요청 동작 (v2와 동일) — jd-request-close(escape)로 거부 가능"
+    },
+    {
+      "item": "스크롤 락",
+      "note": "열림 동안 body overflow hidden, 닫힘 시 원복"
+    },
+    {
+      "item": "iOS 번역",
+      "note": "시스템 시트 위임 — 포커스 격리 무료, 스와이프 다운 = 웹 backdrop 경로, 표시 시 screenChanged 통지"
+    }
+  ]
+}

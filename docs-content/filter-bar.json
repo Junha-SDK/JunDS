@@ -1,0 +1,23 @@
+{
+  "id": "filter-bar",
+  "ledgerId": "FilterBar",
+  "category": "patterns",
+  "title": "FilterBar",
+  "oneLiner": "필터 바",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FilterBar } from \"@/ds/patterns/FilterBar\";",
+      "code": "<FilterBar\n  searchValue={q} onSearchChange={setQ}\n  filters={<><Select ... /><Select ... /></>}\n  actions={<Button>내보내기</Button>}\n  onReset={clearFilters}\n  activeCount={2}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

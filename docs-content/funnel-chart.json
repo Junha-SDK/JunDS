@@ -1,0 +1,22 @@
+{
+  "id": "funnel-chart",
+  "ledgerId": "FunnelChart",
+  "category": "composites",
+  "title": "FunnelChart",
+  "oneLiner": "단계별 전환율을 시각화하는 퍼널 차트.",
+  "tags": [
+    "chart"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FunnelChart } from \"@/ds/composites/FunnelChart\";",
+      "code": "<FunnelChart data={[{ label: \"방문\", value: 1000 }, { label: \"구매\", value: 200 }]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

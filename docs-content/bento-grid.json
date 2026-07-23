@@ -1,0 +1,22 @@
+{
+  "id": "bento-grid",
+  "ledgerId": "BentoGrid",
+  "category": "composites",
+  "title": "BentoGrid",
+  "oneLiner": "크기가 다른 카드를 비대칭 그리드로 배치하는 벤토 레이아웃.",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { BentoGrid } from \"@/ds/composites/BentoGrid\";",
+      "code": "<BentoGrid cols={3} gap=\"md\">\n  <BentoItem span={2}>큰 카드</BentoItem>\n  <BentoItem>작은 카드</BentoItem>\n</BentoGrid>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

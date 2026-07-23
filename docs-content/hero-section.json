@@ -1,0 +1,21 @@
+{
+  "id": "hero-section",
+  "ledgerId": "HeroSection",
+  "category": "patterns",
+  "title": "HeroSection",
+  "oneLiner": "랜딩 히어로 섹션 템플릿.",
+  "tags": [
+    "template",
+    "마케팅",
+    "히어로"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

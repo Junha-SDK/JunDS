@@ -1,0 +1,21 @@
+{
+  "id": "bottom-nav",
+  "ledgerId": "BottomNav",
+  "category": "finance",
+  "title": "BottomNav",
+  "oneLiner": "모바일 하단 탭 내비게이션.",
+  "tags": [
+    "finance",
+    "shell",
+    "내비게이션"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

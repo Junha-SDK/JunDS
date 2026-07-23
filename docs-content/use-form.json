@@ -1,0 +1,21 @@
+{
+  "id": "use-form",
+  "ledgerId": "useForm",
+  "category": "hooks",
+  "title": "useForm",
+  "oneLiner": "폼 값·검증 상태 관리.",
+  "tags": [
+    "hook",
+    "form",
+    "검증"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

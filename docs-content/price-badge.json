@@ -1,0 +1,21 @@
+{
+  "id": "price-badge",
+  "ledgerId": "PriceBadge",
+  "category": "finance",
+  "title": "PriceBadge",
+  "oneLiner": "가격·등락 배지.",
+  "tags": [
+    "finance",
+    "display",
+    "가격"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

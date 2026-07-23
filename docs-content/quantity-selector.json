@@ -1,0 +1,21 @@
+{
+  "id": "quantity-selector",
+  "ledgerId": "QuantitySelector",
+  "category": "composites",
+  "title": "QuantitySelector",
+  "oneLiner": "수량 증감 선택기.",
+  "tags": [
+    "commerce",
+    "form",
+    "수량"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

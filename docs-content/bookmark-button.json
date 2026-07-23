@@ -1,0 +1,21 @@
+{
+  "id": "bookmark-button",
+  "ledgerId": "BookmarkButton",
+  "category": "primitives",
+  "title": "BookmarkButton",
+  "oneLiner": "북마크 저장 토글 버튼.",
+  "tags": [
+    "social",
+    "toggle",
+    "북마크"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

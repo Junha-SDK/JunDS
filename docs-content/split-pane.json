@@ -1,0 +1,22 @@
+{
+  "id": "split-pane",
+  "ledgerId": "SplitPane",
+  "category": "composites",
+  "title": "SplitPane",
+  "oneLiner": "좌/우(또는 상/하)로 크기 조절 가능한 분할 패널.",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SplitPane } from \"@/ds/composites/SplitPane\";",
+      "code": "<SplitPane left={<FileTree />} right={<Editor />} direction=\"horizontal\" defaultSize={240} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "live-order-book",
+  "ledgerId": "LiveOrderBook",
+  "category": "finance",
+  "title": "LiveOrderBook",
+  "oneLiner": "실시간 호가창.",
+  "tags": [
+    "finance",
+    "live",
+    "호가"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

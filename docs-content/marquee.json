@@ -1,0 +1,22 @@
+{
+  "id": "marquee",
+  "ledgerId": "Marquee",
+  "category": "composites",
+  "title": "Marquee",
+  "oneLiner": "가로 방향으로 무한 스크롤되는 텍스트/요소 표시기.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Marquee } from \"@/ds/composites/Marquee\";",
+      "code": "<Marquee speed={20} pauseOnHover>\n  <span>NEW</span><span>SALE</span>\n</Marquee>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

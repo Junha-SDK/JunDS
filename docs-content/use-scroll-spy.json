@@ -1,0 +1,21 @@
+{
+  "id": "use-scroll-spy",
+  "ledgerId": "useScrollSpy",
+  "category": "hooks",
+  "title": "useScrollSpy",
+  "oneLiner": "스크롤 위치 기반 활성 섹션 감지.",
+  "tags": [
+    "hook",
+    "스크롤",
+    "내비게이션"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

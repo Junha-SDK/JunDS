@@ -1,0 +1,21 @@
+{
+  "id": "testimonial-card",
+  "ledgerId": "TestimonialCard",
+  "category": "composites",
+  "title": "TestimonialCard",
+  "oneLiner": "고객 후기 카드.",
+  "tags": [
+    "marketing",
+    "카드",
+    "후기"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

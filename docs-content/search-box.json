@@ -1,0 +1,21 @@
+{
+  "id": "search-box",
+  "ledgerId": "SearchBox",
+  "category": "finance",
+  "title": "SearchBox",
+  "oneLiner": "종목 검색 박스 — 자동완성.",
+  "tags": [
+    "finance",
+    "검색",
+    "입력"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "floating-action-button",
+  "ledgerId": "FloatingActionButton",
+  "category": "composites",
+  "title": "FloatingActionButton",
+  "oneLiner": "플로팅 액션 버튼 (FAB)",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FloatingActionButton } from \"@/ds/composites/FloatingActionButton\";",
+      "code": "<FloatingActionButton\n  actions={[\n    { key: \"add\", icon: <PlusIcon />, label: \"추가\", onClick: handleAdd },\n    { key: \"edit\", icon: <EditIcon />, label: \"편집\", onClick: handleEdit, variant: \"secondary\" },\n  ]}\n  position=\"bottom-right\"\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

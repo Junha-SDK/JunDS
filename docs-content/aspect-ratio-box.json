@@ -1,0 +1,39 @@
+{
+  "id": "aspect-ratio-box",
+  "ledgerId": "AspectRatioBox",
+  "category": "layout",
+  "title": "AspectRatioBox",
+  "oneLiner": "비율 고정 박스 — CSS aspect-ratio 원문 수용(\"16/9\"·\"1.5\"), 기본 16/9. Box 파생.",
+  "tags": [
+    "layout",
+    "ratio"
+  ],
+  "controls": [
+    {
+      "prop": "ratio",
+      "kind": "text",
+      "default": "16/9"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-aspect-ratio-box ratio=\"{ratio}\" bg=\"card\" radius=\"md\" border>\n  <jd-center h=\"full\">16/9</jd-center>\n</jd-aspect-ratio-box>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "(리터럴)",
+      "usage": "ratio는 CSS aspect-ratio 값 원문 — 토큰 없음"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너"
+    }
+  ]
+}

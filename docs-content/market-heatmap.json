@@ -1,0 +1,21 @@
+{
+  "id": "market-heatmap",
+  "ledgerId": "MarketHeatmap",
+  "category": "finance",
+  "title": "MarketHeatmap",
+  "oneLiner": "시장 히트맵 — 섹터·종목 등락 타일.",
+  "tags": [
+    "finance",
+    "chart",
+    "히트맵"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

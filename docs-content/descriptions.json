@@ -1,0 +1,22 @@
+{
+  "id": "descriptions",
+  "ledgerId": "Descriptions",
+  "category": "composites",
+  "title": "Descriptions",
+  "oneLiner": "디스크립션 — 키-값 쌍 표시 컴포넌트",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Descriptions } from \"@/ds/composites/Descriptions\";",
+      "code": "<Descriptions\n  title=\"사용자 정보\"\n  items={[\n    { key:\"name\", label:\"이름\", value:\"홍길동\" },\n    { key:\"email\", label:\"이메일\", value:\"hong@example.com\" },\n  ]}\n  columns={2}\n  bordered\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

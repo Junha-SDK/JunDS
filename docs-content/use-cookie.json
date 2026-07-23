@@ -1,0 +1,21 @@
+{
+  "id": "use-cookie",
+  "ledgerId": "useCookie",
+  "category": "hooks",
+  "title": "useCookie",
+  "oneLiner": "쿠키 읽기·쓰기.",
+  "tags": [
+    "hook",
+    "storage",
+    "쿠키"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

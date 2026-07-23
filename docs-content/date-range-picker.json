@@ -1,0 +1,23 @@
+{
+  "id": "date-range-picker",
+  "ledgerId": "DateRangePicker",
+  "category": "composites",
+  "title": "DateRangePicker",
+  "oneLiner": "날짜 범위 선택기",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DateRangePicker } from \"@/ds/composites/DateRangePicker\";",
+      "code": "<DateRangePicker value={range} onChange={setRange} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

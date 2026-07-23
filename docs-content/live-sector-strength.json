@@ -1,0 +1,21 @@
+{
+  "id": "live-sector-strength",
+  "ledgerId": "LiveSectorStrength",
+  "category": "finance",
+  "title": "LiveSectorStrength",
+  "oneLiner": "실시간 섹터 강도 보드.",
+  "tags": [
+    "finance",
+    "live",
+    "섹터"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

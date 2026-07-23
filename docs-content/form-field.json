@@ -1,0 +1,22 @@
+{
+  "id": "form-field",
+  "ledgerId": "FormField",
+  "category": "composites",
+  "title": "FormField",
+  "oneLiner": "폼 필드 래퍼 (Label + Input + Error + Hint)",
+  "tags": [
+    "form"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FormField } from \"@/ds/composites/FormField\";",
+      "code": "<FormField label=\"이름\" required error={errors.name}>\n  <Input id=\"name\" error={!!errors.name} />\n</FormField>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "limit-hits-card",
+  "ledgerId": "LimitHitsCard",
+  "category": "finance",
+  "title": "LimitHitsCard",
+  "oneLiner": "상한가 도달 종목 카드 — 시간대별.",
+  "tags": [
+    "finance",
+    "신호",
+    "카드"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

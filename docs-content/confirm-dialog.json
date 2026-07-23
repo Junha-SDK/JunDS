@@ -1,0 +1,23 @@
+{
+  "id": "confirm-dialog",
+  "ledgerId": "ConfirmDialog",
+  "category": "composites",
+  "title": "ConfirmDialog",
+  "oneLiner": "확인 다이얼로그",
+  "tags": [
+    "overlay",
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ConfirmDialog } from \"@/ds/composites/ConfirmDialog\";",
+      "code": "<ConfirmDialog\n  open={showConfirm}\n  onClose={() => setShowConfirm(false)}\n  onConfirm={handleDelete}\n  title=\"정말 삭제하시겠습니까?\"\n  description=\"이 작업은 되돌릴 수 없습니다.\"\n  danger\n  confirmLabel=\"삭제\"\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

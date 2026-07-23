@@ -1,0 +1,48 @@
+{
+  "id": "simple-grid",
+  "ledgerId": "SimpleGrid",
+  "category": "layout",
+  "title": "SimpleGrid",
+  "oneLiner": "균등 칼럼 반응형 그리드 — min-child-width로 repeat(auto-fill, minmax(N, 1fr)). GridLayout 별칭 파생.",
+  "tags": [
+    "layout",
+    "grid",
+    "반응형"
+  ],
+  "controls": [
+    {
+      "prop": "minChildWidth",
+      "kind": "number",
+      "min": 120,
+      "max": 320,
+      "step": 20,
+      "default": 220
+    },
+    {
+      "prop": "gap",
+      "kind": "text",
+      "default": "4"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-simple-grid min-child-width=\"{minChildWidth}\" gap=\"{gap}\">\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>카드</jd-box>\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>카드</jd-box>\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>카드</jd-box>\n</jd-simple-grid>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-*",
+      "usage": "gap 스페이싱 축"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너"
+    }
+  ]
+}

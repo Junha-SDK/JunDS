@@ -1,0 +1,21 @@
+{
+  "id": "use-update-effect",
+  "ledgerId": "useUpdateEffect",
+  "category": "hooks",
+  "title": "useUpdateEffect",
+  "oneLiner": "최초 렌더를 건너뛰는 effect — React 전용.",
+  "tags": [
+    "hook",
+    "react",
+    "수명"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

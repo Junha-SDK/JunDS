@@ -1,0 +1,22 @@
+{
+  "id": "color-swatch",
+  "ledgerId": "ColorSwatch",
+  "category": "composites",
+  "title": "ColorSwatch",
+  "oneLiner": "색상 팔레트에서 색을 선택하는 스와치.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ColorSwatch } from \"@/ds/composites/ColorSwatch\";",
+      "code": "<ColorSwatch colors={[\"#f00\", \"#0f0\", \"#00f\"]} selected={color} onSelect={setColor} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

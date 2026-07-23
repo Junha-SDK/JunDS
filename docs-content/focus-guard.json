@@ -1,0 +1,22 @@
+{
+  "id": "focus-guard",
+  "ledgerId": "FocusGuard",
+  "category": "primitives",
+  "title": "FocusGuard",
+  "oneLiner": "지정 영역 내부에 포커스를 가두는(trap) 래퍼. 모달·드로어 등에 사용합니다.",
+  "tags": [
+    "accessibility"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FocusGuard } from \"@/ds/primitives/FocusGuard\";",
+      "code": "<FocusGuard active={open} returnFocus>\n  <DialogContent />\n</FocusGuard>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

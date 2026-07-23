@@ -1,0 +1,23 @@
+{
+  "id": "pin-input",
+  "ledgerId": "PinInput",
+  "category": "primitives",
+  "title": "PinInput",
+  "oneLiner": "PIN / OTP 입력",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { PinInput } from \"@/ds/primitives/PinInput\";",
+      "code": "<PinInput length={6} masked onComplete={verifyOTP} />\n<PinInput length={4} numeric onComplete={verifyPin} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "chart-card",
+  "ledgerId": "ChartCard",
+  "category": "patterns",
+  "title": "ChartCard",
+  "oneLiner": "SVG 차트 카드",
+  "tags": [
+    "chart"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ChartCard } from \"@/ds/patterns/ChartCard\";",
+      "code": "<ChartCard title=\"주간 완료\" type=\"bar\" data={[{label:\"월\",value:12},{label:\"화\",value:8}]} />\n<ChartCard title=\"전환율\" type=\"radial\" value=\"72%\" data={[{label:\"전환\",value:72}]} max={100} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

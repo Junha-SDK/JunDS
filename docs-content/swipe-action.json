@@ -1,0 +1,23 @@
+{
+  "id": "swipe-action",
+  "ledgerId": "SwipeAction",
+  "category": "composites",
+  "title": "SwipeAction",
+  "oneLiner": "좌/우로 스와이프 시 액션이 노출되는 행 래퍼.",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SwipeAction } from \"@/ds/composites/SwipeAction\";",
+      "code": "<SwipeAction\n  leftActions={[{ label: \"보관\", onClick: archive }]}\n  rightActions={[{ label: \"삭제\", onClick: remove, variant: \"danger\" }]}\n>\n  <ListItem />\n</SwipeAction>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

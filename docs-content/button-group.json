@@ -1,0 +1,23 @@
+{
+  "id": "button-group",
+  "ledgerId": "ButtonGroup",
+  "category": "composites",
+  "title": "ButtonGroup",
+  "oneLiner": "버튼 그룹",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ButtonGroup } from \"@/ds/composites/ButtonGroup\";",
+      "code": "<ButtonGroup>\n  <Button variant=\"secondary\">왼쪽</Button>\n  <Button variant=\"secondary\">중앙</Button>\n  <Button variant=\"secondary\">오른쪽</Button>\n</ButtonGroup>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

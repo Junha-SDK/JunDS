@@ -1,0 +1,23 @@
+{
+  "id": "search-input",
+  "ledgerId": "SearchInput",
+  "category": "composites",
+  "title": "SearchInput",
+  "oneLiner": "검색 입력 컴포넌트",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SearchInput } from \"@/ds/composites/SearchInput\";",
+      "code": "<SearchInput value={query} onChange={setQuery} onSearch={handleSearch} placeholder=\"검색...\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

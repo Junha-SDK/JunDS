@@ -1,0 +1,22 @@
+{
+  "id": "sortable-list",
+  "ledgerId": "SortableList",
+  "category": "patterns",
+  "title": "SortableList",
+  "oneLiner": "드래그 앤 드롭 정렬 리스트 (네이티브 API)",
+  "tags": [
+    "data"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SortableList } from \"@/ds/patterns/SortableList\";",
+      "code": "<SortableList items={tasks} renderItem={(t)=><div>{t.name}</div>} onReorder={setTasks} showHandle />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

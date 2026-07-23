@@ -1,0 +1,23 @@
+{
+  "id": "checkbox",
+  "ledgerId": "Checkbox",
+  "category": "primitives",
+  "title": "Checkbox",
+  "oneLiner": "체크박스",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Checkbox } from \"@/ds/primitives/Checkbox\";",
+      "code": "<Checkbox label=\"동의합니다\" checked={ok} onChange={...} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

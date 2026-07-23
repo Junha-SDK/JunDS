@@ -1,0 +1,38 @@
+{
+  "id": "core-provider",
+  "ledgerId": "CoreProvider",
+  "category": "core",
+  "title": "CoreProvider",
+  "oneLiner": "테마·토큰 설정 표면 — v3에서 CE 없이 내부화: CSS 토큰 오버라이드 + data-jd-theme 속성 (DEC-014-6).",
+  "tags": [
+    "theme",
+    "tokens",
+    "provider"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";",
+      "code": "<!-- 다크 테마: 루트에 속성 부여 (미지정 시 시스템 선호 따름) -->\n<html data-jd-theme=\"dark\">\n\n<style>\n  /* 브랜드 오버라이드: 토큰은 @layer junds.tokens 안 — 무레이어 소비자 CSS가 항상 이긴다 */\n  :root { --jd-color-primary: #7c5cff; }\n  [data-jd-theme=\"dark\"] { --jd-color-card: #14121f; }\n</style>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-color-* 전역",
+      "usage": ":root 라이트 기본값, [data-jd-theme=\"dark\"] 다크 오버라이드"
+    },
+    {
+      "token": "(전환기)",
+      "usage": "구 [data-theme=\"dark\"] 셀렉터 병기 — v3 GA에서 제거 예정 (02-tokens §4.1)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "대비",
+      "note": "라이트·다크 팔레트 모두 --jd-color-muted 계열 AA(4.5:1) 계약 유지"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "dropdown",
+  "ledgerId": "Dropdown",
+  "category": "composites",
+  "title": "Dropdown",
+  "oneLiner": "드롭다운 메뉴",
+  "tags": [
+    "overlay",
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Dropdown } from \"@/ds/composites/Dropdown\";",
+      "code": "<Dropdown trigger={<IconButton icon={<MoreIcon />} label=\"메뉴\" />} items={[...]} onSelect={handleAction} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

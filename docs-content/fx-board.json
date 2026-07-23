@@ -1,0 +1,21 @@
+{
+  "id": "fx-board",
+  "ledgerId": "FXBoard",
+  "category": "finance",
+  "title": "FXBoard",
+  "oneLiner": "환율 보드 — 주요 통화쌍.",
+  "tags": [
+    "finance",
+    "환율",
+    "보드"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

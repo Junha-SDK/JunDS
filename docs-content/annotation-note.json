@@ -1,0 +1,21 @@
+{
+  "id": "annotation-note",
+  "ledgerId": "AnnotationNote",
+  "category": "composites",
+  "title": "AnnotationNote",
+  "oneLiner": "책 속 메모·주석 노트 카드.",
+  "tags": [
+    "book",
+    "독서",
+    "메모"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

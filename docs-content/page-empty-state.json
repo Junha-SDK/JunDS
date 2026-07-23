@@ -1,0 +1,21 @@
+{
+  "id": "page-empty-state",
+  "ledgerId": "PageEmptyState",
+  "category": "finance",
+  "title": "PageEmptyState",
+  "oneLiner": "금융 페이지 빈 상태 블록.",
+  "tags": [
+    "finance",
+    "display",
+    "빈상태"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "photo-album",
+  "ledgerId": "PhotoAlbum",
+  "category": "patterns",
+  "title": "PhotoAlbum",
+  "oneLiner": "사진 앨범 페이지 템플릿.",
+  "tags": [
+    "photo",
+    "앨범",
+    "템플릿"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

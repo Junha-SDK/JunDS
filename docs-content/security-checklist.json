@@ -1,0 +1,22 @@
+{
+  "id": "security-checklist",
+  "ledgerId": "SecurityChecklist",
+  "category": "patterns",
+  "title": "SecurityChecklist",
+  "oneLiner": "보안 체크리스트 — 보안 설정 현황을 한눈에 확인 + 조치",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SecurityChecklist } from \"@/ds/patterns/SecurityChecklist\";",
+      "code": "<SecurityChecklist items={[\n  { key:\"2fa\", title:\"2단계 인증\", description:\"계정 보호를 위해 2FA를 활성화하세요\", status:\"insecure\", action:{ label:\"설정\", onClick:setup2FA } },\n  { key:\"pw\", title:\"비밀번호 강도\", description:\"마지막 변경: 90일 전\", status:\"attention\" },\n]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

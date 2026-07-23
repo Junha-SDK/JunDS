@@ -1,0 +1,22 @@
+{
+  "id": "action-bar",
+  "ledgerId": "ActionBar",
+  "category": "patterns",
+  "title": "ActionBar",
+  "oneLiner": "플로팅 액션 바 (벌크 액션)",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ActionBar } from \"@/ds/patterns/ActionBar\";",
+      "code": "<ActionBar\n  open={selected.size > 0}\n  count={selected.size}\n  onClear={() => setSelected(new Set())}\n  actions={<>\n    <Button size=\"sm\" variant=\"secondary\">이동</Button>\n    <Button size=\"sm\" variant=\"danger\">삭제</Button>\n  </>}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

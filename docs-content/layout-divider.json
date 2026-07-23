@@ -1,0 +1,34 @@
+{
+  "id": "layout-divider",
+  "ledgerId": "LayoutDivider",
+  "category": "layout",
+  "title": "LayoutDivider",
+  "oneLiner": "레이아웃 계층 구분선 — 신규 태그 없음: 단일 정본 <jd-divider>가 표면 전량 커버(DEC-018-2).",
+  "tags": [
+    "layout",
+    "separator",
+    "구분선"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<!-- LayoutDivider 전용 태그는 없다 — jd-divider(단일 정본)를 그대로 사용 -->\n<jd-divider></jd-divider>\n<jd-divider label=\"또는\"></jd-divider>\n<!-- v2 spacing 프롭 차이는 react 어댑터가 my/mx 매핑으로 해소 -->"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-color-border",
+      "usage": "선 기본 색 (jd-divider와 동일)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "role",
+      "note": "jd-divider가 role=separator 자동 부여"
+    }
+  ]
+}

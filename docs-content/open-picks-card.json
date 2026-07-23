@@ -1,0 +1,21 @@
+{
+  "id": "open-picks-card",
+  "ledgerId": "OpenPicksCard",
+  "category": "finance",
+  "title": "OpenPicksCard",
+  "oneLiner": "장 시작 픽 카드 — 시가 신호 종목.",
+  "tags": [
+    "finance",
+    "신호",
+    "카드"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

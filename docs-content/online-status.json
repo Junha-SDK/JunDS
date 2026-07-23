@@ -1,0 +1,21 @@
+{
+  "id": "online-status",
+  "ledgerId": "OnlineStatus",
+  "category": "composites",
+  "title": "OnlineStatus",
+  "oneLiner": "사용자 온라인 상태 점 표시.",
+  "tags": [
+    "social",
+    "상태",
+    "presence"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "blog-post",
+  "ledgerId": "BlogPost",
+  "category": "patterns",
+  "title": "BlogPost",
+  "oneLiner": "블로그 글 본문 레이아웃 템플릿.",
+  "tags": [
+    "template",
+    "블로그",
+    "문서"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

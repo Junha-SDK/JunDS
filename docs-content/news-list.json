@@ -1,0 +1,21 @@
+{
+  "id": "news-list",
+  "ledgerId": "NewsList",
+  "category": "finance",
+  "title": "NewsList",
+  "oneLiner": "종목·테마 뉴스 리스트.",
+  "tags": [
+    "finance",
+    "뉴스",
+    "리스트"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

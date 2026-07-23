@@ -1,0 +1,21 @@
+{
+  "id": "reading-goal",
+  "ledgerId": "ReadingGoal",
+  "category": "composites",
+  "title": "ReadingGoal",
+  "oneLiner": "독서 목표 진행 카드.",
+  "tags": [
+    "book",
+    "독서",
+    "목표"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

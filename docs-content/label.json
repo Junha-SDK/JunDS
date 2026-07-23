@@ -1,0 +1,22 @@
+{
+  "id": "label",
+  "ledgerId": "Label",
+  "category": "primitives",
+  "title": "Label",
+  "oneLiner": "폼 라벨",
+  "tags": [
+    "form"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Label } from \"@/ds/primitives/Label\";",
+      "code": "<Label htmlFor=\"name\" required>이름</Label>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "real-quote-header",
+  "ledgerId": "RealQuoteHeader",
+  "category": "finance",
+  "title": "RealQuoteHeader",
+  "oneLiner": "실시간 호가 헤더 — 현재가·등락.",
+  "tags": [
+    "finance",
+    "live",
+    "헤더"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

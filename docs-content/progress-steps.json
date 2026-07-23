@@ -1,0 +1,21 @@
+{
+  "id": "progress-steps",
+  "ledgerId": "ProgressSteps",
+  "category": "composites",
+  "title": "ProgressSteps",
+  "oneLiner": "단계형 진행 표시 — 완료·현재·대기 상태.",
+  "tags": [
+    "feedback",
+    "progress",
+    "단계"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

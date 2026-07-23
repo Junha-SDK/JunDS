@@ -1,0 +1,21 @@
+{
+  "id": "use-intersection-observer",
+  "ledgerId": "useIntersectionObserver",
+  "category": "hooks",
+  "title": "useIntersectionObserver",
+  "oneLiner": "뷰포트 진입 관찰(IntersectionObserver).",
+  "tags": [
+    "hook",
+    "관찰",
+    "스크롤"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

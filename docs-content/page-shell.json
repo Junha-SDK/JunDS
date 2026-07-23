@@ -1,0 +1,21 @@
+{
+  "id": "page-shell",
+  "ledgerId": "PageShell",
+  "category": "finance",
+  "title": "PageShell",
+  "oneLiner": "금융 페이지 공통 셸 레이아웃.",
+  "tags": [
+    "finance",
+    "shell",
+    "레이아웃"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

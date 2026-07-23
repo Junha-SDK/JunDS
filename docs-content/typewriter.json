@@ -1,0 +1,22 @@
+{
+  "id": "typewriter",
+  "ledgerId": "Typewriter",
+  "category": "composites",
+  "title": "Typewriter",
+  "oneLiner": "글자를 한 글자씩 쳐 나가는 타이핑 효과.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Typewriter } from \"@/ds/composites/Typewriter\";",
+      "code": "<Typewriter texts={[\"안녕하세요\", \"Hello\"]} speed={80} loop />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

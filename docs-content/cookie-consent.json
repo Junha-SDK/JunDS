@@ -1,0 +1,21 @@
+{
+  "id": "cookie-consent",
+  "ledgerId": "CookieConsent",
+  "category": "composites",
+  "title": "CookieConsent",
+  "oneLiner": "쿠키 동의 배너 — 수락·거부 선택.",
+  "tags": [
+    "marketing",
+    "동의",
+    "배너"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

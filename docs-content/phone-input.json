@@ -1,0 +1,23 @@
+{
+  "id": "phone-input",
+  "ledgerId": "PhoneInput",
+  "category": "primitives",
+  "title": "PhoneInput",
+  "oneLiner": "국가 코드 선택이 포함된 전화번호 입력기.",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { PhoneInput } from \"@/ds/primitives/PhoneInput\";",
+      "code": "<PhoneInput value={phone} onChange={setPhone} defaultCountry=\"KR\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

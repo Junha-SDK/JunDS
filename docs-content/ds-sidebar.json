@@ -1,0 +1,23 @@
+{
+  "id": "ds-sidebar",
+  "ledgerId": "DsSidebar",
+  "category": "patterns",
+  "title": "DsSidebar",
+  "oneLiner": "앱 사이드바 컨테이너 — 접힘·섹션 구성.",
+  "tags": [
+    "navigation",
+    "sidebar"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DsSidebar } from \"@/ds/patterns/Sidebar\";",
+      "code": "<DsSidebarProvider>\n  <DsSidebar header={<Logo />}>\n    <SidebarLink href=\"/\" label=\"홈\" icon={<HomeIcon />} />\n  </DsSidebar>\n</DsSidebarProvider>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

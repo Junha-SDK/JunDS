@@ -1,0 +1,23 @@
+{
+  "id": "tour",
+  "ledgerId": "Tour",
+  "category": "patterns",
+  "title": "Tour",
+  "oneLiner": "가이드 투어 오버레이",
+  "tags": [
+    "overlay",
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Tour } from \"@/ds/patterns/Tour\";",
+      "code": "<Tour\n  open={showTour}\n  onClose={() => setShowTour(false)}\n  steps={[{ target: \"#btn\", title: \"버튼\", description: \"여기를 클릭하세요\" }]}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

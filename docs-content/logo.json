@@ -1,0 +1,21 @@
+{
+  "id": "logo",
+  "ledgerId": "Logo",
+  "category": "finance",
+  "title": "Logo",
+  "oneLiner": "서비스 로고타입 — 크기·부제 옵션.",
+  "tags": [
+    "finance",
+    "브랜드",
+    "로고"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

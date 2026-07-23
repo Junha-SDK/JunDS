@@ -1,0 +1,50 @@
+{
+  "id": "stack",
+  "ledgerId": "Stack",
+  "category": "layout",
+  "title": "Stack",
+  "oneLiner": "방향 가변 스택 — column·gap md 기본. v2 divider 프롭은 children으로 <jd-divider> 직접 배치.",
+  "tags": [
+    "layout",
+    "stack"
+  ],
+  "controls": [
+    {
+      "prop": "direction",
+      "kind": "segmented",
+      "options": [
+        "column",
+        "row",
+        "column-reverse",
+        "row-reverse"
+      ],
+      "default": "column"
+    },
+    {
+      "prop": "gap",
+      "kind": "text",
+      "default": "3"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-stack direction=\"{direction}\" gap=\"{gap}\">\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>첫째</jd-box>\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>둘째</jd-box>\n</jd-stack>\n\n<!-- 구분선은 children으로 직접 — v2 divider 프롭은 react 어댑터 몫 (DEC-018-4) -->\n<jd-stack gap=\"3\">\n  위 블록\n  <jd-divider my=\"0\"></jd-divider>\n  아래 블록\n</jd-stack>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-4",
+      "usage": "기본 gap(md)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너 — reverse 방향은 시각 전용, DOM 순서 = 낭독 순서"
+    }
+  ]
+}

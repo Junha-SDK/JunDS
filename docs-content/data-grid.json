@@ -1,0 +1,22 @@
+{
+  "id": "data-grid",
+  "ledgerId": "DataGrid",
+  "category": "composites",
+  "title": "DataGrid",
+  "oneLiner": "페이징·선택이 지원되는 데이터 그리드.",
+  "tags": [
+    "data"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DataGrid } from \"@/ds/composites/DataGrid\";",
+      "code": "<DataGrid data={rows} columns={cols} pageSize={20} selectable onSelect={setSelected} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

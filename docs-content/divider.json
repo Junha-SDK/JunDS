@@ -1,0 +1,22 @@
+{
+  "id": "divider",
+  "ledgerId": "Divider",
+  "category": "primitives",
+  "title": "Divider",
+  "oneLiner": "구분선",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Divider } from \"@/ds/primitives/Divider\";",
+      "code": "<Divider />\n<Divider label=\"또는\" />\n<Divider orientation=\"vertical\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

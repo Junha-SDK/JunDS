@@ -1,0 +1,22 @@
+{
+  "id": "notification",
+  "ledgerId": "Notification",
+  "category": "composites",
+  "title": "Notification",
+  "oneLiner": "상단에 잠깐 떠오르는 알림 카드.",
+  "tags": [
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Notification } from \"@/ds/composites/Notification\";",
+      "code": "<Notification title=\"저장 완료\" description=\"변경사항이 저장되었습니다.\" variant=\"success\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "diff-viewer",
+  "ledgerId": "DiffViewer",
+  "category": "composites",
+  "title": "DiffViewer",
+  "oneLiner": "두 텍스트 간 차이를 강조 표시하는 diff 뷰어.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DiffViewer } from \"@/ds/composites/DiffViewer\";",
+      "code": "<DiffViewer oldText={prev} newText={next} oldTitle=\"v1\" newTitle=\"v2\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

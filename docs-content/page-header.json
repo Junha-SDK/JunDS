@@ -1,0 +1,21 @@
+{
+  "id": "page-header",
+  "ledgerId": "PageHeader",
+  "category": "composites",
+  "title": "PageHeader",
+  "oneLiner": "페이지 상단 제목·설명·액션 헤더 블록.",
+  "tags": [
+    "layout",
+    "header",
+    "페이지"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

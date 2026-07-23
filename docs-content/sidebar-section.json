@@ -1,0 +1,21 @@
+{
+  "id": "sidebar-section",
+  "ledgerId": "SidebarSection",
+  "category": "patterns",
+  "title": "SidebarSection",
+  "oneLiner": "사이드바 섹션 그룹 헤더.",
+  "tags": [
+    "navigation",
+    "sidebar",
+    "구획"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

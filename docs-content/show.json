@@ -1,0 +1,47 @@
+{
+  "id": "show",
+  "ledgerId": "Show",
+  "category": "layout",
+  "title": "Show",
+  "oneLiner": "브레이크포인트 조건 표시 — CSS 전용(display:contents + 미디어 규칙), JS 상태 0으로 SSR 상시 안전.",
+  "tags": [
+    "layout",
+    "반응형",
+    "조건부"
+  ],
+  "controls": [
+    {
+      "prop": "above",
+      "kind": "select",
+      "options": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl"
+      ],
+      "default": "md"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-show above=\"{above}\">md 이상에서만 보임</jd-show>\n<jd-show below=\"md\">md 미만에서만 보임</jd-show>\n\n<!-- 병용 = 구간: w>=sm && w<lg (v2 의미론 재현 — DEC-018-3) -->\n<jd-show above=\"sm\" below=\"lg\">사이 구간에서만</jd-show>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-breakpoint-sm ~ 2xl",
+      "usage": "구간 경계(미디어 규칙은 정적 px)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "숨김 방식",
+      "note": "display:none — 숨김 구간에서 낭독·포커스 대상에서 제외(시각 전용 숨김 아님)"
+    }
+  ]
+}

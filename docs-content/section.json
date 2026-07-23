@@ -1,0 +1,63 @@
+{
+  "id": "section",
+  "ledgerId": "Section",
+  "category": "core",
+  "title": "Section",
+  "oneLiner": "제목·설명 헤더 + 세로 흐름 본문 섹션. gap은 본문 flex에 적용, border 전환.",
+  "tags": [
+    "layout",
+    "section",
+    "구획"
+  ],
+  "controls": [
+    {
+      "prop": "title",
+      "kind": "text",
+      "default": "섹션 제목"
+    },
+    {
+      "prop": "description",
+      "kind": "text",
+      "default": ""
+    },
+    {
+      "prop": "gap",
+      "kind": "text",
+      "default": "3"
+    },
+    {
+      "prop": "border",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-section title=\"{title}\" description=\"{description}\" gap=\"{gap}\">\n  <jd-text>본문 블록 1</jd-text>\n  <jd-text>본문 블록 2</jd-text>\n</jd-section>\n\n<jd-section title=\"테두리 섹션\" border>…</jd-section>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-color-border",
+      "usage": "border 모드 테두리"
+    },
+    {
+      "token": "--jd-space-*",
+      "usage": "gap(본문 flex 간격)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "구조",
+      "note": "제목은 h4로 렌더 — 페이지 헤딩 계층 안에서 사용"
+    },
+    {
+      "item": "주의",
+      "note": "title 프롭이 전역 title attribute를 가림 — 툴팁 용도로 쓰지 말 것"
+    }
+  ]
+}

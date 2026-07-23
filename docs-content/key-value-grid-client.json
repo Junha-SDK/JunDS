@@ -1,0 +1,21 @@
+{
+  "id": "key-value-grid-client",
+  "ledgerId": "KeyValueGridClient",
+  "category": "finance",
+  "title": "KeyValueGridClient",
+  "oneLiner": "키·값 그리드 클라이언트 래퍼.",
+  "tags": [
+    "finance",
+    "display",
+    "그리드"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

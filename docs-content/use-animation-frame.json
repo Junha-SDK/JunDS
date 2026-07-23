@@ -1,0 +1,21 @@
+{
+  "id": "use-animation-frame",
+  "ledgerId": "useAnimationFrame",
+  "category": "hooks",
+  "title": "useAnimationFrame",
+  "oneLiner": "requestAnimationFrame 루프.",
+  "tags": [
+    "hook",
+    "animation",
+    "raf"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

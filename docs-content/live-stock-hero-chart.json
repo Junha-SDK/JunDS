@@ -1,0 +1,21 @@
+{
+  "id": "live-stock-hero-chart",
+  "ledgerId": "LiveStockHeroChart",
+  "category": "finance",
+  "title": "LiveStockHeroChart",
+  "oneLiner": "종목 상세 히어로 실시간 차트.",
+  "tags": [
+    "finance",
+    "live",
+    "차트"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

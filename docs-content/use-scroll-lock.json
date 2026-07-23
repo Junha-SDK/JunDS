@@ -1,0 +1,21 @@
+{
+  "id": "use-scroll-lock",
+  "ledgerId": "useScrollLock",
+  "category": "hooks",
+  "title": "useScrollLock",
+  "oneLiner": "body 스크롤 잠금.",
+  "tags": [
+    "hook",
+    "스크롤",
+    "잠금"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

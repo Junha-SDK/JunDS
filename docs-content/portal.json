@@ -1,0 +1,22 @@
+{
+  "id": "portal",
+  "ledgerId": "Portal",
+  "category": "primitives",
+  "title": "Portal",
+  "oneLiner": "React Portal 래퍼",
+  "tags": [
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Portal } from \"@/ds/primitives/Portal\";",
+      "code": "<Portal><ModalContent /></Portal>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

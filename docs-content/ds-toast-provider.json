@@ -1,0 +1,21 @@
+{
+  "id": "ds-toast-provider",
+  "ledgerId": "DsToastProvider",
+  "category": "composites",
+  "title": "DsToastProvider",
+  "oneLiner": "토스트 스택 제공자. v3에서 명령형 toast() 싱글턴으로 전환 예정.",
+  "tags": [
+    "feedback",
+    "toast",
+    "provider"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

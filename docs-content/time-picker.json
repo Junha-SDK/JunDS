@@ -1,0 +1,23 @@
+{
+  "id": "time-picker",
+  "ledgerId": "TimePicker",
+  "category": "composites",
+  "title": "TimePicker",
+  "oneLiner": "시간 선택기",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { TimePicker } from \"@/ds/composites/TimePicker\";",
+      "code": "<TimePicker value={time} onChange={setTime} format=\"24h\" minuteStep={15} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

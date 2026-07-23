@@ -1,0 +1,22 @@
+{
+  "id": "pagination",
+  "ledgerId": "Pagination",
+  "category": "composites",
+  "title": "Pagination",
+  "oneLiner": "페이지네이션",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Pagination } from \"@/ds/composites/Pagination\";",
+      "code": "<Pagination page={1} totalPages={10} onChange={setPage} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

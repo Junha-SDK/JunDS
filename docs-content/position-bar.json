@@ -1,0 +1,21 @@
+{
+  "id": "position-bar",
+  "ledgerId": "PositionBar",
+  "category": "finance",
+  "title": "PositionBar",
+  "oneLiner": "저가·고가 대비 현재가 위치 막대.",
+  "tags": [
+    "finance",
+    "display",
+    "가격"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

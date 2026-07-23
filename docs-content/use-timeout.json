@@ -1,0 +1,21 @@
+{
+  "id": "use-timeout",
+  "ledgerId": "useTimeout",
+  "category": "hooks",
+  "title": "useTimeout",
+  "oneLiner": "안전한 setTimeout 래퍼.",
+  "tags": [
+    "hook",
+    "timing",
+    "timeout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

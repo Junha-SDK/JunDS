@@ -1,0 +1,21 @@
+{
+  "id": "area-chart",
+  "ledgerId": "AreaChart",
+  "category": "composites",
+  "title": "AreaChart",
+  "oneLiner": "다중 시리즈 영역 차트 — overlap·stacked 모드, 곡선 보간.",
+  "tags": [
+    "chart",
+    "차트",
+    "영역"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

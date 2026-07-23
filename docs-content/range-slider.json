@@ -1,0 +1,23 @@
+{
+  "id": "range-slider",
+  "ledgerId": "RangeSlider",
+  "category": "primitives",
+  "title": "RangeSlider",
+  "oneLiner": "두 핸들로 최소/최대 범위를 지정하는 슬라이더.",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { RangeSlider } from \"@/ds/primitives/RangeSlider\";",
+      "code": "<RangeSlider value={[20, 80]} onChange={setRange} min={0} max={100} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

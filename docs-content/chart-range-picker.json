@@ -1,0 +1,21 @@
+{
+  "id": "chart-range-picker",
+  "ledgerId": "ChartRangePicker",
+  "category": "finance",
+  "title": "ChartRangePicker",
+  "oneLiner": "차트 기간(1D·1W…) 선택기.",
+  "tags": [
+    "finance",
+    "chart",
+    "기간"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

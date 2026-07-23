@@ -1,0 +1,22 @@
+{
+  "id": "watermark",
+  "ledgerId": "Watermark",
+  "category": "composites",
+  "title": "Watermark",
+  "oneLiner": "워터마크 오버레이 컴포넌트",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Watermark } from \"@/ds/composites/Watermark\";",
+      "code": "<Watermark text=\"기밀 문서\">\n  <div>보호할 콘텐츠</div>\n</Watermark>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "masonry-grid",
+  "ledgerId": "MasonryGrid",
+  "category": "patterns",
+  "title": "MasonryGrid",
+  "oneLiner": "핀터레스트 스타일의 메이슨리(masonry) 그리드 레이아웃.",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { MasonryGrid } from \"@/ds/patterns/MasonryGrid\";",
+      "code": "<MasonryGrid columns={3} gap={16}>\n  {items.map(item => <Card key={item.id}>{item.content}</Card>)}\n</MasonryGrid>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

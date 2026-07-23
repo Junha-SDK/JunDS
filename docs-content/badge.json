@@ -1,0 +1,22 @@
+{
+  "id": "badge",
+  "ledgerId": "Badge",
+  "category": "primitives",
+  "title": "Badge",
+  "oneLiner": "상태나 카테고리를 표시하는 작은 라벨.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Badge } from \"@/ds/primitives/Badge\";",
+      "code": "<Badge variant=\"success\" dot>활성</Badge>\n<Badge count={42} maxCount={99} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

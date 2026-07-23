@@ -1,0 +1,22 @@
+{
+  "id": "tabs",
+  "ledgerId": "Tabs",
+  "category": "composites",
+  "title": "Tabs",
+  "oneLiner": "수평 탭 전환 컨트롤.",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Tabs } from \"@/ds/composites/Tabs\";",
+      "code": "<Tabs tabs={[{ id: \"a\", label: \"A\" }, { id: \"b\", label: \"B\" }]} value={tab} onChange={setTab} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

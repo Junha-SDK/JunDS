@@ -1,0 +1,45 @@
+{
+  "id": "group",
+  "ledgerId": "Group",
+  "category": "core",
+  "title": "Group",
+  "oneLiner": "줄바꿈을 허용하는 가로 묶음(row·wrap·gap sm 기본). no-wrap으로 줄바꿈 금지.",
+  "tags": [
+    "layout",
+    "flex",
+    "묶음"
+  ],
+  "controls": [
+    {
+      "prop": "gap",
+      "kind": "text",
+      "default": "2"
+    },
+    {
+      "prop": "noWrap",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-group gap=\"{gap}\">\n  <jd-box p=\"1\" px=\"3\" bg=\"card\" radius=\"full\" border>알파</jd-box>\n  <jd-box p=\"1\" px=\"3\" bg=\"card\" radius=\"full\" border>베타</jd-box>\n  <jd-box p=\"1\" px=\"3\" bg=\"card\" radius=\"full\" border>감마</jd-box>\n</jd-group>\n\n<jd-group no-wrap>줄바꿈 금지 — 넘치면 그대로</jd-group>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-2",
+      "usage": "기본 gap(sm)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "checkbox-card-group",
+  "ledgerId": "CheckboxCardGroup",
+  "category": "composites",
+  "title": "CheckboxCardGroup",
+  "oneLiner": "카드형 체크박스 그룹 — 다중 선택.",
+  "tags": [
+    "form",
+    "선택",
+    "카드"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

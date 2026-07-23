@@ -1,0 +1,21 @@
+{
+  "id": "photo-filters",
+  "ledgerId": "PhotoFilters",
+  "category": "composites",
+  "title": "PhotoFilters",
+  "oneLiner": "사진 필터 프리셋 선택.",
+  "tags": [
+    "photo",
+    "사진",
+    "필터"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

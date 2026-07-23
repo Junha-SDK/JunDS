@@ -1,0 +1,22 @@
+{
+  "id": "bottom-sheet",
+  "ledgerId": "BottomSheet",
+  "category": "composites",
+  "title": "BottomSheet",
+  "oneLiner": "화면 하단에서 슬라이드 업되는 시트형 모달.",
+  "tags": [
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { BottomSheet } from \"@/ds/composites/BottomSheet\";",
+      "code": "<BottomSheet open={open} onClose={() => setOpen(false)} title=\"옵션\">\n  <Menu />\n</BottomSheet>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

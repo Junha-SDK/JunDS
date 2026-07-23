@@ -1,0 +1,20 @@
+{
+  "id": "mark",
+  "ledgerId": "Mark",
+  "category": "primitives",
+  "title": "Mark",
+  "oneLiner": "형광펜 강조 표기.",
+  "tags": [
+    "typography",
+    "강조"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

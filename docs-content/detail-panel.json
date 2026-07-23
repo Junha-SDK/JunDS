@@ -1,0 +1,22 @@
+{
+  "id": "detail-panel",
+  "ledgerId": "DetailPanel",
+  "category": "composites",
+  "title": "DetailPanel",
+  "oneLiner": "디테일 패널",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DetailPanel } from \"@/ds/composites/DetailPanel\";",
+      "code": "<DetailPanel\n  open={isOpen}\n  onClose={close}\n  title=\"주문 상세\"\n  subtitle=\"주문번호 #12345\"\n  status=\"success\"\n  tabs={[\n    { key: \"info\", label: \"정보\", content: <InfoContent /> },\n    { key: \"history\", label: \"이력\", content: <HistoryContent />, badge: 3 },\n  ]}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

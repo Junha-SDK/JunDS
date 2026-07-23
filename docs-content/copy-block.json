@@ -1,0 +1,22 @@
+{
+  "id": "copy-block",
+  "ledgerId": "CopyBlock",
+  "category": "composites",
+  "title": "CopyBlock",
+  "oneLiner": "코드 블록 + 복사 버튼이 포함된 코드 미리보기.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { CopyBlock } from \"@/ds/composites/CopyBlock\";",
+      "code": "<CopyBlock code={\"npm install @junds/ui\"} language=\"bash\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

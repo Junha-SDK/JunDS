@@ -1,0 +1,22 @@
+{
+  "id": "spoiler-block",
+  "ledgerId": "SpoilerBlock",
+  "category": "composites",
+  "title": "SpoilerBlock",
+  "oneLiner": "블러 처리된 콘텐츠를 클릭으로 노출하는 스포일러 블록.",
+  "tags": [
+    "disclosure"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SpoilerBlock } from \"@/ds/composites/SpoilerBlock\";",
+      "code": "<SpoilerBlock type=\"blur\" label=\"스포일러 보기\">\n  숨겨진 내용\n</SpoilerBlock>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

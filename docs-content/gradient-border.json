@@ -1,0 +1,22 @@
+{
+  "id": "gradient-border",
+  "ledgerId": "GradientBorder",
+  "category": "composites",
+  "title": "GradientBorder",
+  "oneLiner": "그라디언트 테두리 효과를 가진 래퍼.",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { GradientBorder } from \"@/ds/composites/GradientBorder\";",
+      "code": "<GradientBorder gradient=\"purple-pink\" rounded animated>\n  <Card>...</Card>\n</GradientBorder>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

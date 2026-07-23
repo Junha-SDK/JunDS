@@ -1,0 +1,21 @@
+{
+  "id": "consensus-screener",
+  "ledgerId": "ConsensusScreener",
+  "category": "finance",
+  "title": "ConsensusScreener",
+  "oneLiner": "애널리스트 컨센서스 스크리너 — 필터 칩.",
+  "tags": [
+    "finance",
+    "스크리너",
+    "컨센서스"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

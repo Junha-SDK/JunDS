@@ -1,0 +1,58 @@
+{
+  "id": "core-divider",
+  "ledgerId": "CoreDivider",
+  "category": "core",
+  "title": "CoreDivider",
+  "oneLiner": "구분선 단일 정본 <jd-divider> — 가로·세로, 라벨 모드. LayoutDivider·primitives Divider는 별칭 예정(R12).",
+  "tags": [
+    "layout",
+    "separator",
+    "구분선"
+  ],
+  "controls": [
+    {
+      "prop": "orientation",
+      "kind": "segmented",
+      "options": [
+        "horizontal",
+        "vertical"
+      ],
+      "default": "horizontal"
+    },
+    {
+      "prop": "label",
+      "kind": "text",
+      "default": ""
+    },
+    {
+      "prop": "color",
+      "kind": "text",
+      "default": ""
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-divider></jd-divider>\n<jd-divider label=\"{label}\"></jd-divider>\n\n<!-- 세로선은 flex 행 안에서 — 기본 여백은 my=4, my/mx 프롭이 덮는다 -->\n<jd-hstack gap=\"3\">\n  왼쪽 <jd-divider orientation=\"vertical\"></jd-divider> 오른쪽\n</jd-hstack>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-color-border",
+      "usage": "선 기본 색 (color 프롭이 토큰명으로 덮음)"
+    },
+    {
+      "token": "--jd-space-4",
+      "usage": "기본 세로 여백(my=4) — v2 CoreDivider 계승"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "role",
+      "note": "role=separator 자동 부여, vertical이면 aria-orientation=vertical"
+    }
+  ]
+}

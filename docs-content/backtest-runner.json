@@ -1,0 +1,21 @@
+{
+  "id": "backtest-runner",
+  "ledgerId": "BacktestRunner",
+  "category": "finance",
+  "title": "BacktestRunner",
+  "oneLiner": "전략 백테스트 실행·결과 패널.",
+  "tags": [
+    "finance",
+    "백테스트",
+    "패널"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

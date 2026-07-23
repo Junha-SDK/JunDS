@@ -1,0 +1,23 @@
+{
+  "id": "currency-input",
+  "ledgerId": "CurrencyInput",
+  "category": "primitives",
+  "title": "CurrencyInput",
+  "oneLiner": "통화 단위 + 숫자 자동 포맷이 적용된 금액 입력 필드.",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { CurrencyInput } from \"@/ds/primitives/CurrencyInput\";",
+      "code": "<CurrencyInput value={amount} onChange={setAmount} currency=\"KRW\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

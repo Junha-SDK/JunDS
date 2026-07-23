@@ -1,0 +1,22 @@
+{
+  "id": "book-card",
+  "ledgerId": "BookCard",
+  "category": "composites",
+  "title": "BookCard",
+  "oneLiner": "책 표지 + 제목 + 저자 정보를 담은 책 형태의 카드.",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { BookCard } from \"@/ds/composites/BookCard\";",
+      "code": "<BookCard title=\"Atomic Design\" author=\"Brad Frost\" coverImage=\"/cover.jpg\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

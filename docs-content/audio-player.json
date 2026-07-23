@@ -1,0 +1,22 @@
+{
+  "id": "audio-player",
+  "ledgerId": "AudioPlayer",
+  "category": "composites",
+  "title": "AudioPlayer",
+  "oneLiner": "오디오 플레이백 컨트롤(재생/정지/시킹)이 포함된 플레이어.",
+  "tags": [
+    "media"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { AudioPlayer } from \"@/ds/composites/AudioPlayer\";",
+      "code": "<AudioPlayer src=\"/audio/song.mp3\" title=\"My Song\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

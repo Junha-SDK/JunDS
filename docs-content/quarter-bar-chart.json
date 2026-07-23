@@ -1,0 +1,21 @@
+{
+  "id": "quarter-bar-chart",
+  "ledgerId": "QuarterBarChart",
+  "category": "finance",
+  "title": "QuarterBarChart",
+  "oneLiner": "분기 실적 쌍 막대 차트 — 지표 2종 비교.",
+  "tags": [
+    "finance",
+    "chart",
+    "실적"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

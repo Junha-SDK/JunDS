@@ -1,0 +1,22 @@
+{
+  "id": "auto-play-demo",
+  "ledgerId": "AutoPlayDemo",
+  "category": "composites",
+  "title": "AutoPlayDemo",
+  "oneLiner": "자동 순환 데모",
+  "tags": [
+    "misc"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { AutoPlayDemo } from \"@/ds/composites/AutoPlayDemo\";",
+      "code": "<AutoPlayDemo\n  frames={[\n    <Button variant=\"primary\">Primary</Button>,\n    <Button variant=\"danger\">Danger</Button>,\n    <Button variant=\"ghost\">Ghost</Button>,\n  ]}\n  interval={1000}\n  transition=\"fade\"\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

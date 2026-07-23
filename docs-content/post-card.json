@@ -1,0 +1,21 @@
+{
+  "id": "post-card",
+  "ledgerId": "PostCard",
+  "category": "composites",
+  "title": "PostCard",
+  "oneLiner": "소셜 게시물 카드.",
+  "tags": [
+    "social",
+    "카드",
+    "게시물"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

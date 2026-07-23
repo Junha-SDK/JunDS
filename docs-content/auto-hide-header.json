@@ -1,0 +1,19 @@
+{
+  "id": "auto-hide-header",
+  "ledgerId": "AutoHideHeader",
+  "category": "composites",
+  "title": "AutoHideHeader",
+  "oneLiner": "자동 숨김 헤더 컴포넌트",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

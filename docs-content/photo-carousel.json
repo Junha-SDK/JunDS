@@ -1,0 +1,21 @@
+{
+  "id": "photo-carousel",
+  "ledgerId": "PhotoCarousel",
+  "category": "composites",
+  "title": "PhotoCarousel",
+  "oneLiner": "사진 캐러셀 슬라이더.",
+  "tags": [
+    "photo",
+    "사진",
+    "캐러셀"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

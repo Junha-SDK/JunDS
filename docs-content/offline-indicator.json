@@ -1,0 +1,21 @@
+{
+  "id": "offline-indicator",
+  "ledgerId": "OfflineIndicator",
+  "category": "composites",
+  "title": "OfflineIndicator",
+  "oneLiner": "네트워크 오프라인 상태 표시기.",
+  "tags": [
+    "feedback",
+    "network",
+    "상태"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

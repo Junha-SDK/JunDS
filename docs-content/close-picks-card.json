@@ -1,0 +1,21 @@
+{
+  "id": "close-picks-card",
+  "ledgerId": "ClosePicksCard",
+  "category": "finance",
+  "title": "ClosePicksCard",
+  "oneLiner": "장 마감 픽 카드 — 종가 신호 종목.",
+  "tags": [
+    "finance",
+    "신호",
+    "카드"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

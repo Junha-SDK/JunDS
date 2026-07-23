@@ -1,0 +1,21 @@
+{
+  "id": "use-count-up",
+  "ledgerId": "useCountUp",
+  "category": "hooks",
+  "title": "useCountUp",
+  "oneLiner": "숫자 카운트업 애니메이션.",
+  "tags": [
+    "hook",
+    "animation",
+    "숫자"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

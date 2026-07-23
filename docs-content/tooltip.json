@@ -1,0 +1,22 @@
+{
+  "id": "tooltip",
+  "ledgerId": "Tooltip",
+  "category": "composites",
+  "title": "Tooltip",
+  "oneLiner": "툴팁",
+  "tags": [
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Tooltip } from \"@/ds/composites/Tooltip\";",
+      "code": "<Tooltip content=\"저장합니다\"><Button>저장</Button></Tooltip>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "sticky",
+  "ledgerId": "Sticky",
+  "category": "composites",
+  "title": "Sticky",
+  "oneLiner": "스크롤 시 지정 위치에 달라붙는 sticky 래퍼.",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Sticky } from \"@/ds/composites/Sticky\";",
+      "code": "<Sticky top={64} zIndex={10}>\n  <Toolbar />\n</Sticky>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

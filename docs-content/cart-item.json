@@ -1,0 +1,20 @@
+{
+  "id": "cart-item",
+  "ledgerId": "CartItem",
+  "category": "composites",
+  "title": "CartItem",
+  "oneLiner": "장바구니 항목 행 — 수량·삭제.",
+  "tags": [
+    "commerce",
+    "장바구니"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

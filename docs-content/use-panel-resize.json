@@ -1,0 +1,21 @@
+{
+  "id": "use-panel-resize",
+  "ledgerId": "usePanelResize",
+  "category": "hooks",
+  "title": "usePanelResize",
+  "oneLiner": "드래그로 패널 크기 조절.",
+  "tags": [
+    "hook",
+    "interaction",
+    "리사이즈"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

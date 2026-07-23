@@ -1,0 +1,22 @@
+{
+  "id": "form",
+  "ledgerId": "Form",
+  "category": "patterns",
+  "title": "Form",
+  "oneLiner": "값/오류/터치 상태를 한곳에서 관리하는 폼 컨테이너.",
+  "tags": [
+    "form"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Form } from \"@/ds/patterns/Form\";",
+      "code": "<Form values={values} onChange={setValues} errors={errors} onSubmit={handleSubmit}>\n  <FormField name=\"email\" label=\"이메일\" />\n</Form>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

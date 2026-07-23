@@ -1,0 +1,23 @@
+{
+  "id": "segmented-control",
+  "ledgerId": "SegmentedControl",
+  "category": "composites",
+  "title": "SegmentedControl",
+  "oneLiner": "세그먼티드 컨트롤 — iOS 스타일 버튼 그룹 탭 선택기",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SegmentedControl } from \"@/ds/composites/SegmentedControl\";",
+      "code": "<SegmentedControl\n  options={[{key:\"list\",label:\"목록\"},{key:\"grid\",label:\"그리드\"}]}\n  value={view}\n  onChange={setView}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

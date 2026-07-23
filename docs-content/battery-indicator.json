@@ -1,0 +1,22 @@
+{
+  "id": "battery-indicator",
+  "ledgerId": "BatteryIndicator",
+  "category": "primitives",
+  "title": "BatteryIndicator",
+  "oneLiner": "배터리 인디케이터",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { BatteryIndicator } from \"@/ds/primitives/BatteryIndicator\";",
+      "code": "<BatteryIndicator value={75} autoColor />\n<BatteryIndicator value={30} color=\"warning\" size=\"lg\" label=\"배터리\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

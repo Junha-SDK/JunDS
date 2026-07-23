@@ -1,0 +1,21 @@
+{
+  "id": "use-clipboard",
+  "ledgerId": "useClipboard",
+  "category": "hooks",
+  "title": "useClipboard",
+  "oneLiner": "클립보드 읽기·쓰기.",
+  "tags": [
+    "hook",
+    "clipboard",
+    "복사"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

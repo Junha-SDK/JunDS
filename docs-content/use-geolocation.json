@@ -1,0 +1,21 @@
+{
+  "id": "use-geolocation",
+  "ledgerId": "useGeolocation",
+  "category": "hooks",
+  "title": "useGeolocation",
+  "oneLiner": "위치 정보 구독.",
+  "tags": [
+    "hook",
+    "sensor",
+    "위치"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "pull-to-refresh",
+  "ledgerId": "PullToRefresh",
+  "category": "composites",
+  "title": "PullToRefresh",
+  "oneLiner": "아래로 당겨서 새로고침하는 인터랙션 래퍼.",
+  "tags": [
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { PullToRefresh } from \"@/ds/composites/PullToRefresh\";",
+      "code": "<PullToRefresh onRefresh={async () => await reload()}>\n  <List />\n</PullToRefresh>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

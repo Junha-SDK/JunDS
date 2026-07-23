@@ -1,0 +1,21 @@
+{
+  "id": "announcer-provider",
+  "ledgerId": "AnnouncerProvider",
+  "category": "primitives",
+  "title": "AnnouncerProvider",
+  "oneLiner": "aria-live 알림 리전 제공자 — 동적 메시지 낭독.",
+  "tags": [
+    "a11y",
+    "live-region",
+    "provider"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

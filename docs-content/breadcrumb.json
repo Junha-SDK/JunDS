@@ -1,0 +1,22 @@
+{
+  "id": "breadcrumb",
+  "ledgerId": "Breadcrumb",
+  "category": "composites",
+  "title": "Breadcrumb",
+  "oneLiner": "브레드크럼 네비게이션",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Breadcrumb } from \"@/ds/composites/Breadcrumb\";",
+      "code": "<Breadcrumb items={[{label:\"홈\",href:\"/\"},{label:\"프로젝트\",href:\"/projects\"},{label:\"설정\"}]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

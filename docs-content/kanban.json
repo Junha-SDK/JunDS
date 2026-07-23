@@ -1,0 +1,22 @@
+{
+  "id": "kanban",
+  "ledgerId": "Kanban",
+  "category": "patterns",
+  "title": "Kanban",
+  "oneLiner": "칸반 보드 (가벼운 버전 — 네이티브 드래그)",
+  "tags": [
+    "data"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Kanban } from \"@/ds/patterns/Kanban\";",
+      "code": "<Kanban\n  columns={[{id:\"todo\",title:\"할 일\",items:[...]},{id:\"doing\",title:\"진행 중\",items:[...]}]}\n  renderCard={(item) => <TaskCard task={item} />}\n  onMove={handleMove}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

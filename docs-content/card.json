@@ -1,0 +1,19 @@
+{
+  "id": "card",
+  "ledgerId": "Card",
+  "category": "composites",
+  "title": "Card",
+  "oneLiner": "Card 컴포넌트",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

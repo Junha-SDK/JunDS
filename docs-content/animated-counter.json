@@ -1,0 +1,22 @@
+{
+  "id": "animated-counter",
+  "ledgerId": "AnimatedCounter",
+  "category": "composites",
+  "title": "AnimatedCounter",
+  "oneLiner": "숫자가 부드럽게 증가/감소하며 표시되는 카운터.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { AnimatedCounter } from \"@/ds/composites/AnimatedCounter\";",
+      "code": "<AnimatedCounter value={1234} duration={1500} suffix=\"원\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

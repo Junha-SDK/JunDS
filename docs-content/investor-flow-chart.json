@@ -1,0 +1,21 @@
+{
+  "id": "investor-flow-chart",
+  "ledgerId": "InvestorFlowChart",
+  "category": "finance",
+  "title": "InvestorFlowChart",
+  "oneLiner": "투자자별 순매수 흐름 차트.",
+  "tags": [
+    "finance",
+    "chart",
+    "수급"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

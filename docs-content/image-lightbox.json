@@ -1,0 +1,23 @@
+{
+  "id": "image-lightbox",
+  "ledgerId": "ImageLightbox",
+  "category": "composites",
+  "title": "ImageLightbox",
+  "oneLiner": "이미지를 클릭해 확대 보기를 띄우는 라이트박스.",
+  "tags": [
+    "media",
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ImageLightbox } from \"@/ds/composites/ImageLightbox\";",
+      "code": "<ImageLightbox src=\"/photo.jpg\" alt=\"사진\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

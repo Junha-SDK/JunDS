@@ -1,0 +1,22 @@
+{
+  "id": "carousel",
+  "ledgerId": "Carousel",
+  "category": "composites",
+  "title": "Carousel",
+  "oneLiner": "캐러셀",
+  "tags": [
+    "media"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Carousel } from \"@/ds/composites/Carousel\";",
+      "code": "<Carousel showDots showArrows autoPlay interval={3000}>\n  <img src=\"/a.jpg\" /><img src=\"/b.jpg\" />\n</Carousel>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

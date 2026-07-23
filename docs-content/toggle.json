@@ -1,0 +1,23 @@
+{
+  "id": "toggle",
+  "ledgerId": "Toggle",
+  "category": "primitives",
+  "title": "Toggle",
+  "oneLiner": "토글 스위치",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Toggle } from \"@/ds/primitives/Toggle\";",
+      "code": "<Toggle checked={on} onChange={setOn} label=\"알림\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "book-cover",
+  "ledgerId": "BookCover",
+  "category": "composites",
+  "title": "BookCover",
+  "oneLiner": "책 표지 이미지 — 비율 고정·폴백.",
+  "tags": [
+    "book",
+    "독서",
+    "표지"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "avatar",
+  "ledgerId": "Avatar",
+  "category": "primitives",
+  "title": "Avatar",
+  "oneLiner": "아바타 컴포넌트",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Avatar } from \"@/ds/primitives/Avatar\";",
+      "code": "<Avatar name=\"김준하\" size=\"md\" status=\"online\" />\n<Avatar src=\"/photo.jpg\" size=\"lg\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

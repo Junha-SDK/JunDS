@@ -1,0 +1,22 @@
+{
+  "id": "kbd",
+  "ledgerId": "Kbd",
+  "category": "primitives",
+  "title": "Kbd",
+  "oneLiner": "키보드 단축키 표시",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Kbd } from \"@/ds/primitives/Kbd\";",
+      "code": "<Kbd keys={[\"⌘\", \"K\"]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

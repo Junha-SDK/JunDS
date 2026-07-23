@@ -1,0 +1,22 @@
+{
+  "id": "image-cropper",
+  "ledgerId": "ImageCropper",
+  "category": "composites",
+  "title": "ImageCropper",
+  "oneLiner": "이미지를 잘라내는 크로퍼.",
+  "tags": [
+    "media"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ImageCropper } from \"@/ds/composites/ImageCropper\";",
+      "code": "<ImageCropper src={imageUrl} aspectRatio={1} onCrop={setCropped} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,93 @@
+{
+  "id": "text",
+  "ledgerId": "Text",
+  "category": "core",
+  "title": "Text",
+  "oneLiner": "본문 텍스트 — as로 시맨틱 교체(p·span·label 등 7종), truncate·lineClamp·mono·dimmed.",
+  "tags": [
+    "typography",
+    "text",
+    "본문"
+  ],
+  "controls": [
+    {
+      "prop": "as",
+      "kind": "select",
+      "options": [
+        "p",
+        "span",
+        "div",
+        "label",
+        "strong",
+        "em",
+        "small"
+      ],
+      "default": "p"
+    },
+    {
+      "prop": "fontSize",
+      "kind": "select",
+      "options": [
+        "2xs",
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl"
+      ],
+      "default": "md"
+    },
+    {
+      "prop": "dimmed",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "truncate",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "lineClamp",
+      "kind": "number",
+      "min": 0,
+      "max": 6,
+      "step": 1,
+      "default": 0
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-text as=\"{as}\" font-size=\"{fontSize}\">본문 텍스트</jd-text>\n<jd-text as=\"span\" dimmed>보조 설명 (dimmed가 color 프롭보다 우선)</jd-text>\n<jd-text line-clamp=\"2\">두 줄에서 잘리는 긴 문단…</jd-text>\n<jd-text mono>console.log(\"mono\")</jd-text>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-color-muted",
+      "usage": "dimmed 색"
+    },
+    {
+      "token": "--jd-font-mono",
+      "usage": "mono 폰트 스택"
+    },
+    {
+      "token": "(리터럴)",
+      "usage": "fontSize는 v2 어휘 리터럴(md=1rem — 토큰 --jd-text-md와 값 상충, DEC-014-1)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "as로 실제 요소(p·label·strong…)를 렌더 — label은 for 연결 등 네이티브 의미 그대로"
+    },
+    {
+      "item": "lineClamp",
+      "note": "-webkit-box 3종 세트로 잘림 — 전체 내용은 DOM에 남아 스크린리더가 읽음"
+    }
+  ]
+}

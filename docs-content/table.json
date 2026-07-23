@@ -1,0 +1,22 @@
+{
+  "id": "table",
+  "ledgerId": "Table",
+  "category": "composites",
+  "title": "Table",
+  "oneLiner": "컬럼 정의 + 데이터 행으로 구성된 기본 테이블.",
+  "tags": [
+    "data"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Table } from \"@/ds/composites/Table\";",
+      "code": "<Table columns={columns} data={rows} striped hoverable />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

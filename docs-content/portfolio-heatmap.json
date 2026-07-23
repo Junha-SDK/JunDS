@@ -1,0 +1,21 @@
+{
+  "id": "portfolio-heatmap",
+  "ledgerId": "PortfolioHeatmap",
+  "category": "finance",
+  "title": "PortfolioHeatmap",
+  "oneLiner": "포트폴리오 히트맵 — 보유 비중·손익.",
+  "tags": [
+    "finance",
+    "포트폴리오",
+    "히트맵"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

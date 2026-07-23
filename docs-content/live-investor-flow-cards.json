@@ -1,0 +1,21 @@
+{
+  "id": "live-investor-flow-cards",
+  "ledgerId": "LiveInvestorFlowCards",
+  "category": "finance",
+  "title": "LiveInvestorFlowCards",
+  "oneLiner": "실시간 투자자 수급 카드 묶음.",
+  "tags": [
+    "finance",
+    "live",
+    "수급"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

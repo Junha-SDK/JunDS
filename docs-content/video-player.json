@@ -1,0 +1,22 @@
+{
+  "id": "video-player",
+  "ledgerId": "VideoPlayer",
+  "category": "composites",
+  "title": "VideoPlayer",
+  "oneLiner": "컨트롤이 포함된 비디오 플레이어.",
+  "tags": [
+    "media"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { VideoPlayer } from \"@/ds/composites/VideoPlayer\";",
+      "code": "<VideoPlayer src=\"/video.mp4\" poster=\"/cover.jpg\" autoPlay muted />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

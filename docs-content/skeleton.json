@@ -1,0 +1,22 @@
+{
+  "id": "skeleton",
+  "ledgerId": "Skeleton",
+  "category": "composites",
+  "title": "Skeleton",
+  "oneLiner": "스켈레톤 로딩",
+  "tags": [
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Skeleton } from \"@/ds/composites/Skeleton\";",
+      "code": "<Skeleton variant=\"text\" lines={3} />\n<Skeleton variant=\"circle\" width={40} height={40} />\n<Skeleton variant=\"rect\" width=\"100%\" height={200} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

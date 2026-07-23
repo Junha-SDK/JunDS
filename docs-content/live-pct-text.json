@@ -1,0 +1,21 @@
+{
+  "id": "live-pct-text",
+  "ledgerId": "LivePctText",
+  "category": "finance",
+  "title": "LivePctText",
+  "oneLiner": "실시간 등락률 텍스트 셀.",
+  "tags": [
+    "finance",
+    "live",
+    "등락률"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

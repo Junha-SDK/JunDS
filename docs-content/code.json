@@ -1,0 +1,20 @@
+{
+  "id": "code",
+  "ledgerId": "Code",
+  "category": "primitives",
+  "title": "Code",
+  "oneLiner": "인라인 코드 표기.",
+  "tags": [
+    "typography",
+    "code"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

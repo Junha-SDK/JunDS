@@ -1,0 +1,22 @@
+{
+  "id": "severity-badge",
+  "ledgerId": "SeverityBadge",
+  "category": "primitives",
+  "title": "SeverityBadge",
+  "oneLiner": "심각도 뱃지",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SeverityBadge } from \"@/ds/primitives/SeverityBadge\";",
+      "code": "<SeverityBadge severity=\"ok\">정상</SeverityBadge>\n<SeverityBadge severity=\"danger\" dot>오류</SeverityBadge>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

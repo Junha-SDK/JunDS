@@ -1,0 +1,22 @@
+{
+  "id": "virtual-scroll",
+  "ledgerId": "VirtualScroll",
+  "category": "composites",
+  "title": "VirtualScroll",
+  "oneLiner": "대량 리스트를 가상화로 렌더링하는 스크롤러.",
+  "tags": [
+    "data"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { VirtualScroll } from \"@/ds/composites/VirtualScroll\";",
+      "code": "<VirtualScroll\n  items={items}\n  itemHeight={48}\n  renderItem={(item) => <Row item={item} />}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

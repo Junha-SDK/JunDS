@@ -1,0 +1,21 @@
+{
+  "id": "profile-header",
+  "ledgerId": "ProfileHeader",
+  "category": "composites",
+  "title": "ProfileHeader",
+  "oneLiner": "프로필 상단 헤더 — 아바타·통계·액션.",
+  "tags": [
+    "social",
+    "프로필",
+    "헤더"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

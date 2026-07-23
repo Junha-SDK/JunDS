@@ -1,0 +1,22 @@
+{
+  "id": "banner",
+  "ledgerId": "Banner",
+  "category": "composites",
+  "title": "Banner",
+  "oneLiner": "배너 알림 컴포넌트",
+  "tags": [
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Banner } from \"@/ds/composites/Banner\";",
+      "code": "<Banner variant=\"info\" dismissible>중요한 공지사항입니다.</Banner>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

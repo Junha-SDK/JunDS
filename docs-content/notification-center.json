@@ -1,0 +1,22 @@
+{
+  "id": "notification-center",
+  "ledgerId": "NotificationCenter",
+  "category": "patterns",
+  "title": "NotificationCenter",
+  "oneLiner": "알림 센터 (벨 아이콘 + 드롭다운)",
+  "tags": [
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { NotificationCenter } from \"@/ds/patterns/NotificationCenter\";",
+      "code": "<NotificationCenter notifications={[{id:\"1\",title:\"새 업무\",time:\"방금\"}]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

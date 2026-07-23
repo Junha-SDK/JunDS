@@ -1,0 +1,21 @@
+{
+  "id": "use-window-scroll",
+  "ledgerId": "useWindowScroll",
+  "category": "hooks",
+  "title": "useWindowScroll",
+  "oneLiner": "윈도 스크롤 위치 추적.",
+  "tags": [
+    "hook",
+    "스크롤",
+    "윈도"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "scatter-plot",
+  "ledgerId": "ScatterPlot",
+  "category": "composites",
+  "title": "ScatterPlot",
+  "oneLiner": "산점도 차트.",
+  "tags": [
+    "chart",
+    "차트",
+    "산점도"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

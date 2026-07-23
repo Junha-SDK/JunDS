@@ -1,0 +1,23 @@
+{
+  "id": "signature-pad",
+  "ledgerId": "SignaturePad",
+  "category": "composites",
+  "title": "SignaturePad",
+  "oneLiner": "마우스/터치로 서명을 그리는 패드.",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SignaturePad } from \"@/ds/composites/SignaturePad\";",
+      "code": "<SignaturePad onSave={(dataUrl) => upload(dataUrl)} width={400} height={200} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

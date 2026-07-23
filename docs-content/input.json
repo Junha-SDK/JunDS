@@ -1,0 +1,124 @@
+{
+  "id": "input",
+  "ledgerId": "Input",
+  "category": "primitives",
+  "title": "Input",
+  "oneLiner": "텍스트 입력 — v3 웹은 jd-text-field로 v2 Input+FormField 통합(label·error 내장, 네이티브 input 위임).",
+  "tags": [
+    "form",
+    "control",
+    "input",
+    "text-field"
+  ],
+  "controls": [
+    {
+      "prop": "label",
+      "kind": "text",
+      "default": "이메일"
+    },
+    {
+      "prop": "placeholder",
+      "kind": "text",
+      "default": "you@example.com"
+    },
+    {
+      "prop": "size",
+      "kind": "segmented",
+      "options": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    },
+    {
+      "prop": "error",
+      "kind": "text",
+      "default": ""
+    },
+    {
+      "prop": "disabled",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "required",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-text-field label=\"{label}\" placeholder=\"{placeholder}\" size=\"{size}\"\n               name=\"email\" error=\"{error}\"></jd-text-field>\n\n<script>\n  const field = document.querySelector(\"jd-text-field\");\n  field.addEventListener(\"jd-input\",  (e) => console.log(e.detail.value)); // 실시간\n  field.addEventListener(\"jd-change\", (e) => console.log(e.detail.value)); // 확정\n  field.error = \"형식이 올바르지 않습니다\"; // 빈 문자열이 아니면 에러 상태\n</script>"
+    },
+    "swiftui": {
+      "imp": "import JunDS",
+      "code": "@State private var email = \"\"\n\nJdTextField(\"이메일\", placeholder: \"you@example.com\", text: $email)\n\n// 에러 메시지가 곧 상태 — 빈 값이 아니면 에러 표시\nJdTextField(\"이메일\", text: $email,\n            error: email.contains(\"@\") ? nil : \"형식이 올바르지 않습니다\",\n            onCommit: { submit() })"
+    },
+    "uikit": {
+      "imp": "import JunDS",
+      "code": "let field = JdTextFieldView(label: \"이메일\", placeholder: \"you@example.com\")\nfield.onTextChange = { text in print(text) }   // 실시간\nfield.onCommit = { text in submit(text) }      // 편집 종료\nfield.error = \"형식이 올바르지 않습니다\"          // nil·빈 값이면 해제\nview.addSubview(field)"
+    },
+    "react": {
+      "imp": "import { Input } from \"@/ds/primitives/Input\";",
+      "code": "// 에러 상태\n<Input error placeholder=\"필수 입력\" />"
+    }
+  },
+  "tokens": [
+    {
+      "token": "--jd-color-card",
+      "usage": "입력 배경"
+    },
+    {
+      "token": "--jd-color-border",
+      "usage": "기본 테두리 (포커스: --jd-color-primary, 에러: --jd-color-danger)"
+    },
+    {
+      "token": "--jd-shadow-focus-ring",
+      "usage": "포커스 링 (에러 시 --jd-shadow-focus-ring-danger)"
+    },
+    {
+      "token": "--jd-color-muted-light",
+      "usage": "placeholder 색"
+    },
+    {
+      "token": "--jd-radius-lg / --jd-radius-xl",
+      "usage": "size별 모서리"
+    },
+    {
+      "token": "--jd-space-3 ~ --jd-space-4",
+      "usage": "size별 가로 패딩"
+    },
+    {
+      "token": "--jd-text-xs ~ --jd-text-lg",
+      "usage": "size별 폰트 크기 (라벨 md·에러 xs)"
+    },
+    {
+      "token": "--jd-weight-medium",
+      "usage": "라벨 굵기"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "label 연결",
+      "note": "label[for] ↔ input[id] 자동 연결(jd-uid) — 라벨 클릭 포커스·스크린리더 명명"
+    },
+    {
+      "item": "에러 연결",
+      "note": "error 설정 시 aria-invalid=true + aria-describedby로 메시지 연결, 해제 시 제거"
+    },
+    {
+      "item": "네이티브 위임",
+      "note": "내부 실제 <input name> — 조상 form 직렬화·:invalid·자동완성·IME가 브라우저 기본"
+    },
+    {
+      "item": "IME 안전",
+      "note": "값이 실제로 다를 때만 재대입 — 한글 조합 중 끊김 없음 (iOS도 동일 계약)"
+    },
+    {
+      "item": "iOS 에러 낭독",
+      "note": "error 변경 시 UIAccessibility announcement + accessibilityHint 연결"
+    }
+  ]
+}

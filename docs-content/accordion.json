@@ -1,0 +1,22 @@
+{
+  "id": "accordion",
+  "ledgerId": "Accordion",
+  "category": "composites",
+  "title": "Accordion",
+  "oneLiner": "아코디언",
+  "tags": [
+    "disclosure"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Accordion } from \"@/ds/composites/Accordion\";",
+      "code": "<Accordion items={[{key:\"1\",title:\"FAQ\",content:<p>답변</p>}]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

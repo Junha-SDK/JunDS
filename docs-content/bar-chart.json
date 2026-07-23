@@ -1,0 +1,21 @@
+{
+  "id": "bar-chart",
+  "ledgerId": "BarChart",
+  "category": "composites",
+  "title": "BarChart",
+  "oneLiner": "막대 차트.",
+  "tags": [
+    "chart",
+    "차트",
+    "막대"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

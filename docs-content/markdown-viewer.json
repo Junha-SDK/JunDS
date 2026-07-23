@@ -1,0 +1,22 @@
+{
+  "id": "markdown-viewer",
+  "ledgerId": "MarkdownViewer",
+  "category": "composites",
+  "title": "MarkdownViewer",
+  "oneLiner": "마크다운 텍스트를 HTML로 렌더링합니다.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { MarkdownViewer } from \"@/ds/composites/MarkdownViewer\";",
+      "code": "<MarkdownViewer content=\"# 제목\\n\\n본문 내용\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

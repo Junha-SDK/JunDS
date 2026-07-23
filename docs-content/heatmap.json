@@ -1,0 +1,22 @@
+{
+  "id": "heatmap",
+  "ledgerId": "Heatmap",
+  "category": "composites",
+  "title": "Heatmap",
+  "oneLiner": "2차원 데이터를 색 강도로 표현하는 히트맵.",
+  "tags": [
+    "chart"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Heatmap } from \"@/ds/composites/Heatmap\";",
+      "code": "<Heatmap data={matrix} colorScale=\"blue\" cellSize={12} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "form-wizard",
+  "ledgerId": "FormWizard",
+  "category": "patterns",
+  "title": "FormWizard",
+  "oneLiner": "단계별 폼 마법사(스텝 폼).",
+  "tags": [
+    "form",
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FormWizard } from \"@/ds/patterns/FormWizard\";",
+      "code": "<FormWizard steps={steps} onComplete={(values) => submit(values)} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

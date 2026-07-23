@@ -1,0 +1,22 @@
+{
+  "id": "starfield",
+  "ledgerId": "Starfield",
+  "category": "patterns",
+  "title": "Starfield",
+  "oneLiner": "별이 흐르는 우주 배경 애니메이션.",
+  "tags": [
+    "misc"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Starfield } from \"@/ds/patterns/Starfield\";",
+      "code": "<Starfield starCount={200} shootingStarInterval={3000} backgroundColor=\"#000\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

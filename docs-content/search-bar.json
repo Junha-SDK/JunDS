@@ -1,0 +1,21 @@
+{
+  "id": "search-bar",
+  "ledgerId": "SearchBar",
+  "category": "composites",
+  "title": "SearchBar",
+  "oneLiner": "검색 바 — 단축키·제안 지원.",
+  "tags": [
+    "form",
+    "검색",
+    "입력"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

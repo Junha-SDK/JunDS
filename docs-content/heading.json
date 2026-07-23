@@ -1,0 +1,56 @@
+{
+  "id": "heading",
+  "ledgerId": "Heading",
+  "category": "core",
+  "title": "Heading",
+  "oneLiner": "레벨 기반 제목 — 내부에 실제 h1~h6을 렌더해 문서 아웃라인 유지, level 변경 시 태그 교체.",
+  "tags": [
+    "typography",
+    "heading",
+    "제목"
+  ],
+  "controls": [
+    {
+      "prop": "level",
+      "kind": "number",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "prop": "truncate",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-heading level=\"{level}\">분기 실적 요약</jd-heading>\n\n<!-- 스타일 프롭 병용 — 타이포 기본값은 레벨별 CSS, 인라인이 이긴다 -->\n<jd-heading level=\"3\" color=\"muted\" font-weight=\"medium\">보조 제목</jd-heading>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-leading-tight",
+      "usage": "제목 행간"
+    },
+    {
+      "token": "--jd-weight-bold / --jd-weight-semibold",
+      "usage": "레벨별 굵기"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "아웃라인",
+      "note": "내부 실제 h1~h6 — 헤딩 점프 탐색·문서 구조가 그대로 성립"
+    },
+    {
+      "item": "level 교체",
+      "note": "children·참조를 보존한 채 태그만 교체 (범위 밖 값은 1~6로 클램프)"
+    }
+  ]
+}

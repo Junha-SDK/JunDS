@@ -1,0 +1,21 @@
+{
+  "id": "global-kis-seeder",
+  "ledgerId": "GlobalKisSeeder",
+  "category": "finance",
+  "title": "GlobalKisSeeder",
+  "oneLiner": "앱 부팅 시 KIS 시세 캐시를 채우는 전역 시더.",
+  "tags": [
+    "finance",
+    "live",
+    "인프라"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "login-form",
+  "ledgerId": "LoginForm",
+  "category": "patterns",
+  "title": "LoginForm",
+  "oneLiner": "보안 로그인/회원가입 폼",
+  "tags": [
+    "form"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { LoginForm } from \"@/ds/patterns/LoginForm\";",
+      "code": "<LoginForm onSubmit={handleLogin} title=\"로그인\" forgotHref=\"/forgot\" />\n<LoginForm onSubmit={handleRegister} title=\"회원가입\" showPasswordStrength showConfirmPassword />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

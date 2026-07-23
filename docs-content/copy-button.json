@@ -1,0 +1,23 @@
+{
+  "id": "copy-button",
+  "ledgerId": "CopyButton",
+  "category": "primitives",
+  "title": "CopyButton",
+  "oneLiner": "클립보드 복사 버튼",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { CopyButton } from \"@/ds/primitives/CopyButton\";",
+      "code": "<CopyButton text=\"복사할 텍스트\" />\n<CopyButton text={code} variant=\"button\" label=\"코드 복사\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

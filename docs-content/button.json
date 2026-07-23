@@ -1,0 +1,127 @@
+{
+  "id": "button",
+  "ledgerId": "Button",
+  "category": "primitives",
+  "title": "Button",
+  "oneLiner": "범용 버튼 — variant 6종·size 4종, 로딩·비활성 상태 내장. 내부 네이티브 button 위임.",
+  "tags": [
+    "form",
+    "control",
+    "button"
+  ],
+  "controls": [
+    {
+      "prop": "variant",
+      "kind": "select",
+      "options": [
+        "primary",
+        "secondary",
+        "danger",
+        "ghost",
+        "outline",
+        "link"
+      ],
+      "default": "primary"
+    },
+    {
+      "prop": "size",
+      "kind": "segmented",
+      "options": [
+        "xs",
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    },
+    {
+      "prop": "loading",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "disabled",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "fullWidth",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-button variant=\"{variant}\" size=\"{size}\">저장</jd-button>\n<jd-button loading>저장 중…</jd-button>\n<jd-button disabled>비활성</jd-button>\n\n<script>\n  // 내부 <button>의 click이 그대로 버블 — 전용 이벤트 없음\n  document.querySelector(\"jd-button\").addEventListener(\"click\", save);\n</script>"
+    },
+    "swiftui": {
+      "imp": "import JunDS",
+      "code": "JdButton(\"저장\") { save() }\n\n// variant 4종(primary·secondary·ghost·danger) · size 3종(sm·md·lg)\nJdButton(\"삭제\", variant: .danger, size: .lg) { remove() }\nJdButton(\"저장 중…\", loading: true) {}"
+    },
+    "uikit": {
+      "imp": "import JunDS",
+      "code": "let button = JdButtonView(title: \"저장\", variant: .primary, size: .md)\nbutton.onTap = { save() }\nview.addSubview(button)\n\nbutton.isLoading = true   // 스피너 표시 + 입력 차단\nbutton.isEnabled = false  // 비활성"
+    },
+    "react": {
+      "imp": "import { Button } from \"@/ds/primitives/Button\";",
+      "code": "<Button variant=\"primary\" size=\"md\">저장</Button>\n<Button variant=\"danger\" loading>삭제 중...</Button>"
+    }
+  },
+  "tokens": [
+    {
+      "token": "--jd-color-primary",
+      "usage": "primary 배경 (hover: --jd-color-primary-hover)"
+    },
+    {
+      "token": "--jd-color-primary-glow",
+      "usage": "포커스 링 색"
+    },
+    {
+      "token": "--jd-color-card / --jd-color-border",
+      "usage": "secondary·outline 배경·테두리"
+    },
+    {
+      "token": "--jd-color-danger",
+      "usage": "danger 배경"
+    },
+    {
+      "token": "--jd-radius-lg / --jd-radius-xl",
+      "usage": "size별 모서리 (xs·sm → lg, md·lg → xl)"
+    },
+    {
+      "token": "--jd-space-1-5 ~ --jd-space-6",
+      "usage": "size별 패딩 램프"
+    },
+    {
+      "token": "--jd-text-xs ~ --jd-text-lg",
+      "usage": "size별 폰트 크기"
+    },
+    {
+      "token": "--jd-weight-semibold",
+      "usage": "라벨 굵기"
+    },
+    {
+      "token": "--jd-duration-normal / --jd-easing-ease-out",
+      "usage": "상태 전환 모션"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "네이티브 위임",
+      "note": "내부 실제 <button> 렌더 — Space·Enter 활성, 폼 제출(type=submit), disabled 시 click 미발행이 브라우저 기본으로 동작"
+    },
+    {
+      "item": "loading",
+      "note": "aria-busy=true + disabled 처리. iOS는 accessibilityValue \"로딩 중\" + 입력 차단"
+    },
+    {
+      "item": "포커스 링",
+      "note": ":focus-visible에만 표시 (danger는 전용 링 색)"
+    },
+    {
+      "item": "iOS 터치 타깃",
+      "note": "minHeight 32/40/48 (sm/md/lg) — 웹 28~48의 터치 보정, 고정 height 없이 Dynamic Type에서 성장"
+    }
+  ]
+}

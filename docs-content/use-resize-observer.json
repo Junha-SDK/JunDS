@@ -1,0 +1,21 @@
+{
+  "id": "use-resize-observer",
+  "ledgerId": "useResizeObserver",
+  "category": "hooks",
+  "title": "useResizeObserver",
+  "oneLiner": "요소 크기 변화 관찰. useElementSize와 통합 후보.",
+  "tags": [
+    "hook",
+    "측정",
+    "resize"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

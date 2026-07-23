@@ -1,0 +1,52 @@
+{
+  "id": "page",
+  "ledgerId": "Page",
+  "category": "core",
+  "title": "Page",
+  "oneLiner": "페이지 셸 컴파운드(jd-page·jd-page-header·jd-page-body) — 중앙 정렬·max-width 프리셋·브레드크럼/액션 슬롯.",
+  "tags": [
+    "layout",
+    "page",
+    "shell"
+  ],
+  "controls": [
+    {
+      "prop": "maxWidth",
+      "kind": "select",
+      "options": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "full"
+      ],
+      "default": "xl"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-page max-width=\"{maxWidth}\">\n  <jd-page-header title=\"대시보드\" description=\"오늘의 요약\">\n    <a slot=\"breadcrumb\" href=\"/\">홈</a>\n    <jd-button size=\"sm\">새로 만들기</jd-button>  <!-- 나머지 children = actions -->\n  </jd-page-header>\n  <jd-page-body>\n    <jd-section title=\"현황\">…</jd-section>\n  </jd-page-body>\n</jd-page>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-4 → --jd-space-6",
+      "usage": "기본 패딩 16px → md 24px (정적 @media — DEC-014-4)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "제목",
+      "note": "jd-page-header title은 실제 h1로 렌더 — 페이지당 1회 사용"
+    },
+    {
+      "item": "슬롯 규약",
+      "note": "slot=breadcrumb children은 브레드크럼 행, 나머지는 actions 영역 (shadow 없는 light DOM 슬롯)"
+    }
+  ]
+}

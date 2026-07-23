@@ -1,0 +1,22 @@
+{
+  "id": "trust-indicator",
+  "ledgerId": "TrustIndicator",
+  "category": "composites",
+  "title": "TrustIndicator",
+  "oneLiner": "보안 신뢰 지표 — 보안 항목별 통과/실패 상태 표시",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { TrustIndicator } from \"@/ds/composites/TrustIndicator\";",
+      "code": "<TrustIndicator title=\"보안 점검\" items={[\n  { key:\"ssl\", label:\"SSL 인증서\", status:\"pass\" },\n  { key:\"2fa\", label:\"2단계 인증\", status:\"fail\", description:\"설정이 필요합니다\" },\n]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

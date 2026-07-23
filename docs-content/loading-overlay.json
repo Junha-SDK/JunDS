@@ -1,0 +1,23 @@
+{
+  "id": "loading-overlay",
+  "ledgerId": "LoadingOverlay",
+  "category": "composites",
+  "title": "LoadingOverlay",
+  "oneLiner": "로딩 중 자식 영역 위에 덮이는 오버레이.",
+  "tags": [
+    "feedback",
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { LoadingOverlay } from \"@/ds/composites/LoadingOverlay\";",
+      "code": "<LoadingOverlay active={loading} label=\"불러오는 중...\">\n  <Content />\n</LoadingOverlay>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "file-upload",
+  "ledgerId": "FileUpload",
+  "category": "primitives",
+  "title": "FileUpload",
+  "oneLiner": "파일 업로드 (드래그 앤 드롭 + 클릭)",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FileUpload } from \"@/ds/primitives/FileUpload\";",
+      "code": "<FileUpload onFiles={handleFiles} accept=\"image/*\" multiple maxSize={5*1024*1024} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

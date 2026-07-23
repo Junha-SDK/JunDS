@@ -1,0 +1,21 @@
+{
+  "id": "auth-layout",
+  "ledgerId": "AuthLayout",
+  "category": "patterns",
+  "title": "AuthLayout",
+  "oneLiner": "로그인·가입 페이지 레이아웃 템플릿.",
+  "tags": [
+    "template",
+    "auth",
+    "레이아웃"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

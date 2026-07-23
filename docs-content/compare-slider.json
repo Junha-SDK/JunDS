@@ -1,0 +1,22 @@
+{
+  "id": "compare-slider",
+  "ledgerId": "CompareSlider",
+  "category": "composites",
+  "title": "CompareSlider",
+  "oneLiner": "두 이미지를 좌/우로 비교하는 슬라이더.",
+  "tags": [
+    "media"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { CompareSlider } from \"@/ds/composites/CompareSlider\";",
+      "code": "<CompareSlider before=\"/before.jpg\" after=\"/after.jpg\" beforeLabel=\"이전\" afterLabel=\"이후\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

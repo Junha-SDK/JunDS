@@ -1,0 +1,21 @@
+{
+  "id": "reading-progress",
+  "ledgerId": "ReadingProgress",
+  "category": "composites",
+  "title": "ReadingProgress",
+  "oneLiner": "독서 진행률 표시.",
+  "tags": [
+    "book",
+    "독서",
+    "진행률"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

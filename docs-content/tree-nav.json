@@ -1,0 +1,19 @@
+{
+  "id": "tree-nav",
+  "ledgerId": "TreeNav",
+  "category": "composites",
+  "title": "TreeNav",
+  "oneLiner": "트리 네비게이션 컴포넌트",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

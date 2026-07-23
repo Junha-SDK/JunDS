@@ -1,0 +1,21 @@
+{
+  "id": "use-breakpoint",
+  "ledgerId": "useBreakpoint",
+  "category": "hooks",
+  "title": "useBreakpoint",
+  "oneLiner": "현재 브레이크포인트 감지.",
+  "tags": [
+    "hook",
+    "반응형",
+    "breakpoint"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

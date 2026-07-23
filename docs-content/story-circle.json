@@ -1,0 +1,21 @@
+{
+  "id": "story-circle",
+  "ledgerId": "StoryCircle",
+  "category": "composites",
+  "title": "StoryCircle",
+  "oneLiner": "스토리 링 아바타.",
+  "tags": [
+    "social",
+    "스토리",
+    "아바타"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

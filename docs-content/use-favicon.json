@@ -1,0 +1,21 @@
+{
+  "id": "use-favicon",
+  "ledgerId": "useFavicon",
+  "category": "hooks",
+  "title": "useFavicon",
+  "oneLiner": "파비콘 교체 — 웹 전용.",
+  "tags": [
+    "hook",
+    "document",
+    "파비콘"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

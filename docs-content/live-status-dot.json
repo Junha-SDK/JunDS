@@ -1,0 +1,21 @@
+{
+  "id": "live-status-dot",
+  "ledgerId": "LiveStatusDot",
+  "category": "finance",
+  "title": "LiveStatusDot",
+  "oneLiner": "실시간 연결 상태 점.",
+  "tags": [
+    "finance",
+    "live",
+    "상태"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

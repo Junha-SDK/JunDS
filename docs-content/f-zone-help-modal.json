@@ -1,0 +1,21 @@
+{
+  "id": "f-zone-help-modal",
+  "ledgerId": "FZoneHelpModal",
+  "category": "finance",
+  "title": "FZoneHelpModal",
+  "oneLiner": "F존 설명 모달 — 탭 구성.",
+  "tags": [
+    "finance",
+    "전략",
+    "도움말"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

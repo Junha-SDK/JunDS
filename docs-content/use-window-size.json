@@ -1,0 +1,21 @@
+{
+  "id": "use-window-size",
+  "ledgerId": "useWindowSize",
+  "category": "hooks",
+  "title": "useWindowSize",
+  "oneLiner": "윈도 크기 추적.",
+  "tags": [
+    "hook",
+    "측정",
+    "윈도"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

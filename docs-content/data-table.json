@@ -1,0 +1,22 @@
+{
+  "id": "data-table",
+  "ledgerId": "DataTable",
+  "category": "patterns",
+  "title": "DataTable",
+  "oneLiner": "고급 데이터 테이블",
+  "tags": [
+    "data"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DataTable } from \"@/ds/patterns/DataTable\";",
+      "code": "<DataTable columns={columns} data={rows} rowKey=\"id\" selectable pageSize={20} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "scroll-spy",
+  "ledgerId": "ScrollSpy",
+  "category": "composites",
+  "title": "ScrollSpy",
+  "oneLiner": "스크롤 위치 기반 네비게이션 인디케이터",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ScrollSpy } from \"@/ds/composites/ScrollSpy\";",
+      "code": "<ScrollSpy sections={[{ key: \"intro\", label: \"소개\", targetId: \"section-intro\" }]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

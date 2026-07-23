@@ -1,0 +1,21 @@
+{
+  "id": "disclosure-tone-badge",
+  "ledgerId": "DisclosureToneBadge",
+  "category": "finance",
+  "title": "DisclosureToneBadge",
+  "oneLiner": "공시 톤(호재·악재) 배지.",
+  "tags": [
+    "finance",
+    "공시",
+    "배지"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

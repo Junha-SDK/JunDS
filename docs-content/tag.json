@@ -1,0 +1,22 @@
+{
+  "id": "tag",
+  "ledgerId": "Tag",
+  "category": "primitives",
+  "title": "Tag",
+  "oneLiner": "태그/칩",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Tag } from \"@/ds/primitives/Tag\";",
+      "code": "<Tag color=\"blue\">프론트엔드</Tag>\n<Tag color=\"red\" closable onClose={handleRemove}>긴급</Tag>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

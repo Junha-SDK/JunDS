@@ -4,6 +4,45 @@
 
 ---
 
+## 2026-07-24 — 문서 콘텐츠 1차 물결 (docs-content/ 신설 — 골격 445 + done 28 충전)
+
+### DEC-021. 문서 콘텐츠 데이터 계약·판단 7건
+(번호 주: 020은 병행 트랙 2건(웹 e2e·아이콘)이 이중 선점한 상태 — 본 트랙은 021로 비켜 부여.)
+1. **파일 = 정본, 상태 비보존**: `docs-content/<id>.json` 445건(컴포넌트당 1파일)이 수기
+   정본이다. 시딩은 1회(ledger + COMPONENTS.md + 실물 소스 파생)로 끝났고 재생성기는 두지
+   않는다 — 이후 갱신은 파일 직접 편집. web/ios **상태는 파일에 저장하지 않는다**(ledger가
+   유일 정본, `build-index.mjs`가 검증 후 조인해 index.json으로 방출, 실패 = 빌드 실패).
+   ledger의 docs 필드 갱신은 레지스트리 소유 트랙 몫으로 미접촉.
+2. **문서 id 규약(06 §1.1 `?c=` 값)**: ledger id의 kebab 기계 변환 + 예외 2건
+   (HStack→`hstack`, VStack→`vstack` — 웹 태그 실물 정합), 동명이인은 후행 행에 카테고리
+   접두(finance AreaChart→`finance-area-chart`). 조인 키는 (ledgerId, category) —
+   category는 중복 저장이지만 검증기가 ledger 불일치를 빌드 실패로 잡아 드리프트를 차단.
+3. **스니펫 게이트(검증 강제)**: 플랫폼 스니펫은 ledger가 done*일 때만 비-null(미구현
+   스니펫 = 추측 = 실패). 실물 대조 — web `<jd-*>` 태그·`@junds/web/*` 서브패스는
+   packages/web(element.ts tag 선언·package.json exports), iOS `Jd*`/`jd*` 식별자는
+   packages/ios/Sources 선언, react import 명은 ds/ 배럴 export와 대조한다.
+4. **컨트롤 연동 템플릿 토큰은 web 한정**: `{prop}` 토큰(06 §2.3 치환 계약)은 web 스니펫의
+   비-boolean 컨트롤만 쓴다. iOS 스니펫은 정적 — 표면 축이 웹과 다른데(DEC-013-4: variant
+   4종·size 3종) 공유 토큰을 주입하면 무효 Swift가 된다. boolean attribute는 존재=값이라
+   문자열 치환 대상이 아니다.
+5. **v2 자산 이관 범위**: react 참고 스니펫은 이 레포 COMPONENTS.md Example 169건 기계
+   이관(전 Example). 문서명=모듈 파일명 드리프트 2건은 Import 줄만 실제 export 명으로 보정
+   (Calendar→DsCalendar, Sidebar→DsSidebar — 복붙 동작 > 원문 보존). md "Sidebar"(patterns
+   문서)가 동명 finance Sidebar 행에 오귀속되는 함정은 카테고리 대조로 차단. MySelf
+   junds-usage.data.ts의 갭 저작 키(~42)는 본 트랙 접근 범위 밖 — 문서 트랙 sync 시
+   react:null 골격에 병합할 것.
+6. **CoreProvider(web done(내부화)) 문서**: CE가 없으므로 web 스니펫은 CSS 토큰 오버라이드
+   + `data-jd-theme` 소비자 표면(DEC-014-6)으로 저작. LayoutDivider(별칭, 신규 태그 없음)도
+   동형 — `<jd-divider>` 사용법으로 저작.
+7. **검증 실측**: build-index 통과(445건) + 웹 스니펫 28종 전부를 dist 실빌드에 복붙한
+   스모크 페이지 브라우저 실측 — 콘솔 에러 0, 28 태그 전원 업그레이드, 구조 단언
+   (label↔input 연결·role=dialog·separator·랜드마크 4종·auto-fill 칼럼·jd-sidebar-toggle)
+   통과. 검증기 자체도 변이 테스트 5종(미지 태그·미구현 스니펫·유령 파일·오탈자 식별자·
+   가짜 import)으로 오검출이 아니라 실검출임을 확인.
+- 결정자: 문서 콘텐츠 트랙, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — Playwright 실브라우저 상호작용 스위트 신설 (03 §9 의무 구간)
 
 ### DEC-020. 웹 e2e 스위트 판단 3건

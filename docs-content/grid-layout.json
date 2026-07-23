@@ -1,0 +1,48 @@
+{
+  "id": "grid-layout",
+  "ledgerId": "GridLayout",
+  "category": "core",
+  "title": "GridLayout",
+  "oneLiner": "grid 컨테이너 — cols·gap 프롭 + auto-fit/auto-fill/min-child-width 자동 칼럼(R12 단일 구현).",
+  "tags": [
+    "layout",
+    "grid",
+    "container"
+  ],
+  "controls": [
+    {
+      "prop": "cols",
+      "kind": "number",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "prop": "gap",
+      "kind": "text",
+      "default": "md"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-grid-layout cols=\"{cols}\" gap=\"{gap}\">\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>1</jd-box>\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>2</jd-box>\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border col-span=\"2\">colSpan=2</jd-box>\n</jd-grid-layout>\n\n<!-- 반응형 칼럼 · 자동 칼럼(우선순위 auto-fit > auto-fill > min-child-width > cols) -->\n<jd-grid-layout cols=\"1 md:3\" gap=\"4\">…</jd-grid-layout>\n<jd-grid-layout auto-fit=\"220\" gap=\"4\">…</jd-grid-layout>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-*",
+      "usage": "gap 스페이싱 축"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너 — 그리드 배치는 시각 전용, DOM 순서 = 낭독 순서"
+    }
+  ]
+}

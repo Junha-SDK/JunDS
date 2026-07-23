@@ -1,0 +1,22 @@
+{
+  "id": "globe",
+  "ledgerId": "Globe",
+  "category": "composites",
+  "title": "Globe",
+  "oneLiner": "회전하는 인터랙티브 3D 지구본.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Globe } from \"@/ds/composites/Globe\";",
+      "code": "<Globe size={400} dotColor=\"#3b82f6\" speed={0.5} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

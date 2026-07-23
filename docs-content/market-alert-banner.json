@@ -1,0 +1,21 @@
+{
+  "id": "market-alert-banner",
+  "ledgerId": "MarketAlertBanner",
+  "category": "finance",
+  "title": "MarketAlertBanner",
+  "oneLiner": "시장 경보 배너.",
+  "tags": [
+    "finance",
+    "알림",
+    "배너"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

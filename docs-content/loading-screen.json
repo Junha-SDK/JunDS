@@ -1,0 +1,20 @@
+{
+  "id": "loading-screen",
+  "ledgerId": "LoadingScreen",
+  "category": "composites",
+  "title": "LoadingScreen",
+  "oneLiner": "전면 로딩 화면.",
+  "tags": [
+    "feedback",
+    "loading"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

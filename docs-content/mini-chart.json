@@ -1,0 +1,22 @@
+{
+  "id": "mini-chart",
+  "ledgerId": "MiniChart",
+  "category": "composites",
+  "title": "MiniChart",
+  "oneLiner": "카드 안에 들어갈 작은 미니 차트(스파크라인).",
+  "tags": [
+    "chart"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { MiniChart } from \"@/ds/composites/MiniChart\";",
+      "code": "<MiniChart data={[5, 8, 12, 9, 14]} type=\"line\" color=\"#3b82f6\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

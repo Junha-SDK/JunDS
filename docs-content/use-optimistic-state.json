@@ -1,0 +1,21 @@
+{
+  "id": "use-optimistic-state",
+  "ledgerId": "useOptimisticState",
+  "category": "hooks",
+  "title": "useOptimisticState",
+  "oneLiner": "낙관적 갱신 상태 패턴.",
+  "tags": [
+    "hook",
+    "상태",
+    "낙관적"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

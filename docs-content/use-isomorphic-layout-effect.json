@@ -1,0 +1,21 @@
+{
+  "id": "use-isomorphic-layout-effect",
+  "ledgerId": "useIsomorphicLayoutEffect",
+  "category": "hooks",
+  "title": "useIsomorphicLayoutEffect",
+  "oneLiner": "SSR 안전 layoutEffect — React SSR 전용 개념.",
+  "tags": [
+    "hook",
+    "react",
+    "ssr"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

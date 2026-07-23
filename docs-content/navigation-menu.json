@@ -1,0 +1,22 @@
+{
+  "id": "navigation-menu",
+  "ledgerId": "NavigationMenu",
+  "category": "composites",
+  "title": "NavigationMenu",
+  "oneLiner": "네비게이션 메뉴",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { NavigationMenu } from \"@/ds/composites/NavigationMenu\";",
+      "code": "<NavigationMenu items={[{key:\"home\",label:\"홈\",href:\"/\"},{key:\"products\",label:\"제품\",children:[{key:\"a\",label:\"A\",href:\"/a\"}]}]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

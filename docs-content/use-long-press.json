@@ -1,0 +1,21 @@
+{
+  "id": "use-long-press",
+  "ledgerId": "useLongPress",
+  "category": "hooks",
+  "title": "useLongPress",
+  "oneLiner": "길게 누르기 제스처 감지.",
+  "tags": [
+    "hook",
+    "interaction",
+    "제스처"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

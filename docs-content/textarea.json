@@ -1,0 +1,23 @@
+{
+  "id": "textarea",
+  "ledgerId": "Textarea",
+  "category": "primitives",
+  "title": "Textarea",
+  "oneLiner": "텍스트영역 컴포넌트",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Textarea } from \"@/ds/primitives/Textarea\";",
+      "code": "<Textarea autoResize placeholder=\"설명을 입력하세요\" maxLength={500} showCount />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

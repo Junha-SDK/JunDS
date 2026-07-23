@@ -1,0 +1,21 @@
+{
+  "id": "market-index-chart",
+  "ledgerId": "MarketIndexChart",
+  "category": "finance",
+  "title": "MarketIndexChart",
+  "oneLiner": "시장 지수 차트.",
+  "tags": [
+    "finance",
+    "chart",
+    "지수"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

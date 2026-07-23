@@ -1,0 +1,22 @@
+{
+  "id": "qr-code",
+  "ledgerId": "QRCode",
+  "category": "composites",
+  "title": "QRCode",
+  "oneLiner": "주어진 값으로 QR 코드를 그립니다.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { QRCode } from \"@/ds/composites/QRCode\";",
+      "code": "<QRCode value=\"https://junds.dev\" size={160} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "star-rating",
+  "ledgerId": "StarRating",
+  "category": "primitives",
+  "title": "StarRating",
+  "oneLiner": "별점 입력",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { StarRating } from \"@/ds/primitives/StarRating\";",
+      "code": "<StarRating value={3} onChange={setRating} />\n<StarRating value={4.5} max={5} readonly />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "sheet",
+  "ledgerId": "Sheet",
+  "category": "composites",
+  "title": "Sheet",
+  "oneLiner": "모바일 바텀 시트 (드래그로 닫기 지원)",
+  "tags": [
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Sheet } from \"@/ds/composites/Sheet\";",
+      "code": "<Sheet open={isOpen} onClose={close} title=\"옵션\">\n  <p>시트 내용</p>\n</Sheet>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

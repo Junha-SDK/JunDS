@@ -1,0 +1,21 @@
+{
+  "id": "alert-manager",
+  "ledgerId": "AlertManager",
+  "category": "finance",
+  "title": "AlertManager",
+  "oneLiner": "가격 알림 규칙 관리 패널.",
+  "tags": [
+    "finance",
+    "알림",
+    "관리"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

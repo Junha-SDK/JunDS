@@ -1,0 +1,48 @@
+{
+  "id": "spacer",
+  "ledgerId": "Spacer",
+  "category": "layout",
+  "title": "Spacer",
+  "oneLiner": "토큰 간격 스페이서 — 수직 padding-block·수평 padding-inline, 스크린리더 무시(aria-hidden).",
+  "tags": [
+    "layout",
+    "spacer"
+  ],
+  "controls": [
+    {
+      "prop": "size",
+      "kind": "text",
+      "default": "4"
+    },
+    {
+      "prop": "axis",
+      "kind": "segmented",
+      "options": [
+        "vertical",
+        "horizontal"
+      ],
+      "default": "vertical"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "위 콘텐츠\n<jd-spacer size=\"{size}\"></jd-spacer>\n아래 콘텐츠\n\n<jd-hstack gap=\"0\">\n  왼쪽 <jd-spacer size=\"8\" axis=\"horizontal\"></jd-spacer> 오른쪽\n</jd-hstack>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-*",
+      "usage": "size 스페이싱 축 (수치·named 토큰)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "aria-hidden",
+      "note": "고정 부여 — 낭독 흐름에 나타나지 않는 순수 여백"
+    }
+  ]
+}

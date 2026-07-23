@@ -1,0 +1,21 @@
+{
+  "id": "live-index-card",
+  "ledgerId": "LiveIndexCard",
+  "category": "finance",
+  "title": "LiveIndexCard",
+  "oneLiner": "실시간 지수 카드.",
+  "tags": [
+    "finance",
+    "live",
+    "지수"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

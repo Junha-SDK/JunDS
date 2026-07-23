@@ -1,0 +1,21 @@
+{
+  "id": "hot-pct-chip",
+  "ledgerId": "HotPctChip",
+  "category": "finance",
+  "title": "HotPctChip",
+  "oneLiner": "급등률 강조 칩.",
+  "tags": [
+    "finance",
+    "display",
+    "등락률"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

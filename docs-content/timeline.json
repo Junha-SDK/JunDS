@@ -1,0 +1,22 @@
+{
+  "id": "timeline",
+  "ledgerId": "Timeline",
+  "category": "composites",
+  "title": "Timeline",
+  "oneLiner": "타임라인",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Timeline } from \"@/ds/composites/Timeline\";",
+      "code": "<Timeline items={[\n  { key:\"1\", title:\"생성\", time:\"10:00\", color:\"primary\" },\n  { key:\"2\", title:\"진행 시작\", time:\"11:30\", color:\"success\" },\n]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

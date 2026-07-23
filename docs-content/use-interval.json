@@ -1,0 +1,21 @@
+{
+  "id": "use-interval",
+  "ledgerId": "useInterval",
+  "category": "hooks",
+  "title": "useInterval",
+  "oneLiner": "안전한 setInterval 래퍼.",
+  "tags": [
+    "hook",
+    "timing",
+    "interval"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

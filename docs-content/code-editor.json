@@ -1,0 +1,23 @@
+{
+  "id": "code-editor",
+  "ledgerId": "CodeEditor",
+  "category": "composites",
+  "title": "CodeEditor",
+  "oneLiner": "신택스 하이라이팅이 적용된 코드 편집기.",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { CodeEditor } from \"@/ds/composites/CodeEditor\";",
+      "code": "<CodeEditor value={code} onChange={setCode} language=\"typescript\" lineNumbers />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

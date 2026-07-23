@@ -1,0 +1,24 @@
+{
+  "id": "mention",
+  "ledgerId": "Mention",
+  "category": "composites",
+  "title": "Mention",
+  "oneLiner": "@ 트리거로 사용자 목록을 자동완성하는 멘션 입력.",
+  "tags": [
+    "form",
+    "input",
+    "멘션"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Mention } from \"@/ds/composites/Mention\";",
+      "code": "<Mention value={text} onChange={setText} users={users} trigger=\"@\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

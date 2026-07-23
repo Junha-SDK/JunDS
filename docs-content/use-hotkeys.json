@@ -1,0 +1,21 @@
+{
+  "id": "use-hotkeys",
+  "ledgerId": "useHotkeys",
+  "category": "hooks",
+  "title": "useHotkeys",
+  "oneLiner": "전역 단축키 맵 바인딩. useKeyboardShortcut과 통합 후보.",
+  "tags": [
+    "hook",
+    "keyboard",
+    "단축키"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

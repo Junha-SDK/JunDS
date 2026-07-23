@@ -1,0 +1,23 @@
+{
+  "id": "context-menu",
+  "ledgerId": "ContextMenu",
+  "category": "composites",
+  "title": "ContextMenu",
+  "oneLiner": "우클릭 컨텍스트 메뉴",
+  "tags": [
+    "overlay",
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ContextMenu } from \"@/ds/composites/ContextMenu\";",
+      "code": "<ContextMenu items={[{ key: \"copy\", label: \"복사\", shortcut: \"Ctrl+C\" }]}>\n  <div>우클릭 영역</div>\n</ContextMenu>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

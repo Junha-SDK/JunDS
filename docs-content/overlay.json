@@ -1,0 +1,44 @@
+{
+  "id": "overlay",
+  "ledgerId": "Overlay",
+  "category": "layout",
+  "title": "Overlay",
+  "oneLiner": "부모 절대 덮개(inset 0) — 중앙 정렬 기본, blur(backdrop-filter 4px). Box 파생.",
+  "tags": [
+    "layout",
+    "overlay"
+  ],
+  "controls": [
+    {
+      "prop": "blurred",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "noCenter",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-box position=\"relative\" h=\"180\" radius=\"md\" overflow=\"hidden\" bg=\"card\" border>\n  기저 콘텐츠\n  <!-- attr는 blur, 프로퍼티는 blurred (HTMLElement.blur() 충돌 회피 — DEC-018-5) -->\n  <jd-overlay bg=\"rgba(10, 8, 20, 0.45)\" color=\"white\" blur>겹침 콘텐츠</jd-overlay>\n</jd-box>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "(리터럴)",
+      "usage": "backdrop-filter blur 4px — v2 리터럴 승계"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "주의",
+      "note": "장식 덮개로 쓸 때는 pointerEvents=\"none\"으로 기저 상호작용 보존"
+    }
+  ]
+}

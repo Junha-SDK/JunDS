@@ -1,0 +1,21 @@
+{
+  "id": "use-debounce",
+  "ledgerId": "useDebounce",
+  "category": "hooks",
+  "title": "useDebounce",
+  "oneLiner": "값 변경을 지연시키는 디바운스.",
+  "tags": [
+    "hook",
+    "timing",
+    "debounce"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

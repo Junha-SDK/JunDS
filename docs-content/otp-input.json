@@ -1,0 +1,23 @@
+{
+  "id": "otp-input",
+  "ledgerId": "OTPInput",
+  "category": "primitives",
+  "title": "OTPInput",
+  "oneLiner": "6자리 일회용 비밀번호(OTP) 입력기.",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { OTPInput } from \"@/ds/primitives/OTPInput\";",
+      "code": "<OTPInput length={6} onComplete={(code) => verify(code)} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

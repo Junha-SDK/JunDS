@@ -1,0 +1,21 @@
+{
+  "id": "use-disclosure",
+  "ledgerId": "useDisclosure",
+  "category": "hooks",
+  "title": "useDisclosure",
+  "oneLiner": "open·close 상태 관리 — 모달·드로어용.",
+  "tags": [
+    "hook",
+    "상태",
+    "펼침"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

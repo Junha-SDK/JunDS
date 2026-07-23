@@ -1,0 +1,23 @@
+{
+  "id": "icon-button",
+  "ledgerId": "IconButton",
+  "category": "primitives",
+  "title": "IconButton",
+  "oneLiner": "아이콘 전용 버튼",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { IconButton } from \"@/ds/primitives/IconButton\";",
+      "code": "<IconButton icon={<CloseIcon />} label=\"닫기\" variant=\"ghost\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

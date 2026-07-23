@@ -1,0 +1,23 @@
+{
+  "id": "alert-dialog",
+  "ledgerId": "AlertDialog",
+  "category": "composites",
+  "title": "AlertDialog",
+  "oneLiner": "경고 다이얼로그 (배경 클릭으로 닫기 불가)",
+  "tags": [
+    "overlay",
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { AlertDialog } from \"@/ds/composites/AlertDialog\";",
+      "code": "<AlertDialog\n  open={show}\n  onConfirm={handleConfirm}\n  onCancel={() => setShow(false)}\n  title=\"삭제하시겠습니까?\"\n  description=\"이 작업은 되돌릴 수 없습니다.\"\n  variant=\"danger\"\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

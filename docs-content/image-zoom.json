@@ -1,0 +1,21 @@
+{
+  "id": "image-zoom",
+  "ledgerId": "ImageZoom",
+  "category": "composites",
+  "title": "ImageZoom",
+  "oneLiner": "이미지 확대(줌) 뷰어.",
+  "tags": [
+    "photo",
+    "이미지",
+    "줌"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

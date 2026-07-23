@@ -1,0 +1,22 @@
+{
+  "id": "spinner",
+  "ledgerId": "Spinner",
+  "category": "primitives",
+  "title": "Spinner",
+  "oneLiner": "로딩 스피너",
+  "tags": [
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Spinner } from \"@/ds/primitives/Spinner\";",
+      "code": "<Spinner size=\"md\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

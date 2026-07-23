@@ -1,0 +1,22 @@
+{
+  "id": "menubar",
+  "ledgerId": "Menubar",
+  "category": "composites",
+  "title": "Menubar",
+  "oneLiner": "메뉴바",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Menubar } from \"@/ds/composites/Menubar\";",
+      "code": "<Menubar items={[{key:\"file\",label:\"파일\",items:[{key:\"new\",label:\"새 파일\",shortcut:\"⌘N\"}]}]} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

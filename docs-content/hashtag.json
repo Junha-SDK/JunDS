@@ -1,0 +1,21 @@
+{
+  "id": "hashtag",
+  "ledgerId": "Hashtag",
+  "category": "primitives",
+  "title": "Hashtag",
+  "oneLiner": "해시태그 칩.",
+  "tags": [
+    "social",
+    "chip",
+    "태그"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

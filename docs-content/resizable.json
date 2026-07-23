@@ -1,0 +1,22 @@
+{
+  "id": "resizable",
+  "ledgerId": "Resizable",
+  "category": "composites",
+  "title": "Resizable",
+  "oneLiner": "리사이저블",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Resizable } from \"@/ds/composites/Resizable\";",
+      "code": "<Resizable direction=\"horizontal\" defaultSize={30}>\n  <div>왼쪽</div>\n  <div>오른쪽</div>\n</Resizable>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

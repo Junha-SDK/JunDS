@@ -1,0 +1,21 @@
+{
+  "id": "image-compare",
+  "ledgerId": "ImageCompare",
+  "category": "composites",
+  "title": "ImageCompare",
+  "oneLiner": "두 이미지 좌우 비교 슬라이더.",
+  "tags": [
+    "photo",
+    "이미지",
+    "비교"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

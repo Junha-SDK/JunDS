@@ -1,0 +1,23 @@
+{
+  "id": "transfer",
+  "ledgerId": "Transfer",
+  "category": "composites",
+  "title": "Transfer",
+  "oneLiner": "트랜스퍼 — 두 목록 간 항목 이동 컴포넌트",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Transfer } from \"@/ds/composites/Transfer\";",
+      "code": "<Transfer\n  source={sourceItems}\n  target={targetItems}\n  onChange={(s, t) => { setSource(s); setTarget(t); }}\n  sourceTitle=\"선택 가능\"\n  targetTitle=\"선택됨\"\n  searchable\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

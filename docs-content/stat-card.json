@@ -1,0 +1,22 @@
+{
+  "id": "stat-card",
+  "ledgerId": "StatCard",
+  "category": "composites",
+  "title": "StatCard",
+  "oneLiner": "통계 카드",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { StatCard } from \"@/ds/composites/StatCard\";",
+      "code": "<StatCard label=\"총 업무\" value={142} change=\"+12%\" trend=\"up\" />\n<StatCard label=\"완료율\" value=\"78%\" change=\"-3%\" trend=\"down\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

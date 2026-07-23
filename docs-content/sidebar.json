@@ -1,0 +1,21 @@
+{
+  "id": "sidebar",
+  "ledgerId": "Sidebar",
+  "category": "finance",
+  "title": "Sidebar",
+  "oneLiner": "금융 앱 사이드바 내비게이션.",
+  "tags": [
+    "finance",
+    "shell",
+    "사이드바"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

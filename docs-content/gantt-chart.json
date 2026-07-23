@@ -1,0 +1,21 @@
+{
+  "id": "gantt-chart",
+  "ledgerId": "GanttChart",
+  "category": "patterns",
+  "title": "GanttChart",
+  "oneLiner": "간트 차트 — 기간 막대 타임라인.",
+  "tags": [
+    "chart",
+    "차트",
+    "간트"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

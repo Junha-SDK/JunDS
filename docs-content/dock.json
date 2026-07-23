@@ -1,0 +1,22 @@
+{
+  "id": "dock",
+  "ledgerId": "Dock",
+  "category": "composites",
+  "title": "Dock",
+  "oneLiner": "macOS 스타일의 마우스 오버 시 확대되는 독.",
+  "tags": [
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Dock } from \"@/ds/composites/Dock\";",
+      "code": "<Dock magnification={1.4}>\n  <DockItem icon={<HomeIcon />} />\n  <DockItem icon={<SearchIcon />} />\n</Dock>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

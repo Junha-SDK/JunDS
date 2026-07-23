@@ -1,0 +1,21 @@
+{
+  "id": "use-document-title",
+  "ledgerId": "useDocumentTitle",
+  "category": "hooks",
+  "title": "useDocumentTitle",
+  "oneLiner": "문서 제목 설정.",
+  "tags": [
+    "hook",
+    "document",
+    "제목"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

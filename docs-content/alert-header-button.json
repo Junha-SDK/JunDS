@@ -1,0 +1,21 @@
+{
+  "id": "alert-header-button",
+  "ledgerId": "AlertHeaderButton",
+  "category": "finance",
+  "title": "AlertHeaderButton",
+  "oneLiner": "헤더용 알림 목록 버튼.",
+  "tags": [
+    "finance",
+    "알림",
+    "헤더"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

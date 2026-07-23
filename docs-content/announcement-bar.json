@@ -1,0 +1,21 @@
+{
+  "id": "announcement-bar",
+  "ledgerId": "AnnouncementBar",
+  "category": "composites",
+  "title": "AnnouncementBar",
+  "oneLiner": "화면 상단 공지 바 — 닫기 지원.",
+  "tags": [
+    "feedback",
+    "공지",
+    "배너"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

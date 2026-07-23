@@ -1,0 +1,22 @@
+{
+  "id": "chat-bubble",
+  "ledgerId": "ChatBubble",
+  "category": "composites",
+  "title": "ChatBubble",
+  "oneLiner": "채팅 메시지 말풍선.",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ChatBubble } from \"@/ds/composites/ChatBubble\";",
+      "code": "<ChatBubble sender=\"홍길동\" side=\"left\" timestamp=\"오후 3:24\">\n  안녕하세요!\n</ChatBubble>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

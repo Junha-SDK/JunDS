@@ -1,0 +1,70 @@
+{
+  "id": "app-shell",
+  "ledgerId": "AppShell",
+  "category": "layout",
+  "title": "AppShell",
+  "oneLiner": "사이드바·헤더·본문·푸터 앱 골격 — 데스크톱 접힘 레일, 모바일 오버레이 드로어, Ctrl/⌘+B 토글.",
+  "tags": [
+    "layout",
+    "shell",
+    "앱"
+  ],
+  "controls": [
+    {
+      "prop": "sidebarCollapsed",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "stickyHeader",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "sidebarWidth",
+      "kind": "number",
+      "min": 200,
+      "max": 320,
+      "step": 10,
+      "default": 260
+    },
+    {
+      "prop": "contentPadding",
+      "kind": "text",
+      "default": "6"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-app-shell sticky-header content-padding=\"{contentPadding}\">\n  <nav slot=\"sidebar\">…내비게이션…</nav>\n  <div slot=\"header\">헤더</div>\n  본문 콘텐츠 (slot 없는 children)\n  <div slot=\"footer\">푸터</div>\n</jd-app-shell>\n\n<script>\n  // 데스크톱 접힘 토글 사후 통지 (Ctrl/⌘+B 또는 메뉴 버튼)\n  document.querySelector(\"jd-app-shell\")\n    .addEventListener(\"jd-sidebar-toggle\", (e) => console.log(e.detail.collapsed));\n</script>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--_jd-shell-* (내부 변수)",
+      "usage": "sidebar-width·collapsed-width 반영 — 전환 모션은 CSS 담당"
+    },
+    {
+      "token": "--jd-space-*",
+      "usage": "content-padding 스페이싱 축"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "랜드마크",
+      "note": "aside·header·main·footer 실요소 골격 — 랜드마크 내비게이션 성립"
+    },
+    {
+      "item": "키보드",
+      "note": "Ctrl/⌘+B 토글 — defaultPrevented 존중(앱 단축키 선점 시 양보)"
+    },
+    {
+      "item": "모바일 드로어",
+      "note": "열림 동안 body 스크롤 락, 백드롭 aria-hidden, 메뉴 버튼 aria-label \"사이드바 열기\""
+    }
+  ]
+}

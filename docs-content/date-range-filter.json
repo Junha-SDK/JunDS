@@ -1,0 +1,23 @@
+{
+  "id": "date-range-filter",
+  "ledgerId": "DateRangeFilter",
+  "category": "composites",
+  "title": "DateRangeFilter",
+  "oneLiner": "날짜 범위 필터",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DateRangeFilter } from \"@/ds/composites/DateRangeFilter\";",
+      "code": "<DateRangeFilter\n  startDate={start}\n  endDate={end}\n  onStartChange={setStart}\n  onEndChange={setEnd}\n  onApply={handleApply}\n  onReset={handleReset}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

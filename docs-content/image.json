@@ -1,0 +1,20 @@
+{
+  "id": "image",
+  "ledgerId": "Image",
+  "category": "primitives",
+  "title": "Image",
+  "oneLiner": "로딩·폴백 처리가 붙은 이미지.",
+  "tags": [
+    "media",
+    "image"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

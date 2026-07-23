@@ -1,0 +1,21 @@
+{
+  "id": "use-media-query",
+  "ledgerId": "useMediaQuery",
+  "category": "hooks",
+  "title": "useMediaQuery",
+  "oneLiner": "미디어 쿼리 매칭 상태.",
+  "tags": [
+    "hook",
+    "반응형",
+    "media-query"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

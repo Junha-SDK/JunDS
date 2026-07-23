@@ -1,0 +1,23 @@
+{
+  "id": "ds-calendar",
+  "ledgerId": "DsCalendar",
+  "category": "patterns",
+  "title": "DsCalendar",
+  "oneLiner": "월간/주간 캘린더",
+  "tags": [
+    "data-display",
+    "form"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DsCalendar } from \"@/ds/patterns/Calendar\";",
+      "code": "<DsCalendar events={events} onDateClick={handleClick} />\n<DsCalendar selectionMode=\"range\" onRangeSelect={handleRange} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

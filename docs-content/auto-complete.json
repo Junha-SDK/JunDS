@@ -1,0 +1,23 @@
+{
+  "id": "auto-complete",
+  "ledgerId": "AutoComplete",
+  "category": "composites",
+  "title": "AutoComplete",
+  "oneLiner": "자동완성 입력",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { AutoComplete } from \"@/ds/composites/AutoComplete\";",
+      "code": "<AutoComplete value={v} onChange={setV} options={options} onSelect={handleSelect} placeholder=\"검색...\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

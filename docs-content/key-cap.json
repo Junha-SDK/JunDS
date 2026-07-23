@@ -1,0 +1,20 @@
+{
+  "id": "key-cap",
+  "ledgerId": "KeyCap",
+  "category": "primitives",
+  "title": "KeyCap",
+  "oneLiner": "키보드 키 캡 모양 장식 표기.",
+  "tags": [
+    "typography",
+    "keyboard"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

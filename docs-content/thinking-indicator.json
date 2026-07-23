@@ -1,0 +1,21 @@
+{
+  "id": "thinking-indicator",
+  "ledgerId": "ThinkingIndicator",
+  "category": "composites",
+  "title": "ThinkingIndicator",
+  "oneLiner": "응답 대기 점멸 인디케이터 — 채팅 스타일.",
+  "tags": [
+    "feedback",
+    "loading",
+    "채팅"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

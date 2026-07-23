@@ -1,0 +1,22 @@
+{
+  "id": "treemap-chart",
+  "ledgerId": "TreemapChart",
+  "category": "composites",
+  "title": "TreemapChart",
+  "oneLiner": "계층 데이터를 사각형 면적으로 표현하는 트리맵.",
+  "tags": [
+    "chart"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { TreemapChart } from \"@/ds/composites/TreemapChart\";",
+      "code": "<TreemapChart data={hierarchy} width={600} height={400} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "pricing-table",
+  "ledgerId": "PricingTable",
+  "category": "composites",
+  "title": "PricingTable",
+  "oneLiner": "요금제 비교 테이블.",
+  "tags": [
+    "marketing",
+    "가격",
+    "테이블"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "radar-chart",
+  "ledgerId": "RadarChart",
+  "category": "composites",
+  "title": "RadarChart",
+  "oneLiner": "레이더(방사형) 차트.",
+  "tags": [
+    "chart",
+    "차트",
+    "레이더"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

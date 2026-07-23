@@ -1,0 +1,21 @@
+{
+  "id": "textarea-autosize",
+  "ledgerId": "TextareaAutosize",
+  "category": "composites",
+  "title": "TextareaAutosize",
+  "oneLiner": "내용에 따라 높이가 늘어나는 텍스트영역.",
+  "tags": [
+    "form",
+    "input",
+    "textarea"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

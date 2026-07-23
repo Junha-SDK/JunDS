@@ -1,0 +1,21 @@
+{
+  "id": "settings-layout",
+  "ledgerId": "SettingsLayout",
+  "category": "patterns",
+  "title": "SettingsLayout",
+  "oneLiner": "설정 페이지 레이아웃 템플릿 — 좌측 내비.",
+  "tags": [
+    "template",
+    "설정",
+    "레이아웃"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

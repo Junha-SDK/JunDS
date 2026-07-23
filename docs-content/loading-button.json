@@ -1,0 +1,21 @@
+{
+  "id": "loading-button",
+  "ledgerId": "LoadingButton",
+  "category": "composites",
+  "title": "LoadingButton",
+  "oneLiner": "로딩 상태를 내장한 버튼 래퍼.",
+  "tags": [
+    "form",
+    "button",
+    "loading"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

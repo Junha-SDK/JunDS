@@ -1,0 +1,22 @@
+{
+  "id": "hover-card",
+  "ledgerId": "HoverCard",
+  "category": "composites",
+  "title": "HoverCard",
+  "oneLiner": "호버 카드",
+  "tags": [
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { HoverCard } from \"@/ds/composites/HoverCard\";",
+      "code": "<HoverCard trigger={<span>@사용자</span>} side=\"bottom\">\n  <div>사용자 프로필 미리보기</div>\n</HoverCard>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "collapsible",
+  "ledgerId": "Collapsible",
+  "category": "composites",
+  "title": "Collapsible",
+  "oneLiner": "접기/펼치기 컴포넌트 (단일 항목)",
+  "tags": [
+    "disclosure"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Collapsible } from \"@/ds/composites/Collapsible\";",
+      "code": "<Collapsible trigger={<span>더보기</span>}>\n  <p>숨겨진 내용</p>\n</Collapsible>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

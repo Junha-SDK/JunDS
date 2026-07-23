@@ -1,0 +1,23 @@
+{
+  "id": "spotlight",
+  "ledgerId": "Spotlight",
+  "category": "composites",
+  "title": "Spotlight",
+  "oneLiner": "포커스 하이라이트 오버레이",
+  "tags": [
+    "overlay",
+    "navigation"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Spotlight } from \"@/ds/composites/Spotlight\";",
+      "code": "<Spotlight target=\"#important-section\" active={isHighlighted} padding={8} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

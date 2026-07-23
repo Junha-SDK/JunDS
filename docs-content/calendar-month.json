@@ -1,0 +1,21 @@
+{
+  "id": "calendar-month",
+  "ledgerId": "CalendarMonth",
+  "category": "patterns",
+  "title": "CalendarMonth",
+  "oneLiner": "월 단위 캘린더 뷰.",
+  "tags": [
+    "display",
+    "달력",
+    "날짜"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

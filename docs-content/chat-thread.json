@@ -1,0 +1,21 @@
+{
+  "id": "chat-thread",
+  "ledgerId": "ChatThread",
+  "category": "patterns",
+  "title": "ChatThread",
+  "oneLiner": "채팅 대화 스레드 화면.",
+  "tags": [
+    "social",
+    "채팅",
+    "템플릿"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

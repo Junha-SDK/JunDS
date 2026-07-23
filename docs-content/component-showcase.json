@@ -1,0 +1,22 @@
+{
+  "id": "component-showcase",
+  "ledgerId": "ComponentShowcase",
+  "category": "composites",
+  "title": "ComponentShowcase",
+  "oneLiner": "검색·필터·그리드/리스트 뷰를 갖춘 컴포넌트 카탈로그.",
+  "tags": [
+    "misc"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ComponentShowcase } from \"@/ds/composites/ComponentShowcase\";",
+      "code": "<ComponentShowcase items={items} searchable columns={3} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

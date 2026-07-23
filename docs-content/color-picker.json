@@ -1,0 +1,23 @@
+{
+  "id": "color-picker",
+  "ledgerId": "ColorPicker",
+  "category": "composites",
+  "title": "ColorPicker",
+  "oneLiner": "색상 선택기",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ColorPicker } from \"@/ds/composites/ColorPicker\";",
+      "code": "<ColorPicker value={color} onChange={setColor} showInput />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

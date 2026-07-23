@@ -1,0 +1,21 @@
+{
+  "id": "use-resource",
+  "ledgerId": "useResource",
+  "category": "hooks",
+  "title": "useResource",
+  "oneLiner": "키 기반 데이터 캐시·재검증 스토어.",
+  "tags": [
+    "hook",
+    "비동기",
+    "캐시"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "candle-chart",
+  "ledgerId": "CandleChart",
+  "category": "finance",
+  "title": "CandleChart",
+  "oneLiner": "캔들(봉) 차트 — 마커 라인 지원.",
+  "tags": [
+    "finance",
+    "chart",
+    "캔들"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

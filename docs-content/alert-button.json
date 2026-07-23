@@ -1,0 +1,21 @@
+{
+  "id": "alert-button",
+  "ledgerId": "AlertButton",
+  "category": "finance",
+  "title": "AlertButton",
+  "oneLiner": "종목 알림 설정 버튼.",
+  "tags": [
+    "finance",
+    "알림",
+    "버튼"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

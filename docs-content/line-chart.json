@@ -1,0 +1,21 @@
+{
+  "id": "line-chart",
+  "ledgerId": "LineChart",
+  "category": "composites",
+  "title": "LineChart",
+  "oneLiner": "선 차트.",
+  "tags": [
+    "chart",
+    "차트",
+    "선"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

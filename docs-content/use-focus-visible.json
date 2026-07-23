@@ -1,0 +1,21 @@
+{
+  "id": "use-focus-visible",
+  "ledgerId": "useFocusVisible",
+  "category": "hooks",
+  "title": "useFocusVisible",
+  "oneLiner": "키보드 포커스 가시성 감지.",
+  "tags": [
+    "hook",
+    "a11y",
+    "포커스"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

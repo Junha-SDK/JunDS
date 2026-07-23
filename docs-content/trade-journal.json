@@ -1,0 +1,21 @@
+{
+  "id": "trade-journal",
+  "ledgerId": "TradeJournal",
+  "category": "finance",
+  "title": "TradeJournal",
+  "oneLiner": "매매 일지 기록·목록 패널.",
+  "tags": [
+    "finance",
+    "일지",
+    "기록"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

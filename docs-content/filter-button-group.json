@@ -1,0 +1,23 @@
+{
+  "id": "filter-button-group",
+  "ledgerId": "FilterButtonGroup",
+  "category": "composites",
+  "title": "FilterButtonGroup",
+  "oneLiner": "필터 버튼 그룹",
+  "tags": [
+    "form",
+    "control"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FilterButtonGroup } from \"@/ds/composites/FilterButtonGroup\";",
+      "code": "<FilterButtonGroup\n  options={[\n    { key: \"all\", label: \"전체\", count: 120 },\n    { key: \"active\", label: \"활성\", count: 85 },\n    { key: \"inactive\", label: \"비활성\", count: 35 },\n  ]}\n  value={filter}\n  onChange={setFilter}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "tag-input",
+  "ledgerId": "TagInput",
+  "category": "composites",
+  "title": "TagInput",
+  "oneLiner": "태그 입력 컴포넌트",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { TagInput } from \"@/ds/composites/TagInput\";",
+      "code": "<TagInput value={[\"React\",\"Next\"]} onChange={setTags} placeholder=\"태그 입력 후 Enter\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "comparison-grid",
+  "ledgerId": "ComparisonGrid",
+  "category": "composites",
+  "title": "ComparisonGrid",
+  "oneLiner": "비교 지표 그리드",
+  "tags": [
+    "data"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { ComparisonGrid } from \"@/ds/composites/ComparisonGrid\";",
+      "code": "<ComparisonGrid\n  cards={[\n    { key: \"total\", label: \"전체\", value: 1200 },\n    { key: \"diff\", label: \"차이\", value: 3, hasVariance: true, change: { value: \"+3\", direction: \"up\" } },\n  ]}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

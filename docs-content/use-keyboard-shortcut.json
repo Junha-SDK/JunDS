@@ -1,0 +1,21 @@
+{
+  "id": "use-keyboard-shortcut",
+  "ledgerId": "useKeyboardShortcut",
+  "category": "hooks",
+  "title": "useKeyboardShortcut",
+  "oneLiner": "단축키 1건 바인딩. useHotkeys와 통합 후보.",
+  "tags": [
+    "hook",
+    "keyboard",
+    "단축키"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

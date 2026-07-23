@@ -1,0 +1,21 @@
+{
+  "id": "segmented-pill",
+  "ledgerId": "SegmentedPill",
+  "category": "finance",
+  "title": "SegmentedPill",
+  "oneLiner": "필 모양 세그먼트 선택기.",
+  "tags": [
+    "finance",
+    "form",
+    "세그먼트"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "use-idle",
+  "ledgerId": "useIdle",
+  "category": "hooks",
+  "title": "useIdle",
+  "oneLiner": "사용자 유휴 상태 감지.",
+  "tags": [
+    "hook",
+    "interaction",
+    "유휴"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

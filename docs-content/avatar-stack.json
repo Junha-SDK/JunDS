@@ -1,0 +1,22 @@
+{
+  "id": "avatar-stack",
+  "ledgerId": "AvatarStack",
+  "category": "composites",
+  "title": "AvatarStack",
+  "oneLiner": "아바타 스택 (겹쳐진 그룹)",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { AvatarStack } from \"@/ds/composites/AvatarStack\";",
+      "code": "<AvatarStack names={[\"김준하\",\"이서연\",\"박민수\",\"최유진\",\"정다은\"]} max={3} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "use-click-outside",
+  "ledgerId": "useClickOutside",
+  "category": "hooks",
+  "title": "useClickOutside",
+  "oneLiner": "요소 외부 클릭 감지.",
+  "tags": [
+    "hook",
+    "interaction",
+    "클릭"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

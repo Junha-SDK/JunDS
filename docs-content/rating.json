@@ -1,0 +1,23 @@
+{
+  "id": "rating",
+  "ledgerId": "Rating",
+  "category": "composites",
+  "title": "Rating",
+  "oneLiner": "평점 입력 컴포넌트",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Rating } from \"@/ds/composites/Rating\";",
+      "code": "<Rating value={3} onChange={setValue} max={5} half />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

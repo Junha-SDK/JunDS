@@ -1,0 +1,21 @@
+{
+  "id": "sparkline",
+  "ledgerId": "Sparkline",
+  "category": "finance",
+  "title": "Sparkline",
+  "oneLiner": "스파크라인 미니 추세선.",
+  "tags": [
+    "finance",
+    "chart",
+    "미니"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

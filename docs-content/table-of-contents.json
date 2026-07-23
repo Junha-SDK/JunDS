@@ -1,0 +1,21 @@
+{
+  "id": "table-of-contents",
+  "ledgerId": "TableOfContents",
+  "category": "composites",
+  "title": "TableOfContents",
+  "oneLiner": "문서 헤딩 목차 — 현재 섹션 하이라이트.",
+  "tags": [
+    "navigation",
+    "목차",
+    "문서"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

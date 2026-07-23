@@ -1,0 +1,23 @@
+{
+  "id": "select",
+  "ledgerId": "Select",
+  "category": "composites",
+  "title": "Select",
+  "oneLiner": "옵션 목록에서 하나를 고르는 셀렉트.",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Select } from \"@/ds/composites/Select\";",
+      "code": "<Select options={options} value={value} onChange={setValue} placeholder=\"선택하세요\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

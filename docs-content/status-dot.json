@@ -1,0 +1,22 @@
+{
+  "id": "status-dot",
+  "ledgerId": "StatusDot",
+  "category": "primitives",
+  "title": "StatusDot",
+  "oneLiner": "상태 표시 점",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { StatusDot } from \"@/ds/primitives/StatusDot\";",
+      "code": "<StatusDot status=\"success\" label=\"온라인\" />\n<StatusDot status=\"danger\" label=\"오프라인\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

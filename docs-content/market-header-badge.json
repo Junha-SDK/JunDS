@@ -1,0 +1,21 @@
+{
+  "id": "market-header-badge",
+  "ledgerId": "MarketHeaderBadge",
+  "category": "finance",
+  "title": "MarketHeaderBadge",
+  "oneLiner": "코스피 실시간 지수 배지 — 장중 5초 갱신.",
+  "tags": [
+    "finance",
+    "live",
+    "지수"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

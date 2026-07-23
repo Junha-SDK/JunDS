@@ -1,0 +1,23 @@
+{
+  "id": "switch",
+  "ledgerId": "Switch",
+  "category": "primitives",
+  "title": "Switch",
+  "oneLiner": "iOS 스타일 스위치",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Switch } from \"@/ds/primitives/Switch\";",
+      "code": "<Switch checked={on} onChange={setOn} label=\"알림 수신\" />\n<Switch checked={on} onChange={setOn} size=\"lg\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

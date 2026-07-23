@@ -1,0 +1,21 @@
+{
+  "id": "stock-top-bar",
+  "ledgerId": "StockTopBar",
+  "category": "finance",
+  "title": "StockTopBar",
+  "oneLiner": "종목 상세 상단 바.",
+  "tags": [
+    "finance",
+    "shell",
+    "헤더"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

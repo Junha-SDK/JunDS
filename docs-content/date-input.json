@@ -1,0 +1,23 @@
+{
+  "id": "date-input",
+  "ledgerId": "DateInput",
+  "category": "composites",
+  "title": "DateInput",
+  "oneLiner": "날짜 입력",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DateInput } from \"@/ds/composites/DateInput\";",
+      "code": "<DateInput value={date} onChange={e => setDate(e.target.value)} onClear={() => setDate(\"\")} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,22 @@
+{
+  "id": "form-array",
+  "ledgerId": "FormArray",
+  "category": "patterns",
+  "title": "FormArray",
+  "oneLiner": "배열형 폼 필드(추가/삭제 가능한 반복 항목)를 관리합니다.",
+  "tags": [
+    "form"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FormArray } from \"@/ds/patterns/FormArray\";",
+      "code": "<FormArray\n  value={items}\n  onChange={setItems}\n  defaultItem={{ name: \"\" }}\n  renderItem={(item, idx) => <Input value={item.name} />}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

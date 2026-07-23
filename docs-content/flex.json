@@ -1,0 +1,81 @@
+{
+  "id": "flex",
+  "ledgerId": "Flex",
+  "category": "core",
+  "title": "Flex",
+  "oneLiner": "flex 컨테이너 — direction·align·justify·gap 프롭, inline 전환. Box 파생.",
+  "tags": [
+    "layout",
+    "flex",
+    "container"
+  ],
+  "controls": [
+    {
+      "prop": "direction",
+      "kind": "segmented",
+      "options": [
+        "row",
+        "column",
+        "row-reverse",
+        "column-reverse"
+      ],
+      "default": "row"
+    },
+    {
+      "prop": "align",
+      "kind": "select",
+      "options": [
+        "start",
+        "center",
+        "end",
+        "stretch",
+        "baseline"
+      ],
+      "default": "center"
+    },
+    {
+      "prop": "justify",
+      "kind": "select",
+      "options": [
+        "start",
+        "center",
+        "end",
+        "between",
+        "around",
+        "evenly"
+      ],
+      "default": "start"
+    },
+    {
+      "prop": "gap",
+      "kind": "text",
+      "default": "3"
+    },
+    {
+      "prop": "inline",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-flex direction=\"{direction}\" align=\"{align}\" justify=\"{justify}\" gap=\"{gap}\">\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>A</jd-box>\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>B</jd-box>\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>C</jd-box>\n</jd-flex>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-*",
+      "usage": "gap 스페이싱 축"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너 — DOM 순서 = 낭독 순서 (reverse 방향은 시각 전용이므로 주의)"
+    }
+  ]
+}

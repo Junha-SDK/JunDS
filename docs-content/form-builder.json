@@ -1,0 +1,22 @@
+{
+  "id": "form-builder",
+  "ledgerId": "FormBuilder",
+  "category": "patterns",
+  "title": "FormBuilder",
+  "oneLiner": "선언적 폼 빌더 — 필드 배열로 폼 자동 생성",
+  "tags": [
+    "form"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { FormBuilder } from \"@/ds/patterns/FormBuilder\";",
+      "code": "<FormBuilder\n  fields={[\n    { name:\"title\", label:\"제목\", type:\"text\", required:true },\n    { name:\"desc\", label:\"설명\", type:\"textarea\" },\n    { name:\"priority\", label:\"우선순위\", type:\"select\", options:[...] },\n  ]}\n  onSubmit={handleSubmit}\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "recently-viewed",
+  "ledgerId": "RecentlyViewed",
+  "category": "finance",
+  "title": "RecentlyViewed",
+  "oneLiner": "최근 본 종목 리스트.",
+  "tags": [
+    "finance",
+    "리스트",
+    "방문"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

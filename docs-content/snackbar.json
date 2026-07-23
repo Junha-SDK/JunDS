@@ -1,0 +1,21 @@
+{
+  "id": "snackbar",
+  "ledgerId": "Snackbar",
+  "category": "composites",
+  "title": "Snackbar",
+  "oneLiner": "하단 일시 알림 스낵바 — 액션 버튼 지원.",
+  "tags": [
+    "feedback",
+    "toast",
+    "알림"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

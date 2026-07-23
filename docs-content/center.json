@@ -1,0 +1,45 @@
+{
+  "id": "center",
+  "ledgerId": "Center",
+  "category": "core",
+  "title": "Center",
+  "oneLiner": "양축 중앙 정렬 컨테이너. Box 파생 — 스타일 프롭 전부 사용 가능.",
+  "tags": [
+    "layout",
+    "container",
+    "정렬"
+  ],
+  "controls": [
+    {
+      "prop": "h",
+      "kind": "text",
+      "default": "120"
+    },
+    {
+      "prop": "bg",
+      "kind": "text",
+      "default": "card"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-center h=\"{h}\" bg=\"{bg}\" radius=\"md\" border>정중앙</jd-center>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-* / --jd-color-*",
+      "usage": "Box와 동일한 스타일 프롭 축"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너 — 정렬은 CSS(flex)만으로 처리"
+    }
+  ]
+}

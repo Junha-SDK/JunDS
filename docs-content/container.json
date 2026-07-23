@@ -1,0 +1,53 @@
+{
+  "id": "container",
+  "ledgerId": "Container",
+  "category": "layout",
+  "title": "Container",
+  "oneLiner": "중앙 정렬 폭 제한 컨테이너 — size 프리셋(xs 512 ~ 2xl 1536·full), 반응형 기본 패딩.",
+  "tags": [
+    "layout",
+    "container"
+  ],
+  "controls": [
+    {
+      "prop": "size",
+      "kind": "select",
+      "options": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "full"
+      ],
+      "default": "lg"
+    },
+    {
+      "prop": "noCenter",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-container size=\"{size}\">\n  <jd-text>가운데 정렬된 본문 칼럼</jd-text>\n</jd-container>\n\n<!-- v2 center 기본 true → boolean attribute 반전 표면 (DEC-018-5) -->\n<jd-container size=\"md\" no-center>왼쪽 붙임</jd-container>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-4 → --jd-space-6",
+      "usage": "기본 가로 패딩 base 16px → sm 24px"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너"
+    }
+  ]
+}

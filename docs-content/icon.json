@@ -1,0 +1,20 @@
+{
+  "id": "icon",
+  "ledgerId": "Icon",
+  "category": "primitives",
+  "title": "Icon",
+  "oneLiner": "아이콘 렌더러.",
+  "tags": [
+    "media",
+    "icon"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

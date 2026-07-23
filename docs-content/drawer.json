@@ -1,0 +1,22 @@
+{
+  "id": "drawer",
+  "ledgerId": "Drawer",
+  "category": "composites",
+  "title": "Drawer",
+  "oneLiner": "슬라이드 인 패널 (Drawer / Sheet)",
+  "tags": [
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Drawer } from \"@/ds/composites/Drawer\";",
+      "code": "<Drawer open={isOpen} onClose={close} side=\"right\" title=\"필터\">\n  <FilterContent />\n</Drawer>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

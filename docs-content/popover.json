@@ -1,0 +1,22 @@
+{
+  "id": "popover",
+  "ledgerId": "Popover",
+  "category": "composites",
+  "title": "Popover",
+  "oneLiner": "팝오버",
+  "tags": [
+    "overlay"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Popover } from \"@/ds/composites/Popover\";",
+      "code": "<Popover trigger={<Button>열기</Button>} content={<div>내용</div>} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

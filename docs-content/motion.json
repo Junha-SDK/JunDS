@@ -1,0 +1,20 @@
+{
+  "id": "motion",
+  "ledgerId": "Motion",
+  "category": "primitives",
+  "title": "Motion",
+  "oneLiner": "진입 애니메이션 래퍼 — CSS 키프레임 유틸로 전환 예정.",
+  "tags": [
+    "animation",
+    "모션"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

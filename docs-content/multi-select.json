@@ -1,0 +1,23 @@
+{
+  "id": "multi-select",
+  "ledgerId": "MultiSelect",
+  "category": "composites",
+  "title": "MultiSelect",
+  "oneLiner": "다중 선택 컴포넌트",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { MultiSelect } from \"@/ds/composites/MultiSelect\";",
+      "code": "<MultiSelect options={opts} value={selected} onChange={setSelected} searchable />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

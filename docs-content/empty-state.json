@@ -1,0 +1,22 @@
+{
+  "id": "empty-state",
+  "ledgerId": "EmptyState",
+  "category": "composites",
+  "title": "EmptyState",
+  "oneLiner": "빈 상태 표시",
+  "tags": [
+    "feedback"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { EmptyState } from \"@/ds/composites/EmptyState\";",
+      "code": "<EmptyState title=\"업무가 없습니다\" description=\"새 업무를 추가해보세요\" action={<Button>추가</Button>} />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

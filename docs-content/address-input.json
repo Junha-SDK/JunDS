@@ -1,0 +1,23 @@
+{
+  "id": "address-input",
+  "ledgerId": "AddressInput",
+  "category": "composites",
+  "title": "AddressInput",
+  "oneLiner": "주소 검색 자동완성 입력기.",
+  "tags": [
+    "form",
+    "input"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { AddressInput } from \"@/ds/composites/AddressInput\";",
+      "code": "<AddressInput onSelect={(addr) => setAddress(addr)} placeholder=\"주소 검색\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

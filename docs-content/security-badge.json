@@ -1,0 +1,22 @@
+{
+  "id": "security-badge",
+  "ledgerId": "SecurityBadge",
+  "category": "composites",
+  "title": "SecurityBadge",
+  "oneLiner": "보안 레벨 뱃지",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SecurityBadge } from \"@/ds/composites/SecurityBadge\";",
+      "code": "<SecurityBadge level=\"safe\" />\n<SecurityBadge level=\"critical\" label=\"비밀번호 취약\" />"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

@@ -1,0 +1,52 @@
+{
+  "id": "vstack",
+  "ledgerId": "VStack",
+  "category": "core",
+  "title": "VStack",
+  "oneLiner": "세로 스택 — column·gap md 기본. Box 파생.",
+  "tags": [
+    "layout",
+    "stack",
+    "세로"
+  ],
+  "controls": [
+    {
+      "prop": "gap",
+      "kind": "text",
+      "default": "3"
+    },
+    {
+      "prop": "align",
+      "kind": "select",
+      "options": [
+        "start",
+        "center",
+        "end",
+        "stretch",
+        "baseline"
+      ],
+      "default": "stretch"
+    }
+  ],
+  "snippets": {
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-vstack gap=\"{gap}\" align=\"{align}\">\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>첫째 행</jd-box>\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>둘째 행</jd-box>\n</jd-vstack>"
+    },
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [
+    {
+      "token": "--jd-space-4",
+      "usage": "기본 gap(md)"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "시맨틱",
+      "note": "순수 컨테이너"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "affix",
+  "ledgerId": "Affix",
+  "category": "composites",
+  "title": "Affix",
+  "oneLiner": "스크롤 시 지정 위치에 고정되는 컨테이너.",
+  "tags": [
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Affix } from \"@/ds/composites/Affix\";",
+      "code": "<Affix position=\"top\" zIndex={50}>\n  <Toolbar />\n</Affix>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

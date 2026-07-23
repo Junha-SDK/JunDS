@@ -1,0 +1,21 @@
+{
+  "id": "faq",
+  "ledgerId": "FAQ",
+  "category": "patterns",
+  "title": "FAQ",
+  "oneLiner": "자주 묻는 질문 아코디언 섹션.",
+  "tags": [
+    "template",
+    "faq",
+    "아코디언"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

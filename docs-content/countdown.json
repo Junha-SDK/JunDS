@@ -1,0 +1,21 @@
+{
+  "id": "countdown",
+  "ledgerId": "Countdown",
+  "category": "composites",
+  "title": "Countdown",
+  "oneLiner": "목표 시각까지 남은 시간 카운트다운.",
+  "tags": [
+    "display",
+    "time",
+    "카운트다운"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

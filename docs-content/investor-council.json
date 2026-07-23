@@ -1,0 +1,21 @@
+{
+  "id": "investor-council",
+  "ledgerId": "InvestorCouncil",
+  "category": "finance",
+  "title": "InvestorCouncil",
+  "oneLiner": "종목별 투자자 동향 평가 패널.",
+  "tags": [
+    "finance",
+    "수급",
+    "평가"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

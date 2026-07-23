@@ -1,0 +1,22 @@
+{
+  "id": "key-value-grid",
+  "ledgerId": "KeyValueGrid",
+  "category": "composites",
+  "title": "KeyValueGrid",
+  "oneLiner": "키-값 그리드",
+  "tags": [
+    "data-display"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { KeyValueGrid } from \"@/ds/composites/KeyValueGrid\";",
+      "code": "<KeyValueGrid\n  items={[\n    { key: \"name\", label: \"이름\", value: \"홍길동\" },\n    { key: \"email\", label: \"이메일\", value: \"hong@example.com\" },\n  ]}\n  columns={2}\n  bordered\n/>"
+    }
+  },
+  "tokens": [],
+  "a11y": []
+}

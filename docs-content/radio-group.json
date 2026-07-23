@@ -1,0 +1,21 @@
+{
+  "id": "radio-group",
+  "ledgerId": "RadioGroup",
+  "category": "primitives",
+  "title": "RadioGroup",
+  "oneLiner": "단일 선택 라디오 버튼 그룹.",
+  "tags": [
+    "form",
+    "control",
+    "선택"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}

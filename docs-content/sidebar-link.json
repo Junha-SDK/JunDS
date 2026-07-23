@@ -1,0 +1,21 @@
+{
+  "id": "sidebar-link",
+  "ledgerId": "SidebarLink",
+  "category": "patterns",
+  "title": "SidebarLink",
+  "oneLiner": "사이드바 내비게이션 링크 항목.",
+  "tags": [
+    "navigation",
+    "sidebar",
+    "링크"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": null
+  },
+  "tokens": [],
+  "a11y": []
+}
