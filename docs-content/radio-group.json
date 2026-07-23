@@ -11,7 +11,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-radio-group name=\"priority\" value=\"1\" direction=\"horizontal\">\n  <script type=\"application/json\">[\n    {\"value\":\"0\",\"label\":\"긴급\"},\n    {\"value\":\"1\",\"label\":\"높음\"},\n    {\"value\":\"2\",\"label\":\"보통\"}\n  ]</script>\n</jd-radio-group>\n\n<script>\n  // options는 프로퍼티로도 주입 가능: el.options = [{value,label,disabled?}]\n  document.querySelector(\"jd-radio-group\").addEventListener(\"change\", (e) => console.log(e.target.value));\n</script>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": null

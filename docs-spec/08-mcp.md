@@ -108,7 +108,8 @@ v2 서버(`mcp/`)는 v2 동결 구역과 함께 그대로 존치한다 — 01 §
 - **id는 ledger id와 정확 일치** — `packages/mcp/scripts/validate-content.mjs`가
   전수 검증(원장 미존재 id·잘못된 플랫폼 키·JSON 오류 = 실패)하고 vitest가 게이트로 돈다.
   조용한 드리프트 금지(06 §2.1 "미매핑은 빌드 실패" 규약과 동형).
-- **초기 저작 범위**: ledger `web:"done"` 행(현재 core 12 + 파일럿 3종 = 15건)을 손저작.
+- **초기 저작 범위**: ledger `web:"done*"` 행 전수(실측 16건 — core 13 = CE 12 +
+  CoreProvider 내부화, + 파일럿 Button/Input/Modal)를 손저작. (DEC-016-4 정정)
   이후 배치 DoD(07 §3-4 "문서")에 docs-content 저작을 편입해 배치마다 함께 증가.
 - **06 파이프라인과 공유 정본**: 06 §2.2의 코드 탭 3종(웹/SwiftUI/UIKit) 스니펫 생성
   경로(스펙 예제·DocC 추출)는 미구현 상태다. docs-content가 그 손저작 선행 형태이며,
@@ -314,7 +315,7 @@ DEC-014-8 프로토콜(node_modules/.vite 삭제) 준수.
 
 1. 도구 5종 구현 + zod 입력 스키마 + 응답 메타(generatedAt) 전 도구 일관.
 2. §7의 1~4 테스트 전부 통과 (nvm22).
-3. docs-content 초기 15건(ledger web:done 전수) 저작 + 정합 게이트 통과.
+3. docs-content 초기 16건(ledger web:done 전수, DEC-016-4) 저작 + 정합 게이트 통과.
 4. eslint 에러 0, 루트 `v3:test` 무해 통과(--if-present 편입 확인).
 5. README(도구 표·연결·실검증 절차) + Claude Code 실검증 수행.
 6. DECISIONS.md append(승인 결과 기록) + 커밋 1건(내 경로만 스테이징).
@@ -325,7 +326,7 @@ DEC-014-8 프로토콜(node_modules/.vite 삭제) 준수.
   (scaffold·map_refresh·extract_props·locate 파일랭킹·requirements 계열)는 미계승 —
   v2 서버 병행 존치로 커버. 이대로 가는가?
 - **Q2. docs-content 정본화**: `docs-spec/registry/docs-content/<id>.json` 신설,
-  web:done 15건 손저작으로 시작, 후속 게이트에서 06 문서 파이프라인(코드 탭 3종)이
+  web:done 전수(16건) 손저작으로 시작, 후속 게이트에서 06 문서 파이프라인(코드 탭 3종)이
   같은 파일을 소비하도록 06 개정 — 문서 화면과 MCP의 단일 저작점. 이대로 가는가?
 - **Q3. 배포·루트 수정**: `@junds/mcp` 무빌드 npx 패키지(의존성 2: SDK+zod) +
   소유권 밖 공유 파일 2건 최소 수정(루트 package.json workspaces 추가·.mcp.json

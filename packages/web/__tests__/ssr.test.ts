@@ -41,6 +41,8 @@ describe("Node(비브라우저) 모듈 평가", () => {
       "JdOverlay", "JdShow", "JdSimpleGrid", "JdSpacer", "JdStack", "JdWrap",
       "JdIconButton", "JdTextarea", "JdLabel", "JdCheckbox", "JdRadioGroup",
       "JdToggle", "JdSwitch", "JdSlider", "JdRangeSlider",
+      "JdBadge", "JdTag", "JdAvatar", "JdSpinner", "JdKbd", "JdKeyCap",
+      "JdStatusDot", "JdBatteryIndicator", "JdSeverityBadge",
     ] as const) {
       expect(barrel[name], name).toBeTypeOf("function");
     }

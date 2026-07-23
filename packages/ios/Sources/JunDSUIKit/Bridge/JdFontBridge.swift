@@ -18,10 +18,14 @@ public enum JdFontBridge {
         return .headline
     }
 
-    // 사용처는 반드시 adjustsFontForContentSizeCategory = true 를 함께 켠다
-    public static func scaledFont(size: CGFloat, weight: CGFloat) -> UIFont {
+    // 사용처는 반드시 adjustsFontForContentSizeCategory = true 를 함께 켠다.
+    // compatibleWith: 뷰의 traitCollection을 넘겨야 setOverrideTraitCollection 기반
+    // 컨테이너 단위 Dynamic Type(쇼룸 시뮬레이션 등)이 반영된다.
+    public static func scaledFont(size: CGFloat, weight: CGFloat,
+                                  compatibleWith traits: UITraitCollection? = nil) -> UIFont {
         let base = UIFont.systemFont(ofSize: size, weight: uiWeight(weight))
-        return UIFontMetrics(forTextStyle: textStyle(forSize: size)).scaledFont(for: base)
+        return UIFontMetrics(forTextStyle: textStyle(forSize: size))
+            .scaledFont(for: base, compatibleWith: traits)
     }
 }
 

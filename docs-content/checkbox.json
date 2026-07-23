@@ -10,7 +10,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-checkbox label=\"이용약관에 동의합니다\" name=\"tos\" required></jd-checkbox>\n<jd-checkbox label=\"부분 선택\" indeterminate></jd-checkbox>\n<jd-checkbox label=\"비활성\" disabled></jd-checkbox>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

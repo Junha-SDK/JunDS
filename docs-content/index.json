@@ -3,8 +3,8 @@
   "source": "docs-content/*.json + docs-spec/registry/ledger.json",
   "counts": {
     "total": 445,
-    "controls": 26,
-    "web": 28,
+    "controls": 27,
+    "web": 37,
     "swiftui": 3,
     "uikit": 3,
     "react": 169
@@ -605,7 +605,7 @@
       "title": "Textarea",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "텍스트영역 컴포넌트",
       "tags": [
@@ -614,7 +614,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -706,7 +706,7 @@
       "title": "Toggle",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "토글 스위치",
       "tags": [
@@ -715,7 +715,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -727,7 +727,7 @@
       "title": "Checkbox",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "체크박스",
       "tags": [
@@ -736,7 +736,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -748,7 +748,7 @@
       "title": "RadioGroup",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "단일 선택 라디오 버튼 그룹.",
       "tags": [
@@ -758,7 +758,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": false
@@ -770,7 +770,7 @@
       "title": "Label",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "폼 라벨",
       "tags": [
@@ -778,7 +778,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -810,16 +810,16 @@
       "title": "IconButton",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "아이콘 전용 버튼",
       "tags": [
         "form",
         "control"
       ],
-      "hasControls": false,
+      "hasControls": true,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -892,7 +892,7 @@
       "title": "Slider",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "슬라이더/레인지",
       "tags": [
@@ -901,7 +901,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -1038,7 +1038,7 @@
       "title": "Switch",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "iOS 스타일 스위치",
       "tags": [
@@ -1047,7 +1047,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -1325,7 +1325,7 @@
       "title": "RangeSlider",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "두 핸들로 최소/최대 범위를 지정하는 슬라이더.",
       "tags": [
@@ -1334,7 +1334,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true

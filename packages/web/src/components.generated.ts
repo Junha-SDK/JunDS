@@ -2,6 +2,9 @@
 
 export { JdAppShell } from "./components/app-shell/element.js";
 export { JdAspectRatioBox } from "./components/aspect-ratio-box/element.js";
+export { JdAvatar } from "./components/avatar/element.js";
+export { JdBadge } from "./components/badge/element.js";
+export { JdBatteryIndicator } from "./components/battery-indicator/element.js";
 export { JdBox } from "./components/box/element.js";
 export { JdButton } from "./components/button/element.js";
 export { JdCenter } from "./components/center/element.js";
@@ -15,6 +18,8 @@ export { JdGroup } from "./components/group/element.js";
 export { JdHeading } from "./components/heading/element.js";
 export { JdHStack } from "./components/hstack/element.js";
 export { JdIconButton } from "./components/icon-button/element.js";
+export { JdKbd } from "./components/kbd/element.js";
+export { JdKeyCap } from "./components/key-cap/element.js";
 export { JdLabel } from "./components/label/element.js";
 export { JdModal } from "./components/modal/element.js";
 export { JdOverlay } from "./components/overlay/element.js";
@@ -22,12 +27,16 @@ export { JdPage, JdPageHeader, JdPageBody } from "./components/page/element.js";
 export { JdRadioGroup } from "./components/radio-group/element.js";
 export { JdRangeSlider } from "./components/range-slider/element.js";
 export { JdSection } from "./components/section/element.js";
+export { JdSeverityBadge } from "./components/severity-badge/element.js";
 export { JdShow, JdHide } from "./components/show/element.js";
 export { JdSimpleGrid } from "./components/simple-grid/element.js";
 export { JdSlider } from "./components/slider/element.js";
 export { JdSpacer } from "./components/spacer/element.js";
+export { JdSpinner } from "./components/spinner/element.js";
 export { JdStack } from "./components/stack/element.js";
+export { JdStatusDot } from "./components/status-dot/element.js";
 export { JdSwitch } from "./components/switch/element.js";
+export { JdTag } from "./components/tag/element.js";
 export { JdText } from "./components/text/element.js";
 export { JdTextField } from "./components/text-field/element.js";
 export { JdTextarea } from "./components/textarea/element.js";
@@ -37,6 +46,9 @@ export { JdWrap } from "./components/wrap/element.js";
 
 import { JdAppShell } from "./components/app-shell/element.js";
 import { JdAspectRatioBox } from "./components/aspect-ratio-box/element.js";
+import { JdAvatar } from "./components/avatar/element.js";
+import { JdBadge } from "./components/badge/element.js";
+import { JdBatteryIndicator } from "./components/battery-indicator/element.js";
 import { JdBox } from "./components/box/element.js";
 import { JdButton } from "./components/button/element.js";
 import { JdCenter } from "./components/center/element.js";
@@ -50,6 +62,8 @@ import { JdGroup } from "./components/group/element.js";
 import { JdHeading } from "./components/heading/element.js";
 import { JdHStack } from "./components/hstack/element.js";
 import { JdIconButton } from "./components/icon-button/element.js";
+import { JdKbd } from "./components/kbd/element.js";
+import { JdKeyCap } from "./components/key-cap/element.js";
 import { JdLabel } from "./components/label/element.js";
 import { JdModal } from "./components/modal/element.js";
 import { JdOverlay } from "./components/overlay/element.js";
@@ -57,12 +71,16 @@ import { JdPage, JdPageHeader, JdPageBody } from "./components/page/element.js";
 import { JdRadioGroup } from "./components/radio-group/element.js";
 import { JdRangeSlider } from "./components/range-slider/element.js";
 import { JdSection } from "./components/section/element.js";
+import { JdSeverityBadge } from "./components/severity-badge/element.js";
 import { JdShow, JdHide } from "./components/show/element.js";
 import { JdSimpleGrid } from "./components/simple-grid/element.js";
 import { JdSlider } from "./components/slider/element.js";
 import { JdSpacer } from "./components/spacer/element.js";
+import { JdSpinner } from "./components/spinner/element.js";
 import { JdStack } from "./components/stack/element.js";
+import { JdStatusDot } from "./components/status-dot/element.js";
 import { JdSwitch } from "./components/switch/element.js";
+import { JdTag } from "./components/tag/element.js";
 import { JdText } from "./components/text/element.js";
 import { JdTextField } from "./components/text-field/element.js";
 import { JdTextarea } from "./components/textarea/element.js";
@@ -74,6 +92,9 @@ import { JdWrap } from "./components/wrap/element.js";
 export const ALL_COMPONENTS = [
   JdAppShell,
   JdAspectRatioBox,
+  JdAvatar,
+  JdBadge,
+  JdBatteryIndicator,
   JdBox,
   JdButton,
   JdCenter,
@@ -87,6 +108,8 @@ export const ALL_COMPONENTS = [
   JdHeading,
   JdHStack,
   JdIconButton,
+  JdKbd,
+  JdKeyCap,
   JdLabel,
   JdModal,
   JdOverlay,
@@ -96,13 +119,17 @@ export const ALL_COMPONENTS = [
   JdRadioGroup,
   JdRangeSlider,
   JdSection,
+  JdSeverityBadge,
   JdShow,
   JdHide,
   JdSimpleGrid,
   JdSlider,
   JdSpacer,
+  JdSpinner,
   JdStack,
+  JdStatusDot,
   JdSwitch,
+  JdTag,
   JdText,
   JdTextField,
   JdTextarea,

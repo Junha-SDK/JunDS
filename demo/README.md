@@ -1,6 +1,15 @@
-# JunDS 실기기 데모 (JunDSDemo.swiftpm)
+# JunDS Showroom (JunDSDemo.swiftpm)
 
-파일럿 3종(Button·TextField·Modal)의 SwiftUI/UIKit 두 계통을 iPhone 실기기에서 비교하는 카탈로그 앱. 로컬 JunDS 패키지(`../..`)를 상대 경로로 의존한다.
+원장(ledger.json) 동기화 카탈로그 앱 — 445행 전부 노출(구현체는 라이브 데모, 미구현은 "예정"),
+컴포넌트별 상세는 스키마 구동(라이브 스테이지 + 컨트롤 + SwiftUI↔UIKit 탭 + 다크/Dynamic Type
+XS~AX5/Reduce Motion + 접근성 검사 + fps 오버레이). 구조·계약은 `demo/DESIGN.md`.
+로컬 JunDS 패키지(`../..`)를 상대 경로로 의존한다.
+
+빠른 실행(시뮬레이터, Xcode 불필요):
+
+```sh
+demo/tools/sim-run.sh          # 부팅된 시뮬레이터에 빌드·설치·실행 (카탈로그 재생성 포함)
+```
 
 ## 여는 법 · 기기 서명
 

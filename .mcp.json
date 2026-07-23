@@ -3,6 +3,10 @@
     "junds": {
       "command": "node",
       "args": ["mcp/server.mjs"]
+    },
+    "junds-v3": {
+      "command": "node",
+      "args": ["packages/mcp/src/server.mjs"]
     }
   }
 }

@@ -4,8 +4,10 @@ import JunDSCore
 
 // 시스템 UIKit 직접 사용은 허용 — 금지는 자체 타겟 간 의존뿐 (DEC-010, 04 §4.2).
 // Font.system(size:)는 Dynamic Type에 스케일되지 않으므로 UIFontMetrics 경유가 정본 (04 §6).
+// category 인자: 환경의 sizeCategory를 명시 전달해야 트레이트 오버라이드(컨테이너 단위
+// Dynamic Type 시뮬레이션 포함)가 반영된다 — 미전달 시 프로세스 전역 설정만 따르는 버그.
 enum JdSwiftUIFont {
-    static func scaled(size: CGFloat, weight: CGFloat) -> Font {
+    static func scaled(size: CGFloat, weight: CGFloat, category: ContentSizeCategory? = nil) -> Font {
         let uiWeight: UIFont.Weight
         if weight >= 700 {
             uiWeight = .bold
@@ -29,7 +31,12 @@ enum JdSwiftUIFont {
             style = .headline
         }
         let base = UIFont.systemFont(ofSize: size, weight: uiWeight)
-        return Font(UIFontMetrics(forTextStyle: style).scaledFont(for: base))
+        let metrics = UIFontMetrics(forTextStyle: style)
+        if let category {
+            let traits = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory(category))
+            return Font(metrics.scaledFont(for: base, compatibleWith: traits))
+        }
+        return Font(metrics.scaledFont(for: base))
     }
 }
 
@@ -42,11 +49,11 @@ public extension View {
 struct JdFontModifier: ViewModifier {
     let size: CGFloat
     let weight: CGFloat
-    // 변경 시 재평가 트리거 (04 §6)
+    // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
     func body(content: Content) -> some View {
-        content.font(JdSwiftUIFont.scaled(size: size, weight: weight))
+        content.font(JdSwiftUIFont.scaled(size: size, weight: weight, category: sizeCategory))
     }
 }
 

@@ -11,6 +11,7 @@ public struct JdTextField: View {
 
     @FocusState private var isFocused: Bool
     @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.sizeCategory) private var sizeCategory
 
     public init(_ label: String? = nil,
                 placeholder: String = "",
@@ -42,13 +43,13 @@ public struct JdTextField: View {
         VStack(alignment: .leading, spacing: JdToken.Space.s1_5) {
             if let label, !label.isEmpty {
                 Text(label)
-                    .font(JdSwiftUIFont.scaled(size: spec.labelFontSize, weight: spec.labelFontWeight))
+                    .font(JdSwiftUIFont.scaled(size: spec.labelFontSize, weight: spec.labelFontWeight, category: sizeCategory))
                     .foregroundColor(JdToken.Color.foreground.color)
             }
             TextField(placeholder, text: $text)
                 .focused($isFocused)
                 .onSubmit { onCommit?() }
-                .font(JdSwiftUIFont.scaled(size: spec.fontSize, weight: JdToken.FontWeight.normal))
+                .font(JdSwiftUIFont.scaled(size: spec.fontSize, weight: JdToken.FontWeight.normal, category: sizeCategory))
                 .foregroundColor(JdToken.Color.foreground.color)
                 .padding(.horizontal, spec.hPadding)
                 .frame(minHeight: spec.minHeight)
@@ -63,7 +64,7 @@ public struct JdTextField: View {
                     Image(systemName: "exclamationmark.circle")
                     Text(error)
                 }
-                .font(JdSwiftUIFont.scaled(size: spec.errorFontSize, weight: JdToken.FontWeight.normal))
+                .font(JdSwiftUIFont.scaled(size: spec.errorFontSize, weight: JdToken.FontWeight.normal, category: sizeCategory))
                 .foregroundColor(JdToken.Color.danger.color)
             }
         }

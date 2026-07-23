@@ -147,14 +147,14 @@ public final class JdTextFieldView: UIView {
     }
 
     private func applyStyle() {
-        labelView.font = JdFontBridge.scaledFont(size: spec.labelFontSize, weight: spec.labelFontWeight)
+        labelView.font = JdFontBridge.scaledFont(size: spec.labelFontSize, weight: spec.labelFontWeight, compatibleWith: traitCollection)
         labelView.textColor = JdToken.Color.foreground.uiColor
-        field.font = JdFontBridge.scaledFont(size: spec.fontSize, weight: JdToken.FontWeight.normal)
+        field.font = JdFontBridge.scaledFont(size: spec.fontSize, weight: JdToken.FontWeight.normal, compatibleWith: traitCollection)
         field.textColor = JdToken.Color.foreground.uiColor
         field.backgroundColor = JdToken.Color.card.uiColor
         field.layer.cornerRadius = spec.radius
         field.hInset = spec.hPadding
-        errorLabel.font = JdFontBridge.scaledFont(size: spec.errorFontSize, weight: JdToken.FontWeight.normal)
+        errorLabel.font = JdFontBridge.scaledFont(size: spec.errorFontSize, weight: JdToken.FontWeight.normal, compatibleWith: traitCollection)
         applyBorder()
     }
 

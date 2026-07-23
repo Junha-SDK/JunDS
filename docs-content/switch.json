@@ -10,7 +10,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-switch label=\"다크 모드\" checked></jd-switch>\n<jd-switch label=\"큰 스위치\" size=\"lg\"></jd-switch>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

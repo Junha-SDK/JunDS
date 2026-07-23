@@ -48,4 +48,15 @@
   jd-slider:not(:defined),
   jd-range-slider:not(:defined) { display: block; }
   jd-radio-group:not(:defined) { display: flex; flex-direction: column; }
+
+  /* B4 primitives 표시 */
+  jd-badge:not(:defined),
+  jd-tag:not(:defined),
+  jd-avatar:not(:defined),
+  jd-spinner:not(:defined),
+  jd-kbd:not(:defined),
+  jd-key-cap:not(:defined),
+  jd-status-dot:not(:defined),
+  jd-battery-indicator:not(:defined),
+  jd-severity-badge:not(:defined) { display: inline-flex; }
 }

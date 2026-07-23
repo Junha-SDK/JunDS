@@ -116,7 +116,7 @@ public final class JdButtonView: UIControl {
     }
 
     private func applyStyle() {
-        titleLabel.font = JdFontBridge.scaledFont(size: spec.fontSize, weight: spec.fontWeight)
+        titleLabel.font = JdFontBridge.scaledFont(size: spec.fontSize, weight: spec.fontWeight, compatibleWith: traitCollection)
         titleLabel.textColor = spec.foreground.uiColor
         spinner.color = spec.foreground.uiColor
         let bg = isHighlighted ? spec.pressedBackground : spec.background

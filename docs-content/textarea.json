@@ -10,7 +10,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-label for=\"bio\" required>자기소개</jd-label>\n<jd-textarea id=\"bio\" name=\"bio\" placeholder=\"자기소개를 입력하세요\" auto-resize show-count maxlength=\"120\"></jd-textarea>\n\n<jd-textarea error value=\"에러 상태\"></jd-textarea>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

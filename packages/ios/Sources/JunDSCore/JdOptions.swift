@@ -19,3 +19,9 @@ public enum JdModalCloseReason: String, CaseIterable, Sendable {
     case backdrop
     case close
 }
+
+// 공용 방향 축 — 웹 orientation attribute 문자열과 rawValue 일치 (04 §3 규칙 1)
+public enum JdOrientation: String, CaseIterable, Sendable {
+    case horizontal
+    case vertical
+}

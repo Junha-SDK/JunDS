@@ -10,7 +10,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-toggle label=\"알림 받기\" checked></jd-toggle>\n<jd-toggle label=\"비활성\" disabled></jd-toggle>\n\n<script>\n  // 네이티브 change가 그대로 버블 — checked 프로퍼티로 상태 읽기\n  document.querySelector(\"jd-toggle\").addEventListener(\"change\", (e) => console.log(e.target.checked));\n</script>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

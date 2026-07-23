@@ -1,0 +1,64 @@
+/**
+ * 도구 단위 테스트용 소형 픽스처 — 로더 산출 형태(docs-content 스키마 DEC-021 +
+ * 로더 파생 tag)를 축소 재현. content 키는 `${ledgerId}::${category}`.
+ */
+
+export function makeFixture() {
+  return {
+    mode: "live",
+    generatedAt: "2026-07-24",
+    ledger: {
+      counts: { total: 5 },
+      rows: [
+        { id: "Button", category: "primitives", tier: "T1", web: "done", ios: "done", docs: "todo", tests: "done", bench: "pass(1.2ms)", notes: "G1 파일럿 <jd-button>" },
+        { id: "Input", category: "primitives", tier: "T1", web: "done", ios: "done", docs: "todo", tests: "done", bench: "todo", notes: "G1 파일럿 <jd-text-field>" },
+        { id: "OTPInput", category: "composites", tier: "T2", web: "todo", ios: "todo", docs: "todo", tests: "todo", bench: "todo", notes: "" },
+        { id: "CoreProvider", category: "core", tier: "T1", web: "done(내부화)", ios: "n/a", docs: "n/a", tests: "n/a", bench: "n/a", notes: "내부화" },
+        { id: "useToast", category: "hooks", tier: "T2", web: "wip", ios: "n/a", docs: "todo", tests: "todo", bench: "n/a", notes: "Behavior 전환 중" },
+      ],
+    },
+    content: {
+      "Button::primitives": {
+        id: "button", ledgerId: "Button", category: "primitives",
+        title: "Button", oneLiner: "기본 동작 버튼",
+        tags: ["button", "버튼", "action"],
+        controls: [
+          { prop: "variant", kind: "select", options: ["primary", "danger"], default: "primary" },
+          { prop: "size", kind: "segmented", options: ["sm", "md"], default: "md" },
+          { prop: "loading", kind: "boolean", default: false },
+        ],
+        snippets: {
+          web: { imp: 'import "@junds/web/define";', code: '<jd-button variant="{variant}" size="{size}">저장</jd-button>' },
+          swiftui: { imp: "import JunDS", code: 'JdButton("저장") {}' },
+          uikit: null,
+          react: null,
+        },
+        tokens: [{ token: "--jd-color-primary", usage: "primary 배경" }],
+        a11y: [{ item: "네이티브 위임", note: "내부 <button>" }],
+        tag: "jd-button",
+      },
+      "Input::primitives": {
+        id: "input", ledgerId: "Input", category: "primitives",
+        title: "Input", oneLiner: "텍스트 입력",
+        tags: ["input", "text-field"],
+        controls: [],
+        snippets: {
+          web: { imp: 'import "@junds/web/define";', code: "<jd-text-field></jd-text-field>" },
+          swiftui: null,
+          uikit: null,
+          react: null,
+        },
+        tokens: [],
+        a11y: [],
+        tag: "jd-text-field",
+      },
+    },
+    tokens: [
+      { group: "color", path: "color.primary", cssVar: "--jd-color-primary", value: "#5b4cc7", swift: "JdToken.Color.primary" },
+      { group: "color", path: "color.background", cssVar: "--jd-color-background", value: { light: "#f5f4f8", dark: "#0c0a14" }, swift: "JdToken.Color.background" },
+      { group: "space", path: "space.4", cssVar: "--jd-space-4", value: "1rem", swift: "JdToken.Space.s4" },
+      { group: "theme-presets", path: "theme-presets.purple.primary", cssVar: null, value: "#5b4cc7", swift: null },
+    ],
+    sizeBaseline: { core: 5254, components: { button: 2273, "text-field": 1851 } },
+  };
+}

@@ -10,7 +10,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-slider value=\"40\" min=\"0\" max=\"100\" step=\"1\" show-value></jd-slider>\n<jd-slider value=\"70\" color=\"success\" size=\"sm\"></jd-slider>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

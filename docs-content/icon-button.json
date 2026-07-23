@@ -8,9 +8,34 @@
     "form",
     "control"
   ],
-  "controls": [],
+  "controls": [
+    {
+      "prop": "variant",
+      "kind": "segmented",
+      "options": [
+        "ghost",
+        "outline",
+        "filled"
+      ],
+      "default": "ghost"
+    },
+    {
+      "prop": "size",
+      "kind": "segmented",
+      "options": [
+        "xs",
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    }
+  ],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
+      "code": "<jd-icon-button label=\"설정\" variant=\"{variant}\" size=\"{size}\">⚙︎</jd-icon-button>\n<jd-icon-button label=\"닫기\" variant=\"outline\">✕</jd-icon-button>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {

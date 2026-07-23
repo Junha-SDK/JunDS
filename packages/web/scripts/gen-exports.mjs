@@ -42,22 +42,29 @@ const perDir = dirs.map((dir) => {
 /* ── (1) package.json exports ── */
 const pkgPath = join(webDir, "package.json");
 const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
+// dist/types는 dist와 구조 동형(tsc outDir dist/types, esbuild outbase src) —
+// js 경로에서 d.ts 경로를 기계 유도한다. CSS 엔트리는 d.ts가 없으므로 문자열 유지.
+const entry = (js) => ({
+  types: js.replace("./dist/", "./dist/types/").replace(/\.js$/, ".d.ts"),
+  default: js,
+});
 const exportsMap = {
-  ".": "./dist/index.js",
-  "./define": "./dist/define.js",
+  ".": entry("./dist/index.js"),
+  "./define": entry("./dist/define.js"),
 };
 for (const { dir } of perDir) {
-  exportsMap[`./${dir}`] = `./dist/components/${dir}/index.js`;
-  exportsMap[`./${dir}/element`] = `./dist/components/${dir}/element.js`;
+  exportsMap[`./${dir}`] = entry(`./dist/components/${dir}/index.js`);
+  exportsMap[`./${dir}/element`] = entry(`./dist/components/${dir}/element.js`);
 }
 Object.assign(exportsMap, {
-  "./behaviors": "./dist/behaviors/index.js",
-  "./behaviors/*": "./dist/behaviors/*.js",
+  "./behaviors": entry("./dist/behaviors/index.js"),
+  "./behaviors/*": entry("./dist/behaviors/*.js"),
   "./junds.css": "./dist/junds.css",
   "./css/*": "./dist/css/*",
   "./tokens.css": "./src/styles/tokens.css",
 });
-const nextPkg = JSON.stringify({ ...pkg, exports: exportsMap }, null, 2) + "\n";
+const nextPkg =
+  JSON.stringify({ ...pkg, types: "./dist/types/index.d.ts", exports: exportsMap }, null, 2) + "\n";
 
 /* ── (2) components.generated.ts ── */
 const banner =

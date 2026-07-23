@@ -131,7 +131,8 @@
   "workspaces": [
     "packages/web",
     "packages/react",
-    "packages/finance-data"
+    "packages/finance-data",
+    "packages/mcp"
   ],
   "sideEffects": false,
   "scripts": {

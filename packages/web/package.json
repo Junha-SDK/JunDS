@@ -13,79 +13,368 @@
     "./dist/**/*.css",
     "./src/styles/*.css"
   ],
+  "types": "./dist/types/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./define": "./dist/define.js",
-    "./app-shell": "./dist/components/app-shell/index.js",
-    "./app-shell/element": "./dist/components/app-shell/element.js",
-    "./aspect-ratio-box": "./dist/components/aspect-ratio-box/index.js",
-    "./aspect-ratio-box/element": "./dist/components/aspect-ratio-box/element.js",
-    "./box": "./dist/components/box/index.js",
-    "./box/element": "./dist/components/box/element.js",
-    "./button": "./dist/components/button/index.js",
-    "./button/element": "./dist/components/button/element.js",
-    "./center": "./dist/components/center/index.js",
-    "./center/element": "./dist/components/center/element.js",
-    "./checkbox": "./dist/components/checkbox/index.js",
-    "./checkbox/element": "./dist/components/checkbox/element.js",
-    "./container": "./dist/components/container/index.js",
-    "./container/element": "./dist/components/container/element.js",
-    "./divider": "./dist/components/divider/index.js",
-    "./divider/element": "./dist/components/divider/element.js",
-    "./flex": "./dist/components/flex/index.js",
-    "./flex/element": "./dist/components/flex/element.js",
-    "./grid": "./dist/components/grid/index.js",
-    "./grid/element": "./dist/components/grid/element.js",
-    "./grid-layout": "./dist/components/grid-layout/index.js",
-    "./grid-layout/element": "./dist/components/grid-layout/element.js",
-    "./group": "./dist/components/group/index.js",
-    "./group/element": "./dist/components/group/element.js",
-    "./heading": "./dist/components/heading/index.js",
-    "./heading/element": "./dist/components/heading/element.js",
-    "./hstack": "./dist/components/hstack/index.js",
-    "./hstack/element": "./dist/components/hstack/element.js",
-    "./icon-button": "./dist/components/icon-button/index.js",
-    "./icon-button/element": "./dist/components/icon-button/element.js",
-    "./label": "./dist/components/label/index.js",
-    "./label/element": "./dist/components/label/element.js",
-    "./modal": "./dist/components/modal/index.js",
-    "./modal/element": "./dist/components/modal/element.js",
-    "./overlay": "./dist/components/overlay/index.js",
-    "./overlay/element": "./dist/components/overlay/element.js",
-    "./page": "./dist/components/page/index.js",
-    "./page/element": "./dist/components/page/element.js",
-    "./radio-group": "./dist/components/radio-group/index.js",
-    "./radio-group/element": "./dist/components/radio-group/element.js",
-    "./range-slider": "./dist/components/range-slider/index.js",
-    "./range-slider/element": "./dist/components/range-slider/element.js",
-    "./section": "./dist/components/section/index.js",
-    "./section/element": "./dist/components/section/element.js",
-    "./show": "./dist/components/show/index.js",
-    "./show/element": "./dist/components/show/element.js",
-    "./simple-grid": "./dist/components/simple-grid/index.js",
-    "./simple-grid/element": "./dist/components/simple-grid/element.js",
-    "./slider": "./dist/components/slider/index.js",
-    "./slider/element": "./dist/components/slider/element.js",
-    "./spacer": "./dist/components/spacer/index.js",
-    "./spacer/element": "./dist/components/spacer/element.js",
-    "./stack": "./dist/components/stack/index.js",
-    "./stack/element": "./dist/components/stack/element.js",
-    "./switch": "./dist/components/switch/index.js",
-    "./switch/element": "./dist/components/switch/element.js",
-    "./text": "./dist/components/text/index.js",
-    "./text/element": "./dist/components/text/element.js",
-    "./text-field": "./dist/components/text-field/index.js",
-    "./text-field/element": "./dist/components/text-field/element.js",
-    "./textarea": "./dist/components/textarea/index.js",
-    "./textarea/element": "./dist/components/textarea/element.js",
-    "./toggle": "./dist/components/toggle/index.js",
-    "./toggle/element": "./dist/components/toggle/element.js",
-    "./vstack": "./dist/components/vstack/index.js",
-    "./vstack/element": "./dist/components/vstack/element.js",
-    "./wrap": "./dist/components/wrap/index.js",
-    "./wrap/element": "./dist/components/wrap/element.js",
-    "./behaviors": "./dist/behaviors/index.js",
-    "./behaviors/*": "./dist/behaviors/*.js",
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./define": {
+      "types": "./dist/types/define.d.ts",
+      "default": "./dist/define.js"
+    },
+    "./app-shell": {
+      "types": "./dist/types/components/app-shell/index.d.ts",
+      "default": "./dist/components/app-shell/index.js"
+    },
+    "./app-shell/element": {
+      "types": "./dist/types/components/app-shell/element.d.ts",
+      "default": "./dist/components/app-shell/element.js"
+    },
+    "./aspect-ratio-box": {
+      "types": "./dist/types/components/aspect-ratio-box/index.d.ts",
+      "default": "./dist/components/aspect-ratio-box/index.js"
+    },
+    "./aspect-ratio-box/element": {
+      "types": "./dist/types/components/aspect-ratio-box/element.d.ts",
+      "default": "./dist/components/aspect-ratio-box/element.js"
+    },
+    "./avatar": {
+      "types": "./dist/types/components/avatar/index.d.ts",
+      "default": "./dist/components/avatar/index.js"
+    },
+    "./avatar/element": {
+      "types": "./dist/types/components/avatar/element.d.ts",
+      "default": "./dist/components/avatar/element.js"
+    },
+    "./badge": {
+      "types": "./dist/types/components/badge/index.d.ts",
+      "default": "./dist/components/badge/index.js"
+    },
+    "./badge/element": {
+      "types": "./dist/types/components/badge/element.d.ts",
+      "default": "./dist/components/badge/element.js"
+    },
+    "./battery-indicator": {
+      "types": "./dist/types/components/battery-indicator/index.d.ts",
+      "default": "./dist/components/battery-indicator/index.js"
+    },
+    "./battery-indicator/element": {
+      "types": "./dist/types/components/battery-indicator/element.d.ts",
+      "default": "./dist/components/battery-indicator/element.js"
+    },
+    "./box": {
+      "types": "./dist/types/components/box/index.d.ts",
+      "default": "./dist/components/box/index.js"
+    },
+    "./box/element": {
+      "types": "./dist/types/components/box/element.d.ts",
+      "default": "./dist/components/box/element.js"
+    },
+    "./button": {
+      "types": "./dist/types/components/button/index.d.ts",
+      "default": "./dist/components/button/index.js"
+    },
+    "./button/element": {
+      "types": "./dist/types/components/button/element.d.ts",
+      "default": "./dist/components/button/element.js"
+    },
+    "./center": {
+      "types": "./dist/types/components/center/index.d.ts",
+      "default": "./dist/components/center/index.js"
+    },
+    "./center/element": {
+      "types": "./dist/types/components/center/element.d.ts",
+      "default": "./dist/components/center/element.js"
+    },
+    "./checkbox": {
+      "types": "./dist/types/components/checkbox/index.d.ts",
+      "default": "./dist/components/checkbox/index.js"
+    },
+    "./checkbox/element": {
+      "types": "./dist/types/components/checkbox/element.d.ts",
+      "default": "./dist/components/checkbox/element.js"
+    },
+    "./container": {
+      "types": "./dist/types/components/container/index.d.ts",
+      "default": "./dist/components/container/index.js"
+    },
+    "./container/element": {
+      "types": "./dist/types/components/container/element.d.ts",
+      "default": "./dist/components/container/element.js"
+    },
+    "./divider": {
+      "types": "./dist/types/components/divider/index.d.ts",
+      "default": "./dist/components/divider/index.js"
+    },
+    "./divider/element": {
+      "types": "./dist/types/components/divider/element.d.ts",
+      "default": "./dist/components/divider/element.js"
+    },
+    "./flex": {
+      "types": "./dist/types/components/flex/index.d.ts",
+      "default": "./dist/components/flex/index.js"
+    },
+    "./flex/element": {
+      "types": "./dist/types/components/flex/element.d.ts",
+      "default": "./dist/components/flex/element.js"
+    },
+    "./grid": {
+      "types": "./dist/types/components/grid/index.d.ts",
+      "default": "./dist/components/grid/index.js"
+    },
+    "./grid/element": {
+      "types": "./dist/types/components/grid/element.d.ts",
+      "default": "./dist/components/grid/element.js"
+    },
+    "./grid-layout": {
+      "types": "./dist/types/components/grid-layout/index.d.ts",
+      "default": "./dist/components/grid-layout/index.js"
+    },
+    "./grid-layout/element": {
+      "types": "./dist/types/components/grid-layout/element.d.ts",
+      "default": "./dist/components/grid-layout/element.js"
+    },
+    "./group": {
+      "types": "./dist/types/components/group/index.d.ts",
+      "default": "./dist/components/group/index.js"
+    },
+    "./group/element": {
+      "types": "./dist/types/components/group/element.d.ts",
+      "default": "./dist/components/group/element.js"
+    },
+    "./heading": {
+      "types": "./dist/types/components/heading/index.d.ts",
+      "default": "./dist/components/heading/index.js"
+    },
+    "./heading/element": {
+      "types": "./dist/types/components/heading/element.d.ts",
+      "default": "./dist/components/heading/element.js"
+    },
+    "./hstack": {
+      "types": "./dist/types/components/hstack/index.d.ts",
+      "default": "./dist/components/hstack/index.js"
+    },
+    "./hstack/element": {
+      "types": "./dist/types/components/hstack/element.d.ts",
+      "default": "./dist/components/hstack/element.js"
+    },
+    "./icon-button": {
+      "types": "./dist/types/components/icon-button/index.d.ts",
+      "default": "./dist/components/icon-button/index.js"
+    },
+    "./icon-button/element": {
+      "types": "./dist/types/components/icon-button/element.d.ts",
+      "default": "./dist/components/icon-button/element.js"
+    },
+    "./kbd": {
+      "types": "./dist/types/components/kbd/index.d.ts",
+      "default": "./dist/components/kbd/index.js"
+    },
+    "./kbd/element": {
+      "types": "./dist/types/components/kbd/element.d.ts",
+      "default": "./dist/components/kbd/element.js"
+    },
+    "./key-cap": {
+      "types": "./dist/types/components/key-cap/index.d.ts",
+      "default": "./dist/components/key-cap/index.js"
+    },
+    "./key-cap/element": {
+      "types": "./dist/types/components/key-cap/element.d.ts",
+      "default": "./dist/components/key-cap/element.js"
+    },
+    "./label": {
+      "types": "./dist/types/components/label/index.d.ts",
+      "default": "./dist/components/label/index.js"
+    },
+    "./label/element": {
+      "types": "./dist/types/components/label/element.d.ts",
+      "default": "./dist/components/label/element.js"
+    },
+    "./modal": {
+      "types": "./dist/types/components/modal/index.d.ts",
+      "default": "./dist/components/modal/index.js"
+    },
+    "./modal/element": {
+      "types": "./dist/types/components/modal/element.d.ts",
+      "default": "./dist/components/modal/element.js"
+    },
+    "./overlay": {
+      "types": "./dist/types/components/overlay/index.d.ts",
+      "default": "./dist/components/overlay/index.js"
+    },
+    "./overlay/element": {
+      "types": "./dist/types/components/overlay/element.d.ts",
+      "default": "./dist/components/overlay/element.js"
+    },
+    "./page": {
+      "types": "./dist/types/components/page/index.d.ts",
+      "default": "./dist/components/page/index.js"
+    },
+    "./page/element": {
+      "types": "./dist/types/components/page/element.d.ts",
+      "default": "./dist/components/page/element.js"
+    },
+    "./radio-group": {
+      "types": "./dist/types/components/radio-group/index.d.ts",
+      "default": "./dist/components/radio-group/index.js"
+    },
+    "./radio-group/element": {
+      "types": "./dist/types/components/radio-group/element.d.ts",
+      "default": "./dist/components/radio-group/element.js"
+    },
+    "./range-slider": {
+      "types": "./dist/types/components/range-slider/index.d.ts",
+      "default": "./dist/components/range-slider/index.js"
+    },
+    "./range-slider/element": {
+      "types": "./dist/types/components/range-slider/element.d.ts",
+      "default": "./dist/components/range-slider/element.js"
+    },
+    "./section": {
+      "types": "./dist/types/components/section/index.d.ts",
+      "default": "./dist/components/section/index.js"
+    },
+    "./section/element": {
+      "types": "./dist/types/components/section/element.d.ts",
+      "default": "./dist/components/section/element.js"
+    },
+    "./severity-badge": {
+      "types": "./dist/types/components/severity-badge/index.d.ts",
+      "default": "./dist/components/severity-badge/index.js"
+    },
+    "./severity-badge/element": {
+      "types": "./dist/types/components/severity-badge/element.d.ts",
+      "default": "./dist/components/severity-badge/element.js"
+    },
+    "./show": {
+      "types": "./dist/types/components/show/index.d.ts",
+      "default": "./dist/components/show/index.js"
+    },
+    "./show/element": {
+      "types": "./dist/types/components/show/element.d.ts",
+      "default": "./dist/components/show/element.js"
+    },
+    "./simple-grid": {
+      "types": "./dist/types/components/simple-grid/index.d.ts",
+      "default": "./dist/components/simple-grid/index.js"
+    },
+    "./simple-grid/element": {
+      "types": "./dist/types/components/simple-grid/element.d.ts",
+      "default": "./dist/components/simple-grid/element.js"
+    },
+    "./slider": {
+      "types": "./dist/types/components/slider/index.d.ts",
+      "default": "./dist/components/slider/index.js"
+    },
+    "./slider/element": {
+      "types": "./dist/types/components/slider/element.d.ts",
+      "default": "./dist/components/slider/element.js"
+    },
+    "./spacer": {
+      "types": "./dist/types/components/spacer/index.d.ts",
+      "default": "./dist/components/spacer/index.js"
+    },
+    "./spacer/element": {
+      "types": "./dist/types/components/spacer/element.d.ts",
+      "default": "./dist/components/spacer/element.js"
+    },
+    "./spinner": {
+      "types": "./dist/types/components/spinner/index.d.ts",
+      "default": "./dist/components/spinner/index.js"
+    },
+    "./spinner/element": {
+      "types": "./dist/types/components/spinner/element.d.ts",
+      "default": "./dist/components/spinner/element.js"
+    },
+    "./stack": {
+      "types": "./dist/types/components/stack/index.d.ts",
+      "default": "./dist/components/stack/index.js"
+    },
+    "./stack/element": {
+      "types": "./dist/types/components/stack/element.d.ts",
+      "default": "./dist/components/stack/element.js"
+    },
+    "./status-dot": {
+      "types": "./dist/types/components/status-dot/index.d.ts",
+      "default": "./dist/components/status-dot/index.js"
+    },
+    "./status-dot/element": {
+      "types": "./dist/types/components/status-dot/element.d.ts",
+      "default": "./dist/components/status-dot/element.js"
+    },
+    "./switch": {
+      "types": "./dist/types/components/switch/index.d.ts",
+      "default": "./dist/components/switch/index.js"
+    },
+    "./switch/element": {
+      "types": "./dist/types/components/switch/element.d.ts",
+      "default": "./dist/components/switch/element.js"
+    },
+    "./tag": {
+      "types": "./dist/types/components/tag/index.d.ts",
+      "default": "./dist/components/tag/index.js"
+    },
+    "./tag/element": {
+      "types": "./dist/types/components/tag/element.d.ts",
+      "default": "./dist/components/tag/element.js"
+    },
+    "./text": {
+      "types": "./dist/types/components/text/index.d.ts",
+      "default": "./dist/components/text/index.js"
+    },
+    "./text/element": {
+      "types": "./dist/types/components/text/element.d.ts",
+      "default": "./dist/components/text/element.js"
+    },
+    "./text-field": {
+      "types": "./dist/types/components/text-field/index.d.ts",
+      "default": "./dist/components/text-field/index.js"
+    },
+    "./text-field/element": {
+      "types": "./dist/types/components/text-field/element.d.ts",
+      "default": "./dist/components/text-field/element.js"
+    },
+    "./textarea": {
+      "types": "./dist/types/components/textarea/index.d.ts",
+      "default": "./dist/components/textarea/index.js"
+    },
+    "./textarea/element": {
+      "types": "./dist/types/components/textarea/element.d.ts",
+      "default": "./dist/components/textarea/element.js"
+    },
+    "./toggle": {
+      "types": "./dist/types/components/toggle/index.d.ts",
+      "default": "./dist/components/toggle/index.js"
+    },
+    "./toggle/element": {
+      "types": "./dist/types/components/toggle/element.d.ts",
+      "default": "./dist/components/toggle/element.js"
+    },
+    "./vstack": {
+      "types": "./dist/types/components/vstack/index.d.ts",
+      "default": "./dist/components/vstack/index.js"
+    },
+    "./vstack/element": {
+      "types": "./dist/types/components/vstack/element.d.ts",
+      "default": "./dist/components/vstack/element.js"
+    },
+    "./wrap": {
+      "types": "./dist/types/components/wrap/index.d.ts",
+      "default": "./dist/components/wrap/index.js"
+    },
+    "./wrap/element": {
+      "types": "./dist/types/components/wrap/element.d.ts",
+      "default": "./dist/components/wrap/element.js"
+    },
+    "./behaviors": {
+      "types": "./dist/types/behaviors/index.d.ts",
+      "default": "./dist/behaviors/index.js"
+    },
+    "./behaviors/*": {
+      "types": "./dist/types/behaviors/*.d.ts",
+      "default": "./dist/behaviors/*.js"
+    },
     "./junds.css": "./dist/junds.css",
     "./css/*": "./dist/css/*",
     "./tokens.css": "./src/styles/tokens.css"
@@ -96,6 +385,7 @@
   ],
   "scripts": {
     "build": "node build.mjs",
+    "prepack": "node build.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "gen:exports": "node scripts/gen-exports.mjs",
     "test": "node scripts/gen-exports.mjs --check && vitest run"

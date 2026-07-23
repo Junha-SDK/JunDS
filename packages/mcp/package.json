@@ -1,0 +1,31 @@
+{
+  "name": "@junds/mcp",
+  "version": "3.0.0-alpha.0",
+  "description": "JunDS v3 MCP 서버 — AI 에디터용 컴포넌트·사용법·토큰·전환 상태 조회 (npx @junds/mcp)",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "junds-mcp": "src/server.mjs"
+  },
+  "files": [
+    "src",
+    "data",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "build:data": "node scripts/build-data.mjs",
+    "validate:content": "node ../../docs-content/build-index.mjs",
+    "prepublishOnly": "node scripts/build-data.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.4"
+  }
+}

@@ -44,7 +44,7 @@ struct JdButtonPressStyle: ButtonStyle {
         let shape = RoundedRectangle(cornerRadius: spec.radius, style: .continuous)
         let background = configuration.isPressed ? spec.pressedBackground : spec.background
         return configuration.label
-            .font(JdSwiftUIFont.scaled(size: spec.fontSize, weight: spec.fontWeight))
+            .font(JdSwiftUIFont.scaled(size: spec.fontSize, weight: spec.fontWeight, category: sizeCategory))
             .padding(.horizontal, spec.hPadding)
             .frame(minHeight: spec.minHeight) // 고정 height 금지 — XXXL에서 자란다 (04 §7.2)
             .foregroundColor(spec.foreground.color)
