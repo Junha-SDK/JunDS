@@ -1,0 +1,29 @@
+{
+  "//": "paths는 웹의 빌드된 .d.ts를 가리킨다(소스 .ts를 넣으면 웹 소스가 프로그램에 편입되어 dist/types가 2단 재방출된다). 웹 빌드가 선행돼야 typecheck가 성립한다 — 루트 v3:build의 워크스페이스 순서(web→react)가 이를 보장.",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist/types",
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "rootDir": "src",
+    "paths": {
+      "@junds/web/button/element": ["../web/dist/types/components/button/element.d.ts"],
+      "@junds/web/button": ["../web/dist/types/components/button/index.d.ts"],
+      "@junds/web/text-field/element": ["../web/dist/types/components/text-field/element.d.ts"],
+      "@junds/web/text-field": ["../web/dist/types/components/text-field/index.d.ts"],
+      "@junds/web/modal/element": ["../web/dist/types/components/modal/element.d.ts"],
+      "@junds/web/modal": ["../web/dist/types/components/modal/index.d.ts"]
+    }
+  },
+  "include": ["src"]
+}
