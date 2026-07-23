@@ -293,22 +293,22 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "G1 파일럿 <jd-button> — leftIcon/rightIcon/asChild는 react 어댑터 몫"
+      "notes": "G1 파일럿 <jd-button> — leftIcon/rightIcon/asChild는 react 어댑터 몫 / iOS G1 JdButton·JdButtonView — unverified(빌드 미검증, DEC-013)"
     },
     {
       "id": "Input",
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "G1 파일럿 <jd-text-field> — v2 Input+FormField 통합 표면(label/error 내장)"
+      "notes": "G1 파일럿 <jd-text-field> — v2 Input+FormField 통합 표면(label/error 내장) / iOS G1 JdTextField·JdTextFieldView — unverified(빌드 미검증, DEC-013)"
     },
     {
       "id": "Textarea",
@@ -2240,11 +2240,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "pass(S3 100회: open p95 12.2ms / close p95 8.7ms / longtask 0 / 누수 0)",
-      "notes": "G1 파일럿 <jd-modal> — dismissible→persistent 반전(DEC-012), focus-trap Behavior 첫 소비처"
+      "notes": "G1 파일럿 <jd-modal> — dismissible→persistent 반전(DEC-012), focus-trap Behavior 첫 소비처 / iOS G1 jdModal·JdModalViewController(시스템 시트 번역) — unverified(빌드 미검증, DEC-013)"
     },
     {
       "id": "MultiSelect",

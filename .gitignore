@@ -60,3 +60,10 @@ next-env.d.ts
 # v3 워크스페이스 산출물 (토큰 생성물 3종은 커밋 대상 — tokens-fresh 게이트)
 packages/*/node_modules/
 packages/*/dist/
+
+# Swift Package Manager (v3 iOS — 04 §2.1: Xcode 프로젝트 파일은 커밋하지 않는다)
+.build/
+.swiftpm/
+*.xcodeproj
+demo/JunDSDemo.swiftpm/.build/
+demo/JunDSDemo.swiftpm/.swiftpm/
