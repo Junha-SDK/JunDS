@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const layoutGridIcon = { name: "layout-grid", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3.75\" y=\"3.75\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"13.25\" y=\"3.75\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3.75\" y=\"13.25\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"13.25\" y=\"13.25\" width=\"7\" height=\"7\" rx=\"1.5\"/></svg>" };

@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const buildingIcon = { name: "building", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5.25 20.25V5.5A1.75 1.75 0 0 1 7 3.75h6a1.75 1.75 0 0 1 1.75 1.75v14.75\"/><path d=\"M14.75 9.5H18a1.75 1.75 0 0 1 1.75 1.75v9\"/><path d=\"M3 20.25h18\"/><path d=\"M8.5 7.5h3\"/><path d=\"M8.5 11h3\"/><path d=\"M8.5 14.5h3\"/></svg>" };

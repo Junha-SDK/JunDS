@@ -205,6 +205,34 @@
 
 ---
 
+## 2026-07-24 — 아이콘 파이프라인 구축 (icons/ 자체 셋 77종 + 생성기)
+
+### DEC-020. 아이콘 트랙 구현 결정 7건
+1. **위치는 신설 최상위 `icons/`**: 03 §7.2는 `packages/web/icons/`를 스케치했으나
+   트랙 소유권 분리(웹 트랙과 병행 작업)로 원본 SVG+생성기+dist를 최상위에 둔다.
+   웹 패키지 배선(`@junds/web/icons/*` exports 매핑·`<jd-icon>` 레지스트리)은 웹 트랙 몫이며,
+   소비 계약은 icons/dist/의 ESM 모듈(`{ name, svg }` — 03 §7.2 형태 그대로)·sprite.svg·aliases.json이다.
+2. **셋 범위 77종 = AppIcon lucide 전수 73 + DataTable 보강 4**(copy/filter/pin/minimize —
+   DataTableIcons.tsx 인라인 SVG 중 본 셋 부재분). primitives/Icon은 children 래퍼일 뿐
+   내장 셋이 없음을 확인(03 §7.2의 "기존 자체분"은 패턴 인라인 SVG를 뜻함).
+3. **이름 규약은 의미 우선 kebab**: X→close, AlertTriangle→warning, MousePointer→cursor,
+   차트류는 chart-bar/line/pie로 계열화, Grid2x2→grid·Columns2→columns 등 숫자 접미 제거.
+   ChevronsUpDown→chevrons-up-down(03 예시 준수). lucide 표기 차이는 aliases.json이 전량 흡수.
+4. **드로잉 문법**: 라이브 에어리어 3~21(원형 광학 보정 ±0.75) — lucide(2~22)와 구분되는
+   자체 비례. stroke 1.5·round cap/join·fill 전면 금지(점도 소형 stroke 원). lucide 경로
+   복사·트레이싱 없이 좌표 설계로 직접 작성(정밀 기하 — gear·star·glint — 는 수치 계산).
+   check.mjs가 자식 요소·속성 화이트리스트와 좌표 대역까지 전부 강제.
+5. **커버리지 게이트**: check.mjs의 REQUIRED_LUCIDE(73종 스냅샷)가 별칭·아이콘 누락 시
+   빌드 실패. AppIcon(React 어댑터) 마이그레이션 완료 후 게이트 완화 재심의.
+6. **dist는 커밋**하며 `dist/package.json {"type":"module"}` 마커 포함 — 레포 루트가
+   CJS 스코프여도 어디서든 ESM 로드 가능(스모크: 77 export·딥 임포트·심볼 77 확인).
+7. **검수 절차**: preview.html(검색·크기·그리드 오버레이·테마) + 헤드리스 스크린샷으로
+   77종 전수 눈검수. hammer는 2회 재설계(말렛 T형 기각 → 45° 수직 헤드+사선 손잡이),
+   maximize/minimize 저크기 착시는 128px 대조로 기하 정상 판정.
+- 결정자: 트랙 지시(03 §7.2·자체 제작 원칙) 아래 세부 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-23 — G1 iOS 슬라이스 구현 중 발견 (Package.swift + 파일럿 3종 + 실기기 데모앱)
 
 ### DEC-013. iOS 슬라이스 판단·스펙 보정 7건

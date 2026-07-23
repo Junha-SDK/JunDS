@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const calendarCheckIcon = { name: "calendar-check", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3.75\" y=\"5.25\" width=\"16.5\" height=\"15\" rx=\"2\"/><path d=\"M8 3.25v3.5\"/><path d=\"M16 3.25v3.5\"/><path d=\"M3.75 9.75h16.5\"/><path d=\"m9.25 14.75 2 2 3.5-3.5\"/></svg>" };

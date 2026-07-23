@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const newspaperIcon = { name: "newspaper", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M16.25 4.75v12.7a1.8 1.8 0 0 0 1.8 1.8H5.7a1.95 1.95 0 0 1-1.95-1.95V4.75Z\"/><path d=\"M16.25 8h2.3a1.7 1.7 0 0 1 1.7 1.7v7.75a1.8 1.8 0 0 1-1.8 1.8\"/><path d=\"M6.75 8.25h6.5\"/><path d=\"M6.75 11.5h6.5\"/><path d=\"M6.75 14.75h4\"/></svg>" };

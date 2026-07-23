@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const magnetIcon = { name: "magnet", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4.75 4.5h4.5v8.25a2.75 2.75 0 0 0 5.5 0V4.5h4.5v8.25a7.25 7.25 0 0 1-14.5 0Z\"/><path d=\"M4.75 8h4.5\"/><path d=\"M14.75 8h4.5\"/></svg>" };

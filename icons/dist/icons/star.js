@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const starIcon = { name: "star", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.5L14.2 9.37L20.46 9.65L15.57 13.56L17.23 19.6L12 16.15L6.77 19.6L8.43 13.56L3.54 9.65L9.8 9.37Z\"/></svg>" };

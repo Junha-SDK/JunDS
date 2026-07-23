@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const commandIcon = { name: "command", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8.5 8.5h7v7h-7Z\"/><path d=\"M8.5 8.5V6.25a2.25 2.25 0 1 0-2.25 2.25Z\"/><path d=\"M15.5 8.5h2.25A2.25 2.25 0 1 0 15.5 6.25Z\"/><path d=\"M15.5 15.5v2.25a2.25 2.25 0 1 0 2.25-2.25Z\"/><path d=\"M8.5 15.5H6.25a2.25 2.25 0 1 0 2.25 2.25Z\"/></svg>" };

@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const sunIcon = { name: "sun", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21\"/><path d=\"M16.6 16.6L18.36 18.36M7.4 16.6L5.64 18.36M7.4 7.4L5.64 5.64M16.6 7.4L18.36 5.64\"/></svg>" };

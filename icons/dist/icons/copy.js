@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const copyIcon = { name: "copy", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"8.7\" y=\"8.7\" width=\"12\" height=\"12\" rx=\"2.2\"/><path d=\"M5.25 15.3A1.95 1.95 0 0 1 3.3 13.35V5.5A2.2 2.2 0 0 1 5.5 3.3h7.9a1.95 1.95 0 0 1 1.95 1.95\"/></svg>" };

@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const crownIcon = { name: "crown", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m4.25 8.5 3.5 3.25L12 6l4.25 5.75 3.5-3.25-1.35 9H5.6Z\"/><path d=\"M5.6 20.25h12.8\"/></svg>" };

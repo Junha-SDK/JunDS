@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const slidersIcon = { name: "sliders", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3.75 7h5.6\"/><path d=\"M14.65 7h5.6\"/><circle cx=\"12\" cy=\"7\" r=\"1.9\"/><path d=\"M3.75 12h1.6\"/><path d=\"M10.65 12h9.6\"/><circle cx=\"8\" cy=\"12\" r=\"1.9\"/><path d=\"M3.75 17h9.1\"/><path d=\"M18.15 17h2.1\"/><circle cx=\"15.5\" cy=\"17\" r=\"1.9\"/></svg>" };

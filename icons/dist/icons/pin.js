@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const pinIcon = { name: "pin", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9.05 3.75h5.9l-.5 5.9 2.35 1.85a1.05 1.05 0 0 1-.65 1.85H7.85a1.05 1.05 0 0 1-.65-1.85L9.55 9.65Z\"/><path d=\"M12 13.35v7\"/></svg>" };

@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const chartBarIcon = { name: "chart-bar", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3.75 3.75v16.5h16.5\"/><path d=\"M8.5 16.75v-5.5\"/><path d=\"M13 16.75v-8.5\"/><path d=\"M17.5 16.75V5.25\"/></svg>" };

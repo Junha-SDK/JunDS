@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const moveIcon = { name: "move", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.25v17.5\"/><path d=\"M3.25 12h17.5\"/><path d=\"m8.75 6.5 3.25-3.25L15.25 6.5\"/><path d=\"m8.75 17.5 3.25 3.25 3.25-3.25\"/><path d=\"M6.5 8.75 3.25 12l3.25 3.25\"/><path d=\"m17.5 8.75 3.25 3.25-3.25 3.25\"/></svg>" };

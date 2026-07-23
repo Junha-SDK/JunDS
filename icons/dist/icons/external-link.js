@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const externalLinkIcon = { name: "external-link", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M13.5 5.25H6A1.75 1.75 0 0 0 4.25 7v11A1.75 1.75 0 0 0 6 19.75h11A1.75 1.75 0 0 0 18.75 18v-7.5\"/><path d=\"M10.75 13.25 19.5 4.5\"/><path d=\"M14.5 4.25h5.25V9.5\"/></svg>" };

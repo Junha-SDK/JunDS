@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const walletIcon = { name: "wallet", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3.25\" y=\"6.5\" width=\"17.5\" height=\"12.75\" rx=\"2.4\"/><path d=\"M20.75 10.75h-4.4a2.25 2.25 0 0 0 0 4.5h4.4\"/><circle cx=\"15.4\" cy=\"13\" r=\".85\"/></svg>" };

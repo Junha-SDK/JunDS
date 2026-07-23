@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const planeIcon = { name: "plane", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.5c.9 0 1.5.75 1.5 1.75V9l7 4.25v2l-7-2v4l2 1.75V20l-3.5-1-3.5 1v-1l2-1.75v-4l-7 2v-2L10.5 9V5.25c0-1 .6-1.75 1.5-1.75Z\"/></svg>" };

@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const listOrderedIcon = { name: "list-ordered", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10.75 6h9.5\"/><path d=\"M10.75 12h9.5\"/><path d=\"M10.75 18h9.5\"/><path d=\"m4.35 4.6 1.4-.95V8.1\"/><path d=\"M4.4 10.55a1.5 1.5 0 0 1 2.9.5c0 .55-.33 1-.78 1.4l-2.1 1.8h3.1\"/><path d=\"M4.45 16.25H7.3l-1.55 2.05a1.55 1.55 0 1 1-1.35 2.55\"/></svg>" };

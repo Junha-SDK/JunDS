@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const refreshIcon = { name: "refresh", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20.25 12A8.25 8.25 0 0 0 6.15 6.15L3.75 8.4\"/><path d=\"M3.75 3.9v4.5h4.5\"/><path d=\"M3.75 12a8.25 8.25 0 0 0 14.1 5.85l2.4-2.25\"/><path d=\"M20.25 20.1v-4.5h-4.5\"/></svg>" };

@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const flameIcon = { name: "flame", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.9c.3 2.7-.9 4.4-2.45 6C8 11.5 6.75 13.15 6.75 15.4a5.25 5.25 0 0 0 10.5 0c0-1.6-.55-3-1.5-4.4-.5.9-1.15 1.55-2 2 .1-3.2-.8-6.3-1.75-9.1Z\"/></svg>" };

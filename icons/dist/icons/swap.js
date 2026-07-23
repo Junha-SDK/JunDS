@@ -1,0 +1,2 @@
+// 생성물 — 직접 수정 금지. `node icons/build.mjs`가 icons/svg/에서 생성.
+export const swapIcon = { name: "swap", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 7.5h16\"/><path d=\"m16.5 4 3.5 3.5-3.5 3.5\"/><path d=\"M20 16.5H4\"/><path d=\"m7.5 13-3.5 3.5L7.5 20\"/></svg>" };
