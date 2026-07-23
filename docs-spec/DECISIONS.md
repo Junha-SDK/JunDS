@@ -41,8 +41,8 @@
 
 ## 2026-07-24 — finance-data 분리 슬라이스 (@junds/finance-data)
 
-### DEC-018. finance-data 분리 — 판단 6건
-(번호 주: 016은 MCP 게이트, 017은 시각 패리티 트랙이 선점 — 018로 부여.)
+### DEC-019. finance-data 분리 — 판단 6건
+(번호 주: 016~018은 병행 트랙(MCP·시각 패리티·B2 layout)이 선점 — 019로 부여. 018 중복은 본 트랙 블록을 019로 갱신해 해소.)
 1. **이관 표면 확정**: yahoo·kis·ecos·fred·rss·tickers + newsSummary(rss 파이프라인의
    순수 후처리 — 01 §3.3 목록엔 없으나 데이터 계층으로 판정) + livePrices·liveIndices의
    **스토어 계층**(React 훅은 v2 잔류) + stream(신설 — SSE 와이어 계약 타입·파서 정본화,

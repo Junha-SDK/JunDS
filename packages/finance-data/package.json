@@ -1,8 +1,85 @@
 {
   "name": "@junds/finance-data",
   "version": "3.0.0-alpha.0",
-  "description": "JunDS v3 금융 데이터 연동(yahoo-finance2/KIS/ECOS/FRED) 분리 패키지 — G3 슬라이스에서 이관(자리표시자, DEC-003).",
+  "description": "JunDS v3 금융 데이터 연동 패키지 — yahoo-finance2 / KIS Open API / ECOS / FRED / RSS. 프레임워크 무관 순수 TS (React import 0), 코어 3패키지의 런타임 의존성 0 스토리를 완성한다 (DEC-003).",
   "type": "module",
   "private": true,
-  "license": "MIT"
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./yahoo": {
+      "types": "./dist/types/yahoo.d.ts",
+      "import": "./dist/esm/yahoo.js",
+      "require": "./dist/cjs/yahoo.js"
+    },
+    "./kis": {
+      "types": "./dist/types/kis.d.ts",
+      "import": "./dist/esm/kis.js",
+      "require": "./dist/cjs/kis.js"
+    },
+    "./ecos": {
+      "types": "./dist/types/ecos.d.ts",
+      "import": "./dist/esm/ecos.js",
+      "require": "./dist/cjs/ecos.js"
+    },
+    "./fred": {
+      "types": "./dist/types/fred.d.ts",
+      "import": "./dist/esm/fred.js",
+      "require": "./dist/cjs/fred.js"
+    },
+    "./rss": {
+      "types": "./dist/types/rss.d.ts",
+      "import": "./dist/esm/rss.js",
+      "require": "./dist/cjs/rss.js"
+    },
+    "./newsSummary": {
+      "types": "./dist/types/newsSummary.d.ts",
+      "import": "./dist/esm/newsSummary.js",
+      "require": "./dist/cjs/newsSummary.js"
+    },
+    "./tickers": {
+      "types": "./dist/types/tickers.d.ts",
+      "import": "./dist/esm/tickers.js",
+      "require": "./dist/cjs/tickers.js"
+    },
+    "./stream": {
+      "types": "./dist/types/stream.d.ts",
+      "import": "./dist/esm/stream.js",
+      "require": "./dist/cjs/stream.js"
+    },
+    "./livePrices": {
+      "types": "./dist/types/livePrices.d.ts",
+      "import": "./dist/esm/livePrices.js",
+      "require": "./dist/cjs/livePrices.js"
+    },
+    "./liveIndices": {
+      "types": "./dist/types/liveIndices.d.ts",
+      "import": "./dist/esm/liveIndices.js",
+      "require": "./dist/cjs/liveIndices.js"
+    },
+    "./config": {
+      "types": "./dist/types/config.d.ts",
+      "import": "./dist/esm/config.js",
+      "require": "./dist/cjs/config.js"
+    }
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "yahoo-finance2": "^3.14.0"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
 }
