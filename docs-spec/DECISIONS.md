@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-07-24 — e2e B2 확장 + 실브라우저가 잡은 DEC-014-9 위반 2건 수정
+
+### DEC-024. B2 표면 e2e 8케이스 + box-sizing 정합 수정
+1. **e2e 확장(layout.spec.ts)**: show/hide 실 미디어쿼리(양방향), container 기하
+   (max-width 상한·중앙 정렬·오버플로 가드), app-shell 상호작용(Ctrl+B 레일 접기+
+   jd-sidebar-toggle, 모바일 드로어+백드롭+스크롤 락, matchMedia 데스크톱 복귀 자동 닫힘,
+   defaultPrevented 존중) — 총 24케이스 그린.
+2. **실브라우저가 실증한 DEC-014-9 위반 2건 수정**: (a) jd-container —
+   width:100%+padding-inline에 box-sizing 미선언으로 총폭 1072px(v2 preflight
+   border-box에선 1024px)·부모 +48px 오버플로. (b) .jd-app-shell__sidebar —
+   width+border-right로 레일 총폭 261px(지정 260). 각 규칙에 `box-sizing: border-box`
+   자기 선언 추가 — v2 시각 패리티(총폭=지정폭) 복원.
+3. **container 사이즈 기준선 +5.9% 갱신**(559→592B gzip): 수정 선언의 의도된 증가.
+   app-shell은 3% 내(+1.4%). 교훈: css 템플릿 내 주석은 배포 바이트 — 짧게.
+- 결정자: e2e 실측 후 수정, 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — G2-B3 primitives 폼 코어 구현 중 발견 (신규 9행)
 
 ### DEC-023. B3 폼 코어 판단 6건

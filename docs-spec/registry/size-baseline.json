@@ -1,13 +1,13 @@
 {
   "core": 5254,
   "components": {
-    "app-shell": 2130,
+    "app-shell": 2159,
     "aspect-ratio-box": 500,
     "box": 300,
     "button": 2273,
     "center": 360,
     "checkbox": 1018,
-    "container": 559,
+    "container": 592,
     "divider": 896,
     "flex": 382,
     "grid": 686,
