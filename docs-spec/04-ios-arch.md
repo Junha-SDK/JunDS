@@ -3,6 +3,7 @@
 작성일: 2026-07-23 · 전제: DEC-002(레포 진화, Package.swift는 루트) · DEC-003(전량 전환) · DEC-004(iOS 16 최소) · DEC-006 D3/D4/D5 채택
 참조: `docs-spec/00-inventory.md`(UI 304 + finance 86, iOS 난이도 S 90 · M 187 · L 24 · N/a 3), `docs-spec/DECISIONS.md`
 상태: iOS 코드는 현재 **0줄** — 이 문서가 전체 표면의 단일 정의다. 여기 없는 공개 API는 존재하지 않는 것으로 간주한다.
+개정: 2026-07-23 — **DEC-010 반영.** G0 게이트에서 최초안의 "JunDSSwiftUI→JunDSUIKit 의존(L급 Representable 랩)"이 사람에 의해 명시 기각됨 → SwiftUI/UIKit **완전 독립 2계통** + Core 이전 극대화로 개정 (§1 A3 · §2.2 · §4.2 신설 · §10 · §11).
 
 ---
 
@@ -12,7 +13,7 @@
 |---|---|---|
 | A1 | 단일 제품 `JunDS`, 내부 4타겟(3계층 + 우산) | 소비자 표면은 `import JunDS` 하나. `@_exported`는 우산 타겟이 필요하므로 계층 3 + 우산 1 |
 | A2 | JunDSCore는 UIKit/SwiftUI import 금지 (Foundation + CoreGraphics까지만) | 순수 로직을 호스트 macOS에서 시뮬레이터 없이 테스트, 향후 macOS/watchOS 확장 여지 |
-| A3 | JunDSSwiftUI는 JunDSCore **와 JunDSUIKit** 에 의존 | L급 컴포넌트(RichTextEditor, CodeEditor, SignaturePad 등)는 UIKit 1회 구현 후 `UIViewRepresentable` 랩 — 이중 구현 금지 |
+| A3 | JunDSSwiftUI와 JunDSUIKit은 **완전 독립 2계통**(상호 미의존) — 공유는 JunDSCore뿐 | **DEC-010 (사람 결정)**: 최초안의 SwiftUI→UIKit 의존(L급 Representable 랩)을 게이트에서 명시 기각. L급 24종은 로직·상태머신·계산·측정을 Core로 최대한 내리고 렌더 표면만 각 계층이 관용적으로 구현 — **이중 구현 비용은 사람이 인지하고 감수한 결정**. 분할 기준은 §4.2 |
 | A4 | 상태 공유는 ObservableObject (@Observable 금지) | @Observable(Observation)은 iOS 17+. 최소 지원이 16이므로 선택지가 없음. v4에서 최소 버전 상향 시 일괄 이행 |
 | A5 | 레이아웃 DSL은 NSLayoutConstraint 체이닝 래퍼 `view.jd.layout {}` | DEC-006 D4. 플렉스 엔진 자작 금지 — 오토레이아웃 엔진을 대체하지 않고 표기만 대체 |
 | A6 | `layout {}` 재호출은 **diff** (SnapKit make의 중복 누적 문제 제거) | SnapKit 최다 실수 유형(make 재호출로 제약 중복)을 구조적으로 봉쇄 |
@@ -81,10 +82,10 @@ let package = Package(
             path: "packages/ios/Sources/JunDSUIKit",
             swiftSettings: swiftSettings
         ),
-        // 계층 3 — SwiftUI. L급은 JunDSUIKit 구현을 Representable로 랩 (결정 A3).
+        // 계층 3 — SwiftUI. JunDSUIKit과 상호 미의존 — 완전 독립 2계통 (DEC-010, §4.2).
         .target(
             name: "JunDSSwiftUI",
-            dependencies: ["JunDSCore", "JunDSUIKit"],
+            dependencies: ["JunDSCore"],
             path: "packages/ios/Sources/JunDSSwiftUI",
             swiftSettings: swiftSettings
         ),
@@ -126,6 +127,7 @@ let package = Package(
 - **tools-version 5.9** (Xcode 15.0+): iOS 16 타겟에 충분하고, 2026년 시점에서 소비자 툴체인 하한을 가장 넓게 잡는다. 매크로가 필요해지는 시점(현재 없음)에 5.10+로 올린다.
 - **`@_exported` 채택**: 밑줄 API지만 Apple 자체 프레임워크(예: Foundation의 재수출)와 대형 SDK들이 수년째 쓰는 사실상 안정 표면이다. 대안(소비자가 `import JunDSCore` 3줄)은 "제품 1개 = import 1개" 목표를 깬다. 우산 타겟 1파일에만 격리했으므로, 만약 파손되면 그 1파일만 고치면 된다.
 - **내부 타겟 직접 import는 미지원 공표**: `import JunDSCore`가 기술적으로는 가능하나(제품에 포함된 타겟), 문서·릴리스 노트에서 지원 표면은 `import JunDS` 하나임을 못박는다. 계층 재편 자유도를 지키기 위함이다.
+- **계층 독립 게이트 (DEC-010)**: `JunDSSwiftUI` 소스에서 `import JunDSUIKit`, `JunDSUIKit` 소스에서 `import JunDSSwiftUI`를 CI grep으로 금지한다(Core의 UIKit 금지 게이트와 동일 방식). 단, 금지는 **우리 타겟 간 의존**이다 — JunDSSwiftUI가 시스템 UIKit 프레임워크를 직접 import하는 것(§6 `Color(uiColor:)` 브리지, §4.2 자체 Representable)은 허용.
 - **테스트 3분할**: Core 테스트는 UIKit 비의존이라 macOS 호스트에서 `swift test`로도 돈다(빠른 루프). UIKit/SwiftUI 테스트는 시뮬레이터 `xcodebuild test` 대상.
 - **리소스 없음**: 토큰은 JSON 리소스 로딩이 아니라 **Swift 코드 생성**(§6)이므로 `resources:` 선언이 없다. 번들 로딩 비용과 리소스 접근 API가 통째로 사라진다.
 
@@ -404,6 +406,33 @@ public final class JdToastHostView: UIView {
 2. SwiftUI 미러 클래스는 `@Published` 프로퍼티 **복사**만 한다 — 로직 금지.
 3. UIKit 호스트는 구독 → 전체 재렌더. 토스트 3개 수준에서 diff 최적화는 과설계다(D6: 측정 없는 최적화 금지).
 4. 같은 패턴 적용 대상: `JdNotificationCenter`(NotificationCenter 컴포넌트), `JdWizardState`(FormWizard/Stepper), `JdTourState`(Tour/Onboarding), `JdCommandPaletteState`, finance `JdTickStore`(Live* 계열 — 00-inventory 리스크 #4의 "상태 계층 분리"가 바로 이것).
+
+### 4.2 Core 이전 극대화 — L급 24종의 분할 기준 (DEC-010)
+
+DEC-010으로 JunDSSwiftUI와 JunDSUIKit은 완전 독립이다. L급 24종의 렌더 표면은 양 계층이 각자 구현하며, **이중 구현 비용은 사람이 인지하고 감수한 결정**이다. 그 비용을 통제하는 유일한 지렛대가 이 절이다: 이중화되는 것은 "그리기"뿐이어야 하고, 어렵고 틀리기 쉬운 것(로직·상태머신·계산·측정)은 전부 Core에 1회만 존재해야 한다.
+
+**판정 규칙 4개** (설계 리뷰 게이트로 사용):
+1. **시그니처에 프레임워크 타입이 없으면 Core다.** 입력(데이터 배열·포인터 좌표·가시 영역 CGRect·컨테이너 크기)과 출력(배치 지오메트리·정렬 결과·상태 전이·패스 좌표 목록)이 값 타입으로 표현 가능한 코드는 무조건 Core로 내린다.
+2. **계층 파일에 허용되는 동사는 3개뿐**: 이벤트 수집 → Core 호출 → 결과 그리기. 계층 파일에 분기/계산 로직이 자라면 Core 이전 누락 신호다 — 코드 리뷰에서 반려한다.
+3. **측정은 Core의 순수 함수다.** 레이아웃 계산, 가상화 윈도우 계산(가시 rect → 아이템 범위), 차트 스케일/리샘플, 히트테스트 판정은 Core가 하고, 프레임워크는 크기·오프셋 숫자만 공급한다. Core 단위 테스트가 곧 양 계층의 정합성 테스트가 된다.
+4. **Core 타입은 양 계층 렌더를 동시에 지탱해야 스펙 통과.** 한쪽 계층 전용 편의 API를 Core에 넣지 않는다(넣는 순간 반대 계층과의 대칭이 깨져 이중 구현이 로직까지 번진다).
+
+시스템 프레임워크 사용 규칙: 금지는 **우리 타겟 간 의존**(JunDSSwiftUI↔JunDSUIKit)이지 시스템 프레임워크가 아니다. SwiftUI 관용구 자체가 시스템 뷰 랩인 경우(예: 텍스트 편집 = UITextView)에는 JunDSSwiftUI가 **시스템 UIKit을 직접 import해 자체 최소 Representable**을 만든다 — JunDSUIKit 타겟은 참조하지 않고, 바인딩 글루만 이중화한다. 각주: 소비자 앱이 `JdButtonView` 등을 스스로 UIViewRepresentable로 감싸 쓰는 것은 라이브러리 관할 밖이며 무관하다(DEC-010 명시).
+
+**L급 분할 기준표** (24종 전수를 대표 그룹 10행으로 — 개별 컴포넌트 스펙은 이 행을 정본으로 상속):
+
+| L급 그룹 | JunDSCore (1회 구현) | JunDSUIKit 렌더 | JunDSSwiftUI 렌더 |
+|---|---|---|---|
+| DataGrid / DataTable / Table | 가상화 윈도우 계산(`JdVirtualWindow`: 가시 rect→행 범위), 정렬 비교기, 선택·밀도 상태머신, 컬럼 폭 해석 | UICollectionView diffable + 컴포지셔널 레이아웃 | `Table`/LazyVStack + `onGeometryChange`로 가시 영역을 Core에 보고 |
+| RichTextEditor | `JdRichDoc` 문서 모델, 커맨드(볼드/리스트/링크)·셀렉션 상태머신, 직렬화(HTML/MD) | UITextView(TextKit 2) 바인딩 | 자체 최소 UITextView Representable(시스템 UIKit 직접 — JunDSUIKit 미참조) |
+| CodeEditor / MarkdownViewer / DiffViewer | 토크나이저, 하이라이트 스팬 계산, 라인/워드 diff 알고리즘 | UITextView + NSAttributedString 적용 | AttributedString + Text/ScrollView |
+| CommandPalette | 퍼지 매칭 스코어러, 결과 랭킹, 키보드 내비 상태머신(§4 패턴) | UICollectionView 리스트 + UIKeyCommand | `List` + `.searchable`/`.onKeyPress` |
+| Kanban / SortableList / Transfer | DnD 상태머신(소스/타깃/드롭 판정·재정렬 diff), 키보드 DnD 접근성 시퀀스 | UIDrag/UIDropInteraction + DropDelegate | `.onDrag`/`.onDrop` + DropDelegate |
+| DsCalendar / DateRangePicker / GanttChart | 날짜 연산, 월 그리드 생성, 이벤트 겹침 배치 계산, 범위 선택 상태머신 | UICollectionView 월 그리드 | LazyVGrid |
+| 커스텀 차트 (캔들/Sankey/Treemap/Flow) | 스케일·리샘플·지오메트리 계산(정규화 좌표의 패스 목록 출력) | CALayer/CAShapeLayer 드로잉 | `Canvas` 드로잉 |
+| ColorPicker / SignaturePad | HSV↔RGB 변환, 포인터 지오메트리, 스트로크 스무딩(패스 리샘플) | 커스텀 UIControl + CAShapeLayer | `Canvas` + DragGesture |
+| EmojiPicker | 카탈로그·검색 인덱스·최근 사용 상태 | UICollectionView 그리드 | LazyVGrid |
+| BookReader / EmailInbox | 페이지네이션 계산·읽음 상태머신 / 스레드 그룹핑·3단 내비 상태 | UIPageViewController / UISplitViewController | `TabView(.page)` / NavigationSplitView |
 
 ---
 
@@ -1084,12 +1113,14 @@ JdToastCenter.shared.show("저장되었습니다", variant: .success)
 | primitives (51) | 시스템 컨트롤 스킨 우선: Toggle/Switch→UISwitch·Toggle, Slider→UISlider, Checkbox/RadioGroup은 iOS 관용구가 없으므로 자체 드로잉(M). ScrollArea→UIScrollView 그 자체(별도 컴포넌트 없음, S로 강등된 이유) |
 | composites — 오버레이 (Modal/Drawer/BottomSheet/ActionSheet/AlertDialog/Sheet) | 전부 **시스템 프레젠테이션** 위임: UISheetPresentationController(detent)·`.sheet`·`.confirmationDialog`·UIAlertController. Jd 계층은 detent 프리셋+토큰 스킨만. focus trap/scroll lock/포털 등 웹의 M 비용이 통째로 소멸 |
 | composites — 선택 (Select/Dropdown/Combobox/ContextMenu/Menubar/MultiSelect) | **UIMenu/Menu/Picker로 번역** — 커스텀 드롭다운 패널을 그리지 않는다. MultiSelect·Combobox(검색형)만 시트 기반 자체 UI |
-| composites — 차트 (Line/Bar/Pie/Area/Radar/Scatter/Funnel/Gauge/Heatmap/MiniChart…) | **Swift Charts**(iOS 16 가용 — DEC-004의 실질 근거 중 하나) 위에 토큰 테마 적용. Sankey/Treemap/캔들(finance)은 Swift Charts 표현력 밖 → Core 순수 지오메트리 계산 + CALayer/Canvas 커스텀 드로잉(L 유지) |
+| composites — 차트 (Line/Bar/Pie/Area/Radar/Scatter/Funnel/Gauge/Heatmap/MiniChart…) | **Swift Charts**(iOS 16 가용 — DEC-004의 실질 근거 중 하나) 위에 토큰 테마 적용. Sankey/Treemap/캔들(finance)은 Swift Charts 표현력 밖 → Core 순수 지오메트리 계산 + 렌더는 UIKit=CALayer / SwiftUI=Canvas 각자(§4.2 분할표, L 유지) |
 | composites — 리스트/스크롤 (VirtualScroll/InfiniteList/PullToRefresh/SwipeAction/DataGrid) | 컴포넌트가 아니라 **데이터소스 헬퍼**로 번역: UICollectionView diffable + 컴포지셔널 레이아웃 프리셋, `.refreshable`/UIRefreshControl, UISwipeActionsConfiguration. 가상화를 자작하지 않는다(웹 L → iOS M 강등의 본체) |
 | composites — 미디어 (AudioPlayer/VideoPlayer/ImageLightbox/QRCode) | AVKit/AVFoundation 위임 + 토큰 스킨. QRCode는 CoreImage `CIQRCodeGenerator`(웹 L → iOS S) |
 | composites — 피드백 (Toast/Notification/Snackbar/Alert/Banner/Skeleton) | 시스템 부재 영역 — §4 ToastCenter 패턴으로 자체 구현. Skeleton은 Reduce Motion 시 셔머 정지(§7.3) |
-| patterns (43) | 페이지 템플릿(AuthLayout/SettingsLayout/PricingPage 등)은 **컴포넌트가 아니라 조립 레시피 문서**로 격하 — NavigationStack/Form 관용구 예제 코드 제공. 상태형 패턴(FormWizard/Tour/CommandPalette/Kanban)만 Core 상태머신 + 양 프레임워크 뷰로 정식 구현 |
+| patterns (43) | 페이지 템플릿(AuthLayout/SettingsLayout/PricingPage 등)은 **컴포넌트가 아니라 조립 레시피 문서**로 격하 — NavigationStack/Form 관용구 예제 코드 제공. 상태형 패턴(FormWizard/Tour/CommandPalette/Kanban)만 Core 상태머신 + 양 프레임워크가 각자 뷰로 정식 구현(§4.2) |
 | finance (86) | `JdTickStore`(Core, §4 패턴) 분리 선행 → Live* 계열은 스토어 구독 뷰로. 데이터 연동은 @junds/finance-data 대응 Swift 패키지 스코프 밖(DEC-003) |
+
+주 (DEC-010): 위 전략 전반에서 두 계층은 서로를 참조하지 않는다 — L급의 "UIKit 1회 구현 후 SwiftUI가 Representable로 랩" 경로는 폐기됐고, 각 계층이 §4.2 분할표의 Core 타입 위에 자기 관용구로 렌더를 각자 구현한다. 소비자 앱이 스스로 UIViewRepresentable로 감싸는 것은 무관하다.
 
 ### 10.2 N/a 3개와 개념 대체
 
@@ -1105,12 +1136,13 @@ JdToastCenter.shared.show("저장되었습니다", variant: .success)
 
 1. 파운데이션: 토큰 생성 → 레이아웃 DSL → JdMotion/접근성 유틸 → 테스트 유틸
 2. §4/§9 패턴 검증: JdButton + JdToast를 3계층 관통으로 완성 (이 문서의 정본 2종)
-3. S 90종(스킨 위주) → M 187종(상태머신 위주) → L 24종(커스텀 드로잉/에디터)
+3. S 90종(스킨 위주) → M 187종(상태머신 위주) → L 24종(§4.2 분할표 순 — Core 타입 완성 후 양 계층 렌더 병행)
 4. 각 단계에서 웹 rawValue·토큰 이름 정합을 스냅샷 픽스처로 교차 검증
 
 ---
 
 ## 11. 열린 쟁점 (사람 확인 필요)
 
-1. **A3 — JunDSSwiftUI의 JunDSUIKit 의존**: L급 이중 구현 방지를 위해 SwiftUI 계층이 UIKit 계층을 의존한다(Representable 랩). "순수 SwiftUI" 원칙을 우선하면 RichTextEditor/CodeEditor/SignaturePad급 24종을 두 번 구현해야 한다. 현재 결정은 의존 허용 — 뒤집으려면 지금이 마지막 기회다(이후엔 의존 그래프가 굳는다).
-2. **A7 — 스냅샷 자체 유틸**: 서드파티 0 준수 하의 픽셀 비교는 시뮬레이터 조합 고정이라는 운영 규율을 요구한다. 이 규율(CI 기종/OS 상수화, 조합 변경 시 전체 재기록)을 팀 정책으로 승인할지, 아니면 스냅샷 자체를 포기하고 레이아웃 assert만으로 갈지.
+1. **A7 — 스냅샷 자체 유틸**: 서드파티 0 준수 하의 픽셀 비교는 시뮬레이터 조합 고정이라는 운영 규율을 요구한다. 이 규율(CI 기종/OS 상수화, 조합 변경 시 전체 재기록)을 팀 정책으로 승인할지, 아니면 스냅샷 자체를 포기하고 레이아웃 assert만으로 갈지.
+
+**해소된 쟁점**: (구)1번 "JunDSSwiftUI의 JunDSUIKit 의존" — G0 게이트에서 사람이 **기각**하고 완전 독립 2계통을 선택함으로써 해소(DEC-010, 2026-07-23). 본 문서 A3·§2.2·§4.2·§10에 반영 완료.
