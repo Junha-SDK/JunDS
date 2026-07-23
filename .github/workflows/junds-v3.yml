@@ -1,0 +1,346 @@
+# CI v3 — JunDS v3 레인 (01-repo-structure §9의 11게이트)
+#
+# 게이트: tokens-fresh · tokens-test · web-build · web-test · web-a11y · size-budget ·
+#         react-build · finance-data-test · ios-build · ios-test(macos-14) · bench-smoke
+# install 잡은 캐시 워머(인프라)이며 게이트가 아니다.
+#
+# 스펙 이탈 주석:
+#  - ios-build/-test는 01 §9의 `swift build`가 아니라 xcodebuild 경유 —
+#    UIKit 타겟이라 host swift build 불가 (DEC-013-6이 정본).
+#  - bench-smoke는 05-perf §3.2에 따라 G2까지 advisory(continue-on-error) —
+#    G3 정식화 시 continue-on-error 제거 + 회귀 >10% 실패로 승격할 것.
+#  - react-build/finance-data-test는 대상 패키지가 자리표시자인 동안 --if-present
+#    무해 통과(DEC-011-5와 동형). 스크립트가 생기는 즉시 실게이트로 자동 전환된다.
+#  - web-test의 Playwright 스위트는 스펙 합류 시 자동 활성(현재 HEAD 스펙 0건) —
+#    1순위 packages/web/e2e/*.spec.ts(자체 config), 2순위 루트 e2e/v3-*.spec.ts.
+#
+# 로컬 검증 기록(릴리스 준비 트랙): iOS 2게이트 제외 전 스텝 명령을 로컬 1회 실행으로
+# 성립 확인. iOS는 작업 머신 Xcode 서명 파손(DEC-015-2: libclang 코드서명 invalid →
+# AMFI SIGKILL, xcodebuild -list·빌드 전부 사망)으로 xcodebuild 명령형 검증 불가.
+# 단 빌드·테스트 실체는 DEC-015-1(CLT 우회 경로)로 XCTest 31/31 검증 완료 —
+# CI 첫 실행 확인 항목은 xcodebuild 스킴명·destination 명칭뿐 (release/CHECKLIST.md).
+
+name: CI v3
+
+on:
+  push:
+    branches: [main, v3]
+    paths:
+      - "packages/**"
+      - "tokens/**"
+      - "benchmarks/**"
+      - "Package.swift"
+      - "docs-spec/registry/**"
+      - ".changeset/**"
+      - "e2e/**"
+      - "playwright.config.ts"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/junds-v3.yml"
+      - ".github/scripts/**"
+  pull_request:
+    branches: [main, v3]
+    paths:
+      - "packages/**"
+      - "tokens/**"
+      - "benchmarks/**"
+      - "Package.swift"
+      - "docs-spec/registry/**"
+      - ".changeset/**"
+      - "e2e/**"
+      - "playwright.config.ts"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/junds-v3.yml"
+      - ".github/scripts/**"
+  workflow_dispatch: # 첫 실행 검증·수동 재실행용
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ── 인프라: node_modules 캐시 워머 — v3 레인은 node 22 (tokens 생성기의 명시 전제.
+  #    v2 레인 node 20과 캐시 키 분리: deps-*-node22-*) ──
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Cache node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+
+  # ── 게이트 1/11: tokens-fresh — 재생성 후 산출물 3종 diff 0 (01 §9) ──
+  tokens-fresh:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Regenerate tokens and verify outputs committed
+        run: npm run tokens:fresh
+
+  # ── 게이트 2/11: tokens-test — 스냅샷 + v2 패리티 (02-tokens §6) ──
+  tokens-test:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Run token tests
+        run: npm run tokens:test
+
+  # ── 게이트 3/11: web-build — typecheck + build.mjs 산출물 (01 §9) ──
+  web-build:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Typecheck @junds/web
+        run: npm run typecheck -w @junds/web
+      - name: Build @junds/web (esbuild 4산출물)
+        run: npm run build -w @junds/web
+
+  # ── 게이트 4/11: web-test — vitest(happy-dom) + Playwright 스모크(스펙 합류 시) ──
+  web-test:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Run @junds/web unit tests (vitest, happy-dom)
+        run: npm run test -w @junds/web
+      # Playwright 스위트 자동 활성 가드 — 1순위: packages/web/e2e/*.spec.ts (자체 config,
+      # 03-web-arch §9.1 의무 구간 — config는 HEAD에 존재하나 스펙 0건이면 "No tests found"로
+      # 오탐 실패하므로 스펙 존재를 키로 삼는다) · 2순위: 루트 e2e/v3-*.spec.ts (01 §9 표기).
+      - name: Playwright suite (스펙 합류 시 자동 활성)
+        run: |
+          if ls packages/web/e2e/*.spec.ts >/dev/null 2>&1; then
+            npm run build -w @junds/web
+            npx playwright install --with-deps chromium
+            npx playwright test -c packages/web/playwright.config.ts
+          elif ls e2e/v3-*.spec.ts >/dev/null 2>&1; then
+            npx playwright install --with-deps chromium
+            npx playwright test e2e/v3-*.spec.ts
+          else
+            echo "::notice title=web-test::Playwright 스펙 없음(packages/web/e2e/*.spec.ts · e2e/v3-*.spec.ts) — vitest만 실행. 스펙이 합류하면 이 스텝이 자동 활성된다."
+          fi
+
+  # ── 게이트 5/11: web-a11y — 데모 페이지에 axe-core 주입 감사, critical/serious 실패 ──
+  web-a11y:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build @junds/web (데모는 dist 산출물만 로드)
+        run: npm run build -w @junds/web
+      - name: Run axe-core audit on demo pages
+        run: node .github/scripts/web-a11y-audit.mjs
+
+  # ── 게이트 6/11: size-budget — W1/W2 gzip 예산 + 기준선 +3% (05-perf §3.1) ──
+  size-budget:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Enforce size budgets (benchmarks/size-gate.mjs)
+        run: npm run size:web
+
+  # ── 게이트 7/11: react-build — 자리표시자 동안 --if-present 무해 통과(DEC-011-5와 동형) ──
+  react-build:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Build + typecheck @junds/react
+        run: |
+          if ! node -e "const s=require('./packages/react/package.json').scripts||{};process.exit(s.build?0:1)"; then
+            echo "::notice title=react-build::@junds/react는 자리표시자(G2에서 rollup 빌드+typecheck 구현) — 스크립트 부재로 무해 통과. 스크립트가 생기면 실게이트로 자동 전환."
+          fi
+          npm run build -w @junds/react --if-present
+          npm run typecheck -w @junds/react --if-present
+
+  # ── 게이트 8/11: finance-data-test — 모킹 기반 vitest, 실 API 호출 금지 (01 §9) ──
+  finance-data-test:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Test @junds/finance-data
+        run: |
+          if ! node -e "const s=require('./packages/finance-data/package.json').scripts||{};process.exit(s.test?0:1)"; then
+            echo "::notice title=finance-data-test::@junds/finance-data는 자리표시자(G3에서 이관·구현) — 스크립트 부재로 무해 통과. 스크립트가 생기면 실게이트로 자동 전환."
+          fi
+          npm run test -w @junds/finance-data --if-present
+
+  # ── 게이트 9/11: ios-build — macos-14, xcodebuild 경유 (DEC-013-6) ──
+  # 로컬 검증 불가(작업 머신 Xcode 서명 파손) — CI 첫 실행 확인 항목.
+  # 실패 시 1순위 확인: 스킴 이름. 진단 스텝의 `xcodebuild -list` 출력에서 실제 스킴을
+  # 확인하고, `JunDS`가 아니라 `JunDS-Package`라면 루트 package.json의 ios:* 스크립트를 교정.
+  ios-build:
+    runs-on: macos-14
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain diagnostics (advisory)
+        run: |
+          xcodebuild -version || true
+          xcodebuild -list || true
+      - name: Build JunDS (SPM via xcodebuild)
+        run: npm run ios:build
+
+  # ── 게이트 10/11: ios-test — macos-14 시뮬레이터 (Core 로직 + 토큰 패리티 XCTest) ──
+  # macos-14 기본 Xcode 15.x의 iOS 17 런타임에 iPhone 15 시뮬레이터가 포함된다 —
+  # ios:test의 'iPhone 15' destination은 macos-14에선 성립 예상. 단 DEC-015-4b가 실측했듯
+  # 최신 로컬 런타임(iPhone 17 세대)에는 없는 이름이므로, 러너 이미지/Xcode 승급 시
+  # 진단 스텝의 사용 가능 디바이스 목록에서 destination 이름을 교정할 것.
+  ios-test:
+    runs-on: macos-14
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Simulator diagnostics (advisory)
+        run: xcrun simctl list devices available | grep -i iphone | head -20 || true
+      - name: Test JunDS (simulator)
+        run: npm run ios:test
+
+  # ── 게이트 11/11: bench-smoke — G2까지 advisory (05-perf §3.2), G3부터 실게이트 승격 ──
+  bench-smoke:
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true # G2까지 advisory — G3 정식화 시 이 줄 삭제
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build @junds/web (벤치 페이지는 dist 산출물 로드)
+        run: npm run build -w @junds/web
+      - name: Run bench smoke (S3 modal, W3 게이트)
+        run: npm run bench

@@ -4,6 +4,121 @@
 
 ---
 
+## 2026-07-24 — 릴리스·CI 준비 트랙 (v3 레인 11게이트 + 드라이런 + 스코프 조사)
+
+### DEC-22. 릴리스 체인 준비 — 판단·실측 7건
+1. **CI 2파일 분리**: v2 강등은 ci.yml `on.paths` 추가만(14잡 무변경 존속), v3 레인은
+   `.github/workflows/junds-v3.yml` 신설 — 11게이트 + install 캐시 워머. GitHub 네이티브
+   paths 필터는 워크플로 단위가 유일해 파일 분리가 정공(잡별 필터는 서드파티 액션 의존이라
+   기각). v3 레인은 node 22(tokens 생성기 명시 전제) — v2 레인 20과 캐시 키 분리.
+2. **게이트 형태**: ios-build/-test는 xcodebuild 경유(DEC-013-6 승계)·macos-14. bench-smoke는
+   05 §3.2대로 G2까지 advisory(continue-on-error). react는 자리표시자 동안 `--if-present`
+   무해 통과(DEC-011-5 동형) + `::notice` 명시(침묵 금지) — finance-data는 본 트랙 검증 중
+   실구현(DEC-019)이 합류해 실게이트로 자동 전환됨을 확인(계약 테스트 77/77). web-a11y는
+   `.github/scripts/web-a11y-audit.mjs` 신설: 데모 디렉터리 스캔 + axe-core 주입,
+   critical/serious 실패, 빈 감사·CE 미업그레이드 페이지도 실패(false pass 차단).
+   web-test Playwright는 스펙 존재를 키로 자동 활성(1순위 packages/web/e2e/*.spec.ts
+   + 자체 config, 2순위 루트 e2e/v3-*) — config만 있고 스펙 0건인 HEAD에서
+   "No tests found" 오탐을 피하는 설계.
+3. **로컬 성립 증명**: act 부재 → HEAD(38514fe) 분리 워크트리에서 iOS 제외 9게이트 명령
+   전부 1회 실행: 8게이트 PASS, web-a11y만 실위반(serious contrast 4건/3페이지)으로 RED —
+   게이트가 정상 동작한 결과. iOS 2게이트는 로컬 검증 불가(DEC-015-2 서명 파손 재확인:
+   xcodebuild -list까지 libclang에서 사망) — 실체는 DEC-015-1로 기검증, CI 첫 실행 확인
+   항목은 스킴명('JunDS' vs 'JunDS-Package')·destination('iPhone 15')뿐.
+4. **changesets 확정**: fixed 락스텝 [[web, react, finance-data]] + access "public"
+   (스코프 공개 배포 전제 — 무료 org에서 restricted publish는 402). 실측 함정 2건:
+   @changesets/cli devDependency 부재(scripts만 존재), 현행 3.0.0-alpha.0에서 pre 모드
+   미진입 시 `changeset version`이 prerelease를 벗김 → `changeset pre enter alpha` 선행
+   필수(체크리스트 §3 절차화).
+5. **패키징 드라이런 실측**: @junds/web pack → exports 57항 전수 실파일 확인, 신규 프로젝트
+   설치 ESM/Node/CSS 스모크 통과. 블로커 3건 — exports types 조건 전무(신규 프로젝트
+   tsc에서 TS7016 재현), prepack 부재(스테일 dist 무언 배포 경로), LICENSE/README 미동봉.
+   수정처는 gen-exports 생성기(DEC-018)라 웹 트랙에 위임. react tarball 단독 설치는
+   404(@junds/web 미공개 의존, 클린룸 재현) — 동시 제공/선공개로 해소. finance-data는
+   esm/cjs/types+README 정상, 잔여는 LICENSE·files 필드.
+6. **스코프 조사(읽기 전용, 예약 시도 없음)**: npm user·org 'junds' 모두 미존재
+   ("Scope not found" 실측) — @junds 가용. 대상 7이름(@junds/web·react·finance-data·ui,
+   junds, junds-web, create-junds) 전부 404 미공개. 예비 후보: @jjunhaa(가용 확인),
+   무스코프 junds-*(junds-web 404 확인). org 생성은 사람 몫 — 선점 지연 리스크를
+   체크리스트 §0에 명기.
+7. **release/CHECKLIST.md 신설**: push→CI 그린→pre enter→version→publish(private 자동
+   스킵)→SPM 태그 vX.Y.Z(01 §5 공통 앵커, prerelease는 exact: 소비 안내)→CDN 스모크까지
+   사람 실행 정본. create-junds는 조사만(수정 없음) — 템플릿 의존 @junds/ui@^2.2.0이
+   npm 미공개라 공개 사용 불가 실측, v3 대응 4건을 §7에 기입.
+- 결정자: 릴리스 준비 트랙, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
+## 2026-07-24 — G1 React 어댑터 파일럿 (Button·TextField·Modal — v2 호환, DEC-008-(1)(2) 검증)
+
+### DEC-022. React 어댑터 실측 판정 — DEC-008-(1) **채택 유지** + 저작 규약·보정 9건
+
+(번호 주: 020 이중 선점·021 병행 선점(문서 콘텐츠 트랙)으로 022 부여.)
+packages/react 파일럿(스캐폴드 + 어댑터 3종 + 테스트 55, react-dom 19.2.4 실측:
+RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateRoot" 순서 재현).
+
+1. **DEC-008-(1) 판정: 채택 유지.** "어댑터가 골격을 React로 렌더하고 CE가 입양"은
+   실측에서 성립: 내부 노드 identity가 CE 입양·리렌더·hydration을 관통해 유지, 이중
+   구축 0, hydration 경고 0(아래 2·3 규약 적용 후), ref/클릭/폼 제출(네이티브 위임)
+   정상. 단 아래 2~4의 **어댑터 저작 규약 3건이 성립 필요조건**으로 드러남 — 원리
+   자체의 재심의 사유는 아니며, 후속 react-adapter 스펙에 규범으로 승격할 것.
+2. **[규약 A] CE가 입양 자식의 children을 재구축하는 노드는 어댑터가
+   dangerouslySetInnerHTML로 렌더한다.** jd-text-field update()가 label(textContent=)·
+   error 행(innerHTML=)의 children을 통째로 갈아끼움 — React가 그 텍스트 노드를 소유하면
+   이후 리컨실이 분리(detached) 노드를 만진다. dSIH는 React가 내부 children을 diff하지
+   않아 안전하고 SSR 완성 골격(§11-4)도 유지된다. 역제안(웹 트랙 재심의감): 입양 계약에
+   "입양 노드의 children 소유권" 명시 필요 — CE가 children을 재구축하는 노드 목록을
+   컴포넌트 스펙에 고정할 것.
+3. **[규약 B] CE update()가 정규화하는 속성은 어댑터가 같은 값으로 항상 명시 렌더한다.**
+   실측: jd-text-field update()가 hydration 전에 input에 type="text"·placeholder=""를
+   기본값 명시(정규화)로 추가 → React 19의 속성 hydration 검사가 서버 HTML과의 불일치
+   경고 2건 발행. 어댑터가 type/placeholder를 기본값 포함 항상 렌더해 서버 HTML =
+   CE 정규화 결과 = 클라이언트 프롭 3자 일치로 해소(경고 0 실측).
+4. **[규약 C] value류(CE 자가 상태)는 3중 방어가 필요하다.** (a) host value attribute를
+   SSR에 직렬화 — 없으면 CE 최초 update()가 host 기본 ""와의 diff로 **서버 값을
+   hydration 전에 소거**(플래시, 실측·회귀 고정). (b) 커밋마다 layout effect로
+   host.value 정렬 — defaultValue 소거·controlled 수용 담당. (c) onChange 디스패치 안에서
+   host.value를 prop 값으로 동기 재고정 — CE #onInput의 자가 동기화가 React controlled
+   "거부"(재렌더 없는 복원)를 이후 update()에서 되덮는 것을 차단(실측·회귀 고정).
+5. **DEC-008-(2) 검증: 합성 성립, 단 2조건.** (a) 구독은 **layout effect 필수** —
+   CE 최초 render가 microtask(DEC-012-1)라 passive effect는 마운트-열림의 jd-open을
+   놓친다(실측: layout 구독으로 포착). (b) CE disconnect는 silent close(jd-close
+   미발행)라 언마운트 경로의 false는 어댑터 cleanup이 합성. v2 Modal 표면에는
+   onOpenChange가 없어 가산 프롭으로 제공하고, v2 호환의 본체는 **제어형 역번역**:
+   jd-request-close(cancelable, §1.5)를 preventDefault하고 onClose만 호출 — 요청형
+   이벤트의 취소 계약이 제어형 어댑터의 구현 지점을 정확히 수용함을 확인.
+6. **§11-1 보정: 반영형 enum/boolean 호스트 프롭은 ref 이펙트 property 대입이 아니라
+   JSX attribute로 직접 렌더한다.** 근거: SSR 완성 골격(§11-4)의 스타일 훅(variant/size/
+   open 호스트 속성 셀렉터)이 서버 HTML에 있어야 한다. React 18은 attribute 경로
+   (attributeChangedCallback→coerce), 19는 프로퍼티 대입 경로로 양쪽 다 §1.3과 합류.
+   boolean은 반드시 `cond ? true : undefined`(React 18 SSR이 false를 문자열 "false"
+   attribute로 직렬화해 존재=참 규칙을 깨는 함정 차단). 비반영 프롭(value)은 §11-1 그대로.
+7. **v2 표면 판정(요지 — 전체 표는 packages/react/README.md).** Button: 전 프롭 O,
+   type 기본값은 v2/네이티브 submit 유지(코어 단독 기본 button과 상이 — 어댑터가 호스트에
+   명시 전파), **asChild ✗**(입양 쿼리 button 태그 고정 + variant 스타일의 호스트 속성
+   셀렉터 의존 — Slot 폴백은 기본 시각만) → 후속 스펙에서 (a) 입양 쿼리 클래스 완화 +
+   variant 클래스 이중 방출 or (b) asChild 미지원 문서화 중 택1 필요. Input: error
+   boolean 단독 △(v3는 메시지=상태라 시각 훅 부재 — 경고), leftSlot/rightSlot ✗(G1 범위
+   외, DEC-012-5). FormField: 자식 Input/TextField로 폴드(합성), required 폴드는 별표와
+   함께 네이티브 required도 켜짐(v2는 별표만 — 의미 가산, 문서화). Modal: 전 프롭 O·
+   dismissible→persistent 역번역 O, Header/Footer는 구조·a11y 동형이나
+   jd-modal__header/footer css가 코어에 미존재(웹 트랙 후속).
+8. **소유 밖 발견 3건(해당 트랙 이관 제안).** (a) 루트(v2 @junds/ui) package.json
+   exports의 "types" 조건이 "import"/"require" 뒤라 사문(死文) — esbuild 경고 51건,
+   어댑터 빌드는 logOverride로 억제. (b) packages/web exports에 types 조건 부재 —
+   어댑터 d.ts가 참조하는 JdButton류 타입이 소비자 측에서 미해결(웹 package.json에
+   types 조건 추가 필요). (c) 루트 eslint globalIgnores "dist/**"가 루트 상대라
+   packages/*/dist 미제외(dist는 gitignore라 CI 무관, 로컬 노이즈만).
+9. **검증 범위·빌드 판단.** react 19.2.4로 실측(peer는 >=18 — 18은 attribute 경로 설계
+   대응이며 실행 매트릭스는 후속 제안). 어댑터 typecheck는 ../web/dist/types(.d.ts)를
+   paths로 참조(소스 .ts 참조 시 웹 소스가 프로그램에 편입돼 dist/types 2단 재방출
+   — 실측) → 웹 빌드 선행 전제(루트 v3:build 워크스페이스 순서가 보장). 테스트는 vite
+   alias로 웹 소스 직결(빌드 신선도 무의존). devDeps는 루트 호이스팅 사용(자체 0) —
+   peerDependencies 신설로 package-lock 재동기화 1회 필요(루트 파일이라 본 트랙 미커밋).
+- 결정자: G1 어댑터 파일럿 실측, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — 문서 콘텐츠 1차 물결 (docs-content/ 신설 — 골격 445 + done 28 충전)
 
 ### DEC-021. 문서 콘텐츠 데이터 계약·판단 7건

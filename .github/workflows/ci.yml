@@ -1,10 +1,60 @@
+# CI — v2 레인 (01-repo-structure §9: 기존 14개 잡은 존속하되 paths 필터로 트리거 강등).
+# v3 레인은 .github/workflows/junds-v3.yml. 잡 자체는 변경·삭제하지 않는다.
 name: CI
 
 on:
   push:
     branches: [main]
+    paths:
+      - "ds/**"
+      - "app/**"
+      - "scripts/**"
+      - "requirements/**"
+      - "e2e/**"
+      - ".storybook/**"
+      - "public/**"
+      - ".ai/**"
+      - "rollup.config.mjs"
+      - "eslint.config.mjs"
+      - "next.config.ts"
+      - "postcss.config.mjs"
+      - "playwright.config.ts"
+      - "vitest.config.ts"
+      - "vitest.a11y.config.ts"
+      - "tsconfig.json"
+      - "tsconfig.app.json"
+      - "tsconfig.build.json"
+      - "tsconfig.lib.json"
+      - "tsconfig.test.json"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/ci.yml"
   pull_request:
     branches: [main]
+    paths:
+      - "ds/**"
+      - "app/**"
+      - "scripts/**"
+      - "requirements/**"
+      - "e2e/**"
+      - ".storybook/**"
+      - "public/**"
+      - ".ai/**"
+      - "rollup.config.mjs"
+      - "eslint.config.mjs"
+      - "next.config.ts"
+      - "postcss.config.mjs"
+      - "playwright.config.ts"
+      - "vitest.config.ts"
+      - "vitest.a11y.config.ts"
+      - "tsconfig.json"
+      - "tsconfig.app.json"
+      - "tsconfig.build.json"
+      - "tsconfig.lib.json"
+      - "tsconfig.test.json"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/ci.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
