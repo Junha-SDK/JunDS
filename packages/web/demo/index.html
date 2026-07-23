@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JunDS v3 — G1 파일럿 데모 (jd-button · jd-text-field · jd-modal)</title>
+<title>JunDS v3 — 데모 (G1 파일럿 + B1 core)</title>
 <!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
 <link rel="stylesheet" href="../dist/junds.css">
 <script src="../dist/junds.min.js" defer></script>
@@ -67,6 +67,91 @@
       <jd-button id="open-modal" variant="primary">모달 열기</jd-button>
       <jd-button id="open-persistent" variant="secondary">persistent 모달</jd-button>
     </div>
+  </section>
+
+  <!-- ── B1 core ── -->
+
+  <section>
+    <h2>jd-box — 스타일 프롭 원형</h2>
+    <div class="row">
+      <jd-box p="4" bg="card" radius="md" border>p=4 · bg=card · border</jd-box>
+      <jd-box p="2 md:6" bg="primary-light" radius="lg" shadow="sm">반응형 p="2 md:6"</jd-box>
+      <jd-box p="3" bg="danger-light" color="danger" radius="full">radius=full</jd-box>
+    </div>
+  </section>
+
+  <section>
+    <h2>jd-vstack · jd-hstack · jd-group · jd-center</h2>
+    <jd-vstack gap="3">
+      <jd-hstack gap="2">
+        <jd-button size="sm">HStack</jd-button>
+        <jd-button size="sm" variant="secondary">가로 정렬</jd-button>
+        <jd-text as="span" dimmed>기본 align=center</jd-text>
+      </jd-hstack>
+      <jd-group gap="2">
+        <jd-box p="1" px="3" bg="card" radius="full" border>wrap</jd-box>
+        <jd-box p="1" px="3" bg="card" radius="full" border>되는</jd-box>
+        <jd-box p="1" px="3" bg="card" radius="full" border>그룹</jd-box>
+        <jd-box p="1" px="3" bg="card" radius="full" border>태그들</jd-box>
+      </jd-group>
+      <jd-center h="72" bg="card" radius="md" border>Center — 양축 중앙</jd-center>
+    </jd-vstack>
+  </section>
+
+  <section>
+    <h2>jd-grid-layout · jd-flex</h2>
+    <jd-grid-layout cols="3" gap="3" mb="3">
+      <jd-box p="3" bg="card" radius="sm" border>1</jd-box>
+      <jd-box p="3" bg="card" radius="sm" border>2</jd-box>
+      <jd-box p="3" bg="card" radius="sm" border>3</jd-box>
+    </jd-grid-layout>
+    <jd-flex justify="between" align="center" p="3" bg="card" radius="md" border>
+      <jd-text as="span">jd-flex justify=between</jd-text>
+      <jd-button size="sm" variant="ghost">액션</jd-button>
+    </jd-flex>
+  </section>
+
+  <section>
+    <h2>jd-divider</h2>
+    <jd-divider></jd-divider>
+    <jd-divider label="또는"></jd-divider>
+    <jd-hstack gap="3" h="24">
+      <jd-text as="span">좌</jd-text>
+      <jd-divider orientation="vertical"></jd-divider>
+      <jd-text as="span">우</jd-text>
+    </jd-hstack>
+  </section>
+
+  <section>
+    <h2>jd-heading · jd-text</h2>
+    <jd-vstack gap="2">
+      <jd-heading level="1">Heading 1</jd-heading>
+      <jd-heading level="3">Heading 3</jd-heading>
+      <jd-heading level="5" color="muted">Heading 5 · color=muted</jd-heading>
+      <jd-text>본문 텍스트 — 기본 p 태그로 렌더된다.</jd-text>
+      <jd-text dimmed>dimmed — color 프롭보다 우선.</jd-text>
+      <jd-text mono as="span">mono span</jd-text>
+      <jd-text line-clamp="2" max-w="320">line-clamp=2 — 이 긴 문장은 두 줄을 넘어가면
+        말줄임표로 잘린다. 컨테이너 폭이 좁을수록 더 빨리 잘리는 것을 확인할 수 있다.</jd-text>
+    </jd-vstack>
+  </section>
+
+  <section>
+    <h2>jd-page · jd-section — 페이지 셸 컴파운드</h2>
+    <jd-box border radius="md" overflow="hidden">
+      <jd-page max-width="md">
+        <jd-page-header title="대시보드" description="jd-page-header — title/description + actions">
+          <jd-button size="sm" variant="outline">내보내기</jd-button>
+          <jd-button size="sm">새로 만들기</jd-button>
+        </jd-page-header>
+        <jd-page-body>
+          <jd-section title="섹션" description="제목/설명 헤더 + 세로 흐름 본문" border>
+            <jd-text>jd-section 본문 — children은 __body로 입양된다.</jd-text>
+            <jd-text dimmed>gap 프롭은 본문 flex에 적용된다.</jd-text>
+          </jd-section>
+        </jd-page-body>
+      </jd-page>
+    </jd-box>
   </section>
 </main>
 

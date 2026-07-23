@@ -4,6 +4,49 @@
 
 ---
 
+## 2026-07-23 — G2-B1 구현 중 발견 (core 12행 + style-props)
+
+### DEC-014. B1 core 배치가 드러낸 판단 8건
+1. **style-props 어휘는 v2 리터럴 패리티 우선**: v2 styleProps와 tokens/가 **이름-값
+   충돌**하는 축(radius: v2 md=8px vs --jd-radius-md=6px, fontSize: v2 md=1rem vs
+   --jd-text-md=0.875rem, shadow·zIndex 별개 어휘)은 v2 리터럴을 유지하고, 값 일치가
+   확인된 축(spacing 대부분·color·lineHeight 등)만 --jd-* var 참조로 번역한다.
+   패리티 원칙(값 임의 변경 금지) 준수 — 어휘 통합은 G2 재심의.
+2. **반응형은 attribute 마이크로문법** `p="4 md:6"` (JSON-in-attribute 금지 WEB-03).
+   v2는 base를 인라인으로 방출해 미디어 규칙이 항상 패배하는 실측 버그 —
+   v3는 반응형 사용 시 전 구간을 콘텐츠 해시(djb2) 클래스 규칙(@layer junds.components)으로
+   방출해 정상화. 해시는 내용 결정적(프리렌더 스냅샷 안정, §3.1-3). `mx="auto"`도
+   v2의 조용한 무시 버그를 보정해 허용.
+3. **v2 Box `as` 폴리모피즘은 CE 미지원** — 호스트가 곧 요소라 태그 교체 불가.
+   React 어댑터 몫으로 이월. 단 Text/Heading은 내부 시맨틱 요소(p/span…·h1~h6)를
+   렌더·교체하는 방식으로 지원(의미가 다름 — 문서 아웃라인용).
+4. **Page는 컴파운드 3태그** jd-page/jd-page-header/jd-page-body = ledger 1행(Page).
+   header의 light DOM 슬롯 규약: `slot="breadcrumb"` 마커 children은 브레드크럼 행,
+   나머지는 actions 영역(shadow 없는 슬롯 관례). Page 기본 패딩은 v2 의도 스펙대로
+   정적 @media(16px→md 24px)로 정상화 — v2 실측은 인라인 base에 눌려 16px 고정이었다.
+5. **Divider 단일 정본 선점(R12)**: <jd-divider>가 v2 CoreDivider 표면(기본 my=4)을
+   계승하고, B2 LayoutDivider·B4 primitives Divider는 이 클래스의 별칭으로 처리 예정
+   (무여백 기본 등 표면 차는 react 어댑터 프롭 매핑으로 해소).
+6. **CoreProvider는 토큰 시스템 흡수(내부화)** — B0 미결의 처분 확정. v2 JunDSProvider의
+   theme/colorMode 노브는 CSS 토큰 오버라이드(:root { --jd-* }) + data-jd-theme 속성으로,
+   radius/density 런타임 노브(--jds-radius-*)는 DEC-008-(4)에서 기폐기. CE 구현 없음,
+   v2 호환 표면은 react 어댑터 몫. ledger web:done(내부화)·tests:n/a.
+7. **size-gate W1 계측 엔트리 변경**: src/index.ts(공개 배럴) → src/core/index.ts(코어
+   전용 배럴). 공개 배럴은 컴포넌트 클래스를 재수출해 배치가 늘수록 W1이 무한 비대 —
+   05 §1의 코어 정의(베이스·define·styles·uid·style-props·behaviors)와 일치하는
+   엔트리로 계측한다.
+8. **vitest stale transform 캐시 함정 실측**: 편집 전 테스트 파일의 캐시가 풀런에서
+   재사용돼 가짜 실패 5건(단독 실행은 통과). 검증 전 node_modules/.vite 삭제를
+   세션 프로토콜에 포함할 것.
+9. **호스트 box-sizing 자기 선언 규범**: v2는 Tailwind preflight의 전역
+   `*{box-sizing:border-box}`에 암묵 의존했다. v3 단독 데모(의존성 0)에서 jd-page가
+   width:100%+padding으로 부모를 넘치는 실측 — 호스트에 width/height와 padding·border를
+   병용하는 컴포넌트는 자기 규칙에 `box-sizing: border-box`를 직접 선언한다
+   (전역 리셋 주입 금지 — 소비자 CSS 불간섭 원칙).
+- 결정자: G2-B1 구현·검증 중 발견, 근거 기록 후 기본값 채택 (2026-07-23).
+
+---
+
 ## 2026-07-23 — G1 iOS 슬라이스 구현 중 발견 (Package.swift + 파일럿 3종 + 실기기 데모앱)
 
 ### DEC-013. iOS 슬라이스 판단·스펙 보정 7건

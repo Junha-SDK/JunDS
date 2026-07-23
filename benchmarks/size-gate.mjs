@@ -38,8 +38,10 @@ const shared = {
 };
 const gz = (r) => gzipSync(Buffer.from(r.outputFiles[0].text)).length;
 
-// 코어(W1) — 배럴 전체(부작용 0): 베이스클래스·define·styles·uid·behaviors 포함
-const coreSize = gz(await esbuild.build({ ...shared, entryPoints: [join(webDir, "src/index.ts")] }));
+// 코어(W1) — 코어 전용 배럴: 베이스클래스·define·styles·uid·style-props·behaviors.
+// 공개 배럴(src/index.ts)은 컴포넌트 클래스를 재수출해 배치가 늘수록 W1이 무한 비대해지므로
+// 게이트 주석의 코어 정의와 일치하는 src/core/index.ts로 계측한다 (DECISIONS B1).
+const coreSize = gz(await esbuild.build({ ...shared, entryPoints: [join(webDir, "src/core/index.ts")] }));
 
 // 컴포넌트(W2) — core/behaviors는 external(공유 계층 분리 계상, 05 §1 W2 근거와 동형)
 const externalCore = {
@@ -72,7 +74,7 @@ const p95 = sorted[Math.min(sorted.length - 1, Math.floor(0.95 * sorted.length))
 
 const failures = [];
 const kb = (n) => `${(n / 1024).toFixed(2)}KB`;
-console.log(`[size] core (src/index.ts, minify+gzip): ${kb(coreSize)} / 예산 ${kb(budgets.coreMax)}`);
+console.log(`[size] core (src/core/index.ts, minify+gzip): ${kb(coreSize)} / 예산 ${kb(budgets.coreMax)}`);
 if (coreSize > budgets.coreMax) failures.push(`W1: 코어 ${kb(coreSize)} > ${kb(budgets.coreMax)}`);
 
 for (const [name, size] of Object.entries(components)) {

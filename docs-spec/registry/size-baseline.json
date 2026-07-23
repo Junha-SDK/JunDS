@@ -1,8 +1,20 @@
 {
-  "core": 5908,
+  "core": 5254,
   "components": {
+    "box": 300,
     "button": 2273,
+    "center": 360,
+    "divider": 896,
+    "flex": 382,
+    "grid-layout": 438,
+    "group": 500,
+    "heading": 1088,
+    "hstack": 435,
     "modal": 1541,
-    "text-field": 1851
+    "page": 1358,
+    "section": 874,
+    "text": 919,
+    "text-field": 1851,
+    "vstack": 472
   }
 }

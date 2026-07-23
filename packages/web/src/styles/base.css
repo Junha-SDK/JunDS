@@ -8,4 +8,20 @@
   jd-button:not(:defined) { display: inline-flex; }
   jd-text-field:not(:defined) { display: flex; flex-direction: column; }
   jd-modal:not(:defined) { display: none; }
+
+  /* B1 core — 컨테이너·타이포는 골격 이동이 없거나 얕아 display 선지정으로 충분 */
+  jd-box:not(:defined),
+  jd-heading:not(:defined),
+  jd-text:not(:defined),
+  jd-divider:not(:defined),
+  jd-page:not(:defined),
+  jd-page-header:not(:defined),
+  jd-section:not(:defined) { display: block; }
+  jd-flex:not(:defined),
+  jd-center:not(:defined),
+  jd-hstack:not(:defined),
+  jd-group:not(:defined) { display: flex; }
+  jd-vstack:not(:defined),
+  jd-page-body:not(:defined) { display: flex; flex-direction: column; }
+  jd-grid-layout:not(:defined) { display: grid; }
 }

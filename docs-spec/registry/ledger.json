@@ -17,144 +17,144 @@
       "id": "Box",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-box> — style-props 원형 컨테이너. as 폴리모피즘은 react 어댑터 몫(DEC-014-3)"
     },
     {
       "id": "Center",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-center> — Box 파생(양축 중앙)"
     },
     {
       "id": "CoreDivider",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-divider> — 구분선 단일 정본(R12·DEC-014-5), LayoutDivider(B2)·primitives Divider(B4)는 별칭 예정"
     },
     {
       "id": "CoreProvider",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "web": "done(내부화)",
+      "ios": "n/a",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 내부화 — 토큰 시스템 흡수(DEC-014-6): CSS 토큰 오버라이드+data-jd-theme. CE 없음, v2 표면은 react 어댑터 몫"
     },
     {
       "id": "Flex",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-flex> — Box 파생, inline 프롭"
     },
     {
       "id": "GridLayout",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-grid-layout> — Box 파생. layout Grid 단일화는 B2 별칭(R12)"
     },
     {
       "id": "Group",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-group> — Box 파생, no-wrap 프롭"
     },
     {
       "id": "HStack",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-hstack> — Box 파생(row·gap sm·align center)"
     },
     {
       "id": "Heading",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-heading> — 내부 h1~h6 렌더·레벨 교체(children 보존)"
     },
     {
       "id": "Page",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 컴파운드 3태그 jd-page/jd-page-header/jd-page-body = 1행(DEC-014-4), 기본 패딩 @media 정상화"
     },
     {
       "id": "Section",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-section> — 헤더+본문 입양, gap은 본문 flex 적용(skip 규약)"
     },
     {
       "id": "Text",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-text> — 내부 시맨틱 요소(as), dimmed 우선·line-clamp·mono"
     },
     {
       "id": "VStack",
       "category": "core",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B1 <jd-vstack> — Box 파생(column·gap md)"
     },
     {
       "id": "Stack",

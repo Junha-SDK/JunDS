@@ -28,4 +28,23 @@ describe("Node(비브라우저) 모듈 평가", () => {
     expect(styles.text).toBe(".jd-ssr { color: red; }");
     // sheet()는 브라우저 전용 — Node에서 호출하지 않는 것이 규약
   });
+
+  test("B1 core 컴포넌트 모듈이 Node에서 평가된다 (define index 포함 no-op)", async () => {
+    const mod = await import("../src/define.js");
+    expect(mod.defineJunds).toBeTypeOf("function");
+    const barrel = await import("../src/index.js");
+    for (const name of [
+      "JdBox", "JdCenter", "JdDivider", "JdFlex", "JdGridLayout", "JdGroup",
+      "JdHStack", "JdHeading", "JdPage", "JdPageBody", "JdPageHeader",
+      "JdSection", "JdText", "JdVStack",
+    ] as const) {
+      expect(barrel[name], name).toBeTypeOf("function");
+    }
+  });
+
+  test("style-props 유틸은 DOM 없이 평가·호출 가능 (리졸버는 순수)", async () => {
+    const { resolveSpace, resolveColor } = await import("../src/index.js");
+    expect(resolveSpace("4")).toBe("var(--jd-space-4)");
+    expect(resolveColor("primary")).toBe("var(--jd-color-primary)");
+  });
 });

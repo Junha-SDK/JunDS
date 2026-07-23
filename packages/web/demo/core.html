@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JunDS v3 — B1 core 데모 (레이아웃·타이포 프리미티브 12종)</title>
+<!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
+<link rel="stylesheet" href="../dist/junds.css">
+<script src="../dist/junds.min.js" defer></script>
+<style>
+  /* 데모 셸 전용 스타일 — 라이브러리와 무관 */
+  body { margin: 0; font-family: var(--jd-font-sans);
+         background: var(--jd-color-background); color: var(--jd-color-foreground); }
+  .demo-label { font-size: var(--jd-text-xs); color: var(--jd-color-muted-light);
+                text-transform: uppercase; letter-spacing: .08em; margin: 0 0 .5rem; }
+  .chip { background: var(--jd-color-primary-light); color: var(--jd-color-primary);
+          border-radius: 8px; padding: .35rem .8rem; font-size: var(--jd-text-sm); }
+</style>
+</head>
+<body>
+<jd-page max-width="lg">
+  <jd-page-header title="JunDS v3 · B1 core" description="스타일 프롭 시스템 + 레이아웃/타이포 프리미티브 12종">
+    <nav slot="breadcrumb" style="font-size:var(--jd-text-sm);color:var(--jd-color-muted)">docs / junds / core</nav>
+    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
+  </jd-page-header>
+
+  <jd-page-body>
+    <jd-section title="jd-box — 스타일 프롭 원형" description="p·bg·radius·shadow·border 전부 attribute로">
+      <p class="demo-label">box + 반응형 p="4 md:8"</p>
+      <jd-box p="4 md:8" bg="card" radius="lg" shadow="sm" border>
+        박스 안 내용 — 뷰포트를 줄이면 패딩이 16px로, md↑에서 32px.
+      </jd-box>
+      <jd-box p="3" bg="primary-light" color="primary" radius="md">토큰 색 조합 (bg=primary-light)</jd-box>
+    </jd-section>
+
+    <jd-divider label="스택"></jd-divider>
+
+    <jd-section title="jd-hstack / jd-vstack / jd-group / jd-center">
+      <p class="demo-label">hstack (gap 기본 sm)</p>
+      <jd-hstack>
+        <span class="chip">하나</span><span class="chip">둘</span><span class="chip">셋</span>
+      </jd-hstack>
+      <p class="demo-label">vstack gap="2"</p>
+      <jd-vstack gap="2">
+        <jd-box p="2" bg="card" radius="md" border>첫 줄</jd-box>
+        <jd-box p="2" bg="card" radius="md" border>둘째 줄</jd-box>
+      </jd-vstack>
+      <p class="demo-label">group (wrap) — 좁히면 줄바꿈</p>
+      <jd-group>
+        <span class="chip">서울</span><span class="chip">부산</span><span class="chip">대구</span>
+        <span class="chip">광주</span><span class="chip">대전</span><span class="chip">제주</span>
+      </jd-group>
+      <p class="demo-label">center h="80"</p>
+      <jd-center h="80" bg="card" radius="lg" border>정중앙</jd-center>
+    </jd-section>
+
+    <jd-section title="jd-flex / jd-grid-layout">
+      <p class="demo-label">flex justify="between" align="center"</p>
+      <jd-flex justify="between" align="center" p="3" bg="card" radius="md" border>
+        <strong>좌측</strong><span>중간</span><em>우측</em>
+      </jd-flex>
+      <p class="demo-label">grid-layout cols="1 md:3" gap="3"</p>
+      <jd-grid-layout cols="1 md:3" gap="3">
+        <jd-box p="3" bg="card" radius="md" border>그리드 1</jd-box>
+        <jd-box p="3" bg="card" radius="md" border>그리드 2</jd-box>
+        <jd-box p="3" bg="card" radius="md" border>그리드 3</jd-box>
+      </jd-grid-layout>
+    </jd-section>
+
+    <jd-divider label="타이포"></jd-divider>
+
+    <jd-section title="jd-heading / jd-text">
+      <jd-heading level="1" mb="1">레벨 1 제목</jd-heading>
+      <jd-heading level="2" mb="1">레벨 2 제목</jd-heading>
+      <jd-heading level="3" mb="1">레벨 3 제목</jd-heading>
+      <jd-heading level="4" mb="1">레벨 4 제목</jd-heading>
+      <jd-heading level="6" mb="1">레벨 6 캡션</jd-heading>
+      <jd-text>기본 본문 텍스트 — 1rem, 줄간 relaxed. 문단 시맨틱은 내부 &lt;p&gt;가 담당한다.</jd-text>
+      <jd-text dimmed>dimmed — muted 색으로 가라앉힌 보조 문장.</jd-text>
+      <jd-text mono font-size="sm">mono — var(--jd-font-mono) 고정폭.</jd-text>
+      <jd-text line-clamp="2" max-w="420">
+        line-clamp=2 — 이 문장은 두 줄을 넘어가면 말줄임됩니다. 레이아웃 검증을 위해 충분히
+        긴 문장을 넣어 두 줄 클램프가 실제로 동작하는지 확인한다. 셋째 줄은 보이면 안 된다.
+      </jd-text>
+      <jd-text truncate as="span" max-w="260" display="block">
+        truncate — 한 줄 말줄임. 이 문장도 충분히 길어서 잘려야 정상.
+      </jd-text>
+    </jd-section>
+
+    <jd-section title="jd-divider" description="가로/세로/라벨 3형">
+      <jd-divider my="2"></jd-divider>
+      <jd-divider label="또는" my="2"></jd-divider>
+      <jd-hstack gap="3" h="40">
+        <span>좌</span>
+        <jd-divider orientation="vertical"></jd-divider>
+        <span>우</span>
+      </jd-hstack>
+      <jd-divider color="danger" my="2"></jd-divider>
+    </jd-section>
+
+    <jd-section title="jd-section (border)" description="이 섹션 자체가 border 데모" border p="5">
+      <jd-text dimmed>border + p="5" — v2 Section의 radius xl(16px) 외곽.</jd-text>
+    </jd-section>
+  </jd-page-body>
+</jd-page>
+
+<script type="module">
+  const btn = document.getElementById("theme-toggle");
+  btn.addEventListener("click", () => {
+    const root = document.documentElement;
+    const dark = root.getAttribute("data-jd-theme") !== "dark";
+    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
+    btn.textContent = dark ? "라이트 모드" : "다크 모드";
+  });
+</script>
+</body>
+</html>
