@@ -297,7 +297,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "G1 파일럿 <jd-button> — leftIcon/rightIcon/asChild는 react 어댑터 몫 / iOS G1 JdButton·JdButtonView — unverified(빌드 미검증, DEC-013)"
+      "notes": "G1 파일럿 <jd-button> — leftIcon/rightIcon/asChild는 react 어댑터 몫 / iOS G1 JdButton·JdButtonView — 빌드·XCTest 검증 완료(2026-07-24 시뮬레이터, DEC-015)"
     },
     {
       "id": "Input",
@@ -308,7 +308,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "G1 파일럿 <jd-text-field> — v2 Input+FormField 통합 표면(label/error 내장) / iOS G1 JdTextField·JdTextFieldView — unverified(빌드 미검증, DEC-013)"
+      "notes": "G1 파일럿 <jd-text-field> — v2 Input+FormField 통합 표면(label/error 내장) / iOS G1 JdTextField·JdTextFieldView — 빌드·XCTest 검증 완료(2026-07-24 시뮬레이터, DEC-015)"
     },
     {
       "id": "Textarea",
@@ -2244,7 +2244,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "pass(S3 100회: open p95 12.2ms / close p95 8.7ms / longtask 0 / 누수 0)",
-      "notes": "G1 파일럿 <jd-modal> — dismissible→persistent 반전(DEC-012), focus-trap Behavior 첫 소비처 / iOS G1 jdModal·JdModalViewController(시스템 시트 번역) — unverified(빌드 미검증, DEC-013)"
+      "notes": "G1 파일럿 <jd-modal> — dismissible→persistent 반전(DEC-012), focus-trap Behavior 첫 소비처 / iOS G1 jdModal·JdModalViewController(시스템 시트 번역) — 빌드·XCTest 검증 완료(2026-07-24 시뮬레이터, DEC-015)"
     },
     {
       "id": "MultiSelect",

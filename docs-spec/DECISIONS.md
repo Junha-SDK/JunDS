@@ -4,6 +4,40 @@
 
 ---
 
+## 2026-07-24 — G1 iOS 슬라이스 빌드 검증 완료 (Xcode 손상 우회)
+
+### DEC-015. iOS 빌드·테스트 검증 완료 + 툴체인 손상 실측·우회 확정
+1. **검증 결과**: DEC-013-1의 미검증 슬라이스 전수 통과 — 4타겟(Core/UIKit/SwiftUI/우산)
+   iOS 16 시뮬레이터 타깃 빌드 성공(에러 0, 수정 필요 코드 0건), **XCTest 31/31 통과**
+   (iPhone 17 / iOS 26.2 시뮬레이터에서 실행 — JdLayoutTests 12·Core 스펙/옵션/모션 9·
+   UIKit 뷰 6·SwiftUI 스모크 4). 데모 소스 6파일 typecheck 통과 + 수동 .app 조립으로
+   시뮬레이터 실기동 확인(카탈로그·Button 양 계통 동형 렌더·탭 카운트·Modal 시트
+   open/close/onClose·다크모드 토큰 전환). ledger 3행(Button/Input/Modal) notes 갱신.
+2. **툴체인 손상 실측**: Xcode 26.2(17C52)의 swift-frontend·clang은 arm64 슬라이스,
+   libclang.dylib은 arm64·x86_64 양쪽 코드서명 invalid → AMFI가 SIGKILL(exit 137).
+   xcodebuild 실행 파일 자체는 살아있으나 `-list`·빌드·xcrun의 SDK 조회
+   (`--show-sdk-path`)가 전부 libclang 로드에서 사망. Rosetta 우회도 libclang에서 막힘.
+   **복구는 Xcode 재설치뿐**(서명 자체가 깨져 -runFirstLaunch·GUI 실행으로 불가) — 사용자 몫.
+3. **검증 우회 경로 확정** (Xcode 복구 전 표준 루프, demo/README.md에 명령 기록):
+   CLT(Swift 6.2.3, 서명 정상) `swift build --triple arm64-apple-ios16.0-simulator
+   --sdk <Xcode iPhoneSimulator.sdk 직접 경로>` (xcrun SDK 조회 우회, 최신 SDK는 stdlib
+   swiftmodule 내장이라 CLT로 iOS 크로스 빌드 가능). 테스트는 `--build-tests` +
+   플랫폼 XCTest 검색 경로(-F/-I/-L) 후 `simctl spawn <기기> …/Agents/xctest` +
+   `SIMCTL_CHILD_DYLD_*`로 시뮬레이터 실행. 데모앱은 모듈 .o 직접 링크 + Info.plist
+   수제 번들 + `simctl install/launch`.
+4. **잔여 블로커 (Xcode 재설치 후에만)**: (a) demo/JunDSDemo.swiftpm의 Xcode Run·실기기
+   배포(AppleProductTypes가 Xcode 전용), (b) 루트 package.json의 ios:build/ios:test
+   (xcodebuild 경유 — 추가로 ios:test의 'iPhone 15' 기기명이 설치 런타임(iPhone 17 세대)에
+   없어 복구 후 갱신 필요; package.json은 iOS 트랙 소유 경계 밖이라 미수정), (c) 스냅샷
+   유틸(04 §8.3)은 어차피 M2 게이트라 영향 없음.
+5. **StrictConcurrency 경고 현황 (에러 아님, Swift 6 모드 대비 과제)**: JdMotion.isReduced
+   전역 가변 + UIAccessibility.isReduceMotionEnabled(MainActor 격리)의 nonisolated 참조,
+   JdConstraintStore associated object 키 전역. 04 §7.3의 함수 포인터 주입 설계 유지하되
+   Swift 6 이행 시 @MainActor 승격 재심의 — G2 이후.
+- 결정자: 실측 검증, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-23 — G2-B1 구현 중 발견 (core 12행 + style-props)
 
 ### DEC-014. B1 core 배치가 드러낸 판단 8건
