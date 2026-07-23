@@ -3,6 +3,9 @@
 @layer junds.tokens, junds.base, junds.components;
 
 @layer junds.base {
-  /* 업그레이드 전 기본 박스(:not(:defined) §3.2)와 리셋·유틸은
-     컴포넌트 슬라이스에서 태그별로 추가된다. */
+  /* FOUC 방지(§3.2): 업그레이드 전 기본 박스 — 태그별 display만 선지정.
+     오버레이류는 업그레이드 전 display:none으로 내용 번쩍임 차단. */
+  jd-button:not(:defined) { display: inline-flex; }
+  jd-text-field:not(:defined) { display: flex; flex-direction: column; }
+  jd-modal:not(:defined) { display: none; }
 }

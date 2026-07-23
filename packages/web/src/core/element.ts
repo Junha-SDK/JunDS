@@ -100,6 +100,7 @@ export abstract class JdElement extends BaseElement {
   #values = new Map<string, unknown>();
   #reflecting = false;
   #ready = false; // render() 1회 완료 여부
+  #renderScheduled = false;
   #updateQueued = false;
   #behaviors = new Set<{ destroy(): void }>();
 
@@ -108,13 +109,35 @@ export abstract class JdElement extends BaseElement {
     (this.constructor as typeof JdElement).finalize();
   }
 
+  /**
+   * 최초 render는 지연 실행한다 (G1 구현 중 발견 — DECISIONS 참조).
+   * 스트리밍 파서 업그레이드(번들 선로드 + 파서 생성 요소)에서는 connectedCallback
+   * 시점에 children이 아직 파싱되지 않아, children을 골격으로 이동하는 컴포넌트가
+   * 빈 골격을 이중 구축한다. 문서 파싱 중(+후행 형제 없음)이면 DOMContentLoaded,
+   * 그 외(innerHTML·동적 생성)는 microtask로 지연 — 두 경로 모두 children 도착 후 render.
+   * connected()는 항상 render 이후에 호출된다(순서 계약 유지).
+   */
   connectedCallback(): void {
-    if (!this.#ready) {
+    if (this.#ready) {
+      this.connected?.();
+      return;
+    }
+    if (this.#renderScheduled) return;
+    this.#renderScheduled = true;
+    const run = (): void => {
+      this.#renderScheduled = false;
+      if (this.#ready || !this.isConnected) return; // 그 사이 disconnect — 재연결 시 재스케줄
       this.#upgradeProps(); // 업그레이드 전 대입된 프로퍼티 회수
       this.render();        // 최초 1회, 멱등·입양 규칙(§3.3) 준수
       this.#ready = true;
+      this.connected?.();
+    };
+    const doc = this.ownerDocument;
+    if (doc.readyState === "loading" && !this.nextSibling) {
+      doc.addEventListener("DOMContentLoaded", run, { once: true });
+    } else {
+      queueMicrotask(run);
     }
-    this.connected?.();
   }
 
   disconnectedCallback(): void {

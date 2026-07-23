@@ -1,0 +1,30 @@
+{
+  "scenario": "S3 modal open/close x100 (focus trap + scroll lock)",
+  "machine": "darwin-arm64",
+  "date": "2026-07-23T14:03:34.466Z",
+  "cycles": 100,
+  "reps": {
+    "total": 5,
+    "warmupDiscarded": 1
+  },
+  "open": {
+    "mean": 9.696000003814698,
+    "median": 9.400000035762787,
+    "p95": 12.199999988079071
+  },
+  "close": {
+    "mean": 7.240999999642372,
+    "median": 7.300000011920929,
+    "p95": 8.699999988079071
+  },
+  "longtasks": 0,
+  "leak": {
+    "nodesBefore": 27,
+    "nodesAfter": 27,
+    "nodeDelta": 0,
+    "bodyOverflowRestored": true,
+    "modalClosed": true
+  },
+  "pass": true,
+  "failures": []
+}

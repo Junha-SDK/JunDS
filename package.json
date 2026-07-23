@@ -140,6 +140,8 @@
     "tokens:fresh": "node tokens/build/check-fresh.mjs",
     "v3:build": "npm run tokens:gen && npm run build --workspaces --if-present",
     "v3:test": "npm run tokens:test && npm run test --workspaces --if-present",
+    "bench": "node benchmarks/run.mjs",
+    "size:web": "node benchmarks/size-gate.mjs",
     "dev": "node scripts/run-server.mjs dev --port 6100",
     "build": "next build",
     "build:lib": "NODE_OPTIONS='--max-old-space-size=8192' rollup -c rollup.config.mjs && node scripts/ensure-use-client-banner.mjs",

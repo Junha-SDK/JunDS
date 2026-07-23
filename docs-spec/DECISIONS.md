@@ -4,6 +4,49 @@
 
 ---
 
+## 2026-07-23 — G1 웹 파일럿 구현 중 발견 (jd-button/jd-text-field/jd-modal + focus-trap + 벤치)
+
+### DEC-012. G1 컴포넌트 슬라이스가 드러낸 스펙 보정·판단 7건
+1. **최초 render 지연 실행 (03 §1.2 스케치 보정)**: connectedCallback 동기 render는
+   스트리밍 파서 업그레이드(번들 선로드 + 파서 생성 요소)에서 children 미도착 상태로
+   실행돼, children을 골격으로 이동하는 컴포넌트가 빈 골격을 이중 구축한다
+   (happy-dom innerHTML도 동일 시맨틱 — childCountAtConnect=0 실측). 보정:
+   문서 파싱 중(readyState "loading" && 후행 형제 없음)이면 DOMContentLoaded,
+   그 외에는 microtask로 최초 render를 지연. connected()는 항상 render 후 호출
+   (순서 계약 유지). 한계: 로딩 중 동적 삽입 요소는 DCL까지 골격이 늦다 —
+   `:not(:defined)` FOUC 가드 범위 밖이나 실害 미미로 수용.
+2. **디폴트 값은 reflect되지 않음을 명문화 (03 §1.3·§4.3 정합)**: reflect는 property
+   set 시점에만 동작하므로 기본값(variant=primary, size=md)은 attribute로 나타나지
+   않는다. 따라서 컴포넌트 CSS는 **기본 variant/size 스타일을 base 클래스(.jd-button 등)에
+   두고, 호스트 속성 셀렉터는 비기본값만 담당**한다 — §4.3 정본 스케치와 동형.
+3. **jd-modal은 `<dialog>` 미채택**: (a) 03 §5.3·§8이 포커스 감금·닫기 경로를 공용
+   Behavior로 강제 일원화(WEB-10)하는데 showModal()의 top layer·inert·ESC 내장 동작과
+   이중화된다. (b) top layer는 --jd-z-* 토큰 체계(z-index)를 무시하고 ::backdrop은
+   @layer 오버라이드 계약(§4.4) 밖이다. (c) happy-dom 단위층 검증 가능성.
+   div 기반(.jd-modal__backdrop + .jd-modal__panel[role=dialog][aria-modal]) +
+   createFocusTrap + 스크롤 락으로 구현, 메서드명 showModal()은 네이티브 표면과 호환 유지.
+4. **v2 Modal `dismissible`(기본 true) → `persistent`(기본 false)로 반전**: Boolean
+   attribute는 존재 여부가 값(§1.3)이라 기본 true 프로퍼티를 선언적으로 표현할 수 없다.
+   ESC는 v2와 동일하게 persistent여도 항상 동작.
+5. **jd-text-field = v2 Input + FormField 통합 표면**: label(라벨 행)·error(문자열
+   메시지 — v2 Input의 boolean과 달리 메시지가 곧 상태)·aria-invalid/aria-describedby
+   자동 연결. v2 Input의 leftSlot/rightSlot은 G1 범위 외(후속 배치에서 재심의).
+   createFocusTrap은 §5.1 "지연 시작" 예외 — create 시 리스너를 붙이지 않고
+   activate()가 시작점(닫힌 모달이 connect되는 것이 정상 상태이므로).
+6. **벤치·사이즈 게이트 위치**: 05 §2.1 `bench/web/`·§3.1 `scripts/size-gate.mjs`는
+   01 §3.4("신설 스크립트는 benchmarks/에, 루트 scripts/ 금지")와 충돌 —
+   레포 구조는 01이 정본이므로 `benchmarks/web/`(probe.js·시나리오)·
+   `benchmarks/run.mjs`·`benchmarks/size-gate.mjs`로 통일. 루트 스크립트
+   `bench`/`size:web` 추가(DEC-011-5의 이월분 해소). budgets.json은 05대로
+   docs-spec/registry/에 신설.
+7. **컴포넌트별 사이즈 계상 방식**: W2 측정은 컴포넌트 엔트리를 개별 minify 번들하되
+   core/behaviors import를 external로 분리(코어는 W1로 계상 — 05 §1의 코어 정의에
+   포커스트랩 포함). ESM 배포는 splitting 단일 빌드로 클래스 identity를 보존
+   ("."과 "./button" 혼용 시 중복 정의 경고 방지).
+- 결정자: G1 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-23).
+
+---
+
 ## 2026-07-23 — G1 B0 구현 중 발견 (파일럿 첫 슬라이스: 토큰 파이프라인 + packages/web 스캐폴드)
 
 ### DEC-011. B0 구현이 드러낸 스펙 보정 6건

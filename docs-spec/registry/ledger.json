@@ -292,23 +292,23 @@
       "id": "Button",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "G1 파일럿 <jd-button> — leftIcon/rightIcon/asChild는 react 어댑터 몫"
     },
     {
       "id": "Input",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "G1 파일럿 <jd-text-field> — v2 Input+FormField 통합 표면(label/error 내장)"
     },
     {
       "id": "Textarea",
@@ -2239,12 +2239,12 @@
       "id": "Modal",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
-      "bench": "n/a",
-      "notes": ""
+      "tests": "done",
+      "bench": "pass(S3 100회: open p95 12.2ms / close p95 8.7ms / longtask 0 / 누수 0)",
+      "notes": "G1 파일럿 <jd-modal> — dismissible→persistent 반전(DEC-012), focus-trap Behavior 첫 소비처"
     },
     {
       "id": "MultiSelect",

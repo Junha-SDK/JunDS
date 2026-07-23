@@ -5,13 +5,27 @@
   "type": "module",
   "license": "MIT",
   "sideEffects": [
+    "./src/define.ts",
+    "./src/components/*/index.ts",
+    "./dist/define.js",
+    "./dist/components/*/index.js",
     "./dist/junds.min.js",
     "./dist/**/*.css",
     "./src/styles/*.css"
   ],
   "exports": {
     ".": "./dist/index.js",
+    "./define": "./dist/define.js",
+    "./button": "./dist/components/button/index.js",
+    "./button/element": "./dist/components/button/element.js",
+    "./text-field": "./dist/components/text-field/index.js",
+    "./text-field/element": "./dist/components/text-field/element.js",
+    "./modal": "./dist/components/modal/index.js",
+    "./modal/element": "./dist/components/modal/element.js",
+    "./behaviors": "./dist/behaviors/index.js",
+    "./behaviors/*": "./dist/behaviors/*.js",
     "./junds.css": "./dist/junds.css",
+    "./css/*": "./dist/css/*",
     "./tokens.css": "./src/styles/tokens.css"
   },
   "files": [

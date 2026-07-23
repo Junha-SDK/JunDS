@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>bench S3 — jd-modal 개폐 100회 (포커스트랩+스크롤락 포함)</title>
+<link rel="stylesheet" href="../../packages/web/dist/junds.css">
+<script src="../../packages/web/dist/junds.min.js"></script>
+<script src="./lib/probe.js"></script>
+</head>
+<body>
+<!-- 목데이터/DOM 주입은 계측 창 밖(정적 마크업) — W5 규약 -->
+<button id="opener">열기</button>
+<jd-modal id="m" size="md">
+  <div style="padding:1.5rem;display:grid;gap:1rem">
+    <h2 style="margin:0">벤치 모달</h2>
+    <jd-text-field label="이름" placeholder="이름" data-autofocus></jd-text-field>
+    <jd-text-field label="소개" placeholder="소개"></jd-text-field>
+    <jd-button variant="secondary">취소</jd-button>
+    <jd-button variant="primary">저장</jd-button>
+  </div>
+</jd-modal>
+
+<script>
+  /**
+   * 시나리오 S3(05-perf §2.3): 모달 개폐 N회 — 게이트 W3(상호작용 p95 <50ms),
+   * 리스너/노드 누수 0. 각 사이클: open 상호작용 + close 상호작용을 개별 계측.
+   */
+  window.runScenario = async function (cycles = 100) {
+    const probe = window.__probe;
+    const modal = document.getElementById("m");
+
+    const nodesBefore = document.getElementsByTagName("*").length;
+
+    // 워밍업 1회 (계측 창 밖 — 첫 회 스타일 채택·업그레이드 비용 폐기)
+    modal.showModal();
+    await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0)));
+    modal.close();
+    await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0)));
+
+    probe.start();
+    for (let i = 0; i < cycles; i++) {
+      await probe.interaction("modal-open", () => modal.showModal());
+      await probe.interaction("modal-close", () => modal.close());
+    }
+    const report = probe.stop();
+
+    const nodesAfter = document.getElementsByTagName("*").length;
+    report.leak = {
+      nodesBefore,
+      nodesAfter,
+      nodeDelta: nodesAfter - nodesBefore,
+      bodyOverflowRestored: document.body.style.overflow !== "hidden",
+      modalClosed: !modal.open,
+    };
+    return report;
+  };
+</script>
+</body>
+</html>

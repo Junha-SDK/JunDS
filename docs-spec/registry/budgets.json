@@ -1,0 +1,7 @@
+{
+  "$comment": "05-perf §3.1 사이즈 게이트 예산(바이트, gzip). coreMax=W1 8KB, componentAvgMax=W2 평균 4KB, componentMax=개별 p95 상한 12KB, exceptions=L 난이도 개별 상한 24KB 목록.",
+  "coreMax": 8192,
+  "componentAvgMax": 4096,
+  "componentMax": 12288,
+  "exceptions": {}
+}

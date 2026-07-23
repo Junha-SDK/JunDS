@@ -110,7 +110,7 @@ describe("attribute ↔ property 반영 (§1.3)", () => {
     expect(el.variant).toBe("danger");
   });
 
-  test("업그레이드 전 대입된 own property 회수 (#upgradeProps)", () => {
+  test("업그레이드 전 대입된 own property 회수 (#upgradeProps)", async () => {
     // happy-dom은 define 시점의 기존 엘리먼트 늦은 업그레이드를 지원하지 않으므로
     // (실브라우저 경로는 Playwright 층 몫 — 03-web-arch §9.1), 접근자를 가리는
     // own property를 직접 만들어 최초 connectedCallback의 회수 경로만 검증한다.
@@ -118,14 +118,16 @@ describe("attribute ↔ property 반영 (§1.3)", () => {
     Object.defineProperty(el, "count", { value: 42, writable: true, configurable: true, enumerable: true });
     expect(Object.prototype.hasOwnProperty.call(el, "count")).toBe(true);
     document.body.append(el);
+    await tick(); // 지연 render 후 upgradeProps 수행
     expect(el.count).toBe(42); // setter 경유로 재대입되어 값 보존
     expect(Object.prototype.hasOwnProperty.call(el, "count")).toBe(false);
   });
 });
 
 describe("라이프사이클 (§1.4)", () => {
-  test("render()는 최초 연결 1회 — 재연결 시 connected()만", () => {
+  test("render()는 최초 연결 1회 — 재연결 시 connected()만", async () => {
     const el = mount(`<jd-test></jd-test>`);
+    await tick(); // 최초 render는 지연 실행(스트리밍 파서 안전 — DECISIONS G1 항목)
     expect(el.renderCount).toBe(1);
     expect(el.connectedCount).toBe(1);
     el.remove();

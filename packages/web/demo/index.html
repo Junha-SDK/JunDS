@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JunDS v3 — G1 파일럿 데모 (jd-button · jd-text-field · jd-modal)</title>
+<!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
+<link rel="stylesheet" href="../dist/junds.css">
+<script src="../dist/junds.min.js" defer></script>
+<style>
+  /* 데모 셸 전용 스타일 — 라이브러리와 무관 */
+  body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
+         background: var(--jd-color-background); color: var(--jd-color-foreground); }
+  main { max-width: 46rem; margin-inline: auto; display: grid; gap: 3rem; }
+  h1 { font-size: var(--jd-text-2xl); margin: 0; }
+  h2 { font-size: var(--jd-text-lg); margin: 0 0 1rem; color: var(--jd-color-muted); }
+  .row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+  .stack { display: grid; gap: 1rem; max-width: 22rem; }
+  header { display: flex; justify-content: space-between; align-items: center; }
+  .modal-body { padding: 1.5rem; display: grid; gap: 1rem; }
+  .modal-actions { display: flex; justify-content: end; gap: .5rem; }
+  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted-light); min-height: 1.2em; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>JunDS v3 · G1 파일럿</h1>
+    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
+  </header>
+
+  <section>
+    <h2>jd-button — variant 6종</h2>
+    <div class="row">
+      <jd-button variant="primary">저장</jd-button>
+      <jd-button variant="secondary">취소</jd-button>
+      <jd-button variant="danger">삭제</jd-button>
+      <jd-button variant="ghost">고스트</jd-button>
+      <jd-button variant="outline">아웃라인</jd-button>
+      <jd-button variant="link">링크</jd-button>
+    </div>
+    <h2 style="margin-top:1.5rem">size 4종 · 상태</h2>
+    <div class="row">
+      <jd-button size="xs">xs</jd-button>
+      <jd-button size="sm">sm</jd-button>
+      <jd-button size="md">md</jd-button>
+      <jd-button size="lg">lg</jd-button>
+      <jd-button loading>저장 중…</jd-button>
+      <jd-button disabled>비활성</jd-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>jd-text-field</h2>
+    <div class="stack">
+      <jd-text-field label="이름" placeholder="이름을 입력하세요" required></jd-text-field>
+      <jd-text-field label="이메일" type="email" size="sm" placeholder="example@email.com"></jd-text-field>
+      <jd-text-field label="필수 입력" error="이름을 입력해주세요" placeholder="에러 상태"></jd-text-field>
+      <jd-text-field label="수정 불가" value="disabled 필드" disabled></jd-text-field>
+      <p id="log"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>jd-modal</h2>
+    <div class="row">
+      <jd-button id="open-modal" variant="primary">모달 열기</jd-button>
+      <jd-button id="open-persistent" variant="secondary">persistent 모달</jd-button>
+    </div>
+  </section>
+</main>
+
+<jd-modal id="demo-modal" size="md">
+  <div class="modal-body">
+    <h2 style="margin:0;color:var(--jd-color-foreground)">프로필 수정</h2>
+    <jd-text-field label="이름" placeholder="이름" data-autofocus></jd-text-field>
+    <jd-text-field label="소개" placeholder="한 줄 소개"></jd-text-field>
+    <div class="modal-actions">
+      <jd-button variant="secondary" data-close>취소</jd-button>
+      <jd-button variant="primary" data-close>저장</jd-button>
+    </div>
+  </div>
+</jd-modal>
+
+<jd-modal id="persistent-modal" persistent size="sm">
+  <div class="modal-body">
+    <p style="margin:0">백드롭 클릭으로 닫히지 않습니다. ESC 또는 버튼으로 닫으세요.</p>
+    <div class="modal-actions">
+      <jd-button variant="primary" data-close>확인</jd-button>
+    </div>
+  </div>
+</jd-modal>
+
+<script>
+  // 데모 셸 배선(라이브러리 기능은 전부 junds.min.js 산출물에서 나온다)
+  addEventListener("DOMContentLoaded", () => {
+    const $ = (s) => document.querySelector(s);
+    $("#theme-toggle").addEventListener("click", () => {
+      const root = document.documentElement;
+      const dark = root.getAttribute("data-jd-theme") !== "dark";
+      root.setAttribute("data-jd-theme", dark ? "dark" : "light");
+      $("#theme-toggle").textContent = dark ? "라이트 모드" : "다크 모드";
+    });
+    $("#open-modal").addEventListener("click", () => $("#demo-modal").showModal());
+    $("#open-persistent").addEventListener("click", () => $("#persistent-modal").showModal());
+    document.querySelectorAll("jd-modal").forEach((m) => {
+      m.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("click", () => m.close()));
+      m.addEventListener("jd-close", () => ($("#log").textContent = `${m.id}: jd-close`));
+    });
+    document.querySelectorAll("main jd-text-field").forEach((f) =>
+      f.addEventListener("jd-input", (e) => ($("#log").textContent = `jd-input: "${e.detail.value}"`)));
+  });
+</script>
+</body>
+</html>
