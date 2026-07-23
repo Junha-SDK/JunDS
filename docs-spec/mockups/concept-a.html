@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>JunDS 문서 컨셉 A — 에디토리얼 매거진</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, "Apple SD Gothic Neo", system-ui, sans-serif; background:#f6f6f4; color:#1c1c1c; }
+  .page { width:1280px; margin:0 auto; background:#fbfbfa; box-shadow:0 0 0 1px #ddd; }
+
+  /* 와이어프레임 공통 */
+  .gray { background:#e6e6e3; color:#8a8a86; display:flex; align-items:center; justify-content:center; font-size:12px; letter-spacing:.04em; }
+  .label { font-size:11px; color:#9a9a96; letter-spacing:.08em; text-transform:uppercase; }
+  .concept-band { background:#1c1c1c; color:#f6f6f4; padding:18px 48px; }
+  .concept-band h1 { font-size:15px; font-weight:700; }
+  .concept-band p { font-size:12px; color:#b5b5b0; margin-top:4px; }
+  .view-band { background:#ececeb; border-top:1px solid #ddd; border-bottom:1px solid #ddd; padding:8px 48px; font-size:11px; letter-spacing:.14em; color:#77776f; text-transform:uppercase; }
+
+  /* 사이트 공통 헤더 */
+  .site-header { height:52px; border-bottom:1px solid #e0e0dc; display:flex; align-items:center; gap:28px; padding:0 48px; font-size:12px; color:#a3a39e; background:#fbfbfa; }
+  .site-header .logo { width:74px; height:18px; }
+
+  /* ── 카탈로그: 매거진 마스트헤드 ── */
+  .masthead { padding:88px 48px 56px; }
+  .masthead .kicker { font-size:12px; letter-spacing:.28em; color:#a09f98; margin-bottom:18px; }
+  .masthead h2 { font-family: Georgia, "Times New Roman", serif; font-size:128px; line-height:.94; font-weight:500; letter-spacing:-.02em; }
+  .masthead .deck { display:flex; justify-content:space-between; align-items:flex-end; margin-top:26px; }
+  .masthead .deck p { font-size:14px; color:#77776f; max-width:420px; line-height:1.6; }
+  .masthead .count { font-size:12px; color:#a09f98; text-align:right; line-height:1.7; }
+
+  .searchline { margin:0 48px; padding:14px 0 12px; border-top:1px solid #1c1c1c; border-bottom:1px solid #e0e0dc; display:flex; align-items:baseline; gap:24px; }
+  .searchline .q { font-family:Georgia, serif; font-size:22px; color:#b3b3ad; flex:1; }
+  .chips { display:flex; gap:8px; }
+  .chip { font-size:11px; color:#77776f; border:1px solid #d5d5d0; border-radius:999px; padding:4px 12px; }
+  .chip.on { background:#1c1c1c; color:#fbfbfa; border-color:#1c1c1c; }
+
+  /* 비대칭 그리드 */
+  .section-head { padding:56px 48px 20px; display:flex; align-items:baseline; gap:16px; }
+  .section-head h3 { font-family:Georgia, serif; font-size:30px; font-weight:500; }
+  .section-head span { font-size:12px; color:#a09f98; }
+  .maggrid { display:grid; grid-template-columns:repeat(6,1fr); gap:28px; padding:0 48px 48px; }
+  .card { background:#fff; border:1px solid #e4e4e0; }
+  .card .prev { height:120px; }
+  .card.featured { grid-column:span 3; grid-row:span 2; }
+  .card.featured .prev { height:328px; }
+  .card.wide { grid-column:span 2; }
+  .card.s1 { grid-column:span 2; }
+  .card.s2 { grid-column:span 1; }
+  .card .meta { padding:14px 16px 16px; display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .card .meta b { font-size:14px; font-weight:600; display:block; }
+  .card .meta i { font-style:normal; font-size:11px; color:#a09f98; }
+  .badges { display:flex; gap:4px; }
+  .bdg { font-size:9px; border:1px solid #c9c9c4; border-radius:3px; padding:2px 5px; color:#8a8a86; }
+  .bdg.fill { background:#1c1c1c; color:#fbfbfa; border-color:#1c1c1c; }
+
+  /* ── 상세 ── */
+  .d-head { padding:64px 48px 8px; }
+  .d-head .back { font-size:12px; color:#a09f98; margin-bottom:22px; }
+  .d-title { display:flex; align-items:baseline; justify-content:space-between; }
+  .d-title h3 { font-family:Georgia, serif; font-size:72px; font-weight:500; letter-spacing:-.01em; }
+  .d-title .sub { font-size:12px; color:#a09f98; text-align:right; line-height:1.8; }
+  .d-body { display:grid; grid-template-columns:1fr 300px; gap:40px; padding:28px 48px 0; }
+  .stage { height:400px; border:1px solid #e0e0dc; background:#fff; }
+  .panel { border-top:1px solid #1c1c1c; padding-top:16px; }
+  .panel .row { display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:1px solid #ececea; font-size:12px; color:#5b5b55; }
+  .panel .widget { width:120px; height:22px; }
+  .codeblock { margin:36px 48px 0; }
+  .tabs { display:flex; gap:26px; border-bottom:1px solid #1c1c1c; padding-bottom:10px; font-size:13px; color:#a09f98; }
+  .tabs .on { color:#1c1c1c; font-weight:600; }
+  .tabs .copy { margin-left:auto; font-size:11px; border:1px solid #d5d5d0; padding:3px 10px; border-radius:3px; }
+  .code { height:130px; margin-top:0; border-bottom:1px solid #e0e0dc; }
+  .tables { display:grid; grid-template-columns:1fr 1fr; gap:40px; padding:40px 48px 88px; }
+  .tbl h4 { font-family:Georgia, serif; font-size:20px; font-weight:500; margin-bottom:12px; }
+  .tbl .trow { display:flex; gap:16px; padding:9px 0; border-bottom:1px solid #ececea; font-size:12px; color:#8a8a86; }
+  .tbl .trow span:first-child { width:150px; color:#5b5b55; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="concept-band">
+    <h1>컨셉 A — 에디토리얼 매거진</h1>
+    <p>대형 세리프 마스트헤드 · 비대칭 그리드(피처드 카드 대형) · 넉넉한 여백 · 잡지의 목차처럼 읽히는 카탈로그.</p>
+  </div>
+
+  <div class="site-header">
+    <div class="logo gray">사이트 로고</div>
+    <span>블로그</span><span>독스</span><span>포트폴리오</span>
+    <span style="margin-left:auto">사이트 공통 헤더 (유지)</span>
+  </div>
+
+  <div class="view-band">① 카탈로그 뷰</div>
+
+  <div class="masthead">
+    <div class="kicker">DESIGN SYSTEM · WEB &amp; iOS</div>
+    <h2>JunDS</h2>
+    <div class="deck">
+      <p>바닐라 JS와 Swift로 같은 언어를 말하는 컴포넌트들. 검색하고, 만져보고, 세 플랫폼의 코드를 그대로 가져간다.</p>
+      <div class="count">445 COMPONENTS<br>WEB 304 · iOS IN PROGRESS</div>
+    </div>
+  </div>
+
+  <div class="searchline">
+    <div class="q">컴포넌트 검색…</div>
+    <div class="chips">
+      <span class="chip on">전체</span><span class="chip">layout</span><span class="chip">primitive</span><span class="chip">input</span><span class="chip">composite</span><span class="chip">pattern</span><span class="chip">finance</span><span class="chip">hook</span>
+    </div>
+  </div>
+
+  <div class="section-head"><h3>Primitive</h3><span>51 항목 — 가장 작은 단위</span></div>
+  <div class="maggrid">
+    <div class="card featured">
+      <div class="prev gray">피처드 · 미니 라이브 프리뷰 (대형)</div>
+      <div class="meta"><div><b>Button</b><i>primitive · form · cta</i></div><div class="badges"><span class="bdg fill">웹</span><span class="bdg">iOS</span></div></div>
+    </div>
+    <div class="card s1">
+      <div class="prev gray">미니 프리뷰</div>
+      <div class="meta"><div><b>Badge</b><i>primitive · status</i></div><div class="badges"><span class="bdg fill">웹</span><span class="bdg">iOS</span></div></div>
+    </div>
+    <div class="card s2">
+      <div class="prev gray">프리뷰</div>
+      <div class="meta"><div><b>Avatar</b><i>identity</i></div><div class="badges"><span class="bdg fill">웹</span></div></div>
+    </div>
+    <div class="card s1">
+      <div class="prev gray">미니 프리뷰</div>
+      <div class="meta"><div><b>Toggle</b><i>primitive · form</i></div><div class="badges"><span class="bdg fill">웹</span><span class="bdg">iOS</span></div></div>
+    </div>
+    <div class="card s2">
+      <div class="prev gray">플레이스홀더</div>
+      <div class="meta"><div><b>Kbd</b><i>typography</i></div><div class="badges"><span class="bdg fill">웹</span></div></div>
+    </div>
+    <div class="card wide">
+      <div class="prev gray">미니 프리뷰</div>
+      <div class="meta"><div><b>Slider</b><i>primitive · input · range</i></div><div class="badges"><span class="bdg fill">웹</span><span class="bdg">iOS</span></div></div>
+    </div>
+    <div class="card s2">
+      <div class="prev gray">프리뷰</div>
+      <div class="meta"><div><b>Spinner</b><i>feedback</i></div><div class="badges"><span class="bdg fill">웹</span></div></div>
+    </div>
+  </div>
+
+  <div class="view-band">② 상세 뷰 — /docs/junds?c=button</div>
+
+  <div class="d-head">
+    <div class="back">← 카탈로그로</div>
+    <div class="d-title">
+      <h3>Button</h3>
+      <div class="sub">PRIMITIVE · TIER P<br><span class="bdg fill">웹 done</span> <span class="bdg">iOS wip</span></div>
+    </div>
+  </div>
+
+  <div class="d-body">
+    <div class="stage gray">라이브 스테이지 (대형 · props 반영)</div>
+    <div class="panel">
+      <div class="label" style="margin-bottom:6px">Props</div>
+      <div class="row"><span>variant</span><span class="widget gray">segmented</span></div>
+      <div class="row"><span>size</span><span class="widget gray">segmented</span></div>
+      <div class="row"><span>loading</span><span class="widget gray" style="width:40px">sw</span></div>
+      <div class="row"><span>disabled</span><span class="widget gray" style="width:40px">sw</span></div>
+      <div class="row"><span>label</span><span class="widget gray">text</span></div>
+    </div>
+  </div>
+
+  <div class="codeblock">
+    <div class="tabs"><span class="on">웹 바닐라</span><span>SwiftUI</span><span>UIKit</span><span class="copy">복사</span></div>
+    <div class="code gray">코드 스니펫 (컨트롤 현재값 반영)</div>
+  </div>
+
+  <div class="tables">
+    <div class="tbl">
+      <h4>토큰</h4>
+      <div class="trow"><span>--jd-accent</span><span>주 강조색</span></div>
+      <div class="trow"><span>--jd-radius</span><span>모서리 반경</span></div>
+      <div class="trow"><span>--jd-pad</span><span>내부 여백</span></div>
+    </div>
+    <div class="tbl">
+      <h4>접근성</h4>
+      <div class="trow"><span>role</span><span>button</span></div>
+      <div class="trow"><span>키보드</span><span>Enter / Space 활성화</span></div>
+      <div class="trow"><span>포커스</span><span>2px 링 · AA 대비</span></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

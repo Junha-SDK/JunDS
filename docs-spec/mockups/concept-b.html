@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>JunDS 문서 컨셉 B — 정밀 기술 카탈로그</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, "Apple SD Gothic Neo", system-ui, sans-serif; background:#f2f2f0; color:#222; }
+  .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; }
+  .page { width:1280px; margin:0 auto; background:#fafaf8; box-shadow:0 0 0 1px #d8d8d4; }
+
+  .gray { background:#e8e8e5; color:#94948f; display:flex; align-items:center; justify-content:center; font-size:11px; }
+  .concept-band { background:#222; color:#fafaf8; padding:18px 40px; }
+  .concept-band h1 { font-size:15px; font-weight:700; }
+  .concept-band p { font-size:12px; color:#b0b0aa; margin-top:4px; }
+  .view-band { background:#eaeae7; border-top:1px solid #d8d8d4; border-bottom:1px solid #d8d8d4; padding:7px 40px; font-size:10px; letter-spacing:.16em; color:#7c7c74; text-transform:uppercase; font-family:ui-monospace, Menlo, monospace; }
+
+  .site-header { height:52px; border-bottom:1px solid #ddddd8; display:flex; align-items:center; gap:28px; padding:0 40px; font-size:12px; color:#a0a09a; }
+  .site-header .logo { width:74px; height:18px; }
+
+  /* ── 도면 헤더 ── */
+  .sheet-head { padding:36px 40px 0; }
+  .sheet-title { display:flex; align-items:flex-end; justify-content:space-between; border-bottom:2px solid #222; padding-bottom:16px; }
+  .sheet-title h2 { font-size:44px; font-weight:700; letter-spacing:-.02em; }
+  .sheet-title h2 small { font-size:12px; font-weight:400; color:#94948f; letter-spacing:.1em; margin-left:14px; }
+  .specbox { font-family:ui-monospace, Menlo, monospace; font-size:10px; color:#7c7c74; display:grid; grid-template-columns:auto auto auto; border:1px solid #c9c9c4; }
+  .specbox div { padding:6px 14px; border-left:1px solid #c9c9c4; line-height:1.7; }
+  .specbox div:first-child { border-left:0; }
+
+  .toolrow { display:flex; align-items:center; gap:0; border-bottom:1px solid #c9c9c4; margin:0 40px; }
+  .toolrow .search { flex:1; padding:11px 0; font-family:ui-monospace, Menlo, monospace; font-size:12px; color:#a8a8a2; }
+  .toolrow .f { font-family:ui-monospace, Menlo, monospace; font-size:10px; color:#7c7c74; padding:11px 14px; border-left:1px solid #dcdcd7; }
+  .toolrow .f.on { background:#222; color:#fafaf8; }
+
+  /* ── 밀도 높은 균일 그리드 ── */
+  .idx-head { display:flex; align-items:baseline; gap:14px; padding:30px 40px 12px; }
+  .idx-head .no { font-family:ui-monospace, Menlo, monospace; font-size:11px; color:#94948f; }
+  .idx-head h3 { font-size:16px; font-weight:700; letter-spacing:.02em; }
+  .idx-head .rule { flex:1; height:1px; background:#c9c9c4; }
+  .idx-head .cnt { font-family:ui-monospace, Menlo, monospace; font-size:10px; color:#94948f; }
+
+  .grid { display:grid; grid-template-columns:repeat(6, 1fr); border-top:1px solid #c9c9c4; border-left:1px solid #c9c9c4; margin:0 40px 8px; }
+  .cell { border-right:1px solid #c9c9c4; border-bottom:1px solid #c9c9c4; background:#fff; }
+  .cell .prev { height:84px; border-bottom:1px solid #eee; }
+  .cell .m { padding:8px 10px 10px; }
+  .cell .no { font-family:ui-monospace, Menlo, monospace; font-size:9px; color:#a8a8a2; display:flex; justify-content:space-between; }
+  .cell b { display:block; font-size:12px; font-weight:600; margin-top:2px; }
+  .cell i { font-style:normal; font-family:ui-monospace, Menlo, monospace; font-size:9px; color:#a0a09a; }
+  .bdg { font-family:ui-monospace, Menlo, monospace; font-size:8px; border:1px solid #c9c9c4; padding:1px 4px; color:#7c7c74; }
+  .bdg.fill { background:#222; color:#fafaf8; border-color:#222; }
+
+  /* ── 상세: 스펙시트 ── */
+  .d-frame { margin:28px 40px 48px; border:1px solid #222; }
+  .d-titlebar { display:flex; align-items:center; border-bottom:1px solid #222; }
+  .d-titlebar .back { font-family:ui-monospace, Menlo, monospace; font-size:10px; padding:12px 16px; border-right:1px solid #222; color:#7c7c74; }
+  .d-titlebar h3 { font-size:22px; font-weight:700; padding:10px 18px; }
+  .d-titlebar .no { font-family:ui-monospace, Menlo, monospace; font-size:11px; color:#94948f; }
+  .d-titlebar .bset { margin-left:auto; padding:0 16px; display:flex; gap:6px; }
+  .d-cols { display:grid; grid-template-columns:1fr 280px; }
+  .d-stage-wrap { border-right:1px solid #222; padding:26px; position:relative; }
+  .ticks { position:absolute; top:6px; left:26px; right:26px; height:8px; border-left:1px solid #b9b9b4; border-right:1px solid #b9b9b4; border-bottom:1px solid #b9b9b4; }
+  .d-stage { height:330px; }
+  .caption { font-family:ui-monospace, Menlo, monospace; font-size:9px; color:#94948f; margin-top:8px; display:flex; justify-content:space-between; }
+  .d-panel { font-size:11px; }
+  .d-panel .ph { font-family:ui-monospace, Menlo, monospace; font-size:10px; letter-spacing:.12em; color:#7c7c74; padding:10px 14px; border-bottom:1px solid #c9c9c4; background:#f1f1ee; }
+  .d-panel .row { display:flex; justify-content:space-between; align-items:center; padding:8px 14px; border-bottom:1px solid #e4e4e0; }
+  .d-panel .row span:first-child { font-family:ui-monospace, Menlo, monospace; font-size:10px; color:#555; }
+  .d-panel .w { width:104px; height:18px; }
+  .d-tabs { display:flex; border-top:1px solid #222; border-bottom:1px solid #c9c9c4; font-family:ui-monospace, Menlo, monospace; font-size:10px; }
+  .d-tabs span { padding:9px 18px; border-right:1px solid #c9c9c4; color:#7c7c74; }
+  .d-tabs .on { background:#222; color:#fafaf8; }
+  .d-tabs .copy { margin-left:auto; border-right:0; border-left:1px solid #c9c9c4; }
+  .d-code { height:110px; }
+  .d-tables { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid #222; }
+  .d-tbl { padding:0; }
+  .d-tbl:first-child { border-right:1px solid #c9c9c4; }
+  .d-tbl .ph { font-family:ui-monospace, Menlo, monospace; font-size:10px; letter-spacing:.12em; color:#7c7c74; padding:9px 14px; background:#f1f1ee; border-bottom:1px solid #c9c9c4; }
+  .d-tbl .trow { display:flex; padding:7px 14px; border-bottom:1px solid #e9e9e5; font-size:11px; color:#8a8a84; }
+  .d-tbl .trow span:first-child { width:150px; font-family:ui-monospace, Menlo, monospace; font-size:10px; color:#555; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="concept-band">
+    <h1>컨셉 B — 정밀 기술 카탈로그</h1>
+    <p>도면·스펙시트 감성 · 밀도 높은 균일 그리드 · 모노스페이스 메타 · 인덱스 번호(JD-001) · 얇은 괘선.</p>
+  </div>
+
+  <div class="site-header">
+    <div class="logo gray">사이트 로고</div>
+    <span>블로그</span><span>독스</span><span>포트폴리오</span>
+    <span style="margin-left:auto">사이트 공통 헤더 (유지)</span>
+  </div>
+
+  <div class="view-band">01 / CATALOG VIEW</div>
+
+  <div class="sheet-head">
+    <div class="sheet-title">
+      <h2>JunDS<small>COMPONENT INDEX</small></h2>
+      <div class="specbox">
+        <div>TOTAL<br><b>445</b></div>
+        <div>WEB<br><b>304</b></div>
+        <div>iOS<br><b>WIP</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolrow">
+    <div class="search">&gt; 검색 — 이름 · 태그 · 카테고리 _</div>
+    <div class="f on">ALL</div><div class="f">LAYOUT</div><div class="f">PRIMITIVE</div><div class="f">INPUT</div><div class="f">COMPOSITE</div><div class="f">PATTERN</div><div class="f">FINANCE</div><div class="f">HOOK</div>
+  </div>
+
+  <div class="idx-head"><span class="no">SEC 03</span><h3>PRIMITIVE</h3><div class="rule"></div><span class="cnt">51 ITEMS</span></div>
+
+  <div class="grid">
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-021</span><span class="bdg fill">W</span></div><b>Button</b><i>form / cta</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-022</span><span class="bdg fill">W</span></div><b>IconButton</b><i>form</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-023</span><span class="bdg fill">W</span></div><b>Badge</b><i>status</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-024</span><span class="bdg">i</span></div><b>Avatar</b><i>identity</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-025</span><span class="bdg fill">W</span></div><b>Tag</b><i>status</i></div></div>
+    <div class="cell"><div class="prev gray">플레이스홀더</div><div class="m"><div class="no"><span>JD-026</span><span class="bdg">i</span></div><b>StatusDot</b><i>status</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-027</span><span class="bdg fill">W</span></div><b>Toggle</b><i>form</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-028</span><span class="bdg fill">W</span></div><b>Checkbox</b><i>form</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-029</span><span class="bdg fill">W</span></div><b>Slider</b><i>range</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-030</span><span class="bdg">i</span></div><b>Kbd</b><i>typography</i></div></div>
+    <div class="cell"><div class="prev gray">플레이스홀더</div><div class="m"><div class="no"><span>JD-031</span><span class="bdg fill">W</span></div><b>Spinner</b><i>feedback</i></div></div>
+    <div class="cell"><div class="prev gray">프리뷰</div><div class="m"><div class="no"><span>JD-032</span><span class="bdg fill">W</span></div><b>Divider</b><i>layout</i></div></div>
+  </div>
+
+  <div class="view-band">02 / DETAIL VIEW — /docs/junds?c=button</div>
+
+  <div class="d-frame">
+    <div class="d-titlebar">
+      <span class="back">← INDEX</span>
+      <h3>Button <span class="no">JD-021 · PRIMITIVE</span></h3>
+      <div class="bset"><span class="bdg fill">WEB done</span><span class="bdg">iOS wip</span></div>
+    </div>
+    <div class="d-cols">
+      <div class="d-stage-wrap">
+        <div class="ticks"></div>
+        <div class="d-stage gray">라이브 스테이지 — props 반영</div>
+        <div class="caption"><span>SCALE 1:1</span><span>SURFACE: LIGHT / DARK</span><span>DENSITY: MD</span></div>
+      </div>
+      <div class="d-panel">
+        <div class="ph">PROPS</div>
+        <div class="row"><span>variant</span><span class="w gray">seg</span></div>
+        <div class="row"><span>size</span><span class="w gray">seg</span></div>
+        <div class="row"><span>loading</span><span class="w gray" style="width:34px">sw</span></div>
+        <div class="row"><span>disabled</span><span class="w gray" style="width:34px">sw</span></div>
+        <div class="row"><span>leftIcon</span><span class="w gray">select</span></div>
+        <div class="row"><span>label</span><span class="w gray">text</span></div>
+        <div class="ph" style="border-top:1px solid #c9c9c4">RESET</div>
+      </div>
+    </div>
+    <div class="d-tabs">
+      <span class="on">WEB (VANILLA)</span><span>SWIFTUI</span><span>UIKIT</span><span class="copy">COPY</span>
+    </div>
+    <div class="d-code gray">코드 스니펫 — 컨트롤 현재값 반영</div>
+    <div class="d-tables">
+      <div class="d-tbl">
+        <div class="ph">TOKENS</div>
+        <div class="trow"><span>--jd-accent</span><span>주 강조색</span></div>
+        <div class="trow"><span>--jd-radius</span><span>모서리 반경</span></div>
+        <div class="trow"><span>--jd-pad</span><span>내부 여백</span></div>
+      </div>
+      <div class="d-tbl">
+        <div class="ph">ACCESSIBILITY</div>
+        <div class="trow"><span>role</span><span>button</span></div>
+        <div class="trow"><span>keyboard</span><span>Enter / Space</span></div>
+        <div class="trow"><span>focus</span><span>2px ring · AA</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

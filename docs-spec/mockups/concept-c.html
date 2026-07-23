@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280">
+<title>JunDS 문서 컨셉 C — 쇼룸/전시</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, "Apple SD Gothic Neo", system-ui, sans-serif; background:#e9e9e7; color:#222; }
+  .page { width:1280px; margin:0 auto; background:#f4f4f2; box-shadow:0 0 0 1px #d5d5d1; }
+
+  .gray  { background:#e2e2df; color:#8f8f8a; display:flex; align-items:center; justify-content:center; font-size:12px; }
+  .dgray { background:#2a2a2a; color:#6f6f6a; display:flex; align-items:center; justify-content:center; font-size:12px; }
+  .concept-band { background:#181818; color:#f4f4f2; padding:18px 44px; }
+  .concept-band h1 { font-size:15px; font-weight:700; }
+  .concept-band p { font-size:12px; color:#a8a8a2; margin-top:4px; }
+  .view-band { background:#e6e6e3; border-top:1px solid #d5d5d1; border-bottom:1px solid #d5d5d1; padding:8px 44px; font-size:11px; letter-spacing:.14em; color:#7a7a72; text-transform:uppercase; }
+
+  .site-header { height:52px; border-bottom:1px solid #ddddd8; display:flex; align-items:center; gap:28px; padding:0 44px; font-size:12px; color:#a0a09a; background:#f4f4f2; }
+  .site-header .logo { width:74px; height:18px; }
+
+  /* ── 카탈로그: 좌측 인덱스 레일 + 대형 스테이지 ── */
+  .showroom { display:grid; grid-template-columns:250px 1fr; min-height:640px; }
+  .rail { border-right:1px solid #ddddd8; background:#f0f0ed; display:flex; flex-direction:column; }
+  .rail .brand { padding:24px 20px 16px; }
+  .rail .brand h2 { font-size:24px; font-weight:800; letter-spacing:-.02em; }
+  .rail .brand span { font-size:10px; color:#9a9a94; letter-spacing:.12em; }
+  .rail .search { margin:0 20px 14px; height:30px; border:1px solid #d5d5d1; border-radius:6px; font-size:11px; color:#a8a8a2; display:flex; align-items:center; padding:0 10px; background:#fff; }
+  .rail .cat { font-size:10px; letter-spacing:.14em; color:#9a9a94; padding:12px 20px 6px; text-transform:uppercase; }
+  .rail .item { display:flex; justify-content:space-between; align-items:center; padding:7px 20px; font-size:12.5px; color:#55554f; }
+  .rail .item.on { background:#181818; color:#f4f4f2; }
+  .rail .item small { font-family:ui-monospace, Menlo, monospace; font-size:9px; color:#a8a8a2; }
+  .rail .item.on small { color:#8f8f8a; }
+  .rail .more { padding:10px 20px; font-size:11px; color:#a0a09a; }
+
+  .stagearea { background:#181818; position:relative; display:flex; flex-direction:column; }
+  .stagearea .topline { display:flex; justify-content:space-between; align-items:center; padding:18px 28px; font-size:11px; color:#8f8f8a; }
+  .bdg { font-size:9px; border:1px solid #4a4a46; border-radius:3px; padding:2px 6px; color:#a8a8a2; margin-left:6px; }
+  .bdg.fill { background:#f4f4f2; color:#181818; border-color:#f4f4f2; }
+  .stagearea .big { flex:1; margin:0 28px; border:1px dashed #3a3a36; display:flex; align-items:center; justify-content:center; }
+  .stagearea .big .obj { width:520px; height:300px; }
+  .stagearea .caption { padding:16px 28px 22px; display:flex; justify-content:space-between; align-items:baseline; }
+  .stagearea .caption b { color:#f4f4f2; font-size:20px; font-weight:700; }
+  .stagearea .caption i { font-style:normal; font-size:11px; color:#8f8f8a; }
+  .stagearea .thumbs { display:flex; gap:10px; padding:0 28px 26px; }
+  .stagearea .thumbs .th { width:96px; height:56px; border:1px solid #3a3a36; }
+  .stagearea .thumbs .th.on { border-color:#f4f4f2; }
+
+  /* ── 상세: 몰입 스테이지 ── */
+  .d-wrap { background:#181818; }
+  .d-top { display:flex; align-items:center; padding:20px 44px 0; color:#8f8f8a; font-size:12px; }
+  .d-top h3 { color:#f4f4f2; font-size:34px; font-weight:800; margin-left:18px; letter-spacing:-.01em; }
+  .d-top .bset { margin-left:auto; }
+  .d-main { display:grid; grid-template-columns:1fr 280px; gap:0; padding:18px 44px 0; }
+  .d-stage { height:420px; border:1px dashed #3a3a36; display:flex; align-items:center; justify-content:center; }
+  .d-stage .obj { width:560px; height:280px; }
+  .d-panel { margin-left:22px; background:#1f1f1e; border:1px solid #33332f; border-radius:8px; align-self:start; }
+  .d-panel .ph { font-size:10px; letter-spacing:.14em; color:#8f8f8a; padding:12px 16px 8px; text-transform:uppercase; }
+  .d-panel .row { display:flex; justify-content:space-between; align-items:center; padding:8px 16px; font-size:12px; color:#c9c9c4; }
+  .d-panel .w { width:100px; height:20px; }
+  .d-panel .foot { padding:10px 16px 14px; font-size:11px; color:#6f6f6a; }
+  .d-codebar { display:flex; align-items:center; margin:22px 44px 0; border-bottom:1px solid #33332f; font-size:12px; color:#8f8f8a; }
+  .d-codebar span { padding:10px 0; margin-right:26px; }
+  .d-codebar .on { color:#f4f4f2; border-bottom:2px solid #f4f4f2; font-weight:600; }
+  .d-codebar .copy { margin-left:auto; margin-right:0; font-size:11px; border:1px solid #4a4a46; border-radius:4px; padding:3px 10px; }
+  .d-code { height:120px; margin:0 44px; }
+  .d-tables { display:grid; grid-template-columns:1fr 1fr; gap:24px; padding:26px 44px 44px; }
+  .d-tbl { background:#1f1f1e; border:1px solid #33332f; border-radius:8px; padding:14px 18px; }
+  .d-tbl h4 { font-size:11px; letter-spacing:.14em; color:#8f8f8a; text-transform:uppercase; margin-bottom:8px; }
+  .d-tbl .trow { display:flex; padding:6px 0; border-top:1px solid #2a2a28; font-size:11.5px; color:#a8a8a2; }
+  .d-tbl .trow span:first-child { width:140px; color:#e0e0dc; font-family:ui-monospace, Menlo, monospace; font-size:10.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="concept-band">
+    <h1>컨셉 C — 쇼룸 / 전시</h1>
+    <p>다크 스테이지가 주인공인 몰입형. 카탈로그 = 좌측 얇은 인덱스 레일 + 대형 프리뷰 스테이지 — 갤러리에서 작품을 고르듯 컴포넌트를 고른다.</p>
+  </div>
+
+  <div class="site-header">
+    <div class="logo gray">사이트 로고</div>
+    <span>블로그</span><span>독스</span><span>포트폴리오</span>
+    <span style="margin-left:auto">사이트 공통 헤더 (유지)</span>
+  </div>
+
+  <div class="view-band">① 카탈로그 뷰 — 인덱스 레일 + 스테이지</div>
+
+  <div class="showroom">
+    <div class="rail">
+      <div class="brand"><h2>JunDS</h2><span>445 COMPONENTS · WEB &amp; iOS</span></div>
+      <div class="search">검색 — 이름 · 태그 ( / )</div>
+      <div class="cat">Primitive · 51</div>
+      <div class="item on"><span>Button</span><small>W · i</small></div>
+      <div class="item"><span>IconButton</span><small>W</small></div>
+      <div class="item"><span>Badge</span><small>W · i</small></div>
+      <div class="item"><span>Avatar</span><small>W</small></div>
+      <div class="item"><span>Toggle</span><small>W · i</small></div>
+      <div class="item"><span>Slider</span><small>W</small></div>
+      <div class="cat">Input · 18</div>
+      <div class="item"><span>Input</span><small>W · i</small></div>
+      <div class="item"><span>OTPInput</span><small>W</small></div>
+      <div class="item"><span>NumberInput</span><small>W</small></div>
+      <div class="more">… composite / pattern / finance / hook ↓</div>
+    </div>
+
+    <div class="stagearea">
+      <div class="topline">
+        <span>PRIMITIVE — 호버/선택 항목을 스테이지에 즉시 전시</span>
+        <span><span class="bdg fill">웹 done</span><span class="bdg">iOS wip</span></span>
+      </div>
+      <div class="big"><div class="obj dgray">선택된 컴포넌트 대형 라이브 프리뷰</div></div>
+      <div class="caption">
+        <div><b>Button</b> <i>primitive · form · cta</i></div>
+        <i>클릭 → 상세(?c=button)</i>
+      </div>
+      <div class="thumbs">
+        <div class="th dgray on">variant</div>
+        <div class="th dgray">sizes</div>
+        <div class="th dgray">loading</div>
+        <div class="th dgray">icon</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-band">② 상세 뷰 — /docs/junds?c=button</div>
+
+  <div class="d-wrap">
+    <div class="d-top">
+      <span>← 카탈로그</span>
+      <h3>Button</h3>
+      <div class="bset"><span class="bdg fill">웹 done</span><span class="bdg">iOS wip</span></div>
+    </div>
+    <div class="d-main">
+      <div class="d-stage"><div class="obj dgray">라이브 스테이지 (다크 전시 · props 반영)</div></div>
+      <div class="d-panel">
+        <div class="ph">Props</div>
+        <div class="row"><span>variant</span><span class="w dgray">seg</span></div>
+        <div class="row"><span>size</span><span class="w dgray">seg</span></div>
+        <div class="row"><span>loading</span><span class="w dgray" style="width:36px">sw</span></div>
+        <div class="row"><span>disabled</span><span class="w dgray" style="width:36px">sw</span></div>
+        <div class="row"><span>label</span><span class="w dgray">text</span></div>
+        <div class="foot">초기화 · 라이트/다크 스테이지 · 밀도</div>
+      </div>
+    </div>
+    <div class="d-codebar">
+      <span class="on">웹 바닐라</span><span>SwiftUI</span><span>UIKit</span><span class="copy">복사</span>
+    </div>
+    <div class="d-code dgray">코드 스니펫 — 컨트롤 현재값 반영</div>
+    <div class="d-tables">
+      <div class="d-tbl">
+        <h4>토큰</h4>
+        <div class="trow"><span>--jd-accent</span><span>주 강조색</span></div>
+        <div class="trow"><span>--jd-radius</span><span>모서리 반경</span></div>
+        <div class="trow"><span>--jd-pad</span><span>내부 여백</span></div>
+      </div>
+      <div class="d-tbl">
+        <h4>접근성</h4>
+        <div class="trow"><span>role</span><span>button</span></div>
+        <div class="trow"><span>키보드</span><span>Enter / Space 활성화</span></div>
+        <div class="trow"><span>포커스</span><span>2px 링 · AA 대비</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
