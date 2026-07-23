@@ -4,6 +4,40 @@
 
 ---
 
+## 2026-07-24 — v2 시각 패리티 기준(baseline) 캡처 트랙
+
+### DEC-017. 시각 패리티 기준 자산 — 재빌드 캡처 확정 + 커버리지 실측
+1. **기존 storybook-static(2026-04-29 빌드)은 기준 사용 불가**: 루트 package.json의
+   `"sideEffects": false` 가 스토리북 프로덕션(webpack) 빌드에서 preview.ts 의
+   `import "../app/globals.css"` 를 트리셰이킹으로 제거 → 토큰·유틸리티 CSS 전무한
+   무스타일 렌더(재빌드로 재현 확인). dev 모드는 CSS 가 살아 있어 그간 미발견.
+   구 산출물은 규칙대로 불변 보존, 본 트랙은 읽기만 했다.
+2. **캡처 소스 = v3 HEAD(58f57b5) 재빌드**: `storybook build` 를 스크래치패드로 출력
+   (레포 불변, Node 22.12+ 필요 — nvm 22.23.1 설치). 앱 CSS 는 tools/build-css.mjs 가
+   @tailwindcss/postcss(레포 의존성)로 별도 컴파일해 캡처 시 주입. 이후 f456624 까지
+   ds/·app/globals.css·.storybook 무변경을 diff 로 확인 — 캡처는 현 HEAD 에 유효.
+3. **캡처 조건(결정성)**: 1280×800 @2x, Date 고정(2026-04-29T12:00+09), Math.random
+   LCG 시드, 애니메이션/트랜지션 강제 off + reduced-motion, ko-KR/Asia/Seoul,
+   다크 = `documentElement[data-theme="dark"]` 토글(재로드 없음). 클립 = 렌더 노드
+   유니온 +16px(뷰포트 85% 초과 시 전체 뷰포트). 파일 규칙
+   `docs-spec/parity/baseline/<ledger-id>/<variant>-<theme>.png`.
+4. **매핑 별칭(스토리 타이틀→ledger id)**: Progress→ProgressBar(단, Steps 스토리→
+   ProgressSteps), Toast→DsToastProvider. **ledger 중복 id 발견**: AreaChart 가
+   composites·finance 양쪽에 존재 — 캡처는 composites 귀속, 원장 중복 해소는
+   레지스트리 소유 트랙 몫(본 트랙 소유 밖이라 미수정).
+5. **placeholder 스토리 53종은 캡처하지 않음**: v2 스토리 자체가 빈 props
+   (`items={[]}`, `trigger={null}`)로 시각 표면 0 — 임의 props 로 메꾸면 "v2 가 실제로
+   그린 화면"이라는 정답지 원칙이 깨지므로 미확보로 분류하고, 스토리 없음 229종과
+   함께 소스 추출 variant 표면만 manifest 에 기록. 42배치에서 스토리 저작과 함께
+   기준을 추가한다.
+6. **용량 기준**: 요소 클립 전략으로 총 3.0MB(한도 80MB 의 4%) — 무손실 PNG 유지,
+   대표 variant 축소 불필요. Avatar/Image 스토리는 외부 URL(i.pravatar.cc) 의존이라
+   해시 변동 가능(manifest 참조).
+- 실측: 104컴포넌트 496장(라이트/다크), ledger 445행 대비 23.4%(시각 386행 기준
+  26.9%) — 커버리지 상세·재현 절차는 docs-spec/parity/{COVERAGE.md,manifest.json}.
+- 결정자: 실측 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
 ## 2026-07-24 — G1 iOS 슬라이스 빌드 검증 완료 (Xcode 손상 우회)
 
 ### DEC-015. iOS 빌드·테스트 검증 완료 + 툴체인 손상 실측·우회 확정

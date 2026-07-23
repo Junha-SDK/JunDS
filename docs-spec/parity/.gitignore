@@ -1,0 +1,3 @@
+# 캡처 파이프라인 중간 산출물(재생성 가능) — 정본은 manifest.json
+tools/.capture-raw.json
+tools/.surface.json
