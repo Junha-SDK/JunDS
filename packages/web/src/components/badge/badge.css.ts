@@ -32,21 +32,30 @@ export default css`
     color: var(--jd-color-primary);
     box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-primary) 15%, transparent);
   }
+  /* success/warning/danger 텍스트: 라이트는 토큰을 검정 쪽으로 파생 — 원색은 10% 틴트
+     위에서 AA 미달(3.0~4.1:1, DEC-027). 틴트·점·링은 원색 유지(비텍스트). 다크는 v2 원색.
+     파생 비율의 토큰 승격 여부는 G2 어휘 재심의 인풋. */
   jd-badge[variant="success"] {
     background: color-mix(in srgb, var(--jd-color-success) 10%, transparent);
-    color: var(--jd-color-success);
+    color: color-mix(in srgb, var(--jd-color-success) 80%, #000);
     box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-success) 15%, transparent);
   }
   jd-badge[variant="warning"] {
     background: color-mix(in srgb, var(--jd-color-warning) 10%, transparent);
-    color: var(--jd-color-warning);
+    color: color-mix(in srgb, var(--jd-color-warning) 75%, #000);
     box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-warning) 15%, transparent);
   }
   jd-badge[variant="danger"] {
     background: color-mix(in srgb, var(--jd-color-danger) 10%, transparent);
-    color: var(--jd-color-danger);
+    color: color-mix(in srgb, var(--jd-color-danger) 90%, #000);
     box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-danger) 15%, transparent);
   }
+  [data-jd-theme="dark"] jd-badge[variant="success"],
+  [data-theme="dark"] jd-badge[variant="success"] { color: var(--jd-color-success); }
+  [data-jd-theme="dark"] jd-badge[variant="warning"],
+  [data-theme="dark"] jd-badge[variant="warning"] { color: var(--jd-color-warning); }
+  [data-jd-theme="dark"] jd-badge[variant="danger"],
+  [data-theme="dark"] jd-badge[variant="danger"] { color: var(--jd-color-danger); }
   jd-badge[variant="info"] {
     background: rgba(59,130,246,.1); color: #1d4ed8;
     box-shadow: 0 0 0 1px inset rgba(59,130,246,.15);

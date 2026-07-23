@@ -44,7 +44,11 @@ export default css`
     position: absolute; inset: 0;
     align-items: center; justify-content: center;
     font-size: 10px; font-weight: var(--jd-weight-bold);
-    color: #fff; mix-blend-mode: difference;
+    /* v2 mix-blend-difference는 대비 계산 불능(axe가 흰 글자 vs 밝은 배경으로 실측,
+       serious) — 흰 글자 + 다크 헤일로로 번역: 임의 채움색·양 테마 위 판독성 동등 (DEC-027) */
+    color: #fff;
+    text-shadow: 0 0 2px rgba(17,24,39,.95), 0 0 1px rgba(17,24,39,.95),
+      0 1px 2px rgba(17,24,39,.85);
   }
   jd-battery-indicator[size="lg"] .jd-battery__pct { display: flex; }
 
