@@ -38,6 +38,34 @@ enum JdSwiftUIFont {
         }
         return Font(metrics.scaledFont(for: base))
     }
+
+    // 모노스페이스 변형 — 베이스만 monospacedSystemFont로 바꾸고 스케일·category 규칙은
+    // scaled와 동일 (DESIGN §2.3). 매핑 헬퍼는 추가 전용 — 기존 scaled 본문은 불변.
+    static func scaledMono(size: CGFloat, weight: CGFloat, category: ContentSizeCategory? = nil) -> Font {
+        let base = UIFont.monospacedSystemFont(ofSize: size, weight: monoUIWeight(weight))
+        let metrics = UIFontMetrics(forTextStyle: monoTextStyle(size))
+        if let category {
+            let traits = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory(category))
+            return Font(metrics.scaledFont(for: base, compatibleWith: traits))
+        }
+        return Font(metrics.scaledFont(for: base))
+    }
+
+    // scaled 내부 매핑과 같은 규칙 (JdFontBridge.uiWeight/textStyle 동형 — DEC-010으로 공유 불가)
+    private static func monoUIWeight(_ weight: CGFloat) -> UIFont.Weight {
+        if weight >= 700 { return .bold }
+        if weight >= 600 { return .semibold }
+        if weight >= 500 { return .medium }
+        return .regular
+    }
+
+    private static func monoTextStyle(_ size: CGFloat) -> UIFont.TextStyle {
+        if size <= 12 { return .caption1 }
+        if size <= 13 { return .footnote }
+        if size <= 15 { return .subheadline }
+        if size <= 17 { return .body }
+        return .headline
+    }
 }
 
 public extension View {
