@@ -4,6 +4,32 @@
 
 ---
 
+## 2026-07-24 — G2-B4 primitives 표시 구현 중 발견 (10행 — Divider 별칭 포함)
+
+### DEC-025. B4 표시 프리미티브 판단 5건
+1. **Tailwind 팔레트 리터럴 승계 확대**: v2 표시 컴포넌트들은 토큰 밖 Tailwind 팔레트
+   (blue/emerald/amber/red/orange/purple/teal/violet/rose/cyan 50·100·500·700, gray 계)를
+   직접 썼다 — 패리티 원칙대로 hex 리터럴 승계(Badge info·Tag 7색·Avatar 팔레트 8종·
+   상태점·배터리). semantic 토큰이 존재하는 축(primary/success/warning/danger)만 토큰 참조.
+   G2 색 어휘 재심의의 입력 목록에 등재.
+2. **장식 점(dot)은 CSS ::before로 통일**: Badge·StatusDot·SeverityBadge의 상태 점은
+   DOM 0(의사요소) — v2의 span 렌더 대비 골격이 얕아지고 aria 노이즈가 없다.
+   라벨·카운트처럼 **텍스트를 갖는 표면만** 실제 노드.
+3. **Badge count 모드**: attribute 존재(hasAttribute)가 모드 판정 — count=0도 표시(v2
+   `count !== undefined` 동형). children과 병용 금지 문서화(v2는 children 무시 렌더였음).
+4. **Avatar 이름 해시 팔레트는 결정적 허용**: Math.random이 아니라 이름 문자 해시
+   (v2 알고리즘 이식) — 같은 이름=같은 색이라 §3.1-3(프리렌더 결정성)과 정합.
+   KeyCap의 v2 bg-surface/surface-soft(Tailwind 커스텀 클래스)는 --jd-color-card/
+   card-hover로 근사 번역 — 정확 대응 토큰 부재 기록.
+5. **BatteryIndicator 다크 보더**: v2 dark: 클래스는 [data-jd-theme="dark"]/[data-theme=
+   "dark"] 자손 셀렉터로 번역(gray-400→500). lg만 % 텍스트(mix-blend-difference) 유지.
+- 검증: vitest 209/209 · size-gate PASS · demo/display.html puppeteer 실측 —
+  count 99+·jd-remove 태그 제거·이니셜/팔레트 결정성·배터리 임계 자동색·kbd 결합
+  전부 재현, 콘솔 에러 0.
+- 결정자: B4 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — e2e B2 확장 + 실브라우저가 잡은 DEC-014-9 위반 2건 수정
 
 ### DEC-024. B2 표면 e2e 8케이스 + box-sizing 정합 수정

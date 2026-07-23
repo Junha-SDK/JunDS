@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JunDS v3 — B4 표시 프리미티브 데모 (10종)</title>
+<link rel="stylesheet" href="../dist/junds.css">
+<script src="../dist/junds.min.js" defer></script>
+<style>
+  body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
+         background: var(--jd-color-background); color: var(--jd-color-foreground); }
+  main { max-width: 44rem; margin-inline: auto; }
+</style>
+</head>
+<body>
+<main>
+  <jd-flex justify="between" align="center" mb="6">
+    <jd-heading level="1" mb="0">B4 · 표시 프리미티브</jd-heading>
+    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
+  </jd-flex>
+
+  <jd-vstack gap="8">
+    <jd-section title="jd-badge" description="variant 7종 · dot · count 모드">
+      <jd-wrap gap="2">
+        <jd-badge>default</jd-badge>
+        <jd-badge variant="primary">primary</jd-badge>
+        <jd-badge variant="success" dot>활성</jd-badge>
+        <jd-badge variant="warning" dot>대기</jd-badge>
+        <jd-badge variant="danger">긴급</jd-badge>
+        <jd-badge variant="info" size="sm">info sm</jd-badge>
+        <jd-badge variant="outline" size="lg">outline lg</jd-badge>
+        <jd-badge count="5"></jd-badge>
+        <jd-badge count="150" max-count="99"></jd-badge>
+      </jd-wrap>
+    </jd-section>
+
+    <jd-section title="jd-tag + jd-severity-badge">
+      <jd-wrap gap="2">
+        <jd-tag>gray</jd-tag>
+        <jd-tag color="primary">primary</jd-tag>
+        <jd-tag color="blue">프론트엔드</jd-tag>
+        <jd-tag color="green">완료</jd-tag>
+        <jd-tag color="red" closable>긴급</jd-tag>
+        <jd-tag color="purple" closable>디자인</jd-tag>
+        <jd-tag color="teal">teal</jd-tag>
+      </jd-wrap>
+      <jd-wrap gap="2">
+        <jd-severity-badge severity="ok" dot>정상</jd-severity-badge>
+        <jd-severity-badge severity="warn" dot>주의</jd-severity-badge>
+        <jd-severity-badge severity="danger" dot>오류</jd-severity-badge>
+        <jd-severity-badge severity="info">정보</jd-severity-badge>
+        <jd-severity-badge severity="neutral" size="sm">중립 sm</jd-severity-badge>
+      </jd-wrap>
+    </jd-section>
+
+    <jd-section title="jd-avatar" description="이니셜 해시 팔레트 · status 점">
+      <jd-hstack gap="3">
+        <jd-avatar name="김 준하" size="xs"></jd-avatar>
+        <jd-avatar name="박 하늘" size="sm" status="online"></jd-avatar>
+        <jd-avatar name="junha" status="away"></jd-avatar>
+        <jd-avatar name="이 서준" size="lg" status="busy"></jd-avatar>
+        <jd-avatar size="xl" status="offline"></jd-avatar>
+      </jd-hstack>
+    </jd-section>
+
+    <jd-section title="jd-spinner + jd-status-dot + jd-battery-indicator">
+      <jd-hstack gap="4">
+        <jd-spinner size="xs"></jd-spinner>
+        <jd-spinner size="sm" color="muted"></jd-spinner>
+        <jd-spinner></jd-spinner>
+        <jd-spinner size="lg"></jd-spinner>
+      </jd-hstack>
+      <jd-hstack gap="4">
+        <jd-status-dot status="success" label="온라인"></jd-status-dot>
+        <jd-status-dot status="danger" label="오프라인"></jd-status-dot>
+        <jd-status-dot status="pulse" label="라이브"></jd-status-dot>
+        <jd-status-dot status="neutral" label="중립" size="lg"></jd-status-dot>
+      </jd-hstack>
+      <jd-hstack gap="4">
+        <jd-battery-indicator value="85" auto-color size="sm"></jd-battery-indicator>
+        <jd-battery-indicator value="55" auto-color label="배터리"></jd-battery-indicator>
+        <jd-battery-indicator value="15" auto-color size="lg"></jd-battery-indicator>
+        <jd-battery-indicator value="60" color="primary"></jd-battery-indicator>
+      </jd-hstack>
+    </jd-section>
+
+    <jd-section title="jd-kbd + jd-key-cap">
+      <jd-hstack gap="3">
+        <jd-kbd keys="⌘ K"></jd-kbd>
+        <jd-kbd>Esc</jd-kbd>
+        <jd-kbd keys="Ctrl Shift P"></jd-kbd>
+      </jd-hstack>
+      <jd-hstack gap="2">
+        <jd-key-cap size="sm">⌘</jd-key-cap>
+        <jd-key-cap>K</jd-key-cap>
+        <jd-key-cap variant="primary" size="lg">↵</jd-key-cap>
+        <jd-key-cap variant="muted">?</jd-key-cap>
+        <jd-key-cap pressed>P</jd-key-cap>
+      </jd-hstack>
+    </jd-section>
+  </jd-vstack>
+</main>
+
+<script type="module">
+  document.addEventListener("jd-remove", (e) => e.target.remove()); // 데모: 태그 제거 소비
+  const btn = document.getElementById("theme-toggle");
+  btn.addEventListener("click", () => {
+    const root = document.documentElement;
+    const dark = root.getAttribute("data-jd-theme") !== "dark";
+    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
+    btn.textContent = dark ? "라이트 모드" : "다크 모드";
+  });
+</script>
+</body>
+</html>

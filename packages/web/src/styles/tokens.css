@@ -13,7 +13,7 @@
     --jd-color-primary-glow: rgba(91, 76, 199, 0.18);
     --jd-color-accent: #7c5ce7;
     --jd-color-accent-light: #efebff;
-    --jd-color-danger: #dc3f3f;
+    --jd-color-danger: #c93636;
     --jd-color-danger-hover: #b92f2f;
     --jd-color-danger-light: #fff1f1;
     --jd-color-muted: #6b6880;
@@ -191,6 +191,7 @@
     --jd-color-border-light: #22203a;
     --jd-color-primary-light: rgba(91, 76, 199, 0.15);
     --jd-color-accent-light: rgba(124, 92, 231, 0.12);
+    --jd-color-danger: #dc3f3f;
     --jd-color-danger-light: rgba(220, 63, 63, 0.15);
     --jd-color-muted: #a09cb5;
     --jd-color-muted-light: #706d88;
