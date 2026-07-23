@@ -4,6 +4,33 @@
 
 ---
 
+## 2026-07-23 — G1 B0 구현 중 발견 (파일럿 첫 슬라이스: 토큰 파이프라인 + packages/web 스캐폴드)
+
+### DEC-011. B0 구현이 드러낸 스펙 보정 6건
+1. **v2 gradients.ts의 미정의 변수 참조 (실측 드리프트)**: `primarySoft`의 `var(--primary-soft)`,
+   `surfaceTop/Bottom`의 `var(--surface)`는 v2 CSS(tokens.css·globals.css) 어디에도 정의된 적 없음
+   — 해당 그라디언트는 v2에서 이미 깨져 있었다. 패리티 원칙(값 임의 변경 금지)에 따라
+   gradient.json에 문자열 그대로 보존하고, 정의된 변수(--primary/--primary-hover/--primary-glow)만
+   `{color.*}` 별칭 치환. 토큰 신설·삭제 여부는 G2에서 재심의.
+2. **토큰 테스트 러너: node --test → vitest** (02 §6 이탈): v2 TS 리터럴(ds/tokens/*.ts)의
+   동적 import 비교에 TS 변환이 필요한데 `node --test`는 로더 없이 .ts를 못 돌린다.
+   vitest는 기존 devDependency — `tokens:test` = `vitest run --config tokens/vitest.config.mjs`
+   (node 환경, 루트 vitest.config.ts와 분리). B0 지시서도 vitest를 명시.
+3. **Swift Shadow 방출 형태 확장** (02 §4.2 스케치 보정): `[Layer]` 단일 배열로는
+   DEC-008-(3)로 승격된 다크 그림자를 표현할 수 없어 `Shadow.Dynamic(light:dark:)` 쌍으로 방출.
+4. **JdElement SSR 평가 버그**: `extends HTMLElement`는 Node 모듈 평가 시점에 throw —
+   03 §3.1-1("import가 Node에서 그냥 평가") 위반. typeof 탐지(허용 규칙)로 스텁 베이스 대체,
+   packages/web/__tests__/ssr.test.ts(환경 node)가 회귀 방지.
+5. **루트 스크립트 부분 추가** (01 §4 이탈): ios:build/ios:test/bench는 대상
+   (Package.swift·benchmarks/)이 아직 없어 미추가 — 해당 슬라이스에서 추가.
+   v3:build/v3:test는 `--workspaces --if-present`로 자리표시자(react/finance-data) 무해 통과.
+6. **swiftc 구문 검증 생략**: 작업 머신의 swift 툴체인이 즉사(exit 137, `swift --version`조차) —
+   JdToken.swift 구문 검증은 CI `ios-build`(macos 러너) 몫으로 이월. 값 정합성은
+   패리티 테스트의 0xRRGGBBAA 재파싱이 커버.
+- 결정자: G1 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-23).
+
+---
+
 ## 2026-07-23 — G0 승인 게이트 결과 (사람 승인)
 
 ### DEC-009. G0 전체 승인 + 게이트 결정 3건

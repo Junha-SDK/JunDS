@@ -1,0 +1,8 @@
+{
+  "name": "@junds/finance-data",
+  "version": "3.0.0-alpha.0",
+  "description": "JunDS v3 금융 데이터 연동(yahoo-finance2/KIS/ECOS/FRED) 분리 패키지 — G3 슬라이스에서 이관(자리표시자, DEC-003).",
+  "type": "module",
+  "private": true,
+  "license": "MIT"
+}

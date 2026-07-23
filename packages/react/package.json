@@ -1,0 +1,11 @@
+{
+  "name": "@junds/react",
+  "version": "3.0.0-alpha.0",
+  "description": "JunDS v3 React 어댑터 — 바닐라 코어(@junds/web)를 감싸는 얇은 래퍼. G2 슬라이스에서 구현(자리표시자). src/tokens.generated.ts는 tokens/build/generate.mjs 산출물.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@junds/web": "3.0.0-alpha.0"
+  }
+}

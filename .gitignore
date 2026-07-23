@@ -56,3 +56,7 @@ next-env.d.ts
 
 # Library bundle output
 /dist/
+
+# v3 워크스페이스 산출물 (토큰 생성물 3종은 커밋 대상 — tokens-fresh 게이트)
+packages/*/node_modules/
+packages/*/dist/

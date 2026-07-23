@@ -1,0 +1,8 @@
+/* @junds/web base — 레이어 서열 선언은 라이브러리가 가장 먼저 채택하는 시트가 담당 (03-web-arch §4.2).
+   @layer 선언은 멱등이라 이중 로드 무해. 레이어 밖 소비자 CSS가 항상 이긴다. */
+@layer junds.tokens, junds.base, junds.components;
+
+@layer junds.base {
+  /* 업그레이드 전 기본 박스(:not(:defined) §3.2)와 리셋·유틸은
+     컴포넌트 슬라이스에서 태그별로 추가된다. */
+}
