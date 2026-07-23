@@ -4,6 +4,73 @@
 
 ---
 
+## 2026-07-24 — G2-B2 layout 배치 구현 중 발견 (layout 12행 + gen-exports)
+
+### DEC-018. B2 layout 배치 판단 7건 + 검수 P1-1 해소
+1. **gen-exports 생성기 도입 (검수 P1-1 해소)**: `packages/web/scripts/gen-exports.mjs`가
+   src/components/ 스캔으로 package.json exports(57엔트리)와 components.generated.ts
+   (클래스 재수출 + ALL_COMPONENTS 28종)를 생성 — define.ts ALL 수기 배열·index.ts 수기
+   재수출·exports 수기 관리 3곳 전부 폐지(03 §6.2 정합). drift 게이트는 web `npm test`
+   선두(`--check`)에 편승 — CI 별도 잡 없이 v3:test 경유로 강제된다.
+2. **별칭 파생 확정 (R12)**: Grid·SimpleGrid = GridLayout 파생(auto-fit/auto-fill/
+   min-child-width를 기반 클래스가 수용, 우선순위 autoFit>autoFill>minChildWidth>cols),
+   Wrap = Group 파생(표면 동형). LayoutDivider는 **신규 태그 없음** — B1 jd-divider가
+   표면 전량 커버, spacing 프롭은 react 어댑터 매핑. ledger 4행 notes에 alias-of 기록.
+3. **Show/Hide는 CSS 전용으로 강등**: v2의 innerWidth 리스너+조건부 렌더 →
+   display:contents(래퍼 없는 렌더 등가) + attr별 정적 미디어 규칙. JS 상태 0이라
+   SSR/프리렌더 상시 안전, above+below 병용은 규칙 합성으로 v2 의미론(w>=above && w<below)
+   재현(Hide 병용 시 상시 숨김이 되는 v2 거동도 동일).
+4. **Stack divider 프롭은 react 어댑터 몫**: children 사이 노드 삽입은 동적 children
+   관리(MutationObserver급)를 요구 — 바닐라에서는 children으로 <jd-divider>를 직접 쓴다.
+5. **default-true boolean의 반전 계보 계승**: Container center·Overlay center → no-center
+   (DEC-012-4 persistent 반전과 동형). Overlay blur는 프로퍼티명이 HTMLElement.blur()와
+   충돌 — 프로퍼티 blurred + attribute "blur" 분리(PropDef attribute 재정의 첫 사용례).
+6. **AppShell 번역**: v2 조건부 이중 aside → 단일 aside의 상태 속성 전환([data-mobile]·
+   [mobile-open], 콘텐츠 이동 없음). Ctrl/⌘+B는 defaultPrevented 존중(⌘K 이중 토글 픽스
+   선례). 데스크톱 토글은 uncontrolled 반영 + jd-sidebar-toggle 사후 통지(어댑터가 재제어).
+   사이드바/헤더/푸터 bg `#fff` 리터럴은 v2 실태 승계 — 다크 대응은 G2 재심의 목록.
+7. **grid-layout 사이즈 기준선 +39.7% 갱신**: R12 단일 구현 확장(auto 컬럼 3프롭)의 의도된
+   증가(0.43→0.60KB gzip, 예산 12KB 대비 5%). 검수 P2-2(radius 16px 번역 불일치)는 G2
+   radius 어휘 재심의 인풋으로 재확인 — B2는 신규 radius 리터럴을 만들지 않았다.
+- 검증: vitest 165/165(gen-exports drift 게이트 포함) · size-gate PASS ·
+  데모(demo/layout.html) puppeteer 실측 — 데스크톱 Ctrl+B 접기(230→64px)·모바일 드로어+
+  스크롤락·Show/Hide 반전·auto-fit 컬럼 전부 재현, 콘솔 에러 0.
+- 결정자: B2 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
+## 2026-07-24 — finance-data 분리 슬라이스 (@junds/finance-data)
+
+### DEC-018. finance-data 분리 — 판단 6건
+(번호 주: 016은 MCP 게이트, 017은 시각 패리티 트랙이 선점 — 018로 부여.)
+1. **이관 표면 확정**: yahoo·kis·ecos·fred·rss·tickers + newsSummary(rss 파이프라인의
+   순수 후처리 — 01 §3.3 목록엔 없으나 데이터 계층으로 판정) + livePrices·liveIndices의
+   **스토어 계층**(React 훅은 v2 잔류) + stream(신설 — SSE 와이어 계약 타입·파서 정본화,
+   v2에선 livePrices/liveIndices/liveOrderBook에 산재). 공개 API는 v2 함수 시그니처
+   보존 — `__tests__/signatures.test.ts`의 타입 대입 단언을 tsc(typecheck)가 게이트.
+2. **발견 — consensus에는 "데이터 페치부"가 실재하지 않음**: 전부 mock 파생 스코어링
+   (stocks/compareData/financials/investors 의존, fetch 0건). 01 §3.3의 "consensus
+   데이터 페치부" 명명 가정을 실측으로 정정 — consensus는 이관 대상 아님(데모 계층 잔류).
+3. **배럴 정책 (의도적 v2 차이)**: v2 lib 배럴은 server-only kis까지 export(클라 평가 시
+   즉사 지뢰). v3 배럴은 클라 안전 모듈만 담고 kis/yahoo는 서브패스 전용
+   (`@junds/finance-data/kis`) — 바닐라 웹/react 어댑터가 배럴을 안심 import 가능.
+4. **결합 승격**: 하드코딩 엔드포인트(/api/kis/quotes·/api/quotes·/api/kis/stream)와
+   데모 시드(findStock)는 `configureFinanceData` 주입으로 대체 — 기본값이 v2 경로라
+   무설정 시 동작 동일. v2 livePrices의 무동작 시뮬레이터 잔해(step/tickAll/start/stop)는
+   미이관(v2에서도 호출 효과 0 — 관측 동작 차이 없음).
+5. **빌드 — 01 §6 보정**: "react rollup 설정 공유" 대신 tsc 듀얼 에밋(ESM+CJS+d.ts+
+   dist/cjs package.json 마커). 이 패키지는 CSS·"use client" 배너·번들링 수요가 전부
+   없어 rollup이 풀어주는 문제가 부재. 산출물 매트릭스(ESM+CJS+d.ts)는 01 §6 그대로.
+6. **이월 2건**: ① ds/finance/lib 재-export 셤은 ds 동결 구역 소유권에서 후속
+   (01 §3.3 전환기 정책 — 본 슬라이스는 ds 무수정). ② 루트 package-lock.json에
+   yahoo-finance2 dep 반영 — 웹 트랙 미커밋 package.json과 얽혀 npm install 하우스키핑
+   1회로 이연(root에 3.14.0이 이미 호이스트 설치돼 테스트/빌드 무영향, npm ci만 동기화 후 가능).
+- 검증: nvm22 — vitest 77/77(네트워크·EventSource·node:fs 전면 모킹, 실 API 0회),
+  typecheck 클린, dist 3종 빌드 + CJS/ESM 스모크 로드 통과.
+- 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — v2 시각 패리티 기준(baseline) 캡처 트랙
 
 ### DEC-017. 시각 패리티 기준 자산 — 재빌드 캡처 확정 + 커버리지 실측
@@ -38,6 +105,7 @@
 - 결정자: 실측 근거 기록 후 기본값 채택 (2026-07-24).
 
 ---
+
 ## 2026-07-24 — G1 iOS 슬라이스 빌드 검증 완료 (Xcode 손상 우회)
 
 ### DEC-015. iOS 빌드·테스트 검증 완료 + 툴체인 손상 실측·우회 확정
@@ -69,6 +137,28 @@
    JdConstraintStore associated object 키 전역. 04 §7.3의 함수 포인터 주입 설계 유지하되
    Swift 6 이행 시 @MainActor 승격 재심의 — G2 이후.
 - 결정자: 실측 검증, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
+## 2026-07-24 — MCP 트랙 게이트 (사람 승인)
+
+### DEC-016. v3 MCP 방향 3건 승인 + 저작 게이트 신설
+(번호 주: 015는 iOS 검증 트랙이 선점 — 016으로 부여. 017 중복 2건은 해당 트랙들 몫.)
+1. **도구 표면**: 소비자 조회 5종(search_components/get_component/get_usage/get_tokens/get_status)
+   확정. v2 기여자 도구(scaffold·map_refresh·extract_props·locate 파일랭킹·requirements 계열)
+   미계승 — v2 서버(mcp/)는 .mcp.json `junds` 항목으로 동결 병행 존치.
+2. **docs-content 정본화**: `docs-spec/registry/docs-content/<id>.json` 신설(스키마 08 §3.2).
+   ledger web:done 전수 손저작으로 시작, 후속 게이트에서 06 문서 화면 코드 탭 3종이
+   같은 파일을 소비하도록 06 개정 예정 — 문서와 MCP의 단일 저작점.
+   **⚠ 저작 게이트**: packages/mcp 테스트가 "ledger `web:done*` 행 ⇒ docs-content 존재"를
+   전수 검사한다. 이후 배치에서 web 상태를 done으로 갱신할 때 docs-content 저작이
+   DoD에 포함된다(07 §3-4의 문서 항목 구체화) — 미저작 시 v3:test 실패.
+3. **배포**: `packages/mcp` = `@junds/mcp` 무빌드 npx 패키지(의존성 SDK ^1.29 + zod 명시 2개).
+   소유권 밖 공유 파일 2건 최소 수정 승인 — 루트 package.json workspaces에 packages/mcp
+   추가, .mcp.json에 `junds-v3` 병기(v2 `junds` 무수정).
+4. 스펙 오기 정정: 초기 저작 대상 실측 **16건**(core 13 = CE 12 + CoreProvider 내부화,
+   + 파일럿 Button/Input/Modal) — 08 §3.2 초판의 "15건"은 CoreProvider 누락 오기.
+- 결정자: 사람 승인 (2026-07-24 게이트, 3문 3답 — 전부 권장안 채택).
 
 ---
 

@@ -24,4 +24,17 @@
   jd-vstack:not(:defined),
   jd-page-body:not(:defined) { display: flex; flex-direction: column; }
   jd-grid-layout:not(:defined) { display: grid; }
+
+  /* B2 layout */
+  jd-container:not(:defined),
+  jd-spacer:not(:defined),
+  jd-aspect-ratio-box:not(:defined) { display: block; }
+  jd-wrap:not(:defined),
+  jd-app-shell:not(:defined) { display: flex; }
+  jd-stack:not(:defined) { display: flex; flex-direction: column; }
+  jd-grid:not(:defined),
+  jd-simple-grid:not(:defined) { display: grid; }
+  jd-show:not(:defined),
+  jd-hide:not(:defined) { display: contents; }
+  jd-overlay:not(:defined) { position: absolute; inset: 0; }
 }

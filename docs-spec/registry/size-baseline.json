@@ -1,20 +1,30 @@
 {
   "core": 5254,
   "components": {
+    "app-shell": 2130,
+    "aspect-ratio-box": 500,
     "box": 300,
     "button": 2273,
     "center": 360,
+    "container": 559,
     "divider": 896,
     "flex": 382,
-    "grid-layout": 438,
+    "grid": 686,
+    "grid-layout": 612,
     "group": 500,
     "heading": 1088,
     "hstack": 435,
     "modal": 1541,
+    "overlay": 575,
     "page": 1358,
     "section": 874,
+    "show": 579,
+    "simple-grid": 649,
+    "spacer": 573,
+    "stack": 421,
     "text": 919,
     "text-field": 1851,
-    "vstack": 472
+    "vstack": 472,
+    "wrap": 583
   }
 }

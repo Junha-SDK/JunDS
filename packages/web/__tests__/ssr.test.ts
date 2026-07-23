@@ -29,7 +29,7 @@ describe("Node(비브라우저) 모듈 평가", () => {
     // sheet()는 브라우저 전용 — Node에서 호출하지 않는 것이 규약
   });
 
-  test("B1 core 컴포넌트 모듈이 Node에서 평가된다 (define index 포함 no-op)", async () => {
+  test("B1 core·B2 layout 컴포넌트 모듈이 Node에서 평가된다 (define index 포함 no-op)", async () => {
     const mod = await import("../src/define.js");
     expect(mod.defineJunds).toBeTypeOf("function");
     const barrel = await import("../src/index.js");
@@ -37,6 +37,8 @@ describe("Node(비브라우저) 모듈 평가", () => {
       "JdBox", "JdCenter", "JdDivider", "JdFlex", "JdGridLayout", "JdGroup",
       "JdHStack", "JdHeading", "JdPage", "JdPageBody", "JdPageHeader",
       "JdSection", "JdText", "JdVStack",
+      "JdAppShell", "JdAspectRatioBox", "JdContainer", "JdGrid", "JdHide",
+      "JdOverlay", "JdShow", "JdSimpleGrid", "JdSpacer", "JdStack", "JdWrap",
     ] as const) {
       expect(barrel[name], name).toBeTypeOf("function");
     }

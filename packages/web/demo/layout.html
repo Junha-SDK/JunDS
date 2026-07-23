@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JunDS v3 — B2 layout 데모 (앱 셸 + 레이아웃 12종)</title>
+<!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
+<link rel="stylesheet" href="../dist/junds.css">
+<script src="../dist/junds.min.js" defer></script>
+<style>
+  /* 데모 셸 전용 스타일 — 라이브러리와 무관 */
+  body { margin: 0; font-family: var(--jd-font-sans); color: var(--jd-color-foreground); }
+  .demo-label { font-size: var(--jd-text-xs); color: var(--jd-color-muted-light);
+                text-transform: uppercase; letter-spacing: .08em; margin: 1.25rem 0 .5rem; }
+  .demo-label:first-child { margin-top: 0; }
+  .cell { background: var(--jd-color-card); border: 1px solid var(--jd-color-border);
+          border-radius: 8px; padding: .75rem; font-size: var(--jd-text-sm); }
+  .chip { background: var(--jd-color-primary-light); color: var(--jd-color-primary);
+          border-radius: 9999px; padding: .3rem .8rem; font-size: var(--jd-text-sm); }
+  .side-nav { display: grid; gap: .25rem; padding: 1rem; }
+  .side-nav a { color: var(--jd-color-muted); text-decoration: none; font-size: var(--jd-text-sm);
+                padding: .45rem .6rem; border-radius: 8px; }
+  .side-nav a:hover { background: var(--jd-color-card-hover); color: var(--jd-color-foreground); }
+  .hd { display: flex; align-items: center; justify-content: space-between;
+        padding: .8rem 1rem .8rem 3rem; }
+  .ft { padding: .7rem 1rem; font-size: var(--jd-text-xs); color: var(--jd-color-muted); }
+  .art { background: linear-gradient(135deg, var(--jd-color-primary), var(--jd-color-accent));
+         position: absolute; inset: 0; }
+</style>
+</head>
+<body>
+<jd-app-shell sidebar-width="230" sticky-header content-padding="6">
+  <nav slot="sidebar" class="side-nav">
+    <strong style="padding:.5rem .6rem">JunDS v3 · B2</strong>
+    <a href="#container">jd-container</a>
+    <a href="#stack">jd-stack</a>
+    <a href="#grid">jd-grid / simple-grid</a>
+    <a href="#wrap">jd-wrap / spacer</a>
+    <a href="#ratio">aspect-ratio / overlay</a>
+    <a href="#show">jd-show / jd-hide</a>
+  </nav>
+
+  <div slot="header" class="hd">
+    <strong>레이아웃 데모 — 앱 셸 그 자체가 &lt;jd-app-shell&gt;</strong>
+    <span style="font-size:var(--jd-text-xs);color:var(--jd-color-muted)">Ctrl/⌘+B = 사이드바 접기</span>
+  </div>
+
+  <div slot="footer" class="ft">JunDS v3 · B2 layout — 이 푸터는 slot="footer"</div>
+
+  <jd-container size="md" id="container">
+    <jd-heading level="2">jd-container</jd-heading>
+    <jd-text dimmed>size="md"(768px) 중앙 정렬 — 기본 px는 16→sm 24px.</jd-text>
+
+    <jd-divider label="stack" id="stack"></jd-divider>
+    <p class="demo-label">jd-stack (기본 column·gap md) — 사이 구분선은 children으로</p>
+    <jd-stack>
+      <div class="cell">첫째</div>
+      <jd-divider my="0"></jd-divider>
+      <div class="cell">둘째</div>
+    </jd-stack>
+    <p class="demo-label">direction="row" gap="2"</p>
+    <jd-stack direction="row" gap="2">
+      <div class="cell">A</div><div class="cell">B</div><div class="cell">C</div>
+    </jd-stack>
+
+    <jd-divider label="grid" id="grid"></jd-divider>
+    <p class="demo-label">jd-grid auto-fit="160" — 폭에 맞춰 컬럼 자동</p>
+    <jd-grid auto-fit="160" gap="2">
+      <div class="cell">1</div><div class="cell">2</div><div class="cell">3</div>
+      <div class="cell">4</div><div class="cell">5</div>
+    </jd-grid>
+    <p class="demo-label">jd-simple-grid min-child-width="120" gap="2"</p>
+    <jd-simple-grid min-child-width="120" gap="2">
+      <div class="cell">가</div><div class="cell">나</div><div class="cell">다</div><div class="cell">라</div>
+    </jd-simple-grid>
+
+    <jd-divider label="wrap · spacer" id="wrap"></jd-divider>
+    <jd-wrap gap="2">
+      <span class="chip">부산</span><span class="chip">서울</span><span class="chip">대구</span>
+      <span class="chip">광주</span><span class="chip">인천</span><span class="chip">울산</span>
+      <span class="chip">세종</span><span class="chip">제주</span>
+    </jd-wrap>
+    <div class="cell">위 아래 사이 — jd-spacer size="6"</div>
+    <jd-spacer size="6"></jd-spacer>
+    <div class="cell">수평 스페이서 ↓</div>
+    <jd-hstack gap="0">
+      <span class="chip">좌</span>
+      <jd-spacer axis="horizontal" size="8"></jd-spacer>
+      <span class="chip">우</span>
+    </jd-hstack>
+
+    <jd-divider label="ratio · overlay" id="ratio"></jd-divider>
+    <p class="demo-label">jd-aspect-ratio-box 16/9 + jd-overlay blur</p>
+    <jd-aspect-ratio-box radius="lg">
+      <div class="art"></div>
+      <jd-overlay blur>
+        <span style="color:#fff;font-weight:var(--jd-weight-bold)">중앙 오버레이 (blur)</span>
+      </jd-overlay>
+    </jd-aspect-ratio-box>
+    <p class="demo-label">ratio="1" maxW 200 + no-center 오버레이</p>
+    <jd-aspect-ratio-box ratio="1" max-w="200" radius="lg">
+      <div class="art"></div>
+      <jd-overlay no-center>
+        <span class="chip" style="margin:.5rem;display:inline-block">좌상단</span>
+      </jd-overlay>
+    </jd-aspect-ratio-box>
+
+    <jd-divider label="show · hide" id="show"></jd-divider>
+    <jd-vstack gap="2">
+      <jd-show above="md"><div class="cell">jd-show above="md" — md 이상에서만 보임</div></jd-show>
+      <jd-hide above="md"><div class="cell">jd-hide above="md" — md 미만에서만 보임 (지금 좁은 화면)</div></jd-hide>
+      <jd-show above="sm" below="xl"><div class="cell">jd-show above="sm" below="xl" — 구간 표시</div></jd-show>
+    </jd-vstack>
+  </jd-container>
+</jd-app-shell>
+</body>
+</html>

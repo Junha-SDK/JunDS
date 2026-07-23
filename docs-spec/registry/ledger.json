@@ -160,133 +160,133 @@
       "id": "Stack",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-stack> — Box 파생(column·gap md). divider 프롭은 react 어댑터 몫(DEC-018)"
     },
     {
       "id": "Grid",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-grid> — GridLayout 별칭 파생(R12·DEC-018). auto-fit/auto-fill은 기반 클래스 수용"
     },
     {
       "id": "Container",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-container> — size 프리셋(xs 512~full)+px 반응형 기본, center 기본은 no-center 반전(DEC-012-4 동형)"
     },
     {
       "id": "Spacer",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-spacer> — axis별 padding-block/inline(v2 py/px 동형), aria-hidden 고정"
     },
     {
       "id": "AppShell",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-app-shell> — 슬롯 3종(sidebar/header/footer)+단일 aside 상태 전환, Ctrl/⌘+B(jd-sidebar-toggle)·모바일 드로어·스크롤락. bg white 리터럴은 v2 실태(G2 다크 재심의)"
     },
     {
       "id": "Wrap",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-wrap> — Group 별칭 파생(표면 동형, DEC-018)"
     },
     {
       "id": "SimpleGrid",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-simple-grid> — GridLayout 별칭 파생, min-child-width→auto-fill(R12)"
     },
     {
       "id": "Show",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-show> — CSS 전용(display:contents+attr 미디어 규칙, JS 상태 0 — DEC-018)"
     },
     {
       "id": "Hide",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-hide> — Show 역방향 규칙, 동일 CSS 전용(DEC-018)"
     },
     {
       "id": "AspectRatioBox",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-aspect-ratio-box> — aspect-ratio 원문 수용(수치·분수), primitives AspectRatio 단일화는 B6 별칭 심의(R12)"
     },
     {
       "id": "Overlay",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 <jd-overlay> — inset 0+중앙 기본(no-center 반전), blur attr↔blurred 프로퍼티(네이티브 blur() 보존 — DEC-018)"
     },
     {
       "id": "LayoutDivider",
       "category": "layout",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B2 별칭 — <jd-divider>(B1 단일 정본)가 표면 전량 커버, 신규 태그 없음. spacing 프롭은 react 어댑터 매핑(alias-of: CoreDivider)"
     },
     {
       "id": "Button",
