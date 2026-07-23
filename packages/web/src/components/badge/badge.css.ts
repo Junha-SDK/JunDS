@@ -32,9 +32,7 @@ export default css`
     color: var(--jd-color-primary);
     box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-primary) 15%, transparent);
   }
-  /* success/warning/danger 텍스트: 라이트는 토큰을 검정 쪽으로 파생 — 원색은 10% 틴트
-     위에서 AA 미달(3.0~4.1:1, DEC-027). 틴트·점·링은 원색 유지(비텍스트). 다크는 v2 원색.
-     파생 비율의 토큰 승격 여부는 G2 어휘 재심의 인풋. */
+  /* 텍스트만 검정 쪽 파생(라이트 AA, DEC-027) — 틴트·점·링은 원색, 다크는 원색 복원 */
   jd-badge[variant="success"] {
     background: color-mix(in srgb, var(--jd-color-success) 10%, transparent);
     color: color-mix(in srgb, var(--jd-color-success) 80%, #000);

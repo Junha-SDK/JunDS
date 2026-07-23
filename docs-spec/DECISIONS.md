@@ -4,13 +4,14 @@
 
 ---
 
-## 2026-07-24 — web-a11y 게이트 실측 위반 수정 (critical/serious 6건 → 0)
+## 2026-07-24 — web-a11y 게이트 실측 위반 수정 (critical/serious 7건 → 0)
 
-### DEC-027. danger 토큰 승인 이탈(첫 사례) + 컴포넌트·데모 a11y 보정 5건
+### DEC-027. danger 토큰 승인 이탈(첫 사례) + 컴포넌트·데모 a11y 보정 7건
 (번호 주: 025·026은 B4·MCP 트랙이 선점 — 027로 비켜 부여.)
-web-a11y 게이트(.github/scripts/web-a11y-audit.mjs, axe-core·실브라우저)가 데모 4페이지에서
-critical 1(label)·serious 5(color-contrast 4그룹 + scrollable-region-focusable)를 실측 —
-전부 수정. jsdom 기반이던 v2 audit은 색 대비를 계산하지 못해 v2 값이 그대로 통과해 왔다.
+web-a11y 게이트(.github/scripts/web-a11y-audit.mjs, axe-core·실브라우저)가 데모 5페이지에서
+critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusable)를 실측 —
+전부 수정(display.html은 작업 중 B4 착륙으로 표면 합류). jsdom 기반이던 v2 audit은 색
+대비를 계산하지 못해 v2 값이 그대로 통과해 왔다.
 1. **danger 토큰 라이트 보정 — 시각 패리티 원칙의 첫 승인 이탈**: v2 `#dc3f3f`는 라이트에서
    흰 글자 4.35:1, `--jd-color-background` 위 텍스트 3.97:1, danger-light 위 3.96:1로 전부
    WCAG AA(4.5) 미달. `{ light: "#c93636", dark: "#dc3f3f" }` 모드 리프로 분리 — 라이트는
@@ -36,13 +37,24 @@ critical 1(label)·serious 5(color-contrast 4그룹 + scrollable-region-focusabl
    `:focus-visible` 링. 사이드바는 관례상 포커서블 내용(nav)을 담아 비대상.
 5. **jd-button danger 호버 글로우**: 리터럴 `rgba(220,63,63,.25)` →
    `color-mix(in srgb, var(--jd-color-danger) 25%, transparent)` — 토큰 보정 자동 추종.
-6. **데모 셸**: `.demo-label`(core·layout)·`#log`(index·form)의 `muted-light`(2.7:1) →
+6. **jd-badge success/warning/danger 텍스트 (B4 표면)**: 원색 텍스트가 10% 틴트 위에서
+   3.0~4.1:1 미달(danger는 보정값으로도 4.09 — 틴트가 흰 배경보다 어두워 기준이 더 높다).
+   틴트·점·링은 비텍스트라 원색 유지, **텍스트만** badge-local `color-mix(토큰 80/75/90%,
+   #000)` 파생(각 4.79/4.85/4.83). 다크는 v2 원색 복원(어두운 틴트 위엔 원색이 우세) —
+   컴포넌트 국소 파생으로 토큰 어휘 선점을 피했고, `-text` 토큰 승격 여부는 G2 어휘
+   재심의 인풋(primary/info는 원색이 5.0+로 통과, 미변경).
+7. **jd-battery-indicator % 텍스트 (B4 표면)**: v2 `mix-blend-difference`는 axe가 평가
+   불능(선언 흰색 vs 밝은 배경으로 실측 → serious). 흰 글자 + 다크 헤일로(text-shadow
+   3겹)로 번역 — 임의 채움색·양 테마 위 판독성은 blend와 등가, axe는 text-shadow를 대비
+   제공자로 인정.
+8. **데모 셸**: `.demo-label`(core·layout)·`#log`(index·form)의 `muted-light`(2.7:1) →
    `muted`(4.9:1). form.html의 이름 없는 error 텍스트영역(critical)은 placeholder 부여 —
    첫 텍스트영역과 동일한 이름 폴백 메커니즘. (jd-label for → 호스트 id 연결이 네이티브로
    성립하지 않는 갭은 본 트랙 범위 밖 — B3 후속.)
-- 검증: `npm run tokens:test` 15/15 · `npm run build -w @junds/web` 후
-  `node .github/scripts/web-a11y-audit.mjs` 4페이지 critical/serious 0 (advisory
-  heading-order·landmark·region은 게이트 밖 — 미수리).
+- 검증: `npm run tokens:test` 15/15 · web vitest 209/209(+gen-exports drift 0) ·
+  web e2e 24/24 · tsc 0err · `npm run build -w @junds/web` 후
+  `node .github/scripts/web-a11y-audit.mjs` **5페이지 critical/serious 0** (advisory
+  heading-order·landmark·region·page-has-heading-one은 게이트 밖 — 미수리).
 - 결정자: 게이트 실측 근거로 기본값 채택 (2026-07-24).
 
 ---

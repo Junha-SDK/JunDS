@@ -12,8 +12,7 @@ export default css`
     display: inline-flex; align-items: center; gap: var(--jd-space-2);
     cursor: pointer; user-select: none; font-family: var(--jd-font-sans);
   }
-  /* disabled — 반투명은 트랙·썸만. 라벨 텍스트는 muted 실색: v2의 행 전체 opacity 50%는
-     라벨이 2.9:1로 AA 미달(axe는 button 연결 라벨을 disabled 면제하지 않음, DEC-027) */
+  /* disabled — 반투명은 트랙·썸만, 라벨은 muted 실색 (AA, DEC-027) */
   jd-toggle[disabled] > .jd-toggle { cursor: not-allowed; }
   jd-toggle[disabled] .jd-toggle__track { opacity: var(--jd-opacity-50); }
   jd-toggle[disabled] .jd-toggle__text { color: var(--jd-color-muted); }

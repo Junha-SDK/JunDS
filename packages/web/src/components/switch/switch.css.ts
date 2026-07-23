@@ -12,7 +12,7 @@ export default css`
     display: inline-flex; align-items: center; gap: var(--jd-space-2);
     cursor: pointer; user-select: none; font-family: var(--jd-font-sans);
   }
-  /* disabled — 반투명은 트랙·썸만, 라벨은 muted 실색 (jd-toggle 동형, DEC-027) */
+  /* disabled — 반투명은 트랙·썸만, 라벨은 muted 실색 (AA, DEC-027) */
   jd-switch[disabled] > .jd-switch { cursor: not-allowed; }
   jd-switch[disabled] .jd-switch__track { opacity: var(--jd-opacity-50); }
   jd-switch[disabled] .jd-switch__text { color: var(--jd-color-muted); }
