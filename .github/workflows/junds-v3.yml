@@ -253,6 +253,10 @@ jobs:
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
+      # 어댑터는 워크스페이스 의존 @junds/web의 dist(+types)를 전제로 typecheck된다 —
+      # 웹 선빌드 없이는 TS2307 (run 30021929365 실측).
+      - name: Build @junds/web (어댑터 typecheck 전제)
+        run: npm run build -w @junds/web
       - name: Build + typecheck @junds/react
         run: |
           if ! node -e "const s=require('./packages/react/package.json').scripts||{};process.exit(s.build?0:1)"; then
