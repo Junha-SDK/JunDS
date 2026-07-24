@@ -285,9 +285,14 @@ struct A11yInspector: View {
         NavigationStack {
             List {
                 if rows.isEmpty {
-                    Text("접근성 요소가 없다 — 스테이지가 비었거나 요소가 노출되지 않았다")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
+                    VStack(alignment: .leading, spacing: JdToken.Space.s2) {
+                        Text("표시할 접근성 요소가 없다")
+                            .font(.footnote.weight(.medium))
+                        Text("SwiftUI는 보조기술(VoiceOver)이 실제로 켜져 있을 때만 접근성 트리를 만든다 — SwiftUI 스테이지가 비어 보이는 것은 정상이며 요소가 없다는 뜻이 아니다. UIKit 탭으로 바꾸면 실제 요소·트레이트·값을 볼 수 있다.")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.vertical, JdToken.Space.s1)
                 }
                 ForEach(rows) { row in
                     VStack(alignment: .leading, spacing: 3) {

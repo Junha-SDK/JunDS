@@ -94,7 +94,9 @@ final class StageHostController: UIViewController {
     }
 
     private func walk(_ object: NSObject, depth: Int, into rows: inout [A11yRow]) {
-        if depth > 12 { return } // 순환/과도 방어
+        // SwiftUI 호스팅 계층은 쉽게 20단을 넘는다 — 얕은 상한(12)을 두면 실제 컨트롤에
+        // 닿기 전에 잘려 "요소 없음"으로 오보한다(실측). 순환 방어 목적이므로 넉넉히 잡는다.
+        if depth > 60 { return }
 
         if object.isAccessibilityElement {
             rows.append(row(for: object, depth: depth))

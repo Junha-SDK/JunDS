@@ -165,7 +165,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-stack> — Box 파생(column·gap md). divider 프롭은 react 어댑터 몫(DEC-018) / iOS 대기열 배치(2026-07-24, DEC-029): 레시피 — VStack/HStack + JdStackView(기구현), RECIPES.md + 데모 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-stack> — Box 파생(column·gap md). divider 프롭은 react 어댑터 몫(DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — VStack/HStack + JdStackView(기구현), RECIPES.md + 데모 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Grid",
@@ -176,7 +176,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-grid> — GridLayout 별칭 파생(R12·DEC-018). auto-fit/auto-fill은 기반 클래스 수용 / iOS 대기열 배치(2026-07-24, DEC-029): 레시피 — LazyVGrid(cols/adaptive), GridLayout과 동일 구현(R12 별칭) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-grid> — GridLayout 별칭 파생(R12·DEC-018). auto-fit/auto-fill은 기반 클래스 수용 / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — LazyVGrid(cols/adaptive), GridLayout과 동일 구현(R12 별칭) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Container",
@@ -187,7 +187,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-container> — size 프리셋(xs 512~full)+px 반응형 기본, center 기본은 no-center 반전(DEC-012-4 동형) / iOS 대기열 배치(2026-07-24, DEC-029): 레시피 — JdContainerSize.maxWidth 프리셋 + 중앙 정렬·패딩 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-container> — size 프리셋(xs 512~full)+px 반응형 기본, center 기본은 no-center 반전(DEC-012-4 동형) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — JdContainerSize.maxWidth 프리셋 + 중앙 정렬·패딩 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Spacer",
@@ -198,7 +198,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-spacer> — axis별 padding-block/inline(v2 py/px 동형), aria-hidden 고정 / iOS 대기열 배치(2026-07-24, DEC-029): JdSpacer·JdSpacerView 실구현 — 웹 양쪽 패딩이라 차지 공간 총 2×size(탐욕적 Spacer 아님) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-spacer> — axis별 padding-block/inline(v2 py/px 동형), aria-hidden 고정 / iOS 대기열 배치(2026-07-24, DEC-031): JdSpacer·JdSpacerView 실구현 — 웹 양쪽 패딩이라 차지 공간 총 2×size(탐욕적 Spacer 아님) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "AppShell",
@@ -209,7 +209,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-app-shell> — 슬롯 3종(sidebar/header/footer)+단일 aside 상태 전환, Ctrl/⌘+B(jd-sidebar-toggle)·모바일 드로어·스크롤락. bg white 리터럴은 v2 실태(G2 다크 재심의) / iOS 대기열 배치(2026-07-24, DEC-029): JdAppShell(SwiftUI)·JdAppShellController(UIKit) 실구현 — 레일 접기 + compact 드로어·딤 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-app-shell> — 슬롯 3종(sidebar/header/footer)+단일 aside 상태 전환, Ctrl/⌘+B(jd-sidebar-toggle)·모바일 드로어·스크롤락. bg white 리터럴은 v2 실태(G2 다크 재심의) / iOS 대기열 배치(2026-07-24, DEC-031): JdAppShell(SwiftUI)·JdAppShellController(UIKit) 실구현 — 레일 접기 + compact 드로어·딤 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Wrap",
@@ -220,7 +220,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-wrap> — Group 별칭 파생(표면 동형, DEC-018) / iOS 대기열 배치(2026-07-24, DEC-029): 별칭 — JdFlowLayout(SwiftUI)/JdStackView no-wrap(UIKit), Group과 표면 동형 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-wrap> — Group 별칭 파생(표면 동형, DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): 별칭 — JdFlowLayout(SwiftUI)/JdStackView no-wrap(UIKit), Group과 표면 동형 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "SimpleGrid",
@@ -231,7 +231,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-simple-grid> — GridLayout 별칭 파생, min-child-width→auto-fill(R12) / iOS 대기열 배치(2026-07-24, DEC-029): 레시피 — LazyVGrid adaptive(min-child-width), GridLayout 별칭 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-simple-grid> — GridLayout 별칭 파생, min-child-width→auto-fill(R12) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — LazyVGrid adaptive(min-child-width), GridLayout 별칭 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Show",
@@ -242,7 +242,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-show> — CSS 전용(display:contents+attr 미디어 규칙, JS 상태 0 — DEC-018) / iOS 대기열 배치(2026-07-24, DEC-029): .jdShow(above:below:) 모디파이어 — 판정은 Core JdBreakpoint.isVisible, 컨테이너 폭 기준 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-show> — CSS 전용(display:contents+attr 미디어 규칙, JS 상태 0 — DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): .jdShow(above:below:) 모디파이어 — 판정은 Core JdBreakpoint.isVisible, 컨테이너 폭 기준 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Hide",
@@ -253,7 +253,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-hide> — Show 역방향 규칙, 동일 CSS 전용(DEC-018) / iOS 대기열 배치(2026-07-24, DEC-029): .jdHide(above:below:) — jdShow의 단순 부정이 아니라 웹 CSS와 동형인 OR 합성 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-hide> — Show 역방향 규칙, 동일 CSS 전용(DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): .jdHide(above:below:) — jdShow의 단순 부정이 아니라 웹 CSS와 동형인 OR 합성 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "AspectRatioBox",
@@ -264,7 +264,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-aspect-ratio-box> — aspect-ratio 원문 수용(수치·분수), primitives AspectRatio 단일화는 B6 별칭 심의(R12) / iOS 대기열 배치(2026-07-24, DEC-029): 레시피 — .aspectRatio(_:contentMode:) + clipped — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-aspect-ratio-box> — aspect-ratio 원문 수용(수치·분수), primitives AspectRatio 단일화는 B6 별칭 심의(R12) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — .aspectRatio(_:contentMode:) + clipped — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Overlay",
@@ -275,7 +275,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 <jd-overlay> — inset 0+중앙 기본(no-center 반전), blur attr↔blurred 프로퍼티(네이티브 blur() 보존 — DEC-018) / iOS 대기열 배치(2026-07-24, DEC-029): 레시피 — .overlay(alignment:) + 재질 블러 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 <jd-overlay> — inset 0+중앙 기본(no-center 반전), blur attr↔blurred 프로퍼티(네이티브 blur() 보존 — DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — .overlay(alignment:) + 재질 블러 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "LayoutDivider",
@@ -286,7 +286,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B2 별칭 — <jd-divider>(B1 단일 정본)가 표면 전량 커버, 신규 태그 없음. spacing 프롭은 react 어댑터 매핑(alias-of: CoreDivider) / iOS 대기열 배치(2026-07-24, DEC-029): 별칭 — JdDivider/JdDividerView가 표면 전량 커버(R12), 신규 타입 없음 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B2 별칭 — <jd-divider>(B1 단일 정본)가 표면 전량 커버, 신규 태그 없음. spacing 프롭은 react 어댑터 매핑(alias-of: CoreDivider) / iOS 대기열 배치(2026-07-24, DEC-031): 별칭 — JdDivider/JdDividerView가 표면 전량 커버(R12), 신규 타입 없음 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Button",
@@ -319,7 +319,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-textarea> — 네이티브 textarea 위임, auto-resize(scrollHeight)·show-count·error boolean(v2 표면), IME 안전 미러 / iOS 대기열 배치(2026-07-24, DEC-029): JdTextarea·JdTextareaView 실구현 — autoResize·showCount·error(웹 aria-invalid 부재를 값으로 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-textarea> — 네이티브 textarea 위임, auto-resize(scrollHeight)·show-count·error boolean(v2 표면), IME 안전 미러 / iOS 대기열 배치(2026-07-24, DEC-031): JdTextarea·JdTextareaView 실구현 — autoResize·showCount·error(웹 aria-invalid 부재를 값으로 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Badge",
@@ -330,7 +330,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-badge> — variant 7종(color-mix 10%/15% 관용구), dot=::before(DOM 0), count 모드=전용 스팬(children 병용 금지 문서화), icon은 어댑터 몫 / iOS 대기열 배치(2026-07-24, DEC-029): JdBadge·JdBadgeView 실구현 — variant 7·dot·count 모드(maxCount 초과 시 N+) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-badge> — variant 7종(color-mix 10%/15% 관용구), dot=::before(DOM 0), count 모드=전용 스팬(children 병용 금지 문서화), icon은 어댑터 몫 / iOS 대기열 배치(2026-07-24, DEC-031): JdBadge·JdBadgeView 실구현 — variant 7·dot·count 모드(maxCount 초과 시 N+) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Avatar",
@@ -341,7 +341,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-avatar> — 이니셜+이름 해시 팔레트 8종(결정적 — §3.1-3 정합), src/이니셜 전환, status 점 / iOS 대기열 배치(2026-07-24, DEC-029): JdAvatar·JdAvatarView 실구현 — 이니셜 폴백(이름 해시 결정적 색)·status 링, 상태를 접근성 값으로 노출 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-avatar> — 이니셜+이름 해시 팔레트 8종(결정적 — §3.1-3 정합), src/이니셜 전환, status 점 / iOS 대기열 배치(2026-07-24, DEC-031): JdAvatar·JdAvatarView 실구현 — 이니셜 폴백(이름 해시 결정적 색)·status 링, 상태를 접근성 값으로 노출 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Spinner",
@@ -352,7 +352,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-spinner> — role=status, jd-button 스피너 SVG 공유, reduced-motion 감속 / iOS 대기열 배치(2026-07-24, DEC-029): JdSpinner·JdSpinnerView 실구현 — Reduce Motion 시 회전 정지(웹은 감속, iOS는 정지) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-spinner> — role=status, jd-button 스피너 SVG 공유, reduced-motion 감속 / iOS 대기열 배치(2026-07-24, DEC-031): JdSpinner·JdSpinnerView 실구현 — Reduce Motion 시 회전 정지(웹은 감속, iOS는 정지) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Divider",
@@ -363,7 +363,7 @@
       "docs": "todo",
       "tests": "n/a",
       "bench": "n/a",
-      "notes": "B4 별칭 — <jd-divider>(B1 단일 정본)가 커버, 신규 태그 없음. 무여백 기본 차는 어댑터 매핑(alias-of: CoreDivider, DEC-018-5) / iOS 대기열 배치(2026-07-24, DEC-029): 별칭 — CoreDivider와 동일 JdDivider/JdDividerView(R12 단일 정본), 신규 타입 없음 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 별칭 — <jd-divider>(B1 단일 정본)가 커버, 신규 태그 없음. 무여백 기본 차는 어댑터 매핑(alias-of: CoreDivider, DEC-018-5) / iOS 대기열 배치(2026-07-24, DEC-031): 별칭 — CoreDivider와 동일 JdDivider/JdDividerView(R12 단일 정본), 신규 타입 없음 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Toggle",
@@ -374,7 +374,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-toggle> — button role=switch+트랙/썸, label 래핑 클릭 토글 / iOS 대기열 배치(2026-07-24, DEC-029): JdToggle·JdToggleView 실구현 — 시스템 UISwitch/Toggle 위임(픽셀 재현 아님, 04 §10.1) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-toggle> — button role=switch+트랙/썸, label 래핑 클릭 토글 / iOS 대기열 배치(2026-07-24, DEC-031): JdToggle·JdToggleView 실구현 — 시스템 UISwitch/Toggle 위임(픽셀 재현 아님, 04 §10.1) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Checkbox",
@@ -385,7 +385,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-checkbox> — 네이티브 checkbox 위임(accent-color), indeterminate는 네이티브 프로퍼티(수동 aria 불필요) / iOS 대기열 배치(2026-07-24, DEC-029): JdCheckbox·JdCheckboxView 실구현 — iOS 관용구 부재로 SF Symbols 자체 드로잉, 3상태(indeterminate) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-checkbox> — 네이티브 checkbox 위임(accent-color), indeterminate는 네이티브 프로퍼티(수동 aria 불필요) / iOS 대기열 배치(2026-07-24, DEC-031): JdCheckbox·JdCheckboxView 실구현 — iOS 관용구 부재로 SF Symbols 자체 드로잉, 3상태(indeterminate) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "RadioGroup",
@@ -396,7 +396,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-radio-group> — 네이티브 radio 묶음(화살표·단일 탭스톱 공짜), options=property+JSON 슬롯(§1.3 예외), name 자동 발급(DEC-019) / iOS 대기열 배치(2026-07-24, DEC-029): JdRadioGroup·JdRadioGroupView 실구현 — JdRadioOption 배열·axis·개별 disabled — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-radio-group> — 네이티브 radio 묶음(화살표·단일 탭스톱 공짜), options=property+JSON 슬롯(§1.3 예외), name 자동 발급(DEC-019) / iOS 대기열 배치(2026-07-24, DEC-031): JdRadioGroup·JdRadioGroupView 실구현 — JdRadioOption 배열·axis·개별 disabled — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Label",
@@ -407,7 +407,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-label> — 내부 <label>, htmlFor↔for, required *는 CSS ::after / iOS 대기열 배치(2026-07-24, DEC-029): JdLabel·JdLabelView 실구현 — required 표식을 접근성 라벨에 '필수'로 합류(웹 시각 전용 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-label> — 내부 <label>, htmlFor↔for, required *는 CSS ::after / iOS 대기열 배치(2026-07-24, DEC-031): JdLabel·JdLabelView 실구현 — required 표식을 접근성 라벨에 '필수'로 합류(웹 시각 전용 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Tag",
@@ -418,7 +418,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-tag> — 8색, closable→jd-remove 사후 통지(제거는 소비자 몫 — v2 onClose 동형) / iOS 대기열 배치(2026-07-24, DEC-029): JdTag·JdTagView 실구현 — color 8종·closable(onRemove), 제거는 소비자 몫 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-tag> — 8색, closable→jd-remove 사후 통지(제거는 소비자 몫 — v2 onClose 동형) / iOS 대기열 배치(2026-07-24, DEC-031): JdTag·JdTagView 실구현 — color 8종·closable(onRemove), 제거는 소비자 몫 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "IconButton",
@@ -429,7 +429,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-icon-button> — 네이티브 button 위임, variant ghost/outline/filled·size xs~lg, label=aria-label 필수 / iOS 대기열 배치(2026-07-24, DEC-029): JdIconButton·JdIconButtonView 실구현 — 접근성 라벨 init 강제(04 §7.1), 히트 타깃 44pt 미만 각주 — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-icon-button> — 네이티브 button 위임, variant ghost/outline/filled·size xs~lg, label=aria-label 필수 / iOS 대기열 배치(2026-07-24, DEC-031): JdIconButton·JdIconButtonView 실구현 — 접근성 라벨 init 강제(04 §7.1), 히트 타깃 44pt 미만 각주 — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Kbd",
@@ -440,7 +440,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-kbd> — 내부 <kbd> 시맨틱, keys attr 공백 제거 결합(v2 join 등가) / iOS 대기열 배치(2026-07-24, DEC-029): JdKbd·JdKbdView 실구현 — JdKbdSpec.normalize로 공백 제거(웹 동형) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-kbd> — 내부 <kbd> 시맨틱, keys attr 공백 제거 결합(v2 join 등가) / iOS 대기열 배치(2026-07-24, DEC-031): JdKbd·JdKbdView 실구현 — JdKbdSpec.normalize로 공백 제거(웹 동형) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Portal",
@@ -473,7 +473,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-slider> — v2 수제 마우스 구현 → 네이티브 range 위임(§1.6-1), 채움=트랙 그라디언트 %(DEC-019), marks=property+JSON 슬롯 / iOS 대기열 배치(2026-07-24, DEC-029): JdSlider·JdSliderView 실구현 — color 4종·showsValue 헤더·marks — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-slider> — v2 수제 마우스 구현 → 네이티브 range 위임(§1.6-1), 채움=트랙 그라디언트 %(DEC-019), marks=property+JSON 슬롯 / iOS 대기열 배치(2026-07-24, DEC-031): JdSlider·JdSliderView 실구현 — color 4종·showsValue 헤더·marks — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "NumberInput",
@@ -506,7 +506,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-status-dot> — 점=::before, pulse 키프레임+reduced-motion 정지, info=primary(v2 동형) / iOS 대기열 배치(2026-07-24, DEC-029): JdStatusDot·JdStatusDotView 실구현 — pulse는 Reduce Motion 정지, 라벨 없으면 상태명을 접근성 라벨로(웹 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-status-dot> — 점=::before, pulse 키프레임+reduced-motion 정지, info=primary(v2 동형) / iOS 대기열 배치(2026-07-24, DEC-031): JdStatusDot·JdStatusDotView 실구현 — pulse는 Reduce Motion 정지, 라벨 없으면 상태명을 접근성 라벨로(웹 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "FileUpload",
@@ -550,7 +550,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-switch> — Toggle 파생(iOS 스타일·size lg 추가), i18n 기본 라벨은 상수(후속 Behavior) / iOS 대기열 배치(2026-07-24, DEC-029): 별칭 — typealias JdSwitch = JdToggle / JdSwitchView = JdToggleView(iOS는 같은 시스템 컨트롤, R12) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-switch> — Toggle 파생(iOS 스타일·size lg 추가), i18n 기본 라벨은 상수(후속 Behavior) / iOS 대기열 배치(2026-07-24, DEC-031): 별칭 — typealias JdSwitch = JdToggle / JdSwitchView = JdToggleView(iOS는 같은 시스템 컨트롤, R12) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "AspectRatio",
@@ -616,7 +616,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-battery-indicator> — auto-color 임계(>70/>30), lg만 % 텍스트(mix-blend-difference), 다크 보더는 [data-jd-theme] 셀렉터 / iOS 대기열 배치(2026-07-24, DEC-029): JdBatteryIndicator·JdBatteryIndicatorView 실구현 — autoColor 임계(>70/>30), 값을 'N 퍼센트' 접근성 값으로(웹 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-battery-indicator> — auto-color 임계(>70/>30), lg만 % 텍스트(mix-blend-difference), 다크 보더는 [data-jd-theme] 셀렉터 / iOS 대기열 배치(2026-07-24, DEC-031): JdBatteryIndicator·JdBatteryIndicatorView 실구현 — autoColor 임계(>70/>30), 값을 'N 퍼센트' 접근성 값으로(웹 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "SeverityBadge",
@@ -627,7 +627,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-severity-badge> — CSS 전용 렌더(JS 상태 0), 5단계+dot ::before / iOS 대기열 배치(2026-07-24, DEC-029): JdSeverityBadge·JdSeverityBadgeView 실구현 — 심각도명을 접근성 값으로 노출(웹은 색으로만 전달) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-severity-badge> — CSS 전용 렌더(JS 상태 0), 5단계+dot ::before / iOS 대기열 배치(2026-07-24, DEC-031): JdSeverityBadge·JdSeverityBadgeView 실구현 — 심각도명을 접근성 값으로 노출(웹은 색으로만 전달) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "OTPInput",
@@ -704,7 +704,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B3 <jd-range-slider> — 듀얼 썸 포인터 캡처(네이티브 미지원 예외), value 튜플→min-value/max-value 스칼라 2프롭(WEB-03) / iOS 대기열 배치(2026-07-24, DEC-029): JdRangeSlider·JdRangeSliderView 실구현 — 클램프·양자화 전량 Core JdRangeState(렌더는 fraction만) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B3 <jd-range-slider> — 듀얼 썸 포인터 캡처(네이티브 미지원 예외), value 튜플→min-value/max-value 스칼라 2프롭(WEB-03) / iOS 대기열 배치(2026-07-24, DEC-031): JdRangeSlider·JdRangeSliderView 실구현 — 클램프·양자화 전량 Core JdRangeState(렌더는 fraction만) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "Link",
@@ -847,7 +847,7 @@
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B4 <jd-key-cap> — 내부 <kbd>, variant 3종·pressed. v2 bg-surface/soft는 card/card-hover 토큰 근사(DEC-024) / iOS 대기열 배치(2026-07-24, DEC-029): JdKeyCap·JdKeyCapView 실구현 — variant 3·pressed 오프셋, 웹 height는 하한으로 번역(04 §7.2) — 빌드·XCTest 293/293·쇼룸 데모 등록"
+      "notes": "B4 <jd-key-cap> — 내부 <kbd>, variant 3종·pressed. v2 bg-surface/soft는 card/card-hover 토큰 근사(DEC-024) / iOS 대기열 배치(2026-07-24, DEC-031): JdKeyCap·JdKeyCapView 실구현 — variant 3·pressed 오프셋, 웹 height는 하한으로 번역(04 §7.2) — 빌드·XCTest 293/293·쇼룸 데모 등록"
     },
     {
       "id": "useBreakpoint",

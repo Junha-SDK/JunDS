@@ -6,10 +6,11 @@ import Foundation
 @MainActor
 enum DemoRegistry {
     static let all: [ComponentDemo] = [
-        // 파일럿 3종
+        // G1 파일럿 3종
         ButtonDemo.demo,
         TextFieldDemo.demo,   // ledger id: Input
         ModalDemo.demo,
+
         // B-core 12종
         BoxDemo.demo,
         CenterDemo.demo,
@@ -23,6 +24,43 @@ enum DemoRegistry {
         SectionDemo.demo,
         TextDemo.demo,
         VStackDemo.demo,
+
+        // B-layout 12종
+        StackDemo.demo,
+        GridDemo.demo,
+        ContainerDemo.demo,
+        SpacerDemo.demo,
+        AppShellDemo.demo,
+        WrapDemo.demo,
+        SimpleGridDemo.demo,
+        ShowDemo.demo,
+        HideDemo.demo,
+        AspectRatioBoxDemo.demo,
+        OverlayDemo.demo,
+        LayoutDividerDemo.demo,
+
+        // B-primitives 폼 9종
+        ToggleDemo.demo,
+        SwitchDemo.demo,
+        CheckboxDemo.demo,
+        RadioGroupDemo.demo,
+        SliderDemo.demo,
+        RangeSliderDemo.demo,
+        LabelDemo.demo,
+        TextareaDemo.demo,
+        IconButtonDemo.demo,
+
+        // B-primitives 표시 10종
+        BadgeDemo.demo,
+        TagDemo.demo,
+        AvatarDemo.demo,
+        SpinnerDemo.demo,
+        DividerPrimitiveDemo.demo,   // ledger id: Divider (CoreDivider와 동일 구현, R12)
+        KbdDemo.demo,
+        KeyCapDemo.demo,
+        StatusDotDemo.demo,
+        SeverityBadgeDemo.demo,
+        BatteryIndicatorDemo.demo,
     ]
 
     static let byId: [String: ComponentDemo] = Dictionary(

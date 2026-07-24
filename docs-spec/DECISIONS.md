@@ -4,6 +4,62 @@
 
 ---
 
+## 2026-07-24 — iOS 대기열 31종 일괄 이식 (layout 12 + primitives 19)
+
+### DEC-031. 대기열 배치 판단 10건 + 실측 버그 4건
+(번호 주: 029·030을 병행 트랙이 선점 — 031로 부여. ledger notes의 "DEC-029" 표기는
+이 항목을 가리킨다 — 커밋 선점 규칙에 따라 본문 번호가 정본.)
+
+1. **Core 스펙을 통합자가 선작성해 병렬 배치의 계약으로 삼았다**: `JdPrimitiveOptions.swift`
+   (옵션 16종 + JdRadioOption/JdSliderMark) · `Specs/JdControlSpecs.swift`(폼 + JdRangeState) ·
+   `Specs/JdDisplaySpecs.swift`(표시 9종)를 먼저 확정하고 `demo/DESIGN-2.md`가 이를 가리키게
+   했다. 렌더 계층 6배치가 **파일 경로 disjoint**로 동시에 돌아도 값 불일치가 생기지 않는다.
+2. **31종의 실체 분포 — 실구현 20 · 레시피 7 · 별칭 4**: 별칭은 Switch(=Toggle),
+   Divider(=CoreDivider), Wrap(=Group/JdFlowLayout), LayoutDivider(=Divider)로 **신규 타입을
+   만들지 않았다**(R12). 레시피 7종(Stack·Grid·SimpleGrid·Container·Overlay·AspectRatioBox)은
+   RECIPES.md + 데모 recipe로만 제공(04 §10.1). ledger notes에 행별로 사실대로 기록.
+3. **웹 접근성 결함 5건을 iOS에서 보정**: 웹 status-dot·battery·severity-badge는 role·aria가
+   전무하고 값이 색·폭으로만 전달된다. iOS는 StatusDot(라벨 없으면 상태명을 라벨로),
+   Battery(accessibilityValue "N 퍼센트"), SeverityBadge(심각도명을 값으로), Label(required
+   표식을 "필수"로 라벨에 합류), Textarea(error를 값으로)로 노출한다 — 패리티보다 접근성이
+   우선인 유일한 축이며, 시각 패리티는 그대로 유지된다.
+4. **UIControl 서브클래스의 이름 충돌은 규칙으로 승격**: `state`/`isEnabled`/`isSelected`/
+   `isHighlighted`는 UIControl 소유라 오버라이드 불가 — JdRangeSliderView는 `rangeState`,
+   JdCheckboxView는 `isSelectedState`를 쓴다(JdTextView `size`→`textSize` 선례의 일반화).
+5. **실측 버그 ① JdRangeState의 클램프·양자화 순서**: clamp→quantize 순이라 upperBound가
+   step 배수가 아니면(예: 0…95, step 10) 반올림 결과가 범위를 넘었다. **quantize→clamp**로
+   교정하고 `value(atFraction:)`에도 같은 순서를 적용, 회귀 가드 3건 신설. 경계값은 step
+   배수가 아니어도 도달 가능해야 한다(네이티브 input[type=range] 계약).
+6. **실측 버그 ② UIKit RangeSlider가 아예 그려지지 않았다**: `positionTrack()`이 스택의
+   자식 bounds 확정 전에 돌아 width 0 guard에 걸렸다. `layoutSubviews`에서
+   `rootStack.layoutIfNeeded()` 선행으로 해소 — 컴파일·단위 테스트로는 잡히지 않고
+   **쇼룸 실기동 스크린샷에서만** 드러난 종류의 결함이다(쇼룸의 존재 이유).
+7. **실측 버그 ③ 쇼룸 접근성 인스펙터의 얕은 재귀 상한**: 깊이 12에서 잘려 SwiftUI 호스팅
+   계층의 실제 컨트롤에 닿지 못하고 "요소 없음"으로 오보했다. 60으로 상향해 해소.
+8. **SwiftUI 접근성 트리는 보조기술이 켜져야 실체화된다**: 그래서 SwiftUI 스테이지의
+   인스펙터는 비어 보이는 것이 정상이고, UIKit 스테이지는 정상 조회된다(JdRangeThumbView
+   최솟값/최댓값 · adjustable · 값 20/80 실측). 빈 상태 문구에 이 사실을 명시해 오해를 막았다.
+9. **실측 버그 ④ 테스트 하네스: `sendActions(for:)`가 무동작**: 앱 호스트 없이
+   `simctl spawn … xctest`로 도는 번들에는 UIApplication이 없어 UIControl 액션 디스패치가
+   조용히 실패한다(상태 단언은 통과, 액션만 미발화 — 실패 13건의 공통 원인). 등록된
+   target-action을 직접 호출하는 `jdSendActions(for:)` 헬퍼로 교체 — addTarget이 빠지면
+   여전히 실패하므로 회귀 감지력은 유지된다.
+10. **Avatar 이니셜 웹 패리티 교정**: 웹은 `name.trim()` 후 split이라 공백만 있는 이름은 빈
+    이니셜("?" 폴백)이 되고, 3어절은 **앞 두 어절**(첫+끝이 아님)이다. Core를 웹과 일치시키고
+    잘못된 기대값을 쓰던 테스트를 정정했다.
+- **스펙 보강 후보(G2)**: JdBadgeSpec의 countForeground·dotColor·fontWeight,
+  JdIconButtonSpec·JdSliderSpec·JdTextareaSpec의 disabledOpacity 비대칭,
+  JdAvatarSpec의 fallbackBackground·statusRingColor, JdStatusDotSpec.pulsePeriod(2s가 Duration
+  램프 밖), JdSeverityBadgeSpec의 fontWeight·radius, JdToggleSpec의 크기축 무동작
+  (labelFontSize가 sm/md/lg 동일 + 시스템 컨트롤이라 실효 없음), JdCheckboxState.next() 승격.
+- **접근성 미해결**: IconButton 히트 타깃이 xs 24·sm 28·md 32·lg 40으로 **네 크기 모두
+  HIG 44pt 미만**(웹 크기 승계). 표면은 유지하고 코드 각주로 남겼다 — 크기 램프 재심의감.
+- 검증: 시뮬레이터 빌드 에러 0 · **XCTest 293/293**(76→293) · 쇼룸 46종 데모 등록·실기동
+  (Spacer 2×size 각주 · Slider showsValue 헤더 · RangeSlider 양 계층 · 접근성 인스펙터).
+- 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — G2-B7 primitives 인프라·소셜 (10행) — **primitives 51/51 완주**
 
 ### DEC-031. B7 인프라·소셜 판단 6건
