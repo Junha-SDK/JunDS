@@ -4,6 +4,39 @@
 
 ---
 
+## 2026-07-24 — G2-B13 composites 오버레이·피드백 (14행, Sheet·ConfirmDialog 별칭 포함)
+
+### DEC-033. 오버레이 축 통합 판단 5건
+1. **오버레이 5종이 jd-modal 하나를 상속한다**: v2는 Modal·Drawer·BottomSheet·Sheet·
+   ActionSheet가 **각자** ESC 리스너·body 스크롤 락·백드롭을 다시 구현했고, 그래서
+   미묘하게 달랐다 — Drawer만 dismissible, ActionSheet는 ESC가 아예 없고, 넷 다
+   **포커스 감금이 없었다**. v3는 그 전부를 jd-modal이 갖고 파생은 패널 기하와 골격만
+   재정의한다(§6 R12). 감금·요청형 닫기(jd-request-close)·재연결 복원이 공짜로 붙는다.
+2. **별칭 2건**: v2 Sheet는 BottomSheet + 드래그 하나 차이라 `draggable` 옵트인으로
+   흡수했고, ConfirmDialog는 AlertDialog와 표면이 같아 태그를 따로 두지 않는다.
+   원장에는 행을 유지하고 notes에 alias-of를 적었다(Divider 선례).
+3. **role=alertdialog로 교정**: v2 AlertDialog는 role="dialog"였다. alertdialog는
+   **열리는 순간 내용을 읽어준다** — 파괴적 작업 확인이 정확히 그 용도다. 제목·설명은
+   aria-labelledby/describedby로 실제 노드를 가리키고, 확인 버튼에 data-autofocus를
+   달아 트랩의 initialFocus와 맞물리게 했다.
+4. **자동 닫힘은 포인터가 올라가면 멈춘다**(WCAG 2.2.1): 스낵바·토스트 모두. 읽는
+   중에 사라지는 것은 접근성 지침이 직접 지적하는 문제인데 v2에는 정지 경로가 없었다.
+5. **collapsible Callout은 details/summary 위임**: v2는 useState + div로 만들어
+   aria-expanded가 없었다 — 네이티브는 열림 상태를 AT에 보고하고 키보드도 공짜다.
+- **또 색 대비**(세 번째 실측): jd-banner의 흰 글자가 semantic 원색 배경 위에서
+  info 3.9 · warning 3.6 · success 4.0으로 AA 미달이었다(v2 `bg-warning text-white`
+  승계). 이번엔 글자가 아니라 **배경**을 조정한다 — foreground를 20% 섞어 색상은
+  유지하고 명도만 내린다. 데모에 success 배너를 추가해 게이트 사각을 없앴다.
+- 검증: vitest 349/349(신규 16) · e2e 51/51 · size-gate PASS · web-a11y PASS(9페이지)
+  · demo/overlay-feedback.html 실측 — 드로어 감금·ESC 복원(body overflow 원복 포함)·
+  액션시트 선택·alertdialog 자동 포커스·토스트 스택·details 상태, 콘솔 에러 0.
+  (드로어 패널이 뷰포트를 넘는 것처럼 보인 측정은 **진입 애니메이션 중간값**이었다 —
+  정지 후 우 1100/좌 0으로 정확히 붙는다. B7 색 전이와 같은 계열의 측정 함정.)
+- 원장: composites 15/185 · web done 146/445.
+- 결정자: B13 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — G2-B8~B12 Behavior 46종 (hooks 55행) — **hooks 55/55 완주**
 
 ### DEC-032. 훅 → Behavior 이식 판단 7건

@@ -1469,12 +1469,12 @@
       "id": "ActionSheet",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-action-sheet> — Modal 파생. 액션은 property 또는 JSON 슬롯, 선택 시 jd-select 후 닫힘. v2엔 없던 ESC·감금 확보"
     },
     {
       "id": "AddressInput",
@@ -1502,23 +1502,23 @@
       "id": "Alert",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-alert> — 좌측 강조선 + variant 4종. role은 danger/warning만 alert, 나머지 status(v2 role 없음). 제목 색은 foreground 혼합(AA)"
     },
     {
       "id": "AlertDialog",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-alert-dialog> — Modal 파생. role=alertdialog(v2 dialog에서 교정) + aria-labelledby/describedby 실노드 연결, 확인은 data-autofocus"
     },
     {
       "id": "AnimatedCounter",
@@ -1590,12 +1590,12 @@
       "id": "Banner",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-banner> — role=status(v2 role=banner는 랜드마크 오용). 흰 글자 대비를 위해 배경에 foreground 20% 혼합(axe 실측, v2 승계 결함)"
     },
     {
       "id": "BentoGrid",
@@ -1623,12 +1623,12 @@
       "id": "BottomSheet",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-bottom-sheet> — Modal 파생. v2 BottomSheet+Sheet 통합(차이는 draggable 하나), 끌어 닫기는 pointer 이벤트(v2 touch 전용)"
     },
     {
       "id": "Breadcrumb",
@@ -1656,12 +1656,12 @@
       "id": "Callout",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-callout> — 이모지+강조선 5종. collapsible은 네이티브 details/summary 위임(v2 useState div는 aria-expanded가 없었다)"
     },
     {
       "id": "Card",
@@ -1810,12 +1810,12 @@
       "id": "ConfirmDialog",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 별칭 — <jd-alert-dialog>가 표면 전량 커버(제목·설명·확인/취소·danger), 신규 태그 없음(alias-of: AlertDialog)"
     },
     {
       "id": "ContextMenu",
@@ -1953,12 +1953,12 @@
       "id": "Drawer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-drawer> — Modal 파생(§6 R12). side 3종×size 4종 기하만 재정의, ESC·백드롭·스크롤락·포커스감금·요청형 닫기는 상속(v2는 넷이 각자 구현했고 감금·요청형 닫기는 없었다)"
     },
     {
       "id": "Dropdown",
@@ -1975,12 +1975,12 @@
       "id": "DsToastProvider",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-toast> — Context 대신 요소 메서드 + 문서당 하나 지연 생성 toast()(DEC-031-4 규약). 스택이 live region이라 개별 토스트에 role 미부여, max 초과 시 오래된 것부터 제거"
     },
     {
       "id": "EmojiPicker",
@@ -1997,12 +1997,12 @@
       "id": "EmptyState",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-empty-state> — 아이콘/액션 light DOM 슬롯. Result가 이 골격을 파생"
     },
     {
       "id": "FilterButtonGroup",
@@ -2272,12 +2272,12 @@
       "id": "Notification",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-notification> — 제목·설명·액션 카드, 30% 테두리+5% 틴트. 토스트가 담는 표면과 분리"
     },
     {
       "id": "Onboarding",
@@ -2404,12 +2404,12 @@
       "id": "Result",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-result> — EmptyState 파생(§6 R12), status별 64px 아이콘·색. v2 404/403 얼굴 일러스트는 정보 없는 장식이라 미승계"
     },
     {
       "id": "ScrollSpy",
@@ -2470,12 +2470,12 @@
       "id": "Sheet",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 별칭 — <jd-bottom-sheet draggable>이 v2 Sheet 표면 전량 커버, 신규 태그 없음(alias-of: BottomSheet)"
     },
     {
       "id": "SignaturePad",
@@ -2866,12 +2866,12 @@
       "id": "Snackbar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B13 <jd-snackbar> — 위치 4종+자동 닫힘. 포인터/포커스가 올라가면 타이머 정지(WCAG 2.2.1 — v2엔 없음)"
     },
     {
       "id": "Stat",

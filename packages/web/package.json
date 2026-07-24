@@ -23,6 +23,30 @@
       "types": "./dist/types/define.d.ts",
       "default": "./dist/define.js"
     },
+    "./action-sheet": {
+      "types": "./dist/types/components/action-sheet/index.d.ts",
+      "default": "./dist/components/action-sheet/index.js"
+    },
+    "./action-sheet/element": {
+      "types": "./dist/types/components/action-sheet/element.d.ts",
+      "default": "./dist/components/action-sheet/element.js"
+    },
+    "./alert": {
+      "types": "./dist/types/components/alert/index.d.ts",
+      "default": "./dist/components/alert/index.js"
+    },
+    "./alert/element": {
+      "types": "./dist/types/components/alert/element.d.ts",
+      "default": "./dist/components/alert/element.js"
+    },
+    "./alert-dialog": {
+      "types": "./dist/types/components/alert-dialog/index.d.ts",
+      "default": "./dist/components/alert-dialog/index.js"
+    },
+    "./alert-dialog/element": {
+      "types": "./dist/types/components/alert-dialog/element.d.ts",
+      "default": "./dist/components/alert-dialog/element.js"
+    },
     "./announcer": {
       "types": "./dist/types/components/announcer/index.d.ts",
       "default": "./dist/components/announcer/index.js"
@@ -71,6 +95,14 @@
       "types": "./dist/types/components/badge/element.d.ts",
       "default": "./dist/components/badge/element.js"
     },
+    "./banner": {
+      "types": "./dist/types/components/banner/index.d.ts",
+      "default": "./dist/components/banner/index.js"
+    },
+    "./banner/element": {
+      "types": "./dist/types/components/banner/element.d.ts",
+      "default": "./dist/components/banner/element.js"
+    },
     "./battery-indicator": {
       "types": "./dist/types/components/battery-indicator/index.d.ts",
       "default": "./dist/components/battery-indicator/index.js"
@@ -87,6 +119,14 @@
       "types": "./dist/types/components/bookmark-button/element.d.ts",
       "default": "./dist/components/bookmark-button/element.js"
     },
+    "./bottom-sheet": {
+      "types": "./dist/types/components/bottom-sheet/index.d.ts",
+      "default": "./dist/components/bottom-sheet/index.js"
+    },
+    "./bottom-sheet/element": {
+      "types": "./dist/types/components/bottom-sheet/element.d.ts",
+      "default": "./dist/components/bottom-sheet/element.js"
+    },
     "./box": {
       "types": "./dist/types/components/box/index.d.ts",
       "default": "./dist/components/box/index.js"
@@ -102,6 +142,14 @@
     "./button/element": {
       "types": "./dist/types/components/button/element.d.ts",
       "default": "./dist/components/button/element.js"
+    },
+    "./callout": {
+      "types": "./dist/types/components/callout/index.d.ts",
+      "default": "./dist/components/callout/index.js"
+    },
+    "./callout/element": {
+      "types": "./dist/types/components/callout/element.d.ts",
+      "default": "./dist/components/callout/element.js"
     },
     "./center": {
       "types": "./dist/types/components/center/index.d.ts",
@@ -158,6 +206,22 @@
     "./divider/element": {
       "types": "./dist/types/components/divider/element.d.ts",
       "default": "./dist/components/divider/element.js"
+    },
+    "./drawer": {
+      "types": "./dist/types/components/drawer/index.d.ts",
+      "default": "./dist/components/drawer/index.js"
+    },
+    "./drawer/element": {
+      "types": "./dist/types/components/drawer/element.d.ts",
+      "default": "./dist/components/drawer/element.js"
+    },
+    "./empty-state": {
+      "types": "./dist/types/components/empty-state/index.d.ts",
+      "default": "./dist/components/empty-state/index.js"
+    },
+    "./empty-state/element": {
+      "types": "./dist/types/components/empty-state/element.d.ts",
+      "default": "./dist/components/empty-state/element.js"
     },
     "./error-boundary": {
       "types": "./dist/types/components/error-boundary/index.d.ts",
@@ -351,6 +415,14 @@
       "types": "./dist/types/components/motion/element.d.ts",
       "default": "./dist/components/motion/element.js"
     },
+    "./notification": {
+      "types": "./dist/types/components/notification/index.d.ts",
+      "default": "./dist/components/notification/index.js"
+    },
+    "./notification/element": {
+      "types": "./dist/types/components/notification/element.d.ts",
+      "default": "./dist/components/notification/element.js"
+    },
     "./number-formatter": {
       "types": "./dist/types/components/number-formatter/index.d.ts",
       "default": "./dist/components/number-formatter/index.js"
@@ -439,6 +511,14 @@
       "types": "./dist/types/components/range-slider/element.d.ts",
       "default": "./dist/components/range-slider/element.js"
     },
+    "./result": {
+      "types": "./dist/types/components/result/index.d.ts",
+      "default": "./dist/components/result/index.js"
+    },
+    "./result/element": {
+      "types": "./dist/types/components/result/element.d.ts",
+      "default": "./dist/components/result/element.js"
+    },
     "./scroll-area": {
       "types": "./dist/types/components/scroll-area/index.d.ts",
       "default": "./dist/components/scroll-area/index.js"
@@ -486,6 +566,14 @@
     "./slider/element": {
       "types": "./dist/types/components/slider/element.d.ts",
       "default": "./dist/components/slider/element.js"
+    },
+    "./snackbar": {
+      "types": "./dist/types/components/snackbar/index.d.ts",
+      "default": "./dist/components/snackbar/index.js"
+    },
+    "./snackbar/element": {
+      "types": "./dist/types/components/snackbar/element.d.ts",
+      "default": "./dist/components/snackbar/element.js"
     },
     "./spacer": {
       "types": "./dist/types/components/spacer/index.d.ts",
@@ -566,6 +654,14 @@
     "./textarea/element": {
       "types": "./dist/types/components/textarea/element.d.ts",
       "default": "./dist/components/textarea/element.js"
+    },
+    "./toast": {
+      "types": "./dist/types/components/toast/index.d.ts",
+      "default": "./dist/components/toast/index.js"
+    },
+    "./toast/element": {
+      "types": "./dist/types/components/toast/element.d.ts",
+      "default": "./dist/components/toast/element.js"
     },
     "./toggle": {
       "types": "./dist/types/components/toggle/index.d.ts",
