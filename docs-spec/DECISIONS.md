@@ -4,6 +4,38 @@
 
 ---
 
+## 2026-07-24 — 웹 잔여 대량 이식 2차 완료: **web 445/445 전 카테고리 완주**
+
+### DEC-038. 라운드2 153종 + 중앙 검증으로 웹 트랙 종료
+1. **라운드2 전 배치 성공(32배치 64에이전트, 실패 0)**: 1차에서 세션 한도로 남은
+   composites 25 · patterns 43 · finance 85를 계열별 재배치해 완주. **web 445/445** —
+   core·layout·primitives·hooks·composites·patterns·finance 전부 done.
+2. **중앙 정적 감사가 실제 위험을 잡았다**: (a) **태그·클래스 충돌** — 새 composites
+   PageHeader(제목+브레드크럼 바)가 layout의 `jd-page-header`(jd-page 내부 슬롯, 커밋된
+   API)와 이름 충돌. defineElement가 "선등록 승리"로 **조용히 하나를 죽이는** 부류라
+   신규를 `jd-page-header-bar`로 개명. (b) Boolean default:true 7건을 반전 플래그로
+   (sticky→static, searchable→no-search 등). (c) **CSS 주석 안의 raw 백틱**이
+   `css\`\`` 템플릿을 조기 종료(filter-bar) — tsc가 잡았고 이스케이프/제거로 수정.
+3. **"파일 실재"를 진실로 삼는 규율이 두 번 구했다**: 워크플로 최종 보고는 verify
+   실패 항목을 null로 떨어뜨려 오해를 낳았지만(1차 "0 구현", 실제 145 존재), 원장·집계를
+   전부 디렉터리+element.ts 실존 기준(ledger-sync.mjs)으로 재산출해 정확히 복구했다.
+   에이전트가 기계 kebab보다 자연스러운 이름을 쓴 4건(FZone→fzone, DisclosuresClient→
+   disclosures)은 별칭 맵으로 흡수.
+4. **헤드리스 컴포넌트 이식**: GlobalKisSeeder는 v2가 `return null`인 무-UI 시더였다 —
+   폴링 **수명주기만** `<jd-global-kis-seeder>`(display:none)로 옮기고, 실제 시세 소스는
+   @junds/finance-data 슬라이스 몫으로 문서화(DEC-019 · §6 R4). jd-tick 발행 +
+   fetcher 주입점으로 데이터 백엔드를 재구현하지 않았다.
+5. **전 컴포넌트 스모크가 런타임 결함을 격리**: 235종 무결 통과. jd-heatmap·
+   jd-diff-viewer는 happy-dom이 `tbody.rows`·`tr.cells`를 미구현한 환경 갭(실 Chrome
+   에러 0 확인)이라 스모크만 제외. 테스트 타임아웃은 389종 배럴 로드가 5초를 넘겨
+   30초로 상향(라이브러리 규모 반영, 컴포넌트 결함 아님).
+- 게이트: tsc 0 · 감사 0 · vitest 351/351(스모크 포함) · e2e 51/51 · web-a11y PASS
+  (9페이지) · size-gate PASS(평균 2.40KB · p95 5.71KB) · gen-exports 390종 배럴.
+- **원장: web 445/445 완주.** iOS 트랙은 병행 진행 중(별도 커밋).
+- 결정자: 대량 이식 완료, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — iOS composites 오버레이·피드백 14 + hooks 46 (원장 iOS 129/445)
 
 ### DEC-037. 시스템 위임/자체 구현 분할 + hooks 판정 대량
