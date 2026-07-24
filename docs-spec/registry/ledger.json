@@ -1458,12 +1458,12 @@
       "id": "Accordion",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-accordion> — v2 composites/Accordion 바닐라 이식"
     },
     {
       "id": "ActionSheet",
@@ -1480,23 +1480,23 @@
       "id": "AddressInput",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-address-input> — v2 composites/AddressInput 바닐라 이식"
     },
     {
       "id": "Affix",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-affix> — v2 composites/Affix 바닐라 이식"
     },
     {
       "id": "Alert",
@@ -1524,67 +1524,67 @@
       "id": "AnimatedCounter",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-animated-counter> — v2 composites/AnimatedCounter 바닐라 이식"
     },
     {
       "id": "AudioPlayer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-audio-player> — v2 composites/AudioPlayer 바닐라 이식"
     },
     {
       "id": "AutoComplete",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-auto-complete> — v2 composites/AutoComplete 바닐라 이식"
     },
     {
       "id": "AutoHideHeader",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-auto-hide-header> — v2 composites/AutoHideHeader 바닐라 이식"
     },
     {
       "id": "AutoPlayDemo",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-auto-play-demo> — v2 composites/AutoPlayDemo 바닐라 이식"
     },
     {
       "id": "AvatarStack",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-avatar-stack> — v2 composites/AvatarStack 바닐라 이식"
     },
     {
       "id": "Banner",
@@ -1601,23 +1601,23 @@
       "id": "BentoGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-bento-grid> — v2 composites/BentoGrid 바닐라 이식"
     },
     {
       "id": "BookCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-book-card> — v2 composites/BookCard 바닐라 이식"
     },
     {
       "id": "BottomSheet",
@@ -1634,23 +1634,23 @@
       "id": "Breadcrumb",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-breadcrumb> — v2 composites/Breadcrumb 바닐라 이식"
     },
     {
       "id": "ButtonGroup",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-button-group> — v2 composites/ButtonGroup 바닐라 이식"
     },
     {
       "id": "Callout",
@@ -1667,144 +1667,144 @@
       "id": "Card",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-card> — v2 composites/Card 바닐라 이식"
     },
     {
       "id": "Carousel",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-carousel> — v2 composites/Carousel 바닐라 이식"
     },
     {
       "id": "ChatBubble",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-chat-bubble> — v2 composites/ChatBubble 바닐라 이식"
     },
     {
       "id": "CodeEditor",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-code-editor> — v2 composites/CodeEditor 바닐라 이식"
     },
     {
       "id": "Collapsible",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-collapsible> — v2 composites/Collapsible 바닐라 이식"
     },
     {
       "id": "CollectionView",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-collection-view> — v2 composites/CollectionView 바닐라 이식"
     },
     {
       "id": "ColorPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-color-picker> — v2 composites/ColorPicker 바닐라 이식"
     },
     {
       "id": "ColorSwatch",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-color-swatch> — v2 composites/ColorSwatch 바닐라 이식"
     },
     {
       "id": "Combobox",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-combobox> — v2 composites/Combobox 바닐라 이식"
     },
     {
       "id": "CompareSlider",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-compare-slider> — v2 composites/CompareSlider 바닐라 이식"
     },
     {
       "id": "ComparisonGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-comparison-grid> — v2 composites/ComparisonGrid 바닐라 이식"
     },
     {
       "id": "ComponentShowcase",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-component-showcase> — v2 composites/ComponentShowcase 바닐라 이식"
     },
     {
       "id": "Confetti",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-confetti> — v2 composites/Confetti 바닐라 이식"
     },
     {
       "id": "ConfirmDialog",
@@ -1821,133 +1821,133 @@
       "id": "ContextMenu",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-context-menu> — v2 composites/ContextMenu 바닐라 이식"
     },
     {
       "id": "CopyBlock",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-copy-block> — v2 composites/CopyBlock 바닐라 이식"
     },
     {
       "id": "CronExpression",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-cron-expression> — v2 composites/CronExpression 바닐라 이식"
     },
     {
       "id": "DataGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-data-grid> — v2 composites/DataGrid 바닐라 이식"
     },
     {
       "id": "DateInput",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-date-input> — v2 composites/DateInput 바닐라 이식"
     },
     {
       "id": "DateRangeFilter",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-date-range-filter> — v2 composites/DateRangeFilter 바닐라 이식"
     },
     {
       "id": "DateRangePicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-date-range-picker> — v2 composites/DateRangePicker 바닐라 이식"
     },
     {
       "id": "Descriptions",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-descriptions> — v2 composites/Descriptions 바닐라 이식"
     },
     {
       "id": "DetailPanel",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-detail-panel> — v2 composites/DetailPanel 바닐라 이식"
     },
     {
       "id": "Disclosure",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-disclosure> — v2 composites/Disclosure 바닐라 이식"
     },
     {
       "id": "DiffViewer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-diff-viewer> — v2 composites/DiffViewer 바닐라 이식"
     },
     {
       "id": "Dock",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-dock-item> — v2 composites/Dock 바닐라 이식"
     },
     {
       "id": "Drawer",
@@ -1964,12 +1964,12 @@
       "id": "Dropdown",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-dropdown> — v2 composites/Dropdown 바닐라 이식"
     },
     {
       "id": "DsToastProvider",
@@ -1986,12 +1986,12 @@
       "id": "EmojiPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-emoji-picker> — v2 composites/EmojiPicker 바닐라 이식"
     },
     {
       "id": "EmptyState",
@@ -2008,232 +2008,232 @@
       "id": "FilterButtonGroup",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-filter-button-group> — v2 composites/FilterButtonGroup 바닐라 이식"
     },
     {
       "id": "FloatingActionButton",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-floating-action-button> — v2 composites/FloatingActionButton 바닐라 이식"
     },
     {
       "id": "FormField",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-form-field> — v2 composites/FormField 바닐라 이식"
     },
     {
       "id": "FunnelChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-funnel-chart> — v2 composites/FunnelChart 바닐라 이식"
     },
     {
       "id": "GaugeChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-gauge-chart> — v2 composites/GaugeChart 바닐라 이식"
     },
     {
       "id": "Globe",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-globe> — v2 composites/Globe 바닐라 이식"
     },
     {
       "id": "GradientBorder",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-gradient-border> — v2 composites/GradientBorder 바닐라 이식"
     },
     {
       "id": "Heatmap",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-heatmap> — v2 composites/Heatmap 바닐라 이식"
     },
     {
       "id": "HoverCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-hover-card> — v2 composites/HoverCard 바닐라 이식"
     },
     {
       "id": "ImageCropper",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-image-cropper> — v2 composites/ImageCropper 바닐라 이식"
     },
     {
       "id": "ImageLightbox",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-image-lightbox> — v2 composites/ImageLightbox 바닐라 이식"
     },
     {
       "id": "InlineEdit",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-inline-edit> — v2 composites/InlineEdit 바닐라 이식"
     },
     {
       "id": "JSONViewer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-json-viewer> — v2 composites/JSONViewer 바닐라 이식"
     },
     {
       "id": "KeyValueGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-key-value-grid> — v2 composites/KeyValueGrid 바닐라 이식"
     },
     {
       "id": "LoadingOverlay",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-loading-overlay> — v2 composites/LoadingOverlay 바닐라 이식"
     },
     {
       "id": "MarkdownViewer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-markdown-viewer> — v2 composites/MarkdownViewer 바닐라 이식"
     },
     {
       "id": "Marquee",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-marquee> — v2 composites/Marquee 바닐라 이식"
     },
     {
       "id": "Mention",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-mention> — v2 composites/Mention 바닐라 이식"
     },
     {
       "id": "Menubar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-menubar> — v2 composites/Menubar 바닐라 이식"
     },
     {
       "id": "MetricCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-metric-card> — v2 composites/MetricCard 바닐라 이식"
     },
     {
       "id": "MiniChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-mini-chart> — v2 composites/MiniChart 바닐라 이식"
     },
     {
       "id": "Modal",
@@ -2250,23 +2250,23 @@
       "id": "MultiSelect",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-multi-select> — v2 composites/MultiSelect 바닐라 이식"
     },
     {
       "id": "NavigationMenu",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-navigation-menu> — v2 composites/NavigationMenu 바닐라 이식"
     },
     {
       "id": "Notification",
@@ -2283,122 +2283,122 @@
       "id": "Onboarding",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-onboarding> — v2 composites/Onboarding 바닐라 이식"
     },
     {
       "id": "Pagination",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-pagination> — v2 composites/Pagination 바닐라 이식"
     },
     {
       "id": "Popover",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-popover> — v2 composites/Popover 바닐라 이식"
     },
     {
       "id": "ProgressBar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-progress-bar> — v2 composites/ProgressBar 바닐라 이식"
     },
     {
       "id": "ProgressSteps",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-progress-steps> — v2 composites/ProgressSteps 바닐라 이식"
     },
     {
       "id": "ProgressRing",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-progress-ring> — v2 composites/ProgressRing 바닐라 이식"
     },
     {
       "id": "PullToRefresh",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-pull-to-refresh> — v2 composites/PullToRefresh 바닐라 이식"
     },
     {
       "id": "QRCode",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-qr-code> — v2 composites/QRCode 바닐라 이식"
     },
     {
       "id": "Rating",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-rating> — v2 composites/Rating 바닐라 이식"
     },
     {
       "id": "ReadingTime",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-reading-time> — v2 composites/ReadingTime 바닐라 이식"
     },
     {
       "id": "Resizable",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-resizable> — v2 composites/Resizable 바닐라 이식"
     },
     {
       "id": "Result",
@@ -2415,56 +2415,56 @@
       "id": "ScrollSpy",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-scroll-spy> — v2 composites/ScrollSpy 바닐라 이식"
     },
     {
       "id": "SearchInput",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-search-input> — v2 composites/SearchInput 바닐라 이식"
     },
     {
       "id": "SecurityBadge",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-security-badge> — v2 composites/SecurityBadge 바닐라 이식"
     },
     {
       "id": "SegmentedControl",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-segmented-control> — v2 composites/SegmentedControl 바닐라 이식"
     },
     {
       "id": "Select",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-select> — v2 composites/Select 바닐라 이식"
     },
     {
       "id": "Sheet",
@@ -2481,309 +2481,309 @@
       "id": "SignaturePad",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-signature-pad> — v2 composites/SignaturePad 바닐라 이식"
     },
     {
       "id": "Skeleton",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-skeleton> — v2 composites/Skeleton 바닐라 이식"
     },
     {
       "id": "SkeletonPreset",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-skeleton-preset> — v2 composites/SkeletonPreset 바닐라 이식"
     },
     {
       "id": "SplitPane",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-split-pane> — v2 composites/SplitPane 바닐라 이식"
     },
     {
       "id": "SpoilerBlock",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-spoiler-block> — v2 composites/SpoilerBlock 바닐라 이식"
     },
     {
       "id": "Spotlight",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-spotlight> — v2 composites/Spotlight 바닐라 이식"
     },
     {
       "id": "SpotlightCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-spotlight-card> — v2 composites/SpotlightCard 바닐라 이식"
     },
     {
       "id": "StatCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-stat-card> — v2 composites/StatCard 바닐라 이식"
     },
     {
       "id": "Stepper",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-stepper> — v2 composites/Stepper 바닐라 이식"
     },
     {
       "id": "Sticky",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-sticky> — v2 composites/Sticky 바닐라 이식"
     },
     {
       "id": "SwipeAction",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-swipe-action> — v2 composites/SwipeAction 바닐라 이식"
     },
     {
       "id": "Table",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-table> — v2 composites/Table 바닐라 이식"
     },
     {
       "id": "Tabs",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-tabs> — v2 composites/Tabs 바닐라 이식"
     },
     {
       "id": "TagInput",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-tag-input> — v2 composites/TagInput 바닐라 이식"
     },
     {
       "id": "TimePicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-time-picker> — v2 composites/TimePicker 바닐라 이식"
     },
     {
       "id": "Timeline",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-timeline> — v2 composites/Timeline 바닐라 이식"
     },
     {
       "id": "Tooltip",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-tooltip> — v2 composites/Tooltip 바닐라 이식"
     },
     {
       "id": "Transfer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-transfer> — v2 composites/Transfer 바닐라 이식"
     },
     {
       "id": "TreeNav",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-tree-nav> — v2 composites/TreeNav 바닐라 이식"
     },
     {
       "id": "TreeView",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-tree-view> — v2 composites/TreeView 바닐라 이식"
     },
     {
       "id": "TreemapChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-treemap-chart> — v2 composites/TreemapChart 바닐라 이식"
     },
     {
       "id": "TrustIndicator",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-trust-indicator> — v2 composites/TrustIndicator 바닐라 이식"
     },
     {
       "id": "Typewriter",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-typewriter> — v2 composites/Typewriter 바닐라 이식"
     },
     {
       "id": "VideoPlayer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-video-player> — v2 composites/VideoPlayer 바닐라 이식"
     },
     {
       "id": "VirtualScroll",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-virtual-scroll> — v2 composites/VirtualScroll 바닐라 이식"
     },
     {
       "id": "Watermark",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-watermark> — v2 composites/Watermark 바닐라 이식"
     },
     {
       "id": "Countdown",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-countdown> — v2 composites/Countdown 바닐라 이식"
     },
     {
       "id": "Clock",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-clock> — v2 composites/Clock 바닐라 이식"
     },
     {
       "id": "PageHeader",
@@ -2800,23 +2800,23 @@
       "id": "AnnouncementBar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-announcement-bar> — v2 composites/AnnouncementBar 바닐라 이식"
     },
     {
       "id": "ThinkingIndicator",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-thinking-indicator> — v2 composites/ThinkingIndicator 바닐라 이식"
     },
     {
       "id": "PricingTable",
@@ -2844,23 +2844,23 @@
       "id": "MonthPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-month-picker> — v2 composites/MonthPicker 바닐라 이식"
     },
     {
       "id": "YearPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-year-picker> — v2 composites/YearPicker 바닐라 이식"
     },
     {
       "id": "Snackbar",
@@ -2877,67 +2877,67 @@
       "id": "Stat",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-stat> — v2 composites/Stat 바닐라 이식"
     },
     {
       "id": "Blockquote",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-blockquote> — v2 composites/Blockquote 바닐라 이식"
     },
     {
       "id": "LoadingButton",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-loading-button> — v2 composites/LoadingButton 바닐라 이식"
     },
     {
       "id": "LoadingScreen",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-loading-screen> — v2 composites/LoadingScreen 바닐라 이식"
     },
     {
       "id": "OfflineIndicator",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-offline-indicator> — v2 composites/OfflineIndicator 바닐라 이식"
     },
     {
       "id": "Hint",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-hint> — v2 composites/Hint 바닐라 이식"
     },
     {
       "id": "SocialShare",
@@ -2965,111 +2965,111 @@
       "id": "OnlineStatus",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-online-status> — v2 composites/OnlineStatus 바닐라 이식"
     },
     {
       "id": "RadioCardGroup",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-radio-card-group> — v2 composites/RadioCardGroup 바닐라 이식"
     },
     {
       "id": "CheckboxCardGroup",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-checkbox-card-group> — v2 composites/CheckboxCardGroup 바닐라 이식"
     },
     {
       "id": "TextareaAutosize",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-textarea-autosize> — v2 composites/TextareaAutosize 바닐라 이식"
     },
     {
       "id": "PasswordStrength",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-password-strength> — v2 composites/PasswordStrength 바닐라 이식"
     },
     {
       "id": "ScrollProgress",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-scroll-progress> — v2 composites/ScrollProgress 바닐라 이식"
     },
     {
       "id": "TableOfContents",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-table-of-contents> — v2 composites/TableOfContents 바닐라 이식"
     },
     {
       "id": "LineChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-line-chart> — v2 composites/LineChart 바닐라 이식"
     },
     {
       "id": "BarChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-bar-chart> — v2 composites/BarChart 바닐라 이식"
     },
     {
       "id": "PieChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-pie-chart> — v2 composites/PieChart 바닐라 이식"
     },
     {
       "id": "TestimonialCard",
@@ -3141,12 +3141,12 @@
       "id": "QuantitySelector",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-quantity-selector> — v2 composites/QuantitySelector 바닐라 이식"
     },
     {
       "id": "PriceDisplay",
@@ -3163,45 +3163,45 @@
       "id": "AreaChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-area-chart> — v2 composites/AreaChart 바닐라 이식"
     },
     {
       "id": "RadarChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-radar-chart> — v2 composites/RadarChart 바닐라 이식"
     },
     {
       "id": "ScatterPlot",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-scatter-plot> — v2 composites/ScatterPlot 바닐라 이식"
     },
     {
       "id": "SankeyDiagram",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-sankey-diagram> — v2 composites/SankeyDiagram 바닐라 이식"
     },
     {
       "id": "BookShelf",
@@ -3251,12 +3251,12 @@
       "id": "BookCover",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-book-cover> — v2 composites/BookCover 바닐라 이식"
     },
     {
       "id": "ReadingGoal",
@@ -3273,12 +3273,12 @@
       "id": "AnnotationNote",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-annotation-note> — v2 composites/AnnotationNote 바닐라 이식"
     },
     {
       "id": "BookRating",
@@ -3295,111 +3295,111 @@
       "id": "PhotoCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-photo-card> — v2 composites/PhotoCard 바닐라 이식"
     },
     {
       "id": "PhotoGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-photo-grid> — v2 composites/PhotoGrid 바닐라 이식"
     },
     {
       "id": "PhotoLightbox",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-photo-lightbox> — v2 composites/PhotoLightbox 바닐라 이식"
     },
     {
       "id": "PhotoCarousel",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-photo-carousel> — v2 composites/PhotoCarousel 바닐라 이식"
     },
     {
       "id": "ImageCompare",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-image-compare> — v2 composites/ImageCompare 바닐라 이식"
     },
     {
       "id": "ImageZoom",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-image-zoom> — v2 composites/ImageZoom 바닐라 이식"
     },
     {
       "id": "ExifPanel",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-exif-panel> — v2 composites/ExifPanel 바닐라 이식"
     },
     {
       "id": "PhotoFilters",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-photo-filters> — v2 composites/PhotoFilters 바닐라 이식"
     },
     {
       "id": "PhotoUploader",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-photo-uploader> — v2 composites/PhotoUploader 바닐라 이식"
     },
     {
       "id": "ImageWithFallback",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-image-with-fallback> — v2 composites/ImageWithFallback 바닐라 이식"
     },
     {
       "id": "PostCard",
@@ -3482,12 +3482,12 @@
       "id": "SearchBar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "<jd-search-bar> — v2 composites/SearchBar 바닐라 이식"
     },
     {
       "id": "DataTable",
@@ -4032,12 +4032,12 @@
       "id": "AreaChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "todo",
-      "notes": ""
+      "notes": "<jd-area-chart> — v2 finance/AreaChart 바닐라 이식"
     },
     {
       "id": "BmSwitch",

@@ -23,6 +23,14 @@
       "types": "./dist/types/define.d.ts",
       "default": "./dist/define.js"
     },
+    "./accordion": {
+      "types": "./dist/types/components/accordion/index.d.ts",
+      "default": "./dist/components/accordion/index.js"
+    },
+    "./accordion/element": {
+      "types": "./dist/types/components/accordion/element.d.ts",
+      "default": "./dist/components/accordion/element.js"
+    },
     "./action-sheet": {
       "types": "./dist/types/components/action-sheet/index.d.ts",
       "default": "./dist/components/action-sheet/index.js"
@@ -30,6 +38,22 @@
     "./action-sheet/element": {
       "types": "./dist/types/components/action-sheet/element.d.ts",
       "default": "./dist/components/action-sheet/element.js"
+    },
+    "./address-input": {
+      "types": "./dist/types/components/address-input/index.d.ts",
+      "default": "./dist/components/address-input/index.js"
+    },
+    "./address-input/element": {
+      "types": "./dist/types/components/address-input/element.d.ts",
+      "default": "./dist/components/address-input/element.js"
+    },
+    "./affix": {
+      "types": "./dist/types/components/affix/index.d.ts",
+      "default": "./dist/components/affix/index.js"
+    },
+    "./affix/element": {
+      "types": "./dist/types/components/affix/element.d.ts",
+      "default": "./dist/components/affix/element.js"
     },
     "./alert": {
       "types": "./dist/types/components/alert/index.d.ts",
@@ -47,6 +71,30 @@
       "types": "./dist/types/components/alert-dialog/element.d.ts",
       "default": "./dist/components/alert-dialog/element.js"
     },
+    "./animated-counter": {
+      "types": "./dist/types/components/animated-counter/index.d.ts",
+      "default": "./dist/components/animated-counter/index.js"
+    },
+    "./animated-counter/element": {
+      "types": "./dist/types/components/animated-counter/element.d.ts",
+      "default": "./dist/components/animated-counter/element.js"
+    },
+    "./annotation-note": {
+      "types": "./dist/types/components/annotation-note/index.d.ts",
+      "default": "./dist/components/annotation-note/index.js"
+    },
+    "./annotation-note/element": {
+      "types": "./dist/types/components/annotation-note/element.d.ts",
+      "default": "./dist/components/annotation-note/element.js"
+    },
+    "./announcement-bar": {
+      "types": "./dist/types/components/announcement-bar/index.d.ts",
+      "default": "./dist/components/announcement-bar/index.js"
+    },
+    "./announcement-bar/element": {
+      "types": "./dist/types/components/announcement-bar/element.d.ts",
+      "default": "./dist/components/announcement-bar/element.js"
+    },
     "./announcer": {
       "types": "./dist/types/components/announcer/index.d.ts",
       "default": "./dist/components/announcer/index.js"
@@ -63,6 +111,14 @@
       "types": "./dist/types/components/app-shell/element.d.ts",
       "default": "./dist/components/app-shell/element.js"
     },
+    "./area-chart": {
+      "types": "./dist/types/components/area-chart/index.d.ts",
+      "default": "./dist/components/area-chart/index.js"
+    },
+    "./area-chart/element": {
+      "types": "./dist/types/components/area-chart/element.d.ts",
+      "default": "./dist/components/area-chart/element.js"
+    },
     "./aspect-ratio-box": {
       "types": "./dist/types/components/aspect-ratio-box/index.d.ts",
       "default": "./dist/components/aspect-ratio-box/index.js"
@@ -71,6 +127,38 @@
       "types": "./dist/types/components/aspect-ratio-box/element.d.ts",
       "default": "./dist/components/aspect-ratio-box/element.js"
     },
+    "./audio-player": {
+      "types": "./dist/types/components/audio-player/index.d.ts",
+      "default": "./dist/components/audio-player/index.js"
+    },
+    "./audio-player/element": {
+      "types": "./dist/types/components/audio-player/element.d.ts",
+      "default": "./dist/components/audio-player/element.js"
+    },
+    "./auto-complete": {
+      "types": "./dist/types/components/auto-complete/index.d.ts",
+      "default": "./dist/components/auto-complete/index.js"
+    },
+    "./auto-complete/element": {
+      "types": "./dist/types/components/auto-complete/element.d.ts",
+      "default": "./dist/components/auto-complete/element.js"
+    },
+    "./auto-hide-header": {
+      "types": "./dist/types/components/auto-hide-header/index.d.ts",
+      "default": "./dist/components/auto-hide-header/index.js"
+    },
+    "./auto-hide-header/element": {
+      "types": "./dist/types/components/auto-hide-header/element.d.ts",
+      "default": "./dist/components/auto-hide-header/element.js"
+    },
+    "./auto-play-demo": {
+      "types": "./dist/types/components/auto-play-demo/index.d.ts",
+      "default": "./dist/components/auto-play-demo/index.js"
+    },
+    "./auto-play-demo/element": {
+      "types": "./dist/types/components/auto-play-demo/element.d.ts",
+      "default": "./dist/components/auto-play-demo/element.js"
+    },
     "./avatar": {
       "types": "./dist/types/components/avatar/index.d.ts",
       "default": "./dist/components/avatar/index.js"
@@ -78,6 +166,14 @@
     "./avatar/element": {
       "types": "./dist/types/components/avatar/element.d.ts",
       "default": "./dist/components/avatar/element.js"
+    },
+    "./avatar-stack": {
+      "types": "./dist/types/components/avatar-stack/index.d.ts",
+      "default": "./dist/components/avatar-stack/index.js"
+    },
+    "./avatar-stack/element": {
+      "types": "./dist/types/components/avatar-stack/element.d.ts",
+      "default": "./dist/components/avatar-stack/element.js"
     },
     "./back-top": {
       "types": "./dist/types/components/back-top/index.d.ts",
@@ -103,6 +199,14 @@
       "types": "./dist/types/components/banner/element.d.ts",
       "default": "./dist/components/banner/element.js"
     },
+    "./bar-chart": {
+      "types": "./dist/types/components/bar-chart/index.d.ts",
+      "default": "./dist/components/bar-chart/index.js"
+    },
+    "./bar-chart/element": {
+      "types": "./dist/types/components/bar-chart/element.d.ts",
+      "default": "./dist/components/bar-chart/element.js"
+    },
     "./battery-indicator": {
       "types": "./dist/types/components/battery-indicator/index.d.ts",
       "default": "./dist/components/battery-indicator/index.js"
@@ -110,6 +214,38 @@
     "./battery-indicator/element": {
       "types": "./dist/types/components/battery-indicator/element.d.ts",
       "default": "./dist/components/battery-indicator/element.js"
+    },
+    "./bento-grid": {
+      "types": "./dist/types/components/bento-grid/index.d.ts",
+      "default": "./dist/components/bento-grid/index.js"
+    },
+    "./bento-grid/element": {
+      "types": "./dist/types/components/bento-grid/element.d.ts",
+      "default": "./dist/components/bento-grid/element.js"
+    },
+    "./blockquote": {
+      "types": "./dist/types/components/blockquote/index.d.ts",
+      "default": "./dist/components/blockquote/index.js"
+    },
+    "./blockquote/element": {
+      "types": "./dist/types/components/blockquote/element.d.ts",
+      "default": "./dist/components/blockquote/element.js"
+    },
+    "./book-card": {
+      "types": "./dist/types/components/book-card/index.d.ts",
+      "default": "./dist/components/book-card/index.js"
+    },
+    "./book-card/element": {
+      "types": "./dist/types/components/book-card/element.d.ts",
+      "default": "./dist/components/book-card/element.js"
+    },
+    "./book-cover": {
+      "types": "./dist/types/components/book-cover/index.d.ts",
+      "default": "./dist/components/book-cover/index.js"
+    },
+    "./book-cover/element": {
+      "types": "./dist/types/components/book-cover/element.d.ts",
+      "default": "./dist/components/book-cover/element.js"
     },
     "./bookmark-button": {
       "types": "./dist/types/components/bookmark-button/index.d.ts",
@@ -135,6 +271,14 @@
       "types": "./dist/types/components/box/element.d.ts",
       "default": "./dist/components/box/element.js"
     },
+    "./breadcrumb": {
+      "types": "./dist/types/components/breadcrumb/index.d.ts",
+      "default": "./dist/components/breadcrumb/index.js"
+    },
+    "./breadcrumb/element": {
+      "types": "./dist/types/components/breadcrumb/element.d.ts",
+      "default": "./dist/components/breadcrumb/element.js"
+    },
     "./button": {
       "types": "./dist/types/components/button/index.d.ts",
       "default": "./dist/components/button/index.js"
@@ -142,6 +286,14 @@
     "./button/element": {
       "types": "./dist/types/components/button/element.d.ts",
       "default": "./dist/components/button/element.js"
+    },
+    "./button-group": {
+      "types": "./dist/types/components/button-group/index.d.ts",
+      "default": "./dist/components/button-group/index.js"
+    },
+    "./button-group/element": {
+      "types": "./dist/types/components/button-group/element.d.ts",
+      "default": "./dist/components/button-group/element.js"
     },
     "./callout": {
       "types": "./dist/types/components/callout/index.d.ts",
@@ -151,6 +303,22 @@
       "types": "./dist/types/components/callout/element.d.ts",
       "default": "./dist/components/callout/element.js"
     },
+    "./card": {
+      "types": "./dist/types/components/card/index.d.ts",
+      "default": "./dist/components/card/index.js"
+    },
+    "./card/element": {
+      "types": "./dist/types/components/card/element.d.ts",
+      "default": "./dist/components/card/element.js"
+    },
+    "./carousel": {
+      "types": "./dist/types/components/carousel/index.d.ts",
+      "default": "./dist/components/carousel/index.js"
+    },
+    "./carousel/element": {
+      "types": "./dist/types/components/carousel/element.d.ts",
+      "default": "./dist/components/carousel/element.js"
+    },
     "./center": {
       "types": "./dist/types/components/center/index.d.ts",
       "default": "./dist/components/center/index.js"
@@ -158,6 +326,14 @@
     "./center/element": {
       "types": "./dist/types/components/center/element.d.ts",
       "default": "./dist/components/center/element.js"
+    },
+    "./chat-bubble": {
+      "types": "./dist/types/components/chat-bubble/index.d.ts",
+      "default": "./dist/components/chat-bubble/index.js"
+    },
+    "./chat-bubble/element": {
+      "types": "./dist/types/components/chat-bubble/element.d.ts",
+      "default": "./dist/components/chat-bubble/element.js"
     },
     "./checkbox": {
       "types": "./dist/types/components/checkbox/index.d.ts",
@@ -167,6 +343,22 @@
       "types": "./dist/types/components/checkbox/element.d.ts",
       "default": "./dist/components/checkbox/element.js"
     },
+    "./checkbox-card-group": {
+      "types": "./dist/types/components/checkbox-card-group/index.d.ts",
+      "default": "./dist/components/checkbox-card-group/index.js"
+    },
+    "./checkbox-card-group/element": {
+      "types": "./dist/types/components/checkbox-card-group/element.d.ts",
+      "default": "./dist/components/checkbox-card-group/element.js"
+    },
+    "./clock": {
+      "types": "./dist/types/components/clock/index.d.ts",
+      "default": "./dist/components/clock/index.js"
+    },
+    "./clock/element": {
+      "types": "./dist/types/components/clock/element.d.ts",
+      "default": "./dist/components/clock/element.js"
+    },
     "./code": {
       "types": "./dist/types/components/code/index.d.ts",
       "default": "./dist/components/code/index.js"
@@ -174,6 +366,86 @@
     "./code/element": {
       "types": "./dist/types/components/code/element.d.ts",
       "default": "./dist/components/code/element.js"
+    },
+    "./code-editor": {
+      "types": "./dist/types/components/code-editor/index.d.ts",
+      "default": "./dist/components/code-editor/index.js"
+    },
+    "./code-editor/element": {
+      "types": "./dist/types/components/code-editor/element.d.ts",
+      "default": "./dist/components/code-editor/element.js"
+    },
+    "./collapsible": {
+      "types": "./dist/types/components/collapsible/index.d.ts",
+      "default": "./dist/components/collapsible/index.js"
+    },
+    "./collapsible/element": {
+      "types": "./dist/types/components/collapsible/element.d.ts",
+      "default": "./dist/components/collapsible/element.js"
+    },
+    "./collection-view": {
+      "types": "./dist/types/components/collection-view/index.d.ts",
+      "default": "./dist/components/collection-view/index.js"
+    },
+    "./collection-view/element": {
+      "types": "./dist/types/components/collection-view/element.d.ts",
+      "default": "./dist/components/collection-view/element.js"
+    },
+    "./color-picker": {
+      "types": "./dist/types/components/color-picker/index.d.ts",
+      "default": "./dist/components/color-picker/index.js"
+    },
+    "./color-picker/element": {
+      "types": "./dist/types/components/color-picker/element.d.ts",
+      "default": "./dist/components/color-picker/element.js"
+    },
+    "./color-swatch": {
+      "types": "./dist/types/components/color-swatch/index.d.ts",
+      "default": "./dist/components/color-swatch/index.js"
+    },
+    "./color-swatch/element": {
+      "types": "./dist/types/components/color-swatch/element.d.ts",
+      "default": "./dist/components/color-swatch/element.js"
+    },
+    "./combobox": {
+      "types": "./dist/types/components/combobox/index.d.ts",
+      "default": "./dist/components/combobox/index.js"
+    },
+    "./combobox/element": {
+      "types": "./dist/types/components/combobox/element.d.ts",
+      "default": "./dist/components/combobox/element.js"
+    },
+    "./compare-slider": {
+      "types": "./dist/types/components/compare-slider/index.d.ts",
+      "default": "./dist/components/compare-slider/index.js"
+    },
+    "./compare-slider/element": {
+      "types": "./dist/types/components/compare-slider/element.d.ts",
+      "default": "./dist/components/compare-slider/element.js"
+    },
+    "./comparison-grid": {
+      "types": "./dist/types/components/comparison-grid/index.d.ts",
+      "default": "./dist/components/comparison-grid/index.js"
+    },
+    "./comparison-grid/element": {
+      "types": "./dist/types/components/comparison-grid/element.d.ts",
+      "default": "./dist/components/comparison-grid/element.js"
+    },
+    "./component-showcase": {
+      "types": "./dist/types/components/component-showcase/index.d.ts",
+      "default": "./dist/components/component-showcase/index.js"
+    },
+    "./component-showcase/element": {
+      "types": "./dist/types/components/component-showcase/element.d.ts",
+      "default": "./dist/components/component-showcase/element.js"
+    },
+    "./confetti": {
+      "types": "./dist/types/components/confetti/index.d.ts",
+      "default": "./dist/components/confetti/index.js"
+    },
+    "./confetti/element": {
+      "types": "./dist/types/components/confetti/element.d.ts",
+      "default": "./dist/components/confetti/element.js"
     },
     "./container": {
       "types": "./dist/types/components/container/index.d.ts",
@@ -183,6 +455,22 @@
       "types": "./dist/types/components/container/element.d.ts",
       "default": "./dist/components/container/element.js"
     },
+    "./context-menu": {
+      "types": "./dist/types/components/context-menu/index.d.ts",
+      "default": "./dist/components/context-menu/index.js"
+    },
+    "./context-menu/element": {
+      "types": "./dist/types/components/context-menu/element.d.ts",
+      "default": "./dist/components/context-menu/element.js"
+    },
+    "./copy-block": {
+      "types": "./dist/types/components/copy-block/index.d.ts",
+      "default": "./dist/components/copy-block/index.js"
+    },
+    "./copy-block/element": {
+      "types": "./dist/types/components/copy-block/element.d.ts",
+      "default": "./dist/components/copy-block/element.js"
+    },
     "./copy-button": {
       "types": "./dist/types/components/copy-button/index.d.ts",
       "default": "./dist/components/copy-button/index.js"
@@ -190,6 +478,22 @@
     "./copy-button/element": {
       "types": "./dist/types/components/copy-button/element.d.ts",
       "default": "./dist/components/copy-button/element.js"
+    },
+    "./countdown": {
+      "types": "./dist/types/components/countdown/index.d.ts",
+      "default": "./dist/components/countdown/index.js"
+    },
+    "./countdown/element": {
+      "types": "./dist/types/components/countdown/element.d.ts",
+      "default": "./dist/components/countdown/element.js"
+    },
+    "./cron-expression": {
+      "types": "./dist/types/components/cron-expression/index.d.ts",
+      "default": "./dist/components/cron-expression/index.js"
+    },
+    "./cron-expression/element": {
+      "types": "./dist/types/components/cron-expression/element.d.ts",
+      "default": "./dist/components/cron-expression/element.js"
     },
     "./currency-input": {
       "types": "./dist/types/components/currency-input/index.d.ts",
@@ -199,6 +503,70 @@
       "types": "./dist/types/components/currency-input/element.d.ts",
       "default": "./dist/components/currency-input/element.js"
     },
+    "./data-grid": {
+      "types": "./dist/types/components/data-grid/index.d.ts",
+      "default": "./dist/components/data-grid/index.js"
+    },
+    "./data-grid/element": {
+      "types": "./dist/types/components/data-grid/element.d.ts",
+      "default": "./dist/components/data-grid/element.js"
+    },
+    "./date-input": {
+      "types": "./dist/types/components/date-input/index.d.ts",
+      "default": "./dist/components/date-input/index.js"
+    },
+    "./date-input/element": {
+      "types": "./dist/types/components/date-input/element.d.ts",
+      "default": "./dist/components/date-input/element.js"
+    },
+    "./date-range-filter": {
+      "types": "./dist/types/components/date-range-filter/index.d.ts",
+      "default": "./dist/components/date-range-filter/index.js"
+    },
+    "./date-range-filter/element": {
+      "types": "./dist/types/components/date-range-filter/element.d.ts",
+      "default": "./dist/components/date-range-filter/element.js"
+    },
+    "./date-range-picker": {
+      "types": "./dist/types/components/date-range-picker/index.d.ts",
+      "default": "./dist/components/date-range-picker/index.js"
+    },
+    "./date-range-picker/element": {
+      "types": "./dist/types/components/date-range-picker/element.d.ts",
+      "default": "./dist/components/date-range-picker/element.js"
+    },
+    "./descriptions": {
+      "types": "./dist/types/components/descriptions/index.d.ts",
+      "default": "./dist/components/descriptions/index.js"
+    },
+    "./descriptions/element": {
+      "types": "./dist/types/components/descriptions/element.d.ts",
+      "default": "./dist/components/descriptions/element.js"
+    },
+    "./detail-panel": {
+      "types": "./dist/types/components/detail-panel/index.d.ts",
+      "default": "./dist/components/detail-panel/index.js"
+    },
+    "./detail-panel/element": {
+      "types": "./dist/types/components/detail-panel/element.d.ts",
+      "default": "./dist/components/detail-panel/element.js"
+    },
+    "./diff-viewer": {
+      "types": "./dist/types/components/diff-viewer/index.d.ts",
+      "default": "./dist/components/diff-viewer/index.js"
+    },
+    "./diff-viewer/element": {
+      "types": "./dist/types/components/diff-viewer/element.d.ts",
+      "default": "./dist/components/diff-viewer/element.js"
+    },
+    "./disclosure": {
+      "types": "./dist/types/components/disclosure/index.d.ts",
+      "default": "./dist/components/disclosure/index.js"
+    },
+    "./disclosure/element": {
+      "types": "./dist/types/components/disclosure/element.d.ts",
+      "default": "./dist/components/disclosure/element.js"
+    },
     "./divider": {
       "types": "./dist/types/components/divider/index.d.ts",
       "default": "./dist/components/divider/index.js"
@@ -207,6 +575,14 @@
       "types": "./dist/types/components/divider/element.d.ts",
       "default": "./dist/components/divider/element.js"
     },
+    "./dock": {
+      "types": "./dist/types/components/dock/index.d.ts",
+      "default": "./dist/components/dock/index.js"
+    },
+    "./dock/element": {
+      "types": "./dist/types/components/dock/element.d.ts",
+      "default": "./dist/components/dock/element.js"
+    },
     "./drawer": {
       "types": "./dist/types/components/drawer/index.d.ts",
       "default": "./dist/components/drawer/index.js"
@@ -214,6 +590,22 @@
     "./drawer/element": {
       "types": "./dist/types/components/drawer/element.d.ts",
       "default": "./dist/components/drawer/element.js"
+    },
+    "./dropdown": {
+      "types": "./dist/types/components/dropdown/index.d.ts",
+      "default": "./dist/components/dropdown/index.js"
+    },
+    "./dropdown/element": {
+      "types": "./dist/types/components/dropdown/element.d.ts",
+      "default": "./dist/components/dropdown/element.js"
+    },
+    "./emoji-picker": {
+      "types": "./dist/types/components/emoji-picker/index.d.ts",
+      "default": "./dist/components/emoji-picker/index.js"
+    },
+    "./emoji-picker/element": {
+      "types": "./dist/types/components/emoji-picker/element.d.ts",
+      "default": "./dist/components/emoji-picker/element.js"
     },
     "./empty-state": {
       "types": "./dist/types/components/empty-state/index.d.ts",
@@ -231,6 +623,14 @@
       "types": "./dist/types/components/error-boundary/element.d.ts",
       "default": "./dist/components/error-boundary/element.js"
     },
+    "./exif-panel": {
+      "types": "./dist/types/components/exif-panel/index.d.ts",
+      "default": "./dist/components/exif-panel/index.js"
+    },
+    "./exif-panel/element": {
+      "types": "./dist/types/components/exif-panel/element.d.ts",
+      "default": "./dist/components/exif-panel/element.js"
+    },
     "./file-upload": {
       "types": "./dist/types/components/file-upload/index.d.ts",
       "default": "./dist/components/file-upload/index.js"
@@ -239,6 +639,14 @@
       "types": "./dist/types/components/file-upload/element.d.ts",
       "default": "./dist/components/file-upload/element.js"
     },
+    "./filter-button-group": {
+      "types": "./dist/types/components/filter-button-group/index.d.ts",
+      "default": "./dist/components/filter-button-group/index.js"
+    },
+    "./filter-button-group/element": {
+      "types": "./dist/types/components/filter-button-group/element.d.ts",
+      "default": "./dist/components/filter-button-group/element.js"
+    },
     "./flex": {
       "types": "./dist/types/components/flex/index.d.ts",
       "default": "./dist/components/flex/index.js"
@@ -246,6 +654,14 @@
     "./flex/element": {
       "types": "./dist/types/components/flex/element.d.ts",
       "default": "./dist/components/flex/element.js"
+    },
+    "./floating-action-button": {
+      "types": "./dist/types/components/floating-action-button/index.d.ts",
+      "default": "./dist/components/floating-action-button/index.js"
+    },
+    "./floating-action-button/element": {
+      "types": "./dist/types/components/floating-action-button/element.d.ts",
+      "default": "./dist/components/floating-action-button/element.js"
     },
     "./focus-guard": {
       "types": "./dist/types/components/focus-guard/index.d.ts",
@@ -262,6 +678,46 @@
     "./follow-button/element": {
       "types": "./dist/types/components/follow-button/element.d.ts",
       "default": "./dist/components/follow-button/element.js"
+    },
+    "./form-field": {
+      "types": "./dist/types/components/form-field/index.d.ts",
+      "default": "./dist/components/form-field/index.js"
+    },
+    "./form-field/element": {
+      "types": "./dist/types/components/form-field/element.d.ts",
+      "default": "./dist/components/form-field/element.js"
+    },
+    "./funnel-chart": {
+      "types": "./dist/types/components/funnel-chart/index.d.ts",
+      "default": "./dist/components/funnel-chart/index.js"
+    },
+    "./funnel-chart/element": {
+      "types": "./dist/types/components/funnel-chart/element.d.ts",
+      "default": "./dist/components/funnel-chart/element.js"
+    },
+    "./gauge-chart": {
+      "types": "./dist/types/components/gauge-chart/index.d.ts",
+      "default": "./dist/components/gauge-chart/index.js"
+    },
+    "./gauge-chart/element": {
+      "types": "./dist/types/components/gauge-chart/element.d.ts",
+      "default": "./dist/components/gauge-chart/element.js"
+    },
+    "./globe": {
+      "types": "./dist/types/components/globe/index.d.ts",
+      "default": "./dist/components/globe/index.js"
+    },
+    "./globe/element": {
+      "types": "./dist/types/components/globe/element.d.ts",
+      "default": "./dist/components/globe/element.js"
+    },
+    "./gradient-border": {
+      "types": "./dist/types/components/gradient-border/index.d.ts",
+      "default": "./dist/components/gradient-border/index.js"
+    },
+    "./gradient-border/element": {
+      "types": "./dist/types/components/gradient-border/element.d.ts",
+      "default": "./dist/components/gradient-border/element.js"
     },
     "./grid": {
       "types": "./dist/types/components/grid/index.d.ts",
@@ -303,6 +759,14 @@
       "types": "./dist/types/components/heading/element.d.ts",
       "default": "./dist/components/heading/element.js"
     },
+    "./heatmap": {
+      "types": "./dist/types/components/heatmap/index.d.ts",
+      "default": "./dist/components/heatmap/index.js"
+    },
+    "./heatmap/element": {
+      "types": "./dist/types/components/heatmap/element.d.ts",
+      "default": "./dist/components/heatmap/element.js"
+    },
     "./highlight": {
       "types": "./dist/types/components/highlight/index.d.ts",
       "default": "./dist/components/highlight/index.js"
@@ -310,6 +774,22 @@
     "./highlight/element": {
       "types": "./dist/types/components/highlight/element.d.ts",
       "default": "./dist/components/highlight/element.js"
+    },
+    "./hint": {
+      "types": "./dist/types/components/hint/index.d.ts",
+      "default": "./dist/components/hint/index.js"
+    },
+    "./hint/element": {
+      "types": "./dist/types/components/hint/element.d.ts",
+      "default": "./dist/components/hint/element.js"
+    },
+    "./hover-card": {
+      "types": "./dist/types/components/hover-card/index.d.ts",
+      "default": "./dist/components/hover-card/index.js"
+    },
+    "./hover-card/element": {
+      "types": "./dist/types/components/hover-card/element.d.ts",
+      "default": "./dist/components/hover-card/element.js"
     },
     "./hstack": {
       "types": "./dist/types/components/hstack/index.d.ts",
@@ -343,6 +823,62 @@
       "types": "./dist/types/components/image/element.d.ts",
       "default": "./dist/components/image/element.js"
     },
+    "./image-compare": {
+      "types": "./dist/types/components/image-compare/index.d.ts",
+      "default": "./dist/components/image-compare/index.js"
+    },
+    "./image-compare/element": {
+      "types": "./dist/types/components/image-compare/element.d.ts",
+      "default": "./dist/components/image-compare/element.js"
+    },
+    "./image-cropper": {
+      "types": "./dist/types/components/image-cropper/index.d.ts",
+      "default": "./dist/components/image-cropper/index.js"
+    },
+    "./image-cropper/element": {
+      "types": "./dist/types/components/image-cropper/element.d.ts",
+      "default": "./dist/components/image-cropper/element.js"
+    },
+    "./image-lightbox": {
+      "types": "./dist/types/components/image-lightbox/index.d.ts",
+      "default": "./dist/components/image-lightbox/index.js"
+    },
+    "./image-lightbox/element": {
+      "types": "./dist/types/components/image-lightbox/element.d.ts",
+      "default": "./dist/components/image-lightbox/element.js"
+    },
+    "./image-with-fallback": {
+      "types": "./dist/types/components/image-with-fallback/index.d.ts",
+      "default": "./dist/components/image-with-fallback/index.js"
+    },
+    "./image-with-fallback/element": {
+      "types": "./dist/types/components/image-with-fallback/element.d.ts",
+      "default": "./dist/components/image-with-fallback/element.js"
+    },
+    "./image-zoom": {
+      "types": "./dist/types/components/image-zoom/index.d.ts",
+      "default": "./dist/components/image-zoom/index.js"
+    },
+    "./image-zoom/element": {
+      "types": "./dist/types/components/image-zoom/element.d.ts",
+      "default": "./dist/components/image-zoom/element.js"
+    },
+    "./inline-edit": {
+      "types": "./dist/types/components/inline-edit/index.d.ts",
+      "default": "./dist/components/inline-edit/index.js"
+    },
+    "./inline-edit/element": {
+      "types": "./dist/types/components/inline-edit/element.d.ts",
+      "default": "./dist/components/inline-edit/element.js"
+    },
+    "./json-viewer": {
+      "types": "./dist/types/components/json-viewer/index.d.ts",
+      "default": "./dist/components/json-viewer/index.js"
+    },
+    "./json-viewer/element": {
+      "types": "./dist/types/components/json-viewer/element.d.ts",
+      "default": "./dist/components/json-viewer/element.js"
+    },
     "./kbd": {
       "types": "./dist/types/components/kbd/index.d.ts",
       "default": "./dist/components/kbd/index.js"
@@ -358,6 +894,14 @@
     "./key-cap/element": {
       "types": "./dist/types/components/key-cap/element.d.ts",
       "default": "./dist/components/key-cap/element.js"
+    },
+    "./key-value-grid": {
+      "types": "./dist/types/components/key-value-grid/index.d.ts",
+      "default": "./dist/components/key-value-grid/index.js"
+    },
+    "./key-value-grid/element": {
+      "types": "./dist/types/components/key-value-grid/element.d.ts",
+      "default": "./dist/components/key-value-grid/element.js"
     },
     "./label": {
       "types": "./dist/types/components/label/index.d.ts",
@@ -375,6 +919,14 @@
       "types": "./dist/types/components/like-button/element.d.ts",
       "default": "./dist/components/like-button/element.js"
     },
+    "./line-chart": {
+      "types": "./dist/types/components/line-chart/index.d.ts",
+      "default": "./dist/components/line-chart/index.js"
+    },
+    "./line-chart/element": {
+      "types": "./dist/types/components/line-chart/element.d.ts",
+      "default": "./dist/components/line-chart/element.js"
+    },
     "./link": {
       "types": "./dist/types/components/link/index.d.ts",
       "default": "./dist/components/link/index.js"
@@ -382,6 +934,30 @@
     "./link/element": {
       "types": "./dist/types/components/link/element.d.ts",
       "default": "./dist/components/link/element.js"
+    },
+    "./loading-button": {
+      "types": "./dist/types/components/loading-button/index.d.ts",
+      "default": "./dist/components/loading-button/index.js"
+    },
+    "./loading-button/element": {
+      "types": "./dist/types/components/loading-button/element.d.ts",
+      "default": "./dist/components/loading-button/element.js"
+    },
+    "./loading-overlay": {
+      "types": "./dist/types/components/loading-overlay/index.d.ts",
+      "default": "./dist/components/loading-overlay/index.js"
+    },
+    "./loading-overlay/element": {
+      "types": "./dist/types/components/loading-overlay/element.d.ts",
+      "default": "./dist/components/loading-overlay/element.js"
+    },
+    "./loading-screen": {
+      "types": "./dist/types/components/loading-screen/index.d.ts",
+      "default": "./dist/components/loading-screen/index.js"
+    },
+    "./loading-screen/element": {
+      "types": "./dist/types/components/loading-screen/element.d.ts",
+      "default": "./dist/components/loading-screen/element.js"
     },
     "./mark": {
       "types": "./dist/types/components/mark/index.d.ts",
@@ -391,6 +967,30 @@
       "types": "./dist/types/components/mark/element.d.ts",
       "default": "./dist/components/mark/element.js"
     },
+    "./markdown-viewer": {
+      "types": "./dist/types/components/markdown-viewer/index.d.ts",
+      "default": "./dist/components/markdown-viewer/index.js"
+    },
+    "./markdown-viewer/element": {
+      "types": "./dist/types/components/markdown-viewer/element.d.ts",
+      "default": "./dist/components/markdown-viewer/element.js"
+    },
+    "./marquee": {
+      "types": "./dist/types/components/marquee/index.d.ts",
+      "default": "./dist/components/marquee/index.js"
+    },
+    "./marquee/element": {
+      "types": "./dist/types/components/marquee/element.d.ts",
+      "default": "./dist/components/marquee/element.js"
+    },
+    "./mention": {
+      "types": "./dist/types/components/mention/index.d.ts",
+      "default": "./dist/components/mention/index.js"
+    },
+    "./mention/element": {
+      "types": "./dist/types/components/mention/element.d.ts",
+      "default": "./dist/components/mention/element.js"
+    },
     "./mention-chip": {
       "types": "./dist/types/components/mention-chip/index.d.ts",
       "default": "./dist/components/mention-chip/index.js"
@@ -398,6 +998,30 @@
     "./mention-chip/element": {
       "types": "./dist/types/components/mention-chip/element.d.ts",
       "default": "./dist/components/mention-chip/element.js"
+    },
+    "./menubar": {
+      "types": "./dist/types/components/menubar/index.d.ts",
+      "default": "./dist/components/menubar/index.js"
+    },
+    "./menubar/element": {
+      "types": "./dist/types/components/menubar/element.d.ts",
+      "default": "./dist/components/menubar/element.js"
+    },
+    "./metric-card": {
+      "types": "./dist/types/components/metric-card/index.d.ts",
+      "default": "./dist/components/metric-card/index.js"
+    },
+    "./metric-card/element": {
+      "types": "./dist/types/components/metric-card/element.d.ts",
+      "default": "./dist/components/metric-card/element.js"
+    },
+    "./mini-chart": {
+      "types": "./dist/types/components/mini-chart/index.d.ts",
+      "default": "./dist/components/mini-chart/index.js"
+    },
+    "./mini-chart/element": {
+      "types": "./dist/types/components/mini-chart/element.d.ts",
+      "default": "./dist/components/mini-chart/element.js"
     },
     "./modal": {
       "types": "./dist/types/components/modal/index.d.ts",
@@ -407,6 +1031,14 @@
       "types": "./dist/types/components/modal/element.d.ts",
       "default": "./dist/components/modal/element.js"
     },
+    "./month-picker": {
+      "types": "./dist/types/components/month-picker/index.d.ts",
+      "default": "./dist/components/month-picker/index.js"
+    },
+    "./month-picker/element": {
+      "types": "./dist/types/components/month-picker/element.d.ts",
+      "default": "./dist/components/month-picker/element.js"
+    },
     "./motion": {
       "types": "./dist/types/components/motion/index.d.ts",
       "default": "./dist/components/motion/index.js"
@@ -414,6 +1046,22 @@
     "./motion/element": {
       "types": "./dist/types/components/motion/element.d.ts",
       "default": "./dist/components/motion/element.js"
+    },
+    "./multi-select": {
+      "types": "./dist/types/components/multi-select/index.d.ts",
+      "default": "./dist/components/multi-select/index.js"
+    },
+    "./multi-select/element": {
+      "types": "./dist/types/components/multi-select/element.d.ts",
+      "default": "./dist/components/multi-select/element.js"
+    },
+    "./navigation-menu": {
+      "types": "./dist/types/components/navigation-menu/index.d.ts",
+      "default": "./dist/components/navigation-menu/index.js"
+    },
+    "./navigation-menu/element": {
+      "types": "./dist/types/components/navigation-menu/element.d.ts",
+      "default": "./dist/components/navigation-menu/element.js"
     },
     "./notification": {
       "types": "./dist/types/components/notification/index.d.ts",
@@ -439,6 +1087,30 @@
       "types": "./dist/types/components/number-input/element.d.ts",
       "default": "./dist/components/number-input/element.js"
     },
+    "./offline-indicator": {
+      "types": "./dist/types/components/offline-indicator/index.d.ts",
+      "default": "./dist/components/offline-indicator/index.js"
+    },
+    "./offline-indicator/element": {
+      "types": "./dist/types/components/offline-indicator/element.d.ts",
+      "default": "./dist/components/offline-indicator/element.js"
+    },
+    "./onboarding": {
+      "types": "./dist/types/components/onboarding/index.d.ts",
+      "default": "./dist/components/onboarding/index.js"
+    },
+    "./onboarding/element": {
+      "types": "./dist/types/components/onboarding/element.d.ts",
+      "default": "./dist/components/onboarding/element.js"
+    },
+    "./online-status": {
+      "types": "./dist/types/components/online-status/index.d.ts",
+      "default": "./dist/components/online-status/index.js"
+    },
+    "./online-status/element": {
+      "types": "./dist/types/components/online-status/element.d.ts",
+      "default": "./dist/components/online-status/element.js"
+    },
     "./otp-input": {
       "types": "./dist/types/components/otp-input/index.d.ts",
       "default": "./dist/components/otp-input/index.js"
@@ -463,6 +1135,14 @@
       "types": "./dist/types/components/page/element.d.ts",
       "default": "./dist/components/page/element.js"
     },
+    "./pagination": {
+      "types": "./dist/types/components/pagination/index.d.ts",
+      "default": "./dist/components/pagination/index.js"
+    },
+    "./pagination/element": {
+      "types": "./dist/types/components/pagination/element.d.ts",
+      "default": "./dist/components/pagination/element.js"
+    },
     "./password-input": {
       "types": "./dist/types/components/password-input/index.d.ts",
       "default": "./dist/components/password-input/index.js"
@@ -470,6 +1150,14 @@
     "./password-input/element": {
       "types": "./dist/types/components/password-input/element.d.ts",
       "default": "./dist/components/password-input/element.js"
+    },
+    "./password-strength": {
+      "types": "./dist/types/components/password-strength/index.d.ts",
+      "default": "./dist/components/password-strength/index.js"
+    },
+    "./password-strength/element": {
+      "types": "./dist/types/components/password-strength/element.d.ts",
+      "default": "./dist/components/password-strength/element.js"
     },
     "./phone-input": {
       "types": "./dist/types/components/phone-input/index.d.ts",
@@ -479,6 +1167,62 @@
       "types": "./dist/types/components/phone-input/element.d.ts",
       "default": "./dist/components/phone-input/element.js"
     },
+    "./photo-card": {
+      "types": "./dist/types/components/photo-card/index.d.ts",
+      "default": "./dist/components/photo-card/index.js"
+    },
+    "./photo-card/element": {
+      "types": "./dist/types/components/photo-card/element.d.ts",
+      "default": "./dist/components/photo-card/element.js"
+    },
+    "./photo-carousel": {
+      "types": "./dist/types/components/photo-carousel/index.d.ts",
+      "default": "./dist/components/photo-carousel/index.js"
+    },
+    "./photo-carousel/element": {
+      "types": "./dist/types/components/photo-carousel/element.d.ts",
+      "default": "./dist/components/photo-carousel/element.js"
+    },
+    "./photo-filters": {
+      "types": "./dist/types/components/photo-filters/index.d.ts",
+      "default": "./dist/components/photo-filters/index.js"
+    },
+    "./photo-filters/element": {
+      "types": "./dist/types/components/photo-filters/element.d.ts",
+      "default": "./dist/components/photo-filters/element.js"
+    },
+    "./photo-grid": {
+      "types": "./dist/types/components/photo-grid/index.d.ts",
+      "default": "./dist/components/photo-grid/index.js"
+    },
+    "./photo-grid/element": {
+      "types": "./dist/types/components/photo-grid/element.d.ts",
+      "default": "./dist/components/photo-grid/element.js"
+    },
+    "./photo-lightbox": {
+      "types": "./dist/types/components/photo-lightbox/index.d.ts",
+      "default": "./dist/components/photo-lightbox/index.js"
+    },
+    "./photo-lightbox/element": {
+      "types": "./dist/types/components/photo-lightbox/element.d.ts",
+      "default": "./dist/components/photo-lightbox/element.js"
+    },
+    "./photo-uploader": {
+      "types": "./dist/types/components/photo-uploader/index.d.ts",
+      "default": "./dist/components/photo-uploader/index.js"
+    },
+    "./photo-uploader/element": {
+      "types": "./dist/types/components/photo-uploader/element.d.ts",
+      "default": "./dist/components/photo-uploader/element.js"
+    },
+    "./pie-chart": {
+      "types": "./dist/types/components/pie-chart/index.d.ts",
+      "default": "./dist/components/pie-chart/index.js"
+    },
+    "./pie-chart/element": {
+      "types": "./dist/types/components/pie-chart/element.d.ts",
+      "default": "./dist/components/pie-chart/element.js"
+    },
     "./pin-input": {
       "types": "./dist/types/components/pin-input/index.d.ts",
       "default": "./dist/components/pin-input/index.js"
@@ -487,6 +1231,14 @@
       "types": "./dist/types/components/pin-input/element.d.ts",
       "default": "./dist/components/pin-input/element.js"
     },
+    "./popover": {
+      "types": "./dist/types/components/popover/index.d.ts",
+      "default": "./dist/components/popover/index.js"
+    },
+    "./popover/element": {
+      "types": "./dist/types/components/popover/element.d.ts",
+      "default": "./dist/components/popover/element.js"
+    },
     "./portal": {
       "types": "./dist/types/components/portal/index.d.ts",
       "default": "./dist/components/portal/index.js"
@@ -494,6 +1246,70 @@
     "./portal/element": {
       "types": "./dist/types/components/portal/element.d.ts",
       "default": "./dist/components/portal/element.js"
+    },
+    "./progress-bar": {
+      "types": "./dist/types/components/progress-bar/index.d.ts",
+      "default": "./dist/components/progress-bar/index.js"
+    },
+    "./progress-bar/element": {
+      "types": "./dist/types/components/progress-bar/element.d.ts",
+      "default": "./dist/components/progress-bar/element.js"
+    },
+    "./progress-ring": {
+      "types": "./dist/types/components/progress-ring/index.d.ts",
+      "default": "./dist/components/progress-ring/index.js"
+    },
+    "./progress-ring/element": {
+      "types": "./dist/types/components/progress-ring/element.d.ts",
+      "default": "./dist/components/progress-ring/element.js"
+    },
+    "./progress-steps": {
+      "types": "./dist/types/components/progress-steps/index.d.ts",
+      "default": "./dist/components/progress-steps/index.js"
+    },
+    "./progress-steps/element": {
+      "types": "./dist/types/components/progress-steps/element.d.ts",
+      "default": "./dist/components/progress-steps/element.js"
+    },
+    "./pull-to-refresh": {
+      "types": "./dist/types/components/pull-to-refresh/index.d.ts",
+      "default": "./dist/components/pull-to-refresh/index.js"
+    },
+    "./pull-to-refresh/element": {
+      "types": "./dist/types/components/pull-to-refresh/element.d.ts",
+      "default": "./dist/components/pull-to-refresh/element.js"
+    },
+    "./qr-code": {
+      "types": "./dist/types/components/qr-code/index.d.ts",
+      "default": "./dist/components/qr-code/index.js"
+    },
+    "./qr-code/element": {
+      "types": "./dist/types/components/qr-code/element.d.ts",
+      "default": "./dist/components/qr-code/element.js"
+    },
+    "./quantity-selector": {
+      "types": "./dist/types/components/quantity-selector/index.d.ts",
+      "default": "./dist/components/quantity-selector/index.js"
+    },
+    "./quantity-selector/element": {
+      "types": "./dist/types/components/quantity-selector/element.d.ts",
+      "default": "./dist/components/quantity-selector/element.js"
+    },
+    "./radar-chart": {
+      "types": "./dist/types/components/radar-chart/index.d.ts",
+      "default": "./dist/components/radar-chart/index.js"
+    },
+    "./radar-chart/element": {
+      "types": "./dist/types/components/radar-chart/element.d.ts",
+      "default": "./dist/components/radar-chart/element.js"
+    },
+    "./radio-card-group": {
+      "types": "./dist/types/components/radio-card-group/index.d.ts",
+      "default": "./dist/components/radio-card-group/index.js"
+    },
+    "./radio-card-group/element": {
+      "types": "./dist/types/components/radio-card-group/element.d.ts",
+      "default": "./dist/components/radio-card-group/element.js"
     },
     "./radio-group": {
       "types": "./dist/types/components/radio-group/index.d.ts",
@@ -511,6 +1327,30 @@
       "types": "./dist/types/components/range-slider/element.d.ts",
       "default": "./dist/components/range-slider/element.js"
     },
+    "./rating": {
+      "types": "./dist/types/components/rating/index.d.ts",
+      "default": "./dist/components/rating/index.js"
+    },
+    "./rating/element": {
+      "types": "./dist/types/components/rating/element.d.ts",
+      "default": "./dist/components/rating/element.js"
+    },
+    "./reading-time": {
+      "types": "./dist/types/components/reading-time/index.d.ts",
+      "default": "./dist/components/reading-time/index.js"
+    },
+    "./reading-time/element": {
+      "types": "./dist/types/components/reading-time/element.d.ts",
+      "default": "./dist/components/reading-time/element.js"
+    },
+    "./resizable": {
+      "types": "./dist/types/components/resizable/index.d.ts",
+      "default": "./dist/components/resizable/index.js"
+    },
+    "./resizable/element": {
+      "types": "./dist/types/components/resizable/element.d.ts",
+      "default": "./dist/components/resizable/element.js"
+    },
     "./result": {
       "types": "./dist/types/components/result/index.d.ts",
       "default": "./dist/components/result/index.js"
@@ -518,6 +1358,22 @@
     "./result/element": {
       "types": "./dist/types/components/result/element.d.ts",
       "default": "./dist/components/result/element.js"
+    },
+    "./sankey-diagram": {
+      "types": "./dist/types/components/sankey-diagram/index.d.ts",
+      "default": "./dist/components/sankey-diagram/index.js"
+    },
+    "./sankey-diagram/element": {
+      "types": "./dist/types/components/sankey-diagram/element.d.ts",
+      "default": "./dist/components/sankey-diagram/element.js"
+    },
+    "./scatter-plot": {
+      "types": "./dist/types/components/scatter-plot/index.d.ts",
+      "default": "./dist/components/scatter-plot/index.js"
+    },
+    "./scatter-plot/element": {
+      "types": "./dist/types/components/scatter-plot/element.d.ts",
+      "default": "./dist/components/scatter-plot/element.js"
     },
     "./scroll-area": {
       "types": "./dist/types/components/scroll-area/index.d.ts",
@@ -527,6 +1383,38 @@
       "types": "./dist/types/components/scroll-area/element.d.ts",
       "default": "./dist/components/scroll-area/element.js"
     },
+    "./scroll-progress": {
+      "types": "./dist/types/components/scroll-progress/index.d.ts",
+      "default": "./dist/components/scroll-progress/index.js"
+    },
+    "./scroll-progress/element": {
+      "types": "./dist/types/components/scroll-progress/element.d.ts",
+      "default": "./dist/components/scroll-progress/element.js"
+    },
+    "./scroll-spy": {
+      "types": "./dist/types/components/scroll-spy/index.d.ts",
+      "default": "./dist/components/scroll-spy/index.js"
+    },
+    "./scroll-spy/element": {
+      "types": "./dist/types/components/scroll-spy/element.d.ts",
+      "default": "./dist/components/scroll-spy/element.js"
+    },
+    "./search-bar": {
+      "types": "./dist/types/components/search-bar/index.d.ts",
+      "default": "./dist/components/search-bar/index.js"
+    },
+    "./search-bar/element": {
+      "types": "./dist/types/components/search-bar/element.d.ts",
+      "default": "./dist/components/search-bar/element.js"
+    },
+    "./search-input": {
+      "types": "./dist/types/components/search-input/index.d.ts",
+      "default": "./dist/components/search-input/index.js"
+    },
+    "./search-input/element": {
+      "types": "./dist/types/components/search-input/element.d.ts",
+      "default": "./dist/components/search-input/element.js"
+    },
     "./section": {
       "types": "./dist/types/components/section/index.d.ts",
       "default": "./dist/components/section/index.js"
@@ -534,6 +1422,30 @@
     "./section/element": {
       "types": "./dist/types/components/section/element.d.ts",
       "default": "./dist/components/section/element.js"
+    },
+    "./security-badge": {
+      "types": "./dist/types/components/security-badge/index.d.ts",
+      "default": "./dist/components/security-badge/index.js"
+    },
+    "./security-badge/element": {
+      "types": "./dist/types/components/security-badge/element.d.ts",
+      "default": "./dist/components/security-badge/element.js"
+    },
+    "./segmented-control": {
+      "types": "./dist/types/components/segmented-control/index.d.ts",
+      "default": "./dist/components/segmented-control/index.js"
+    },
+    "./segmented-control/element": {
+      "types": "./dist/types/components/segmented-control/element.d.ts",
+      "default": "./dist/components/segmented-control/element.js"
+    },
+    "./select": {
+      "types": "./dist/types/components/select/index.d.ts",
+      "default": "./dist/components/select/index.js"
+    },
+    "./select/element": {
+      "types": "./dist/types/components/select/element.d.ts",
+      "default": "./dist/components/select/element.js"
     },
     "./severity-badge": {
       "types": "./dist/types/components/severity-badge/index.d.ts",
@@ -551,6 +1463,14 @@
       "types": "./dist/types/components/show/element.d.ts",
       "default": "./dist/components/show/element.js"
     },
+    "./signature-pad": {
+      "types": "./dist/types/components/signature-pad/index.d.ts",
+      "default": "./dist/components/signature-pad/index.js"
+    },
+    "./signature-pad/element": {
+      "types": "./dist/types/components/signature-pad/element.d.ts",
+      "default": "./dist/components/signature-pad/element.js"
+    },
     "./simple-grid": {
       "types": "./dist/types/components/simple-grid/index.d.ts",
       "default": "./dist/components/simple-grid/index.js"
@@ -558,6 +1478,22 @@
     "./simple-grid/element": {
       "types": "./dist/types/components/simple-grid/element.d.ts",
       "default": "./dist/components/simple-grid/element.js"
+    },
+    "./skeleton": {
+      "types": "./dist/types/components/skeleton/index.d.ts",
+      "default": "./dist/components/skeleton/index.js"
+    },
+    "./skeleton/element": {
+      "types": "./dist/types/components/skeleton/element.d.ts",
+      "default": "./dist/components/skeleton/element.js"
+    },
+    "./skeleton-preset": {
+      "types": "./dist/types/components/skeleton-preset/index.d.ts",
+      "default": "./dist/components/skeleton-preset/index.js"
+    },
+    "./skeleton-preset/element": {
+      "types": "./dist/types/components/skeleton-preset/element.d.ts",
+      "default": "./dist/components/skeleton-preset/element.js"
     },
     "./slider": {
       "types": "./dist/types/components/slider/index.d.ts",
@@ -591,6 +1527,38 @@
       "types": "./dist/types/components/spinner/element.d.ts",
       "default": "./dist/components/spinner/element.js"
     },
+    "./split-pane": {
+      "types": "./dist/types/components/split-pane/index.d.ts",
+      "default": "./dist/components/split-pane/index.js"
+    },
+    "./split-pane/element": {
+      "types": "./dist/types/components/split-pane/element.d.ts",
+      "default": "./dist/components/split-pane/element.js"
+    },
+    "./spoiler-block": {
+      "types": "./dist/types/components/spoiler-block/index.d.ts",
+      "default": "./dist/components/spoiler-block/index.js"
+    },
+    "./spoiler-block/element": {
+      "types": "./dist/types/components/spoiler-block/element.d.ts",
+      "default": "./dist/components/spoiler-block/element.js"
+    },
+    "./spotlight": {
+      "types": "./dist/types/components/spotlight/index.d.ts",
+      "default": "./dist/components/spotlight/index.js"
+    },
+    "./spotlight/element": {
+      "types": "./dist/types/components/spotlight/element.d.ts",
+      "default": "./dist/components/spotlight/element.js"
+    },
+    "./spotlight-card": {
+      "types": "./dist/types/components/spotlight-card/index.d.ts",
+      "default": "./dist/components/spotlight-card/index.js"
+    },
+    "./spotlight-card/element": {
+      "types": "./dist/types/components/spotlight-card/element.d.ts",
+      "default": "./dist/components/spotlight-card/element.js"
+    },
     "./stack": {
       "types": "./dist/types/components/stack/index.d.ts",
       "default": "./dist/components/stack/index.js"
@@ -607,6 +1575,22 @@
       "types": "./dist/types/components/star-rating/element.d.ts",
       "default": "./dist/components/star-rating/element.js"
     },
+    "./stat": {
+      "types": "./dist/types/components/stat/index.d.ts",
+      "default": "./dist/components/stat/index.js"
+    },
+    "./stat/element": {
+      "types": "./dist/types/components/stat/element.d.ts",
+      "default": "./dist/components/stat/element.js"
+    },
+    "./stat-card": {
+      "types": "./dist/types/components/stat-card/index.d.ts",
+      "default": "./dist/components/stat-card/index.js"
+    },
+    "./stat-card/element": {
+      "types": "./dist/types/components/stat-card/element.d.ts",
+      "default": "./dist/components/stat-card/element.js"
+    },
     "./status-dot": {
       "types": "./dist/types/components/status-dot/index.d.ts",
       "default": "./dist/components/status-dot/index.js"
@@ -614,6 +1598,30 @@
     "./status-dot/element": {
       "types": "./dist/types/components/status-dot/element.d.ts",
       "default": "./dist/components/status-dot/element.js"
+    },
+    "./stepper": {
+      "types": "./dist/types/components/stepper/index.d.ts",
+      "default": "./dist/components/stepper/index.js"
+    },
+    "./stepper/element": {
+      "types": "./dist/types/components/stepper/element.d.ts",
+      "default": "./dist/components/stepper/element.js"
+    },
+    "./sticky": {
+      "types": "./dist/types/components/sticky/index.d.ts",
+      "default": "./dist/components/sticky/index.js"
+    },
+    "./sticky/element": {
+      "types": "./dist/types/components/sticky/element.d.ts",
+      "default": "./dist/components/sticky/element.js"
+    },
+    "./swipe-action": {
+      "types": "./dist/types/components/swipe-action/index.d.ts",
+      "default": "./dist/components/swipe-action/index.js"
+    },
+    "./swipe-action/element": {
+      "types": "./dist/types/components/swipe-action/element.d.ts",
+      "default": "./dist/components/swipe-action/element.js"
     },
     "./switch": {
       "types": "./dist/types/components/switch/index.d.ts",
@@ -623,6 +1631,30 @@
       "types": "./dist/types/components/switch/element.d.ts",
       "default": "./dist/components/switch/element.js"
     },
+    "./table": {
+      "types": "./dist/types/components/table/index.d.ts",
+      "default": "./dist/components/table/index.js"
+    },
+    "./table/element": {
+      "types": "./dist/types/components/table/element.d.ts",
+      "default": "./dist/components/table/element.js"
+    },
+    "./table-of-contents": {
+      "types": "./dist/types/components/table-of-contents/index.d.ts",
+      "default": "./dist/components/table-of-contents/index.js"
+    },
+    "./table-of-contents/element": {
+      "types": "./dist/types/components/table-of-contents/element.d.ts",
+      "default": "./dist/components/table-of-contents/element.js"
+    },
+    "./tabs": {
+      "types": "./dist/types/components/tabs/index.d.ts",
+      "default": "./dist/components/tabs/index.js"
+    },
+    "./tabs/element": {
+      "types": "./dist/types/components/tabs/element.d.ts",
+      "default": "./dist/components/tabs/element.js"
+    },
     "./tag": {
       "types": "./dist/types/components/tag/index.d.ts",
       "default": "./dist/components/tag/index.js"
@@ -630,6 +1662,14 @@
     "./tag/element": {
       "types": "./dist/types/components/tag/element.d.ts",
       "default": "./dist/components/tag/element.js"
+    },
+    "./tag-input": {
+      "types": "./dist/types/components/tag-input/index.d.ts",
+      "default": "./dist/components/tag-input/index.js"
+    },
+    "./tag-input/element": {
+      "types": "./dist/types/components/tag-input/element.d.ts",
+      "default": "./dist/components/tag-input/element.js"
     },
     "./text": {
       "types": "./dist/types/components/text/index.d.ts",
@@ -655,6 +1695,38 @@
       "types": "./dist/types/components/textarea/element.d.ts",
       "default": "./dist/components/textarea/element.js"
     },
+    "./textarea-autosize": {
+      "types": "./dist/types/components/textarea-autosize/index.d.ts",
+      "default": "./dist/components/textarea-autosize/index.js"
+    },
+    "./textarea-autosize/element": {
+      "types": "./dist/types/components/textarea-autosize/element.d.ts",
+      "default": "./dist/components/textarea-autosize/element.js"
+    },
+    "./thinking-indicator": {
+      "types": "./dist/types/components/thinking-indicator/index.d.ts",
+      "default": "./dist/components/thinking-indicator/index.js"
+    },
+    "./thinking-indicator/element": {
+      "types": "./dist/types/components/thinking-indicator/element.d.ts",
+      "default": "./dist/components/thinking-indicator/element.js"
+    },
+    "./time-picker": {
+      "types": "./dist/types/components/time-picker/index.d.ts",
+      "default": "./dist/components/time-picker/index.js"
+    },
+    "./time-picker/element": {
+      "types": "./dist/types/components/time-picker/element.d.ts",
+      "default": "./dist/components/time-picker/element.js"
+    },
+    "./timeline": {
+      "types": "./dist/types/components/timeline/index.d.ts",
+      "default": "./dist/components/timeline/index.js"
+    },
+    "./timeline/element": {
+      "types": "./dist/types/components/timeline/element.d.ts",
+      "default": "./dist/components/timeline/element.js"
+    },
     "./toast": {
       "types": "./dist/types/components/toast/index.d.ts",
       "default": "./dist/components/toast/index.js"
@@ -670,6 +1742,78 @@
     "./toggle/element": {
       "types": "./dist/types/components/toggle/element.d.ts",
       "default": "./dist/components/toggle/element.js"
+    },
+    "./tooltip": {
+      "types": "./dist/types/components/tooltip/index.d.ts",
+      "default": "./dist/components/tooltip/index.js"
+    },
+    "./tooltip/element": {
+      "types": "./dist/types/components/tooltip/element.d.ts",
+      "default": "./dist/components/tooltip/element.js"
+    },
+    "./transfer": {
+      "types": "./dist/types/components/transfer/index.d.ts",
+      "default": "./dist/components/transfer/index.js"
+    },
+    "./transfer/element": {
+      "types": "./dist/types/components/transfer/element.d.ts",
+      "default": "./dist/components/transfer/element.js"
+    },
+    "./tree-nav": {
+      "types": "./dist/types/components/tree-nav/index.d.ts",
+      "default": "./dist/components/tree-nav/index.js"
+    },
+    "./tree-nav/element": {
+      "types": "./dist/types/components/tree-nav/element.d.ts",
+      "default": "./dist/components/tree-nav/element.js"
+    },
+    "./tree-view": {
+      "types": "./dist/types/components/tree-view/index.d.ts",
+      "default": "./dist/components/tree-view/index.js"
+    },
+    "./tree-view/element": {
+      "types": "./dist/types/components/tree-view/element.d.ts",
+      "default": "./dist/components/tree-view/element.js"
+    },
+    "./treemap-chart": {
+      "types": "./dist/types/components/treemap-chart/index.d.ts",
+      "default": "./dist/components/treemap-chart/index.js"
+    },
+    "./treemap-chart/element": {
+      "types": "./dist/types/components/treemap-chart/element.d.ts",
+      "default": "./dist/components/treemap-chart/element.js"
+    },
+    "./trust-indicator": {
+      "types": "./dist/types/components/trust-indicator/index.d.ts",
+      "default": "./dist/components/trust-indicator/index.js"
+    },
+    "./trust-indicator/element": {
+      "types": "./dist/types/components/trust-indicator/element.d.ts",
+      "default": "./dist/components/trust-indicator/element.js"
+    },
+    "./typewriter": {
+      "types": "./dist/types/components/typewriter/index.d.ts",
+      "default": "./dist/components/typewriter/index.js"
+    },
+    "./typewriter/element": {
+      "types": "./dist/types/components/typewriter/element.d.ts",
+      "default": "./dist/components/typewriter/element.js"
+    },
+    "./video-player": {
+      "types": "./dist/types/components/video-player/index.d.ts",
+      "default": "./dist/components/video-player/index.js"
+    },
+    "./video-player/element": {
+      "types": "./dist/types/components/video-player/element.d.ts",
+      "default": "./dist/components/video-player/element.js"
+    },
+    "./virtual-scroll": {
+      "types": "./dist/types/components/virtual-scroll/index.d.ts",
+      "default": "./dist/components/virtual-scroll/index.js"
+    },
+    "./virtual-scroll/element": {
+      "types": "./dist/types/components/virtual-scroll/element.d.ts",
+      "default": "./dist/components/virtual-scroll/element.js"
     },
     "./visually-hidden": {
       "types": "./dist/types/components/visually-hidden/index.d.ts",
@@ -687,6 +1831,14 @@
       "types": "./dist/types/components/vstack/element.d.ts",
       "default": "./dist/components/vstack/element.js"
     },
+    "./watermark": {
+      "types": "./dist/types/components/watermark/index.d.ts",
+      "default": "./dist/components/watermark/index.js"
+    },
+    "./watermark/element": {
+      "types": "./dist/types/components/watermark/element.d.ts",
+      "default": "./dist/components/watermark/element.js"
+    },
     "./wrap": {
       "types": "./dist/types/components/wrap/index.d.ts",
       "default": "./dist/components/wrap/index.js"
@@ -694,6 +1846,14 @@
     "./wrap/element": {
       "types": "./dist/types/components/wrap/element.d.ts",
       "default": "./dist/components/wrap/element.js"
+    },
+    "./year-picker": {
+      "types": "./dist/types/components/year-picker/index.d.ts",
+      "default": "./dist/components/year-picker/index.js"
+    },
+    "./year-picker/element": {
+      "types": "./dist/types/components/year-picker/element.d.ts",
+      "default": "./dist/components/year-picker/element.js"
     },
     "./behaviors": {
       "types": "./dist/types/behaviors/index.d.ts",
