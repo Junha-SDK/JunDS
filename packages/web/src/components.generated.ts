@@ -10,6 +10,7 @@ export { JdBox } from "./components/box/element.js";
 export { JdButton } from "./components/button/element.js";
 export { JdCenter } from "./components/center/element.js";
 export { JdCheckbox } from "./components/checkbox/element.js";
+export { JdCode } from "./components/code/element.js";
 export { JdContainer } from "./components/container/element.js";
 export { JdCopyButton } from "./components/copy-button/element.js";
 export { JdCurrencyInput } from "./components/currency-input/element.js";
@@ -20,12 +21,19 @@ export { JdGrid } from "./components/grid/element.js";
 export { JdGridLayout } from "./components/grid-layout/element.js";
 export { JdGroup } from "./components/group/element.js";
 export { JdHeading } from "./components/heading/element.js";
+export { JdHighlight } from "./components/highlight/element.js";
 export { JdHStack } from "./components/hstack/element.js";
+export { JdIcon } from "./components/icon/element.js";
 export { JdIconButton } from "./components/icon-button/element.js";
+export { JdImage } from "./components/image/element.js";
 export { JdKbd } from "./components/kbd/element.js";
 export { JdKeyCap } from "./components/key-cap/element.js";
 export { JdLabel } from "./components/label/element.js";
+export { JdLink } from "./components/link/element.js";
+export { JdMark } from "./components/mark/element.js";
 export { JdModal } from "./components/modal/element.js";
+export { JdMotion } from "./components/motion/element.js";
+export { JdNumberFormatter } from "./components/number-formatter/element.js";
 export { JdNumberInput } from "./components/number-input/element.js";
 export { JdOtpInput } from "./components/otp-input/element.js";
 export { JdOverlay } from "./components/overlay/element.js";
@@ -35,6 +43,7 @@ export { JdPhoneInput } from "./components/phone-input/element.js";
 export { JdPinInput } from "./components/pin-input/element.js";
 export { JdRadioGroup } from "./components/radio-group/element.js";
 export { JdRangeSlider } from "./components/range-slider/element.js";
+export { JdScrollArea } from "./components/scroll-area/element.js";
 export { JdSection } from "./components/section/element.js";
 export { JdSeverityBadge } from "./components/severity-badge/element.js";
 export { JdShow, JdHide } from "./components/show/element.js";
@@ -64,6 +73,7 @@ import { JdBox } from "./components/box/element.js";
 import { JdButton } from "./components/button/element.js";
 import { JdCenter } from "./components/center/element.js";
 import { JdCheckbox } from "./components/checkbox/element.js";
+import { JdCode } from "./components/code/element.js";
 import { JdContainer } from "./components/container/element.js";
 import { JdCopyButton } from "./components/copy-button/element.js";
 import { JdCurrencyInput } from "./components/currency-input/element.js";
@@ -74,12 +84,19 @@ import { JdGrid } from "./components/grid/element.js";
 import { JdGridLayout } from "./components/grid-layout/element.js";
 import { JdGroup } from "./components/group/element.js";
 import { JdHeading } from "./components/heading/element.js";
+import { JdHighlight } from "./components/highlight/element.js";
 import { JdHStack } from "./components/hstack/element.js";
+import { JdIcon } from "./components/icon/element.js";
 import { JdIconButton } from "./components/icon-button/element.js";
+import { JdImage } from "./components/image/element.js";
 import { JdKbd } from "./components/kbd/element.js";
 import { JdKeyCap } from "./components/key-cap/element.js";
 import { JdLabel } from "./components/label/element.js";
+import { JdLink } from "./components/link/element.js";
+import { JdMark } from "./components/mark/element.js";
 import { JdModal } from "./components/modal/element.js";
+import { JdMotion } from "./components/motion/element.js";
+import { JdNumberFormatter } from "./components/number-formatter/element.js";
 import { JdNumberInput } from "./components/number-input/element.js";
 import { JdOtpInput } from "./components/otp-input/element.js";
 import { JdOverlay } from "./components/overlay/element.js";
@@ -89,6 +106,7 @@ import { JdPhoneInput } from "./components/phone-input/element.js";
 import { JdPinInput } from "./components/pin-input/element.js";
 import { JdRadioGroup } from "./components/radio-group/element.js";
 import { JdRangeSlider } from "./components/range-slider/element.js";
+import { JdScrollArea } from "./components/scroll-area/element.js";
 import { JdSection } from "./components/section/element.js";
 import { JdSeverityBadge } from "./components/severity-badge/element.js";
 import { JdShow, JdHide } from "./components/show/element.js";
@@ -120,6 +138,7 @@ export const ALL_COMPONENTS = [
   JdButton,
   JdCenter,
   JdCheckbox,
+  JdCode,
   JdContainer,
   JdCopyButton,
   JdCurrencyInput,
@@ -130,12 +149,19 @@ export const ALL_COMPONENTS = [
   JdGridLayout,
   JdGroup,
   JdHeading,
+  JdHighlight,
   JdHStack,
+  JdIcon,
   JdIconButton,
+  JdImage,
   JdKbd,
   JdKeyCap,
   JdLabel,
+  JdLink,
+  JdMark,
   JdModal,
+  JdMotion,
+  JdNumberFormatter,
   JdNumberInput,
   JdOtpInput,
   JdOverlay,
@@ -147,6 +173,7 @@ export const ALL_COMPONENTS = [
   JdPinInput,
   JdRadioGroup,
   JdRangeSlider,
+  JdScrollArea,
   JdSection,
   JdSeverityBadge,
   JdShow,

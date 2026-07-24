@@ -49,6 +49,21 @@ try {
     // 최초 render는 지연 실행(DEC-012-1: DCL/microtask) — rAF+tick으로 플러시 대기
     await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 50))));
 
+    // 진입 애니메이션이 끝난 뒤 감사한다. jd-motion 같은 fill:both 진입 모션은 감사 시점에
+    // 아직 opacity 0이라 색대비가 "실패"로 잡힌다 — 감사 대상은 정지 상태여야 한다.
+    // 무한 반복(스피너 등)은 finished가 영원히 대기하므로 제외하고, 전체에 상한을 둔다.
+    await page.evaluate(
+      () =>
+        new Promise((resolve) => {
+          const finite = document
+            .getAnimations()
+            .filter((a) => a.effect?.getComputedTiming?.().iterations !== Infinity);
+          const done = Promise.all(finite.map((a) => a.finished.catch(() => {})));
+          const cap = new Promise((r) => setTimeout(r, 2000));
+          Promise.race([done, cap]).then(resolve);
+        }),
+    );
+
     // 업그레이드 검증 — 미정의 CE만 있는 죽은 페이지를 감사해 통과하는 것을 차단
     const upgraded = await page.evaluate(() => {
       const jd = [...document.querySelectorAll("*")].filter((el) => el.tagName.startsWith("JD-"));

@@ -4,6 +4,52 @@
 
 ---
 
+## 2026-07-24 — G2-B6 primitives 텍스트·미디어 구현 중 발견 (9행 + AspectRatio 별칭)
+
+### DEC-030. B6 텍스트·미디어 판단 7건
+1. **CE 안의 SVG는 네임스페이스가 다르다(실측 발견)**: `<jd-icon><path d="…"/></jd-icon>`의
+   `<path>`는 HTML 파서가 만든 **HTML 네임스페이스** 요소다. `<svg>`로 append하면 노드는
+   들어가지만 **아무것도 그려지지 않는다** — 헤드리스 실측 스크린샷의 빈 영역으로 발견했다.
+   `svg.innerHTML = 원본`으로 재파싱해야 SVG 네임스페이스로 생성된다. 회귀 고정은
+   `namespaceURI` 단언(테스트가 노드 존재만 보면 이 결함을 통과시킨다).
+2. **AspectRatio는 신규 태그 없이 별칭**(R12 · Divider 선례): B2 `<jd-aspect-ratio-box>`가
+   표면을 전량 커버한다. v2 primitives/AspectRatio의 padding-bottom 트릭 대신 CSS
+   `aspect-ratio`이며, 수치(1.777)·분수("16/9")를 모두 받는 상위집합이다.
+3. **골격 0 컴포넌트 2종**: ScrollArea는 호스트가 곧 스크롤 컨테이너, NumberFormatter는
+   호스트가 곧 텍스트 자리다. v2의 래퍼 div를 승계하지 않는다 — light DOM이라 노드를
+   덧대지 않아도 같은 결과가 나오고, 소비자 CSS가 붙일 자리도 호스트 하나로 단순해진다.
+4. **DEC-014-9(box-sizing 자기 선언) 위반 1건 선제 교정**: jd-scroll-area는 max-height와
+   소비자 padding/border 병용이 기본 사용례인데 box-sizing 미선언이면 총높이가
+   140+24+2=166이 된다(v2 preflight border-box에선 140). e2e가 총높이 140을 고정한다.
+5. **fallback은 절대배치가 아니라 흐름 배치**: jd-image 실패 상태에서 img를 감추므로
+   fallback을 `position:absolute; inset:0`으로 두면 ratio·height를 주지 않은 사용처에서
+   높이가 0이 되어 **아무것도 보이지 않는다**(e2e 실증). placeholder만 절대배치(박스를
+   로딩 중인 img가 준다), fallback은 흐름. 캐시 보정도 **성공만** 추론한다 —
+   `complete && naturalWidth===0`은 "실패"뿐 아니라 "아직 로드하지 않는 환경"에서도
+   참이라(happy-dom 실측) 오탐이 된다. 실패는 캐시된 것이라도 error가 다시 발화한다.
+6. **감속 대응을 JS에서 CSS로 옮겼다**: v2 Motion은 `useReducedMotion`(matchMedia)을 읽어
+   클래스 부착 여부를 정했다 — 프리렌더 산출물이 실행 환경에 따라 달라진다는 뜻이라
+   §3.1-3과 충돌한다. v3는 `@media (prefers-reduced-motion)`로 애니메이션만 끈다(JS 0줄,
+   초기 HTML 동일). 옵트아웃은 `force-motion`. Playwright `emulateMedia`로 양방향 고정.
+7. **semantic 원색은 텍스트 대비를 만족하지 않는다(axe 게이트 실측)**: 10% 틴트 위의
+   `--jd-color-success`(3.6:1) · `--jd-color-warning`(3.3:1)이 AA 미달로 잡혔다 —
+   v2 `text-success`/`text-warning`이 갖고 있던 결함의 승계다. **글자만**
+   `color-mix(… 65%, var(--jd-color-foreground))`로 섞는다(막대·아이콘 등 그래픽은 3:1이라
+   원색 유지). 라이트에선 어두워지고 다크에선 밝아져 한 선언이 양 테마를 함께 만족한다.
+   같은 결함이 B5 jd-password-input 강도 라벨·규칙 텍스트에도 있어 **소급 교정**했다 —
+   빈 값일 땐 게이지가 렌더되지 않아 감사에서 통째로 빠져 있었다(데모에 초기값 2종 추가).
+- **게이트 자체 보강**: web-a11y 감사가 `jd-motion` 진입 모션 중간(opacity 0)을 찍어
+  색대비 실패로 잡았다 — 감사 대상은 정지 상태여야 한다. `document.getAnimations()`의
+  유한 애니메이션 완료를 기다리도록 수정(무한 반복 제외 + 2초 상한). 타이밍 의존
+  플레이키를 함께 제거한다.
+- 검증: vitest 273/273(신규 25) · e2e 43/43(신규 8) · size-gate PASS(평균 1.14KB ·
+  신규 9종 0.50~1.55KB, icon +3.3%는 §1 수정의 의도된 증가로 기준선 갱신 — DEC-024-3 동형)
+  · web-a11y PASS(7페이지 critical/serious 0) · demo/text-media.html 헤드리스 실측 —
+  아이콘 6종 렌더 박스·스크롤 0→108(PageDown)·총높이 140·통화 4종·다크 반전 재현.
+- 결정자: B6 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — G2-B5 primitives 특수 입력 구현 중 발견 (10행)
 
 ### DEC-029. B5 특수 입력 판단 8건

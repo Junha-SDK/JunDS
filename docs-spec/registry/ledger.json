@@ -556,23 +556,23 @@
       "id": "AspectRatio",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 별칭 — <jd-aspect-ratio-box>(B2 단일 정본)가 표면 전량 커버, 신규 태그 없음. v2 padding-bottom 트릭 대신 CSS aspect-ratio(수치·분수 모두 수용하는 상위집합) (alias-of: AspectRatioBox, R12)"
     },
     {
       "id": "ScrollArea",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-scroll-area> — 호스트가 곧 스크롤 컨테이너(골격 0), role=region+tabIndex 0으로 PageDown 스크롤, box-sizing 자기 선언(DEC-014-9 — max-height가 padding 포함 총높이 상한), thumb은 토큰이라 다크에서도 성립"
     },
     {
       "id": "StarRating",
@@ -666,12 +666,12 @@
       "id": "NumberFormatter",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-number-formatter> — 골격 0(호스트가 텍스트 자리), Intl 위임, decimals NaN 센티널, 통화 자릿수는 Intl 기본값(DEC-029-8 동일 판단)"
     },
     {
       "id": "AnnouncerProvider",
@@ -710,56 +710,56 @@
       "id": "Link",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-link> — 내부 <a> 위임(미들클릭·컨텍스트메뉴·상태바 URL 유지), 외부 판정 3상태를 external/internal 반전 플래그 쌍으로(DEC-029-5 관용구), 명시 target/rel이 자동값 우선"
     },
     {
       "id": "Image",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-image> — 호스트가 래퍼 역할(노드 1개 절약), placeholder/fallback은 light DOM 슬롯(DEC-014-4), 캐시 로드는 connected에서 성공만 보정(complete+naturalWidth), fallback은 흐름 배치(절대배치면 실패 시 높이 0)"
     },
     {
       "id": "Code",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-code> — 내부 <code> 시맨틱 위임, variant 5×size 3 순수 CSS 훅. 틴트 변형 글자색은 semantic 원색이 AA 미달이라 foreground 65% 혼합(axe 실측)"
     },
     {
       "id": "Mark",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-mark> — 내부 <mark> 시맨틱 위임(AT가 강조로 읽는다), 6색을 색당 3변수(--_jd-mark-bg/fg/line)로 압축해 규칙 수 1/6, 다크 반전은 [data-jd-theme] 규약"
     },
     {
       "id": "Icon",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-icon> — children을 svg.innerHTML로 **재파싱**(HTML 파서가 만든 <path>는 HTML 네임스페이스라 옮기기만 하면 안 그려진다 — 실측 발견), 이름 레지스트리 미보유(아이콘 세트 import는 사이즈 게이트 파괴)"
     },
     {
       "id": "BookmarkButton",
@@ -820,23 +820,23 @@
       "id": "Motion",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-motion> — 8프리셋 keyframes 로컬 이식, 감속 대응이 전량 CSS(v2 useReducedMotion은 프리렌더 산출물을 환경 의존으로 만든다), force-motion 옵트아웃, v2 죽은 프롭 once 미승계"
     },
     {
       "id": "Highlight",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B6 <jd-highlight> — 캡처 그룹 split의 홀수 인덱스가 곧 일치 조각(v2는 g 플래그 lastIndex 상태를 섞어 판정이 흔들렸다), 텍스트 노드만 생성(innerHTML 경로 없음), text 미지정 시 children 흡수"
     },
     {
       "id": "KeyCap",

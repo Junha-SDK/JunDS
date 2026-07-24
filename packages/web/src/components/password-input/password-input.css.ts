@@ -70,14 +70,24 @@ export default css`
     font-size: var(--jd-text-xs); font-weight: var(--jd-weight-semibold);
     font-family: var(--jd-font-sans);
   }
+  /* 막대는 그래픽(3:1)이라 원색 그대로, 글자는 텍스트(4.5:1)라 foreground와 섞는다 —
+     원색을 그대로 쓰면 warning 3.3:1 · success 3.6:1로 AA 미달(B6 axe 실측 후 소급 교정) */
   .jd-password-input__strength[data-level="weak"] .jd-password-input__bar[data-on] { background: var(--jd-color-danger); }
-  .jd-password-input__strength[data-level="weak"] .jd-password-input__level { color: var(--jd-color-danger); }
+  .jd-password-input__strength[data-level="weak"] .jd-password-input__level {
+    color: color-mix(in srgb, var(--jd-color-danger) 65%, var(--jd-color-foreground));
+  }
   .jd-password-input__strength[data-level="fair"] .jd-password-input__bar[data-on] { background: var(--jd-color-warning); }
-  .jd-password-input__strength[data-level="fair"] .jd-password-input__level { color: var(--jd-color-warning); }
+  .jd-password-input__strength[data-level="fair"] .jd-password-input__level {
+    color: color-mix(in srgb, var(--jd-color-warning) 65%, var(--jd-color-foreground));
+  }
   .jd-password-input__strength[data-level="good"] .jd-password-input__bar[data-on] { background: var(--jd-color-info); }
-  .jd-password-input__strength[data-level="good"] .jd-password-input__level { color: var(--jd-color-info); }
+  .jd-password-input__strength[data-level="good"] .jd-password-input__level {
+    color: color-mix(in srgb, var(--jd-color-info) 65%, var(--jd-color-foreground));
+  }
   .jd-password-input__strength[data-level="strong"] .jd-password-input__bar[data-on] { background: var(--jd-color-success); }
-  .jd-password-input__strength[data-level="strong"] .jd-password-input__level { color: var(--jd-color-success); }
+  .jd-password-input__strength[data-level="strong"] .jd-password-input__level {
+    color: color-mix(in srgb, var(--jd-color-success) 65%, var(--jd-color-foreground));
+  }
 
   /* ─── 규칙 체크리스트 ─── */
   .jd-password-input__rules {
@@ -90,8 +100,11 @@ export default css`
     font-size: var(--jd-text-xs); font-family: var(--jd-font-sans);
     color: var(--jd-color-muted);
   }
-  .jd-password-input__rule[data-passed] { color: var(--jd-color-success); }
+  .jd-password-input__rule[data-passed] {
+    color: color-mix(in srgb, var(--jd-color-success) 65%, var(--jd-color-foreground));
+  }
   .jd-password-input__rule-icon { display: flex; flex-shrink: 0; color: var(--jd-color-muted-light); }
+  /* 아이콘은 그래픽이라 원색 유지 — 글자만 섞은 값 */
   .jd-password-input__rule[data-passed] .jd-password-input__rule-icon { color: var(--jd-color-success); }
 
   @media (prefers-reduced-motion: reduce) {

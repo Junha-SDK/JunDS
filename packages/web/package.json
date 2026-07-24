@@ -103,6 +103,14 @@
       "types": "./dist/types/components/checkbox/element.d.ts",
       "default": "./dist/components/checkbox/element.js"
     },
+    "./code": {
+      "types": "./dist/types/components/code/index.d.ts",
+      "default": "./dist/components/code/index.js"
+    },
+    "./code/element": {
+      "types": "./dist/types/components/code/element.d.ts",
+      "default": "./dist/components/code/element.js"
+    },
     "./container": {
       "types": "./dist/types/components/container/index.d.ts",
       "default": "./dist/components/container/index.js"
@@ -183,6 +191,14 @@
       "types": "./dist/types/components/heading/element.d.ts",
       "default": "./dist/components/heading/element.js"
     },
+    "./highlight": {
+      "types": "./dist/types/components/highlight/index.d.ts",
+      "default": "./dist/components/highlight/index.js"
+    },
+    "./highlight/element": {
+      "types": "./dist/types/components/highlight/element.d.ts",
+      "default": "./dist/components/highlight/element.js"
+    },
     "./hstack": {
       "types": "./dist/types/components/hstack/index.d.ts",
       "default": "./dist/components/hstack/index.js"
@@ -191,6 +207,14 @@
       "types": "./dist/types/components/hstack/element.d.ts",
       "default": "./dist/components/hstack/element.js"
     },
+    "./icon": {
+      "types": "./dist/types/components/icon/index.d.ts",
+      "default": "./dist/components/icon/index.js"
+    },
+    "./icon/element": {
+      "types": "./dist/types/components/icon/element.d.ts",
+      "default": "./dist/components/icon/element.js"
+    },
     "./icon-button": {
       "types": "./dist/types/components/icon-button/index.d.ts",
       "default": "./dist/components/icon-button/index.js"
@@ -198,6 +222,14 @@
     "./icon-button/element": {
       "types": "./dist/types/components/icon-button/element.d.ts",
       "default": "./dist/components/icon-button/element.js"
+    },
+    "./image": {
+      "types": "./dist/types/components/image/index.d.ts",
+      "default": "./dist/components/image/index.js"
+    },
+    "./image/element": {
+      "types": "./dist/types/components/image/element.d.ts",
+      "default": "./dist/components/image/element.js"
     },
     "./kbd": {
       "types": "./dist/types/components/kbd/index.d.ts",
@@ -223,6 +255,22 @@
       "types": "./dist/types/components/label/element.d.ts",
       "default": "./dist/components/label/element.js"
     },
+    "./link": {
+      "types": "./dist/types/components/link/index.d.ts",
+      "default": "./dist/components/link/index.js"
+    },
+    "./link/element": {
+      "types": "./dist/types/components/link/element.d.ts",
+      "default": "./dist/components/link/element.js"
+    },
+    "./mark": {
+      "types": "./dist/types/components/mark/index.d.ts",
+      "default": "./dist/components/mark/index.js"
+    },
+    "./mark/element": {
+      "types": "./dist/types/components/mark/element.d.ts",
+      "default": "./dist/components/mark/element.js"
+    },
     "./modal": {
       "types": "./dist/types/components/modal/index.d.ts",
       "default": "./dist/components/modal/index.js"
@@ -230,6 +278,22 @@
     "./modal/element": {
       "types": "./dist/types/components/modal/element.d.ts",
       "default": "./dist/components/modal/element.js"
+    },
+    "./motion": {
+      "types": "./dist/types/components/motion/index.d.ts",
+      "default": "./dist/components/motion/index.js"
+    },
+    "./motion/element": {
+      "types": "./dist/types/components/motion/element.d.ts",
+      "default": "./dist/components/motion/element.js"
+    },
+    "./number-formatter": {
+      "types": "./dist/types/components/number-formatter/index.d.ts",
+      "default": "./dist/components/number-formatter/index.js"
+    },
+    "./number-formatter/element": {
+      "types": "./dist/types/components/number-formatter/element.d.ts",
+      "default": "./dist/components/number-formatter/element.js"
     },
     "./number-input": {
       "types": "./dist/types/components/number-input/index.d.ts",
@@ -302,6 +366,14 @@
     "./range-slider/element": {
       "types": "./dist/types/components/range-slider/element.d.ts",
       "default": "./dist/components/range-slider/element.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/types/components/scroll-area/index.d.ts",
+      "default": "./dist/components/scroll-area/index.js"
+    },
+    "./scroll-area/element": {
+      "types": "./dist/types/components/scroll-area/element.d.ts",
+      "default": "./dist/components/scroll-area/element.js"
     },
     "./section": {
       "types": "./dist/types/components/section/index.d.ts",

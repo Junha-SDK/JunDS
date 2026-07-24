@@ -41,6 +41,10 @@
       <jd-vstack gap="3">
         <jd-password-input id="pw" show-strength show-rules placeholder="비밀번호"
                            label="비밀번호"></jd-password-input>
+        <!-- 값이 있어야 강도 게이지·체크리스트가 렌더된다 — a11y 게이트 대비 검사 대상에
+             올리려면 초기값이 필요하다(빈 상태만 두면 감사에서 통째로 빠진다) -->
+        <jd-password-input show-strength show-rules value="Abc1" label="강도 보통 예시"></jd-password-input>
+        <jd-password-input show-strength show-rules value="Abcdef1!" label="강도 강력 예시"></jd-password-input>
         <jd-password-input size="sm" placeholder="작은 사이즈" label="작은 비밀번호"></jd-password-input>
         <jd-password-input error size="lg" placeholder="에러 상태" label="에러 비밀번호"></jd-password-input>
         <!-- 선언적 규칙: pattern / minLength (함수 test는 프로퍼티 경로) -->
