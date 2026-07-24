@@ -352,3 +352,104 @@ URLSession.shared.dataTask(with: url) { data, _, _ in
 `JdImageFit.fill`(비율 무시)만 `contentMode` 대응이 없다 — `.resizable()` + 고정 `frame`이 그 자리다.
 `AsyncImage`는 `URLSession` 공유 캐시에만 기대므로 긴 목록의 재사용 캐싱은 소비자 몫이다(서드파티 0
 규칙상 이미지 캐시 라이브러리는 도입하지 않는다).
+
+---
+
+# Behaviors (웹 hooks → iOS)
+
+웹의 hooks는 v3에서 Behavior(`createXxx(el, opts)`)가 됐고, iOS에서는 **셋 중 하나로 수렴한다**
+(00-inventory §4 iOS 매핑, 04 §4):
+
+- **Core 순수 유틸** — 계산·판정이 코드의 전부인 것. `JdBehaviors.swift`에 실체가 있다.
+- **시스템 API/환경값 레시피** — SwiftUI @Environment·Combine·시스템 API가 이미 하는 일. 아래 조립법.
+- **N/a** — 웹/React 렌더 모델 전용이라 iOS에 개념이 없는 것.
+
+라이브러리에 hook용 새 View/타입을 만들지 않는다 — 시스템이 하는 일을 감싸면 유지 비용만 남는다(04 §10).
+
+## Core 유틸 (JdBehaviors.swift — 실체 있음)
+
+| hook | Core | 비고 |
+|---|---|---|
+| useDebounce | `JdDebouncer(delay:)` | 명령형 호출부용. 선언형은 Combine `.debounce` |
+| useThrottle | `JdThrottler(interval:)` | 선행 즉시 + 후행 1회(웹 알고리즘) |
+| useCountUp | `JdCountUp.easeOutExpo/value` | 이징은 순수 함수, 구동은 `TimelineView`/`CADisplayLink` |
+| useForm | `JdForm.firstViolation/isValid` + `JdFieldRule` | 검증 규칙 판정. 폼 상태는 `@State`/Observable |
+| useHotkeys · useKeyboardShortcut | `JdHotkey.normalize` | 정규화만 Core, 실제 처리는 `UIKeyCommand`/`.onKeyPress` |
+| useReadingProgress | `JdScrollProgress.reading` | 오프셋→진행률. 구동은 스크롤 델리게이트 |
+| useScrollSpy | `JdScrollProgress.activeSection` | 오프셋→활성 섹션 인덱스 |
+| useImagePreload | `JdPreload.batches` | 동시성 배치 계획. 로딩은 `URLSession` |
+| useInfiniteFeed | `JdInfiniteFeedGate` | 중복 로드 가드. 목록 상태는 데이터 계층 |
+| useBreakpointValue | `JdBreakpointValue.resolve` | 폭→값 해석 |
+
+```swift
+// useDebounce — 검색어를 300ms 지연
+let debouncer = JdDebouncer(delay: 0.3)
+func onQueryChange(_ q: String) { debouncer.call { runSearch(q) } }
+
+// useCountUp — 0→1234를 이징으로 (TimelineView 구동)
+TimelineView(.animation) { ctx in
+    let t = min(elapsed(ctx.date) / duration, 1)
+    Text("\(Int(JdCountUp.value(from: 0, to: 1234, progress: t)))")
+}
+
+// useForm — 필드 검증
+let rules: [JdFieldRule] = [.required, .email]
+if let violation = JdForm.firstViolation(email, rules: rules) {
+    errorText = violation.message(label: "이메일")
+}
+```
+
+## 시스템 API / 환경값 레시피 (라이브러리 타입 없음)
+
+| hook | iOS 대응 |
+|---|---|
+| useMediaQuery · useBreakpoint | `@Environment(\.horizontalSizeClass)` / `UITraitCollection.horizontalSizeClass` |
+| usePrefersColorScheme | `@Environment(\.colorScheme)` |
+| useReducedMotion | `@Environment(\.accessibilityReduceMotion)` / `UIAccessibility.isReduceMotionEnabled` (Core `JdMotion`) |
+| useWindowSize · useElementSize · useResizeObserver | `GeometryReader` / `viewDidLayoutSubviews` |
+| useWindowScroll · useScrollSpy(구동) | `ScrollView` + `.onScrollGeometryChange`(iOS 18) 또는 `scrollViewDidScroll` |
+| useNetworkStatus | `NWPathMonitor` (Network 프레임워크) |
+| useLocalStorage · useSessionStorage | `@AppStorage` / `UserDefaults` (세션은 인메모리 캐시) |
+| useCookie | `HTTPCookieStorage.shared` |
+| useClipboard · useCopyToClipboard | `UIPasteboard.general` (복사 컴포넌트는 `JdCopyButton`) |
+| useInterval · useTimeout | `Timer` / `Task.sleep` / `DispatchQueue.asyncAfter` |
+| useAnimationFrame | `CADisplayLink` / `TimelineView(.animation)` |
+| useLongPress | `.onLongPressGesture` / `UILongPressGestureRecognizer` |
+| useHover | `.onHover` / `UIHoverGestureRecognizer` (iPad 포인터) |
+| useKeyboard | `.onKeyPress` / `UIKeyCommand` |
+| useEventListener | `NotificationCenter` / target-action |
+| useIntersectionObserver | `.onAppear` / `UICollectionView willDisplay` |
+| useGeolocation | `CLLocationManager` |
+| useFullscreen | `.fullScreenCover` / `present(_:animated:)` |
+| useDocumentTitle | `navigationItem.title` / `.navigationTitle` |
+| useIdle | 사용자 이벤트 타임스탬프 + `Timer` (커스텀) |
+| usePanelResize | `DragGesture` / 팬 제스처 + `setNeedsLayout` |
+| useFocusMode | 커스텀 몰입 상태(+`UserDefaults` 저장) |
+| useNetworkStatus | `NWPathMonitor` |
+| useResource | actor 기반 캐시 레이어(서드파티 0 — SWR류 미도입) |
+| useMutation | `Task` + `async/await`, 결과는 `Result` |
+| useScrollLock | `scrollView.isScrollEnabled = false` (시트가 시스템 스크롤락을 이미 처리) |
+
+```swift
+// useMediaQuery / useBreakpoint — 폭이 아니라 사이즈 클래스가 판단 근거(04 §10)
+@Environment(\.horizontalSizeClass) private var sizeClass
+var isCompact: Bool { sizeClass == .compact }
+
+// useLocalStorage — @AppStorage가 UserDefaults 구독까지 해준다
+@AppStorage("jd.theme") private var theme = "system"
+
+// useReducedMotion — Core 단일 진입점
+withAnimation(JdMotion.duration(0.3) == 0 ? nil : .easeOut) { … }
+```
+
+## N/a (iOS에 개념 없음)
+
+| hook | 이유 |
+|---|---|
+| useClickOutside | 시트·팝오버·메뉴가 바깥 탭을 시스템 dismiss로 처리 |
+| useFocusTrap | `accessibilityViewIsModal` + 시스템 프레젠테이션이 포커스 격리 |
+| useFocusVisible | iOS엔 포커스 링 개념이 없다(키보드 포커스는 시스템 소관) |
+| useFavicon | 웹 전용 |
+| useMounted · usePrevious · useSteps · useToggle · useDisclosure · useAsync · useOptimisticState · useIsomorphicLayoutEffect · useUpdateEffect | React 렌더 수명/상태 훅 — SwiftUI `@State`/Observable로 자연 내부화, 별도 타입 불요 |
+
+이 판정들은 ledger의 `ios` 칼럼에 그대로 반영된다(Core 유틸·레시피 = done, 웹/React 전용 = n/a).

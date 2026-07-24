@@ -854,77 +854,77 @@
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createBreakpointObserver — 질의 4개 겹침(v2 resize+innerWidth 폴링 대체), 파생 of createMediaQueryWatcher"
+      "notes": "B8 createBreakpointObserver — 질의 4개 겹침(v2 resize+innerWidth 폴링 대체), 파생 of createMediaQueryWatcher / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useBreakpointValue",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createBreakpointValueWatcher + resolveBreakpointValue(맵 해석 유틸)"
+      "notes": "B8 createBreakpointValueWatcher + resolveBreakpointValue(맵 해석 유틸) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdBreakpointValue.resolve"
     },
     {
       "id": "useClickOutside",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "n/a",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createClickOutside — mousedown/touchstart 두 경로(v2 동형)"
+      "notes": "B9 createClickOutside — mousedown/touchstart 두 경로(v2 동형) / iOS n/a(2026-07-24, DEC-037): 웹/React 렌더 전용 — RECIPES Behaviors 참조"
     },
     {
       "id": "useClipboard",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 copyText/readText — 실패를 boolean/null로 흡수(v2는 rejection 방치)"
+      "notes": "B10 copyText/readText — 실패를 boolean/null로 흡수(v2는 rejection 방치) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useCopyToClipboard",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 copyText 통합 — 신규 API 없음(alias-of: useClipboard)"
+      "notes": "B10 copyText 통합 — 신규 API 없음(alias-of: useClipboard) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useCountUp",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createCountUp — easeOutExpo(v2 이식), 값 구독이 아니라 요소 textContent 직접 갱신"
+      "notes": "B9 createCountUp — easeOutExpo(v2 이식), 값 구독이 아니라 요소 textContent 직접 갱신 / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdCountUp"
     },
     {
       "id": "useDebounce",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 debounce(fn, ms) — v2는 '값'을 지연시키는 React 관용구였으나 바닐라는 함수 지연 표준형(§4 매핑표)"
+      "notes": "B9 debounce(fn, ms) — v2는 '값'을 지연시키는 React 관용구였으나 바닐라는 함수 지연 표준형(§4 매핑표) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdDebouncer"
     },
     {
       "id": "useDisclosure",
@@ -942,121 +942,121 @@
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createSizeObserver — ResizeObserver, useResizeObserver와 통합(alias-of: useResizeObserver)"
+      "notes": "B8 createSizeObserver — ResizeObserver, useResizeObserver와 통합(alias-of: useResizeObserver) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useEventListener",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 on(target, type, fn) → off 유틸"
+      "notes": "B9 on(target, type, fn) → off 유틸 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useFocusMode",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B11 createFocusMode — 저장값 + [data-jd-focus-mode] 루트 attribute + mod+. 단축키(v2 동형)"
+      "notes": "B11 createFocusMode — 저장값 + [data-jd-focus-mode] 루트 attribute + mod+. 단축키(v2 동형) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useForm",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B12 createForm — FormData가 정본이고 Behavior는 규칙 판정·에러 표시만(네이티브 위임의 폼판). 에러는 jd-* error 프롭 또는 aria-invalid로"
+      "notes": "B12 createForm — FormData가 정본이고 Behavior는 규칙 판정·에러 표시만(네이티브 위임의 폼판). 에러는 jd-* error 프롭 또는 aria-invalid로 / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdForm+JdFieldRule"
     },
     {
       "id": "useIdle",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createIdleWatcher — 활동 이벤트 5종 passive, 기본 60초(v2 동형)"
+      "notes": "B9 createIdleWatcher — 활동 이벤트 5종 passive, 기본 60초(v2 동형) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useIntersectionObserver",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createInViewObserver — once 옵션 포함, IO 부재 시 no-op"
+      "notes": "B8 createInViewObserver — once 옵션 포함, IO 부재 시 no-op / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useInterval",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createInterval — stop/restart/destroy 멱등"
+      "notes": "B9 createInterval — stop/restart/destroy 멱등 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useKeyboard",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createKeyHandler — createHotkeys의 요소 스코프 표면(단일 엔진)"
+      "notes": "B9 createKeyHandler — createHotkeys의 요소 스코프 표면(단일 엔진) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useLocalStorage",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 createStoredValue — local/session 통합, 손상 JSON은 초기값 흡수, 탭 간 storage 동기화"
+      "notes": "B10 createStoredValue — local/session 통합, 손상 JSON은 초기값 흡수, 탭 간 storage 동기화 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useLongPress",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createLongPress — v2 mouse/touch 쌍 대신 pointer 이벤트(펜·터치 포함 상위집합)"
+      "notes": "B9 createLongPress — v2 mouse/touch 쌍 대신 pointer 이벤트(펜·터치 포함 상위집합) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useMediaQuery",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createMediaQueryWatcher — 미디어 질의 계열 단일 엔진(나머지 4종이 파생), 초기값 즉시 실측"
+      "notes": "B8 createMediaQueryWatcher — 미디어 질의 계열 단일 엔진(나머지 4종이 파생), 초기값 즉시 실측 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useMounted",
@@ -1074,33 +1074,33 @@
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createNetworkWatcher — online/offline + 전환 시각(ms)"
+      "notes": "B8 createNetworkWatcher — online/offline + 전환 시각(ms) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "usePanelResize",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B11 createPanelResize — pointer 이벤트 + setPointerCapture(v2 mousemove 대비 터치·펜 지원)"
+      "notes": "B11 createPanelResize — pointer 이벤트 + setPointerCapture(v2 mousemove 대비 터치·펜 지원) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "usePrefersColorScheme",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createColorSchemeWatcher — 미디어 워처 파생"
+      "notes": "B8 createColorSchemeWatcher — 미디어 워처 파생 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "usePrevious",
@@ -1118,22 +1118,22 @@
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createReducedMotionWatcher — 미디어 워처 파생. CSS로 충분한 곳은 @media를 쓰고 이건 JS 분기용"
+      "notes": "B8 createReducedMotionWatcher — 미디어 워처 파생. CSS로 충분한 곳은 @media를 쓰고 이건 JS 분기용 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useScrollSpy",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B11 createScrollSpy — rAF 합류 측정, v2의 전역 커스텀 이벤트 결합을 suspend(ms) 명시 표면으로 교체"
+      "notes": "B11 createScrollSpy — rAF 합류 측정, v2의 전역 커스텀 이벤트 결합을 suspend(ms) 명시 표면으로 교체 / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdScrollProgress.activeSection"
     },
     {
       "id": "useSteps",
@@ -1151,11 +1151,11 @@
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 throttle(fn, ms) — 선행 실행 + 남은 간격 후행 1회(v2 알고리즘 이식) + cancel"
+      "notes": "B9 throttle(fn, ms) — 선행 실행 + 남은 간격 후행 1회(v2 알고리즘 이식) + cancel / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdThrottler"
     },
     {
       "id": "useToggle",
@@ -1173,99 +1173,99 @@
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createScrollWatcher — passive scroll, 값 동일이면 미통지"
+      "notes": "B8 createScrollWatcher — passive scroll, 값 동일이면 미통지 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useHotkeys",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createHotkeys — v2 normalizeChord 승계(mod/cmd/esc/space 별칭+정렬), 입력 요소 가드, key 비문자열 방어(v2 실사고)"
+      "notes": "B9 createHotkeys — v2 normalizeChord 승계(mod/cmd/esc/space 별칭+정렬), 입력 요소 가드, key 비문자열 방어(v2 실사고) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdHotkey.normalize"
     },
     {
       "id": "useFocusTrap",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "n/a",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 createFocusTrap — G1 선행 구현. jd-modal·jd-focus-guard가 공유"
+      "notes": "B10 createFocusTrap — G1 선행 구현. jd-modal·jd-focus-guard가 공유 / iOS n/a(2026-07-24, DEC-037): 웹/React 렌더 전용 — RECIPES Behaviors 참조"
     },
     {
       "id": "useScrollLock",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 lockScroll() → unlock — 참조 계수로 중첩 안전 + 스크롤바 폭 보정(v2 동형)"
+      "notes": "B10 lockScroll() → unlock — 참조 계수로 중첩 안전 + 스크롤바 폭 보정(v2 동형) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useDocumentTitle",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 setDocumentTitle(title) → 복원 함수"
+      "notes": "B10 setDocumentTitle(title) → 복원 함수 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useFavicon",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "n/a",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 setFavicon(href) → 복원 함수(우리가 만든 link면 제거, 아니면 원복)"
+      "notes": "B10 setFavicon(href) → 복원 함수(우리가 만든 link면 제거, 아니면 원복) / iOS n/a(2026-07-24, DEC-037): 웹/React 렌더 전용 — RECIPES Behaviors 참조"
     },
     {
       "id": "useFullscreen",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 createFullscreen — enter/exit/toggle/subscribe, supported 노출"
+      "notes": "B10 createFullscreen — enter/exit/toggle/subscribe, supported 노출 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useResizeObserver",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createSizeObserver 통합 구현 — 신규 API 없음(§6 R12)"
+      "notes": "B8 createSizeObserver 통합 구현 — 신규 API 없음(§6 R12) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useTimeout",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createTimeout — stop/restart/destroy 멱등"
+      "notes": "B9 createTimeout — stop/restart/destroy 멱등 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useAsync",
@@ -1305,110 +1305,110 @@
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B11 createGeolocationWatcher — watch 옵션, 미지원/거부를 상태로 흡수"
+      "notes": "B11 createGeolocationWatcher — watch 옵션, 미지원/거부를 상태로 흡수 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useSessionStorage",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 createStoredValue({storage:'session'}) 변형 — 신규 API 없음"
+      "notes": "B10 createStoredValue({storage:'session'}) 변형 — 신규 API 없음 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useCookie",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 getCookie/setCookie/removeCookie — v2 이스케이프·path 기본 '/' 승계"
+      "notes": "B10 getCookie/setCookie/removeCookie — v2 이스케이프·path 기본 '/' 승계 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useHover",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createHoverWatcher — mouseenter/leave"
+      "notes": "B9 createHoverWatcher — mouseenter/leave / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useFocusVisible",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "n/a",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 createFocusVisible — 키보드 조작 여부 관찰(시각 표현은 CSS :focus-visible 몫)"
+      "notes": "B10 createFocusVisible — 키보드 조작 여부 관찰(시각 표현은 CSS :focus-visible 몫) / iOS n/a(2026-07-24, DEC-037): 웹/React 렌더 전용 — RECIPES Behaviors 참조"
     },
     {
       "id": "useInfiniteFeed",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B11 createInfiniteFeed — 관찰+중복 호출 가드만 담당. 목록 상태는 데이터 계층 몫으로 분리(v2는 훅이 페이지네이션까지 보유)"
+      "notes": "B11 createInfiniteFeed — 관찰+중복 호출 가드만 담당. 목록 상태는 데이터 계층 몫으로 분리(v2는 훅이 페이지네이션까지 보유) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdInfiniteFeedGate"
     },
     {
       "id": "useReadingProgress",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B11 createReadingProgress — 진행률 + 현재 제목, rAF 합류(v2 시간 스로틀 대체)"
+      "notes": "B11 createReadingProgress — 진행률 + 현재 제목, rAF 합류(v2 시간 스로틀 대체) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdScrollProgress.reading"
     },
     {
       "id": "useImagePreload",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B10 preloadImages(urls, concurrency) — 기본 동시 3(v2 동형), loaded/failed 분리"
+      "notes": "B10 preloadImages(urls, concurrency) — 기본 동시 3(v2 동형), loaded/failed 분리 / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdPreload.batches"
     },
     {
       "id": "useResource",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B12 createResource — v2 모듈 캐시+구독을 그대로 승계(React 강제 리렌더만 제거), in-flight 합류·ttl·invalidate"
+      "notes": "B12 createResource — v2 모듈 캐시+구독을 그대로 승계(React 강제 리렌더만 제거), in-flight 합류·ttl·invalidate / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useMutation",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B12 runMutation(fn, cbs) — 결과를 판별 유니온으로 반환하고 던지지 않는다"
+      "notes": "B12 runMutation(fn, cbs) — 결과를 판별 유니온으로 반환하고 던지지 않는다 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useOptimisticState",
@@ -1426,33 +1426,33 @@
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createRafLoop — delta/total(ms) 제공, 중복 start 무해"
+      "notes": "B9 createRafLoop — delta/total(ms) 제공, 중복 start 무해 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "useKeyboardShortcut",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B9 createHotkeys 통합 — 신규 API 없음(alias-of: useHotkeys)"
+      "notes": "B9 createHotkeys 통합 — 신규 API 없음(alias-of: useHotkeys) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 별칭(useHotkeys)"
     },
     {
       "id": "useWindowSize",
       "category": "hooks",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B8 createWindowSizeWatcher — passive resize, 값 동일이면 미통지"
+      "notes": "B8 createWindowSizeWatcher — passive resize, 값 동일이면 미통지 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
       "id": "Accordion",
@@ -1470,11 +1470,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-action-sheet> — Modal 파생. 액션은 property 또는 JSON 슬롯, 선택 시 jd-select 후 닫힘. v2엔 없던 ESC·감금 확보"
+      "notes": "B13 <jd-action-sheet> — Modal 파생. 액션은 property 또는 JSON 슬롯, 선택 시 jd-select 후 닫힘. v2엔 없던 ESC·감금 확보 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdActionSheet·JdActionSheetController — .confirmationDialog/UIAlertController(.actionSheet), JdActionItem destructive 매핑"
     },
     {
       "id": "AddressInput",
@@ -1503,22 +1503,22 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-alert> — 좌측 강조선 + variant 4종. role은 danger/warning만 alert, 나머지 status(v2 role 없음). 제목 색은 foreground 혼합(AA)"
+      "notes": "B13 <jd-alert> — 좌측 강조선 + variant 4종. role은 danger/warning만 alert, 나머지 status(v2 role 없음). 제목 색은 foreground 혼합(AA) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdAlert·JdAlertView 자체 구현 — 좌측 강조선+variant, danger/warning는 assertive/polite announce"
     },
     {
       "id": "AlertDialog",
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-alert-dialog> — Modal 파생. role=alertdialog(v2 dialog에서 교정) + aria-labelledby/describedby 실노드 연결, 확인은 data-autofocus"
+      "notes": "B13 <jd-alert-dialog> — Modal 파생. role=alertdialog(v2 dialog에서 교정) + aria-labelledby/describedby 실노드 연결, 확인은 data-autofocus / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdAlertDialog·JdAlertDialogController — .alert/UIAlertController(.alert), danger→destructive"
     },
     {
       "id": "AnimatedCounter",
@@ -1591,11 +1591,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-banner> — role=status(v2 role=banner는 랜드마크 오용). 흰 글자 대비를 위해 배경에 foreground 20% 혼합(axe 실측, v2 승계 결함)"
+      "notes": "B13 <jd-banner> — role=status(v2 role=banner는 랜드마크 오용). 흰 글자 대비를 위해 배경에 foreground 20% 혼합(axe 실측, v2 승계 결함) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdBanner·JdBannerView 자체 구현 — 폭 꽉 찬 바, variant.color 배경+흰 글자"
     },
     {
       "id": "BentoGrid",
@@ -1624,11 +1624,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-bottom-sheet> — Modal 파생. v2 BottomSheet+Sheet 통합(차이는 draggable 하나), 끌어 닫기는 pointer 이벤트(v2 touch 전용)"
+      "notes": "B13 <jd-bottom-sheet> — Modal 파생. v2 BottomSheet+Sheet 통합(차이는 draggable 하나), 끌어 닫기는 pointer 이벤트(v2 touch 전용) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdBottomSheet·JdBottomSheetController — presentationDetents(size.sheetHeight), draggable→grabber"
     },
     {
       "id": "Breadcrumb",
@@ -1657,11 +1657,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-callout> — 이모지+강조선 5종. collapsible은 네이티브 details/summary 위임(v2 useState div는 aria-expanded가 없었다)"
+      "notes": "B13 <jd-callout> — 이모지+강조선 5종. collapsible은 네이티브 details/summary 위임(v2 useState div는 aria-expanded가 없었다) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdCallout·JdCalloutView 자체 구현 — 이모지+강조선 5종(Core JdCalloutVariant), collapsible=DisclosureGroup"
     },
     {
       "id": "Card",
@@ -1811,11 +1811,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 별칭 — <jd-alert-dialog>가 표면 전량 커버(제목·설명·확인/취소·danger), 신규 태그 없음(alias-of: AlertDialog)"
+      "notes": "B13 별칭 — <jd-alert-dialog>가 표면 전량 커버(제목·설명·확인/취소·danger), 신규 태그 없음(alias-of: AlertDialog) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): 별칭 — AlertDialog(제목·설명·확인/취소·danger), 신규 타입 없음(R12)"
     },
     {
       "id": "ContextMenu",
@@ -1954,11 +1954,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-drawer> — Modal 파생(§6 R12). side 3종×size 4종 기하만 재정의, ESC·백드롭·스크롤락·포커스감금·요청형 닫기는 상속(v2는 넷이 각자 구현했고 감금·요청형 닫기는 없었다)"
+      "notes": "B13 <jd-drawer> — Modal 파생(§6 R12). side 3종×size 4종 기하만 재정의, ESC·백드롭·스크롤락·포커스감금·요청형 닫기는 상속(v2는 넷이 각자 구현했고 감금·요청형 닫기는 없었다) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdDrawer·JdDrawerController — side별 시스템 위임(bottom=detent, left/right=커스텀 슬라이드+딤)"
     },
     {
       "id": "Dropdown",
@@ -1976,11 +1976,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-toast> — Context 대신 요소 메서드 + 문서당 하나 지연 생성 toast()(DEC-031-4 규약). 스택이 live region이라 개별 토스트에 role 미부여, max 초과 시 오래된 것부터 제거"
+      "notes": "B13 <jd-toast> — Context 대신 요소 메서드 + 문서당 하나 지연 생성 toast()(DEC-031-4 규약). 스택이 live region이라 개별 토스트에 role 미부여, max 초과 시 오래된 것부터 제거 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdToastCenter+JdToastHost 자체 구현 — 큐 상태는 Core JdToastQueue, 자동닫힘·hover 정지(WCAG 2.2.1)"
     },
     {
       "id": "EmojiPicker",
@@ -1998,11 +1998,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-empty-state> — 아이콘/액션 light DOM 슬롯. Result가 이 골격을 파생"
+      "notes": "B13 <jd-empty-state> — 아이콘/액션 light DOM 슬롯. Result가 이 골격을 파생 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdEmptyState·JdEmptyStateView 자체 구현 — 중앙 배치(아이콘 칩+제목+설명+액션)"
     },
     {
       "id": "FilterButtonGroup",
@@ -2273,11 +2273,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-notification> — 제목·설명·액션 카드, 30% 테두리+5% 틴트. 토스트가 담는 표면과 분리"
+      "notes": "B13 <jd-notification> — 제목·설명·액션 카드, 30% 테두리+5% 틴트. 토스트가 담는 표면과 분리 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdNotification·JdNotificationView 자체 구현 — 아이콘+제목+설명+액션+닫기 카드"
     },
     {
       "id": "Onboarding",
@@ -2405,11 +2405,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-result> — EmptyState 파생(§6 R12), status별 64px 아이콘·색. v2 404/403 얼굴 일러스트는 정보 없는 장식이라 미승계"
+      "notes": "B13 <jd-result> — EmptyState 파생(§6 R12), status별 64px 아이콘·색. v2 404/403 얼굴 일러스트는 정보 없는 장식이라 미승계 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdResult·JdResultView 자체 구현 — status 6종(Core JdResultStatus 심볼·색), 64pt 대형 심볼"
     },
     {
       "id": "ScrollSpy",
@@ -2471,11 +2471,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 별칭 — <jd-bottom-sheet draggable>이 v2 Sheet 표면 전량 커버, 신규 태그 없음(alias-of: BottomSheet)"
+      "notes": "B13 별칭 — <jd-bottom-sheet draggable>이 v2 Sheet 표면 전량 커버, 신규 태그 없음(alias-of: BottomSheet) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): 별칭 — BottomSheet draggable(신규 타입 없음, R12)"
     },
     {
       "id": "SignaturePad",
@@ -2867,11 +2867,11 @@
       "category": "composites",
       "tier": "T2",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "B13 <jd-snackbar> — 위치 4종+자동 닫힘. 포인터/포커스가 올라가면 타이머 정지(WCAG 2.2.1 — v2엔 없음)"
+      "notes": "B13 <jd-snackbar> — 위치 4종+자동 닫힘. 포인터/포커스가 올라가면 타이머 정지(WCAG 2.2.1 — v2엔 없음) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdSnackbar·JdSnackbarView 자체 구현 — 단일 바, 위치 4종, 자동닫힘 정지"
     },
     {
       "id": "Stat",

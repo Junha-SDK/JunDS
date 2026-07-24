@@ -93,6 +93,28 @@ enum DemoRegistry {
         VisuallyHiddenDemo.demo,  // 컴포넌트 없음(접근성 모디파이어)
         AnnouncerProviderDemo.demo, // 뷰 없음(JdAnnouncer)
         NumberFormatterDemo.demo, // 뷰 없음(JdNumberFormat)
+
+        // composites 오버레이·피드백 14종
+        DrawerDemo.demo,
+        BottomSheetDemo.demo,
+        SheetDemo.demo,           // 별칭(BottomSheet draggable)
+        ActionSheetDemo.demo,
+        AlertDialogDemo.demo,
+        ConfirmDialogDemo.demo,   // 별칭(AlertDialog)
+        AlertDemo.demo,
+        BannerDemo.demo,
+        CalloutDemo.demo,
+        NotificationDemo.demo,
+        EmptyStateDemo.demo,
+        ResultDemo.demo,
+        DsToastProviderDemo.demo, // Toast 센터
+        SnackbarDemo.demo,
+        // hooks Core 유틸 데모 5종
+        DebounceDemo.demo,        // useDebounce
+        CountUpDemo.demo,         // useCountUp
+        FormDemo.demo,            // useForm
+        HotkeyDemo.demo,          // useHotkeys
+        ReadingProgressDemo.demo, // useReadingProgress
     ]
 
     static let byId: [String: ComponentDemo] = Dictionary(

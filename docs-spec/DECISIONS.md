@@ -4,6 +4,48 @@
 
 ---
 
+## 2026-07-24 — iOS composites 오버레이·피드백 14 + hooks 46 (원장 iOS 129/445)
+
+### DEC-037. 시스템 위임/자체 구현 분할 + hooks 판정 대량
+1. **오버레이 6종은 시스템 프레젠테이션 위임, 피드백 8종은 자체 구현**: 04 §10.1의 "오버레이는
+   전부 시스템 위임" 원칙대로 Modal/Drawer/BottomSheet/ActionSheet/AlertDialog는 `.sheet`·
+   `presentationDetents`·`.confirmationDialog`·`.alert`(UIKit은 UISheetPresentationController·
+   UIAlertController)로 번역했다 — 포커스 격리·스크롤락·백드롭이 전부 공짜다. 반면 Toast·
+   Snackbar·Notification·Alert·Banner·Callout·EmptyState·Result는 iOS 시스템 대응이 없어 자체
+   구현. Sheet=BottomSheet(draggable)·ConfirmDialog=AlertDialog는 별칭(R12).
+2. **cancelable 닫기(웹 jd-request-close)의 iOS 번역**: SwiftUI엔 per-dismiss veto가 없어
+   `onDismissAttempt: (JdDismissReason) -> Bool`로 바인딩을 게이트한다(false면 취소). 이 seam
+   `JdOverlayDismissGate`는 우산 타겟 테스트가 닿으려면 public이어야 했다(테스트 타겟이
+   JunDS 우산에만 의존 — @testable/internal 불가). UIKit은
+   `presentationControllerShouldDismiss`. Modal 기구현(G1)과 동일 의미론.
+3. **hooks는 라이브러리 컴포넌트가 아니다 — 판정이 절반**: 46종을 셋으로 갈랐다.
+   **Core 순수 유틸 11종**(`JdBehaviors.swift`: 디바운스/스로틀/카운트업 이징/폼 검증/단축키
+   정규화/읽기 진행률/스크롤 스파이/프리로드 배치/무한피드 게이트/브레이크포인트 값 —
+   계산이 코드의 전부인 것), **시스템 API·환경값 레시피 31종**(useMediaQuery→@Environment,
+   useLocalStorage→@AppStorage, useClipboard→UIPasteboard 등 — RECIPES Behaviors 절),
+   **N/a 4종**(useClickOutside·useFocusTrap·useFocusVisible·useFavicon — iOS에 개념 없음).
+   대량의 View 타입을 만들지 않았다 — 시스템이 하는 일을 감싸면 유지 비용만 남는다(04 §10).
+4. **Core 상태머신 값 타입 채택**: `JdToastQueue`(add·max 초과 축출·dismiss·clear)를 순수
+   struct로 두고 `JdToastCenter`(ObservableObject)가 래핑 + 타이머만 담당. 04 §4.1의 참조
+   타입 ToastCenter 정본을 값 타입으로 변형 — 큐 전이를 단위 테스트로 고정하기 위함.
+5. **모듈 경계가 강제한 배선 2건**: (a) UIKit `JdToastHostView`는 SwiftUI `JdToastCenter`를
+   받을 수 없다(DEC-010 + 우산에서 동명 타입 충돌) → 자기 Core 큐를 쥐고 `onQueueChange`
+   클로저로 브리지, 공개 센터는 SwiftUI 하나뿐. (b) hooks 테스트가 인벤토리 지정 파일에
+   못 들어가는 경우(UIKitTests가 SwiftUI 센터를 못 봄) 동등 커버리지를 다른 파일로 옮겼다.
+6. **자체 구현 색은 전부 Core JdFeedbackVariant/JdCalloutVariant/JdResultStatus**: danger는
+   접근성 우선순위를 assertive로 올린다(웹은 전부 polite — 색으로만 위험을 전하던 결함 보정).
+   Banner 흰 글자 대비는 variant.color에 foreground 20% 혼합(트레이트별 resolvedColor).
+7. **온-액센트(흰) 전경 토큰 부재 + scrim 토큰 부재**: Banner·Snackbar·토스트 카드의 흰
+   글자는 시스템 `.white`(JdBadge count 선례), 좌우 Drawer 딤은 `.black` + `JdToken.Opacity.o30`.
+   둘 다 Core 토큰 신설 권고(색은 리터럴 최소화 규칙의 유일한 예외로 남았다).
+- **스펙 보강 후보(G2)**: `JdToken.Color.scrim`·온-액센트 전경 토큰, Snackbar의 중립 default가
+  JdFeedbackVariant에 없어 `.info`를 surfaceOverlay로 접은 것(명시 info-blue 스낵바 불가),
+  토스트/스낵바 폭 토큰(현재 JdOverlaySize.drawerWidth 재사용).
+- 검증: 시뮬레이터 빌드 에러 0 · **XCTest 621/621**(477→621) · 쇼룸 92종 데모 등록·실기동.
+- 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — 웹 잔여 대량 이식 1차: composites·finance 145종 (원장 web 292/445)
 
 ### DEC-035. 오케스트레이션 팬아웃으로 잔여 298종 착수, 1차 145종 확정
