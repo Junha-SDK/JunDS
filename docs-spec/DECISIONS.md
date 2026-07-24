@@ -4,6 +4,55 @@
 
 ---
 
+## 2026-07-24 — iOS primitives 잔여 27종 (원장 iOS 73/445)
+
+### DEC-034. "새 컴포넌트가 답이 아닌" 판정 + Core 결함 4건 교정
+1. **판정 분포 — 실구현 17 · 레시피/시스템 API 8 · 별칭 2**: 정찰이 내린 "컴포넌트를 만들지
+   말라"는 결론을 그대로 채택했다. VisuallyHidden(접근성 모디파이어) · AnnouncerProvider
+   (`UIAccessibility` 래퍼) · NumberFormatter(Foundation 포맷) · ScrollArea(ScrollView) ·
+   Icon(SF Symbols) · Image(AsyncImage)는 **라이브러리에 타입이 없고** RECIPES.md 조립법이
+   전부다. AspectRatio·OTPInput은 별칭(각각 AspectRatioBox·PinInput). 04 §10 번역 원칙의
+   가장 순수한 적용 사례다 — 시스템이 이미 하는 일을 감싸면 유지 비용만 남는다.
+2. **Core가 담은 것은 "렌더가 재구현하면 안 되는 계산"뿐**: 포맷(JdNumberFormat)·마스킹
+   (JdPhoneMask)·강도(JdPasswordStrength)·핀 규칙(JdPinRules)·하이라이트 매칭(JdHighlight)·
+   클램프(JdNumberInputRules)·별점(JdStarRating)·스크롤 판정(JdBackTop). 렌더 계층은 호출만
+   한다. 이 분할 덕에 하이라이트 구간 테스트가 "Core 세그먼트 == attributed range"로 서고,
+   렌더가 자체 매칭을 넣는 순간 깨진다.
+3. **실측 교정 ① 반올림 모드**: `NumberFormatter` 기본이 `.halfEven`이라 2.5 → "2", 12.5 →
+   "US$12"로 웹 Intl(halfExpand)과 어긋났다. `roundingMode = .halfUp` 명시로 교정.
+4. **실측 교정 ② compact 단위 미재평가**: 9999 → "10천", 99999999 → "10,000만"처럼 반올림이
+   사다리를 넘고도 아래 단위에 머물렀다. 반올림 후 단위를 **재평가**하도록 고쳐 "1만"·"1억"
+   (Intl notation:"compact" 동형). 사용자에게 그대로 노출되면 명백히 어색한 값이었다.
+5. **실측 교정 ③ 비밀번호 강도 웹 패리티**: Core가 규칙 4종(소문자 누락) + 자체 라벨
+   (약함/보통/강함/매우 강함)이었는데 웹은 **5종 + 길이 보너스 + 임계 0.3/0.5/0.8 +
+   취약/보통/양호/강력**이다. 화면 문구까지 어긋나므로 웹 산식·라벨로 맞췄다
+   (`JdPasswordLevel` 신설, `normalized` 점수 노출).
+6. **실측 교정 ④ UIKit 제약 순서 버그**: `JdPasswordInputView`가 강도 막대 등폭 제약을
+   **스택에 넣기 전에** 걸어 "no common ancestor" 예외로 테스트 4건이 죽었다. 추가 후 제약으로
+   교정 — Auto Layout 제약은 공통 조상이 생긴 뒤에만 활성화할 수 있다는 규칙의 사례.
+7. **테스트가 구현을 교정한 사례**: Core 테스트 배치에 "테스트를 구현에 맞추지 말라"고 지시한
+   결과, 에이전트가 웹 대조본(Intl·element.ts)을 직접 돌려 위 ③④를 **기대 실패 블록으로
+   보고**했다. 통합자가 Core를 고치고 그 블록을 제거했다 — 지시 문구 하나가 결함 2건을 건졌다.
+8. **명명 충돌 3건(Core enum 우선)**: 뷰가 이름을 양보했다 — `JdHighlightText(View)` vs
+   `JdHighlight(enum)`, `JdMentionLabel` vs `JdMentionChip`, `JdHashtagLabel` vs `JdHashtag`.
+   추가로 `JdHashtagLabelView.hashtag`(UIView.tag 충돌), `JdCodeView.codeSize`,
+   `JdFileUploadZoneView.zoneDescription`(NSObject.description). UIControl 소유 이름 금지 규칙
+   (DEC-031-4)의 연장이며, **UIView/NSObject 상속 이름까지 대상**임이 실측됐다.
+9. **접근성 보정 계속**: StarRating은 별 N개가 아니라 컨트롤 하나에 `.adjustable`(0.5 증감)로
+   VoiceOver 별점 입력을 가능하게 했고, Link의 external은 아이콘 대신 "새 창에서 열림"을 라벨에
+   합류, CopyButton은 복사 완료를 `JdAnnouncer`로 통지한다(웹은 라벨 교체로만 알렸다).
+10. **하네스 함정 추가 실측**: `UIHostingController.sizeThatFits`에 **유한 높이**를 제안하면
+    제안값을 그대로 돌려줘 크기 램프가 관측되지 않는다(400 == 400). 자연 높이가 필요하면
+    `.greatestFiniteMagnitude`를 제안해야 한다. 기존 `sendActions` 무동작 함정과 같은 계열.
+- **스펙 보강 후보(G2)**: JdCodeSpec·JdMarkSpec 부재(형광펜 5색을 JdTagSpec 팔레트로 근사,
+  yellow→orange·pink→red), JdLinkVariant의 default·primary 동색 문제, 핀/강도 전용 스펙,
+  Motion 프리셋 지속시간(웹 280/300/400ms가 Duration 램프 밖이라 전부 slow로 통일),
+  CopyButton 2초·pulse 2초가 Duration 사다리(최대 0.5) 밖.
+- 검증: 시뮬레이터 빌드 에러 0 · XCTest 477건 · 쇼룸 73종 데모 등록 typecheck 통과.
+- 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — G2-B13 composites 오버레이·피드백 (14행, Sheet·ConfirmDialog 별칭 포함)
 
 ### DEC-033. 오버레이 축 통합 판단 5건
