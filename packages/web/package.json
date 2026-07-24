@@ -47,6 +47,14 @@
       "types": "./dist/types/components/avatar/element.d.ts",
       "default": "./dist/components/avatar/element.js"
     },
+    "./back-top": {
+      "types": "./dist/types/components/back-top/index.d.ts",
+      "default": "./dist/components/back-top/index.js"
+    },
+    "./back-top/element": {
+      "types": "./dist/types/components/back-top/element.d.ts",
+      "default": "./dist/components/back-top/element.js"
+    },
     "./badge": {
       "types": "./dist/types/components/badge/index.d.ts",
       "default": "./dist/components/badge/index.js"
@@ -103,6 +111,22 @@
       "types": "./dist/types/components/container/element.d.ts",
       "default": "./dist/components/container/element.js"
     },
+    "./copy-button": {
+      "types": "./dist/types/components/copy-button/index.d.ts",
+      "default": "./dist/components/copy-button/index.js"
+    },
+    "./copy-button/element": {
+      "types": "./dist/types/components/copy-button/element.d.ts",
+      "default": "./dist/components/copy-button/element.js"
+    },
+    "./currency-input": {
+      "types": "./dist/types/components/currency-input/index.d.ts",
+      "default": "./dist/components/currency-input/index.js"
+    },
+    "./currency-input/element": {
+      "types": "./dist/types/components/currency-input/element.d.ts",
+      "default": "./dist/components/currency-input/element.js"
+    },
     "./divider": {
       "types": "./dist/types/components/divider/index.d.ts",
       "default": "./dist/components/divider/index.js"
@@ -110,6 +134,14 @@
     "./divider/element": {
       "types": "./dist/types/components/divider/element.d.ts",
       "default": "./dist/components/divider/element.js"
+    },
+    "./file-upload": {
+      "types": "./dist/types/components/file-upload/index.d.ts",
+      "default": "./dist/components/file-upload/index.js"
+    },
+    "./file-upload/element": {
+      "types": "./dist/types/components/file-upload/element.d.ts",
+      "default": "./dist/components/file-upload/element.js"
     },
     "./flex": {
       "types": "./dist/types/components/flex/index.d.ts",
@@ -199,6 +231,22 @@
       "types": "./dist/types/components/modal/element.d.ts",
       "default": "./dist/components/modal/element.js"
     },
+    "./number-input": {
+      "types": "./dist/types/components/number-input/index.d.ts",
+      "default": "./dist/components/number-input/index.js"
+    },
+    "./number-input/element": {
+      "types": "./dist/types/components/number-input/element.d.ts",
+      "default": "./dist/components/number-input/element.js"
+    },
+    "./otp-input": {
+      "types": "./dist/types/components/otp-input/index.d.ts",
+      "default": "./dist/components/otp-input/index.js"
+    },
+    "./otp-input/element": {
+      "types": "./dist/types/components/otp-input/element.d.ts",
+      "default": "./dist/components/otp-input/element.js"
+    },
     "./overlay": {
       "types": "./dist/types/components/overlay/index.d.ts",
       "default": "./dist/components/overlay/index.js"
@@ -214,6 +262,30 @@
     "./page/element": {
       "types": "./dist/types/components/page/element.d.ts",
       "default": "./dist/components/page/element.js"
+    },
+    "./password-input": {
+      "types": "./dist/types/components/password-input/index.d.ts",
+      "default": "./dist/components/password-input/index.js"
+    },
+    "./password-input/element": {
+      "types": "./dist/types/components/password-input/element.d.ts",
+      "default": "./dist/components/password-input/element.js"
+    },
+    "./phone-input": {
+      "types": "./dist/types/components/phone-input/index.d.ts",
+      "default": "./dist/components/phone-input/index.js"
+    },
+    "./phone-input/element": {
+      "types": "./dist/types/components/phone-input/element.d.ts",
+      "default": "./dist/components/phone-input/element.js"
+    },
+    "./pin-input": {
+      "types": "./dist/types/components/pin-input/index.d.ts",
+      "default": "./dist/components/pin-input/index.js"
+    },
+    "./pin-input/element": {
+      "types": "./dist/types/components/pin-input/element.d.ts",
+      "default": "./dist/components/pin-input/element.js"
     },
     "./radio-group": {
       "types": "./dist/types/components/radio-group/index.d.ts",
@@ -294,6 +366,14 @@
     "./stack/element": {
       "types": "./dist/types/components/stack/element.d.ts",
       "default": "./dist/components/stack/element.js"
+    },
+    "./star-rating": {
+      "types": "./dist/types/components/star-rating/index.d.ts",
+      "default": "./dist/components/star-rating/index.js"
+    },
+    "./star-rating/element": {
+      "types": "./dist/types/components/star-rating/element.d.ts",
+      "default": "./dist/components/star-rating/element.js"
     },
     "./status-dot": {
       "types": "./dist/types/components/status-dot/index.d.ts",

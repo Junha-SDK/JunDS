@@ -4,6 +4,55 @@
 
 ---
 
+## 2026-07-24 — G2-B5 primitives 특수 입력 구현 중 발견 (10행)
+
+### DEC-029. B5 특수 입력 판단 8건
+1. **"값 없음"은 NaN 센티널**: NumberInput·CurrencyInput·FileUpload(maxSize)의 v2
+   `number | undefined`를 표현할 수단이 attribute에는 없다(복합 값 금지, WEB-03).
+   Number 프롭의 `default: NaN`을 미지정 센티널로 고정 — attribute 부재 → NaN →
+   입력 표시는 빈 문자열, min/max는 "제한 없음". 파생 규칙: 사용자가 필드를 비우면
+   NaN이 되며 **0으로 강제하지 않는다**(v2 CurrencyInput은 0을 밀어 넣어 필드를
+   영영 비울 수 없었다).
+2. **클램프는 확정 시점에만**: v2 NumberInput은 onChange(=입력 이벤트)마다 클램프해
+   min=10인 필드에 "5"를 치는 순간 10이 되어 "50"을 입력할 수 없었다. v3는 입력 중
+   (jd-input)엔 원시값, change·스텝 버튼에서만 클램프한다. 되쓰기 가드도 함께 도입 —
+   현재 문자열이 같은 수로 파싱되면 건드리지 않는다("1." 입력 중 절단 방지, B3 IME 가드 동형).
+3. **StarRating을 네이티브 radio 묶음으로 재작성**: v2는 별 개수만큼 `<button role="radio">`를
+   전부 탭 순서에 넣고 `aria-checked={star <= value}`로 **여러 개를 동시에 checked**로
+   노출했다. 네이티브 위임(§1.6-1)이 단일 탭스톱·화살표 순회·단일 선택을 한 번에
+   해결 — 수제 키보드 코드 0줄. 실측: 탭스톱 1회(e2e 탐침 진입), ArrowRight로 값 이동.
+   호버 미리보기만 포인터 이벤트로 유지(render 단계 금지, §3.1-3).
+4. **PhoneInput 국가 선택도 네이티브 select 위임**: v2 수제 드롭다운은 키보드 조작·
+   role·외부 클릭 닫기·Escape가 전무했다. select는 그 전부 + 모바일 네이티브 피커 +
+   타이핑 점프가 공짜다. 대가는 **열린 목록의 외관이 플랫폼 기본**이라는 것 —
+   닫힌 상태(국기+국가번호+캐럿)는 appearance:none + 캐럿 겹침으로 v2 외관 유지.
+   DEC-023-1(Slider→range)과 같은 계열의 교환이다.
+5. **v2 기본값 참(true) 불리언은 반전 attribute로**: PinInput의 `numeric = true`는
+   attribute로 표현할 수 없다(존재=참이라 부재를 기본참으로 두면 끌 방법이 없다).
+   `alphanumeric` 옵트아웃 플래그로 반전 — 레포 전체에 `default: true` 불리언 0건이라는
+   기존 관행과도 정합. OTPInput은 이 게터를 false로 고정해 숫자 전용을 강제한다.
+6. **OTPInput = PinInput 파생**: baseClass·시트·`separatorIndex()`·`textMode`만 재정의하고
+   이동·삭제·붙여넣기·완료 통지 로직은 전량 공유(§6 R12, DEC-023-5 Switch=Toggle 선례).
+   칸 리스너는 호스트 위임 4종(input·keydown·paste·**focusin** — focus는 버블하지 않는다)이라
+   length 변경으로 칸을 재구축해도 재부착이 필요 없다.
+7. **실패 경로를 삼키지 않는다**: v2 CopyButton은 `await navigator.clipboard.writeText()`만
+   걸어 보안 컨텍스트·권한 거부에서 unhandled rejection을 냈고, 언마운트 후에도 2초
+   타이머가 setState를 때렸다. v3는 try/catch → `jd-error`, 타이머는 disconnected에서 해제.
+   e2e가 이를 직접 고정한다(setContent는 about:blank라 clipboard 부재 — 그 환경이 곧 시험대).
+8. **CurrencyInput 소수 자릿수는 Intl 통화 기본값**: v2 `currency === "KRW" ? 0 : 2`
+   하드코딩은 0자리 통화(JPY·VND·CLP)를 ￥800.00으로 틀리게 찍었다. Intl 기본값은
+   KRW 0 · USD 2로 **v2가 맞게 다루던 두 축과 동일**하므로 패리티 손실 없이 오류만 사라진다.
+   표기 전환(₩1,500,000 ↔ 1500000)은 update()의 "같은 수면 두기" 가드에 걸리므로
+   focus/blur 핸들러가 직접 기록한다 — 값은 같고 표기만 달라지는 유일한 경우.
+- 검증: vitest 248/248(신규 39) · e2e 45/45(신규 11, 실브라우저 전용 계약: 탭스톱·
+  화살표 순회·실드롭·스크롤 노출) · size-gate PASS(평균 1.18KB · p95 2.33KB, 신규 10종
+  1.19~3.25KB) · web-a11y PASS(6페이지 critical/serious 0) · demo/special-input.html
+  헤드리스 실측 — 콘솔 에러 0, PIN 40×48·OTP 44×52·별 #facc15/#d1d5db·다크 전환 재현.
+- 미해결(기록): 국기 이모지는 플랫폼 폰트 의존(v2 승계) — SVG 국기는 icons/ 파이프라인 과제.
+- 결정자: B5 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — iOS 확장 지령 1차: 네이티브 쇼룸 + B-core 12종 + 성능 체계
 
 ### DEC-028. 쇼룸 개편·core 이식·벤치 체계 판단 9건

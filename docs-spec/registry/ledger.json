@@ -479,23 +479,23 @@
       "id": "NumberInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-number-input> — 네이티브 number 위임 + 스텝 버튼(tabIndex -1), 클램프는 확정(change/버튼) 시점만(v2는 매 키 입력 클램프로 min=10에 \"50\" 불가), 값 없음=NaN 센티널"
     },
     {
       "id": "CopyButton",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-copy-button> — clipboard 실패를 try/catch 후 jd-error로 흡수(v2는 unhandled rejection), 2초 타이머는 disconnected에서 해제, icon 변형도 aria-label 유지"
     },
     {
       "id": "StatusDot",
@@ -512,34 +512,34 @@
       "id": "FileUpload",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-file-upload> — 숨은 네이티브 input[type=file] + 드롭존(role=button·Enter/Space), 커스텀 트리거는 v2 trigger prop 대신 light DOM children, File은 이벤트 detail·files 게터로만"
     },
     {
       "id": "PasswordInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-password-input> — 표시 토글(type 전환)·강도 4단 게이지·규칙 체크리스트. 강도 산식 v2 이식, 색은 danger/warning/info/success 토큰(DEC-025-1 단서). 규칙 2경로: rules 프로퍼티(함수) + JSON 슬롯(pattern|minLength)"
     },
     {
       "id": "PinInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-pin-input> — 칸=네이티브 input(maxlength 1·one-time-code), 리스너는 호스트 위임 4종(focusin), v2 numeric=true는 반전 플래그 alphanumeric으로 옵트아웃, 붙여넣기는 구분자 제거 후 수용(v2는 전량 거부)"
     },
     {
       "id": "Switch",
@@ -578,23 +578,23 @@
       "id": "StarRating",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-star-rating> — 네이티브 radio 위임으로 단일 탭스톱 + 화살표 순회(v2는 별 개수만큼 탭스톱 + aria-checked 다중 참). 채움은 CSS fill 전환, 호버 미리보기는 포인터 이벤트에서만"
     },
     {
       "id": "BackTop",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-back-top> — 첫 측정은 render가 아니라 connected(§3.1-3 프리렌더 결정성), 노드 유지 + visible attribute로 표시 전환(v2는 null 반환), scroll 리스너 passive"
     },
     {
       "id": "ErrorBoundary",
@@ -633,34 +633,34 @@
       "id": "OTPInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-otp-input> — PinInput 파생(§6 R12·DEC-023-5 선례): 숫자 고정 + 중앙 구분자 + 큰 칸만 재정의, 로직 전량 공유"
     },
     {
       "id": "CurrencyInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-currency-input> — 포커스 밖=Intl 통화 표기/포커스 중=원시값(표기 전환은 update 가드를 우회해 직접 기록), 소수 자릿수는 Intl 통화 기본값(v2 KRW?0:2 하드코딩이 JPY를 ￥800.00로 오표기), 빈 값=NaN 유지(v2는 0 강제)"
     },
     {
       "id": "PhoneInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B5 <jd-phone-input> — 국가 선택을 네이티브 select로 위임(v2 수제 드롭다운은 키보드·role·외부클릭 전무), value는 숫자만·표시만 3-4-4 포맷, v2 미사용 필드 format은 미승계"
     },
     {
       "id": "NumberFormatter",

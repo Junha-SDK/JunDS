@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JunDS v3 — B5 특수 입력 데모 (10종)</title>
+<!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
+<link rel="stylesheet" href="../dist/junds.css">
+<script src="../dist/junds.min.js" defer></script>
+<style>
+  body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
+         background: var(--jd-color-background); color: var(--jd-color-foreground); }
+  main { max-width: 44rem; margin-inline: auto; }
+  /* BackTop 임계(400px)를 넘길 스크롤 여백 */
+  .tail { height: 120vh; }
+  /* 이벤트 로그 텍스트도 AA — muted-light(2.7:1) 대신 muted */
+  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted); min-height: 1.2em; }
+</style>
+</head>
+<body>
+<main>
+  <jd-flex justify="between" align="center" mb="6">
+    <jd-heading level="1" mb="0">B5 · 특수 입력</jd-heading>
+    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
+  </jd-flex>
+  <p id="log">이벤트 로그…</p>
+
+  <jd-vstack gap="8">
+    <jd-section title="jd-number-input" description="네이티브 number 위임 — 확정 시점에만 클램프">
+      <jd-hstack gap="3" align="center">
+        <jd-number-input id="qty" value="3" min="0" max="10" label="수량"></jd-number-input>
+        <jd-number-input value="50" step="5" size="sm" label="5단위"></jd-number-input>
+        <jd-number-input value="7" size="lg" label="큰 사이즈"></jd-number-input>
+        <jd-number-input value="2" hide-controls label="버튼 없음"></jd-number-input>
+        <jd-number-input value="1" error label="에러"></jd-number-input>
+        <jd-number-input value="1" disabled label="비활성"></jd-number-input>
+      </jd-hstack>
+    </jd-section>
+
+    <jd-section title="jd-password-input" description="표시 토글 · 강도 게이지 · 규칙 체크리스트">
+      <jd-vstack gap="3">
+        <jd-password-input id="pw" show-strength show-rules placeholder="비밀번호"
+                           label="비밀번호"></jd-password-input>
+        <jd-password-input size="sm" placeholder="작은 사이즈" label="작은 비밀번호"></jd-password-input>
+        <jd-password-input error size="lg" placeholder="에러 상태" label="에러 비밀번호"></jd-password-input>
+        <!-- 선언적 규칙: pattern / minLength (함수 test는 프로퍼티 경로) -->
+        <jd-password-input show-rules placeholder="커스텀 규칙" label="커스텀 규칙">
+          <script type="application/json">[
+            {"label":"4자 이상","minLength":4},
+            {"label":"숫자 포함","pattern":"[0-9]"}
+          ]</script>
+        </jd-password-input>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="jd-pin-input + jd-otp-input" description="자동 전진 · 붙여넣기 · 화살표 이동">
+      <jd-vstack gap="4">
+        <jd-pin-input id="pin" length="4"></jd-pin-input>
+        <jd-pin-input length="6" masked></jd-pin-input>
+        <jd-pin-input length="4" alphanumeric></jd-pin-input>
+        <jd-pin-input length="4" error value="12"></jd-pin-input>
+        <jd-otp-input id="otp"></jd-otp-input>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="jd-currency-input" description="포커스 밖=통화 표기, 포커스 중=원시값">
+      <jd-hstack gap="3">
+        <jd-currency-input id="krw" value="1500000" label="원화"></jd-currency-input>
+        <jd-currency-input value="12.5" currency="USD" locale="en-US" label="달러"></jd-currency-input>
+        <jd-currency-input value="800" currency="JPY" locale="ja-JP" size="sm" label="엔화"></jd-currency-input>
+      </jd-hstack>
+    </jd-section>
+
+    <jd-section title="jd-phone-input" description="국가 선택은 네이티브 select — 키보드·모바일 피커 공짜">
+      <jd-hstack gap="3">
+        <jd-phone-input id="phone" value="01012345678"></jd-phone-input>
+        <jd-phone-input country="US" size="sm"></jd-phone-input>
+        <jd-phone-input error></jd-phone-input>
+      </jd-hstack>
+    </jd-section>
+
+    <jd-section title="jd-file-upload" description="드래그앤드롭 + 클릭 · children이 있으면 트리거 모드">
+      <jd-vstack gap="4">
+        <jd-file-upload id="upload" accept="image/*" multiple max-size="1048576"></jd-file-upload>
+        <jd-file-upload>
+          <jd-button variant="outline" size="sm">파일 선택…</jd-button>
+        </jd-file-upload>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="jd-copy-button" description="복사 후 2초간 완료 표시 — 실패는 jd-error">
+      <jd-hstack gap="3" align="center">
+        <jd-copy-button id="copy" text="복사된 텍스트입니다"></jd-copy-button>
+        <jd-copy-button text="작은 아이콘" size="sm"></jd-copy-button>
+        <jd-copy-button text="npm i @junds/web" variant="button" label="코드 복사"></jd-copy-button>
+        <jd-copy-button text="x" variant="button" size="sm" label="작게"></jd-copy-button>
+      </jd-hstack>
+    </jd-section>
+
+    <jd-section title="jd-star-rating" description="네이티브 radio 위임 — 단일 탭스톱 + 화살표 순회">
+      <jd-vstack gap="3">
+        <jd-star-rating id="stars" value="3"></jd-star-rating>
+        <jd-star-rating value="4" size="sm"></jd-star-rating>
+        <jd-star-rating value="4.5" size="lg" readonly></jd-star-rating>
+        <jd-star-rating value="7" max="10" size="sm"></jd-star-rating>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="jd-back-top" description="400px 이상 스크롤하면 우하단에 나타난다">
+      <p>아래로 스크롤해 보세요 — 초기 렌더는 항상 숨김 상태입니다(프리렌더 결정성).</p>
+    </jd-section>
+  </jd-vstack>
+  <div class="tail"></div>
+</main>
+
+<jd-back-top id="top"></jd-back-top>
+
+<script type="module">
+  const log = document.getElementById("log");
+  for (const ev of ["jd-change", "jd-input", "jd-complete", "jd-copy", "jd-error", "jd-select"]) {
+    document.addEventListener(ev, (e) => {
+      const detail = e.detail && e.detail.files
+        ? { files: e.detail.files.map((f) => f.name) }
+        : e.detail;
+      log.textContent = `${ev} ← <${e.target.tagName.toLowerCase()}> ${JSON.stringify(detail)}`;
+    });
+  }
+  const btn = document.getElementById("theme-toggle");
+  btn.addEventListener("click", () => {
+    const root = document.documentElement;
+    const dark = root.getAttribute("data-jd-theme") !== "dark";
+    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
+    btn.textContent = dark ? "라이트 모드" : "다크 모드";
+  });
+</script>
+</body>
+</html>
