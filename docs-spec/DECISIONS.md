@@ -4,6 +4,58 @@
 
 ---
 
+## 2026-07-24 — G2-B7 primitives 인프라·소셜 (10행) — **primitives 51/51 완주**
+
+### DEC-031. B7 인프라·소셜 판단 6건
+1. **재부모화(disconnect→connect) 생존 규율 — 이번 배치 최대 발견**: 조상 CE가 자기
+   children을 골격 안으로 옮기면(jd-section이 그렇게 한다) 자손 호스트는
+   **disconnect → connect를 한 번 겪는다**. JdElement 계약상 재연결에서는 render()도
+   update()도 부르지 않고 `connected()`만 부르며, `own()`한 Behavior는 disconnect에서
+   **destroy된다**. 그래서 (a) jd-portal은 회수한 노드를 다시 내보내지 못했고,
+   (b) jd-focus-guard는 destroy된 트랩을 붙들어 activate()가 영구 무시됐다 —
+   둘 다 격리 페이지에서는 통과하고 **데모 페이지에서만** 깨져 실측으로만 드러났다.
+   처방: 이런 컴포넌트는 `connected()`에서 `requestUpdate()`, `disconnected()`에서
+   파괴된 Behavior 참조를 버린다. **자기 서브트리 밖에 부수효과를 남기거나 Behavior를
+   own하는 컴포넌트는 전부 이 규율의 대상**이다(B5·B6 전량 점검 — 리스너를
+   connected/disconnected 쌍으로 붙이는 것들은 이미 안전).
+   *열린 선택지*: core에서 재연결 시 update()를 부르게 하면 전 컴포넌트가 자동 치유된다
+   (§3.3 멱등 계약 덕에 안전). 공유 파일이라 이번 배치에서는 손대지 않고 기록만 남긴다.
+2. **ErrorBoundary는 능력 범위를 좁혀서 이식했다**: React 경계는 *렌더 예외*를 가로채지만
+   바닐라에는 그 훅이 없다 — 자손이 던진 예외는 조상으로 오지 않고 window로 간다.
+   그대로 흉내 내면 거짓 안전감을 준다. 그래서 제공 범위를 (a) 실패 상태기계 + 폴백 UI +
+   재시도, (b) **opt-in** 자동 포착(`auto`: 자손 리소스 error 캡처 + jd-error)으로 명시했다.
+   자동 포착이 기본이 아닌 이유: 이미지 한 장 실패로 섹션 전체를 대체 UI로 바꾸는 것은 과잉.
+   v2 동형의 렌더 예외 포착이 필요하면 react 어댑터의 진짜 클래스 경계를 쓴다.
+3. **FocusGuard 기본값을 뒤집었다**: v2 `active=true`는 "조건부 렌더되는 모달 안"이라는
+   전제 위에서만 옳다. 항상 DOM에 있는 CE에서 그 기본값은 페이지에 놓는 순간 포커스를
+   가둔다. Behavior 규약(§5.1)도 "create 시점에 리스너를 붙이지 않고 activate()가 시작점"
+   이라고 못박고 있어 그쪽에 맞췄다. 로직은 Modal과 같은 createFocusTrap 재사용 —
+   Tab 순환·복귀 규칙이 두 벌로 갈라지지 않는다.
+4. **Announcer는 Context 대신 요소 메서드 + 지연 싱글턴**: `announce(msg, politeness)`
+   모듈 함수가 문서당 하나의 `<jd-announcer>`를 필요할 때 만든다 — import만으로 DOM을
+   건드리지 않아 SSR 안전(§3.1). 같은 문구 반복도 전달되도록 비웠다가 다음 프레임에
+   채우는 v2 관용구를 그대로 승계했다.
+5. **FollowButton 라벨 3종을 DOM에 다 두고 CSS가 고른다**: v2는 hover/focus를 React
+   state로 들어 포인터가 스칠 때마다 리렌더가 돌았다. `:hover`/`:focus-visible`로
+   표시만 바꾸면 JS 0줄이고 v2가 따로 배선하던 포커스 경로(onFocus/onBlur)까지 공짜다.
+   단, **접근 이름은 상태 기준으로 고정**한다 — 호버로 접근 이름이 바뀌면 AT 사용자에게는
+   이유 없는 변화다(v2는 라벨=접근 이름이라 같이 흔들렸다).
+6. **"그래픽 3:1 / 텍스트 4.5:1"을 색 결정의 기준선으로 고정**: 같은 rose-500이
+   하트 아이콘에서는 충분(3.32:1 > 3:1)하고 옆의 **숫자에서는 미달**이다 — axe가
+   `.jd-like-button__count`만 정확히 집어냈다. 처방은 DEC-030-7과 동일(글자만
+   foreground 65% 혼합). FollowButton 언팔로우 라벨도 같은 결함이지만 **호버 상태라
+   정지 감사에 잡히지 않는다** — 선제 적용했다. 교훈: 상태로만 드러나는 표면은 게이트가
+   못 보므로 데모에 상태를 노출시키거나 손으로 계산해야 한다(B5 강도 게이지와 동형).
+- 검증: vitest 298/298(신규 25) · e2e 51/51(신규 8, 실키보드 Tab 감금·재부모화 생존·
+  CSS 호버 라벨) · size-gate PASS(평균 1.10KB) · web-a11y PASS(8페이지 critical/serious 0)
+  · demo/infra-social.html 실측 — 포털 이동·live region 2종·Tab 5회 전부 감금 유지·
+  경계 자동 포착·소셜 토글 재현, 콘솔 에러는 의도적 404 1건뿐.
+- **원장: primitives 51/51 완료** (web done 77/445 · core 13/13 · layout 12/12).
+  다음은 07-rollout §2 순서표대로 B8~B12 Behavior(훅 55종).
+- 결정자: B7 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — G2-B6 primitives 텍스트·미디어 구현 중 발견 (9행 + AspectRatio 별칭)
 
 ### DEC-030. B6 텍스트·미디어 판단 7건

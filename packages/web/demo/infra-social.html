@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JunDS v3 — B7 인프라·소셜 데모 (10종)</title>
+<!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
+<link rel="stylesheet" href="../dist/junds.css">
+<script src="../dist/junds.min.js" defer></script>
+<style>
+  body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
+         background: var(--jd-color-background); color: var(--jd-color-foreground); }
+  main { max-width: 44rem; margin-inline: auto; }
+  /* 이벤트 로그 텍스트도 AA — muted-light(2.7:1) 대신 muted */
+  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted); min-height: 1.2em; }
+  #portal-target { border: 1px dashed var(--jd-color-border); border-radius: 8px;
+                   padding: 12px; min-height: 2rem; }
+  .guard { border: 1px solid var(--jd-color-border); border-radius: 8px; padding: 12px;
+           display: flex; gap: .5rem; }
+</style>
+</head>
+<body>
+<main>
+  <jd-flex justify="between" align="center" mb="6">
+    <jd-heading level="1" mb="0">B7 · 인프라·소셜</jd-heading>
+    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
+  </jd-flex>
+  <p id="log">이벤트 로그…</p>
+
+  <jd-vstack gap="8">
+    <jd-section title="jd-portal" description="children을 다른 컨테이너로 실제 이동 — disconnect 시 회수">
+      <jd-vstack gap="2">
+        <div id="portal-target"><small>↓ 여기로 이동된 내용</small></div>
+        <jd-portal to="#portal-target">
+          <jd-code id="ported">포털로 옮겨진 노드</jd-code>
+        </jd-portal>
+        <jd-hstack gap="2">
+          <jd-button id="portal-toggle" variant="outline" size="sm">이동 보류 토글</jd-button>
+        </jd-hstack>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="jd-visually-hidden + jd-announcer" description="눈에는 안 보이지만 AT에는 남는다">
+      <jd-vstack gap="2">
+        <p style="margin:0">
+          정렬 <jd-visually-hidden>(오름차순 기준)</jd-visually-hidden>기준을 바꿉니다.
+        </p>
+        <jd-hstack gap="2">
+          <jd-button id="say-polite" variant="outline" size="sm">polite 공지</jd-button>
+          <jd-button id="say-assertive" variant="outline" size="sm">assertive 공지</jd-button>
+        </jd-hstack>
+        <jd-announcer id="announcer"></jd-announcer>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="jd-focus-guard" description="기본은 비활성 — 켜야 가둔다(Behavior 규약)">
+      <jd-vstack gap="2">
+        <jd-hstack gap="2">
+          <jd-button id="guard-toggle" variant="outline" size="sm">감금 켜기</jd-button>
+          <jd-button id="outside">바깥 버튼</jd-button>
+        </jd-hstack>
+        <jd-focus-guard id="guard" class="guard">
+          <jd-button size="sm">첫 번째</jd-button>
+          <jd-button size="sm" variant="outline">두 번째</jd-button>
+          <jd-button size="sm" variant="outline">세 번째</jd-button>
+        </jd-focus-guard>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="jd-error-boundary" description="폴백 UI + 재시도. auto면 자손 jd-error를 포착">
+      <jd-vstack gap="3">
+        <jd-error-boundary id="eb">
+          <p style="margin:0">정상 본문입니다. 아래 버튼으로 실패 상태를 만들어 보세요.</p>
+        </jd-error-boundary>
+        <jd-hstack gap="2">
+          <jd-button id="eb-fail" variant="outline" size="sm">실패시키기</jd-button>
+        </jd-hstack>
+        <!-- auto: 자손 이미지 로드 실패(의도적 404)를 경계가 잡는다 -->
+        <jd-error-boundary auto heading="이미지를 불러오지 못했습니다">
+          <jd-image src="/also-missing.png" alt="깨진 이미지" style="width:8rem" ratio="1"></jd-image>
+        </jd-error-boundary>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="소셜 토글 3종" description="aria-pressed 토글 — 클릭이 곧 상태 변경(비제어)">
+      <jd-vstack gap="3">
+        <jd-hstack gap="3" align="center">
+          <jd-like-button id="like" count="41"></jd-like-button>
+          <jd-like-button liked count="1204"></jd-like-button>
+          <jd-like-button size="sm"></jd-like-button>
+          <jd-like-button size="lg" count="7"></jd-like-button>
+          <jd-like-button disabled count="0"></jd-like-button>
+        </jd-hstack>
+        <jd-hstack gap="3" align="center">
+          <jd-bookmark-button id="bm"></jd-bookmark-button>
+          <jd-bookmark-button bookmarked></jd-bookmark-button>
+          <jd-bookmark-button size="24"></jd-bookmark-button>
+          <jd-bookmark-button disabled></jd-bookmark-button>
+        </jd-hstack>
+        <jd-hstack gap="3" align="center">
+          <jd-follow-button id="fl"></jd-follow-button>
+          <jd-follow-button following></jd-follow-button>
+          <jd-follow-button following no-unfollow-hover size="sm"></jd-follow-button>
+          <jd-follow-button size="lg" follow-label="구독"></jd-follow-button>
+          <jd-follow-button disabled></jd-follow-button>
+        </jd-hstack>
+      </jd-vstack>
+    </jd-section>
+
+    <jd-section title="jd-mention-chip · jd-hashtag" description="정적 표시 전용 링크 칩">
+      <p style="margin:0">
+        <jd-mention-chip handle="junha" href="#u" verified></jd-mention-chip>
+        님이
+        <jd-hashtag tag="디자인시스템" href="#t" trending count="3214"></jd-hashtag>
+        <jd-hashtag tag="웹컴포넌트" href="#t" count="1500000"></jd-hashtag>
+        <jd-hashtag tag="접근성" href="#t" count="42"></jd-hashtag>
+        에 글을 남겼습니다. (<jd-mention-chip handle="team" label="팀 계정" href="#u"></jd-mention-chip>)
+      </p>
+    </jd-section>
+  </jd-vstack>
+</main>
+
+<script type="module">
+  const log = document.getElementById("log");
+  for (const ev of ["jd-change", "jd-open", "jd-error"]) {
+    document.addEventListener(ev, (e) => {
+      log.textContent = `${ev} ← <${e.target.tagName.toLowerCase()}> ${JSON.stringify(e.detail)}`;
+    });
+  }
+  const portal = document.querySelector("jd-portal");
+  document.getElementById("portal-toggle").addEventListener("click", () => {
+    portal.disabled = !portal.disabled;
+  });
+  const announcer = document.getElementById("announcer");
+  document.getElementById("say-polite").addEventListener("click", () => {
+    announcer.announce("항목이 저장되었습니다");
+  });
+  document.getElementById("say-assertive").addEventListener("click", () => {
+    announcer.announce("연결이 끊어졌습니다", "assertive");
+  });
+  const guard = document.getElementById("guard");
+  document.getElementById("guard-toggle").addEventListener("click", (e) => {
+    guard.active = !guard.active;
+    e.target.textContent = guard.active ? "감금 끄기" : "감금 켜기";
+  });
+  document.getElementById("eb-fail").addEventListener("click", () => {
+    document.getElementById("eb").fail(new Error("네트워크 요청이 실패했습니다"));
+  });
+  const btn = document.getElementById("theme-toggle");
+  btn.addEventListener("click", () => {
+    const root = document.documentElement;
+    const dark = root.getAttribute("data-jd-theme") !== "dark";
+    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
+    btn.textContent = dark ? "라이트 모드" : "다크 모드";
+  });
+</script>
+</body>
+</html>

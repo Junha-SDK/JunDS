@@ -23,6 +23,14 @@
       "types": "./dist/types/define.d.ts",
       "default": "./dist/define.js"
     },
+    "./announcer": {
+      "types": "./dist/types/components/announcer/index.d.ts",
+      "default": "./dist/components/announcer/index.js"
+    },
+    "./announcer/element": {
+      "types": "./dist/types/components/announcer/element.d.ts",
+      "default": "./dist/components/announcer/element.js"
+    },
     "./app-shell": {
       "types": "./dist/types/components/app-shell/index.d.ts",
       "default": "./dist/components/app-shell/index.js"
@@ -70,6 +78,14 @@
     "./battery-indicator/element": {
       "types": "./dist/types/components/battery-indicator/element.d.ts",
       "default": "./dist/components/battery-indicator/element.js"
+    },
+    "./bookmark-button": {
+      "types": "./dist/types/components/bookmark-button/index.d.ts",
+      "default": "./dist/components/bookmark-button/index.js"
+    },
+    "./bookmark-button/element": {
+      "types": "./dist/types/components/bookmark-button/element.d.ts",
+      "default": "./dist/components/bookmark-button/element.js"
     },
     "./box": {
       "types": "./dist/types/components/box/index.d.ts",
@@ -143,6 +159,14 @@
       "types": "./dist/types/components/divider/element.d.ts",
       "default": "./dist/components/divider/element.js"
     },
+    "./error-boundary": {
+      "types": "./dist/types/components/error-boundary/index.d.ts",
+      "default": "./dist/components/error-boundary/index.js"
+    },
+    "./error-boundary/element": {
+      "types": "./dist/types/components/error-boundary/element.d.ts",
+      "default": "./dist/components/error-boundary/element.js"
+    },
     "./file-upload": {
       "types": "./dist/types/components/file-upload/index.d.ts",
       "default": "./dist/components/file-upload/index.js"
@@ -158,6 +182,22 @@
     "./flex/element": {
       "types": "./dist/types/components/flex/element.d.ts",
       "default": "./dist/components/flex/element.js"
+    },
+    "./focus-guard": {
+      "types": "./dist/types/components/focus-guard/index.d.ts",
+      "default": "./dist/components/focus-guard/index.js"
+    },
+    "./focus-guard/element": {
+      "types": "./dist/types/components/focus-guard/element.d.ts",
+      "default": "./dist/components/focus-guard/element.js"
+    },
+    "./follow-button": {
+      "types": "./dist/types/components/follow-button/index.d.ts",
+      "default": "./dist/components/follow-button/index.js"
+    },
+    "./follow-button/element": {
+      "types": "./dist/types/components/follow-button/element.d.ts",
+      "default": "./dist/components/follow-button/element.js"
     },
     "./grid": {
       "types": "./dist/types/components/grid/index.d.ts",
@@ -182,6 +222,14 @@
     "./group/element": {
       "types": "./dist/types/components/group/element.d.ts",
       "default": "./dist/components/group/element.js"
+    },
+    "./hashtag": {
+      "types": "./dist/types/components/hashtag/index.d.ts",
+      "default": "./dist/components/hashtag/index.js"
+    },
+    "./hashtag/element": {
+      "types": "./dist/types/components/hashtag/element.d.ts",
+      "default": "./dist/components/hashtag/element.js"
     },
     "./heading": {
       "types": "./dist/types/components/heading/index.d.ts",
@@ -255,6 +303,14 @@
       "types": "./dist/types/components/label/element.d.ts",
       "default": "./dist/components/label/element.js"
     },
+    "./like-button": {
+      "types": "./dist/types/components/like-button/index.d.ts",
+      "default": "./dist/components/like-button/index.js"
+    },
+    "./like-button/element": {
+      "types": "./dist/types/components/like-button/element.d.ts",
+      "default": "./dist/components/like-button/element.js"
+    },
     "./link": {
       "types": "./dist/types/components/link/index.d.ts",
       "default": "./dist/components/link/index.js"
@@ -270,6 +326,14 @@
     "./mark/element": {
       "types": "./dist/types/components/mark/element.d.ts",
       "default": "./dist/components/mark/element.js"
+    },
+    "./mention-chip": {
+      "types": "./dist/types/components/mention-chip/index.d.ts",
+      "default": "./dist/components/mention-chip/index.js"
+    },
+    "./mention-chip/element": {
+      "types": "./dist/types/components/mention-chip/element.d.ts",
+      "default": "./dist/components/mention-chip/element.js"
     },
     "./modal": {
       "types": "./dist/types/components/modal/index.d.ts",
@@ -350,6 +414,14 @@
     "./pin-input/element": {
       "types": "./dist/types/components/pin-input/element.d.ts",
       "default": "./dist/components/pin-input/element.js"
+    },
+    "./portal": {
+      "types": "./dist/types/components/portal/index.d.ts",
+      "default": "./dist/components/portal/index.js"
+    },
+    "./portal/element": {
+      "types": "./dist/types/components/portal/element.d.ts",
+      "default": "./dist/components/portal/element.js"
     },
     "./radio-group": {
       "types": "./dist/types/components/radio-group/index.d.ts",
@@ -502,6 +574,14 @@
     "./toggle/element": {
       "types": "./dist/types/components/toggle/element.d.ts",
       "default": "./dist/components/toggle/element.js"
+    },
+    "./visually-hidden": {
+      "types": "./dist/types/components/visually-hidden/index.d.ts",
+      "default": "./dist/components/visually-hidden/index.js"
+    },
+    "./visually-hidden/element": {
+      "types": "./dist/types/components/visually-hidden/element.d.ts",
+      "default": "./dist/components/visually-hidden/element.js"
     },
     "./vstack": {
       "types": "./dist/types/components/vstack/index.d.ts",
