@@ -4,6 +4,56 @@
 
 ---
 
+## 2026-07-24 — G2-B8~B12 Behavior 46종 (hooks 55행) — **hooks 55/55 완주**
+
+### DEC-032. 훅 → Behavior 이식 판단 7건
+(번호 주: DEC-031이 병행 트랙과 **중복 부여**됐다 — iOS "대기열 31종"과 웹 B7이 같은
+번호를 갖는다. 양쪽 다 커밋된 뒤에 발견해 여기서는 032로 이어가고, 재번호는 사람 판단
+사항으로 남긴다.)
+
+1. **파일은 훅 단위가 아니라 계열 단위**: 46종을 파일 46개로 쪼개면 배럴이 본문보다
+   커진다. 관찰자 계열은 `createWatcher` 골격 하나를 공유하고(v2 훅 55종 중 관찰자류는
+   전부 useState+useEffect(구독)+return의 같은 모양이었다), 유틸은 한 줄짜리가 많아
+   media/viewport/timing/input/storage/document/scroll/interaction/form/data 10개 파일로 묶었다.
+2. **중복 훅 4쌍은 단일 구현 + 별칭**(§6 R12 · 00-inventory §4): useElementSize=
+   useResizeObserver → `createSizeObserver`, useHotkeys=useKeyboardShortcut →
+   `createHotkeys`, useClipboard=useCopyToClipboard → `copyText`, useKeyboard는
+   createHotkeys의 요소 스코프 표면. 원장에는 55행을 유지하고 notes에 alias-of를 적었다.
+3. **N/A 9종은 구현하지 않고 내부화로 닫았다**(CoreProvider 선례): useDisclosure·
+   useSteps·useToggle·usePrevious·useMounted·useIsomorphicLayoutEffect·useUpdateEffect·
+   useAsync·useOptimisticState. 전부 **React 렌더 사이클이 있어야 의미가 생기는** 상태
+   훅이다 — 바닐라에서 억지로 만들면 "상태를 어디에 둘 것인가"를 두 번 답하게 된다.
+   CE는 connectedCallback·update()가 그 자리를 이미 갖고 있다.
+4. **useDebounce는 의미를 바꿔 이식했다**: v2는 *값*을 지연시키는 훅이었다(렌더 결과를
+   늦추는 React 관용구). 바닐라에는 그 자리가 없어 표준형 `debounce(fn, ms)`로 낸다 —
+   00-inventory §4 매핑표가 이미 그렇게 못박고 있었다. 이름이 같다고 표면까지 같을 수는 없다.
+5. **v2 결함 3건 교정**: (a) useHotkeys의 `e.key` 비문자열 방어는 v2 주석이 실사고를
+   기록해 둔 대로 승계(전역 keydown 리스너가 여기서 터지면 페이지 입력이 통째로 막힌다).
+   (b) useLongPress의 mouse/touch 이벤트 쌍을 pointer로 교체 — 펜·터치가 함께 산다.
+   (c) usePanelResize도 pointer + setPointerCapture로 바꿔 커서가 핸들을 벗어나도
+   드래그가 끊기지 않는다.
+6. **결합을 명시 표면으로 되돌렸다**: v2 useScrollSpy는 `window.dispatchEvent(
+   new Event("scrollspy:manual"))`이라는 **전역 이벤트 이름**으로 앱과 몰래 계약하고
+   있었다 — 라이브러리가 문서화되지 않은 전역 채널을 여는 것은 유지보수 부채다.
+   v3는 `suspend(ms)` 메서드로 바꿨다. useInfiniteFeed도 훅이 들고 있던 페이지네이션
+   상태(items·cursor·hasMore)를 떼어내고 "바닥에 닿았다 + 중복 호출 가드"만 남겼다 —
+   목록 상태는 데이터 계층의 일이다.
+7. **createForm은 폼 자체를 정본으로 삼는다**: v2 useForm은 값·터치·에러를 전부 React
+   state로 복제하고 필드마다 onChange/onBlur를 나눠줬다. 바닐라에서는 **폼 요소가 이미
+   값을 갖고 있다** — Behavior는 규칙 판정과 에러 표시만 얹는다(§1.6-1 네이티브 위임의
+   폼판). 에러는 jd-* 컴포넌트의 `error` 프로퍼티로, 없으면 aria-invalid로 나간다.
+- 사이즈: behaviors는 `core/index.ts`에 합류시키지 **않았다**. 게이트의 코어 정의(W1
+  8KB)는 "베이스클래스+define+styles+uid+style-props+포커스트랩"이며, 46종을 코어 배럴에
+  넣으면 그 정의가 무의미해진다. 코어 5.25KB 그대로 통과.
+- 검증: vitest 333/333(신규 35 — 구독 해제·destroy 멱등·debounce/throttle 타이밍·
+  저장소 손상 JSON·쿠키 이스케이프·lockScroll 중첩·폼 검증/제출 차단·리소스 in-flight
+  합류) · e2e 51/51 · size-gate PASS · web-a11y PASS(8페이지).
+- **원장: hooks 55/55 완료** (web done 132/445 · core·layout·primitives·hooks 전부 완주).
+  남은 것은 composites 184 · finance 86 · patterns 43.
+- 결정자: B8~B12 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
+
+---
+
 ## 2026-07-24 — iOS 대기열 31종 일괄 이식 (layout 12 + primitives 19)
 
 ### DEC-031. 대기열 배치 판단 10건 + 실측 버그 4건

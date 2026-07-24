@@ -853,606 +853,606 @@
       "id": "useBreakpoint",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createBreakpointObserver — 질의 4개 겹침(v2 resize+innerWidth 폴링 대체), 파생 of createMediaQueryWatcher"
     },
     {
       "id": "useBreakpointValue",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createBreakpointValueWatcher + resolveBreakpointValue(맵 해석 유틸)"
     },
     {
       "id": "useClickOutside",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createClickOutside — mousedown/touchstart 두 경로(v2 동형)"
     },
     {
       "id": "useClipboard",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 copyText/readText — 실패를 boolean/null로 흡수(v2는 rejection 방치)"
     },
     {
       "id": "useCopyToClipboard",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 copyText 통합 — 신규 API 없음(alias-of: useClipboard)"
     },
     {
       "id": "useCountUp",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createCountUp — easeOutExpo(v2 이식), 값 구독이 아니라 요소 textContent 직접 갱신"
     },
     {
       "id": "useDebounce",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 debounce(fn, ms) — v2는 '값'을 지연시키는 React 관용구였으나 바닐라는 함수 지연 표준형(§4 매핑표)"
     },
     {
       "id": "useDisclosure",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A 내부화 — open 상태는 컴포넌트가 갖는다(jd-modal 등). 바닐라에 상태 훅 자리가 없다"
     },
     {
       "id": "useElementSize",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createSizeObserver — ResizeObserver, useResizeObserver와 통합(alias-of: useResizeObserver)"
     },
     {
       "id": "useEventListener",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 on(target, type, fn) → off 유틸"
     },
     {
       "id": "useFocusMode",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B11 createFocusMode — 저장값 + [data-jd-focus-mode] 루트 attribute + mod+. 단축키(v2 동형)"
     },
     {
       "id": "useForm",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B12 createForm — FormData가 정본이고 Behavior는 규칙 판정·에러 표시만(네이티브 위임의 폼판). 에러는 jd-* error 프롭 또는 aria-invalid로"
     },
     {
       "id": "useIdle",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createIdleWatcher — 활동 이벤트 5종 passive, 기본 60초(v2 동형)"
     },
     {
       "id": "useIntersectionObserver",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createInViewObserver — once 옵션 포함, IO 부재 시 no-op"
     },
     {
       "id": "useInterval",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createInterval — stop/restart/destroy 멱등"
     },
     {
       "id": "useKeyboard",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createKeyHandler — createHotkeys의 요소 스코프 표면(단일 엔진)"
     },
     {
       "id": "useLocalStorage",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 createStoredValue — local/session 통합, 손상 JSON은 초기값 흡수, 탭 간 storage 동기화"
     },
     {
       "id": "useLongPress",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createLongPress — v2 mouse/touch 쌍 대신 pointer 이벤트(펜·터치 포함 상위집합)"
     },
     {
       "id": "useMediaQuery",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createMediaQueryWatcher — 미디어 질의 계열 단일 엔진(나머지 4종이 파생), 초기값 즉시 실측"
     },
     {
       "id": "useMounted",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A — React 렌더 수명 개념. CE는 connectedCallback이 그 자리다"
     },
     {
       "id": "useNetworkStatus",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createNetworkWatcher — online/offline + 전환 시각(ms)"
     },
     {
       "id": "usePanelResize",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B11 createPanelResize — pointer 이벤트 + setPointerCapture(v2 mousemove 대비 터치·펜 지원)"
     },
     {
       "id": "usePrefersColorScheme",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createColorSchemeWatcher — 미디어 워처 파생"
     },
     {
       "id": "usePrevious",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A 내부화 — 이전 값 보관은 렌더 사이클 개념. 필요하면 컴포넌트가 필드로 든다"
     },
     {
       "id": "useReducedMotion",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createReducedMotionWatcher — 미디어 워처 파생. CSS로 충분한 곳은 @media를 쓰고 이건 JS 분기용"
     },
     {
       "id": "useScrollSpy",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B11 createScrollSpy — rAF 합류 측정, v2의 전역 커스텀 이벤트 결합을 suspend(ms) 명시 표면으로 교체"
     },
     {
       "id": "useSteps",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A 내부화 — 순수 상태 훅. 스텝 상태는 패턴 컴포넌트(FormWizard) 내부"
     },
     {
       "id": "useThrottle",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 throttle(fn, ms) — 선행 실행 + 남은 간격 후행 1회(v2 알고리즘 이식) + cancel"
     },
     {
       "id": "useToggle",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A 내부화 — 순수 상태 훅. attribute 토글로 충분"
     },
     {
       "id": "useWindowScroll",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createScrollWatcher — passive scroll, 값 동일이면 미통지"
     },
     {
       "id": "useHotkeys",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createHotkeys — v2 normalizeChord 승계(mod/cmd/esc/space 별칭+정렬), 입력 요소 가드, key 비문자열 방어(v2 실사고)"
     },
     {
       "id": "useFocusTrap",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 createFocusTrap — G1 선행 구현. jd-modal·jd-focus-guard가 공유"
     },
     {
       "id": "useScrollLock",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 lockScroll() → unlock — 참조 계수로 중첩 안전 + 스크롤바 폭 보정(v2 동형)"
     },
     {
       "id": "useDocumentTitle",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 setDocumentTitle(title) → 복원 함수"
     },
     {
       "id": "useFavicon",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 setFavicon(href) → 복원 함수(우리가 만든 link면 제거, 아니면 원복)"
     },
     {
       "id": "useFullscreen",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 createFullscreen — enter/exit/toggle/subscribe, supported 노출"
     },
     {
       "id": "useResizeObserver",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createSizeObserver 통합 구현 — 신규 API 없음(§6 R12)"
     },
     {
       "id": "useTimeout",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createTimeout — stop/restart/destroy 멱등"
     },
     {
       "id": "useAsync",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A 내부화 — 상태 훅. 데이터는 createResource, 단발은 runMutation"
     },
     {
       "id": "useIsomorphicLayoutEffect",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A — React SSR 전용 개념. CE는 render/connected 계약이 대신한다"
     },
     {
       "id": "useUpdateEffect",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A — React 전용(최초 렌더 건너뛰기). update()가 그 자리다"
     },
     {
       "id": "useGeolocation",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B11 createGeolocationWatcher — watch 옵션, 미지원/거부를 상태로 흡수"
     },
     {
       "id": "useSessionStorage",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 createStoredValue({storage:'session'}) 변형 — 신규 API 없음"
     },
     {
       "id": "useCookie",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 getCookie/setCookie/removeCookie — v2 이스케이프·path 기본 '/' 승계"
     },
     {
       "id": "useHover",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createHoverWatcher — mouseenter/leave"
     },
     {
       "id": "useFocusVisible",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 createFocusVisible — 키보드 조작 여부 관찰(시각 표현은 CSS :focus-visible 몫)"
     },
     {
       "id": "useInfiniteFeed",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B11 createInfiniteFeed — 관찰+중복 호출 가드만 담당. 목록 상태는 데이터 계층 몫으로 분리(v2는 훅이 페이지네이션까지 보유)"
     },
     {
       "id": "useReadingProgress",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B11 createReadingProgress — 진행률 + 현재 제목, rAF 합류(v2 시간 스로틀 대체)"
     },
     {
       "id": "useImagePreload",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B10 preloadImages(urls, concurrency) — 기본 동시 3(v2 동형), loaded/failed 분리"
     },
     {
       "id": "useResource",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B12 createResource — v2 모듈 캐시+구독을 그대로 승계(React 강제 리렌더만 제거), in-flight 합류·ttl·invalidate"
     },
     {
       "id": "useMutation",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B12 runMutation(fn, cbs) — 결과를 판별 유니온으로 반환하고 던지지 않는다"
     },
     {
       "id": "useOptimisticState",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
-      "docs": "todo",
-      "tests": "todo",
+      "docs": "n/a",
+      "tests": "n/a",
       "bench": "n/a",
-      "notes": ""
+      "notes": "N/A 내부화 — 낙관적 갱신은 스토어 계층 패턴"
     },
     {
       "id": "useAnimationFrame",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createRafLoop — delta/total(ms) 제공, 중복 start 무해"
     },
     {
       "id": "useKeyboardShortcut",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B9 createHotkeys 통합 — 신규 API 없음(alias-of: useHotkeys)"
     },
     {
       "id": "useWindowSize",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "docs": "todo",
-      "tests": "todo",
+      "tests": "done",
       "bench": "n/a",
-      "notes": ""
+      "notes": "B8 createWindowSizeWatcher — passive resize, 값 동일이면 미통지"
     },
     {
       "id": "Accordion",
