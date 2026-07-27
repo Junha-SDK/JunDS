@@ -4324,6 +4324,7 @@
       "core/styles.d.ts": "8159934ae6a7691ac227eafd054e0cd92b203a9f7773733f0cb4d0d3b65d0101",
       "core/uid.d.ts": "9cb8775a86d81e93c10ba9919e01f7561a099804e8a622bdb4d129c7a6f88628",
       "define.d.ts": "551f3b3ac31fdc042977f3d62c0918ad39efd691dcf747570959c120df5127f0",
+      "elements.generated.d.ts": "a7559d1f53c6d71179e4dc2d642c4576a021c64bfa9c31f4d1692b278a1c300e",
       "index.d.ts": "2bcaf128ae751ee0c65f5c5a00267793bfaf5eccc72e39f22cc913c79a3d9881"
     }
   },

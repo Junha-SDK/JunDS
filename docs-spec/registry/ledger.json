@@ -5045,11 +5045,11 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "todo",
-      "notes": "<jd-sparkline> — v2 finance/Sparkline 바닐라 이식"
+      "notes": "<jd-sparkline> — v2 finance/Sparkline 바닐라 이식 / iOS finance 미니 그래픽(2026-07-27, DEC-049): JdSparkline(Canvas)·JdSparklineView(draw) — 좌표는 Core JdChartGeometry가 소유(남은 차트 8종 공유). 색은 첫값 대비 마지막값이 정하고, 평평/NaN/값1개를 전부 안전 처리 — 빌드·XCTest 783/783"
     },
     {
       "id": "StarButton",

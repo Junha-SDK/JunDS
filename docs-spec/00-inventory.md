@@ -14,6 +14,10 @@
 >   useDominantColor · useAudioPlayer · useSeo). UI 합계 304→**313**, 원장 445→**460**.
 >   갤러리/USAGE 열은 모두 `—` (MySelf 갤러리 스펙 시점 이후 추가분).
 >   상세는 `requirements/myself-migration.md`.
+> - **2026-07-27 · myself-migration 2차** — 잔여 흡수로 composites 194→**201**
+>   (+7: Lyrics · NowPlayingFull · RelatedPosts · DocHero · DocLinks ·
+>   GlobeWireframe · BarList), hooks 61→**62** (+1: useUrlFilters).
+>   UI 합계 313→**320**, 원장 460→**468**.
 
 ## 1. 요약
 
@@ -24,13 +28,13 @@
 | USAGE_DATA 키 | **211** | `junds-usage.data.ts` (Primitive 40 · Composite 115 · Pattern 24 · Hook 22 · Layout 10) |
 | USAGE_ALIAS | **17** | 조회 키 총 228 (211+17) |
 | 라이브러리 value export 총계 | **678** | ds/ 12개 배럴 (타입 export 별도 564) |
-| — UI 컴포넌트 (core+layout+primitives+composites+patterns) | **313** | core 13 · layout 12 · primitives 51 · composites 194 · patterns 43 |
-| — hooks (use*) | **61** | +`invalidateResource` 1 |
+| — UI 컴포넌트 (core+layout+primitives+composites+patterns) | **320** | core 13 · layout 12 · primitives 51 · composites 201 · patterns 43 |
+| — hooks (use*) | **62** | +`invalidateResource` 1 |
 | — finance | **86 컴포넌트 + 131 lib + 6 lazy** | UI/도메인 로직 혼재 배럴 |
 | — tokens / providers / runtime / utils / auth | 24 / 12 / 19 / 9 / 4 | 인프라 계층 |
 | COMPONENTS.md | 137KB · 헤딩 182 (h1 1 · h2 7 · h3 174) | 문서화된 컴포넌트 항목 = h3 174 |
 
-**"219개" 주장과의 차이**: 현행 소스 어디에도 문자열 219는 없다 (독스/갤러리 grep 0건). 실측 스펙트럼은 갤러리 188(Specimen) ~ 208(정규화 토큰) ~ 211(USAGE 키) ~ 228(별칭 포함 조회 키)로, 219는 이 사이에 위치한다. (추정) 과거 세대 갤러리의 항목 수이거나 별칭/복합 스펙 일부만 반영한 시점의 집계로 보이며, 이후 문서에서는 **"갤러리 188 스펙 / USAGE 211 키"를 공식 수치**로 쓴다. 참고로 라이브러리의 실제 UI 컴포넌트는 313개(감사 시점 304 + myself-migration 9, +finance 86)로, 어떤 집계 기준으로도 "전부 라이브"는 아니다 — 5장 gap 참조.
+**"219개" 주장과의 차이**: 현행 소스 어디에도 문자열 219는 없다 (독스/갤러리 grep 0건). 실측 스펙트럼은 갤러리 188(Specimen) ~ 208(정규화 토큰) ~ 211(USAGE 키) ~ 228(별칭 포함 조회 키)로, 219는 이 사이에 위치한다. (추정) 과거 세대 갤러리의 항목 수이거나 별칭/복합 스펙 일부만 반영한 시점의 집계로 보이며, 이후 문서에서는 **"갤러리 188 스펙 / USAGE 211 키"를 공식 수치**로 쓴다. 참고로 라이브러리의 실제 UI 컴포넌트는 320개(감사 시점 304 + myself-migration 16, +finance 86)로, 어떤 집계 기준으로도 "전부 라이브"는 아니다 — 5장 gap 참조.
 
 ## 2. 의존성 감사
 
@@ -51,7 +55,7 @@
 난이도 기준 — S: 상태 없는 표시용 / M: 상호작용·포커스·애니메이션 / L: 가상스크롤·차트·에디터·복잡 상태머신. iOS의 N/a는 웹 전용 개념에만 부여.
 갤러리 O 판정은 Specimen 복합 이름 분해+별칭 정규화 후 매칭 기준.
 
-난이도 분포 (UI 313개, finance 제외): 바닐라 **S 92 · M 177 · L 42 · N/a 2** / iOS **S 92 · M 189 · L 24 · N/a 6** (차트·가상스크롤·미디어가 네이티브 프레임워크로 강등되어 iOS의 L이 적음). 2026-07-27 myself-migration 9건 반영 — 바닐라 S 4·M 3·N/a 2, iOS S 2·M 3·N/a 3.
+난이도 분포 (UI 320개, finance 제외): 바닐라 **S 97 · M 178 · L 43 · N/a 2** / iOS **S 97 · M 190 · L 25 · N/a 6** (차트·가상스크롤·미디어가 네이티브 프레임워크로 강등되어 iOS의 L이 적음). 2026-07-27 myself-migration 16건 반영 — 1차 9건(바닐라 S 4·M 3·N/a 2) + 2차 7건(바닐라 S 5·M 1·L 1).
 
 ### core — 13개
 
@@ -156,7 +160,7 @@ core와 역할이 겹치는 별도 레이아웃 계층 (Stack vs HStack/VStack, 
 
 소계: 51개 중 갤러리 36 · USAGE 38 · 양쪽 모두 부재 9
 
-### composites — 194개
+### composites — 201개
 
 최대 카테고리. 도메인 시리즈(Book*, Photo*, 소셜, 커머스, 차트)가 다수 포함 — 재구축 시 도메인 시리즈의 분리 여부가 스코프를 좌우.
 
@@ -358,8 +362,16 @@ core와 역할이 겹치는 별도 레이아웃 계층 (Stack vs HStack/VStack, 
 | TocHeading | — | — | S | N/a | myself-migration — TocProvider 자기 등록 (React 컨텍스트 전제) |
 | GlobalImageLightbox | — | — | M | N/a | myself-migration — document 클릭 위임 (웹 전용) |
 
-소계: 194개 중 갤러리 76 · USAGE 115 · 양쪽 모두 부재 71
-(2026-07-27 myself-migration 9건 추가 — 전부 갤러리·USAGE 부재)
+| Lyrics | — | — | S | S | myself-migration 2차 — 연 단위 가사 강조 |
+| NowPlayingFull | — | — | M | M | myself-migration 2차 — Modal 위 전체 화면 플레이어 |
+| RelatedPosts | — | — | S | S | myself-migration 2차 — 연관 글 목록 |
+| DocHero | — | — | S | S | myself-migration 2차 — 문서 상단 히어로 |
+| DocLinks | — | — | S | S | myself-migration 2차 — 외부 링크 목록 |
+| GlobeWireframe | — | — | L | L | myself-migration 2차 — 캔버스 와이어프레임 지구본 |
+| BarList | — | — | S | S | myself-migration 2차 — 가로 막대 순위 목록 |
+
+소계: 201개 중 갤러리 76 · USAGE 115 · 양쪽 모두 부재 78
+(myself-migration 1차 9건 + 2차 7건 추가 — 전부 갤러리·USAGE 부재)
 
 ### patterns — 43개
 
@@ -439,7 +451,7 @@ finance는 UI와 도메인 로직(모의 데이터·세금 계산·실시간 틱
 | utils | 9 | cn, Slot/Slottable, createCompound, polymorphic, raceGuard, contrast(WCAG), zodAdapter | contrast/raceGuard는 언어 중립, Slot류는 React 전용 |
 | auth | 4 | JunDSProvider, useJunDS, useLicenseStatus, withLicense | 라이선스 게이트 — 정책 결정 후 이식 |
 
-## 4. hooks → Behavior 매핑 (61개)
+## 4. hooks → Behavior 매핑 (62개)
 
 바닐라 규약: `createXxx(element, options): { update?, destroy }` 또는 순수 유틸. 순수 상태 훅은 "N/A — 컴포넌트 내부화".
 
@@ -508,8 +520,10 @@ finance는 UI와 도메인 로직(모의 데이터·세금 계산·실시간 틱
 | useAudioPlayer | — | createAudioPlayer(el, tracks): { play, toggle, seek, subscribe, destroy } | AVAudioPlayer / AVQueuePlayer |
 | useSeo | — | applySeo(options): { restore } 유틸 | N/A — 웹 전용 |
 
-집계: 61개 중 바닐라 Behavior/유틸로 존속 50 · N/A(내부화/React 전용) 11.
-(2026-07-27 myself-migration 6건 추가 — 존속 4 · N/A 2)
+| useUrlFilters | — | createUrlFilters(defaults, opts): { get, set, reset, subscribe, destroy } | N/A — 웹 URL 상태 전용 |
+
+집계: 62개 중 바닐라 Behavior/유틸로 존속 51 · N/A(내부화/React 전용) 11.
+(myself-migration 1차 6건 + 2차 1건 추가 — 존속 5 · N/A 2)
 
 중복 통합 후보: useClipboard=useCopyToClipboard, useHotkeys=useKeyboardShortcut, useElementSize=useResizeObserver, useBreakpoint 계열=useMediaQuery 파생.
 

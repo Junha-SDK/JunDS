@@ -1,7 +1,7 @@
 # 03-web-arch — packages/web 바닐라 웹 아키텍처 (G0)
 
 작성일: 2026-07-23 · 전제: [DECISIONS.md](./DECISIONS.md) DEC-002/003/004/006(D1·D2) · 인벤토리: [00-inventory.md](./00-inventory.md)
-대상: UI 313개 + finance UI 86개 전량. hooks 61개는 Behavior로 전환(§5).
+대상: UI 320개 + finance UI 86개 전량. hooks 62개는 Behavior로 전환(§5).
 토큰 파이프라인은 02-tokens 스펙에서 별도 정의하며, 이 문서는 토큰의 **소비 방식**(CSS custom properties + `@layer junds.tokens`)만 전제한다.
 
 문서 규약: 각 절은 **결정**과 **근거**를 명시한다. 코드는 규범(normative) 스케치로, 시그니처·불변식이 규범이고 구현 세부는 자유다.
@@ -13,8 +13,8 @@
 ```
 @junds/web (런타임 의존성 0)
 ├─ core/          JdElement 베이스, defineElement/defineJunds, adoptStyles, css, cx
-├─ components/    <jd-*> 313 + finance UI 86 — 각 폴더: element.ts + index.ts + *.css.ts
-├─ behaviors/     createXxx(el, opts) 50종 (hooks 61 → 50 존속, 00-inventory §4)
+├─ components/    <jd-*> 320 + finance UI 86 — 각 폴더: element.ts + index.ts + *.css.ts
+├─ behaviors/     createXxx(el, opts) 51종 (hooks 62 → 51 존속, 00-inventory §4)
 ├─ a11y/          focus trap · roving tabindex · dismissable · announcer (Behavior 공용층)
 ├─ icons/         빌드타임 생성 SVG 모듈 + <jd-icon> 레지스트리
 └─ dist/          컴포넌트별 ESM + junds.js(ESM 단일) + junds.global.js(IIFE) + junds.css
@@ -30,7 +30,7 @@
 
 ### 1.1 결정
 
-`HTMLElement`를 직접 확장한 단일 베이스 클래스 `JdElement` 하나로 313+86개 전부를 구현한다. Lit 등 외부 베이스 채택 금지(의존성 0 원칙), 컴포넌트별 수제 `HTMLElement` 확장도 금지(반영 규칙·수명주기 관리가 390회 중복된다).
+`HTMLElement`를 직접 확장한 단일 베이스 클래스 `JdElement` 하나로 320+86개 전부를 구현한다. Lit 등 외부 베이스 채택 금지(의존성 0 원칙), 컴포넌트별 수제 `HTMLElement` 확장도 금지(반영 규칙·수명주기 관리가 390회 중복된다).
 
 **근거**: attribute↔property 반영, 업데이트 배칭, Behavior 수명 관리, 이벤트 발행은 전 컴포넌트 공통 관심사다. 베이스 1개 + 선언적 `props` 맵이면 개별 컴포넌트는 `render()`/`update()`만 쓰면 된다.
 
@@ -347,7 +347,7 @@ export default css`
 
 ---
 
-## 5. Behavior 스펙 (hooks 61 → 50 전환)
+## 5. Behavior 스펙 (hooks 62 → 51 전환)
 
 ### 5.1 규약
 
@@ -370,7 +370,7 @@ export type BehaviorFactory<E extends Element, Opts, Extra = {}> =
 
 ### 5.2 매핑표
 
-hooks 61개 전수의 Behavior/유틸/N-A 판정과 iOS 등가물은 **[00-inventory.md §4](./00-inventory.md)** 가 단일 소스다(존속 50 · 내부화/React 전용 11 · 중복 통합 4쌍). 이 문서에서 표를 중복 유지하지 않는다.
+hooks 62개 전수의 Behavior/유틸/N-A 판정과 iOS 등가물은 **[00-inventory.md §4](./00-inventory.md)** 가 단일 소스다(존속 51 · 내부화/React 전용 11 · 중복 통합 4쌍). 이 문서에서 표를 중복 유지하지 않는다.
 
 ### 5.3 사용 예 (컴포넌트 내부 / 독립 사용)
 

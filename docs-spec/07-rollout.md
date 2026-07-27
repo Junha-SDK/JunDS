@@ -1,11 +1,11 @@
 # 07-rollout — 티어·배치·DoD·세션 프로토콜 (G0)
 
 작성일: 2026-07-23 · 전제: 00-inventory.md, DECISIONS.md(DEC-003 전량 전환, DEC-005 커밋 정책), 05-perf.md.
-진행 상태의 단일 소스는 `docs-spec/registry/ledger.json`(460행)이다.
+진행 상태의 단일 소스는 `docs-spec/registry/ledger.json`(468행)이다.
 
 ## 1. 티어 — 순서이지 범위가 아니다
 
-최종 목표는 전량(UI 313 + Behavior 61 + finance UI 86)이다. 티어는 착수 순서만 정한다.
+최종 목표는 전량(UI 320 + Behavior 62 + finance UI 86)이다. 티어는 착수 순서만 정한다.
 
 | 티어 | 구성 | 행 수 | 성격 |
 |---|---|--:|---|
@@ -77,7 +77,7 @@ Behavior 배치의 중복 통합(00-inventory §4: useClipboard=useCopyToClipboa
 5. 요약   커밋 메시지에 배치 번호·행 수·게이트 결과 요약. 새 결정은 DECISIONS.md에 append
 ```
 
-원장 생성기 사용법: 레포 루트에서 `~/.nvm/versions/node/v22.5.1/bin/node docs-spec/tools/gen-ledger.mjs` (기본 셸 Node v16 금지). ds/ 7개 배럴의 value export를 00-inventory 분류 규칙으로 파싱해 `docs-spec/registry/ledger.json`을 재생성하며, 카테고리별 기대치(13/12/51/61/194/43/86, 총 460) 불일치 시 exit 1. 기존 원장의 진행 상태(web/ios/docs/tests/bench/notes)는 id 기준 보존 병합된다. **ledger 직접 편집은 상태 필드만 허용** — 행 추가·삭제는 배럴 수정 후 재생성으로만.
+원장 생성기 사용법: 레포 루트에서 `~/.nvm/versions/node/v22.5.1/bin/node docs-spec/tools/gen-ledger.mjs` (기본 셸 Node v16 금지). ds/ 7개 배럴의 value export를 00-inventory 분류 규칙으로 파싱해 `docs-spec/registry/ledger.json`을 재생성하며, 카테고리별 기대치(13/12/51/62/201/43/86, 총 468) 불일치 시 exit 1. 기존 원장의 진행 상태(web/ios/docs/tests/bench/notes)는 id 기준 보존 병합된다. **ledger 직접 편집은 상태 필드만 허용** — 행 추가·삭제는 배럴 수정 후 재생성으로만.
 
 ## 5. 시각 패리티 정책
 
