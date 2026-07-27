@@ -194,7 +194,7 @@ export default css`
     font-size: var(--jd-text-xs);
     color: var(--jd-color-muted);
   }
-  .jd-product-card__star { color: var(--jd-color-warning); }
+  .jd-product-card__star { color: var(--jd-color-warning-ink); }
   .jd-product-card__rating-value {
     font-weight: var(--jd-weight-medium);
     color: var(--jd-color-foreground);

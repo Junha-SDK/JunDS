@@ -1,0 +1,33 @@
+{
+  "id": "use-url-filters",
+  "ledgerId": "useUrlFilters",
+  "category": "hooks",
+  "title": "useUrlFilters",
+  "oneLiner": "필터 상태를 URL 쿼리와 동기화 — 기본값과 같은 필터는 주소에서 생략한다.",
+  "tags": [
+    "hook",
+    "필터",
+    "url"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { useUrlFilters } from \"@/ds/hooks\";",
+      "code": "const { filters, set, reset, activeCount } = useUrlFilters({\n  category: \"all\",\n  sort: \"desc\",\n  q: \"\",\n});\n\n{activeCount > 0 && <button onClick={reset}>필터 {activeCount}개 해제</button>}"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "공유 가능한 상태",
+      "note": "필터가 주소에 남아 링크만으로 같은 화면을 재현할 수 있다"
+    },
+    {
+      "item": "뒤로 가기",
+      "note": "기본이 replaceState — 필터를 만질 때마다 히스토리가 쌓여 뒤로 가기가 막히지 않는다"
+    }
+  ]
+}

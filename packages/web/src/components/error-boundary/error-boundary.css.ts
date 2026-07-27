@@ -23,7 +23,7 @@ export default css`
 
   .jd-error-boundary__icon {
     font-size: var(--jd-text-2xl); line-height: var(--jd-leading-none);
-    color: var(--jd-color-danger);
+    color: var(--jd-color-danger-ink);
   }
   .jd-error-boundary__heading {
     margin: 0; font-size: var(--jd-text-sm); font-weight: var(--jd-weight-semibold);
@@ -38,7 +38,8 @@ export default css`
   .jd-error-boundary__retry {
     padding: var(--jd-space-1-5) var(--jd-space-3);
     font-family: inherit; font-size: var(--jd-text-xs); font-weight: var(--jd-weight-medium);
-    color: #ffffff; background: var(--jd-color-danger);
+    color: #ffffff;
+    background: color-mix(in srgb, var(--jd-color-danger) 88%, #17141f);
     border: 0; border-radius: var(--jd-radius-lg); cursor: pointer;
     transition: background var(--jd-duration-fast) var(--jd-easing-ease-out);
   }

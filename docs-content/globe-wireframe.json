@@ -1,0 +1,72 @@
+{
+  "id": "globe-wireframe",
+  "ledgerId": "GlobeWireframe",
+  "category": "composites",
+  "title": "GlobeWireframe",
+  "oneLiner": "캔버스 와이어프레임 지구본 — 드래그로 돌리고, 뒤로 넘어간 선은 깊이에 따라 흐려진다.",
+  "tags": [
+    "data-display",
+    "canvas",
+    "3d"
+  ],
+  "controls": [
+    {
+      "prop": "size",
+      "kind": "number",
+      "min": 120,
+      "max": 800,
+      "step": 20,
+      "default": 400
+    },
+    {
+      "prop": "latitudes",
+      "kind": "number",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "prop": "longitudes",
+      "kind": "number",
+      "min": 4,
+      "max": 36,
+      "step": 1,
+      "default": 14
+    },
+    {
+      "prop": "draggable",
+      "kind": "boolean",
+      "default": true
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { GlobeWireframe } from \"@/ds/composites/GlobeWireframe\";",
+      "code": "<GlobeWireframe size={520} autoRotate={0.0015} />\n\n{/* 같은 각도로 마커를 겹쳐 그리려면 회전 상태를 공유한다 */}\nconst rot = useRef({ rotY: 0, rotX: 0.3 });\n<GlobeWireframe rotationRef={rot} />"
+    }
+  },
+  "tokens": [
+    {
+      "token": "(리터럴 rgba)",
+      "usage": "선 색은 캔버스 직접 지정 — strokeColor 로 교체 가능"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "장식 기본값",
+      "note": "ariaLabel 을 주지 않으면 aria-hidden — 의미 없는 캔버스가 낭독되지 않는다"
+    },
+    {
+      "item": "모션 축소",
+      "note": "prefers-reduced-motion 이면 자동 회전이 멈춘다 (드래그는 그대로)"
+    },
+    {
+      "item": "드래그",
+      "note": "포인터 캡처를 써서 캔버스 밖으로 끌어도 회전이 끊기지 않는다"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 - **Slug:** `myself-migration`
 - **Status:** active
 - **Owner:** 박준하 (pjh02@hygino.co.kr)
-- **Last updated:** 2026-07-27
+- **Last updated:** 2026-07-27 (2차)
 
 ## Goal
 
@@ -33,6 +33,7 @@
 - [x] superset 화 과정에서 기존 JunDS 사용처의 기본 동작이 바뀌지 않는다 (새 동작은 전부 opt-in).
 - [x] 새 컴포넌트마다 쇼케이스 페이지와 테스트가 있다.
 - [ ] MySelf 의 각 화면을 실제로 JunDS 컴포넌트로 교체한다. *(다음 단계)*
+- [x] 2차 — 미디어·콘텐츠·데이터 표시 잔여분 흡수 (Lyrics · NowPlayingFull · RelatedPosts · DocHero · DocLinks · GlobeWireframe · BarList · useUrlFilters).
 
 ## 이식 결과
 
@@ -58,6 +59,19 @@
 | `styles/tokens.css` 폰트 스택 | `ds/tokens/fontFamily` + CSS 변수 | sans / serif / display / hand / mono |
 | `styles/tokens.css` 카테고리 액센트 | `ds/tokens/categoryColors` + CSS 변수 | `getCategoryColor` / `categoryColorVars` 헬퍼 포함 |
 
+### 2차 이식 (2026-07-27)
+
+| MySelf | JunDS | 비고 |
+| --- | --- | --- |
+| `music/NowPlayingFull` 의 가사 로직 + `music/Lyric` | `ds/composites/Lyrics` | 연 단위 강조 + 자동 스크롤. `activeIndex` 로 정확한 싱크도 가능 |
+| `music/NowPlayingFull` | `ds/composites/NowPlayingFull` | `DetailSheet` 대신 JunDS `Modal` 위에 조립 — a11y 기계장치를 중복하지 않는다 |
+| `blog/BlogRelated` | `ds/composites/RelatedPosts` | 레지스트리 의존 제거. 연관 글 선정은 호출부 몫 |
+| `docs/DocHeader` | `ds/composites/DocHero` | 배너·아이콘·eyebrow·기술 칩·지표 스트립 |
+| `docs/DocLinks` | `ds/composites/DocLinks` | URL 로 종류 추론(github/appstore/npm/figma/external) |
+| `daily/GlobeWireframe` | `ds/composites/GlobeWireframe` | 전체 창 캔버스 → 크기 지정형. 드래그 회전 내장, `rotationRef` 로 각도 공유 |
+| `daily/DailyStats` 의 `BarList` | `ds/composites/BarList` | 가로 막대 순위 목록. 집계 로직은 앱에 남는다 |
+| `daily/useDailyFilters` | `ds/hooks/useUrlFilters` | react-router 의존 제거 — History API 만 사용 |
+
 ### JunDS 를 superset 으로 끌어올린 것
 
 | 컴포넌트 | 흡수한 MySelf 의 강점 |
@@ -70,12 +84,16 @@
 | `TreeNav` | 호버 프리페치(`onItemPrefetch`), 확장 상태 제어(`expandedKeys`/`onExpandedChange`), 활성 항목 조상 자동 펼침(`autoExpandActive`), 하위 개수 자동 표시(`showCount`), 전체 펼치기/접기 |
 | `Toast` | `top-left`/`bottom-left`, `title`, `onClose`, `show()`/`close(id)`/`clear()`, 전체화면 대응 포털 루트 |
 | `MarkdownViewer` | 금칙처리(`kinsoku`), 행갈이 보존(`breaks`) |
+| `ReadingTime` | 읽기 속도(`wpm`/`cpm`)·최소 시간(`minMinutes`)·헤딩 수(`headingCount`)를 prop 으로 노출 — MySelf 의 기존 표시 시간을 그대로 재현할 수 있다 |
 
 ### 이미 JunDS 가 우위라 조치하지 않은 것
 
 `Button` / `Card` / `Tabs` / `IconButton` / `Skeleton` / `ErrorBoundary` / `Grid` /
 `Calendar` / `Hero` / `Starfield` / `Globe` / `ChapterList` / `BookCard` / `Select`
-(vs `SelectDropdown`) / `CommandPalette` (vs `SearchDialog`) / `useScrollSpy` —
+(vs `SelectDropdown`) / `CommandPalette` (vs `SearchDialog`) / `useScrollSpy` /
+`BentoGrid` (MySelf 판은 프로필 갤러리 *화면*이지 그리드 컴포넌트가 아니다) /
+`BookReader` (vs `Reader` — 북마크·페이지 네비·진행률까지 이미 포함) /
+`StatsGrid`·`StatCard` (vs `DailyStats` 의 카드 영역) —
 MySelf 쪽이 더 얇거나 JunDS 판이 기능적으로 포함한다.
 
 ## Design / behavior notes
@@ -114,6 +132,7 @@ MySelf 쪽이 더 얇거나 JunDS 판이 기능적으로 포함한다.
 - `ds/hooks/useAudioPlayer.ts`
 - `ds/hooks/useSeo.ts`
 - `ds/hooks/useFocusMode.ts`
+- `ds/hooks/useUrlFilters.ts`
 - `ds/providers/SeoProvider.tsx`
 - `ds/providers/TocProvider.tsx`
 
@@ -128,6 +147,13 @@ MySelf 쪽이 더 얇거나 JunDS 판이 기능적으로 포함한다.
 - `ds/composites/SeoHead/SeoHead.tsx`
 - `ds/composites/ImageLightbox/GlobalImageLightbox.tsx`
 - `ds/composites/TableOfContents/TocHeading.tsx`
+- `ds/composites/Lyrics/Lyrics.tsx`
+- `ds/composites/NowPlayingFull/NowPlayingFull.tsx`
+- `ds/composites/RelatedPosts/RelatedPosts.tsx`
+- `ds/composites/DocHero/DocHero.tsx`
+- `ds/composites/DocLinks/DocLinks.tsx`
+- `ds/composites/GlobeWireframe/GlobeWireframe.tsx`
+- `ds/composites/BarList/BarList.tsx`
 
 superset 화한 기존 컴포짓:
 
@@ -138,6 +164,7 @@ superset 화한 기존 컴포짓:
 - `ds/composites/TreeNav/TreeNav.tsx`
 - `ds/composites/Toast/Toast.tsx`
 - `ds/composites/MarkdownViewer/MarkdownViewer.tsx`
+- `ds/composites/ReadingTime/ReadingTime.tsx`
 
 쇼케이스:
 
@@ -148,6 +175,13 @@ superset 화한 기존 컴포짓:
 - `app/design-system/composites/project-card/page.tsx`
 - `app/design-system/composites/screenshot-grid/page.tsx`
 - `app/design-system/composites/seo-head/page.tsx`
+- `app/design-system/composites/lyrics/page.tsx`
+- `app/design-system/composites/now-playing-full/page.tsx`
+- `app/design-system/composites/related-posts/page.tsx`
+- `app/design-system/composites/doc-hero/page.tsx`
+- `app/design-system/composites/doc-links/page.tsx`
+- `app/design-system/composites/globe-wireframe/page.tsx`
+- `app/design-system/composites/bar-list/page.tsx`
 
 테스트:
 
@@ -160,6 +194,14 @@ superset 화한 기존 컴포짓:
 - `ds/__tests__/hooks/useFocusMode.test.ts`
 - `ds/__tests__/providers/TocProvider.test.tsx`
 - `ds/__tests__/utils/kinsoku.test.ts`
+- `ds/__tests__/composites/Lyrics.test.tsx`
+- `ds/__tests__/composites/NowPlayingFull.test.tsx`
+- `ds/__tests__/composites/RelatedPosts.test.tsx`
+- `ds/__tests__/composites/DocHero.test.tsx`
+- `ds/__tests__/composites/DocLinks.test.tsx`
+- `ds/__tests__/composites/GlobeWireframe.test.tsx`
+- `ds/__tests__/composites/BarList.test.tsx`
+- `ds/__tests__/hooks/useUrlFilters.test.ts`
 
 ## Open questions
 
@@ -168,10 +210,17 @@ superset 화한 기존 컴포짓:
 - `MarkdownViewer` 는 의존성 없는 정규식 렌더러다. MySelf 본문은 react-markdown +
   remark-gfm 을 쓰므로, 실제 교체 시에는 `remarkKinsoku` 만 빌려 쓰고 렌더러는 MySelf 쪽을
   유지할지, JunDS 렌더러를 본격 파서로 키울지 정해야 한다.
-- MySelf 의 `DailyArchive` / `DocsArtIndex` / `BentoGrid` / `BookDetail` 등 500줄 이상의
-  화면 단위 컴포넌트는 데이터 모델 종속이 커서 이번 범위에서 제외했다. 패턴으로 일반화할지
-  화면으로 남길지 판단 필요.
+- MySelf 의 `DailyArchive` / `DocsArtIndex` / `BookDetail` / `DetailOverlay` /
+  `DailyArtModeView` / `ArtGlobe` 등 300줄 이상의 화면 단위 컴포넌트는 데이터 모델
+  종속이 커서 이식하지 않았다. 2차에서 이들이 **쓰던 재료**(`GlobeWireframe`,
+  `BarList`, `Lyrics`)는 뽑아냈으므로, 남은 것은 조립 순서와 도메인 집계 로직이다.
+  패턴으로 일반화할지 화면으로 남길지 판단 필요.
+- `OriginalsGate`(문제은행 + Argon2id 인증 게이트)는 MySelf 의 인증 구현에 묶여 있어
+  이식하지 않았다. "콘텐츠를 잠그고 통과 조건을 주입받는" 껍데기만 `ContentGate` 로
+  뽑을 수 있으나, 인증을 DS 가 규정하는 게 맞는지 결정 필요.
 
 ## Changelog
 
-- 2026-07-27 — 1차 이식 완료 (신규 13종 + 기존 8종 superset 화 + 토큰 2종).
+- 2026-07-27 — 1차 이식 완료 (신규 15종 + 기존 8종 superset 화 + 토큰 2종).
+- 2026-07-27 — 2차 이식 완료 (신규 8종 + `ReadingTime` superset 화).
+  누적: 신규 23종(composites 16 · hooks 7) + superset 화 9종. 원장 445→468.

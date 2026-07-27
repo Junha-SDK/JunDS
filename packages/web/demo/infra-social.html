@@ -6,29 +6,30 @@
 <title>JunDS v3 — B7 인프라·소셜 데모 (10종)</title>
 <!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
 <link rel="stylesheet" href="../dist/junds.css">
+<link rel="stylesheet" href="demo.css">
 <script src="../dist/junds.min.js" defer></script>
+<script src="demo.js" defer></script>
+<!-- 첫 페인트 전에 저장된 테마를 붙인다 — defer 스크립트에서 하면 한 프레임 번쩍인다 -->
+<script>try{if(localStorage.getItem("junds.demo.theme")==="dark")document.documentElement.setAttribute("data-jd-theme","dark")}catch(e){}</script>
 <style>
-  body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
-         background: var(--jd-color-background); color: var(--jd-color-foreground); }
-  main { max-width: 44rem; margin-inline: auto; }
-  /* 이벤트 로그 텍스트도 AA — muted-light(2.7:1) 대신 muted */
-  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted); min-height: 1.2em; }
-  #portal-target { border: 1px dashed var(--jd-color-border); border-radius: 8px;
-                   padding: 12px; min-height: 2rem; }
-  .guard { border: 1px solid var(--jd-color-border); border-radius: 8px; padding: 12px;
-           display: flex; gap: .5rem; }
+  #portal-target { border: var(--jd-border-thin) dashed var(--jd-color-border);
+                   border-radius: var(--jd-radius-lg); padding: var(--jd-space-3);
+                   min-height: 2rem; }
+  .guard { border: var(--jd-border-thin) solid var(--jd-color-border);
+           border-radius: var(--jd-radius-lg); padding: var(--jd-space-3);
+           display: flex; gap: var(--jd-space-2); }
 </style>
 </head>
-<body>
+<body
+  data-demo-eyebrow="B7 · 인프라·소셜"
+  data-demo-title="눈에 안 보이지만 없으면 안 되는 것"
+  data-demo-desc="포털·안내음성·에러 경계처럼 화면에 자리를 차지하지 않고 동작만 책임지는 층."
+  data-demo-meta="컴포넌트 10종|스크린리더 전용 경로|에러 경계 포함">
 <main>
-  <jd-flex justify="between" align="center" mb="6">
-    <jd-heading level="1" mb="0">B7 · 인프라·소셜</jd-heading>
-    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
-  </jd-flex>
-  <p id="log">이벤트 로그…</p>
+  <p id="log" class="demo-log">이벤트 로그…</p>
 
   <jd-vstack gap="8">
-    <jd-section title="jd-portal" description="children을 다른 컨테이너로 실제 이동 — disconnect 시 회수">
+    <jd-section border bg="card" p="6" title="jd-portal" description="children을 다른 컨테이너로 실제 이동 — disconnect 시 회수">
       <jd-vstack gap="2">
         <div id="portal-target"><small>↓ 여기로 이동된 내용</small></div>
         <jd-portal to="#portal-target">
@@ -40,7 +41,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-visually-hidden + jd-announcer" description="눈에는 안 보이지만 AT에는 남는다">
+    <jd-section border bg="card" p="6" title="jd-visually-hidden + jd-announcer" description="눈에는 안 보이지만 AT에는 남는다">
       <jd-vstack gap="2">
         <p style="margin:0">
           정렬 <jd-visually-hidden>(오름차순 기준)</jd-visually-hidden>기준을 바꿉니다.
@@ -53,7 +54,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-focus-guard" description="기본은 비활성 — 켜야 가둔다(Behavior 규약)">
+    <jd-section border bg="card" p="6" title="jd-focus-guard" description="기본은 비활성 — 켜야 가둔다(Behavior 규약)">
       <jd-vstack gap="2">
         <jd-hstack gap="2">
           <jd-button id="guard-toggle" variant="outline" size="sm">감금 켜기</jd-button>
@@ -67,7 +68,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-error-boundary" description="폴백 UI + 재시도. auto면 자손 jd-error를 포착">
+    <jd-section border bg="card" p="6" title="jd-error-boundary" description="폴백 UI + 재시도. auto면 자손 jd-error를 포착">
       <jd-vstack gap="3">
         <jd-error-boundary id="eb">
           <p style="margin:0">정상 본문입니다. 아래 버튼으로 실패 상태를 만들어 보세요.</p>
@@ -82,7 +83,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="소셜 토글 3종" description="aria-pressed 토글 — 클릭이 곧 상태 변경(비제어)">
+    <jd-section border bg="card" p="6" title="소셜 토글 3종" description="aria-pressed 토글 — 클릭이 곧 상태 변경(비제어)">
       <jd-vstack gap="3">
         <jd-hstack gap="3" align="center">
           <jd-like-button id="like" count="41"></jd-like-button>
@@ -107,7 +108,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-mention-chip · jd-hashtag" description="정적 표시 전용 링크 칩">
+    <jd-section border bg="card" p="6" title="jd-mention-chip · jd-hashtag" description="정적 표시 전용 링크 칩">
       <p style="margin:0">
         <jd-mention-chip handle="junha" href="#u" verified></jd-mention-chip>
         님이
@@ -120,7 +121,7 @@
   </jd-vstack>
 </main>
 
-<script type="module">
+<script>
   const log = document.getElementById("log");
   for (const ev of ["jd-change", "jd-open", "jd-error"]) {
     document.addEventListener(ev, (e) => {
@@ -145,13 +146,6 @@
   });
   document.getElementById("eb-fail").addEventListener("click", () => {
     document.getElementById("eb").fail(new Error("네트워크 요청이 실패했습니다"));
-  });
-  const btn = document.getElementById("theme-toggle");
-  btn.addEventListener("click", () => {
-    const root = document.documentElement;
-    const dark = root.getAttribute("data-jd-theme") !== "dark";
-    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
-    btn.textContent = dark ? "라이트 모드" : "다크 모드";
   });
 </script>
 </body>

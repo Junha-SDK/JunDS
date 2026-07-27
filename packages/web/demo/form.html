@@ -6,25 +6,23 @@
 <title>JunDS v3 — B3 폼 코어 데모 (컨트롤 11종)</title>
 <!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
 <link rel="stylesheet" href="../dist/junds.css">
+<link rel="stylesheet" href="demo.css">
 <script src="../dist/junds.min.js" defer></script>
-<style>
-  body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
-         background: var(--jd-color-background); color: var(--jd-color-foreground); }
-  main { max-width: 44rem; margin-inline: auto; }
-  /* 이벤트 로그 텍스트도 AA — muted-light(2.7:1) 대신 muted */
-  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted); min-height: 1.2em; }
-</style>
+<script src="demo.js" defer></script>
+<!-- 첫 페인트 전에 저장된 테마를 붙인다 — defer 스크립트에서 하면 한 프레임 번쩍인다 -->
+<script>try{if(localStorage.getItem("junds.demo.theme")==="dark")document.documentElement.setAttribute("data-jd-theme","dark")}catch(e){}
+</script>
 </head>
-<body>
+<body
+  data-demo-eyebrow="B3 · 폼 코어"
+  data-demo-title="입력받는 일의 기본기"
+  data-demo-desc="라벨·에러·비활성처럼 폼이 가진 모든 상태를 네이티브 요소에 위임한 컨트롤 11종."
+  data-demo-meta="컨트롤 11종|네이티브 위임|키보드 전용 조작 가능">
 <main>
-  <jd-flex justify="between" align="center" mb="6">
-    <jd-heading level="1" mb="0">B3 · 폼 코어</jd-heading>
-    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
-  </jd-flex>
-  <p id="log">이벤트 로그…</p>
+  <p id="log" class="demo-log">이벤트 로그…</p>
 
   <jd-vstack gap="8">
-    <jd-section title="jd-icon-button" description="variant 3종 × size 4종 — 접근성 label 필수">
+    <jd-section border bg="card" p="6" title="jd-icon-button" description="variant 3종 × size 4종 — 접근성 label 필수">
       <jd-hstack gap="2">
         <jd-icon-button label="닫기 xs" size="xs"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></jd-icon-button>
         <jd-icon-button label="닫기 ghost"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></jd-icon-button>
@@ -34,7 +32,7 @@
       </jd-hstack>
     </jd-section>
 
-    <jd-section title="jd-label + jd-textarea" description="autoResize · showCount · error">
+    <jd-section border bg="card" p="6" title="jd-label + jd-textarea" description="autoResize · showCount · error">
       <jd-vstack gap="1-5">
         <jd-label for="bio" required>자기소개</jd-label>
         <jd-textarea id="bio" name="bio" placeholder="여기에 입력하면 높이가 자동으로 늘어납니다…"
@@ -44,7 +42,7 @@
       <jd-textarea error placeholder="에러 상태 예시" value="에러 상태의 텍스트영역"></jd-textarea>
     </jd-section>
 
-    <jd-section title="jd-checkbox + jd-radio-group">
+    <jd-section border bg="card" p="6" title="jd-checkbox + jd-radio-group">
       <jd-vstack gap="2">
         <jd-checkbox label="이용약관에 동의합니다" name="tos"></jd-checkbox>
         <jd-checkbox label="부분 선택 (indeterminate)" indeterminate></jd-checkbox>
@@ -58,11 +56,12 @@
           {"value":"1","label":"높음"},
           {"value":"2","label":"보통"},
           {"value":"3","label":"낮음","disabled":true}
-        ]</script>
+        ]
+</script>
       </jd-radio-group>
     </jd-section>
 
-    <jd-section title="jd-toggle + jd-switch" description="role=switch — 라벨 클릭 토글">
+    <jd-section border bg="card" p="6" title="jd-toggle + jd-switch" description="role=switch — 라벨 클릭 토글">
       <jd-hstack gap="6">
         <jd-toggle label="알림" checked></jd-toggle>
         <jd-toggle label="작게" size="sm"></jd-toggle>
@@ -75,38 +74,32 @@
       </jd-hstack>
     </jd-section>
 
-    <jd-section title="jd-slider" description="네이티브 range 위임 — 키보드·터치·폼 공짜">
+    <jd-section border bg="card" p="6" title="jd-slider" description="네이티브 range 위임 — 키보드·터치·폼 공짜">
       <jd-slider id="vol" value="30" show-value></jd-slider>
       <jd-slider value="60" color="success" size="sm"></jd-slider>
       <jd-slider value="80" color="danger" show-value max="200"></jd-slider>
       <jd-slider value="50">
         <script type="application/json">[
           {"value":0,"label":"0%"},{"value":50,"label":"50%"},{"value":100,"label":"100%"}
-        ]</script>
+        ]
+</script>
       </jd-slider>
     </jd-section>
 
-    <jd-section title="jd-range-slider" description="듀얼 썸 — 드래그·화살표 키">
+    <jd-section border bg="card" p="6" title="jd-range-slider" description="듀얼 썸 — 드래그·화살표 키">
       <jd-range-slider min-value="20" max-value="80" show-values></jd-range-slider>
       <jd-range-slider min-value="30" max-value="45" step="5" disabled></jd-range-slider>
     </jd-section>
   </jd-vstack>
 </main>
 
-<script type="module">
+<script>
   const log = document.getElementById("log");
   for (const ev of ["jd-change", "jd-input"]) {
     document.addEventListener(ev, (e) => {
       log.textContent = `${ev} ← <${e.target.tagName.toLowerCase()}> ${JSON.stringify(e.detail)}`;
     });
   }
-  const btn = document.getElementById("theme-toggle");
-  btn.addEventListener("click", () => {
-    const root = document.documentElement;
-    const dark = root.getAttribute("data-jd-theme") !== "dark";
-    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
-    btn.textContent = dark ? "라이트 모드" : "다크 모드";
-  });
 </script>
 </body>
 </html>

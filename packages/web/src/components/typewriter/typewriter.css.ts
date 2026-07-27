@@ -18,7 +18,7 @@ export default css`
 
   .jd-typewriter__cursor {
     margin-inline-start: 0.125rem; /* v2 ml-0.5 */
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     animation: jd-typewriter-blink 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
   .jd-typewriter__cursor[hidden] { display: none; }

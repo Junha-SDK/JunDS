@@ -33,7 +33,7 @@ export default css`
   .jd-chat-thread__avatar--ph {
     display: inline-flex; align-items: center; justify-content: center;
     background: color-mix(in srgb, var(--jd-color-primary) 15%, transparent);
-    color: var(--jd-color-primary); font-size: var(--jd-text-xs); font-weight: var(--jd-weight-semibold);
+    color: var(--jd-color-primary-ink); font-size: var(--jd-text-xs); font-weight: var(--jd-weight-semibold);
   }
 
   .jd-chat-thread__col {
@@ -73,7 +73,7 @@ export default css`
   .jd-chat-thread__status { display: inline-flex; align-items: center; gap: var(--jd-space-1); }
   .jd-chat-thread__retry {
     border: 0; background: transparent; cursor: pointer; padding: 0;
-    color: var(--jd-color-danger); font-size: 10px;
+    color: var(--jd-color-danger-ink); font-size: 10px;
   }
   .jd-chat-thread__retry:hover { text-decoration: underline; }
 

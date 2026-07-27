@@ -19,7 +19,7 @@
  * 실행:  node packages/web/scripts/scan-render-only-props.mjs [--json] [--check]
  *   --check 는 ALLOW 목록 밖의 검출이 하나라도 있으면 exit 1 (게이트용).
  */
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -124,7 +124,9 @@ function declaredProps(src) {
 const findings = [];
 for (const dir of readdirSync(componentsDir, { withFileTypes: true })) {
   if (!dir.isDirectory()) continue;
-  const src = readFileSync(join(componentsDir, dir.name, "element.ts"), "utf8");
+  const elementPath = join(componentsDir, dir.name, "element.ts");
+  if (!existsSync(elementPath)) continue;
+  const src = readFileSync(elementPath, "utf8");
   const declared = declaredProps(src);
   if (declared.size === 0) continue;
 

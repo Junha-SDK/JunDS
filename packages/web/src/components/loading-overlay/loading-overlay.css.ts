@@ -32,7 +32,7 @@ export default css`
 
   .jd-loading-overlay__spinner {
     width: 1.5rem; height: 1.5rem;
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     animation: jd-spin 1s linear infinite;
   }
 

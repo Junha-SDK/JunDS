@@ -57,7 +57,7 @@ export default css`
     padding: var(--jd-space-0-5) var(--jd-space-2);
     border-radius: var(--jd-radius-md);
     font-size: var(--jd-text-xs); font-weight: var(--jd-weight-medium);
-    background: var(--jd-color-primary-light); color: var(--jd-color-primary);
+    background: var(--jd-color-primary-light); color: var(--jd-color-primary-ink);
   }
   .jd-multi-select__chip[data-overflow] {
     background: color-mix(in srgb, var(--jd-color-muted) 14%, transparent);
@@ -73,7 +73,7 @@ export default css`
   jd-multi-select .jd-select__option[aria-selected="true"][data-active],
   jd-multi-select .jd-select__option[aria-selected="true"]:hover {
     background: color-mix(in srgb, var(--jd-color-primary) 12%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
 
   /* 네이티브 checkbox 대신 표시 전용 상자 — 리스트박스 안 포커스 가능 요소를 만들지 않는다 */

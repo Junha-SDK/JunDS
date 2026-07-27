@@ -37,7 +37,7 @@ export default css`
     box-shadow: var(--jd-shadow-focus-ring);
   }
   .jd-tree-view__item[aria-selected="true"] > .jd-tree-view__row {
-    background: var(--jd-color-primary-light); color: var(--jd-color-primary);
+    background: var(--jd-color-primary-light); color: var(--jd-color-primary-ink);
     font-weight: var(--jd-weight-medium);
   }
   .jd-tree-view__item[aria-disabled="true"] > .jd-tree-view__row {

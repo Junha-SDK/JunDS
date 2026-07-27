@@ -25,7 +25,7 @@ export default css`
     jd-text-field[required] > .jd-text-field__label::after {
       content: "*";
       margin-inline-start: var(--jd-space-0-5);
-      color: var(--jd-color-danger);
+      color: var(--jd-color-danger-ink);
     }
 
     .jd-text-field__control {
@@ -184,7 +184,7 @@ export default css`
       margin: 0;
       font-size: var(--jd-text-xs);
       font-family: var(--jd-font-sans);
-      color: var(--jd-color-danger);
+      color: var(--jd-color-danger-ink);
     }
     .jd-text-field__error[hidden] {
       display: none;

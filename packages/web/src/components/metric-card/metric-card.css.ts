@@ -31,7 +31,7 @@ export default css`
   .jd-metric-card__spark {
     display: block; width: 100%; height: 48px;
     margin-block-start: var(--jd-space-3);
-    color: var(--jd-color-primary); /* stroke·gradient가 currentColor로 따라온다 */
+    color: var(--jd-color-primary-ink); /* stroke·gradient가 currentColor로 따라온다 */
     overflow: visible;
   }
 }`;

@@ -13,7 +13,7 @@
  * 클래스 추출은 `export class JdXxx extends` 정적 파싱 — 폴더당 다클래스(page 3종,
  * show 2종) 허용, 파일 내 소스 순서 보존. 의존성 0 (node:fs/path만).
  */
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -24,7 +24,11 @@ const check = process.argv.includes("--check");
 
 /* ── 스캔 ── */
 const dirs = readdirSync(componentsDir, { withFileTypes: true })
-  .filter((d) => d.isDirectory())
+  .filter(
+    (d) =>
+      d.isDirectory() &&
+      existsSync(join(componentsDir, d.name, "element.ts")),
+  )
   .map((d) => d.name)
   .sort();
 
@@ -69,6 +73,8 @@ const exportsMap = {
   ".": entry("./dist/index.js"),
   "./define": entry("./dist/define.js"),
   "./content": entry("./dist/core/content.js"),
+  // 타입 전용 — HTMLElementTagNameMap 증강 (gen-manifest 산출)
+  "./elements": entry("./dist/elements.generated.js"),
 };
 for (const { dir } of perDir) {
   exportsMap[`./${dir}`] = entry(`./dist/components/${dir}/index.js`);

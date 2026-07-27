@@ -40,7 +40,7 @@ export default css`
     font-weight: var(--jd-weight-medium); color: var(--jd-color-foreground);
   }
   .jd-login-form__label[data-required]::after {
-    content: "*"; margin-inline-start: var(--jd-space-0-5); color: var(--jd-color-danger);
+    content: "*"; margin-inline-start: var(--jd-space-0-5); color: var(--jd-color-danger-ink);
   }
   .jd-login-form__label-row {
     display: flex; align-items: center; justify-content: space-between;
@@ -48,7 +48,7 @@ export default css`
 
   .jd-login-form__forgot {
     font-family: var(--jd-font-sans); font-size: var(--jd-text-xs);
-    color: var(--jd-color-primary); text-decoration: none;
+    color: var(--jd-color-primary-ink); text-decoration: none;
   }
   .jd-login-form__forgot[hidden] { display: none; }
   .jd-login-form__forgot:hover { text-decoration: underline; }
@@ -85,7 +85,7 @@ export default css`
 
   .jd-login-form__mismatch {
     margin: 0; font-family: var(--jd-font-sans); font-size: var(--jd-text-xs);
-    color: var(--jd-color-danger);
+    color: var(--jd-color-danger-ink);
   }
   .jd-login-form__mismatch[hidden] { display: none; }
 
@@ -105,7 +105,9 @@ export default css`
   }
   .jd-login-form__signup[hidden] { display: none; }
   .jd-login-form__signup-link {
-    color: var(--jd-color-primary); font-weight: var(--jd-weight-medium); text-decoration: none;
+    color: var(--jd-color-primary-ink);
+    font-weight: var(--jd-weight-medium);
+    text-decoration: none;
   }
   .jd-login-form__signup-link:hover { text-decoration: underline; }
 

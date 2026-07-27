@@ -36,7 +36,7 @@ ${PICKER_FIELD_CSS}
   .jd-time-picker__opt:hover { background: var(--jd-color-card-hover); }
   .jd-time-picker__opt[aria-selected="true"] {
     font-weight: var(--jd-weight-medium);
-    color: var(--jd-color-primary); background: var(--jd-color-primary-light);
+    color: var(--jd-color-primary-ink); background: var(--jd-color-primary-light);
   }
   /* aria-activedescendant는 실제 포커스를 옮기지 않는다 — 활성 항목 링을 직접 그린다 */
   .jd-time-picker__col:focus-visible .jd-time-picker__opt[data-active] {

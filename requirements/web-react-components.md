@@ -1,7 +1,7 @@
 # Web Components + React Adapter
 
 - **Slug:** `web-react-components`
-- **Status:** active
+- **Status:** shipped
 - **Owner:** Junha (goodjunha@gmail.com)
 - **Last updated:** 2026-07-27
 
@@ -34,6 +34,8 @@
   - 라이트/다크·반응형 대표 상태의 실브라우저 시각 회귀와 런타임 성능 예산.
   - MySelf junDS 카탈로그에서 Patterns도 실물 미리보기를 제공하고, 너무 큰 패턴은
     의미 있는 축소/모형으로 표시해 태그 이름만 보이는 빈 무대를 없앤다.
+  - MySelf junDS 카탈로그의 Finance도 실물 데이터 프리뷰를 우선하고, 오버레이·
+    비시각·초대형 금융 컴포넌트는 역할별 금융 모형으로 표시한다.
 - Out of scope:
   - JunDS 쇼케이스 사이트의 시각 개편과 MySelf의 JunDS 외 영역.
   - 정적 감사에서 갱신·소유권 결함이 확인되지 않은 컴포넌트의 임의 기능 변경.
@@ -71,14 +73,16 @@
       React 18·19 조합의 회귀를 CI에서 확인한다.
 - [x] As a 배포 사용자, React 패키지를 실제 설치할 수 있고 전체 번들 없이 필요한
       컴포넌트의 JS·CSS만 선택하는 경로를 문서와 MySelf에서 바로 복사해 쓸 수 있다.
-- [ ] As a 배포 사용자, 패키지 tarball을 설치한 Vanilla·React 18/19·Next 소비 앱이
+- [x] As a 배포 사용자, 패키지 tarball을 설치한 Vanilla·React 18/19·Next 소비 앱이
       저장소 소스나 workspace 링크 없이 타입 검사와 프로덕션 빌드를 통과한다.
-- [ ] As a 유지보수자, 접근성·키보드·재연결 위험이 큰 컴포넌트의 실제 fixture와
+- [x] As a 유지보수자, 접근성·키보드·재연결 위험이 큰 컴포넌트의 실제 fixture와
       브라우저 동작이 기준선보다 줄거나 깨지면 CI에서 발견한다.
-- [ ] As a 유지보수자, 공개 API 기준선·대표 시각 스냅샷·런타임 성능 예산의
+- [x] As a 유지보수자, 공개 API 기준선·대표 시각 스냅샷·런타임 성능 예산의
       비의도적 회귀를 CI에서 발견한다.
-- [ ] As a MySelf 사용자, Patterns 카드에서도 실제 구성과 데이터를 축소 미리보기로
+- [x] As a MySelf 사용자, Patterns 카드에서도 실제 구성과 데이터를 축소 미리보기로
       확인하며 로딩 실패 시에도 의미 있는 정적 모형을 본다.
+- [x] As a MySelf 사용자, Finance 카드 86개도 빈 무대나 태그 자리표시자 없이
+      실제 시세·차트·포트폴리오 구성 또는 역할별 금융 모형으로 확인한다.
 
 ## Design / behavior notes
 
@@ -119,6 +123,21 @@
 - `packages/web/scripts/gen-exports.mjs`
 - `packages/web/vitest.config.ts`
 - `packages/web/playwright.config.ts`
+- `packages/web/e2e/stability.spec.ts`
+- `packages/web/e2e/visual.spec.ts`
+- `packages/web/e2e/__screenshots__/`
+- `packages/web/__tests__/patterns-a11y.test.ts`
+- `packages/web/demo/stability.html`
+- `packages/web/src/styles/base.css`
+- `packages/web/src/core/style-props.ts`
+- `packages/web/src/components/*/*.css.ts`
+- `packages/web/src/components/calendar/element.ts`
+- `packages/web/src/components/virtual-scroll/element.ts`
+- `packages/web/scripts/gen-manifest.mjs`
+- `packages/web/scripts/lib/surface.mjs`
+- `packages/web/src/elements.generated.ts`
+- `packages/web/custom-elements.json`
+- `packages/web/vscode.html-custom-data.json`
 - `.github/scripts/web-a11y-audit.mjs`
 - `.github/workflows/junds-v3.yml`
 - `packages/react/src/components/Button.tsx`
@@ -136,13 +155,14 @@
 - `scripts/consumer-smoke.mjs`
 - `scripts/public-api-gate.mjs`
 - `benchmarks/runtime-gate.mjs`
-- `packages/web/e2e/visual.spec.ts`
+- `docs-spec/registry/public-api-baseline.json`
+- `docs-spec/registry/runtime-budgets.json`
 - `packages/web/README.md`
 - `packages/react/README.md`
 
 외부 소비 앱인 MySelf에서는 `scripts/extract-web-api.py`,
-`scripts/sync-junds-v3.mjs`, JunDS 상세 문서와 `public/junds-v3/` 생성물만
-동기화한다.
+`scripts/sync-junds-v3.mjs`, JunDS 상세·카탈로그 문서, 해당 가드레일 테스트와
+`public/junds-v3/` 생성물만 동기화한다.
 
 ## Open questions
 
@@ -150,6 +170,18 @@
 
 ## Changelog
 
+- 2026-07-27 — shipped; MySelf JunDS Finance 86개를 데스크톱에서 라이브 63 +
+  역할별 모형 23, 모바일에서 라이브 60 + 역할별 모형 26으로 전부 확인했다.
+  정적 태그 자리표시자·남은 스켈레톤·브라우저 오류·390px 가로 넘침은 모두 0.
+  기본값이 비던 AppIcon에는 대표 아이콘 데이터를, 0px로 접히던 PositionBar에는
+  컨테이너 폭 계약을 추가했다. MySelf 125 tests·typecheck·production build 통과.
+- 2026-07-27 — shipped; tarball 소비 앱 4종(Vanilla Vite·React 18/19 Vite·Next
+  App Router), Web unit 381·실브라우저 174(Chromium/Firefox/WebKit, 시각 전용
+  6건 제외), strict axe 10페이지×2테마·fixture 98종(위반 0), React 71 tests,
+  공개 API(Web exports 789·React 391·생성 어댑터 387), 크기·런타임 예산을 모두
+  통과. MySelf는 106 tests·typecheck·production build와 실제 브라우저에서
+  Patterns 43개를 라이브 29 + 구조 모형 14로 확인(정적 자리표시자 0, 모바일
+  390px 가로 넘침 0).
 - 2026-07-27 — active; 깨끗한 소비 앱 E2E, 고위험 접근성/행동, 공개 API·시각·
   런타임 성능 게이트와 MySelf Patterns 실물 미리보기 범위 추가.
 - 2026-07-27 — shipped; Web 376 unit·Chromium/Firefox/WebKit 159·strict axe 9페이지(위반 0),

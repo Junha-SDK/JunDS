@@ -124,8 +124,8 @@ export default css`
   }
 
   .jd-newsletter__message { font-size: var(--jd-text-xs); }
-  .jd-newsletter__message[data-tone="danger"] { color: var(--jd-color-danger); }
-  .jd-newsletter__message[data-tone="success"] { color: var(--jd-color-success); }
+  .jd-newsletter__message[data-tone="danger"] { color: var(--jd-color-danger-ink); }
+  .jd-newsletter__message[data-tone="success"] { color: var(--jd-color-success-ink); }
 
   @media (prefers-reduced-motion: reduce) {
     .jd-newsletter__submit { transition: none; }

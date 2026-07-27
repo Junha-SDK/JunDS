@@ -27,6 +27,13 @@ const here = dirname(fileURLToPath(import.meta.url));
 const p = (...s) => join(here, ...s);
 const distDir = p("dist");
 
+// 0) 생성물 선행 — src/elements.generated.ts 는 번들 엔트리(src/index.ts)가 import 하는
+//    실소스이고 custom-elements.json 은 배포 대상(package.json "customElements")이다.
+//    셋 다 생성물이라, 빌드가 스스로 만들지 않으면 신규 클론·CI 체크아웃에서
+//    esbuild가 "Could not resolve src/elements.generated.ts"로 죽는다(DEC-050 실측).
+//    스테일 생성물이 빌드를 깨뜨리는 경로도 같은 호출로 함께 닫힌다.
+execFileSync(process.execPath, [p("scripts/gen-manifest.mjs")], { stdio: "inherit" });
+
 const shared = {
   bundle: true,
   target: ["safari16.4", "chrome110", "firefox110"], // DEC-004 지원선
@@ -48,7 +55,12 @@ for (const entry of readdirSync(distDir, { withFileTypes: true })) {
 const componentsDir = p("src/components");
 const componentNames = existsSync(componentsDir)
   ? readdirSync(componentsDir, { withFileTypes: true })
-      .filter((d) => d.isDirectory())
+      .filter(
+        (d) =>
+          d.isDirectory() &&
+          existsSync(p("src/components", d.name, "index.ts")) &&
+          existsSync(p("src/components", d.name, "element.ts")),
+      )
       .map((d) => d.name)
   : [];
 
@@ -57,6 +69,8 @@ const esmEntries = [
   p("src/index.ts"),
   p("src/define.ts"),
   p("src/core/content.ts"),
+  // 타입 전용 — HTMLElementTagNameMap 증강. 런타임 산출은 비지만 d.ts 가 본체다.
+  p("src/elements.generated.ts"),
 ];
 for (const name of componentNames) {
   esmEntries.push(p("src/components", name, "index.ts"), p("src/components", name, "element.ts"));

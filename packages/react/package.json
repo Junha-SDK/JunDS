@@ -4,6 +4,28 @@
   "description": "JunDS v3 React 어댑터 — @junds/web 전체 컴포넌트를 타입 안전한 props·events·refs와 컴포넌트별 subpath로 제공",
   "type": "module",
   "license": "MIT",
+  "author": "JunDS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Junha-SDK/JunDS.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/Junha-SDK/JunDS#readme",
+  "bugs": {
+    "url": "https://github.com/Junha-SDK/JunDS/issues"
+  },
+  "keywords": [
+    "design-system",
+    "react",
+    "ui",
+    "components",
+    "web-components",
+    "custom-elements",
+    "junds"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "publishConfig": {
     "access": "public"
   },

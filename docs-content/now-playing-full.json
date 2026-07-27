@@ -1,0 +1,51 @@
+{
+  "id": "now-playing-full",
+  "ledgerId": "NowPlayingFull",
+  "category": "composites",
+  "title": "NowPlayingFull",
+  "oneLiner": "전체 화면 Now Playing — 커버색으로 물든 배경·큰 커버·파형·가사.",
+  "tags": [
+    "media",
+    "audio",
+    "overlay"
+  ],
+  "controls": [
+    {
+      "prop": "bars",
+      "kind": "number",
+      "min": 24,
+      "max": 128,
+      "step": 8,
+      "default": 72
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { NowPlayingFull } from \"@/ds/composites/NowPlayingFull\";",
+      "code": "const player = useAudioPlayer(tracks);\n\n<NowPlayingBar player={player} onExpand={() => setOpen(true)} />\n<NowPlayingFull open={open} onClose={() => setOpen(false)} player={player} lyrics={song?.lyrics} />"
+    }
+  },
+  "tokens": [
+    {
+      "token": "(useDominantColor 파생)",
+      "usage": "배경 그라디언트는 커버에서 뽑은 tint/deep — 앨범마다 화면 인상이 달라진다"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "다이얼로그",
+      "note": "Modal 위에 조립 — 포커스 트랩·Escape·스크롤 잠금을 그대로 물려받는다"
+    },
+    {
+      "item": "재생 상태 공유",
+      "note": "NowPlayingBar 와 같은 useAudioPlayer 를 쓰므로 화면을 열어도 재생이 끊기지 않는다"
+    },
+    {
+      "item": "트랙 없음",
+      "note": "고른 트랙이 없으면 open 이어도 열지 않는다 — 빈 화면을 띄우지 않기 위해"
+    }
+  ]
+}

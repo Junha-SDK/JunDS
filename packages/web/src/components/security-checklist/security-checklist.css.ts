@@ -86,15 +86,15 @@ export default css`
   }
   .jd-security__icon[data-status="secure"] {
     background: color-mix(in srgb, var(--jd-color-success) 14%, transparent);
-    color: var(--jd-color-success);
+    color: var(--jd-color-success-ink);
   }
   .jd-security__icon[data-status="insecure"] {
     background: color-mix(in srgb, var(--jd-color-danger) 14%, transparent);
-    color: var(--jd-color-danger);
+    color: var(--jd-color-danger-ink);
   }
   .jd-security__icon[data-status="attention"] {
     background: color-mix(in srgb, var(--jd-color-warning) 14%, transparent);
-    color: var(--jd-color-warning);
+    color: var(--jd-color-warning-ink);
   }
   .jd-security__icon svg { width: 1rem; height: 1rem; }
 

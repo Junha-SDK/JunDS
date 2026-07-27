@@ -57,8 +57,8 @@ export function Playground({ controls, render, codeTemplate }: PlaygroundProps) 
   return (
     <div className="border border-border rounded-xl overflow-hidden bg-white">
       {/* Preview */}
-      <div className="p-6 min-h-[120px] flex items-center justify-center bg-[linear-gradient(45deg,#f8f8f8_25%,transparent_25%,transparent_75%,#f8f8f8_75%),linear-gradient(45deg,#f8f8f8_25%,transparent_25%,transparent_75%,#f8f8f8_75%)] bg-[length:16px_16px] bg-[position:0_0,8px_8px]">
-        <div className="bg-white p-4 rounded-lg">{render(values)}</div>
+      <div className="preview-canvas p-6 min-h-[120px] flex items-center justify-center">
+        <div className="bg-card p-4 rounded-lg">{render(values)}</div>
       </div>
 
       {/* Controls */}

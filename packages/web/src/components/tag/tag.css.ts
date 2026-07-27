@@ -20,7 +20,10 @@ export default css`
     background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-mix), transparent);
     color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
-  jd-tag[color="primary"] { background: var(--jd-color-primary-light); color: var(--jd-color-primary); }
+  jd-tag[color="primary"] {
+    background: var(--jd-color-primary-light);
+    color: var(--jd-color-primary-ink);
+  }
   jd-tag[color="blue"] { --jd-tone: var(--jd-color-hue-blue); }
   jd-tag[color="green"] { --jd-tone: var(--jd-color-hue-green); }
   jd-tag[color="red"] { --jd-tone: var(--jd-color-hue-red); }

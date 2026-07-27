@@ -113,7 +113,7 @@ export default css`
   .jd-pricing-table__check {
     flex-shrink: 0;
     margin-top: 2px;
-    color: var(--jd-color-success);
+    color: var(--jd-color-success-ink);
   }
 
   .jd-pricing-table__cta {

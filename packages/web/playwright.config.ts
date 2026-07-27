@@ -16,6 +16,8 @@ const chromiumChannel =
 
 export default defineConfig({
   testDir: "./e2e",
+  snapshotPathTemplate:
+    "{testDir}/__screenshots__/{testFilePath}/{arg}{ext}",
   timeout: 15_000,
   retries: 1,
   use: {

@@ -114,7 +114,9 @@ describe("jd-text", () => {
     const el = document.querySelector<JdText>("jd-text")!;
     el.dimmed = false;
     await tick();
-    expect(el.style.getPropertyValue("color")).toBe("var(--jd-color-primary)");
+    expect(el.style.getPropertyValue("color")).toBe(
+      "var(--jd-color-primary-ink)",
+    );
   });
 
   test("lineClamp → 내부 요소에 -webkit-box 3종, 해제 시 제거", async () => {

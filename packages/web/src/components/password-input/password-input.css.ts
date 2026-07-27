@@ -111,7 +111,7 @@ export default css`
   }
   .jd-password-input__rule-icon { display: flex; flex-shrink: 0; color: var(--jd-color-muted-light); }
   /* 아이콘은 그래픽이라 원색 유지 — 글자만 섞은 값 */
-  .jd-password-input__rule[data-passed] .jd-password-input__rule-icon { color: var(--jd-color-success); }
+  .jd-password-input__rule[data-passed] .jd-password-input__rule-icon { color: var(--jd-color-success-ink); }
 
   @media (prefers-reduced-motion: reduce) {
     .jd-password-input__input,

@@ -14,6 +14,6 @@ export default css`
   jd-label[required] > .jd-label::after {
     content: "*";
     margin-inline-start: var(--jd-space-0-5);
-    color: var(--jd-color-danger);
+    color: var(--jd-color-danger-ink);
   }
 }`;

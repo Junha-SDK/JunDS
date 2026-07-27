@@ -87,7 +87,7 @@ export default css`
   .jd-photo-uploader__error {
     margin: 0;
     font-size: var(--jd-text-xs);
-    color: var(--jd-color-danger);
+    color: var(--jd-color-danger-ink);
   }
   .jd-photo-uploader__error[hidden] { display: none; }
 

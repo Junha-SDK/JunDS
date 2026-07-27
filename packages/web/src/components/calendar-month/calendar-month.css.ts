@@ -148,7 +148,7 @@ export default css`
     overflow: hidden;
     text-overflow: ellipsis;
     background: color-mix(in srgb, var(--jd-color-primary) 15%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
   /* 원색 텍스트를 옅은 틴트 위에 그대로 두면 라이트모드 대비가 무너진다 — foreground로 당겨 대비 확보(테마 적응) */
   .jd-cm__event[data-color="success"] { background: color-mix(in srgb, var(--jd-color-success) 15%, transparent); color: color-mix(in srgb, var(--jd-color-success) 65%, var(--jd-color-foreground)); }

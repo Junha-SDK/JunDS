@@ -50,7 +50,7 @@ export default css`
   }
   .jd-scroll-spy__item[aria-current] {
     border-inline-start-color: var(--jd-color-primary);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     font-weight: var(--jd-weight-medium);
     background: color-mix(in srgb, var(--jd-color-primary) 5%, transparent);
   }

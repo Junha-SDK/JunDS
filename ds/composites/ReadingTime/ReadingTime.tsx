@@ -13,6 +13,29 @@ export interface ReadingTimeProps {
   format?: "short" | "long";
   /** 난이도 표시 */
   showDifficulty?: boolean;
+  /**
+   * 라틴 문자 읽기 속도 (분당 단어 수, 기본 230).
+   *
+   * 기본값은 일반적인 묵독 속도다. 기술 문서처럼 곱씹어 읽는 글이라면
+   * 170 정도로 낮춰 체감에 맞춘다.
+   */
+  wpm?: number;
+  /**
+   * CJK 문자 읽기 속도 (분당 글자 수, 기본 170).
+   *
+   * 한국어 본문은 이 값이 결과를 지배하므로, 표시 시간이 체감과 어긋나면
+   * 여기부터 조정한다.
+   */
+  cpm?: number;
+  /** 최소 표시 시간 (분, 기본 1). "1분 미만"이 무의미한 화면에서는 2를 준다 */
+  minMinutes?: number;
+  /**
+   * 난이도 계산에 쓸 헤딩 수를 직접 지정.
+   *
+   * 기본은 `content` 의 HTML 에서 `<h2>`/`<h3>` 를 센다. 본문이 이미 DOM 에만
+   * 있거나 마크다운 원문일 때 실제 개수를 넘긴다.
+   */
+  headingCount?: number;
   /** 추가 클래스 */
   className?: string;
 }
@@ -29,7 +52,12 @@ function stripHtml(html: string): string {
  * - CJK: 분당 170자(CPM)
  * - 라틴: 분당 230단어(WPM)
  */
-function estimateReadingTime(text: string): {
+function estimateReadingTime(
+  text: string,
+  wpmLatin: number,
+  cpmCjk: number,
+  minMinutes: number,
+): {
   minutes: number;
   words: number;
   cjkChars: number;
@@ -49,13 +77,10 @@ function estimateReadingTime(text: string): {
     .split(" ")
     .filter(Boolean).length;
 
-  const WPM_LATIN = 230;
-  const CPM_CJK = 170;
+  const base = words / wpmLatin + cjkChars / cpmCjk;
 
-  const base = words / WPM_LATIN + cjkChars / CPM_CJK;
-
-  // 올림 + 최소 1분 보장
-  const minutes = Math.max(1, Math.ceil(base));
+  // 올림 + 최소 시간 보장
+  const minutes = Math.max(minMinutes, Math.ceil(base));
 
   return { minutes, words, cjkChars };
 }
@@ -95,6 +120,9 @@ function countHeadings(content: string): number {
  *
  * <ReadingTime content={plainText} format="short" />
  * // 출력: "3분 읽기"
+ *
+ * // 체감에 맞춰 속도를 조정 (더 느긋하게 읽는 글)
+ * <ReadingTime content={html} wpm={170} cpm={280} minMinutes={2} />
  * ```
  * @status stable
  * @since 2.2.0
@@ -104,11 +132,15 @@ export function ReadingTime({
   content,
   format = "short",
   showDifficulty = false,
+  wpm = 230,
+  cpm = 170,
+  minMinutes = 1,
+  headingCount: headingCountProp,
   className,
 }: ReadingTimeProps) {
   const plainText = stripHtml(content);
-  const { minutes } = estimateReadingTime(plainText);
-  const headingCount = countHeadings(content);
+  const { minutes } = estimateReadingTime(plainText, wpm, cpm, minMinutes);
+  const headingCount = headingCountProp ?? countHeadings(content);
   const difficulty = estimateDifficulty(minutes, headingCount);
 
   const timeText =

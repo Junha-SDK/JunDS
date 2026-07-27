@@ -62,7 +62,7 @@ export default css`
   .jd-book-reader__close { display: none; }
   jd-book-reader[bookmarkable] .jd-book-reader__bookmark { display: inline-flex; }
   jd-book-reader[closable] .jd-book-reader__close { display: inline-flex; }
-  jd-book-reader[bookmarked] .jd-book-reader__bookmark { color: var(--jd-color-primary); }
+  jd-book-reader[bookmarked] .jd-book-reader__bookmark { color: var(--jd-color-primary-ink); }
 
   .jd-book-reader__titles { min-width: 0; flex: 1; }
   .jd-book-reader__title {
@@ -120,7 +120,7 @@ export default css`
   .jd-book-reader__toc-link:hover { background: var(--jd-color-surface-raised); color: var(--jd-color-foreground); }
   .jd-book-reader__toc-link[data-active] {
     background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
-    color: var(--jd-color-primary); font-weight: var(--jd-weight-medium);
+    color: var(--jd-color-primary-ink); font-weight: var(--jd-weight-medium);
   }
 
   .jd-book-reader__body {
@@ -136,7 +136,7 @@ export default css`
     margin: var(--jd-space-6) 0 var(--jd-space-2);
   }
   .jd-book-reader__body p { margin: 0 0 var(--jd-space-4); }
-  .jd-book-reader__body a { color: var(--jd-color-primary); text-underline-offset: 2px; }
+  .jd-book-reader__body a { color: var(--jd-color-primary-ink); text-underline-offset: 2px; }
 
   @media (prefers-reduced-motion: reduce) {
     .jd-book-reader__progressbar-fill,

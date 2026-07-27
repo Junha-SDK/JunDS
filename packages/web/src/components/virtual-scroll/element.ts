@@ -108,6 +108,9 @@ export class JdVirtualScroll extends JdElement {
   }
 
   protected override connected(): void {
+    // 스크롤 가능한 영역은 키보드로도 도달해야 한다. 소비자가 명시한 tabindex는
+    // 그대로 존중하고, 미지정일 때만 안전한 기본 탭스톱을 제공한다.
+    if (!this.hasAttribute("tabindex")) this.tabIndex = 0;
     this.addEventListener("scroll", this.#onScroll, { passive: true });
     // 실측은 연결 이후에만 — render()는 결정적으로 남는다(§3.1-3)
     this.own(createSizeObserver(this, ({ height }) => this.#setViewport(height)));

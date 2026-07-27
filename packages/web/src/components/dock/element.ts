@@ -186,10 +186,10 @@ export class JdDock extends JdElement {
   #onClick = (e: Event): void => {
     const el = (e.target as Element | null)?.closest("jd-dock-item");
     if (!el || !this.contains(el)) return;
-    const index = this.#items().indexOf(el as JdDockItem);
+    const item = el as JdDockItem;
+    const index = this.#items().indexOf(item);
     if (index < 0) return;
-    const label = el instanceof JdDockItem ? el.label : (el.getAttribute("label") ?? "");
-    this.emit("jd-select", { index, label });
+    this.emit("jd-select", { index, label: item.label });
   };
 
   #move(delta: number): void {

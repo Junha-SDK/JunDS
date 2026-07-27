@@ -149,7 +149,7 @@ export default css`
     width: 3rem; /* w-12 */
     height: 3rem;
     margin-block-end: var(--jd-space-4); /* mb-4 */
-    color: var(--jd-color-primary); /* text-primary */
+    color: var(--jd-color-primary-ink); /* text-primary */
     background: var(--jd-color-primary-light); /* bg-primary-soft */
     border-radius: var(--jd-radius-md); /* rounded-md */
     font-size: var(--jd-text-3xl); /* text-2xl */

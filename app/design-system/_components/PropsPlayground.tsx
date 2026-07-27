@@ -63,7 +63,7 @@ export function PropsPlayground({ componentName, controls, renderPreview, import
   return (
     <div className="rounded-2xl border border-border overflow-hidden bg-white">
       {/* Preview Area */}
-      <div className="flex items-center justify-center min-h-[160px] p-8 bg-[repeating-conic-gradient(#f3f4f6_0%_25%,transparent_0%_50%)] bg-[length:20px_20px]">
+      <div className="preview-canvas flex items-center justify-center min-h-[160px] p-8">
         {renderPreview(values)}
       </div>
 
@@ -105,7 +105,7 @@ export function PropsPlayground({ componentName, controls, renderPreview, import
                       : "bg-white border border-border text-muted",
                   )}
                 >
-                  <span className={cn("w-3 h-3 rounded-sm border", values[ctrl.name] ? "bg-white/30 border-white/50" : "border-gray-300")}>
+                  <span className={cn("w-3 h-3 rounded-sm border", values[ctrl.name] ? "bg-white/30 border-white/50" : "border-border")}>
                     {Boolean(values[ctrl.name]) && <svg viewBox="0 0 12 12" className="w-3 h-3 text-white"><path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" /></svg>}
                   </span>
                   {ctrl.label}

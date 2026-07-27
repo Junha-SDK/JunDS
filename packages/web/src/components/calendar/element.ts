@@ -399,11 +399,35 @@ export class JdCalendar extends JdElement {
 
   #syncGrid(days: (Date | null)[]): void {
     this.#grid.toggleAttribute("data-week", this.view === "week");
-    if (this.#grid.childElementCount !== days.length) {
+    const rowCount = Math.ceil(days.length / 7);
+    const rows = Array.from(
+      this.#grid.querySelectorAll<HTMLElement>(":scope > .jd-cal__row"),
+    );
+    if (
+      rows.length !== rowCount ||
+      rows.some((row) => row.childElementCount !== 7)
+    ) {
       this.#grid.textContent = "";
-      for (let i = 0; i < days.length; i += 1) this.#grid.append(this.#buildCell());
+      for (let row = 0; row < rowCount; row += 1) {
+        const rowElement = document.createElement("div");
+        rowElement.className = "jd-cal__row";
+        rowElement.setAttribute("role", "row");
+        for (let column = 0; column < 7; column += 1) {
+          rowElement.append(this.#buildCell());
+        }
+        this.#grid.append(rowElement);
+      }
     }
-    days.forEach((date, i) => this.#syncCell(this.#grid.children[i] as HTMLElement, date));
+    const cells = this.#grid.querySelectorAll<HTMLElement>(
+      ":scope > .jd-cal__row > .jd-cal__cell",
+    );
+    days.forEach((date, index) => this.#syncCell(cells[index]!, date));
+    this.#grid.setAttribute("aria-colcount", "7");
+    this.#grid.setAttribute("aria-rowcount", String(rowCount));
+    this.#grid.setAttribute(
+      "aria-label",
+      `${this.#headerYear(days)}년 ${this.#headerMonth(days) + 1}월 달력`,
+    );
   }
 
   #buildCell(): HTMLElement {
@@ -483,8 +507,9 @@ export class JdCalendar extends JdElement {
     const chip = document.createElement("div");
     chip.className = "jd-cal__chip";
     if (ev.color) {
-      chip.style.color = ev.color;
-      chip.style.background = `color-mix(in srgb, ${ev.color} 15%, transparent)`;
+      // 임의 사용자 색을 본문 글자색으로 쓰면 대비를 보장할 수 없다. 색은 장식
+      // 테두리/배경 힌트로만 쓰고, 텍스트는 항상 의미 토큰을 사용한다.
+      chip.style.setProperty("--_jd-cal-event-color", ev.color);
     }
     if (ev.time && !ev.allDay) {
       const t = document.createElement("span");

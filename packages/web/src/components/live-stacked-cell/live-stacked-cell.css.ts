@@ -21,6 +21,6 @@ export default css`
   .jd-live-stacked-cell__pct {
     font-size: 10.5px; font-weight: var(--jd-weight-semibold);
   }
-  jd-live-stacked-cell[data-trend="up"] { color: var(--jd-color-success); }
-  jd-live-stacked-cell[data-trend="down"] { color: var(--jd-color-danger); }
+  jd-live-stacked-cell[data-trend="up"] { color: var(--jd-color-success-ink); }
+  jd-live-stacked-cell[data-trend="down"] { color: var(--jd-color-danger-ink); }
 }`;

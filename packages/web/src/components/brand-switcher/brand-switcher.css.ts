@@ -139,7 +139,7 @@ export default css`
     .jd-brand-switcher__item:has(.jd-brand-switcher__input:checked)::after {
     content: "✓";
     margin-inline-start: auto;
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     font-size: var(--jd-text-md);
   }
   jd-brand-switcher[variant="list"] .jd-brand-switcher__swatch {

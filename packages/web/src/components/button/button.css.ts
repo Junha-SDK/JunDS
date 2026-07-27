@@ -150,7 +150,7 @@ export default css`
     /* danger */
     jd-button[variant="danger"] > .jd-button,
     .jd-button[data-jd-variant="danger"] {
-      background: var(--jd-color-danger);
+      background: color-mix(in srgb, var(--jd-color-danger) 88%, #17141f);
       color: #fff;
       box-shadow:
         var(--jd-shadow-xs),
@@ -222,7 +222,7 @@ export default css`
       box-shadow: none;
       height: auto;
       padding: 0;
-      color: var(--jd-color-primary);
+      color: var(--jd-color-primary-ink);
       text-underline-offset: 2px;
       text-decoration-color: color-mix(
         in srgb,

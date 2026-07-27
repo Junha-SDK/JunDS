@@ -6,27 +6,26 @@
 <title>JunDS v3 — B6 텍스트·미디어 데모 (10종)</title>
 <!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
 <link rel="stylesheet" href="../dist/junds.css">
+<link rel="stylesheet" href="demo.css">
 <script src="../dist/junds.min.js" defer></script>
+<script src="demo.js" defer></script>
+<!-- 첫 페인트 전에 저장된 테마를 붙인다 — defer 스크립트에서 하면 한 프레임 번쩍인다 -->
+<script>try{if(localStorage.getItem("junds.demo.theme")==="dark")document.documentElement.setAttribute("data-jd-theme","dark")}catch(e){}</script>
 <style>
-  body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
-         background: var(--jd-color-background); color: var(--jd-color-foreground); }
-  main { max-width: 44rem; margin-inline: auto; }
-  /* 이벤트 로그 텍스트도 AA — muted-light(2.7:1) 대신 muted */
-  #log { font-size: var(--jd-text-xs); color: var(--jd-color-muted); min-height: 1.2em; }
-  .tall { display: grid; gap: .5rem; }
+  .tall { display: grid; gap: var(--jd-space-2); }
   .tall > p { margin: 0; }
 </style>
 </head>
-<body>
+<body
+  data-demo-eyebrow="B6 · 텍스트·미디어"
+  data-demo-title="글과 그림이 놓이는 자리"
+  data-demo-desc="링크·이미지·코드처럼 내용 그 자체를 나르는 것들. 로딩과 실패까지 컴포넌트의 상태로 다룬다."
+  data-demo-meta="컴포넌트 10종|로딩·실패 상태 내장|외부 링크 자동 판정">
 <main>
-  <jd-flex justify="between" align="center" mb="6">
-    <jd-heading level="1" mb="0">B6 · 텍스트·미디어</jd-heading>
-    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
-  </jd-flex>
-  <p id="log">이벤트 로그…</p>
+  <p id="log" class="demo-log">이벤트 로그…</p>
 
   <jd-vstack gap="8">
-    <jd-section title="jd-link" description="내부 &lt;a&gt; 위임 — 외부 링크는 href로 자동 판정">
+    <jd-section border bg="card" p="6" title="jd-link" description="내부 &lt;a&gt; 위임 — 외부 링크는 href로 자동 판정">
       <jd-vstack gap="2">
         <jd-hstack gap="4">
           <jd-link href="#docs">기본(내부)</jd-link>
@@ -42,7 +41,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-image" description="로딩·실패 상태 + placeholder/fallback 슬롯">
+    <jd-section border bg="card" p="6" title="jd-image" description="로딩·실패 상태 + placeholder/fallback 슬롯">
       <jd-hstack gap="4" align="start">
         <!-- data URI 1×1 — 네트워크 없이 로드 성공 경로 실측 -->
         <jd-image id="ok" ratio="16/9" radius="md" alt="파란 사각형" style="width:12rem"
@@ -58,7 +57,7 @@
       </jd-hstack>
     </jd-section>
 
-    <jd-section title="jd-icon" description="children이 곧 SVG 내용 — 이름 레지스트리는 갖지 않는다">
+    <jd-section border bg="card" p="6" title="jd-icon" description="children이 곧 SVG 내용 — 이름 레지스트리는 갖지 않는다">
       <jd-hstack gap="3" align="center">
         <jd-icon size="xs"><path d="M5 12h14M12 5l7 7-7 7"/></jd-icon>
         <jd-icon size="sm"><path d="M5 12h14M12 5l7 7-7 7"/></jd-icon>
@@ -69,7 +68,7 @@
       </jd-hstack>
     </jd-section>
 
-    <jd-section title="jd-code · jd-mark" description="내부 &lt;code&gt;/&lt;mark&gt;로 시맨틱 위임">
+    <jd-section border bg="card" p="6" title="jd-code · jd-mark" description="내부 &lt;code&gt;/&lt;mark&gt;로 시맨틱 위임">
       <jd-vstack gap="3">
         <p style="margin:0">
           설치는 <jd-code>npm i @junds/web</jd-code>,
@@ -87,7 +86,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-highlight" description="검색어 조각만 mark — 정규식 메타문자도 리터럴">
+    <jd-section border bg="card" p="6" title="jd-highlight" description="검색어 조각만 mark — 정규식 메타문자도 리터럴">
       <jd-vstack gap="2">
         <p style="margin:0"><jd-highlight id="hl" text="JunDS 디자인 시스템의 디자인 토큰" query="디자인"></jd-highlight></p>
         <p style="margin:0"><jd-highlight text="JunDS 디자인 시스템" query="시스템" variant="primary"></jd-highlight></p>
@@ -96,7 +95,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-scroll-area" description="호스트가 곧 스크롤 컨테이너 — 래퍼 0, region + 탭 가능">
+    <jd-section border bg="card" p="6" title="jd-scroll-area" description="호스트가 곧 스크롤 컨테이너 — 래퍼 0, region + 탭 가능">
       <jd-scroll-area max-height="140" label="샘플 로그" style="border:1px solid var(--jd-color-border);border-radius:8px;padding:12px">
         <div class="tall">
           <p>1 — Tab으로 포커스한 뒤 PageDown/화살표로 스크롤됩니다.</p>
@@ -113,7 +112,7 @@
       </jd-scroll-area>
     </jd-section>
 
-    <jd-section title="jd-number-formatter" description="Intl 위임 — 통화 자릿수는 통화별 기본값">
+    <jd-section border bg="card" p="6" title="jd-number-formatter" description="Intl 위임 — 통화 자릿수는 통화별 기본값">
       <jd-vstack gap="1">
         <p style="margin:0">십진: <jd-number-formatter value="1234567.891" decimals="2"></jd-number-formatter></p>
         <p style="margin:0">통화(KRW): <jd-number-formatter value="1234567" format="currency"></jd-number-formatter></p>
@@ -125,7 +124,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-motion" description="8프리셋 — 감속 선호는 CSS가 처리(JS 0줄)">
+    <jd-section border bg="card" p="6" title="jd-motion" description="8프리셋 — 감속 선호는 CSS가 처리(JS 0줄)">
       <jd-vstack gap="2">
         <jd-hstack gap="2">
           <jd-button id="replay" variant="outline" size="sm">다시 재생</jd-button>
@@ -139,7 +138,7 @@
       </jd-vstack>
     </jd-section>
 
-    <jd-section title="jd-aspect-ratio-box" description="primitives AspectRatio는 이 태그의 별칭 — 신규 태그 없음(R12)">
+    <jd-section border bg="card" p="6" title="jd-aspect-ratio-box" description="primitives AspectRatio는 이 태그의 별칭 — 신규 태그 없음(R12)">
       <jd-hstack gap="3">
         <jd-aspect-ratio-box ratio="16/9" bg="card-hover" radius="md" style="width:12rem">
           <jd-center style="height:100%">16 / 9</jd-center>
@@ -152,7 +151,7 @@
   </jd-vstack>
 </main>
 
-<script type="module">
+<script>
   const log = document.getElementById("log");
   for (const ev of ["jd-load", "jd-error", "jd-input"]) {
     document.addEventListener(ev, (e) => {
@@ -167,13 +166,6 @@
   document.getElementById("replay").addEventListener("click", () => {
     const stage = document.getElementById("stage");
     stage.replaceChildren(...[...stage.children].map((n) => n.cloneNode(true)));
-  });
-  const btn = document.getElementById("theme-toggle");
-  btn.addEventListener("click", () => {
-    const root = document.documentElement;
-    const dark = root.getAttribute("data-jd-theme") !== "dark";
-    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
-    btn.textContent = dark ? "라이트 모드" : "다크 모드";
   });
 </script>
 </body>

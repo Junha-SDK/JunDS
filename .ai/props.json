@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T04:35:18.259Z",
+  "generatedAt": "2026-07-27T05:21:12.491Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -2960,6 +2960,56 @@
       ]
     },
     {
+      "name": "BarList",
+      "kind": "composite",
+      "file": "ds/composites/BarList/BarList.tsx",
+      "interface": "BarListProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "data-display",
+        "chart"
+      ],
+      "props": [
+        {
+          "name": "items",
+          "type": "Array<BarListItem>",
+          "optional": false,
+          "description": "표시할 항목들"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "optional": true,
+          "description": "막대 길이의 기준이 되는 최댓값.\n기본은 목록 안의 최댓값 — 여러 목록의 눈금을 맞추려면 직접 지정한다."
+        },
+        {
+          "name": "formatValue",
+          "type": "(value: number) => ReactNode",
+          "optional": true,
+          "description": "값 표시 형식 (기본: 그대로)"
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "optional": true,
+          "description": "상위 몇 개만 (기본: 전체)"
+        },
+        {
+          "name": "sorted",
+          "type": "boolean",
+          "optional": true,
+          "description": "값 기준 내림차순 정렬 (기본 false — 넘긴 순서 유지)"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true,
+          "description": "막대 색 (CSS 색 문자열, 기본 `var(--primary)`)"
+        }
+      ]
+    },
+    {
       "name": "BentoGrid",
       "kind": "composite",
       "file": "ds/composites/BentoGrid/BentoGrid.tsx",
@@ -5042,6 +5092,80 @@
       ]
     },
     {
+      "name": "DocHero",
+      "kind": "composite",
+      "file": "ds/composites/DocHero/DocHero.tsx",
+      "interface": "DocHeroProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "content",
+        "layout"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "optional": false,
+          "description": "문서 제목"
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "optional": true,
+          "description": "한 줄 설명"
+        },
+        {
+          "name": "eyebrow",
+          "type": "string",
+          "optional": true,
+          "description": "제목 위에 놓을 작은 라벨 (역할·분류 등)"
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "optional": true,
+          "description": "아이콘/썸네일 URL"
+        },
+        {
+          "name": "iconNode",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "이미지 대신 넣을 아이콘 노드 (`icon` 보다 우선)"
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "optional": true,
+          "description": "표시할 날짜 문자열"
+        },
+        {
+          "name": "dateTime",
+          "type": "string",
+          "optional": true,
+          "description": "`<time datetime>` 에 넣을 기계 판독용 날짜 (없으면 `date` 를 쓴다)"
+        },
+        {
+          "name": "tags",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "사용 기술 등 칩으로 늘어놓을 라벨들"
+        },
+        {
+          "name": "banner",
+          "type": "string",
+          "optional": true,
+          "description": "배경에 깔 배너 이미지 URL"
+        },
+        {
+          "name": "stats",
+          "type": "Array<DocHeroStat>",
+          "optional": true,
+          "description": "하단에 붙는 지표 스트립"
+        }
+      ]
+    },
+    {
       "name": "Dock",
       "kind": "composite",
       "file": "ds/composites/Dock/Dock.tsx",
@@ -5069,6 +5193,26 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "DocLinks",
+      "kind": "composite",
+      "file": "ds/composites/DocLinks/DocLinks.tsx",
+      "interface": "DocLinksProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "content",
+        "navigation"
+      ],
+      "props": [
+        {
+          "name": "links",
+          "type": "Array<DocLink>",
+          "optional": false,
+          "description": "링크 목록"
         }
       ]
     },
@@ -5622,6 +5766,80 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "GlobeWireframe",
+      "kind": "composite",
+      "file": "ds/composites/GlobeWireframe/GlobeWireframe.tsx",
+      "interface": "GlobeWireframeProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "data-display",
+        "canvas"
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "number",
+          "optional": true,
+          "description": "캔버스 한 변의 크기 (px, 기본 400)"
+        },
+        {
+          "name": "radiusRatio",
+          "type": "number",
+          "optional": true,
+          "description": "구의 반지름 비율 (0~1, 캔버스 절반 기준. 기본 0.8)"
+        },
+        {
+          "name": "latitudes",
+          "type": "number",
+          "optional": true,
+          "description": "위도선 개수 (기본 8)"
+        },
+        {
+          "name": "longitudes",
+          "type": "number",
+          "optional": true,
+          "description": "경도선 개수 (기본 14)"
+        },
+        {
+          "name": "strokeColor",
+          "type": "string",
+          "optional": true,
+          "description": "선 색 (CSS 색 문자열, 기본 `\"rgba(130, 160, 220, 1)\"`)"
+        },
+        {
+          "name": "maxOpacity",
+          "type": "number",
+          "optional": true,
+          "description": "선의 최대 불투명도 (기본 0.13)"
+        },
+        {
+          "name": "autoRotate",
+          "type": "number",
+          "optional": true,
+          "description": "자동 회전 속도 (라디안/프레임, 0 이면 정지. 기본 0.002)"
+        },
+        {
+          "name": "draggable",
+          "type": "boolean",
+          "optional": true,
+          "description": "드래그로 돌릴 수 있게 할지 (기본 true)"
+        },
+        {
+          "name": "rotationRef",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").MutableRefObject<GlobeRotation>",
+          "optional": true,
+          "description": "회전 상태를 바깥과 공유할 ref.\n\n지구본 위에 마커를 얹는 등 같은 각도로 다른 것을 그려야 할 때 넘긴다.\n넘기면 이 컴포넌트가 매 프레임 여기에 최신 각도를 써 넣는다."
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "optional": true,
+          "description": "접근성 라벨. 주지 않으면 장식으로 취급해 숨긴다"
         }
       ]
     },
@@ -6409,6 +6627,57 @@
       ]
     },
     {
+      "name": "Lyrics",
+      "kind": "composite",
+      "file": "ds/composites/Lyrics/Lyrics.tsx",
+      "interface": "LyricsProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "media",
+        "audio",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "optional": true,
+          "description": "가사 원문. 빈 줄(`\\n\\n`)로 연을 나누고, 홑 줄바꿈은 행으로 남는다.\n`verses` 를 주면 무시된다."
+        },
+        {
+          "name": "verses",
+          "type": "Array<Array<string>>",
+          "optional": true,
+          "description": "이미 연·행으로 나눠 둔 가사 (`verses[연][행]`)"
+        },
+        {
+          "name": "progress",
+          "type": "number",
+          "optional": true,
+          "description": "재생 진행률 (0~1). 주면 해당 위치의 연을 밝게 강조하고 그 연으로 스크롤한다.\n\n연마다 실제 타임스탬프(LRC)가 없을 때를 위한 근사다 — 전체 길이에 연 수를\n균등 매핑하므로 \"대략 이쯤\"이지 정확한 싱크가 아니다. 정확한 싱크가 필요하면\n`activeIndex` 로 직접 지정한다."
+        },
+        {
+          "name": "activeIndex",
+          "type": "number",
+          "optional": true,
+          "description": "강조할 연 인덱스를 직접 지정 (`progress` 보다 우선, -1 이면 강조 없음)"
+        },
+        {
+          "name": "autoScroll",
+          "type": "boolean",
+          "optional": true,
+          "description": "현재 연을 컨테이너 가운데로 자동 스크롤 (기본 true)"
+        },
+        {
+          "name": "centered",
+          "type": "boolean",
+          "optional": true,
+          "description": "가운데 정렬 (기본 false — 왼쪽 정렬)"
+        }
+      ]
+    },
+    {
       "name": "MarkdownViewer",
       "kind": "composite",
       "file": "ds/composites/MarkdownViewer/MarkdownViewer.tsx",
@@ -7051,6 +7320,63 @@
           "type": "boolean",
           "optional": true,
           "description": "화면 하단에 고정할지 (기본 true)"
+        }
+      ]
+    },
+    {
+      "name": "NowPlayingFull",
+      "kind": "composite",
+      "file": "ds/composites/NowPlayingFull/NowPlayingFull.tsx",
+      "interface": "NowPlayingFullProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "media",
+        "audio",
+        "overlay"
+      ],
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "optional": false,
+          "description": "열림 여부"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "optional": false,
+          "description": "닫기 요청 (Escape·백드롭·닫기 버튼)"
+        },
+        {
+          "name": "player",
+          "type": "AudioPlayerState",
+          "optional": false,
+          "description": "`useAudioPlayer()` 가 돌려준 상태"
+        },
+        {
+          "name": "lyrics",
+          "type": "string",
+          "optional": true,
+          "description": "현재 트랙의 가사. 빈 줄로 연을 나눈 원문.\n없으면 가사 칼럼 없이 플레이어만 가운데 놓인다."
+        },
+        {
+          "name": "backdropImage",
+          "type": "string",
+          "optional": true,
+          "description": "배경에 크게 흐려 깔 이미지 (기본: 현재 트랙의 커버)"
+        },
+        {
+          "name": "bars",
+          "type": "number",
+          "optional": true,
+          "description": "파형 막대 개수 (기본 72)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true,
+          "description": "추가 클래스"
         }
       ]
     },
@@ -8823,10 +9149,78 @@
           "description": "난이도 표시"
         },
         {
+          "name": "wpm",
+          "type": "number",
+          "optional": true,
+          "description": "라틴 문자 읽기 속도 (분당 단어 수, 기본 230).\n\n기본값은 일반적인 묵독 속도다. 기술 문서처럼 곱씹어 읽는 글이라면\n170 정도로 낮춰 체감에 맞춘다."
+        },
+        {
+          "name": "cpm",
+          "type": "number",
+          "optional": true,
+          "description": "CJK 문자 읽기 속도 (분당 글자 수, 기본 170).\n\n한국어 본문은 이 값이 결과를 지배하므로, 표시 시간이 체감과 어긋나면\n여기부터 조정한다."
+        },
+        {
+          "name": "minMinutes",
+          "type": "number",
+          "optional": true,
+          "description": "최소 표시 시간 (분, 기본 1). \"1분 미만\"이 무의미한 화면에서는 2를 준다"
+        },
+        {
+          "name": "headingCount",
+          "type": "number",
+          "optional": true,
+          "description": "난이도 계산에 쓸 헤딩 수를 직접 지정.\n\n기본은 `content` 의 HTML 에서 `<h2>`/`<h3>` 를 센다. 본문이 이미 DOM 에만\n있거나 마크다운 원문일 때 실제 개수를 넘긴다."
+        },
+        {
           "name": "className",
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "RelatedPosts",
+      "kind": "composite",
+      "file": "ds/composites/RelatedPosts/RelatedPosts.tsx",
+      "interface": "RelatedPostsProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "content",
+        "navigation"
+      ],
+      "props": [
+        {
+          "name": "posts",
+          "type": "Array<RelatedPost>",
+          "optional": false,
+          "description": "보여줄 글 목록"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "optional": true,
+          "description": "섹션 제목 (기본 `\"연관 글 읽기\"`)"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "optional": true,
+          "description": "최대 노출 개수 (기본 4)"
+        },
+        {
+          "name": "columns",
+          "type": "2 | 3 | 1",
+          "optional": true,
+          "description": "한 줄에 놓을 카드 수 (기본 2)"
+        },
+        {
+          "name": "renderLink",
+          "type": "(props: { href: string; className: string; children: ReactNode; }) => ReactNode",
+          "optional": true,
+          "description": "링크 렌더러. Next.js `<Link>` 나 react-router `<Link>` 를 쓰려면 넘긴다.\n기본은 평범한 `<a>`."
         }
       ]
     },

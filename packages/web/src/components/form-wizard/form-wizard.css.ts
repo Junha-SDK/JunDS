@@ -66,7 +66,7 @@ export default css`
 
   .jd-form-wizard__error {
     margin: 0 0 var(--jd-space-4); font-family: var(--jd-font-sans);
-    font-size: var(--jd-text-sm); color: var(--jd-color-danger);
+    font-size: var(--jd-text-sm); color: var(--jd-color-danger-ink);
   }
   .jd-form-wizard__error[hidden] { display: none; }
 

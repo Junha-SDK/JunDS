@@ -8,18 +8,24 @@ push·publish·태그를 하나도 수행하지 않았다.
 
 ---
 
-## 상태 요약 (2026-07-24 드라이런 실측)
+## 상태 요약 (2026-07-27 갱신 — DEC-050 배포 성립성 트랙 실측)
 
 | 항목 | 상태 |
 |---|---|
-| npm 스코프 `@junds` | **미선점 — 가용** (user·org 모두 "Scope not found" 실측). 대안: `@jjunhaa`(가용 확인), 무스코프 `junds-*`(junds-web 404 확인) |
-| 패키지명 | `@junds/web·react·finance-data·ui`, `junds`, `junds-web`, `create-junds` 전부 미공개(404) |
-| CI v3 레인 | 11게이트 작성 완료(`.github/workflows/junds-v3.yml`) — iOS 2게이트 제외 로컬 1회 실행 증명 |
-| `@junds/web` tarball | pack·exports 맵(57항 실파일 전수)·ESM/Node 스모크 통과. **블로커 3건**: exports types 조건 부재(TS7016 실측 — 수정은 `packages/web/scripts/gen-exports.mjs` 생성기 경유)·prepack 부재·LICENSE 미포함 |
-| `@junds/finance-data` | **실구현 완료**(DEC-019: 이관 + 계약 테스트 77/77 로컬 통과) · `private: true` 유지(공개 시점은 GA 결정) · pack 확인: esm/cjs/types 3중 + types 조건 완비 + README ✓ — 잔여: LICENSE·`files` 필드(src/build.mjs 동봉이 의도인지) |
-| `@junds/react` | 자리표시자 + `private: true` — publish 자동 차단(의도). 어댑터 구현 트랙 진행 중 |
-| web-a11y | 게이트 성립·**현재 RED**: serious color-contrast 4건 실측(danger 버튼·error 텍스트·데모 라벨 — 3페이지 스캔) — 웹 트랙 수리 대상 |
-| iOS | 코드 실체는 DEC-015-1로 검증(XCTest 31/31, CLT 우회). xcodebuild 명령형(스킴명·destination)만 CI 첫 실행 확인 |
+| npm 스코프 `@junds` | **미선점 — 가용** (2026-07-24 실측, 이후 재조회 없음). 대안: `@jjunhaa`(가용 확인), 무스코프 `junds-*`(junds-web 404 확인). **선점 지연 리스크 지속 — §0 최우선** |
+| 패키지명 | `@junds/web·react·finance-data·ui`, `junds`, `junds-web`, `create-junds` 전부 미공개(404, 2026-07-24 실측) |
+| CI v3 레인 | **17게이트**(`.github/workflows/junds-v3.yml`) — packaging·mcp-test 2건 신설(DEC-050). iOS 2게이트 제외 로컬 실행 증명 |
+| `@junds/web` tarball | **블로커 3건 전부 해소.** exports types 조건 완비(789 서브패스 전수)·`prepack: node build.mjs`·LICENSE/README 동봉 확인. pack 실측 2777파일 / 11.69MB unpacked / 2.17MB tarball. `publishConfig.access:"public"` 추가(부재 시 스코프 publish 402) |
+| `@junds/finance-data` | 실구현 완료(DEC-019: 계약 테스트 77/77) · **잔여 2건 해소**: LICENSE(패키지별 MIT 전문) + `files:["dist","README.md","LICENSE"]`로 `src`·`build.mjs` 제외 · `private: true` 유지 — **공개 시점은 여전히 GA 결정 사항(사람)** |
+| `@junds/react` | 자리표시자 아님 — 어댑터 387종 구현 완료, `private` 해제됨. 테스트 71/71, React 18/19 매트릭스 CI 게이트 보유 |
+| `@junds/mcp` | 배포 대상(무빌드 npx). LICENSE 추가 + CI 게이트 신설. **테스트 RED가 정상 신호** — docs-content web 스니펫 394/445 미저작이라 advisory로 진입(DEC-050) |
+| 배포 메타데이터 | 4패키지 전부 repository·homepage·bugs·author·keywords·engines 부재였음 → **주입 완료** |
+| `@changesets/cli` | **설치 완료**(2.31.1, 루트 devDependency) — 이전엔 스크립트만 있고 CLI가 없어 릴리스 명령 실행 불가였음. §0 항목 해소 |
+| exports ↔ tarball | **신설 게이트 PASS** — `npm run exports:gate`. 광고 진입점 전수(web 1575 · react 782 · finance-data 39 · mcp bin 1)가 배포물에 실재. 역방향 검증(결함 3종 주입 → exit 1) 완료 |
+| consumer:smoke | **PASS 4/4** — Vanilla Vite · React 18 Vite · React 19 Vite · Next App Router |
+| web-a11y | **GREEN** — 10페이지 × 2테마, blocking 0 · advisory 0 (2026-07-24 RED였던 serious contrast 4건 해소). 단 fixture coverage 98/390(25%) — 292종 미감사 |
+| tokens:test | **RED — 사람 결정 대기(DEC-050).** v2 동결본이 커밋 7b5578a에서 `--cat-*` 32종 + `2xs`를 얻었고 v3가 미추종. 게이트가 설계대로 잡은 것이며, 해소는 값 결정이라 packaging 트랙에서 하지 않음 |
+| iOS | 코드 실체는 DEC-015-1로 검증(XCTest 783/783, DEC-049 기준). xcodebuild 명령형(스킴명·destination)만 CI 첫 실행 확인 |
 
 ---
 
@@ -29,15 +35,20 @@ push·publish·태그를 하나도 수행하지 않았다.
       *준비 트랙은 조회만 수행 — 선점 전까지 제3자가 가져갈 수 있으므로 이 단계를 미루지 말 것.*
 - [ ] **Automation 토큰 발급**(Granular: `@junds` 스코프 publish 한정) → CI publish를 쓰게 될 경우
       `gh secret set NPM_TOKEN` (수동 publish만 할 거면 생략 가능).
-- [ ] **changesets CLI 설치**: 루트 devDependency 부재 실측 —
-      ```bash
-      npm i -D @changesets/cli && git add package.json package-lock.json && git commit -m "chore(v3): changesets CLI devDependency 추가"
-      ```
-- [ ] **publish 블로커 해소 확인** (별도 트랙 진행):
-  - [ ] `@junds/web` exports `types` 조건: **`packages/web/scripts/gen-exports.mjs`(DEC-018 생성기)가 package.json exports를 소유**하므로 생성기에서 types 조건을 방출하도록 수정(수기 편집은 재생성 시 소실). 형태는 finance-data의 exports(types/import 3중)가 사내 선례
-  - [ ] `packages/web`: `prepack: node build.mjs` + LICENSE/README 동봉
-  - [ ] `packages/finance-data`: LICENSE + `files` 필드(src·build.mjs 동봉 의도 명시 or 제외)
-  - [ ] web-a11y serious 4건(contrast, 3페이지) 수리 → `node .github/scripts/web-a11y-audit.mjs` 로컬 그린
+- [x] **changesets CLI 설치** — 완료(2.31.1, DEC-050). `npx changeset status`가 워크스페이스 3패키지를 인식하는 것까지 확인.
+- [x] **publish 블로커 해소 확인** — 아래 5건 전부 닫힘(DEC-050 실측):
+  - [x] `@junds/web` exports `types` 조건 — 789 서브패스 전수 완비(gen-exports.mjs 생성기가 방출)
+  - [x] `packages/web`: `prepack: node build.mjs` + LICENSE/README 동봉
+  - [x] `packages/finance-data`: LICENSE(패키지별 MIT 전문) + `files:["dist","README.md","LICENSE"]` — `src`·`build.mjs`는 **제외**로 확정
+  - [x] web-a11y serious 4건(contrast) 수리 — 로컬 그린(10페이지 × 2테마 blocking 0)
+  - [x] `publishConfig.access:"public"` — `@junds/web`에 부재였음(무료 org의 restricted publish는 402). web·finance-data·mcp에 추가, react는 기보유
+- [ ] **남은 RED 1건 — 사람 결정 필요**: `npm run tokens:test` 2건 실패.
+      v2 동결본(`ds/styles/tokens.css`·`ds/tokens/typography.ts`)이 커밋 7b5578a에서
+      `--cat-*` 32종 + `2xs`를 얻었고 v3 토큰 파이프라인이 미추종. DEC-050이 선택지
+      (a) v3 편입 / (b) 카테고리 색은 앱 레이어로 선언 + `2xs`만 편입 을 정리해 뒀다.
+      **releases는 이 게이트가 그린이 된 뒤에 진행할 것.**
+- [ ] (선택) **docs-content 저작 따라잡기**: web:done 445행 중 394행이 web 스니펫 미저작 —
+      mcp-test 게이트가 advisory인 이유. 배포 자체를 막지는 않으나 MCP·문서 소비 품질에 직결.
 - [ ] (로컬 iOS 루프 복구가 필요하면) **Xcode 재설치** — DEC-015-2: libclang 코드서명 파손, 재설치 외 복구 불가.
       CI에는 불필요(러너 Xcode는 정상).
 
@@ -85,9 +96,10 @@ push·publish·태그를 하나도 수행하지 않았다.
 - [ ] ```bash
       npx changeset publish
       ```
-      `private: true`인 react(자리표시자)·finance-data(실구현 완료, 공개 시점 미결)는 **자동 스킵**(web만 공개됨).
-      두 패키지는 각 트랙에서 private 제거를 결정한 시점에 락스텝 publish에 합류한다 —
-      합류 전 finance-data는 LICENSE·`files` 필드 정비(§0 참조).
+      현재 `private: true`는 **finance-data 하나뿐**(공개 시점 미결) — 자동 스킵된다.
+      react는 private가 해제되어 web과 함께 락스텝 publish 대상이다.
+      finance-data는 LICENSE·`files` 정비가 끝났으므로(DEC-050), private 제거 결정만 하면 즉시 합류 가능.
+      `@junds/mcp`는 락스텝(fixed) 밖의 독립 패키지 — `npm publish -w @junds/mcp`로 별도 배포한다.
 - [ ] 검증: `npm view @junds/web` + 신규 임시 프로젝트에서
       `npm i @junds/web` → `node -e "import('@junds/web').then(m=>console.log(Object.keys(m).length))"`.
 - [ ] changeset publish가 만든 패키지 태그 푸시:

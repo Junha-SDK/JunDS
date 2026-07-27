@@ -33,14 +33,15 @@ const componentDir = join(webRoot, "src/components");
 const reportPath = join(root, "coverage/web-a11y/a11y-summary.json");
 
 const strict = process.env.JUNDS_A11Y_STRICT === "1";
-const minimumPages = Number(process.env.JUNDS_A11Y_MIN_PAGES ?? 9);
+const minimumPages = Number(process.env.JUNDS_A11Y_MIN_PAGES ?? 10);
 const minimumPublicComponents = Number(
   process.env.JUNDS_A11Y_MIN_PUBLIC_COMPONENTS ?? 390,
 );
-const minimumComponents = Number(process.env.JUNDS_A11Y_MIN_COMPONENTS ?? 87);
-// 최초 실측 87/390. 새 컴포넌트에 fixture가 없으면 비율이 내려가 CI가 알려준다.
+const minimumComponents = Number(process.env.JUNDS_A11Y_MIN_COMPONENTS ?? 98);
+// 고위험 Patterns fixture 확장 실측 98/390. 새 컴포넌트에 fixture가 없으면
+// 비율이 내려가 CI가 알려준다.
 const minimumCoverageRatio = Number(
-  process.env.JUNDS_A11Y_MIN_COVERAGE_RATIO ?? 87 / 390,
+  process.env.JUNDS_A11Y_MIN_COVERAGE_RATIO ?? 98 / 390,
 );
 
 function publicTagInventory() {
@@ -184,52 +185,88 @@ try {
     }
 
     await page.addScriptTag({ path: axePath });
-    const result = await page.evaluate(() =>
-      window.axe.run(document, { resultTypes: ["violations"] }),
-    );
-    const blocking = result.violations.filter(
-      (violation) =>
-        strict ||
-        violation.impact === "critical" ||
-        violation.impact === "serious",
-    );
-    const advisory = result.violations.filter(
-      (violation) => !blocking.includes(violation),
-    );
-    blockingRules += blocking.length;
-    advisoryRules += advisory.length;
-
-    console.log(
-      `[a11y] ${file}: fixture ${liveFixtures.length}종 · 위반 ${result.violations.length}건 ` +
-        `(blocking ${blocking.length} · advisory ${advisory.length})`,
-    );
-    for (const violation of result.violations) {
-      const isBlocking = blocking.includes(violation);
-      console.log(
-        `  ${isBlocking ? "✗" : "·"} [${violation.impact ?? "unknown"}] ` +
-          `${violation.id}: ${violation.help} (${violation.nodes.length} nodes)`,
+    for (const theme of ["light", "dark"]) {
+      await page.evaluate((nextTheme) => {
+        const root = document.documentElement;
+        if (nextTheme === "dark") {
+          root.setAttribute("data-jd-theme", "dark");
+        } else {
+          root.removeAttribute("data-jd-theme");
+          root.removeAttribute("data-theme");
+        }
+      }, theme);
+      // 테마 전환 직후의 중간 보간색은 최종 상태가 아니다. 컴포넌트의
+      // color/background transition이 끝난 뒤 대비를 측정해 실제 정착 색만 감사한다.
+      await page.evaluate(
+        () =>
+          new Promise((resolve) =>
+            requestAnimationFrame(() => {
+              const finite = document
+                .getAnimations()
+                .filter(
+                  (animation) =>
+                    animation.effect?.getComputedTiming?.().iterations !==
+                    Infinity,
+                );
+              Promise.race([
+                Promise.all(
+                  finite.map((animation) => animation.finished.catch(() => {})),
+                ),
+                new Promise((resolveCap) => setTimeout(resolveCap, 1000)),
+              ]).then(resolve);
+            }),
+          ),
       );
-      for (const node of violation.nodes.slice(0, 5)) {
-        console.log(`      ${node.target.join(" ")}`);
-      }
-    }
 
-    pageReports.push({
-      file,
-      authoredComponents: declared,
-      auditedComponents: liveFixtures.map(({ tag }) => tag),
-      violations: result.violations.map((violation) => ({
-        id: violation.id,
-        impact: violation.impact,
-        help: violation.help,
-        blocking: blocking.includes(violation),
-        nodes: violation.nodes.map((node) => ({
-          target: node.target,
-          html: node.html,
-          failureSummary: node.failureSummary,
+      const result = await page.evaluate(() =>
+        window.axe.run(document, { resultTypes: ["violations"] }),
+      );
+      const blocking = result.violations.filter(
+        (violation) =>
+          strict ||
+          violation.impact === "critical" ||
+          violation.impact === "serious",
+      );
+      const advisory = result.violations.filter(
+        (violation) => !blocking.includes(violation),
+      );
+      blockingRules += blocking.length;
+      advisoryRules += advisory.length;
+
+      console.log(
+        `[a11y] ${file} (${theme}): fixture ${liveFixtures.length}종 · ` +
+          `위반 ${result.violations.length}건 ` +
+          `(blocking ${blocking.length} · advisory ${advisory.length})`,
+      );
+      for (const violation of result.violations) {
+        const isBlocking = blocking.includes(violation);
+        console.log(
+          `  ${isBlocking ? "✗" : "·"} [${violation.impact ?? "unknown"}] ` +
+            `${violation.id}: ${violation.help} (${violation.nodes.length} nodes)`,
+        );
+        for (const node of violation.nodes.slice(0, 5)) {
+          console.log(`      ${node.target.join(" ")}`);
+        }
+      }
+
+      pageReports.push({
+        file,
+        theme,
+        authoredComponents: declared,
+        auditedComponents: liveFixtures.map(({ tag }) => tag),
+        violations: result.violations.map((violation) => ({
+          id: violation.id,
+          impact: violation.impact,
+          help: violation.help,
+          blocking: blocking.includes(violation),
+          nodes: violation.nodes.map((node) => ({
+            target: node.target,
+            html: node.html,
+            failureSummary: node.failureSummary,
+          })),
         })),
-      })),
-    });
+      });
+    }
   }
 } finally {
   await browser.close();
@@ -261,6 +298,7 @@ const report = {
   generatedAt: new Date().toISOString(),
   policy: {
     mode: strict ? "strict" : "release",
+    themes: ["light", "dark"],
     blockingImpacts: strict ? ["all"] : ["critical", "serious"],
     advisoryImpacts: strict ? [] : ["moderate", "minor", "unknown"],
   },
@@ -278,6 +316,7 @@ const report = {
   },
   summary: {
     pages: pages.length,
+    themeAudits: pageReports.length,
     blockingRules,
     advisoryRules,
     auditErrors,
@@ -308,5 +347,6 @@ if (blockingRules > 0 || auditErrors.length > 0) {
 }
 
 console.log(
-  `\n[a11y] PASS — ${pages.length}페이지 · blocking 0건 · advisory ${advisoryRules}건`,
+  `\n[a11y] PASS — ${pages.length}페이지 × 2테마 · ` +
+    `blocking 0건 · advisory ${advisoryRules}건`,
 );

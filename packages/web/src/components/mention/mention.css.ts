@@ -94,7 +94,7 @@ export default css`
   }
   .jd-mention__media[data-initial] {
     background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     font-size: var(--jd-text-xs); font-weight: var(--jd-weight-medium);
     line-height: var(--jd-leading-none);
     user-select: none;

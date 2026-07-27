@@ -71,7 +71,7 @@ export default css`
   .jd-collection-view__view > svg { width: 18px; height: 18px; }
   .jd-collection-view__view:hover { background: var(--jd-color-border-light); }
   .jd-collection-view__view[aria-pressed="true"] {
-    background: var(--jd-color-card-hover); color: var(--jd-color-primary);
+    background: var(--jd-color-card-hover); color: var(--jd-color-primary-ink);
   }
   .jd-collection-view__view:focus-visible {
     outline: var(--jd-border-medium) solid var(--jd-color-primary); outline-offset: 1px;

@@ -33,7 +33,7 @@ export default css`
     font-size: var(--jd-text-xs); font-weight: var(--jd-weight-medium);
     padding: var(--jd-space-0-5) var(--jd-space-2); border-radius: var(--jd-radius-full);
     background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
 
   .jd-blog-post__title {
@@ -94,7 +94,7 @@ export default css`
     margin: var(--jd-space-6) 0 var(--jd-space-2);
   }
   .jd-blog-post__body p { margin: 0 0 var(--jd-space-4); }
-  .jd-blog-post__body a { color: var(--jd-color-primary); text-underline-offset: 2px; }
+  .jd-blog-post__body a { color: var(--jd-color-primary-ink); text-underline-offset: 2px; }
   .jd-blog-post__body img { max-width: 100%; height: auto; border-radius: var(--jd-radius-lg); }
   .jd-blog-post__body blockquote {
     margin: var(--jd-space-4) 0; padding-left: var(--jd-space-4);

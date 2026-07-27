@@ -55,7 +55,7 @@ export default css`
   .jd-progress-steps__label[hidden] { display: none; }
   .jd-progress-steps__step[data-status="done"] .jd-progress-steps__label,
   .jd-progress-steps__step[data-status="current"] .jd-progress-steps__label {
-    color: var(--jd-color-primary); font-weight: var(--jd-weight-medium);
+    color: var(--jd-color-primary-ink); font-weight: var(--jd-weight-medium);
   }
 
   .jd-progress-steps__line {

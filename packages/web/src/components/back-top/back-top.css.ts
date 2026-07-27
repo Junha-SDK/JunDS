@@ -28,7 +28,7 @@ export default css`
       transform var(--jd-duration-normal) var(--jd-easing-ease-out);
   }
   .jd-back-top__button:hover {
-    color: var(--jd-color-primary); box-shadow: var(--jd-shadow-xl);
+    color: var(--jd-color-primary-ink); box-shadow: var(--jd-shadow-xl);
     border-color: color-mix(in srgb, var(--jd-color-primary) 30%, transparent);
   }
   .jd-back-top__button:focus-visible {

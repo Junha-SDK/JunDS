@@ -39,7 +39,7 @@ export default css`
 
   /* spinner — jd-spinner·jd-button과 같은 SVG(치수만 40px) */
   .jd-loading-screen__spinner {
-    width: 40px; height: 40px; color: var(--jd-color-primary);
+    width: 40px; height: 40px; color: var(--jd-color-primary-ink);
     animation: jd-spin 1s linear infinite;
   }
 

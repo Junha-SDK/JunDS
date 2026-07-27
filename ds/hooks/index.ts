@@ -93,3 +93,5 @@ export type {
 } from "./useAudioPlayer";
 export { useSeo } from "./useSeo";
 export type { SeoProps } from "./useSeo";
+export { useUrlFilters } from "./useUrlFilters";
+export type { UseUrlFiltersOptions, UseUrlFiltersReturn, FilterValue } from "./useUrlFilters";

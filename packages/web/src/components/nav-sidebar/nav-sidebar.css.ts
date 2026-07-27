@@ -72,7 +72,7 @@ export default css`
   .jd-nav-sidebar__link:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
   .jd-nav-sidebar__link[data-active] {
     background: var(--jd-color-primary-light);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
 
   .jd-nav-sidebar__rail {
@@ -89,7 +89,7 @@ export default css`
     width: 1.25rem; flex-shrink: 0;
     color: var(--jd-color-muted);
   }
-  .jd-nav-sidebar__link[data-active] .jd-nav-sidebar__icon { color: var(--jd-color-primary); }
+  .jd-nav-sidebar__link[data-active] .jd-nav-sidebar__icon { color: var(--jd-color-primary-ink); }
 
   .jd-nav-sidebar__label {
     flex: 1; min-width: 0;

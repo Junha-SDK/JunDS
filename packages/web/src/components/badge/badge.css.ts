@@ -20,7 +20,7 @@ export default css`
     --jd-tone: var(--jd-color-hue-gray);
     /* 10~12px 배지 글자는 일반 본문보다 엄격한 대비가 필요하다. 앵커색을 그대로
        많이 쓰지 않고 잉크 쪽 비율을 늘려 success/warning/info도 AA를 넘긴다. */
-    --jd-tone-ink-mix: 68%;
+    --jd-tone-ink-mix: 52%;
     --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
     background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-mix), transparent);
     color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
@@ -57,7 +57,8 @@ export default css`
   jd-badge[data-count-mode] {
     justify-content: center; padding: 0 var(--jd-space-1);
     min-width: 18px; height: 18px; border-radius: var(--jd-radius-full);
-    background: var(--jd-color-danger); color: #fff;
+    background: color-mix(in srgb, var(--jd-color-danger) 88%, #17141f);
+    color: #fff;
     box-shadow: none; font-variant-numeric: tabular-nums; font-size: 10px;
   }
 }`;

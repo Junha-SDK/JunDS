@@ -76,8 +76,8 @@ export default css`
     display: flex; align-items: center; gap: var(--jd-space-2); flex-shrink: 0;
   }
   .jd-stock-top-bar__price-block { text-align: right; }
-  .jd-stock-top-bar__price-block[data-trend="up"] { color: var(--jd-color-success); }
-  .jd-stock-top-bar__price-block[data-trend="down"] { color: var(--jd-color-danger); }
+  .jd-stock-top-bar__price-block[data-trend="up"] { color: var(--jd-color-success-ink); }
+  .jd-stock-top-bar__price-block[data-trend="down"] { color: var(--jd-color-danger-ink); }
   .jd-stock-top-bar__price {
     display: block; color: inherit;
     font-variant-numeric: tabular-nums; font-weight: 800;

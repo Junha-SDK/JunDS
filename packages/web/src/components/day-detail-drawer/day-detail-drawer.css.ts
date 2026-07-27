@@ -108,7 +108,7 @@ export default css`
   }
   .jd-day-detail__leader:last-child { border-block-end: 0; }
   .jd-day-detail__leader[data-alt] { background: var(--jd-color-surface); }
-  .jd-day-detail__leader-crown { color: var(--jd-color-warning); font-size: 14px; }
+  .jd-day-detail__leader-crown { color: var(--jd-color-warning-ink); font-size: 14px; }
   .jd-day-detail__leader-name {
     font-size: 12.5px; font-weight: var(--jd-weight-bold);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;

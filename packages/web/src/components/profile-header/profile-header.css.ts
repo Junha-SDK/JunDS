@@ -59,7 +59,7 @@ export default css`
     color: var(--jd-color-foreground);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .jd-profile-header__verified { color: var(--jd-color-primary); }
+  .jd-profile-header__verified { color: var(--jd-color-primary-ink); }
   .jd-profile-header__verified[hidden] { display: none; }
   .jd-profile-header__handle {
     margin: 0; font-size: var(--jd-text-md); color: var(--jd-color-muted);

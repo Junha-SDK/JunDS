@@ -5,7 +5,7 @@ export default css`
 @layer junds.components {
   jd-spinner {
     display: inline-flex;
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     width: 20px; height: 20px; /* md 기본 */
   }
   jd-spinner[size="xs"] { width: 14px; height: 14px; }

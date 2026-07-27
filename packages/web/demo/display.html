@@ -5,22 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JunDS v3 — B4 표시 프리미티브 데모 (10종)</title>
 <link rel="stylesheet" href="../dist/junds.css">
+<link rel="stylesheet" href="demo.css">
 <script src="../dist/junds.min.js" defer></script>
-<style>
-  body { margin: 0; padding: 3rem 1.5rem; font-family: var(--jd-font-sans);
-         background: var(--jd-color-background); color: var(--jd-color-foreground); }
-  main { max-width: 44rem; margin-inline: auto; }
-</style>
+<script src="demo.js" defer></script>
+<!-- 첫 페인트 전에 저장된 테마를 붙인다 — defer 스크립트에서 하면 한 프레임 번쩍인다 -->
+<script>try{if(localStorage.getItem("junds.demo.theme")==="dark")document.documentElement.setAttribute("data-jd-theme","dark")}catch(e){}
+</script>
 </head>
-<body>
+<body
+  data-demo-eyebrow="B4 · 표시 프리미티브"
+  data-demo-title="한 눈에 상태를 말하는 것들"
+  data-demo-desc="배지·태그·아바타처럼 읽는 데 1초도 걸리지 않아야 하는 표시 전용 프리미티브 10종."
+  data-demo-meta="컴포넌트 10종|라이트·다크 동시 검증|텍스트 대비 AA">
 <main>
-  <jd-flex justify="between" align="center" mb="6">
-    <jd-heading level="1" mb="0">B4 · 표시 프리미티브</jd-heading>
-    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
-  </jd-flex>
-
   <jd-vstack gap="8">
-    <jd-section title="jd-badge" description="variant 7종 · dot · count 모드">
+    <jd-section border bg="card" p="6" title="jd-badge" description="variant 7종 · dot · count 모드">
       <jd-wrap gap="2">
         <jd-badge>default</jd-badge>
         <jd-badge variant="primary">primary</jd-badge>
@@ -34,7 +33,7 @@
       </jd-wrap>
     </jd-section>
 
-    <jd-section title="jd-tag + jd-severity-badge">
+    <jd-section border bg="card" p="6" title="jd-tag + jd-severity-badge">
       <jd-wrap gap="2">
         <jd-tag>gray</jd-tag>
         <jd-tag color="primary">primary</jd-tag>
@@ -53,7 +52,7 @@
       </jd-wrap>
     </jd-section>
 
-    <jd-section title="jd-avatar" description="이니셜 해시 팔레트 · status 점">
+    <jd-section border bg="card" p="6" title="jd-avatar" description="이니셜 해시 팔레트 · status 점">
       <jd-hstack gap="3">
         <jd-avatar name="김 준하" size="xs"></jd-avatar>
         <jd-avatar name="박 하늘" size="sm" status="online"></jd-avatar>
@@ -63,7 +62,7 @@
       </jd-hstack>
     </jd-section>
 
-    <jd-section title="jd-spinner + jd-status-dot + jd-battery-indicator">
+    <jd-section border bg="card" p="6" title="jd-spinner + jd-status-dot + jd-battery-indicator">
       <jd-hstack gap="4">
         <jd-spinner size="xs"></jd-spinner>
         <jd-spinner size="sm" color="muted"></jd-spinner>
@@ -84,7 +83,7 @@
       </jd-hstack>
     </jd-section>
 
-    <jd-section title="jd-kbd + jd-key-cap">
+    <jd-section border bg="card" p="6" title="jd-kbd + jd-key-cap">
       <jd-hstack gap="3">
         <jd-kbd keys="⌘ K"></jd-kbd>
         <jd-kbd>Esc</jd-kbd>
@@ -101,15 +100,8 @@
   </jd-vstack>
 </main>
 
-<script type="module">
+<script>
   document.addEventListener("jd-remove", (e) => e.target.remove()); // 데모: 태그 제거 소비
-  const btn = document.getElementById("theme-toggle");
-  btn.addEventListener("click", () => {
-    const root = document.documentElement;
-    const dark = root.getAttribute("data-jd-theme") !== "dark";
-    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
-    btn.textContent = dark ? "라이트 모드" : "다크 모드";
-  });
 </script>
 </body>
 </html>

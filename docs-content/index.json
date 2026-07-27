@@ -2,12 +2,12 @@
   "$schema": "docs-content/build-index.mjs 가 검증 후 생성 — 직접 편집 금지",
   "source": "docs-content/*.json + docs-spec/registry/ledger.json",
   "counts": {
-    "total": 460,
-    "controls": 34,
+    "total": 468,
+    "controls": 39,
     "web": 51,
     "swiftui": 3,
     "uikit": 3,
-    "react": 184
+    "react": 192
   },
   "entries": [
     {
@@ -2951,6 +2951,28 @@
         "hook",
         "seo",
         "meta"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "use-url-filters",
+      "ledgerId": "useUrlFilters",
+      "title": "useUrlFilters",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "필터 상태를 URL 쿼리와 동기화 — 기본값과 같은 필터는 주소에서 생략한다.",
+      "tags": [
+        "hook",
+        "필터",
+        "url"
       ],
       "hasControls": false,
       "snippets": {
@@ -7027,6 +7049,156 @@
       }
     },
     {
+      "id": "lyrics",
+      "ledgerId": "Lyrics",
+      "title": "Lyrics",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "연 단위로 강조되는 가사 뷰 — 현재 연만 밝게 두고 그 연으로 자동 스크롤한다.",
+      "tags": [
+        "media",
+        "audio",
+        "가사"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "now-playing-full",
+      "ledgerId": "NowPlayingFull",
+      "title": "NowPlayingFull",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "전체 화면 Now Playing — 커버색으로 물든 배경·큰 커버·파형·가사.",
+      "tags": [
+        "media",
+        "audio",
+        "overlay"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "related-posts",
+      "ledgerId": "RelatedPosts",
+      "title": "RelatedPosts",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "글 하단의 연관 글 목록 — 목록이 비면 섹션 자체가 사라진다.",
+      "tags": [
+        "content",
+        "navigation"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "doc-hero",
+      "ledgerId": "DocHero",
+      "title": "DocHero",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "문서/프로젝트 상세 상단 히어로 — 배너·아이콘·제목·기술 칩·지표 스트립.",
+      "tags": [
+        "content",
+        "layout"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "doc-links",
+      "ledgerId": "DocLinks",
+      "title": "DocLinks",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "문서에 딸린 외부 링크 목록 — GitHub·App Store·npm 등을 종류별 아이콘과 함께.",
+      "tags": [
+        "content",
+        "navigation"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "globe-wireframe",
+      "ledgerId": "GlobeWireframe",
+      "title": "GlobeWireframe",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "캔버스 와이어프레임 지구본 — 드래그로 돌리고, 뒤로 넘어간 선은 깊이에 따라 흐려진다.",
+      "tags": [
+        "data-display",
+        "canvas",
+        "3d"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "bar-list",
+      "ledgerId": "BarList",
+      "title": "BarList",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "가로 막대 순위 목록 — 이름·막대·수치 한 줄. 막대는 장식이고 수치가 본문이다.",
+      "tags": [
+        "data-display",
+        "chart"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
       "id": "data-table",
       "ledgerId": "DataTable",
       "title": "DataTable",
@@ -8245,7 +8417,7 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "공시 톤(호재·악재) 배지.",
       "tags": [
         "finance",
@@ -8641,7 +8813,7 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "실시간 가격 표시 — 틱 구독.",
       "tags": [
         "finance",
@@ -9587,7 +9759,7 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "스파크라인 미니 추세선.",
       "tags": [
         "finance",
@@ -9741,7 +9913,7 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "테마 태그 리스트.",
       "tags": [
         "finance",

@@ -15,7 +15,7 @@ export default css`
     display: inline-flex; align-items: center;
     font-weight: var(--jd-weight-bold);
     font-variant-numeric: tabular-nums;
-    color: var(--jd-color-success);
+    color: var(--jd-color-success-ink);
     font-size: var(--jd-text-md);          /* md = 14px */
     line-height: var(--jd-leading-tight);
     border-radius: var(--jd-radius-sm);    /* 4px */

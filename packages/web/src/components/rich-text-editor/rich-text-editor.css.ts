@@ -40,7 +40,7 @@ export default css`
     gap: var(--jd-space-0-5);
     padding: var(--jd-space-1-5) var(--jd-space-2);
     border-bottom: var(--jd-border-thin) solid var(--jd-color-border-light);
-    background: var(--jd-color-surface);
+    background: var(--jd-color-neutral-50);
   }
 
   .jd-rte__tool {
@@ -71,7 +71,7 @@ export default css`
   /* 활성 서식 — aria-pressed로 표시 */
   .jd-rte__tool[aria-pressed="true"] {
     background: var(--jd-color-primary-light);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
   .jd-rte__tool:disabled { cursor: not-allowed; opacity: var(--jd-opacity-50); }
 
@@ -93,7 +93,7 @@ export default css`
   /* 플레이스홀더 — 비었고 포커스 없을 때만(v2 조건 동일) */
   jd-rich-text-editor[data-empty]:not([data-focused]) .jd-rte__editor::before {
     content: attr(data-placeholder);
-    color: var(--jd-color-muted-light);
+    color: var(--jd-color-muted);
     pointer-events: none;
   }
 

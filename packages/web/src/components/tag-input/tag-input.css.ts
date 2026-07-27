@@ -51,7 +51,7 @@ export default css`
     border-radius: var(--jd-radius-md);
     font-family: var(--jd-font-sans); font-weight: var(--jd-weight-medium);
     background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     /* 칩 size 기본 md */
     padding: var(--jd-space-0-5) var(--jd-space-2); font-size: var(--jd-text-xs);
   }
@@ -72,7 +72,7 @@ export default css`
     transition: color var(--jd-duration-fast) var(--jd-easing-ease-out);
   }
   .jd-tag-input__remove[hidden] { display: none; }
-  .jd-tag-input__remove:hover { color: var(--jd-color-danger); }
+  .jd-tag-input__remove:hover { color: var(--jd-color-danger-ink); }
   .jd-tag-input__remove:focus-visible {
     outline: var(--jd-border-medium) solid
       color-mix(in srgb, currentColor 40%, transparent);

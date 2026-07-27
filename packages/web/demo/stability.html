@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JunDS v3 — Patterns 안정성·접근성 데모</title>
+<link rel="stylesheet" href="../dist/junds.css">
+<link rel="stylesheet" href="demo.css">
+<script src="../dist/junds.min.js" defer></script>
+<script src="demo.js" defer></script>
+<!-- 첫 페인트 전에 저장된 테마를 붙인다 — defer 스크립트에서 하면 한 프레임 번쩍인다 -->
+<script>try{if(localStorage.getItem("junds.demo.theme")==="dark")document.documentElement.setAttribute("data-jd-theme","dark")}catch(e){}</script>
+</head>
+<body
+  data-demo-width="wide"
+  data-demo-eyebrow="Patterns · 안정성"
+  data-demo-title="많아져도 무너지지 않는가"
+  data-demo-desc="대용량 데이터·키보드 이동·폼 검증·오버레이를 실제 내용으로 한 화면에 모아 함께 점검한다."
+  data-demo-meta="패턴 8종|키보드 전용 통과|대용량 렌더 확인">
+<main>
+  <div class="demo-grid">
+    <section class="demo-card demo-card--wide" aria-labelledby="filter-title">
+      <h2 id="filter-title" class="demo-card__title">필터와 데이터 테이블</h2>
+      <jd-filter-bar active-count="2" search-placeholder="프로젝트 검색">
+        <jd-badge variant="secondary">진행 중</jd-badge>
+        <jd-button slot="actions" size="sm">새 프로젝트</jd-button>
+      </jd-filter-bar>
+      <jd-data-table searchable density-toggle show-row-numbers caption="프로젝트 목록"
+                     page-size="5" bordered>
+        <script type="application/json">{
+          "columns":[
+            {"key":"name","header":"프로젝트"},
+            {"key":"owner","header":"담당자"},
+            {"key":"status","header":"상태"}
+          ],
+          "data":[
+            {"name":"웹 접근성","owner":"준하","status":"진행 중"},
+            {"name":"모바일 토큰","owner":"디자인팀","status":"검토"},
+            {"name":"문서 자동화","owner":"플랫폼팀","status":"완료"}
+          ]
+        }
+</script>
+      </jd-data-table>
+    </section>
+
+    <section class="demo-card demo-card--wide" aria-labelledby="kanban-title">
+      <h2 id="kanban-title" class="demo-card__title">키보드로 이동 가능한 칸반</h2>
+      <jd-kanban>
+        <script type="application/json">[
+          {"id":"todo","title":"할 일","color":"#8b5cf6","items":[
+            {"id":"a","title":"API 문서 검토","description":"공개 타입과 예제 확인"},
+            {"id":"b","title":"키보드 테스트","description":"Ctrl+화살표로 이동"}
+          ]},
+          {"id":"doing","title":"진행 중","color":"#3b82f6","items":[
+            {"id":"c","title":"접근성 감사","description":"axe strict 실행"}
+          ]},
+          {"id":"done","title":"완료","color":"#22c55e","items":[]}
+        ]
+</script>
+      </jd-kanban>
+    </section>
+
+    <section class="demo-card" aria-labelledby="virtual-title">
+      <h2 id="virtual-title" class="demo-card__title">가상 목록</h2>
+      <jd-virtual-list height="240" item-height="40" overscan="3">
+        <script type="application/json">[
+          "알림 설정","프로필 정보","보안 점검","결제 수단","연결된 앱",
+          "개인정보","언어 설정","접근성","내보내기","계정 삭제",
+          "디자인 토큰","컴포넌트","패턴","릴리스","변경 이력"
+        ]
+</script>
+      </jd-virtual-list>
+    </section>
+
+    <section class="demo-card" aria-labelledby="infinite-title">
+      <h2 id="infinite-title" class="demo-card__title">무한 목록 상태</h2>
+      <jd-infinite-list end-message="모든 업데이트를 확인했습니다">
+        <script type="application/json">[
+          "버튼 키보드 동작 개선",
+          "테이블 검색 성능 개선",
+          "다크 모드 대비 수정"
+        ]
+</script>
+      </jd-infinite-list>
+    </section>
+
+    <section class="demo-card" aria-labelledby="builder-title">
+      <h2 id="builder-title" class="demo-card__title">선언형 폼 빌더</h2>
+      <jd-form-builder submit-label="프로필 저장">
+        <script type="application/json">[
+          {"name":"name","label":"이름","type":"text","required":true,"placeholder":"홍길동"},
+          {"name":"email","label":"이메일","type":"email","required":true,"placeholder":"name@company.com"},
+          {"name":"role","label":"역할","type":"select","options":[
+            {"value":"design","label":"디자이너"},
+            {"value":"dev","label":"개발자"}
+          ]}
+        ]
+</script>
+      </jd-form-builder>
+    </section>
+
+    <section class="demo-card" aria-labelledby="wizard-title">
+      <h2 id="wizard-title" class="demo-card__title">단계별 폼</h2>
+      <jd-form-wizard complete-label="설정 완료">
+        <script type="application/json">[
+          {"title":"기본 정보","description":"팀 이름을 입력하세요"},
+          {"title":"초대","description":"동료를 초대하세요"}
+        ]
+</script>
+        <div slot="step" class="demo-field">
+          <label for="team-name">팀 이름</label>
+          <input id="team-name" name="team" autocomplete="organization" value="JunDS 팀">
+        </div>
+        <div slot="step" class="demo-field">
+          <label for="member-email">동료 이메일</label>
+          <input id="member-email" name="member" type="email" autocomplete="email"
+                 value="team@example.com">
+        </div>
+      </jd-form-wizard>
+    </section>
+
+    <section class="demo-card demo-card--wide" aria-labelledby="editor-title">
+      <h2 id="editor-title" class="demo-card__title">리치 텍스트 편집기</h2>
+      <jd-rich-text-editor label="공지 내용" placeholder="공지 내용을 입력하세요"
+                           value="<p>이번 릴리스에서는 키보드 동작과 접근성을 개선했습니다.</p>">
+      </jd-rich-text-editor>
+    </section>
+
+    <section class="demo-card" aria-labelledby="calendar-title">
+      <h2 id="calendar-title" class="demo-card__title">일정 캘린더</h2>
+      <jd-calendar selection-mode="single">
+        <script type="application/json">[
+          {"id":"release","date":"2026-07-27","label":"v3 품질 게이트 완료","color":"#8b5cf6"}
+        ]
+</script>
+      </jd-calendar>
+    </section>
+
+    <section class="demo-card" aria-labelledby="login-title">
+      <h2 id="login-title" class="demo-card__title">로그인 폼</h2>
+      <jd-login-form title="다시 만나 반가워요" subtitle="JunDS 작업공간에 로그인하세요"
+                     forgot-href="#forgot" signup-href="#signup">
+      </jd-login-form>
+    </section>
+  </div>
+
+  <jd-command-palette hotkey="">
+    <script type="application/json">[
+      {"id":"new","label":"새 프로젝트","description":"빈 프로젝트를 만듭니다","group":"프로젝트"},
+      {"id":"docs","label":"문서 열기","description":"컴포넌트 사용법을 봅니다","group":"도움말"}
+    ]
+</script>
+  </jd-command-palette>
+</main>
+</body>
+</html>

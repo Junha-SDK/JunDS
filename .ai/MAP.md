@@ -10,7 +10,7 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-07-27T04:10:36.085Z
+Generated: 2026-07-27T05:21:07.186Z
 
 ---
 
@@ -131,7 +131,7 @@ _85 files_
 
 ## Composites  (`ds/composites/`)
 
-_302 files_
+_309 files_
 
 - `ds/composites/Accordion/Accordion.stories.tsx`
 - `ds/composites/Accordion/Accordion.tsx`
@@ -164,6 +164,7 @@ _302 files_
 - `ds/composites/Banner/Banner.stories.tsx`
 - `ds/composites/Banner/Banner.tsx`
 - `ds/composites/BarChart/BarChart.tsx`
+- `ds/composites/BarList/BarList.tsx`
 - `ds/composites/BentoGrid/BentoGrid.stories.tsx`
 - `ds/composites/BentoGrid/BentoGrid.tsx`
 - `ds/composites/Blockquote/Blockquote.tsx`
@@ -237,8 +238,10 @@ _302 files_
 - `ds/composites/DiffViewer/DiffViewer.stories.tsx`
 - `ds/composites/DiffViewer/DiffViewer.tsx`
 - `ds/composites/Disclosure/Disclosure.tsx`
+- `ds/composites/DocHero/DocHero.tsx`
 - `ds/composites/Dock/Dock.stories.tsx`
 - `ds/composites/Dock/Dock.tsx`
+- `ds/composites/DocLinks/DocLinks.tsx`
 - `ds/composites/DocPager/DocPager.tsx`
 - `ds/composites/Drawer/Drawer.stories.tsx`
 - `ds/composites/Drawer/Drawer.tsx`
@@ -262,6 +265,7 @@ _302 files_
 - `ds/composites/GaugeChart/GaugeChart.tsx`
 - `ds/composites/Globe/Globe.stories.tsx`
 - `ds/composites/Globe/Globe.tsx`
+- `ds/composites/GlobeWireframe/GlobeWireframe.tsx`
 - `ds/composites/GradientBorder/GradientBorder.stories.tsx`
 - `ds/composites/GradientBorder/GradientBorder.tsx`
 - `ds/composites/Heatmap/Heatmap.stories.tsx`
@@ -288,6 +292,7 @@ _302 files_
 - `ds/composites/LoadingOverlay/LoadingOverlay.tsx`
 - `ds/composites/LoadingScreen/LoadingScreen.tsx`
 - `ds/composites/LogoCloud/LogoCloud.tsx`
+- `ds/composites/Lyrics/Lyrics.tsx`
 - `ds/composites/MarkdownViewer/MarkdownViewer.stories.tsx`
 - `ds/composites/MarkdownViewer/MarkdownViewer.tsx`
 - `ds/composites/Marquee/Marquee.stories.tsx`
@@ -311,6 +316,7 @@ _302 files_
 - `ds/composites/Notification/Notification.stories.tsx`
 - `ds/composites/Notification/Notification.tsx`
 - `ds/composites/NowPlayingBar/NowPlayingBar.tsx`
+- `ds/composites/NowPlayingFull/NowPlayingFull.tsx`
 - `ds/composites/OfflineIndicator/OfflineIndicator.tsx`
 - `ds/composites/Onboarding/Onboarding.stories.tsx`
 - `ds/composites/Onboarding/Onboarding.tsx`
@@ -353,6 +359,7 @@ _302 files_
 - `ds/composites/ReadingStats/ReadingStats.tsx`
 - `ds/composites/ReadingTime/ReadingTime.stories.tsx`
 - `ds/composites/ReadingTime/ReadingTime.tsx`
+- `ds/composites/RelatedPosts/RelatedPosts.tsx`
 - `ds/composites/Resizable/Resizable.tsx`
 - `ds/composites/Result/Result.tsx`
 - `ds/composites/SankeyDiagram/SankeyDiagram.tsx`
@@ -514,7 +521,7 @@ _11 files_
 
 ## Hooks  (`ds/hooks/`)
 
-_60 files_
+_61 files_
 
 - `ds/hooks/useAnimationFrame.ts`
 - `ds/hooks/useAsync.ts`
@@ -574,6 +581,7 @@ _60 files_
 - `ds/hooks/useTimeout.ts`
 - `ds/hooks/useToggle.ts`
 - `ds/hooks/useUpdateEffect.ts`
+- `ds/hooks/useUrlFilters.ts`
 - `ds/hooks/useWindowScroll.ts`
 - `ds/hooks/useWindowSize.ts`
 
@@ -636,7 +644,7 @@ _33 files_
 
 ## Showcase routes  (`app/**/page.tsx`)
 
-_316 files_
+_323 files_
 
 - `app/design-system/advanced/ai-prompt/page.tsx`
 - `app/design-system/advanced/changelog/page.tsx`
@@ -663,6 +671,7 @@ _316 files_
 - `app/design-system/composites/avatar-stack/page.tsx`
 - `app/design-system/composites/banner/page.tsx`
 - `app/design-system/composites/bar-chart/page.tsx`
+- `app/design-system/composites/bar-list/page.tsx`
 - `app/design-system/composites/bento-grid/page.tsx`
 - `app/design-system/composites/blockquote/page.tsx`
 - `app/design-system/composites/book-card/page.tsx`
@@ -707,6 +716,8 @@ _316 files_
 - `app/design-system/composites/detail-panel/page.tsx`
 - `app/design-system/composites/diff-viewer/page.tsx`
 - `app/design-system/composites/disclosure/page.tsx`
+- `app/design-system/composites/doc-hero/page.tsx`
+- `app/design-system/composites/doc-links/page.tsx`
 - `app/design-system/composites/doc-pager/page.tsx`
 - `app/design-system/composites/dock/page.tsx`
 - `app/design-system/composites/drawer/page.tsx`
@@ -720,6 +731,7 @@ _316 files_
 - `app/design-system/composites/form-field/page.tsx`
 - `app/design-system/composites/funnel-chart/page.tsx`
 - `app/design-system/composites/gauge-chart/page.tsx`
+- `app/design-system/composites/globe-wireframe/page.tsx`
 - `app/design-system/composites/globe/page.tsx`
 - `app/design-system/composites/gradient-border/page.tsx`
 - `app/design-system/composites/heatmap/page.tsx`
@@ -738,6 +750,7 @@ _316 files_
 - `app/design-system/composites/loading-overlay/page.tsx`
 - `app/design-system/composites/loading-screen/page.tsx`
 - `app/design-system/composites/logo-cloud/page.tsx`
+- `app/design-system/composites/lyrics/page.tsx`
 - `app/design-system/composites/markdown-viewer/page.tsx`
 - `app/design-system/composites/marquee/page.tsx`
 - `app/design-system/composites/mention/page.tsx`
@@ -751,6 +764,7 @@ _316 files_
 - `app/design-system/composites/newsletter/page.tsx`
 - `app/design-system/composites/notification/page.tsx`
 - `app/design-system/composites/now-playing-bar/page.tsx`
+- `app/design-system/composites/now-playing-full/page.tsx`
 - `app/design-system/composites/offline-indicator/page.tsx`
 - `app/design-system/composites/onboarding/page.tsx`
 - `app/design-system/composites/online-status/page.tsx`
@@ -785,6 +799,7 @@ _316 files_
 - `app/design-system/composites/reading-progress/page.tsx`
 - `app/design-system/composites/reading-stats/page.tsx`
 - `app/design-system/composites/reading-time/page.tsx`
+- `app/design-system/composites/related-posts/page.tsx`
 - `app/design-system/composites/resizable/page.tsx`
 - `app/design-system/composites/result/page.tsx`
 - `app/design-system/composites/sankey-diagram/page.tsx`
@@ -966,7 +981,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_333 files_
+_341 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -995,6 +1010,7 @@ _333 files_
 - `ds/__tests__/composites/AvatarStack.test.tsx`
 - `ds/__tests__/composites/Banner.test.tsx`
 - `ds/__tests__/composites/BarChart.test.tsx`
+- `ds/__tests__/composites/BarList.test.tsx`
 - `ds/__tests__/composites/BentoGrid.test.tsx`
 - `ds/__tests__/composites/Blockquote.test.tsx`
 - `ds/__tests__/composites/BookCard.test.tsx`
@@ -1041,7 +1057,9 @@ _333 files_
 - `ds/__tests__/composites/DetailPanel.test.tsx`
 - `ds/__tests__/composites/DiffViewer.test.tsx`
 - `ds/__tests__/composites/Disclosure.test.tsx`
+- `ds/__tests__/composites/DocHero.test.tsx`
 - `ds/__tests__/composites/Dock.test.tsx`
+- `ds/__tests__/composites/DocLinks.test.tsx`
 - `ds/__tests__/composites/DocPager.test.tsx`
 - `ds/__tests__/composites/Drawer.a11y.test.tsx`
 - `ds/__tests__/composites/Drawer.test.tsx`
@@ -1056,6 +1074,7 @@ _333 files_
 - `ds/__tests__/composites/FunnelChart.test.tsx`
 - `ds/__tests__/composites/GaugeChart.test.tsx`
 - `ds/__tests__/composites/Globe.test.tsx`
+- `ds/__tests__/composites/GlobeWireframe.test.tsx`
 - `ds/__tests__/composites/GradientBorder.test.tsx`
 - `ds/__tests__/composites/Heatmap.test.tsx`
 - `ds/__tests__/composites/Hint.test.tsx`
@@ -1073,6 +1092,7 @@ _333 files_
 - `ds/__tests__/composites/LoadingOverlay.test.tsx`
 - `ds/__tests__/composites/LoadingScreen.test.tsx`
 - `ds/__tests__/composites/LogoCloud.test.tsx`
+- `ds/__tests__/composites/Lyrics.test.tsx`
 - `ds/__tests__/composites/MarkdownViewer.test.tsx`
 - `ds/__tests__/composites/Marquee.test.tsx`
 - `ds/__tests__/composites/Mention.test.tsx`
@@ -1086,6 +1106,7 @@ _333 files_
 - `ds/__tests__/composites/NavigationMenu.test.tsx`
 - `ds/__tests__/composites/Newsletter.test.tsx`
 - `ds/__tests__/composites/Notification.test.tsx`
+- `ds/__tests__/composites/NowPlayingFull.test.tsx`
 - `ds/__tests__/composites/OfflineIndicator.test.tsx`
 - `ds/__tests__/composites/Onboarding.test.tsx`
 - `ds/__tests__/composites/OnlineStatus.test.tsx`
@@ -1120,6 +1141,7 @@ _333 files_
 - `ds/__tests__/composites/ReadingProgress.test.tsx`
 - `ds/__tests__/composites/ReadingStats.test.tsx`
 - `ds/__tests__/composites/ReadingTime.test.tsx`
+- `ds/__tests__/composites/RelatedPosts.test.tsx`
 - `ds/__tests__/composites/Resizable.test.tsx`
 - `ds/__tests__/composites/Result.test.tsx`
 - `ds/__tests__/composites/SankeyDiagram.test.tsx`
@@ -1199,6 +1221,7 @@ _333 files_
 - `ds/__tests__/hooks/useScrollLock.test.ts`
 - `ds/__tests__/hooks/useTimeout.test.ts`
 - `ds/__tests__/hooks/useToggle.test.ts`
+- `ds/__tests__/hooks/useUrlFilters.test.ts`
 - `ds/__tests__/hooks/useWindowSize.test.ts`
 - `ds/__tests__/layout/Stack.test.tsx`
 - `ds/__tests__/patterns/ActionBar.test.tsx`
@@ -1304,4 +1327,4 @@ _333 files_
 
 ---
 
-**Total indexed files:** 1233
+**Total indexed files:** 1256

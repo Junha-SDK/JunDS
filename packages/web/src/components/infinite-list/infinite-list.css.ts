@@ -36,7 +36,7 @@ export default css`
     padding-block: var(--jd-space-4);
     text-align: center;
     font-size: var(--jd-text-xs);
-    color: var(--jd-color-muted-light);
+    color: var(--jd-color-muted);
   }
 
   .jd-infinite-list__empty {

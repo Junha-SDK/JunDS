@@ -23,7 +23,8 @@ export default css`
   jd-code[size="lg"] .jd-code { font-size: 13px; padding: var(--jd-space-1) var(--jd-space-2); }
 
   jd-code[variant="primary"] .jd-code {
-    background: var(--jd-color-primary-light); color: var(--jd-color-primary);
+    background: var(--jd-color-primary-light);
+    color: var(--jd-color-primary-ink);
     border-color: color-mix(in srgb, var(--jd-color-primary) 30%, transparent);
   }
   /* 글자색은 semantic 원색이 아니라 foreground와 섞은 값이다. 원색(success #2f8f57 ·

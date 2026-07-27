@@ -56,7 +56,7 @@ export default css`
     cursor: pointer;
     transition: color var(--jd-duration-fast) var(--jd-easing-ease-out);
   }
-  .jd-cal__month-btn:hover { color: var(--jd-color-primary); }
+  .jd-cal__month-btn:hover { color: var(--jd-color-primary-ink); }
   .jd-cal__month-btn:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
   .jd-cal__caret {
     width: 0.75rem;
@@ -194,11 +194,16 @@ export default css`
     letter-spacing: var(--jd-tracking-wide);
     color: var(--jd-color-muted);
   }
-  .jd-cal__weekday[data-sun] { color: var(--jd-color-danger); }
-  .jd-cal__weekday[data-sat] { color: var(--jd-color-info); }
+  .jd-cal__weekday[data-sun] { color: var(--jd-color-danger-ink); }
+  .jd-cal__weekday[data-sat] { color: var(--jd-color-status-progress-text); }
 
   /* ── 그리드 ── */
   .jd-cal__grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--jd-space-px);
+  }
+  .jd-cal__row {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: var(--jd-space-px);
@@ -249,9 +254,12 @@ export default css`
     color: var(--jd-color-foreground);
     font-variant-numeric: tabular-nums;
   }
-  .jd-cal__cell[data-sun] > .jd-cal__num { color: var(--jd-color-danger); }
-  .jd-cal__cell[data-sat] > .jd-cal__num { color: var(--jd-color-info); }
-  .jd-cal__cell[data-today] > .jd-cal__num { color: var(--jd-color-primary); font-weight: var(--jd-weight-bold); }
+  .jd-cal__cell[data-sun] > .jd-cal__num { color: var(--jd-color-danger-ink); }
+  .jd-cal__cell[data-sat] > .jd-cal__num { color: var(--jd-color-status-progress-text); }
+  .jd-cal__cell[data-today] > .jd-cal__num {
+    color: var(--jd-color-primary-ink);
+    font-weight: var(--jd-weight-bold);
+  }
   .jd-cal__cell[data-selected] > .jd-cal__num {
     background: var(--jd-color-primary);
     color: #fff;
@@ -265,16 +273,18 @@ export default css`
     overflow: hidden;
   }
   .jd-cal__chip {
+    --_jd-cal-event-color: var(--jd-color-primary);
     border-radius: var(--jd-radius-sm);
     padding: 0.0625rem var(--jd-space-1);
+    border-inline-start: 2px solid var(--_jd-cal-event-color);
     font-size: var(--jd-text-xs);
     font-weight: var(--jd-weight-medium);
     line-height: var(--jd-leading-snug);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background: var(--jd-color-primary-light);
-    color: var(--jd-color-primary);
+    background: color-mix(in srgb, var(--_jd-cal-event-color) 12%, var(--jd-color-card));
+    color: var(--jd-color-foreground);
   }
   .jd-cal__chip-meta { opacity: var(--jd-opacity-70); margin-right: var(--jd-space-0-5); }
 

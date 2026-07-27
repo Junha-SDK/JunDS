@@ -80,7 +80,7 @@ export default css`
   }
   /* 활성 행(키보드/포인터 공통) — v2 bg-primary-light text-primary */
   .jd-command-palette__option[aria-selected="true"] {
-    background: var(--jd-color-primary-light); color: var(--jd-color-primary);
+    background: var(--jd-color-primary-light); color: var(--jd-color-primary-ink);
   }
 
   .jd-command-palette__option-icon {

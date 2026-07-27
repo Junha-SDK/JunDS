@@ -39,7 +39,7 @@ export default css`
   .jd-email-inbox__folder:hover { background: var(--jd-color-surface-raised); }
   .jd-email-inbox__folder[data-active] {
     background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
-    color: var(--jd-color-primary); font-weight: var(--jd-weight-semibold);
+    color: var(--jd-color-primary-ink); font-weight: var(--jd-weight-semibold);
   }
   .jd-email-inbox__folder:focus-visible { outline: 2px solid var(--jd-color-primary); outline-offset: -2px; }
   .jd-email-inbox__folder-label { display: inline-flex; align-items: center; gap: var(--jd-space-2); min-width: 0; }
@@ -48,7 +48,7 @@ export default css`
     flex-shrink: 0; font-size: 10px; padding: 0 var(--jd-space-1-5);
     border-radius: var(--jd-radius-full); font-variant-numeric: tabular-nums;
     background: color-mix(in srgb, var(--jd-color-primary) 15%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
 
   /* 리스트 패널 */
@@ -101,7 +101,7 @@ export default css`
     flex-shrink: 0; border: 0; background: transparent; cursor: pointer; padding: 0;
     font-size: var(--jd-text-sm); color: var(--jd-color-muted-light); line-height: 1;
   }
-  .jd-email-inbox__star[data-on] { color: var(--jd-color-warning); }
+  .jd-email-inbox__star[data-on] { color: var(--jd-color-warning-ink); }
   .jd-email-inbox__star:focus-visible { outline: 2px solid var(--jd-color-primary); outline-offset: 2px; }
 
   /* 본문 패널 */
@@ -117,7 +117,7 @@ export default css`
   .jd-email-inbox__reader-avatar--ph {
     display: inline-flex; align-items: center; justify-content: center;
     background: color-mix(in srgb, var(--jd-color-primary) 15%, transparent);
-    color: var(--jd-color-primary); font-size: 11px; font-weight: var(--jd-weight-semibold);
+    color: var(--jd-color-primary-ink); font-size: 11px; font-weight: var(--jd-weight-semibold);
   }
   .jd-email-inbox__reader-from { font-weight: var(--jd-weight-medium); color: var(--jd-color-foreground); }
   .jd-email-inbox__reader-labels { margin-top: var(--jd-space-2); display: flex; flex-wrap: wrap; gap: var(--jd-space-1); }

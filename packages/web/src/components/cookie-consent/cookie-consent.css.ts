@@ -48,7 +48,7 @@ export default css`
     color: var(--jd-color-foreground);
   }
   .jd-cookie-consent__policy {
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     text-decoration: underline;
     text-underline-offset: 2px;
   }

@@ -6,44 +6,64 @@
 <title>JunDS v3 — B2 layout 데모 (앱 셸 + 레이아웃 12종)</title>
 <!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
 <link rel="stylesheet" href="../dist/junds.css">
+<link rel="stylesheet" href="demo.css">
 <script src="../dist/junds.min.js" defer></script>
+<script src="demo.js" defer></script>
+<!-- 첫 페인트 전에 저장된 테마를 붙인다 — defer 스크립트에서 하면 한 프레임 번쩍인다 -->
+<script>try{if(localStorage.getItem("junds.demo.theme")==="dark")document.documentElement.setAttribute("data-jd-theme","dark")}catch(e){}</script>
 <style>
-  /* 데모 셸 전용 스타일 — 라이브러리와 무관 */
-  body { margin: 0; font-family: var(--jd-font-sans); color: var(--jd-color-foreground); }
-  /* muted-light는 배경 위 2.7:1(AA 미달) — 캡션도 muted로 (web-a11y 게이트) */
-  .demo-label { font-size: var(--jd-text-xs); color: var(--jd-color-muted);
-                text-transform: uppercase; letter-spacing: .08em; margin: 1.25rem 0 .5rem; }
-  .demo-label:first-child { margin-top: 0; }
-  .cell { background: var(--jd-color-card); border: 1px solid var(--jd-color-border);
-          border-radius: 8px; padding: .75rem; font-size: var(--jd-text-sm); }
-  .chip { background: var(--jd-color-primary-light); color: var(--jd-color-primary);
-          border-radius: 9999px; padding: .3rem .8rem; font-size: var(--jd-text-sm); }
-  .side-nav { display: grid; gap: .25rem; padding: 1rem; }
+  /* 이 페이지 전용 — 사이드바·헤더·푸터는 <jd-app-shell> 의 슬롯 내용물이다.
+     공용 마스트헤드를 위에 얹으면 "앱 셸이 곧 페이지"라는 데모가 깨지므로
+     data-demo-shell="off" 로 두고, 페이지 이동은 사이드바가 맡는다. */
+  .side-nav { display: grid; gap: var(--jd-space-1); padding: var(--jd-space-4); }
+  .side-nav__head { display: flex; align-items: center; gap: var(--jd-space-2);
+                    padding: var(--jd-space-2) var(--jd-space-2-5) var(--jd-space-3); }
+  .side-nav__title { font-size: var(--jd-text-md); font-weight: var(--jd-weight-semibold);
+                     letter-spacing: var(--jd-tracking-tight); }
   .side-nav a { color: var(--jd-color-muted); text-decoration: none; font-size: var(--jd-text-sm);
-                padding: .45rem .6rem; border-radius: 8px; }
+                padding: var(--jd-space-2) var(--jd-space-2-5); border-radius: var(--jd-radius-lg);
+                transition: background-color var(--jd-duration-snap) var(--jd-easing-default),
+                            color var(--jd-duration-snap) var(--jd-easing-default); }
   .side-nav a:hover { background: var(--jd-color-card-hover); color: var(--jd-color-foreground); }
+  .side-nav a[aria-current="page"] { background: var(--jd-color-primary-light);
+                                     color: var(--jd-color-primary-ink);
+                                     font-weight: var(--jd-weight-semibold); }
+  /* 링크가 grid 항목으로 바로 서도록 — 주입 래퍼는 자리를 차지하지 않는다 */
+  .side-nav [data-demo-nav] { display: contents; }
+  .side-nav__label { margin: var(--jd-space-4) 0 var(--jd-space-1);
+                     padding-inline: var(--jd-space-2-5); font-size: var(--jd-text-xs);
+                     font-weight: var(--jd-weight-semibold); letter-spacing: .08em;
+                     text-transform: uppercase; color: var(--jd-color-muted); }
   .hd { display: flex; align-items: center; justify-content: space-between;
-        padding: .8rem 1rem .8rem 3rem; }
-  .ft { padding: .7rem 1rem; font-size: var(--jd-text-xs); color: var(--jd-color-muted); }
-  .art { background: linear-gradient(135deg, var(--jd-color-primary), var(--jd-color-accent));
-         position: absolute; inset: 0; }
+        gap: var(--jd-space-3);
+        padding: var(--jd-space-2-5) var(--jd-space-4) var(--jd-space-2-5) var(--jd-space-12); }
+  .ft { padding: var(--jd-space-3) var(--jd-space-4); font-size: var(--jd-text-xs);
+        color: var(--jd-color-muted); }
+  .art { background: var(--jd-gradient-primary); position: absolute; inset: 0; }
 </style>
 </head>
-<body>
-<jd-app-shell sidebar-width="230" sticky-header content-padding="6">
-  <nav slot="sidebar" class="side-nav">
-    <strong style="padding:.5rem .6rem">JunDS v3 · B2</strong>
+<body data-demo-shell="off">
+<jd-app-shell sidebar-width="240" sticky-header content-padding="6">
+  <nav slot="sidebar" class="side-nav" aria-label="레이아웃 데모 목차">
+    <span class="side-nav__head">
+      <span class="demo-brand__mark" aria-hidden="true"></span>
+      <span class="side-nav__title">JunDS <span class="demo-brand__ver">v3</span></span>
+    </span>
+    <p class="side-nav__label">이 페이지</p>
     <a href="#container">jd-container</a>
     <a href="#stack">jd-stack</a>
     <a href="#grid">jd-grid / simple-grid</a>
     <a href="#wrap">jd-wrap / spacer</a>
     <a href="#ratio">aspect-ratio / overlay</a>
     <a href="#show">jd-show / jd-hide</a>
+    <p class="side-nav__label">다른 데모</p>
+    <span data-demo-nav=""></span>
   </nav>
 
   <div slot="header" class="hd">
     <strong>레이아웃 데모 — 앱 셸 그 자체가 &lt;jd-app-shell&gt;</strong>
     <span style="font-size:var(--jd-text-xs);color:var(--jd-color-muted)">Ctrl/⌘+B = 사이드바 접기</span>
+    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
   </div>
 
   <div slot="footer" class="ft">JunDS v3 · B2 layout — 이 푸터는 slot="footer"</div>

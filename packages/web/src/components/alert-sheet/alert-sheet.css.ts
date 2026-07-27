@@ -53,7 +53,7 @@ export default css`
                 box-shadow var(--jd-duration-fast) var(--jd-easing-default);
   }
   .jd-alert-sheet__seg[data-selected] {
-    background: var(--jd-color-card); color: var(--jd-color-primary);
+    background: var(--jd-color-card); color: var(--jd-color-primary-ink);
     box-shadow: var(--jd-shadow-sm);
   }
   .jd-alert-sheet__seg:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }

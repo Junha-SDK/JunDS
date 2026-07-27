@@ -4,6 +4,88 @@
 
 ---
 
+## 2026-07-27 — 배포 성립성 (packaging) 트랙
+
+### DEC-050. "테스트가 통과한다"와 "배포된 것이 동작한다"는 다른 명제다
+
+사람 지시: "진짜 라이브러리로써 할 수 있는 거 전부." 착수 직후 `node build.mjs`가
+죽어 있었다 — `src/elements.generated.ts`가 이미 없어진 `JdPageHeader`(현 이름
+`JdPageHeaderBar`)를 import 하고 있었고, 이 파일은 **untracked 생성물**이라
+git 이 스테일을 알려 주지 않았다. 웹 트랙 테스트 381개는 이 상태에서도 전부
+초록이었다. 타입 선언 생성만 죽어 있었기 때문이다 — 즉 **배포물만 깨져 있었다**.
+DEC-044·046 이 잡은 측정 결함과 같은 계열이고, 이번엔 게이트가 소비 지점을 안 보고
+있었다. `gen-manifest.mjs` 재실행으로 복구.
+
+#### 새 게이트 13/17 packaging — 진실은 워크트리가 아니라 tarball 이다
+
+`scripts/exports-gate.mjs`. 파일이 워크트리에 있는 것과 npm 에 실려 나가는 것은
+다른 사실이다. 이 게이트는 `npm pack --dry-run` 이 실제로 담는 파일 목록만을
+진실로 보고, package.json 이 광고하는 진입점 전수(web 1575 · react 782 ·
+finance-data 39 · mcp bin 1)가 그 안에 있는지 확인한다.
+
+기존 consumer-install 과 역할이 겹치지 않는다: 그쪽은 진입점 **몇 개를 깊게**
+(실제 Vite·Next 빌드까지), 이쪽은 **전수를 넓게** 본다. 789개 서브패스 중 하나가
+`files` 필드 밖으로 새는 사고는 소비 스모크가 구조적으로 못 잡는다.
+
+CHECKLIST §0 이 실측으로 기록한 과거 결함 3종을 재발 방지 대상으로 고정했다:
+`types` 조건 부재(소비 프로젝트 TS7016) · `files` 누락으로 광고 경로 부재 ·
+스코프 패키지 `publishConfig.access` 부재(publish 402/403).
+
+**역방향 검증을 했다.** 세 결함을 finance-data 에 주입(`files`에서 dist 제거 /
+없는 `./bogus` 진입점 추가 / `./yahoo`의 types 조건 삭제)하고 게이트가 exit 1 로
+전부 잡는 것을 확인한 뒤 복구했다. 통과만 확인하고 넘어가는 것이 이 레포가
+반복해 낸 결함이라 이 절차를 packaging 게이트의 저작 규약으로 둔다.
+
+#### 새 게이트 14/17 mcp-test — advisory 로 진입
+
+`@junds/mcp`는 배포 대상인데 CI 에 잡이 하나도 없었다. 추가하되 **RED 가 정상
+신호**다: web:done 445행 중 394행이 docs-content web 스니펫 미저작(원장 docs 열
+458 todo 와 같은 실체). 콘텐츠 저작을 기다리는 동안 bench-smoke 선례대로
+continue-on-error 로 두고, 미저작 0건 도달 시 실게이트로 승격한다.
+게이트 자체를 느슨하게 고치지는 않았다 — DEC-016-2·026 의 DoD 를 유지한다.
+
+#### 배포 메타데이터 — 4패키지 전부 미비였다
+
+repository·homepage·bugs·author·keywords·engines 가 4패키지 모두 부재.
+`@junds/web`은 `publishConfig.access` 도 없어 스코프 공개 배포가 거부되는 상태였다
+(react 만 갖고 있었다). finance-data 는 `files` 부재로 `src/`·`build.mjs` 가 그대로
+실려 나갔고, finance-data·mcp 는 LICENSE 파일이 없었다 — 루트 LICENSE 는 v2 상용
+전문이라 복사가 아니라 패키지별 MIT 전문을 넣었다(web·react 와 동일본).
+CHECKLIST §0 블로커 중 finance-data 2건이 이것으로 닫힌다.
+
+`@changesets/cli` 는 스크립트만 있고 devDependency 가 없어 릴리스 명령 자체가
+실행 불가였다 — 설치(2.31.1) 후 워크스페이스 인식 확인.
+
+#### 실측 결과 (로컬 1회)
+
+web build 복구 · web 381/381 · react 71/71 · finance-data 77/77 ·
+consumer:smoke 4/4(Vanilla Vite·React 18/19·Next App Router) · api:check PASS
+(web 789 exports · react 391 · 어댑터 387) · size:web PASS(평균 2.45KB/4KB,
+p95 5.92KB/12KB) · runtime:web PASS(등록 51.9ms/500ms) · web-a11y PASS
+(10페이지 × 2테마 blocking 0 — CHECKLIST 가 RED 로 기록한 contrast 4건은 해소됨,
+단 fixture coverage 는 98/390) · exports-gate PASS.
+
+#### 결정하지 않고 남긴 것 — tokens:test RED (게이트 2/17)
+
+v2 동결본이 조용히 움직였다. 커밋 7b5578a("v2 확장")가 `ds/styles/tokens.css` 에
+`--cat-*` 32종(카테고리 색 8계열 × 4)을, `ds/tokens/typography.ts` 에 `2xs`
+(0.6875rem)를 추가했고 v3 토큰 파이프라인이 따라가지 않았다. 패리티 테스트는
+라이트 27변수 고정을 단언하므로 62개가 되면서 실패한다 — **게이트가 설계대로
+작동한 결과**이지 게이트의 결함이 아니다.
+
+해소는 값 결정이라 이 트랙에서 하지 않았다. 02-tokens "값 임의 변경 금지" 원칙상
+선택지는 둘이고 어느 쪽이든 DECISIONS 항목을 요구한다:
+(a) `--cat-*`·`2xs` 를 v3 토큰 JSON + legacy-map 에 편입해 진짜 패리티를 만든다 —
+    카테고리 색은 콘텐츠 앱 도메인이라 DS 코어 토큰 표면이 32개 늘어난다.
+(b) 카테고리 색을 DS 토큰 범위 밖(앱 레이어)으로 선언하고 패리티 스코프에서
+    제외한다 — `2xs` 는 정당한 타이포 스케일이므로 (a) 로 따로 편입.
+권장은 (b)+`2xs` 편입이나, 결정자는 사람이다.
+
+- 결정자: 기본값 채택(게이트 신설·메타데이터 정비는 CHECKLIST §0 기재 사항의 이행).
+  토큰 패리티 해소는 **미결 — 사람 결정 대기**. (2026-07-27)
+
+---
+
 ## 2026-07-27 — 차트 지오메트리 + Sparkline (finance iOS 13/86)
 
 ### DEC-049. 차트 8종의 병목은 그리기가 아니라 좌표 계산이다

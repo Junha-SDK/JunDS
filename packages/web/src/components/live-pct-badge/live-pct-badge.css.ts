@@ -14,7 +14,7 @@ export default css`
     font-variant-numeric: tabular-nums;
     color: var(--jd-color-muted);
   }
-  jd-live-pct-badge[data-trend="up"] { color: var(--jd-color-success); }
-  jd-live-pct-badge[data-trend="down"] { color: var(--jd-color-danger); }
+  jd-live-pct-badge[data-trend="up"] { color: var(--jd-color-success-ink); }
+  jd-live-pct-badge[data-trend="down"] { color: var(--jd-color-danger-ink); }
   jd-live-pct-badge[data-trend="flat"] { color: var(--jd-color-muted); }
 }`;

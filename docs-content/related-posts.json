@@ -1,0 +1,60 @@
+{
+  "id": "related-posts",
+  "ledgerId": "RelatedPosts",
+  "category": "composites",
+  "title": "RelatedPosts",
+  "oneLiner": "글 하단의 연관 글 목록 — 목록이 비면 섹션 자체가 사라진다.",
+  "tags": [
+    "content",
+    "navigation"
+  ],
+  "controls": [
+    {
+      "prop": "columns",
+      "kind": "segmented",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "default": "2"
+    },
+    {
+      "prop": "max",
+      "kind": "number",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { RelatedPosts } from \"@/ds/composites/RelatedPosts\";",
+      "code": "<RelatedPosts posts={related} />\n\n{/* 라우터와 함께 */}\n<RelatedPosts posts={related} renderLink={({ href, className, children }) => (\n  <Link href={href} className={className}>{children}</Link>\n)} />"
+    }
+  },
+  "tokens": [
+    {
+      "token": "--color-card / --color-border",
+      "usage": "카드 배경·테두리"
+    },
+    {
+      "token": "--color-primary",
+      "usage": "호버 시 테두리·제목 색"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "랜드마크",
+      "note": "section + aria-label(제목) — 본문과 구분되는 보조 영역임이 드러난다"
+    },
+    {
+      "item": "빈 상태",
+      "note": "연관 글이 없으면 제목만 남기지 않고 통째로 렌더하지 않는다"
+    }
+  ]
+}

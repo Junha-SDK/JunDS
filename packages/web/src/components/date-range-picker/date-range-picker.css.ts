@@ -69,7 +69,7 @@ ${PICKER_FIELD_CSS}
 
   /* v2: 오늘 = font-bold text-primary (양끝일 때는 양끝 표현이 이긴다) */
   .jd-date-range-picker__day[data-today] {
-    font-weight: var(--jd-weight-bold); color: var(--jd-color-primary);
+    font-weight: var(--jd-weight-bold); color: var(--jd-color-primary-ink);
   }
   /* v2: 범위 안 = bg-primary/10 — 사이 날짜는 모서리를 붙여 띠로 읽히게 한다 */
   .jd-date-range-picker__day[data-in-range] {

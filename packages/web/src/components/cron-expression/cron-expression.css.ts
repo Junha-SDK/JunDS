@@ -61,7 +61,7 @@ export default css`
   }
   .jd-cron__desc {
     font-size: var(--jd-text-xs); font-weight: var(--jd-weight-medium);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
 
   @media (prefers-reduced-motion: reduce) {

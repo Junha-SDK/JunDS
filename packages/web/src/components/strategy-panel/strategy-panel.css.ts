@@ -25,7 +25,7 @@ export default css`
   .jd-strategy-panel__body { display: block; }
 
   .jd-strategy-panel__tone { color: var(--_jd-sp-color, var(--jd-color-muted)); }
-  .jd-strategy-panel__accent-icon { color: var(--jd-color-primary); }
+  .jd-strategy-panel__accent-icon { color: var(--jd-color-primary-ink); }
   .jd-strategy-panel__tone-icon { color: var(--_jd-sp-color, var(--jd-color-muted)); }
 
   /* ── 헤더 ── */
@@ -93,8 +93,8 @@ export default css`
     font-size: var(--jd-text-md); margin-top: var(--jd-space-0-5);
     color: var(--jd-color-foreground);
   }
-  .jd-strategy-panel__kpi[data-tone="buy"] .jd-strategy-panel__kpi-value { color: var(--jd-color-success); }
-  .jd-strategy-panel__kpi[data-tone="stop"] .jd-strategy-panel__kpi-value { color: var(--jd-color-danger); }
+  .jd-strategy-panel__kpi[data-tone="buy"] .jd-strategy-panel__kpi-value { color: var(--jd-color-success-ink); }
+  .jd-strategy-panel__kpi[data-tone="stop"] .jd-strategy-panel__kpi-value { color: var(--jd-color-danger-ink); }
   .jd-strategy-panel__kpi-unit { font-size: 0.65625rem; font-weight: var(--jd-weight-semibold); margin-inline-start: 2px; }
 
   /* ── 근거 패널 (details) ── */
@@ -144,8 +144,8 @@ export default css`
     font-variant-numeric: tabular-nums; font-weight: 800;
     font-size: 0.78125rem; flex-shrink: 0;
   }
-  .jd-strategy-panel__breakdown-value[data-trend="up"] { color: var(--jd-color-success); }
-  .jd-strategy-panel__breakdown-value[data-trend="down"] { color: var(--jd-color-danger); }
+  .jd-strategy-panel__breakdown-value[data-trend="up"] { color: var(--jd-color-success-ink); }
+  .jd-strategy-panel__breakdown-value[data-trend="down"] { color: var(--jd-color-danger-ink); }
   .jd-strategy-panel__breakdown-value[data-trend="text"] { color: var(--jd-color-foreground); }
   .jd-strategy-panel__breakdown-total {
     display: flex; align-items: baseline; justify-content: space-between; gap: var(--jd-space-2);
@@ -209,12 +209,12 @@ export default css`
   }
   .jd-strategy-panel__stop-top { display: flex; align-items: center; justify-content: space-between; gap: var(--jd-space-2); }
   .jd-strategy-panel__stop-right { text-align: right; font-variant-numeric: tabular-nums; }
-  .jd-strategy-panel__stop-price { font-weight: 800; font-size: var(--jd-text-xl); color: var(--jd-color-danger); }
+  .jd-strategy-panel__stop-price { font-weight: 800; font-size: var(--jd-text-xl); color: var(--jd-color-danger-ink); }
   .jd-strategy-panel__stop-dist { font-size: 0.65625rem; font-weight: var(--jd-weight-semibold); color: var(--jd-color-muted); }
   .jd-strategy-panel__stop-desc {
     margin: var(--jd-space-2) 0 0; font-size: var(--jd-text-xs);
     font-weight: var(--jd-weight-semibold); line-height: var(--jd-leading-relaxed);
-    color: var(--jd-color-danger);
+    color: var(--jd-color-danger-ink);
   }
 
   .jd-strategy-panel__chip {
@@ -228,11 +228,11 @@ export default css`
   }
   .jd-strategy-panel__chip[data-tone="sell"] {
     background: color-mix(in srgb, var(--jd-color-primary) 14%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
   .jd-strategy-panel__chip[data-tone="stop"] {
     background: color-mix(in srgb, var(--jd-color-info) 14%, transparent);
-    color: var(--jd-color-info);
+    color: var(--jd-color-info-ink);
   }
 
   /* ── 포지션 ── */
@@ -250,9 +250,9 @@ export default css`
   }
   .jd-strategy-panel__position-label { font-size: 0.65625rem; font-weight: var(--jd-weight-bold); color: var(--jd-color-muted); }
   .jd-strategy-panel__position-value { font-variant-numeric: tabular-nums; font-weight: 800; font-size: var(--jd-text-lg); color: var(--jd-color-foreground); }
-  .jd-strategy-panel__position[data-tone="info"] .jd-strategy-panel__position-value { color: var(--jd-color-info); }
-  .jd-strategy-panel__position[data-tone="primary"] .jd-strategy-panel__position-value { color: var(--jd-color-primary); }
-  .jd-strategy-panel__position[data-tone="up"] .jd-strategy-panel__position-value { color: var(--jd-color-success); }
+  .jd-strategy-panel__position[data-tone="info"] .jd-strategy-panel__position-value { color: var(--jd-color-info-ink); }
+  .jd-strategy-panel__position[data-tone="primary"] .jd-strategy-panel__position-value { color: var(--jd-color-primary-ink); }
+  .jd-strategy-panel__position[data-tone="up"] .jd-strategy-panel__position-value { color: var(--jd-color-success-ink); }
   .jd-strategy-panel__position-note { font-size: 0.65625rem; font-weight: var(--jd-weight-semibold); color: var(--jd-color-muted); }
 
   /* ── 노트 ── */

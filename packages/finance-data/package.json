@@ -5,6 +5,37 @@
   "type": "module",
   "private": true,
   "license": "MIT",
+  "author": "JunDS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Junha-SDK/JunDS.git",
+    "directory": "packages/finance-data"
+  },
+  "homepage": "https://github.com/Junha-SDK/JunDS#readme",
+  "bugs": {
+    "url": "https://github.com/Junha-SDK/JunDS/issues"
+  },
+  "keywords": [
+    "finance",
+    "stocks",
+    "market-data",
+    "yahoo-finance",
+    "kis",
+    "ecos",
+    "fred",
+    "junds"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "sideEffects": false,
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

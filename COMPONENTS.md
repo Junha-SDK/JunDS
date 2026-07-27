@@ -3,7 +3,7 @@
 > 이 문서는 `.ai/props.json`과 컴포넌트 소스의 JSDoc을 토대로 자동 생성됩니다.
 > **수정하지 마세요.** 컴포넌트 props를 변경하면 `npm run extract-props && npm run docs:components`를 실행하세요.
 
-총 **276개** 컴포넌트 — Primitives 48 · Composites 188 · Patterns 40.
+총 **283개** 컴포넌트 — Primitives 48 · Composites 195 · Patterns 40.
 
 ## 목차
 
@@ -78,6 +78,7 @@
   - [AvatarStack](#avatarstack)
   - [Banner](#banner)
   - [BarChart](#barchart)
+  - [BarList](#barlist)
   - [BentoGrid](#bentogrid)
   - [Blockquote](#blockquote)
   - [BookCard](#bookcard)
@@ -122,7 +123,9 @@
   - [DetailPanel](#detailpanel)
   - [DiffViewer](#diffviewer)
   - [Disclosure](#disclosure)
+  - [DocHero](#dochero)
   - [Dock](#dock)
+  - [DocLinks](#doclinks)
   - [DocPager](#docpager)
   - [Drawer](#drawer)
   - [Dropdown](#dropdown)
@@ -136,6 +139,7 @@
   - [FunnelChart](#funnelchart)
   - [GaugeChart](#gaugechart)
   - [Globe](#globe)
+  - [GlobeWireframe](#globewireframe)
   - [GradientBorder](#gradientborder)
   - [Heatmap](#heatmap)
   - [Hint](#hint)
@@ -153,6 +157,7 @@
   - [LoadingOverlay](#loadingoverlay)
   - [LoadingScreen](#loadingscreen)
   - [LogoCloud](#logocloud)
+  - [Lyrics](#lyrics)
   - [MarkdownViewer](#markdownviewer)
   - [Marquee](#marquee)
   - [Mention](#mention)
@@ -166,6 +171,7 @@
   - [Newsletter](#newsletter)
   - [Notification](#notification)
   - [NowPlayingBar](#nowplayingbar)
+  - [NowPlayingFull](#nowplayingfull)
   - [OfflineIndicator](#offlineindicator)
   - [Onboarding](#onboarding)
   - [OnlineStatus](#onlinestatus)
@@ -199,6 +205,7 @@
   - [ReadingProgress](#readingprogress)
   - [ReadingStats](#readingstats)
   - [ReadingTime](#readingtime)
+  - [RelatedPosts](#relatedposts)
   - [Resizable](#resizable)
   - [Result](#result)
   - [SankeyDiagram](#sankeydiagram)
@@ -373,6 +380,7 @@ import { Button, Modal, DataTable } from "@/ds";
 | `useTimeout` | setTimeout의 React-friendly 버전. callback이 stale 되지 않음. |
 | `useToggle` | 불린 토글 훅 |
 | `useUpdateEffect` | useEffect와 동일하나 마운트 시점은 건너뛰고 deps 갱신부터 동작. |
+| `useUrlFilters` | 필터 상태를 URL 쿼리 파라미터와 동기화하는 훅. |
 | `useWindowScroll` |  |
 | `useWindowSize` | 현재 window 크기. SSR-safe (마운트 전에는 0/0). resize 이벤트로 자동 갱신. |
 
@@ -2171,6 +2179,33 @@ SVG 영역 차트 (overlap 또는 stacked).
 
 ---
 
+### BarList
+
+*stable* · *v2.3.0* — `data-display` `chart`
+
+가로 막대 순위 목록 — 이름 · 막대 · 수치 한 줄.
+
+**Import:** `import { BarList } from "@/ds/composites/BarList";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `items` | `Array<BarListItem>` | ✓ | 표시할 항목들 |
+| `max` | `number` |  | 막대 길이의 기준이 되는 최댓값. |
+| `formatValue` | `(value: number) => ReactNode` |  | 값 표시 형식 (기본: 그대로) |
+| `limit` | `number` |  | 상위 몇 개만 (기본: 전체) |
+| `sorted` | `boolean` |  | 값 기준 내림차순 정렬 (기본 false — 넘긴 순서 유지) |
+| `color` | `string` |  | 막대 색 (CSS 색 문자열, 기본 `var(--primary)`) |
+
+**Example**
+
+```tsx
+<BarList items={[{ label: "영화", value: 42 }, { label: "책", value: 17 }]} sorted limit={5} />
+```
+
+---
+
 ### BentoGrid
 
 *stable* · *v2.2.0* — `layout`
@@ -3409,6 +3444,38 @@ cron 표현식을 시각적으로 편집하는 입력기.
 
 ---
 
+### DocHero
+
+*stable* · *v2.3.0* — `content` `layout`
+
+문서/프로젝트 상세 상단의 히어로 — 배너·아이콘·제목·설명·기술 칩·지표 스트립.
+
+**Import:** `import { DocHero } from "@/ds/composites/DocHero";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `string` | ✓ | 문서 제목 |
+| `subtitle` | `string` |  | 한 줄 설명 |
+| `eyebrow` | `string` |  | 제목 위에 놓을 작은 라벨 (역할·분류 등) |
+| `icon` | `string` |  | 아이콘/썸네일 URL |
+| `iconNode` | `ReactNode` |  | 이미지 대신 넣을 아이콘 노드 (`icon` 보다 우선) |
+| `date` | `string` |  | 표시할 날짜 문자열 |
+| `dateTime` | `string` |  | `<time datetime>` 에 넣을 기계 판독용 날짜 (없으면 `date` 를 쓴다) |
+| `tags` | `Array<string>` |  | 사용 기술 등 칩으로 늘어놓을 라벨들 |
+| `banner` | `string` |  | 배경에 깔 배너 이미지 URL |
+| `stats` | `Array<DocHeroStat>` |  | 하단에 붙는 지표 스트립 |
+
+**Example**
+
+```tsx
+<DocHero title="JunDS" subtitle="디자인 시스템" eyebrow="라이브러리"
+  tags={["React", "TypeScript"]} stats={[{ label: "컴포넌트", value: "313" }]} />
+```
+
+---
+
 ### Dock
 
 *stable* · *v2.2.0* — `navigation`
@@ -3432,6 +3499,31 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
   <DockItem icon={<HomeIcon />} />
   <DockItem icon={<SearchIcon />} />
 </Dock>
+```
+
+---
+
+### DocLinks
+
+*stable* · *v2.3.0* — `content` `navigation`
+
+문서에 딸린 외부 링크 목록 — GitHub·App Store·npm 등을 종류별 아이콘과 함께.
+
+**Import:** `import { DocLinks } from "@/ds/composites/DocLinks";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `links` | `Array<DocLink>` | ✓ | 링크 목록 |
+
+**Example**
+
+```tsx
+<DocLinks links={[
+  { href: "https://github.com/jjunhaa0211/JunDS", label: "GitHub" },
+  { href: "https://apps.apple.com/app/id123", label: "App Store" },
+]} />
 ```
 
 ---
@@ -3789,6 +3881,37 @@ EXIF 패널 — 카메라/렌즈/노출 정보 표시.
 
 ```tsx
 <Globe size={400} dotColor="#3b82f6" speed={0.5} />
+```
+
+---
+
+### GlobeWireframe
+
+*stable* · *v2.3.0* — `data-display` `canvas`
+
+캔버스로 그리는 와이어프레임 지구본 — 위도·경도선만으로 이루어진 구.
+
+**Import:** `import { GlobeWireframe } from "@/ds/composites/GlobeWireframe";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `size` | `number` |  | 캔버스 한 변의 크기 (px, 기본 400) |
+| `radiusRatio` | `number` |  | 구의 반지름 비율 (0~1, 캔버스 절반 기준. 기본 0.8) |
+| `latitudes` | `number` |  | 위도선 개수 (기본 8) |
+| `longitudes` | `number` |  | 경도선 개수 (기본 14) |
+| `strokeColor` | `string` |  | 선 색 (CSS 색 문자열, 기본 `"rgba(130, 160, 220, 1)"`) |
+| `maxOpacity` | `number` |  | 선의 최대 불투명도 (기본 0.13) |
+| `autoRotate` | `number` |  | 자동 회전 속도 (라디안/프레임, 0 이면 정지. 기본 0.002) |
+| `draggable` | `boolean` |  | 드래그로 돌릴 수 있게 할지 (기본 true) |
+| `rotationRef` | `MutableRefObject<GlobeRotation>` |  | 회전 상태를 바깥과 공유할 ref. |
+| `ariaLabel` | `string` |  | 접근성 라벨. 주지 않으면 장식으로 취급해 숨긴다 |
+
+**Example**
+
+```tsx
+<GlobeWireframe size={520} autoRotate={0.0015} />
 ```
 
 ---
@@ -4257,6 +4380,33 @@ JSON 데이터를 트리 구조로 펼쳐서 보여주는 뷰어.
 
 ---
 
+### Lyrics
+
+*stable* · *v2.3.0* — `media` `audio` `content`
+
+연 단위로 강조되는 가사 뷰.
+
+**Import:** `import { Lyrics } from "@/ds/composites/Lyrics";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `text` | `string` |  | 가사 원문. 빈 줄(`\n\n`)로 연을 나누고, 홑 줄바꿈은 행으로 남는다. |
+| `verses` | `Array<Array<string>>` |  | 이미 연·행으로 나눠 둔 가사 (`verses[연][행]`) |
+| `progress` | `number` |  | 재생 진행률 (0~1). 주면 해당 위치의 연을 밝게 강조하고 그 연으로 스크롤한다. |
+| `activeIndex` | `number` |  | 강조할 연 인덱스를 직접 지정 (`progress` 보다 우선, -1 이면 강조 없음) |
+| `autoScroll` | `boolean` |  | 현재 연을 컨테이너 가운데로 자동 스크롤 (기본 true) |
+| `centered` | `boolean` |  | 가운데 정렬 (기본 false — 왼쪽 정렬) |
+
+**Example**
+
+```tsx
+<Lyrics text={song.lyrics} progress={currentTime / duration} />
+```
+
+---
+
 ### MarkdownViewer
 
 *stable* · *v2.2.0* — `data-display`
@@ -4602,6 +4752,38 @@ Modal 컴포넌트
 ```tsx
 const player = useAudioPlayer(tracks);
 <NowPlayingBar player={player} onExpand={() => setFullscreen(true)} />
+```
+```
+
+---
+
+### NowPlayingFull
+
+*stable* · *v2.3.0* — `media` `audio` `overlay`
+
+전체 화면 Now Playing — 커버색으로 물든 배경 · 큰 커버 · 파형 · 가사.
+
+**Import:** `import { NowPlayingFull } from "@/ds/composites/NowPlayingFull";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `open` | `boolean` | ✓ | 열림 여부 |
+| `onClose` | `() => void` | ✓ | 닫기 요청 (Escape·백드롭·닫기 버튼) |
+| `player` | `AudioPlayerState` | ✓ | `useAudioPlayer()` 가 돌려준 상태 |
+| `lyrics` | `string` |  | 현재 트랙의 가사. 빈 줄로 연을 나눈 원문. |
+| `backdropImage` | `string` |  | 배경에 크게 흐려 깔 이미지 (기본: 현재 트랙의 커버) |
+| `bars` | `number` |  | 파형 막대 개수 (기본 72) |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+```tsx
+const player = useAudioPlayer(tracks);
+<NowPlayingBar player={player} onExpand={() => setOpen(true)} />
+<NowPlayingFull open={open} onClose={() => setOpen(false)} player={player} lyrics={song?.lyrics} />
 ```
 ```
 
@@ -5524,6 +5706,10 @@ SVG 레이더(스파이더) 차트 — 다축 비교용.
 | `content` | `string` | ✓ | 텍스트 내용 (HTML 또는 plain text) |
 | `format` | `"short" \| "long"` |  | 표시 형식 |
 | `showDifficulty` | `boolean` |  | 난이도 표시 |
+| `wpm` | `number` |  | 라틴 문자 읽기 속도 (분당 단어 수, 기본 230). |
+| `cpm` | `number` |  | CJK 문자 읽기 속도 (분당 글자 수, 기본 170). |
+| `minMinutes` | `number` |  | 최소 표시 시간 (분, 기본 1). "1분 미만"이 무의미한 화면에서는 2를 준다 |
+| `headingCount` | `number` |  | 난이도 계산에 쓸 헤딩 수를 직접 지정. |
 | `className` | `string` |  | 추가 클래스 |
 
 **Example**
@@ -5535,7 +5721,36 @@ SVG 레이더(스파이더) 차트 — 다축 비교용.
 
 <ReadingTime content={plainText} format="short" />
 // 출력: "3분 읽기"
+
+// 체감에 맞춰 속도를 조정 (더 느긋하게 읽는 글)
+<ReadingTime content={html} wpm={170} cpm={280} minMinutes={2} />
 ```
+```
+
+---
+
+### RelatedPosts
+
+*stable* · *v2.3.0* — `content` `navigation`
+
+글 하단의 연관 글 목록.
+
+**Import:** `import { RelatedPosts } from "@/ds/composites/RelatedPosts";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `posts` | `Array<RelatedPost>` | ✓ | 보여줄 글 목록 |
+| `title` | `string` |  | 섹션 제목 (기본 `"연관 글 읽기"`) |
+| `max` | `number` |  | 최대 노출 개수 (기본 4) |
+| `columns` | `2 \| 3 \| 1` |  | 한 줄에 놓을 카드 수 (기본 2) |
+| `renderLink` | `(props: { href: string; className: string; children: ReactNode; }) => ReactNode` |  | 링크 렌더러. Next.js `<Link>` 나 react-router `<Link>` 를 쓰려면 넘긴다. |
+
+**Example**
+
+```tsx
+<RelatedPosts posts={related} />
 ```
 
 ---

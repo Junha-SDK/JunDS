@@ -4,6 +4,28 @@
   "description": "JunDS v3 MCP 서버 — AI 에디터용 컴포넌트·사용법·토큰·전환 상태 조회 (npx @junds/mcp)",
   "type": "module",
   "license": "MIT",
+  "author": "JunDS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Junha-SDK/JunDS.git",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://github.com/Junha-SDK/JunDS#readme",
+  "bugs": {
+    "url": "https://github.com/Junha-SDK/JunDS/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "design-system",
+    "ai",
+    "claude",
+    "cursor",
+    "junds"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "junds-mcp": "src/server.mjs"
   },

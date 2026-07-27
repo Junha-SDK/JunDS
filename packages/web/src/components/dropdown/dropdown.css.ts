@@ -50,7 +50,7 @@ export default css`
     background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
   }
   .jd-dropdown__item:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
-  .jd-dropdown__item[data-danger] { color: var(--jd-color-danger); }
+  .jd-dropdown__item[data-danger] { color: var(--jd-color-danger-ink); }
   .jd-dropdown__item[data-danger]:hover:not(:disabled),
   .jd-dropdown__item[data-danger]:focus-visible {
     background: color-mix(in srgb, var(--jd-color-danger) 10%, transparent);

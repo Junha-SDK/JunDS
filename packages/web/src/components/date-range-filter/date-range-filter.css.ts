@@ -94,7 +94,7 @@ export default css`
                 color var(--jd-duration-fast) var(--jd-easing-ease-out);
   }
   .jd-date-range-filter__preset:hover:not(:disabled) {
-    color: var(--jd-color-primary); background: var(--jd-color-primary-light);
+    color: var(--jd-color-primary-ink); background: var(--jd-color-primary-light);
   }
   .jd-date-range-filter__preset[aria-pressed="true"] {
     color: #fff; background: var(--jd-color-primary);

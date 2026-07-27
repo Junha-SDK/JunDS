@@ -31,7 +31,7 @@ export default css`
     transition: color var(--jd-duration-fast) var(--jd-easing-ease-out);
   }
   .jd-form-array__remove[hidden] { display: none; }
-  .jd-form-array__remove:hover { color: var(--jd-color-danger); }
+  .jd-form-array__remove:hover { color: var(--jd-color-danger-ink); }
   .jd-form-array__remove:focus-visible {
     outline: var(--jd-border-medium) solid
       color-mix(in srgb, var(--jd-color-danger) 40%, transparent);
@@ -43,7 +43,7 @@ export default css`
     display: inline-flex; align-items: center; gap: var(--jd-space-1-5);
     padding: var(--jd-space-2) var(--jd-space-3);
     font-family: var(--jd-font-sans); font-size: var(--jd-text-sm);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     background: none; cursor: pointer;
     border: var(--jd-border-thin) dashed
       color-mix(in srgb, var(--jd-color-primary) 30%, transparent);

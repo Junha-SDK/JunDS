@@ -61,6 +61,18 @@ describe("색·박스 어휘", () => {
     expect(el.style.getPropertyValue("border-color")).toBe("var(--jd-color-border)");
   });
 
+  test("semantic 글자색은 채움색과 분리된 ink 역할을 쓴다", async () => {
+    const el = await mount(
+      `<jd-box color="primary" bg="primary-light"></jd-box>`,
+    );
+    expect(el.style.getPropertyValue("color")).toBe(
+      "var(--jd-color-primary-ink)",
+    );
+    expect(el.style.getPropertyValue("background-color")).toBe(
+      "var(--jd-color-primary-light)",
+    );
+  });
+
   test("미지 색은 원문 통과 (v2 동형)", async () => {
     const el = await mount(`<jd-box bg="#ff0000"></jd-box>`);
     expect(el.style.getPropertyValue("background-color")).toBe("#ff0000");

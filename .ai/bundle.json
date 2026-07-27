@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T04:07:50.405Z",
+  "generatedAt": "2026-07-27T04:58:28.783Z",
   "mode": "esbuild",
   "external": [
     "react",
@@ -22,6 +22,13 @@
       "file": "ds/patterns/Calendar/Calendar.tsx",
       "rawBytes": 30894,
       "gzipBytes": 7504
+    },
+    {
+      "name": "NowPlayingFull",
+      "kind": "composite",
+      "file": "ds/composites/NowPlayingFull/NowPlayingFull.tsx",
+      "rawBytes": 26072,
+      "gzipBytes": 7382
     },
     {
       "name": "LoginForm",
@@ -311,6 +318,13 @@
       "gzipBytes": 2143
     },
     {
+      "name": "DocLinks",
+      "kind": "composite",
+      "file": "ds/composites/DocLinks/DocLinks.tsx",
+      "rawBytes": 5420,
+      "gzipBytes": 2003
+    },
+    {
       "name": "Disclosure",
       "kind": "composite",
       "file": "ds/composites/Disclosure/Disclosure.tsx",
@@ -365,6 +379,13 @@
       "file": "ds/patterns/ChatThread/ChatThread.tsx",
       "rawBytes": 6069,
       "gzipBytes": 1826
+    },
+    {
+      "name": "GlobeWireframe",
+      "kind": "composite",
+      "file": "ds/composites/GlobeWireframe/GlobeWireframe.tsx",
+      "rawBytes": 5220,
+      "gzipBytes": 1824
     },
     {
       "name": "OnboardingTour",
@@ -472,6 +493,13 @@
       "gzipBytes": 1624
     },
     {
+      "name": "Waveform",
+      "kind": "composite",
+      "file": "ds/composites/Waveform/Waveform.tsx",
+      "rawBytes": 4280,
+      "gzipBytes": 1620
+    },
+    {
       "name": "FAQ",
       "kind": "pattern",
       "file": "ds/patterns/FAQ/FAQ.tsx",
@@ -483,13 +511,6 @@
       "kind": "composite",
       "file": "ds/composites/ProductCard/ProductCard.tsx",
       "rawBytes": 4597,
-      "gzipBytes": 1579
-    },
-    {
-      "name": "Waveform",
-      "kind": "composite",
-      "file": "ds/composites/Waveform/Waveform.tsx",
-      "rawBytes": 4143,
       "gzipBytes": 1579
     },
     {
@@ -661,6 +682,13 @@
       "gzipBytes": 1347
     },
     {
+      "name": "Lyrics",
+      "kind": "composite",
+      "file": "ds/composites/Lyrics/Lyrics.tsx",
+      "rawBytes": 3284,
+      "gzipBytes": 1345
+    },
+    {
       "name": "Progress",
       "kind": "composite",
       "file": "ds/composites/Progress/Progress.tsx",
@@ -701,6 +729,13 @@
       "file": "ds/composites/RadarChart/RadarChart.tsx",
       "rawBytes": 3574,
       "gzipBytes": 1299
+    },
+    {
+      "name": "DocHero",
+      "kind": "composite",
+      "file": "ds/composites/DocHero/DocHero.tsx",
+      "rawBytes": 4630,
+      "gzipBytes": 1274
     },
     {
       "name": "MonthPicker",
@@ -1116,6 +1151,13 @@
       "gzipBytes": 1045
     },
     {
+      "name": "ReadingTime",
+      "kind": "composite",
+      "file": "ds/composites/ReadingTime/ReadingTime.tsx",
+      "rawBytes": 2695,
+      "gzipBytes": 1044
+    },
+    {
       "name": "Tabs",
       "kind": "composite",
       "file": "ds/composites/Tabs/Tabs.tsx",
@@ -1158,13 +1200,6 @@
       "gzipBytes": 1013
     },
     {
-      "name": "ReadingTime",
-      "kind": "composite",
-      "file": "ds/composites/ReadingTime/ReadingTime.tsx",
-      "rawBytes": 2586,
-      "gzipBytes": 1008
-    },
-    {
       "name": "Pagination",
       "kind": "composite",
       "file": "ds/composites/Pagination/Pagination.tsx",
@@ -1177,6 +1212,13 @@
       "file": "ds/patterns/AuthLayout/AuthLayout.tsx",
       "rawBytes": 3127,
       "gzipBytes": 1003
+    },
+    {
+      "name": "AlbumArt",
+      "kind": "composite",
+      "file": "ds/composites/AlbumArt/AlbumArt.tsx",
+      "rawBytes": 2248,
+      "gzipBytes": 1000
     },
     {
       "name": "FeatureGrid",
@@ -1205,6 +1247,13 @@
       "file": "ds/primitives/LikeButton/LikeButton.tsx",
       "rawBytes": 2246,
       "gzipBytes": 991
+    },
+    {
+      "name": "BarList",
+      "kind": "composite",
+      "file": "ds/composites/BarList/BarList.tsx",
+      "rawBytes": 2359,
+      "gzipBytes": 985
     },
     {
       "name": "JSONViewer",
@@ -1303,13 +1352,6 @@
       "file": "ds/composites/DocPager/DocPager.tsx",
       "rawBytes": 2516,
       "gzipBytes": 940
-    },
-    {
-      "name": "AlbumArt",
-      "kind": "composite",
-      "file": "ds/composites/AlbumArt/AlbumArt.tsx",
-      "rawBytes": 2081,
-      "gzipBytes": 938
     },
     {
       "name": "SwipeAction",
@@ -1499,6 +1541,13 @@
       "file": "ds/composites/QRCode/QRCode.tsx",
       "rawBytes": 2012,
       "gzipBytes": 848
+    },
+    {
+      "name": "RelatedPosts",
+      "kind": "composite",
+      "file": "ds/composites/RelatedPosts/RelatedPosts.tsx",
+      "rawBytes": 2189,
+      "gzipBytes": 844
     },
     {
       "name": "Heatmap",
@@ -1992,9 +2041,9 @@
         "count": 40
       },
       "composite": {
-        "rawBytes": 696387,
-        "gzipBytes": 244221,
-        "count": 191
+        "rawBytes": 745974,
+        "gzipBytes": 260017,
+        "count": 198
       },
       "primitive": {
         "rawBytes": 129420,
@@ -2003,9 +2052,9 @@
       }
     },
     "all": {
-      "rawBytes": 1220436,
-      "gzipBytes": 403877,
-      "count": 282
+      "rawBytes": 1270023,
+      "gzipBytes": 419673,
+      "count": 289
     }
   }
 }

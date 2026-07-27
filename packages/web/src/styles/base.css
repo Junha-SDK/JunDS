@@ -13,6 +13,21 @@
     --jd-focus-ring: var(--jd-border-medium) solid var(--jd-color-ring-primary);
     --jd-focus-ring-danger: var(--jd-border-medium) solid var(--jd-color-ring-danger);
     --jd-focus-ring-offset: 2px;
+    /* 같은 원색을 채움 배경과 본문 글자에 함께 쓰면 다크 면에서 AA를 잃는다.
+       *-ink는 텍스트 전용 역할이며, 채움/테두리는 기존 원색을 그대로 쓴다. */
+    --jd-color-primary-ink: var(--jd-color-primary);
+    --jd-color-danger-ink: var(--jd-color-danger);
+    --jd-color-success-ink: var(--jd-color-success);
+    --jd-color-warning-ink: var(--jd-color-warning);
+    --jd-color-info-ink: var(--jd-color-info);
+  }
+  [data-jd-theme="dark"],
+  [data-theme="dark"] {
+    --jd-color-primary-ink: color-mix(in srgb, var(--jd-color-primary) 40%, #ffffff);
+    --jd-color-danger-ink: color-mix(in srgb, var(--jd-color-danger) 50%, #ffffff);
+    --jd-color-success-ink: color-mix(in srgb, var(--jd-color-success) 45%, #ffffff);
+    --jd-color-warning-ink: color-mix(in srgb, var(--jd-color-warning) 40%, #ffffff);
+    --jd-color-info-ink: color-mix(in srgb, var(--jd-color-info) 45%, #ffffff);
   }
 
   /* 톤 레시피 (DEC-044) — 색 하나에서 틴트 배경·테두리·글자를 파생하는 단일 공식.
@@ -34,6 +49,12 @@
         자리가 없는 일회성 규칙(hint·detail-panel 등)과 값이 같아진다.
      ② 배경을 흰색이 아니라 transparent 와 섞는 이유: 카드·모달·시트 등 어떤 표면
         위에 얹혀도 그 표면의 명도를 물려받아야 같은 색으로 읽힌다.
+        **대가**: 표면이 밝아지면 틴트도 같이 밝아지는데 글자는 고정이라 대비가
+        내려간다. 다크의 bg-mix 26%/40% 는 페이지 배경(#0c0a14) 위에서만 재어
+        AA를 넘겼고, 한 단 올라간 카드(#161329) 위에서는 4.35~4.47 로 미달했다
+        (실측 5건: tag red/purple, avatar 팔레트 0·4 — demo/display.html 다크).
+        카드 위가 실제 앱의 기본 배치이므로 **가장 밝은 표면을 기준**으로 다시
+        잡아 20%/32% 로 낮췄다. 틴트가 옅어지는 대신 어느 표면에서도 AA 를 넘는다.
      ③ 글자는 라이트에서 잉크 쪽으로, 다크에서 흰 쪽으로 민다(--jd-tone-ink-toward).
 
      소비자 확장: 임의 요소에 `--jd-tone`을 지정하면 그 하위 톤 컴포넌트가 전부 그
@@ -50,8 +71,8 @@
   [data-jd-theme="dark"],
   [data-theme="dark"] {
     --jd-tone-lift: 58%;
-    --jd-tone-bg-mix: 26%;
-    --jd-tone-bg-strong-mix: 40%;
+    --jd-tone-bg-mix: 20%;
+    --jd-tone-bg-strong-mix: 32%;
     --jd-tone-border-mix: 46%;
     --jd-tone-ink-mix: 58%;
     --jd-tone-ink-toward: #ffffff;

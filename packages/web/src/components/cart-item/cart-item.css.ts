@@ -100,7 +100,7 @@ export default css`
     cursor: pointer;
     transition: color var(--jd-duration-normal) var(--jd-easing-ease-out);
   }
-  .jd-cart-item__remove:hover { color: var(--jd-color-danger); }
+  .jd-cart-item__remove:hover { color: var(--jd-color-danger-ink); }
   .jd-cart-item__remove:disabled { opacity: 0.5; cursor: not-allowed; }
   .jd-cart-item__remove:focus-visible {
     outline: none;

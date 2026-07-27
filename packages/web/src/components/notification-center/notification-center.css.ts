@@ -67,7 +67,7 @@ export default css`
     border: 0; background: none; cursor: pointer; padding: 0;
     font-family: inherit; font-size: 11px;
   }
-  .jd-notification-center__mark-all { color: var(--jd-color-primary); }
+  .jd-notification-center__mark-all { color: var(--jd-color-primary-ink); }
   .jd-notification-center__mark-all:hover { text-decoration: underline; }
   .jd-notification-center__clear { color: var(--jd-color-muted); }
   .jd-notification-center__clear:hover { color: var(--jd-color-foreground); }

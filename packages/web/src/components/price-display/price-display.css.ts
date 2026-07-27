@@ -49,7 +49,7 @@ export default css`
   .jd-price-display__discount {
     font-weight: var(--jd-weight-bold);
     font-variant-numeric: tabular-nums;
-    color: var(--jd-color-danger);
+    color: var(--jd-color-danger-ink);
   }
   .jd-price-display__original {
     color: var(--jd-color-muted);

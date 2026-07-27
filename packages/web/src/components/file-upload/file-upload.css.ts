@@ -57,7 +57,7 @@ export default css`
 
   .jd-file-upload__error {
     margin: var(--jd-space-1-5) 0 0; font-family: var(--jd-font-sans);
-    font-size: var(--jd-text-xs); color: var(--jd-color-danger);
+    font-size: var(--jd-text-xs); color: var(--jd-color-danger-ink);
   }
   .jd-file-upload__error[hidden] { display: none; }
 

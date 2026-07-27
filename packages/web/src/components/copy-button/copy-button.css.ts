@@ -33,7 +33,7 @@ export default css`
   .jd-copy-button__label[hidden] { display: none; }
 
   jd-copy-button[size="sm"] .jd-copy-button { width: 1.5rem; height: 1.5rem; }
-  jd-copy-button[copied] .jd-copy-button { color: var(--jd-color-success); }
+  jd-copy-button[copied] .jd-copy-button { color: var(--jd-color-success-ink); }
 
   /* button 변형 — 테두리 + 라벨 */
   jd-copy-button[variant="button"] .jd-copy-button {
@@ -47,7 +47,7 @@ export default css`
     padding: var(--jd-space-1) var(--jd-space-2); font-size: var(--jd-text-xs);
   }
   jd-copy-button[variant="button"][copied] .jd-copy-button {
-    color: var(--jd-color-success);
+    color: var(--jd-color-success-ink);
     border-color: color-mix(in srgb, var(--jd-color-success) 30%, transparent);
   }
 

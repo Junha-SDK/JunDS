@@ -19,7 +19,7 @@ export default css`
   }
   .jd-date-input__label[hidden] { display: none; }
   jd-date-input[required] > .jd-date-input__label::after {
-    content: "*"; margin-inline-start: var(--jd-space-0-5); color: var(--jd-color-danger);
+    content: "*"; margin-inline-start: var(--jd-space-0-5); color: var(--jd-color-danger-ink);
   }
 
   .jd-date-input__input {

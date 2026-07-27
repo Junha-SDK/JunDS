@@ -27,7 +27,7 @@ export default css`
   }
   button.jd-alert-button[data-active] {
     background: color-mix(in srgb, var(--jd-color-primary) 12%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     border-color: var(--jd-color-primary);
   }
   button.jd-alert-button:disabled { opacity: var(--jd-opacity-50); cursor: not-allowed; }

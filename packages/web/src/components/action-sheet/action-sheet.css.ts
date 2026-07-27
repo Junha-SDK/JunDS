@@ -48,11 +48,11 @@ export default css`
     transition: background var(--jd-duration-fast) var(--jd-easing-ease-out);
   }
   .jd-action-sheet__item {
-    color: var(--jd-color-primary); font-weight: var(--jd-weight-medium);
+    color: var(--jd-color-primary-ink); font-weight: var(--jd-weight-medium);
     border-block-end: var(--jd-border-thin) solid var(--jd-color-border);
   }
   .jd-action-sheet__item:last-child { border-block-end: 0; }
-  .jd-action-sheet__item[data-danger] { color: var(--jd-color-danger); }
+  .jd-action-sheet__item[data-danger] { color: var(--jd-color-danger-ink); }
   .jd-action-sheet__item:hover:not(:disabled),
   .jd-action-sheet__cancel:hover { background: var(--jd-color-card-hover); }
   .jd-action-sheet__item:disabled { opacity: var(--jd-opacity-40); cursor: not-allowed; }

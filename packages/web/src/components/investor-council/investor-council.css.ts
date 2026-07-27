@@ -58,7 +58,7 @@ export default css`
   .jd-council__brand-icon {
     display: inline-flex; align-items: center; justify-content: center;
     width: 28px; height: 28px; border-radius: var(--jd-radius-lg);
-    background: var(--jd-color-primary-light); color: var(--jd-color-primary);
+    background: var(--jd-color-primary-light); color: var(--jd-color-primary-ink);
   }
   .jd-council__title { margin: 0; font-size: 14px; font-weight: 800; }
   .jd-council__tag {

@@ -171,6 +171,18 @@ export function resolveColor(raw: string): string {
   return COLORS[raw] ?? raw;
 }
 
+/** 배경/테두리 원색과 분리된 텍스트용 semantic ink. 임의 CSS 값은 그대로 통과한다. */
+function resolveTextColor(raw: string): string {
+  const semantic: Record<string, string> = {
+    primary: "var(--jd-color-primary-ink)",
+    danger: "var(--jd-color-danger-ink)",
+    success: "var(--jd-color-success-ink)",
+    warning: "var(--jd-color-warning-ink)",
+    info: "var(--jd-color-info-ink)",
+  };
+  return semantic[raw] ?? resolveColor(raw);
+}
+
 /** w/h/minW… 치수 — v2 resolveSize 동형 */
 function resolveSize(raw: string): string {
   if (raw === "full") return "100%";
@@ -206,7 +218,7 @@ function resolveOne(key: string, raw: string): Decl[] {
     case "maxW": return [["max-width", resolveSize(raw)]];
     case "maxH": return [["max-height", resolveSize(raw)]];
     case "bg": return [["background-color", resolveColor(raw)]];
-    case "color": return [["color", resolveColor(raw)]];
+    case "color": return [["color", resolveTextColor(raw)]];
     case "borderColor": return [["border-color", resolveColor(raw)]];
     case "display": return [["display", raw]];
     case "direction": return [["flex-direction", raw]];

@@ -64,7 +64,7 @@ export function Preview({
               "transition-all duration-200 active:scale-95",
               copied
                 ? "bg-success/10 text-success border-success/20"
-                : "bg-white/80 text-muted border-border hover:text-primary hover:border-primary/30 backdrop-blur-sm",
+                : "bg-card/80 text-muted border-border hover:text-primary hover:border-primary/30 backdrop-blur-sm",
             )}
           >
             <span className="relative inline-flex w-[11px] h-[11px]">
@@ -108,7 +108,7 @@ export function Preview({
               "transition-all duration-200 active:scale-95",
               showSource
                 ? "bg-primary/10 text-primary border-primary/20"
-                : "bg-white/80 text-muted border-border hover:text-primary hover:border-primary/30 backdrop-blur-sm",
+                : "bg-card/80 text-muted border-border hover:text-primary hover:border-primary/30 backdrop-blur-sm",
             )}
           >
             <svg

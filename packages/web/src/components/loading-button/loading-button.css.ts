@@ -89,7 +89,7 @@ export default css`
 
   jd-loading-button[variant="link"] > .jd-button {
     background: transparent; box-shadow: none; filter: none;
-    height: auto; padding: 0; color: var(--jd-color-primary);
+    height: auto; padding: 0; color: var(--jd-color-primary-ink);
     text-underline-offset: 2px;
     text-decoration-color: color-mix(in srgb, var(--jd-color-primary) 40%, transparent);
   }

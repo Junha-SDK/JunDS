@@ -50,7 +50,7 @@ export default css`
     color: var(--jd-color-foreground);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .jd-post-card__verified { color: var(--jd-color-primary); font-size: var(--jd-text-xs); }
+  .jd-post-card__verified { color: var(--jd-color-primary-ink); font-size: var(--jd-text-xs); }
   .jd-post-card__verified[hidden] { display: none; }
 
   .jd-post-card__sub {

@@ -59,7 +59,7 @@ export default css`
   }
   .jd-tabs__badge[hidden] { display: none; }
   .jd-tabs__tab[aria-selected="true"] > .jd-tabs__badge {
-    background: var(--jd-color-primary-light); color: var(--jd-color-primary);
+    background: var(--jd-color-primary-light); color: var(--jd-color-primary-ink);
   }
 
   /* size=sm — v2 underline: px-3 py-2 text-xs */

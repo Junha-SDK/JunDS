@@ -72,7 +72,7 @@ export default css`
 
   .jd-hfm__fill {
     padding: 0; border: none; background: transparent; cursor: pointer;
-    font-size: 10.5px; font-weight: 700; color: var(--jd-color-primary);
+    font-size: 10.5px; font-weight: 700; color: var(--jd-color-primary-ink);
   }
   .jd-hfm__fill[hidden] { display: none; }
 

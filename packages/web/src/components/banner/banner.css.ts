@@ -15,7 +15,7 @@ export default css`
        info 3.9:1 · warning 3.6:1 · success 4.0:1로 AA 미달(axe 실측, v2 승계 결함) —
        foreground를 20% 섞어 색상은 유지하고 명도만 내린다(DEC-030-7의 배경판). */
     color: #ffffff;
-    background: color-mix(in srgb, var(--_jd-banner-color) 80%, var(--jd-color-foreground));
+    background: color-mix(in srgb, var(--_jd-banner-color) 80%, #17141f);
     --_jd-banner-color: var(--jd-color-info); /* variant 기본 info */
   }
   jd-banner[hidden] { display: none; }

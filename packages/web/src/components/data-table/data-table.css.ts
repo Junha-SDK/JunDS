@@ -125,7 +125,7 @@ export default css`
     background: var(--jd-color-card-hover);
   }
   .jd-data-table__density-button[data-active] {
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     border-color: color-mix(in srgb, var(--jd-color-primary) 40%, transparent);
     background: color-mix(in srgb, var(--jd-color-primary) 8%, transparent);
   }

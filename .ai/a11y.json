@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-27T04:09:38.050Z",
+  "generatedAt": "2026-07-27T04:58:10.682Z",
   "tooling": "axe-core@4.12.1",
   "strict": false,
   "summary": {
-    "total": 259,
+    "total": 265,
     "withViolations": 0,
     "withErrors": 0,
     "byImpact": {
@@ -101,6 +101,11 @@
     },
     {
       "name": "BarChart",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "BarList",
       "kind": "composite",
       "violations": []
     },
@@ -320,7 +325,17 @@
       "violations": []
     },
     {
+      "name": "DocHero",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "Dock",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "DocLinks",
       "kind": "composite",
       "violations": []
     },
@@ -381,6 +396,11 @@
     },
     {
       "name": "Globe",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "GlobeWireframe",
       "kind": "composite",
       "violations": []
     },
@@ -461,6 +481,11 @@
     },
     {
       "name": "LogoCloud",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "Lyrics",
       "kind": "composite",
       "violations": []
     },
@@ -676,6 +701,11 @@
     },
     {
       "name": "ReadingTime",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "RelatedPosts",
       "kind": "composite",
       "violations": []
     },

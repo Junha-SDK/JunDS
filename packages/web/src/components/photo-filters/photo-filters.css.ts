@@ -48,7 +48,7 @@ export default css`
   }
   .jd-photo-filters__item:hover { background: var(--jd-color-card-hover); }
   .jd-photo-filters__item[data-active] {
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
   }
   .jd-photo-filters__item[data-disabled] {

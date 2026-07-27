@@ -1,0 +1,45 @@
+{
+  "id": "doc-hero",
+  "ledgerId": "DocHero",
+  "category": "composites",
+  "title": "DocHero",
+  "oneLiner": "문서/프로젝트 상세 상단 히어로 — 배너·아이콘·제목·기술 칩·지표 스트립.",
+  "tags": [
+    "content",
+    "layout"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { DocHero } from \"@/ds/composites/DocHero\";",
+      "code": "<DocHero\n  eyebrow=\"라이브러리\"\n  title=\"JunDS\"\n  subtitle=\"레고처럼 조합하는 디자인 프레임워크\"\n  tags={[\"React\", \"TypeScript\"]}\n  stats={[{ label: \"컴포넌트\", value: \"320\" }, { label: \"훅\", value: \"62\" }]}\n/>"
+    }
+  },
+  "tokens": [
+    {
+      "token": "--color-card / --color-border",
+      "usage": "배너 없는 기본 배경·테두리"
+    },
+    {
+      "token": "--color-muted",
+      "usage": "eyebrow·설명·날짜 텍스트"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "제목 레벨",
+      "note": "h1 로 렌더 — 문서 상단의 유일한 최상위 제목이라는 전제"
+    },
+    {
+      "item": "배너 대비",
+      "note": "배너 위에는 어두운 그라디언트를 덧씌워 밝은 사진이 와도 글자 대비가 유지된다"
+    },
+    {
+      "item": "지표",
+      "note": "dl/dt/dd 로 라벨-값 관계가 구조로 드러난다"
+    }
+  ]
+}

@@ -38,7 +38,7 @@ export default css`
     width: 18rem;
     flex-shrink: 0;
     border-radius: var(--jd-radius-xl);
-    background: var(--jd-color-surface);
+    background: var(--jd-color-neutral-50);
     border: var(--jd-border-thin) solid var(--jd-color-border-light);
     transition:
       background var(--jd-duration-fast) var(--jd-easing-ease-out),
@@ -46,7 +46,7 @@ export default css`
   }
   /* 드롭 대상 강조 — v2 ring-2 ring-primary/30 + bg-primary-light/20 */
   .jd-kanban__column[data-drop-target] {
-    background: color-mix(in srgb, var(--jd-color-primary-light) 20%, var(--jd-color-surface));
+    background: color-mix(in srgb, var(--jd-color-primary-light) 20%, var(--jd-color-neutral-50));
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--jd-color-primary) 30%, transparent);
   }
 

@@ -71,8 +71,8 @@ export default css`
   .jd-forum-thread__vote:focus-visible {
     outline: 2px solid var(--jd-color-primary); outline-offset: 2px;
   }
-  .jd-forum-thread__vote[data-dir="up"][aria-pressed="true"] { color: var(--jd-color-primary); }
-  .jd-forum-thread__vote[data-dir="down"][aria-pressed="true"] { color: var(--jd-color-danger); }
+  .jd-forum-thread__vote[data-dir="up"][aria-pressed="true"] { color: var(--jd-color-primary-ink); }
+  .jd-forum-thread__vote[data-dir="down"][aria-pressed="true"] { color: var(--jd-color-danger-ink); }
 
   .jd-forum-thread__score {
     font-size: var(--jd-text-md); font-weight: var(--jd-weight-semibold);
@@ -80,7 +80,7 @@ export default css`
   }
   .jd-forum-thread__accepted-mark {
     margin-top: var(--jd-space-1); font-size: var(--jd-text-xl); line-height: 1;
-    color: var(--jd-color-success);
+    color: var(--jd-color-success-ink);
   }
 
   .jd-forum-thread__body-col { flex: 1; min-width: 0; }
@@ -117,7 +117,7 @@ export default css`
   .jd-forum-thread__accept {
     appearance: none; -webkit-appearance: none; margin: 0 0 0 auto; padding: 0;
     border: 0; background: transparent; cursor: pointer; font: inherit;
-    font-size: var(--jd-text-xs); color: var(--jd-color-success);
+    font-size: var(--jd-text-xs); color: var(--jd-color-success-ink);
   }
   .jd-forum-thread__accept:hover { text-decoration: underline; }
   .jd-forum-thread__accept:focus-visible {

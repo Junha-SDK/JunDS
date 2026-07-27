@@ -1,9 +1,9 @@
-# CI v3 — JunDS v3 레인 (01-repo-structure §9의 12게이트)
+# CI v3 — JunDS v3 레인 (01-repo-structure §9 + 배포 안정성 17게이트)
 #
 # 게이트: tokens-fresh · tokens-test · web-build · web-test(coverage) ·
 #         web-browser(Chromium/Firefox/WebKit) · web-a11y · size-budget ·
-#         react-build(React 18/19) · finance-data-test · ios-build ·
-#         ios-test(macos-14) · bench-smoke
+#         react-build(React 18/19) · public-api · consumer-install · runtime-budget ·
+#         finance-data-test · packaging · mcp-test · ios-build · ios-test(macos-14) · bench-smoke
 # install 잡은 캐시 워머(인프라)이며 게이트가 아니다.
 #
 # 스펙 이탈 주석:
@@ -30,6 +30,7 @@ on:
       - "packages/**"
       - "tokens/**"
       - "benchmarks/**"
+      - "scripts/**"
       - "Package.swift"
       - "docs-spec/registry/**"
       - ".changeset/**"
@@ -45,6 +46,7 @@ on:
       - "packages/**"
       - "tokens/**"
       - "benchmarks/**"
+      - "scripts/**"
       - "Package.swift"
       - "docs-spec/registry/**"
       - ".changeset/**"
@@ -84,7 +86,7 @@ jobs:
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
 
-  # ── 게이트 1/12: tokens-fresh — 재생성 후 산출물 3종 diff 0 (01 §9) ──
+  # ── 게이트 1/17: tokens-fresh — 재생성 후 산출물 3종 diff 0 (01 §9) ──
   tokens-fresh:
     needs: install
     runs-on: ubuntu-latest
@@ -105,7 +107,7 @@ jobs:
       - name: Regenerate tokens and verify outputs committed
         run: npm run tokens:fresh
 
-  # ── 게이트 2/12: tokens-test — 스냅샷 + v2 패리티 (02-tokens §6) ──
+  # ── 게이트 2/17: tokens-test — 스냅샷 + v2 패리티 (02-tokens §6) ──
   tokens-test:
     needs: install
     runs-on: ubuntu-latest
@@ -126,7 +128,7 @@ jobs:
       - name: Run token tests
         run: npm run tokens:test
 
-  # ── 게이트 3/12: web-build — typecheck + build.mjs 산출물 (01 §9) ──
+  # ── 게이트 3/17: web-build — typecheck + build.mjs 산출물 (01 §9) ──
   web-build:
     needs: install
     runs-on: ubuntu-latest
@@ -149,7 +151,7 @@ jobs:
       - name: Build @junds/web (esbuild 4산출물)
         run: npm run build -w @junds/web
 
-  # ── 게이트 4/12: web-test — vitest(happy-dom) + Web 전용 coverage 회귀선 ──
+  # ── 게이트 4/17: web-test — vitest(happy-dom) + Web 전용 coverage 회귀선 ──
   web-test:
     needs: install
     runs-on: ubuntu-latest
@@ -179,7 +181,7 @@ jobs:
 
   # happy-dom으로 대체할 수 없는 실제 엔진 차이를 세 브라우저에서 병렬 검증한다.
   # 각 잡은 자기 브라우저만 설치하므로 한 잡의 설치/실패가 다른 결과를 가리지 않는다.
-  # ── 게이트 5/12: web-browser — Chromium/Firefox/WebKit 실엔진 매트릭스 ──
+  # ── 게이트 5/17: web-browser — Chromium/Firefox/WebKit 실엔진 매트릭스 ──
   web-browser:
     needs: install
     runs-on: ubuntu-latest
@@ -219,7 +221,7 @@ jobs:
             packages/web/playwright-report
           if-no-files-found: ignore
 
-  # ── 게이트 6/12: web-a11y — 실제 fixture 범위 + axe 정책/coverage 검증 ──
+  # ── 게이트 6/17: web-a11y — 실제 fixture 범위 + axe 정책/coverage 검증 ──
   web-a11y:
     needs: install
     runs-on: ubuntu-latest
@@ -247,7 +249,7 @@ jobs:
       - name: Build @junds/web (데모는 dist 산출물만 로드)
         run: npm run build -w @junds/web
       - name: Run axe-core audit on demo pages
-        run: npm run audit:a11y -w @junds/web
+        run: JUNDS_A11Y_STRICT=1 npm run audit:a11y -w @junds/web
       - name: Upload accessibility report
         if: always()
         uses: actions/upload-artifact@v4
@@ -256,7 +258,7 @@ jobs:
           path: coverage/web-a11y/a11y-summary.json
           if-no-files-found: error
 
-  # ── 게이트 7/12: size-budget — W1/W2 gzip 예산 + 기준선 +3% (05-perf §3.1) ──
+  # ── 게이트 7/17: size-budget — W1/W2 gzip 예산 + 기준선 +3% (05-perf §3.1) ──
   size-budget:
     needs: install
     runs-on: ubuntu-latest
@@ -277,7 +279,7 @@ jobs:
       - name: Enforce size budgets (benchmarks/size-gate.mjs)
         run: npm run size:web
 
-  # ── 게이트 8/12: react-build — React >=18 약속을 18/19 양쪽에서 실측 ──
+  # ── 게이트 8/17: react-build — React >=18 약속을 18/19 양쪽에서 실측 ──
   react-build:
     needs: install
     runs-on: ubuntu-latest
@@ -322,7 +324,78 @@ jobs:
           path: coverage/react
           if-no-files-found: error
 
-  # ── 게이트 9/12: finance-data-test — 모킹 기반 vitest, 실 API 호출 금지 (01 §9) ──
+  # ── 게이트 9/17: public-api — exports·peer·생성 어댑터·d.ts 기준선 ──
+  public-api:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+      - name: Build public packages
+        run: npm run build -w @junds/web && npm run build -w @junds/react
+      - name: Enforce public API baseline
+        run: npm run api:check
+
+  # ── 게이트 10/17: consumer-install — 실제 tarball을 깨끗한 앱 4종에 설치/빌드 ──
+  consumer-install:
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+      - name: Build packages and clean consumer apps
+        run: npm run build -w @junds/web && npm run build -w @junds/react && npm run consumer:smoke
+
+  # ── 게이트 11/17: runtime-budget — 등록·대량 갱신·가상화·수명주기 예산 ──
+  runtime-budget:
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build @junds/web
+        run: npm run build -w @junds/web
+      - name: Enforce runtime performance budgets
+        run: npm run runtime:web
+
+  # ── 게이트 12/17: finance-data-test — 모킹 기반 vitest, 실 API 호출 금지 (01 §9) ──
   finance-data-test:
     needs: install
     runs-on: ubuntu-latest
@@ -347,7 +420,57 @@ jobs:
           fi
           npm run test -w @junds/finance-data --if-present
 
-  # ── 게이트 10/12: ios-build — macos-14, xcodebuild 경유 (DEC-013-6) ──
+  # ── 게이트 13/17: packaging — exports ↔ 배포 tarball 정합 (scripts/exports-gate.mjs) ──
+  # consumer-install이 몇 개 진입점을 "깊게" 본다면 이 게이트는 광고한 진입점 전수를
+  # "넓게" 본다. 워크트리가 아니라 `npm pack --dry-run`이 담는 파일만 진실로 취급해
+  # files 필드 누락·types 조건 부재(TS7016)·publishConfig.access 부재를 배포 전에 잡는다.
+  packaging:
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+      - name: Enforce exports ↔ tarball parity
+        run: npm run exports:gate
+
+  # ── 게이트 14/17: mcp-test — MCP 서버 계약 + docs-content 커버리지 (advisory) ──
+  # 현재 RED가 정상 신호다: web:done 445행 중 394행이 docs-content web 스니펫 미저작
+  # (원장 docs 열 458 todo와 같은 실체). 콘텐츠 트랙이 저작을 따라잡는 동안 bench-smoke와
+  # 같은 advisory로 두고, 미저작 0건 도달 시 continue-on-error를 제거해 실게이트로 승격할 것.
+  mcp-test:
+    needs: install
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+      - name: Test @junds/mcp
+        run: npm run test -w @junds/mcp
+
+  # ── 게이트 15/17: ios-build — macos-14, xcodebuild 경유 (DEC-013-6) ──
   # 로컬 검증 불가(작업 머신 Xcode 서명 파손) — CI 첫 실행 확인 항목.
   # 실패 시 1순위 확인: 스킴 이름. 진단 스텝의 `xcodebuild -list` 출력에서 실제 스킴을
   # 확인하고, `JunDS`가 아니라 `JunDS-Package`라면 루트 package.json의 ios:* 스크립트를 교정.
@@ -363,7 +486,7 @@ jobs:
       - name: Build JunDS (SPM via xcodebuild)
         run: npm run ios:build
 
-  # ── 게이트 11/12: ios-test — macos-14 시뮬레이터 (Core 로직 + 토큰 패리티 XCTest) ──
+  # ── 게이트 16/17: ios-test — macos-14 시뮬레이터 (Core 로직 + 토큰 패리티 XCTest) ──
   # macos-14 기본 Xcode 15.x의 iOS 17 런타임에 iPhone 15 시뮬레이터가 포함된다 —
   # ios:test의 'iPhone 15' destination은 macos-14에선 성립 예상. 단 DEC-015-4b가 실측했듯
   # 최신 로컬 런타임(iPhone 17 세대)에는 없는 이름이므로, 러너 이미지/Xcode 승급 시
@@ -378,7 +501,7 @@ jobs:
       - name: Test JunDS (simulator)
         run: npm run ios:test
 
-  # ── 게이트 12/12: bench-smoke — G2까지 advisory (05-perf §3.2), G3부터 실게이트 승격 ──
+  # ── 게이트 17/17: bench-smoke — G2까지 advisory (05-perf §3.2), G3부터 실게이트 승격 ──
   bench-smoke:
     needs: install
     runs-on: ubuntu-latest

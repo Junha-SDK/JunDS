@@ -20,7 +20,7 @@ export default css`
     background: var(--jd-color-muted);
   }
 
-  jd-live-status-dot[live] { color: var(--jd-color-success); }
+  jd-live-status-dot[live] { color: var(--jd-color-success-ink); }
   jd-live-status-dot[live] .jd-live-status-dot__dot {
     background: var(--jd-color-success);
     animation: jd-live-status-pulse 1.6s ease-out infinite;

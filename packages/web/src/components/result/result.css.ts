@@ -15,11 +15,11 @@ export default css`
   jd-result .jd-empty-state__icon {
     width: auto; height: auto; background: none;
     margin-block-end: var(--jd-space-4);
-    color: var(--jd-color-info); /* status 기본 info */
+    color: var(--jd-color-info-ink); /* status 기본 info */
   }
-  jd-result[status="success"] .jd-empty-state__icon { color: var(--jd-color-success); }
-  jd-result[status="error"] .jd-empty-state__icon { color: var(--jd-color-danger); }
-  jd-result[status="warning"] .jd-empty-state__icon { color: var(--jd-color-warning); }
+  jd-result[status="success"] .jd-empty-state__icon { color: var(--jd-color-success-ink); }
+  jd-result[status="error"] .jd-empty-state__icon { color: var(--jd-color-danger-ink); }
+  jd-result[status="warning"] .jd-empty-state__icon { color: var(--jd-color-warning-ink); }
   jd-result[status="404"] .jd-empty-state__icon,
   jd-result[status="403"] .jd-empty-state__icon { color: var(--jd-color-muted); }
 

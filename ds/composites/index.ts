@@ -574,3 +574,24 @@ export type { ProjectCardProps, ProjectCardVariant } from "./ProjectCard";
 
 export { ScreenshotGrid } from "./ScreenshotGrid";
 export type { ScreenshotGridProps } from "./ScreenshotGrid";
+
+export { Lyrics } from "./Lyrics";
+export type { LyricsProps } from "./Lyrics";
+
+export { NowPlayingFull } from "./NowPlayingFull";
+export type { NowPlayingFullProps } from "./NowPlayingFull";
+
+export { RelatedPosts } from "./RelatedPosts";
+export type { RelatedPostsProps, RelatedPost } from "./RelatedPosts";
+
+export { DocHero } from "./DocHero";
+export type { DocHeroProps, DocHeroStat } from "./DocHero";
+
+export { DocLinks } from "./DocLinks";
+export type { DocLinksProps, DocLink, DocLinkKind } from "./DocLinks";
+
+export { GlobeWireframe } from "./GlobeWireframe";
+export type { GlobeWireframeProps, GlobeRotation } from "./GlobeWireframe";
+
+export { BarList } from "./BarList";
+export type { BarListProps, BarListItem } from "./BarList";

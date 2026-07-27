@@ -74,7 +74,7 @@ export default css`
     display: inline-flex; align-items: center; gap: var(--jd-space-2); min-width: 0;
   }
   .jd-poll-card__label-text { min-width: 0; }
-  .jd-poll-card__check { flex-shrink: 0; color: var(--jd-color-primary); }
+  .jd-poll-card__check { flex-shrink: 0; color: var(--jd-color-primary-ink); }
   .jd-poll-card__check[hidden] { display: none; }
   .jd-poll-card__pct {
     flex-shrink: 0; font-size: var(--jd-text-xs);

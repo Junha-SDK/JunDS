@@ -1,0 +1,55 @@
+{
+  "id": "bar-list",
+  "ledgerId": "BarList",
+  "category": "composites",
+  "title": "BarList",
+  "oneLiner": "가로 막대 순위 목록 — 이름·막대·수치 한 줄. 막대는 장식이고 수치가 본문이다.",
+  "tags": [
+    "data-display",
+    "chart"
+  ],
+  "controls": [
+    {
+      "prop": "sorted",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "limit",
+      "kind": "number",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { BarList } from \"@/ds/composites/BarList\";",
+      "code": "<BarList items={[{ label: \"영화\", value: 42 }, { label: \"책\", value: 17 }]} sorted limit={5} />\n\n{/* 여러 목록의 눈금을 맞추려면 max 를 고정한다 */}\n<BarList items={rows} max={total} formatValue={(v) => `${v}편`} />"
+    }
+  },
+  "tokens": [
+    {
+      "token": "--color-primary",
+      "usage": "막대 채움 기본색 (color prop 으로 교체)"
+    },
+    {
+      "token": "--color-card-hover / --color-border",
+      "usage": "막대 트랙 배경·테두리"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "막대는 장식",
+      "note": "트랙·채움이 aria-hidden — 스크린리더에는 \"이름 값\"만 읽힌다"
+    },
+    {
+      "item": "0 나눗셈",
+      "note": "값이 전부 0이어도 막대가 0%로 남고 깨지지 않는다"
+    }
+  ]
+}

@@ -164,7 +164,7 @@ export default css`
     box-shadow: var(--jd-shadow-focus-ring);
   }
   .jd-detail-panel__tab[aria-selected="true"] {
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     border-block-end-color: var(--jd-color-primary);
   }
 
@@ -185,7 +185,7 @@ export default css`
   .jd-detail-panel__tab-badge[hidden] { display: none; }
   .jd-detail-panel__tab[aria-selected="true"] > .jd-detail-panel__tab-badge {
     background: var(--jd-color-primary-light);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
 
   .jd-detail-panel__body {

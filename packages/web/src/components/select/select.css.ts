@@ -61,7 +61,7 @@ export default css`
     display: inline-flex; align-items: center; gap: var(--jd-space-2);
     min-width: 0; overflow: hidden;
   }
-  .jd-select__value[data-placeholder] { color: var(--jd-color-muted-light); }
+  .jd-select__value[data-placeholder] { color: var(--jd-color-muted); }
   .jd-select__value-icon[hidden] { display: none; }
   .jd-select__value-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -125,7 +125,7 @@ export default css`
   .jd-select__option:hover,
   .jd-select__option[data-active] {
     background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
   .jd-select__option[aria-selected="true"] {
     background: var(--jd-color-primary);

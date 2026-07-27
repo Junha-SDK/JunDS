@@ -14,7 +14,7 @@ export default css`
     padding: var(--jd-space-1) var(--jd-space-2-5); font-size: var(--jd-text-xs);
     /* DEC-044 톤 레시피 — severity 4종은 앵커만 바꾼다(base.css --jd-tone-*) */
     --jd-tone: var(--jd-color-hue-gray); /* neutral 기본 */
-    --jd-tone-ink-mix: 68%; /* 10~12px 텍스트의 AA 대비선 */
+    --jd-tone-ink-mix: 52%; /* 10~12px 텍스트의 양 테마 AA 대비선 */
     --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
     background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-mix), transparent);
     color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));

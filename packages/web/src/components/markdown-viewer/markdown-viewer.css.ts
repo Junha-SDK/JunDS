@@ -50,12 +50,12 @@ export default css`
     padding: var(--jd-space-0-5) var(--jd-space-1-5);
     border-radius: var(--jd-radius-sm);
     background: var(--jd-color-card-hover);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
     font-family: var(--jd-font-mono); font-size: var(--jd-text-xs);
   }
 
   .jd-markdown-viewer__link {
-    color: var(--jd-color-primary); text-decoration: underline;
+    color: var(--jd-color-primary-ink); text-decoration: underline;
   }
   .jd-markdown-viewer__link:focus-visible {
     outline: none; border-radius: var(--jd-radius-sm);

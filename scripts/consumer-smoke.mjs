@@ -112,27 +112,15 @@ try {
   const webTarName = basename(
     run(
       npm,
-      [
-        "pack",
-        "--silent",
-        "--pack-destination",
-        artifacts,
-        join(root, "packages/web"),
-      ],
-      root,
+      ["pack", "--silent", "--pack-destination", artifacts],
+      join(root, "packages/web"),
     ).split("\n").at(-1),
   );
   const reactTarName = basename(
     run(
       npm,
-      [
-        "pack",
-        "--silent",
-        "--pack-destination",
-        artifacts,
-        join(root, "packages/react"),
-      ],
-      root,
+      ["pack", "--silent", "--pack-destination", artifacts],
+      join(root, "packages/react"),
     ).split("\n").at(-1),
   );
   const webTar = `file:${join(artifacts, webTarName)}`;

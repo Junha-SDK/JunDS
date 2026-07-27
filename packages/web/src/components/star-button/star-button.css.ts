@@ -20,7 +20,7 @@ export default css`
                 background var(--jd-duration-fast) var(--jd-easing-ease-out),
                 transform var(--jd-duration-fast) var(--jd-easing-ease-out);
   }
-  .jd-star-button:hover:not(:disabled) { color: var(--jd-color-warning); }
+  .jd-star-button:hover:not(:disabled) { color: var(--jd-color-warning-ink); }
   .jd-star-button:active:not(:disabled) { transform: scale(0.92); }
   .jd-star-button:disabled { opacity: var(--jd-opacity-50); cursor: not-allowed; }
   .jd-star-button:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
@@ -31,7 +31,7 @@ export default css`
   }
 
   /* 활성 — v2: 획 색만 warning으로. 채우지 않는다. */
-  jd-star-button[active] .jd-star-button { color: var(--jd-color-warning); }
+  jd-star-button[active] .jd-star-button { color: var(--jd-color-warning-ink); }
 
   @media (prefers-reduced-motion: reduce) {
     .jd-star-button { transition: none; }

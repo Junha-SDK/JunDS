@@ -31,7 +31,7 @@ export default css`
   .jd-pull-to-refresh__spinner {
     width: 1.25rem; height: 1.25rem;
     margin-block-start: var(--jd-space-2);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
   jd-pull-to-refresh[refreshing] .jd-pull-to-refresh__spinner {
     animation: jd-ptr-spin 1s linear infinite;

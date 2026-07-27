@@ -56,7 +56,7 @@ export default css`
 
   .jd-combobox__spinner {
     display: inline-flex; flex-shrink: 0;
-    width: 14px; height: 14px; color: var(--jd-color-primary);
+    width: 14px; height: 14px; color: var(--jd-color-primary-ink);
   }
   .jd-combobox__spinner[hidden] { display: none; }
   .jd-combobox__spinner > svg,
@@ -97,9 +97,9 @@ export default css`
   .jd-combobox__option:hover { background: var(--jd-color-card-hover); }
   .jd-combobox__option[data-active] { background: var(--jd-color-primary-light); }
   .jd-combobox__option[aria-selected="true"] {
-    color: var(--jd-color-primary); font-weight: var(--jd-weight-medium);
+    color: var(--jd-color-primary-ink); font-weight: var(--jd-weight-medium);
   }
-  .jd-combobox__option[data-create] { color: var(--jd-color-primary); }
+  .jd-combobox__option[data-create] { color: var(--jd-color-primary-ink); }
   .jd-combobox__option[data-disabled] {
     opacity: var(--jd-opacity-40); cursor: not-allowed;
   }
@@ -122,7 +122,7 @@ export default css`
 
   .jd-combobox__option-check {
     display: inline-flex; flex-shrink: 0; margin-inline-start: auto;
-    visibility: hidden; color: var(--jd-color-primary);
+    visibility: hidden; color: var(--jd-color-primary-ink);
   }
   .jd-combobox__option[aria-selected="true"] > .jd-combobox__option-check {
     visibility: visible;
@@ -139,7 +139,7 @@ export default css`
     display: flex; align-items: center; justify-content: center;
     padding-block: var(--jd-space-4);
     width: 100%; box-sizing: border-box;
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
   .jd-combobox__loading[hidden] { display: none; }
   .jd-combobox__loading > svg { width: 16px; height: 16px; }

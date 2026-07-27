@@ -17,13 +17,13 @@ export default css`
   }
   .jd-form-field__label[hidden] { display: none; }
   jd-form-field[required] > .jd-form-field__label::after {
-    content: "*"; margin-inline-start: var(--jd-space-0-5); color: var(--jd-color-danger);
+    content: "*"; margin-inline-start: var(--jd-space-0-5); color: var(--jd-color-danger-ink);
   }
 
   .jd-form-field__error {
     display: flex; align-items: center; gap: var(--jd-space-1); margin: 0;
     font-family: var(--jd-font-sans); font-size: var(--jd-text-xs);
-    color: var(--jd-color-danger);
+    color: var(--jd-color-danger-ink);
   }
   .jd-form-field__error[hidden] { display: none; }
   .jd-form-field__error > svg { flex-shrink: 0; }

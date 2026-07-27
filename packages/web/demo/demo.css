@@ -1,0 +1,406 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   JunDS v3 데모 셸 — 데모 페이지 10장이 공유하는 크롬(마스트헤드·히어로·푸터).
+   라이브러리와 무관하다: 여기의 어떤 규칙도 jd-* 컴포넌트를 겨냥하지 않는다.
+   데모가 컴포넌트를 예쁘게 "보정"하면 소비자가 받는 것과 다른 그림이 되므로,
+   컴포넌트의 생김새는 전부 attribute(스타일 프롭)로만 조정한다.
+
+   값은 전부 --jd-* 토큰이다. 새 색·새 스케일 리터럴을 두지 않는다 —
+   토큰이 바뀌면 데모도 같이 바뀌어야 데모가 토큰의 증거로 남는다.
+
+   ── 배경 광원과 접근성 게이트의 관계 (중요) ────────────────────────────────
+   axe의 color-contrast는 텍스트의 조상을 거슬러 올라가 배경을 합성한다.
+   조상 중 하나라도 background-image가 있으면 "판정 불가(incomplete)"가 되어
+   그 아래 모든 텍스트가 대비 검사에서 통째로 빠진다. body에 그라디언트를 깔면
+   .github/scripts/web-a11y-audit.mjs 게이트가 아무것도 재지 않게 된다.
+
+   그래서 광원은 body::before(고정 레이어)에 둔다. 의사 요소는 조상도 아니고
+   elementsFromPoint에도 잡히지 않아 axe의 시야 밖이다. 대신 평면 배경색은
+   html이 갖는다 — body가 배경색을 가지면 z-index:-1 레이어가 그 뒤로 깔려
+   보이지 않기 때문이다.
+   ───────────────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  background-color: var(--jd-color-background);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--jd-font-sans);
+  font-size: var(--jd-text-lg);
+  line-height: var(--jd-leading-relaxed);
+  color: var(--jd-color-foreground);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 광원 두 점 — 좌상단은 primary, 우상단은 accent. 스크롤해도 따라오지 않고
+   같은 자리에 머문다(fixed): 화면이 "종이 위"가 아니라 "빛 아래"로 읽힌다. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(70rem 44rem at 8% -12%, var(--jd-color-primary-glow), transparent 62%),
+    radial-gradient(52rem 34rem at 104% -4%,
+      color-mix(in srgb, var(--jd-color-accent) 16%, transparent), transparent 60%);
+}
+
+/* 앵커 이동 시 sticky 마스트헤드에 제목이 가리지 않도록 */
+:target,
+[id] { scroll-margin-top: 5.5rem; }
+
+/* ── 마스트헤드 ──────────────────────────────────────────────────────────── */
+
+.demo-bar {
+  position: sticky;
+  top: 0;
+  z-index: var(--jd-z-header);
+  display: flex;
+  align-items: center;
+  gap: var(--jd-space-4);
+  padding: var(--jd-space-2-5) var(--jd-space-5);
+  border-bottom: var(--jd-border-thin) solid var(--jd-color-border);
+  /* 반투명 + blur: 아래 내용이 지나가는 것이 비쳐 페이지에 깊이가 생긴다.
+     조상에 이미지가 없으므로 axe는 이 rgba를 정상 합성한다(대비 검사 유지). */
+  background: color-mix(in srgb, var(--jd-color-card) 84%, transparent);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+}
+
+.demo-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--jd-space-2);
+  flex: none;
+  text-decoration: none;
+  color: var(--jd-color-foreground);
+  font-size: var(--jd-text-md);
+  font-weight: var(--jd-weight-semibold);
+  letter-spacing: var(--jd-tracking-tight);
+  border-radius: var(--jd-radius-lg);
+}
+
+.demo-brand__mark {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--jd-radius-md);
+  background: var(--jd-gradient-primary);
+  box-shadow: 0 0 0 var(--jd-border-thin) var(--jd-color-highlight) inset,
+              0 2px 8px -2px var(--jd-color-primary-glow);
+  flex: none;
+}
+
+.demo-brand__ver {
+  color: var(--jd-color-primary-ink);
+  font-weight: var(--jd-weight-bold);
+}
+
+/* 페이지 간 이동 — 지금까지 데모 10장은 서로 링크가 없는 섬이었다 */
+.demo-nav {
+  display: flex;
+  gap: var(--jd-space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: auto var(--jd-space-1);
+  padding: var(--jd-space-0-5);
+  border-radius: var(--jd-radius-full);
+}
+.demo-nav::-webkit-scrollbar { display: none; }
+
+.demo-pill {
+  flex: none;
+  padding: var(--jd-space-1-5) var(--jd-space-3);
+  border-radius: var(--jd-radius-full);
+  font-size: var(--jd-text-sm);
+  font-weight: var(--jd-weight-medium);
+  color: var(--jd-color-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--jd-duration-snap) var(--jd-easing-default),
+              color var(--jd-duration-snap) var(--jd-easing-default);
+}
+.demo-pill:hover {
+  background: var(--jd-color-card-hover);
+  color: var(--jd-color-foreground);
+}
+.demo-pill[aria-current="page"] {
+  background: var(--jd-color-primary-light);
+  color: var(--jd-color-primary-ink);
+  font-weight: var(--jd-weight-semibold);
+}
+
+/* 포커스 링은 라이브러리와 같은 레시피를 쓴다 — 데모만 다르게 보이지 않게 */
+.demo-bar a:focus-visible,
+.demo-foot a:focus-visible,
+.demo-card:focus-visible {
+  outline: var(--jd-focus-ring);
+  outline-offset: var(--jd-focus-ring-offset);
+}
+
+/* ── 본문 폭 ─────────────────────────────────────────────────────────────── */
+
+.demo-main {
+  width: min(100% - 2.5rem, 58rem);
+  margin-inline: auto;
+  padding-bottom: var(--jd-space-16);
+}
+.demo-main--wide { width: min(100% - 2.5rem, 74rem); }
+
+/* ── 히어로 ──────────────────────────────────────────────────────────────── */
+
+.demo-hero {
+  padding: var(--jd-space-16) 0 var(--jd-space-10);
+}
+
+.demo-hero__eyebrow {
+  margin: 0 0 var(--jd-space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--jd-space-2);
+  font-size: var(--jd-text-xs);
+  font-weight: var(--jd-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jd-color-primary-ink);
+}
+.demo-hero__eyebrow::before {
+  content: "";
+  width: var(--jd-space-6);
+  height: var(--jd-border-medium);
+  border-radius: var(--jd-radius-full);
+  background: var(--jd-gradient-primary);
+}
+
+/* 제목에 background-clip:text 그라디언트를 쓰지 않는 이유: 글자색이 transparent가
+   되어 axe 대비 검사가 무너진다. 색은 단색으로 두고 장식은 위 eyebrow 막대가 맡는다. */
+.demo-hero__title {
+  margin: 0;
+  font-size: var(--jd-text-5xl);
+  font-weight: var(--jd-weight-bold);
+  line-height: var(--jd-leading-tight);
+  letter-spacing: var(--jd-tracking-tight);
+  color: var(--jd-color-foreground);
+  text-wrap: balance;
+}
+
+.demo-hero__desc {
+  margin: var(--jd-space-4) 0 0;
+  max-width: 46ch;
+  font-size: var(--jd-text-xl);
+  line-height: var(--jd-leading-relaxed);
+  color: var(--jd-color-muted);
+  text-wrap: pretty;
+}
+
+.demo-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--jd-space-2);
+  margin-top: var(--jd-space-6);
+}
+
+.demo-meta {
+  padding: var(--jd-space-1) var(--jd-space-3);
+  border: var(--jd-border-thin) solid var(--jd-color-border);
+  border-radius: var(--jd-radius-full);
+  background: var(--jd-color-card);
+  font-size: var(--jd-text-xs);
+  font-weight: var(--jd-weight-medium);
+  color: var(--jd-color-muted);
+}
+
+/* ── 이벤트 로그 ─────────────────────────────────────────────────────────── */
+
+/* muted-light는 배경 위 2.7:1(AA 미달) — 로그도 muted로 (web-a11y 게이트) */
+.demo-log {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--jd-space-2);
+  margin: 0 0 var(--jd-space-8);
+  padding: var(--jd-space-1-5) var(--jd-space-3);
+  border: var(--jd-border-thin) solid var(--jd-color-border);
+  border-radius: var(--jd-radius-full);
+  background: var(--jd-color-card);
+  box-shadow: var(--jd-shadow-xs);
+  font-family: var(--jd-font-mono);
+  font-size: var(--jd-text-xs);
+  color: var(--jd-color-muted);
+  min-height: 1.9rem;
+}
+.demo-log::before {
+  content: "";
+  width: var(--jd-space-1-5);
+  height: var(--jd-space-1-5);
+  flex: none;
+  border-radius: var(--jd-radius-full);
+  background: var(--jd-color-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--jd-color-success) 22%, transparent);
+}
+
+/* ── 공용 유틸(여러 데모가 같은 이름으로 쓰던 것들을 여기로 모음) ───────── */
+
+.demo-label {
+  margin: 0 0 var(--jd-space-2);
+  font-size: var(--jd-text-xs);
+  font-weight: var(--jd-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jd-color-muted);
+}
+.demo-label:not(:first-child) { margin-top: var(--jd-space-5); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--jd-space-1) var(--jd-space-3);
+  border-radius: var(--jd-radius-full);
+  background: var(--jd-color-primary-light);
+  color: var(--jd-color-primary-ink);
+  font-size: var(--jd-text-sm);
+  font-weight: var(--jd-weight-medium);
+}
+
+.cell {
+  padding: var(--jd-space-3);
+  border: var(--jd-border-thin) solid var(--jd-color-border);
+  border-radius: var(--jd-radius-lg);
+  background: var(--jd-color-card);
+  font-size: var(--jd-text-sm);
+}
+
+/* ── 데모 홈(index)의 타일 격자 ─────────────────────────────────────────── */
+
+.demo-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--jd-space-4);
+}
+
+.demo-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--jd-space-2);
+  padding: var(--jd-space-5);
+  border: var(--jd-border-thin) solid var(--jd-color-border);
+  border-radius: var(--jd-radius-2xl);
+  background: var(--jd-color-card);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: transform var(--jd-duration-normal) var(--jd-easing-default),
+              box-shadow var(--jd-duration-normal) var(--jd-easing-default),
+              border-color var(--jd-duration-normal) var(--jd-easing-default);
+}
+/* 위쪽 가는 그라디언트 선 — 평소엔 숨어 있다가 hover에 드러난다 */
+.demo-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--jd-border-medium);
+  background: var(--jd-gradient-primary);
+  opacity: var(--jd-opacity-0);
+  transition: opacity var(--jd-duration-normal) var(--jd-easing-default);
+}
+.demo-tile:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--jd-color-primary) 35%, var(--jd-color-border));
+  box-shadow: var(--jd-shadow-lg);
+}
+.demo-tile:hover::after { opacity: var(--jd-opacity-100); }
+.demo-tile:focus-visible {
+  outline: var(--jd-focus-ring);
+  outline-offset: var(--jd-focus-ring-offset);
+}
+
+.demo-tile__tag {
+  font-size: var(--jd-text-xs);
+  font-weight: var(--jd-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jd-color-primary-ink);
+}
+.demo-tile__name {
+  margin: 0;
+  font-size: var(--jd-text-xl);
+  font-weight: var(--jd-weight-semibold);
+  letter-spacing: var(--jd-tracking-tight);
+  color: var(--jd-color-foreground);
+}
+.demo-tile__desc {
+  margin: 0;
+  font-size: var(--jd-text-md);
+  line-height: var(--jd-leading-relaxed);
+  color: var(--jd-color-muted);
+}
+
+/* ── 패널 격자(stability) — 링크가 아닌 정적 카드. 뜨지 않는다. ─────────── */
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: var(--jd-space-5);
+  align-items: start;
+}
+
+.demo-card {
+  padding: var(--jd-space-6);
+  border: var(--jd-border-thin) solid var(--jd-color-border);
+  border-radius: var(--jd-radius-2xl);
+  background: var(--jd-color-card);
+  box-shadow: var(--jd-shadow-xs);
+}
+.demo-card--wide { grid-column: 1 / -1; }
+
+.demo-card__title {
+  margin: 0 0 var(--jd-space-4);
+  font-size: var(--jd-text-xl);
+  font-weight: var(--jd-weight-semibold);
+  letter-spacing: var(--jd-tracking-tight);
+  color: var(--jd-color-foreground);
+}
+
+.demo-field { display: grid; gap: var(--jd-space-1-5); }
+
+/* ── 푸터 ────────────────────────────────────────────────────────────────── */
+
+.demo-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--jd-space-2) var(--jd-space-6);
+  justify-content: space-between;
+  margin-top: var(--jd-space-16);
+  padding-top: var(--jd-space-6);
+  border-top: var(--jd-border-thin) solid var(--jd-color-border-light);
+  font-size: var(--jd-text-xs);
+  color: var(--jd-color-muted);
+}
+.demo-foot a { color: var(--jd-color-primary-ink); text-decoration: none; }
+.demo-foot a:hover { text-decoration: underline; }
+
+/* ── 좁은 화면 ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 48rem) {
+  .demo-bar { padding-inline: var(--jd-space-4); }
+  .demo-nav { margin-inline: 0; }
+  .demo-brand__label { display: none; }
+  .demo-hero { padding-top: var(--jd-space-10); }
+  .demo-hero__title { font-size: var(--jd-text-4xl); }
+  .demo-hero__desc { font-size: var(--jd-text-lg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .demo-pill,
+  .demo-card,
+  .demo-card::after { transition: none; }
+  .demo-card:hover { transform: none; }
+}

@@ -10,7 +10,7 @@ export default css`
 
   .jd-hashtag {
     display: inline-flex; align-items: center; gap: var(--jd-space-1);
-    color: var(--jd-color-primary); font-weight: var(--jd-weight-medium);
+    color: var(--jd-color-primary-ink); font-weight: var(--jd-weight-medium);
     text-decoration: none; border-radius: var(--jd-radius-sm);
   }
   .jd-hashtag:hover { text-decoration: underline; }

@@ -77,7 +77,7 @@ export default css`
       opacity var(--jd-duration-normal) var(--jd-easing-ease-out),
       color var(--jd-duration-normal) var(--jd-easing-ease-out);
   }
-  .jd-annotation-note__delete:hover { opacity: var(--jd-opacity-100); color: var(--jd-color-danger); }
+  .jd-annotation-note__delete:hover { opacity: var(--jd-opacity-100); color: var(--jd-color-danger-ink); }
   .jd-annotation-note__delete:focus-visible {
     opacity: var(--jd-opacity-100);
     outline: var(--jd-border-medium) solid var(--jd-color-primary);

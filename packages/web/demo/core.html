@@ -6,28 +6,23 @@
 <title>JunDS v3 — B1 core 데모 (레이아웃·타이포 프리미티브 12종)</title>
 <!-- 빌드 산출물만으로 동작: junds.css + junds.min.js 각 한 줄 -->
 <link rel="stylesheet" href="../dist/junds.css">
+<link rel="stylesheet" href="demo.css">
 <script src="../dist/junds.min.js" defer></script>
-<style>
-  /* 데모 셸 전용 스타일 — 라이브러리와 무관 */
-  body { margin: 0; font-family: var(--jd-font-sans);
-         background: var(--jd-color-background); color: var(--jd-color-foreground); }
-  /* muted-light는 배경 위 2.7:1(AA 미달) — 캡션도 muted로 (web-a11y 게이트) */
-  .demo-label { font-size: var(--jd-text-xs); color: var(--jd-color-muted);
-                text-transform: uppercase; letter-spacing: .08em; margin: 0 0 .5rem; }
-  .chip { background: var(--jd-color-primary-light); color: var(--jd-color-primary);
-          border-radius: 8px; padding: .35rem .8rem; font-size: var(--jd-text-sm); }
-</style>
+<script src="demo.js" defer></script>
+<!-- 첫 페인트 전에 저장된 테마를 붙인다 — defer 스크립트에서 하면 한 프레임 번쩍인다 -->
+<script>try{if(localStorage.getItem("junds.demo.theme")==="dark")document.documentElement.setAttribute("data-jd-theme","dark")}catch(e){}</script>
 </head>
-<body>
+<!-- shell=bar: 이 페이지의 제목은 <jd-page-header> 자체가 데모다.
+     데모 셸의 히어로를 겹쳐 넣으면 보여주려던 것이 가려진다. -->
+<body data-demo-shell="bar">
 <main>
 <jd-page max-width="lg">
   <jd-page-header title="JunDS v3 · B1 core" description="스타일 프롭 시스템 + 레이아웃/타이포 프리미티브 12종">
     <nav slot="breadcrumb" style="font-size:var(--jd-text-sm);color:var(--jd-color-muted)">docs / junds / core</nav>
-    <jd-button id="theme-toggle" variant="outline" size="sm">다크 모드</jd-button>
   </jd-page-header>
 
   <jd-page-body>
-    <jd-section title="jd-box — 스타일 프롭 원형" description="p·bg·radius·shadow·border 전부 attribute로">
+    <jd-section border bg="card" p="6" title="jd-box — 스타일 프롭 원형" description="p·bg·radius·shadow·border 전부 attribute로">
       <p class="demo-label">box + 반응형 p="4 md:8"</p>
       <jd-box p="4 md:8" bg="card" radius="lg" shadow="sm" border>
         박스 안 내용 — 뷰포트를 줄이면 패딩이 16px로, md↑에서 32px.
@@ -37,7 +32,7 @@
 
     <jd-divider label="스택"></jd-divider>
 
-    <jd-section title="jd-hstack / jd-vstack / jd-group / jd-center">
+    <jd-section border bg="card" p="6" title="jd-hstack / jd-vstack / jd-group / jd-center">
       <p class="demo-label">hstack (gap 기본 sm)</p>
       <jd-hstack>
         <span class="chip">하나</span><span class="chip">둘</span><span class="chip">셋</span>
@@ -56,7 +51,7 @@
       <jd-center h="80" bg="card" radius="lg" border>정중앙</jd-center>
     </jd-section>
 
-    <jd-section title="jd-flex / jd-grid-layout">
+    <jd-section border bg="card" p="6" title="jd-flex / jd-grid-layout">
       <p class="demo-label">flex justify="between" align="center"</p>
       <jd-flex justify="between" align="center" p="3" bg="card" radius="md" border>
         <strong>좌측</strong><span>중간</span><em>우측</em>
@@ -71,7 +66,7 @@
 
     <jd-divider label="타이포"></jd-divider>
 
-    <jd-section title="jd-heading / jd-text">
+    <jd-section border bg="card" p="6" title="jd-heading / jd-text">
       <jd-heading level="1" mb="1">레벨 1 제목</jd-heading>
       <jd-heading level="2" mb="1">레벨 2 제목</jd-heading>
       <jd-heading level="3" mb="1">레벨 3 제목</jd-heading>
@@ -90,7 +85,7 @@
       </jd-text>
     </jd-section>
 
-    <jd-section title="jd-divider" description="가로/세로/라벨 3형">
+    <jd-section border bg="card" p="6" title="jd-divider" description="가로/세로/라벨 3형">
       <jd-divider my="2"></jd-divider>
       <jd-divider label="또는" my="2"></jd-divider>
       <jd-hstack gap="3" h="40">
@@ -101,21 +96,12 @@
       <jd-divider color="danger" my="2"></jd-divider>
     </jd-section>
 
-    <jd-section title="jd-section (border)" description="이 섹션 자체가 border 데모" border p="5">
-      <jd-text dimmed>border + p="5" — v2 Section의 radius xl(16px) 외곽.</jd-text>
+    <!-- 위 섹션들이 전부 border라, border 없는 기본형을 마지막에 둬서 차이를 남긴다 -->
+    <jd-section title="jd-section (border 없는 기본형)" description="위 섹션들과 비교 — border 없이는 외곽선도 radius도 없다">
+      <jd-text dimmed>border 를 주면 1px 외곽선 + radius xl(16px). 패딩은 p 프롭이 따로 맡는다.</jd-text>
     </jd-section>
   </jd-page-body>
 </jd-page>
 </main>
-
-<script type="module">
-  const btn = document.getElementById("theme-toggle");
-  btn.addEventListener("click", () => {
-    const root = document.documentElement;
-    const dark = root.getAttribute("data-jd-theme") !== "dark";
-    root.setAttribute("data-jd-theme", dark ? "dark" : "light");
-    btn.textContent = dark ? "라이트 모드" : "다크 모드";
-  });
-</script>
 </body>
 </html>

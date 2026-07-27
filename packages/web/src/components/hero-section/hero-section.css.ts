@@ -35,7 +35,7 @@ export default css`
   .jd-hero__eyebrow {
     font-size: var(--jd-text-xs); font-weight: var(--jd-weight-semibold);
     text-transform: uppercase; letter-spacing: var(--jd-tracking-wide);
-    color: var(--jd-color-primary);
+    color: var(--jd-color-primary-ink);
   }
   .jd-hero__eyebrow[hidden], .jd-hero__title[hidden], .jd-hero__subtitle[hidden],
   .jd-hero__actions[hidden], .jd-hero__media[hidden] { display: none; }

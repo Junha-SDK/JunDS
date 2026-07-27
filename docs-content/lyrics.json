@@ -1,0 +1,48 @@
+{
+  "id": "lyrics",
+  "ledgerId": "Lyrics",
+  "category": "composites",
+  "title": "Lyrics",
+  "oneLiner": "연 단위로 강조되는 가사 뷰 — 현재 연만 밝게 두고 그 연으로 자동 스크롤한다.",
+  "tags": [
+    "media",
+    "audio",
+    "가사"
+  ],
+  "controls": [
+    {
+      "prop": "centered",
+      "kind": "boolean",
+      "default": false
+    },
+    {
+      "prop": "autoScroll",
+      "kind": "boolean",
+      "default": true
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Lyrics } from \"@/ds/composites/Lyrics\";",
+      "code": "<Lyrics text={song.lyrics} progress={currentTime / duration} />\n\n{/* 행별 타임스탬프가 있으면 직접 몰아 준다 */}\n<Lyrics verses={verses} activeIndex={currentVerse} />"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "현재 위치",
+      "note": "강조된 연에 aria-current=\"true\" — 시각적 밝기에만 의존하지 않는다"
+    },
+    {
+      "item": "모션 축소",
+      "note": "prefers-reduced-motion 이면 스크롤이 즉시 점프로 바뀐다"
+    },
+    {
+      "item": "폴백",
+      "note": "Element.scrollTo 가 없는 환경에서는 scrollTop 직접 지정으로 떨어진다"
+    }
+  ]
+}

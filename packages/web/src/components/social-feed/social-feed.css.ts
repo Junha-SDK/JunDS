@@ -39,7 +39,7 @@ export default css`
   }
   .jd-social-feed__story-avatar--ph {
     display: inline-flex; align-items: center; justify-content: center;
-    color: var(--jd-color-primary); font-weight: var(--jd-weight-semibold);
+    color: var(--jd-color-primary-ink); font-weight: var(--jd-weight-semibold);
     font-size: var(--jd-text-lg);
   }
   .jd-social-feed__story-name {
@@ -68,7 +68,7 @@ export default css`
   }
   .jd-social-feed__end { margin: 0; font-size: var(--jd-text-xs); color: var(--jd-color-muted); }
   .jd-social-feed__spinner {
-    width: 1.25rem; height: 1.25rem; color: var(--jd-color-primary);
+    width: 1.25rem; height: 1.25rem; color: var(--jd-color-primary-ink);
     animation: jd-social-feed-spin 0.7s linear infinite;
   }
   @keyframes jd-social-feed-spin { to { transform: rotate(360deg); } }
