@@ -5,6 +5,7 @@ import JunDS
 // 445행 전부 노출: 만든 것은 만질 수 있게, 못 만든 것은 "예정"으로 — 진행률이 보이는 것이 가치다.
 
 struct CatalogHome: View {
+    @EnvironmentObject private var router: ShowroomRouter
     @State private var query = ""
 
     private var filtered: [String: [CatalogEntry]] {
@@ -21,8 +22,11 @@ struct CatalogHome: View {
     private var iosEligible: Int { ShowroomCatalog.all.filter { $0.ios != "n/a" }.count }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $router.path) {
             List {
+                if let failure = router.lastFailure {
+                    deepLinkFailureBanner(failure)
+                }
                 progressHeader
                 ForEach(ShowroomCatalog.categories, id: \.self) { category in
                     let entries = filtered[category] ?? []
@@ -46,6 +50,34 @@ struct CatalogHome: View {
                 ComponentDetail(entry: entry)
             }
             .searchable(text: $query, prompt: "컴포넌트 검색")
+        }
+    }
+
+    /// 딥링크 실패는 배너로 남긴다 — 조용한 무반응이면 배선 오류를 못 잡는다.
+    private func deepLinkFailureBanner(_ failure: DeepLinkNotice) -> some View {
+        Section {
+            VStack(alignment: .leading, spacing: JdToken.Space.s2) {
+                HStack(alignment: .firstTextBaseline, spacing: JdToken.Space.s2) {
+                    Image(systemName: "link.badge.plus")
+                        .foregroundColor(JdToken.Color.danger.color)
+                    Text("딥링크 실패")
+                        .font(.subheadline.weight(.semibold))
+                    Spacer()
+                    Button("닫기") { router.lastFailure = nil }
+                        .font(.footnote)
+                        .buttonStyle(.borderless)
+                }
+                Text(failure.url)
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+                Text(failure.message)
+                    .font(.caption)
+                    .foregroundColor(JdToken.Color.danger.color)
+            }
+            .padding(.vertical, JdToken.Space.s1)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("딥링크 실패 \(failure.url). \(failure.message)")
         }
     }
 

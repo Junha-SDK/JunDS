@@ -6,20 +6,40 @@
 ## 1. 쇼룸 구조 (demo/JunDSDemo.swiftpm/)
 
 ```
-ShowroomApp.swift            @main — CatalogHome + JdUIKitMotionBridge.bootstrap()
+ShowroomApp.swift            @main — CatalogHome + ShowroomRouter + .onOpenURL + JdUIKitMotionBridge.bootstrap()
+AdditionalInfo.plist         CFBundleURLTypes(junds://) — Package.swift의 additionalInfoPlistContentFilePath
 Generated/ShowroomCatalog.swift   ← demo/tools/gen-catalog.mjs 가 ledger.json에서 생성 (수기 편집 금지)
 Showroom/
   DemoSchema.swift           DemoValue · DemoControlSpec(.options/.toggle/.slider/.text) · DemoState · ComponentDemo
   DemoRegistry.swift         구현된 데모 목록 — ⚠️ 배치 에이전트 수정 금지(통합자만 갱신, 병합 충돌 방지)
   StageHost.swift            트레이트 오버라이드 스테이지(다크+Dynamic Type XS~AX5) + A11y 스냅샷 + TypeLadder
-  CatalogHome.swift          원장 445행 카탈로그 + 검색 + 상태 배지 + 진행률
+  CatalogHome.swift          원장 445행 카탈로그 + 검색 + 상태 배지 + 진행률 + 딥링크 실패 배너
   ComponentDetail.swift      스키마 구동 상세(스테이지/환경/컨트롤/레시피/원장) + PlannedDetail + A11yInspector
+  DeepLink.swift             junds://component/<id> 파싱·원장 조회 (실패 사유를 Result로 반환)
+  ShowroomRouter.swift       NavigationStack 경로 소유자 + 딥링크 실패 알림(DeepLinkNotice)
   FpsOverlay.swift           CADisplayLink fps (DEBUG 전용)
 Demos/
   ButtonDemo.swift           ★ 스키마 구동 패턴의 정본 — 새 데모는 이 구조를 복제
   <Component>Demo.swift      배치마다 추가
 UIKitRepresentables.swift    데모앱(소비자)의 UIKit 랩 — DEC-010 각주로 허용
 ```
+
+### 1.1 딥링크 — 445행을 스크롤하지 않고 상세로
+
+카탈로그가 445행이고 finance는 맨 아래 카테고리다. 시뮬레이터에서 상세까지 60회 넘게 스와이프해야
+닿아 실질적으로 눈으로 확인이 불가능했다(DEC-040에서 시각 확인을 생략한 원인). 딥링크가 그 경로다.
+
+```sh
+xcrun simctl openurl booted 'junds://component/PriceBadge'          # 원장 row id
+xcrun simctl openurl booted 'junds://component/finance/AreaChart'   # 중복 id는 카테고리로 구분
+```
+
+- id는 원장(`docs-spec/registry/ledger.json`) row id와 같은 문자열. 대소문자는 무시한다.
+- 같은 id가 여러 카테고리에 있으면(예: AreaChart) `ios == "done"`인 쪽을 먼저 연다.
+- **실패는 조용히 무시하지 않는다** — 카탈로그 상단 빨간 배너 + 콘솔 양쪽으로 보고한다.
+  콘솔은 `xcrun simctl spawn booted log show --last 2m --predicate 'subsystem == "kr.junha.junds.demo"'`.
+- URL scheme 등록은 **두 곳**이다: `AdditionalInfo.plist`(Xcode/.swiftpm 경로)와
+  `demo/tools/sim-run.sh`가 직접 쓰는 Info.plist(CLI 우회 경로). 한쪽만 고치면 다른 경로에서 안 뜬다.
 
 데모 추가 절차: `enum XxxDemo { static let demo = ComponentDemo(...) }` 파일 1개 작성
 → 통합자가 DemoRegistry.all에 한 줄 추가. 컨트롤 키·값 리터럴은 웹 attribute와 일치.

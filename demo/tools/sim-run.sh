@@ -51,6 +51,16 @@ cat > "$APP_DIR/Info.plist" <<'PLIST'
 	<key>LSRequiresIPhoneOS</key><true/>
 	<key>UIDeviceFamily</key><array><integer>1</integer><integer>2</integer></array>
 	<key>UILaunchScreen</key><dict/>
+	<!-- 딥링크 junds://component/<id> — 445행 스크롤 없이 상세 진입.
+	     .swiftpm 경로는 JunDSDemo.swiftpm/AdditionalInfo.plist가 같은 항목을 담당한다. -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key><string>kr.junha.junds.demo.showroom</string>
+			<key>CFBundleTypeRole</key><string>Viewer</string>
+			<key>CFBundleURLSchemes</key><array><string>junds</string></array>
+		</dict>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

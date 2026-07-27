@@ -11,6 +11,22 @@ XS~AX5/Reduce Motion + 접근성 검사 + fps 오버레이). 구조·계약은 `
 demo/tools/sim-run.sh          # 부팅된 시뮬레이터에 빌드·설치·실행 (카탈로그 재생성 포함)
 ```
 
+## 딥링크 — 445행 스크롤 없이 상세 진입
+
+카탈로그 445행 중 finance는 맨 아래라 상세까지 60회 넘게 스와이프해야 닿는다. 딥링크로 바로 연다:
+
+```sh
+xcrun simctl openurl booted 'junds://component/PriceBadge'
+```
+
+`<id>`는 원장(`docs-spec/registry/ledger.json`) row id와 같은 문자열이다(대소문자 무시).
+중복 id는 `junds://component/<category>/<id>`로 구분한다(예: `junds://component/finance/AreaChart`).
+잘못된 id는 카탈로그 상단 배너 + 콘솔에 사유가 남는다:
+
+```sh
+xcrun simctl spawn booted log show --last 2m --predicate 'subsystem == "kr.junha.junds.demo"'
+```
+
 ## 여는 법 · 기기 서명
 
 1. Xcode에서 `demo/JunDSDemo.swiftpm`을 연다 (Finder 더블클릭 또는 File → Open).

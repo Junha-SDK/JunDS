@@ -25,7 +25,9 @@ let package = Package(
                 .portrait,
                 .landscapeRight,
                 .landscapeLeft
-            ]
+            ],
+            // 딥링크 junds://component/<id> — CFBundleURLTypes 등록
+            additionalInfoPlistContentFilePath: "AdditionalInfo.plist"
         )
     ],
     dependencies: [
@@ -38,7 +40,8 @@ let package = Package(
             dependencies: [
                 .product(name: "JunDS", package: "JunDS")
             ],
-            path: "."
+            path: ".",
+            exclude: ["AdditionalInfo.plist"]
         )
     ]
 )
