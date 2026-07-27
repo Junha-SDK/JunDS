@@ -352,8 +352,8 @@ function DayCell({
         <span
           className={cn(
             "text-xs font-medium w-6 h-6 flex items-center justify-center rounded-full",
-            "transition-colors duration-200",
-            highlighted && "bg-primary text-white",
+            "transition-all duration-200",
+            highlighted && "bg-primary text-white shadow-[0_1px_3px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.2)]",
             !highlighted && isToday && "text-primary font-bold",
             !highlighted && !isToday && isSun && "text-danger",
             !highlighted && !isToday && isSat && "text-blue-500",

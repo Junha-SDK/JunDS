@@ -28,9 +28,12 @@ const positionStyles: Record<NonNullable<FloatingActionButtonProps["position"]>,
 };
 
 const variantStyles: Record<NonNullable<FloatingAction["variant"]>, string> = {
-  primary: "bg-blue-600 text-white hover:bg-blue-700 shadow-blue-200 dark:shadow-blue-900/40",
-  secondary: "bg-gray-600 text-white hover:bg-gray-700 shadow-gray-200 dark:shadow-gray-900/40",
-  danger: "bg-red-600 text-white hover:bg-red-700 shadow-red-200 dark:shadow-red-900/40",
+  primary:
+    "bg-primary text-white shadow-[0_8px_24px_var(--primary-glow),0_2px_6px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)] hover:brightness-110 hover:-translate-y-0.5",
+  secondary:
+    "bg-white text-foreground border border-border shadow-[0_8px_24px_rgba(0,0,0,0.1),0_2px_6px_rgba(0,0,0,0.08)] hover:bg-gray-50 hover:-translate-y-0.5",
+  danger:
+    "bg-danger text-white shadow-[0_8px_24px_rgba(220,63,63,0.28),0_2px_6px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)] hover:brightness-110 hover:-translate-y-0.5",
 };
 
 /**
@@ -98,7 +101,8 @@ export function FloatingActionButton({
               onMouseEnter={() => setHoveredKey(action.key)}
               onMouseLeave={() => setHoveredKey(null)}
               className={cn(
-                "inline-flex items-center justify-center rounded-full shadow-lg transition-all duration-200 cursor-pointer",
+                "inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out cursor-pointer active:translate-y-0 active:brightness-95",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
                 "animate-[scaleIn_200ms_ease-out_forwards]",
                 variantStyles[variant],
                 isPrimary ? "w-14 h-14 text-lg" : "w-11 h-11 text-sm",

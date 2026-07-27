@@ -94,14 +94,14 @@ export function ColorPicker({
         disabled={disabled}
         onClick={handleOpen}
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-card rounded-lg transition-all duration-150 cursor-pointer",
-          "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "flex items-center gap-2 h-9 px-3 border bg-card rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out cursor-pointer",
+          "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           "disabled:opacity-50 disabled:cursor-not-allowed",
-          open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
+          open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]" : "border-border hover:border-gray-300",
         )}
       >
         <span
-          className="w-5 h-5 rounded border border-border shrink-0"
+          className="w-5 h-5 rounded-md shrink-0 ring-1 ring-black/10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]"
           style={{ backgroundColor: value }}
         />
         <span className="text-sm text-foreground">{value}</span>
@@ -111,7 +111,7 @@ export function ColorPicker({
         <Portal>
           <div
             ref={ref}
-            className="fixed z-50 bg-card border border-border rounded-lg shadow-lg p-3 animate-fade-in-scale"
+            className="fixed z-50 bg-card border border-border rounded-xl shadow-xl p-3 animate-fade-in-scale"
             style={{ top: pos.top, left: pos.left }}
           >
             <div className="grid grid-cols-6 gap-1.5 mb-2">
@@ -121,8 +121,8 @@ export function ColorPicker({
                   type="button"
                   onClick={() => handleSelect(color)}
                   className={cn(
-                    "w-7 h-7 rounded-md border transition-all duration-100 cursor-pointer hover:scale-110",
-                    value === color ? "border-primary ring-2 ring-primary/30" : "border-border",
+                    "w-7 h-7 rounded-lg ring-1 ring-inset ring-black/10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.35)] transition-all duration-150 cursor-pointer hover:scale-110 active:scale-95",
+                    value === color && "ring-2 ring-primary ring-offset-2 ring-offset-card scale-105",
                   )}
                   style={{ backgroundColor: color }}
                   title={color}
@@ -133,7 +133,7 @@ export function ColorPicker({
             {showInput && (
               <div className="flex items-center gap-2 pt-2 border-t border-border">
                 <span
-                  className="w-7 h-7 rounded-md border border-border shrink-0"
+                  className="w-7 h-7 rounded-lg shrink-0 ring-1 ring-inset ring-black/10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.35)]"
                   style={{ backgroundColor: value }}
                 />
                 <input
@@ -143,7 +143,7 @@ export function ColorPicker({
                   onBlur={handleInputBlur}
                   placeholder="#000000"
                   maxLength={7}
-                  className="flex-1 h-7 px-2 text-sm border border-border rounded-md bg-card focus:outline-none focus:border-primary min-w-0"
+                  className="flex-1 h-7 px-2 text-sm border border-border rounded-lg bg-card tabular-nums transition-all duration-150 focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)] min-w-0"
                 />
               </div>
             )}
