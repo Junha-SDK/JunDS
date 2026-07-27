@@ -4286,11 +4286,11 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "<jd-disclosure-tone-badge> — v2 finance/DisclosureToneBadge 바닐라 이식"
+      "notes": "<jd-disclosure-tone-badge> — v2 finance/DisclosureToneBadge 바닐라 이식 / iOS finance 칩·톤(2026-07-27, DEC-047): JdDisclosureToneBadge·JdDisclosureToneBadgeView — 톤 3종 틴트 배지, compact은 톤만 남기되 낭독은 전부(웹 v2엔 접근 이름 없었음) — 빌드·XCTest 753/753"
     },
     {
       "id": "PortfolioCouncil",
@@ -5034,11 +5034,11 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "<jd-theme-tag-list> — v2 finance/ThemeTagList 바닐라 이식"
+      "notes": "<jd-theme-tag-list> — v2 finance/ThemeTagList 바닐라 이식 / iOS finance 칩·톤(2026-07-27, DEC-047): JdThemeTagList·JdThemeTagListView — 회전 팔레트 칩 줄. JdWrapView(흐름)/JdFlowLayout 위에 얹은 첫 실사용처 — 빌드·XCTest 753/753"
     },
     {
       "id": "ThemeToggle",

@@ -14,6 +14,8 @@
 | 7 | `JdLiveStackedCell` | `JdLiveStackedCellView` | `jd-live-stacked-cell` | 가격+등락률 2단 우측정렬 셀 |
 | 8 | `JdPositionBar` | `JdPositionBarView` | `jd-position-bar` | 구간 대비 현재 위치 막대 |
 | 9 | `JdMicroKpiRow` | `JdMicroKpiRowView` | `jd-live-micro-kpi-row` | KPI 셀 N칸 (배치 자체 소유) |
+| 10 | `JdDisclosureToneBadge` | `JdDisclosureToneBadgeView` | `jd-disclosure-tone-badge` | 공시 톤 라벨 (호재·악재·중립) |
+| 11 | `JdThemeTagList` | `JdThemeTagListView` | `jd-theme-tag-list` | 테마 해시태그 칩 줄 |
 
 ## 공통 규칙
 
@@ -386,3 +388,63 @@ ScrollView {
     .padding(JdToken.Space.s4)
 }
 ```
+
+
+---
+
+## 10. JdDisclosureToneBadge / JdDisclosureToneBadgeView
+
+DART 공시의 톤 라벨. 분류 로직은 앱의 몫이고 이 뷰는 표시 전용이다(DEC-019).
+
+```swift
+// SwiftUI
+JdDisclosureToneBadge(tone: .positive, category: .earnings, confidence: 0.87)
+JdDisclosureToneBadge(tone: .negative, category: .litigation, compact: true)  // 표 행용
+JdDisclosureToneBadge(tone: .neutral)                                          // 신뢰도 0 = 숨김
+```
+
+```swift
+// UIKit
+let badge = JdDisclosureToneBadgeView(tone: .positive, category: .earnings, confidence: 0.87)
+badge.compact = true      // 톤만 남는다 — 낭독은 그대로 전부
+```
+
+**compact이 줄이는 것은 화면뿐이다.** 카테고리·신뢰도를 숨겨도 `accessibilityLabel`은
+"호재 · 실적 · 신뢰도 87%"를 온전히 읽는다. 웹 v2엔 접근 이름이 아예 없었고 v3가 얹은
+보정을 iOS도 따른다.
+
+**중립은 색이 아니라 무채 틴트다** — 톤이 없다는 뜻을 색으로도 말한다. 호재·악재만
+`JdFinanceTheme.up/down`의 옅은 판을 쓴다.
+
+**신뢰도 0은 숨긴다**(웹 `confidence > 0` 동형). 1을 넘는 값은 100%로 클램프.
+
+---
+
+## 11. JdThemeTagList / JdThemeTagListView
+
+테마 해시태그 칩 줄. **배치를 스스로 소유한다** — 칩 개수가 런타임에 정해지고 폭에 맞춰
+흐른다(SwiftUI `JdFlowLayout`, UIKit `JdWrapView`).
+
+```swift
+// SwiftUI
+JdThemeTagList(themes: ["반도체", "2차전지", "바이오"])
+JdThemeTagList(themes: themes) { theme in router.push(.theme(theme)) }   // 탭 가능
+JdThemeChip(theme: "반도체", index: 2)                                    // 칩 하나만
+```
+
+```swift
+// UIKit
+let list = JdThemeTagListView(themes: themes) { theme in open(theme) }
+list.themes = updated       // 개수가 바뀌어도 재배치된다
+```
+
+**색은 인덱스 회전 팔레트 5종**이다(`JdFinanceTheme.categoryPalette`). 순서는 웹
+`--bm-cat-*` 기본값과 같게 고정돼 있다 — 다르면 같은 목록이 두 플랫폼에서 다른 색이 된다.
+6번째 칩은 1번째 색으로 돌아온다.
+
+**틴트 위 글자색 규칙**: 12% 틴트 배경에 원색 글자를 얹으면 대비가 무너진다(amber ~1.9:1).
+`JdFinanceTheme.onTint(_:)`가 색상(hue)은 유지한 채 foreground 쪽으로 섞어 올린다 —
+이 계산은 스펙이 소유하고 컴포넌트가 다시 쓰지 않는다.
+
+**접근성**: 앞머리 `#`는 장식이라 낭독에서 뺀다("샵 반도체"가 아니라 "반도체"). 탭 콜백이
+있을 때만 `.link` 트레이트가 붙는다 — 표시 전용 칩이 눌리는 것처럼 보이면 안 된다.

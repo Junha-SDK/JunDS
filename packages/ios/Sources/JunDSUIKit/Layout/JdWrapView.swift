@@ -136,9 +136,9 @@ public final class JdWrapView: UIView {
             var used: CGFloat = 0
             while index < items.count {
                 let view = items[index]
-                // 측정은 JdMeasure 단일 규칙 — sizeThatFits만 묻던 옛 코드는 내부 제약으로
-                // 크기가 정해지는 뷰에 0을 받아 아이템이 사라졌다 (DEC-046)
-                let size = JdMeasure.size(of: view, width: maxWidth)
+                // 흐름은 **자연 폭**으로 잰다 — size(of:width:)는 폭을 required로 강제해서
+                // 칩마다 컨테이너 폭을 요구하게 되고 한 줄에 하나씩 놓인다 (DEC-047)
+                let size = JdMeasure.flowSize(of: view, maxWidth: maxWidth)
                 let needed = line.isEmpty ? size.width : used + itemSpacing + size.width
                 if !line.isEmpty && needed > maxWidth { break }
                 line.append((view, size))

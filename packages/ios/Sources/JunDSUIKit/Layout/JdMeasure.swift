@@ -28,9 +28,17 @@ import UIKit
 /// 내려간다. 반대 순서면 위의 결함이 그대로 남는다.
 public enum JdMeasure {
 
-    /// 주어진 폭에서 뷰가 요구하는 크기. `width`가 무한이면 내용이 원하는 폭을 구한다.
+    /// "폭 제한 없음"으로 볼 임계값.
+    ///
+    /// ⚠️ `.greatestFiniteMagnitude`는 **유한하다**(`isFinite == true`). UIKit 관용상
+    /// `sizeThatFits(CGSize(width: .greatestFiniteMagnitude, ...))`를 흔히 넘기는데,
+    /// `isFinite`만으로 판정하면 그것을 "폭 900이 아니라 폭 1.8e308으로 강제"로 읽는다.
+    /// 실제로 태그 칩이 컨테이너 폭을 요구해 한 줄에 하나씩 깔렸다(테스트가 잡음, DEC-047).
+    public static let unboundedThreshold: CGFloat = 1_000_000
+
+    /// 주어진 폭에서 뷰가 요구하는 크기. 폭이 무한(또는 임계값 이상)이면 내용이 원하는 폭을 구한다.
     public static func size(of view: UIView, width: CGFloat) -> CGSize {
-        let bounded = width.isFinite && width > 0
+        let bounded = width.isFinite && width > 0 && width < unboundedThreshold
 
         // (1) 내부 Auto Layout 제약 — 셀·카드처럼 자식을 제약으로 붙인 컨테이너의 정답.
         //     세로는 fittingSizeLevel로 열어 내용이 요구하는 높이를 그대로 받는다.
@@ -64,5 +72,21 @@ public enum JdMeasure {
     private static func clamp(_ size: CGSize, width: CGFloat, bounded: Bool) -> CGSize {
         guard bounded else { return size }
         return CGSize(width: min(size.width, width), height: size.height)
+    }
+
+    /// 흐름 배치(줄바꿈)용 측정 — **내용이 원하는 폭**을 먼저 구한다.
+    ///
+    /// `size(of:width:)`는 폭을 `.required`로 강제한다. 격자에서는 그게 맞지만(열 폭이
+    /// 정해져 있다) 흐름에서는 치명적이다: 칩마다 컨테이너 폭을 요구하게 되어 **한 줄에
+    /// 하나씩** 놓인다. 실제로 태그 칩 8개가 폭 900에서도 8줄로 깔렸다(테스트가 잡음).
+    ///
+    /// 그래서 자연 폭으로 재고, 그것이 컨테이너보다 넓을 때만 폭을 강제해 다시 잰다
+    /// (여러 줄이 되는 라벨의 높이를 얻기 위해).
+    public static func flowSize(of view: UIView, maxWidth: CGFloat) -> CGSize {
+        // .infinity 를 쓴다 — .greatestFiniteMagnitude 는 유한이라 "무제한"이 아니다(위 주석)
+        let natural = size(of: view, width: .infinity)
+        guard maxWidth.isFinite, maxWidth > 0, maxWidth < unboundedThreshold,
+              natural.width > maxWidth else { return natural }
+        return size(of: view, width: maxWidth)
     }
 }

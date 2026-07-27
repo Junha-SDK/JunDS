@@ -121,6 +121,9 @@ enum DemoRegistry {
         LiveStackedCellDemo.demo,
         PositionBarDemo.demo,
         LiveMicroKpiRowDemo.demo,
+        // finance 칩·톤 2종 (DEC-047) — ThemeTagList가 JdWrapView 흐름 모드의 첫 실사용처
+        DisclosureToneBadgeDemo.demo,
+        ThemeTagListDemo.demo,
         // hooks Core 유틸 데모 5종
         DebounceDemo.demo,        // useDebounce
         CountUpDemo.demo,         // useCountUp
