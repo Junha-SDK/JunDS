@@ -29,6 +29,9 @@ const dirs = readdirSync(componentsDir, { withFileTypes: true })
   .sort();
 
 const CLASS_RE = /^export class (Jd\w+) extends /gm;
+const TAG_RE = /static override tag = "jd-([\w-]+)"/g;
+/** 폴더 이름과 다른 태그(하위 요소) — 소비자는 폴더가 아니라 **태그**를 안다 */
+const tagAliases = [];
 const perDir = dirs.map((dir) => {
   const src = readFileSync(join(componentsDir, dir, "element.ts"), "utf8");
   const classes = [...src.matchAll(CLASS_RE)].map((m) => m[1]);
@@ -36,8 +39,12 @@ const perDir = dirs.map((dir) => {
     console.error(`✗ ${dir}/element.ts 에서 export class Jd* 를 찾지 못함`);
     process.exit(1);
   }
+  for (const m of src.matchAll(TAG_RE)) {
+    if (m[1] !== dir) tagAliases.push({ tag: m[1], dir });
+  }
   return { dir, classes };
 });
+tagAliases.sort((a, b) => a.tag.localeCompare(b.tag));
 
 /* ── (1) package.json exports ── */
 const pkgPath = join(webDir, "package.json");
@@ -55,6 +62,15 @@ const exportsMap = {
 for (const { dir } of perDir) {
   exportsMap[`./${dir}`] = entry(`./dist/components/${dir}/index.js`);
   exportsMap[`./${dir}/element`] = entry(`./dist/components/${dir}/element.js`);
+}
+/* 하위 요소 별칭 — jd-card-header·jd-dock-item 처럼 폴더 이름과 태그가 다른 9종은
+   `@junds/web/card-header` 로는 열리지 않았다(실측). 소비자가 아는 이름은 폴더가
+   아니라 태그이므로 태그로도 같은 모듈을 연다 — 소유 폴더를 부르면 하위 요소까지
+   함께 등록되므로 대상은 소유 폴더의 엔트리 그대로다. (DEC-041) */
+for (const { tag, dir } of tagAliases) {
+  if (exportsMap[`./${tag}`]) continue; // 같은 이름의 실제 폴더가 이기게 둔다
+  exportsMap[`./${tag}`] = entry(`./dist/components/${dir}/index.js`);
+  exportsMap[`./${tag}/element`] = entry(`./dist/components/${dir}/element.js`);
 }
 Object.assign(exportsMap, {
   "./behaviors": entry("./dist/behaviors/index.js"),

@@ -3079,6 +3079,70 @@
       "types": "./dist/types/components/year-picker/element.d.ts",
       "default": "./dist/components/year-picker/element.js"
     },
+    "./bento-grid-item": {
+      "types": "./dist/types/components/bento-grid/index.d.ts",
+      "default": "./dist/components/bento-grid/index.js"
+    },
+    "./bento-grid-item/element": {
+      "types": "./dist/types/components/bento-grid/element.d.ts",
+      "default": "./dist/components/bento-grid/element.js"
+    },
+    "./card-body": {
+      "types": "./dist/types/components/card/index.d.ts",
+      "default": "./dist/components/card/index.js"
+    },
+    "./card-body/element": {
+      "types": "./dist/types/components/card/element.d.ts",
+      "default": "./dist/components/card/element.js"
+    },
+    "./card-footer": {
+      "types": "./dist/types/components/card/index.d.ts",
+      "default": "./dist/components/card/index.js"
+    },
+    "./card-footer/element": {
+      "types": "./dist/types/components/card/element.d.ts",
+      "default": "./dist/components/card/element.js"
+    },
+    "./card-header": {
+      "types": "./dist/types/components/card/index.d.ts",
+      "default": "./dist/components/card/index.js"
+    },
+    "./card-header/element": {
+      "types": "./dist/types/components/card/element.d.ts",
+      "default": "./dist/components/card/element.js"
+    },
+    "./dock-item": {
+      "types": "./dist/types/components/dock/index.d.ts",
+      "default": "./dist/components/dock/index.js"
+    },
+    "./dock-item/element": {
+      "types": "./dist/types/components/dock/element.d.ts",
+      "default": "./dist/components/dock/element.js"
+    },
+    "./hide": {
+      "types": "./dist/types/components/show/index.d.ts",
+      "default": "./dist/components/show/index.js"
+    },
+    "./hide/element": {
+      "types": "./dist/types/components/show/element.d.ts",
+      "default": "./dist/components/show/element.js"
+    },
+    "./page-body": {
+      "types": "./dist/types/components/page/index.d.ts",
+      "default": "./dist/components/page/index.js"
+    },
+    "./page-body/element": {
+      "types": "./dist/types/components/page/element.d.ts",
+      "default": "./dist/components/page/element.js"
+    },
+    "./page-header-bar": {
+      "types": "./dist/types/components/page-header/index.d.ts",
+      "default": "./dist/components/page-header/index.js"
+    },
+    "./page-header-bar/element": {
+      "types": "./dist/types/components/page-header/element.d.ts",
+      "default": "./dist/components/page-header/element.js"
+    },
     "./behaviors": {
       "types": "./dist/types/behaviors/index.d.ts",
       "default": "./dist/behaviors/index.js"
