@@ -9,6 +9,129 @@ JunDS 토큰(JdGap·JdToken)의 조합이다. 쇼룸의 각 데모 스테이지�
 
 ---
 
+## 배치를 적는 법 (DEC-042) — 먼저 읽을 것
+
+UIKit에서 화면을 짜는 일이 왜 번거로웠는지부터. `jd.layout`은 **제약만** 만든다. 그래서
+뷰마다 (1) 생성 (2) `addSubview` (3) 제약 — 세 단계를 손으로 반복해야 했고, 순서를 어기면
+`preconditionFailure("addSubview 이후에 layout을 호출하라")`로 **앱이 죽었다**.
+
+지금은 트리와 제약을 **한 표현식**으로 적는다. 아래 넷이 전부다.
+
+| 하고 싶은 것 | 쓰는 것 |
+|---|---|
+| 중첩 스택 | `JdStackView(.vertical, gap:, align:, padding:) { … }` |
+| 한쪽으로 밀기 | `JdFlexSpacerView()` |
+| 크기·여백 지정 | `.jdSize(44)` · `.jdWidth(96)` · `.jdMinWidth(80)` · `.jdPadded(.md)` |
+| 부모에 얹기 | `child.jdFill(parent)` · `child.jdFillSafeArea(parent)` |
+| **행 간 열 정렬**(표) | `JdColumnsView(columns:) { … }` |
+| 폭에 따른 축 전환 | `JdAdaptiveStackView(breakpoint:) { … }` |
+| 줄바꿈 흐름 | `JdWrapView(itemSpacing:) { … }` (아래 Wrap 항목) |
+
+### 기본형
+
+```swift
+let row = JdStackView(.horizontal, gap: .sm, align: .center) {
+    avatarView.jdSize(40)
+    JdStackView(.vertical, gap: .xs) {
+        nameLabel
+        tickerLabel
+    }
+    JdFlexSpacerView()                                   // 남는 공간을 먹어 오른쪽으로 밀어낸다
+    JdLiveStackedCellView(price: 71_200, change: 1.24)
+}
+row.jdFill(container, insets: .init(top: 12, leading: 16, bottom: 12, trailing: 16))
+```
+
+`if` / `if let` / `for`를 블록 안에서 그대로 쓸 수 있다 — 조건부 화면도 한 표현식이다.
+
+```swift
+JdStackView(.vertical, gap: .sm) {
+    header
+    if let banner { banner }          // nil이면 조용히 빠진다
+    for tag in tags { JdTagView(tag) }
+    footer
+}
+```
+
+### ⚠️ `JdSpacerView`와 `JdFlexSpacerView`는 다른 물건이다
+
+- `JdSpacerView(.md)` — **고정** 간격(웹 `jd-spacer`). 토큰 크기를 지키며 늘지도 줄지도 않는다.
+- `JdFlexSpacerView()` — **신축** 여백(SwiftUI `Spacer()`). 자기 크기는 0이고 남는 공간을 먹는다.
+
+밀어내기에 고정 간격을 쓰면 아무 일도 일어나지 않는다. 반대로 일정 간격이 필요한 곳에
+신축 여백을 쓰면 형제 크기에 따라 간격이 흔들린다.
+
+### 진짜 어려운 것: 행 간 열 정렬 (표)
+
+스택으로는 **구조적으로 안 되는** 배치다. `UIStackView`의 행들은 서로를 모르므로 1행의
+"종목명" 폭과 2행의 "종목명" 폭이 각자 정해진다 — 표가 어긋난다. 열마다 고정 폭을 박으면
+내용이 길어질 때 잘리고, 그래서 지금까지는 `UICollectionViewCompositionalLayout`을
+세우는 것이 유일한 답이었다.
+
+`JdColumnsView`는 **모든 행을 한 번에 측정해 열 폭을 공유**한다.
+
+```swift
+let table = JdColumnsView(
+    columns: [.fit(max: 140), .flexible(weight: 1), .fixed(96)],
+    alignments: [.leading, .fill, .trailing],   // 숫자 열은 trailing — 자리수가 달라도 끝이 맞는다
+    columnGap: JdToken.Space.s3,
+    rowGap: JdToken.Space.s2
+) {
+    [headerName, headerChart, headerPrice]
+    for q in quotes {
+        [nameLabel(q), JdPositionBarView(low: q.low, high: q.high, cur: q.cur),
+         JdLiveStackedCellView(price: q.price, change: q.rate)]
+    }
+}
+table.jdFill(scrollContent)
+table.setRows(newRows)   // 목록 갱신은 이 한 줄
+```
+
+열 규칙 세 가지:
+
+| 규칙 | 뜻 |
+|---|---|
+| `.fixed(96)` | 고정 폭. 소비자 의도라 폭이 모자라도 **줄이지 않는다** |
+| `.fit(max:)` | 전 행 중 가장 넓은 내용에 맞춘다. 상한을 넘지 않고, 전체가 넘칠 때 **여기서** 줄인다 |
+| `.flexible(weight:)` | 남는 폭을 가중치로 나눈다. 가중치가 전부 0이면 균등 분배(0으로 나누지 않는다) |
+
+보장하는 것(테스트로 고정):
+- `fit` 열 폭은 **전 행이 공유**한다 — 1행만 짧아도 열이 어긋나지 않는다.
+- 마지막 행이 덜 차도 깨지지 않는다(빈 칸으로 남는다).
+- 폭이 부족하면 `fit`을 비율로 줄여 **내용이 컨테이너를 넘지 않는다**.
+- 셀 높이는 **자기 열 폭에서** 측정한다 — 좁은 열의 라벨이 2줄이 되면 행 높이가 따라 늘어난다.
+- `sizeThatFits`가 보고하는 높이 == 실제 배치 하단. 어긋나면 부모가 자르거나 빈 공간을 남긴다.
+- RTL에서 좌우가 뒤집힌다.
+
+### 반응형 — 폭에 따라 축을 뒤집는다
+
+```swift
+JdAdaptiveStackView(breakpoint: JdToken.Breakpoint.sm, wideAxis: .horizontal, gap: .md) {
+    leftPane
+    rightPane
+}
+// stack.isCompact 를 읽어 부수적 스타일(정렬·폰트)을 함께 맞출 수 있다
+```
+
+폭 0(부모가 아직 폭을 주지 않은 첫 프레임)에서는 좁다고 판정하지 않는다 — 초기 1프레임
+깜빡임을 막는다. 축은 **값이 실제로 바뀔 때만** 쓴다(레이아웃 루프 방지).
+
+### SwiftUI는 무엇을 쓰나
+
+SwiftUI엔 이미 다 있어서 **새 타입을 만들지 않았다**(04 §10 번역 원칙):
+
+| UIKit | SwiftUI |
+|---|---|
+| `JdStackView(.horizontal) { … }` | `HStack { … }` |
+| `JdFlexSpacerView()` | `Spacer()` |
+| `JdColumnsView(columns:)` | `Grid { GridRow { … } }` (iOS 16 — DEC-004가 전제한 하한) |
+| `JdAdaptiveStackView` | `ViewThatFits { HStack { … }; VStack { … } }` |
+| `JdWrapView` | `JdFlowLayout` (실컴포넌트) |
+
+즉 **개념 어휘는 3플랫폼 공통**이고, 표현만 각 플랫폼의 관용구를 따른다.
+
+---
+
 ## Box — 스타일 컨테이너
 
 패딩·배경·모서리·테두리 토큰의 조합. 신규 뷰 없이 모디파이어 번들.
@@ -75,7 +198,10 @@ LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: JdGap.md.valu
           spacing: JdGap.md.value) { cells }
 // autoFit/minChildWidth → GridItem(.adaptive(minimum: 120), spacing: JdGap.md.value)
 
-// UIKit → UICollectionViewCompositionalLayout (S급 강등 — 04 §10.1 리스트/스크롤 헬퍼)
+// UIKit (DEC-042로 갱신)
+JdWrapView(itemSpacing: JdGap.md.value, equalWidths: true, minItemWidth: 120, cells)  // autoFit
+JdColumnsView(columns: Array(repeating: .flexible(), count: n), columnGap: JdGap.md.value) { rows }
+// 셀이 수백 개거나 재사용·프리페치가 필요하면 여전히 UICollectionViewCompositionalLayout이 맞다
 ```
 
 ## Page — 페이지 셸
