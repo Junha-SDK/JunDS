@@ -4,6 +4,109 @@
 
 ---
 
+## 2026-07-27 — 시각 품질: **v2 패리티 → v3 고유 시각 언어로 승격** (파운데이션 + 컨트롤 1차)
+
+### DEC-039. "v2와 똑같이"가 목표선을 낮추고 있었다
+사람 보고: "라이브러리 UI가 iOS도 웹도 이쁘지 않다 · 써야 할 이유가 느껴지지 않는다 ·
+사소한 디테일이 부족하다." v3는 지금까지 **v2 시각을 정확히 재현**하는 것을 정답으로
+삼아 왔고(패리티 테스트가 그 집행자였다), 그래서 v2의 한계가 그대로 상한이 됐다.
+이 결정으로 상한을 v2에서 떼어낸다. 단 "임의 변경 금지" 원칙은 유지한다 — 이탈은
+전부 여기 기록되고, 패리티 테스트는 **기록된 이탈만** 통과시킨다(§승인 이탈 표).
+
+#### 1. 실측 진단 — 취향 이전에 결함이 있었다
+데모 9페이지를 실제 렌더해 계측한 결과:
+- **하드코딩 Tailwind 회색 64건 / 32파일**. `#e5e7eb`(슬라이더 트랙)·`#d1d5db`(스위치
+  트랙)·`#9ca3af`·`#f3f4f6`·`#374151` 등이 모드 인식이 없어 **다크에서 밝은 슬래브로
+  뒤집혔다**. 소스 주석에 "G2 gray 어휘 재심의"로 남아 있던 미결 항목이 그대로 출고된 것.
+- **입력면이 다크에서 회색 덩어리로 렌더**. 원인은 취향이 아니라 렌더링: `card 80%`
+  반투명 + `backdrop-filter: blur(4px)` 조합이, 조상 배경이 투명하면 브라우저가 백드롭
+  루트를 새로 잡아 엉뚱한 면을 샘플링한다. text-field·textarea·login-form·form-builder·
+  mention 5종이 같은 관용구를 복제하고 있었다.
+- **체크박스·라디오가 OS 기본 컨트롤**(`appearance: auto` + `accent-color`). 플랫폼마다
+  모양이 다르고, 다크에서 OS가 칠한 회색이 남고, 상태 전환에 움직임이 없었다.
+- **loading이 disabled와 똑같이 보였다**. element.ts가 로딩 중 네이티브 `disabled`를
+  켜므로(§1.6-1 폼 위임) `:disabled { opacity: 40% }`가 그대로 걸린다.
+- **iOS는 시각 층이 사실상 비어 있었다**: SwiftUI 53종 중 shadow 5 · animation 14.
+  JdButton은 배경색 교체만 — 스케일도 그림자도 없다. 손가락이 픽셀을 가리는 터치에서
+  색 변화만으로는 "먹었다"가 전달되지 않는다.
+- `transition: all` 15파일 — 레이아웃 속성까지 트랜지션 대상이 되어 매 프레임 리플로우.
+- 플레이스홀더 `muted-light 60%` = 라이트에서 2.1:1, 사실상 안 보임.
+
+#### 2. 파운데이션 — 445종을 한 번에 올리는 층
+- **neutral 램프 11단 신설(정본)**: "숫자가 클수록 대비가 높다"를 두 모드에서 동일하게
+  지키도록 **다크에서 반전**한다. 그래서 컴포넌트는 모드 분기 없이 토큰 하나만 쓰면
+  되고, 회색 하드코딩이 다크에서 뒤집히는 결함이 구조적으로 불가능해진다. 색조는
+  무채색이 아니라 foreground의 보라 기운 — 브랜드와 같은 온도.
+- **control 어휘**(surface/surfaceHover/surfaceMuted/track/trackStrong/knob): 입력면은
+  **불투명이 정본**. 흐림은 진짜 오버레이 전용.
+- **ring**(ringPrimary/ringDanger) + base.css의 `--jd-focus-ring` 단일 레시피:
+  168개 CSS가 각자 color-mix로 링을 조제하던 편차를 한 곳으로 모았다. box-shadow가
+  아니라 outline인 이유 — border-radius를 따라가고, overflow:hidden 조상에서 잘리지 않는다.
+- **depth**(highlight/shade/overlayScrim): 색을 늘리지 않고 깊이만 더하는 값. 사람 취향
+  기록("이쁘게 = 색 다양화가 아니라 빛·질감")과 정합.
+- **엘리베이션 2겹 전환**: 각 단이 접지 그림자 + 주변광 그림자다. 1겹 단일 그림자는
+  물체가 "떠 있다"가 아니라 "얼룩이 묻었다"로 읽힌다. 그림자 색은 순수 검정이 아니라
+  foreground 색조 — 보라 기운 배경 위에서 검정은 탁하게 죽는다. **다크는 첫 겹을
+  헤어라인 링으로 교체** — 다크에서 융기를 읽게 하는 것은 그림자가 아니라 윗면의 빛이다.
+- **모션 추가 5종**: duration press(90ms)·snap(140ms)·emphasis(420ms),
+  easing emphasized·overshoot. overshoot는 **자리를 잡는** 움직임 전용(스위치 썸·체크
+  표식) — 색·투명도에 쓰면 깜빡임으로 읽힌다.
+
+#### 3. 승인 이탈 표 (패리티 테스트가 집행)
+- `shadow.xs~2xl`: v2 1겹 → v3 2겹. 테스트는 **v2 동결본 값을 전제로 검증**한 뒤
+  "2겹 계약"을 단언한다. v2가 움직이면 여기서 먼저 실패한다.
+- `motion.duration/easing`: v2 키는 값까지 불변(부분집합 단언), v3 추가분 5종만 초과 허용.
+- 그 외 색·spacing·radius·type·zindex·opacity·border·breakpoint·gradient는 **패리티 유지**.
+  브랜드 색(primary 보라)은 건드리지 않았다 — 정체성 변경은 별도 승인 사안.
+
+#### 4. 컨트롤 1차 (웹) — 사람이 라이브러리를 판단하는 표면
+button(loading≠disabled 분리, 실색 호버로 filter:brightness 폐기, 프레스 인셋) ·
+icon-button(프레스 scale, filled 하이라이트) · text-field/textarea(불투명면·호버 상태·
+caret·selection·disabled를 opacity 대신 실색) · **checkbox/radio 자체 드로잉**
+(SVG 마스크 + background-size overshoot, `::after`를 못 쓰는 이유는 input이 대체 요소라서) ·
+toggle/switch(knob 그림자·오목 트랙·overshoot 이동, 꺼진 트랙에서 아무 변화도 없던
+brightness 호버 폐기) · slider/range-slider(썸 링 확장, tabular-nums로 드래그 중 자리수
+흔들림 제거).
+
+#### 5. iOS — 플랫폼 관례를 이기지 않는 선에서 느낌만 채운다
+- `jdElevation` 신설: **겹을 아는 단일 렌더러**. 기존 5+3곳이 `Shadow.lg.light.first`로
+  첫 장만 꺼내 쓰고 있었고, 2겹 전환 후 그 관용구는 라이트에서 주변광을 버리고
+  다크에서는 링을 그림자로 오해해 아무것도 그리지 않는다 — 전량 이전했다.
+- `JdShadowDominant`(CALayer용): UIKit은 그림자 한 장뿐 → "첫 장"이 아니라 **blur가
+  가장 큰 겹**을 고르는 것이 정답. UIKit 3곳 이전.
+- `jdPressable`/`jdPressScale` + `JdMotion.pressAnimation/settleAnimation`: Reduce Motion은
+  기존 JdMotion 단일 진입점을 그대로 경유한다(04 §7.3).
+- **JdToggle은 손대지 않았다** — 시스템 `Toggle(.switch)` 위임이 04 §10.1의 결정이고,
+  iOS 사용자는 네이티브 스위치를 기대한다. 웹을 iOS에 복제하는 것은 개선이 아니다.
+- JdCheckbox 미선택 색을 border(#e2dfe8, 흰 배경 위 1.3:1 — 빈 상자가 보이지 않았다) →
+  neutral-300으로.
+
+#### 6. 게이트
+tokens:test 15/15 · web vitest 351/351 · web tsc 0 · web-a11y PASS(9페이지, critical/serious 0) ·
+iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · 시뮬레이터 실기동
+확인(JdButton 엘리베이션 렌더). 웹 라이트/다크 실렌더 대조로 다크 슬래브 결함 해소 확인.
+변경 파일 eslint 에러 0(경고 2, 기존 패턴).
+
+**size-gate 기준선 재기록**: 드리프트 게이트(±3%)가 14종에서 실패했다 — checkbox
++108%(0.99→2.07KB), text-field +40%, radio-group +42%, button +26% 등. 이 게이트는
+"실수로 부풀었나"를 잡는 장치이고 이번 증가는 시각 층을 의도적으로 채운 대가이므로
+`--update-baseline`으로 재기록했다. **절대 예산은 그대로 통과**한다: 평균 2.41KB /
+예산 4.00KB · p95 5.71KB / 상한 12.00KB · 개별 최대치도 상한 미달. 즉 총량이 아니라
+기준선만 움직였다.
+
+#### 7. 남은 것 (이 결정의 범위 밖 — 후속 배치)
+- **틴트 칩 팔레트**: tag·badge·severity-badge·avatar가 Tailwind 파스텔 bg + 진한 글자
+  쌍을 하드코딩(#dbeafe/#1d4ed8 등 20+종). 다크에서 라이트 잔재로 남고 색조도 산만하다 →
+  모드 인식 `tone` 토큰 그룹으로 승격 필요.
+- 코드/터미널 계열의 상시 다크 면(#030712·#0f172a)은 의도적 고정인지 재확인 필요.
+- 소셜 브랜드색(#1DA1F2·#FEE500 등)은 **정당한 하드코딩** — 테마 금지 대상.
+- iOS 나머지 39종 SwiftUI + UIKit 54종의 프레스·전환 적용.
+- parity/ 기준선 스크린샷 496장은 v2 기준이라 이번 승격분과 어긋난다 → 재기준선 필요.
+- 결정자: 사람 보고("해결해주세요")에 따른 방향 전환 + 실측 결함 근거 기록 후 기본값 채택
+  (2026-07-27). 브랜드 색 변경은 포함하지 않았으며, 필요 시 별도 승인 사안으로 남긴다.
+
+---
+
 ## 2026-07-24 — 웹 잔여 대량 이식 2차 완료: **web 445/445 전 카테고리 완주**
 
 ### DEC-038. 라운드2 153종 + 중앙 검증으로 웹 트랙 종료

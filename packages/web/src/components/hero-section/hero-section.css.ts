@@ -111,7 +111,7 @@ export default css`
     color: #fff;
     padding-block: var(--jd-space-20); padding-inline: var(--jd-space-4);
     /* bgImage 없어도 흰 글자가 보이도록 어두운 폴백 위에 오버레이 */
-    background-color: #111827;
+    background-color: var(--jd-color-neutral-900);
     background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), var(--jd-hero-bg, none);
     background-size: cover; background-position: center;
   }

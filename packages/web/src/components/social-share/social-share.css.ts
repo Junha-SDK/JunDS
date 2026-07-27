@@ -41,8 +41,8 @@ export default css`
   .jd-social-share__btn[data-platform="kakao"]    { background: #FEE500; color: #3C1E1E; }
   .jd-social-share__btn[data-platform="telegram"] { background: #26A5E4; }
   .jd-social-share__btn[data-platform="whatsapp"] { background: #25D366; }
-  .jd-social-share__btn[data-platform="email"]    { background: #6B7280; }
-  .jd-social-share__btn[data-platform="copy"]     { background: #9CA3AF; }
+  .jd-social-share__btn[data-platform="email"]    { background: var(--jd-color-neutral-500); }
+  .jd-social-share__btn[data-platform="copy"]     { background: var(--jd-color-neutral-400); }
 
   @media (prefers-reduced-motion: reduce) {
     .jd-social-share__btn { transition: none; }

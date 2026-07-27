@@ -53,7 +53,7 @@ ${CHART_CSS}
 
   /* 이동평균 — 색은 인라인 --_ma */
   .jd-candle-chart__ma {
-    fill: none; stroke: var(--_ma, var(--jd-fin-muted, #94a3b8)); stroke-width: 1.4;
+    fill: none; stroke: var(--_ma, var(--jd-fin-muted, var(--jd-color-neutral-400))); stroke-width: 1.4;
     stroke-linejoin: round; stroke-linecap: round; opacity: 0.85;
   }
 
@@ -66,7 +66,7 @@ ${CHART_CSS}
     stroke-dasharray: 4 3; opacity: 0.8;
   }
   .jd-candle-chart__compare {
-    fill: none; stroke: var(--_line, var(--jd-fin-muted, #94a3b8)); stroke-width: 1.4;
+    fill: none; stroke: var(--_line, var(--jd-fin-muted, var(--jd-color-neutral-400))); stroke-width: 1.4;
     stroke-dasharray: 5 3; opacity: 0.85;
   }
   .jd-candle-chart__separator { stroke: var(--_axis); stroke-width: 1; }
@@ -126,16 +126,16 @@ ${CHART_CSS}
     stroke-width: 1;
   }
   .jd-candle-chart__tooltip-idx {
-    fill: var(--jd-fin-tooltip-muted, #94a3b8); font-size: 10.5px; font-weight: 700;
+    fill: var(--jd-fin-tooltip-muted, var(--jd-color-neutral-400)); font-size: 10.5px; font-weight: 700;
   }
   .jd-candle-chart__tooltip[data-dir="up"] .jd-candle-chart__tooltip-pct { fill: var(--_up); }
   .jd-candle-chart__tooltip[data-dir="down"] .jd-candle-chart__tooltip-pct { fill: var(--_down); }
   .jd-candle-chart__tooltip-pct { font-size: 10.5px; font-weight: 800; text-anchor: end; }
   .jd-candle-chart__tooltip-key {
-    fill: var(--jd-fin-tooltip-muted, #94a3b8); font-size: 10.5px;
+    fill: var(--jd-fin-tooltip-muted, var(--jd-color-neutral-400)); font-size: 10.5px;
   }
   .jd-candle-chart__tooltip-val {
-    fill: var(--jd-fin-tooltip-fg, #e2e8f0); font-size: 10.5px; font-weight: 700; text-anchor: end;
+    fill: var(--jd-fin-tooltip-fg, var(--jd-color-neutral-200)); font-size: 10.5px; font-weight: 700; text-anchor: end;
   }
   .jd-candle-chart__tooltip-row[data-tone="up"] .jd-candle-chart__tooltip-val { fill: var(--_tt-up); }
   .jd-candle-chart__tooltip-row[data-tone="down"] .jd-candle-chart__tooltip-val { fill: var(--_tt-down); }

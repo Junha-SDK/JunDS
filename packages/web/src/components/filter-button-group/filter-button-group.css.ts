@@ -37,7 +37,13 @@ export default css`
     white-space: nowrap;
     cursor: pointer;
     user-select: none;
-    transition: all var(--jd-duration-fast) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-fast) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-fast) var(--jd-easing-ease-out),
+      scale var(--jd-duration-fast) var(--jd-easing-ease-out),
+      transform var(--jd-duration-fast) var(--jd-easing-ease-out);
   }
   .jd-filter-button-group__item:hover { background: var(--jd-color-card-hover); }
 

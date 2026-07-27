@@ -52,7 +52,7 @@ export default css`
     padding: var(--jd-space-2-5) var(--jd-space-4);
     /* v2 divide-y — 첫 행 위에는 선이 없다 */
     --_jd-trust-color: var(--jd-color-muted);
-    --_jd-trust-tint: #f3f4f6;
+    --_jd-trust-tint: var(--jd-color-neutral-100);
   }
   .jd-trust-indicator__item + .jd-trust-indicator__item {
     border-block-start: var(--jd-border-thin) solid var(--jd-color-border-light);

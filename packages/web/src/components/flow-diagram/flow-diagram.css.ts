@@ -55,9 +55,9 @@ export default css`
   .jd-flow__link-arrow { fill: var(--jd-color-muted); pointer-events: none; }
   .jd-flow__link[data-selected] .jd-flow__link-line { stroke: var(--jd-color-primary); stroke-width: 3; }
   .jd-flow__link[data-selected] .jd-flow__link-arrow { fill: var(--jd-color-primary); }
-  .jd-flow__link-label-bg { fill: #111827; stroke: #374151; stroke-width: 1; pointer-events: none; }
+  .jd-flow__link-label-bg { fill: var(--jd-color-neutral-900); stroke: var(--jd-color-neutral-800); stroke-width: 1; pointer-events: none; }
   .jd-flow__link-label {
-    fill: #cbd5e1; font-size: 10px; font-family: var(--jd-font-sans); pointer-events: none;
+    fill: var(--jd-color-neutral-300); font-size: 10px; font-family: var(--jd-font-sans); pointer-events: none;
   }
 
   /* 노드 카드 */
@@ -65,7 +65,7 @@ export default css`
     position: absolute; user-select: none; overflow: visible;
     border-radius: var(--jd-radius-xl);
     border: 2px solid var(--jd-color-muted);
-    background: #111827; color: #fff;
+    background: var(--jd-color-neutral-900); color: #fff;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
   .jd-flow__node[data-selected] {
@@ -83,7 +83,7 @@ export default css`
     font-size: var(--jd-text-sm); font-weight: var(--jd-weight-bold);
     border-block-end: 1px solid var(--jd-color-muted);
     border-start-start-radius: 10px; border-start-end-radius: 10px;
-    background: #1f2937; color: #cbd5e1;
+    background: var(--jd-color-neutral-800); color: #cbd5e1;
   }
   .jd-flow__node[data-variant="success"] .jd-flow__node-header { background: #14532d; color: var(--jd-color-success-light); border-color: var(--jd-color-success); }
   .jd-flow__node[data-variant="warning"] .jd-flow__node-header { background: #78350f; color: var(--jd-color-warning-light); border-color: var(--jd-color-warning); }
@@ -102,7 +102,7 @@ export default css`
   .jd-flow__ports { position: absolute; inset: 0; pointer-events: none; }
   .jd-flow__port {
     position: absolute; width: 12px; height: 12px; border-radius: var(--jd-radius-full);
-    border: 2px solid #d1d5db; background: #3b82f6; z-index: 20;
+    border: 2px solid var(--jd-color-neutral-300); background: #3b82f6; z-index: 20;
     cursor: crosshair; pointer-events: auto;
     transition: transform var(--jd-duration-fast) var(--jd-easing-default);
   }
@@ -134,12 +134,12 @@ export default css`
   .jd-flow__minimap {
     position: absolute; top: var(--jd-space-3); right: var(--jd-space-3); z-index: 20;
     width: 150px; height: 90px; border-radius: var(--jd-radius-lg);
-    border: 1px solid #374151; background: rgba(17, 24, 39, 0.9);
+    border: 1px solid var(--jd-color-neutral-800); background: rgba(17, 24, 39, 0.9);
     -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   }
   .jd-flow__minimap[hidden] { display: none; }
   .jd-flow__mini-link { stroke: var(--jd-color-muted); stroke-width: 0.8; }
-  .jd-flow__mini-node { fill: #374151; stroke: var(--jd-color-muted); stroke-width: 0.5; }
+  .jd-flow__mini-node { fill: var(--jd-color-neutral-800); stroke: var(--jd-color-muted); stroke-width: 0.5; }
   .jd-flow__mini-view { fill: none; stroke: var(--jd-color-primary); stroke-width: 1.5; }
 
   /* 줌 컨트롤 */
@@ -154,7 +154,7 @@ export default css`
     font-family: inherit; font-size: var(--jd-text-sm); line-height: 1;
     transition: background-color var(--jd-duration-fast) var(--jd-easing-default);
   }
-  .jd-flow__zoom-btn:hover { background: #374151; }
+  .jd-flow__zoom-btn:hover { background: var(--jd-color-neutral-800); }
   .jd-flow__zoom-btn:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
   .jd-flow__zoom-label { font-size: 10px; }
 

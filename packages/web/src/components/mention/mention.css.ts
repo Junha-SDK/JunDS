@@ -27,15 +27,20 @@ export default css`
     min-height: 80px; resize: vertical;
     font-family: inherit; color: var(--jd-color-foreground);
     font-size: var(--jd-text-md); line-height: var(--jd-leading-normal);
-    background: color-mix(in srgb, var(--jd-color-card) 80%, transparent);
+    background: var(--jd-color-control-surface);
     border: var(--jd-border-thin) solid var(--jd-color-border);
-    backdrop-filter: blur(4px);
     border-radius: var(--jd-radius-xl);
     padding: var(--jd-space-2-5) var(--jd-space-3-5);
-    transition: all var(--jd-duration-normal) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-normal) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-normal) var(--jd-easing-ease-out),
+      scale var(--jd-duration-normal) var(--jd-easing-ease-out),
+      transform var(--jd-duration-normal) var(--jd-easing-ease-out);
   }
   .jd-mention__input::placeholder {
-    color: color-mix(in srgb, var(--jd-color-muted-light) 60%, transparent);
+    color: var(--jd-color-neutral-400);
   }
   .jd-mention__input:focus {
     outline: none; border-color: var(--jd-color-primary);

@@ -53,7 +53,7 @@ export default css`
     font-size: var(--_jd-stack-font); font-weight: var(--jd-weight-semibold);
     line-height: var(--jd-leading-none);
     user-select: none;
-    background: #e5e7eb; color: #4b5563; /* v2 gray-200 / gray-600 — 아바타 팔레트와 같은 계약 */
+    background: var(--jd-color-neutral-200); color: #4b5563; /* v2 gray-200 / gray-600 — 아바타 팔레트와 같은 계약 */
   }
 
   /* 이름·"외 N명"은 읽히기만 한다 (jd-trust-indicator __sr 관용구) */

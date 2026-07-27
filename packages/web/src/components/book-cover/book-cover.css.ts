@@ -57,7 +57,7 @@ export default css`
     box-sizing: border-box;
     padding: var(--jd-space-3);
     color: #fff;
-    background: var(--jd-book-cover-hue, linear-gradient(135deg, #334155 0%, #0f172a 100%));
+    background: var(--jd-book-cover-hue, linear-gradient(135deg, var(--jd-color-neutral-800) 0%, #0f172a 100%));
   }
   .jd-book-cover__title {
     font-size: var(--jd-text-xs);

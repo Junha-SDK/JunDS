@@ -34,26 +34,17 @@ public struct JdKeyCap: View {
             .background(spec.background.color)
             .clipShape(shape)
             .overlay(shape.strokeBorder(spec.border.color, lineWidth: JdToken.Border.thin))
-            .shadow(color: shadowColor,
-                    radius: JdKeyCap.shadowGeometry.blur / 2, // CSS blur = 2 × 렌더 반경
-                    x: JdKeyCap.shadowGeometry.x,
-                    y: JdKeyCap.shadowGeometry.y)
+            // 겹 단위 엘리베이션 (DEC-039). 키캡은 눌리면 아래로 내려가며 그림자를 잃는다 —
+            // offset과 그림자 제거가 함께 가야 '키가 들어갔다'로 읽힌다.
+            .jdElevation(keyElevation, in: shape)
             .offset(y: isPressed ? JdKeyCapSpec.pressedOffset : 0)
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
+            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
                        value: isPressed)
     }
 
-    // 웹 .jd-key-cap의 미세 바닥 그림자 — 토큰 사다리의 xs를 승계한다(기하는 라이트/다크 동일).
-    private var shadowColor: Color {
-        guard spec.hasKeyShadow, !isPressed else { return .clear }
-        return JdKeyCap.shadowInk.color
+    // 웹 .jd-key-cap의 미세 바닥 그림자 — 토큰 사다리의 xs를 승계한다.
+    private var keyElevation: JdToken.Shadow.Dynamic {
+        guard spec.hasKeyShadow, !isPressed else { return JdToken.Shadow.none }
+        return JdToken.Shadow.xs
     }
-
-    private static let shadowInk = JdDynamicColor(
-        light: JdToken.Shadow.xs.light.first?.color ?? 0,
-        dark: JdToken.Shadow.xs.dark.first?.color ?? 0
-    )
-
-    private static let shadowGeometry: JdToken.Shadow.Layer =
-        JdToken.Shadow.xs.light.first ?? .init(color: 0, x: 0, y: 0, blur: 0, spread: 0)
 }

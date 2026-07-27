@@ -10,7 +10,7 @@ export default css`
     padding: var(--jd-space-0-5) var(--jd-space-1-5);
     border: var(--jd-border-thin) solid var(--jd-color-border);
     border-radius: var(--jd-radius-sm);
-    background: #f9fafb;
+    background: var(--jd-color-neutral-25);
     font-family: var(--jd-font-mono); font-size: 11px;
     font-weight: var(--jd-weight-medium); color: var(--jd-color-muted);
     box-shadow: 0 1px 0 1px rgba(0,0,0,.04);

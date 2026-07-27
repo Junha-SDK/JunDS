@@ -42,8 +42,8 @@ ${CHART_CSS}
     stroke: var(--jd-fin-tooltip-border, rgba(148, 163, 184, 0.25));
     stroke-width: 1;
   }
-  .jd-mlc__tip-label { fill: var(--jd-fin-tooltip-muted, #94a3b8); font-size: 10px; font-weight: 700; }
+  .jd-mlc__tip-label { fill: var(--jd-fin-tooltip-muted, var(--jd-color-neutral-400)); font-size: 10px; font-weight: 700; }
   .jd-mlc__tip-dot { fill: var(--jd-series-color); }
-  .jd-mlc__tip-name { fill: var(--jd-fin-tooltip-muted, #94a3b8); font-size: 11px; font-weight: 600; }
-  .jd-mlc__tip-val { fill: var(--jd-fin-tooltip-fg, #e2e8f0); font-size: 11px; font-weight: 800; text-anchor: end; }
+  .jd-mlc__tip-name { fill: var(--jd-fin-tooltip-muted, var(--jd-color-neutral-400)); font-size: 11px; font-weight: 600; }
+  .jd-mlc__tip-val { fill: var(--jd-fin-tooltip-fg, var(--jd-color-neutral-200)); font-size: 11px; font-weight: 800; text-anchor: end; }
 }`;

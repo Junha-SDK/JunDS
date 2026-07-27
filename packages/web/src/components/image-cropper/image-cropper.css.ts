@@ -65,7 +65,7 @@ export default css`
   .jd-image-cropper__handle {
     position: absolute; touch-action: none;
     width: 0.75rem; height: 0.75rem;
-    background: #fff; border: var(--jd-border-thin) solid #9ca3af;
+    background: #fff; border: var(--jd-border-thin) solid var(--jd-color-neutral-400);
     border-radius: var(--jd-radius-sm);
   }
   .jd-image-cropper__handle[data-corner="nw"] {

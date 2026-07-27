@@ -22,18 +22,24 @@ export default css`
 
   .jd-battery__body {
     position: relative; overflow: hidden;
-    border: 2px solid #9ca3af; border-radius: var(--jd-radius-sm);
+    border: 2px solid var(--jd-color-neutral-400); border-radius: var(--jd-radius-sm);
     width: 3.5rem; height: 1.5rem; /* md 기본 56×24 */
   }
   [data-jd-theme="dark"] .jd-battery__body,
-  [data-theme="dark"] .jd-battery__body { border-color: #6b7280; }
+  [data-theme="dark"] .jd-battery__body { border-color: var(--jd-color-neutral-500); }
   jd-battery-indicator[size="sm"] .jd-battery__body { width: 2.5rem; height: 1rem; }
   jd-battery-indicator[size="lg"] .jd-battery__body { width: 5rem; height: 2rem; }
 
   .jd-battery__fill {
     position: absolute; inset-block: 0; left: 0;
     background: #3b82f6; /* primary 기본 (v2 blue-500) */
-    transition: all var(--jd-duration-slower) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-slower) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-slower) var(--jd-easing-ease-out),
+      color var(--jd-duration-slower) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-slower) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-slower) var(--jd-easing-ease-out),
+      scale var(--jd-duration-slower) var(--jd-easing-ease-out),
+      transform var(--jd-duration-slower) var(--jd-easing-ease-out);
   }
   jd-battery-indicator[data-fill="success"] .jd-battery__fill { background: #22c55e; }
   jd-battery-indicator[data-fill="warning"] .jd-battery__fill { background: #f59e0b; }
@@ -54,11 +60,11 @@ export default css`
   .jd-battery__cap {
     border-start-end-radius: var(--jd-radius-sm);
     border-end-end-radius: var(--jd-radius-sm);
-    background: #9ca3af;
+    background: var(--jd-color-neutral-400);
     width: 6px; height: 12px; /* md */
   }
   [data-jd-theme="dark"] .jd-battery__cap,
-  [data-theme="dark"] .jd-battery__cap { background: #6b7280; }
+  [data-theme="dark"] .jd-battery__cap { background: var(--jd-color-neutral-500); }
   jd-battery-indicator[size="sm"] .jd-battery__cap { width: 4px; height: 8px; }
   jd-battery-indicator[size="lg"] .jd-battery__cap { width: 8px; height: 16px; }
 

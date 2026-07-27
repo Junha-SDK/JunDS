@@ -12,7 +12,7 @@ export default css`
     font-family: var(--jd-font-sans); font-weight: var(--jd-weight-medium);
     white-space: nowrap;
     padding: var(--jd-space-1) var(--jd-space-2-5); font-size: var(--jd-text-xs);
-    background: #f3f4f6; color: #4b5563; /* neutral 기본 */
+    background: var(--jd-color-neutral-100); color: #4b5563; /* neutral 기본 */
   }
   jd-severity-badge[size="sm"] {
     padding: var(--jd-space-0-5) var(--jd-space-2); font-size: 10px;
@@ -26,7 +26,7 @@ export default css`
   jd-severity-badge[dot]::before {
     content: ""; flex-shrink: 0;
     width: 8px; height: 8px; border-radius: var(--jd-radius-full);
-    background: #9ca3af;
+    background: var(--jd-color-neutral-400);
   }
   jd-severity-badge[dot][severity="ok"]::before { background: #10b981; }
   jd-severity-badge[dot][severity="warn"]::before { background: #f59e0b; }

@@ -162,12 +162,13 @@ export const fontFamily = {
 
 export const shadows = {
   none: "none",
-  xs: "0 1px 2px rgba(0,0,0,0.04)",
-  sm: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
-  md: "0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05)",
-  lg: "0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04)",
-  xl: "0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04)",
-  "2xl": "0 25px 50px -12px rgba(0,0,0,0.15)",
+  xs: "0 1px 1px -0.5px rgba(26,23,38,0.08), 0 1px 3px -1px rgba(26,23,38,0.06)",
+  sm: "0 1px 2px -1px rgba(26,23,38,0.10), 0 2px 6px -2px rgba(26,23,38,0.08)",
+  md: "0 2px 4px -2px rgba(26,23,38,0.10), 0 6px 14px -4px rgba(26,23,38,0.10)",
+  lg: "0 4px 8px -4px rgba(26,23,38,0.10), 0 14px 28px -8px rgba(26,23,38,0.12)",
+  xl: "0 8px 14px -8px rgba(26,23,38,0.10), 0 24px 48px -12px rgba(26,23,38,0.16)",
+  "2xl": "0 12px 20px -12px rgba(26,23,38,0.12), 0 40px 72px -16px rgba(26,23,38,0.22)",
+  knob: "0 1px 1px rgba(26,23,38,0.16), 0 2px 5px -1px rgba(26,23,38,0.14)",
   glow: "0 0 0 3px var(--jd-color-primary-glow)",
   danger: "0 0 0 3px rgba(220,63,63,0.15)",
 } as const;
@@ -184,10 +185,13 @@ export const radius = {
 
 export const duration = {
   instant: "0ms",
+  press: "90ms",
   fast: "100ms",
+  snap: "140ms",
   normal: "200ms",
   slow: "300ms",
   slower: "500ms",
+  emphasis: "420ms",
 } as const;
 
 export const easing = {
@@ -197,6 +201,8 @@ export const easing = {
   easeOut: "cubic-bezier(0, 0, 0.2, 1)",
   easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
   spring: "cubic-bezier(0.16, 1, 0.3, 1)",
+  emphasized: "cubic-bezier(0.2, 0, 0, 1)",
+  overshoot: "cubic-bezier(0.34, 1.4, 0.64, 1)",
 } as const;
 
 export const zIndex = {

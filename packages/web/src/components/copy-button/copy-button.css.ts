@@ -14,7 +14,13 @@ export default css`
     font-family: var(--jd-font-sans); font-weight: var(--jd-weight-medium);
     border: 0; background: none; cursor: pointer;
     color: var(--jd-color-muted);
-    transition: all var(--jd-duration-fast) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-fast) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-fast) var(--jd-easing-ease-out),
+      scale var(--jd-duration-fast) var(--jd-easing-ease-out),
+      transform var(--jd-duration-fast) var(--jd-easing-ease-out);
     /* icon 변형 기본 — md */
     width: 1.75rem; height: 1.75rem; padding: 0;
     border-radius: var(--jd-radius-md);

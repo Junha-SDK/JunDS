@@ -50,7 +50,7 @@ export default css`
     border-color: var(--jd-color-primary);
   }
   .jd-emoji-picker__search-input::placeholder {
-    color: color-mix(in srgb, var(--jd-color-muted-light) 60%, transparent);
+    color: var(--jd-color-neutral-400);
   }
 
   /* ── 분류줄 ── */

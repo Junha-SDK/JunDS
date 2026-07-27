@@ -12,7 +12,7 @@ export default css`
     border-radius: var(--jd-radius-md);
     font-family: var(--jd-font-sans); font-size: var(--jd-text-xs);
     font-weight: var(--jd-weight-medium); white-space: nowrap;
-    background: #f3f4f6; color: #374151; /* gray 기본 */
+    background: var(--jd-color-neutral-100); color: #374151; /* gray 기본 */
   }
   jd-tag[color="primary"] { background: var(--jd-color-primary-light); color: var(--jd-color-primary); }
   jd-tag[color="blue"] { background: #eff6ff; color: #1d4ed8; }

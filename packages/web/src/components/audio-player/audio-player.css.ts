@@ -22,7 +22,7 @@ export default css`
     color: var(--jd-color-foreground);
     font-family: var(--jd-font-sans);
     --_jd-audio-fill: var(--jd-color-primary);
-    --_jd-audio-track: #e5e7eb; /* v2 bg-gray-200 (G2 gray 어휘) */
+    --_jd-audio-track: var(--jd-color-neutral-200); /* v2 bg-gray-200 (G2 gray 어휘) */
   }
 
   /* 오디오 요소 자체는 보이지 않는다 — 컨트롤을 우리가 그린다 */

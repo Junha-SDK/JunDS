@@ -49,7 +49,7 @@ export default css`
   .jd-cron__summary {
     display: flex; align-items: center; gap: var(--jd-space-2);
     padding: var(--jd-space-2) var(--jd-space-3);
-    background: #f9fafb; border-radius: var(--jd-radius-lg);
+    background: var(--jd-color-neutral-25); border-radius: var(--jd-radius-lg);
   }
   [data-jd-theme="dark"] .jd-cron__summary,
   [data-theme="dark"] .jd-cron__summary { background: var(--jd-color-surface-raised); }

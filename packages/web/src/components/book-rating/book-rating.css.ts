@@ -23,7 +23,7 @@ export default css`
   }
   .jd-book-rating__star-base,
   .jd-book-rating__star-fill { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .jd-book-rating__star-base > path { fill: #d1d5db; }  /* v2 gray-300 — 빈 별 */
+  .jd-book-rating__star-base > path { fill: var(--jd-color-neutral-300); }  /* v2 gray-300 — 빈 별 */
   .jd-book-rating__star-fill > path { fill: #fbbf24; }  /* v2 amber-400 — 채움 */
 
   .jd-book-rating__reviews { font-size: var(--jd-text-xs); color: var(--jd-color-muted); }
@@ -42,7 +42,7 @@ export default css`
   .jd-book-rating__score { text-align: right; font-variant-numeric: tabular-nums; }
   .jd-book-rating__track {
     height: var(--jd-space-1-5); border-radius: var(--jd-radius-full);
-    background: #e5e7eb; overflow: hidden;      /* v2 gray-200 */
+    background: var(--jd-color-neutral-200); overflow: hidden;      /* v2 gray-200 */
   }
   .jd-book-rating__bar {
     height: 100%; border-radius: var(--jd-radius-full); background: #fbbf24;  /* amber-400 */
@@ -51,7 +51,7 @@ export default css`
 
   /* 다크 — 빈 별·트랙만 어둡게(채움 금색은 유지, badge 선례) */
   [data-jd-theme="dark"] .jd-book-rating__star-base > path,
-  [data-theme="dark"] .jd-book-rating__star-base > path { fill: #374151; }  /* gray-700 */
+  [data-theme="dark"] .jd-book-rating__star-base > path { fill: var(--jd-color-neutral-800); }  /* gray-700 */
   [data-jd-theme="dark"] .jd-book-rating__track,
-  [data-theme="dark"] .jd-book-rating__track { background: #1f2937; }       /* gray-800 */
+  [data-theme="dark"] .jd-book-rating__track { background: var(--jd-color-neutral-800); }       /* gray-800 */
 }`;

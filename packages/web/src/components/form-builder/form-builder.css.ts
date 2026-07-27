@@ -27,15 +27,20 @@ export default css`
   .jd-form-builder__input {
     width: 100%; box-sizing: border-box; margin: 0;
     font-family: var(--jd-font-sans); color: var(--jd-color-foreground);
-    background: color-mix(in srgb, var(--jd-color-card) 80%, transparent);
+    background: var(--jd-color-control-surface);
     border: var(--jd-border-thin) solid var(--jd-color-border);
-    backdrop-filter: blur(4px);
-    transition: all var(--jd-duration-normal) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-normal) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-normal) var(--jd-easing-ease-out),
+      scale var(--jd-duration-normal) var(--jd-easing-ease-out),
+      transform var(--jd-duration-normal) var(--jd-easing-ease-out);
     height: 2.5rem; padding-inline: var(--jd-space-3-5);
     font-size: var(--jd-text-md); border-radius: var(--jd-radius-xl);
   }
   .jd-form-builder__input::placeholder {
-    color: color-mix(in srgb, var(--jd-color-muted-light) 60%, transparent);
+    color: var(--jd-color-neutral-400);
   }
   .jd-form-builder__input:focus {
     outline: none; border-color: var(--jd-color-primary);

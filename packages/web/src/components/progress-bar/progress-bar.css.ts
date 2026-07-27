@@ -39,7 +39,7 @@ export default css`
   .jd-progress-bar__track {
     width: 100%; overflow: hidden;
     height: var(--jd-progress-bar-height, 0.625rem); /* md */
-    background: var(--jd-progress-bar-track, #f3f4f6);
+    background: var(--jd-progress-bar-track, var(--jd-color-neutral-100));
     border-radius: var(--jd-radius-full);
   }
   jd-progress-bar[size="sm"] .jd-progress-bar__track {

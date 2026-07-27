@@ -89,10 +89,9 @@ public struct JdSnackbar: View {
         .frame(maxWidth: JdOverlaySize.lg.drawerWidth)
         .background(backgroundColor.color)
         .clipShape(RoundedRectangle(cornerRadius: JdToken.Radius.lg, style: .continuous))
-        .shadow(color: JdSnackbar.shadowInk.color,
-                radius: JdSnackbar.shadowGeometry.blur / 2, // CSS blur = 2 × 렌더 반경
-                x: JdSnackbar.shadowGeometry.x,
-                y: JdSnackbar.shadowGeometry.y)
+        // 겹 단위 엘리베이션 (DEC-039) — 첫 장만 꺼내 쓰던 관용구는 라이트에서 주변광을
+        // 버리고 다크에서는 헤어라인 링을 그림자로 오해해 아무것도 그리지 않았다.
+        .jdElevation(JdToken.Shadow.lg, cornerRadius: JdToken.Radius.lg)
         .padding(JdGap.md.value)
         // hover/focus/드래그 중 자동 닫힘 정지(WCAG 2.2.1)
         .onHover { isPaused = $0 }
@@ -154,11 +153,4 @@ public struct JdSnackbar: View {
         return .timingCurve(curve.0, curve.1, curve.2, curve.3, duration: duration)
     }
 
-    // 알파는 토큰 색이 이미 들고 있다 — 레이어 첫 장만 쓴다(JdBackTopButton과 같은 승계 규칙)
-    private static let shadowInk = JdDynamicColor(
-        light: JdToken.Shadow.lg.light.first?.color ?? 0,
-        dark: JdToken.Shadow.lg.dark.first?.color ?? 0
-    )
-    private static let shadowGeometry: JdToken.Shadow.Layer =
-        JdToken.Shadow.lg.light.first ?? .init(color: 0, x: 0, y: 0, blur: 0, spread: 0)
 }

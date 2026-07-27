@@ -59,8 +59,10 @@ struct JdIconButtonPressStyle: ButtonStyle {
             .clipShape(shape)
             .overlay(borderOverlay(shape))
             .contentShape(shape) // 투명 배경(ghost)에서도 모서리까지 탭 수용
+            // 24~40pt 컨트롤이라 standard(0.97)로는 변화가 안 보인다 → compact (DEC-039)
+            .jdPressScale(configuration.isPressed && !reduceMotion, depth: .compact)
             .opacity(isEnabled ? 1 : JdToken.Opacity.o50) // 웹 :disabled opacity-50
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
+            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
                        value: configuration.isPressed)
     }
 

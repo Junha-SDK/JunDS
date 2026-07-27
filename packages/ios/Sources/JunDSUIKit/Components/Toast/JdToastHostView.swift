@@ -334,14 +334,13 @@ final class JdToastCardView: UIView {
         applyShadow()
     }
 
-    // 웹 box-shadow: var(--jd-shadow-lg) — 알파는 토큰 색이 들고 있어 레이어 첫 장만 쓴다
+    // 웹 box-shadow: var(--jd-shadow-lg) — 알파는 토큰 색이 들고 있다.
+    // CALayer는 그림자 한 장뿐 → blur가 가장 큰 겹(주변광)을 고른다 (DEC-039)
     private func applyShadow() {
-        guard let geometry = JdToken.Shadow.lg.light.first else {
+        guard let (ink, geometry) = JdToken.Shadow.lg.dominant else {
             layer.shadowOpacity = 0
             return
         }
-        let ink = JdDynamicColor(light: JdToken.Shadow.lg.light.first?.color ?? 0,
-                                 dark: JdToken.Shadow.lg.dark.first?.color ?? 0)
         layer.shadowColor = ink.uiColor.resolvedColor(with: traitCollection).cgColor
         layer.shadowOpacity = 1
         layer.shadowOffset = CGSize(width: geometry.x, height: geometry.y)

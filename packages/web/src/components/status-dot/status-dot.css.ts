@@ -13,7 +13,7 @@ export default css`
   jd-status-dot::before {
     content: ""; flex-shrink: 0;
     width: 8px; height: 8px; border-radius: var(--jd-radius-full);
-    background: #9ca3af; /* neutral 기본 */
+    background: var(--jd-color-neutral-400); /* neutral 기본 */
   }
   jd-status-dot[size="sm"]::before { width: 6px; height: 6px; }
   jd-status-dot[size="lg"]::before { width: 10px; height: 10px; }

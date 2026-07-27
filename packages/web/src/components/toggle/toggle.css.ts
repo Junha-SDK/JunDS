@@ -1,8 +1,8 @@
 import { css } from "../../core/styles.js";
 
 /**
- * v2 값: 트랙 sm 32×18 / md 40×22, 썸 14/16px(top·left 2px), 이동 14/18px,
- * 체크 primary / 미체크 gray-300(#d1d5db — v2 Tailwind gray, G2 gray 어휘 재심의).
+ * jd-toggle 시각 (DEC-039 — switch와 동일 어휘, 기하만 한 급 작다).
+ * 트랙 sm 32×18 / md 40×22, 썸 14/16px(top·left 2px), 이동 14/18px.
  */
 export default css`
 @layer junds.components {
@@ -21,23 +21,30 @@ export default css`
     position: relative; display: inline-flex; flex-shrink: 0;
     border: 0; margin: 0; padding: 0; cursor: inherit;
     border-radius: var(--jd-radius-full);
-    background: #d1d5db;
+    background: var(--jd-color-control-track-strong);
+    box-shadow: inset 0 1px 2px var(--jd-color-shade);
     transition: background-color var(--jd-duration-normal) var(--jd-easing-ease-out);
     width: 2.5rem; height: 1.375rem; /* md 기본 40×22 */
   }
-  jd-toggle[checked] .jd-toggle__track { background: var(--jd-color-primary); }
+  jd-toggle[checked] .jd-toggle__track {
+    background: var(--jd-color-primary);
+    box-shadow: inset 0 1px 0 var(--jd-color-highlight);
+  }
+  .jd-toggle__track:hover:not(:disabled) { background: var(--jd-color-neutral-400); }
+  jd-toggle[checked] .jd-toggle__track:hover:not(:disabled) {
+    background: var(--jd-color-primary-hover);
+  }
   .jd-toggle__track:focus-visible {
-    outline: var(--jd-border-medium) solid
-      color-mix(in srgb, var(--jd-color-primary) 40%, transparent);
-    outline-offset: 1px;
+    outline: var(--jd-focus-ring); outline-offset: var(--jd-focus-ring-offset);
   }
 
   .jd-toggle__thumb {
     position: absolute; top: 2px; left: 2px;
     width: 1rem; height: 1rem; /* md 16px */
     border-radius: var(--jd-radius-full);
-    background: #fff; box-shadow: var(--jd-shadow-sm);
-    transition: transform var(--jd-duration-normal) var(--jd-easing-ease-out);
+    background: var(--jd-color-control-knob);
+    box-shadow: var(--jd-shadow-knob);
+    transition: transform var(--jd-duration-normal) var(--jd-easing-overshoot);
   }
   jd-toggle[checked] .jd-toggle__thumb { transform: translateX(18px); }
 

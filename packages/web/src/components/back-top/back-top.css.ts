@@ -19,7 +19,13 @@ export default css`
     border: var(--jd-border-thin) solid var(--jd-color-border);
     border-radius: var(--jd-radius-full); box-shadow: var(--jd-shadow-lg);
     cursor: pointer;
-    transition: all var(--jd-duration-normal) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-normal) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-normal) var(--jd-easing-ease-out),
+      scale var(--jd-duration-normal) var(--jd-easing-ease-out),
+      transform var(--jd-duration-normal) var(--jd-easing-ease-out);
   }
   .jd-back-top__button:hover {
     color: var(--jd-color-primary); box-shadow: var(--jd-shadow-xl);

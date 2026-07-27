@@ -57,6 +57,28 @@ public enum JdToken {
         public static let warningLight = JdDynamicColor(light: 0xFFF7E6FF, dark: 0xB7791F26)
         public static let info = JdDynamicColor(light: 0x3B82F6FF, dark: 0x3B82F6FF)
         public static let infoLight = JdDynamicColor(light: 0xEFF6FFFF, dark: 0x3B82F626)
+        public static let neutralN25 = JdDynamicColor(light: 0xFAF9FCFF, dark: 0x100E1CFF)
+        public static let neutralN50 = JdDynamicColor(light: 0xF5F4F8FF, dark: 0x161329FF)
+        public static let neutralN100 = JdDynamicColor(light: 0xEEECF3FF, dark: 0x1C1932FF)
+        public static let neutralN200 = JdDynamicColor(light: 0xE2DFE8FF, dark: 0x2A2744FF)
+        public static let neutralN300 = JdDynamicColor(light: 0xD0CCDBFF, dark: 0x3A3656FF)
+        public static let neutralN400 = JdDynamicColor(light: 0xA9A5B9FF, dark: 0x575271FF)
+        public static let neutralN500 = JdDynamicColor(light: 0x837F96FF, dark: 0x7B768FFF)
+        public static let neutralN600 = JdDynamicColor(light: 0x6B6880FF, dark: 0xA09CB5FF)
+        public static let neutralN700 = JdDynamicColor(light: 0x524F64FF, dark: 0xBDB9CDFF)
+        public static let neutralN800 = JdDynamicColor(light: 0x363348FF, dark: 0xD5D2E0FF)
+        public static let neutralN900 = JdDynamicColor(light: 0x1A1726FF, dark: 0xE4E2EEFF)
+        public static let controlSurface = JdDynamicColor(light: 0xFFFFFFFF, dark: 0x1C1932FF)
+        public static let controlSurfaceHover = JdDynamicColor(light: 0xFAF9FCFF, dark: 0x221F3AFF)
+        public static let controlSurfaceMuted = JdDynamicColor(light: 0xF5F4F8FF, dark: 0x181530FF)
+        public static let controlTrack = JdDynamicColor(light: 0xE2DFE8FF, dark: 0x2A2744FF)
+        public static let controlTrackStrong = JdDynamicColor(light: 0xD0CCDBFF, dark: 0x3A3656FF)
+        public static let controlKnob = JdDynamicColor(light: 0xFFFFFFFF, dark: 0xF2F0F8FF)
+        public static let ringPrimary = JdDynamicColor(light: 0x5B4CC78C, dark: 0x9580FAA6)
+        public static let ringDanger = JdDynamicColor(light: 0xC9363680, dark: 0xDC3F3F99)
+        public static let highlight = JdDynamicColor(light: 0xFFFFFF29, dark: 0xFFFFFF12)
+        public static let shade = JdDynamicColor(light: 0x1A17261A, dark: 0x00000061)
+        public static let overlayScrim = JdDynamicColor(light: 0x1A172673, dark: 0x06050CA8)
         public static let sidebarBg = JdDynamicColor(light: 0x1A1726FF, dark: 0x1A1726FF)
         public static let sidebarHover = JdDynamicColor(light: 0x272338FF, dark: 0x272338FF)
         public static let sidebarText = JdDynamicColor(light: 0xA09CB0FF, dark: 0xA09CB0FF)
@@ -151,10 +173,13 @@ public enum JdToken {
     }
     public enum Duration {
         public static let instant: TimeInterval = 0
+        public static let press: TimeInterval = 0.09
         public static let fast: TimeInterval = 0.1
+        public static let snap: TimeInterval = 0.14
         public static let normal: TimeInterval = 0.2
         public static let slow: TimeInterval = 0.3
         public static let slower: TimeInterval = 0.5
+        public static let emphasis: TimeInterval = 0.42
     }
     public enum Easing {
         /// CAMediaTimingFunction/SwiftUI Animation.timingCurve 겸용 제어점
@@ -169,6 +194,10 @@ public enum JdToken {
         public static let easeInOut: (Double, Double, Double, Double) = (0.4, 0, 0.2, 1)
         /// CAMediaTimingFunction/SwiftUI Animation.timingCurve 겸용 제어점
         public static let spring: (Double, Double, Double, Double) = (0.16, 1, 0.3, 1)
+        /// CAMediaTimingFunction/SwiftUI Animation.timingCurve 겸용 제어점
+        public static let emphasized: (Double, Double, Double, Double) = (0.2, 0, 0, 1)
+        /// CAMediaTimingFunction/SwiftUI Animation.timingCurve 겸용 제어점
+        public static let overshoot: (Double, Double, Double, Double) = (0.34, 1.4, 0.64, 1)
     }
     public enum Shadow {
         public struct Layer: Sendable {
@@ -200,54 +229,72 @@ public enum JdToken {
         )
         public static let xs = Dynamic(
             light: [
-            .init(color: 0x0000000A, x: 0, y: 1, blur: 2, spread: 0),
+            .init(color: 0x1A172614, x: 0, y: 1, blur: 1, spread: -0.5),
+            .init(color: 0x1A17260F, x: 0, y: 1, blur: 3, spread: -1),
         ],
             dark: [
-            .init(color: 0x0000004D, x: 0, y: 1, blur: 2, spread: 0),
+            .init(color: 0xFFFFFF0B, x: 0, y: 0, blur: 0, spread: 1),
+            .init(color: 0x0000008C, x: 0, y: 1, blur: 2, spread: -1),
         ]
         )
         public static let sm = Dynamic(
             light: [
-            .init(color: 0x0000000F, x: 0, y: 1, blur: 3, spread: 0),
-            .init(color: 0x0000000A, x: 0, y: 1, blur: 2, spread: 0),
+            .init(color: 0x1A17261A, x: 0, y: 1, blur: 2, spread: -1),
+            .init(color: 0x1A172614, x: 0, y: 2, blur: 6, spread: -2),
         ],
             dark: [
-            .init(color: 0x00000066, x: 0, y: 1, blur: 3, spread: 0),
+            .init(color: 0xFFFFFF0D, x: 0, y: 0, blur: 0, spread: 1),
+            .init(color: 0x000000A6, x: 0, y: 2, blur: 6, spread: -2),
         ]
         )
         public static let md = Dynamic(
             light: [
-            .init(color: 0x00000012, x: 0, y: 4, blur: 6, spread: -1),
-            .init(color: 0x0000000D, x: 0, y: 2, blur: 4, spread: -2),
+            .init(color: 0x1A17261A, x: 0, y: 2, blur: 4, spread: -2),
+            .init(color: 0x1A17261A, x: 0, y: 6, blur: 14, spread: -4),
         ],
             dark: [
-            .init(color: 0x00000059, x: 0, y: 4, blur: 6, spread: 0),
+            .init(color: 0xFFFFFF0E, x: 0, y: 0, blur: 0, spread: 1),
+            .init(color: 0x000000B3, x: 0, y: 6, blur: 14, spread: -4),
         ]
         )
         public static let lg = Dynamic(
             light: [
-            .init(color: 0x00000014, x: 0, y: 10, blur: 15, spread: -3),
-            .init(color: 0x0000000A, x: 0, y: 4, blur: 6, spread: -4),
+            .init(color: 0x1A17261A, x: 0, y: 4, blur: 8, spread: -4),
+            .init(color: 0x1A17261F, x: 0, y: 14, blur: 28, spread: -8),
         ],
             dark: [
-            .init(color: 0x00000066, x: 0, y: 10, blur: 15, spread: 0),
+            .init(color: 0xFFFFFF0F, x: 0, y: 0, blur: 0, spread: 1),
+            .init(color: 0x000000BF, x: 0, y: 14, blur: 28, spread: -8),
         ]
         )
         public static let xl = Dynamic(
             light: [
-            .init(color: 0x00000014, x: 0, y: 20, blur: 25, spread: -5),
-            .init(color: 0x0000000A, x: 0, y: 8, blur: 10, spread: -6),
+            .init(color: 0x1A17261A, x: 0, y: 8, blur: 14, spread: -8),
+            .init(color: 0x1A172629, x: 0, y: 24, blur: 48, spread: -12),
         ],
             dark: [
-            .init(color: 0x00000073, x: 0, y: 20, blur: 25, spread: 0),
+            .init(color: 0xFFFFFF11, x: 0, y: 0, blur: 0, spread: 1),
+            .init(color: 0x000000CC, x: 0, y: 24, blur: 48, spread: -12),
         ]
         )
         public static let xl2 = Dynamic(
             light: [
-            .init(color: 0x00000026, x: 0, y: 25, blur: 50, spread: -12),
+            .init(color: 0x1A17261F, x: 0, y: 12, blur: 20, spread: -12),
+            .init(color: 0x1A172638, x: 0, y: 40, blur: 72, spread: -16),
         ],
             dark: [
-            .init(color: 0x00000080, x: 0, y: 25, blur: 50, spread: 0),
+            .init(color: 0xFFFFFF12, x: 0, y: 0, blur: 0, spread: 1),
+            .init(color: 0x000000D9, x: 0, y: 40, blur: 72, spread: -16),
+        ]
+        )
+        public static let knob = Dynamic(
+            light: [
+            .init(color: 0x1A172629, x: 0, y: 1, blur: 1, spread: 0),
+            .init(color: 0x1A172624, x: 0, y: 2, blur: 5, spread: -1),
+        ],
+            dark: [
+            .init(color: 0x00000080, x: 0, y: 1, blur: 1, spread: 0),
+            .init(color: 0x00000099, x: 0, y: 2, blur: 6, spread: -1),
         ]
         )
         public static let focusRing = Dynamic(

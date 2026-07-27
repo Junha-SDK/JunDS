@@ -63,7 +63,7 @@ export default css`
     display: inline-flex; align-items: center; justify-content: center;
     padding: var(--jd-space-2); border: 0; cursor: pointer;
     border-radius: var(--jd-radius-lg);
-    background: #1f2937; color: #d1d5db;
+    background: var(--jd-color-neutral-800); color: #d1d5db;
     opacity: 0;
     transition: opacity var(--jd-duration-normal) var(--jd-easing-ease-out),
       background var(--jd-duration-fast) var(--jd-easing-ease-out),
@@ -72,7 +72,7 @@ export default css`
   jd-copy-block:hover .jd-copy-block__copy,
   jd-copy-block:focus-within .jd-copy-block__copy { opacity: 1; }
   @media (hover: none) { .jd-copy-block__copy { opacity: 1; } }
-  .jd-copy-block__copy:hover { background: #374151; color: #fff; }
+  .jd-copy-block__copy:hover { background: var(--jd-color-neutral-800); color: #fff; }
   .jd-copy-block__copy:focus-visible {
     opacity: 1; outline: none; box-shadow: var(--jd-shadow-focus-ring);
   }

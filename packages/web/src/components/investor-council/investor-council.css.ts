@@ -205,7 +205,7 @@ export default css`
   .jd-council__bar-half { width: 50%; height: 100%; }
   .jd-council__bar-fill-neg {
     /* v2 음수 성향 바 = slate-400 리터럴(중립 회색). muted 토큰은 보라 기가 있어 부적합 */
-    height: 100%; background: #94a3b8;
+    height: 100%; background: var(--jd-color-neutral-400);
     border-start-start-radius: var(--jd-radius-full); border-end-start-radius: var(--jd-radius-full);
   }
 

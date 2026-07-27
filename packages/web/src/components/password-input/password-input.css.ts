@@ -17,7 +17,13 @@ export default css`
     font-family: var(--jd-font-sans); color: var(--jd-color-foreground);
     background: var(--jd-color-card);
     border: var(--jd-border-thin) solid var(--jd-color-border);
-    transition: all var(--jd-duration-fast) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-fast) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-fast) var(--jd-easing-ease-out),
+      scale var(--jd-duration-fast) var(--jd-easing-ease-out),
+      transform var(--jd-duration-fast) var(--jd-easing-ease-out);
     height: 2.25rem; font-size: var(--jd-text-sm);
     border-radius: var(--jd-radius-lg);
     padding-inline: var(--jd-space-3) 2.5rem; /* 우측은 토글 버튼 자리 */

@@ -93,13 +93,12 @@ public final class JdKeyCapView: UILabel {
 
     // 웹 .jd-key-cap의 미세 바닥 그림자 — 토큰 사다리의 xs를 승계한다(기하는 라이트/다크 동일).
     private func applyShadow() {
+        // CALayer는 그림자 한 장뿐 → blur가 가장 큰 겹(주변광)을 고른다 (DEC-039)
         guard spec.hasKeyShadow, !isPressed,
-              let geometry = JdToken.Shadow.xs.light.first else {
+              let (ink, geometry) = JdToken.Shadow.xs.dominant else {
             layer.shadowOpacity = 0
             return
         }
-        let ink = JdDynamicColor(light: JdToken.Shadow.xs.light.first?.color ?? 0,
-                                 dark: JdToken.Shadow.xs.dark.first?.color ?? 0)
         layer.shadowColor = ink.uiColor.resolvedColor(with: traitCollection).cgColor
         // 알파는 색이 이미 들고 있다 — opacity는 1로 두고 토큰 값을 그대로 살린다
         layer.shadowOpacity = 1

@@ -42,6 +42,10 @@ public struct JdCheckbox: View {
         // 라벨 클릭 토글은 웹의 <label> 래핑 동형 — 행 전체가 히트 영역이다
         .contentShape(Rectangle())
         .onTapGesture { advance() }
+        // 표식이 즉시 바뀌면 '무엇이 바뀌었는지' 눈이 못 따라간다 → 자리를 잡는 움직임
+        // (웹 checkbox의 background-size overshoot 대응, DEC-039)
+        .animation(JdMotion.settleAnimation(), value: state)
+        .jdPressable(depth: .compact)
         .opacity(isEnabled ? 1 : JdToken.Opacity.o50)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(label ?? ""))
@@ -94,11 +98,15 @@ public struct JdCheckbox: View {
         }
     }
 
-    // 웹 accent-color: primary / 미선택 테두리: border
+    // 웹 accent-color: primary / 미선택 상자 테두리
+    //
+    // 미선택은 border(#e2dfe8)가 아니라 neutral-300이다 (DEC-039): border는 면과 면을
+    // 가르는 색이라 흰 배경 위 1.3:1로, 빈 체크박스가 **있는지조차 안 보였다**.
+    // 램프 300은 두 모드에서 같은 '컨트롤 윤곽' 위치를 지킨다(웹 체크박스와 동일 값).
     private static func symbolColor(_ state: JdCheckboxState) -> JdDynamicColor {
         switch state {
         case .on, .indeterminate: return JdToken.Color.primary
-        case .off: return JdToken.Color.border
+        case .off: return JdToken.Color.neutralN300
         }
     }
 

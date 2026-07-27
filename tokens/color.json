@@ -22,6 +22,38 @@
   "warningLight":  { "light": "#fff7e6", "dark": "rgba(183, 121, 31, 0.15)" },
   "info":          "#3b82f6",
   "infoLight":     { "light": "#eff6ff", "dark": "rgba(59, 130, 246, 0.15)" },
+  "$neutral": "G2 회색 어휘 정본 (DEC-039). 램프는 '숫자가 클수록 대비가 높다'를 두 모드에서 동일하게 지키도록 다크에서 반전한다 — 그래서 컴포넌트는 모드 분기 없이 한 토큰만 쓰면 되고, v2에서 하드코딩된 Tailwind 회색(#e5e7eb·#d1d5db·#9ca3af·#f3f4f6·#6b7280·#374151…)이 다크에서 밝은 슬래브로 뒤집히던 결함이 구조적으로 사라진다. 색조는 무채색이 아니라 foreground(#1a1726)의 보라 기운을 유지 — 브랜드와 같은 온도.",
+  "neutral": {
+    "25":  { "light": "#faf9fc", "dark": "#100e1c" },
+    "50":  { "light": "#f5f4f8", "dark": "#161329" },
+    "100": { "light": "#eeecf3", "dark": "#1c1932" },
+    "200": { "light": "#e2dfe8", "dark": "#2a2744" },
+    "300": { "light": "#d0ccdb", "dark": "#3a3656" },
+    "400": { "light": "#a9a5b9", "dark": "#575271" },
+    "500": { "light": "#837f96", "dark": "#7b768f" },
+    "600": { "light": "#6b6880", "dark": "#a09cb5" },
+    "700": { "light": "#524f64", "dark": "#bdb9cd" },
+    "800": { "light": "#363348", "dark": "#d5d2e0" },
+    "900": { "light": "#1a1726", "dark": "#e4e2ee" }
+  },
+
+  "$control": "폼 컨트롤 표면 어휘 (DEC-039). 입력면은 **불투명**이 정본 — v2 이식본이 쓴 반투명 배경 + backdrop-filter:blur는 조상 배경이 투명할 때 브라우저가 백드롭 루트를 새로 잡아 다크에서 회색 슬래브로 렌더된다(실측). 흐림은 진짜 오버레이(modal·popover·dropdown) 전용.",
+  "controlSurface":      { "light": "#ffffff", "dark": "#1c1932" },
+  "controlSurfaceHover": { "light": "#faf9fc", "dark": "#221f3a" },
+  "controlSurfaceMuted": { "light": "#f5f4f8", "dark": "#181530" },
+  "controlTrack":        "{color.neutral.200}",
+  "controlTrackStrong":  "{color.neutral.300}",
+  "controlKnob":         { "light": "#ffffff", "dark": "#f2f0f8" },
+
+  "$ring": "포커스 링 색 — outline 단일 레시피(2px + offset 2px)의 유일한 색원. primaryGlow(0.18)는 링으로는 너무 옅어 따로 둔다.",
+  "ringPrimary": { "light": "rgba(91, 76, 199, 0.55)", "dark": "rgba(149, 128, 250, 0.65)" },
+  "ringDanger":  { "light": "rgba(201, 54, 54, 0.5)",  "dark": "rgba(220, 63, 63, 0.6)" },
+
+  "$depth": "빛·질감용 — 색을 늘리지 않고 깊이만 더하는 두 값. highlight는 융기면 상단 인셋 하이라이트, scrim은 오버레이 뒤 막.",
+  "highlight":    { "light": "rgba(255, 255, 255, 0.16)", "dark": "rgba(255, 255, 255, 0.07)" },
+  "shade":        { "light": "rgba(26, 23, 38, 0.10)",     "dark": "rgba(0, 0, 0, 0.38)" },
+  "overlayScrim": { "light": "rgba(26, 23, 38, 0.45)",    "dark": "rgba(6, 5, 12, 0.66)" },
+
   "sidebarBg":     "#1a1726",
   "sidebarHover":  "#272338",
   "sidebarText":   "#a09cb0",

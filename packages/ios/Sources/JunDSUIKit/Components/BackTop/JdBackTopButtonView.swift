@@ -90,14 +90,13 @@ public final class JdBackTopButtonView: UIControl {
     }
 
     // 웹 box-shadow: var(--jd-shadow-lg) — 알파는 토큰 색이 이미 들고 있으므로
-    // opacity는 1로 두고 레이어 첫 장만 쓴다(JdKeyCapView와 같은 승계 규칙).
+    // opacity는 1로 둔다. CALayer는 그림자 한 장뿐이라 blur가 가장 큰 겹(주변광)을
+    // 고른다 — `.first`(접지 겹, 다크에서는 헤어라인 링)는 두 모드 모두 틀린 장이다 (DEC-039).
     private func applyShadow() {
-        guard let geometry = JdToken.Shadow.lg.light.first else {
+        guard let (ink, geometry) = JdToken.Shadow.lg.dominant else {
             layer.shadowOpacity = 0
             return
         }
-        let ink = JdDynamicColor(light: JdToken.Shadow.lg.light.first?.color ?? 0,
-                                 dark: JdToken.Shadow.lg.dark.first?.color ?? 0)
         layer.shadowColor = ink.uiColor.resolvedColor(with: traitCollection).cgColor
         layer.shadowOpacity = 1
         layer.shadowOffset = CGSize(width: geometry.x, height: geometry.y)

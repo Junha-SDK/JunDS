@@ -37,7 +37,13 @@ export default css`
     font-size: var(--jd-text-md);
     line-height: var(--jd-leading-none);
     cursor: pointer;
-    transition: all var(--jd-duration-fast) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      color var(--jd-duration-fast) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-fast) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-fast) var(--jd-easing-ease-out),
+      scale var(--jd-duration-fast) var(--jd-easing-ease-out),
+      transform var(--jd-duration-fast) var(--jd-easing-ease-out);
   }
   .jd-color-picker__trigger:hover { background: var(--jd-color-card-hover); }
   .jd-color-picker__trigger:focus-visible {
@@ -156,7 +162,7 @@ export default css`
     border-color: var(--jd-color-primary);
   }
   .jd-color-picker__hex::placeholder {
-    color: color-mix(in srgb, var(--jd-color-muted-light) 60%, transparent);
+    color: var(--jd-color-neutral-400);
   }
 
   @media (prefers-reduced-motion: no-preference) {

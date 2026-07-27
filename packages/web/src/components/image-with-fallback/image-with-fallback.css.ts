@@ -49,7 +49,7 @@ export default css`
     background: linear-gradient(
       90deg,
       var(--jd-color-card-hover) 0%,
-      var(--jd-skeleton-color, #e5e7eb) 50%,
+      var(--jd-skeleton-color, var(--jd-color-neutral-200)) 50%,
       var(--jd-color-card-hover) 100%
     );
   }

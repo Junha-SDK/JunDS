@@ -45,22 +45,13 @@ struct JdBackTopButtonStyle: ButtonStyle {
             .clipShape(Circle())
             .overlay(Circle().strokeBorder(JdToken.Color.border.color,
                                            lineWidth: JdToken.Border.thin))
-            .shadow(color: Self.shadowInk.color,
-                    radius: Self.shadowGeometry.blur / 2, // CSS blur = 2 × 렌더 반경
-                    x: Self.shadowGeometry.x,
-                    y: Self.shadowGeometry.y)
+            // 겹 단위 엘리베이션 (DEC-039). 눌리면 한 단 내려앉는다 — 떠 있는 원형
+            // 버튼은 그림자가 유일한 '떠 있음'의 근거이므로 프레스에서 그것을 줄인다.
+            .jdElevation(configuration.isPressed ? JdToken.Shadow.sm : JdToken.Shadow.lg, in: Circle())
             .contentShape(Circle())
+            .jdPressScale(configuration.isPressed && !reduceMotion)
             .opacity(isEnabled ? 1 : JdToken.Opacity.o50)
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
+            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
                        value: configuration.isPressed)
     }
-
-    // 알파는 토큰 색이 이미 들고 있다 — 레이어 첫 장만 쓴다(JdKeyCap과 같은 승계 규칙)
-    private static let shadowInk = JdDynamicColor(
-        light: JdToken.Shadow.lg.light.first?.color ?? 0,
-        dark: JdToken.Shadow.lg.dark.first?.color ?? 0
-    )
-
-    private static let shadowGeometry: JdToken.Shadow.Layer =
-        JdToken.Shadow.lg.light.first ?? .init(color: 0, x: 0, y: 0, blur: 0, spread: 0)
 }

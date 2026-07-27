@@ -29,7 +29,7 @@ export default css`
     display: flex; align-items: center; justify-content: center;
     font-size: var(--_jd-avatar-font); font-weight: var(--jd-weight-semibold);
     user-select: none;
-    background: #e5e7eb; color: #6b7280; /* 무이름 기본 */
+    background: var(--jd-color-neutral-200); color: #6b7280; /* 무이름 기본 */
   }
   .jd-avatar__fallback[data-palette="0"] { background: #ede9fe; color: #6d28d9; } /* violet */
   .jd-avatar__fallback[data-palette="1"] { background: #dbeafe; color: #1d4ed8; } /* blue */
@@ -45,7 +45,7 @@ export default css`
     width: var(--_jd-avatar-dot); height: var(--_jd-avatar-dot);
     border-radius: var(--jd-radius-full);
     border: var(--_jd-avatar-ring) solid #fff;
-    background: #9ca3af;
+    background: var(--jd-color-neutral-400);
   }
   jd-avatar[status="online"] .jd-avatar__status { background: #22c55e; }
   jd-avatar[status="away"] .jd-avatar__status { background: #eab308; }

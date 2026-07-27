@@ -14,13 +14,13 @@ export default css`
     --_jd-story-pad: 2.5px;
     --_jd-story-ring: linear-gradient(to top right, #f43f5e, #d946ef, #f59e0b);
   }
-  jd-story-circle[state="read"] { --_jd-story-pad: 2px; --_jd-story-ring: #d1d5db; }
+  jd-story-circle[state="read"] { --_jd-story-pad: 2px; --_jd-story-ring: var(--jd-color-neutral-300); }
   jd-story-circle[state="live"] { --_jd-story-ring: linear-gradient(to top right, #f43f5e, #be123c); }
-  jd-story-circle[state="muted"] { --_jd-story-pad: 2px; --_jd-story-ring: #e5e7eb; }
+  jd-story-circle[state="muted"] { --_jd-story-pad: 2px; --_jd-story-ring: var(--jd-color-neutral-200); }
   [data-jd-theme="dark"] jd-story-circle[state="read"],
-  [data-theme="dark"] jd-story-circle[state="read"] { --_jd-story-ring: #374151; }
+  [data-theme="dark"] jd-story-circle[state="read"] { --_jd-story-ring: var(--jd-color-neutral-800); }
   [data-jd-theme="dark"] jd-story-circle[state="muted"],
-  [data-theme="dark"] jd-story-circle[state="muted"] { --_jd-story-ring: #1f2937; }
+  [data-theme="dark"] jd-story-circle[state="muted"] { --_jd-story-ring: var(--jd-color-neutral-800); }
 
   .jd-story-circle {
     appearance: none; -webkit-appearance: none; border: 0; background: transparent;

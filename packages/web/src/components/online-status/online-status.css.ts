@@ -18,7 +18,7 @@ export default css`
     font-family: var(--jd-font-sans);
     /* sm 기본 */
     --_jd-online-size: 8px; --_jd-online-ping: 5px;
-    --_jd-online-color: #9ca3af; /* offline 기본 */
+    --_jd-online-color: var(--jd-color-neutral-400); /* offline 기본 */
   }
   jd-online-status[size="xs"] { --_jd-online-size: 6px; --_jd-online-ping: 4px; }
   jd-online-status[size="md"] { --_jd-online-size: 10px; --_jd-online-ping: 6px; }

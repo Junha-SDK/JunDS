@@ -120,10 +120,8 @@ struct JdToastCard: View {
             RoundedRectangle(cornerRadius: JdToken.Radius.xl, style: .continuous)
                 .strokeBorder(JdToken.Color.border.color, lineWidth: JdToken.Border.thin)
         )
-        .shadow(color: JdToastCard.shadowInk.color,
-                radius: JdToastCard.shadowGeometry.blur / 2, // CSS blur = 2 × 렌더 반경
-                x: JdToastCard.shadowGeometry.x,
-                y: JdToastCard.shadowGeometry.y)
+        // 겹 단위 엘리베이션 (DEC-039)
+        .jdElevation(JdToken.Shadow.lg, cornerRadius: JdToken.Radius.xl)
         // hover(포인터)·드래그 중 자동닫힘 정지(WCAG 2.2.1)
         .onHover { center.setPaused($0) }
         .gesture(
@@ -135,11 +133,4 @@ struct JdToastCard: View {
         .accessibilityElement(children: .contain)
     }
 
-    // 알파는 토큰 색이 이미 들고 있다 — 레이어 첫 장만 쓴다(JdBackTopButton과 같은 승계 규칙)
-    private static let shadowInk = JdDynamicColor(
-        light: JdToken.Shadow.lg.light.first?.color ?? 0,
-        dark: JdToken.Shadow.lg.dark.first?.color ?? 0
-    )
-    private static let shadowGeometry: JdToken.Shadow.Layer =
-        JdToken.Shadow.lg.light.first ?? .init(color: 0, x: 0, y: 0, blur: 0, spread: 0)
 }

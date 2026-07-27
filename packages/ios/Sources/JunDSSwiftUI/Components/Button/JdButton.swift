@@ -51,8 +51,13 @@ struct JdButtonPressStyle: ButtonStyle {
             .background(background.color)
             .clipShape(shape)
             .overlay(borderOverlay(shape))
+            // 융기 (DEC-039) — 눌리면 그림자를 거두어 면이 바닥에 닿게 한다.
+            // 색만 바뀌는 버튼은 손가락이 픽셀을 가려서 아무 반응도 없는 것으로 읽힌다.
+            .jdElevation(configuration.isPressed ? JdToken.Shadow.none : JdToken.Shadow.xs, in: shape)
+            // 눌림은 면적으로 — reduceMotion이면 JdMotion이 애니메이션을 nil로 낮춘다
+            .jdPressScale(configuration.isPressed && !reduceMotion)
             .opacity(isEnabled ? 1 : spec.disabledOpacity)
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
+            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
                        value: configuration.isPressed)
     }
 

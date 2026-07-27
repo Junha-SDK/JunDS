@@ -31,7 +31,7 @@ export default css`
     font-size: var(--jd-text-xs); font-weight: var(--jd-weight-semibold);
     font-variant-numeric: tabular-nums;
     /* 예정 기본 */
-    background: var(--jd-progress-steps-track, #f3f4f6);
+    background: var(--jd-progress-steps-track, var(--jd-color-neutral-100));
     color: var(--jd-color-muted);
     border: var(--jd-border-thin) solid var(--jd-color-border);
     transition: background-color var(--jd-duration-normal) var(--jd-easing-default),
@@ -61,7 +61,7 @@ export default css`
   .jd-progress-steps__line {
     flex: 1 1 0%; height: 2px; min-width: var(--jd-space-2);
     margin-inline: var(--jd-space-1);
-    background: var(--jd-progress-steps-line, #e5e7eb);
+    background: var(--jd-progress-steps-line, var(--jd-color-neutral-200));
     /* 원(1.75rem)의 중심에 맞춘다 — v2는 items-center로 라벨까지 포함한 높이의
        한가운데에 선이 걸려 라벨이 길어지면 선이 내려앉았다 */
     align-self: flex-start; margin-block-start: calc(1.75rem / 2 - 1px);

@@ -25,7 +25,7 @@ export default css`
 
   .jd-range-slider__rail {
     position: absolute; inset-inline: 0; height: 6px;
-    border-radius: var(--jd-radius-full); background: #e5e7eb;
+    border-radius: var(--jd-radius-full); background: var(--jd-color-neutral-200);
   }
   .jd-range-slider__fill {
     position: absolute; height: 6px;

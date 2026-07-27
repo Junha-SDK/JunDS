@@ -21,7 +21,7 @@ export default css`
     font-family: var(--jd-font-sans); font-size: var(--jd-text-xs);
     font-weight: var(--jd-weight-semibold); white-space: nowrap;
     /* unverified 기본 (gray-50 / gray-200 / gray-600) */
-    --_jd-sec-bg: #f9fafb; --_jd-sec-border: #e5e7eb; --_jd-sec-fg: #4b5563;
+    --_jd-sec-bg: var(--jd-color-neutral-25); --_jd-sec-border: var(--jd-color-neutral-200); --_jd-sec-fg: var(--jd-color-neutral-700);
   }
   jd-security-badge[level="critical"] {
     --_jd-sec-bg: #fef2f2; --_jd-sec-border: #fecaca; --_jd-sec-fg: #b91c1c;

@@ -1,11 +1,35 @@
 {
+  "$scale": "엘리베이션 정본 (DEC-039). 각 단은 **2겹** — 접지 그림자(짧은 blur·음수 spread로 물체 바로 아래)와 주변광 그림자(넓은 blur). 1겹 단일 그림자는 물체가 '떠 있다'가 아니라 '얼룩이 묻었다'로 읽힌다. 색은 순수 검정이 아니라 foreground(#1a1726) 색조 — 보라 기운 배경 위에서 검정 그림자는 탁하게 죽는다. 다크는 그림자가 거의 보이지 않으므로 첫 겹을 **헤어라인 링**(0 0 0 1px 흰색 저알파)으로 바꿔 면의 윤곽을 준다 — 다크에서 융기를 읽게 하는 것은 그림자가 아니라 윗면의 빛이다.",
   "none": "none",
-  "xs":  { "light": "0 1px 2px rgba(0,0,0,0.04)", "dark": "0 1px 2px rgba(0,0,0,0.3)" },
-  "sm":  { "light": "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)", "dark": "0 1px 3px rgba(0,0,0,0.4)" },
-  "md":  { "light": "0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05)", "dark": "0 4px 6px rgba(0,0,0,0.35)" },
-  "lg":  { "light": "0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04)", "dark": "0 10px 15px rgba(0,0,0,0.4)" },
-  "xl":  { "light": "0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04)", "dark": "0 20px 25px rgba(0,0,0,0.45)" },
-  "2xl": { "light": "0 25px 50px -12px rgba(0,0,0,0.15)", "dark": "0 25px 50px rgba(0,0,0,0.5)" },
+  "xs": {
+    "light": "0 1px 1px -0.5px rgba(26,23,38,0.08), 0 1px 3px -1px rgba(26,23,38,0.06)",
+    "dark":  "0 0 0 1px rgba(255,255,255,0.045), 0 1px 2px -1px rgba(0,0,0,0.55)"
+  },
+  "sm": {
+    "light": "0 1px 2px -1px rgba(26,23,38,0.10), 0 2px 6px -2px rgba(26,23,38,0.08)",
+    "dark":  "0 0 0 1px rgba(255,255,255,0.05), 0 2px 6px -2px rgba(0,0,0,0.65)"
+  },
+  "md": {
+    "light": "0 2px 4px -2px rgba(26,23,38,0.10), 0 6px 14px -4px rgba(26,23,38,0.10)",
+    "dark":  "0 0 0 1px rgba(255,255,255,0.055), 0 6px 14px -4px rgba(0,0,0,0.7)"
+  },
+  "lg": {
+    "light": "0 4px 8px -4px rgba(26,23,38,0.10), 0 14px 28px -8px rgba(26,23,38,0.12)",
+    "dark":  "0 0 0 1px rgba(255,255,255,0.06), 0 14px 28px -8px rgba(0,0,0,0.75)"
+  },
+  "xl": {
+    "light": "0 8px 14px -8px rgba(26,23,38,0.10), 0 24px 48px -12px rgba(26,23,38,0.16)",
+    "dark":  "0 0 0 1px rgba(255,255,255,0.065), 0 24px 48px -12px rgba(0,0,0,0.8)"
+  },
+  "2xl": {
+    "light": "0 12px 20px -12px rgba(26,23,38,0.12), 0 40px 72px -16px rgba(26,23,38,0.22)",
+    "dark":  "0 0 0 1px rgba(255,255,255,0.07), 0 40px 72px -16px rgba(0,0,0,0.85)"
+  },
+  "$knob": "스위치·슬라이더 썸 전용 — 작은 원이 트랙 위에서 떠 보이게 하는 최소 2겹. 일반 md를 쓰면 blur가 썸 지름보다 커서 번져 보인다.",
+  "knob": {
+    "light": "0 1px 1px rgba(26,23,38,0.16), 0 2px 5px -1px rgba(26,23,38,0.14)",
+    "dark":  "0 1px 1px rgba(0,0,0,0.5), 0 2px 6px -1px rgba(0,0,0,0.6)"
+  },
   "focusRing": "0 0 0 3px {color.primaryGlow}",
   "focusRingDanger": "0 0 0 3px rgba(220,63,63,0.15)"
 }

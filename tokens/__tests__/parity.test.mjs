@@ -12,7 +12,7 @@ import { describe, expect, test } from "vitest";
 
 import {
   REPO_ROOT, OUT_CSS, OUT_SWIFT,
-  loadTokens, collectLeaves, cssVarName, colorToRRGGBBAA, resolveAlias, aliasToVar,
+  loadTokens, collectLeaves, cssVarName, colorToRRGGBBAA, resolveAlias, aliasToVar, swiftKey,
 } from "../build/generate.mjs";
 import { legacyLightColorMap, legacyDarkColorMap, legacyShadowKeyMap } from "../build/legacy-map.mjs";
 
@@ -76,6 +76,22 @@ const SANCTIONED_DEVIATIONS = {
   "--jd-color-danger": { v2: "#dc3f3f", v3: "#c93636", dec: "DEC-027" },
 };
 
+/**
+ * DEC-039 — v2 시각을 물려받는 대신 v3 고유 시각 언어로 승격한 항목.
+ *
+ * 색 토큰(위 SANCTIONED_DEVIATIONS)과 달리 엘리베이션·모션은 **스케일 전체**가
+ * 교체되므로 항목별 v2 기대값을 함께 적어 둔다. v2 동결본이 바뀌면 여기서 먼저
+ * 실패한다 — 즉 "v2가 조용히 움직였다"와 "v3가 의도적으로 갈라졌다"를 구분한다.
+ */
+const V3_ELEVATION_REWORK = {
+  xs: "0 1px 2px rgba(0,0,0,0.04)",
+  sm: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+  md: "0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05)",
+  lg: "0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04)",
+  xl: "0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04)",
+  "2xl": "0 25px 50px -12px rgba(0,0,0,0.15)",
+};
+
 describe("v2 CSS ↔ 생성 CSS 패리티 (legacy-map 전량)", () => {
   test("라이트 27변수 — 값 전 항목 일치 (승인 이탈은 승인값으로 고정)", () => {
     expect(Object.keys(v2Light).sort()).toEqual(Object.keys(legacyLightColorMap).sort());
@@ -116,17 +132,30 @@ describe("v2 TS 리터럴 토큰 ↔ tokens/*.json 패리티", () => {
     expect(strip(tokens.type.lineHeight)).toEqual(v2LineHeight);
     expect(strip(tokens.type.letterSpacing)).toEqual(v2LetterSpacing);
   });
-  test("shadows — 라이트 값 + 개명 2건(glow→focusRing, danger→focusRingDanger)", () => {
+  test("shadows — 키 집합은 v2 그대로, 값은 DEC-039 승격분만 이탈", () => {
     expect(Object.keys(v2Shadows).sort()).toEqual(Object.keys(legacyShadowKeyMap).sort());
     for (const [v2Key, v3Key] of Object.entries(legacyShadowKeyMap)) {
       const leaf = tokens.shadow[v3Key];
       const light = typeof leaf === "object" ? leaf.light : leaf;
-      expect(aliasToV2(light), `shadow ${v2Key}`).toBe(v2Shadows[v2Key]);
+      const reworked = V3_ELEVATION_REWORK[v3Key];
+      if (reworked !== undefined) {
+        // v2 동결본 전제 검증 — v2가 움직였다면 DEC-039 재심의
+        expect(v2Shadows[v2Key], `shadow ${v2Key} v2 동결본 전제 (DEC-039 재심의)`).toBe(reworked);
+        // 승격 계약: 접지 + 주변광 2겹 (1겹으로 되돌아가면 실패)
+        expect(String(light).split(/,(?![^(]*\))/), `shadow ${v2Key} 2겹 계약`).toHaveLength(2);
+      } else {
+        expect(aliasToV2(light), `shadow ${v2Key}`).toBe(v2Shadows[v2Key]);
+      }
     }
   });
-  test("motion (duration/easing — animationClass는 설계상 제외 §4.4)", () => {
-    expect(strip(tokens.motion.duration)).toEqual(v2Duration);
-    expect(strip(tokens.motion.easing)).toEqual(v2Easing);
+  test("motion — v2 duration/easing은 값까지 불변, v3 추가분만 허용 (DEC-039)", () => {
+    // 부분집합 단언: v2 키는 전부 남아 있고 값도 그대로여야 한다.
+    // v3가 새로 더한 키(press/snap/emphasis, emphasized/overshoot)만 초과 허용.
+    expect(strip(tokens.motion.duration)).toMatchObject(v2Duration);
+    expect(strip(tokens.motion.easing)).toMatchObject(v2Easing);
+    const added = (v3, v2) => Object.keys(v3).filter((k) => !(k in v2));
+    expect(added(strip(tokens.motion.duration), v2Duration)).toEqual(["press", "snap", "emphasis"]);
+    expect(added(strip(tokens.motion.easing), v2Easing)).toEqual(["emphasized", "overshoot"]);
   });
   test("zIndex — zindex.ts 정본 (export-tokens.mjs 부패본 아님)", () =>
     expect(strip(tokens.zindex)).toEqual(v2ZIndex));
@@ -171,7 +200,11 @@ describe("Swift 산출물 값 검증 (0xRRGGBBAA 재파싱)", () => {
     const leaves = collectLeaves("color", tokens.color);
     expect(Object.keys(parsed)).toHaveLength(leaves.length);
     for (const leaf of leaves) {
+      // 이름 규칙은 generate.mjs의 swiftKey를 그대로 쓴다 — 테스트가 규칙을
+      // 재구현하면 "산출물 간 불일치 구조적 차단"(§5-4) 원칙이 무너진다.
+      // (숫자 시작 세그먼트: color 램프 200 → n200 → neutralN200)
       const name = leaf.path
+        .map((s) => swiftKey(s, "color"))
         .map((s, i) => (i === 0 ? s : s.charAt(0).toUpperCase() + s.slice(1)))
         .join("");
       expect(parsed[name], name).toBeTruthy();

@@ -67,7 +67,7 @@ export default css`
   jd-badge[dot]::before {
     content: ""; flex-shrink: 0;
     width: 6px; height: 6px; border-radius: var(--jd-radius-full);
-    background: #9ca3af; /* default */
+    background: var(--jd-color-neutral-400); /* default */
   }
   jd-badge[dot][variant="primary"]::before { background: var(--jd-color-primary); }
   jd-badge[dot][variant="success"]::before { background: var(--jd-color-success); }

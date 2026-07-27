@@ -28,7 +28,7 @@ export default css`
   .jd-skeleton__line,
   .jd-skeleton-block {
     display: block;
-    background: var(--jd-skeleton-color, #e5e7eb);
+    background: var(--jd-skeleton-color, var(--jd-color-neutral-200));
     border-radius: var(--jd-skeleton-radius, var(--jd-radius-sm));
     animation: jd-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }

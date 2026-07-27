@@ -20,7 +20,13 @@ export default css`
     font-family: var(--jd-font-sans); font-weight: var(--jd-weight-medium);
     line-height: var(--jd-leading-none); white-space: nowrap;
     color: var(--jd-color-muted);
-    transition: all var(--jd-duration-normal) var(--jd-easing-ease-out);
+    transition: background-color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      border-color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      color var(--jd-duration-normal) var(--jd-easing-ease-out),
+      box-shadow var(--jd-duration-normal) var(--jd-easing-ease-out),
+      opacity var(--jd-duration-normal) var(--jd-easing-ease-out),
+      scale var(--jd-duration-normal) var(--jd-easing-ease-out),
+      transform var(--jd-duration-normal) var(--jd-easing-ease-out);
     /* size 기본 md — v2 underline: px-4 py-2.5 text-sm */
     padding: var(--jd-space-2-5) var(--jd-space-4); font-size: var(--jd-text-md);
     /* underline 고유: 3px 밑줄 + 컨테이너 경계선과 겹치기 */
