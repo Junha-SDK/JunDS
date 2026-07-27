@@ -58,6 +58,9 @@ AI가 아래 14개 도구로 정확한 import 경로와 prop을 찾아 코드를
 - **프레임워크 코어** — Box, Flex, Page, Heading, Text로 토큰 기반 레이아웃
 - **반응형 Props** — `p={{ base: 2, md: 4 }}` 브레이크포인트별 제어
 - **62개 커스텀 훅** — useForm, useBreakpoint, useAudioPlayer, useSeo, useUrlFilters 등
+
+> 실제 앱을 JunDS 로 짓는 전체 예시는 [**USAGE-MYSELF.md**](USAGE-MYSELF.md) —
+> 블로그·독스·데일리·서재·포트폴리오·음악 화면을 8장에 걸쳐 코드로 보여 준다.
 - **18개 테마 프리셋** — 커스텀 색상 + 다크 모드 + 밀도/반경/간격 전역 제어
 - **25기능 DataTable** — 검색, 필터, 정렬, 가상스크롤, CSV 내보내기, 인라인 편집
 - **접근성 내장** — ARIA, 키보드 네비게이션, Focus Trap, Reduced Motion (a11y 위반 0건)

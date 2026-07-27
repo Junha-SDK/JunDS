@@ -44,6 +44,9 @@ files first, in order:
     grouped by selector and category. Read before referencing `var(--*)`.
 11. **`COMPONENTS.md`** — auto-generated component reference (regenerate
     with `npm run docs:components`). Don't hand-edit.
+12. **`USAGE-MYSELF.md`** + **`USAGE-MYSELF/`** — 실제 소비 앱(MySelf/junome.info)을
+    JunDS 로 짓는 사용법 8장. "이 컴포넌트를 실전에서 어떻게 조합하나"의 가장 긴 예시이며,
+    코드가 전부 실제 배럴 export 와 1:1이다. 화면 단위 질문이 오면 여기부터 본다.
 
 After these files, you usually do **not** need to glob anything.
 

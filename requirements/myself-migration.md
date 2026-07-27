@@ -114,6 +114,12 @@ MySelf 쪽이 더 얇거나 JunDS 판이 기능적으로 포함한다.
 - MySelf 의 SSG 가드레일(프리렌더 결정성)을 고려해 `Waveform` / `AlbumArt` 의 생성 로직은
   `Math.random()` 없이 시드 해시 기반으로 결정적이다.
 
+## 사용법 문서
+
+이식된 것을 **MySelf 에서 어떻게 쓰는지**는 [`USAGE-MYSELF.md`](../USAGE-MYSELF.md) 8장에
+있다 — 설치·셸/SEO·블로그·독스·데일리·서재·포트폴리오/음악·훅/토큰. 이 요구사항 문서가
+"무엇을 왜 옮겼나"라면, 그쪽은 "그래서 어떻게 쓰나"다.
+
 ## Touched files (for agents)
 
 토큰 / 유틸:
