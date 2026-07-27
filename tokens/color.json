@@ -61,17 +61,36 @@
   "surface":        { "light": "#161329", "dark": "#161329", "$note": "v2 --dm-surface — 다크 전용이었으나 스키마상 양모드 기록 (02-tokens §2)" },
   "surfaceRaised":  { "light": "#1c1932", "dark": "#1c1932", "$note": "v2 --dm-surface-raised" },
   "surfaceOverlay": { "light": "#22203a", "dark": "#22203a", "$note": "v2 --dm-surface-overlay" },
+  "$onSurface": "surface 3단은 라이트에서도 어두운 '항상 어두운 크롬'이다(코드 블록·다이어그램 캔버스·히어로 오버레이·책등). 그 위의 글자는 모드를 따라가면 안 되는데(라이트에서 foreground를 쓰면 검은 글자가 검은 면에 얹힌다) v2 이식본에는 짝이 되는 잉크 토큰이 없어 각 컴포넌트가 #fff·#cbd5e1·#9ca3af·#4b5563을 제각기 박아 넣었다(실측 5파일). DEC-041에서 surface 계열의 짝으로 신설 — 값은 다크 모드의 foreground·muted와 같다.",
+  "onSurface":      { "light": "#e4e2ee", "dark": "#e4e2ee" },
+  "onSurfaceMuted": { "light": "#a09cb5", "dark": "#a09cb5" },
+  "$hue": "이름 있는 색 앵커 (DEC-041). tag[color]·avatar[data-palette]·severity-badge[severity]처럼 **정보를 구분하려고** 색을 쓰는 표면이 v2에서 Tailwind 50/700 리터럴 쌍(#eff6ff+#1d4ed8 …)을 40여 개 흩뿌리고 있었다 — 다크 대응이 없고, 같은 '파랑'이 컴포넌트마다 달랐다. 앵커는 **모드 무관 1색**이고 배경·글자는 base.css의 톤 레시피가 혼합비로 파생한다(--jd-tone-*). 그래서 색 수는 40여 개에서 12개로 줄고, 소비자는 --jd-tone 하나로 자기 색을 꽂을 수 있다. 앵커를 500단이 아니라 600~700단에 두는 이유: 라이트에서 옅은 틴트 위 글자가 AA를 넘어야 하기 때문(실측 — 500단 앵커는 amber·orange가 4.5:1 미달).",
+  "hue": {
+    "gray":   "#6b6880",
+    "blue":   "#2563eb",
+    "green":  "#157f47",
+    "amber":  "#a97317",
+    "orange": "#c2410c",
+    "red":    "#c93636",
+    "rose":   "#be123c",
+    "purple": "#7c3aed",
+    "violet": "#6d28d9",
+    "teal":   "#0f766e",
+    "cyan":   "#0e7490",
+    "pink":   "#be185d"
+  },
+  "$statusPriority": "상태·우선순위 어휘 (DEC-041). v2는 Tailwind 100단 틴트를 라이트 전용 리터럴로 굳혀 두어, 다크에서 배지가 형광 슬래브로 뒤집혔다(실측: status 5 × priority 4 = 22토큰 전부 모드 미인식). 다크 배경은 색을 옅게 칠하는 대신 **반투명 틴트**로 — 어떤 표면 위에 얹혀도 그 표면의 명도를 물려받아 카드/모달/시트에서 일관되게 읽힌다. 글자는 라이트 600단의 다크 대응(명도만 올린 같은 색상)이라 색 어휘는 늘지 않는다.",
   "status": {
-    "todo":     { "bg": "#f3f4f6", "text": "#6b7280" },
-    "progress": { "bg": "#dbeafe", "text": "#2563eb" },
-    "review":   { "bg": "#fef3c7", "text": "#d97706" },
-    "done":     { "bg": "#d1fae5", "text": "#059669" },
-    "hold":     { "bg": "#fee2e2", "text": "#dc2626" }
+    "todo":     { "bg": { "light": "#f3f4f6", "dark": "rgba(160, 156, 181, 0.14)" }, "text": { "light": "#6b7280", "dark": "#a09cb5" } },
+    "progress": { "bg": { "light": "#dbeafe", "dark": "rgba(59, 130, 246, 0.16)" },  "text": { "light": "#2563eb", "dark": "#7fb0ff" } },
+    "review":   { "bg": { "light": "#fef3c7", "dark": "rgba(183, 121, 31, 0.18)" },  "text": { "light": "#d97706", "dark": "#e0a94e" } },
+    "done":     { "bg": { "light": "#d1fae5", "dark": "rgba(47, 143, 87, 0.16)" },   "text": { "light": "#059669", "dark": "#5fc98c" } },
+    "hold":     { "bg": { "light": "#fee2e2", "dark": "rgba(220, 63, 63, 0.16)" },   "text": { "light": "#dc2626", "dark": "#ff8b8b" } }
   },
   "priority": {
-    "p0": { "bg": "#fef2f2", "text": "#dc2626", "border": "#fca5a5" },
-    "p1": { "bg": "#fff7ed", "text": "#ea580c", "border": "#fdba74" },
-    "p2": { "bg": "#fefce8", "text": "#ca8a04", "border": "#fde047" },
-    "p3": { "bg": "#eff6ff", "text": "#2563eb", "border": "#93c5fd" }
+    "p0": { "bg": { "light": "#fef2f2", "dark": "rgba(220, 63, 63, 0.14)" },  "text": { "light": "#dc2626", "dark": "#ff8b8b" }, "border": { "light": "#fca5a5", "dark": "rgba(220, 63, 63, 0.42)" } },
+    "p1": { "bg": { "light": "#fff7ed", "dark": "rgba(234, 88, 12, 0.14)" },  "text": { "light": "#ea580c", "dark": "#ffa668" }, "border": { "light": "#fdba74", "dark": "rgba(234, 88, 12, 0.42)" } },
+    "p2": { "bg": { "light": "#fefce8", "dark": "rgba(202, 138, 4, 0.14)" },  "text": { "light": "#ca8a04", "dark": "#e8c65a" }, "border": { "light": "#fde047", "dark": "rgba(202, 138, 4, 0.45)" } },
+    "p3": { "bg": { "light": "#eff6ff", "dark": "rgba(59, 130, 246, 0.14)" }, "text": { "light": "#2563eb", "dark": "#7fb0ff" }, "border": { "light": "#93c5fd", "dark": "rgba(59, 130, 246, 0.42)" } }
   }
 }

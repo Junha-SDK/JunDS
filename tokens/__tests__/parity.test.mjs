@@ -83,6 +83,29 @@ const SANCTIONED_DEVIATIONS = {
  * 교체되므로 항목별 v2 기대값을 함께 적어 둔다. v2 동결본이 바뀌면 여기서 먼저
  * 실패한다 — 즉 "v2가 조용히 움직였다"와 "v3가 의도적으로 갈라졌다"를 구분한다.
  */
+/**
+ * DEC-041 — v2가 물려준 **미정의 변수 참조** 3종의 결선.
+ *
+ * `var(--primary-soft)`·`var(--surface)`는 v2 CSS 어디에도 선언된 적이 없다(실측).
+ * CSS는 무효 var()가 섞인 선언 전체를 버리므로 세 그래디언트는 v2에서도 v3에서도
+ * **아무것도 그리지 않고 있었다** — 패리티가 지켜 온 것이 동작이 아니라 결함이었다.
+ * v2 기대값을 함께 고정해 "v2가 조용히 움직였다"와 구분한다.
+ */
+const GRADIENT_UNDEFINED_REF_FIX = {
+  primarySoft: {
+    v2: "linear-gradient(135deg, var(--primary-soft) 0%, var(--primary-glow) 100%)",
+    v3: "linear-gradient(135deg, var(--jd-color-primary-light) 0%, var(--jd-color-primary-glow) 100%)",
+  },
+  surfaceTop: {
+    v2: "linear-gradient(180deg, var(--surface) 0%, transparent 100%)",
+    v3: "linear-gradient(180deg, var(--jd-color-surface) 0%, transparent 100%)",
+  },
+  surfaceBottom: {
+    v2: "linear-gradient(0deg, var(--surface) 0%, transparent 100%)",
+    v3: "linear-gradient(0deg, var(--jd-color-surface) 0%, transparent 100%)",
+  },
+};
+
 const V3_ELEVATION_REWORK = {
   xs: "0 1px 2px rgba(0,0,0,0.04)",
   sm: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
@@ -168,13 +191,33 @@ describe("v2 TS 리터럴 토큰 ↔ tokens/*.json 패리티", () => {
     );
     expect(mq).toEqual(v2MediaQueries);
   });
-  test("gradients — 별칭을 v2 변수명으로 되돌리면 문자열 완전 일치", () => {
-    const g = Object.fromEntries(Object.entries(strip(tokens.gradient)).map(([k, v]) => [k, aliasToV2(v)]));
-    expect(g).toEqual(v2Gradients);
+  test("gradients — 별칭을 v2 변수명으로 되돌리면 문자열 완전 일치 (미정의 참조 3종 제외)", () => {
+    const raw = strip(tokens.gradient);
+    const g = {};
+    for (const [k, v] of Object.entries(raw)) {
+      // 이탈 3종은 v2에 대응 변수가 없다(그게 결함이었다) — v3 변수명 그대로 단언한다
+      if (k in GRADIENT_UNDEFINED_REF_FIX) continue;
+      g[k] = aliasToV2(v);
+    }
+    for (const [key, { v2, v3 }] of Object.entries(GRADIENT_UNDEFINED_REF_FIX)) {
+      expect(v2Gradients[key], `v2 gradient.${key} 가 움직였다 — 이탈 재심의 필요`).toBe(v2);
+      expect(aliasToVar(tokens, raw[key]), `v3 gradient.${key}`).toBe(v3);
+    }
+    const expected = { ...v2Gradients };
+    for (const key of Object.keys(GRADIENT_UNDEFINED_REF_FIX)) delete expected[key];
+    expect(g).toEqual(expected);
   });
-  test("status/priority 컬러 — colors.ts 리터럴 일치", () => {
-    expect(strip(tokens.color.status)).toEqual(v2StatusColors);
-    const p = Object.values(strip(tokens.color.priority));
+  test("status/priority 컬러 — 라이트는 colors.ts 리터럴 일치, 다크만 신설 (DEC-041)", () => {
+    const light = (o) =>
+      Object.fromEntries(Object.entries(o).map(([k, v]) => [
+        k,
+        Object.fromEntries(Object.entries(strip(v)).map(([p, m]) => {
+          expect(Object.keys(strip(m)).sort(), `color.${k}.${p}`).toEqual(["dark", "light"]);
+          return [p, m.light];
+        })),
+      ]));
+    expect(light(strip(tokens.color.status))).toEqual(v2StatusColors);
+    const p = Object.values(light(strip(tokens.color.priority)));
     Object.entries(v2PriorityColors).forEach(([k, v]) => {
       const { label, ...rest } = v;
       expect(p[Number(k)]).toEqual(rest);

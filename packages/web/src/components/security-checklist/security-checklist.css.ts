@@ -46,18 +46,16 @@ export default css`
   }
   .jd-security__count[data-level="ok"] {
     background: color-mix(in srgb, var(--jd-color-success) 12%, transparent);
-    color: color-mix(in srgb, var(--jd-color-success) 80%, #000);
+    color: color-mix(in srgb, var(--jd-color-success) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   .jd-security__count[data-level="warn"] {
     background: color-mix(in srgb, var(--jd-color-warning) 12%, transparent);
-    color: color-mix(in srgb, var(--jd-color-warning) 75%, #000);
+    color: color-mix(in srgb, var(--jd-color-warning) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   .jd-security__count[data-level="bad"] {
     background: color-mix(in srgb, var(--jd-color-danger) 12%, transparent);
-    color: color-mix(in srgb, var(--jd-color-danger) 90%, #000);
+    color: color-mix(in srgb, var(--jd-color-danger) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
-  [data-jd-theme="dark"] .jd-security__count,
-  [data-theme="dark"] .jd-security__count { color: #fff; }
 
   /* 진행 막대 */
   .jd-security__progress { display: flex; gap: var(--jd-space-0-5); }

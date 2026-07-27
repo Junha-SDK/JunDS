@@ -90,35 +90,19 @@ export default css`
   .jd-detail-panel__status[hidden] { display: none; }
   jd-detail-panel[status="success"] .jd-detail-panel__status {
     background: var(--jd-color-success-light);
-    color: color-mix(in srgb, var(--jd-color-success) 80%, #000);
+    color: color-mix(in srgb, var(--jd-color-success) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   jd-detail-panel[status="warning"] .jd-detail-panel__status {
     background: var(--jd-color-warning-light);
-    color: color-mix(in srgb, var(--jd-color-warning) 75%, #000);
+    color: color-mix(in srgb, var(--jd-color-warning) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   jd-detail-panel[status="danger"] .jd-detail-panel__status {
     background: var(--jd-color-danger-light);
-    color: color-mix(in srgb, var(--jd-color-danger) 90%, #000);
+    color: color-mix(in srgb, var(--jd-color-danger) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   jd-detail-panel[status="info"] .jd-detail-panel__status {
     background: var(--jd-color-info-light);
-    color: color-mix(in srgb, var(--jd-color-info) 75%, #000);
-  }
-  [data-jd-theme="dark"] jd-detail-panel[status="success"] .jd-detail-panel__status,
-  [data-theme="dark"] jd-detail-panel[status="success"] .jd-detail-panel__status {
-    color: var(--jd-color-success);
-  }
-  [data-jd-theme="dark"] jd-detail-panel[status="warning"] .jd-detail-panel__status,
-  [data-theme="dark"] jd-detail-panel[status="warning"] .jd-detail-panel__status {
-    color: var(--jd-color-warning);
-  }
-  [data-jd-theme="dark"] jd-detail-panel[status="danger"] .jd-detail-panel__status,
-  [data-theme="dark"] jd-detail-panel[status="danger"] .jd-detail-panel__status {
-    color: var(--jd-color-danger);
-  }
-  [data-jd-theme="dark"] jd-detail-panel[status="info"] .jd-detail-panel__status,
-  [data-theme="dark"] jd-detail-panel[status="info"] .jd-detail-panel__status {
-    color: var(--jd-color-info);
+    color: color-mix(in srgb, var(--jd-color-info) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
 
   .jd-detail-panel__close {

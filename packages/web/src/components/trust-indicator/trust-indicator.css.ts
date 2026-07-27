@@ -58,13 +58,13 @@ export default css`
     border-block-start: var(--jd-border-thin) solid var(--jd-color-border-light);
   }
   .jd-trust-indicator__item[data-status="pass"] {
-    --_jd-trust-color: var(--jd-color-success); --_jd-trust-tint: #dcfce7;
+    --_jd-trust-color: var(--jd-color-success); --_jd-trust-tint: color-mix(in srgb, color-mix(in srgb, var(--jd-color-success) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent);
   }
   .jd-trust-indicator__item[data-status="fail"] {
-    --_jd-trust-color: var(--jd-color-danger); --_jd-trust-tint: #fef2f2;
+    --_jd-trust-color: var(--jd-color-danger); --_jd-trust-tint: color-mix(in srgb, color-mix(in srgb, var(--jd-color-danger) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent);
   }
   .jd-trust-indicator__item[data-status="warning"] {
-    --_jd-trust-color: var(--jd-color-warning); --_jd-trust-tint: #fef3c7;
+    --_jd-trust-color: var(--jd-color-warning); --_jd-trust-tint: color-mix(in srgb, color-mix(in srgb, var(--jd-color-warning) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent);
   }
 
   .jd-trust-indicator__icon {

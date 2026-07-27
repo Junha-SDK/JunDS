@@ -13,7 +13,7 @@ export default css`
   jd-flow-diagram {
     display: block; position: relative; box-sizing: border-box;
     width: 100%; min-height: 400px; overflow: hidden;
-    background: #030712; /* gray-950 */
+    background: var(--jd-color-surface); /* 항상 어두운 캔버스 — 모드 무관 (DEC-041) */
     font-family: var(--jd-font-sans);
     outline: none; touch-action: none; cursor: default;
   }
@@ -55,7 +55,7 @@ export default css`
   .jd-flow__link-arrow { fill: var(--jd-color-muted); pointer-events: none; }
   .jd-flow__link[data-selected] .jd-flow__link-line { stroke: var(--jd-color-primary); stroke-width: 3; }
   .jd-flow__link[data-selected] .jd-flow__link-arrow { fill: var(--jd-color-primary); }
-  .jd-flow__link-label-bg { fill: var(--jd-color-neutral-900); stroke: var(--jd-color-neutral-800); stroke-width: 1; pointer-events: none; }
+  .jd-flow__link-label-bg { fill: var(--jd-color-surface-raised); stroke: var(--jd-color-surface-overlay); stroke-width: 1; pointer-events: none; }
   .jd-flow__link-label {
     fill: var(--jd-color-neutral-300); font-size: 10px; font-family: var(--jd-font-sans); pointer-events: none;
   }
@@ -65,7 +65,7 @@ export default css`
     position: absolute; user-select: none; overflow: visible;
     border-radius: var(--jd-radius-xl);
     border: 2px solid var(--jd-color-muted);
-    background: var(--jd-color-neutral-900); color: #fff;
+    background: var(--jd-color-surface-raised); color: var(--jd-color-on-surface);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
   .jd-flow__node[data-selected] {
@@ -83,18 +83,18 @@ export default css`
     font-size: var(--jd-text-sm); font-weight: var(--jd-weight-bold);
     border-block-end: 1px solid var(--jd-color-muted);
     border-start-start-radius: 10px; border-start-end-radius: 10px;
-    background: var(--jd-color-neutral-800); color: #cbd5e1;
+    background: var(--jd-color-surface-overlay); color: var(--jd-color-on-surface-muted);
   }
-  .jd-flow__node[data-variant="success"] .jd-flow__node-header { background: #14532d; color: var(--jd-color-success-light); border-color: var(--jd-color-success); }
-  .jd-flow__node[data-variant="warning"] .jd-flow__node-header { background: #78350f; color: var(--jd-color-warning-light); border-color: var(--jd-color-warning); }
-  .jd-flow__node[data-variant="danger"] .jd-flow__node-header { background: #7f1d1d; color: var(--jd-color-danger-light); border-color: var(--jd-color-danger); }
-  .jd-flow__node[data-variant="info"] .jd-flow__node-header { background: #1e3a5f; color: var(--jd-color-primary-light); border-color: var(--jd-color-primary); }
+  .jd-flow__node[data-variant="success"] .jd-flow__node-header { background: color-mix(in srgb, var(--jd-color-success) 30%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); border-color: var(--jd-color-success); }
+  .jd-flow__node[data-variant="warning"] .jd-flow__node-header { background: color-mix(in srgb, var(--jd-color-warning) 30%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); border-color: var(--jd-color-warning); }
+  .jd-flow__node[data-variant="danger"] .jd-flow__node-header { background: color-mix(in srgb, var(--jd-color-danger) 30%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); border-color: var(--jd-color-danger); }
+  .jd-flow__node[data-variant="info"] .jd-flow__node-header { background: color-mix(in srgb, var(--jd-color-primary) 34%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); border-color: var(--jd-color-primary); }
   .jd-flow__node-icon { flex-shrink: 0; font-size: var(--jd-text-md); }
   .jd-flow__node-icon[hidden] { display: none; }
   .jd-flow__node-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .jd-flow__node-body {
     padding: var(--jd-space-2) var(--jd-space-3);
-    font-size: var(--jd-text-xs); color: #9ca3af;
+    font-size: var(--jd-text-xs); color: var(--jd-color-on-surface-muted);
   }
   .jd-flow__node-body[hidden] { display: none; }
 
@@ -102,7 +102,7 @@ export default css`
   .jd-flow__ports { position: absolute; inset: 0; pointer-events: none; }
   .jd-flow__port {
     position: absolute; width: 12px; height: 12px; border-radius: var(--jd-radius-full);
-    border: 2px solid var(--jd-color-neutral-300); background: #3b82f6; z-index: 20;
+    border: 2px solid var(--jd-color-surface-overlay); background: var(--jd-color-info); z-index: 20;
     cursor: crosshair; pointer-events: auto;
     transition: transform var(--jd-duration-fast) var(--jd-easing-default);
   }
@@ -134,12 +134,12 @@ export default css`
   .jd-flow__minimap {
     position: absolute; top: var(--jd-space-3); right: var(--jd-space-3); z-index: 20;
     width: 150px; height: 90px; border-radius: var(--jd-radius-lg);
-    border: 1px solid var(--jd-color-neutral-800); background: rgba(17, 24, 39, 0.9);
+    border: 1px solid var(--jd-color-surface-overlay); background: color-mix(in srgb, var(--jd-color-surface) 90%, transparent);
     -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   }
   .jd-flow__minimap[hidden] { display: none; }
   .jd-flow__mini-link { stroke: var(--jd-color-muted); stroke-width: 0.8; }
-  .jd-flow__mini-node { fill: var(--jd-color-neutral-800); stroke: var(--jd-color-muted); stroke-width: 0.5; }
+  .jd-flow__mini-node { fill: var(--jd-color-surface-overlay); stroke: var(--jd-color-on-surface-muted); stroke-width: 0.5; }
   .jd-flow__mini-view { fill: none; stroke: var(--jd-color-primary); stroke-width: 1.5; }
 
   /* 줌 컨트롤 */
@@ -150,17 +150,17 @@ export default css`
   .jd-flow__zoom-btn {
     width: 2rem; height: 2rem; border: 0; border-radius: var(--jd-radius-lg);
     display: inline-flex; align-items: center; justify-content: center;
-    background: rgba(31, 41, 55, 0.9); color: #fff; cursor: pointer;
+    background: color-mix(in srgb, var(--jd-color-surface-overlay) 90%, transparent); color: var(--jd-color-on-surface); cursor: pointer;
     font-family: inherit; font-size: var(--jd-text-sm); line-height: 1;
     transition: background-color var(--jd-duration-fast) var(--jd-easing-default);
   }
-  .jd-flow__zoom-btn:hover { background: var(--jd-color-neutral-800); }
+  .jd-flow__zoom-btn:hover { background: var(--jd-color-surface-overlay); }
   .jd-flow__zoom-btn:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
   .jd-flow__zoom-label { font-size: 10px; }
 
   /* 단축키 힌트 */
   .jd-flow__hint {
     position: absolute; bottom: var(--jd-space-4); left: var(--jd-space-4); z-index: 20;
-    font-size: 10px; color: #4b5563; user-select: none; pointer-events: none;
+    font-size: 10px; color: var(--jd-color-on-surface-muted); user-select: none; pointer-events: none;
   }
 }`;

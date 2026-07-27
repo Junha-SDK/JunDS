@@ -67,7 +67,7 @@ export default css`
     background: var(--jd-fin-up); color: #fff; border-color: transparent;
   }
   .jd-open-picks-card__badge[data-strength="medium"] {
-    background: var(--jd-fin-warning); color: #0f172a; border-color: transparent;
+    background: var(--jd-fin-warning); color: #17141f; border-color: transparent; /* 원색 채움 위 잉크 — 모드 무관 */
   }
 
   /* 본문 */

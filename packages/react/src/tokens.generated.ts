@@ -51,50 +51,50 @@ export const colors = {
 export const priorityColors = {
   0: {
     label: "긴급",
-    bg: "#fef2f2",
-    text: "#dc2626",
-    border: "#fca5a5",
+    bg: "var(--jd-color-priority-p0-bg)",
+    text: "var(--jd-color-priority-p0-text)",
+    border: "var(--jd-color-priority-p0-border)",
   },
   1: {
     label: "높음",
-    bg: "#fff7ed",
-    text: "#ea580c",
-    border: "#fdba74",
+    bg: "var(--jd-color-priority-p1-bg)",
+    text: "var(--jd-color-priority-p1-text)",
+    border: "var(--jd-color-priority-p1-border)",
   },
   2: {
     label: "보통",
-    bg: "#fefce8",
-    text: "#ca8a04",
-    border: "#fde047",
+    bg: "var(--jd-color-priority-p2-bg)",
+    text: "var(--jd-color-priority-p2-text)",
+    border: "var(--jd-color-priority-p2-border)",
   },
   3: {
     label: "낮음",
-    bg: "#eff6ff",
-    text: "#2563eb",
-    border: "#93c5fd",
+    bg: "var(--jd-color-priority-p3-bg)",
+    text: "var(--jd-color-priority-p3-text)",
+    border: "var(--jd-color-priority-p3-border)",
   },
 } as const;
 
 export const statusColors = {
   todo: {
-    bg: "#f3f4f6",
-    text: "#6b7280",
+    bg: "var(--jd-color-status-todo-bg)",
+    text: "var(--jd-color-status-todo-text)",
   },
   progress: {
-    bg: "#dbeafe",
-    text: "#2563eb",
+    bg: "var(--jd-color-status-progress-bg)",
+    text: "var(--jd-color-status-progress-text)",
   },
   review: {
-    bg: "#fef3c7",
-    text: "#d97706",
+    bg: "var(--jd-color-status-review-bg)",
+    text: "var(--jd-color-status-review-text)",
   },
   done: {
-    bg: "#d1fae5",
-    text: "#059669",
+    bg: "var(--jd-color-status-done-bg)",
+    text: "var(--jd-color-status-done-text)",
   },
   hold: {
-    bg: "#fee2e2",
-    text: "#dc2626",
+    bg: "var(--jd-color-status-hold-bg)",
+    text: "var(--jd-color-status-hold-text)",
   },
 } as const;
 
@@ -267,13 +267,13 @@ export const mediaQueries: Record<Breakpoint, string> = {
 
 export const gradients = {
   primary: "linear-gradient(135deg, var(--jd-color-primary) 0%, var(--jd-color-primary-hover) 100%)",
-  primarySoft: "linear-gradient(135deg, var(--primary-soft) 0%, var(--jd-color-primary-glow) 100%)",
+  primarySoft: "linear-gradient(135deg, var(--jd-color-primary-light) 0%, var(--jd-color-primary-glow) 100%)",
   success: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
   warning: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
   danger: "linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)",
   info: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
-  surfaceTop: "linear-gradient(180deg, var(--surface) 0%, transparent 100%)",
-  surfaceBottom: "linear-gradient(0deg, var(--surface) 0%, transparent 100%)",
+  surfaceTop: "linear-gradient(180deg, var(--jd-color-surface) 0%, transparent 100%)",
+  surfaceBottom: "linear-gradient(0deg, var(--jd-color-surface) 0%, transparent 100%)",
   sunset: "linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)",
   ocean: "linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%)",
   aurora: "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)",

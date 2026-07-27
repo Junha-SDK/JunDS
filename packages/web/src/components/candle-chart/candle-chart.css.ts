@@ -121,7 +121,7 @@ ${CHART_CSS}
     --_tt-up: #fda4af; --_tt-down: #93c5fd;
   }
   .jd-candle-chart__tooltip-bg {
-    fill: var(--jd-fin-tooltip-bg, #1e293b);
+    fill: var(--jd-fin-tooltip-bg, var(--jd-color-surface-overlay));
     stroke: var(--jd-fin-tooltip-border, rgba(148, 163, 184, 0.25));
     stroke-width: 1;
   }

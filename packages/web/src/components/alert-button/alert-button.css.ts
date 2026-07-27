@@ -43,10 +43,8 @@ export default css`
     font-size: 10px; font-weight: var(--jd-weight-semibold);
     font-variant-numeric: tabular-nums;
     background: color-mix(in srgb, var(--jd-color-danger) 10%, transparent);
-    color: color-mix(in srgb, var(--jd-color-danger) 90%, #000);
+    color: color-mix(in srgb, var(--jd-color-danger) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
     box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-danger) 15%, transparent);
   }
-  [data-jd-theme="dark"] .jd-alert-button__count,
-  [data-theme="dark"] .jd-alert-button__count { color: var(--jd-color-danger); }
   .jd-alert-button__count[hidden] { display: none; }
 }`;

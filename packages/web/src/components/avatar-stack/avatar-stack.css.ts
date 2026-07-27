@@ -53,7 +53,11 @@ export default css`
     font-size: var(--_jd-stack-font); font-weight: var(--jd-weight-semibold);
     line-height: var(--jd-leading-none);
     user-select: none;
-    background: var(--jd-color-neutral-200); color: #4b5563; /* v2 gray-200 / gray-600 — 아바타 팔레트와 같은 계약 */
+    /* 아바타 팔레트와 같은 계약 — DEC-041 톤 레시피 */
+    --jd-tone: var(--jd-color-hue-gray);
+    --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
+    background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-strong-mix), transparent);
+    color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
 
   /* 이름·"외 N명"은 읽히기만 한다 (jd-trust-indicator __sr 관용구) */

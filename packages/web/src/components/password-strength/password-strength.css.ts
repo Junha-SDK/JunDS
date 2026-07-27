@@ -54,9 +54,7 @@ export default css`
     display: flex; align-items: center; gap: var(--jd-space-1-5);
     color: var(--jd-color-muted);
   }
-  .jd-password-strength__rule[data-ok] { color: color-mix(in srgb, var(--jd-color-success) 80%, #000); }
-  [data-jd-theme="dark"] .jd-password-strength__rule[data-ok],
-  [data-theme="dark"] .jd-password-strength__rule[data-ok] { color: var(--jd-color-success); }
+  .jd-password-strength__rule[data-ok] { color: color-mix(in srgb, var(--jd-color-success) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward)); }
 
   .jd-password-strength__mark { flex-shrink: 0; }
 

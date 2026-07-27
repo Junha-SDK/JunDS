@@ -29,25 +29,31 @@ export default css`
     display: flex; align-items: center; justify-content: center;
     font-size: var(--_jd-avatar-font); font-weight: var(--jd-weight-semibold);
     user-select: none;
-    background: var(--jd-color-neutral-200); color: #6b7280; /* 무이름 기본 */
+    /* DEC-041 톤 레시피 — 팔레트 8종은 앵커만 바꾼다(base.css --jd-tone-*).
+       채워진 원이라 배경은 한 단 진한 혼합비를 쓴다. */
+    --jd-tone: var(--jd-color-hue-gray); /* 무이름 기본 */
+    --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
+    background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-strong-mix), transparent);
+    color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
-  .jd-avatar__fallback[data-palette="0"] { background: #ede9fe; color: #6d28d9; } /* violet */
-  .jd-avatar__fallback[data-palette="1"] { background: #dbeafe; color: #1d4ed8; } /* blue */
-  .jd-avatar__fallback[data-palette="2"] { background: #d1fae5; color: #047857; } /* emerald */
-  .jd-avatar__fallback[data-palette="3"] { background: #fef3c7; color: #b45309; } /* amber */
-  .jd-avatar__fallback[data-palette="4"] { background: #ffe4e6; color: #be123c; } /* rose */
-  .jd-avatar__fallback[data-palette="5"] { background: #cffafe; color: #0e7490; } /* cyan */
-  .jd-avatar__fallback[data-palette="6"] { background: #f3e8ff; color: #7e22ce; } /* purple */
-  .jd-avatar__fallback[data-palette="7"] { background: #ccfbf1; color: #0f766e; } /* teal */
+  .jd-avatar__fallback[data-palette="0"] { --jd-tone: var(--jd-color-hue-violet); }
+  .jd-avatar__fallback[data-palette="1"] { --jd-tone: var(--jd-color-hue-blue); }
+  .jd-avatar__fallback[data-palette="2"] { --jd-tone: var(--jd-color-hue-green); }
+  .jd-avatar__fallback[data-palette="3"] { --jd-tone: var(--jd-color-hue-amber); }
+  .jd-avatar__fallback[data-palette="4"] { --jd-tone: var(--jd-color-hue-rose); }
+  .jd-avatar__fallback[data-palette="5"] { --jd-tone: var(--jd-color-hue-cyan); }
+  .jd-avatar__fallback[data-palette="6"] { --jd-tone: var(--jd-color-hue-purple); }
+  .jd-avatar__fallback[data-palette="7"] { --jd-tone: var(--jd-color-hue-teal); }
 
   .jd-avatar__status {
     position: absolute; bottom: 0; right: 0;
     width: var(--_jd-avatar-dot); height: var(--_jd-avatar-dot);
     border-radius: var(--jd-radius-full);
-    border: var(--_jd-avatar-ring) solid #fff;
+    /* 링은 아바타에서 점을 떼어 내는 장치라 '흰색'이 아니라 '그 자리의 면'이다 */
+    border: var(--_jd-avatar-ring) solid var(--jd-color-card);
     background: var(--jd-color-neutral-400);
   }
-  jd-avatar[status="online"] .jd-avatar__status { background: #22c55e; }
-  jd-avatar[status="away"] .jd-avatar__status { background: #eab308; }
-  jd-avatar[status="busy"] .jd-avatar__status { background: #ef4444; }
+  jd-avatar[status="online"] .jd-avatar__status { background: var(--jd-color-success); }
+  jd-avatar[status="away"] .jd-avatar__status { background: var(--jd-color-warning); }
+  jd-avatar[status="busy"] .jd-avatar__status { background: var(--jd-color-danger); }
 }`;

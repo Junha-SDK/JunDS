@@ -16,7 +16,7 @@ export default css`
     --_accent: var(--jd-fin-accent, #14b8a6);
     --_accent-strong: var(--jd-fin-accent-strong, #0d9488);
     --_accent-soft: var(--jd-fin-accent-soft, color-mix(in srgb, #14b8a6 12%, transparent));
-    --_soft: var(--jd-fin-soft-100, #f1f5f9);
+    --_soft: var(--jd-fin-soft-100, var(--jd-color-neutral-100));
     --_text: var(--jd-fin-text, var(--jd-color-foreground));
     --_muted: var(--jd-fin-muted, var(--jd-color-muted));
     --_border: var(--jd-fin-border, var(--jd-color-border));

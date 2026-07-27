@@ -216,7 +216,7 @@ export default css`
   }
   jd-trade-journal .jd-trade-journal__class[data-class="수익실현"] { color: var(--jd-fin-up); }
   jd-trade-journal .jd-trade-journal__class[data-class="손절"] { color: var(--jd-fin-down); }
-  jd-trade-journal .jd-trade-journal__class[data-class="추격매수"] { color: #a855f7; }
+  jd-trade-journal .jd-trade-journal__class[data-class="추격매수"] { color: color-mix(in srgb, var(--jd-color-hue-purple) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward)); }
   jd-trade-journal .jd-trade-journal__class[data-class="물타기"] { color: var(--jd-fin-warning); }
 
   jd-trade-journal .jd-trade-journal__delete {

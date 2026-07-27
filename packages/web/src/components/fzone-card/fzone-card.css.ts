@@ -26,12 +26,15 @@ export default css`
   .jd-fzone-card__header {
     display: flex; align-items: center; justify-content: space-between; gap: var(--jd-space-2);
     padding: var(--jd-space-2) var(--jd-space-3);
-    background: #dffaf5; /* kind=F 기본 */
+    /* DEC-041 톤 레시피 — kind 4종은 앵커만 바꾼다 */
+    --jd-tone: var(--jd-color-hue-teal); /* kind=F 기본 */
+    --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
+    background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-mix), transparent);
   }
-  .jd-fzone-card__header[data-kind="SF"] { background: #ffe9c2; }
-  .jd-fzone-card__header[data-kind="G"] { background: #fff3b0; }
-  .jd-fzone-card__header[data-kind="J"] { background: #fcd5ce; }
-  .jd-fzone-card__name { font-size: 14px; font-weight: var(--jd-weight-bold); color: #0f172a; }
+  .jd-fzone-card__header[data-kind="SF"] { --jd-tone: var(--jd-color-hue-orange); }
+  .jd-fzone-card__header[data-kind="G"] { --jd-tone: var(--jd-color-hue-amber); }
+  .jd-fzone-card__header[data-kind="J"] { --jd-tone: var(--jd-color-hue-rose); }
+  .jd-fzone-card__name { font-size: 14px; font-weight: var(--jd-weight-bold); color: var(--jd-color-foreground); }
   .jd-fzone-card__status {
     font-size: 12px; font-weight: var(--jd-weight-bold);
     padding: 2px 10px; border-radius: var(--jd-radius-full);

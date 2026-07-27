@@ -166,6 +166,30 @@ function lookupAlias(tokens, ref, from) {
   return { cat, path, node };
 }
 
+/**
+ * 별칭이 (전이적으로) 모드 인식 토큰을 가리키는가.
+ *
+ * 스칼라 별칭(`controlTrack: "{color.neutral.200}"`)은 CSS에서 `var(--jd-color-neutral-200)`
+ * 한 줄로 :root 에만 방출됐다. 커스텀 프로퍼티의 var() 치환은 **선언한 요소**에서
+ * 일어나므로, 다크를 서브트리(`<div data-jd-theme="dark">`)에 걸면 :root 에서 이미
+ * 라이트 값으로 굳은 값이 그대로 상속된다 — 스위치 트랙이 다크에서 흰 슬래브로
+ * 남던 실측 결함의 원인. 다크 블록에도 같은 별칭 줄을 방출하면 그 스코프에서
+ * 다시 치환되어 두 경우(루트 다크·서브트리 다크) 모두 옳아진다.
+ */
+export function aliasIsModeAware(tokens, value, stack = []) {
+  const refs = [...String(value).matchAll(ALIAS_RE)].map((m) => m[1]);
+  for (const ref of refs) {
+    if (stack.includes(ref)) throw new GenError(`별칭 순환 참조: ${[...stack, ref].join(" → ")}`);
+    const { node } = lookupAlias(tokens, ref, "aliasIsModeAware");
+    if (isPlainObject(node)) {
+      if ("light" in node || "dark" in node) return true;
+      throw new GenError(`별칭 {${ref}}이 리프가 아님`);
+    }
+    if (aliasIsModeAware(tokens, node, [...stack, ref])) return true;
+  }
+  return false;
+}
+
 /** CSS/TS용: {color.primary} → var(--jd-color-primary) */
 export function aliasToVar(tokens, value) {
   return String(value).replace(ALIAS_RE, (_, ref) => {
@@ -266,6 +290,10 @@ export function buildCss(tokens) {
       const name = cssVarName(cat, leaf.path);
       rootLines.push(`    ${name}: ${cssValue(tokens, cat, leaf.light)};`);
       if (leaf.isMode) darkLines.push(`    ${name}: ${cssValue(tokens, cat, leaf.dark)};`);
+      // 모드 인식 별칭은 다크 스코프에서 다시 치환돼야 한다 (aliasIsModeAware 주석)
+      else if (typeof leaf.dark === "string" && aliasIsModeAware(tokens, leaf.dark)) {
+        darkLines.push(`    ${name}: ${cssValue(tokens, cat, leaf.dark)};`);
+      }
     }
   }
   return `/* ${BANNER} */
@@ -467,14 +495,25 @@ export async function buildTs(tokens) {
     return [group, tsObject(inner, "    ")];
   });
 
+  /* status·priority는 DEC-041에서 모드 인식 토큰이 됐다 — 리터럴 hex를 그대로
+     내보내면 React 표면만 라이트에 굳는다. 변수 참조로 방출해 런타임에 테마를 따른다
+     (colors 그룹이 이미 쓰는 방식과 동일). 키·모양은 v2 그대로. */
+  const groupVar = (group, key, prop) =>
+    tsStr(`var(${cssVarName("color", [group, key, prop])})`);
+
   const priority = Object.entries(tokens.color.priority).filter(([k]) => !k.startsWith("$"))
-    .map(([k, v], i) => [String(i), tsObject([
+    .map(([k, _v], i) => [String(i), tsObject([
       ["label", tsStr(priorityLabels[i])],
-      ["bg", tsStr(v.bg)], ["text", tsStr(v.text)], ["border", tsStr(v.border)],
+      ["bg", groupVar("priority", k, "bg")],
+      ["text", groupVar("priority", k, "text")],
+      ["border", groupVar("priority", k, "border")],
     ], "    ")]);
 
   const status = Object.entries(tokens.color.status).filter(([k]) => !k.startsWith("$"))
-    .map(([k, v]) => [k, tsObject([["bg", tsStr(v.bg)], ["text", tsStr(v.text)]], "    ")]);
+    .map(([k]) => [k, tsObject([
+      ["bg", groupVar("status", k, "bg")],
+      ["text", groupVar("status", k, "text")],
+    ], "    ")]);
 
   const flat = (tree, mapVal = (v) => tsStr(v)) =>
     Object.entries(tree).filter(([k]) => !k.startsWith("$")).map(([k, v]) => [k, mapVal(v)]);

@@ -15,6 +15,48 @@
     --jd-focus-ring-offset: 2px;
   }
 
+  /* 톤 레시피 (DEC-041) — 색 하나에서 틴트 배경·테두리·글자를 파생하는 단일 공식.
+     컴포넌트는 변종마다 `--jd-tone: <앵커색>` 한 줄만 두고, 기본 규칙에 세 줄을 쓴다:
+
+       --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
+       background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-mix), transparent);
+       color:      color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
+
+     모드가 갖는 것은 **색이 아니라 혼합비**라 다크 분기가 컴포넌트마다 필요 없다 —
+     v2 이식본이 Tailwind 50/700 리터럴 쌍을 굳혀 두어 다크에서 형광 슬래브 + 검은
+     글자로 뒤집히던 결함(실측 92건)의 구조적 해소.
+
+     ① face(승강) — 앵커는 라이트에서 옅은 틴트 위 글자가 AA를 넘도록 600~700단에
+        두었다. 그 어두운 앵커를 다크에서 그대로 쓰면 틴트가 검은 진흙이 된다(실측).
+        그래서 다크에서만 앵커를 흰 쪽으로 들어 올린 뒤 나머지 공식에 넣는다.
+        라이트는 lift 100% = 앵커 그대로라 분기 없이 한 공식으로 흐른다.
+        승강은 **면(배경·테두리) 전용**이다 — 글자는 1단 공식이라 face 변수를 걸
+        자리가 없는 일회성 규칙(hint·detail-panel 등)과 값이 같아진다.
+     ② 배경을 흰색이 아니라 transparent 와 섞는 이유: 카드·모달·시트 등 어떤 표면
+        위에 얹혀도 그 표면의 명도를 물려받아야 같은 색으로 읽힌다.
+     ③ 글자는 라이트에서 잉크 쪽으로, 다크에서 흰 쪽으로 민다(--jd-tone-ink-toward).
+
+     소비자 확장: 임의 요소에 `--jd-tone`을 지정하면 그 하위 톤 컴포넌트가 전부 그
+     색을 따른다(브랜드 색 주입 경로). 톤의 세기만 바꾸려면 --jd-tone-*-mix. */
+  :root {
+    --jd-tone: var(--jd-color-hue-gray);
+    --jd-tone-lift: 100%;
+    --jd-tone-bg-mix: 12%;
+    --jd-tone-bg-strong-mix: 22%;
+    --jd-tone-border-mix: 30%;
+    --jd-tone-ink-mix: 82%;
+    --jd-tone-ink-toward: #17141f;
+  }
+  [data-jd-theme="dark"],
+  [data-theme="dark"] {
+    --jd-tone-lift: 58%;
+    --jd-tone-bg-mix: 26%;
+    --jd-tone-bg-strong-mix: 40%;
+    --jd-tone-border-mix: 46%;
+    --jd-tone-ink-mix: 58%;
+    --jd-tone-ink-toward: #ffffff;
+  }
+
   /* FOUC 방지(§3.2): 업그레이드 전 기본 박스 — 태그별 display만 선지정.
      오버레이류는 업그레이드 전 display:none으로 내용 번쩍임 차단. */
   jd-button:not(:defined) { display: inline-flex; }

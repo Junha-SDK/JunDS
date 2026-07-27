@@ -14,9 +14,14 @@ export default css`
     /* size 기본 md */
     padding: var(--jd-space-1) var(--jd-space-2-5);
     font-size: var(--jd-text-xs); border-radius: var(--jd-radius-lg);
-    /* variant 기본 default — gray */
-    background: rgba(107,114,128,.1); color: #374151;
-    box-shadow: 0 0 0 1px inset rgba(0,0,0,.06);
+    /* variant 기본 default — gray. DEC-041 톤 레시피: 변종은 앵커 한 줄만 바꾸고
+       배경·글자·인셋 링은 여기 세 줄이 공식으로 파생한다(base.css --jd-tone-*).
+       variant 7종 × 모드 2 = 14가지를 손으로 적던 것이 한 벌로 줄었다. */
+    --jd-tone: var(--jd-color-hue-gray);
+    --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
+    background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-mix), transparent);
+    color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
+    box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-border-mix), transparent);
   }
   jd-badge[size="sm"] {
     padding: var(--jd-space-0-5) var(--jd-space-2);
@@ -27,53 +32,22 @@ export default css`
     font-size: var(--jd-text-md);
   }
 
-  jd-badge[variant="primary"] {
-    background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
-    color: var(--jd-color-primary);
-    box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-primary) 15%, transparent);
-  }
-  /* 텍스트만 검정 쪽 파생(라이트 AA, DEC-027) — 틴트·점·링은 원색, 다크는 원색 복원 */
-  jd-badge[variant="success"] {
-    background: color-mix(in srgb, var(--jd-color-success) 10%, transparent);
-    color: color-mix(in srgb, var(--jd-color-success) 80%, #000);
-    box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-success) 15%, transparent);
-  }
-  jd-badge[variant="warning"] {
-    background: color-mix(in srgb, var(--jd-color-warning) 10%, transparent);
-    color: color-mix(in srgb, var(--jd-color-warning) 75%, #000);
-    box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-warning) 15%, transparent);
-  }
-  jd-badge[variant="danger"] {
-    background: color-mix(in srgb, var(--jd-color-danger) 10%, transparent);
-    color: color-mix(in srgb, var(--jd-color-danger) 90%, #000);
-    box-shadow: 0 0 0 1px inset color-mix(in srgb, var(--jd-color-danger) 15%, transparent);
-  }
-  [data-jd-theme="dark"] jd-badge[variant="success"],
-  [data-theme="dark"] jd-badge[variant="success"] { color: var(--jd-color-success); }
-  [data-jd-theme="dark"] jd-badge[variant="warning"],
-  [data-theme="dark"] jd-badge[variant="warning"] { color: var(--jd-color-warning); }
-  [data-jd-theme="dark"] jd-badge[variant="danger"],
-  [data-theme="dark"] jd-badge[variant="danger"] { color: var(--jd-color-danger); }
-  jd-badge[variant="info"] {
-    background: rgba(59,130,246,.1); color: #1d4ed8;
-    box-shadow: 0 0 0 1px inset rgba(59,130,246,.15);
-  }
+  jd-badge[variant="primary"] { --jd-tone: var(--jd-color-primary); }
+  jd-badge[variant="success"] { --jd-tone: var(--jd-color-success); }
+  jd-badge[variant="warning"] { --jd-tone: var(--jd-color-warning); }
+  jd-badge[variant="danger"] { --jd-tone: var(--jd-color-danger); }
+  jd-badge[variant="info"] { --jd-tone: var(--jd-color-info); }
   jd-badge[variant="outline"] {
     background: transparent; color: var(--jd-color-foreground);
     box-shadow: none; border: var(--jd-border-thin) solid var(--jd-color-border);
   }
 
-  /* dot — DOM 없이 ::before */
+  /* dot — DOM 없이 ::before. 틴트가 아니라 앵커 원색이라 변종 분기가 필요 없다 */
   jd-badge[dot]::before {
     content: ""; flex-shrink: 0;
     width: 6px; height: 6px; border-radius: var(--jd-radius-full);
-    background: var(--jd-color-neutral-400); /* default */
+    background: var(--jd-tone);
   }
-  jd-badge[dot][variant="primary"]::before { background: var(--jd-color-primary); }
-  jd-badge[dot][variant="success"]::before { background: var(--jd-color-success); }
-  jd-badge[dot][variant="warning"]::before { background: var(--jd-color-warning); }
-  jd-badge[dot][variant="danger"]::before { background: var(--jd-color-danger); }
-  jd-badge[dot][variant="info"]::before { background: #3b82f6; }
   jd-badge[dot][variant="outline"]::before { background: var(--jd-color-foreground); }
 
   /* 카운트 모드 — 원형 danger (v2 동형) */

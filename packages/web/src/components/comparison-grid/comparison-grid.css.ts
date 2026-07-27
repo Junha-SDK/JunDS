@@ -95,19 +95,11 @@ export default css`
   .jd-comparison-grid__change[hidden] { display: none; }
   .jd-comparison-grid__change[data-direction="up"] {
     background: var(--jd-color-success-light);
-    color: color-mix(in srgb, var(--jd-color-success) 80%, #000);
+    color: color-mix(in srgb, var(--jd-color-success) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   .jd-comparison-grid__change[data-direction="down"] {
     background: var(--jd-color-danger-light);
-    color: color-mix(in srgb, var(--jd-color-danger) 90%, #000);
-  }
-  [data-jd-theme="dark"] .jd-comparison-grid__change[data-direction="up"],
-  [data-theme="dark"] .jd-comparison-grid__change[data-direction="up"] {
-    color: var(--jd-color-success);
-  }
-  [data-jd-theme="dark"] .jd-comparison-grid__change[data-direction="down"],
-  [data-theme="dark"] .jd-comparison-grid__change[data-direction="down"] {
-    color: var(--jd-color-danger);
+    color: color-mix(in srgb, var(--jd-color-danger) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
 
   .jd-comparison-grid__subtext {

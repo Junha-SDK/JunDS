@@ -15,7 +15,7 @@ export default css`
   jd-battery-indicator:hover { transform: scale(1.05); }
 
   .jd-battery__label {
-    font-size: var(--jd-text-xs); font-weight: var(--jd-weight-medium); color: #4b5563;
+    font-size: var(--jd-text-xs); font-weight: var(--jd-weight-medium); color: var(--jd-color-muted);
   }
   [data-jd-theme="dark"] .jd-battery__label,
   [data-theme="dark"] .jd-battery__label { color: #9ca3af; }

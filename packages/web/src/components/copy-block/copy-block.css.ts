@@ -33,7 +33,7 @@ export default css`
   .jd-copy-block__pre {
     margin: 0; padding: var(--jd-space-4);
     overflow-x: auto;
-    background: #030712; color: #f3f4f6;
+    background: var(--jd-color-surface); color: var(--jd-color-on-surface); /* 항상 어두운 코드 면 (DEC-041) */
     font-family: var(--jd-font-mono); font-size: var(--jd-text-md);
     line-height: var(--jd-leading-relaxed);
     tab-size: 2;
@@ -50,7 +50,7 @@ export default css`
     counter-increment: jd-copy-block-line;
     content: counter(jd-copy-block-line);
     display: inline-block; inline-size: 2rem; margin-inline-end: var(--jd-space-4);
-    text-align: end; color: #6b7280; user-select: none;
+    text-align: end; color: var(--jd-color-on-surface-muted); user-select: none;
   }
   jd-copy-block[show-line-numbers] .jd-copy-block__code {
     counter-reset: jd-copy-block-line;
@@ -63,7 +63,7 @@ export default css`
     display: inline-flex; align-items: center; justify-content: center;
     padding: var(--jd-space-2); border: 0; cursor: pointer;
     border-radius: var(--jd-radius-lg);
-    background: var(--jd-color-neutral-800); color: #d1d5db;
+    background: var(--jd-color-surface-overlay); color: var(--jd-color-on-surface-muted);
     opacity: 0;
     transition: opacity var(--jd-duration-normal) var(--jd-easing-ease-out),
       background var(--jd-duration-fast) var(--jd-easing-ease-out),
@@ -72,7 +72,7 @@ export default css`
   jd-copy-block:hover .jd-copy-block__copy,
   jd-copy-block:focus-within .jd-copy-block__copy { opacity: 1; }
   @media (hover: none) { .jd-copy-block__copy { opacity: 1; } }
-  .jd-copy-block__copy:hover { background: var(--jd-color-neutral-800); color: #fff; }
+  .jd-copy-block__copy:hover { background: color-mix(in srgb, var(--jd-color-on-surface) 16%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); }
   .jd-copy-block__copy:focus-visible {
     opacity: 1; outline: none; box-shadow: var(--jd-shadow-focus-ring);
   }

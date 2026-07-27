@@ -45,13 +45,10 @@ export default css`
     background: var(--jd-color-neutral-200); overflow: hidden;      /* v2 gray-200 */
   }
   .jd-book-rating__bar {
-    height: 100%; border-radius: var(--jd-radius-full); background: #fbbf24;  /* amber-400 */
+    height: 100%; border-radius: var(--jd-radius-full); background: var(--jd-color-hue-amber);
   }
   .jd-book-rating__count { text-align: right; font-variant-numeric: tabular-nums; }
 
-  /* 다크 — 빈 별·트랙만 어둡게(채움 금색은 유지, badge 선례) */
-  [data-jd-theme="dark"] .jd-book-rating__star-base > path,
-  [data-theme="dark"] .jd-book-rating__star-base > path { fill: var(--jd-color-neutral-800); }  /* gray-700 */
-  [data-jd-theme="dark"] .jd-book-rating__track,
-  [data-theme="dark"] .jd-book-rating__track { background: var(--jd-color-neutral-800); }       /* gray-800 */
+  /* neutral 램프가 다크에서 반전하므로(DEC-039) 빈 별·트랙은 분기 없이 neutral-200
+     하나로 두 모드가 맞는다 — 옛 분기는 다크에서 near-white 트랙을 그리고 있었다. */
 }`;

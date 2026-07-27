@@ -62,7 +62,8 @@ export default css`
     display: flex; align-items: center; justify-content: center;
     width: 2rem; height: 2rem;
     border-radius: var(--jd-radius-full);
-    background: #fff; color: var(--jd-color-foreground);
+    /* 사진 위에 얹히는 크롬이라 모드 무관 — 흰 알약 위에는 어두운 잉크가 정답 */
+    background: #fff; color: #17141f;
     border: var(--jd-border-thin) solid var(--jd-color-border);
     box-shadow: var(--jd-shadow-lg);
   }

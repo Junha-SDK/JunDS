@@ -20,7 +20,7 @@ export default css`
     box-sizing: border-box; /* DEC-014-9 */
     overflow: auto;
     width: var(--_jd-shell-rail, 260px);
-    background: #ffffff;
+    background: var(--jd-color-card);
     border-right: 1px solid var(--jd-color-border);
     transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -58,7 +58,7 @@ export default css`
   .jd-app-shell__header {
     flex-shrink: 0;
     position: relative;
-    background: #ffffff;
+    background: var(--jd-color-card);
     border-bottom: 1px solid var(--jd-color-border);
   }
   jd-app-shell[sticky-header] .jd-app-shell__header {
@@ -100,7 +100,7 @@ export default css`
 
   .jd-app-shell__footer {
     flex-shrink: 0;
-    background: #ffffff;
+    background: var(--jd-color-card);
     border-top: 1px solid var(--jd-color-border);
   }
 }`;

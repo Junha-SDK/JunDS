@@ -36,7 +36,7 @@ export default css`
     position: absolute; width: 1.25rem; height: 1.25rem;
     transform: translateX(-50%);
     border-radius: var(--jd-radius-full);
-    background: #fff; border: 2px solid var(--jd-color-primary);
+    background: var(--jd-color-control-knob); border: 2px solid var(--jd-color-primary);
     box-sizing: border-box; box-shadow: var(--jd-shadow-sm);
     cursor: grab;
     transition: scale var(--jd-duration-fast) var(--jd-easing-ease-out);

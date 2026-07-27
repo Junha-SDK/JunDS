@@ -20,25 +20,13 @@ export default css`
 
   .jd-reading-time__level { font-weight: var(--jd-weight-medium); }
   .jd-reading-time__level[data-level="basic"] {
-    color: color-mix(in srgb, var(--jd-color-success) 80%, #000);
+    color: color-mix(in srgb, var(--jd-color-success) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   .jd-reading-time__level[data-level="intermediate"] {
-    color: color-mix(in srgb, var(--jd-color-warning) 75%, #000);
+    color: color-mix(in srgb, var(--jd-color-warning) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   .jd-reading-time__level[data-level="advanced"] {
-    color: color-mix(in srgb, var(--jd-color-danger) 90%, #000);
-  }
-  [data-jd-theme="dark"] .jd-reading-time__level[data-level="basic"],
-  [data-theme="dark"] .jd-reading-time__level[data-level="basic"] {
-    color: var(--jd-color-success);
-  }
-  [data-jd-theme="dark"] .jd-reading-time__level[data-level="intermediate"],
-  [data-theme="dark"] .jd-reading-time__level[data-level="intermediate"] {
-    color: var(--jd-color-warning);
-  }
-  [data-jd-theme="dark"] .jd-reading-time__level[data-level="advanced"],
-  [data-theme="dark"] .jd-reading-time__level[data-level="advanced"] {
-    color: var(--jd-color-danger);
+    color: color-mix(in srgb, var(--jd-color-danger) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
 
   /* 스크린리더 전용 접두("난이도 ") — visually-hidden과 같은 clip-path 관용구 */

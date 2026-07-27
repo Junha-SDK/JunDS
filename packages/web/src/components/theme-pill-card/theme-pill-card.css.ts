@@ -40,8 +40,8 @@ export default css`
     border-radius: var(--jd-radius-md);
     font-size: var(--jd-text-xs); font-weight: var(--jd-weight-bold);
     font-variant-numeric: tabular-nums; white-space: nowrap;
-    background: var(--jd-fin-orange-soft, #fff7ed);
-    color: var(--jd-fin-orange, #c2410c);
+    background: var(--jd-fin-orange-soft, color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-orange) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent));
+    color: var(--jd-fin-orange, color-mix(in srgb, var(--jd-color-hue-orange) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward)));
   }
 
   @media (prefers-reduced-motion: reduce) {

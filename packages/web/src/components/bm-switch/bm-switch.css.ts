@@ -13,8 +13,8 @@ export default css`
     display: inline-flex;
     --_accent: var(--jd-fin-accent, #14b8a6);
     --_accent-2: var(--jd-fin-accent-glow, #5cdcd0);
-    --_off: var(--jd-fin-soft-200, #e2e8f0);
-    --_thumb: var(--jd-fin-surface, #ffffff);
+    --_off: var(--jd-fin-soft-200, var(--jd-color-control-track));
+    --_thumb: var(--jd-fin-surface, var(--jd-color-control-knob));
     --_text: var(--jd-fin-text, var(--jd-color-foreground));
   }
 

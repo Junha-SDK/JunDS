@@ -38,7 +38,7 @@ ${CHART_CSS}
   /* 툴팁 — 색은 candle-chart와 공유하는 --jd-fin-tooltip-* 토큰 경유(슬레이트 폴백),
      소비자가 두 차트의 툴팁을 한 번에 리브랜딩할 수 있게 한다 */
   .jd-mlc__tip-bg {
-    fill: var(--jd-fin-tooltip-bg, #1e293b);
+    fill: var(--jd-fin-tooltip-bg, var(--jd-color-surface-overlay));
     stroke: var(--jd-fin-tooltip-border, rgba(148, 163, 184, 0.25));
     stroke-width: 1;
   }

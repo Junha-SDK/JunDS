@@ -77,7 +77,7 @@ export default css`
   .jd-day-detail__flow-bar { fill: var(--jd-color-muted); }
   .jd-day-detail__flow-bar[data-neg] { fill-opacity: .55; }
   .jd-day-detail__flow-bar--foreign { fill: ${UP}; }
-  .jd-day-detail__flow-bar--institution { fill: #a855f7; }
+  .jd-day-detail__flow-bar--institution { fill: var(--jd-color-hue-purple); }
   .jd-day-detail__flow-bar--individual { fill: var(--jd-color-warning); }
 
   /* 순매수 카드 */
@@ -90,7 +90,7 @@ export default css`
   .jd-day-detail__net-label { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: var(--jd-weight-bold); color: var(--jd-color-muted); }
   .jd-day-detail__net-dot { width: 8px; height: 8px; border-radius: var(--jd-radius-full); }
   .jd-day-detail__net-dot--foreign { background: ${UP}; }
-  .jd-day-detail__net-dot--institution { background: #a855f7; }
+  .jd-day-detail__net-dot--institution { background: var(--jd-color-hue-purple); }
   .jd-day-detail__net-dot--individual { background: var(--jd-color-warning); }
   .jd-day-detail__net-value { font-size: 13.5px; font-weight: var(--jd-weight-bold); font-variant-numeric: tabular-nums; }
   .jd-day-detail__net-value[data-dir="up"] { color: ${UP}; }

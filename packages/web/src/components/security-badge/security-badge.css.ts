@@ -24,16 +24,16 @@ export default css`
     --_jd-sec-bg: var(--jd-color-neutral-25); --_jd-sec-border: var(--jd-color-neutral-200); --_jd-sec-fg: var(--jd-color-neutral-700);
   }
   jd-security-badge[level="critical"] {
-    --_jd-sec-bg: #fef2f2; --_jd-sec-border: #fecaca; --_jd-sec-fg: #b91c1c;
+    --_jd-sec-bg: color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-red) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent); --_jd-sec-border: color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-red) var(--jd-tone-lift), #ffffff) var(--jd-tone-border-mix), transparent); --_jd-sec-fg: color-mix(in srgb, var(--jd-color-hue-red) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   jd-security-badge[level="warning"] {
-    --_jd-sec-bg: #fffbeb; --_jd-sec-border: #fde68a; --_jd-sec-fg: #b45309;
+    --_jd-sec-bg: color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-amber) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent); --_jd-sec-border: color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-amber) var(--jd-tone-lift), #ffffff) var(--jd-tone-border-mix), transparent); --_jd-sec-fg: color-mix(in srgb, var(--jd-color-hue-amber) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   jd-security-badge[level="safe"] {
-    --_jd-sec-bg: #f0fdf4; --_jd-sec-border: #bbf7d0; --_jd-sec-fg: #15803d;
+    --_jd-sec-bg: color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-green) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent); --_jd-sec-border: color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-green) var(--jd-tone-lift), #ffffff) var(--jd-tone-border-mix), transparent); --_jd-sec-fg: color-mix(in srgb, var(--jd-color-hue-green) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
   jd-security-badge[level="verified"] {
-    --_jd-sec-bg: #eff6ff; --_jd-sec-border: #bfdbfe; --_jd-sec-fg: #1d4ed8;
+    --_jd-sec-bg: color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-blue) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent); --_jd-sec-border: color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-blue) var(--jd-tone-lift), #ffffff) var(--jd-tone-border-mix), transparent); --_jd-sec-fg: color-mix(in srgb, var(--jd-color-hue-blue) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
   }
 
   jd-security-badge[size="sm"] {

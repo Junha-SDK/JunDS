@@ -18,7 +18,7 @@ export default css`
     padding: var(--jd-space-3);
     border: var(--jd-border-thin) solid var(--jd-color-border);
     border-radius: var(--jd-radius-xl);
-    background: #030712; color: #f3f4f6;
+    background: var(--jd-color-surface); color: var(--jd-color-on-surface); /* 항상 어두운 코드 면 (DEC-041) */
     font-family: var(--jd-font-mono); font-size: var(--jd-text-xs);
     line-height: var(--jd-leading-normal);
     overflow: auto;
@@ -35,7 +35,7 @@ export default css`
   .jd-json-viewer__leaf { display: flex; white-space: pre; }
 
   .jd-json-viewer__name { color: var(--_jd-json-key); }
-  .jd-json-viewer__value { color: #f3f4f6; }
+  .jd-json-viewer__value { color: var(--jd-color-on-surface); }
   .jd-json-viewer__value[data-kind="string"] { color: var(--_jd-json-string); }
   .jd-json-viewer__value[data-kind="number"] { color: var(--_jd-json-number); }
   .jd-json-viewer__value[data-kind="boolean"] { color: var(--_jd-json-boolean); }

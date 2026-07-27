@@ -1,12 +1,12 @@
 {
   "primary": "linear-gradient(135deg, {color.primary} 0%, {color.primaryHover} 100%)",
-  "primarySoft": "linear-gradient(135deg, var(--primary-soft) 0%, {color.primaryGlow} 100%)",
+  "primarySoft": "linear-gradient(135deg, {color.primaryLight} 0%, {color.primaryGlow} 100%)",
   "success": "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
   "warning": "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
   "danger": "linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)",
   "info": "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
-  "surfaceTop": "linear-gradient(180deg, var(--surface) 0%, transparent 100%)",
-  "surfaceBottom": "linear-gradient(0deg, var(--surface) 0%, transparent 100%)",
+  "surfaceTop": "linear-gradient(180deg, {color.surface} 0%, transparent 100%)",
+  "surfaceBottom": "linear-gradient(0deg, {color.surface} 0%, transparent 100%)",
   "sunset": "linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%)",
   "ocean": "linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%)",
   "aurora": "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)",
@@ -16,5 +16,5 @@
   "flame": "linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%)",
   "candy": "linear-gradient(135deg, #ee9ca7 0%, #ffdde1 100%)",
   "shimmer": "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
-  "$note": "primarySoft의 var(--primary-soft)·surfaceTop/Bottom의 var(--surface)는 v2 CSS 어디에도 정의된 적 없는 미정의 변수 참조(실측). 패리티 원칙(값 임의 변경 금지)에 따라 문자열 그대로 보존 — DECISIONS.md G1 구현 중 발견 항목 참조."
+  "$note": "primarySoft의 var(--primary-soft)·surfaceTop/Bottom의 var(--surface)는 v2 CSS 어디에도 정의된 적 없는 미정의 변수 참조였다(실측) — 셋 다 첫 색 정지점이 무효라 그래디언트 선언 전체가 무시됐다. G1에서는 패리티 원칙에 따라 문자열을 보존했으나, DEC-039로 상한이 풀리며 DEC-041에서 실재 토큰(primaryLight·surface)으로 결선했다. 패리티 이탈은 parity.test.mjs의 GRADIENT_UNDEFINED_REF_FIX가 집행한다."
 }

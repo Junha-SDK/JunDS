@@ -58,7 +58,7 @@ export default css`
     font-size: 10.5px; font-weight: 800;
   }
   .jd-cpc__badge[data-strength="high"] { background: var(--jd-fin-up); color: #fff; }
-  .jd-cpc__badge[data-strength="medium"] { background: var(--jd-color-warning); color: #0f172a; }
+  .jd-cpc__badge[data-strength="medium"] { background: var(--jd-color-warning); color: #17141f; } /* 원색 채움 위 잉크 — 모드 무관 */
   .jd-cpc__badge[data-strength="low"] {
     background: color-mix(in srgb, var(--jd-color-muted) 16%, transparent);
     color: var(--jd-color-muted);
