@@ -394,7 +394,10 @@ body {
    "무대"라는 뜻에 더 가깝고, 뒤의 컴포넌트를 덜 방해한다. */
 .preview-canvas {
   background-color: var(--card);
-  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  /* --border 를 그대로 쓰면 카드 위에서 점이 거의 사라져 무대와 컨트롤 영역이
+     구분되지 않는다. --muted 를 옅게 섞어 "보이되 조용한" 세기로 맞춘다. */
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--muted) 30%, transparent) 1px, transparent 1px);
   background-size: 16px 16px;
   background-position: 0 0;
 }
