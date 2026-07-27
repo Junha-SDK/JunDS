@@ -19,28 +19,39 @@ UIKit에서 화면을 짜는 일이 왜 번거로웠는지부터. `jd.layout`은
 
 | 하고 싶은 것 | 쓰는 것 |
 |---|---|
-| 중첩 스택 | `JdStackView(.vertical, gap:, align:, padding:) { … }` |
-| 한쪽으로 밀기 | `JdFlexSpacerView()` |
+| 중첩 스택 | `JdVStack(gap:, align:, padding:) { … }` · `JdHStack { … }` |
+| 한쪽으로 밀기 | `JdFlex()` |
 | 크기·여백 지정 | `.jdSize(44)` · `.jdWidth(96)` · `.jdMinWidth(80)` · `.jdPadded(.md)` |
+| 여백 값 조립 | `JdEdge.all(.md)` · `JdEdge.symmetric(v: .sm, h: .md)` · `JdEdge.only(top: .lg)` |
 | 부모에 얹기 | `child.jdFill(parent)` · `child.jdFillSafeArea(parent)` |
 | **행 간 열 정렬**(표) | `JdColumnsView(columns:) { … }` |
 | 폭에 따른 축 전환 | `JdAdaptiveStackView(breakpoint:) { … }` |
 | 줄바꿈 흐름 | `JdWrapView(itemSpacing:) { … }` (아래 Wrap 항목) |
 
+정렬·분배는 **웹 어휘**를 쓴다(`JdAlign` = `start·center·end·stretch·baseline`,
+`JdJustify` = `start·center·end·between·around·evenly`). `UIStackView.Alignment`가 소비자
+코드로 새지 않고, 같은 개념을 웹은 `stretch`·iOS는 `.fill`로 부르는 갈림도 없어진다.
+⚠️ `UIStackView`엔 `justify-content` 대응이 없다 — `start/center/end`는 분배가 아니라
+`JdFlex()`로 미는 것이 정답이고, 그 비대칭을 숨기지 않았다.
+
 ### 기본형
 
 ```swift
-let row = JdStackView(.horizontal, gap: .sm, align: .center) {
+let row = JdHStack(gap: .sm) {
     avatarView.jdSize(40)
-    JdStackView(.vertical, gap: .xs) {
+    JdVStack(gap: .xs) {
         nameLabel
         tickerLabel
     }
-    JdFlexSpacerView()                                   // 남는 공간을 먹어 오른쪽으로 밀어낸다
+    JdFlex()                                             // 남는 공간을 먹어 오른쪽으로 밀어낸다
     JdLiveStackedCellView(price: 71_200, change: 1.24)
 }
-row.jdFill(container, insets: .init(top: 12, leading: 16, bottom: 12, trailing: 16))
+row.jdFill(container, insets: JdEdge.symmetric(v: .sm, h: .md))
 ```
+
+`JdVStack`/`JdHStack`은 **축이 이름에 있다.** SwiftUI가 `HStack { }`으로 읽히는 이유가
+그것이고, 기본값도 웹 `jd-vstack`(gap md·stretch) / `jd-hstack`(gap sm·center)을 그대로
+갖는다 — 흔한 경우에 인자를 하나도 적지 않는다.
 
 `if` / `if let` / `for`를 블록 안에서 그대로 쓸 수 있다 — 조건부 화면도 한 표현식이다.
 
@@ -72,10 +83,13 @@ JdStackView(.vertical, gap: .sm) {
 
 ```swift
 let table = JdColumnsView(
-    columns: [.fit(max: 140), .flexible(weight: 1), .fixed(96)],
-    alignments: [.leading, .fill, .trailing],   // 숫자 열은 trailing — 자리수가 달라도 끝이 맞는다
-    columnGap: JdToken.Space.s3,
-    rowGap: JdToken.Space.s2
+    columns: [
+        .fit(max: 140, align: .start),   // 폭 규칙과 정렬이 **한 값**이다
+        .flex(weight: 1),
+        .fixed(96, align: .end),         // 숫자 열은 end — 자리수가 달라도 끝이 맞는다
+    ],
+    gap: .md,
+    rowGap: .sm
 ) {
     [headerName, headerChart, headerPrice]
     for q in quotes {
@@ -91,9 +105,13 @@ table.setRows(newRows)   // 목록 갱신은 이 한 줄
 
 | 규칙 | 뜻 |
 |---|---|
-| `.fixed(96)` | 고정 폭. 소비자 의도라 폭이 모자라도 **줄이지 않는다** |
-| `.fit(max:)` | 전 행 중 가장 넓은 내용에 맞춘다. 상한을 넘지 않고, 전체가 넘칠 때 **여기서** 줄인다 |
-| `.flexible(weight:)` | 남는 폭을 가중치로 나눈다. 가중치가 전부 0이면 균등 분배(0으로 나누지 않는다) |
+| `.fixed(96, align:)` | 고정 폭. 소비자 의도라 폭이 모자라도 **줄이지 않는다** |
+| `.fit(max:, align:)` | 전 행 중 가장 넓은 내용에 맞춘다. 상한을 넘지 않고, 전체가 넘칠 때 **여기서** 줄인다 |
+| `.flex(weight:, align:)` | 남는 폭을 가중치로 나눈다. 가중치가 전부 0이면 균등 분배(0으로 나누지 않는다) |
+
+**왜 정렬이 폭과 한 값인가**: 처음엔 `columns:`와 `alignments:` 두 배열이었다. 인덱스로 짝을
+맞추는 API는 하나만 밀려도 **조용히 틀린 표**를 그린다 — 컴파일도 되고 크래시도 없다.
+한 값으로 합치면 그 실수가 문법적으로 불가능해진다.
 
 보장하는 것(테스트로 고정):
 - `fit` 열 폭은 **전 행이 공유**한다 — 1행만 짧아도 열이 어긋나지 않는다.
@@ -116,14 +134,33 @@ JdAdaptiveStackView(breakpoint: JdToken.Breakpoint.sm, wideAxis: .horizontal, ga
 폭 0(부모가 아직 폭을 주지 않은 첫 프레임)에서는 좁다고 판정하지 않는다 — 초기 1프레임
 깜빡임을 막는다. 축은 **값이 실제로 바뀔 때만** 쓴다(레이아웃 루프 방지).
 
+### SnapKit과 무엇이 같고 무엇이 다른가
+
+SnapKit이 읽기 좋은 이유는 **스코프된 DSL**이다 — `view.snp.makeConstraints { make in … }`.
+그 형태는 이 레포에 이미 있다: `view.jd.layout { $0.edges.equalToSuperview() }`. 즉 제약
+DSL은 SnapKit과 같은 급이고, 새로 만들 이유가 없었다.
+
+SnapKit이 **하지 않는** 일이 둘 있고 그게 여기서 더한 부분이다:
+
+| | SnapKit | JunDS |
+|---|---|---|
+| 제약 관계 적기 | `snp.makeConstraints { }` | `jd.layout { }` (동급) |
+| **트리 만들기** | 없음 — `addSubview`는 손으로 | `JdVStack { }` 빌더가 함께 한다 |
+| **`addSubview` 잊음** | 런타임에 제약이 안 붙거나 크래시 | 문법적으로 불가능(빌더가 넣는다) |
+| **행 간 열 정렬** | 없음 — 열마다 제약을 손으로 엮어야 | `JdColumnsView`가 폭을 공유 |
+| 토큰 강제 | 없음(원시 CGFloat) | `JdGap`·`JdAlign`만 받는다 |
+
+정리하면 **SnapKit 대신**이 아니라 **SnapKit이 비워 둔 층**이다. 제약이 필요한 비계층
+관계("이 뷰를 저 뷰 오른쪽에")는 여전히 `jd.layout`을 쓴다.
+
 ### SwiftUI는 무엇을 쓰나
 
 SwiftUI엔 이미 다 있어서 **새 타입을 만들지 않았다**(04 §10 번역 원칙):
 
 | UIKit | SwiftUI |
 |---|---|
-| `JdStackView(.horizontal) { … }` | `HStack { … }` |
-| `JdFlexSpacerView()` | `Spacer()` |
+| `JdHStack { … }` / `JdVStack { … }` | `HStack { … }` / `VStack { … }` |
+| `JdFlex()` | `Spacer()` |
 | `JdColumnsView(columns:)` | `Grid { GridRow { … } }` (iOS 16 — DEC-004가 전제한 하한) |
 | `JdAdaptiveStackView` | `ViewThatFits { HStack { … }; VStack { … } }` |
 | `JdWrapView` | `JdFlowLayout` (실컴포넌트) |

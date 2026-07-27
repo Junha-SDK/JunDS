@@ -11,19 +11,46 @@ import JunDSCore
 // 여기서는 **모든 행을 한 번에 측정해 열 폭을 공유**한다. 그래서 `fit` 열은 전 행에서
 // 가장 넓은 내용에 맞고, `flexible` 열이 남는 폭을 가중치로 나눈다 — 표가 자동으로 맞는다.
 
-/// 열 폭 규칙
-public enum JdColumn: Sendable, Equatable {
-    /// 고정 폭
-    case fixed(CGFloat)
-    /// **전 행의 내용 중 가장 넓은 것**에 맞춘다 (최대 상한 지정 가능)
-    case fit(max: CGFloat = .greatestFiniteMagnitude)
-    /// 남는 폭을 가중치로 분배 (기본 1)
-    case flexible(weight: CGFloat = 1)
-}
+/// 열 하나의 정의 — **폭 규칙과 정렬을 한 값에 담는다.**
+///
+/// 처음엔 `columns: [JdColumn]`과 `alignments: [JdColumnAlign]` 두 배열이었다(DEC-042).
+/// 인덱스로 짝을 맞추는 API는 하나만 밀려도 **조용히 틀린 표**를 그린다 — 컴파일도 되고
+/// 크래시도 없다. 한 값으로 합치면 그 실수가 불가능해진다 (DEC-043).
+public struct JdColumn: Sendable, Equatable {
+    public enum Width: Sendable, Equatable {
+        /// 고정 폭. 소비자 의도라 전체가 넘쳐도 줄이지 않는다.
+        case fixed(CGFloat)
+        /// **전 행의 내용 중 가장 넓은 것**에 맞춘다. 넘칠 때 여기서 줄인다.
+        case fit(max: CGFloat)
+        /// 남는 폭을 가중치로 분배
+        case flex(weight: CGFloat)
+    }
 
-/// 열 안에서 셀을 어디에 붙일지. 숫자 열은 `.trailing`이 정답이다 — 자리수가 달라도 끝이 맞는다.
-public enum JdColumnAlign: String, CaseIterable, Sendable {
-    case leading, center, trailing, fill
+    /// 열 안에서 셀을 어디에 붙일지. **숫자 열은 `.end`가 정답이다** — 자리수가 달라도 끝이 맞는다.
+    public enum Align: String, CaseIterable, Sendable {
+        case start, center, end
+        /// 셀이 열 폭을 꽉 채운다(기본)
+        case fill
+    }
+
+    public let width: Width
+    public let align: Align
+
+    public init(width: Width, align: Align = .fill) {
+        self.width = width
+        self.align = align
+    }
+
+    // 읽기 좋은 생성자 — 호출부가 `.fixed(96, align: .end)` 한 줄이 된다
+    public static func fixed(_ value: CGFloat, align: Align = .fill) -> JdColumn {
+        JdColumn(width: .fixed(value), align: align)
+    }
+    public static func fit(max: CGFloat = .greatestFiniteMagnitude, align: Align = .fill) -> JdColumn {
+        JdColumn(width: .fit(max: max), align: align)
+    }
+    public static func flex(weight: CGFloat = 1, align: Align = .fill) -> JdColumn {
+        JdColumn(width: .flex(weight: weight), align: align)
+    }
 }
 
 /// 행 목록 결과 빌더 — 각 행이 셀 배열이다
@@ -43,14 +70,13 @@ public enum JdRowBuilder {
 public final class JdColumnsView: UIView {
 
     public private(set) var columns: [JdColumn]
-    /// 열별 정렬. 개수가 columns보다 적으면 나머지는 `.fill`이다.
-    public var alignments: [JdColumnAlign] {
-        didSet { setNeedsLayout() }
-    }
-    public var columnGap: CGFloat {
+
+    /// 열 사이 간격. `JdGap`만 받는다 — 원시 CGFloat 하드코딩 차단(JdStackView와 같은 규칙).
+    public var columnGap: JdGap {
         didSet { invalidate() }
     }
-    public var rowGap: CGFloat {
+    /// 행 사이 간격
+    public var rowGap: JdGap {
         didSet { invalidate() }
     }
 
@@ -58,13 +84,11 @@ public final class JdColumnsView: UIView {
     public private(set) var rows: [[UIView]] = []
 
     public init(columns: [JdColumn],
-                alignments: [JdColumnAlign] = [],
-                columnGap: CGFloat = JdToken.Space.s3,
-                rowGap: CGFloat = JdToken.Space.s2,
+                gap: JdGap = .sm,
+                rowGap: JdGap = .sm,
                 @JdRowBuilder rows: () -> [[UIView]]) {
         self.columns = columns
-        self.alignments = alignments
-        self.columnGap = columnGap
+        self.columnGap = gap
         self.rowGap = rowGap
         super.init(frame: .zero)
         setRows(rows())
@@ -118,8 +142,8 @@ public final class JdColumnsView: UIView {
         setNeedsLayout()
     }
 
-    private func align(_ index: Int) -> JdColumnAlign {
-        index < alignments.count ? alignments[index] : .fill
+    private func align(_ index: Int) -> JdColumn.Align {
+        index < columns.count ? columns[index].align : .fill
     }
 
     /// 열 폭을 풀고(전 행 공유) 배치까지 겸한다. 반환값은 필요한 전체 높이.
@@ -148,33 +172,33 @@ public final class JdColumnsView: UIView {
                     let w = align(index) == .fill ? colWidth : min(cellSize.width, colWidth)
                     let offset: CGFloat
                     switch align(index) {
-                    case .leading, .fill: offset = 0
+                    case .start, .fill: offset = 0
                     case .center: offset = (colWidth - w) / 2
-                    case .trailing: offset = colWidth - w
+                    case .end: offset = colWidth - w
                     }
                     // 세로는 행 안에서 중앙 — 높이가 다른 셀이 섞여도 기준선이 흔들리지 않는다
                     let cellY = y + (rowHeight - cellSize.height) / 2
                     let originX = isRTL ? total - (x + offset) - w : x + offset
                     cell.frame = CGRect(x: originX, y: cellY, width: w, height: cellSize.height)
-                    x += colWidth + columnGap
+                    x += colWidth + columnGap.value
                 }
             }
-            y += rowHeight + rowGap
+            y += rowHeight + rowGap.value
         }
-        return max(0, y - rowGap)
+        return max(0, y - rowGap.value)
     }
 
     /// fixed → fit → flexible 순으로 폭을 확정한다.
     /// fit은 **전 행을 훑어** 가장 넓은 내용을 찾는다 — 이게 열이 맞는 이유다.
     private func resolveColumnWidths(total: CGFloat) -> [CGFloat] {
-        let gaps = columnGap * CGFloat(max(columns.count - 1, 0))
+        let gaps = columnGap.value * CGFloat(max(columns.count - 1, 0))
         var widths = [CGFloat](repeating: 0, count: columns.count)
         var flexIndexes: [Int] = []
         var flexWeightTotal: CGFloat = 0
         var consumed: CGFloat = 0
 
         for (index, column) in columns.enumerated() {
-            switch column {
+            switch column.width {
             case .fixed(let w):
                 widths[index] = max(0, w)
                 consumed += widths[index]
@@ -186,7 +210,7 @@ public final class JdColumnsView: UIView {
                 }
                 widths[index] = min(widest, cap)
                 consumed += widths[index]
-            case .flexible(let weight):
+            case .flex(let weight):
                 flexIndexes.append(index)
                 flexWeightTotal += max(0, weight)
             }
@@ -200,14 +224,17 @@ public final class JdColumnsView: UIView {
                 for index in flexIndexes { widths[index] = each }
             } else {
                 for index in flexIndexes {
-                    guard case .flexible(let weight) = columns[index] else { continue }
+                    guard case .flex(let weight) = columns[index].width else { continue }
                     widths[index] = remaining * max(0, weight) / flexWeightTotal
                 }
             }
         } else if consumed + gaps > total {
             // 신축 열이 없는데 넘친다 → fit 열을 비율로 줄여 잘림을 막는다.
             // 고정 열은 소비자가 의도한 값이므로 건드리지 않는다.
-            let fitIndexes = columns.indices.filter { if case .fit = columns[$0] { return true }; return false }
+            let fitIndexes = columns.indices.filter {
+                if case .fit = columns[$0].width { return true }
+                return false
+            }
             let fitTotal = fitIndexes.reduce(0) { $0 + widths[$1] }
             let over = consumed + gaps - total
             if fitTotal > 0 {

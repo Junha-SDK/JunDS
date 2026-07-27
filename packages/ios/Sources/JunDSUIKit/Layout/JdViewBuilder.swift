@@ -16,6 +16,33 @@ import JunDSCore
 // **폭에 따른 축 전환** 넷이고 그것만 더한다. 열 정렬(표)은 스택이 구조적으로 못 하므로
 // `JdColumnsView`가 따로 맡는다.
 
+// MARK: - 정렬 어휘 브리지 (DEC-043)
+
+public extension JdAlign {
+    /// 웹 어휘 → UIKit. `stretch`가 `.fill`인 것이 유일한 이름 차이다.
+    var uiStackAlignment: UIStackView.Alignment {
+        switch self {
+        case .start: return .leading
+        case .center: return .center
+        case .end: return .trailing
+        case .stretch: return .fill
+        case .baseline: return .firstBaseline
+        }
+    }
+}
+
+public extension JdJustify {
+    var uiStackDistribution: UIStackView.Distribution {
+        switch self {
+        // start/center/end는 분배가 아니라 정렬이다 — 스택은 fill로 두고 JdFlex()로 민다.
+        // (UIStackView엔 justify-content 대응이 없다. 이 비대칭을 숨기지 않고 적어 둔다.)
+        case .start, .center, .end: return .fill
+        case .between: return .equalSpacing
+        case .around, .evenly: return .equalCentering
+        }
+    }
+}
+
 /// 자식 뷰 목록을 만드는 결과 빌더. `if`/`if let`/`for`/옵셔널을 그대로 쓸 수 있다.
 @resultBuilder
 public enum JdViewBuilder {
@@ -262,5 +289,57 @@ public final class JdAdaptiveStackView: UIView {
             compact ? (wideAxis == .horizontal ? .vertical : .horizontal) : wideAxis
         // 같은 값을 다시 쓰면 UIStackView가 불필요한 무효화를 일으킨다 — 변할 때만 쓴다
         if stack.axis != target { stack.axis = target }
+    }
+}
+
+// MARK: - 축이 이름에 드러나는 생성자 (DEC-043)
+//
+// `JdStackView(.horizontal, gap: .sm, align: .center) { … }`는 축이 인자에 묻혀 읽는 순간
+// 눈이 한 번 멈춘다. SwiftUI가 `HStack { }`으로 읽히는 이유는 **축이 이름에 있기** 때문이다.
+// JdStackView가 final이라 서브클래스를 못 만드므로 대문자 자유 함수로 같은 읽기를 만든다
+// (Swift 표준 관용구 — 타입처럼 읽히고 자동완성에서도 타입 옆에 뜬다).
+
+/// 세로 스택 — 웹 `jd-vstack`(gap md · stretch) 기본값
+public func JdVStack(gap: JdGap = .md,
+                     align: JdAlign = .stretch,
+                     justify: JdJustify = .start,
+                     padding: JdGap? = nil,
+                     @JdViewBuilder content: () -> [UIView]) -> JdStackView {
+    JdStackView(.vertical, gap: gap, align: align.uiStackAlignment,
+                distribute: justify.uiStackDistribution,
+                insets: padding.map(JdEdge.all) ?? .zero,
+                content: content)
+}
+
+/// 가로 스택 — 웹 `jd-hstack`(gap sm · center) 기본값
+public func JdHStack(gap: JdGap = .sm,
+                     align: JdAlign = .center,
+                     justify: JdJustify = .start,
+                     padding: JdGap? = nil,
+                     @JdViewBuilder content: () -> [UIView]) -> JdStackView {
+    JdStackView(.horizontal, gap: gap, align: align.uiStackAlignment,
+                distribute: justify.uiStackDistribution,
+                insets: padding.map(JdEdge.all) ?? .zero,
+                content: content)
+}
+
+/// 남는 공간을 먹어 형제를 밀어내는 신축 여백 — SwiftUI `Spacer()` 자리
+public func JdFlex(min: CGFloat = 0) -> JdFlexSpacerView {
+    JdFlexSpacerView(minLength: min)
+}
+
+/// 여백 조립 — `NSDirectionalEdgeInsets`를 손으로 적지 않게 한다
+public enum JdEdge {
+    public static func all(_ gap: JdGap) -> NSDirectionalEdgeInsets {
+        NSDirectionalEdgeInsets(top: gap.value, leading: gap.value,
+                                bottom: gap.value, trailing: gap.value)
+    }
+    public static func symmetric(v: JdGap = .none, h: JdGap = .none) -> NSDirectionalEdgeInsets {
+        NSDirectionalEdgeInsets(top: v.value, leading: h.value, bottom: v.value, trailing: h.value)
+    }
+    public static func only(top: JdGap = .none, leading: JdGap = .none,
+                            bottom: JdGap = .none, trailing: JdGap = .none) -> NSDirectionalEdgeInsets {
+        NSDirectionalEdgeInsets(top: top.value, leading: leading.value,
+                                bottom: bottom.value, trailing: trailing.value)
     }
 }

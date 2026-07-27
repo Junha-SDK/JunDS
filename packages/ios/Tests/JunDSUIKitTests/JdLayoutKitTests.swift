@@ -37,11 +37,11 @@ final class JdLayoutKitTests: XCTestCase {
     // 블록으로 적은 트리가 실제로 만들어지고, addSubview를 소비자가 만지지 않는다
     func test_builder_creates_nested_tree_without_manual_addSubview() {
         let leaf = Box(40, 20)
-        let stack = JdStackView(.vertical, gap: .sm) {
+        let stack = JdVStack(gap: .sm) {
             Box(60, 20)
-            JdStackView(.horizontal, gap: .xs) {
+            JdHStack(gap: .xs) {
                 leaf
-                JdFlexSpacerView()
+                JdFlex()
             }
         }
         XCTAssertEqual(stack.arrangedSubviews.count, 2)
@@ -55,7 +55,7 @@ final class JdLayoutKitTests: XCTestCase {
     func test_builder_supports_control_flow() {
         let showExtra = false
         let optional: UIView? = nil
-        let stack = JdStackView(.vertical) {
+        let stack = JdVStack {
             Box(10, 10)
             if showExtra { Box(10, 10) }
             optional
@@ -65,7 +65,7 @@ final class JdLayoutKitTests: XCTestCase {
     }
 
     func test_padding_uses_layout_margins_not_a_wrapper_view() {
-        let stack = JdStackView(.vertical, padding: .md) { Box(10, 10) }
+        let stack = JdVStack(padding: .md) { Box(10, 10) }
         XCTAssertTrue(stack.isLayoutMarginsRelativeArrangement)
         XCTAssertEqual(stack.directionalLayoutMargins.top, JdGap.md.value)
         XCTAssertEqual(stack.arrangedSubviews.count, 1, "패딩 때문에 래퍼가 한 겹 더 생겼다")
@@ -109,7 +109,7 @@ final class JdLayoutKitTests: XCTestCase {
     func test_fit_column_width_is_shared_across_all_rows() {
         let narrow = Box(40, 20)
         let wide = Box(120, 20)
-        let table = JdColumnsView(columns: [.fit(), .flexible()], columnGap: 10) {
+        let table = JdColumnsView(columns: [.fit(), .flex()], gap: .custom(10)) {
             [narrow, Box(30, 20)]
             [wide, Box(30, 20)]
         }
@@ -124,9 +124,8 @@ final class JdLayoutKitTests: XCTestCase {
 
     func test_fixed_and_flexible_columns_split_remaining_width() {
         let a = Box(10, 20), b = Box(10, 20), c = Box(10, 20)
-        let table = JdColumnsView(columns: [.fixed(60), .flexible(weight: 1), .flexible(weight: 3)],
-                                  alignments: [.fill, .fill, .fill],
-                                  columnGap: 10) {
+        let table = JdColumnsView(columns: [.fixed(60), .flex(weight: 1), .flex(weight: 3)],
+                                  gap: .custom(10)) {
             [a, b, c]
         }
         laidOut(table, width: 280) // 280 - 60 - 20(gap) = 200 → 50 / 150
@@ -138,8 +137,8 @@ final class JdLayoutKitTests: XCTestCase {
     // 가중치가 전부 0이어도 0으로 나누지 않고 균등 분배한다
     func test_zero_weights_fall_back_to_equal_split() {
         let a = Box(10, 20), b = Box(10, 20)
-        let table = JdColumnsView(columns: [.flexible(weight: 0), .flexible(weight: 0)],
-                                  alignments: [.fill, .fill], columnGap: 0) { [a, b] }
+        let table = JdColumnsView(columns: [.flex(weight: 0), .flex(weight: 0)],
+                                  gap: .none) { [a, b] }
         laidOut(table, width: 200)
         XCTAssertEqual(a.frame.width, 100, accuracy: 0.001)
         XCTAssertEqual(b.frame.width, 100, accuracy: 0.001)
@@ -148,9 +147,11 @@ final class JdLayoutKitTests: XCTestCase {
     // 열 정렬 — 숫자 열은 trailing이라야 자리수가 달라도 끝이 맞는다
     func test_column_alignment_places_cell_within_its_column() {
         let lead = Box(40, 20), center = Box(40, 20), trail = Box(40, 20)
-        let table = JdColumnsView(columns: [.fixed(100), .fixed(100), .fixed(100)],
-                                  alignments: [.leading, .center, .trailing],
-                                  columnGap: 0) {
+        // 정렬이 폭 규칙과 **한 값**에 붙어 있다 — 인덱스로 짝을 맞출 일이 없다
+        let table = JdColumnsView(columns: [.fixed(100, align: .start),
+                                            .fixed(100, align: .center),
+                                            .fixed(100, align: .end)],
+                                  gap: .none) {
             [lead, center, trail]
         }
         laidOut(table, width: 300)
@@ -164,7 +165,7 @@ final class JdLayoutKitTests: XCTestCase {
     // 폭이 모자라면 fit 열을 줄여 잘림을 막는다. 고정 열은 소비자 의도라 건드리지 않는다.
     func test_overflow_shrinks_fit_columns_not_fixed_ones() {
         let fixed = Box(10, 20), fit = Box(300, 20)
-        let table = JdColumnsView(columns: [.fixed(80), .fit()], columnGap: 0) { [fixed, fit] }
+        let table = JdColumnsView(columns: [.fixed(80), .fit()], gap: .none) { [fixed, fit] }
         laidOut(table, width: 200)
         XCTAssertEqual(fixed.frame.width, 80, accuracy: 0.001, "고정 열이 줄어들었다")
         XCTAssertLessThanOrEqual(fit.frame.maxX, 200.001, "내용이 컨테이너를 넘쳤다")
@@ -172,7 +173,7 @@ final class JdLayoutKitTests: XCTestCase {
 
     func test_fit_column_respects_max_cap() {
         let cell = Box(300, 20)
-        let table = JdColumnsView(columns: [.fit(max: 100), .flexible()], columnGap: 0) {
+        let table = JdColumnsView(columns: [.fit(max: 100), .flex()], gap: .none) {
             [cell, Box(10, 20)]
         }
         laidOut(table, width: 400)
@@ -181,7 +182,7 @@ final class JdLayoutKitTests: XCTestCase {
 
     // 마지막 행이 덜 찬 표 — 빈 칸이 남을 뿐 깨지지 않는다(웹 KeyValueGrid 결함의 iOS 방지)
     func test_ragged_last_row_does_not_break_layout() {
-        let table = JdColumnsView(columns: [.flexible(), .flexible(), .flexible()], columnGap: 8) {
+        let table = JdColumnsView(columns: [.flex(), .flex(), .flex()], gap: .sm) {
             [Box(10, 20), Box(10, 20), Box(10, 20)]
             [Box(10, 20)]
         }
@@ -193,7 +194,7 @@ final class JdLayoutKitTests: XCTestCase {
 
     // 보고 높이 == 실제 배치 하단. 어긋나면 부모가 자르거나 빈 공간을 남긴다.
     func test_reported_height_matches_placed_rows() {
-        let table = JdColumnsView(columns: [.flexible(), .flexible()], columnGap: 10, rowGap: 6) {
+        let table = JdColumnsView(columns: [.flex(), .flex()], gap: .custom(10), rowGap: .custom(6)) {
             [Box(10, 20), Box(10, 30)]
             [Box(10, 20), Box(10, 20)]
         }
@@ -207,7 +208,7 @@ final class JdLayoutKitTests: XCTestCase {
     // 좁은 폭에서 셀이 여러 줄이 되면 행 높이가 그만큼 늘어난다 — 폭→높이 순서가 맞아야 한다
     func test_row_height_follows_cell_height_at_its_column_width() {
         let tall = Box(200, 20) // 폭 100이면 2줄 → 높이 40
-        let table = JdColumnsView(columns: [.fixed(100), .fixed(100)], columnGap: 0) {
+        let table = JdColumnsView(columns: [.fixed(100), .fixed(100)], gap: .none) {
             [tall, Box(10, 20)]
         }
         laidOut(table, width: 200)
@@ -217,7 +218,7 @@ final class JdLayoutKitTests: XCTestCase {
     }
 
     func test_set_rows_replaces_children() {
-        let table = JdColumnsView(columns: [.flexible()], columnGap: 0) { [Box(10, 10)] }
+        let table = JdColumnsView(columns: [.flex()], gap: .none) { [Box(10, 10)] }
         let fresh = Box(10, 10)
         table.setRows([[fresh]])
         XCTAssertEqual(table.subviews.count, 1)
@@ -225,9 +226,9 @@ final class JdLayoutKitTests: XCTestCase {
     }
 
     func test_empty_table_and_zero_width_are_safe() {
-        let empty = JdColumnsView(columns: [.flexible()], columnGap: 0) { }
+        let empty = JdColumnsView(columns: [.flex()], gap: .none) { }
         XCTAssertEqual(empty.sizeThatFits(CGSize(width: 200, height: 200)).height, 0)
-        let table = JdColumnsView(columns: [.flexible()], columnGap: 0) { [Box(10, 10)] }
+        let table = JdColumnsView(columns: [.flex()], gap: .none) { [Box(10, 10)] }
         XCTAssertEqual(table.sizeThatFits(CGSize(width: 0, height: 200)).height, 0)
     }
 
@@ -259,5 +260,67 @@ final class JdLayoutKitTests: XCTestCase {
         stack.layoutSubviews()
         XCTAssertFalse(stack.isCompact)
         XCTAssertEqual(stack.stack.axis, .horizontal)
+    }
+
+    // MARK: - 읽기 표면 계약 (DEC-043)
+    //
+    // 가독성은 취향이 아니라 **기본값**의 문제다. JdVStack/JdHStack이 웹 jd-vstack/jd-hstack의
+    // 기본값을 그대로 갖지 않으면, 소비자가 매번 인자를 적어야 해서 호출부가 길어진다.
+
+    func test_axis_named_constructors_carry_web_defaults() {
+        let v = JdVStack { Box(10, 10) }
+        XCTAssertEqual(v.axis, .vertical)
+        XCTAssertEqual(v.spacing, JdGap.md.value, "웹 jd-vstack 기본 gap md")
+        XCTAssertEqual(v.alignment, .fill, "웹 stretch")
+
+        let h = JdHStack { Box(10, 10) }
+        XCTAssertEqual(h.axis, .horizontal)
+        XCTAssertEqual(h.spacing, JdGap.sm.value, "웹 jd-hstack 기본 gap sm")
+        XCTAssertEqual(h.alignment, .center)
+    }
+
+    // 웹 어휘 → UIKit 매핑. stretch가 .fill인 것이 유일한 이름 차이다.
+    func test_align_vocabulary_maps_to_uikit() {
+        XCTAssertEqual(JdAlign.start.uiStackAlignment, .leading)
+        XCTAssertEqual(JdAlign.center.uiStackAlignment, .center)
+        XCTAssertEqual(JdAlign.end.uiStackAlignment, .trailing)
+        XCTAssertEqual(JdAlign.stretch.uiStackAlignment, .fill)
+        XCTAssertEqual(JdAlign.baseline.uiStackAlignment, .firstBaseline)
+        XCTAssertEqual(JdAlign.allCases.count, 5, "웹 ALIGN_MAP과 값 집합이 같아야 한다")
+    }
+
+    func test_align_argument_flows_into_stack() {
+        XCTAssertEqual(JdHStack(align: .end) { Box(10, 10) }.alignment, .trailing)
+        XCTAssertEqual(JdVStack(align: .start) { Box(10, 10) }.alignment, .leading)
+    }
+
+    // JdEdge — NSDirectionalEdgeInsets를 손으로 적지 않게 한다
+    func test_edge_helpers_build_insets_from_tokens() {
+        XCTAssertEqual(JdEdge.all(.md).top, JdGap.md.value)
+        XCTAssertEqual(JdEdge.symmetric(v: .sm, h: .lg).leading, JdGap.lg.value)
+        XCTAssertEqual(JdEdge.symmetric(v: .sm, h: .lg).top, JdGap.sm.value)
+        XCTAssertEqual(JdEdge.only(top: .xs).bottom, 0)
+    }
+
+    // 열 정의가 **한 값**이라 폭과 정렬이 분리될 수 없다 — 평행 배열 시절의 조용한 오정렬 차단
+    func test_column_bundles_width_and_align_in_one_value() {
+        let column = JdColumn.fixed(96, align: .end)
+        XCTAssertEqual(column.width, .fixed(96))
+        XCTAssertEqual(column.align, .end)
+        XCTAssertEqual(JdColumn.fit().align, .fill, "정렬 기본값은 fill")
+        XCTAssertEqual(JdColumn.flex().width, .flex(weight: 1))
+    }
+
+    // 간격이 JdGap만 받는다 — 원시 CGFloat 하드코딩 차단(JdStackView와 같은 규칙)
+    func test_column_gaps_are_token_typed() {
+        let table = JdColumnsView(columns: [.flex(), .flex()], gap: .md, rowGap: .sm) {
+            [Box(10, 20), Box(10, 20)]
+            [Box(10, 20), Box(10, 20)]
+        }
+        XCTAssertEqual(table.columnGap, .md)
+        XCTAssertEqual(table.rowGap, .sm)
+        laidOut(table, width: 200)
+        XCTAssertEqual(table.rows[0][1].frame.minX - table.rows[0][0].frame.maxX,
+                       JdGap.md.value, accuracy: 0.001)
     }
 }
