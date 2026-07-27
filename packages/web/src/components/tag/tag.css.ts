@@ -4,7 +4,7 @@ import { css } from "../../core/styles.js";
  * v2 값: 8색(gray/primary/blue/green/red/orange/purple/teal — Tailwind 50/700 계
  * 리터럴 승계, primary만 토큰), rounded-md·xs·medium, 닫기 버튼 hover 70%.
  *
- * DEC-041: 리터럴 쌍 → 톤 레시피(base.css --jd-tone-*). 색마다 앵커 한 줄만 두고
+ * DEC-044: 리터럴 쌍 → 톤 레시피(base.css --jd-tone-*). 색마다 앵커 한 줄만 두고
  * 배경·글자는 공식이 파생한다 — 다크에서 형광 배경 + 검은 글자로 뒤집히던 결함 해소.
  */
 export default css`

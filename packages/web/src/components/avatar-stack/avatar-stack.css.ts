@@ -53,7 +53,7 @@ export default css`
     font-size: var(--_jd-stack-font); font-weight: var(--jd-weight-semibold);
     line-height: var(--jd-leading-none);
     user-select: none;
-    /* 아바타 팔레트와 같은 계약 — DEC-041 톤 레시피 */
+    /* 아바타 팔레트와 같은 계약 — DEC-044 톤 레시피 */
     --jd-tone: var(--jd-color-hue-gray);
     --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
     background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-strong-mix), transparent);

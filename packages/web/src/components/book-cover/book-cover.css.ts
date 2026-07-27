@@ -57,7 +57,7 @@ export default css`
     box-sizing: border-box;
     padding: var(--jd-space-3);
     color: #fff;
-    background: var(--jd-book-cover-hue, linear-gradient(135deg, var(--jd-color-surface-overlay) 0%, var(--jd-color-surface) 100%)); /* 책등은 항상 어둡다 — 모드 무관 (DEC-041) */
+    background: var(--jd-book-cover-hue, linear-gradient(135deg, var(--jd-color-surface-overlay) 0%, var(--jd-color-surface) 100%)); /* 책등은 항상 어둡다 — 모드 무관 (DEC-044) */
   }
   .jd-book-cover__title {
     font-size: var(--jd-text-xs);

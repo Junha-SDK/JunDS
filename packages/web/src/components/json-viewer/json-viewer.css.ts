@@ -18,7 +18,7 @@ export default css`
     padding: var(--jd-space-3);
     border: var(--jd-border-thin) solid var(--jd-color-border);
     border-radius: var(--jd-radius-xl);
-    background: var(--jd-color-surface); color: var(--jd-color-on-surface); /* 항상 어두운 코드 면 (DEC-041) */
+    background: var(--jd-color-surface); color: var(--jd-color-on-surface); /* 항상 어두운 코드 면 (DEC-044) */
     font-family: var(--jd-font-mono); font-size: var(--jd-text-xs);
     line-height: var(--jd-leading-normal);
     overflow: auto;

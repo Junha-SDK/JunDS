@@ -1,5 +1,5 @@
 /**
- * scan-render-only-props — "바꿔도 안 바뀌는 프롭" 정적 검출기 (DEC-041).
+ * scan-render-only-props — "바꿔도 안 바뀌는 프롭" 정적 검출기 (DEC-044).
  *
  * JdElement 의 계약(03-web-arch §1): render() 는 골격 1회, update() 는 상태 반영 N회.
  * 그래서 **선언된 프롭을 render() 안에서만 읽으면** 최초 1회는 맞게 그려지지만

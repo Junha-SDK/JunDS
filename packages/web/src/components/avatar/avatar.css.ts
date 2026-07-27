@@ -29,7 +29,7 @@ export default css`
     display: flex; align-items: center; justify-content: center;
     font-size: var(--_jd-avatar-font); font-weight: var(--jd-weight-semibold);
     user-select: none;
-    /* DEC-041 톤 레시피 — 팔레트 8종은 앵커만 바꾼다(base.css --jd-tone-*).
+    /* DEC-044 톤 레시피 — 팔레트 8종은 앵커만 바꾼다(base.css --jd-tone-*).
        채워진 원이라 배경은 한 단 진한 혼합비를 쓴다. */
     --jd-tone: var(--jd-color-hue-gray); /* 무이름 기본 */
     --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);

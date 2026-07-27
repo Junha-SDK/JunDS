@@ -13,7 +13,7 @@ export default css`
   jd-flow-diagram {
     display: block; position: relative; box-sizing: border-box;
     width: 100%; min-height: 400px; overflow: hidden;
-    background: var(--jd-color-surface); /* 항상 어두운 캔버스 — 모드 무관 (DEC-041) */
+    background: var(--jd-color-surface); /* 항상 어두운 캔버스 — 모드 무관 (DEC-044) */
     font-family: var(--jd-font-sans);
     outline: none; touch-action: none; cursor: default;
   }

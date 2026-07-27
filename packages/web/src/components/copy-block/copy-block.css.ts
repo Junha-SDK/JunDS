@@ -33,7 +33,7 @@ export default css`
   .jd-copy-block__pre {
     margin: 0; padding: var(--jd-space-4);
     overflow-x: auto;
-    background: var(--jd-color-surface); color: var(--jd-color-on-surface); /* 항상 어두운 코드 면 (DEC-041) */
+    background: var(--jd-color-surface); color: var(--jd-color-on-surface); /* 항상 어두운 코드 면 (DEC-044) */
     font-family: var(--jd-font-mono); font-size: var(--jd-text-md);
     line-height: var(--jd-leading-relaxed);
     tab-size: 2;

@@ -495,7 +495,7 @@ export async function buildTs(tokens) {
     return [group, tsObject(inner, "    ")];
   });
 
-  /* status·priority는 DEC-041에서 모드 인식 토큰이 됐다 — 리터럴 hex를 그대로
+  /* status·priority는 DEC-044에서 모드 인식 토큰이 됐다 — 리터럴 hex를 그대로
      내보내면 React 표면만 라이트에 굳는다. 변수 참조로 방출해 런타임에 테마를 따른다
      (colors 그룹이 이미 쓰는 방식과 동일). 키·모양은 v2 그대로. */
   const groupVar = (group, key, prop) =>

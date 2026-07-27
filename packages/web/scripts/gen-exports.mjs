@@ -66,7 +66,7 @@ for (const { dir } of perDir) {
 /* 하위 요소 별칭 — jd-card-header·jd-dock-item 처럼 폴더 이름과 태그가 다른 9종은
    `@junds/web/card-header` 로는 열리지 않았다(실측). 소비자가 아는 이름은 폴더가
    아니라 태그이므로 태그로도 같은 모듈을 연다 — 소유 폴더를 부르면 하위 요소까지
-   함께 등록되므로 대상은 소유 폴더의 엔트리 그대로다. (DEC-041) */
+   함께 등록되므로 대상은 소유 폴더의 엔트리 그대로다. (DEC-044) */
 for (const { tag, dir } of tagAliases) {
   if (exportsMap[`./${tag}`]) continue; // 같은 이름의 실제 폴더가 이기게 둔다
   exportsMap[`./${tag}`] = entry(`./dist/components/${dir}/index.js`);

@@ -213,7 +213,7 @@ export class JdCommentThread extends JdElement {
   protected override update(): void {
     this.#root.setAttribute("aria-label", this.label);
     /* maxDepth 는 트리의 **모양**을 정하므로 골격을 다시 짜야 반영된다. update()에서
-       읽지 않으면 마운트 뒤 값을 바꿔도 화면이 따라오지 않는다(DEC-041 스캐너 검출).
+       읽지 않으면 마운트 뒤 값을 바꿔도 화면이 따라오지 않는다(DEC-044 스캐너 검출).
        매번 다시 짜면 낭비이자 스크롤 튐이라, 지난번 짠 깊이와 다를 때만 짓는다. */
     if (this.#builtDepth !== this.maxDepth) this.#rebuild();
   }

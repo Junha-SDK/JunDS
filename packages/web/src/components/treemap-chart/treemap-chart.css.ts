@@ -38,7 +38,7 @@ export default css`
   .jd-treemap-chart__value {
     fill: #fff; /* v2 승계 — 채도 높은 타일 위 텍스트 */
     paint-order: stroke;
-    stroke: color-mix(in srgb, var(--jd-tone-ink-toward) 35%, transparent); /* 타일 경계 — 모드마다 반대 방향 (DEC-041) */
+    stroke: color-mix(in srgb, var(--jd-tone-ink-toward) 35%, transparent); /* 타일 경계 — 모드마다 반대 방향 (DEC-044) */
     stroke-width: 2px;
     stroke-linejoin: round;
     pointer-events: none;

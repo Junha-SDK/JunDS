@@ -14,7 +14,7 @@ export default css`
     /* size 기본 md */
     padding: var(--jd-space-1) var(--jd-space-2-5);
     font-size: var(--jd-text-xs); border-radius: var(--jd-radius-lg);
-    /* variant 기본 default — gray. DEC-041 톤 레시피: 변종은 앵커 한 줄만 바꾸고
+    /* variant 기본 default — gray. DEC-044 톤 레시피: 변종은 앵커 한 줄만 바꾸고
        배경·글자·인셋 링은 여기 세 줄이 공식으로 파생한다(base.css --jd-tone-*).
        variant 7종 × 모드 2 = 14가지를 손으로 적던 것이 한 벌로 줄었다. */
     --jd-tone: var(--jd-color-hue-gray);

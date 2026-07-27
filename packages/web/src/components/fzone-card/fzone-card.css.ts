@@ -26,7 +26,7 @@ export default css`
   .jd-fzone-card__header {
     display: flex; align-items: center; justify-content: space-between; gap: var(--jd-space-2);
     padding: var(--jd-space-2) var(--jd-space-3);
-    /* DEC-041 톤 레시피 — kind 4종은 앵커만 바꾼다 */
+    /* DEC-044 톤 레시피 — kind 4종은 앵커만 바꾼다 */
     --jd-tone: var(--jd-color-hue-teal); /* kind=F 기본 */
     --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
     background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-mix), transparent);

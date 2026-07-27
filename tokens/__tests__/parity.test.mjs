@@ -84,7 +84,7 @@ const SANCTIONED_DEVIATIONS = {
  * 실패한다 — 즉 "v2가 조용히 움직였다"와 "v3가 의도적으로 갈라졌다"를 구분한다.
  */
 /**
- * DEC-041 — v2가 물려준 **미정의 변수 참조** 3종의 결선.
+ * DEC-044 — v2가 물려준 **미정의 변수 참조** 3종의 결선.
  *
  * `var(--primary-soft)`·`var(--surface)`는 v2 CSS 어디에도 선언된 적이 없다(실측).
  * CSS는 무효 var()가 섞인 선언 전체를 버리므로 세 그래디언트는 v2에서도 v3에서도
@@ -207,7 +207,7 @@ describe("v2 TS 리터럴 토큰 ↔ tokens/*.json 패리티", () => {
     for (const key of Object.keys(GRADIENT_UNDEFINED_REF_FIX)) delete expected[key];
     expect(g).toEqual(expected);
   });
-  test("status/priority 컬러 — 라이트는 colors.ts 리터럴 일치, 다크만 신설 (DEC-041)", () => {
+  test("status/priority 컬러 — 라이트는 colors.ts 리터럴 일치, 다크만 신설 (DEC-044)", () => {
     const light = (o) =>
       Object.fromEntries(Object.entries(o).map(([k, v]) => [
         k,
