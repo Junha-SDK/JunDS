@@ -96,8 +96,8 @@ export const DocHero = forwardRef<HTMLElement, DocHeroProps>(function DocHero(
 
       <div
         className={cn(
-          "relative flex flex-col gap-2 px-6",
-          onBanner ? "pb-6 pt-24 text-white" : "py-6",
+          "relative flex flex-col gap-2 px-6 sm:px-8",
+          onBanner ? "pb-7 pt-28 text-white" : "py-7",
         )}
       >
         {iconNode ??
@@ -113,23 +113,33 @@ export const DocHero = forwardRef<HTMLElement, DocHeroProps>(function DocHero(
             />
           ))}
 
+        {/* 눈썹은 "무엇의 문서인가"를 반 초 만에 알리는 자리다. 평범한 muted 로
+            두면 부제와 같은 층으로 읽혀 층이 하나 사라진다 — 굵기와 색으로
+            제목보다 위, 부제보다 앞이라는 순서를 만든다 */}
         {eyebrow && (
           <span
             className={cn(
-              "text-2xs uppercase tracking-wider",
-              onBanner ? "text-white/70" : "text-muted",
+              "text-2xs font-semibold uppercase tracking-wider",
+              onBanner ? "text-white/70" : "text-primary",
             )}
           >
             {eyebrow}
           </span>
         )}
 
-        <h1 className={cn("text-2xl font-bold", onBanner ? "text-white" : "text-foreground")}>
+        {/* -mt-0.5: 눈썹과 제목은 한 덩어리로 붙고, 아래 부제부터 간격이 열린다 */}
+        <h1
+          className={cn(
+            "text-2xl font-bold tracking-tight",
+            eyebrow && "-mt-0.5",
+            onBanner ? "text-white" : "text-foreground",
+          )}
+        >
           {title}
         </h1>
 
         {subtitle && (
-          <p className={cn("text-sm", onBanner ? "text-white/80" : "text-muted")}>
+          <p className={cn("text-sm leading-relaxed", onBanner ? "text-white/80" : "text-muted")}>
             {subtitle}
           </p>
         )}
@@ -137,7 +147,10 @@ export const DocHero = forwardRef<HTMLElement, DocHeroProps>(function DocHero(
         {date && (
           <time
             dateTime={dateTime ?? date}
-            className={cn("text-xs", onBanner ? "text-white/60" : "text-muted")}
+            className={cn(
+              "text-2xs tabular-nums",
+              onBanner ? "text-white/60" : "text-muted",
+            )}
           >
             {date}
           </time>

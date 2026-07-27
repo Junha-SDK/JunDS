@@ -73,22 +73,27 @@ export const BarList = forwardRef<HTMLUListElement, BarListProps>(function BarLi
   const denom = max || 1;
 
   return (
-    <ul ref={ref} className={cn("flex flex-col gap-1.5", className)} {...props}>
+    <ul ref={ref} className={cn("flex flex-col gap-2", className)} {...props}>
       {visible.map((item) => {
         const pct = Math.max(0, Math.min(100, (item.value / denom) * 100));
         const row = (
           <>
-            <span className="w-24 shrink-0 truncate text-xs text-muted">{item.label}</span>
+            {/* 라벨은 좁은 화면에서 더 좁게 — 96px 고정이면 한글 서너 자에서 이미
+                말줄임이 걸려서, 정작 무엇의 순위인지가 먼저 사라진다 */}
+            <span className="w-20 shrink-0 truncate text-xs text-muted sm:w-28">
+              {item.label}
+            </span>
             <span
               aria-hidden="true"
-              className="h-2 flex-1 overflow-hidden rounded-full bg-card-hover ring-1 ring-border"
+              className="h-2.5 flex-1 overflow-hidden rounded-full bg-card-hover ring-1 ring-border"
             >
               <span
-                className="block h-full rounded-full transition-[width] duration-500"
+                className="block h-full rounded-full transition-[width] duration-500 ease-out"
                 style={{ width: `${pct}%`, background: item.color ?? color }}
               />
             </span>
-            <span className="w-10 shrink-0 text-right text-xs tabular-nums text-foreground">
+            {/* 수치가 본문이다 — 막대보다 눈에 먼저 들어와야 한다 */}
+            <span className="w-12 shrink-0 text-right text-sm font-medium tabular-nums text-foreground">
               {formatValue ? formatValue(item.value) : item.value}
             </span>
           </>

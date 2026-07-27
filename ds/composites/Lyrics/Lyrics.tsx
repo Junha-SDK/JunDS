@@ -141,9 +141,12 @@ export const Lyrics = forwardRef<HTMLDivElement, LyricsProps>(function Lyrics(
               state === "idle" && "opacity-80",
               state === "active" && "opacity-100 font-medium",
               // 지나간 연은 조금만 흐리게(따라 읽던 자리를 잃지 않도록),
-              // 앞으로 올 연은 더 흐리게(시선이 앞서 나가지 않도록)
-              state === "past" && "opacity-45",
-              state === "ahead" && "opacity-30",
+              // 앞으로 올 연은 더 흐리게(시선이 앞서 나가지 않도록).
+              // 투명도만으로는 글자가 여전히 또렷해 시선이 붙잡히므로, 초점이
+              // 나간 것처럼 아주 옅은 blur 를 함께 건다 — transition 이 filter 를
+              // 이미 나열하고 있었는데 정작 filter 를 바꾸는 규칙이 없었다.
+              state === "past" && "opacity-45 blur-[0.4px]",
+              state === "ahead" && "opacity-30 blur-[0.8px]",
             )}
           >
             {lines.map((line, j) => (

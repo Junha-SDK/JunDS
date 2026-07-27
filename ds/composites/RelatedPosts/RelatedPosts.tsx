@@ -41,7 +41,7 @@ const colsMap = {
 } as const;
 
 const cardClass =
-  "group flex flex-col gap-1 rounded-xl border border-border bg-card px-4 py-3 no-underline transition-colors hover:border-primary hover:bg-card-hover focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2";
+  "group relative flex flex-col gap-1 rounded-xl border border-border bg-card px-4 py-3.5 pr-9 no-underline transition-[border-color,background-color,box-shadow] hover:border-primary hover:bg-card-hover hover:shadow-sm focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2";
 
 /**
  * 글 하단의 연관 글 목록.
@@ -72,17 +72,39 @@ export const RelatedPosts = forwardRef<HTMLElement, RelatedPostsProps>(
         {...props}
       >
         <h2 className="text-sm font-semibold text-foreground">{title}</h2>
-        <div className={cn("grid gap-2", colsMap[columns])}>
+        <div className={cn("grid gap-2.5", colsMap[columns])}>
           {visible.map((post) => {
             const href = post.href ?? post.id;
             const body = (
               <>
-                <span className="text-sm font-medium text-foreground transition-colors group-hover:text-primary">
+                {/* 제목은 두 줄에서 자른다 — 카드 높이가 제목 길이에 따라 들쭉날쭉하면
+                    격자가 흐트러져서, 짧은 글 옆의 긴 글이 줄을 밀어낸다 */}
+                <span className="line-clamp-2 text-sm font-medium leading-snug text-foreground transition-colors group-hover:text-primary">
                   {post.title}
                 </span>
+                {/* uppercase 는 쓰지 않는다 — "iOS" 가 "IOS" 로 뭉개진다.
+                    자간만 살짝 벌려 제목과 층을 나눈다 */}
                 {post.category && (
-                  <span className="text-xs text-muted">{post.category}</span>
+                  <span className="text-2xs font-semibold tracking-wide text-muted">
+                    {post.category}
+                  </span>
                 )}
+                {/* 링크라는 신호. 카드 전체가 눌리는 것이 마우스로는 보이지만
+                    정지 화면에서는 보이지 않아, 화살표를 상시 두고 hover 에 민다 */}
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  className="absolute right-3.5 top-4 text-muted transition-[transform,color] group-hover:translate-x-0.5 group-hover:text-primary"
+                >
+                  <path d="M6 3.5L10.5 8L6 12.5" />
+                </svg>
               </>
             );
 
