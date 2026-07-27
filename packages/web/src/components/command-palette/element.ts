@@ -18,10 +18,11 @@
  *  - 활성 항목은 키보드/포인터 공통 하이라이트 하나로 통합(v2는 hover/active 이중 하이라이트)
  *  - 화살표는 scrollIntoView(block:nearest)로 활성 항목을 뷰로 끌어온다(v2엔 없었다).
  *
- * icon은 신뢰 마크업(SVG 등) 문자열 — 소비자 API 신뢰 수준에서만 innerHTML 주입(라벨·설명은
- * textContent). ⌘K 전역 단축키는 `hotkey` 프로퍼티(기본 "mod+k", 빈 문자열이면 비활성).
+ * icon 문자열도 기본적으로 평문이다. 검증된 SVG/HTML만 `unsafeHtml()`로 표시한다.
+ * ⌘K 전역 단축키는 `hotkey` 프로퍼티(기본 "mod+k", 빈 문자열이면 비활성).
  */
 import { JdModal } from "../modal/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createHotkeys, type HotkeyMap } from "../../behaviors/input.js";
@@ -32,8 +33,8 @@ export interface JdCommandItem {
   id: string;
   label: string;
   description?: string;
-  /** 신뢰 SVG/HTML 마크업 문자열 (소비자 제공) */
-  icon?: string;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   group?: string;
   keywords?: string[];
   /** items 프로퍼티 경로에서만. 실행 시 호출 + jd-select 발행 */
@@ -278,7 +279,7 @@ export class JdCommandPalette extends JdModal {
           const ic = document.createElement("span");
           ic.className = "jd-command-palette__option-icon";
           ic.setAttribute("aria-hidden", "true");
-          ic.innerHTML = it.icon; // 신뢰 마크업(소비자 API)
+          setContent(ic, it.icon);
           opt.append(ic);
         }
         const body = document.createElement("div");

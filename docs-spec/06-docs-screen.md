@@ -1,7 +1,7 @@
 # 06 — 문서 화면 스펙: MySelf `/docs/junds` (G0)
 
 작성일: 2026-07-23 · 전제: DEC-006 D7(단일 등록 페이지 + `?c=` 내부 라우팅, SSG 개별 페이지 금지) · 대상 레포: MySelf(이 스펙 시점에는 **읽기 전용** — 구현은 별도 게이트 통과 후).
-현행 근거: `MySelf/src/features/docs/components/pages/junds/`(JunDSLive.tsx, junds-shared.tsx, junds-usage.ts, junds-usage.data.ts, junds-live.css), `MySelf/src/styles/docs.css`의 `doc-grid--junds`. 수치 근거: 00-inventory.md(갤러리 Specimen 188 · USAGE 211키 · UI 304 + hooks 55 + finance 86 = **메타 445**).
+현행 근거: `MySelf/src/features/docs/components/pages/junds/`(JunDSLive.tsx, junds-shared.tsx, junds-usage.ts, junds-usage.data.ts, junds-live.css), `MySelf/src/styles/docs.css`의 `doc-grid--junds`. 수치 근거: 00-inventory.md(갤러리 Specimen 188 · USAGE 211키 · UI 313 + hooks 61 + finance 86 = **메타 460**).
 
 ---
 
@@ -46,7 +46,7 @@ MySelf 빌드는 `vite build` 후 headless Chrome 프리렌더(`scripts/prerende
 
 **정적(프리렌더 HTML에 포함)** — `/docs/junds` 무쿼리 1회만 프리렌더:
 - 페이지 셸(마스트헤드·인트로 산문·검색 입력 껍데기·카테고리 섹션 헤더 7개).
-- **445개 카드 셸 전부**: 이름·카테고리·태그·지원 배지 텍스트 + 프리뷰 자리의 정적 플레이스홀더(스켈레톤 div). SEO·FCP·검색엔진의 컴포넌트명 색인이 여기서 나온다. 예산: 프리렌더 HTML ≤ 250KB(카드당 ~0.4KB).
+- **460개 카드 셸 전부**: 이름·카테고리·태그·지원 배지 텍스트 + 프리뷰 자리의 정적 플레이스홀더(스켈레톤 div). SEO·FCP·검색엔진의 컴포넌트명 색인이 여기서 나온다. 예산: 프리렌더 HTML ≤ 250KB(카드당 ~0.4KB).
 
 **클라이언트 전용(하이드레이션 이후에만 존재)**:
 - 검색/필터 동작, 미니 라이브 프리뷰 마운트(IO), 상세 뷰 전체(스테이지·컨트롤·코드 탭·표), 코드 하이라이트, 복사.
@@ -82,7 +82,7 @@ export interface CatalogEntry {
   ios: Support;      // iOS 전환 상태 배지
   featured?: true;   // 카탈로그 상단 대형 카드 후보(수동 큐레이션, ledger의 docs 필드)
 }
-export const CATALOG: CatalogEntry[] = [ /* 445 entries */ ];
+export const CATALOG: CatalogEntry[] = [ /* 460 entries */ ];
 ```
 
 - **카테고리 7종 매핑**: ledger의 라이브러리 배럴 기준 카테고리를 화면 7분류로 접는다 — `core`+`layout`→`layout`, `primitives` 중 폼 컨트롤(Input·Checkbox·Slider·OTPInput 등 상호작용 입력)→`input`, 나머지 primitives→`primitive`, `composites`→`composite`, `patterns`→`pattern`, `finance`→`finance`, `hooks`→`hook`. 매핑 표는 생성기 안에 상수로 두고, 미매핑 항목은 생성기가 **빌드 실패**로 알린다(조용한 누락 금지).
@@ -149,14 +149,14 @@ export const DETAIL_LOADERS: Record<Cat, () => Promise<Record<string, DetailSpec
 
 ### 3.1 구성 (위→아래)
 
-1. **마스트헤드**: JunDS 로고타입 + 실측 카운터(ledger 파생: "445 components · web 304 · iOS 진행률") + 한 줄 소개. "219" 등 근거 없는 수치 금지(DEC-001).
+1. **마스트헤드**: JunDS 로고타입 + 실측 카운터(ledger 파생: "460 components · web 313 · iOS 진행률") + 한 줄 소개. "219" 등 근거 없는 수치 금지(DEC-001).
 2. **검색 바**: 항상 상단 고정(sticky, 공통 헤더 아래). `/` 키로 포커스.
 3. **필터 행**: 카테고리 칩 7종(`layout · primitive · input · composite · pattern · finance · hook`) + 플랫폼 토글(웹 지원만 / iOS 지원만) + 태그 칩(상위 빈도 12개, "더 보기"로 전체).
 4. **카드 그리드**: 카테고리 7종 섹션 순서 고정(위 나열 순). 각 섹션 = 헤더(이름·개수·설명 한 줄) + 카드들. 필터/검색 결과는 섹션 구조를 유지한 채 매칭 카드만 남긴다(0건 섹션은 헤더째 숨김).
 
 ### 3.2 검색 (클라이언트 인덱스)
 
-- 인덱스: `CATALOG` 445건에서 마운트 후 1회 생성 — 엔트리당 `haystack = (name + id + tags.join(" ") + category + desc).toLowerCase()` 사전 연결 문자열. 445건 × ~120자 ≈ 55KB 메모리, 외부 검색 라이브러리 금지.
+- 인덱스: `CATALOG` 460건에서 마운트 후 1회 생성 — 엔트리당 `haystack = (name + id + tags.join(" ") + category + desc).toLowerCase()` 사전 연결 문자열. 460건 × ~120자 ≈ 55KB 메모리, 외부 검색 라이브러리 금지.
 - 매칭: 공백 분리 다중 토큰 AND. 점수 = 이름 전방일치(3) > 이름 부분일치(2) > 태그 일치(1.5) > 나머지(1). 점수 동률은 카테고리 섹션 순서 유지.
 - 입력 debounce 80ms. 결과 수는 `aria-live="polite"` 리전으로 고지("23개 컴포넌트").
 - 별칭: 현행 `USAGE_ALIAS`(17건)를 ledger `aliases` 필드로 흡수해 haystack에 포함(예: "Modal"로 검색 → Dialog 히트).
@@ -174,7 +174,7 @@ export const DETAIL_LOADERS: Record<Cat, () => Promise<Record<string, DetailSpec
 
 - 카드 루트는 **실제 `<a href="/docs/junds?c=button">`** — 새 탭·링크 복사·크롤러가 공짜. 클릭은 intercept 해 SPA 전환(§1.2).
 - **미니 프리뷰 = IntersectionObserver 진입 시에만 마운트**. 프리렌더 단계에서는 항상 플레이스홀더(스켈레톤). IO 옵션: `rootMargin: "240px 0px"`, threshold 0. 마운트 후 뷰포트에서 `720px` 이상 벗어나면 **언마운트해 플레이스홀더로 원복**(상태 보존 안 함 — 미니 프리뷰는 무상태 자율 데모).
-- 동시 마운트 상한 **24개**(초과 시 가장 먼 것부터 LRU 언마운트). 445개 전 마운트는 어떤 경로로도 불가능해야 한다.
+- 동시 마운트 상한 **24개**(초과 시 가장 먼 것부터 LRU 언마운트). 460개 전 마운트는 어떤 경로로도 불가능해야 한다.
 - 미니 프리뷰 래퍼는 **`inert` + `aria-hidden="true"`** — 카드 = 링크 1탭이 계약이며, 데모 내부의 버튼·인풋이 탭 순서·스크린리더에 새어 나가면 안 된다. 마우스 호버 데모 동작은 허용.
 - 지원 배지: `done`=채움, `wip`=반투명, `planned`=외곽선, `na`=미표시. 배지 문구는 "웹" / "iOS" 고정.
 
@@ -214,7 +214,7 @@ export const DETAIL_LOADERS: Record<Cat, () => Promise<Record<string, DetailSpec
 
 ### 4.2 hook 카테고리의 상세
 
-hook(55개)은 시각 스테이지가 없는 항목이 많다. `DetailSpec.render`가 있으면 동작 데모(예: useDebounce 입력 데모), 없으면 스테이지를 접고 코드 탭을 첫 화면으로 올린다. 코드 탭 매핑: 웹 바닐라 = Behavior(`createXxx(el, opts)`, D2), SwiftUI/UIKit = 대응 유틸 또는 "웹 전용" 표기(`ios: "na"`).
+hook(61개)은 시각 스테이지가 없는 항목이 많다. `DetailSpec.render`가 있으면 동작 데모(예: useDebounce 입력 데모), 없으면 스테이지를 접고 코드 탭을 첫 화면으로 올린다. 코드 탭 매핑: 웹 바닐라 = Behavior(`createXxx(el, opts)`, D2), SwiftUI/UIKit = 대응 유틸 또는 "웹 전용" 표기(`ios: "na"`).
 
 ---
 
@@ -224,7 +224,7 @@ hook(55개)은 시각 스테이지가 없는 항목이 많다. `DetailSpec.rende
 
 | 단계 | 작업 | 산출 |
 |---|---|---|
-| M1 | ledger → `junds-catalog.data.ts` 생성기 + 카탈로그 뷰(전 카드 플레이스홀더) + `?c=` 라우팅/히스토리 | 445 카드 카탈로그 + 빈 상세 프레임 |
+| M1 | ledger → `junds-catalog.data.ts` 생성기 + 카탈로그 뷰(전 카드 플레이스홀더) + `?c=` 라우팅/히스토리 | 460 카드 카탈로그 + 빈 상세 프레임 |
 | M2 | Specimen 데모 함수 188개를 `DetailSpec.render`/`mini`로 기계적 추출. 복합 Specimen은 분해된 id마다 같은 데모를 공유 등록(예: `badge`·`tag`·`status-dot` 3개 id → BadgeTagDemo 1개) | 상세 스테이지 188개분 + 미니 프리뷰 가동 |
 | M3 | `controls` 스키마 저작 — 우선순위: input > primitive > composite 상위 빈도순(전 항목 일괄 저작 금지, 카드 사용량 기준 점진) | props 컨트롤 |
 | M4 | USAGE 211키 → `JunUsageV3.snippets.react`로 기계 이관 + v3 진행에 맞춰 web/swiftui/uikit 스니펫 충전 | 코드 탭 3종 |
@@ -237,7 +237,7 @@ hook(55개)은 시각 스테이지가 없는 항목이 많다. `DetailSpec.rende
 
 ## 6. 성능 전략·예산
 
-단일 페이지에 메타 445 + 라이브 프리뷰라는 조건에서:
+단일 페이지에 메타 460 + 라이브 프리뷰라는 조건에서:
 
 | 항목 | 예산 | 수단 |
 |---|---|---|
@@ -245,12 +245,12 @@ hook(55개)은 시각 스테이지가 없는 항목이 많다. `DetailSpec.rende
 | 카탈로그 JS(상세 제외) | ≤ 90KB gz | 상세는 `DETAIL_LOADERS` 카테고리별 dynamic import |
 | 상세 청크 | 카테고리당 ≤ 60KB gz | composite는 필요시 2분할 |
 | 동시 마운트 미니 프리뷰 | ≤ 24 | IO 마운트/언마운트 + LRU(§3.3) |
-| 검색 응답 | < 16ms/입력 | 사전 연결 haystack 선형 스캔(445건이면 충분), debounce 80ms |
+| 검색 응답 | < 16ms/입력 | 사전 연결 haystack 선형 스캔(460건이면 충분), debounce 80ms |
 | 상세 전환 | < 200ms 체감 | 클릭 즉시 프레임 전환 + 스테이지 자리 스켈레톤, 청크 로드 후 채움. hover 시 해당 카테고리 청크 프리로드 |
 | 레이아웃 시프트 | CLS 0 | 카드 프리뷰 영역 고정 높이, 배지·태그 줄바꿈 금지(ellipsis) |
 
 - 애니메이션이 있는 미니 프리뷰(스피너·차트 틱)는 `IntersectionObserver` 이탈 즉시 정지(언마운트가 곧 정지). `document.hidden` 시 자율 타이머 일시정지.
-- 445개 `<a>` 카드 + 섹션 헤더의 정적 DOM은 ~5k 노드 — 가상 스크롤 도입하지 않는다(프리렌더 SEO와 상충, 445건은 정적 DOM으로 충분).
+- 460개 `<a>` 카드 + 섹션 헤더의 정적 DOM은 ~5k 노드 — 가상 스크롤 도입하지 않는다(프리렌더 SEO와 상충, 460건은 정적 DOM으로 충분).
 
 ## 7. 접근성·키보드
 

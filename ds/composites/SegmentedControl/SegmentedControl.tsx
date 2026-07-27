@@ -72,14 +72,14 @@ export function SegmentedControl({
     <div
       ref={containerRef}
       className={cn(
-        "relative inline-flex bg-gray-100 rounded-lg p-1 gap-0.5",
+        "relative inline-flex bg-gray-100 rounded-xl p-1 gap-0.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]",
         fullWidth && "w-full",
         className,
       )}
     >
       {/* 슬라이딩 인디케이터 */}
       <div
-        className="absolute top-1 bottom-1 bg-white rounded-md shadow-sm transition-all duration-200"
+        className="absolute top-1 bottom-1 bg-white rounded-lg ring-1 ring-black/[0.04] shadow-[0_1px_3px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 ease-[cubic-bezier(0.3,1.2,0.5,1)]"
         style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
       />
       {options.map((option) => (
@@ -90,11 +90,11 @@ export function SegmentedControl({
           disabled={option.disabled}
           onClick={() => !option.disabled && onChange(option.key)}
           className={cn(
-            "relative z-10 inline-flex items-center justify-center gap-1.5 font-medium rounded-md transition-colors duration-150 cursor-pointer",
-            "disabled:opacity-40 disabled:cursor-not-allowed",
+            "relative z-10 inline-flex items-center justify-center gap-1.5 rounded-lg transition-all duration-150 cursor-pointer",
+            "disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.97]",
             sizeClasses[size],
             fullWidth && "flex-1",
-            value === option.key ? "text-foreground" : "text-muted hover:text-foreground",
+            value === option.key ? "text-foreground font-semibold" : "text-muted font-medium hover:text-foreground",
           )}
         >
           {option.icon && <span className="shrink-0">{option.icon}</span>}

@@ -10,7 +10,7 @@ describe("Label", () => {
 
   it("shows required indicator", () => {
     render(<Label required>이름</Label>);
-    expect(screen.getByText("*")).toBeInTheDocument();
+    expect(screen.getByText("*")).toHaveAttribute("aria-hidden", "true");
   });
 
   it("renders htmlFor", () => {

@@ -10,13 +10,13 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-06-12T07:08:57.242Z
+Generated: 2026-07-27T04:10:36.085Z
 
 ---
 
 ## Requirements (read FIRST for any feature work)
 
-_18 files_
+_20 files_
 
 - `requirements/_template.md`
 - `requirements/agent-onboarding.md`
@@ -29,6 +29,7 @@ _18 files_
 - `requirements/license-and-auth.md`
 - `requirements/motion.md`
 - `requirements/multi-brand-theming.md`
+- `requirements/myself-migration.md`
 - `requirements/no-code-framework-phase-0.md`
 - `requirements/no-code-personas.md`
 - `requirements/photo-domain.md`
@@ -36,6 +37,7 @@ _18 files_
 - `requirements/showcase-site.md`
 - `requirements/sns-domain.md`
 - `requirements/theming.md`
+- `requirements/web-react-components.md`
 
 ## Primitives  (`ds/primitives/`)
 
@@ -129,7 +131,7 @@ _85 files_
 
 ## Composites  (`ds/composites/`)
 
-_293 files_
+_302 files_
 
 - `ds/composites/Accordion/Accordion.stories.tsx`
 - `ds/composites/Accordion/Accordion.tsx`
@@ -139,6 +141,7 @@ _293 files_
 - `ds/composites/AddressInput/AddressInput.tsx`
 - `ds/composites/Affix/Affix.stories.tsx`
 - `ds/composites/Affix/Affix.tsx`
+- `ds/composites/AlbumArt/AlbumArt.tsx`
 - `ds/composites/Alert/Alert.stories.tsx`
 - `ds/composites/Alert/Alert.tsx`
 - `ds/composites/AlertDialog/AlertDialog.stories.tsx`
@@ -236,6 +239,7 @@ _293 files_
 - `ds/composites/Disclosure/Disclosure.tsx`
 - `ds/composites/Dock/Dock.stories.tsx`
 - `ds/composites/Dock/Dock.tsx`
+- `ds/composites/DocPager/DocPager.tsx`
 - `ds/composites/Drawer/Drawer.stories.tsx`
 - `ds/composites/Drawer/Drawer.tsx`
 - `ds/composites/Dropdown/Dropdown.stories.tsx`
@@ -268,6 +272,7 @@ _293 files_
 - `ds/composites/ImageCompare/ImageCompare.tsx`
 - `ds/composites/ImageCropper/ImageCropper.stories.tsx`
 - `ds/composites/ImageCropper/ImageCropper.tsx`
+- `ds/composites/ImageLightbox/GlobalImageLightbox.tsx`
 - `ds/composites/ImageLightbox/ImageLightbox.stories.tsx`
 - `ds/composites/ImageLightbox/ImageLightbox.tsx`
 - `ds/composites/ImageWithFallback/ImageWithFallback.tsx`
@@ -305,6 +310,7 @@ _293 files_
 - `ds/composites/Newsletter/Newsletter.tsx`
 - `ds/composites/Notification/Notification.stories.tsx`
 - `ds/composites/Notification/Notification.tsx`
+- `ds/composites/NowPlayingBar/NowPlayingBar.tsx`
 - `ds/composites/OfflineIndicator/OfflineIndicator.tsx`
 - `ds/composites/Onboarding/Onboarding.stories.tsx`
 - `ds/composites/Onboarding/Onboarding.tsx`
@@ -332,6 +338,7 @@ _293 files_
 - `ds/composites/Progress/Progress.tsx`
 - `ds/composites/ProgressRing/ProgressRing.stories.tsx`
 - `ds/composites/ProgressRing/ProgressRing.tsx`
+- `ds/composites/ProjectCard/ProjectCard.tsx`
 - `ds/composites/PullToRefresh/PullToRefresh.tsx`
 - `ds/composites/QRCode/QRCode.stories.tsx`
 - `ds/composites/QRCode/QRCode.tsx`
@@ -350,6 +357,7 @@ _293 files_
 - `ds/composites/Result/Result.tsx`
 - `ds/composites/SankeyDiagram/SankeyDiagram.tsx`
 - `ds/composites/ScatterPlot/ScatterPlot.tsx`
+- `ds/composites/ScreenshotGrid/ScreenshotGrid.tsx`
 - `ds/composites/ScrollProgress/ScrollProgress.tsx`
 - `ds/composites/ScrollSpy/ScrollSpy.stories.tsx`
 - `ds/composites/ScrollSpy/ScrollSpy.tsx`
@@ -361,6 +369,7 @@ _293 files_
 - `ds/composites/SegmentedControl/SegmentedControl.tsx`
 - `ds/composites/Select/Select.stories.tsx`
 - `ds/composites/Select/Select.tsx`
+- `ds/composites/SeoHead/SeoHead.tsx`
 - `ds/composites/Sheet/Sheet.stories.tsx`
 - `ds/composites/Sheet/Sheet.tsx`
 - `ds/composites/SignaturePad/SignaturePad.stories.tsx`
@@ -391,6 +400,7 @@ _293 files_
 - `ds/composites/Table/Table.stories.tsx`
 - `ds/composites/Table/Table.tsx`
 - `ds/composites/TableOfContents/TableOfContents.tsx`
+- `ds/composites/TableOfContents/TocHeading.tsx`
 - `ds/composites/Tabs/Tabs.stories.tsx`
 - `ds/composites/Tabs/Tabs.tsx`
 - `ds/composites/TagInput/TagInput.stories.tsx`
@@ -423,6 +433,7 @@ _293 files_
 - `ds/composites/VirtualScroll/VirtualScroll.tsx`
 - `ds/composites/Watermark/Watermark.stories.tsx`
 - `ds/composites/Watermark/Watermark.tsx`
+- `ds/composites/Waveform/Waveform.tsx`
 - `ds/composites/YearPicker/YearPicker.tsx`
 
 ## Patterns  (`ds/patterns/`)
@@ -503,19 +514,22 @@ _11 files_
 
 ## Hooks  (`ds/hooks/`)
 
-_54 files_
+_60 files_
 
 - `ds/hooks/useAnimationFrame.ts`
 - `ds/hooks/useAsync.ts`
+- `ds/hooks/useAudioPlayer.ts`
 - `ds/hooks/useBreakpoint.ts`
 - `ds/hooks/useClickOutside.ts`
 - `ds/hooks/useClipboard.ts`
+- `ds/hooks/useCodeCopy.ts`
 - `ds/hooks/useCookie.ts`
 - `ds/hooks/useCopyToClipboard.ts`
 - `ds/hooks/useCountUp.ts`
 - `ds/hooks/useDebounce.ts`
 - `ds/hooks/useDisclosure.ts`
 - `ds/hooks/useDocumentTitle.ts`
+- `ds/hooks/useDominantColor.ts`
 - `ds/hooks/useElementSize.ts`
 - `ds/hooks/useEventListener.ts`
 - `ds/hooks/useFavicon.ts`
@@ -533,6 +547,7 @@ _54 files_
 - `ds/hooks/useIntersectionObserver.ts`
 - `ds/hooks/useInterval.ts`
 - `ds/hooks/useIsomorphicLayoutEffect.ts`
+- `ds/hooks/useJsonLd.ts`
 - `ds/hooks/useKeyboard.ts`
 - `ds/hooks/useKeyboardShortcut.ts`
 - `ds/hooks/useLocalStorage.ts`
@@ -549,8 +564,10 @@ _54 files_
 - `ds/hooks/useReducedMotion.ts`
 - `ds/hooks/useResizeObserver.ts`
 - `ds/hooks/useResource.ts`
+- `ds/hooks/useRevealOnScroll.ts`
 - `ds/hooks/useScrollLock.ts`
 - `ds/hooks/useScrollSpy.ts`
+- `ds/hooks/useSeo.ts`
 - `ds/hooks/useSessionStorage.ts`
 - `ds/hooks/useSteps.ts`
 - `ds/hooks/useThrottle.ts`
@@ -562,13 +579,15 @@ _54 files_
 
 ## Tokens  (`ds/tokens/`)
 
-_12 files_
+_14 files_
 
 - `ds/tokens/animation.ts`
 - `ds/tokens/borderWidth.ts`
 - `ds/tokens/brands.ts`
 - `ds/tokens/breakpoints.ts`
+- `ds/tokens/categoryColors.ts`
 - `ds/tokens/colors.ts`
+- `ds/tokens/fontFamily.ts`
 - `ds/tokens/gradients.ts`
 - `ds/tokens/opacity.ts`
 - `ds/tokens/radius.ts`
@@ -579,7 +598,7 @@ _12 files_
 
 ## Providers / Core / Utils / Auth
 
-_30 files_
+_33 files_
 
 - `ds/auth/crypto.ts`
 - `ds/auth/domain-lock.ts`
@@ -603,10 +622,13 @@ _30 files_
 - `ds/core/VStack.tsx`
 - `ds/providers/BrandProvider.tsx`
 - `ds/providers/I18nProvider.tsx`
+- `ds/providers/SeoProvider.tsx`
 - `ds/providers/ThemeProvider.tsx`
+- `ds/providers/TocProvider.tsx`
 - `ds/utils/cn.ts`
 - `ds/utils/contrast.ts`
 - `ds/utils/createCompound.ts`
+- `ds/utils/kinsoku.ts`
 - `ds/utils/polymorphic.ts`
 - `ds/utils/raceGuard.ts`
 - `ds/utils/Slot.tsx`
@@ -614,7 +636,7 @@ _30 files_
 
 ## Showcase routes  (`app/**/page.tsx`)
 
-_309 files_
+_316 files_
 
 - `app/design-system/advanced/ai-prompt/page.tsx`
 - `app/design-system/advanced/changelog/page.tsx`
@@ -627,6 +649,7 @@ _309 files_
 - `app/design-system/composites/action-sheet/page.tsx`
 - `app/design-system/composites/address-input/page.tsx`
 - `app/design-system/composites/affix/page.tsx`
+- `app/design-system/composites/album-art/page.tsx`
 - `app/design-system/composites/alert-dialog/page.tsx`
 - `app/design-system/composites/alert/page.tsx`
 - `app/design-system/composites/animated-counter/page.tsx`
@@ -684,6 +707,7 @@ _309 files_
 - `app/design-system/composites/detail-panel/page.tsx`
 - `app/design-system/composites/diff-viewer/page.tsx`
 - `app/design-system/composites/disclosure/page.tsx`
+- `app/design-system/composites/doc-pager/page.tsx`
 - `app/design-system/composites/dock/page.tsx`
 - `app/design-system/composites/drawer/page.tsx`
 - `app/design-system/composites/dropdown/page.tsx`
@@ -726,6 +750,7 @@ _309 files_
 - `app/design-system/composites/navigation-menu/page.tsx`
 - `app/design-system/composites/newsletter/page.tsx`
 - `app/design-system/composites/notification/page.tsx`
+- `app/design-system/composites/now-playing-bar/page.tsx`
 - `app/design-system/composites/offline-indicator/page.tsx`
 - `app/design-system/composites/onboarding/page.tsx`
 - `app/design-system/composites/online-status/page.tsx`
@@ -748,6 +773,7 @@ _309 files_
 - `app/design-system/composites/profile-header/page.tsx`
 - `app/design-system/composites/progress-ring/page.tsx`
 - `app/design-system/composites/progress/page.tsx`
+- `app/design-system/composites/project-card/page.tsx`
 - `app/design-system/composites/pull-to-refresh/page.tsx`
 - `app/design-system/composites/qr-code/page.tsx`
 - `app/design-system/composites/quantity-selector/page.tsx`
@@ -763,12 +789,14 @@ _309 files_
 - `app/design-system/composites/result/page.tsx`
 - `app/design-system/composites/sankey-diagram/page.tsx`
 - `app/design-system/composites/scatter-plot/page.tsx`
+- `app/design-system/composites/screenshot-grid/page.tsx`
 - `app/design-system/composites/scroll-progress/page.tsx`
 - `app/design-system/composites/scroll-spy/page.tsx`
 - `app/design-system/composites/search-bar/page.tsx`
 - `app/design-system/composites/search-input/page.tsx`
 - `app/design-system/composites/segmented-control/page.tsx`
 - `app/design-system/composites/select/page.tsx`
+- `app/design-system/composites/seo-head/page.tsx`
 - `app/design-system/composites/sheet/page.tsx`
 - `app/design-system/composites/signature-pad/page.tsx`
 - `app/design-system/composites/skeleton-preset/page.tsx`
@@ -804,6 +832,7 @@ _309 files_
 - `app/design-system/composites/video-player/page.tsx`
 - `app/design-system/composites/virtual-scroll/page.tsx`
 - `app/design-system/composites/watermark/page.tsx`
+- `app/design-system/composites/waveform/page.tsx`
 - `app/design-system/composites/year-picker/page.tsx`
 - `app/design-system/framework/box/page.tsx`
 - `app/design-system/framework/center/page.tsx`
@@ -937,7 +966,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_324 files_
+_333 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -950,6 +979,7 @@ _324 files_
 - `ds/__tests__/composites/ActionSheet.test.tsx`
 - `ds/__tests__/composites/AddressInput.test.tsx`
 - `ds/__tests__/composites/Affix.test.tsx`
+- `ds/__tests__/composites/AlbumArt.test.tsx`
 - `ds/__tests__/composites/Alert.test.tsx`
 - `ds/__tests__/composites/AlertDialog.a11y.test.tsx`
 - `ds/__tests__/composites/AlertDialog.test.tsx`
@@ -1012,6 +1042,7 @@ _324 files_
 - `ds/__tests__/composites/DiffViewer.test.tsx`
 - `ds/__tests__/composites/Disclosure.test.tsx`
 - `ds/__tests__/composites/Dock.test.tsx`
+- `ds/__tests__/composites/DocPager.test.tsx`
 - `ds/__tests__/composites/Drawer.a11y.test.tsx`
 - `ds/__tests__/composites/Drawer.test.tsx`
 - `ds/__tests__/composites/Dropdown.test.tsx`
@@ -1077,6 +1108,7 @@ _324 files_
 - `ds/__tests__/composites/ProfileHeader.test.tsx`
 - `ds/__tests__/composites/Progress.test.tsx`
 - `ds/__tests__/composites/ProgressRing.test.tsx`
+- `ds/__tests__/composites/ProjectCard.test.tsx`
 - `ds/__tests__/composites/PullToRefresh.test.tsx`
 - `ds/__tests__/composites/QRCode.test.tsx`
 - `ds/__tests__/composites/QuantitySelector.test.tsx`
@@ -1092,6 +1124,7 @@ _324 files_
 - `ds/__tests__/composites/Result.test.tsx`
 - `ds/__tests__/composites/SankeyDiagram.test.tsx`
 - `ds/__tests__/composites/ScatterPlot.test.tsx`
+- `ds/__tests__/composites/ScreenshotGrid.test.tsx`
 - `ds/__tests__/composites/ScrollProgress.test.tsx`
 - `ds/__tests__/composites/ScrollSpy.test.tsx`
 - `ds/__tests__/composites/SearchBar.test.tsx`
@@ -1139,6 +1172,7 @@ _324 files_
 - `ds/__tests__/composites/VideoPlayer.test.tsx`
 - `ds/__tests__/composites/VirtualScroll.test.tsx`
 - `ds/__tests__/composites/Watermark.test.tsx`
+- `ds/__tests__/composites/Waveform.test.tsx`
 - `ds/__tests__/composites/YearPicker.test.tsx`
 - `ds/__tests__/core/Box.test.tsx`
 - `ds/__tests__/core/Flex.test.tsx`
@@ -1152,8 +1186,10 @@ _324 files_
 - `ds/__tests__/hooks/useDebounce.test.ts`
 - `ds/__tests__/hooks/useDisclosure.test.ts`
 - `ds/__tests__/hooks/useDocumentTitle.test.ts`
+- `ds/__tests__/hooks/useFocusMode.test.ts`
 - `ds/__tests__/hooks/useImagePreload.test.ts`
 - `ds/__tests__/hooks/useInfiniteFeed.test.ts`
+- `ds/__tests__/hooks/useJsonLd.test.ts`
 - `ds/__tests__/hooks/useKeyboardShortcut.test.ts`
 - `ds/__tests__/hooks/useLocalStorage.test.ts`
 - `ds/__tests__/hooks/useMutation.test.ts`
@@ -1255,6 +1291,7 @@ _324 files_
 - `ds/__tests__/primitives/Textarea.test.tsx`
 - `ds/__tests__/primitives/Toggle.test.tsx`
 - `ds/__tests__/providers/I18nProvider.test.tsx`
+- `ds/__tests__/providers/TocProvider.test.tsx`
 - `ds/__tests__/runtime/bindings.test.ts`
 - `ds/__tests__/runtime/labAdapter.test.ts`
 - `ds/__tests__/runtime/previewProps.test.tsx`
@@ -1262,8 +1299,9 @@ _324 files_
 - `ds/__tests__/runtime/schema.test.ts`
 - `ds/__tests__/types/prop-contracts.test.ts`
 - `ds/__tests__/utils/cn.test.ts`
+- `ds/__tests__/utils/kinsoku.test.ts`
 - `ds/__tests__/utils/Slot.test.tsx`
 
 ---
 
-**Total indexed files:** 1195
+**Total indexed files:** 1233

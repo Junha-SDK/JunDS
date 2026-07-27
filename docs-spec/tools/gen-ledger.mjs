@@ -10,8 +10,8 @@
  * 분류 규칙은 docs-spec/00-inventory.md §1·§3·§4와 1:1 일치:
  *   - core/layout/primitives/composites/patterns: 배럴의 value export 중
  *     PascalCase 컴포넌트만 (lowercase 유틸·ALL_CAPS 상수·타입 export 제외).
- *     기대치: core 13 · layout 12 · primitives 51 · composites 185 · patterns 43 = 304
- *   - hooks: `use` 접두 export만 (invalidateResource 제외). 기대치: 55
+ *     기대치: core 13 · layout 12 · primitives 51 · composites 194 · patterns 43 = 313
+ *   - hooks: `use` 접두 export만 (invalidateResource 제외). 기대치: 61
  *   - finance: 컴포넌트만 — `./lib/*`(131 lib export)와 `./charts/lazy`(6 lazy 래퍼) 소스 제외,
  *     남은 소스에서 PascalCase만 (buildFlow·heatmapColor 등 lowercase 유틸 제외). 기대치: 86
  *
@@ -47,9 +47,10 @@ const CATEGORIES = [
 ];
 
 // 00-inventory §1 기대치 — 어긋나면 경고를 출력하고 exit 1
+// 2026-07-27 myself-migration: hooks 55→61 (+6), composites 185→194 (+9).
 const EXPECTED = {
-  core: 13, layout: 12, primitives: 51, hooks: 55,
-  composites: 185, patterns: 43, finance: 86,
+  core: 13, layout: 12, primitives: 51, hooks: 61,
+  composites: 194, patterns: 43, finance: 86,
 };
 
 // iOS n/a — 웹 전용 개념 (00-inventory §3 primitives 표)
@@ -190,7 +191,7 @@ for (const [cat, expected] of Object.entries(EXPECTED)) {
   if (!ok) fail = true;
 }
 const total = rows.length;
-console.log(`총 행 수: ${total} (기대 445 = UI 304 + hooks 55 + finance 86)`);
+console.log(`총 행 수: ${total} (기대 460 = UI 313 + hooks 61 + finance 86)`);
 
 const ledger = {
   $schema: "docs-spec/tools/gen-ledger.mjs 가 생성 — 직접 편집은 상태 필드만",

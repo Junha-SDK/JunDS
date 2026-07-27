@@ -139,7 +139,12 @@ describe("prop signature contracts", () => {
       "success" | "error" | "warning" | "info"
     >();
     expectTypeOf<ToastPosition>().toEqualTypeOf<
-      "top-right" | "top-center" | "bottom-right" | "bottom-center"
+      | "top-right"
+      | "top-center"
+      | "top-left"
+      | "bottom-right"
+      | "bottom-center"
+      | "bottom-left"
     >();
   });
 

@@ -45,8 +45,12 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
             disabled={opt.disabled}
             onChange={() => onChange?.(opt.value)}
             className={cn(
-              "accent-primary cursor-pointer",
-              size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4",
+              "appearance-none shrink-0 rounded-full border bg-white cursor-pointer transition-all duration-200 ease-out",
+              "border-border shadow-[0_1px_2px_rgba(0,0,0,0.05)] hover:border-gray-300",
+              "checked:border-primary checked:shadow-[0_1px_2px_rgba(0,0,0,0.08)]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
+              "active:scale-90 disabled:cursor-not-allowed",
+              size === "sm" ? "w-3.5 h-3.5 checked:border-4" : "w-4 h-4 checked:border-[5px]",
             )}
           />
           <span className={cn("text-foreground", size === "sm" ? "text-xs" : "text-sm")}>{opt.label}</span>

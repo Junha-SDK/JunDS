@@ -16,6 +16,7 @@
  * v2가 JSX 안에서 삼항 6번으로 나눠 그리던 것이 CSS 한 벌로 접힌다.
  */
 import { JdElement } from "../../core/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import stepperStyles from "./stepper.css.js";
 
@@ -25,7 +26,7 @@ export interface JdStep {
   title: string;
   description?: string;
   /** 아이콘. 주면 번호·완료 체크 대신 이것이 원 안에 들어간다 */
-  icon?: string | Node;
+  icon?: JdContent;
 }
 
 type StepStatus = "completed" | "current" | "upcoming";
@@ -35,14 +36,8 @@ const CHECK_SVG =
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">` +
   `<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>`;
 
-function fillIcon(slot: HTMLElement, icon: string | Node | undefined): void {
-  if (icon === undefined || icon === null || icon === "") return;
-  if (typeof icon === "string") {
-    if (icon.trimStart().startsWith("<")) slot.innerHTML = icon;
-    else slot.textContent = icon;
-  } else {
-    slot.append(icon);
-  }
+function fillIcon(slot: HTMLElement, icon: JdContent | undefined): void {
+  setContent(slot, icon);
 }
 
 export class JdStepper extends JdElement {

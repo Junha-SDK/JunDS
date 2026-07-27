@@ -85,9 +85,21 @@ describe("jd-section", () => {
     const el = document.querySelector<JdSection>("jd-section")!;
     expect(el.querySelector(":scope > .jd-section__body #c")).not.toBeNull();
     const title = el.querySelector(".jd-section__title")!;
-    expect(title.tagName).toBe("H4"); // v2 Heading level 4
+    expect(title.tagName).toBe("H2");
     expect(title.textContent).toBe("설정");
     expect(el.querySelector(".jd-section__desc")!.textContent).toBe("계정 옵션");
+  });
+
+  test("heading-level로 문서 구조에 맞는 제목 레벨을 선택", async () => {
+    document.body.innerHTML = `<jd-section title="상세 설정" heading-level="3"></jd-section>`;
+    await tick();
+    const el = document.querySelector<JdSection>("jd-section")!;
+    expect(el.querySelector(".jd-section__title")!.tagName).toBe("H3");
+
+    el.headingLevel = 4;
+    await tick();
+    expect(el.querySelector(".jd-section__title")!.tagName).toBe("H4");
+    expect(el.querySelector(".jd-section__title")!.textContent).toBe("상세 설정");
   });
 
   test("title/desc 없으면 헤더 숨김", async () => {
@@ -117,7 +129,7 @@ describe("jd-section", () => {
   test("본문 골격 입양 — 프리렌더 마크업 재사용 (§3.3)", async () => {
     document.body.innerHTML =
       `<jd-section title="t"><div class="jd-section__header">` +
-      `<h4 class="jd-section__title">t</h4><p class="jd-section__desc" hidden></p></div>` +
+      `<h2 class="jd-section__title">t</h2><p class="jd-section__desc" hidden></p></div>` +
       `<div class="jd-section__body"><p id="c">유지</p></div></jd-section>`;
     await tick();
     const el = document.querySelector<JdSection>("jd-section")!;

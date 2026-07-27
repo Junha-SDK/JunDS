@@ -1,0 +1,63 @@
+{
+  "id": "album-art",
+  "ledgerId": "AlbumArt",
+  "category": "composites",
+  "title": "AlbumArt",
+  "oneLiner": "앨범/트랙 커버 — 이미지가 없거나 깨지면 시드에서 만든 무광 그라디언트 커버로 대신한다.",
+  "tags": [
+    "media",
+    "audio",
+    "폴백"
+  ],
+  "controls": [
+    {
+      "prop": "size",
+      "kind": "number",
+      "min": 32,
+      "max": 240,
+      "step": 8,
+      "default": 96
+    },
+    {
+      "prop": "radius",
+      "kind": "select",
+      "options": [
+        "none",
+        "sm",
+        "md",
+        "lg",
+        "full"
+      ],
+      "default": "md"
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { AlbumArt } from \"@/ds/composites/AlbumArt\";",
+      "code": "<AlbumArt src={track.cover} seed={`${track.title}-${track.artist}`} size={56} />\n\n{/* 커버가 아예 없어도 곡마다 고유한 커버가 나온다 */}\n<AlbumArt seed=\"이소라 - 바람이 분다\" size={96} />"
+    }
+  },
+  "tokens": [
+    {
+      "token": "(리터럴 hsl)",
+      "usage": "생성 커버 색은 시드 해시에서 파생 — 채도·명도를 낮춰 실제 커버와 섞여도 튀지 않는다"
+    },
+    {
+      "token": "--color-card",
+      "usage": "이미지 로드 전 바탕색"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "이름",
+      "note": "alt(또는 aria-label)를 주면 감싸는 span 이 role=img 로 이름을 진다"
+    },
+    {
+      "item": "장식 기본값",
+      "note": "이름이 없으면 aria-hidden — 옆에 곡 제목이 텍스트로 있는 보통 배치에서 중복 낭독을 막는다"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T07:09:00.339Z",
+  "generatedAt": "2026-07-27T04:35:18.259Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -20,7 +20,7 @@
         },
         {
           "name": "children",
-          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS/node_modules/@types/react/index\").ReactNode",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").ReactNode",
           "optional": false,
           "description": "자식 요소"
         },
@@ -280,6 +280,12 @@
           "type": "boolean",
           "optional": true,
           "description": "Radix-style Slot 위임. `true`이면 Button은 자체 `<button>`을 렌더하지\n않고, 단일 자식 엘리먼트로 위임합니다. 스피너·아이콘 같은 internal\ncontent는 자식의 children 위치에 자동 합쳐집니다.\n\nNext의 `<Link>`, 외부 wrapper 등 임의의 element에 Button 디자인을\n적용할 때 사용하세요. `loading`/`disabled`는 element가 button일\n때만 의미를 갖습니다."
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"submit\" | \"reset\"",
+          "optional": true,
+          "description": "네이티브 버튼 타입입니다.\n\n폼 안에서 의도치 않은 제출을 막기 위해 기본값은 `\"button\"`입니다.\n제출 버튼은 반드시 `type=\"submit\"`을 명시하세요.\n\n`asChild` 사용 시에는 자식 엘리먼트가 타입과 이동 동작을 소유합니다."
         }
       ]
     },
@@ -372,7 +378,7 @@
         },
         {
           "name": "variant",
-          "type": "\"icon\" | \"button\"",
+          "type": "\"button\" | \"icon\"",
           "optional": true,
           "description": "버튼 표시 형태"
         },
@@ -882,13 +888,13 @@
         },
         {
           "name": "leftSlot",
-          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS/node_modules/@types/react/index\").ReactNode",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").ReactNode",
           "optional": true,
           "description": "입력 필드 왼쪽에 배치할 아이콘이나 요소.\n\n검색 아이콘, 통화 기호(₩, $) 등을 표시할 때 사용합니다.\n`pointer-events-none`이 적용되어 클릭이 입력 필드로 전달됩니다."
         },
         {
           "name": "rightSlot",
-          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS/node_modules/@types/react/index\").ReactNode",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").ReactNode",
           "optional": true,
           "description": "입력 필드 오른쪽에 배치할 아이콘이나 요소.\n\n초기화(clear) 버튼, 단위 텍스트(kg, cm), 상태 아이콘 등에 사용합니다.\n`leftSlot`과 달리 클릭 이벤트가 차단되지 않으므로\n버튼 등 인터랙티브 요소도 배치할 수 있습니다."
         },
@@ -909,6 +915,12 @@
           "type": "string",
           "optional": true,
           "description": "입력 필드에 추가할 CSS 클래스.\n\n디자인 시스템이 제공하지 않는 커스텀 스타일이 필요할 때\n탈출구(escape hatch)로 사용합니다."
+        },
+        {
+          "name": "wrapperClassName",
+          "type": "string",
+          "optional": true,
+          "description": "좌우 슬롯이 있을 때 생성되는 바깥 래퍼에 추가할 CSS 클래스입니다.\n\n입력 요소 자체는 기존처럼 `className`으로 꾸미고, 위치나 너비처럼\n슬롯까지 포함한 컨테이너 스타일은 이 prop으로 지정합니다."
         }
       ]
     },
@@ -1157,7 +1169,7 @@
         },
         {
           "name": "children",
-          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS/node_modules/@types/react/index\").ReactNode",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").ReactNode",
           "optional": true,
           "description": "자식 (애니메이트할 컨텐츠)"
         }
@@ -1592,7 +1604,7 @@
       "props": [
         {
           "name": "children",
-          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS/node_modules/@types/react/index\").ReactNode",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").ReactNode",
           "optional": false,
           "description": "자식 요소"
         },
@@ -1978,19 +1990,19 @@
           "name": "error",
           "type": "boolean",
           "optional": true,
-          "description": "에러 상태 표시"
+          "description": "에러 상태를 시각적으로 표시하고 `aria-invalid=\"true\"`를 설정합니다.\n\n`FormField error`와 함께 사용하면 별도 연결 코드 없이 같은 상태가 적용됩니다."
         },
         {
           "name": "autoResize",
           "type": "boolean",
           "optional": true,
-          "description": "내용에 맞춰 높이 자동 조절"
+          "description": "내용 높이에 맞춰 입력 영역을 자동으로 늘립니다.\n\n활성화하면 사용자의 수동 세로 리사이즈는 비활성화됩니다."
         },
         {
           "name": "showCount",
           "type": "boolean",
           "optional": true,
-          "description": "maxLength 기준 글자수 카운터 표시"
+          "description": "`maxLength` 기준 현재 글자 수를 표시합니다.\n\ncontrolled와 uncontrolled 사용 방식을 모두 지원하며, 카운터는\n`aria-describedby`에 자동 연결됩니다."
         }
       ]
     },
@@ -2202,6 +2214,56 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "AlbumArt",
+      "kind": "composite",
+      "file": "ds/composites/AlbumArt/AlbumArt.tsx",
+      "interface": "AlbumArtProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "media",
+        "audio"
+      ],
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "optional": true,
+          "description": "커버 이미지 URL. 없거나 로드에 실패하면 생성 커버로 폴백한다"
+        },
+        {
+          "name": "seed",
+          "type": "string",
+          "optional": false,
+          "description": "생성 커버의 시드 (제목 + 아티스트 등). 같은 시드는 언제나 같은 커버가 된다"
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "optional": true,
+          "description": "접근성 이름. 비워 두면(기본) 장식으로 보고 스크린리더에서 숨긴다 —\n커버 옆에 곡 제목이 텍스트로 있는 보통의 배치에서는 이쪽이 맞다."
+        },
+        {
+          "name": "glyph",
+          "type": "string",
+          "optional": true,
+          "description": "생성 커버 가운데에 놓을 글리프 (기본 `\"♪\"`)"
+        },
+        {
+          "name": "size",
+          "type": "string | number",
+          "optional": true,
+          "description": "한 변의 크기 (px 또는 CSS 길이, 기본 `\"100%\"`)"
+        },
+        {
+          "name": "radius",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"none\" | \"full\"",
+          "optional": true,
+          "description": "모서리 둥글기 (기본 `\"md\"`)"
         }
       ]
     },
@@ -3303,9 +3365,9 @@
       "props": [
         {
           "name": "variant",
-          "type": "\"warning\" | \"danger\" | \"info\" | \"note\" | \"tip\"",
+          "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"warn\" | \"note\" | \"tip\"",
           "optional": true,
-          "description": "콜아웃 유형"
+          "description": "콜아웃 유형.\n`warn` 은 `warning` 의 별칭 — 마크다운 문법 `:::warn` 같은 표기를 그대로 받기 위한 것이다."
         },
         {
           "name": "title",
@@ -5011,6 +5073,56 @@
       ]
     },
     {
+      "name": "DocPager",
+      "kind": "composite",
+      "file": "ds/composites/DocPager/DocPager.tsx",
+      "interface": "DocPagerProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "navigation",
+        "content"
+      ],
+      "props": [
+        {
+          "name": "prev",
+          "type": "DocPagerEntry | null",
+          "optional": true,
+          "description": "이전 문서 (없으면 자리만 비워 다음 문서가 오른쪽에 남는다)"
+        },
+        {
+          "name": "next",
+          "type": "DocPagerEntry | null",
+          "optional": true,
+          "description": "다음 문서"
+        },
+        {
+          "name": "prevLabel",
+          "type": "string",
+          "optional": true,
+          "description": "이전 쪽 라벨 (기본 `\"이전 문서\"`)"
+        },
+        {
+          "name": "nextLabel",
+          "type": "string",
+          "optional": true,
+          "description": "다음 쪽 라벨 (기본 `\"다음 문서\"`)"
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "optional": true,
+          "description": "nav 의 접근성 라벨"
+        },
+        {
+          "name": "renderLink",
+          "type": "(props: { href: string; className: string; children: ReactNode; }) => ReactNode",
+          "optional": true,
+          "description": "링크 렌더러. Next.js `<Link>` 나 react-router `<Link>` 를 쓰려면 넘긴다.\n기본은 평범한 `<a>` — 클라이언트 라우팅 없이 전체 페이지가 다시 뜬다."
+        }
+      ]
+    },
+    {
       "name": "Drawer",
       "kind": "composite",
       "file": "ds/composites/Drawer/Drawer.tsx",
@@ -5368,13 +5480,13 @@
           "name": "htmlFor",
           "type": "string",
           "optional": true,
-          "description": "htmlFor"
+          "description": "라벨이 가리킬 입력 요소의 id.\n\n생략하면 단일 자식 입력의 기존 id를 사용하거나 안전한 id를 자동 생성합니다."
         },
         {
           "name": "children",
           "type": "ReactNode",
           "optional": false,
-          "description": "입력 요소"
+          "description": "입력 요소.\n\n단일 React 엘리먼트이면 id와 ARIA 연결 속성을 자동으로 합성합니다.\n여러 요소를 조합할 때는 `htmlFor`와 ARIA 속성을 직접 지정하세요."
         },
         {
           "name": "className",
@@ -5841,6 +5953,12 @@
           "description": "대체 이미지 URL"
         },
         {
+          "name": "fallback",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "대체 이미지 대신 렌더할 노드 (`fallbackSrc` 보다 우선)"
+        },
+        {
           "name": "showSkeleton",
           "type": "boolean",
           "optional": true,
@@ -5857,6 +5975,18 @@
           "type": "string",
           "optional": true,
           "description": "컨테이너 클래스"
+        },
+        {
+          "name": "retry",
+          "type": "number",
+          "optional": true,
+          "description": "로드 실패 시 빠른 재시도 횟수 (기본 0 = 재시도 안 함).\n\n0.5s → 1s → 2s 지수 백오프로 다시 요청한다. 이 구간에는 폴백 대신 스켈레톤이\n계속 보이므로, 네트워크가 잠깐 흔들린 경우 사용자는 아무 일도 없었던 것처럼\n이미지를 보게 된다. 외부 호스트의 이미지라면 `3` 정도를 권한다."
+        },
+        {
+          "name": "revive",
+          "type": "boolean",
+          "optional": true,
+          "description": "폴백이 뜬 뒤에도 백그라운드에서 소생을 계속 시도할지 (기본 false).\n\n오프스크린 `new Image()` 프로브로 5s → 15s → 45s → 2m → 5m(이후 반복) 주기로\n확인하고, 네트워크 복구(`online`)나 탭 복귀(`visibilitychange`) 시에는 즉시\n다시 시도한다. 프로브가 성공하면 브라우저 캐시가 데워진 뒤 같은 URL 로\n교체되므로 깜빡임 없이 이미지가 나타난다.\n\n이미지 호스트가 잠시 흔들렸을 때 새로고침 전까지 영영 폴백으로 굳는 문제를\n막는다. DOM 의 `<img>` 를 건드리지 않아 폴백 ↔ 스켈레톤이 깜빡이지 않는다."
         }
       ]
     },
@@ -6296,6 +6426,24 @@
           "description": "마크다운 원문 텍스트"
         },
         {
+          "name": "allowHtml",
+          "type": "boolean",
+          "optional": true,
+          "description": "원문의 raw HTML 을 그대로 통과시킬지 (기본 false).\n\n기본값에서는 `<` 와 `&` 를 이스케이프해 원문에 섞인 태그가 실행되지 않는다.\n사용자가 쓴 글이나 외부에서 받아 온 마크다운에는 절대 `true` 를 주면 안 된다 —\n이 컴포넌트는 HTML 을 삭제(sanitize)하지 않으므로 그대로 스크립트가 실행된다."
+        },
+        {
+          "name": "breaks",
+          "type": "boolean",
+          "optional": true,
+          "description": "줄바꿈 하나를 `<br>` 로 취급할지 (기본 false).\n\n시·가사처럼 행이 곧 의미인 글에 쓴다. 표준 마크다운은 빈 줄이 있어야\n문단이 나뉘므로, 이 옵션 없이는 행갈이가 전부 뭉개진다."
+        },
+        {
+          "name": "kinsoku",
+          "type": "boolean",
+          "optional": true,
+          "description": "금칙처리 적용 여부 (기본 false).\n\n마침표·닫는 괄호 같은 문장부호가 줄 첫머리로 떨어지지 않게 묶는다.\n한국어 장문(책 본문, 에세이)에서 눈에 띄게 다듬어진다."
+        },
+        {
           "name": "className",
           "type": "string",
           "optional": true,
@@ -6476,7 +6624,7 @@
         },
         {
           "name": "icon",
-          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS/node_modules/@types/react/index\").ReactNode",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").ReactNode",
           "optional": true,
           "description": "우측 아이콘"
         },
@@ -6853,6 +7001,56 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "NowPlayingBar",
+      "kind": "composite",
+      "file": "ds/composites/NowPlayingBar/NowPlayingBar.tsx",
+      "interface": "NowPlayingBarProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "media",
+        "audio"
+      ],
+      "props": [
+        {
+          "name": "player",
+          "type": "AudioPlayerState",
+          "optional": false,
+          "description": "`useAudioPlayer()` 가 돌려준 상태"
+        },
+        {
+          "name": "onExpand",
+          "type": "() => void",
+          "optional": true,
+          "description": "커버를 눌렀을 때 (전체 화면 플레이어 열기 등). 없으면 커버는 버튼이 아니다"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "optional": true,
+          "description": "트랙 로드 실패 시 아티스트 자리에 보여줄 문구"
+        },
+        {
+          "name": "bars",
+          "type": "number",
+          "optional": true,
+          "description": "파형 막대 개수 (기본 72)"
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "바 오른쪽 끝에 덧붙일 내용 (볼륨 슬라이더·반복 버튼 등)"
+        },
+        {
+          "name": "fixed",
+          "type": "boolean",
+          "optional": true,
+          "description": "화면 하단에 고정할지 (기본 true)"
         }
       ]
     },
@@ -7998,6 +8196,92 @@
       ]
     },
     {
+      "name": "ProjectCard",
+      "kind": "composite",
+      "file": "ds/composites/ProjectCard/ProjectCard.tsx",
+      "interface": "ProjectCardProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "content",
+        "navigation"
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "optional": false,
+          "description": "프로젝트명"
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "optional": true,
+          "description": "한 줄 설명"
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "optional": true,
+          "description": "아이콘/썸네일 URL"
+        },
+        {
+          "name": "iconNode",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "이미지 대신 넣을 아이콘 노드 (`icon` 보다 우선)"
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "optional": true,
+          "description": "오른쪽 끝에 놓을 연도·기간 라벨"
+        },
+        {
+          "name": "badges",
+          "type": "ReactNode",
+          "optional": true,
+          "description": "제목 옆/오른쪽에 붙일 뱃지들 (\"App Store\", \"OSS\" 등)"
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "optional": true,
+          "description": "이동할 URL. 주면 카드 전체가 링크가 된다"
+        },
+        {
+          "name": "external",
+          "type": "boolean",
+          "optional": true,
+          "description": "외부 링크로 열지 (`target=\"_blank\"` + rel)"
+        },
+        {
+          "name": "onPrefetch",
+          "type": "() => void",
+          "optional": true,
+          "description": "호버·포커스·터치 시작 시 호출 — 상세 페이지 청크를 미리 받아 둘 때 쓴다.\n사용자가 누르기 전에 미리 받아 두면 클릭 후 대기가 사라진다."
+        },
+        {
+          "name": "arrow",
+          "type": "boolean",
+          "optional": true,
+          "description": "오른쪽 끝 화살표 표시 (기본: `href` 가 있으면 true)"
+        },
+        {
+          "name": "variant",
+          "type": "ProjectCardVariant",
+          "optional": true,
+          "description": "`row` 는 목록용 촘촘한 한 줄, `feature` 는 대표작을 조금 크게 보여주는 형태."
+        },
+        {
+          "name": "renderLink",
+          "type": "(props: { href: string; className: string; children: ReactNode; }) => ReactNode",
+          "optional": true,
+          "description": "링크 렌더러. Next.js `<Link>` 나 react-router `<Link>` 를 쓰려면 넘긴다.\n기본은 평범한 `<a>`."
+        }
+      ]
+    },
+    {
       "name": "PullToRefresh",
       "kind": "composite",
       "file": "ds/composites/PullToRefresh/PullToRefresh.tsx",
@@ -8767,6 +9051,50 @@
       ]
     },
     {
+      "name": "ScreenshotGrid",
+      "kind": "composite",
+      "file": "ds/composites/ScreenshotGrid/ScreenshotGrid.tsx",
+      "interface": "ScreenshotGridProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "content",
+        "media"
+      ],
+      "props": [
+        {
+          "name": "images",
+          "type": "Array<string>",
+          "optional": false,
+          "description": "이미지 경로 목록. 절대 URL 이 아니면 `basePath` 가 앞에 붙는다"
+        },
+        {
+          "name": "basePath",
+          "type": "string",
+          "optional": true,
+          "description": "상대 경로 앞에 붙일 접두사 (예: `\"/docs/img/\"`)"
+        },
+        {
+          "name": "alt",
+          "type": "(src: string, index: number) => string",
+          "optional": true,
+          "description": "이미지 alt 를 만드는 함수 (기본: 빈 문자열 = 장식으로 취급)"
+        },
+        {
+          "name": "columns",
+          "type": "2 | 3 | 4",
+          "optional": true,
+          "description": "컬럼 수 (기본 3)"
+        },
+        {
+          "name": "onSelect",
+          "type": "(src: string, index: number) => void",
+          "optional": true,
+          "description": "이미지 클릭 핸들러 — 라이트박스를 열 때 쓴다"
+        }
+      ]
+    },
+    {
       "name": "ScrollProgress",
       "kind": "composite",
       "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
@@ -9506,15 +9834,27 @@
       "props": [
         {
           "name": "type",
-          "type": "\"spoiler\" | \"caution\"",
+          "type": "\"spoiler\" | \"caution\" | \"youth\"",
           "optional": true,
-          "description": "스포일러 종류"
+          "description": "스포일러 종류. `youth` 는 `caution` 의 별칭 —\n연령 제한 콘텐츠를 가릴 때 의도가 더 분명하게 읽힌다."
         },
         {
           "name": "label",
           "type": "string",
           "optional": true,
           "description": "공개 버튼 라벨"
+        },
+        {
+          "name": "notice",
+          "type": "React.ReactNode",
+          "optional": true,
+          "description": "버튼 위에 띄울 안내 문구 (기본: 종류별 기본 문구).\n\n무엇이 가려져 있는지 알려 줘야 사용자가 열지 말지 판단할 수 있다.\n`null` 을 주면 문구 없이 버튼만 보여 준다."
+        },
+        {
+          "name": "onReveal",
+          "type": "() => void",
+          "optional": true,
+          "description": "내용을 공개했을 때 호출 (분석 이벤트·부모 상태 반영 등)"
         },
         {
           "name": "children",
@@ -10010,6 +10350,18 @@
           "description": "컨테이너 셀렉터 (없으면 document)"
         },
         {
+          "name": "exclude",
+          "type": "string",
+          "optional": true,
+          "description": "수집에서 제외할 헤딩 셀렉터.\n화면에는 안 보이지만 접근성을 위해 넣어 둔 중복 제목 등을 걸러낼 때 쓴다."
+        },
+        {
+          "name": "observe",
+          "type": "boolean",
+          "optional": true,
+          "description": "본문이 늦게 도착하는 경우(lazy import / Suspense / 스트리밍)를 대비해\nMutationObserver 로 DOM 변화를 감시하며 목차를 다시 수집할지 (기본 true).\n\n끄면 마운트 직후 한 번만 수집한다 — 본문이 이미 전부 있는 화면에서는\n이쪽이 약간 더 싸다."
+        },
+        {
           "name": "activeTracking",
           "type": "boolean",
           "optional": true,
@@ -10026,6 +10378,24 @@
           "type": "boolean",
           "optional": true,
           "description": "클릭 시 부드러운 스크롤"
+        },
+        {
+          "name": "scrollOffset",
+          "type": "number",
+          "optional": true,
+          "description": "스크롤 시 헤딩 위에 남길 여백 (px). 고정 헤더 높이만큼 주면 된다"
+        },
+        {
+          "name": "onItemsChange",
+          "type": "(items: TocItem[]) => void",
+          "optional": true,
+          "description": "수집된 항목이 바뀔 때 호출 (바깥에서 \"목차 없음\" UI 를 그릴 때 유용)"
+        },
+        {
+          "name": "emptyFallback",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").ReactNode",
+          "optional": true,
+          "description": "항목이 하나도 없을 때 렌더할 내용 (기본: 아무것도 렌더하지 않음)"
         }
       ]
     },
@@ -10516,10 +10886,52 @@
           "description": "항목 클릭 핸들러"
         },
         {
+          "name": "onItemPrefetch",
+          "type": "(key: string, href?: string) => void",
+          "optional": true,
+          "description": "항목에 마우스를 올리거나 포커스가 닿았을 때 호출.\n해당 페이지의 청크를 미리 받아 두면 클릭 후 대기가 사라진다."
+        },
+        {
           "name": "defaultExpanded",
           "type": "Array<string>",
           "optional": true,
           "description": "기본 확장 키 목록"
+        },
+        {
+          "name": "expandedKeys",
+          "type": "Array<string>",
+          "optional": true,
+          "description": "확장 상태를 바깥에서 제어할 때 쓴다.\n주면 `defaultExpanded` 는 무시되고 `onExpandedChange` 로만 상태가 바뀐다."
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "(keys: string[]) => void",
+          "optional": true,
+          "description": "확장 상태가 바뀔 때 호출 (제어 모드)"
+        },
+        {
+          "name": "autoExpandActive",
+          "type": "boolean",
+          "optional": true,
+          "description": "`activeKey` 로 가는 경로의 부모들을 자동으로 펼칠지 (기본 true).\n\n딥링크로 들어왔을 때 현재 문서가 접힌 가지 안에 숨어 있으면 사용자는\n자기가 어디 있는지 알 수 없다."
+        },
+        {
+          "name": "showCount",
+          "type": "boolean",
+          "optional": true,
+          "description": "`badge` 가 없는 부모 항목에 하위 잎 개수를 자동으로 표시할지 (기본 false)."
+        },
+        {
+          "name": "expandAllControl",
+          "type": "boolean",
+          "optional": true,
+          "description": "전체 펼치기/접기 버튼을 상단에 보여줄지 (기본 false)"
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "optional": true,
+          "description": "nav 의 접근성 라벨"
         },
         {
           "name": "className",
@@ -10762,7 +11174,7 @@
         },
         {
           "name": "style",
-          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS/node_modules/@types/react/index\").CSSProperties",
+          "type": "import(\"/Users/junha/develop/jjunhaa/JunDS-v3/node_modules/@types/react/index\").CSSProperties",
           "optional": true,
           "description": "추가 스타일"
         }
@@ -10820,6 +11232,68 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "Waveform",
+      "kind": "composite",
+      "file": "ds/composites/Waveform/Waveform.tsx",
+      "interface": "WaveformProps",
+      "status": "stable",
+      "since": "2.3.0",
+      "tags": [
+        "media",
+        "audio"
+      ],
+      "props": [
+        {
+          "name": "seed",
+          "type": "string",
+          "optional": false,
+          "description": "파형을 만들 시드 문자열 (곡 슬러그·제목 등).\n같은 시드는 언제나 같은 파형을 만든다."
+        },
+        {
+          "name": "peaks",
+          "type": "Array<number>",
+          "optional": true,
+          "description": "실제 진폭 배열 (0~1). 주면 `seed` 대신 이 값으로 그린다"
+        },
+        {
+          "name": "progress",
+          "type": "number",
+          "optional": true,
+          "description": "재생 진행 비율 (0~1)"
+        },
+        {
+          "name": "bars",
+          "type": "number",
+          "optional": true,
+          "description": "막대 개수 (기본 56)"
+        },
+        {
+          "name": "playing",
+          "type": "boolean",
+          "optional": true,
+          "description": "재생 중인지 — 재생 헤드가 맥동한다"
+        },
+        {
+          "name": "onSeek",
+          "type": "(fraction: number) => void",
+          "optional": true,
+          "description": "탐색 콜백 (0~1 비율).\n주면 클릭·드래그·방향키로 탐색 가능한 `role=\"slider\"` 가 된다."
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "optional": true,
+          "description": "슬라이더 접근성 라벨"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true,
+          "description": "막대 높이 (px, 기본 40)"
         }
       ]
     },

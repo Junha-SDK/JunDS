@@ -3,7 +3,7 @@
 - **Slug:** `design-system-library`
 - **Status:** shipped
 - **Owner:** Junha (goodjunha@gmail.com)
-- **Last updated:** 2026-04-29
+- **Last updated:** 2026-07-27
 
 ## Goal
 
@@ -42,7 +42,7 @@
 - [x] As a 라이브러리 메인테이너, I can `npm run build:lib` 으로 ESM/CJS/타입
       세 출력물을 한 번에 만든다.
 - [x] As a 사용자, 트리쉐이킹이 동작하므로 단일 컴포넌트만 사용해도 번들이
-      비대해지지 않는다 (`sideEffects: false`).
+      비대해지지 않는다 (JS는 side-effect free, 명시적으로 import한 CSS만 보존).
 
 ## Design / behavior notes
 
@@ -64,6 +64,12 @@
   `dist/styles.css`. ESM 출력 상단에 `"use client";` 배너가 들어간다.
 - **외부 의존성.** `clsx`, `tailwind-merge` 만 dependency. `react`, `react-dom`
   은 peer.
+- **트리쉐이킹.** `package.json#sideEffects` 는 CSS만 예외로 보존한다.
+  `import "@junds/ui/styles.css"` 가 Webpack 계열 최적화에서 제거되지 않으면서
+  JS 모듈은 기존처럼 tree-shake 된다.
+- **안전한 기본값.** `Button`은 폼 내부의 의도치 않은 제출을 막기 위해
+  기본 `type="button"`을 사용한다. 제출 액션은 `type="submit"`을 명시한다.
+  `Input`/`Textarea`의 `error`는 시각 상태와 `aria-invalid`를 함께 설정한다.
 - **버전.** 현재 `2.2.0` (package.json).
 
 ## Touched files (for agents)
@@ -89,6 +95,7 @@
 
 ## Changelog
 
+- 2026-07-27 — CSS side-effect 보존 및 기본 폼 컴포넌트의 안전한 동작 명문화.
 - 2026-04-29 — created.
 - 2026-04-30 — sub-path exports 활성화 (10개 카테고리 별도 entry). rollup
   config 가 카테고리별로 ESM + CJS + d.ts 를 dist/&lt;category&gt;/index.* 로

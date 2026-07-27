@@ -10,14 +10,22 @@
  *  - dist/types/ (tsc emitDeclarationOnly)
  */
 import { build } from "esbuild";
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const p = (...s) => join(here, ...s);
+const distDir = p("dist");
 
 const shared = {
   bundle: true,
@@ -25,6 +33,16 @@ const shared = {
   logLevel: "info",
   absWorkingDir: here,
 };
+
+// 해시 청크는 빌드마다 이름이 달라진다. 이전 JS/CSS 산출물은 제거하되 types는
+// 유지한다. @junds/react 같은 다운스트림 패키지가 병렬로 타입을 읽는 순간 dist
+// 전체를 지우면 TS7016이 간헐적으로 발생한다. 새 선언은 아래 tsc가 원자적인 파일
+// 교체로 덮고, 제거된 소스의 오래된 선언만 빌드 끝에서 정리한다.
+mkdirSync(distDir, { recursive: true });
+for (const entry of readdirSync(distDir, { withFileTypes: true })) {
+  if (entry.name === "types") continue;
+  rmSync(join(distDir, entry.name), { recursive: true, force: true });
+}
 
 // 컴포넌트 디렉터리 스캔 (01 §2 물리 규약: 폴더당 1컴포넌트)
 const componentsDir = p("src/components");
@@ -35,7 +53,11 @@ const componentNames = existsSync(componentsDir)
   : [];
 
 // 1) npm 소비용 ESM — 단일 빌드 + splitting (엔트리 간 공유 청크로 클래스 identity 보존)
-const esmEntries = [p("src/index.ts"), p("src/define.ts")];
+const esmEntries = [
+  p("src/index.ts"),
+  p("src/define.ts"),
+  p("src/core/content.ts"),
+];
 for (const name of componentNames) {
   esmEntries.push(p("src/components", name, "index.ts"), p("src/components", name, "element.ts"));
 }
@@ -50,7 +72,7 @@ await build({
   entryPoints: esmEntries,
   format: "esm",
   splitting: true,
-  outdir: p("dist"),
+  outdir: distDir,
   outbase: p("src"),
   chunkNames: "chunks/[name]-[hash]",
 });
@@ -86,9 +108,30 @@ const componentCss = [];
 for (const name of componentNames) {
   const cssFile = readdirSync(p("src/components", name)).find((f) => f.endsWith(".css.ts"));
   if (!cssFile) continue;
-  const text = await collectCssText(p("src/components", name, cssFile));
+  const text = (await collectCssText(p("src/components", name, cssFile))).trimEnd();
   componentCss.push(text);
   writeFileSync(p("dist/css", `${name}.css`), `${text}\n`);
+  // 한 폴더가 여러 태그를 소유하는 경우(page → jd-page-header 등)에도 소비자가
+  // 태그 이름 그대로 `@junds/web/css/page-header.css`를 가져올 수 있어야 한다.
+  // JS 서브패스 별칭과 같은 규칙으로 동일 CSS를 별칭 파일에 방출한다.
+  const elementSource = readFileSync(
+    p("src/components", name, "element.ts"),
+    "utf8",
+  );
+  const tagConstants = new Map();
+  for (const match of elementSource.matchAll(
+    /\bconst\s+([A-Za-z_$][\w$]*)\s*=\s*(?:"([^"]+)"|'([^']+)')/g,
+  )) {
+    tagConstants.set(match[1], match[2] ?? match[3]);
+  }
+  for (const match of elementSource.matchAll(
+    /static\s+(?:override\s+)?(?:readonly\s+)?tag\s*=\s*(?:"([^"]+)"|'([^']+)'|([A-Za-z_$][\w$]*))/g,
+  )) {
+    const tagName = match[1] ?? match[2] ?? tagConstants.get(match[3]);
+    if (!tagName?.startsWith("jd-")) continue;
+    const tag = tagName.slice(3);
+    if (tag !== name) writeFileSync(p("dist/css", `${tag}.css`), `${text}\n`);
+  }
 }
 writeFileSync(
   p("dist/junds.css"),
@@ -97,6 +140,16 @@ writeFileSync(
     readFileSync(p("src/styles/tokens.css"), "utf8"),
     readFileSync(p("src/styles/base.css"), "utf8"),
     ...componentCss,
+  ].join("\n"),
+);
+// 부분 import의 공통 기반. 앱에서 한 번만 로드하고 필요한 컴포넌트 CSS를 더하면
+// 전체 junds.css 없이도 토큰·포커스 링·FOUC 기본값이 빠지지 않는다.
+writeFileSync(
+  p("dist/core.css"),
+  [
+    "@layer junds.tokens, junds.base, junds.components;",
+    readFileSync(p("src/styles/tokens.css"), "utf8"),
+    readFileSync(p("src/styles/base.css"), "utf8"),
   ].join("\n"),
 );
 
@@ -108,3 +161,24 @@ execFileSync(
   [require.resolve("typescript/lib/tsc.js"), "-p", p("tsconfig.json")],
   { stdio: "inherit", cwd: here },
 );
+
+// tsc는 outDir의 오래된 파일을 지우지 않는다. 병렬 소비자를 위해 선언 디렉터리
+// 자체는 보존하면서, 대응하는 src/*.ts가 사라진 선언만 선택적으로 제거한다.
+const typesDir = p("dist/types");
+function pruneStaleDeclarations(dir) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      pruneStaleDeclarations(path);
+      if (readdirSync(path).length === 0) rmSync(path, { recursive: true });
+      continue;
+    }
+    if (!entry.name.endsWith(".d.ts")) continue;
+    const source = p(
+      "src",
+      relative(typesDir, path).replace(/\.d\.ts$/, ".ts"),
+    );
+    if (!existsSync(source)) rmSync(path);
+  }
+}
+pruneStaleDeclarations(typesDir);

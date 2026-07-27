@@ -104,4 +104,16 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * </Button>
    */
   asChild?: boolean;
+
+  /**
+   * 네이티브 버튼 타입입니다.
+   *
+   * 폼 안에서 의도치 않은 제출을 막기 위해 기본값은 `"button"`입니다.
+   * 제출 버튼은 반드시 `type="submit"`을 명시하세요.
+   *
+   * `asChild` 사용 시에는 자식 엘리먼트가 타입과 이동 동작을 소유합니다.
+   *
+   * @default "button"
+   */
+  type?: "button" | "submit" | "reset";
 }

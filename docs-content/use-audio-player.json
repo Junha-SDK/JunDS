@@ -1,0 +1,33 @@
+{
+  "id": "use-audio-player",
+  "ledgerId": "useAudioPlayer",
+  "category": "hooks",
+  "title": "useAudioPlayer",
+  "oneLiner": "재생 목록 하나를 굴리는 오디오 엔진 — 화면은 호출부가 그린다.",
+  "tags": [
+    "hook",
+    "audio",
+    "미디어"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { useAudioPlayer, formatAudioTime } from \"@/ds/hooks\";",
+      "code": "const player = useAudioPlayer(tracks);\n\nreturn (\n  <>\n    <audio ref={player.audioRef} />\n    <button onClick={player.toggle}>{player.isPlaying ? \"일시정지\" : \"재생\"}</button>\n    <span>{formatAudioTime(player.currentTime)}</span>\n  </>\n);"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "외부 조작 동기화",
+      "note": "play/pause 이벤트로 상태를 갱신 — OS 미디어 키·이어폰 버튼으로 조작해도 UI 가 어긋나지 않는다"
+    },
+    {
+      "item": "자동재생 거부",
+      "note": "제스처 없는 play() 거부를 삼키고 일시정지 상태로 남는다"
+    }
+  ]
+}

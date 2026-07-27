@@ -101,6 +101,17 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
    * <Input className="text-right" placeholder="금액" />
    */
   className?: string;
+
+  /**
+   * 좌우 슬롯이 있을 때 생성되는 바깥 래퍼에 추가할 CSS 클래스입니다.
+   *
+   * 입력 요소 자체는 기존처럼 `className`으로 꾸미고, 위치나 너비처럼
+   * 슬롯까지 포함한 컨테이너 스타일은 이 prop으로 지정합니다.
+   *
+   * @example
+   * <Input rightSlot={<ClearButton />} wrapperClassName="max-w-sm" />
+   */
+  wrapperClassName?: string;
 }
 
 const sizeStyles: Record<InputSize, string> = {
@@ -131,58 +142,66 @@ const sizeStyles: Record<InputSize, string> = {
  * @tags form, input
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ size = "md", error, leftSlot, rightSlot, className, ...props }, ref) => {
-    if (leftSlot || rightSlot) {
-      return (
-        <div
-          className={cn(
-            "relative flex items-center",
-            error && "text-danger",
-          )}
-        >
-          {leftSlot && (
-            <span className="absolute left-3 text-muted pointer-events-none">{leftSlot}</span>
-          )}
-          <input
-            ref={ref}
-            className={cn(
-              "w-full border bg-white/80 backdrop-blur-sm transition-all duration-200 ease-out",
-              "placeholder:text-muted-light/60",
-              "focus:outline-none focus:border-primary focus:bg-white focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
-              "disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-gray-50",
-              error
-                ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgba(220,63,63,0.12),0_1px_2px_rgba(0,0,0,0.04)]"
-                : "border-border",
-              sizeStyles[size],
-              leftSlot && "pl-9",
-              rightSlot && "pr-9",
-              className,
-            )}
-            {...props}
-          />
-          {rightSlot && (
-            <span className="absolute right-3 text-muted">{rightSlot}</span>
-          )}
-        </div>
-      );
-    }
-
-    return (
+  (
+    {
+      size = "md",
+      error,
+      leftSlot,
+      rightSlot,
+      wrapperClassName,
+      className,
+      "aria-invalid": ariaInvalid,
+      ...props
+    },
+    ref,
+  ) => {
+    const resolvedAriaInvalid = error ? true : ariaInvalid;
+    const isInvalid =
+      resolvedAriaInvalid === true ||
+      resolvedAriaInvalid === "true" ||
+      resolvedAriaInvalid === "grammar" ||
+      resolvedAriaInvalid === "spelling";
+    const input = (
       <input
         ref={ref}
+        aria-invalid={resolvedAriaInvalid}
         className={cn(
           "w-full border bg-white/80 backdrop-blur-sm transition-all duration-200 ease-out",
           "placeholder:text-muted-light/60",
           "focus:outline-none focus:border-primary focus:bg-white focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           "disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-gray-50",
-          error
+          isInvalid
             ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgba(220,63,63,0.12),0_1px_2px_rgba(0,0,0,0.04)]"
             : "border-border",
           sizeStyles[size],
+          leftSlot && "pl-9",
+          rightSlot && "pr-9",
           className,
         )}
         {...props}
       />
+    );
+
+    if (!leftSlot && !rightSlot) return input;
+
+    return (
+      <div
+        className={cn("relative flex items-center", isInvalid && "text-danger", wrapperClassName)}
+        data-disabled={props.disabled || undefined}
+        data-invalid={isInvalid || undefined}
+      >
+        {leftSlot && (
+          <span className="pointer-events-none absolute left-3 text-muted" data-slot="left">
+            {leftSlot}
+          </span>
+        )}
+        {input}
+        {rightSlot && (
+          <span className="absolute right-3 text-muted" data-slot="right">
+            {rightSlot}
+          </span>
+        )}
+      </div>
     );
   },
 );

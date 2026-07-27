@@ -2,9 +2,9 @@
   <h1>junDS</h1>
   <p><strong>레고처럼 조합하는 프로덕션 레디 디자인 프레임워크</strong></p>
   <p>
-    <img src="https://img.shields.io/badge/components-190-blue" alt="Components" />
-    <img src="https://img.shields.io/badge/hooks-30-green" alt="Hooks" />
-    <img src="https://img.shields.io/badge/tests-589%20passed-brightgreen" alt="Tests" />
+    <img src="https://img.shields.io/badge/components-313-blue" alt="Components" />
+    <img src="https://img.shields.io/badge/hooks-61-green" alt="Hooks" />
+    <img src="https://img.shields.io/badge/tests-748%20passed-brightgreen" alt="Tests" />
     <img src="https://img.shields.io/badge/a11y-audited-yellow" alt="A11y" />
     <img src="https://img.shields.io/badge/TypeScript-100%25-blue" alt="TypeScript" />
     <img src="https://img.shields.io/badge/MCP-14%20tools-purple" alt="MCP" />
@@ -17,7 +17,7 @@
 
 ## Use with AI (MCP)
 
-JunDS는 **MCP 서버를 내장**합니다. 이 리포지토리를 Cursor / Claude Code / Windsurf 같은 AI 에디터로 열면 219개 컴포넌트의 prop 시그니처·접근성 보고서·레시피·요구사항을 AI가 직접 조회해 코드를 만듭니다 — hallucination 없이.
+JunDS는 **MCP 서버를 내장**합니다. 이 리포지토리를 Cursor / Claude Code / Windsurf 같은 AI 에디터로 열면 313개 컴포넌트의 prop 시그니처·접근성 보고서·레시피·요구사항을 AI가 직접 조회해 코드를 만듭니다 — hallucination 없이.
 
 **1) 자동 연결.** 이 저장소 루트의 [`.mcp.json`](./.mcp.json)이 에디터에 의해 자동 픽업됩니다. 별도 설정이 필요 없습니다.
 
@@ -54,10 +54,10 @@ AI가 아래 14개 도구로 정확한 import 경로와 prop을 찾아 코드를
 
 ## Features
 
-- **190 컴포넌트** — 38 Primitives, 117 Composites, 24 Patterns, 11 Layout
+- **313 컴포넌트** — 13 Core, 12 Layout, 51 Primitives, 194 Composites, 43 Patterns (+ finance 86)
 - **프레임워크 코어** — Box, Flex, Page, Heading, Text로 토큰 기반 레이아웃
 - **반응형 Props** — `p={{ base: 2, md: 4 }}` 브레이크포인트별 제어
-- **30개 커스텀 훅** — useForm, useBreakpoint, useIdle, useCountUp 등
+- **61개 커스텀 훅** — useForm, useBreakpoint, useAudioPlayer, useSeo, useDominantColor 등
 - **18개 테마 프리셋** — 커스텀 색상 + 다크 모드 + 밀도/반경/간격 전역 제어
 - **25기능 DataTable** — 검색, 필터, 정렬, 가상스크롤, CSV 내보내기, 인라인 편집
 - **접근성 내장** — ARIA, 키보드 네비게이션, Focus Trap, Reduced Motion (a11y 위반 0건)

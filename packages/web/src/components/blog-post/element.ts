@@ -12,6 +12,10 @@
  * `<time datetime>`로 기계 판독 날짜, 태그 목록은 실제 <ul>/<li>.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  syncAriaIdRefs,
+  syncOwnedAttribute,
+} from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import blogPostStyles from "./blog-post.css.js";
@@ -170,8 +174,8 @@ export class JdBlogPost extends JdElement {
       this.#titleId = this.#title.id || jdUid("jd-blog-title");
       this.#title.id = this.#titleId;
     }
-    this.setAttribute("role", "article");
-    this.setAttribute("aria-labelledby", this.#titleId);
+    syncOwnedAttribute(this, "role", "article", { preserveExisting: true });
+    syncAriaIdRefs(this, "aria-labelledby", this.#titleId);
   }
 
   protected override update(): void {

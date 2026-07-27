@@ -4,22 +4,48 @@ import { cn } from "../../utils/cn";
 import { Portal } from "../../primitives/Portal";
 
 export type ToastType = "success" | "error" | "warning" | "info";
-export type ToastPosition = "top-right" | "top-center" | "bottom-right" | "bottom-center";
+export type ToastPosition =
+  | "top-right"
+  | "top-center"
+  | "top-left"
+  | "bottom-right"
+  | "bottom-center"
+  | "bottom-left";
 
 interface ToastItem {
   id: number;
   type: ToastType;
+  title?: string;
   message: string;
   content?: ReactNode;
   action?: { label: string; onClick: () => void };
   blocking?: boolean;
   duration: number;
+  onClose?: () => void;
 }
 
-interface ToastOptions {
+export interface ToastOptions {
+  /** 메시지 위에 굵게 놓일 제목 */
+  title?: string;
+  /** 오른쪽에 붙는 액션 버튼 */
   action?: { label: string; onClick: () => void };
+  /**
+   * 배경을 가리고 Escape·닫기 버튼을 막는다.
+   * 사용자의 응답을 반드시 받아야 하는 토스트에만 쓴다.
+   */
   blocking?: boolean;
+  /** 자동으로 닫히기까지의 시간 (ms). `0` 이면 자동으로 닫히지 않는다 */
   duration?: number;
+  /** 토스트가 사라질 때 호출 */
+  onClose?: () => void;
+}
+
+/** `show()` 에 넘기는 전체 옵션 */
+export interface ShowToastOptions extends ToastOptions {
+  type?: ToastType;
+  message?: string;
+  /** 메시지 대신 렌더할 커스텀 노드 */
+  content?: ReactNode;
 }
 
 interface ToastContextValue {
@@ -30,6 +56,12 @@ interface ToastContextValue {
   info: (message: string, options?: ToastOptions) => void;
   custom: (content: ReactNode, options?: { blocking?: boolean; duration?: number }) => void;
   confirm: (message: string, onConfirm: () => void, onCancel?: () => void) => void;
+  /** 토스트를 띄우고 id 를 돌려준다 — 나중에 `close(id)` 로 직접 닫을 때 쓴다 */
+  show: (options: ShowToastOptions) => number;
+  /** id 로 특정 토스트를 닫는다 */
+  close: (id: number) => void;
+  /** 떠 있는 토스트를 모두 닫는다 (라우트 전환 등) */
+  clear: () => void;
 }
 
 const ToastContext = createContext<ToastContextValue | null>(null);
@@ -71,8 +103,10 @@ const typeStyles: Record<ToastType, string> = {
 const positionStyles: Record<ToastPosition, string> = {
   "top-right": "top-4 right-4",
   "top-center": "top-4 left-1/2 -translate-x-1/2",
+  "top-left": "top-4 left-4",
   "bottom-right": "bottom-4 right-4",
   "bottom-center": "bottom-4 left-1/2 -translate-x-1/2",
+  "bottom-left": "bottom-4 left-4",
 };
 
 let nextId = 0;
@@ -99,15 +133,98 @@ export interface ToastProviderProps {
 export function DsToastProvider({ children, position = "bottom-right", maxToasts = 5 }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-  const addToast = useCallback((message: string, type: ToastType = "info", duration = 3500, extra?: Partial<Pick<ToastItem, "content" | "action" | "blocking">>) => {
-    const id = nextId++;
-    const blocking = extra?.blocking ?? false;
-    setToasts((prev) => [...prev.slice(-(maxToasts - 1)), { id, type, message, duration, content: extra?.content, action: extra?.action, blocking }]);
-  }, [maxToasts]);
+  // 전체화면(예: 발표 모드, 동영상) 중에는 body 에 붙인 포털이 화면에 나오지
+  // 않는다. 전체화면 엘리먼트가 바뀔 때마다 포털 루트를 그쪽으로 옮긴다.
+  const [portalRoot, setPortalRoot] = useState<Element | undefined>(undefined);
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const update = () => setPortalRoot(document.fullscreenElement ?? undefined);
+    update();
+    document.addEventListener("fullscreenchange", update);
+    return () => document.removeEventListener("fullscreenchange", update);
+  }, []);
 
   const remove = useCallback((id: number) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
+    setToasts((prev) => {
+      prev.find((t) => t.id === id)?.onClose?.();
+      return prev.filter((t) => t.id !== id);
+    });
   }, []);
+
+  const clear = useCallback(() => {
+    setToasts((prev) => {
+      prev.forEach((t) => t.onClose?.());
+      return [];
+    });
+  }, []);
+
+  const addToast = useCallback(
+    (
+      message: string,
+      type: ToastType = "info",
+      duration = 3500,
+      extra?: Partial<Pick<ToastItem, "content" | "action" | "blocking" | "title" | "onClose">>,
+    ): number => {
+      const id = nextId++;
+      const blocking = extra?.blocking ?? false;
+      setToasts((prev) => [
+        ...prev.slice(-(maxToasts - 1)),
+        {
+          id,
+          type,
+          message,
+          duration,
+          title: extra?.title,
+          content: extra?.content,
+          action: extra?.action,
+          blocking,
+          onClose: extra?.onClose,
+        },
+      ]);
+      return id;
+    },
+    [maxToasts],
+  );
+
+  const confirm = useCallback(
+    (message: string, onConfirm: () => void, onCancel?: () => void) => {
+      // id 를 먼저 확보해서 버튼 클로저에 담는다. `nextId - 1` 을 클릭 시점에
+      // 읽으면 그 사이 다른 토스트가 뜬 경우 엉뚱한 토스트를 닫게 된다.
+      const id = nextId++;
+      setToasts((prev) => [
+        ...prev.slice(-(maxToasts - 1)),
+        {
+          id,
+          type: "info",
+          message,
+          duration: 0,
+          blocking: true,
+          content: (
+            <div className="flex flex-col gap-2 w-full">
+              <p className="text-sm text-foreground">{message}</p>
+              <div className="flex gap-2 justify-end">
+                {onCancel && (
+                  <button
+                    onClick={() => { onCancel(); remove(id); }}
+                    className="px-3 py-1 text-xs rounded-lg border border-border text-muted hover:text-foreground transition-colors cursor-pointer"
+                  >
+                    취소
+                  </button>
+                )}
+                <button
+                  onClick={() => { onConfirm(); remove(id); }}
+                  className="px-3 py-1 text-xs rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors cursor-pointer"
+                >
+                  확인
+                </button>
+              </div>
+            </div>
+          ),
+        },
+      ]);
+    },
+    [maxToasts, remove],
+  );
 
   const ctx: ToastContextValue = {
     toast: addToast,
@@ -116,37 +233,17 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
     warning: (msg, opts) => addToast(msg, "warning", opts?.duration ?? 3500, opts),
     info: (msg, opts) => addToast(msg, "info", opts?.duration ?? 3500, opts),
     custom: (content, opts) => addToast("", "info", opts?.duration ?? 3500, { content, blocking: opts?.blocking }),
-    confirm: (message, onConfirm, onCancel) => addToast(message, "info", 0, {
-      blocking: true,
-      action: undefined,
-      content: (
-        <div className="flex flex-col gap-2 w-full">
-          <p className="text-sm text-foreground">{message}</p>
-          <div className="flex gap-2 justify-end">
-            {onCancel && (
-              <button
-                onClick={() => { onCancel(); remove(nextId - 1); }}
-                className="px-3 py-1 text-xs rounded-lg border border-border text-muted hover:text-foreground transition-colors cursor-pointer"
-              >
-                취소
-              </button>
-            )}
-            <button
-              onClick={() => { onConfirm(); remove(nextId - 1); }}
-              className="px-3 py-1 text-xs rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors cursor-pointer"
-            >
-              확인
-            </button>
-          </div>
-        </div>
-      ),
-    }),
+    confirm,
+    show: (opts) =>
+      addToast(opts.message ?? "", opts.type ?? "info", opts.duration ?? 3500, opts),
+    close: remove,
+    clear,
   };
 
   return (
     <ToastContext.Provider value={ctx}>
       {children}
-      <Portal>
+      <Portal container={portalRoot}>
         {toasts.some((t) => t.blocking) && (
           <div className="fixed inset-0 z-69 bg-black/10 pointer-events-auto" />
         )}
@@ -190,8 +287,13 @@ function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: numbe
         <div className="flex-1">{item.content}</div>
       ) : (
         <>
-          <span className="shrink-0">{icons[item.type]}</span>
-          <p className="text-sm text-foreground flex-1">{item.message}</p>
+          <span className="shrink-0 self-start mt-0.5">{icons[item.type]}</span>
+          <div className="flex-1">
+            {item.title && (
+              <p className="text-sm font-semibold text-foreground">{item.title}</p>
+            )}
+            <p className="text-sm text-foreground">{item.message}</p>
+          </div>
           {item.action && (
             <button
               onClick={() => { item.action!.onClick(); onRemove(item.id); }}

@@ -1,7 +1,7 @@
 # 04-ios-arch — iOS 아키텍처 + 레이아웃 DSL (G0)
 
 작성일: 2026-07-23 · 전제: DEC-002(레포 진화, Package.swift는 루트) · DEC-003(전량 전환) · DEC-004(iOS 16 최소) · DEC-006 D3/D4/D5 채택
-참조: `docs-spec/00-inventory.md`(UI 304 + finance 86, iOS 난이도 S 90 · M 187 · L 24 · N/a 3), `docs-spec/DECISIONS.md`
+참조: `docs-spec/00-inventory.md`(UI 313 + finance 86, iOS 난이도 S 92 · M 189 · L 24 · N/a 6), `docs-spec/DECISIONS.md`
 상태: iOS 코드는 현재 **0줄** — 이 문서가 전체 표면의 단일 정의다. 여기 없는 공개 API는 존재하지 않는 것으로 간주한다.
 개정: 2026-07-23 — **DEC-010 반영.** G0 게이트에서 최초안의 "JunDSSwiftUI→JunDSUIKit 의존(L급 Representable 랩)"이 사람에 의해 명시 기각됨 → SwiftUI/UIKit **완전 독립 2계통** + Core 이전 극대화로 개정 (§1 A3 · §2.2 · §4.2 신설 · §10 · §11).
 
@@ -148,7 +148,7 @@ let package = Package(
 
 규칙:
 1. **옵션 열거형은 Core에만 있다.** SwiftUI와 UIKit이 같은 `JdButtonVariant`를 받으므로 양쪽 API 시그니처가 자동으로 동기화된다. 웹 쪽 variant 문자열(`"primary"` 등)과 rawValue를 일치시켜 토큰 생성기·문서·테스트 픽스처가 3플랫폼에서 같은 리터럴을 쓴다.
-2. 공용 축을 우선 쓴다. 컴포넌트별 `JdBadgeSize` 같은 파생은 그 컴포넌트에만 있는 축일 때만 허용한다(인벤토리 304개 × 축 2~3개의 열거형 폭발 방지).
+2. 공용 축을 우선 쓴다. 컴포넌트별 `JdBadgeSize` 같은 파생은 그 컴포넌트에만 있는 축일 때만 허용한다(인벤토리 313개 × 축 2~3개의 열거형 폭발 방지).
 3. `left/right` 대신 `leading/trailing`. DSL에도 left/right 앵커를 **제공하지 않는다**(§5.6) — RTL 무결성을 컴파일 타임에 강제.
 4. 파일 배치: 컴포넌트당 1파일 원칙. `JunDSUIKit/Components/Button/JdButtonView.swift`, `JunDSSwiftUI/Components/Button/JdButton.swift`, 공유 스펙은 `JunDSCore/Specs/JdButtonSpec.swift`.
 
@@ -891,7 +891,7 @@ DSL 자체의 회귀 스위트(G1 필수): diff 재호출 시 제약 수 불변 
 
 ### 8.3 스냅샷 — 결정: 자체 최소 유틸 **도입**
 
-판단: 서드파티(swift-snapshot-testing) 금지 조건에서, 304개 컴포넌트의 시각 회귀를 사람 눈으로만 지키는 것은 불가능하다. 픽셀 비교의 취약성(GPU/OS 렌더 편차)은 **CI 시뮬레이터 1기종·1 OS 버전 고정 + 허용 오차**로 통제 가능하므로 도입한다. 단 **G1(파운데이션)에서는 레이아웃 assert만 게이트**로 삼고, 스냅샷은 M2(컴포넌트 양산 시작)부터 게이트에 편입한다 — 초기 디자인 유동기에 스냅샷 갱신 소음을 피하기 위함.
+판단: 서드파티(swift-snapshot-testing) 금지 조건에서, 313개 컴포넌트의 시각 회귀를 사람 눈으로만 지키는 것은 불가능하다. 픽셀 비교의 취약성(GPU/OS 렌더 편차)은 **CI 시뮬레이터 1기종·1 OS 버전 고정 + 허용 오차**로 통제 가능하므로 도입한다. 단 **G1(파운데이션)에서는 레이아웃 assert만 게이트**로 삼고, 스냅샷은 M2(컴포넌트 양산 시작)부터 게이트에 편입한다 — 초기 디자인 유동기에 스냅샷 갱신 소음을 피하기 위함.
 
 ```swift
 // JunDSUIKitTests/Support/JdSnapshot.swift  (~60줄 전체 설계)
@@ -1101,7 +1101,7 @@ JdToastCenter.shared.show("저장되었습니다", variant: .success)
 
 ---
 
-## 10. 웹 304개 컴포넌트의 iOS 표현 전략
+## 10. 웹 313개 컴포넌트의 iOS 표현 전략
 
 원칙: **웹 DOM을 모사하지 않는다. 컴포넌트의 "의도"를 iOS 관용구로 번역한다.** JunDS iOS의 가치는 토큰·스펙·상태머신의 일관성이지 픽셀 동형이 아니다. 난이도 분포(iOS S 90 · M 187 · L 24 · N/a 3)가 웹보다 L이 적은 이유 자체가 이 번역 원칙이다 — 차트·가상스크롤·미디어가 네이티브로 강등된다.
 

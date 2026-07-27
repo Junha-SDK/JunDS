@@ -13,8 +13,7 @@ beforeEach(() => {
   document.body.style.overflow = "";
 });
 
-const esc = () =>
-  fireEvent.keyDown(document, { key: "Escape", bubbles: true });
+const esc = () => fireEvent.keyDown(document, { key: "Escape", bubbles: true });
 
 function Harness(props: {
   onClose?: () => void;
@@ -35,9 +34,11 @@ function Harness(props: {
       onOpenChange={props.onOpenChange}
     >
       <Modal.Header onClose={close}>삭제 확인</Modal.Header>
-      <div>정말 삭제하시겠습니까?</div>
+      <Modal.Body>정말 삭제하시겠습니까?</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={close}>취소</Button>
+        <Button variant="secondary" onClick={close}>
+          취소
+        </Button>
         <Button variant="danger">삭제</Button>
       </Modal.Footer>
     </Modal>
@@ -45,7 +46,7 @@ function Harness(props: {
 }
 
 describe("골격·포털·ARIA", () => {
-  test("body 포털 + backdrop/panel 입양 골격 + role/aria-modal/aria-labelledby(h3)", async () => {
+  test("body 포털 + 입양 골격 + Header/Body ARIA 자동 연결", async () => {
     const { baseElement, container } = render(<Harness />);
     await flushCE();
     expect(container.querySelector("jd-modal")).toBeNull(); // RTL 컨테이너 밖(포털)
@@ -59,9 +60,25 @@ describe("골격·포털·ARIA", () => {
     const h3 = panel.querySelector("h3")!;
     expect(h3.textContent).toBe("삭제 확인");
     expect(panel.getAttribute("aria-labelledby")).toBe(h3.id);
+    const body = panel.querySelector(".jd-modal__body")!;
+    expect(body.textContent).toBe("정말 삭제하시겠습니까?");
+    expect(panel.getAttribute("aria-describedby")).toBe(body.id);
     // 이중 구축 없음(입양)
     expect(host.querySelectorAll(".jd-modal__panel").length).toBe(1);
     expect(host.querySelectorAll(".jd-modal__backdrop").length).toBe(1);
+  });
+
+  test("Body가 없으면 존재하지 않는 aria-describedby를 만들지 않는다", async () => {
+    const { baseElement } = render(
+      <Modal open onClose={() => {}} aria-label="알림">
+        <p>간단한 내용</p>
+      </Modal>,
+    );
+    await flushCE();
+    const panel = baseElement.querySelector(".jd-modal__panel")!;
+    expect(panel.getAttribute("aria-label")).toBe("알림");
+    expect(panel.hasAttribute("aria-labelledby")).toBe(false);
+    expect(panel.hasAttribute("aria-describedby")).toBe(false);
   });
 
   test("open=false면 DOM에서 완전 제거 (v2 수명 의미론)", async () => {
@@ -79,7 +96,11 @@ describe("골격·포털·ARIA", () => {
     await flushCE();
     const host = baseElement.querySelector("jd-modal")!;
     expect(host.getAttribute("size")).toBe("lg");
-    expect(host.querySelector(".jd-modal__panel")!.classList.contains("custom-panel")).toBe(true);
+    expect(
+      host
+        .querySelector(".jd-modal__panel")!
+        .classList.contains("custom-panel"),
+    ).toBe(true);
   });
 
   test("ref는 v2처럼 패널(콘텐츠 영역) div", async () => {
@@ -123,7 +144,9 @@ describe("제어형 역번역 — 닫힘 결정은 부모", () => {
 
   test("dismissible=false → persistent 반전: 백드롭 무시, ESC는 항상 동작 (v2 동일)", async () => {
     const onClose = vi.fn();
-    const { baseElement } = render(<Harness dismissible={false} onClose={onClose} />);
+    const { baseElement } = render(
+      <Harness dismissible={false} onClose={onClose} />,
+    );
     await flushCE();
     const host = baseElement.querySelector("jd-modal")!;
     expect(host.hasAttribute("persistent")).toBe(true);

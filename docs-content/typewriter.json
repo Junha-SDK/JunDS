@@ -9,7 +9,10 @@
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/typewriter\";",
+      "code": "<jd-typewriter id=\"hero-copy\" text=\"안녕하세요\" speed=\"80\" once></jd-typewriter>\n\n<script type=\"module\">\n  const copy = document.querySelector(\"#hero-copy\");\n  copy.text = \"JunDS로 빠르게 만드세요\";\n  // 완료된 뒤 text를 바꿔도 새 문장을 처음부터 다시 타이핑합니다.\n</script>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {
@@ -18,5 +21,14 @@
     }
   },
   "tokens": [],
-  "a11y": []
+  "a11y": [
+    {
+      "item": "동적 변경",
+      "note": "text 변경 시 이전 문장의 글자 수·완료 상태를 버리고 새 문장을 처음부터 재생"
+    },
+    {
+      "item": "낭독·모션",
+      "note": "스크린리더에는 완성 문장만 제공하고 prefers-reduced-motion에서는 애니메이션을 생략"
+    }
+  ]
 }

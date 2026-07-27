@@ -1,0 +1,29 @@
+{
+  "id": "use-dominant-color",
+  "ledgerId": "useDominantColor",
+  "category": "hooks",
+  "title": "useDominantColor",
+  "oneLiner": "이미지에서 대표색 한 쌍(밝은 tint / 어두운 deep)을 뽑는다 — 몰입형 배경용.",
+  "tags": [
+    "hook",
+    "색",
+    "이미지"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { useDominantColor } from \"@/ds/hooks\";",
+      "code": "const { tint, deep, ready } = useDominantColor(album.cover, album.title);\n\n<div style={{ background: `linear-gradient(${tint}, ${deep})` }} />"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "대비",
+      "note": "명도를 0.36~0.56 로 죄어 뽑으므로 위에 흰 텍스트를 얹어도 대비가 무너지지 않는다"
+    }
+  ]
+}

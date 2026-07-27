@@ -18,6 +18,9 @@ export default css`
        배경·글자·인셋 링은 여기 세 줄이 공식으로 파생한다(base.css --jd-tone-*).
        variant 7종 × 모드 2 = 14가지를 손으로 적던 것이 한 벌로 줄었다. */
     --jd-tone: var(--jd-color-hue-gray);
+    /* 10~12px 배지 글자는 일반 본문보다 엄격한 대비가 필요하다. 앵커색을 그대로
+       많이 쓰지 않고 잉크 쪽 비율을 늘려 success/warning/info도 AA를 넘긴다. */
+    --jd-tone-ink-mix: 68%;
     --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
     background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-mix), transparent);
     color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));

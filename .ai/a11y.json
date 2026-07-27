@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-05-06T00:58:25.456Z",
-  "tooling": "axe-core@4.11.3",
-  "strict": true,
+  "generatedAt": "2026-07-27T04:09:38.050Z",
+  "tooling": "axe-core@4.12.1",
+  "strict": false,
   "summary": {
-    "total": 256,
+    "total": 259,
     "withViolations": 0,
     "withErrors": 0,
     "byImpact": {
@@ -31,6 +31,11 @@
     },
     {
       "name": "Affix",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "AlbumArt",
       "kind": "composite",
       "violations": []
     },
@@ -316,6 +321,11 @@
     },
     {
       "name": "Dock",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "DocPager",
       "kind": "composite",
       "violations": []
     },
@@ -610,6 +620,11 @@
       "violations": []
     },
     {
+      "name": "ProjectCard",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "PullToRefresh",
       "kind": "composite",
       "violations": []
@@ -676,6 +691,11 @@
     },
     {
       "name": "ScatterPlot",
+      "kind": "composite",
+      "violations": []
+    },
+    {
+      "name": "ScreenshotGrid",
       "kind": "composite",
       "violations": []
     },
@@ -875,6 +895,11 @@
       "violations": []
     },
     {
+      "name": "Waveform",
+      "kind": "composite",
+      "violations": []
+    },
+    {
       "name": "YearPicker",
       "kind": "composite",
       "violations": []
@@ -1045,11 +1070,6 @@
       "violations": []
     },
     {
-      "name": "VideoPlayer",
-      "kind": "pattern",
-      "violations": []
-    },
-    {
       "name": "VirtualList",
       "kind": "pattern",
       "violations": []
@@ -1191,11 +1211,6 @@
     },
     {
       "name": "Mark",
-      "kind": "primitive",
-      "violations": []
-    },
-    {
-      "name": "Marquee",
       "kind": "primitive",
       "violations": []
     },

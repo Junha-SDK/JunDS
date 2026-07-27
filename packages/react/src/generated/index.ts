@@ -3,8 +3,8 @@
 /**
  * <jd-*> 커스텀 엘리먼트의 React 어댑터 387종.
  *
- * 표면은 @junds/web 의 런타임 `static props` 에서 그대로 왔다 — 손으로 옮겨 적은 것이
- * 아니므로 라이브러리가 프롭을 늘리면 재생성만 하면 된다(--check 게이트가 드리프트를 잡는다).
+ * 표면은 @junds/web 의 `static props`·공개 writable property에서 왔다 — 손으로 옮겨
+ * 적은 것이 아니므로 프롭을 늘리면 재생성만 하면 된다(--check가 드리프트를 잡는다).
  * Button·TextField·Modal 은 v2 API 표면을 보존하는 손저작 어댑터가 따로 있다.
  *
  * 이벤트 핸들러 이름은 `jd-change` → `onJdChange` 규칙이다. React 의 onChange 와

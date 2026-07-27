@@ -2,12 +2,12 @@
   "$schema": "docs-content/build-index.mjs 가 검증 후 생성 — 직접 편집 금지",
   "source": "docs-content/*.json + docs-spec/registry/ledger.json",
   "counts": {
-    "total": 445,
-    "controls": 27,
-    "web": 47,
+    "total": 460,
+    "controls": 34,
+    "web": 51,
     "swiftui": 3,
     "uikit": 3,
-    "react": 169
+    "react": 184
   },
   "entries": [
     {
@@ -17,7 +17,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "스타일 프롭(p·bg·radius 등 44종)을 attribute로 받는 원형 컨테이너. 모든 core 컨테이너의 베이스.",
       "tags": [
         "layout",
@@ -39,7 +39,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "양축 중앙 정렬 컨테이너. Box 파생 — 스타일 프롭 전부 사용 가능.",
       "tags": [
         "layout",
@@ -61,7 +61,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "구분선 단일 정본 <jd-divider> — 가로·세로, 라벨 모드. LayoutDivider·primitives Divider는 별칭 예정(R12).",
       "tags": [
         "layout",
@@ -105,7 +105,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "flex 컨테이너 — direction·align·justify·gap 프롭, inline 전환. Box 파생.",
       "tags": [
         "layout",
@@ -127,7 +127,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "grid 컨테이너 — cols·gap 프롭 + auto-fit/auto-fill/min-child-width 자동 칼럼(R12 단일 구현).",
       "tags": [
         "layout",
@@ -149,7 +149,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "줄바꿈을 허용하는 가로 묶음(row·wrap·gap sm 기본). no-wrap으로 줄바꿈 금지.",
       "tags": [
         "layout",
@@ -171,7 +171,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "가로 스택 — row·gap sm·align center 기본. Box 파생.",
       "tags": [
         "layout",
@@ -193,7 +193,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "레벨 기반 제목 — 내부에 실제 h1~h6을 렌더해 문서 아웃라인 유지, level 변경 시 태그 교체.",
       "tags": [
         "typography",
@@ -215,7 +215,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "페이지 셸 컴파운드(jd-page·jd-page-header·jd-page-body) — 중앙 정렬·max-width 프리셋·브레드크럼/액션 슬롯.",
       "tags": [
         "layout",
@@ -237,7 +237,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "제목·설명 헤더 + 세로 흐름 본문 섹션. gap은 본문 flex에 적용, border 전환.",
       "tags": [
         "layout",
@@ -259,7 +259,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "본문 텍스트 — as로 시맨틱 교체(p·span·label 등 7종), truncate·lineClamp·mono·dimmed.",
       "tags": [
         "typography",
@@ -281,7 +281,7 @@
       "category": "core",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "세로 스택 — column·gap md 기본. Box 파생.",
       "tags": [
         "layout",
@@ -303,7 +303,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "방향 가변 스택 — column·gap md 기본. v2 divider 프롭은 children으로 <jd-divider> 직접 배치.",
       "tags": [
         "layout",
@@ -324,7 +324,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "그리드 레이아웃 — GridLayout 별칭 파생(R12 단일 구현). auto-fit·auto-fill 자동 칼럼 지원.",
       "tags": [
         "layout",
@@ -345,7 +345,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "중앙 정렬 폭 제한 컨테이너 — size 프리셋(xs 512 ~ 2xl 1536·full), 반응형 기본 패딩.",
       "tags": [
         "layout",
@@ -366,7 +366,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "토큰 간격 스페이서 — 수직 padding-block·수평 padding-inline, 스크린리더 무시(aria-hidden).",
       "tags": [
         "layout",
@@ -387,7 +387,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "사이드바·헤더·본문·푸터 앱 골격 — 데스크톱 접힘 레일, 모바일 오버레이 드로어, Ctrl/⌘+B 토글.",
       "tags": [
         "layout",
@@ -409,7 +409,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "줄바꿈 flex 묶음 — Group 별칭 파생(표면 동형: wrap·gap sm·align center).",
       "tags": [
         "layout",
@@ -431,7 +431,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "균등 칼럼 반응형 그리드 — min-child-width로 repeat(auto-fill, minmax(N, 1fr)). GridLayout 별칭 파생.",
       "tags": [
         "layout",
@@ -453,7 +453,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "브레이크포인트 조건 표시 — CSS 전용(display:contents + 미디어 규칙), JS 상태 0으로 SSR 상시 안전.",
       "tags": [
         "layout",
@@ -475,7 +475,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "브레이크포인트 조건 숨김 — Show 역방향 규칙, 동일 CSS 전용.",
       "tags": [
         "layout",
@@ -497,7 +497,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "비율 고정 박스 — CSS aspect-ratio 원문 수용(\"16/9\"·\"1.5\"), 기본 16/9. Box 파생.",
       "tags": [
         "layout",
@@ -518,7 +518,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "부모 절대 덮개(inset 0) — 중앙 정렬 기본, blur(backdrop-filter 4px). Box 파생.",
       "tags": [
         "layout",
@@ -539,7 +539,7 @@
       "category": "layout",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "레이아웃 계층 구분선 — 신규 태그 없음: 단일 정본 <jd-divider>가 표면 전량 커버(DEC-018-2).",
       "tags": [
         "layout",
@@ -606,7 +606,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "텍스트영역 컴포넌트",
       "tags": [
         "form",
@@ -627,7 +627,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "상태나 카테고리를 표시하는 작은 라벨.",
       "tags": [
         "data-display"
@@ -647,7 +647,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "아바타 컴포넌트",
       "tags": [
         "data-display"
@@ -667,7 +667,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "로딩 스피너",
       "tags": [
         "feedback"
@@ -687,7 +687,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "구분선",
       "tags": [
         "layout"
@@ -707,7 +707,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "토글 스위치",
       "tags": [
         "form",
@@ -728,7 +728,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "체크박스",
       "tags": [
         "form",
@@ -749,7 +749,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "단일 선택 라디오 버튼 그룹.",
       "tags": [
         "form",
@@ -771,7 +771,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "폼 라벨",
       "tags": [
         "form"
@@ -791,7 +791,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "태그/칩",
       "tags": [
         "data-display"
@@ -811,7 +811,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "아이콘 전용 버튼",
       "tags": [
         "form",
@@ -832,7 +832,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "키보드 단축키 표시",
       "tags": [
         "data-display"
@@ -851,7 +851,7 @@
       "title": "Portal",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "n/a",
       "oneLiner": "React Portal 래퍼",
       "tags": [
@@ -871,8 +871,8 @@
       "title": "VisuallyHidden",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "시각적으로 숨기고 스크린리더에는 노출하는 래퍼.",
       "tags": [
         "a11y",
@@ -893,7 +893,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "슬라이더/레인지",
       "tags": [
         "form",
@@ -913,8 +913,8 @@
       "title": "NumberInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "숫자 입력 (증감 버튼 포함)",
       "tags": [
         "form",
@@ -934,8 +934,8 @@
       "title": "CopyButton",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "클립보드 복사 버튼",
       "tags": [
         "form",
@@ -956,7 +956,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "상태 표시 점",
       "tags": [
         "data-display"
@@ -975,8 +975,8 @@
       "title": "FileUpload",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "파일 업로드 (드래그 앤 드롭 + 클릭)",
       "tags": [
         "form",
@@ -996,8 +996,8 @@
       "title": "PasswordInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "보안 비밀번호 입력",
       "tags": [
         "form",
@@ -1017,8 +1017,8 @@
       "title": "PinInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "PIN / OTP 입력",
       "tags": [
         "form",
@@ -1039,7 +1039,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "iOS 스타일 스위치",
       "tags": [
         "form",
@@ -1059,8 +1059,8 @@
       "title": "AspectRatio",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "종횡비 유지 컨테이너",
       "tags": [
         "layout"
@@ -1079,8 +1079,8 @@
       "title": "ScrollArea",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "커스텀 스크롤 영역",
       "tags": [
         "layout"
@@ -1099,8 +1099,8 @@
       "title": "StarRating",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "별점 입력",
       "tags": [
         "form",
@@ -1120,8 +1120,8 @@
       "title": "BackTop",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "상단으로 이동 버튼",
       "tags": [
         "navigation"
@@ -1140,7 +1140,7 @@
       "title": "ErrorBoundary",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "n/a",
       "oneLiner": "하위 컴포넌트의 렌더링 오류를 잡아 폴백 UI로 대체하는 에러 경계.",
       "tags": [
@@ -1161,7 +1161,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "배터리 인디케이터",
       "tags": [
         "data-display"
@@ -1181,7 +1181,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "심각도 뱃지",
       "tags": [
         "data-display"
@@ -1200,8 +1200,8 @@
       "title": "OTPInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "6자리 일회용 비밀번호(OTP) 입력기.",
       "tags": [
         "form",
@@ -1221,8 +1221,8 @@
       "title": "CurrencyInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "통화 단위 + 숫자 자동 포맷이 적용된 금액 입력 필드.",
       "tags": [
         "form",
@@ -1242,8 +1242,8 @@
       "title": "PhoneInput",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "국가 코드 선택이 포함된 전화번호 입력기.",
       "tags": [
         "form",
@@ -1263,8 +1263,8 @@
       "title": "NumberFormatter",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "로케일 기반 숫자/통화/퍼센트 포맷 텍스트.",
       "tags": [
         "data-display"
@@ -1283,8 +1283,8 @@
       "title": "AnnouncerProvider",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "aria-live 알림 리전 제공자 — 동적 메시지 낭독.",
       "tags": [
         "a11y",
@@ -1305,7 +1305,7 @@
       "title": "FocusGuard",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
+      "web": "done",
       "ios": "n/a",
       "oneLiner": "지정 영역 내부에 포커스를 가두는(trap) 래퍼. 모달·드로어 등에 사용합니다.",
       "tags": [
@@ -1326,7 +1326,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "두 핸들로 최소/최대 범위를 지정하는 슬라이더.",
       "tags": [
         "form",
@@ -1346,8 +1346,8 @@
       "title": "Link",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "스타일드 링크 — 외부 링크 표시 지원.",
       "tags": [
         "navigation",
@@ -1367,8 +1367,8 @@
       "title": "Image",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "로딩·폴백 처리가 붙은 이미지.",
       "tags": [
         "media",
@@ -1388,8 +1388,8 @@
       "title": "Code",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "인라인 코드 표기.",
       "tags": [
         "typography",
@@ -1409,8 +1409,8 @@
       "title": "Mark",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "형광펜 강조 표기.",
       "tags": [
         "typography",
@@ -1430,8 +1430,8 @@
       "title": "Icon",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "아이콘 렌더러.",
       "tags": [
         "media",
@@ -1451,8 +1451,8 @@
       "title": "BookmarkButton",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "북마크 저장 토글 버튼.",
       "tags": [
         "social",
@@ -1473,8 +1473,8 @@
       "title": "LikeButton",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "좋아요 토글 버튼 — 카운트 표시.",
       "tags": [
         "social",
@@ -1495,8 +1495,8 @@
       "title": "FollowButton",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "팔로우 상태 토글 버튼.",
       "tags": [
         "social",
@@ -1517,8 +1517,8 @@
       "title": "MentionChip",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "@멘션 사용자 칩.",
       "tags": [
         "social",
@@ -1539,8 +1539,8 @@
       "title": "Hashtag",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "해시태그 칩.",
       "tags": [
         "social",
@@ -1561,8 +1561,8 @@
       "title": "Motion",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "진입 애니메이션 래퍼 — CSS 키프레임 유틸로 전환 예정.",
       "tags": [
         "animation",
@@ -1582,8 +1582,8 @@
       "title": "Highlight",
       "category": "primitives",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "텍스트 부분 강조 — 검색어 하이라이트.",
       "tags": [
         "typography",
@@ -1605,7 +1605,7 @@
       "category": "primitives",
       "tier": "T1",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "oneLiner": "키보드 키 캡 모양 장식 표기.",
       "tags": [
         "typography",
@@ -1625,8 +1625,8 @@
       "title": "useBreakpoint",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "현재 브레이크포인트 감지.",
       "tags": [
         "hook",
@@ -1647,8 +1647,8 @@
       "title": "useBreakpointValue",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "브레이크포인트별 값 매핑 해석.",
       "tags": [
         "hook",
@@ -1669,8 +1669,8 @@
       "title": "useClickOutside",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "n/a",
       "oneLiner": "요소 외부 클릭 감지.",
       "tags": [
         "hook",
@@ -1691,8 +1691,8 @@
       "title": "useClipboard",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "클립보드 읽기·쓰기.",
       "tags": [
         "hook",
@@ -1713,8 +1713,8 @@
       "title": "useCopyToClipboard",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "클립보드 복사 + copied 상태. useClipboard와 통합 후보.",
       "tags": [
         "hook",
@@ -1735,8 +1735,8 @@
       "title": "useCountUp",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "숫자 카운트업 애니메이션.",
       "tags": [
         "hook",
@@ -1757,8 +1757,8 @@
       "title": "useDebounce",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "값 변경을 지연시키는 디바운스.",
       "tags": [
         "hook",
@@ -1779,7 +1779,7 @@
       "title": "useDisclosure",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "open·close 상태 관리 — 모달·드로어용.",
       "tags": [
@@ -1801,8 +1801,8 @@
       "title": "useElementSize",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "요소 크기 관찰(ResizeObserver).",
       "tags": [
         "hook",
@@ -1823,8 +1823,8 @@
       "title": "useEventListener",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "이벤트 리스너 등록·해제 수명 관리.",
       "tags": [
         "hook",
@@ -1844,8 +1844,8 @@
       "title": "useFocusMode",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "몰입(포커스) 모드 상태 관리.",
       "tags": [
         "hook",
@@ -1866,8 +1866,8 @@
       "title": "useForm",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "폼 값·검증 상태 관리.",
       "tags": [
         "hook",
@@ -1888,8 +1888,8 @@
       "title": "useIdle",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "사용자 유휴 상태 감지.",
       "tags": [
         "hook",
@@ -1910,8 +1910,8 @@
       "title": "useIntersectionObserver",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "뷰포트 진입 관찰(IntersectionObserver).",
       "tags": [
         "hook",
@@ -1932,8 +1932,8 @@
       "title": "useInterval",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "안전한 setInterval 래퍼.",
       "tags": [
         "hook",
@@ -1954,8 +1954,8 @@
       "title": "useKeyboard",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "키보드 단축키 바인딩.",
       "tags": [
         "hook",
@@ -1976,8 +1976,8 @@
       "title": "useLocalStorage",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "localStorage 동기화 상태.",
       "tags": [
         "hook",
@@ -1998,8 +1998,8 @@
       "title": "useLongPress",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "길게 누르기 제스처 감지.",
       "tags": [
         "hook",
@@ -2020,8 +2020,8 @@
       "title": "useMediaQuery",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "미디어 쿼리 매칭 상태.",
       "tags": [
         "hook",
@@ -2042,7 +2042,7 @@
       "title": "useMounted",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "마운트 여부 플래그 — React 렌더 수명 전용.",
       "tags": [
@@ -2064,8 +2064,8 @@
       "title": "useNetworkStatus",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "온라인·오프라인 네트워크 상태 감지.",
       "tags": [
         "hook",
@@ -2086,8 +2086,8 @@
       "title": "usePanelResize",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "드래그로 패널 크기 조절.",
       "tags": [
         "hook",
@@ -2108,8 +2108,8 @@
       "title": "usePrefersColorScheme",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "시스템 라이트·다크 선호 감지.",
       "tags": [
         "hook",
@@ -2130,7 +2130,7 @@
       "title": "usePrevious",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "직전 렌더 값 보관 — React 전용.",
       "tags": [
@@ -2152,8 +2152,8 @@
       "title": "useReducedMotion",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "prefers-reduced-motion 감지.",
       "tags": [
         "hook",
@@ -2174,8 +2174,8 @@
       "title": "useScrollSpy",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "스크롤 위치 기반 활성 섹션 감지.",
       "tags": [
         "hook",
@@ -2196,7 +2196,7 @@
       "title": "useSteps",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "다단계 진행 상태 관리.",
       "tags": [
@@ -2218,8 +2218,8 @@
       "title": "useThrottle",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "호출 빈도를 제한하는 스로틀.",
       "tags": [
         "hook",
@@ -2240,7 +2240,7 @@
       "title": "useToggle",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "불린 토글 상태.",
       "tags": [
@@ -2262,8 +2262,8 @@
       "title": "useWindowScroll",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "윈도 스크롤 위치 추적.",
       "tags": [
         "hook",
@@ -2284,8 +2284,8 @@
       "title": "useHotkeys",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "전역 단축키 맵 바인딩. useKeyboardShortcut과 통합 후보.",
       "tags": [
         "hook",
@@ -2306,8 +2306,8 @@
       "title": "useFocusTrap",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "n/a",
       "oneLiner": "컨테이너 안 포커스 감금 — 모달용. v3 웹은 createFocusTrap Behavior로 구현 완료.",
       "tags": [
         "hook",
@@ -2328,8 +2328,8 @@
       "title": "useScrollLock",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "body 스크롤 잠금.",
       "tags": [
         "hook",
@@ -2350,8 +2350,8 @@
       "title": "useDocumentTitle",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "문서 제목 설정.",
       "tags": [
         "hook",
@@ -2372,8 +2372,8 @@
       "title": "useFavicon",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "n/a",
       "oneLiner": "파비콘 교체 — 웹 전용.",
       "tags": [
         "hook",
@@ -2394,8 +2394,8 @@
       "title": "useFullscreen",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "요소 전체화면 진입·해제.",
       "tags": [
         "hook",
@@ -2416,8 +2416,8 @@
       "title": "useResizeObserver",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "요소 크기 변화 관찰. useElementSize와 통합 후보.",
       "tags": [
         "hook",
@@ -2438,8 +2438,8 @@
       "title": "useTimeout",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "안전한 setTimeout 래퍼.",
       "tags": [
         "hook",
@@ -2460,7 +2460,7 @@
       "title": "useAsync",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "비동기 작업 상태(loading·error·data) 관리.",
       "tags": [
@@ -2482,7 +2482,7 @@
       "title": "useIsomorphicLayoutEffect",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "SSR 안전 layoutEffect — React SSR 전용 개념.",
       "tags": [
@@ -2504,7 +2504,7 @@
       "title": "useUpdateEffect",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "최초 렌더를 건너뛰는 effect — React 전용.",
       "tags": [
@@ -2526,8 +2526,8 @@
       "title": "useGeolocation",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "위치 정보 구독.",
       "tags": [
         "hook",
@@ -2548,8 +2548,8 @@
       "title": "useSessionStorage",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "sessionStorage 동기화 상태.",
       "tags": [
         "hook",
@@ -2570,8 +2570,8 @@
       "title": "useCookie",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "쿠키 읽기·쓰기.",
       "tags": [
         "hook",
@@ -2592,8 +2592,8 @@
       "title": "useHover",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "요소 호버 상태 감지.",
       "tags": [
         "hook",
@@ -2614,8 +2614,8 @@
       "title": "useFocusVisible",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "n/a",
       "oneLiner": "키보드 포커스 가시성 감지.",
       "tags": [
         "hook",
@@ -2636,8 +2636,8 @@
       "title": "useInfiniteFeed",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "무한 스크롤 피드 로딩.",
       "tags": [
         "hook",
@@ -2658,8 +2658,8 @@
       "title": "useReadingProgress",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "본문 읽기 진행률 계산.",
       "tags": [
         "hook",
@@ -2680,8 +2680,8 @@
       "title": "useImagePreload",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "이미지 프리로드.",
       "tags": [
         "hook",
@@ -2702,8 +2702,8 @@
       "title": "useResource",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "키 기반 데이터 캐시·재검증 스토어.",
       "tags": [
         "hook",
@@ -2724,8 +2724,8 @@
       "title": "useMutation",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "변경 요청 실행·상태 관리.",
       "tags": [
         "hook",
@@ -2746,7 +2746,7 @@
       "title": "useOptimisticState",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
+      "web": "done(내부화)",
       "ios": "todo",
       "oneLiner": "낙관적 갱신 상태 패턴.",
       "tags": [
@@ -2768,8 +2768,8 @@
       "title": "useAnimationFrame",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "requestAnimationFrame 루프.",
       "tags": [
         "hook",
@@ -2790,8 +2790,8 @@
       "title": "useKeyboardShortcut",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "단축키 1건 바인딩. useHotkeys와 통합 후보.",
       "tags": [
         "hook",
@@ -2812,8 +2812,8 @@
       "title": "useWindowSize",
       "category": "hooks",
       "tier": "T1",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "윈도 크기 추적.",
       "tags": [
         "hook",
@@ -2829,12 +2829,144 @@
       }
     },
     {
+      "id": "use-code-copy",
+      "ledgerId": "useCodeCopy",
+      "title": "useCodeCopy",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "이미 커밋된 DOM 의 코드 블록마다 복사 버튼을 주입 — 컴포넌트로 감쌀 수 없는 본문용.",
+      "tags": [
+        "hook",
+        "클립보드",
+        "코드"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "use-json-ld",
+      "ledgerId": "useJsonLd",
+      "title": "useJsonLd",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "schema.org JSON-LD 를 head 에 주입하고 언마운트 시 제거 — 같은 key 는 교체한다.",
+      "tags": [
+        "hook",
+        "seo",
+        "구조화 데이터"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "use-reveal-on-scroll",
+      "ledgerId": "useRevealOnScroll",
+      "title": "useRevealOnScroll",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "스크롤 진입 시 자식에 is-visible 클래스를 붙인다 — 모션은 CSS 가 정한다.",
+      "tags": [
+        "hook",
+        "스크롤",
+        "모션"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "use-dominant-color",
+      "ledgerId": "useDominantColor",
+      "title": "useDominantColor",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "이미지에서 대표색 한 쌍(밝은 tint / 어두운 deep)을 뽑는다 — 몰입형 배경용.",
+      "tags": [
+        "hook",
+        "색",
+        "이미지"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "use-audio-player",
+      "ledgerId": "useAudioPlayer",
+      "title": "useAudioPlayer",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "재생 목록 하나를 굴리는 오디오 엔진 — 화면은 호출부가 그린다.",
+      "tags": [
+        "hook",
+        "audio",
+        "미디어"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "use-seo",
+      "ledgerId": "useSeo",
+      "title": "useSeo",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "SPA 라우팅에서 페이지별 head 메타(title·OG·트위터·canonical·favicon)를 갱신한다.",
+      "tags": [
+        "hook",
+        "seo",
+        "meta"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
       "id": "accordion",
       "ledgerId": "Accordion",
       "title": "Accordion",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "아코디언",
       "tags": [
@@ -2854,8 +2986,8 @@
       "title": "ActionSheet",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "모바일 친화적인 하단 액션 시트. 여러 액션을 리스트로 노출합니다.",
       "tags": [
         "overlay"
@@ -2874,7 +3006,7 @@
       "title": "AddressInput",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "주소 검색 자동완성 입력기.",
       "tags": [
@@ -2895,7 +3027,7 @@
       "title": "Affix",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "스크롤 시 지정 위치에 고정되는 컨테이너.",
       "tags": [
@@ -2915,8 +3047,8 @@
       "title": "Alert",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "알림 메시지 컴포넌트.",
       "tags": [
         "feedback"
@@ -2935,8 +3067,8 @@
       "title": "AlertDialog",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "경고 다이얼로그 (배경 클릭으로 닫기 불가)",
       "tags": [
         "overlay",
@@ -2956,7 +3088,7 @@
       "title": "AnimatedCounter",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "숫자가 부드럽게 증가/감소하며 표시되는 카운터.",
       "tags": [
@@ -2976,7 +3108,7 @@
       "title": "AudioPlayer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "오디오 플레이백 컨트롤(재생/정지/시킹)이 포함된 플레이어.",
       "tags": [
@@ -2996,7 +3128,7 @@
       "title": "AutoComplete",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "자동완성 입력",
       "tags": [
@@ -3017,7 +3149,7 @@
       "title": "AutoHideHeader",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "자동 숨김 헤더 컴포넌트",
       "tags": [
@@ -3037,7 +3169,7 @@
       "title": "AutoPlayDemo",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "자동 순환 데모",
       "tags": [
@@ -3057,7 +3189,7 @@
       "title": "AvatarStack",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "아바타 스택 (겹쳐진 그룹)",
       "tags": [
@@ -3077,8 +3209,8 @@
       "title": "Banner",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "배너 알림 컴포넌트",
       "tags": [
         "feedback"
@@ -3097,7 +3229,7 @@
       "title": "BentoGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "크기가 다른 카드를 비대칭 그리드로 배치하는 벤토 레이아웃.",
       "tags": [
@@ -3117,7 +3249,7 @@
       "title": "BookCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "책 표지 + 제목 + 저자 정보를 담은 책 형태의 카드.",
       "tags": [
@@ -3137,8 +3269,8 @@
       "title": "BottomSheet",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "화면 하단에서 슬라이드 업되는 시트형 모달.",
       "tags": [
         "overlay"
@@ -3157,7 +3289,7 @@
       "title": "Breadcrumb",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "브레드크럼 네비게이션",
       "tags": [
@@ -3177,7 +3309,7 @@
       "title": "ButtonGroup",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "버튼 그룹",
       "tags": [
@@ -3198,8 +3330,8 @@
       "title": "Callout",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "강조성 메시지 박스(정보/경고/팁 등)를 표시합니다.",
       "tags": [
         "feedback"
@@ -3218,7 +3350,7 @@
       "title": "Card",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "Card 컴포넌트",
       "tags": [
@@ -3238,7 +3370,7 @@
       "title": "Carousel",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "캐러셀",
       "tags": [
@@ -3258,7 +3390,7 @@
       "title": "ChatBubble",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "채팅 메시지 말풍선.",
       "tags": [
@@ -3278,7 +3410,7 @@
       "title": "CodeEditor",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "신택스 하이라이팅이 적용된 코드 편집기.",
       "tags": [
@@ -3299,7 +3431,7 @@
       "title": "Collapsible",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "접기/펼치기 컴포넌트 (단일 항목)",
       "tags": [
@@ -3319,7 +3451,7 @@
       "title": "CollectionView",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "검색·필터·뷰 전환을 지원하는 컬렉션 뷰어.",
       "tags": [
@@ -3339,7 +3471,7 @@
       "title": "ColorPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "색상 선택기",
       "tags": [
@@ -3360,7 +3492,7 @@
       "title": "ColorSwatch",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "색상 팔레트에서 색을 선택하는 스와치.",
       "tags": [
@@ -3380,7 +3512,7 @@
       "title": "Combobox",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "콤보박스 (자동완성 + 셀렉트 + 생성)",
       "tags": [
@@ -3401,7 +3533,7 @@
       "title": "CompareSlider",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "두 이미지를 좌/우로 비교하는 슬라이더.",
       "tags": [
@@ -3421,7 +3553,7 @@
       "title": "ComparisonGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "비교 지표 그리드",
       "tags": [
@@ -3441,7 +3573,7 @@
       "title": "ComponentShowcase",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "검색·필터·그리드/리스트 뷰를 갖춘 컴포넌트 카탈로그.",
       "tags": [
@@ -3461,7 +3593,7 @@
       "title": "Confetti",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "축하/완료 시점에 화면을 가득 채우는 색종이 효과.",
       "tags": [
@@ -3481,8 +3613,8 @@
       "title": "ConfirmDialog",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "확인 다이얼로그",
       "tags": [
         "overlay",
@@ -3502,7 +3634,7 @@
       "title": "ContextMenu",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "우클릭 컨텍스트 메뉴",
       "tags": [
@@ -3523,7 +3655,7 @@
       "title": "CopyBlock",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "코드 블록 + 복사 버튼이 포함된 코드 미리보기.",
       "tags": [
@@ -3543,7 +3675,7 @@
       "title": "CronExpression",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "cron 표현식을 시각적으로 편집하는 입력기.",
       "tags": [
@@ -3564,7 +3696,7 @@
       "title": "DataGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "페이징·선택이 지원되는 데이터 그리드.",
       "tags": [
@@ -3584,7 +3716,7 @@
       "title": "DateInput",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "날짜 입력",
       "tags": [
@@ -3605,7 +3737,7 @@
       "title": "DateRangeFilter",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "날짜 범위 필터",
       "tags": [
@@ -3626,7 +3758,7 @@
       "title": "DateRangePicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "날짜 범위 선택기",
       "tags": [
@@ -3647,7 +3779,7 @@
       "title": "Descriptions",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "디스크립션 — 키-값 쌍 표시 컴포넌트",
       "tags": [
@@ -3667,7 +3799,7 @@
       "title": "DetailPanel",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "디테일 패널",
       "tags": [
@@ -3687,7 +3819,7 @@
       "title": "Disclosure",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "단일 접기·펼치기 영역 — 트리거와 패널 쌍.",
       "tags": [
@@ -3708,7 +3840,7 @@
       "title": "DiffViewer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "두 텍스트 간 차이를 강조 표시하는 diff 뷰어.",
       "tags": [
@@ -3728,7 +3860,7 @@
       "title": "Dock",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "macOS 스타일의 마우스 오버 시 확대되는 독.",
       "tags": [
@@ -3748,8 +3880,8 @@
       "title": "Drawer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "슬라이드 인 패널 (Drawer / Sheet)",
       "tags": [
         "overlay"
@@ -3768,7 +3900,7 @@
       "title": "Dropdown",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "드롭다운 메뉴",
       "tags": [
@@ -3789,8 +3921,8 @@
       "title": "DsToastProvider",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "토스트 스택 제공자. v3에서 명령형 toast() 싱글턴으로 전환 예정.",
       "tags": [
         "feedback",
@@ -3811,7 +3943,7 @@
       "title": "EmojiPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "카테고리별 이모지를 선택할 수 있는 피커.",
       "tags": [
@@ -3832,8 +3964,8 @@
       "title": "EmptyState",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "빈 상태 표시",
       "tags": [
         "feedback"
@@ -3852,7 +3984,7 @@
       "title": "FilterButtonGroup",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "필터 버튼 그룹",
       "tags": [
@@ -3873,7 +4005,7 @@
       "title": "FloatingActionButton",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "플로팅 액션 버튼 (FAB)",
       "tags": [
@@ -3894,15 +4026,15 @@
       "title": "FormField",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
-      "oneLiner": "폼 필드 래퍼 (Label + Input + Error + Hint)",
+      "oneLiner": "임의의 네이티브 입력에 Label·Error·Hint를 자동 연결하는 폼 필드 래퍼.",
       "tags": [
         "form"
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -3914,7 +4046,7 @@
       "title": "FunnelChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "단계별 전환율을 시각화하는 퍼널 차트.",
       "tags": [
@@ -3934,7 +4066,7 @@
       "title": "GaugeChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "반원형 게이지로 단일 값을 시각화합니다.",
       "tags": [
@@ -3954,7 +4086,7 @@
       "title": "Globe",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "회전하는 인터랙티브 3D 지구본.",
       "tags": [
@@ -3974,7 +4106,7 @@
       "title": "GradientBorder",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "그라디언트 테두리 효과를 가진 래퍼.",
       "tags": [
@@ -3994,7 +4126,7 @@
       "title": "Heatmap",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "2차원 데이터를 색 강도로 표현하는 히트맵.",
       "tags": [
@@ -4014,7 +4146,7 @@
       "title": "HoverCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "호버 카드",
       "tags": [
@@ -4034,7 +4166,7 @@
       "title": "ImageCropper",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "이미지를 잘라내는 크로퍼.",
       "tags": [
@@ -4054,7 +4186,7 @@
       "title": "ImageLightbox",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "이미지를 클릭해 확대 보기를 띄우는 라이트박스.",
       "tags": [
@@ -4070,12 +4202,34 @@
       }
     },
     {
+      "id": "global-image-lightbox",
+      "ledgerId": "GlobalImageLightbox",
+      "title": "GlobalImageLightbox",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "본문 이미지 클릭을 위임받아 확대하는 전역 라이트박스 — 문서에 한 번만 둔다.",
+      "tags": [
+        "media",
+        "overlay",
+        "문서"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
       "id": "inline-edit",
       "ledgerId": "InlineEdit",
       "title": "InlineEdit",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "클릭으로 인라인 편집 모드로 전환되는 텍스트.",
       "tags": [
@@ -4096,7 +4250,7 @@
       "title": "JSONViewer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "JSON 데이터를 트리 구조로 펼쳐서 보여주는 뷰어.",
       "tags": [
@@ -4116,7 +4270,7 @@
       "title": "KeyValueGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "키-값 그리드",
       "tags": [
@@ -4136,7 +4290,7 @@
       "title": "LoadingOverlay",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "로딩 중 자식 영역 위에 덮이는 오버레이.",
       "tags": [
@@ -4157,7 +4311,7 @@
       "title": "MarkdownViewer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "마크다운 텍스트를 HTML로 렌더링합니다.",
       "tags": [
@@ -4177,7 +4331,7 @@
       "title": "Marquee",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "가로 방향으로 무한 스크롤되는 텍스트/요소 표시기.",
       "tags": [
@@ -4197,7 +4351,7 @@
       "title": "Mention",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "@ 트리거로 사용자 목록을 자동완성하는 멘션 입력.",
       "tags": [
@@ -4219,7 +4373,7 @@
       "title": "Menubar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "메뉴바",
       "tags": [
@@ -4239,7 +4393,7 @@
       "title": "MetricCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "지표 카드 컴포넌트",
       "tags": [
@@ -4259,7 +4413,7 @@
       "title": "MiniChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "카드 안에 들어갈 작은 미니 차트(스파크라인).",
       "tags": [
@@ -4301,7 +4455,7 @@
       "title": "MultiSelect",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "다중 선택 컴포넌트",
       "tags": [
@@ -4322,7 +4476,7 @@
       "title": "NavigationMenu",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "네비게이션 메뉴",
       "tags": [
@@ -4342,8 +4496,8 @@
       "title": "Notification",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "상단에 잠깐 떠오르는 알림 카드.",
       "tags": [
         "feedback"
@@ -4362,7 +4516,7 @@
       "title": "Onboarding",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "단계별 튜토리얼/온보딩 플로우.",
       "tags": [
@@ -4383,7 +4537,7 @@
       "title": "Pagination",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "페이지네이션",
       "tags": [
@@ -4403,15 +4557,15 @@
       "title": "Popover",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
-      "oneLiner": "팝오버",
+      "oneLiner": "사용자 트리거의 의미를 보존하며 클릭·ESC·바깥 클릭을 처리하는 팝오버.",
       "tags": [
         "overlay"
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -4423,7 +4577,7 @@
       "title": "ProgressBar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "가로 진행 막대.",
       "tags": [
@@ -4445,7 +4599,7 @@
       "title": "ProgressSteps",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "단계형 진행 표시 — 완료·현재·대기 상태.",
       "tags": [
@@ -4467,7 +4621,7 @@
       "title": "ProgressRing",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "원형 진행률 표시기.",
       "tags": [
@@ -4487,7 +4641,7 @@
       "title": "PullToRefresh",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "아래로 당겨서 새로고침하는 인터랙션 래퍼.",
       "tags": [
@@ -4507,7 +4661,7 @@
       "title": "QRCode",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "주어진 값으로 QR 코드를 그립니다.",
       "tags": [
@@ -4527,7 +4681,7 @@
       "title": "Rating",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "평점 입력 컴포넌트",
       "tags": [
@@ -4548,7 +4702,7 @@
       "title": "ReadingTime",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "읽기 시간 추정 컴포넌트",
       "tags": [
@@ -4568,7 +4722,7 @@
       "title": "Resizable",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "리사이저블",
       "tags": [
@@ -4588,8 +4742,8 @@
       "title": "Result",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "결과 페이지 컴포넌트",
       "tags": [
         "feedback"
@@ -4608,7 +4762,7 @@
       "title": "ScrollSpy",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "스크롤 위치 기반 네비게이션 인디케이터",
       "tags": [
@@ -4628,7 +4782,7 @@
       "title": "SearchInput",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "검색 입력 컴포넌트",
       "tags": [
@@ -4649,7 +4803,7 @@
       "title": "SecurityBadge",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "보안 레벨 뱃지",
       "tags": [
@@ -4669,7 +4823,7 @@
       "title": "SegmentedControl",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "세그먼티드 컨트롤 — iOS 스타일 버튼 그룹 탭 선택기",
       "tags": [
@@ -4690,7 +4844,7 @@
       "title": "Select",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "옵션 목록에서 하나를 고르는 셀렉트.",
       "tags": [
@@ -4711,8 +4865,8 @@
       "title": "Sheet",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "모바일 바텀 시트 (드래그로 닫기 지원)",
       "tags": [
         "overlay"
@@ -4731,7 +4885,7 @@
       "title": "SignaturePad",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "마우스/터치로 서명을 그리는 패드.",
       "tags": [
@@ -4752,7 +4906,7 @@
       "title": "Skeleton",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "스켈레톤 로딩",
       "tags": [
@@ -4772,7 +4926,7 @@
       "title": "SkeletonPreset",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "카드/리스트/프로필 등 자주 쓰는 스켈레톤 프리셋.",
       "tags": [
@@ -4792,7 +4946,7 @@
       "title": "SplitPane",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "좌/우(또는 상/하)로 크기 조절 가능한 분할 패널.",
       "tags": [
@@ -4812,7 +4966,7 @@
       "title": "SpoilerBlock",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "블러 처리된 콘텐츠를 클릭으로 노출하는 스포일러 블록.",
       "tags": [
@@ -4832,7 +4986,7 @@
       "title": "Spotlight",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "포커스 하이라이트 오버레이",
       "tags": [
@@ -4853,7 +5007,7 @@
       "title": "SpotlightCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "마우스 위치에 스포트라이트 글로우가 따라오는 카드.",
       "tags": [
@@ -4873,7 +5027,7 @@
       "title": "StatCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "통계 카드",
       "tags": [
@@ -4893,7 +5047,7 @@
       "title": "Stepper",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "스텝퍼 — 단계별 진행 표시 컴포넌트",
       "tags": [
@@ -4913,7 +5067,7 @@
       "title": "Sticky",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "스크롤 시 지정 위치에 달라붙는 sticky 래퍼.",
       "tags": [
@@ -4933,7 +5087,7 @@
       "title": "SwipeAction",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "좌/우로 스와이프 시 액션이 노출되는 행 래퍼.",
       "tags": [
@@ -4954,7 +5108,7 @@
       "title": "Table",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "컬럼 정의 + 데이터 행으로 구성된 기본 테이블.",
       "tags": [
@@ -4974,7 +5128,7 @@
       "title": "Tabs",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "수평 탭 전환 컨트롤.",
       "tags": [
@@ -4994,7 +5148,7 @@
       "title": "TagInput",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "태그 입력 컴포넌트",
       "tags": [
@@ -5015,7 +5169,7 @@
       "title": "TimePicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "시간 선택기",
       "tags": [
@@ -5036,7 +5190,7 @@
       "title": "Timeline",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "타임라인",
       "tags": [
@@ -5056,15 +5210,15 @@
       "title": "Tooltip",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
-      "oneLiner": "툴팁",
+      "oneLiner": "기존 설명과 안전하게 조합되고 키보드·ESC를 지원하는 툴팁.",
       "tags": [
         "overlay"
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -5076,7 +5230,7 @@
       "title": "Transfer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "트랜스퍼 — 두 목록 간 항목 이동 컴포넌트",
       "tags": [
@@ -5097,7 +5251,7 @@
       "title": "TreeNav",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "트리 네비게이션 컴포넌트",
       "tags": [
@@ -5117,7 +5271,7 @@
       "title": "TreeView",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "트리뷰 컴포넌트 — 파일 탐색기 스타일의 트리 구조",
       "tags": [
@@ -5137,7 +5291,7 @@
       "title": "TreemapChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "계층 데이터를 사각형 면적으로 표현하는 트리맵.",
       "tags": [
@@ -5157,7 +5311,7 @@
       "title": "TrustIndicator",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "보안 신뢰 지표 — 보안 항목별 통과/실패 상태 표시",
       "tags": [
@@ -5177,7 +5331,7 @@
       "title": "Typewriter",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "글자를 한 글자씩 쳐 나가는 타이핑 효과.",
       "tags": [
@@ -5185,7 +5339,7 @@
       ],
       "hasControls": false,
       "snippets": {
-        "web": false,
+        "web": true,
         "swiftui": false,
         "uikit": false,
         "react": true
@@ -5197,7 +5351,7 @@
       "title": "VideoPlayer",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "컨트롤이 포함된 비디오 플레이어.",
       "tags": [
@@ -5217,7 +5371,7 @@
       "title": "VirtualScroll",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "대량 리스트를 가상화로 렌더링하는 스크롤러.",
       "tags": [
@@ -5237,7 +5391,7 @@
       "title": "Watermark",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "워터마크 오버레이 컴포넌트",
       "tags": [
@@ -5257,7 +5411,7 @@
       "title": "Countdown",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "목표 시각까지 남은 시간 카운트다운.",
       "tags": [
@@ -5279,7 +5433,7 @@
       "title": "Clock",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "현재 시각 시계 표시.",
       "tags": [
@@ -5301,7 +5455,7 @@
       "title": "PageHeader",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "페이지 상단 제목·설명·액션 헤더 블록.",
       "tags": [
@@ -5323,7 +5477,7 @@
       "title": "AnnouncementBar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "화면 상단 공지 바 — 닫기 지원.",
       "tags": [
@@ -5345,7 +5499,7 @@
       "title": "ThinkingIndicator",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "응답 대기 점멸 인디케이터 — 채팅 스타일.",
       "tags": [
@@ -5367,7 +5521,7 @@
       "title": "PricingTable",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "요금제 비교 테이블.",
       "tags": [
@@ -5389,7 +5543,7 @@
       "title": "CookieConsent",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "쿠키 동의 배너 — 수락·거부 선택.",
       "tags": [
@@ -5411,7 +5565,7 @@
       "title": "MonthPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "월 선택 피커.",
       "tags": [
@@ -5433,7 +5587,7 @@
       "title": "YearPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "연도 선택 피커.",
       "tags": [
@@ -5455,8 +5609,8 @@
       "title": "Snackbar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "하단 일시 알림 스낵바 — 액션 버튼 지원.",
       "tags": [
         "feedback",
@@ -5477,7 +5631,7 @@
       "title": "Stat",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "수치 1건 표시 블록 — 라벨·값·증감.",
       "tags": [
@@ -5499,7 +5653,7 @@
       "title": "Blockquote",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "인용 블록 표기.",
       "tags": [
@@ -5520,7 +5674,7 @@
       "title": "LoadingButton",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "로딩 상태를 내장한 버튼 래퍼.",
       "tags": [
@@ -5542,7 +5696,7 @@
       "title": "LoadingScreen",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "전면 로딩 화면.",
       "tags": [
@@ -5563,7 +5717,7 @@
       "title": "OfflineIndicator",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "네트워크 오프라인 상태 표시기.",
       "tags": [
@@ -5585,7 +5739,7 @@
       "title": "Hint",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "입력 아래 도움말 힌트 문구.",
       "tags": [
@@ -5606,7 +5760,7 @@
       "title": "SocialShare",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "소셜 공유 버튼 묶음.",
       "tags": [
@@ -5627,7 +5781,7 @@
       "title": "EmojiReaction",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "이모지 반응 선택·카운트 표시.",
       "tags": [
@@ -5649,7 +5803,7 @@
       "title": "OnlineStatus",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사용자 온라인 상태 점 표시.",
       "tags": [
@@ -5671,7 +5825,7 @@
       "title": "RadioCardGroup",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "카드형 라디오 그룹 — 단일 선택.",
       "tags": [
@@ -5693,7 +5847,7 @@
       "title": "CheckboxCardGroup",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "카드형 체크박스 그룹 — 다중 선택.",
       "tags": [
@@ -5715,7 +5869,7 @@
       "title": "TextareaAutosize",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "내용에 따라 높이가 늘어나는 텍스트영역.",
       "tags": [
@@ -5737,7 +5891,7 @@
       "title": "PasswordStrength",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "비밀번호 강도 측정 막대.",
       "tags": [
@@ -5759,7 +5913,7 @@
       "title": "ScrollProgress",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "페이지 스크롤 진행률 바.",
       "tags": [
@@ -5781,7 +5935,7 @@
       "title": "TableOfContents",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "문서 헤딩 목차 — 현재 섹션 하이라이트.",
       "tags": [
@@ -5798,12 +5952,34 @@
       }
     },
     {
+      "id": "toc-heading",
+      "ledgerId": "TocHeading",
+      "title": "TocHeading",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "렌더되는 순간 스스로 목차에 등록되는 헤딩 — TocProvider 밖에서는 평범한 h2~h6.",
+      "tags": [
+        "navigation",
+        "content",
+        "목차"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
       "id": "line-chart",
       "ledgerId": "LineChart",
       "title": "LineChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "선 차트.",
       "tags": [
@@ -5825,7 +6001,7 @@
       "title": "BarChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "막대 차트.",
       "tags": [
@@ -5847,7 +6023,7 @@
       "title": "PieChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "파이 차트.",
       "tags": [
@@ -5869,7 +6045,7 @@
       "title": "TestimonialCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "고객 후기 카드.",
       "tags": [
@@ -5891,7 +6067,7 @@
       "title": "LogoCloud",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "파트너·고객 로고 나열 블록.",
       "tags": [
@@ -5912,7 +6088,7 @@
       "title": "Newsletter",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "뉴스레터 구독 입력 블록.",
       "tags": [
@@ -5934,7 +6110,7 @@
       "title": "CTASection",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "행동 유도(CTA) 섹션 블록.",
       "tags": [
@@ -5956,7 +6132,7 @@
       "title": "ProductCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "상품 카드 — 이미지·가격·액션.",
       "tags": [
@@ -5978,7 +6154,7 @@
       "title": "CartItem",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "장바구니 항목 행 — 수량·삭제.",
       "tags": [
@@ -5999,7 +6175,7 @@
       "title": "QuantitySelector",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "수량 증감 선택기.",
       "tags": [
@@ -6021,7 +6197,7 @@
       "title": "PriceDisplay",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "가격 표시 — 통화·할인 표기.",
       "tags": [
@@ -6042,7 +6218,7 @@
       "title": "AreaChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "다중 시리즈 영역 차트 — overlap·stacked 모드, 곡선 보간.",
       "tags": [
@@ -6064,7 +6240,7 @@
       "title": "RadarChart",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "레이더(방사형) 차트.",
       "tags": [
@@ -6086,7 +6262,7 @@
       "title": "ScatterPlot",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "산점도 차트.",
       "tags": [
@@ -6108,7 +6284,7 @@
       "title": "SankeyDiagram",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "생키 흐름 다이어그램.",
       "tags": [
@@ -6130,7 +6306,7 @@
       "title": "BookShelf",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "책 표지 책장 그리드.",
       "tags": [
@@ -6152,7 +6328,7 @@
       "title": "ReadingProgress",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "독서 진행률 표시.",
       "tags": [
@@ -6174,7 +6350,7 @@
       "title": "ChapterList",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "책 목차 챕터 리스트.",
       "tags": [
@@ -6196,7 +6372,7 @@
       "title": "ReadingStats",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "독서 통계 요약 블록.",
       "tags": [
@@ -6218,7 +6394,7 @@
       "title": "BookCover",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "책 표지 이미지 — 비율 고정·폴백.",
       "tags": [
@@ -6240,7 +6416,7 @@
       "title": "ReadingGoal",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "독서 목표 진행 카드.",
       "tags": [
@@ -6262,7 +6438,7 @@
       "title": "AnnotationNote",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "책 속 메모·주석 노트 카드.",
       "tags": [
@@ -6284,7 +6460,7 @@
       "title": "BookRating",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "책 별점 표시.",
       "tags": [
@@ -6306,7 +6482,7 @@
       "title": "PhotoCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사진 카드 — 캡션·메타 표시.",
       "tags": [
@@ -6328,7 +6504,7 @@
       "title": "PhotoGrid",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사진 그리드 갤러리.",
       "tags": [
@@ -6350,7 +6526,7 @@
       "title": "PhotoLightbox",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사진 라이트박스 뷰어 — 확대·내비게이션.",
       "tags": [
@@ -6372,7 +6548,7 @@
       "title": "PhotoCarousel",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사진 캐러셀 슬라이더.",
       "tags": [
@@ -6394,7 +6570,7 @@
       "title": "ImageCompare",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "두 이미지 좌우 비교 슬라이더.",
       "tags": [
@@ -6416,7 +6592,7 @@
       "title": "ImageZoom",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "이미지 확대(줌) 뷰어.",
       "tags": [
@@ -6438,7 +6614,7 @@
       "title": "ExifPanel",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사진 EXIF 메타데이터 패널.",
       "tags": [
@@ -6460,7 +6636,7 @@
       "title": "PhotoFilters",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사진 필터 프리셋 선택.",
       "tags": [
@@ -6482,7 +6658,7 @@
       "title": "PhotoUploader",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사진 업로드 드롭존 — 미리보기.",
       "tags": [
@@ -6504,7 +6680,7 @@
       "title": "ImageWithFallback",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "로드 실패 시 폴백을 보여주는 이미지.",
       "tags": [
@@ -6526,7 +6702,7 @@
       "title": "PostCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "소셜 게시물 카드.",
       "tags": [
@@ -6548,7 +6724,7 @@
       "title": "CommentThread",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "댓글 스레드 — 중첩 답글.",
       "tags": [
@@ -6570,7 +6746,7 @@
       "title": "ProfileHeader",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "프로필 상단 헤더 — 아바타·통계·액션.",
       "tags": [
@@ -6592,7 +6768,7 @@
       "title": "StoryCircle",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "스토리 링 아바타.",
       "tags": [
@@ -6614,7 +6790,7 @@
       "title": "ReactionPicker",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "반응 이모지 선택 팝오버.",
       "tags": [
@@ -6636,7 +6812,7 @@
       "title": "PollCard",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "투표 카드 — 선택지·결과 막대.",
       "tags": [
@@ -6658,7 +6834,7 @@
       "title": "BrandSwitcher",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "브랜드 테마 전환기 — BrandProvider 의존.",
       "tags": [
@@ -6680,7 +6856,7 @@
       "title": "SearchBar",
       "category": "composites",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "검색 바 — 단축키·제안 지원.",
       "tags": [
@@ -6697,12 +6873,166 @@
       }
     },
     {
+      "id": "seo-head",
+      "ledgerId": "SeoHead",
+      "title": "SeoHead",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "페이지 SEO 메타태그를 선언적으로 지정 — 아무것도 렌더하지 않는다. 기본값은 SeoProvider 가 준다.",
+      "tags": [
+        "seo",
+        "meta",
+        "헤드"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "waveform",
+      "ledgerId": "Waveform",
+      "title": "Waveform",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "시드에서 결정적으로 만드는 막대 파형 — 재생 진행분이 차오르고, onSeek 을 주면 탐색 슬라이더가 된다.",
+      "tags": [
+        "media",
+        "audio",
+        "스크러버"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "album-art",
+      "ledgerId": "AlbumArt",
+      "title": "AlbumArt",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "앨범/트랙 커버 — 이미지가 없거나 깨지면 시드에서 만든 무광 그라디언트 커버로 대신한다.",
+      "tags": [
+        "media",
+        "audio",
+        "폴백"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "now-playing-bar",
+      "ledgerId": "NowPlayingBar",
+      "title": "NowPlayingBar",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "하단 재생 바 — 커버·곡 정보·파형 스크러버·이전/재생/다음. useAudioPlayer 상태를 그대로 받는다.",
+      "tags": [
+        "media",
+        "audio",
+        "플레이어"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "doc-pager",
+      "ledgerId": "DocPager",
+      "title": "DocPager",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "문서 하단의 이전/다음 내비게이션 — 한쪽만 있어도 '다음'이 항상 오른쪽에 온다.",
+      "tags": [
+        "navigation",
+        "content",
+        "문서"
+      ],
+      "hasControls": false,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "project-card",
+      "ledgerId": "ProjectCard",
+      "title": "ProjectCard",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "프로젝트 한 줄 카드 — 아이콘·제목·설명·뱃지·연도·화살표. 행 전체가 링크가 된다.",
+      "tags": [
+        "content",
+        "navigation",
+        "포트폴리오"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
+      "id": "screenshot-grid",
+      "ledgerId": "ScreenshotGrid",
+      "title": "ScreenshotGrid",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "oneLiner": "문서용 스크린샷 격자 — 로드에 실패한 이미지는 조용히 빠지고, 전부 실패하면 사라진다.",
+      "tags": [
+        "content",
+        "media",
+        "문서"
+      ],
+      "hasControls": true,
+      "snippets": {
+        "web": false,
+        "swiftui": false,
+        "uikit": false,
+        "react": true
+      }
+    },
+    {
       "id": "data-table",
       "ledgerId": "DataTable",
       "title": "DataTable",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "고급 데이터 테이블",
       "tags": [
@@ -6722,7 +7052,7 @@
       "title": "FilterBar",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "필터 바",
       "tags": [
@@ -6743,7 +7073,7 @@
       "title": "CommandPalette",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "커맨드 팔레트 (⌘K)",
       "tags": [
@@ -6764,7 +7094,7 @@
       "title": "DsSidebarProvider",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사이드바 상태(접힘·활성) 컨텍스트 제공자.",
       "tags": [
@@ -6786,7 +7116,7 @@
       "title": "DsSidebar",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "앱 사이드바 컨테이너 — 접힘·섹션 구성.",
       "tags": [
@@ -6807,7 +7137,7 @@
       "title": "SidebarLink",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사이드바 내비게이션 링크 항목.",
       "tags": [
@@ -6829,7 +7159,7 @@
       "title": "SidebarSection",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사이드바 섹션 그룹 헤더.",
       "tags": [
@@ -6851,7 +7181,7 @@
       "title": "DsCalendar",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "월간/주간 캘린더",
       "tags": [
@@ -6872,7 +7202,7 @@
       "title": "Kanban",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "칸반 보드 (가벼운 버전 — 네이티브 드래그)",
       "tags": [
@@ -6892,7 +7222,7 @@
       "title": "StatsGrid",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "통계 그리드",
       "tags": [
@@ -6912,7 +7242,7 @@
       "title": "ActionBar",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "플로팅 액션 바 (벌크 액션)",
       "tags": [
@@ -6932,7 +7262,7 @@
       "title": "FormBuilder",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "선언적 폼 빌더 — 필드 배열로 폼 자동 생성",
       "tags": [
@@ -6952,7 +7282,7 @@
       "title": "InfiniteList",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "무한 스크롤 리스트 (IntersectionObserver)",
       "tags": [
@@ -6972,7 +7302,7 @@
       "title": "VirtualList",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "가상화 리스트 — 10,000+ 행도 부드럽게",
       "tags": [
@@ -6992,7 +7322,7 @@
       "title": "ChartCard",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "SVG 차트 카드",
       "tags": [
@@ -7012,7 +7342,7 @@
       "title": "NotificationCenter",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "알림 센터 (벨 아이콘 + 드롭다운)",
       "tags": [
@@ -7032,7 +7362,7 @@
       "title": "SortableList",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "드래그 앤 드롭 정렬 리스트 (네이티브 API)",
       "tags": [
@@ -7052,7 +7382,7 @@
       "title": "RichTextEditor",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "리치 텍스트 에디터 (contentEditable 기반)",
       "tags": [
@@ -7073,7 +7403,7 @@
       "title": "SecurityChecklist",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "보안 체크리스트 — 보안 설정 현황을 한눈에 확인 + 조치",
       "tags": [
@@ -7093,7 +7423,7 @@
       "title": "LoginForm",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "보안 로그인/회원가입 폼",
       "tags": [
@@ -7113,7 +7443,7 @@
       "title": "Tour",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "가이드 투어 오버레이",
       "tags": [
@@ -7134,7 +7464,7 @@
       "title": "FlowDiagram",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "노드와 연결선으로 구성된 플로우 다이어그램 에디터.",
       "tags": [
@@ -7154,7 +7484,7 @@
       "title": "Starfield",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "별이 흐르는 우주 배경 애니메이션.",
       "tags": [
@@ -7174,7 +7504,7 @@
       "title": "MasonryGrid",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "핀터레스트 스타일의 메이슨리(masonry) 그리드 레이아웃.",
       "tags": [
@@ -7194,7 +7524,7 @@
       "title": "FormWizard",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "단계별 폼 마법사(스텝 폼).",
       "tags": [
@@ -7215,7 +7545,7 @@
       "title": "FormArray",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "배열형 폼 필드(추가/삭제 가능한 반복 항목)를 관리합니다.",
       "tags": [
@@ -7235,7 +7565,7 @@
       "title": "Form",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "값/오류/터치 상태를 한곳에서 관리하는 폼 컨테이너.",
       "tags": [
@@ -7255,7 +7585,7 @@
       "title": "AuthLayout",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "로그인·가입 페이지 레이아웃 템플릿.",
       "tags": [
@@ -7277,7 +7607,7 @@
       "title": "SettingsLayout",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "설정 페이지 레이아웃 템플릿 — 좌측 내비.",
       "tags": [
@@ -7299,7 +7629,7 @@
       "title": "PricingPage",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "요금제 페이지 템플릿.",
       "tags": [
@@ -7321,7 +7651,7 @@
       "title": "GanttChart",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "간트 차트 — 기간 막대 타임라인.",
       "tags": [
@@ -7343,7 +7673,7 @@
       "title": "HeroSection",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "랜딩 히어로 섹션 템플릿.",
       "tags": [
@@ -7365,7 +7695,7 @@
       "title": "FeatureGrid",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "기능 소개 그리드 섹션.",
       "tags": [
@@ -7387,7 +7717,7 @@
       "title": "FAQ",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "자주 묻는 질문 아코디언 섹션.",
       "tags": [
@@ -7409,7 +7739,7 @@
       "title": "BlogPost",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "블로그 글 본문 레이아웃 템플릿.",
       "tags": [
@@ -7431,7 +7761,7 @@
       "title": "BookReader",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "전자책 리더 화면 — 페이지 이동·설정.",
       "tags": [
@@ -7453,7 +7783,7 @@
       "title": "SocialFeed",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "소셜 피드 리스트 템플릿.",
       "tags": [
@@ -7475,7 +7805,7 @@
       "title": "PhotoAlbum",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "사진 앨범 페이지 템플릿.",
       "tags": [
@@ -7497,7 +7827,7 @@
       "title": "ChatThread",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "채팅 대화 스레드 화면.",
       "tags": [
@@ -7519,7 +7849,7 @@
       "title": "CalendarMonth",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "월 단위 캘린더 뷰.",
       "tags": [
@@ -7541,7 +7871,7 @@
       "title": "EmailInbox",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "이메일 수신함 화면 — 리스트·읽기 패널.",
       "tags": [
@@ -7563,7 +7893,7 @@
       "title": "ForumThread",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "포럼 글타래 화면.",
       "tags": [
@@ -7585,7 +7915,7 @@
       "title": "OnboardingTour",
       "category": "patterns",
       "tier": "T2",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "온보딩 투어 — Tour 변형.",
       "tags": [
@@ -7607,7 +7937,7 @@
       "title": "AlertButton",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "종목 알림 설정 버튼.",
       "tags": [
@@ -7629,7 +7959,7 @@
       "title": "AlertHeaderButton",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "헤더용 알림 목록 버튼.",
       "tags": [
@@ -7651,7 +7981,7 @@
       "title": "AlertManager",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "가격 알림 규칙 관리 패널.",
       "tags": [
@@ -7673,7 +8003,7 @@
       "title": "AlertSheet",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "알림 설정 바텀시트.",
       "tags": [
@@ -7695,7 +8025,7 @@
       "title": "AppHeader",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "금융 앱 상단 헤더 — 검색·내비게이션.",
       "tags": [
@@ -7717,7 +8047,7 @@
       "title": "AppIcon",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "금융 앱 아이콘 세트 렌더러(lucide 매핑).",
       "tags": [
@@ -7738,7 +8068,7 @@
       "title": "AreaChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "단일 시리즈 영역 차트 — 기준선·툴팁.",
       "tags": [
@@ -7760,7 +8090,7 @@
       "title": "BmSwitch",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "금융 테마 스위치 토글 — sm·md·lg.",
       "tags": [
@@ -7782,7 +8112,7 @@
       "title": "BottomNav",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "모바일 하단 탭 내비게이션.",
       "tags": [
@@ -7804,7 +8134,7 @@
       "title": "CandleChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "캔들(봉) 차트 — 마커 라인 지원.",
       "tags": [
@@ -7826,7 +8156,7 @@
       "title": "ChartRangePicker",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "차트 기간(1D·1W…) 선택기.",
       "tags": [
@@ -7848,7 +8178,7 @@
       "title": "CommandPaletteHost",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "금융 앱 커맨드 팔레트 호스트 — 항목 프로바이더 등록.",
       "tags": [
@@ -7870,7 +8200,7 @@
       "title": "ConsensusScreener",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "애널리스트 컨센서스 스크리너 — 필터 칩.",
       "tags": [
@@ -7892,7 +8222,7 @@
       "title": "BacktestRunner",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "전략 백테스트 실행·결과 패널.",
       "tags": [
@@ -7914,7 +8244,7 @@
       "title": "DisclosureToneBadge",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "공시 톤(호재·악재) 배지.",
       "tags": [
@@ -7936,7 +8266,7 @@
       "title": "PortfolioCouncil",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "보유 종목 종합 평가(카운슬) 패널.",
       "tags": [
@@ -7958,7 +8288,7 @@
       "title": "ThemeNewsSummary",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "테마 뉴스 요약 패널 — 검색어 기반.",
       "tags": [
@@ -7980,7 +8310,7 @@
       "title": "TradeJournal",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "매매 일지 기록·목록 패널.",
       "tags": [
@@ -8002,7 +8332,7 @@
       "title": "DailyThemesCalendar",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "일별 주도 테마 캘린더.",
       "tags": [
@@ -8024,7 +8354,7 @@
       "title": "DayDetailDrawer",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "특정 일자 상세 드로어.",
       "tags": [
@@ -8046,7 +8376,7 @@
       "title": "DisclosuresClient",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "공시 목록 클라이언트 뷰.",
       "tags": [
@@ -8068,7 +8398,7 @@
       "title": "DonutChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "도넛 차트 — 비중 표시.",
       "tags": [
@@ -8090,7 +8420,7 @@
       "title": "FXBoard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "환율 보드 — 주요 통화쌍.",
       "tags": [
@@ -8112,7 +8442,7 @@
       "title": "FZoneCard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "매수 구간(F존) 카드 — 레벨별 밴드 표시.",
       "tags": [
@@ -8134,7 +8464,7 @@
       "title": "FZoneHelpModal",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "F존 설명 모달 — 탭 구성.",
       "tags": [
@@ -8156,7 +8486,7 @@
       "title": "HoldingFormModal",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "보유 종목 입력·수정 모달.",
       "tags": [
@@ -8178,7 +8508,7 @@
       "title": "InvestorCouncil",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "종목별 투자자 동향 평가 패널.",
       "tags": [
@@ -8200,7 +8530,7 @@
       "title": "InvestorFlowChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "투자자별 순매수 흐름 차트.",
       "tags": [
@@ -8222,7 +8552,7 @@
       "title": "InvestorRanking",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "투자자 수급 순위 리스트.",
       "tags": [
@@ -8244,7 +8574,7 @@
       "title": "KeyValueGridClient",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "키·값 그리드 클라이언트 래퍼.",
       "tags": [
@@ -8266,7 +8596,7 @@
       "title": "LiveInvestorBoard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 투자자 수급 보드.",
       "tags": [
@@ -8288,8 +8618,8 @@
       "title": "LivePctBadge",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "실시간 등락률 배지.",
       "tags": [
         "finance",
@@ -8310,7 +8640,7 @@
       "title": "LivePrice",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 가격 표시 — 틱 구독.",
       "tags": [
@@ -8332,8 +8662,8 @@
       "title": "LiveStatusDot",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "실시간 연결 상태 점.",
       "tags": [
         "finance",
@@ -8354,8 +8684,8 @@
       "title": "LivePriceText",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "실시간 가격 텍스트 셀.",
       "tags": [
         "finance",
@@ -8376,8 +8706,8 @@
       "title": "LivePctText",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "실시간 등락률 텍스트 셀.",
       "tags": [
         "finance",
@@ -8398,8 +8728,8 @@
       "title": "LiveStackedCell",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "가격+등락률 겹침 실시간 셀.",
       "tags": [
         "finance",
@@ -8420,7 +8750,7 @@
       "title": "GlobalKisSeeder",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "앱 부팅 시 KIS 시세 캐시를 채우는 전역 시더.",
       "tags": [
@@ -8442,7 +8772,7 @@
       "title": "LiveIndexCard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 지수 카드.",
       "tags": [
@@ -8464,7 +8794,7 @@
       "title": "LiveMarketStats",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 시장 통계 요약.",
       "tags": [
@@ -8486,7 +8816,7 @@
       "title": "LiveSectorStrength",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 섹터 강도 보드.",
       "tags": [
@@ -8508,7 +8838,7 @@
       "title": "LiveInvestorFlowCards",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 투자자 수급 카드 묶음.",
       "tags": [
@@ -8530,8 +8860,8 @@
       "title": "LiveMicroKpiRow",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "보조 KPI 4종 행 — 환율·수급·유가.",
       "tags": [
         "finance",
@@ -8552,7 +8882,7 @@
       "title": "LiveOrderBook",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 호가창.",
       "tags": [
@@ -8574,7 +8904,7 @@
       "title": "LiveStockHeroChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "종목 상세 히어로 실시간 차트.",
       "tags": [
@@ -8596,7 +8926,7 @@
       "title": "LiveStockTable",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 종목 테이블.",
       "tags": [
@@ -8618,7 +8948,7 @@
       "title": "LiveTicker",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 티커 스트립.",
       "tags": [
@@ -8640,7 +8970,7 @@
       "title": "LiveTopMovers",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 급등락 상위 종목.",
       "tags": [
@@ -8662,7 +8992,7 @@
       "title": "Logo",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "서비스 로고타입 — 크기·부제 옵션.",
       "tags": [
@@ -8684,7 +9014,7 @@
       "title": "MarketAlertBanner",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "시장 경보 배너.",
       "tags": [
@@ -8706,7 +9036,7 @@
       "title": "MarketHeaderBadge",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "코스피 실시간 지수 배지 — 장중 5초 갱신.",
       "tags": [
@@ -8728,7 +9058,7 @@
       "title": "MarketHeatmap",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "시장 히트맵 — 섹터·종목 등락 타일.",
       "tags": [
@@ -8750,7 +9080,7 @@
       "title": "MarketIndexChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "시장 지수 차트.",
       "tags": [
@@ -8772,7 +9102,7 @@
       "title": "ClosePicksCard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "장 마감 픽 카드 — 종가 신호 종목.",
       "tags": [
@@ -8794,7 +9124,7 @@
       "title": "LimitHitsCard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "상한가 도달 종목 카드 — 시간대별.",
       "tags": [
@@ -8816,7 +9146,7 @@
       "title": "OpenPicksCard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "장 시작 픽 카드 — 시가 신호 종목.",
       "tags": [
@@ -8838,7 +9168,7 @@
       "title": "MiniCandle",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "시드 기반 미니 캔들 스파크 — 셀 장식용.",
       "tags": [
@@ -8860,7 +9190,7 @@
       "title": "MultiLineChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "다중 선 차트 — 시리즈 비교.",
       "tags": [
@@ -8882,7 +9212,7 @@
       "title": "MyPositionPanel",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "내 보유 포지션 패널 — 종목 기준.",
       "tags": [
@@ -8904,7 +9234,7 @@
       "title": "NewsList",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "종목·테마 뉴스 리스트.",
       "tags": [
@@ -8926,7 +9256,7 @@
       "title": "PageEmptyState",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "금융 페이지 빈 상태 블록.",
       "tags": [
@@ -8948,7 +9278,7 @@
       "title": "PageShell",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "금융 페이지 공통 셸 레이아웃.",
       "tags": [
@@ -8970,7 +9300,7 @@
       "title": "PortfolioDayDetailModal",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "포트폴리오 일자별 상세 모달.",
       "tags": [
@@ -8992,7 +9322,7 @@
       "title": "PortfolioHeatmap",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "포트폴리오 히트맵 — 보유 비중·손익.",
       "tags": [
@@ -9014,8 +9344,8 @@
       "title": "PositionBar",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "저가·고가 대비 현재가 위치 막대.",
       "tags": [
         "finance",
@@ -9036,8 +9366,8 @@
       "title": "HotPctChip",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "급등률 강조 칩.",
       "tags": [
         "finance",
@@ -9058,8 +9388,8 @@
       "title": "PriceBadge",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
-      "ios": "todo",
+      "web": "done",
+      "ios": "done",
       "oneLiner": "가격·등락 배지.",
       "tags": [
         "finance",
@@ -9080,7 +9410,7 @@
       "title": "QuarterBarChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "분기 실적 쌍 막대 차트 — 지표 2종 비교.",
       "tags": [
@@ -9102,7 +9432,7 @@
       "title": "RealCandleChart",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실데이터 캔들 차트 — KIS 시세 연동.",
       "tags": [
@@ -9124,7 +9454,7 @@
       "title": "RealQuoteHeader",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "실시간 호가 헤더 — 현재가·등락.",
       "tags": [
@@ -9146,7 +9476,7 @@
       "title": "RecentVisitTracker",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "최근 방문 종목 기록 트래커(렌더 없음).",
       "tags": [
@@ -9168,7 +9498,7 @@
       "title": "RecentlyViewed",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "최근 본 종목 리스트.",
       "tags": [
@@ -9190,7 +9520,7 @@
       "title": "SearchBox",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "종목 검색 박스 — 자동완성.",
       "tags": [
@@ -9212,7 +9542,7 @@
       "title": "SegmentedPill",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "필 모양 세그먼트 선택기.",
       "tags": [
@@ -9234,7 +9564,7 @@
       "title": "Sidebar",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "금융 앱 사이드바 내비게이션.",
       "tags": [
@@ -9256,7 +9586,7 @@
       "title": "Sparkline",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "스파크라인 미니 추세선.",
       "tags": [
@@ -9278,7 +9608,7 @@
       "title": "StarButton",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "관심종목 별 토글 버튼.",
       "tags": [
@@ -9300,7 +9630,7 @@
       "title": "StockTopBar",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "종목 상세 상단 바.",
       "tags": [
@@ -9322,7 +9652,7 @@
       "title": "StrategyPanel",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "종목 전략 패널 — 구간·신호.",
       "tags": [
@@ -9344,7 +9674,7 @@
       "title": "ThemeCard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "테마 카드 — 등락·구성 종목.",
       "tags": [
@@ -9366,7 +9696,7 @@
       "title": "ThemePillCard",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "테마 필 카드 — 이름·거래대금.",
       "tags": [
@@ -9388,7 +9718,7 @@
       "title": "ThemeDrillDown",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "테마 상세 드릴다운 뷰.",
       "tags": [
@@ -9410,7 +9740,7 @@
       "title": "ThemeTagList",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "테마 태그 리스트.",
       "tags": [
@@ -9432,7 +9762,7 @@
       "title": "ThemeToggle",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "라이트·다크 테마 토글.",
       "tags": [
@@ -9454,7 +9784,7 @@
       "title": "TopBar",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "금융 앱 상단 바.",
       "tags": [
@@ -9476,7 +9806,7 @@
       "title": "WatchlistWidget",
       "category": "finance",
       "tier": "T3",
-      "web": "todo",
+      "web": "done",
       "ios": "todo",
       "oneLiner": "관심종목 위젯 — 실시간 시세.",
       "tags": [

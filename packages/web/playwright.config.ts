@@ -11,6 +11,9 @@
  */
 import { defineConfig } from "@playwright/test";
 
+const chromiumChannel =
+  process.env.JUNDS_SYSTEM_CHROME === "1" ? { channel: "chrome" as const } : {};
+
 export default defineConfig({
   testDir: "./e2e",
   timeout: 15_000,
@@ -20,8 +23,8 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
-    // 시스템 Chrome 채널 — ms-playwright 캐시 빌드/패키지 버전 불일치와 무관하게 동작
-    // (레포 검증 관례: 시스템 Chrome). webkit(Safari 등가)은 CI 매트릭스 과제.
-    { name: "chromium", use: { browserName: "chromium", channel: "chrome" } },
+    { name: "chromium", use: { browserName: "chromium", ...chromiumChannel } },
+    { name: "firefox", use: { browserName: "firefox" } },
+    { name: "webkit", use: { browserName: "webkit" } },
   ],
 });

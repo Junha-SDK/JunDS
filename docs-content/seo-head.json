@@ -1,0 +1,33 @@
+{
+  "id": "seo-head",
+  "ledgerId": "SeoHead",
+  "category": "composites",
+  "title": "SeoHead",
+  "oneLiner": "페이지 SEO 메타태그를 선언적으로 지정 — 아무것도 렌더하지 않는다. 기본값은 SeoProvider 가 준다.",
+  "tags": [
+    "seo",
+    "meta",
+    "헤드"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { SeoHead } from \"@/ds/composites/SeoHead\";\nimport { SeoProvider } from \"@/ds/providers\";",
+      "code": "// 앱 루트에서 한 번\n<SeoProvider defaults={{\n  title: \"junome\",\n  titleTemplate: \"%s | junome\",\n  description: \"개발 블로그 & 포트폴리오\",\n  siteUrl: \"https://www.junome.info\",\n}}>\n  <App />\n</SeoProvider>\n\n// 각 페이지에서\n<SeoHead title={post.title} description={post.summary} ogType=\"article\" canonical={`/blog/${post.slug}`} />"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "렌더 없음",
+      "note": "DOM 을 만들지 않고 document.head 만 갱신 — 시각·낭독 표면이 없다"
+    },
+    {
+      "item": "문서 제목",
+      "note": "라우트마다 document.title 을 갱신해 스크린리더의 페이지 전환 안내가 정확해진다"
+    }
+  ]
+}

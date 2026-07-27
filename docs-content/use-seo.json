@@ -1,0 +1,33 @@
+{
+  "id": "use-seo",
+  "ledgerId": "useSeo",
+  "category": "hooks",
+  "title": "useSeo",
+  "oneLiner": "SPA 라우팅에서 페이지별 head 메타(title·OG·트위터·canonical·favicon)를 갱신한다.",
+  "tags": [
+    "hook",
+    "seo",
+    "meta"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { useSeo } from \"@/ds/hooks\";",
+      "code": "useSeo({\n  title: post.title,\n  description: post.summary,\n  ogImage: post.cover,\n  ogType: \"article\",\n  canonical: `/blog/${post.slug}`,\n});"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "문서 제목",
+      "note": "라우트 전환마다 document.title 이 바뀌어 스크린리더의 페이지 안내가 정확해진다"
+    },
+    {
+      "item": "되돌리기",
+      "note": "언마운트 시 SeoProvider 기본값으로 복원 — 이전 페이지 메타가 다음 페이지에 남지 않는다"
+    }
+  ]
+}

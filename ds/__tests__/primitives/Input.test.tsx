@@ -28,4 +28,23 @@ describe("Input", () => {
     rerender(<Input size="lg" placeholder="lg" />);
     expect(screen.getByPlaceholderText("lg")).toBeDefined();
   });
+
+  it("exposes the error state to assistive technology", () => {
+    render(<Input error aria-label="이메일" />);
+    expect(screen.getByLabelText("이메일")).toHaveAttribute("aria-invalid", "true");
+  });
+
+  it("keeps input and wrapper customization separate when using slots", () => {
+    const { container } = render(
+      <Input
+        aria-label="검색"
+        leftSlot={<svg data-testid="search-icon" />}
+        className="text-right"
+        wrapperClassName="max-w-sm"
+      />,
+    );
+    expect(container.firstChild).toHaveClass("max-w-sm");
+    expect(screen.getByLabelText("검색")).toHaveClass("text-right");
+    expect(screen.getByTestId("search-icon").parentElement).toHaveAttribute("data-slot", "left");
+  });
 });

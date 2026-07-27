@@ -112,10 +112,12 @@ export function StarRating({
               }
             }}
             className={cn(
-              "inline-flex items-center justify-center transition-colors duration-150",
+              "inline-flex items-center justify-center transition-all duration-150",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:rounded-sm",
-              filled ? "text-yellow-400" : "text-gray-300",
-              !readonly && "hover:scale-110 transition-transform",
+              filled
+                ? "text-amber-400 drop-shadow-[0_1px_1.5px_rgba(217,119,6,0.35)]"
+                : "text-gray-300",
+              !readonly && "hover:scale-110 active:scale-95",
             )}
           >
             <StarIcon filled={filled} className={sizeMap[size]} />

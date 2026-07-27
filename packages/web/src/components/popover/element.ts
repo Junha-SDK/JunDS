@@ -21,6 +21,10 @@
  * 이벤트 시점에 측정한다.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  syncAriaIdRefs,
+  syncOwnedAttribute,
+} from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createClickOutside, on } from "../../behaviors/input.js";
@@ -69,6 +73,7 @@ export class JdPopover extends JdElement {
 
   #trigger: HTMLElement | null = null;
   #panel: HTMLElement | null = null;
+  #ariaControl: HTMLElement | null = null;
   #wasOpen = false;
   #live = false;
   #offs: Array<() => void> = [];
@@ -158,6 +163,7 @@ export class JdPopover extends JdElement {
       on(host, "focusin", this.#onFocusIn as (e: never) => void),
       on(host, "focusout", this.#onFocusOut as (e: never) => void),
     );
+    if (this.#panel) this.#syncTriggerAria(this.#panel);
     // 재연결 복원 — render는 1회뿐이라 전이 부수효과를 여기서 되살린다(Modal 선례)
     if (this.open && !this.#wasOpen) this.#applyOpenChange(true);
   }
@@ -167,6 +173,7 @@ export class JdPopover extends JdElement {
     this.#offs = [];
     this.#timer?.destroy();
     this.#timer = null;
+    this.#clearTriggerAria();
     if (this.#wasOpen) this.#applyOpenChange(false, true);
     this.#live = false;
   }
@@ -175,8 +182,7 @@ export class JdPopover extends JdElement {
     const panel = this.#panel;
     if (!panel) return;
     this.#syncContent(panel);
-    if (this.label) panel.setAttribute("aria-label", this.label);
-    else panel.removeAttribute("aria-label");
+    syncOwnedAttribute(panel, "aria-label", this.label || null);
     panel.hidden = !this.open;
     this.#syncTriggerAria(panel);
     if (this.open !== this.#wasOpen) this.#applyOpenChange(this.open);
@@ -199,6 +205,10 @@ export class JdPopover extends JdElement {
 
   #syncTriggerAria(panel: HTMLElement): void {
     const control = this.control;
+    if (this.#ariaControl && this.#ariaControl !== control) {
+      this.#clearTriggerAria();
+    }
+    this.#ariaControl = control;
     if (control === this.#trigger && this.promoteTrigger) {
       // 포커스 가능한 자식이 없는 트리거 — 키보드 사용자에게 도달 경로를 준다
       if (!control.hasAttribute("tabindex")) control.tabIndex = 0;
@@ -208,15 +218,31 @@ export class JdPopover extends JdElement {
     }
     const popup = this.ariaPopupType;
     if (popup) {
-      control.setAttribute("aria-haspopup", popup);
-      control.setAttribute("aria-expanded", String(this.open));
-      control.setAttribute("aria-controls", panel.id);
-      control.removeAttribute("aria-describedby");
+      syncOwnedAttribute(control, "aria-haspopup", popup);
+      syncOwnedAttribute(control, "aria-expanded", String(this.open));
+      syncAriaIdRefs(control, "aria-controls", panel.id);
+      syncAriaIdRefs(control, "aria-describedby", null);
     } else {
+      syncOwnedAttribute(control, "aria-haspopup", null);
+      syncOwnedAttribute(control, "aria-expanded", null);
+      syncAriaIdRefs(control, "aria-controls", null);
       // Tooltip 계열: 열려 있을 때만 서술 관계를 맺는다(hidden 요소 참조 금지)
-      if (this.open) control.setAttribute("aria-describedby", panel.id);
-      else control.removeAttribute("aria-describedby");
+      syncAriaIdRefs(
+        control,
+        "aria-describedby",
+        this.open ? panel.id : null,
+      );
     }
+  }
+
+  #clearTriggerAria(): void {
+    const control = this.#ariaControl;
+    if (!control) return;
+    syncOwnedAttribute(control, "aria-haspopup", null);
+    syncOwnedAttribute(control, "aria-expanded", null);
+    syncAriaIdRefs(control, "aria-controls", null);
+    syncAriaIdRefs(control, "aria-describedby", null);
+    this.#ariaControl = null;
   }
 
   /** 실효 트리거 — 래퍼 안의 진짜 포커스 가능 요소가 있으면 그것 */

@@ -2,21 +2,22 @@
  * JdElement 단위 테스트 (03-web-arch §1·§9) — 반영 규칙, 배칭, 수명주기, 이벤트.
  */
 import { describe, expect, test, vi } from "vitest";
-import { JdElement } from "../src/core/element.js";
+import { defineProps, JdElement } from "../src/core/element.js";
 import { defineElement } from "../src/core/define.js";
 
-const tick = () => new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
+const tick = () =>
+  new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
 
 class TestEl extends JdElement {
   static tag = "jd-test";
-  static props = {
+  static props = defineProps({
     variant: { type: String, default: "primary", reflect: true },
     size: { type: String, default: "md" },
     count: { type: Number, default: 3 },
     loading: { type: Boolean, reflect: true },
     fullWidth: { type: Boolean },
     data: { type: String, attribute: false },
-  };
+  });
 
   declare variant: string;
   declare size: string;
@@ -65,7 +66,9 @@ describe("attribute ↔ property 반영 (§1.3)", () => {
   });
 
   test("업그레이드 시점 attribute가 초기값 — kebab→camel 자동 변환", () => {
-    const el = mount(`<jd-test variant="danger" count="7" full-width></jd-test>`);
+    const el = mount(
+      `<jd-test variant="danger" count="7" full-width></jd-test>`,
+    );
     expect(el.variant).toBe("danger");
     expect(el.count).toBe(7);
     expect(el.fullWidth).toBe(true);
@@ -100,7 +103,13 @@ describe("attribute ↔ property 반영 (§1.3)", () => {
   });
 
   test("attribute: false는 observedAttributes에서 제외 (property 전용)", () => {
-    expect(TestEl.observedAttributes).toEqual(["variant", "size", "count", "loading", "full-width"]);
+    expect(TestEl.observedAttributes).toEqual([
+      "variant",
+      "size",
+      "count",
+      "loading",
+      "full-width",
+    ]);
   });
 
   test("마지막 쓰기 승리 — property 후 attribute 변경도 반영", () => {
@@ -115,7 +124,12 @@ describe("attribute ↔ property 반영 (§1.3)", () => {
     // (실브라우저 경로는 Playwright 층 몫 — 03-web-arch §9.1), 접근자를 가리는
     // own property를 직접 만들어 최초 connectedCallback의 회수 경로만 검증한다.
     const el = document.createElement("jd-test") as TestEl;
-    Object.defineProperty(el, "count", { value: 42, writable: true, configurable: true, enumerable: true });
+    Object.defineProperty(el, "count", {
+      value: 42,
+      writable: true,
+      configurable: true,
+      enumerable: true,
+    });
     expect(Object.prototype.hasOwnProperty.call(el, "count")).toBe(true);
     document.body.append(el);
     await tick(); // 지연 render 후 upgradeProps 수행
@@ -125,6 +139,29 @@ describe("attribute ↔ property 반영 (§1.3)", () => {
 });
 
 describe("라이프사이클 (§1.4)", () => {
+  test("updateComplete는 최초 render와 현재 배칭 update 완료를 기다린다", async () => {
+    const el = mount(`<jd-test></jd-test>`);
+    await el.updateComplete;
+    expect(el.renderCount).toBe(1);
+
+    const before = el.updateCount;
+    el.size = "lg";
+    el.count = 8;
+    await el.updateComplete;
+    expect(el.updateCount).toBe(before + 1);
+  });
+
+  test("같은 값을 다시 대입하면 불필요한 update를 예약하지 않는다", async () => {
+    const el = mount(`<jd-test></jd-test>`);
+    await el.updateComplete;
+    el.size = "lg";
+    await el.updateComplete;
+    const before = el.updateCount;
+    el.size = "lg";
+    await tick();
+    expect(el.updateCount).toBe(before);
+  });
+
   test("render()는 최초 연결 1회 — 재연결 시 connected()만", async () => {
     const el = mount(`<jd-test></jd-test>`);
     await tick(); // 최초 render는 지연 실행(스트리밍 파서 안전 — DECISIONS G1 항목)
@@ -166,7 +203,9 @@ describe("이벤트 규약 (§1.5)", () => {
     const el = mount(`<div id="wrap"><jd-test></jd-test></div>`)!;
     const target = document.querySelector<TestEl>("jd-test")!;
     let seen: CustomEvent | undefined;
-    document.getElementById("wrap")!.addEventListener("jd-change", (e) => (seen = e as CustomEvent));
+    document
+      .getElementById("wrap")!
+      .addEventListener("jd-change", (e) => (seen = e as CustomEvent));
     const notCanceled = target.fire("jd-change", { value: 1 });
     expect(seen).toBeTruthy();
     expect(seen!.detail).toEqual({ value: 1 });
@@ -179,7 +218,9 @@ describe("이벤트 규약 (§1.5)", () => {
   test("요청형만 cancelable — preventDefault 시 emit이 false 반환", () => {
     const el = mount(`<jd-test></jd-test>`);
     el.addEventListener("jd-request-close", (e) => e.preventDefault());
-    expect(el.fire("jd-request-close", undefined, { cancelable: true })).toBe(false);
+    expect(el.fire("jd-request-close", undefined, { cancelable: true })).toBe(
+      false,
+    );
   });
 });
 

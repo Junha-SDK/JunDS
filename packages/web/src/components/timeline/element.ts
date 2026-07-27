@@ -18,6 +18,11 @@
  * lineStyle(solid|dashed) 분기는 호스트 속성 셀렉터가 담당한다(§4.3) — JS 분기 없음.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  isContentEmpty,
+  setContent,
+  type JdContent,
+} from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import timelineStyles from "./timeline.css.js";
 
@@ -27,36 +32,26 @@ export interface JdTimelineItem {
   /** 타임라인 안에서 유일해야 한다 — data-key로 노출된다 */
   key: string;
   title: string;
-  /** 본문. 문자열 또는 DOM 노드(v2 ReactNode 자리) */
-  description?: string | Node;
+  /** 본문. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  description?: JdContent;
   /** 표시용 시각 텍스트 */
   time?: string;
   /** `<time datetime>` 기계 판독 값 (ISO 8601). 없으면 datetime을 붙이지 않는다 */
   dateTime?: string;
-  /** 아이콘. "<svg…>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드. 주면 점 대신 원형 배지 */
-  icon?: string | Node;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()` 값. 주면 점 대신 원형 배지 */
+  icon?: JdContent;
   color?: JdTimelineColor;
 }
 
 const COLORS: readonly JdTimelineColor[] = ["primary", "success", "warning", "danger", "neutral"];
 
-function fillIcon(slot: HTMLElement, icon: string | Node | undefined): void {
-  slot.textContent = "";
-  if (icon === undefined || icon === null || icon === "") return;
-  if (typeof icon === "string") {
-    if (icon.trimStart().startsWith("<")) slot.innerHTML = icon;
-    else slot.textContent = icon;
-  } else {
-    slot.append(icon);
-  }
+function fillIcon(slot: HTMLElement, icon: JdContent | undefined): void {
+  setContent(slot, icon);
 }
 
-function fillBody(slot: HTMLElement, value: string | Node | undefined): boolean {
-  slot.textContent = "";
-  if (value === undefined || value === null || value === "") return false;
-  if (typeof value === "string") slot.textContent = value;
-  else slot.append(value);
-  return true;
+function fillBody(slot: HTMLElement, value: JdContent | undefined): boolean {
+  setContent(slot, value);
+  return !isContentEmpty(value);
 }
 
 export class JdTimeline extends JdElement {

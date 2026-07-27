@@ -73,15 +73,31 @@ export function MultiSelect({
 
   return (
     <div ref={ref} className={cn("relative w-full", className)}>
-      <button
-        type="button"
-        disabled={disabled}
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-disabled={disabled || undefined}
         onClick={() => !disabled && setOpen(!open)}
+        onKeyDown={(e) => {
+          if (disabled) return;
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen((o) => !o);
+          } else if (e.key === "Escape") {
+            setOpen(false);
+          }
+        }}
         className={cn(
-          "flex items-center gap-1 flex-wrap min-h-[36px] w-full border bg-white px-2 py-1 rounded-lg transition-all duration-150",
-          "focus:outline-none cursor-pointer",
-          "disabled:opacity-50 disabled:cursor-not-allowed",
-          error ? "border-danger" : open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
+          "flex items-center gap-1 flex-wrap min-h-[38px] w-full border bg-white px-2 py-1 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out",
+          "focus:outline-none focus-visible:border-primary focus-visible:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer",
+          disabled && "opacity-50 cursor-not-allowed",
+          error
+            ? "border-danger"
+            : open
+              ? "border-primary shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]"
+              : "border-border hover:border-gray-300",
         )}
       >
         {selectedLabels.length === 0 && (
@@ -106,10 +122,10 @@ export function MultiSelect({
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
-      </button>
+      </div>
 
       {open && (
-        <div className="absolute z-50 mt-1 w-full bg-white border border-border rounded-lg shadow-lg max-h-60 overflow-auto py-1 animate-fade-in-scale">
+        <div className="absolute z-50 mt-1 w-full bg-white border border-border rounded-xl shadow-xl max-h-60 overflow-auto py-1 animate-fade-in-scale">
           {searchable && (
             <div className="px-2 py-1.5 sticky top-0 bg-white border-b border-border-light">
               <input
@@ -132,8 +148,8 @@ export function MultiSelect({
               <label
                 key={opt.value}
                 className={cn(
-                  "flex items-center gap-2 px-3 py-1.5 text-sm cursor-pointer hover:bg-gray-50 transition-colors",
-                  checked && "bg-primary-light/50",
+                  "flex items-center gap-2 mx-1 px-2 py-1.5 rounded-lg text-sm cursor-pointer transition-colors",
+                  checked ? "bg-primary/10 text-primary font-medium" : "hover:bg-gray-50",
                 )}
               >
                 <input

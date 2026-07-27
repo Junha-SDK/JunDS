@@ -15,14 +15,14 @@ export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const colorStyles: Record<TagColor, string> = {
-  gray: "bg-gray-100 text-gray-700",
-  primary: "bg-primary-light text-primary",
-  blue: "bg-blue-50 text-blue-700",
-  green: "bg-emerald-50 text-emerald-700",
-  red: "bg-red-50 text-red-700",
-  orange: "bg-orange-50 text-orange-700",
-  purple: "bg-purple-50 text-purple-700",
-  teal: "bg-teal-50 text-teal-700",
+  gray: "bg-gray-100 text-gray-700 shadow-[0_0_0_1px_inset_rgba(0,0,0,0.05)]",
+  primary: "bg-primary-light text-primary shadow-[0_0_0_1px_inset] shadow-primary/15",
+  blue: "bg-blue-50 text-blue-700 shadow-[0_0_0_1px_inset] shadow-blue-600/15",
+  green: "bg-emerald-50 text-emerald-700 shadow-[0_0_0_1px_inset] shadow-emerald-600/15",
+  red: "bg-red-50 text-red-700 shadow-[0_0_0_1px_inset] shadow-red-600/15",
+  orange: "bg-orange-50 text-orange-700 shadow-[0_0_0_1px_inset] shadow-orange-600/15",
+  purple: "bg-purple-50 text-purple-700 shadow-[0_0_0_1px_inset] shadow-purple-600/15",
+  teal: "bg-teal-50 text-teal-700 shadow-[0_0_0_1px_inset] shadow-teal-600/15",
 };
 
 /**
@@ -53,7 +53,7 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag({ color = 
             e.stopPropagation();
             onClose?.();
           }}
-          className="ml-0.5 hover:opacity-70 transition-opacity cursor-pointer"
+          className="ml-0.5 -mr-0.5 rounded-full p-0.5 hover:bg-black/10 active:bg-black/15 transition-colors cursor-pointer"
           aria-label="삭제"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">

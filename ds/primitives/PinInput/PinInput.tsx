@@ -128,11 +128,15 @@ export function PinInput({
           onPaste={handlePaste}
           onFocus={(e) => e.target.select()}
           className={cn(
-            "w-10 h-12 text-center text-lg font-bold border rounded-lg bg-white",
-            "transition-all duration-150 outline-none",
-            "focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
+            "w-10 h-12 text-center text-lg font-bold border rounded-xl bg-white",
+            "shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out outline-none",
+            "focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)] focus:scale-105 focus:-translate-y-0.5",
             "disabled:opacity-50 disabled:cursor-not-allowed",
-            error ? "border-danger shake" : values[i] ? "border-primary/40" : "border-border",
+            error
+              ? "border-danger shake"
+              : values[i]
+                ? "border-primary/50 bg-primary-light/20 shadow-[0_1px_3px_var(--primary-glow)]"
+                : "border-border hover:border-gray-300",
           )}
         />
       ))}

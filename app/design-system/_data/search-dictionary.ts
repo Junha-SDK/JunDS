@@ -276,6 +276,13 @@ export const sections: NavSection[] = [
       { href: "/design-system/composites/poll-card", label: "PollCard" },
       { href: "/design-system/composites/brand-switcher", label: "BrandSwitcher" },
       { href: "/design-system/composites/search-bar", label: "SearchBar" },
+      { href: "/design-system/composites/seo-head", label: "SeoHead" },
+      { href: "/design-system/composites/waveform", label: "Waveform" },
+      { href: "/design-system/composites/album-art", label: "AlbumArt" },
+      { href: "/design-system/composites/now-playing-bar", label: "NowPlayingBar" },
+      { href: "/design-system/composites/doc-pager", label: "DocPager" },
+      { href: "/design-system/composites/project-card", label: "ProjectCard" },
+      { href: "/design-system/composites/screenshot-grid", label: "ScreenshotGrid" },
     ],
   },
   {

@@ -7,13 +7,17 @@
  * - v2 대비 접근성 가산: v2는 `htmlFor`를 **사람이 손으로** 맞춰야 했고 에러·힌트는
  *   어떤 컨트롤과도 연결되지 않았다. v3는 첫 폼 컨트롤 자손을 찾아
  *   label[for] · aria-describedby · aria-invalid를 자동 배선한다(§8 light DOM id 참조).
- *   이미 다른 값의 aria-describedby가 있으면 **건드리지 않는다** — 자식이
- *   <jd-text-field>처럼 스스로 에러를 소유하는 경우의 충돌 회피.
+ *   소비자가 이미 지정한 aria-describedby에는 JunDS id만 병합하고, 상태가 바뀌면
+ *   JunDS가 추가한 id만 회수한다 — 자식의 자체 설명과 함께 안전하게 조합된다.
  * - 자식이 커스텀 엘리먼트면 그 내부 <input>은 자식의 render(마이크로태스크) 뒤에 생긴다.
  *   connected()에서 마이크로태스크 1회를 더 예약해 늦게 도착한 컨트롤도 배선한다
  *   (타이머·랜덤 없음 — 프리렌더 결정성 유지).
  */
 import { JdElement } from "../../core/element.js";
+import {
+  syncAriaIdRefs,
+  syncOwnedAttribute,
+} from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import formFieldStyles from "./form-field.css.js";
@@ -50,6 +54,7 @@ export class JdFormField extends JdElement {
   #label!: HTMLLabelElement;
   #error!: HTMLParagraphElement;
   #hint!: HTMLParagraphElement;
+  #wiredControl: HTMLElement | null = null;
 
   protected render(): void {
     adoptStyles(formFieldStyles);
@@ -111,28 +116,35 @@ export class JdFormField extends JdElement {
   /** label[for] · aria-describedby · aria-invalid 자동 배선 */
   #wire(): void {
     const control = this.querySelector<HTMLElement>(CONTROL_SELECTOR);
-    if (!control) return;
+    if (this.#wiredControl && this.#wiredControl !== control) {
+      this.#unwire(this.#wiredControl);
+    }
+    this.#wiredControl = control;
+    if (!control) {
+      this.#label.removeAttribute("for");
+      return;
+    }
     if (!control.id) control.id = `${this.#uid}-control`;
     if (this.label) this.#label.htmlFor = this.htmlFor || control.id;
     else this.#label.removeAttribute("for");
 
     const hasError = Boolean(this.error);
-    let describedBy = "";
-    if (hasError) describedBy = this.#error.id;
-    else if (this.hint) describedBy = this.#hint.id;
-    const current = control.getAttribute("aria-describedby");
-    // 우리가 쓴 값(또는 빈 값)일 때만 갱신 — 자식이 스스로 소유한 설명은 보존
-    const ours = !current || current === this.#error.id || current === this.#hint.id;
-    if (ours) {
-      if (describedBy) control.setAttribute("aria-describedby", describedBy);
-      else control.removeAttribute("aria-describedby");
-    }
-    if (hasError) control.setAttribute("aria-invalid", "true");
-    else if (control.getAttribute("aria-invalid") === "true") control.removeAttribute("aria-invalid");
+    const describedBy = hasError
+      ? this.#error.id
+      : this.hint
+        ? this.#hint.id
+        : null;
+    syncAriaIdRefs(control, "aria-describedby", describedBy);
+    syncOwnedAttribute(control, "aria-invalid", hasError ? "true" : null);
     // required는 별표(시각) + aria-required(의미)까지만 — 네이티브 required는
     // 제출을 막으므로 v2 표면(별표만)을 넘어서지 않는다(DEC-022-7 대비 보수 선택).
-    if (this.required) control.setAttribute("aria-required", "true");
-    else control.removeAttribute("aria-required");
+    syncOwnedAttribute(control, "aria-required", this.required ? "true" : null);
+  }
+
+  #unwire(control: HTMLElement): void {
+    syncAriaIdRefs(control, "aria-describedby", null);
+    syncOwnedAttribute(control, "aria-invalid", null);
+    syncOwnedAttribute(control, "aria-required", null);
   }
 
   /** 편의 — 필드의 컨트롤로 포커스 위임 */

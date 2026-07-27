@@ -32,7 +32,11 @@ describe("골격·입양 (DEC-008-(1))", () => {
     expect(host.hasAttribute("variant")).toBe(false);
     expect(host.hasAttribute("size")).toBe(false);
 
-    rerender(<Button variant="danger" size="lg">저장</Button>);
+    rerender(
+      <Button variant="danger" size="lg">
+        저장
+      </Button>,
+    );
     await flushCE();
     expect(host.getAttribute("variant")).toBe("danger");
     expect(host.getAttribute("size")).toBe("lg");
@@ -41,13 +45,19 @@ describe("골격·입양 (DEC-008-(1))", () => {
   test("fullWidth → 호스트 full-width attribute (css 훅)", async () => {
     const { container } = render(<Button fullWidth>저장</Button>);
     await flushCE();
-    expect(container.querySelector("jd-button")!.hasAttribute("full-width")).toBe(true);
+    expect(
+      container.querySelector("jd-button")!.hasAttribute("full-width"),
+    ).toBe(true);
   });
 });
 
 describe("loading — 스피너 합의 규약", () => {
   test("loading이면 스피너·aria-busy·disabled, CE는 어댑터 스피너를 재사용(이중 삽입 없음)", async () => {
-    const { container } = render(<Button variant="danger" loading>삭제 중...</Button>);
+    const { container } = render(
+      <Button variant="danger" loading>
+        삭제 중...
+      </Button>,
+    );
     await flushCE();
     const btn = container.querySelector<HTMLButtonElement>("button.jd-button")!;
     expect(btn.disabled).toBe(true);
@@ -75,14 +85,25 @@ describe("loading — 스피너 합의 규약", () => {
 
   test("loading 중 leftIcon은 스피너로 대체, rightIcon은 숨김 (v2 동일)", async () => {
     const { container, rerender } = render(
-      <Button leftIcon={<i data-testid="l" />} rightIcon={<i data-testid="r" />}>다음</Button>,
+      <Button
+        leftIcon={<i data-testid="l" />}
+        rightIcon={<i data-testid="r" />}
+      >
+        다음
+      </Button>,
     );
     await flushCE();
     expect(screen.getByTestId("l")).toBeInTheDocument();
     expect(screen.getByTestId("r")).toBeInTheDocument();
 
     rerender(
-      <Button loading leftIcon={<i data-testid="l" />} rightIcon={<i data-testid="r" />}>다음</Button>,
+      <Button
+        loading
+        leftIcon={<i data-testid="l" />}
+        rightIcon={<i data-testid="r" />}
+      >
+        다음
+      </Button>,
     );
     await flushCE();
     expect(screen.queryByTestId("l")).toBeNull();
@@ -102,29 +123,39 @@ describe("네이티브 위임 (§1.6-1) — v2 이벤트·폼 의미론", () => 
 
   test("disabled면 클릭 미발행 (네이티브 억제 공짜)", async () => {
     const onClick = vi.fn();
-    render(<Button disabled onClick={onClick}>저장</Button>);
+    render(
+      <Button disabled onClick={onClick}>
+        저장
+      </Button>,
+    );
     await flushCE();
     const btn = screen.getByRole("button") as HTMLButtonElement;
     btn.click(); // 프로그램적 click도 disabled가 억제
     expect(onClick).not.toHaveBeenCalled();
   });
 
-  test("type 기본값은 v2/네이티브와 같은 submit — CE 기본(button)이 되돌리지 않는다", async () => {
+  test("type 기본값은 안전한 button — 폼에서 의도치 않은 제출을 만들지 않는다", async () => {
     const { container } = render(<Button>제출</Button>);
     await flushCE(); // CE update()가 host.type을 내부 button에 다시 쓴 뒤에도
-    expect(container.querySelector<HTMLButtonElement>("button.jd-button")!.type).toBe("submit");
+    expect(
+      container.querySelector<HTMLButtonElement>("button.jd-button")!.type,
+    ).toBe("button");
   });
 
   test("type='button' 명시도 유지된다", async () => {
     const { container } = render(<Button type="button">동작</Button>);
     await flushCE();
-    expect(container.querySelector<HTMLButtonElement>("button.jd-button")!.type).toBe("button");
+    expect(
+      container.querySelector<HTMLButtonElement>("button.jd-button")!.type,
+    ).toBe("button");
   });
 
   test("className·data-*·ref는 v2와 동일하게 내부 <button>에 붙는다", async () => {
     const ref = createRef<HTMLButtonElement>();
     const { container } = render(
-      <Button ref={ref} className="custom" data-track="save">저장</Button>,
+      <Button ref={ref} className="custom" data-track="save">
+        저장
+      </Button>,
     );
     await flushCE();
     const btn = container.querySelector<HTMLButtonElement>("button.jd-button")!;
@@ -135,10 +166,16 @@ describe("네이티브 위임 (§1.6-1) — v2 이벤트·폼 의미론", () => 
 });
 
 describe("asChild — Slot 폴백 (CE 입양 불가 경로)", () => {
-  test("자식 엘리먼트로 위임: jd-button 호스트·내부 button 없이 .jd-button 클래스 병합 + 경고", async () => {
+  test("자식 엘리먼트로 위임하면서 variant/size 스타일 훅과 클래스를 손실 없이 병합한다", async () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const { container } = render(
-      <Button asChild leftIcon={<i data-testid="plus" />}>
+      <Button
+        asChild
+        variant="danger"
+        size="lg"
+        fullWidth
+        leftIcon={<i data-testid="plus" />}
+      >
         <a href="/new">새로 만들기</a>
       </Button>,
     );
@@ -148,9 +185,32 @@ describe("asChild — Slot 폴백 (CE 입양 불가 경로)", () => {
     const a = container.querySelector("a")!;
     expect(a.classList.contains("jd-button")).toBe(true);
     expect(a.getAttribute("href")).toBe("/new");
+    expect(a.dataset["jdVariant"]).toBe("danger");
+    expect(a.dataset["jdSize"]).toBe("lg");
+    expect(a.dataset["jdFullWidth"]).toBe("true");
     expect(a.textContent).toContain("새로 만들기");
     expect(a.querySelector("[data-testid=plus]")).not.toBeNull(); // Slottable 합성 유지
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining("asChild"));
+    expect(warn).not.toHaveBeenCalled();
     warn.mockRestore();
+  });
+
+  test("비-button 자식도 loading/disabled면 접근성 상태·탭 제외·클릭 차단", async () => {
+    const buttonClick = vi.fn();
+    const childClick = vi.fn();
+    const { container } = render(
+      <Button asChild loading onClick={buttonClick}>
+        <a href="/next" tabIndex={0} aria-disabled={false} onClick={childClick}>
+          다음
+        </a>
+      </Button>,
+    );
+    const link = container.querySelector("a")!;
+    expect(link.getAttribute("aria-disabled")).toBe("true");
+    expect(link.getAttribute("aria-busy")).toBe("true");
+    expect(link.tabIndex).toBe(-1);
+    expect(link.dataset["jdLoading"]).toBe("true");
+    fireEvent.click(link);
+    expect(buttonClick).not.toHaveBeenCalled();
+    expect(childClick).not.toHaveBeenCalled();
   });
 });

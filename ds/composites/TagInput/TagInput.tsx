@@ -80,8 +80,8 @@ export const TagInput = forwardRef<HTMLDivElement, TagInputProps>(
     <div
       ref={ref}
       className={cn(
-        "flex flex-wrap items-center border rounded-lg bg-white transition-all duration-150",
-        "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
+        "flex flex-wrap items-center border rounded-xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out cursor-text",
+        "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
         error ? "border-danger" : "border-border",
         disabled && "opacity-50 cursor-not-allowed",
         sizeStyles[size],
@@ -93,7 +93,8 @@ export const TagInput = forwardRef<HTMLDivElement, TagInputProps>(
         <span
           key={`${tag}-${i}`}
           className={cn(
-            "inline-flex items-center gap-1 bg-primary/10 text-primary rounded-md font-medium",
+            "inline-flex items-center gap-1 bg-primary/10 text-primary rounded-lg font-medium shadow-[0_0_0_1px_inset] shadow-primary/15",
+            "animate-fade-in-scale",
             tagSizeStyles[size],
           )}
         >
@@ -102,7 +103,7 @@ export const TagInput = forwardRef<HTMLDivElement, TagInputProps>(
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); removeTag(i); }}
-              className="hover:text-danger transition-colors cursor-pointer"
+              className="-mr-0.5 rounded-full p-0.5 hover:bg-primary/15 hover:text-danger active:bg-primary/25 transition-colors cursor-pointer"
               aria-label={`${tag} 제거`}
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>

@@ -3,7 +3,7 @@
 > 이 문서는 `.ai/props.json`과 컴포넌트 소스의 JSDoc을 토대로 자동 생성됩니다.
 > **수정하지 마세요.** 컴포넌트 props를 변경하면 `npm run extract-props && npm run docs:components`를 실행하세요.
 
-총 **174개** 컴포넌트 — Primitives 35 · Composites 115 · Patterns 24.
+총 **276개** 컴포넌트 — Primitives 48 · Composites 188 · Patterns 40.
 
 ## 목차
 
@@ -16,18 +16,31 @@
   - [BackTop](#backtop)
   - [Badge](#badge)
   - [BatteryIndicator](#batteryindicator)
+  - [BookmarkButton](#bookmarkbutton)
   - [Button](#button)
   - [Checkbox](#checkbox)
+  - [Code](#code)
   - [CopyButton](#copybutton)
   - [CurrencyInput](#currencyinput)
   - [Divider](#divider)
   - [ErrorBoundary](#errorboundary)
   - [FileUpload](#fileupload)
   - [FocusGuard](#focusguard)
+  - [FollowButton](#followbutton)
+  - [Hashtag](#hashtag)
+  - [Highlight](#highlight)
+  - [Icon](#icon)
   - [IconButton](#iconbutton)
+  - [Image](#image)
   - [Input](#input)
   - [Kbd](#kbd)
+  - [KeyCap](#keycap)
   - [Label](#label)
+  - [LikeButton](#likebutton)
+  - [Link](#link)
+  - [Mark](#mark)
+  - [MentionChip](#mentionchip)
+  - [Motion](#motion)
   - [NumberFormatter](#numberformatter)
   - [NumberInput](#numberinput)
   - [OTPInput](#otpinput)
@@ -51,38 +64,56 @@
   - [ActionSheet](#actionsheet)
   - [AddressInput](#addressinput)
   - [Affix](#affix)
+  - [AlbumArt](#albumart)
   - [Alert](#alert)
   - [AlertDialog](#alertdialog)
   - [AnimatedCounter](#animatedcounter)
+  - [AnnotationNote](#annotationnote)
+  - [AnnouncementBar](#announcementbar)
+  - [AreaChart](#areachart)
   - [AudioPlayer](#audioplayer)
   - [AutoComplete](#autocomplete)
   - [AutoHideHeader](#autohideheader)
   - [AutoPlayDemo](#autoplaydemo)
   - [AvatarStack](#avatarstack)
   - [Banner](#banner)
+  - [BarChart](#barchart)
   - [BentoGrid](#bentogrid)
+  - [Blockquote](#blockquote)
   - [BookCard](#bookcard)
+  - [BookCover](#bookcover)
+  - [BookRating](#bookrating)
+  - [BookShelf](#bookshelf)
   - [BottomSheet](#bottomsheet)
+  - [BrandSwitcher](#brandswitcher)
   - [Breadcrumb](#breadcrumb)
   - [ButtonGroup](#buttongroup)
   - [Callout](#callout)
   - [Card](#card)
   - [Carousel](#carousel)
+  - [CartItem](#cartitem)
+  - [ChapterList](#chapterlist)
   - [ChatBubble](#chatbubble)
+  - [CheckboxCardGroup](#checkboxcardgroup)
+  - [Clock](#clock)
   - [CodeEditor](#codeeditor)
   - [Collapsible](#collapsible)
   - [CollectionView](#collectionview)
   - [ColorPicker](#colorpicker)
   - [ColorSwatch](#colorswatch)
   - [Combobox](#combobox)
+  - [CommentThread](#commentthread)
   - [CompareSlider](#compareslider)
   - [ComparisonGrid](#comparisongrid)
   - [ComponentShowcase](#componentshowcase)
   - [Confetti](#confetti)
   - [ConfirmDialog](#confirmdialog)
   - [ContextMenu](#contextmenu)
+  - [CookieConsent](#cookieconsent)
   - [CopyBlock](#copyblock)
+  - [Countdown](#countdown)
   - [CronExpression](#cronexpression)
+  - [CTASection](#ctasection)
   - [DataGrid](#datagrid)
   - [DateInput](#dateinput)
   - [DateRangeFilter](#daterangefilter)
@@ -90,11 +121,15 @@
   - [Descriptions](#descriptions)
   - [DetailPanel](#detailpanel)
   - [DiffViewer](#diffviewer)
+  - [Disclosure](#disclosure)
   - [Dock](#dock)
+  - [DocPager](#docpager)
   - [Drawer](#drawer)
   - [Dropdown](#dropdown)
   - [EmojiPicker](#emojipicker)
+  - [EmojiReaction](#emojireaction)
   - [EmptyState](#emptystate)
+  - [ExifPanel](#exifpanel)
   - [FilterButtonGroup](#filterbuttongroup)
   - [FloatingActionButton](#floatingactionbutton)
   - [FormField](#formfield)
@@ -103,13 +138,21 @@
   - [Globe](#globe)
   - [GradientBorder](#gradientborder)
   - [Heatmap](#heatmap)
+  - [Hint](#hint)
   - [HoverCard](#hovercard)
+  - [ImageCompare](#imagecompare)
   - [ImageCropper](#imagecropper)
   - [ImageLightbox](#imagelightbox)
+  - [ImageWithFallback](#imagewithfallback)
+  - [ImageZoom](#imagezoom)
   - [InlineEdit](#inlineedit)
   - [JSONViewer](#jsonviewer)
   - [KeyValueGrid](#keyvaluegrid)
+  - [LineChart](#linechart)
+  - [LoadingButton](#loadingbutton)
   - [LoadingOverlay](#loadingoverlay)
+  - [LoadingScreen](#loadingscreen)
+  - [LogoCloud](#logocloud)
   - [MarkdownViewer](#markdownviewer)
   - [Marquee](#marquee)
   - [Mention](#mention)
@@ -117,20 +160,53 @@
   - [MetricCard](#metriccard)
   - [MiniChart](#minichart)
   - [Modal](#modal)
+  - [MonthPicker](#monthpicker)
   - [MultiSelect](#multiselect)
   - [NavigationMenu](#navigationmenu)
+  - [Newsletter](#newsletter)
   - [Notification](#notification)
+  - [NowPlayingBar](#nowplayingbar)
+  - [OfflineIndicator](#offlineindicator)
   - [Onboarding](#onboarding)
+  - [OnlineStatus](#onlinestatus)
+  - [PageHeader](#pageheader)
   - [Pagination](#pagination)
+  - [PasswordStrength](#passwordstrength)
+  - [PhotoCard](#photocard)
+  - [PhotoCarousel](#photocarousel)
+  - [PhotoFilters](#photofilters)
+  - [PhotoGrid](#photogrid)
+  - [PhotoLightbox](#photolightbox)
+  - [PhotoUploader](#photouploader)
+  - [PieChart](#piechart)
+  - [PollCard](#pollcard)
   - [Popover](#popover)
+  - [PostCard](#postcard)
+  - [PriceDisplay](#pricedisplay)
+  - [PricingTable](#pricingtable)
+  - [ProductCard](#productcard)
+  - [ProfileHeader](#profileheader)
   - [ProgressRing](#progressring)
+  - [ProjectCard](#projectcard)
   - [PullToRefresh](#pulltorefresh)
   - [QRCode](#qrcode)
+  - [QuantitySelector](#quantityselector)
+  - [RadarChart](#radarchart)
+  - [RadioCardGroup](#radiocardgroup)
   - [Rating](#rating)
+  - [ReactionPicker](#reactionpicker)
+  - [ReadingGoal](#readinggoal)
+  - [ReadingProgress](#readingprogress)
+  - [ReadingStats](#readingstats)
   - [ReadingTime](#readingtime)
   - [Resizable](#resizable)
   - [Result](#result)
+  - [SankeyDiagram](#sankeydiagram)
+  - [ScatterPlot](#scatterplot)
+  - [ScreenshotGrid](#screenshotgrid)
+  - [ScrollProgress](#scrollprogress)
   - [ScrollSpy](#scrollspy)
+  - [SearchBar](#searchbar)
   - [SearchInput](#searchinput)
   - [SecurityBadge](#securitybadge)
   - [SegmentedControl](#segmentedcontrol)
@@ -139,17 +215,25 @@
   - [SignaturePad](#signaturepad)
   - [Skeleton](#skeleton)
   - [SkeletonPreset](#skeletonpreset)
+  - [Snackbar](#snackbar)
+  - [SocialShare](#socialshare)
   - [SplitPane](#splitpane)
   - [SpoilerBlock](#spoilerblock)
   - [Spotlight](#spotlight)
   - [SpotlightCard](#spotlightcard)
+  - [Stat](#stat)
   - [StatCard](#statcard)
   - [Stepper](#stepper)
   - [Sticky](#sticky)
+  - [StoryCircle](#storycircle)
   - [SwipeAction](#swipeaction)
   - [Table](#table)
+  - [TableOfContents](#tableofcontents)
   - [Tabs](#tabs)
   - [TagInput](#taginput)
+  - [TestimonialCard](#testimonialcard)
+  - [TextareaAutosize](#textareaautosize)
+  - [ThinkingIndicator](#thinkingindicator)
   - [Timeline](#timeline)
   - [TimePicker](#timepicker)
   - [Tooltip](#tooltip)
@@ -162,26 +246,44 @@
   - [VideoPlayer](#videoplayer)
   - [VirtualScroll](#virtualscroll)
   - [Watermark](#watermark)
+  - [Waveform](#waveform)
+  - [YearPicker](#yearpicker)
 - [Patterns](#patterns)
   - [ActionBar](#actionbar)
+  - [AuthLayout](#authlayout)
+  - [BlogPost](#blogpost)
+  - [BookReader](#bookreader)
   - [Calendar](#calendar)
+  - [CalendarMonth](#calendarmonth)
   - [ChartCard](#chartcard)
+  - [ChatThread](#chatthread)
   - [CommandPalette](#commandpalette)
   - [DataTable](#datatable)
+  - [EmailInbox](#emailinbox)
+  - [FAQ](#faq)
+  - [FeatureGrid](#featuregrid)
   - [FilterBar](#filterbar)
   - [FlowDiagram](#flowdiagram)
   - [Form](#form)
   - [FormArray](#formarray)
   - [FormBuilder](#formbuilder)
   - [FormWizard](#formwizard)
+  - [ForumThread](#forumthread)
+  - [GanttChart](#ganttchart)
+  - [HeroSection](#herosection)
   - [InfiniteList](#infinitelist)
   - [Kanban](#kanban)
   - [LoginForm](#loginform)
   - [MasonryGrid](#masonrygrid)
   - [NotificationCenter](#notificationcenter)
+  - [OnboardingTour](#onboardingtour)
+  - [PhotoAlbum](#photoalbum)
+  - [PricingPage](#pricingpage)
   - [RichTextEditor](#richtexteditor)
   - [SecurityChecklist](#securitychecklist)
+  - [SettingsLayout](#settingslayout)
   - [Sidebar](#sidebar)
+  - [SocialFeed](#socialfeed)
   - [SortableList](#sortablelist)
   - [Starfield](#starfield)
   - [StatsGrid](#statsgrid)
@@ -212,36 +314,67 @@ import { Button, Modal, DataTable } from "@/ds";
 
 | Hook | Description |
 |------|-------------|
+| `useAnimationFrame` |  |
+| `useAsync` | Promise 호출 상태 관리 + 마지막 호출만 반영하는 race-condition 가드. |
+| `useAudioPlayer` | 재생 목록 하나를 굴리는 오디오 재생 엔진 훅. |
 | `useBreakpoint` | 현재 브레이크포인트 감지 훅 |
 | `useBreakpointValue` |  |
 | `useClickOutside` | ref 외부 클릭 감지 |
 | `useClipboard` | 클립보드 읽기/쓰기 훅 |
+| `useCodeCopy` | 이미 커밋된 DOM 안의 코드 블록마다 "복사" 버튼을 주입하는 훅. |
+| `useCookie` | 쿠키 read/write 훅 (consent storage, locale, theme 등). |
 | `useCopyToClipboard` | 클립보드 복사 훅 |
 | `useCountUp` | 숫자 카운트업 애니메이션 훅 |
 | `useDebounce` | 디바운스 훅 — 값 변경을 지연시킵니다 |
 | `useDisclosure` | open/close 상태 관리 (모달, 드로어 등) |
+| `useDocumentTitle` | document.title 동기화. |
+| `useDominantColor` | 이미지에서 대표색 한 쌍(밝은 `tint` / 어두운 `deep`)을 뽑아내는 훅. |
 | `useElementSize` |  |
 | `useEventListener` |  |
-| `useFocusMode` | 포커스 모드 상태 관리 훅 |
+| `useFavicon` | favicon 동적 변경 (status badge / unread count 표시 용도). |
+| `useFocusMode` | 포커스 모드(사이드바·목차를 숨기고 본문에만 집중) 상태 관리 훅. |
+| `useFocusTrap` | Tab/Shift+Tab을 컨테이너 내부에 가두는 포커스 트랩. |
+| `useFocusVisible` | 키보드 사용자 여부 추적 (CSS :focus-visible 폴리필 보조). |
 | `useForm` |  |
+| `useFullscreen` | Fullscreen API 래퍼 (특정 element 또는 document 단위). |
+| `useGeolocation` | 브라우저 Geolocation API 래퍼 (1회 조회 또는 watch). |
+| `useHotkeys` | 키보드 단축키 (콤보 지원: "mod+k", "shift+?", "ctrl+alt+l"). |
+| `useHover` | 요소 hover 상태 추적 (CSS :hover로 안 되는 React 분기에 사용). |
 | `useIdle` |  |
+| `useImagePreload` | 이미지 URL 배열을 백그라운드에서 미리 로드한다. 라이트박스 prev/next 등에서 |
+| `useInfiniteFeed` | 무한 피드 훅 — cursor 기반 페이지네이션 + 중복 dedupe + 동시 호출 가드. |
 | `useIntersectionObserver` |  |
 | `useInterval` |  |
+| `useIsomorphicLayoutEffect` | SSR-safe layout effect (서버에서는 useEffect, 브라우저에서는 useLayoutEffect). |
+| `useJsonLd` | schema.org JSON-LD 를 `<head>` 에 주입하고 언마운트 시 제거하는 훅. |
 | `useKeyboard` | 키보드 단축키 바인딩 |
+| `useKeyboardShortcut` | 키보드 단축키 등록. "Cmd+K"는 Mac에서 ⌘K, Windows에서 Ctrl+K로 자동 매핑. |
 | `useLocalStorage` | localStorage 동기화 상태 훅 |
 | `useLongPress` |  |
 | `useMediaQuery` | 미디어 쿼리 매칭 상태 반환 |
 | `useMounted` |  |
+| `useMutation` |  |
 | `useNetworkStatus` |  |
+| `useOptimisticState` |  |
 | `usePanelResize` | 패널 리사이즈 훅 |
 | `usePrefersColorScheme` |  |
 | `usePrevious` |  |
+| `useReadingProgress` | 글 읽기 진행률 + 현재 보이는 헤딩 추적. |
 | `useReducedMotion` | prefers-reduced-motion 감지 |
+| `useResizeObserver` | ResizeObserver 기반 요소 크기 추적 (border-box 기준). |
+| `useResource` | 외부에서 캐시 무효화. 같은 key의 모든 구독자가 재검증 트리거. |
+| `useRevealOnScroll` | 스크롤 진입 시 자식 요소에 `is-visible` 클래스를 붙여 주는 훅. |
+| `useScrollLock` | body 스크롤을 잠금. Modal/Drawer/Lightbox 등에서 사용. |
 | `useScrollSpy` | 스크롤 위치 기반 활성 섹션 감지 훅 |
+| `useSeo` | 페이지 단위 SEO 메타태그를 `<head>` 에 반영하는 훅. |
+| `useSessionStorage` | sessionStorage 동기화 훅 (탭 단위 영속). |
 | `useSteps` |  |
 | `useThrottle` |  |
+| `useTimeout` | setTimeout의 React-friendly 버전. callback이 stale 되지 않음. |
 | `useToggle` | 불린 토글 훅 |
+| `useUpdateEffect` | useEffect와 동일하나 마운트 시점은 건너뛰고 deps 갱신부터 동작. |
 | `useWindowScroll` |  |
+| `useWindowSize` | 현재 window 크기. SSR-safe (마운트 전에는 0/0). resize 이벤트로 자동 갱신. |
 
 ## Primitives
 
@@ -380,6 +513,30 @@ import { Button, Modal, DataTable } from "@/ds";
 
 ---
 
+### BookmarkButton
+
+*stable* · *v2.4.0* — `book` `control`
+
+북마크 토글.
+
+**Import:** `import { BookmarkButton } from "@/ds/primitives/BookmarkButton";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `bookmarked` | `boolean` | ✓ |  |
+| `onChange` | `(bookmarked: boolean) => void` | ✓ |  |
+| `size` | `number` |  |  |
+
+**Example**
+
+```tsx
+<BookmarkButton bookmarked={saved} onChange={setSaved} />
+```
+
+---
+
 ### Button
 
 *stable* · *v2.2.0* — `form` `control`
@@ -398,6 +555,8 @@ import { Button, Modal, DataTable } from "@/ds";
 | `leftIcon` | `ReactNode` |  | 버튼 텍스트 왼쪽에 표시할 아이콘입니다. |
 | `rightIcon` | `ReactNode` |  | 버튼 텍스트 오른쪽에 표시할 아이콘입니다. |
 | `fullWidth` | `boolean` |  | 부모 너비를 100% 채웁니다. |
+| `asChild` | `boolean` |  | Radix-style Slot 위임. `true`이면 Button은 자체 `<button>`을 렌더하지 |
+| `type` | `"button" \| "submit" \| "reset"` |  | 네이티브 버튼 타입입니다. |
 
 **Example**
 
@@ -432,6 +591,30 @@ import { Button, Modal, DataTable } from "@/ds";
 
 ---
 
+### Code
+
+*stable* · *v2.3.0* — `data-display`
+
+인라인 코드 프리미티브 (Kbd 보조).
+
+**Import:** `import { Code } from "@/ds/primitives/Code";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `CodeVariant` |  | 색상 변형 |
+| `size` | `CodeSize` |  | 크기 |
+
+**Example**
+
+```tsx
+<Code>npm install</Code>
+<Code variant="danger">deprecated</Code>
+```
+
+---
+
 ### CopyButton
 
 *stable* · *v2.2.0* — `form` `control`
@@ -447,7 +630,7 @@ import { Button, Modal, DataTable } from "@/ds";
 | `text` | `string` | ✓ | 클립보드에 복사할 텍스트 |
 | `copiedLabel` | `string` |  | 복사 후 표시 텍스트 |
 | `label` | `string` |  | 기본 표시 텍스트 |
-| `variant` | `"icon" \| "button"` |  | 버튼 표시 형태 |
+| `variant` | `"button" \| "icon"` |  | 버튼 표시 형태 |
 | `size` | `"sm" \| "md"` |  | 버튼 크기 |
 | `className` | `string` |  | 추가 클래스 |
 
@@ -597,6 +780,108 @@ import { Button, Modal, DataTable } from "@/ds";
 
 ---
 
+### FollowButton
+
+*stable* · *v2.4.0* — `sns` `control`
+
+팔로우 토글 — 상태별 라벨 + hover 시 언팔로우 강조.
+
+**Import:** `import { FollowButton } from "@/ds/primitives/FollowButton";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `following` | `boolean` | ✓ | 팔로우 상태 |
+| `onChange` | `(following: boolean) => void` | ✓ | 변경 콜백 |
+| `size` | `"sm" \| "md" \| "lg"` |  | 크기 |
+| `unfollowOnHover` | `boolean` |  | 팔로우 후 hover 시 "언팔로우" 라벨 노출 |
+| `followLabel` | `string` |  | 팔로우 라벨 |
+| `followingLabel` | `string` |  | 팔로잉 라벨 |
+| `unfollowLabel` | `string` |  | 언팔로우 라벨 (hover 시) |
+
+**Example**
+
+```tsx
+<FollowButton following={f} onChange={setF} unfollowOnHover />
+```
+
+---
+
+### Hashtag
+
+*stable* · *v2.4.0* — `sns` `content`
+
+해시태그 칩 — `#tag` 링크 + (선택) 인기 표시 / 게시물 수.
+
+**Import:** `import { Hashtag } from "@/ds/primitives/Hashtag";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `tag` | `string` | ✓ | # 없는 태그 (예: "design") |
+| `trending` | `boolean` |  | 인기 태그 강조 |
+| `count` | `number` |  | 게시물 수 (있으면 옆에 표시) |
+
+**Example**
+
+```tsx
+<Hashtag tag="디자인시스템" trending count={3214} href="/tag/디자인시스템" />
+```
+
+---
+
+### Highlight
+
+*stable* · *v2.5.0* — `content`
+
+검색어를 강조해 표시. SearchBar/CommandPalette 결과 강조에 사용.
+
+**Import:** `import { Highlight } from "@/ds/primitives/Highlight";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `text` | `string` | ✓ | 본문 텍스트 |
+| `query` | `string` | ✓ | 강조할 검색어 (대소문자 무시) |
+| `variant` | `"primary" \| "yellow" \| "underline"` |  | 강조 스타일 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<Highlight text="JunDS 디자인 시스템" query="디자인" variant="primary" />
+```
+
+---
+
+### Icon
+
+*stable* · *v2.3.0* — `data-display`
+
+SVG 아이콘 표준 wrapper. 외부 아이콘 셋과 통일된 props 표면.
+
+**Import:** `import { Icon } from "@/ds/primitives/Icon";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `size` | `IconSize` |  | 아이콘 크기 (토큰 또는 px 숫자) |
+| `color` | `string` |  | 색상 (currentColor 기본) |
+| `label` | `string` |  | aria-label (없으면 aria-hidden=true) |
+| `children` | `ReactNode` | ✓ | SVG 내부 path/group |
+
+**Example**
+
+```tsx
+<Icon size="md" label="검색"><path d="..." /></Icon>
+```
+
+---
+
 ### IconButton
 
 *stable* · *v2.2.0* — `form` `control`
@@ -622,6 +907,32 @@ import { Button, Modal, DataTable } from "@/ds";
 
 ---
 
+### Image
+
+*stable* · *v2.3.0* — `media`
+
+로드 실패/로딩 상태를 처리하는 이미지 프리미티브.
+
+**Import:** `import { Image } from "@/ds/primitives/Image";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `fit` | `ImageFit` |  | object-fit 모드 |
+| `radius` | `"sm" \| "md" \| "lg" \| "none" \| "full"` |  | 라운드 코너 |
+| `ratio` | `string` |  | 종횡비 (예: "16/9", "1/1") |
+| `placeholder` | `ReactNode` |  | 로딩 중 placeholder |
+| `fallback` | `ReactNode` |  | 로드 실패 시 fallback |
+
+**Example**
+
+```tsx
+<Image src="/x.png" alt="x" ratio="16/9" radius="md" />
+```
+
+---
+
 ### Input
 
 *stable* · *v2.2.0* — `form` `input`
@@ -641,6 +952,7 @@ import { Button, Modal, DataTable } from "@/ds";
 | `placeholder` | `string` |  | 입력 필드에 힌트 텍스트를 표시합니다. |
 | `disabled` | `boolean` |  | 입력 필드를 비활성화합니다. |
 | `className` | `string` |  | 입력 필드에 추가할 CSS 클래스. |
+| `wrapperClassName` | `string` |  | 좌우 슬롯이 있을 때 생성되는 바깥 래퍼에 추가할 CSS 클래스입니다. |
 
 **Example**
 
@@ -673,6 +985,32 @@ import { Button, Modal, DataTable } from "@/ds";
 
 ---
 
+### KeyCap
+
+*stable* · *v2.5.0* — `content`
+
+키보드 키 모양 칩 — 단축키 안내, ⌘K 같은 명령 표기.
+
+**Import:** `import { KeyCap } from "@/ds/primitives/KeyCap";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `children` | `ReactNode` | ✓ | 키 라벨 (예: "K", "↵", "⌘", "?") |
+| `size` | `"sm" \| "md" \| "lg"` |  | 크기 |
+| `variant` | `"default" \| "primary" \| "muted"` |  | 시각 변형 |
+| `pressed` | `boolean` |  | 활성 상태 (눌린 모양) |
+
+**Example**
+
+```tsx
+<span>검색 <KeyCap>⌘</KeyCap><KeyCap>K</KeyCap></span>
+  <KeyCap variant="primary" size="lg">↵</KeyCap>
+```
+
+---
+
 ### Label
 
 *stable* · *v2.2.0* — `form`
@@ -691,6 +1029,132 @@ import { Button, Modal, DataTable } from "@/ds";
 
 ```tsx
 <Label htmlFor="name" required>이름</Label>
+```
+
+---
+
+### LikeButton
+
+*stable* · *v2.4.0* — `sns` `control`
+
+좋아요 토글 — 활성화 시 하트 채움 + 살짝 스케일 애니메이션.
+
+**Import:** `import { LikeButton } from "@/ds/primitives/LikeButton";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `liked` | `boolean` | ✓ | 좋아요 활성 상태 |
+| `onChange` | `(liked: boolean) => void` | ✓ | 토글 콜백 |
+| `count` | `number` |  | 좋아요 수 (옆에 표시) |
+| `size` | `"sm" \| "md" \| "lg"` |  | 크기 |
+
+**Example**
+
+```tsx
+<LikeButton liked={liked} onChange={setLiked} count={likes} />
+```
+
+---
+
+### Link
+
+*stable* · *v2.3.0* — `navigation`
+
+라우터-aware 앵커 프리미티브. 외부/내부 링크를 한 컴포넌트로 표현.
+
+**Import:** `import { Link } from "@/ds/primitives/Link";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `LinkVariant` |  | 색상 변형 |
+| `underline` | `LinkUnderline` |  | 밑줄 스타일 |
+| `external` | `boolean` |  | 외부 링크 (target=_blank + rel + 아이콘) |
+| `children` | `ReactNode` |  | 링크 컨텐츠 |
+
+**Example**
+
+```tsx
+<Link href="/docs" underline="hover">문서 보기</Link>
+<Link href="https://example.com" external>외부</Link>
+```
+
+---
+
+### Mark
+
+*stable* · *v2.3.0* — `data-display`
+
+텍스트 하이라이트 프리미티브 (검색결과/강조).
+
+**Import:** `import { Mark } from "@/ds/primitives/Mark";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `color` | `MarkColor` |  | 형광펜 색상 |
+| `underline` | `boolean` |  | 밑줄형 (배경 대신 underline) |
+
+**Example**
+
+```tsx
+<p>이건 <Mark>중요</Mark>한 문장</p>
+```
+
+---
+
+### MentionChip
+
+*stable* · *v2.4.0* — `sns` `content`
+
+멘션 칩 — `@username` 링크 + (선택) 인증 마크. composite/Mention(에디터)과
+
+**Import:** `import { MentionChip } from "@/ds/primitives/MentionChip";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `handle` | `string` | ✓ | @ 없는 사용자 핸들 (예: "junha") |
+| `label` | `string` |  | 표시 라벨 (기본 |
+| `verified` | `boolean` |  | 인증 사용자 표시 |
+
+**Example**
+
+```tsx
+<MentionChip handle="junha" verified href="/u/junha" />
+```
+
+---
+
+### Motion
+
+*stable* · *v2.5.0* — `motion` `layout`
+
+모션 wrapper — CSS keyframe 기반 8가지 진입 프리셋. `prefers-reduced-motion`
+
+**Import:** `import { Motion } from "@/ds/primitives/Motion";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `preset` | `MotionPreset` |  | 애니메이션 프리셋 |
+| `delay` | `number` |  | 진입 지연 (ms) |
+| `respectReducedMotion` | `boolean` |  | prefers-reduced-motion 대응 (기본 true: 즉시 표시) |
+| `once` | `boolean` |  | 한 번만 실행 vs 매 마운트 (기본 단일 실행) |
+| `children` | `ReactNode` |  | 자식 (애니메이트할 컨텐츠) |
+
+**Example**
+
+```tsx
+<Motion preset="fade-up" delay={100}>
+    <Card>안녕하세요</Card>
+  </Motion>
 ```
 
 ---
@@ -996,6 +1460,8 @@ React Portal 래퍼
 | `color` | `"primary" \| "success" \| "warning" \| "danger"` |  | 색상 |
 | `size` | `"sm" \| "md"` |  | 슬라이더 크기 |
 | `className` | `string` |  | 추가 클래스 |
+| `aria-label` | `string` |  | 스크린리더용 라벨 (기본 "슬라이더") |
+| `aria-labelledby` | `string` |  | 라벨 엘리먼트의 id 참조 |
 
 **Example**
 
@@ -1150,9 +1616,9 @@ iOS 스타일 스위치
 
 | Prop | Type | Required | Description |
 |------|------|:--------:|-------------|
-| `error` | `boolean` |  | 에러 상태 표시 |
-| `autoResize` | `boolean` |  | 내용에 맞춰 높이 자동 조절 |
-| `showCount` | `boolean` |  | maxLength 기준 글자수 카운터 표시 |
+| `error` | `boolean` |  | 에러 상태를 시각적으로 표시하고 `aria-invalid="true"`를 설정합니다. |
+| `autoResize` | `boolean` |  | 내용 높이에 맞춰 입력 영역을 자동으로 늘립니다. |
+| `showCount` | `boolean` |  | `maxLength` 기준 현재 글자 수를 표시합니다. |
 
 **Example**
 
@@ -1297,6 +1763,33 @@ iOS 스타일 스위치
 
 ---
 
+### AlbumArt
+
+*stable* · *v2.3.0* — `media` `audio`
+
+앨범/트랙 커버. 이미지가 없거나 깨지면 시드에서 만든 커버로 대신한다.
+
+**Import:** `import { AlbumArt } from "@/ds/composites/AlbumArt";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `src` | `string` |  | 커버 이미지 URL. 없거나 로드에 실패하면 생성 커버로 폴백한다 |
+| `seed` | `string` | ✓ | 생성 커버의 시드 (제목 + 아티스트 등). 같은 시드는 언제나 같은 커버가 된다 |
+| `alt` | `string` |  | 접근성 이름. 비워 두면(기본) 장식으로 보고 스크린리더에서 숨긴다 — |
+| `glyph` | `string` |  | 생성 커버 가운데에 놓을 글리프 (기본 `"♪"`) |
+| `size` | `string \| number` |  | 한 변의 크기 (px 또는 CSS 길이, 기본 `"100%"`) |
+| `radius` | `"sm" \| "md" \| "lg" \| "none" \| "full"` |  | 모서리 둥글기 (기본 `"md"`) |
+
+**Example**
+
+```tsx
+<AlbumArt src={track.cover} seed={`${track.title}-${track.artist}`} size={56} />
+```
+
+---
+
 ### Alert
 
 *stable* · *v2.2.0* — `feedback`
@@ -1386,6 +1879,96 @@ iOS 스타일 스위치
 
 ```tsx
 <AnimatedCounter value={1234} duration={1500} suffix="원" />
+```
+
+---
+
+### AnnotationNote
+
+*stable* · *v2.4.0* — `book` `content`
+
+본문 하이라이트 + 사용자 메모 카드.
+
+**Import:** `import { AnnotationNote } from "@/ds/composites/AnnotationNote";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `quote` | `ReactNode` | ✓ |  |
+| `note` | `ReactNode` |  |  |
+| `createdAt` | `string \| Date` |  |  |
+| `page` | `number` |  |  |
+| `color` | `AnnotationColor` |  |  |
+| `onDelete` | `() => void` |  |  |
+| `onClick` | `() => void` |  |  |
+| `className` | `string` |  |  |
+
+**Example**
+
+```tsx
+<AnnotationNote quote="삶은…" note="중요" page={142} color="yellow" createdAt="2026-04-30" />
+```
+
+---
+
+### AnnouncementBar
+
+*stable* · *v2.3.0* — `feedback`
+
+사이트 최상단 공지바 (Banner와 달리 sticky/dismissible 영속).
+
+**Import:** `import { AnnouncementBar } from "@/ds/composites/AnnouncementBar";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `message` | `ReactNode` | ✓ | 메시지 본문 |
+| `ctaLabel` | `string` |  | 우측 CTA 텍스트 |
+| `ctaHref` | `string` |  | CTA 링크 |
+| `onCta` | `() => void` |  | CTA 클릭 핸들러 (href 없을 때) |
+| `variant` | `AnnouncementVariant` |  | 색상 톤 |
+| `dismissible` | `boolean` |  | 닫기 가능 여부 |
+| `storageKey` | `string` |  | localStorage 영속 키 (있으면 닫기 상태 기억) |
+| `icon` | `ReactNode` |  | 좌측 아이콘 |
+| `onDismiss` | `() => void` |  | 닫힘 콜백 |
+
+**Example**
+
+```tsx
+<AnnouncementBar message="🎉 신규 기능" ctaLabel="자세히" ctaHref="/x" storageKey="ann-2026" />
+```
+
+---
+
+### AreaChart
+
+*stable* · *v2.3.0* — `chart`
+
+SVG 영역 차트 (overlap 또는 stacked).
+
+**Import:** `import { AreaChart } from "@/ds/composites/AreaChart";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `labels` | `Array<string>` |  | x축 라벨 |
+| `series` | `Array<AreaSeries>` | ✓ | 시리즈 |
+| `width` | `number` |  | 너비 |
+| `height` | `number` |  | 높이 |
+| `mode` | `AreaMode` |  | 다중 시리즈 모드 |
+| `smooth` | `boolean` |  | 부드러운 곡선 |
+| `showGrid` | `boolean` |  | 그리드 |
+| `showYAxis` | `boolean` |  | Y축 라벨 |
+| `showXAxis` | `boolean` |  | X축 라벨 |
+| `fillOpacity` | `number` |  | 영역 투명도 |
+
+**Example**
+
+```tsx
+<AreaChart labels={["1","2","3"]} series={[{name:"a",data:[10,20,15]}]} mode="stacked" />
 ```
 
 ---
@@ -1487,7 +2070,7 @@ iOS 스타일 스위치
 |------|------|:--------:|-------------|
 | `frames` | `Array<ReactNode>` | ✓ | 순환할 프레임들 (각 프레임은 ReactNode) |
 | `interval` | `number` |  | 프레임 전환 간격 (ms) |
-| `transition` | `"fade" \| "slide-up" \| "slide-left" \| "scale" \| "crossfade" \| "none"` |  | 전환 애니메이션 |
+| `transition` | `"none" \| "fade" \| "scale" \| "slide-up" \| "slide-left" \| "crossfade"` |  | 전환 애니메이션 |
 | `duration` | `number` |  | 전환 지속 시간 (ms) |
 | `className` | `string` |  | 추가 클래스 |
 
@@ -1559,6 +2142,35 @@ iOS 스타일 스위치
 
 ---
 
+### BarChart
+
+*stable* · *v2.3.0* — `chart`
+
+경량 SVG 막대 차트 (vertical/horizontal, grouped/stacked).
+
+**Import:** `import { BarChart } from "@/ds/composites/BarChart";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `labels` | `Array<string>` | ✓ | 카테고리 라벨 |
+| `series` | `Array<BarSeries>` | ✓ | 시리즈 |
+| `width` | `number` |  | 너비 |
+| `height` | `number` |  | 높이 |
+| `orientation` | `BarOrientation` |  | 방향 |
+| `mode` | `BarMode` |  | 다중 시리즈 모드 |
+| `showGrid` | `boolean` |  | 그리드 표시 |
+| `showValues` | `boolean` |  | 값 라벨 |
+
+**Example**
+
+```tsx
+<BarChart labels={["A","B","C"]} series={[{name:"매출", data:[10,30,20]}]} />
+```
+
+---
+
 ### BentoGrid
 
 *stable* · *v2.2.0* — `layout`
@@ -1583,6 +2195,30 @@ iOS 스타일 스위치
   <BentoItem span={2}>큰 카드</BentoItem>
   <BentoItem>작은 카드</BentoItem>
 </BentoGrid>
+```
+
+---
+
+### Blockquote
+
+*stable* · *v2.3.0* — `data-display`
+
+인용문 블록.
+
+**Import:** `import { Blockquote } from "@/ds/composites/Blockquote";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `BlockquoteVariant` |  | 변형 |
+| `cite` | `ReactNode` |  | 인용 출처 (예: "— 알베르트 아인슈타인") |
+| `children` | `ReactNode` | ✓ | 인용 본문 |
+
+**Example**
+
+```tsx
+<Blockquote cite="아인슈타인">상상력은 지식보다 중요하다.</Blockquote>
 ```
 
 ---
@@ -1615,6 +2251,89 @@ iOS 스타일 스위치
 
 ---
 
+### BookCover
+
+*stable* · *v2.4.0* — `book` `media`
+
+책 표지 — 단독 시각 또는 BookCard 내부에서 사용.
+
+**Import:** `import { BookCover } from "@/ds/composites/BookCover";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `src` | `string` |  |  |
+| `title` | `string` | ✓ |  |
+| `author` | `string` |  |  |
+| `size` | `BookCoverSize` |  |  |
+| `effect` | `BookCoverEffect` |  |  |
+| `hue` | `string` |  |  |
+
+**Example**
+
+```tsx
+<BookCover src="/cover.jpg" title="모비 딕" size="lg" effect="tilt" />
+<BookCover title="에세이" author="저자" hue="from-purple-500 to-fuchsia-500" effect="spine" />
+```
+
+---
+
+### BookRating
+
+*stable* · *v2.4.0* — `book` `rating`
+
+책 평점 — 평균 + 별 + (선택) 점수 분포 막대.
+
+**Import:** `import { BookRating } from "@/ds/composites/BookRating";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `value` | `number` | ✓ |  |
+| `max` | `number` |  |  |
+| `reviews` | `number` |  |  |
+| `distribution` | `Array<number>` |  |  |
+| `compact` | `boolean` |  |  |
+| `className` | `string` |  |  |
+
+**Example**
+
+```tsx
+<BookRating value={4.3} reviews={1820} distribution={[20,40,180,520,1060]} />
+```
+
+---
+
+### BookShelf
+
+*stable* · *v2.4.0* — `book` `layout`
+
+책장 — 동일한 너비 그리드로 책 카드를 정렬한다.
+
+**Import:** `import { BookShelf } from "@/ds/composites/BookShelf";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `children` | `ReactNode` | ✓ | 책 항목 (`BookCard` 등) |
+| `columns` | `5 \| 3 \| 4 \| 6 \| 8` |  | 행당 책 수 (기본 5) |
+| `variant` | `BookShelfVariant` |  | 시각 변형 |
+| `label` | `ReactNode` |  | 책장 라벨 (선반 위 카테고리) |
+
+**Example**
+
+```tsx
+<BookShelf label="베스트셀러" columns={5}>
+  <BookCard title="..." author="..." coverImage="..." />
+  …
+</BookShelf>
+```
+
+---
+
 ### BottomSheet
 
 *stable* · *v2.2.0* — `overlay`
@@ -1631,7 +2350,7 @@ iOS 스타일 스위치
 | `onClose` | `() => void` | ✓ | 닫기 콜백 |
 | `title` | `string` |  | 상단 제목 |
 | `children` | `ReactNode` | ✓ | 시트 본문 |
-| `height` | `"auto" \| "half" \| "full"` |  | 시트 높이 모드 |
+| `height` | `"full" \| "auto" \| "half"` |  | 시트 높이 모드 |
 | `className` | `string` |  | 추가 클래스 |
 
 **Example**
@@ -1640,6 +2359,32 @@ iOS 스타일 스위치
 <BottomSheet open={open} onClose={() => setOpen(false)} title="옵션">
   <Menu />
 </BottomSheet>
+```
+
+---
+
+### BrandSwitcher
+
+*stable* · *v2.5.0* — `theme` `control`
+
+브랜드 전환 UI — `BrandProvider` 안에서 사용하면 자동으로 현재 브랜드를
+
+**Import:** `import { BrandSwitcher } from "@/ds/composites/BrandSwitcher";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `"chips" \| "list" \| "select"` |  | 시각 변형 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<BrandProvider>
+    <BrandSwitcher variant="chips" />
+    <App />
+  </BrandProvider>
 ```
 
 ---
@@ -1709,7 +2454,7 @@ iOS 스타일 스위치
 
 | Prop | Type | Required | Description |
 |------|------|:--------:|-------------|
-| `variant` | `"warning" \| "danger" \| "info" \| "note" \| "tip"` |  | 콜아웃 유형 |
+| `variant` | `"success" \| "warning" \| "danger" \| "info" \| "warn" \| "note" \| "tip"` |  | 콜아웃 유형. |
 | `title` | `string` |  | 제목 |
 | `children` | `React.ReactNode` | ✓ | 본문 내용 |
 | `collapsible` | `boolean` |  | 접기/펼치기 가능 여부 |
@@ -1774,6 +2519,64 @@ Card 컴포넌트
 
 ---
 
+### CartItem
+
+*stable* · *v2.3.0* — `ecommerce`
+
+장바구니 아이템 행 (이미지 + 정보 + 수량조절 + 가격 + 삭제).
+
+**Import:** `import { CartItem } from "@/ds/composites/CartItem";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` | ✓ | 상품명 |
+| `variant` | `ReactNode` |  | 옵션/사이즈/색상 등 보조 정보 |
+| `image` | `string` |  | 썸네일 URL |
+| `price` | `ReactNode` | ✓ | 단가 |
+| `subtotal` | `ReactNode` |  | 합계 (수량 × 단가) |
+| `quantity` | `number` | ✓ | 수량 |
+| `onQuantityChange` | `(q: number) => void` |  | 수량 변경 콜백 |
+| `min` | `number` |  | 최소 수량 |
+| `max` | `number` |  | 최대 수량 (재고) |
+| `onRemove` | `() => void` |  | 삭제 콜백 (있으면 X 버튼 노출) |
+| `disabled` | `boolean` |  | 비활성 (품절 등) |
+
+**Example**
+
+```tsx
+<CartItem title="셔츠" image="/x.jpg" price="₩29,000" quantity={2} subtotal="₩58,000" onQuantityChange={...} onRemove={...} />
+```
+
+---
+
+### ChapterList
+
+*stable* · *v2.4.0* — `book` `navigation`
+
+챕터 목차 — 활성/완독/잠금 + 트리.
+
+**Import:** `import { ChapterList } from "@/ds/composites/ChapterList";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `chapters` | `Array<Chapter>` | ✓ |  |
+| `activeId` | `string` |  |  |
+| `completedIds` | `ReadonlyArray<string> \| Set<string>` |  |  |
+| `onSelect` | `(chapter: Chapter) => void` |  |  |
+| `className` | `string` |  |  |
+
+**Example**
+
+```tsx
+<ChapterList chapters={data} activeId="ch-3" completedIds={["ch-1","ch-2"]} onSelect={goTo} />
+```
+
+---
+
 ### ChatBubble
 
 *stable* · *v2.2.0* — `data-display`
@@ -1804,6 +2607,60 @@ Card 컴포넌트
 
 ---
 
+### CheckboxCardGroup
+
+*stable* · *v2.3.0* — `input`
+
+체크박스 카드 그룹 — 다중 선택 가능한 풍부한 카드.
+
+**Import:** `import { CheckboxCardGroup } from "@/ds/composites/CheckboxCardGroup";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `options` | `Array<CheckboxCardOption>` | ✓ | 옵션 |
+| `value` | `Array<string>` |  | 선택값 |
+| `defaultValue` | `Array<string>` |  | 기본값 |
+| `onChange` | `(values: string[]) => void` |  | 변경 콜백 |
+| `columns` | `number` |  | 컬럼 수 |
+| `max` | `number` |  | 최대 선택 개수 |
+
+**Example**
+
+```tsx
+<CheckboxCardGroup options={[{value:"a",title:"옵션 A"}]} onChange={console.log} />
+```
+
+---
+
+### Clock
+
+*stable* · *v2.3.0* — `data-display`
+
+라이브 시계 (디지털/아날로그).
+
+**Import:** `import { Clock } from "@/ds/composites/Clock";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `mode` | `ClockMode` |  | 표시 형식 |
+| `hour24` | `boolean` |  | 24시간제 (digital 전용) |
+| `showSeconds` | `boolean` |  | 초 표시 여부 |
+| `timeZone` | `string` |  | 시간대 (IANA, 예: "Asia/Seoul") |
+| `size` | `number` |  | 아날로그 크기(px) |
+
+**Example**
+
+```tsx
+<Clock mode="digital" showSeconds />
+<Clock mode="analog" size={140} timeZone="America/New_York" />
+```
+
+---
+
 ### CodeEditor
 
 *stable* · *v2.2.0* — `form` `input`
@@ -1823,6 +2680,7 @@ Card 컴포넌트
 | `lineNumbers` | `boolean` |  | 줄 번호 표시 여부 |
 | `minHeight` | `number` |  | 최소 높이(px) |
 | `className` | `string` |  | 추가 클래스 |
+| `aria-label` | `string` |  | 스크린리더용 라벨 (기본 "코드 편집기") |
 
 **Example**
 
@@ -1875,7 +2733,7 @@ Card 컴포넌트
 | Prop | Type | Required | Description |
 |------|------|:--------:|-------------|
 | `items` | `Array<CollectionItem>` | ✓ | 컬렉션 항목 목록 |
-| `view` | `"grid" \| "list"` |  | 뷰 모드 |
+| `view` | `"list" \| "grid"` |  | 뷰 모드 |
 | `searchable` | `boolean` |  | 검색 가능 |
 | `filterable` | `boolean` |  | 카테고리 필터 |
 | `columns` | `2 \| 3 \| 4` |  | 그리드 컬럼 수 |
@@ -1973,6 +2831,32 @@ Card 컴포넌트
 
 ```tsx
 <Combobox options={users} value={v} onChange={setV} creatable placeholder="사용자 검색..." />
+```
+
+---
+
+### CommentThread
+
+*stable* · *v2.4.0* — `sns` `content`
+
+중첩 댓글 스레드 — 좋아요/답글 + 깊이 제한.
+
+**Import:** `import { CommentThread } from "@/ds/composites/CommentThread";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `comments` | `Array<Comment>` | ✓ |  |
+| `onToggleLike` | `(commentId: string) => void` |  | 좋아요 토글 |
+| `onReply` | `(commentId: string) => void` |  | 답글 작성 콜백 |
+| `maxDepth` | `number` |  | 최대 표시 깊이 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<CommentThread comments={comments} onToggleLike={…} onReply={…} maxDepth={3} />
 ```
 
 ---
@@ -2149,6 +3033,36 @@ Card 컴포넌트
 
 ---
 
+### CookieConsent
+
+*stable* · *v2.3.0* — `compliance`
+
+GDPR/CCPA 쿠키 동의 배너.
+
+**Import:** `import { CookieConsent } from "@/ds/composites/CookieConsent";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `message` | `ReactNode` |  | 메시지 본문 |
+| `categories` | `Array<CookieCategory>` |  | 카테고리 (custom 모드) |
+| `acceptLabel` | `string` |  | "모두 수락" 라벨 |
+| `rejectLabel` | `string` |  | "필수만" 라벨 |
+| `customizeLabel` | `string` |  | "맞춤설정" 라벨 (categories 있을 때) |
+| `policyHref` | `string` |  | 정책 링크 |
+| `storageKey` | `string` |  | localStorage 키 |
+| `position` | `"bottom" \| "bottom-left" \| "bottom-right"` |  | 위치 |
+| `onConsent` | `(categories: Record<string, boolean>) => void` |  | 동의 결과 콜백 |
+
+**Example**
+
+```tsx
+<CookieConsent message="이 사이트는 쿠키를 사용합니다" policyHref="/privacy" />
+```
+
+---
+
 ### CopyBlock
 
 *stable* · *v2.2.0* — `data-display`
@@ -2174,6 +3088,32 @@ Card 컴포넌트
 
 ---
 
+### Countdown
+
+*stable* · *v2.3.0* — `feedback`
+
+카운트다운 타이머. 1초 간격으로 갱신.
+
+**Import:** `import { Countdown } from "@/ds/composites/Countdown";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `to` | `string \| number \| Date` | ✓ | 만료 시각 (Date 또는 ISO 문자열 또는 timestamp) |
+| `format` | `CountdownFormat` |  | 표시 형식 |
+| `labels` | `{ d?: string; h?: string; m?: string; s?: string; }` |  | 일/시/분/초 라벨 |
+| `onComplete` | `() => void` |  | 만료 시 콜백 |
+| `completedContent` | `ReactNode` |  | 만료 시 표시할 내용 |
+
+**Example**
+
+```tsx
+<Countdown to="2026-12-31T23:59:59Z" onComplete={() => alert('done')} />
+```
+
+---
+
 ### CronExpression
 
 *stable* · *v2.2.0* — `form` `input`
@@ -2194,6 +3134,33 @@ cron 표현식을 시각적으로 편집하는 입력기.
 
 ```tsx
 <CronExpression value={cron} onChange={setCron} />
+```
+
+---
+
+### CTASection
+
+*stable* · *v2.3.0* — `marketing`
+
+강조형 CTA 섹션 (랜딩 페이지 하단 행동 유도).
+
+**Import:** `import { CTASection } from "@/ds/composites/CTASection";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `CTAVariant` |  | 변형 |
+| `title` | `ReactNode` | ✓ | 메인 제목 |
+| `description` | `ReactNode` |  | 부제 |
+| `primaryCta` | `CTAButton` |  | Primary CTA |
+| `secondaryCta` | `CTAButton` |  | Secondary CTA |
+| `media` | `ReactNode` |  | 우측 미디어 (split 전용) |
+
+**Example**
+
+```tsx
+<CTASection variant="gradient" title="지금 시작하세요" primaryCta={{label:"무료 가입"}} />
 ```
 
 ---
@@ -2413,6 +3380,35 @@ cron 표현식을 시각적으로 편집하는 입력기.
 
 ---
 
+### Disclosure
+
+*stable* · *v2.3.0* — `disclosure` `layout`
+
+단일 토글 가능한 패널을 위한 compound 컴포넌트.
+
+**Import:** `import { Disclosure } from "@/ds/composites/Disclosure";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `defaultOpen` | `boolean` |  | 초기 열림 상태 (uncontrolled). |
+| `open` | `boolean` |  | 외부에서 제어할 때의 열림 상태 (controlled). `onOpenChange`와 함께 사용. |
+| `onOpenChange` | `(open: boolean) => void` |  | 열림 상태가 바뀌면 호출됩니다 (uncontrolled / controlled 양쪽). |
+| `asChild` | `boolean` |  | Radix-style Slot 위임. `true`이면 Disclosure 루트가 자체 `<div>` 대신 |
+| `children` | `ReactNode` | ✓ |  |
+
+**Example**
+
+```tsx
+<Disclosure defaultOpen={false}>
+    <Disclosure.Trigger className="font-semibold">자세히 보기</Disclosure.Trigger>
+    <Disclosure.Content>여기에 숨겨진 내용이 들어갑니다.</Disclosure.Content>
+  </Disclosure>
+```
+
+---
+
 ### Dock
 
 *stable* · *v2.2.0* — `navigation`
@@ -2436,6 +3432,36 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
   <DockItem icon={<HomeIcon />} />
   <DockItem icon={<SearchIcon />} />
 </Dock>
+```
+
+---
+
+### DocPager
+
+*stable* · *v2.3.0* — `navigation` `content`
+
+문서 하단의 이전/다음 문서 내비게이션.
+
+**Import:** `import { DocPager } from "@/ds/composites/DocPager";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `prev` | `DocPagerEntry \| null` |  | 이전 문서 (없으면 자리만 비워 다음 문서가 오른쪽에 남는다) |
+| `next` | `DocPagerEntry \| null` |  | 다음 문서 |
+| `prevLabel` | `string` |  | 이전 쪽 라벨 (기본 `"이전 문서"`) |
+| `nextLabel` | `string` |  | 다음 쪽 라벨 (기본 `"다음 문서"`) |
+| `ariaLabel` | `string` |  | nav 의 접근성 라벨 |
+| `renderLink` | `(props: { href: string; className: string; children: ReactNode; }) => ReactNode` |  | 링크 렌더러. Next.js `<Link>` 나 react-router `<Link>` 를 쓰려면 넘긴다. |
+
+**Example**
+
+```tsx
+// Next.js 라우터와 함께
+<DocPager next={next} renderLink={({ href, className, children }) => (
+  <Link href={href} className={className}>{children}</Link>
+)} />
 ```
 
 ---
@@ -2521,6 +3547,31 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
 
 ---
 
+### EmojiReaction
+
+*stable* · *v2.3.0* — `social`
+
+Slack/GitHub 스타일 이모지 반응 바.
+
+**Import:** `import { EmojiReaction } from "@/ds/composites/EmojiReaction";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `reactions` | `Array<EmojiReactionItem>` | ✓ | 반응 목록 |
+| `onToggle` | `(emoji: string) => void` |  | 반응 토글 |
+| `onAddReaction` | `() => void` |  | + 버튼 클릭 (이모지 피커 열기) |
+| `showAddButton` | `boolean` |  | + 버튼 노출 |
+
+**Example**
+
+```tsx
+<EmojiReaction reactions={[{emoji:"👍", count:3, reactedByMe:true}]} onToggle={console.log} />
+```
+
+---
+
 ### EmptyState
 
 *stable* · *v2.2.0* — `feedback`
@@ -2543,6 +3594,30 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
 
 ```tsx
 <EmptyState title="업무가 없습니다" description="새 업무를 추가해보세요" action={<Button>추가</Button>} />
+```
+
+---
+
+### ExifPanel
+
+*stable* · *v2.4.0* — `photo` `data-display`
+
+EXIF 패널 — 카메라/렌즈/노출 정보 표시.
+
+**Import:** `import { ExifPanel } from "@/ds/composites/ExifPanel";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `data` | `ExifData` | ✓ | EXIF 메타데이터 |
+| `compact` | `boolean` |  | 컴팩트 표시 (단일 라인) |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<ExifPanel data={{ camera:"Sony α7 IV", lens:"24-70 GM", focalLength:"50mm", aperture:"f/2.8", shutter:"1/250", iso:200 }} />
 ```
 
 ---
@@ -2593,7 +3668,7 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
 | Prop | Type | Required | Description |
 |------|------|:--------:|-------------|
 | `actions` | `Array<FloatingAction>` | ✓ | 표시할 액션 목록 |
-| `position` | `"bottom-right" \| "bottom-left" \| "top-right" \| "top-left"` |  | 위치 |
+| `position` | `"bottom-left" \| "bottom-right" \| "top-right" \| "top-left"` |  | 위치 |
 | `className` | `string` |  | 추가 클래스 |
 
 **Example**
@@ -2626,15 +3701,15 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
 | `required` | `boolean` |  | 필수 여부 |
 | `error` | `string` |  | 에러 메시지 |
 | `hint` | `string` |  | 힌트 텍스트 |
-| `htmlFor` | `string` |  | htmlFor |
-| `children` | `ReactNode` | ✓ | 입력 요소 |
+| `htmlFor` | `string` |  | 라벨이 가리킬 입력 요소의 id. |
+| `children` | `ReactNode` | ✓ | 입력 요소. |
 | `className` | `string` |  | 추가 클래스 |
 
 **Example**
 
 ```tsx
-<FormField label="이름" required error={errors.name}>
-  <Input id="name" error={!!errors.name} />
+<FormField label="이름" required error={errors.name} hint="실명을 입력하세요.">
+  <Input />
 </FormField>
 ```
 
@@ -2773,6 +3848,30 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
 
 ---
 
+### Hint
+
+*stable* · *v2.3.0* — `feedback`
+
+인라인 보조 텍스트 (form 도움말, 미세 안내).
+
+**Import:** `import { Hint } from "@/ds/composites/Hint";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `HintVariant` |  | 변형 |
+| `icon` | `ReactNode` |  | 좌측 아이콘 |
+| `children` | `ReactNode` | ✓ | 본문 |
+
+**Example**
+
+```tsx
+<Hint variant="info">8자 이상 입력해주세요</Hint>
+```
+
+---
+
 ### HoverCard
 
 *stable* · *v2.2.0* — `overlay`
@@ -2798,6 +3897,35 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
 <HoverCard trigger={<span>@사용자</span>} side="bottom">
   <div>사용자 프로필 미리보기</div>
 </HoverCard>
+```
+
+---
+
+### ImageCompare
+
+*stable* · *v2.4.0* — `photo` `media`
+
+이미지 비교 — 슬라이더로 before/after 분할 비교.
+
+**Import:** `import { ImageCompare } from "@/ds/composites/ImageCompare";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `beforeSrc` | `string` | ✓ | 이전 이미지 |
+| `afterSrc` | `string` | ✓ | 이후 이미지 |
+| `beforeAlt` | `string` | ✓ | 이전 alt |
+| `afterAlt` | `string` | ✓ | 이후 alt |
+| `initialSplit` | `number` |  | 초기 분할 비율 (0-100) |
+| `aspectRatio` | `string` |  | 종횡비 |
+| `showLabels` | `boolean` |  | 라벨 표시 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<ImageCompare beforeSrc="/old.jpg" afterSrc="/new.jpg" beforeAlt="원본" afterAlt="보정" />
 ```
 
 ---
@@ -2848,6 +3976,62 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
 
 ```tsx
 <ImageLightbox src="/photo.jpg" alt="사진" />
+```
+
+---
+
+### ImageWithFallback
+
+*stable* · *v2.4.0* — `photo` `media`
+
+이미지 + 스켈레톤 + 에러 폴백 — 로드 실패 시 대체 이미지/플레이스홀더 표시.
+
+**Import:** `import { ImageWithFallback } from "@/ds/composites/ImageWithFallback";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `fallbackSrc` | `string` |  | 대체 이미지 URL |
+| `fallback` | `ReactNode` |  | 대체 이미지 대신 렌더할 노드 (`fallbackSrc` 보다 우선) |
+| `showSkeleton` | `boolean` |  | 로딩 중 스켈레톤 표시 |
+| `aspectRatio` | `string` |  | 종횡비 |
+| `containerClassName` | `string` |  | 컨테이너 클래스 |
+| `retry` | `number` |  | 로드 실패 시 빠른 재시도 횟수 (기본 0 = 재시도 안 함). |
+| `revive` | `boolean` |  | 폴백이 뜬 뒤에도 백그라운드에서 소생을 계속 시도할지 (기본 false). |
+
+**Example**
+
+```tsx
+// 외부 호스트 이미지 — 흔들려도 끝까지 되살린다
+<ImageWithFallback src={cover} retry={3} revive fallback={<CategoryLabel />} />
+```
+
+---
+
+### ImageZoom
+
+*stable* · *v2.4.0* — `photo` `media`
+
+이미지 줌 — 더블클릭 확대, 드래그 이동, 스크롤 줌.
+
+**Import:** `import { ImageZoom } from "@/ds/composites/ImageZoom";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `src` | `string` | ✓ |  |
+| `alt` | `string` | ✓ |  |
+| `maxZoom` | `number` |  | 최대 확대 배율 |
+| `minZoom` | `number` |  | 최소 확대 배율 |
+| `aspectRatio` | `string` |  | 종횡비 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<ImageZoom src="/full.jpg" alt="작품 전체" maxZoom={5} />
 ```
 
 ---
@@ -2935,6 +4119,63 @@ JSON 데이터를 트리 구조로 펼쳐서 보여주는 뷰어.
 
 ---
 
+### LineChart
+
+*stable* · *v2.3.0* — `chart`
+
+경량 SVG 라인 차트 (외부 라이브러리 X). 다중 시리즈, 영역 채움, 부드러운 곡선 지원.
+
+**Import:** `import { LineChart } from "@/ds/composites/LineChart";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `labels` | `Array<string>` |  | x 축 라벨 |
+| `series` | `Array<LineSeries>` | ✓ | 시리즈 (단일/다중) |
+| `width` | `number` |  | 너비 |
+| `height` | `number` |  | 높이 |
+| `showYAxis` | `boolean` |  | Y축 라벨 표시 |
+| `showXAxis` | `boolean` |  | X축 라벨 표시 |
+| `showGrid` | `boolean` |  | 그리드 표시 |
+| `showDots` | `boolean` |  | 점 표시 |
+| `smooth` | `boolean` |  | 곡선 보간 |
+
+**Example**
+
+```tsx
+<LineChart labels={["1월","2월","3월"]} series={[{name:"매출", data:[10,20,15]}]} />
+```
+
+---
+
+### LoadingButton
+
+*stable* · *v2.3.0* — `input`
+
+로딩 상태를 가진 버튼 (네트워크 호출 중 자동 비활성).
+
+**Import:** `import { LoadingButton } from "@/ds/composites/LoadingButton";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `loading` | `boolean` |  | 로딩 상태 |
+| `loadingText` | `ReactNode` |  | 로딩 중 표시할 텍스트 (없으면 기존 children 유지) |
+| `variant` | `LoadingButtonVariant` |  | 변형 |
+| `size` | `LoadingButtonSize` |  | 크기 |
+| `fullWidth` | `boolean` |  | full-width |
+| `leftIcon` | `ReactNode` |  | 좌측 아이콘 |
+
+**Example**
+
+```tsx
+<LoadingButton loading={isSubmitting} loadingText="저장 중...">저장</LoadingButton>
+```
+
+---
+
 ### LoadingOverlay
 
 *stable* · *v2.2.0* — `feedback` `overlay`
@@ -2963,11 +4204,64 @@ JSON 데이터를 트리 구조로 펼쳐서 보여주는 뷰어.
 
 ---
 
+### LoadingScreen
+
+*stable* · *v2.3.0* — `feedback`
+
+풀페이지 또는 컨테이너 로딩 화면 (앱 부팅, 라우트 전환 등).
+
+**Import:** `import { LoadingScreen } from "@/ds/composites/LoadingScreen";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `LoadingScreenVariant` |  | 표시 종류 |
+| `message` | `ReactNode` |  | 메시지 |
+| `progress` | `number` |  | 진행률 (0-100, undefined면 indeterminate) |
+| `fullscreen` | `boolean` |  | 풀스크린 (기본 true) |
+| `transparent` | `boolean` |  | 배경 투명 |
+| `logo` | `ReactNode` |  | 로고/커스텀 컨텐츠 (variant=logo) |
+
+**Example**
+
+```tsx
+<LoadingScreen message="데이터를 불러오는 중..." progress={42} />
+```
+
+---
+
+### LogoCloud
+
+*stable* · *v2.3.0* — `marketing`
+
+"사용 중인 회사들" 로고 클라우드 (랜딩 신뢰도 섹션).
+
+**Import:** `import { LogoCloud } from "@/ds/composites/LogoCloud";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` |  | 섹션 라벨 |
+| `logos` | `Array<LogoItem>` | ✓ | 로고 목록 |
+| `columns` | `5 \| 3 \| 4 \| 6` |  | 컬럼 수 |
+| `grayscale` | `boolean` |  | 그레이스케일 |
+| `layout` | `LogoCloudLayout` |  | 레이아웃 |
+
+**Example**
+
+```tsx
+<LogoCloud title="신뢰받는 파트너" logos={[{name:"Acme",src:"/a.svg"}]} columns={5} grayscale />
+```
+
+---
+
 ### MarkdownViewer
 
 *stable* · *v2.2.0* — `data-display`
 
-마크다운 텍스트를 HTML로 렌더링합니다.
+마크다운 텍스트를 HTML 로 렌더링합니다.
 
 **Import:** `import { MarkdownViewer } from "@/ds/composites/MarkdownViewer";`
 
@@ -2976,12 +4270,16 @@ JSON 데이터를 트리 구조로 펼쳐서 보여주는 뷰어.
 | Prop | Type | Required | Description |
 |------|------|:--------:|-------------|
 | `content` | `string` | ✓ | 마크다운 원문 텍스트 |
+| `allowHtml` | `boolean` |  | 원문의 raw HTML 을 그대로 통과시킬지 (기본 false). |
+| `breaks` | `boolean` |  | 줄바꿈 하나를 `<br>` 로 취급할지 (기본 false). |
+| `kinsoku` | `boolean` |  | 금칙처리 적용 여부 (기본 false). |
 | `className` | `string` |  | 추가 클래스 |
 
 **Example**
 
 ```tsx
-<MarkdownViewer content="# 제목\n\n본문 내용" />
+// 한국어 장문 — 금칙처리를 켠다
+<MarkdownViewer content={chapter.body} kinsoku />
 ```
 
 ---
@@ -3140,6 +4438,33 @@ Modal 컴포넌트
 
 ---
 
+### MonthPicker
+
+*stable* · *v2.3.0* — `input`
+
+연-월 선택기 (12개월 그리드 + 연도 네비게이션).
+
+**Import:** `import { MonthPicker } from "@/ds/composites/MonthPicker";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `value` | `MonthPickerValue` |  | 현재 선택값 |
+| `defaultValue` | `MonthPickerValue` |  | 기본값 |
+| `onChange` | `(v: MonthPickerValue) => void` |  | 변경 콜백 |
+| `min` | `string` |  | 최소 (yyyy-mm) |
+| `max` | `string` |  | 최대 (yyyy-mm) |
+| `monthLabels` | `Array<string>` |  | 월 이름 라벨 |
+
+**Example**
+
+```tsx
+<MonthPicker defaultValue={{ year: 2026, month: 4 }} onChange={console.log} />
+```
+
+---
+
 ### MultiSelect
 
 *stable* · *v2.2.0* — `form` `input`
@@ -3193,6 +4518,37 @@ Modal 컴포넌트
 
 ---
 
+### Newsletter
+
+*stable* · *v2.3.0* — `marketing`
+
+뉴스레터 구독 폼 (Mailchimp/Beehiiv/Substack 통합용).
+
+**Import:** `import { Newsletter } from "@/ds/composites/Newsletter";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` |  | 제목 |
+| `description` | `ReactNode` |  | 부제 |
+| `placeholder` | `string` |  | 인풋 placeholder |
+| `submitLabel` | `string` |  | 버튼 라벨 |
+| `successMessage` | `ReactNode` |  | 성공 메시지 |
+| `errorMessage` | `ReactNode` |  | 에러 메시지 |
+| `consentLabel` | `ReactNode` |  | 개인정보 동의 라벨 |
+| `requireConsent` | `boolean` |  | 동의 필수 여부 |
+| `onSubscribe` | `(email: string) => Promise<void> \| void` |  | 제출 핸들러 (Promise 반환) |
+| `variant` | `"stacked" \| "card" \| "inline"` |  | 레이아웃 |
+
+**Example**
+
+```tsx
+<Newsletter title="업데이트 받기" onSubscribe={async (email) => api.subscribe(email)} />
+```
+
+---
+
 ### Notification
 
 *stable* · *v2.2.0* — `feedback`
@@ -3217,6 +4573,61 @@ Modal 컴포넌트
 
 ```tsx
 <Notification title="저장 완료" description="변경사항이 저장되었습니다." variant="success" />
+```
+
+---
+
+### NowPlayingBar
+
+*stable* · *v2.3.0* — `media` `audio`
+
+하단 고정 재생 바 — 커버·곡 정보·파형 스크러버·이전/재생/다음.
+
+**Import:** `import { NowPlayingBar } from "@/ds/composites/NowPlayingBar";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `player` | `AudioPlayerState` | ✓ | `useAudioPlayer()` 가 돌려준 상태 |
+| `onExpand` | `() => void` |  | 커버를 눌렀을 때 (전체 화면 플레이어 열기 등). 없으면 커버는 버튼이 아니다 |
+| `errorMessage` | `string` |  | 트랙 로드 실패 시 아티스트 자리에 보여줄 문구 |
+| `bars` | `number` |  | 파형 막대 개수 (기본 72) |
+| `actions` | `ReactNode` |  | 바 오른쪽 끝에 덧붙일 내용 (볼륨 슬라이더·반복 버튼 등) |
+| `fixed` | `boolean` |  | 화면 하단에 고정할지 (기본 true) |
+
+**Example**
+
+```tsx
+```tsx
+const player = useAudioPlayer(tracks);
+<NowPlayingBar player={player} onExpand={() => setFullscreen(true)} />
+```
+```
+
+---
+
+### OfflineIndicator
+
+*stable* · *v2.3.0* — `feedback`
+
+네트워크 오프라인 상태 표시 (자동 복구 알림 포함).
+
+**Import:** `import { OfflineIndicator } from "@/ds/composites/OfflineIndicator";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `offlineMessage` | `ReactNode` |  | 오프라인 메시지 |
+| `onlineMessage` | `ReactNode` |  | 복구 메시지 (잠깐 표시) |
+| `onlineFlashDuration` | `number` |  | 복구 메시지 표시 시간(ms) |
+| `position` | `"bottom" \| "top"` |  | 위치 |
+
+**Example**
+
+```tsx
+<OfflineIndicator />
 ```
 
 ---
@@ -3247,6 +4658,63 @@ Modal 컴포넌트
 
 ---
 
+### OnlineStatus
+
+*stable* · *v2.3.0* — `social`
+
+사용자 온라인 상태 인디케이터.
+
+**Import:** `import { OnlineStatus } from "@/ds/composites/OnlineStatus";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `status` | `OnlineStatusValue` | ✓ | 상태 |
+| `size` | `OnlineStatusSize` |  | 크기 |
+| `showLabel` | `boolean` |  | 라벨 표시 |
+| `pulse` | `boolean` |  | 펄스 애니메이션 (online에만) |
+| `lastSeenAt` | `string \| Date` |  | 마지막 활동 시각 (offline일 때 표시) |
+| `labels` | `Partial<Record<OnlineStatusValue, string>>` |  | 커스텀 라벨 매핑 |
+
+**Example**
+
+```tsx
+<OnlineStatus status="online" showLabel pulse />
+<OnlineStatus status="offline" lastSeenAt={lastSeenDate} showLabel />
+```
+
+---
+
+### PageHeader
+
+*stable* · *v2.3.0* — `layout`
+
+표준 페이지 헤더: breadcrumb + title + actions + footer.
+
+**Import:** `import { PageHeader } from "@/ds/composites/PageHeader";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` | ✓ | 메인 제목 |
+| `description` | `ReactNode` |  | 부제 / 설명 |
+| `breadcrumb` | `Array<PageHeaderBreadcrumb>` |  | 브레드크럼 |
+| `onBack` | `() => void` |  | 좌측 뒤로가기 핸들러 |
+| `actions` | `ReactNode` |  | 우측 액션 영역 |
+| `avatar` | `ReactNode` |  | 좌측 아바타/아이콘 영역 |
+| `footer` | `ReactNode` |  | 하단 탭/메타 영역 |
+| `divider` | `boolean` |  | 구분선 표시 |
+
+**Example**
+
+```tsx
+<PageHeader title="사용자" breadcrumb={[{label:"홈",href:"/"},{label:"사용자"}]} actions={<Button>추가</Button>} />
+```
+
+---
+
 ### Pagination
 
 *stable* · *v2.2.0* — `navigation`
@@ -3269,6 +4737,250 @@ Modal 컴포넌트
 
 ```tsx
 <Pagination page={1} totalPages={10} onChange={setPage} />
+```
+
+---
+
+### PasswordStrength
+
+*stable* · *v2.3.0* — `input`
+
+비밀번호 강도 미터 + 규칙 체크리스트.
+
+**Import:** `import { PasswordStrength } from "@/ds/composites/PasswordStrength";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `password` | `string` | ✓ | 비밀번호 |
+| `rules` | `Array<PasswordRule>` |  | 규칙 (없으면 기본 5종) |
+| `showLabel` | `boolean` |  | 라벨 노출 (very weak / weak / ...) |
+| `showChecklist` | `boolean` |  | 규칙 체크리스트 노출 |
+| `onChange` | `(level: StrengthLevel, passedRules: string[]) => void` |  | 강도 변경 콜백 |
+
+**Example**
+
+```tsx
+<PasswordStrength password={pw} showChecklist />
+```
+
+---
+
+### PhotoCard
+
+*stable* · *v2.4.0* — `photo` `media`
+
+사진 카드 — 이미지 + 캡션 + 좋아요/댓글 메타.
+
+**Import:** `import { PhotoCard } from "@/ds/composites/PhotoCard";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `src` | `string` | ✓ | 사진 URL |
+| `alt` | `string` | ✓ | alt 텍스트 (a11y 필수) |
+| `title` | `ReactNode` |  | 캡션 |
+| `meta` | `ReactNode` |  | 부가 정보 (위치, 날짜 등) |
+| `likes` | `number` |  | 좋아요 수 |
+| `comments` | `number` |  | 댓글 수 |
+| `aspectRatio` | `string` |  | 종횡비 (CSS aspect-ratio 표현) |
+| `interactive` | `boolean` |  | 호버 시 살짝 떠오르는 효과 |
+| `badge` | `ReactNode` |  | 우상단 배지 |
+
+**Example**
+
+```tsx
+<PhotoCard src="/p.jpg" alt="해변" title="동해" meta="2026.04" likes={142} comments={8} interactive />
+```
+
+---
+
+### PhotoCarousel
+
+*stable* · *v2.4.0* — `photo` `media`
+
+사진 슬라이드쇼 — 자동재생/수동 컨트롤/키보드 지원.
+
+**Import:** `import { PhotoCarousel } from "@/ds/composites/PhotoCarousel";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `photos` | `Array<CarouselPhoto>` | ✓ |  |
+| `autoPlayMs` | `number` |  | 자동 재생 (ms 단위, 0=꺼짐) |
+| `showIndicators` | `boolean` |  | 인디케이터 점 표시 |
+| `aspectRatio` | `string` |  | 종횡비 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<PhotoCarousel photos={photos} autoPlayMs={4000} />
+```
+
+---
+
+### PhotoFilters
+
+*stable* · *v2.4.0* — `photo` `control`
+
+사진 필터 스트립 — 썸네일 미리보기 + 라벨, 가로 스크롤.
+
+**Import:** `import { PhotoFilters } from "@/ds/composites/PhotoFilters";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `previewSrc` | `string` | ✓ | 미리보기 이미지 (썸네일) |
+| `filters` | `Array<PhotoFilter>` | ✓ | 필터 목록 |
+| `activeId` | `string` |  | 활성 필터 id |
+| `onChange` | `(id: string) => void` | ✓ | 변경 콜백 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<PhotoFilters previewSrc={src} filters={defaultPhotoFilters} activeId={f} onChange={setF} />
+```
+
+---
+
+### PhotoGrid
+
+*stable* · *v2.4.0* — `photo` `layout`
+
+사진 그리드 — uniform(균등), masonry(폭만 같음), mosaic(첫 항목 강조).
+
+**Import:** `import { PhotoGrid } from "@/ds/composites/PhotoGrid";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `children` | `ReactNode` | ✓ | 사진 카드들 |
+| `layout` | `PhotoGridLayout` |  | 레이아웃 모드 |
+| `columns` | `5 \| 2 \| 3 \| 4` |  | 컬럼 수 |
+| `gap` | `2 \| 3 \| 4 \| 1` |  | 간격 (Tailwind gap 키) |
+
+**Example**
+
+```tsx
+<PhotoGrid layout="masonry" columns={4} gap={2}>
+  {photos.map((p) => <PhotoCard key={p.id} {...p} />)}
+</PhotoGrid>
+```
+
+---
+
+### PhotoLightbox
+
+*stable* · *v2.4.0* — `photo` `overlay`
+
+사진 라이트박스 — 키보드 화살표/Esc 지원하는 풀스크린 뷰어.
+
+**Import:** `import { PhotoLightbox } from "@/ds/composites/PhotoLightbox";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `photos` | `Array<LightboxPhoto>` | ✓ | 표시 사진 목록 |
+| `index` | `number` | ✓ | 현재 인덱스 (controlled) |
+| `onIndexChange` | `(index: number) => void` | ✓ | 인덱스 변경 콜백 |
+| `onClose` | `() => void` | ✓ | 닫기 콜백 |
+| `open` | `boolean` | ✓ | 열림 상태 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<PhotoLightbox open={open} photos={photos} index={i} onIndexChange={setI} onClose={()=>setOpen(false)} />
+```
+
+---
+
+### PhotoUploader
+
+*stable* · *v2.4.0* — `photo` `form` `input`
+
+사진 업로더 — 드래그/클릭 + 미리보기 그리드 + 개수 제한.
+
+**Import:** `import { PhotoUploader } from "@/ds/composites/PhotoUploader";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `onAdd` | `(photos: PhotoPreview[]) => void` | ✓ | 새 파일들이 추가될 때 호출 |
+| `onRemove` | `(id: string) => void` |  | 한 항목 제거 |
+| `photos` | `Array<PhotoPreview>` |  | 현재 선택된 항목들 (controlled 미리보기) |
+| `maxCount` | `number` |  | 최대 개수 |
+| `maxSize` | `number` |  | 파일당 최대 크기(바이트) |
+| `accept` | `string` |  | accept (기본 image/*) |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<PhotoUploader photos={photos} onAdd={(p) => setPhotos([...photos, ...p])} onRemove={(id) => …} maxCount={9} />
+```
+
+---
+
+### PieChart
+
+*stable* · *v2.3.0* — `chart`
+
+경량 SVG 파이/도넛 차트.
+
+**Import:** `import { PieChart } from "@/ds/composites/PieChart";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `data` | `Array<PieSlice>` | ✓ | 데이터 |
+| `size` | `number` |  | 크기(px) |
+| `innerRatio` | `number` |  | 도넛 모드 (안쪽 비율 0~1) |
+| `showLegend` | `boolean` |  | 범례 표시 |
+| `centerLabel` | `string` |  | 가운데 라벨 (도넛) |
+
+**Example**
+
+```tsx
+<PieChart data={[{label:"A", value:30},{label:"B", value:70}]} innerRatio={0.6} centerLabel="100%" />
+```
+
+---
+
+### PollCard
+
+*stable* · *v2.4.0* — `sns` `content`
+
+투표 카드 — 단일 선택 + 결과 막대 + 마감 표시.
+
+**Import:** `import { PollCard } from "@/ds/composites/PollCard";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `question` | `ReactNode` | ✓ | 질문 |
+| `options` | `Array<PollOption>` | ✓ | 옵션 |
+| `votedId` | `string \| null` |  | 사용자가 투표한 옵션 id (null 이면 미투표) |
+| `onVote` | `(id: string) => void` |  | 투표 콜백 |
+| `closesIn` | `string` |  | 마감까지 남은 텍스트 |
+| `alwaysShowResults` | `boolean` |  | 결과를 항상 보여줄지 (false면 투표 후만) |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<PollCard question="가장 좋아하는 색은?" options={opts} votedId={voted} onVote={v} closesIn="2일 남음" />
 ```
 
 ---
@@ -3299,6 +5011,162 @@ Modal 컴포넌트
 
 ---
 
+### PostCard
+
+*stable* · *v2.4.0* — `sns` `content`
+
+SNS 게시물 카드 — 작성자 + 본문 + 미디어 + 액션 바.
+
+**Import:** `import { PostCard } from "@/ds/composites/PostCard";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `author` | `PostAuthor` | ✓ | 작성자 |
+| `content` | `ReactNode` | ✓ | 본문 (텍스트/JSX) |
+| `createdAt` | `string \| Date` |  | 작성 시각 |
+| `media` | `ReactNode` |  | 첨부 미디어 (image url 또는 children) |
+| `likes` | `number` |  | 좋아요 수 |
+| `comments` | `number` |  | 댓글 수 |
+| `shares` | `number` |  | 공유 수 |
+| `onLike` | `() => void` |  | 좋아요 콜백 (있으면 좋아요 버튼 노출) |
+| `onComment` | `() => void` |  | 댓글 콜백 |
+| `onShare` | `() => void` |  | 공유 콜백 |
+| `liked` | `boolean` |  | 좋아요 활성 상태 |
+| `onClick` | `() => void` |  | 클릭 가능한 카드 (전체 클릭) |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<PostCard author={u} content="새 사진!" media={<img src="..." />} createdAt={t} likes={42} comments={8} liked onLike={…} />
+```
+
+---
+
+### PriceDisplay
+
+*stable* · *v2.3.0* — `ecommerce`
+
+가격 표시 — 통화 포맷 + 할인 원가 + 할인율 자동 계산.
+
+**Import:** `import { PriceDisplay } from "@/ds/composites/PriceDisplay";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `value` | `string \| number` | ✓ | 현재가 (숫자 또는 미리 포맷된 문자열) |
+| `original` | `string \| number` |  | 원가 (할인 표시용) |
+| `currency` | `string` |  | 통화 코드 (Intl.NumberFormat) — value가 숫자일 때만 사용 |
+| `locale` | `string` |  | 로케일 |
+| `suffix` | `string` |  | 단위 접미사 (예: "/월") |
+| `size` | `PriceSize` |  | 크기 |
+| `showDiscount` | `boolean` |  | 할인 라벨 자동 계산 노출 |
+| `layout` | `PriceLayout` |  | 레이아웃 |
+
+**Example**
+
+```tsx
+<PriceDisplay value={29000} original={49000} currency="KRW" showDiscount />
+```
+
+---
+
+### PricingTable
+
+*stable* · *v2.3.0* — `marketing`
+
+요금제 카드 그리드. SaaS / 마케팅 페이지용.
+
+**Import:** `import { PricingTable } from "@/ds/composites/PricingTable";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `plans` | `Array<PricingPlan>` | ✓ | 플랜 목록 |
+| `columns` | `number` |  | 컬럼 수 (기본 자동) |
+
+**Example**
+
+```tsx
+<PricingTable plans={[{ id:"free", name:"Free", price:"$0", features:["1 user"]}, ...]} />
+```
+
+---
+
+### ProductCard
+
+*stable* · *v2.3.0* — `ecommerce`
+
+e-commerce 상품 카드 (이미지 + 가격 + 평점 + 위시 + 장바구니).
+
+**Import:** `import { ProductCard } from "@/ds/composites/ProductCard";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` | ✓ | 상품명 |
+| `image` | `string` |  | 이미지 URL |
+| `imageRatio` | `string` |  | 종횡비 |
+| `price` | `ReactNode` | ✓ | 가격 표시 (PriceDisplay 또는 ReactNode) |
+| `rating` | `number` |  | 평점 (0~5) |
+| `reviewCount` | `number` |  | 리뷰 수 |
+| `badge` | `ReactNode` |  | 좌상단 배지 |
+| `brand` | `string` |  | 카테고리/브랜드 |
+| `onWishlist` | `() => void` |  | 위시리스트 추가 (없으면 버튼 미노출) |
+| `wishlisted` | `boolean` |  | 위시리스트에 들어있는지 |
+| `onAddToCart` | `() => void` |  | 장바구니 담기 |
+| `addToCartLabel` | `string` |  | 장바구니 담기 라벨 |
+| `disabled` | `boolean` |  | 비활성 (품절 등) |
+| `outOfStockLabel` | `string` |  | 품절 텍스트 |
+| `onClick` | `() => void` |  | 카드 클릭 (상세 이동) |
+
+**Example**
+
+```tsx
+<ProductCard title="셔츠" image="/p.jpg" price="₩29,000" rating={4.5} reviewCount={128} onAddToCart={()=>{}} />
+```
+
+---
+
+### ProfileHeader
+
+*stable* · *v2.4.0* — `sns` `layout`
+
+SNS 프로필 헤더 — 배너 + 아바타 + 통계 + 액션.
+
+**Import:** `import { ProfileHeader } from "@/ds/composites/ProfileHeader";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `avatar` | `string` |  | 프로필 이미지 URL |
+| `banner` | `string` |  | 배너(커버) 이미지 URL |
+| `name` | `string` | ✓ | 표시 이름 |
+| `handle` | `string` |  | @핸들 |
+| `bio` | `ReactNode` |  | 자기소개 |
+| `location` | `string` |  | 위치 |
+| `joinedAt` | `string` |  | 가입일 또는 시작 시각 |
+| `stats` | `Array<{ label: string; value: string \| number; href?: string; }>` |  | 통계 항목 |
+| `actions` | `ReactNode` |  | 우측 액션 (FollowButton 등) |
+| `verified` | `boolean` |  | 인증 배지 표시 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<ProfileHeader name="준하" handle="junha" banner="/banner.jpg" avatar="/me.jpg" verified
+  stats={[{label:"팔로워",value:"3.2k"},{label:"팔로잉",value:148},{label:"게시물",value:512}]}
+  actions={<FollowButton following={f} onChange={setF} />} />
+```
+
+---
+
 ### ProgressRing
 
 *stable* · *v2.2.0* — `feedback`
@@ -3324,6 +5192,42 @@ Modal 컴포넌트
 
 ```tsx
 <ProgressRing value={75} max={100} size={64} strokeWidth={6} />
+```
+
+---
+
+### ProjectCard
+
+*stable* · *v2.3.0* — `content` `navigation`
+
+프로젝트 한 줄 카드 — 아이콘·제목·설명·뱃지·연도·화살표.
+
+**Import:** `import { ProjectCard } from "@/ds/composites/ProjectCard";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `string` | ✓ | 프로젝트명 |
+| `subtitle` | `string` |  | 한 줄 설명 |
+| `icon` | `string` |  | 아이콘/썸네일 URL |
+| `iconNode` | `ReactNode` |  | 이미지 대신 넣을 아이콘 노드 (`icon` 보다 우선) |
+| `meta` | `string` |  | 오른쪽 끝에 놓을 연도·기간 라벨 |
+| `badges` | `ReactNode` |  | 제목 옆/오른쪽에 붙일 뱃지들 ("App Store", "OSS" 등) |
+| `href` | `string` |  | 이동할 URL. 주면 카드 전체가 링크가 된다 |
+| `external` | `boolean` |  | 외부 링크로 열지 (`target="_blank"` + rel) |
+| `onPrefetch` | `() => void` |  | 호버·포커스·터치 시작 시 호출 — 상세 페이지 청크를 미리 받아 둘 때 쓴다. |
+| `arrow` | `boolean` |  | 오른쪽 끝 화살표 표시 (기본: `href` 가 있으면 true) |
+| `variant` | `ProjectCardVariant` |  | `row` 는 목록용 촘촘한 한 줄, `feature` 는 대표작을 조금 크게 보여주는 형태. |
+| `renderLink` | `(props: { href: string; className: string; children: ReactNode; }) => ReactNode` |  | 링크 렌더러. Next.js `<Link>` 나 react-router `<Link>` 를 쓰려면 넘긴다. |
+
+**Example**
+
+```tsx
+<ProjectCard
+  title="JunDS" subtitle="디자인 시스템" icon="/icons/junds.svg"
+  meta="2024—" href="/docs/junds" badges={<Badge>OSS</Badge>}
+/>
 ```
 
 ---
@@ -3381,6 +5285,92 @@ Modal 컴포넌트
 
 ---
 
+### QuantitySelector
+
+*stable* · *v2.3.0* — `ecommerce`
+
+단독 수량 선택기 (CartItem 외에도 단일 사용 가능).
+
+**Import:** `import { QuantitySelector } from "@/ds/composites/QuantitySelector";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `value` | `number` |  | 현재 값 (controlled) |
+| `defaultValue` | `number` |  | 기본값 |
+| `onChange` | `(q: number) => void` |  | 변경 콜백 |
+| `min` | `number` |  | 최소 |
+| `max` | `number` |  | 최대 (재고) |
+| `step` | `number` |  | 증감 단위 |
+| `disabled` | `boolean` |  | 비활성 |
+| `size` | `QuantitySize` |  | 크기 |
+| `editable` | `boolean` |  | input 직접 편집 허용 |
+
+**Example**
+
+```tsx
+<QuantitySelector defaultValue={1} max={10} onChange={console.log} />
+```
+
+---
+
+### RadarChart
+
+*stable* · *v2.3.0* — `chart`
+
+SVG 레이더(스파이더) 차트 — 다축 비교용.
+
+**Import:** `import { RadarChart } from "@/ds/composites/RadarChart";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `axes` | `Array<string>` | ✓ | 축 라벨 (3개 이상 권장) |
+| `series` | `Array<RadarSeries>` | ✓ | 시리즈 (각 데이터 길이는 axes.length와 같아야 함) |
+| `size` | `number` |  | 크기(px, 정사각) |
+| `max` | `number` |  | 최대값 (스케일 기준, 미설정이면 자동) |
+| `gridSteps` | `number` |  | 그리드 단계 |
+| `fillOpacity` | `number` |  | 영역 채움 투명도 |
+| `showDots` | `boolean` |  | 점 표시 |
+| `showLegend` | `boolean` |  | 범례 |
+
+**Example**
+
+```tsx
+<RadarChart axes={["속도","품질","가격","UX","지원"]} series={[{name:"A",data:[3,5,4,5,2]}]} max={5} />
+```
+
+---
+
+### RadioCardGroup
+
+*stable* · *v2.3.0* — `input`
+
+라디오 카드 그룹 — 옵션을 풍부한 카드로 표현 (요금제, 결제수단 등).
+
+**Import:** `import { RadioCardGroup } from "@/ds/composites/RadioCardGroup";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `options` | `Array<RadioCardOption>` | ✓ | 옵션 목록 |
+| `value` | `string` |  | 선택값 |
+| `defaultValue` | `string` |  | 기본값 |
+| `onChange` | `(value: string) => void` |  | 변경 콜백 |
+| `name` | `string` |  | name (form 통합) |
+| `columns` | `number` |  | 컬럼 수 |
+
+**Example**
+
+```tsx
+<RadioCardGroup options={[{value:"a",title:"기본",description:"가벼운 시작"}, ...]} />
+```
+
+---
+
 ### Rating
 
 *stable* · *v2.2.0* — `form` `input`
@@ -3406,6 +5396,115 @@ Modal 컴포넌트
 
 ```tsx
 <Rating value={3} onChange={setValue} max={5} half />
+```
+
+---
+
+### ReactionPicker
+
+*stable* · *v2.4.0* — `sns` `control`
+
+리액션 피커 — 트리거 클릭 시 이모지 바, 단일 선택 토글.
+
+**Import:** `import { ReactionPicker } from "@/ds/composites/ReactionPicker";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `emojis` | `Array<string>` |  | 사용 가능한 이모지 (기본 6종) |
+| `value` | `string \| null` |  | 선택된 이모지 (단일 선택형) |
+| `onChange` | `(emoji: string \| null) => void` |  | 변경 콜백 |
+| `triggerLabel` | `string` |  | 트리거 라벨 (없으면 + 아이콘) |
+| `placement` | `"bottom" \| "top"` |  | 위치 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<ReactionPicker value={r} onChange={setR} />
+```
+
+---
+
+### ReadingGoal
+
+*stable* · *v2.4.0* — `book` `feedback`
+
+독서 목표 — 원형 진행률.
+
+**Import:** `import { ReadingGoal } from "@/ds/composites/ReadingGoal";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `current` | `number` | ✓ |  |
+| `target` | `number` | ✓ |  |
+| `unit` | `string` |  |  |
+| `label` | `string` |  |  |
+| `size` | `number` |  |  |
+| `thickness` | `number` |  |  |
+| `className` | `string` |  |  |
+
+**Example**
+
+```tsx
+<ReadingGoal current={23} target={50} unit="권" label="2026 목표" size={140} />
+```
+
+---
+
+### ReadingProgress
+
+*stable* · *v2.4.0* — `book` `feedback`
+
+독서 진행률 — 현재/총 페이지, 챕터, 남은 시간 표시.
+
+**Import:** `import { ReadingProgress } from "@/ds/composites/ReadingProgress";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `currentPage` | `number` | ✓ | 현재 페이지 (1-base) |
+| `totalPages` | `number` | ✓ | 총 페이지 |
+| `chapter` | `string` |  | 챕터 제목 (선택) |
+| `remainingMinutes` | `number` |  | 예상 남은 시간(분) |
+| `compact` | `boolean` |  | 컴팩트 모드 (한 줄) |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<ReadingProgress currentPage={86} totalPages={312} chapter="3장. 노이즈" remainingMinutes={42} />
+```
+
+---
+
+### ReadingStats
+
+*stable* · *v2.4.0* — `book` `data-display`
+
+독서 통계 — 오늘/스트릭/누적/시간.
+
+**Import:** `import { ReadingStats } from "@/ds/composites/ReadingStats";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `pagesToday` | `number` | ✓ |  |
+| `pagesGoal` | `number` |  |  |
+| `streakDays` | `number` | ✓ |  |
+| `booksCompleted` | `number` | ✓ |  |
+| `totalMinutes` | `number` | ✓ |  |
+| `className` | `string` |  |  |
+
+**Example**
+
+```tsx
+<ReadingStats pagesToday={42} pagesGoal={50} streakDays={12} booksCompleted={37} totalMinutes={2840} />
 ```
 
 ---
@@ -3498,6 +5597,116 @@ Modal 컴포넌트
 
 ---
 
+### SankeyDiagram
+
+*stable* · *v2.3.0* — `chart`
+
+간단한 Sankey 다이어그램 (자동 컬럼 배치 + 베지어 링크).
+
+**Import:** `import { SankeyDiagram } from "@/ds/composites/SankeyDiagram";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `nodes` | `Array<SankeyNode>` | ✓ | 노드 |
+| `links` | `Array<SankeyLink>` | ✓ | 링크 (source/target은 node id) |
+| `width` | `number` |  | 너비 |
+| `height` | `number` |  | 높이 |
+| `nodeWidth` | `number` |  | 노드 폭 |
+| `nodeGap` | `number` |  | 노드 사이 간격 |
+
+**Example**
+
+```tsx
+<SankeyDiagram nodes={[{id:"A"},{id:"B"},{id:"C"}]} links={[{source:"A",target:"B",value:30},{source:"A",target:"C",value:10}]} />
+```
+
+---
+
+### ScatterPlot
+
+*stable* · *v2.3.0* — `chart`
+
+SVG 산점도 / 버블 차트 (point.size 지정 시 버블).
+
+**Import:** `import { ScatterPlot } from "@/ds/composites/ScatterPlot";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `series` | `Array<ScatterSeries>` | ✓ | 시리즈 |
+| `width` | `number` |  | 너비 |
+| `height` | `number` |  | 높이 |
+| `xDomain` | `[number, number]` |  | X축 도메인 (자동) |
+| `yDomain` | `[number, number]` |  | Y축 도메인 (자동) |
+| `showGrid` | `boolean` |  | 그리드 |
+| `showYAxis` | `boolean` |  | Y축 라벨 |
+| `showXAxis` | `boolean` |  | X축 라벨 |
+| `showLegend` | `boolean` |  | 범례 |
+| `defaultPointSize` | `number` |  | 기본 점 크기 |
+
+**Example**
+
+```tsx
+<ScatterPlot series={[{name:"A", data:[{x:1,y:2},{x:3,y:5}]}]} />
+```
+
+---
+
+### ScreenshotGrid
+
+*stable* · *v2.3.0* — `content` `media`
+
+문서용 스크린샷 그리드. 로드에 실패한 이미지는 조용히 목록에서 뺀다.
+
+**Import:** `import { ScreenshotGrid } from "@/ds/composites/ScreenshotGrid";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `images` | `Array<string>` | ✓ | 이미지 경로 목록. 절대 URL 이 아니면 `basePath` 가 앞에 붙는다 |
+| `basePath` | `string` |  | 상대 경로 앞에 붙일 접두사 (예: `"/docs/img/"`) |
+| `alt` | `(src: string, index: number) => string` |  | 이미지 alt 를 만드는 함수 (기본: 빈 문자열 = 장식으로 취급) |
+| `columns` | `2 \| 3 \| 4` |  | 컬럼 수 (기본 3) |
+| `onSelect` | `(src: string, index: number) => void` |  | 이미지 클릭 핸들러 — 라이트박스를 열 때 쓴다 |
+
+**Example**
+
+```tsx
+<ScreenshotGrid images={["home.png", "detail.png"]} basePath="/docs/img/" />
+```
+
+---
+
+### ScrollProgress
+
+*stable* · *v2.3.0* — `feedback`
+
+페이지 읽기 진행률 바 (블로그 / 긴 문서).
+
+**Import:** `import { ScrollProgress } from "@/ds/composites/ScrollProgress";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `position` | `"bottom" \| "top"` |  | 위치 |
+| `color` | `string` |  | 색상 (CSS 값) |
+| `thickness` | `number` |  | 두께(px) |
+| `target` | `HTMLElement \| null` |  | 추적 대상 (없으면 window) |
+| `aria-label` | `string` |  | 스크린리더용 라벨 (기본 "페이지 스크롤 진행률") |
+
+**Example**
+
+```tsx
+<ScrollProgress position="top" color="var(--primary)" thickness={3} />
+```
+
+---
+
 ### ScrollSpy
 
 *stable* · *v2.2.0* — `navigation`
@@ -3518,6 +5727,42 @@ Modal 컴포넌트
 
 ```tsx
 <ScrollSpy sections={[{ key: "intro", label: "소개", targetId: "section-intro" }]} />
+```
+
+---
+
+### SearchBar
+
+*stable* · *v2.5.0* — `form` `input`
+
+검색 입력 — 디바운스 + 단축키 포커스 + 클리어 버튼.
+
+**Import:** `import { SearchBar } from "@/ds/composites/SearchBar";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `value` | `string` |  | 입력값 (controlled) |
+| `defaultValue` | `string` |  | 초기값 (uncontrolled) |
+| `onChange` | `(value: string) => void` |  | 입력 변경 (즉시) |
+| `onSearch` | `(value: string) => void` |  | 디바운스된 변경 콜백 (실 검색 호출에 사용) |
+| `debounceMs` | `number` |  | 디바운스 ms (기본 250) |
+| `placeholder` | `string` |  | 플레이스홀더 |
+| `focusShortcut` | `string \| false` |  | 단축키로 포커스 이동 (예: "mod+k", false면 비활성) |
+| `endSlot` | `ReactNode` |  | 우측 슬롯 (단축키 힌트 등) |
+| `size` | `"sm" \| "md" \| "lg"` |  | 크기 |
+| `disabled` | `boolean` |  | disabled |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<SearchBar
+    focusShortcut="mod+k"
+    onSearch={(q) => setQuery(q)}
+    endSlot={<><KeyCap>⌘</KeyCap><KeyCap>K</KeyCap></>}
+  />
 ```
 
 ---
@@ -3738,7 +5983,7 @@ Modal 컴포넌트
 
 | Prop | Type | Required | Description |
 |------|------|:--------:|-------------|
-| `variant` | `"list" \| "card" \| "table" \| "profile" \| "article"` | ✓ | 프리셋 종류 |
+| `variant` | `"card" \| "list" \| "table" \| "profile" \| "article"` | ✓ | 프리셋 종류 |
 | `rows` | `number` |  | 행 수 (table/list 변형) |
 | `className` | `string` |  | 추가 클래스 |
 
@@ -3746,6 +5991,61 @@ Modal 컴포넌트
 
 ```tsx
 <SkeletonPreset variant="card" rows={3} />
+```
+
+---
+
+### Snackbar
+
+*stable* · *v2.3.0* — `feedback`
+
+짧은 알림(스낵바) — Toast보다 가볍고 단일/액션 중심.
+
+**Import:** `import { Snackbar } from "@/ds/composites/Snackbar";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `open` | `boolean` | ✓ | 표시 여부 |
+| `message` | `ReactNode` | ✓ | 메시지 |
+| `variant` | `SnackbarVariant` |  | 변형 |
+| `position` | `SnackbarPosition` |  | 위치 |
+| `duration` | `number` |  | 자동 닫힘(ms), 0 이면 수동 |
+| `actionLabel` | `string` |  | 우측 액션 라벨 (예: "실행 취소") |
+| `onAction` | `() => void` |  | 액션 클릭 콜백 |
+| `onClose` | `() => void` |  | 닫힘 콜백 |
+
+**Example**
+
+```tsx
+<Snackbar open={open} message="저장됨" actionLabel="실행 취소" onAction={undo} onClose={() => setOpen(false)} />
+```
+
+---
+
+### SocialShare
+
+*stable* · *v2.3.0* — `marketing`
+
+소셜 공유 버튼 그룹 (X / Facebook / LinkedIn / Kakao / Telegram / WhatsApp / Email / 복사).
+
+**Import:** `import { SocialShare } from "@/ds/composites/SocialShare";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `url` | `string` | ✓ | 공유할 URL |
+| `title` | `string` |  | 공유 제목/본문 |
+| `platforms` | `Array<SocialPlatform>` |  | 노출할 플랫폼 |
+| `size` | `"sm" \| "md" \| "lg"` |  | 크기 |
+| `shape` | `"circle" \| "square"` |  | 동그라미 vs 사각형 |
+
+**Example**
+
+```tsx
+<SocialShare url="https://example.com" title="JunDS!" />
 ```
 
 ---
@@ -3790,8 +6090,10 @@ Modal 컴포넌트
 
 | Prop | Type | Required | Description |
 |------|------|:--------:|-------------|
-| `type` | `"spoiler" \| "caution"` |  | 스포일러 종류 |
+| `type` | `"spoiler" \| "caution" \| "youth"` |  | 스포일러 종류. `youth` 는 `caution` 의 별칭 — |
 | `label` | `string` |  | 공개 버튼 라벨 |
+| `notice` | `React.ReactNode` |  | 버튼 위에 띄울 안내 문구 (기본: 종류별 기본 문구). |
+| `onReveal` | `() => void` |  | 내용을 공개했을 때 호출 (분석 이벤트·부모 상태 반영 등) |
 | `children` | `React.ReactNode` | ✓ | 가려질 콘텐츠 |
 | `className` | `string` |  | 추가 클래스 |
 
@@ -3854,6 +6156,34 @@ Modal 컴포넌트
 <SpotlightCard spotlightColor="rgba(59,130,246,0.2)" spotlightSize={300}>
   <Card>...</Card>
 </SpotlightCard>
+```
+
+---
+
+### Stat
+
+*stable* · *v2.3.0* — `data-display`
+
+단일 메트릭 표시 (StatCard보다 가벼움, 인라인 사용 가능).
+
+**Import:** `import { Stat } from "@/ds/composites/Stat";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `label` | `ReactNode` | ✓ | 라벨 |
+| `value` | `ReactNode` | ✓ | 값 |
+| `unit` | `string` |  | 보조 단위/접미사 |
+| `change` | `number` |  | 변화율 (%) |
+| `trend` | `StatTrend` |  | 트렌드 (자동 계산되지만 override 가능) |
+| `hint` | `ReactNode` |  | 부가 설명 |
+| `align` | `"left" \| "center"` |  | 레이아웃 정렬 |
+
+**Example**
+
+```tsx
+<Stat label="MAU" value="12,800" change={5.2} />
 ```
 
 ---
@@ -3940,6 +6270,33 @@ Modal 컴포넌트
 
 ---
 
+### StoryCircle
+
+*stable* · *v2.4.0* — `sns` `media`
+
+스토리 링 — Instagram 스타일 그라디언트 링 + 상태.
+
+**Import:** `import { StoryCircle } from "@/ds/composites/StoryCircle";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `name` | `string` | ✓ | 사용자 표시 이름 |
+| `avatar` | `string` |  | 아바타 이미지 URL |
+| `state` | `StoryRingState` |  | 링 상태 |
+| `size` | `number` |  | 크기 (px) |
+| `onClick` | `() => void` |  | 클릭 콜백 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<StoryCircle name="준하" avatar="/me.jpg" state="unread" onClick={openStory} />
+```
+
+---
+
 ### SwipeAction
 
 *stable* · *v2.2.0* — `form` `control`
@@ -4004,6 +6361,38 @@ Modal 컴포넌트
 
 ---
 
+### TableOfContents
+
+*stable* · *v2.3.0* — `navigation`
+
+자동 생성 목차 (헤딩 수집 + IntersectionObserver 기반 활성 항목 추적).
+
+**Import:** `import { TableOfContents } from "@/ds/composites/TableOfContents";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `items` | `Array<TocItem>` |  | 명시적 항목 (없으면 selector로 자동 수집) |
+| `selector` | `string` |  | 자동 수집할 헤딩 셀렉터 |
+| `rootSelector` | `string` |  | 컨테이너 셀렉터 (없으면 document) |
+| `exclude` | `string` |  | 수집에서 제외할 헤딩 셀렉터. |
+| `observe` | `boolean` |  | 본문이 늦게 도착하는 경우(lazy import / Suspense / 스트리밍)를 대비해 |
+| `activeTracking` | `boolean` |  | 활성 항목 추적 활성화 |
+| `title` | `string` |  | 상단 라벨 |
+| `smooth` | `boolean` |  | 클릭 시 부드러운 스크롤 |
+| `scrollOffset` | `number` |  | 스크롤 시 헤딩 위에 남길 여백 (px). 고정 헤더 높이만큼 주면 된다 |
+| `onItemsChange` | `(items: TocItem[]) => void` |  | 수집된 항목이 바뀔 때 호출 (바깥에서 "목차 없음" UI 를 그릴 때 유용) |
+| `emptyFallback` | `ReactNode` |  | 항목이 하나도 없을 때 렌더할 내용 (기본: 아무것도 렌더하지 않음) |
+
+**Example**
+
+```tsx
+<TableOfContents rootSelector=".article__body" exclude=".sr-only" scrollOffset={76} />
+```
+
+---
+
 ### Tabs
 
 *stable* · *v2.2.0* — `navigation`
@@ -4056,6 +6445,83 @@ Modal 컴포넌트
 
 ```tsx
 <TagInput value={["React","Next"]} onChange={setTags} placeholder="태그 입력 후 Enter" />
+```
+
+---
+
+### TestimonialCard
+
+*stable* · *v2.3.0* — `marketing`
+
+사용자 후기 카드 (랜딩 / 마케팅 페이지).
+
+**Import:** `import { TestimonialCard } from "@/ds/composites/TestimonialCard";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `TestimonialVariant` |  | 변형 |
+| `quote` | `ReactNode` | ✓ | 후기 본문 |
+| `rating` | `number` |  | 평점 (1~5) |
+| `authorName` | `string` | ✓ | 작성자 이름 |
+| `authorRole` | `string` |  | 작성자 직책/회사 |
+| `authorAvatar` | `string` |  | 작성자 아바타 URL |
+| `companyLogo` | `ReactNode` |  | 작성자 회사 로고 |
+| `highlighted` | `boolean` |  | 강조 표시 |
+
+**Example**
+
+```tsx
+<TestimonialCard quote="정말 빠릅니다" rating={5} authorName="홍길동" authorRole="CTO @ Acme" />
+```
+
+---
+
+### TextareaAutosize
+
+*stable* · *v2.3.0* — `input`
+
+컨텐츠에 맞춰 자동으로 높이가 늘어나는 textarea (chat composer, comment 입력 등).
+
+**Import:** `import { TextareaAutosize } from "@/ds/composites/TextareaAutosize";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `minRows` | `number` |  | 최소 행 수 |
+| `maxRows` | `number` |  | 최대 행 수 (넘으면 스크롤) |
+| `showCount` | `boolean` |  | 글자 수 표시 (maxLength와 함께) |
+
+**Example**
+
+```tsx
+<TextareaAutosize minRows={2} maxRows={8} placeholder="메시지 입력" />
+```
+
+---
+
+### ThinkingIndicator
+
+*stable* · *v2.3.0* — `feedback`
+
+AI/LLM 응답 대기 인디케이터. ChatBubble 안에 넣어 사용.
+
+**Import:** `import { ThinkingIndicator } from "@/ds/composites/ThinkingIndicator";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `ThinkingVariant` |  | 애니메이션 종류 |
+| `label` | `ReactNode` |  | 좌측 라벨 (예: "Claude가 생각 중") |
+| `color` | `string` |  | 점 색상 |
+
+**Example**
+
+```tsx
+<ThinkingIndicator label="Claude가 생각 중" />
 ```
 
 ---
@@ -4216,7 +6682,14 @@ Modal 컴포넌트
 | `items` | `Array<TreeNavItem>` | ✓ | 트리 항목 목록 |
 | `activeKey` | `string` |  | 현재 활성 항목 키 |
 | `onItemClick` | `(key: string, href?: string) => void` |  | 항목 클릭 핸들러 |
+| `onItemPrefetch` | `(key: string, href?: string) => void` |  | 항목에 마우스를 올리거나 포커스가 닿았을 때 호출. |
 | `defaultExpanded` | `Array<string>` |  | 기본 확장 키 목록 |
+| `expandedKeys` | `Array<string>` |  | 확장 상태를 바깥에서 제어할 때 쓴다. |
+| `onExpandedChange` | `(keys: string[]) => void` |  | 확장 상태가 바뀔 때 호출 (제어 모드) |
+| `autoExpandActive` | `boolean` |  | `activeKey` 로 가는 경로의 부모들을 자동으로 펼칠지 (기본 true). |
+| `showCount` | `boolean` |  | `badge` 가 없는 부모 항목에 하위 잎 개수를 자동으로 표시할지 (기본 false). |
+| `expandAllControl` | `boolean` |  | 전체 펼치기/접기 버튼을 상단에 보여줄지 (기본 false) |
+| `ariaLabel` | `string` |  | nav 의 접근성 라벨 |
 | `className` | `string` |  | 추가 클래스 |
 
 **Example**
@@ -4419,6 +6892,62 @@ const items: TreeNavItem[] = [
 </Watermark>
 ```
 
+---
+
+### Waveform
+
+*stable* · *v2.3.0* — `media` `audio`
+
+사운드클라우드식 막대 파형. 재생 진행분이 강조색으로 차오른다.
+
+**Import:** `import { Waveform } from "@/ds/composites/Waveform";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `seed` | `string` | ✓ | 파형을 만들 시드 문자열 (곡 슬러그·제목 등). |
+| `peaks` | `Array<number>` |  | 실제 진폭 배열 (0~1). 주면 `seed` 대신 이 값으로 그린다 |
+| `progress` | `number` |  | 재생 진행 비율 (0~1) |
+| `bars` | `number` |  | 막대 개수 (기본 56) |
+| `playing` | `boolean` |  | 재생 중인지 — 재생 헤드가 맥동한다 |
+| `onSeek` | `(fraction: number) => void` |  | 탐색 콜백 (0~1 비율). |
+| `ariaLabel` | `string` |  | 슬라이더 접근성 라벨 |
+| `height` | `number` |  | 막대 높이 (px, 기본 40) |
+
+**Example**
+
+```tsx
+<Waveform seed={track.slug} progress={t / duration} playing onSeek={(f) => seek(f * duration)} />
+```
+
+---
+
+### YearPicker
+
+*stable* · *v2.3.0* — `input`
+
+연도 선택기 (12년 그리드 + 페이지 네비).
+
+**Import:** `import { YearPicker } from "@/ds/composites/YearPicker";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `value` | `number` |  | 현재 선택값 |
+| `defaultValue` | `number` |  | 기본값 |
+| `onChange` | `(year: number) => void` |  | 변경 콜백 |
+| `min` | `number` |  | 최소 연도 |
+| `max` | `number` |  | 최대 연도 |
+| `pageSize` | `number` |  | 한 페이지 연도 수 (기본 12) |
+
+**Example**
+
+```tsx
+<YearPicker defaultValue={2026} onChange={console.log} />
+```
+
 ## Patterns
 
 ### ActionBar
@@ -4455,6 +6984,102 @@ const items: TreeNavItem[] = [
 
 ---
 
+### AuthLayout
+
+*stable* · *v2.3.0* — `layout`
+
+인증 페이지 표준 레이아웃 (login / signup / reset 공용).
+
+**Import:** `import { AuthLayout } from "@/ds/patterns/AuthLayout";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `AuthVariant` |  | 레이아웃 변형 |
+| `brandSide` | `ReactNode` |  | 좌측 브랜드 영역 (split / branded 전용) |
+| `logo` | `ReactNode` |  | 상단 로고 |
+| `title` | `ReactNode` |  | 카드 제목 |
+| `subtitle` | `ReactNode` |  | 카드 부제 |
+| `children` | `ReactNode` |  | 폼 컨텐츠 (자식 placement) |
+| `footer` | `ReactNode` |  | 카드 하단 푸터 (예: "계정이 없으신가요?") |
+| `pageFooter` | `ReactNode` |  | 페이지 푸터 (저작권 등) |
+
+**Example**
+
+```tsx
+<AuthLayout variant="split" logo={<Logo/>} title="로그인"><LoginForm/></AuthLayout>
+```
+
+---
+
+### BlogPost
+
+*stable* · *v2.3.0* — `layout`
+
+블로그/아티클 페이지 표준 레이아웃 (cover + meta + body + sidebar + footer).
+
+**Import:** `import { BlogPost } from "@/ds/patterns/BlogPost";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` | ✓ | 제목 |
+| `excerpt` | `ReactNode` |  | 부제 / 요약 |
+| `publishedAt` | `string \| Date` |  | 발행일 |
+| `readingMinutes` | `number` |  | 읽기 시간(분) |
+| `author` | `BlogAuthor` |  | 작성자 |
+| `tags` | `Array<string>` |  | 카테고리/태그 |
+| `coverImage` | `string` |  | 커버 이미지 URL |
+| `children` | `ReactNode` | ✓ | 본문 (children) |
+| `sidebar` | `ReactNode` |  | 우측 사이드바 (TOC 등) |
+| `footer` | `ReactNode` |  | 하단 영역 (관련 글, 공유 등) |
+
+**Example**
+
+```tsx
+<BlogPost title="제목" author={{name:"홍길동"}} publishedAt="2026-04-30">본문</BlogPost>
+```
+
+---
+
+### BookReader
+
+*stable* · *v2.4.0* — `book` `layout`
+
+책 리더 — 좌측 챕터 목차 + 우측 본문 + 상단 진행률 + 하단 페이지 네비.
+
+**Import:** `import { BookReader } from "@/ds/patterns/BookReader";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `string` | ✓ | 책 제목 |
+| `author` | `string` |  | 저자 |
+| `chapters` | `Array<Chapter>` | ✓ | 챕터 트리 |
+| `activeChapterId` | `string` | ✓ | 활성 챕터 id |
+| `onChapterChange` | `(id: string) => void` | ✓ | 활성 챕터 변경 콜백 |
+| `children` | `ReactNode` | ✓ | 본문 (현재 챕터 콘텐츠) |
+| `currentPage` | `number` | ✓ | 현재 페이지 |
+| `totalPages` | `number` | ✓ | 총 페이지 |
+| `bookmarked` | `boolean` |  | 북마크 상태 |
+| `onBookmarkChange` | `(next: boolean) => void` |  | 북마크 토글 |
+| `onClose` | `() => void` |  | 닫기 콜백 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<BookReader title="모비 딕" chapters={chs} activeChapterId={id} onChapterChange={setId}
+  currentPage={86} totalPages={312} bookmarked={b} onBookmarkChange={setB}>
+  <article>본문…</article>
+</BookReader>
+```
+
+---
+
 ### Calendar
 
 *stable* · *v2.2.0* — `data-display` `form`
@@ -4485,6 +7110,35 @@ const items: TreeNavItem[] = [
 ```tsx
 <DsCalendar events={events} onDateClick={handleClick} />
 <DsCalendar selectionMode="range" onRangeSelect={handleRange} />
+```
+
+---
+
+### CalendarMonth
+
+*stable* · *v2.5.0* — `calendar` `layout`
+
+캘린더 — 월 그리드 + 이벤트 도트 + 키보드 화살표 네비.
+
+**Import:** `import { CalendarMonth } from "@/ds/patterns/CalendarMonth";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `month` | `Date` | ✓ | 표시할 월 (Date — 일은 무시) |
+| `onMonthChange` | `(next: Date) => void` |  | 월 변경 콜백 (이전/다음 버튼 누름) |
+| `selectedDate` | `Date` |  | 선택된 날짜 |
+| `onSelectDate` | `(date: Date) => void` |  | 날짜 선택 콜백 |
+| `events` | `Array<CalendarEvent>` |  | 이벤트 목록 (시작일 기준 그룹핑) |
+| `onEventClick` | `(event: CalendarEvent) => void` |  | 이벤트 클릭 콜백 |
+| `weekStartsOn` | `0 \| 1` |  | 주의 시작 요일 (0=일, 1=월) — 기본 0 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<CalendarMonth month={month} onMonthChange={setMonth} selectedDate={sel} onSelectDate={setSel} events={events} />
 ```
 
 ---
@@ -4527,6 +7181,35 @@ SVG 차트 카드
 ```tsx
 <ChartCard title="주간 완료" type="bar" data={[{label:"월",value:12},{label:"화",value:8}]} />
 <ChartCard title="전환율" type="radial" value="72%" data={[{label:"전환",value:72}]} max={100} />
+```
+
+---
+
+### ChatThread
+
+*stable* · *v2.5.0* — `chat` `content`
+
+채팅 스레드 — 메시지 그룹핑 + 좌/우 정렬 + 읽음/타이핑/실패 상태 + 자동 스크롤.
+
+**Import:** `import { ChatThread } from "@/ds/patterns/ChatThread";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `messages` | `Array<ChatMessage>` | ✓ | 메시지 목록 (시간순 오름차순) |
+| `currentUserId` | `string` | ✓ | 현재 사용자 id (메시지 정렬 좌/우 결정) |
+| `typingUsers` | `Array<string>` |  | 타이핑 중인 사용자 (이름 또는 id 배열) |
+| `onMessageClick` | `(msg: ChatMessage) => void` |  | 메시지 클릭 콜백 |
+| `onRetry` | `(msg: ChatMessage) => void` |  | 메시지 재전송 (실패 시 표시) |
+| `composer` | `ReactNode` |  | 입력 슬롯 — 보통 `<form>` + `<Input>` + `<Button>` |
+| `autoScroll` | `boolean` |  | 새 메시지 추가 시 자동 하단 스크롤 (기본 true) |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<ChatThread messages={msgs} currentUserId="me" typingUsers={["지우"]} composer={<MyComposer />} />
 ```
 
 ---
@@ -4618,6 +7301,91 @@ SVG 차트 카드
 
 ```tsx
 <DataTable columns={columns} data={rows} rowKey="id" selectable pageSize={20} />
+```
+
+---
+
+### EmailInbox
+
+*stable* · *v2.5.0* — `email` `layout`
+
+3-pane 메일 인박스 — 폴더 / 리스트 / 본문 패널.
+
+**Import:** `import { EmailInbox } from "@/ds/patterns/EmailInbox";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `folders` | `Array<EmailFolder>` | ✓ | 좌측 폴더 목록 |
+| `messages` | `Array<EmailMessage>` | ✓ | 모든 메일 (folderId로 필터링) |
+| `activeFolderId` | `string` | ✓ | 활성 폴더 id |
+| `onFolderChange` | `(id: string) => void` | ✓ | 폴더 변경 콜백 |
+| `activeMessageId` | `string \| null` |  | 활성 메일 id (본문 패널 표시) |
+| `onMessageSelect` | `(msg: EmailMessage) => void` | ✓ | 메일 선택 콜백 |
+| `onToggleStar` | `(id: string) => void` |  | 별표 토글 |
+| `search` | `string` |  | 검색 텍스트 |
+| `onSearchChange` | `(q: string) => void` |  | 검색 변경 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<EmailInbox folders={folders} messages={mails} activeFolderId={f}
+  onFolderChange={setF} activeMessageId={m} onMessageSelect={(m)=>setM(m.id)} />
+```
+
+---
+
+### FAQ
+
+*stable* · *v2.3.0* — `marketing`
+
+FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
+
+**Import:** `import { FAQ } from "@/ds/patterns/FAQ";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` |  | 섹션 제목 |
+| `subtitle` | `ReactNode` |  | 부제 |
+| `items` | `Array<FAQItem>` | ✓ | FAQ 목록 |
+| `multiple` | `boolean` |  | 다중 펼침 허용 |
+| `showCategoryFilter` | `boolean` |  | 카테고리 필터 노출 |
+| `searchable` | `boolean` |  | 검색 입력 노출 |
+
+**Example**
+
+```tsx
+<FAQ title="자주 묻는 질문" items={[{question:"환불은?", answer:"7일 내 가능"}]} searchable />
+```
+
+---
+
+### FeatureGrid
+
+*stable* · *v2.3.0* — `marketing`
+
+마케팅 섹션 — 기능/혜택 그리드 (3가지 레이아웃 지원).
+
+**Import:** `import { FeatureGrid } from "@/ds/patterns/FeatureGrid";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` |  | 섹션 제목 |
+| `subtitle` | `ReactNode` |  | 섹션 부제 |
+| `features` | `Array<FeatureItem>` | ✓ | 기능 목록 |
+| `columns` | `2 \| 3 \| 4` |  | 컬럼 수 (반응형 자동 조정) |
+| `layout` | `FeatureGridLayout` |  | 레이아웃 종류 |
+
+**Example**
+
+```tsx
+<FeatureGrid title="왜 JunDS?" features={[{icon:"⚡", title:"빠름", description:"..."}]} />
 ```
 
 ---
@@ -4819,6 +7587,91 @@ SVG 차트 카드
 
 ---
 
+### ForumThread
+
+*stable* · *v2.5.0* — `forum` `content`
+
+포럼 스레드 — Stack Overflow 스타일 질문/답변 + 투표 + 채택.
+
+**Import:** `import { ForumThread } from "@/ds/patterns/ForumThread";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `string` | ✓ |  |
+| `tags` | `Array<string>` |  |  |
+| `opening` | `ForumPost` | ✓ |  |
+| `answers` | `Array<ForumPost>` | ✓ |  |
+| `onVote` | `(postId: string, dir: 1 \| -1 \| 0) => void` |  |  |
+| `onAccept` | `(postId: string) => void` |  |  |
+| `replyComposer` | `ReactNode` |  |  |
+| `className` | `string` |  |  |
+
+**Example**
+
+```tsx
+<ForumThread title="React 19 use() 사용법" opening={op} answers={ans} onVote={vote} onAccept={accept} />
+```
+
+---
+
+### GanttChart
+
+*stable* · *v2.3.0* — `chart`
+
+간단한 간트 차트 (프로젝트 일정 시각화).
+
+**Import:** `import { GanttChart } from "@/ds/patterns/GanttChart";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `tasks` | `Array<GanttTask>` | ✓ | 태스크 목록 |
+| `dayWidth` | `number` |  | 1일당 px 폭 |
+| `rowHeight` | `number` |  | 행 높이 |
+| `labelWidth` | `number` |  | 좌측 라벨 폭 |
+| `onSelect` | `(task: GanttTask) => void` |  | 태스크 선택 콜백 |
+
+**Example**
+
+```tsx
+<GanttChart tasks={[{id:"a",name:"설계",start:"2026-04-01",end:"2026-04-15",progress:60}]} />
+```
+
+---
+
+### HeroSection
+
+*stable* · *v2.3.0* — `marketing`
+
+마케팅 / 랜딩 페이지 hero 섹션 (centered/split/imageBg/minimal).
+
+**Import:** `import { HeroSection } from "@/ds/patterns/HeroSection";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `variant` | `HeroVariant` |  | 변형 |
+| `eyebrow` | `ReactNode` |  | 상단 eyebrow 텍스트/배지 |
+| `title` | `ReactNode` | ✓ | 메인 제목 |
+| `subtitle` | `ReactNode` |  | 부제 |
+| `primaryCta` | `{ label: string; href?: string; onClick?: () => void; }` |  | Primary CTA |
+| `secondaryCta` | `{ label: string; href?: string; onClick?: () => void; }` |  | Secondary CTA |
+| `media` | `ReactNode` |  | 우측 미디어 (split 전용) |
+| `bgImage` | `string` |  | 배경 이미지 URL (imageBg 전용) |
+| `footer` | `ReactNode` |  | 푸터 영역 (소셜 프루프, 로고 등) |
+
+**Example**
+
+```tsx
+<HeroSection variant="centered" title="당신의 디자인 시스템" subtitle="단 한 줄로 시작하세요" primaryCta={{label:"시작하기"}} />
+```
+
+---
+
 ### InfiniteList
 
 *stable* · *v2.2.0* — `data`
@@ -4965,6 +7818,88 @@ SVG 차트 카드
 
 ---
 
+### OnboardingTour
+
+*stable* · *v2.5.0* — `onboarding` `overlay`
+
+제품 투어 — 첫 사용자 가이드. 스팟라이트 + 말풍선 + 키보드(Esc/←/→/Enter).
+
+**Import:** `import { OnboardingTour } from "@/ds/patterns/OnboardingTour";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `steps` | `Array<OnboardingStep>` | ✓ |  |
+| `open` | `boolean` | ✓ |  |
+| `onClose` | `() => void` | ✓ |  |
+| `onComplete` | `() => void` |  |  |
+| `className` | `string` |  |  |
+
+**Example**
+
+```tsx
+<OnboardingTour open={open} onClose={()=>setOpen(false)}
+  steps={[{id:"1",target:"#composer",title:"여기서 글을 쓰세요"},…]} />
+```
+
+---
+
+### PhotoAlbum
+
+*stable* · *v2.4.0* — `photo` `layout`
+
+사진 앨범 — 태그 필터 + 그리드 + 라이트박스 자동 연결.
+
+**Import:** `import { PhotoAlbum } from "@/ds/patterns/PhotoAlbum";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `photos` | `Array<PhotoAlbumItem>` | ✓ | 사진 목록 |
+| `layout` | `PhotoGridLayout` |  | 그리드 레이아웃 |
+| `columns` | `5 \| 2 \| 3 \| 4` |  | 컬럼 수 |
+| `title` | `string` |  | 앨범 제목 |
+| `emptyTitle` | `string` |  | 비었을 때 메시지 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<PhotoAlbum title="2026 여행" photos={photos} layout="masonry" columns={4} />
+```
+
+---
+
+### PricingPage
+
+*stable* · *v2.3.0* — `marketing`
+
+마케팅용 요금제 페이지 (헤더 + 토글 + 플랜 테이블 + FAQ).
+
+**Import:** `import { PricingPage } from "@/ds/patterns/PricingPage";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `title` | `ReactNode` |  | 페이지 제목 |
+| `description` | `ReactNode` |  | 페이지 설명 |
+| `monthlyPlans` | `Array<PricingPlan>` | ✓ | 월간 플랜 |
+| `yearlyPlans` | `Array<PricingPlan>` |  | 연간 플랜 (있으면 토글 노출) |
+| `toggleLabels` | `{ monthly?: string; yearly?: string; saveLabel?: string; }` |  | 토글 라벨 |
+| `faqs` | `Array<PricingFAQ>` |  | FAQ 리스트 |
+| `footerCta` | `ReactNode` |  | 하단 CTA 영역 |
+
+**Example**
+
+```tsx
+<PricingPage title="요금제" monthlyPlans={[...]} yearlyPlans={[...]} faqs={[...]} />
+```
+
+---
+
 ### RichTextEditor
 
 *stable* · *v2.2.0* — `form` `input`
@@ -5019,6 +7954,33 @@ SVG 차트 카드
 
 ---
 
+### SettingsLayout
+
+*stable* · *v2.3.0* — `layout`
+
+설정 페이지 표준 레이아웃: 사이드바 네비 + 컨텐츠.
+
+**Import:** `import { SettingsLayout } from "@/ds/patterns/SettingsLayout";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `sections` | `Array<SettingsSection>` | ✓ | 섹션 목록 |
+| `activeId` | `string` |  | 현재 활성 섹션 ID (controlled) |
+| `defaultActiveId` | `string` |  | 기본 활성 ID |
+| `onChange` | `(id: string) => void` |  | 변경 콜백 |
+| `title` | `ReactNode` |  | 페이지 제목 |
+| `sidebarWidth` | `number` |  | 사이드바 폭 |
+
+**Example**
+
+```tsx
+<SettingsLayout title="설정" sections={[{id:"profile",label:"프로필",content:<X/>}]} />
+```
+
+---
+
 ### Sidebar
 
 *stable* · *v2.2.0* — `navigation`
@@ -5046,6 +8008,38 @@ SVG 차트 카드
     <SidebarLink href="/" label="홈" icon={<HomeIcon />} />
   </DsSidebar>
 </DsSidebarProvider>
+```
+
+---
+
+### SocialFeed
+
+*stable* · *v2.4.0* — `sns` `layout`
+
+SNS 피드 — 상단 스토리 바 + 무한 스크롤 게시물 리스트.
+
+**Import:** `import { SocialFeed } from "@/ds/patterns/SocialFeed";`
+
+**Props**
+
+| Prop | Type | Required | Description |
+|------|------|:--------:|-------------|
+| `stories` | `Array<SocialFeedStory>` |  | 상단 스토리 바 (선택) |
+| `onStoryClick` | `(id: string) => void` |  | 스토리 클릭 콜백 |
+| `children` | `ReactNode` | ✓ | 게시물 노드 (대체로 PostCard 리스트) |
+| `hasMore` | `boolean` |  | 더 불러올 데이터 있는지 |
+| `loading` | `boolean` |  | 로딩 중 표시 |
+| `onLoadMore` | `() => void` |  | 무한 스크롤 트리거 (관찰자가 화면에 들어오면 호출) |
+| `emptyTitle` | `string` |  | 데이터 비었을 때 표시할 엠티 메시지 |
+| `emptyDescription` | `string` |  | 비었을 때 표시할 설명 |
+| `className` | `string` |  | 추가 클래스 |
+
+**Example**
+
+```tsx
+<SocialFeed stories={stories} onStoryClick={openStory} hasMore={hasMore} onLoadMore={fetchMore}>
+  {posts.map((p) => <PostCard key={p.id} {...p} />)}
+</SocialFeed>
 ```
 
 ---
@@ -5189,4 +8183,4 @@ SVG 차트 카드
 
 ---
 
-Auto-generated by `npm run docs:components` from `.ai/props.json` on 2026-04-29. Do not edit by hand.
+Auto-generated by `npm run docs:components` from `.ai/props.json` on 2026-07-27. Do not edit by hand.

@@ -1,0 +1,2711 @@
+[
+  {
+    "tag": "jd-accordion",
+    "dir": "accordion",
+    "sourceDir": "accordion",
+    "name": "Accordion",
+    "elementClass": "JdAccordion"
+  },
+  {
+    "tag": "jd-action-bar",
+    "dir": "action-bar",
+    "sourceDir": "action-bar",
+    "name": "ActionBar",
+    "elementClass": "JdActionBar"
+  },
+  {
+    "tag": "jd-action-sheet",
+    "dir": "action-sheet",
+    "sourceDir": "action-sheet",
+    "name": "ActionSheet",
+    "elementClass": "JdActionSheet"
+  },
+  {
+    "tag": "jd-address-input",
+    "dir": "address-input",
+    "sourceDir": "address-input",
+    "name": "AddressInput",
+    "elementClass": "JdAddressInput"
+  },
+  {
+    "tag": "jd-affix",
+    "dir": "affix",
+    "sourceDir": "affix",
+    "name": "Affix",
+    "elementClass": "JdAffix"
+  },
+  {
+    "tag": "jd-alert",
+    "dir": "alert",
+    "sourceDir": "alert",
+    "name": "Alert",
+    "elementClass": "JdAlert"
+  },
+  {
+    "tag": "jd-alert-button",
+    "dir": "alert-button",
+    "sourceDir": "alert-button",
+    "name": "AlertButton",
+    "elementClass": "JdAlertButton"
+  },
+  {
+    "tag": "jd-alert-dialog",
+    "dir": "alert-dialog",
+    "sourceDir": "alert-dialog",
+    "name": "AlertDialog",
+    "elementClass": "JdAlertDialog"
+  },
+  {
+    "tag": "jd-alert-header-button",
+    "dir": "alert-header-button",
+    "sourceDir": "alert-header-button",
+    "name": "AlertHeaderButton",
+    "elementClass": "JdAlertHeaderButton"
+  },
+  {
+    "tag": "jd-alert-manager",
+    "dir": "alert-manager",
+    "sourceDir": "alert-manager",
+    "name": "AlertManager",
+    "elementClass": "JdAlertManager"
+  },
+  {
+    "tag": "jd-alert-sheet",
+    "dir": "alert-sheet",
+    "sourceDir": "alert-sheet",
+    "name": "AlertSheet",
+    "elementClass": "JdAlertSheet"
+  },
+  {
+    "tag": "jd-animated-counter",
+    "dir": "animated-counter",
+    "sourceDir": "animated-counter",
+    "name": "AnimatedCounter",
+    "elementClass": "JdAnimatedCounter"
+  },
+  {
+    "tag": "jd-annotation-note",
+    "dir": "annotation-note",
+    "sourceDir": "annotation-note",
+    "name": "AnnotationNote",
+    "elementClass": "JdAnnotationNote"
+  },
+  {
+    "tag": "jd-announcement-bar",
+    "dir": "announcement-bar",
+    "sourceDir": "announcement-bar",
+    "name": "AnnouncementBar",
+    "elementClass": "JdAnnouncementBar"
+  },
+  {
+    "tag": "jd-announcer",
+    "dir": "announcer",
+    "sourceDir": "announcer",
+    "name": "Announcer",
+    "elementClass": "JdAnnouncer"
+  },
+  {
+    "tag": "jd-app-header",
+    "dir": "app-header",
+    "sourceDir": "app-header",
+    "name": "AppHeader",
+    "elementClass": "JdAppHeader"
+  },
+  {
+    "tag": "jd-app-icon",
+    "dir": "app-icon",
+    "sourceDir": "app-icon",
+    "name": "AppIcon",
+    "elementClass": "JdAppIcon"
+  },
+  {
+    "tag": "jd-app-shell",
+    "dir": "app-shell",
+    "sourceDir": "app-shell",
+    "name": "AppShell",
+    "elementClass": "JdAppShell"
+  },
+  {
+    "tag": "jd-area-chart",
+    "dir": "area-chart",
+    "sourceDir": "area-chart",
+    "name": "AreaChart",
+    "elementClass": "JdAreaChart"
+  },
+  {
+    "tag": "jd-aspect-ratio-box",
+    "dir": "aspect-ratio-box",
+    "sourceDir": "aspect-ratio-box",
+    "name": "AspectRatioBox",
+    "elementClass": "JdAspectRatioBox"
+  },
+  {
+    "tag": "jd-audio-player",
+    "dir": "audio-player",
+    "sourceDir": "audio-player",
+    "name": "AudioPlayer",
+    "elementClass": "JdAudioPlayer"
+  },
+  {
+    "tag": "jd-auth-layout",
+    "dir": "auth-layout",
+    "sourceDir": "auth-layout",
+    "name": "AuthLayout",
+    "elementClass": "JdAuthLayout"
+  },
+  {
+    "tag": "jd-auto-complete",
+    "dir": "auto-complete",
+    "sourceDir": "auto-complete",
+    "name": "AutoComplete",
+    "elementClass": "JdAutoComplete"
+  },
+  {
+    "tag": "jd-auto-hide-header",
+    "dir": "auto-hide-header",
+    "sourceDir": "auto-hide-header",
+    "name": "AutoHideHeader",
+    "elementClass": "JdAutoHideHeader"
+  },
+  {
+    "tag": "jd-auto-play-demo",
+    "dir": "auto-play-demo",
+    "sourceDir": "auto-play-demo",
+    "name": "AutoPlayDemo",
+    "elementClass": "JdAutoPlayDemo"
+  },
+  {
+    "tag": "jd-avatar",
+    "dir": "avatar",
+    "sourceDir": "avatar",
+    "name": "Avatar",
+    "elementClass": "JdAvatar"
+  },
+  {
+    "tag": "jd-avatar-stack",
+    "dir": "avatar-stack",
+    "sourceDir": "avatar-stack",
+    "name": "AvatarStack",
+    "elementClass": "JdAvatarStack"
+  },
+  {
+    "tag": "jd-backtest-runner",
+    "dir": "backtest-runner",
+    "sourceDir": "backtest-runner",
+    "name": "BacktestRunner",
+    "elementClass": "JdBacktestRunner"
+  },
+  {
+    "tag": "jd-back-top",
+    "dir": "back-top",
+    "sourceDir": "back-top",
+    "name": "BackTop",
+    "elementClass": "JdBackTop"
+  },
+  {
+    "tag": "jd-badge",
+    "dir": "badge",
+    "sourceDir": "badge",
+    "name": "Badge",
+    "elementClass": "JdBadge"
+  },
+  {
+    "tag": "jd-banner",
+    "dir": "banner",
+    "sourceDir": "banner",
+    "name": "Banner",
+    "elementClass": "JdBanner"
+  },
+  {
+    "tag": "jd-bar-chart",
+    "dir": "bar-chart",
+    "sourceDir": "bar-chart",
+    "name": "BarChart",
+    "elementClass": "JdBarChart"
+  },
+  {
+    "tag": "jd-battery-indicator",
+    "dir": "battery-indicator",
+    "sourceDir": "battery-indicator",
+    "name": "BatteryIndicator",
+    "elementClass": "JdBatteryIndicator"
+  },
+  {
+    "tag": "jd-bento-grid",
+    "dir": "bento-grid",
+    "sourceDir": "bento-grid",
+    "name": "BentoGrid",
+    "elementClass": "JdBentoGrid"
+  },
+  {
+    "tag": "jd-bento-grid-item",
+    "dir": "bento-grid-item",
+    "sourceDir": "bento-grid",
+    "name": "BentoGridItem",
+    "elementClass": "JdBentoGridItem"
+  },
+  {
+    "tag": "jd-blockquote",
+    "dir": "blockquote",
+    "sourceDir": "blockquote",
+    "name": "Blockquote",
+    "elementClass": "JdBlockquote"
+  },
+  {
+    "tag": "jd-blog-post",
+    "dir": "blog-post",
+    "sourceDir": "blog-post",
+    "name": "BlogPost",
+    "elementClass": "JdBlogPost"
+  },
+  {
+    "tag": "jd-bm-switch",
+    "dir": "bm-switch",
+    "sourceDir": "bm-switch",
+    "name": "BmSwitch",
+    "elementClass": "JdBmSwitch"
+  },
+  {
+    "tag": "jd-book-card",
+    "dir": "book-card",
+    "sourceDir": "book-card",
+    "name": "BookCard",
+    "elementClass": "JdBookCard"
+  },
+  {
+    "tag": "jd-book-cover",
+    "dir": "book-cover",
+    "sourceDir": "book-cover",
+    "name": "BookCover",
+    "elementClass": "JdBookCover"
+  },
+  {
+    "tag": "jd-bookmark-button",
+    "dir": "bookmark-button",
+    "sourceDir": "bookmark-button",
+    "name": "BookmarkButton",
+    "elementClass": "JdBookmarkButton"
+  },
+  {
+    "tag": "jd-book-rating",
+    "dir": "book-rating",
+    "sourceDir": "book-rating",
+    "name": "BookRating",
+    "elementClass": "JdBookRating"
+  },
+  {
+    "tag": "jd-book-reader",
+    "dir": "book-reader",
+    "sourceDir": "book-reader",
+    "name": "BookReader",
+    "elementClass": "JdBookReader"
+  },
+  {
+    "tag": "jd-book-shelf",
+    "dir": "book-shelf",
+    "sourceDir": "book-shelf",
+    "name": "BookShelf",
+    "elementClass": "JdBookShelf"
+  },
+  {
+    "tag": "jd-bottom-nav",
+    "dir": "bottom-nav",
+    "sourceDir": "bottom-nav",
+    "name": "BottomNav",
+    "elementClass": "JdBottomNav"
+  },
+  {
+    "tag": "jd-bottom-sheet",
+    "dir": "bottom-sheet",
+    "sourceDir": "bottom-sheet",
+    "name": "BottomSheet",
+    "elementClass": "JdBottomSheet"
+  },
+  {
+    "tag": "jd-box",
+    "dir": "box",
+    "sourceDir": "box",
+    "name": "Box",
+    "elementClass": "JdBox"
+  },
+  {
+    "tag": "jd-brand-switcher",
+    "dir": "brand-switcher",
+    "sourceDir": "brand-switcher",
+    "name": "BrandSwitcher",
+    "elementClass": "JdBrandSwitcher"
+  },
+  {
+    "tag": "jd-breadcrumb",
+    "dir": "breadcrumb",
+    "sourceDir": "breadcrumb",
+    "name": "Breadcrumb",
+    "elementClass": "JdBreadcrumb"
+  },
+  {
+    "tag": "jd-button-group",
+    "dir": "button-group",
+    "sourceDir": "button-group",
+    "name": "ButtonGroup",
+    "elementClass": "JdButtonGroup"
+  },
+  {
+    "tag": "jd-calendar",
+    "dir": "calendar",
+    "sourceDir": "calendar",
+    "name": "Calendar",
+    "elementClass": "JdCalendar"
+  },
+  {
+    "tag": "jd-calendar-month",
+    "dir": "calendar-month",
+    "sourceDir": "calendar-month",
+    "name": "CalendarMonth",
+    "elementClass": "JdCalendarMonth"
+  },
+  {
+    "tag": "jd-callout",
+    "dir": "callout",
+    "sourceDir": "callout",
+    "name": "Callout",
+    "elementClass": "JdCallout"
+  },
+  {
+    "tag": "jd-candle-chart",
+    "dir": "candle-chart",
+    "sourceDir": "candle-chart",
+    "name": "CandleChart",
+    "elementClass": "JdCandleChart"
+  },
+  {
+    "tag": "jd-card",
+    "dir": "card",
+    "sourceDir": "card",
+    "name": "Card",
+    "elementClass": "JdCard"
+  },
+  {
+    "tag": "jd-card-body",
+    "dir": "card-body",
+    "sourceDir": "card",
+    "name": "CardBody",
+    "elementClass": "JdCardBody"
+  },
+  {
+    "tag": "jd-card-footer",
+    "dir": "card-footer",
+    "sourceDir": "card",
+    "name": "CardFooter",
+    "elementClass": "JdCardFooter"
+  },
+  {
+    "tag": "jd-card-header",
+    "dir": "card-header",
+    "sourceDir": "card",
+    "name": "CardHeader",
+    "elementClass": "JdCardHeader"
+  },
+  {
+    "tag": "jd-carousel",
+    "dir": "carousel",
+    "sourceDir": "carousel",
+    "name": "Carousel",
+    "elementClass": "JdCarousel"
+  },
+  {
+    "tag": "jd-cart-item",
+    "dir": "cart-item",
+    "sourceDir": "cart-item",
+    "name": "CartItem",
+    "elementClass": "JdCartItem"
+  },
+  {
+    "tag": "jd-center",
+    "dir": "center",
+    "sourceDir": "center",
+    "name": "Center",
+    "elementClass": "JdCenter"
+  },
+  {
+    "tag": "jd-chapter-list",
+    "dir": "chapter-list",
+    "sourceDir": "chapter-list",
+    "name": "ChapterList",
+    "elementClass": "JdChapterList"
+  },
+  {
+    "tag": "jd-chart-card",
+    "dir": "chart-card",
+    "sourceDir": "chart-card",
+    "name": "ChartCard",
+    "elementClass": "JdChartCard"
+  },
+  {
+    "tag": "jd-chart-range-picker",
+    "dir": "chart-range-picker",
+    "sourceDir": "chart-range-picker",
+    "name": "ChartRangePicker",
+    "elementClass": "JdChartRangePicker"
+  },
+  {
+    "tag": "jd-chat-bubble",
+    "dir": "chat-bubble",
+    "sourceDir": "chat-bubble",
+    "name": "ChatBubble",
+    "elementClass": "JdChatBubble"
+  },
+  {
+    "tag": "jd-chat-thread",
+    "dir": "chat-thread",
+    "sourceDir": "chat-thread",
+    "name": "ChatThread",
+    "elementClass": "JdChatThread"
+  },
+  {
+    "tag": "jd-checkbox",
+    "dir": "checkbox",
+    "sourceDir": "checkbox",
+    "name": "Checkbox",
+    "elementClass": "JdCheckbox"
+  },
+  {
+    "tag": "jd-checkbox-card-group",
+    "dir": "checkbox-card-group",
+    "sourceDir": "checkbox-card-group",
+    "name": "CheckboxCardGroup",
+    "elementClass": "JdCheckboxCardGroup"
+  },
+  {
+    "tag": "jd-clock",
+    "dir": "clock",
+    "sourceDir": "clock",
+    "name": "Clock",
+    "elementClass": "JdClock"
+  },
+  {
+    "tag": "jd-close-picks-card",
+    "dir": "close-picks-card",
+    "sourceDir": "close-picks-card",
+    "name": "ClosePicksCard",
+    "elementClass": "JdClosePicksCard"
+  },
+  {
+    "tag": "jd-code",
+    "dir": "code",
+    "sourceDir": "code",
+    "name": "Code",
+    "elementClass": "JdCode"
+  },
+  {
+    "tag": "jd-code-editor",
+    "dir": "code-editor",
+    "sourceDir": "code-editor",
+    "name": "CodeEditor",
+    "elementClass": "JdCodeEditor"
+  },
+  {
+    "tag": "jd-collapsible",
+    "dir": "collapsible",
+    "sourceDir": "collapsible",
+    "name": "Collapsible",
+    "elementClass": "JdCollapsible"
+  },
+  {
+    "tag": "jd-collection-view",
+    "dir": "collection-view",
+    "sourceDir": "collection-view",
+    "name": "CollectionView",
+    "elementClass": "JdCollectionView"
+  },
+  {
+    "tag": "jd-color-picker",
+    "dir": "color-picker",
+    "sourceDir": "color-picker",
+    "name": "ColorPicker",
+    "elementClass": "JdColorPicker"
+  },
+  {
+    "tag": "jd-color-swatch",
+    "dir": "color-swatch",
+    "sourceDir": "color-swatch",
+    "name": "ColorSwatch",
+    "elementClass": "JdColorSwatch"
+  },
+  {
+    "tag": "jd-combobox",
+    "dir": "combobox",
+    "sourceDir": "combobox",
+    "name": "Combobox",
+    "elementClass": "JdCombobox"
+  },
+  {
+    "tag": "jd-command-palette",
+    "dir": "command-palette",
+    "sourceDir": "command-palette",
+    "name": "CommandPalette",
+    "elementClass": "JdCommandPalette"
+  },
+  {
+    "tag": "jd-command-palette-host",
+    "dir": "command-palette-host",
+    "sourceDir": "command-palette-host",
+    "name": "CommandPaletteHost",
+    "elementClass": "JdCommandPaletteHost"
+  },
+  {
+    "tag": "jd-comment-thread",
+    "dir": "comment-thread",
+    "sourceDir": "comment-thread",
+    "name": "CommentThread",
+    "elementClass": "JdCommentThread"
+  },
+  {
+    "tag": "jd-compare-slider",
+    "dir": "compare-slider",
+    "sourceDir": "compare-slider",
+    "name": "CompareSlider",
+    "elementClass": "JdCompareSlider"
+  },
+  {
+    "tag": "jd-comparison-grid",
+    "dir": "comparison-grid",
+    "sourceDir": "comparison-grid",
+    "name": "ComparisonGrid",
+    "elementClass": "JdComparisonGrid"
+  },
+  {
+    "tag": "jd-component-showcase",
+    "dir": "component-showcase",
+    "sourceDir": "component-showcase",
+    "name": "ComponentShowcase",
+    "elementClass": "JdComponentShowcase"
+  },
+  {
+    "tag": "jd-confetti",
+    "dir": "confetti",
+    "sourceDir": "confetti",
+    "name": "Confetti",
+    "elementClass": "JdConfetti"
+  },
+  {
+    "tag": "jd-consensus-screener",
+    "dir": "consensus-screener",
+    "sourceDir": "consensus-screener",
+    "name": "ConsensusScreener",
+    "elementClass": "JdConsensusScreener"
+  },
+  {
+    "tag": "jd-container",
+    "dir": "container",
+    "sourceDir": "container",
+    "name": "Container",
+    "elementClass": "JdContainer"
+  },
+  {
+    "tag": "jd-context-menu",
+    "dir": "context-menu",
+    "sourceDir": "context-menu",
+    "name": "ContextMenu",
+    "elementClass": "JdContextMenu"
+  },
+  {
+    "tag": "jd-cookie-consent",
+    "dir": "cookie-consent",
+    "sourceDir": "cookie-consent",
+    "name": "CookieConsent",
+    "elementClass": "JdCookieConsent"
+  },
+  {
+    "tag": "jd-copy-block",
+    "dir": "copy-block",
+    "sourceDir": "copy-block",
+    "name": "CopyBlock",
+    "elementClass": "JdCopyBlock"
+  },
+  {
+    "tag": "jd-copy-button",
+    "dir": "copy-button",
+    "sourceDir": "copy-button",
+    "name": "CopyButton",
+    "elementClass": "JdCopyButton"
+  },
+  {
+    "tag": "jd-countdown",
+    "dir": "countdown",
+    "sourceDir": "countdown",
+    "name": "Countdown",
+    "elementClass": "JdCountdown"
+  },
+  {
+    "tag": "jd-cron-expression",
+    "dir": "cron-expression",
+    "sourceDir": "cron-expression",
+    "name": "CronExpression",
+    "elementClass": "JdCronExpression"
+  },
+  {
+    "tag": "jd-cta-section",
+    "dir": "cta-section",
+    "sourceDir": "cta-section",
+    "name": "CtaSection",
+    "elementClass": "JdCtaSection"
+  },
+  {
+    "tag": "jd-currency-input",
+    "dir": "currency-input",
+    "sourceDir": "currency-input",
+    "name": "CurrencyInput",
+    "elementClass": "JdCurrencyInput"
+  },
+  {
+    "tag": "jd-daily-themes-calendar",
+    "dir": "daily-themes-calendar",
+    "sourceDir": "daily-themes-calendar",
+    "name": "DailyThemesCalendar",
+    "elementClass": "JdDailyThemesCalendar"
+  },
+  {
+    "tag": "jd-data-grid",
+    "dir": "data-grid",
+    "sourceDir": "data-grid",
+    "name": "DataGrid",
+    "elementClass": "JdDataGrid"
+  },
+  {
+    "tag": "jd-data-table",
+    "dir": "data-table",
+    "sourceDir": "data-table",
+    "name": "DataTable",
+    "elementClass": "JdDataTable"
+  },
+  {
+    "tag": "jd-date-input",
+    "dir": "date-input",
+    "sourceDir": "date-input",
+    "name": "DateInput",
+    "elementClass": "JdDateInput"
+  },
+  {
+    "tag": "jd-date-range-filter",
+    "dir": "date-range-filter",
+    "sourceDir": "date-range-filter",
+    "name": "DateRangeFilter",
+    "elementClass": "JdDateRangeFilter"
+  },
+  {
+    "tag": "jd-date-range-picker",
+    "dir": "date-range-picker",
+    "sourceDir": "date-range-picker",
+    "name": "DateRangePicker",
+    "elementClass": "JdDateRangePicker"
+  },
+  {
+    "tag": "jd-day-detail-drawer",
+    "dir": "day-detail-drawer",
+    "sourceDir": "day-detail-drawer",
+    "name": "DayDetailDrawer",
+    "elementClass": "JdDayDetailDrawer"
+  },
+  {
+    "tag": "jd-descriptions",
+    "dir": "descriptions",
+    "sourceDir": "descriptions",
+    "name": "Descriptions",
+    "elementClass": "JdDescriptions"
+  },
+  {
+    "tag": "jd-detail-panel",
+    "dir": "detail-panel",
+    "sourceDir": "detail-panel",
+    "name": "DetailPanel",
+    "elementClass": "JdDetailPanel"
+  },
+  {
+    "tag": "jd-diff-viewer",
+    "dir": "diff-viewer",
+    "sourceDir": "diff-viewer",
+    "name": "DiffViewer",
+    "elementClass": "JdDiffViewer"
+  },
+  {
+    "tag": "jd-disclosure",
+    "dir": "disclosure",
+    "sourceDir": "disclosure",
+    "name": "Disclosure",
+    "elementClass": "JdDisclosure"
+  },
+  {
+    "tag": "jd-disclosures",
+    "dir": "disclosures",
+    "sourceDir": "disclosures",
+    "name": "Disclosures",
+    "elementClass": "JdDisclosures"
+  },
+  {
+    "tag": "jd-disclosure-tone-badge",
+    "dir": "disclosure-tone-badge",
+    "sourceDir": "disclosure-tone-badge",
+    "name": "DisclosureToneBadge",
+    "elementClass": "JdDisclosureToneBadge"
+  },
+  {
+    "tag": "jd-divider",
+    "dir": "divider",
+    "sourceDir": "divider",
+    "name": "Divider",
+    "elementClass": "JdDivider"
+  },
+  {
+    "tag": "jd-dock",
+    "dir": "dock",
+    "sourceDir": "dock",
+    "name": "Dock",
+    "elementClass": "JdDock"
+  },
+  {
+    "tag": "jd-dock-item",
+    "dir": "dock-item",
+    "sourceDir": "dock",
+    "name": "DockItem",
+    "elementClass": "JdDockItem"
+  },
+  {
+    "tag": "jd-donut-chart",
+    "dir": "donut-chart",
+    "sourceDir": "donut-chart",
+    "name": "DonutChart",
+    "elementClass": "JdDonutChart"
+  },
+  {
+    "tag": "jd-drawer",
+    "dir": "drawer",
+    "sourceDir": "drawer",
+    "name": "Drawer",
+    "elementClass": "JdDrawer"
+  },
+  {
+    "tag": "jd-dropdown",
+    "dir": "dropdown",
+    "sourceDir": "dropdown",
+    "name": "Dropdown",
+    "elementClass": "JdDropdown"
+  },
+  {
+    "tag": "jd-email-inbox",
+    "dir": "email-inbox",
+    "sourceDir": "email-inbox",
+    "name": "EmailInbox",
+    "elementClass": "JdEmailInbox"
+  },
+  {
+    "tag": "jd-emoji-picker",
+    "dir": "emoji-picker",
+    "sourceDir": "emoji-picker",
+    "name": "EmojiPicker",
+    "elementClass": "JdEmojiPicker"
+  },
+  {
+    "tag": "jd-emoji-reaction",
+    "dir": "emoji-reaction",
+    "sourceDir": "emoji-reaction",
+    "name": "EmojiReaction",
+    "elementClass": "JdEmojiReaction"
+  },
+  {
+    "tag": "jd-empty-state",
+    "dir": "empty-state",
+    "sourceDir": "empty-state",
+    "name": "EmptyState",
+    "elementClass": "JdEmptyState"
+  },
+  {
+    "tag": "jd-error-boundary",
+    "dir": "error-boundary",
+    "sourceDir": "error-boundary",
+    "name": "ErrorBoundary",
+    "elementClass": "JdErrorBoundary"
+  },
+  {
+    "tag": "jd-exif-panel",
+    "dir": "exif-panel",
+    "sourceDir": "exif-panel",
+    "name": "ExifPanel",
+    "elementClass": "JdExifPanel"
+  },
+  {
+    "tag": "jd-faq",
+    "dir": "faq",
+    "sourceDir": "faq",
+    "name": "Faq",
+    "elementClass": "JdFaq"
+  },
+  {
+    "tag": "jd-feature-grid",
+    "dir": "feature-grid",
+    "sourceDir": "feature-grid",
+    "name": "FeatureGrid",
+    "elementClass": "JdFeatureGrid"
+  },
+  {
+    "tag": "jd-file-upload",
+    "dir": "file-upload",
+    "sourceDir": "file-upload",
+    "name": "FileUpload",
+    "elementClass": "JdFileUpload"
+  },
+  {
+    "tag": "jd-filter-bar",
+    "dir": "filter-bar",
+    "sourceDir": "filter-bar",
+    "name": "FilterBar",
+    "elementClass": "JdFilterBar"
+  },
+  {
+    "tag": "jd-filter-button-group",
+    "dir": "filter-button-group",
+    "sourceDir": "filter-button-group",
+    "name": "FilterButtonGroup",
+    "elementClass": "JdFilterButtonGroup"
+  },
+  {
+    "tag": "jd-flex",
+    "dir": "flex",
+    "sourceDir": "flex",
+    "name": "Flex",
+    "elementClass": "JdFlex"
+  },
+  {
+    "tag": "jd-floating-action-button",
+    "dir": "floating-action-button",
+    "sourceDir": "floating-action-button",
+    "name": "FloatingActionButton",
+    "elementClass": "JdFloatingActionButton"
+  },
+  {
+    "tag": "jd-flow-diagram",
+    "dir": "flow-diagram",
+    "sourceDir": "flow-diagram",
+    "name": "FlowDiagram",
+    "elementClass": "JdFlowDiagram"
+  },
+  {
+    "tag": "jd-focus-guard",
+    "dir": "focus-guard",
+    "sourceDir": "focus-guard",
+    "name": "FocusGuard",
+    "elementClass": "JdFocusGuard"
+  },
+  {
+    "tag": "jd-follow-button",
+    "dir": "follow-button",
+    "sourceDir": "follow-button",
+    "name": "FollowButton",
+    "elementClass": "JdFollowButton"
+  },
+  {
+    "tag": "jd-form",
+    "dir": "form",
+    "sourceDir": "form",
+    "name": "Form",
+    "elementClass": "JdForm"
+  },
+  {
+    "tag": "jd-form-array",
+    "dir": "form-array",
+    "sourceDir": "form-array",
+    "name": "FormArray",
+    "elementClass": "JdFormArray"
+  },
+  {
+    "tag": "jd-form-builder",
+    "dir": "form-builder",
+    "sourceDir": "form-builder",
+    "name": "FormBuilder",
+    "elementClass": "JdFormBuilder"
+  },
+  {
+    "tag": "jd-form-field",
+    "dir": "form-field",
+    "sourceDir": "form-field",
+    "name": "FormField",
+    "elementClass": "JdFormField"
+  },
+  {
+    "tag": "jd-form-wizard",
+    "dir": "form-wizard",
+    "sourceDir": "form-wizard",
+    "name": "FormWizard",
+    "elementClass": "JdFormWizard"
+  },
+  {
+    "tag": "jd-forum-thread",
+    "dir": "forum-thread",
+    "sourceDir": "forum-thread",
+    "name": "ForumThread",
+    "elementClass": "JdForumThread"
+  },
+  {
+    "tag": "jd-funnel-chart",
+    "dir": "funnel-chart",
+    "sourceDir": "funnel-chart",
+    "name": "FunnelChart",
+    "elementClass": "JdFunnelChart"
+  },
+  {
+    "tag": "jd-fx-board",
+    "dir": "fx-board",
+    "sourceDir": "fx-board",
+    "name": "FxBoard",
+    "elementClass": "JdFxBoard"
+  },
+  {
+    "tag": "jd-fzone-card",
+    "dir": "fzone-card",
+    "sourceDir": "fzone-card",
+    "name": "FzoneCard",
+    "elementClass": "JdFzoneCard"
+  },
+  {
+    "tag": "jd-fzone-help-modal",
+    "dir": "fzone-help-modal",
+    "sourceDir": "fzone-help-modal",
+    "name": "FzoneHelpModal",
+    "elementClass": "JdFzoneHelpModal"
+  },
+  {
+    "tag": "jd-gantt-chart",
+    "dir": "gantt-chart",
+    "sourceDir": "gantt-chart",
+    "name": "GanttChart",
+    "elementClass": "JdGanttChart"
+  },
+  {
+    "tag": "jd-gauge-chart",
+    "dir": "gauge-chart",
+    "sourceDir": "gauge-chart",
+    "name": "GaugeChart",
+    "elementClass": "JdGaugeChart"
+  },
+  {
+    "tag": "jd-global-kis-seeder",
+    "dir": "global-kis-seeder",
+    "sourceDir": "global-kis-seeder",
+    "name": "GlobalKisSeeder",
+    "elementClass": "JdGlobalKisSeeder"
+  },
+  {
+    "tag": "jd-globe",
+    "dir": "globe",
+    "sourceDir": "globe",
+    "name": "Globe",
+    "elementClass": "JdGlobe"
+  },
+  {
+    "tag": "jd-gradient-border",
+    "dir": "gradient-border",
+    "sourceDir": "gradient-border",
+    "name": "GradientBorder",
+    "elementClass": "JdGradientBorder"
+  },
+  {
+    "tag": "jd-grid",
+    "dir": "grid",
+    "sourceDir": "grid",
+    "name": "Grid",
+    "elementClass": "JdGrid"
+  },
+  {
+    "tag": "jd-grid-layout",
+    "dir": "grid-layout",
+    "sourceDir": "grid-layout",
+    "name": "GridLayout",
+    "elementClass": "JdGridLayout"
+  },
+  {
+    "tag": "jd-group",
+    "dir": "group",
+    "sourceDir": "group",
+    "name": "Group",
+    "elementClass": "JdGroup"
+  },
+  {
+    "tag": "jd-hashtag",
+    "dir": "hashtag",
+    "sourceDir": "hashtag",
+    "name": "Hashtag",
+    "elementClass": "JdHashtag"
+  },
+  {
+    "tag": "jd-heading",
+    "dir": "heading",
+    "sourceDir": "heading",
+    "name": "Heading",
+    "elementClass": "JdHeading"
+  },
+  {
+    "tag": "jd-heatmap",
+    "dir": "heatmap",
+    "sourceDir": "heatmap",
+    "name": "Heatmap",
+    "elementClass": "JdHeatmap"
+  },
+  {
+    "tag": "jd-hero-section",
+    "dir": "hero-section",
+    "sourceDir": "hero-section",
+    "name": "HeroSection",
+    "elementClass": "JdHeroSection"
+  },
+  {
+    "tag": "jd-hide",
+    "dir": "hide",
+    "sourceDir": "show",
+    "name": "Hide",
+    "elementClass": "JdHide"
+  },
+  {
+    "tag": "jd-highlight",
+    "dir": "highlight",
+    "sourceDir": "highlight",
+    "name": "Highlight",
+    "elementClass": "JdHighlight"
+  },
+  {
+    "tag": "jd-hint",
+    "dir": "hint",
+    "sourceDir": "hint",
+    "name": "Hint",
+    "elementClass": "JdHint"
+  },
+  {
+    "tag": "jd-holding-form-modal",
+    "dir": "holding-form-modal",
+    "sourceDir": "holding-form-modal",
+    "name": "HoldingFormModal",
+    "elementClass": "JdHoldingFormModal"
+  },
+  {
+    "tag": "jd-hot-pct-chip",
+    "dir": "hot-pct-chip",
+    "sourceDir": "hot-pct-chip",
+    "name": "HotPctChip",
+    "elementClass": "JdHotPctChip"
+  },
+  {
+    "tag": "jd-hover-card",
+    "dir": "hover-card",
+    "sourceDir": "hover-card",
+    "name": "HoverCard",
+    "elementClass": "JdHoverCard"
+  },
+  {
+    "tag": "jd-hstack",
+    "dir": "hstack",
+    "sourceDir": "hstack",
+    "name": "Hstack",
+    "elementClass": "JdHStack"
+  },
+  {
+    "tag": "jd-icon",
+    "dir": "icon",
+    "sourceDir": "icon",
+    "name": "Icon",
+    "elementClass": "JdIcon"
+  },
+  {
+    "tag": "jd-icon-button",
+    "dir": "icon-button",
+    "sourceDir": "icon-button",
+    "name": "IconButton",
+    "elementClass": "JdIconButton"
+  },
+  {
+    "tag": "jd-image",
+    "dir": "image",
+    "sourceDir": "image",
+    "name": "Image",
+    "elementClass": "JdImage"
+  },
+  {
+    "tag": "jd-image-compare",
+    "dir": "image-compare",
+    "sourceDir": "image-compare",
+    "name": "ImageCompare",
+    "elementClass": "JdImageCompare"
+  },
+  {
+    "tag": "jd-image-cropper",
+    "dir": "image-cropper",
+    "sourceDir": "image-cropper",
+    "name": "ImageCropper",
+    "elementClass": "JdImageCropper"
+  },
+  {
+    "tag": "jd-image-lightbox",
+    "dir": "image-lightbox",
+    "sourceDir": "image-lightbox",
+    "name": "ImageLightbox",
+    "elementClass": "JdImageLightbox"
+  },
+  {
+    "tag": "jd-image-with-fallback",
+    "dir": "image-with-fallback",
+    "sourceDir": "image-with-fallback",
+    "name": "ImageWithFallback",
+    "elementClass": "JdImageWithFallback"
+  },
+  {
+    "tag": "jd-image-zoom",
+    "dir": "image-zoom",
+    "sourceDir": "image-zoom",
+    "name": "ImageZoom",
+    "elementClass": "JdImageZoom"
+  },
+  {
+    "tag": "jd-infinite-list",
+    "dir": "infinite-list",
+    "sourceDir": "infinite-list",
+    "name": "InfiniteList",
+    "elementClass": "JdInfiniteList"
+  },
+  {
+    "tag": "jd-inline-edit",
+    "dir": "inline-edit",
+    "sourceDir": "inline-edit",
+    "name": "InlineEdit",
+    "elementClass": "JdInlineEdit"
+  },
+  {
+    "tag": "jd-investor-council",
+    "dir": "investor-council",
+    "sourceDir": "investor-council",
+    "name": "InvestorCouncil",
+    "elementClass": "JdInvestorCouncil"
+  },
+  {
+    "tag": "jd-investor-flow-chart",
+    "dir": "investor-flow-chart",
+    "sourceDir": "investor-flow-chart",
+    "name": "InvestorFlowChart",
+    "elementClass": "JdInvestorFlowChart"
+  },
+  {
+    "tag": "jd-investor-ranking",
+    "dir": "investor-ranking",
+    "sourceDir": "investor-ranking",
+    "name": "InvestorRanking",
+    "elementClass": "JdInvestorRanking"
+  },
+  {
+    "tag": "jd-json-viewer",
+    "dir": "json-viewer",
+    "sourceDir": "json-viewer",
+    "name": "JsonViewer",
+    "elementClass": "JdJsonViewer"
+  },
+  {
+    "tag": "jd-kanban",
+    "dir": "kanban",
+    "sourceDir": "kanban",
+    "name": "Kanban",
+    "elementClass": "JdKanban"
+  },
+  {
+    "tag": "jd-kbd",
+    "dir": "kbd",
+    "sourceDir": "kbd",
+    "name": "Kbd",
+    "elementClass": "JdKbd"
+  },
+  {
+    "tag": "jd-key-cap",
+    "dir": "key-cap",
+    "sourceDir": "key-cap",
+    "name": "KeyCap",
+    "elementClass": "JdKeyCap"
+  },
+  {
+    "tag": "jd-key-value-grid",
+    "dir": "key-value-grid",
+    "sourceDir": "key-value-grid",
+    "name": "KeyValueGrid",
+    "elementClass": "JdKeyValueGrid"
+  },
+  {
+    "tag": "jd-key-value-grid-client",
+    "dir": "key-value-grid-client",
+    "sourceDir": "key-value-grid-client",
+    "name": "KeyValueGridClient",
+    "elementClass": "JdKeyValueGridClient"
+  },
+  {
+    "tag": "jd-label",
+    "dir": "label",
+    "sourceDir": "label",
+    "name": "Label",
+    "elementClass": "JdLabel"
+  },
+  {
+    "tag": "jd-like-button",
+    "dir": "like-button",
+    "sourceDir": "like-button",
+    "name": "LikeButton",
+    "elementClass": "JdLikeButton"
+  },
+  {
+    "tag": "jd-limit-hits-card",
+    "dir": "limit-hits-card",
+    "sourceDir": "limit-hits-card",
+    "name": "LimitHitsCard",
+    "elementClass": "JdLimitHitsCard"
+  },
+  {
+    "tag": "jd-line-chart",
+    "dir": "line-chart",
+    "sourceDir": "line-chart",
+    "name": "LineChart",
+    "elementClass": "JdLineChart"
+  },
+  {
+    "tag": "jd-link",
+    "dir": "link",
+    "sourceDir": "link",
+    "name": "Link",
+    "elementClass": "JdLink"
+  },
+  {
+    "tag": "jd-live-index-card",
+    "dir": "live-index-card",
+    "sourceDir": "live-index-card",
+    "name": "LiveIndexCard",
+    "elementClass": "JdLiveIndexCard"
+  },
+  {
+    "tag": "jd-live-investor-board",
+    "dir": "live-investor-board",
+    "sourceDir": "live-investor-board",
+    "name": "LiveInvestorBoard",
+    "elementClass": "JdLiveInvestorBoard"
+  },
+  {
+    "tag": "jd-live-investor-flow-cards",
+    "dir": "live-investor-flow-cards",
+    "sourceDir": "live-investor-flow-cards",
+    "name": "LiveInvestorFlowCards",
+    "elementClass": "JdLiveInvestorFlowCards"
+  },
+  {
+    "tag": "jd-live-market-stats",
+    "dir": "live-market-stats",
+    "sourceDir": "live-market-stats",
+    "name": "LiveMarketStats",
+    "elementClass": "JdLiveMarketStats"
+  },
+  {
+    "tag": "jd-live-micro-kpi-row",
+    "dir": "live-micro-kpi-row",
+    "sourceDir": "live-micro-kpi-row",
+    "name": "LiveMicroKpiRow",
+    "elementClass": "JdLiveMicroKpiRow"
+  },
+  {
+    "tag": "jd-live-order-book",
+    "dir": "live-order-book",
+    "sourceDir": "live-order-book",
+    "name": "LiveOrderBook",
+    "elementClass": "JdLiveOrderBook"
+  },
+  {
+    "tag": "jd-live-pct-badge",
+    "dir": "live-pct-badge",
+    "sourceDir": "live-pct-badge",
+    "name": "LivePctBadge",
+    "elementClass": "JdLivePctBadge"
+  },
+  {
+    "tag": "jd-live-pct-text",
+    "dir": "live-pct-text",
+    "sourceDir": "live-pct-text",
+    "name": "LivePctText",
+    "elementClass": "JdLivePctText"
+  },
+  {
+    "tag": "jd-live-price",
+    "dir": "live-price",
+    "sourceDir": "live-price",
+    "name": "LivePrice",
+    "elementClass": "JdLivePrice"
+  },
+  {
+    "tag": "jd-live-price-text",
+    "dir": "live-price-text",
+    "sourceDir": "live-price-text",
+    "name": "LivePriceText",
+    "elementClass": "JdLivePriceText"
+  },
+  {
+    "tag": "jd-live-sector-strength",
+    "dir": "live-sector-strength",
+    "sourceDir": "live-sector-strength",
+    "name": "LiveSectorStrength",
+    "elementClass": "JdLiveSectorStrength"
+  },
+  {
+    "tag": "jd-live-stacked-cell",
+    "dir": "live-stacked-cell",
+    "sourceDir": "live-stacked-cell",
+    "name": "LiveStackedCell",
+    "elementClass": "JdLiveStackedCell"
+  },
+  {
+    "tag": "jd-live-status-dot",
+    "dir": "live-status-dot",
+    "sourceDir": "live-status-dot",
+    "name": "LiveStatusDot",
+    "elementClass": "JdLiveStatusDot"
+  },
+  {
+    "tag": "jd-live-stock-hero-chart",
+    "dir": "live-stock-hero-chart",
+    "sourceDir": "live-stock-hero-chart",
+    "name": "LiveStockHeroChart",
+    "elementClass": "JdLiveStockHeroChart"
+  },
+  {
+    "tag": "jd-live-stock-table",
+    "dir": "live-stock-table",
+    "sourceDir": "live-stock-table",
+    "name": "LiveStockTable",
+    "elementClass": "JdLiveStockTable"
+  },
+  {
+    "tag": "jd-live-ticker",
+    "dir": "live-ticker",
+    "sourceDir": "live-ticker",
+    "name": "LiveTicker",
+    "elementClass": "JdLiveTicker"
+  },
+  {
+    "tag": "jd-live-top-movers",
+    "dir": "live-top-movers",
+    "sourceDir": "live-top-movers",
+    "name": "LiveTopMovers",
+    "elementClass": "JdLiveTopMovers"
+  },
+  {
+    "tag": "jd-loading-button",
+    "dir": "loading-button",
+    "sourceDir": "loading-button",
+    "name": "LoadingButton",
+    "elementClass": "JdLoadingButton"
+  },
+  {
+    "tag": "jd-loading-overlay",
+    "dir": "loading-overlay",
+    "sourceDir": "loading-overlay",
+    "name": "LoadingOverlay",
+    "elementClass": "JdLoadingOverlay"
+  },
+  {
+    "tag": "jd-loading-screen",
+    "dir": "loading-screen",
+    "sourceDir": "loading-screen",
+    "name": "LoadingScreen",
+    "elementClass": "JdLoadingScreen"
+  },
+  {
+    "tag": "jd-login-form",
+    "dir": "login-form",
+    "sourceDir": "login-form",
+    "name": "LoginForm",
+    "elementClass": "JdLoginForm"
+  },
+  {
+    "tag": "jd-logo",
+    "dir": "logo",
+    "sourceDir": "logo",
+    "name": "Logo",
+    "elementClass": "JdLogo"
+  },
+  {
+    "tag": "jd-logo-cloud",
+    "dir": "logo-cloud",
+    "sourceDir": "logo-cloud",
+    "name": "LogoCloud",
+    "elementClass": "JdLogoCloud"
+  },
+  {
+    "tag": "jd-mark",
+    "dir": "mark",
+    "sourceDir": "mark",
+    "name": "Mark",
+    "elementClass": "JdMark"
+  },
+  {
+    "tag": "jd-markdown-viewer",
+    "dir": "markdown-viewer",
+    "sourceDir": "markdown-viewer",
+    "name": "MarkdownViewer",
+    "elementClass": "JdMarkdownViewer"
+  },
+  {
+    "tag": "jd-market-alert-banner",
+    "dir": "market-alert-banner",
+    "sourceDir": "market-alert-banner",
+    "name": "MarketAlertBanner",
+    "elementClass": "JdMarketAlertBanner"
+  },
+  {
+    "tag": "jd-market-header-badge",
+    "dir": "market-header-badge",
+    "sourceDir": "market-header-badge",
+    "name": "MarketHeaderBadge",
+    "elementClass": "JdMarketHeaderBadge"
+  },
+  {
+    "tag": "jd-market-heatmap",
+    "dir": "market-heatmap",
+    "sourceDir": "market-heatmap",
+    "name": "MarketHeatmap",
+    "elementClass": "JdMarketHeatmap"
+  },
+  {
+    "tag": "jd-market-index-chart",
+    "dir": "market-index-chart",
+    "sourceDir": "market-index-chart",
+    "name": "MarketIndexChart",
+    "elementClass": "JdMarketIndexChart"
+  },
+  {
+    "tag": "jd-marquee",
+    "dir": "marquee",
+    "sourceDir": "marquee",
+    "name": "Marquee",
+    "elementClass": "JdMarquee"
+  },
+  {
+    "tag": "jd-masonry-grid",
+    "dir": "masonry-grid",
+    "sourceDir": "masonry-grid",
+    "name": "MasonryGrid",
+    "elementClass": "JdMasonryGrid"
+  },
+  {
+    "tag": "jd-mention",
+    "dir": "mention",
+    "sourceDir": "mention",
+    "name": "Mention",
+    "elementClass": "JdMention"
+  },
+  {
+    "tag": "jd-mention-chip",
+    "dir": "mention-chip",
+    "sourceDir": "mention-chip",
+    "name": "MentionChip",
+    "elementClass": "JdMentionChip"
+  },
+  {
+    "tag": "jd-menubar",
+    "dir": "menubar",
+    "sourceDir": "menubar",
+    "name": "Menubar",
+    "elementClass": "JdMenubar"
+  },
+  {
+    "tag": "jd-metric-card",
+    "dir": "metric-card",
+    "sourceDir": "metric-card",
+    "name": "MetricCard",
+    "elementClass": "JdMetricCard"
+  },
+  {
+    "tag": "jd-mini-candle",
+    "dir": "mini-candle",
+    "sourceDir": "mini-candle",
+    "name": "MiniCandle",
+    "elementClass": "JdMiniCandle"
+  },
+  {
+    "tag": "jd-mini-chart",
+    "dir": "mini-chart",
+    "sourceDir": "mini-chart",
+    "name": "MiniChart",
+    "elementClass": "JdMiniChart"
+  },
+  {
+    "tag": "jd-month-picker",
+    "dir": "month-picker",
+    "sourceDir": "month-picker",
+    "name": "MonthPicker",
+    "elementClass": "JdMonthPicker"
+  },
+  {
+    "tag": "jd-motion",
+    "dir": "motion",
+    "sourceDir": "motion",
+    "name": "Motion",
+    "elementClass": "JdMotion"
+  },
+  {
+    "tag": "jd-multi-line-chart",
+    "dir": "multi-line-chart",
+    "sourceDir": "multi-line-chart",
+    "name": "MultiLineChart",
+    "elementClass": "JdMultiLineChart"
+  },
+  {
+    "tag": "jd-multi-select",
+    "dir": "multi-select",
+    "sourceDir": "multi-select",
+    "name": "MultiSelect",
+    "elementClass": "JdMultiSelect"
+  },
+  {
+    "tag": "jd-my-position-panel",
+    "dir": "my-position-panel",
+    "sourceDir": "my-position-panel",
+    "name": "MyPositionPanel",
+    "elementClass": "JdMyPositionPanel"
+  },
+  {
+    "tag": "jd-navigation-menu",
+    "dir": "navigation-menu",
+    "sourceDir": "navigation-menu",
+    "name": "NavigationMenu",
+    "elementClass": "JdNavigationMenu"
+  },
+  {
+    "tag": "jd-nav-sidebar",
+    "dir": "nav-sidebar",
+    "sourceDir": "nav-sidebar",
+    "name": "NavSidebar",
+    "elementClass": "JdNavSidebar"
+  },
+  {
+    "tag": "jd-newsletter",
+    "dir": "newsletter",
+    "sourceDir": "newsletter",
+    "name": "Newsletter",
+    "elementClass": "JdNewsletter"
+  },
+  {
+    "tag": "jd-news-list",
+    "dir": "news-list",
+    "sourceDir": "news-list",
+    "name": "NewsList",
+    "elementClass": "JdNewsList"
+  },
+  {
+    "tag": "jd-notification",
+    "dir": "notification",
+    "sourceDir": "notification",
+    "name": "Notification",
+    "elementClass": "JdNotification"
+  },
+  {
+    "tag": "jd-notification-center",
+    "dir": "notification-center",
+    "sourceDir": "notification-center",
+    "name": "NotificationCenter",
+    "elementClass": "JdNotificationCenter"
+  },
+  {
+    "tag": "jd-number-formatter",
+    "dir": "number-formatter",
+    "sourceDir": "number-formatter",
+    "name": "NumberFormatter",
+    "elementClass": "JdNumberFormatter"
+  },
+  {
+    "tag": "jd-number-input",
+    "dir": "number-input",
+    "sourceDir": "number-input",
+    "name": "NumberInput",
+    "elementClass": "JdNumberInput"
+  },
+  {
+    "tag": "jd-offline-indicator",
+    "dir": "offline-indicator",
+    "sourceDir": "offline-indicator",
+    "name": "OfflineIndicator",
+    "elementClass": "JdOfflineIndicator"
+  },
+  {
+    "tag": "jd-onboarding",
+    "dir": "onboarding",
+    "sourceDir": "onboarding",
+    "name": "Onboarding",
+    "elementClass": "JdOnboarding"
+  },
+  {
+    "tag": "jd-onboarding-tour",
+    "dir": "onboarding-tour",
+    "sourceDir": "onboarding-tour",
+    "name": "OnboardingTour",
+    "elementClass": "JdOnboardingTour"
+  },
+  {
+    "tag": "jd-online-status",
+    "dir": "online-status",
+    "sourceDir": "online-status",
+    "name": "OnlineStatus",
+    "elementClass": "JdOnlineStatus"
+  },
+  {
+    "tag": "jd-open-picks-card",
+    "dir": "open-picks-card",
+    "sourceDir": "open-picks-card",
+    "name": "OpenPicksCard",
+    "elementClass": "JdOpenPicksCard"
+  },
+  {
+    "tag": "jd-otp-input",
+    "dir": "otp-input",
+    "sourceDir": "otp-input",
+    "name": "OtpInput",
+    "elementClass": "JdOtpInput"
+  },
+  {
+    "tag": "jd-overlay",
+    "dir": "overlay",
+    "sourceDir": "overlay",
+    "name": "Overlay",
+    "elementClass": "JdOverlay"
+  },
+  {
+    "tag": "jd-page",
+    "dir": "page",
+    "sourceDir": "page",
+    "name": "Page",
+    "elementClass": "JdPage"
+  },
+  {
+    "tag": "jd-page-body",
+    "dir": "page-body",
+    "sourceDir": "page",
+    "name": "PageBody",
+    "elementClass": "JdPageBody"
+  },
+  {
+    "tag": "jd-page-empty-state",
+    "dir": "page-empty-state",
+    "sourceDir": "page-empty-state",
+    "name": "PageEmptyState",
+    "elementClass": "JdPageEmptyState"
+  },
+  {
+    "tag": "jd-page-header",
+    "dir": "page-header",
+    "sourceDir": "page",
+    "name": "PageHeader",
+    "elementClass": "JdPageHeader"
+  },
+  {
+    "tag": "jd-page-header-bar",
+    "dir": "page-header-bar",
+    "sourceDir": "page-header",
+    "name": "PageHeaderBar",
+    "elementClass": "JdPageHeaderBar"
+  },
+  {
+    "tag": "jd-page-shell",
+    "dir": "page-shell",
+    "sourceDir": "page-shell",
+    "name": "PageShell",
+    "elementClass": "JdPageShell"
+  },
+  {
+    "tag": "jd-pagination",
+    "dir": "pagination",
+    "sourceDir": "pagination",
+    "name": "Pagination",
+    "elementClass": "JdPagination"
+  },
+  {
+    "tag": "jd-password-input",
+    "dir": "password-input",
+    "sourceDir": "password-input",
+    "name": "PasswordInput",
+    "elementClass": "JdPasswordInput"
+  },
+  {
+    "tag": "jd-password-strength",
+    "dir": "password-strength",
+    "sourceDir": "password-strength",
+    "name": "PasswordStrength",
+    "elementClass": "JdPasswordStrength"
+  },
+  {
+    "tag": "jd-phone-input",
+    "dir": "phone-input",
+    "sourceDir": "phone-input",
+    "name": "PhoneInput",
+    "elementClass": "JdPhoneInput"
+  },
+  {
+    "tag": "jd-photo-album",
+    "dir": "photo-album",
+    "sourceDir": "photo-album",
+    "name": "PhotoAlbum",
+    "elementClass": "JdPhotoAlbum"
+  },
+  {
+    "tag": "jd-photo-card",
+    "dir": "photo-card",
+    "sourceDir": "photo-card",
+    "name": "PhotoCard",
+    "elementClass": "JdPhotoCard"
+  },
+  {
+    "tag": "jd-photo-carousel",
+    "dir": "photo-carousel",
+    "sourceDir": "photo-carousel",
+    "name": "PhotoCarousel",
+    "elementClass": "JdPhotoCarousel"
+  },
+  {
+    "tag": "jd-photo-filters",
+    "dir": "photo-filters",
+    "sourceDir": "photo-filters",
+    "name": "PhotoFilters",
+    "elementClass": "JdPhotoFilters"
+  },
+  {
+    "tag": "jd-photo-grid",
+    "dir": "photo-grid",
+    "sourceDir": "photo-grid",
+    "name": "PhotoGrid",
+    "elementClass": "JdPhotoGrid"
+  },
+  {
+    "tag": "jd-photo-lightbox",
+    "dir": "photo-lightbox",
+    "sourceDir": "photo-lightbox",
+    "name": "PhotoLightbox",
+    "elementClass": "JdPhotoLightbox"
+  },
+  {
+    "tag": "jd-photo-uploader",
+    "dir": "photo-uploader",
+    "sourceDir": "photo-uploader",
+    "name": "PhotoUploader",
+    "elementClass": "JdPhotoUploader"
+  },
+  {
+    "tag": "jd-pie-chart",
+    "dir": "pie-chart",
+    "sourceDir": "pie-chart",
+    "name": "PieChart",
+    "elementClass": "JdPieChart"
+  },
+  {
+    "tag": "jd-pin-input",
+    "dir": "pin-input",
+    "sourceDir": "pin-input",
+    "name": "PinInput",
+    "elementClass": "JdPinInput"
+  },
+  {
+    "tag": "jd-poll-card",
+    "dir": "poll-card",
+    "sourceDir": "poll-card",
+    "name": "PollCard",
+    "elementClass": "JdPollCard"
+  },
+  {
+    "tag": "jd-popover",
+    "dir": "popover",
+    "sourceDir": "popover",
+    "name": "Popover",
+    "elementClass": "JdPopover"
+  },
+  {
+    "tag": "jd-portal",
+    "dir": "portal",
+    "sourceDir": "portal",
+    "name": "Portal",
+    "elementClass": "JdPortal"
+  },
+  {
+    "tag": "jd-portfolio-council",
+    "dir": "portfolio-council",
+    "sourceDir": "portfolio-council",
+    "name": "PortfolioCouncil",
+    "elementClass": "JdPortfolioCouncil"
+  },
+  {
+    "tag": "jd-portfolio-day-detail-modal",
+    "dir": "portfolio-day-detail-modal",
+    "sourceDir": "portfolio-day-detail-modal",
+    "name": "PortfolioDayDetailModal",
+    "elementClass": "JdPortfolioDayDetailModal"
+  },
+  {
+    "tag": "jd-portfolio-heatmap",
+    "dir": "portfolio-heatmap",
+    "sourceDir": "portfolio-heatmap",
+    "name": "PortfolioHeatmap",
+    "elementClass": "JdPortfolioHeatmap"
+  },
+  {
+    "tag": "jd-position-bar",
+    "dir": "position-bar",
+    "sourceDir": "position-bar",
+    "name": "PositionBar",
+    "elementClass": "JdPositionBar"
+  },
+  {
+    "tag": "jd-post-card",
+    "dir": "post-card",
+    "sourceDir": "post-card",
+    "name": "PostCard",
+    "elementClass": "JdPostCard"
+  },
+  {
+    "tag": "jd-price-badge",
+    "dir": "price-badge",
+    "sourceDir": "price-badge",
+    "name": "PriceBadge",
+    "elementClass": "JdPriceBadge"
+  },
+  {
+    "tag": "jd-price-display",
+    "dir": "price-display",
+    "sourceDir": "price-display",
+    "name": "PriceDisplay",
+    "elementClass": "JdPriceDisplay"
+  },
+  {
+    "tag": "jd-pricing-page",
+    "dir": "pricing-page",
+    "sourceDir": "pricing-page",
+    "name": "PricingPage",
+    "elementClass": "JdPricingPage"
+  },
+  {
+    "tag": "jd-pricing-table",
+    "dir": "pricing-table",
+    "sourceDir": "pricing-table",
+    "name": "PricingTable",
+    "elementClass": "JdPricingTable"
+  },
+  {
+    "tag": "jd-product-card",
+    "dir": "product-card",
+    "sourceDir": "product-card",
+    "name": "ProductCard",
+    "elementClass": "JdProductCard"
+  },
+  {
+    "tag": "jd-profile-header",
+    "dir": "profile-header",
+    "sourceDir": "profile-header",
+    "name": "ProfileHeader",
+    "elementClass": "JdProfileHeader"
+  },
+  {
+    "tag": "jd-progress-bar",
+    "dir": "progress-bar",
+    "sourceDir": "progress-bar",
+    "name": "ProgressBar",
+    "elementClass": "JdProgressBar"
+  },
+  {
+    "tag": "jd-progress-ring",
+    "dir": "progress-ring",
+    "sourceDir": "progress-ring",
+    "name": "ProgressRing",
+    "elementClass": "JdProgressRing"
+  },
+  {
+    "tag": "jd-progress-steps",
+    "dir": "progress-steps",
+    "sourceDir": "progress-steps",
+    "name": "ProgressSteps",
+    "elementClass": "JdProgressSteps"
+  },
+  {
+    "tag": "jd-pull-to-refresh",
+    "dir": "pull-to-refresh",
+    "sourceDir": "pull-to-refresh",
+    "name": "PullToRefresh",
+    "elementClass": "JdPullToRefresh"
+  },
+  {
+    "tag": "jd-qr-code",
+    "dir": "qr-code",
+    "sourceDir": "qr-code",
+    "name": "QrCode",
+    "elementClass": "JdQrCode"
+  },
+  {
+    "tag": "jd-quantity-selector",
+    "dir": "quantity-selector",
+    "sourceDir": "quantity-selector",
+    "name": "QuantitySelector",
+    "elementClass": "JdQuantitySelector"
+  },
+  {
+    "tag": "jd-quarter-bar-chart",
+    "dir": "quarter-bar-chart",
+    "sourceDir": "quarter-bar-chart",
+    "name": "QuarterBarChart",
+    "elementClass": "JdQuarterBarChart"
+  },
+  {
+    "tag": "jd-radar-chart",
+    "dir": "radar-chart",
+    "sourceDir": "radar-chart",
+    "name": "RadarChart",
+    "elementClass": "JdRadarChart"
+  },
+  {
+    "tag": "jd-radio-card-group",
+    "dir": "radio-card-group",
+    "sourceDir": "radio-card-group",
+    "name": "RadioCardGroup",
+    "elementClass": "JdRadioCardGroup"
+  },
+  {
+    "tag": "jd-radio-group",
+    "dir": "radio-group",
+    "sourceDir": "radio-group",
+    "name": "RadioGroup",
+    "elementClass": "JdRadioGroup"
+  },
+  {
+    "tag": "jd-range-slider",
+    "dir": "range-slider",
+    "sourceDir": "range-slider",
+    "name": "RangeSlider",
+    "elementClass": "JdRangeSlider"
+  },
+  {
+    "tag": "jd-rating",
+    "dir": "rating",
+    "sourceDir": "rating",
+    "name": "Rating",
+    "elementClass": "JdRating"
+  },
+  {
+    "tag": "jd-reaction-picker",
+    "dir": "reaction-picker",
+    "sourceDir": "reaction-picker",
+    "name": "ReactionPicker",
+    "elementClass": "JdReactionPicker"
+  },
+  {
+    "tag": "jd-reading-goal",
+    "dir": "reading-goal",
+    "sourceDir": "reading-goal",
+    "name": "ReadingGoal",
+    "elementClass": "JdReadingGoal"
+  },
+  {
+    "tag": "jd-reading-progress",
+    "dir": "reading-progress",
+    "sourceDir": "reading-progress",
+    "name": "ReadingProgress",
+    "elementClass": "JdReadingProgress"
+  },
+  {
+    "tag": "jd-reading-stats",
+    "dir": "reading-stats",
+    "sourceDir": "reading-stats",
+    "name": "ReadingStats",
+    "elementClass": "JdReadingStats"
+  },
+  {
+    "tag": "jd-reading-time",
+    "dir": "reading-time",
+    "sourceDir": "reading-time",
+    "name": "ReadingTime",
+    "elementClass": "JdReadingTime"
+  },
+  {
+    "tag": "jd-real-candle-chart",
+    "dir": "real-candle-chart",
+    "sourceDir": "real-candle-chart",
+    "name": "RealCandleChart",
+    "elementClass": "JdRealCandleChart"
+  },
+  {
+    "tag": "jd-real-quote-header",
+    "dir": "real-quote-header",
+    "sourceDir": "real-quote-header",
+    "name": "RealQuoteHeader",
+    "elementClass": "JdRealQuoteHeader"
+  },
+  {
+    "tag": "jd-recently-viewed",
+    "dir": "recently-viewed",
+    "sourceDir": "recently-viewed",
+    "name": "RecentlyViewed",
+    "elementClass": "JdRecentlyViewed"
+  },
+  {
+    "tag": "jd-recent-visit-tracker",
+    "dir": "recent-visit-tracker",
+    "sourceDir": "recent-visit-tracker",
+    "name": "RecentVisitTracker",
+    "elementClass": "JdRecentVisitTracker"
+  },
+  {
+    "tag": "jd-resizable",
+    "dir": "resizable",
+    "sourceDir": "resizable",
+    "name": "Resizable",
+    "elementClass": "JdResizable"
+  },
+  {
+    "tag": "jd-result",
+    "dir": "result",
+    "sourceDir": "result",
+    "name": "Result",
+    "elementClass": "JdResult"
+  },
+  {
+    "tag": "jd-rich-text-editor",
+    "dir": "rich-text-editor",
+    "sourceDir": "rich-text-editor",
+    "name": "RichTextEditor",
+    "elementClass": "JdRichTextEditor"
+  },
+  {
+    "tag": "jd-sankey-diagram",
+    "dir": "sankey-diagram",
+    "sourceDir": "sankey-diagram",
+    "name": "SankeyDiagram",
+    "elementClass": "JdSankeyDiagram"
+  },
+  {
+    "tag": "jd-scatter-plot",
+    "dir": "scatter-plot",
+    "sourceDir": "scatter-plot",
+    "name": "ScatterPlot",
+    "elementClass": "JdScatterPlot"
+  },
+  {
+    "tag": "jd-scroll-area",
+    "dir": "scroll-area",
+    "sourceDir": "scroll-area",
+    "name": "ScrollArea",
+    "elementClass": "JdScrollArea"
+  },
+  {
+    "tag": "jd-scroll-progress",
+    "dir": "scroll-progress",
+    "sourceDir": "scroll-progress",
+    "name": "ScrollProgress",
+    "elementClass": "JdScrollProgress"
+  },
+  {
+    "tag": "jd-scroll-spy",
+    "dir": "scroll-spy",
+    "sourceDir": "scroll-spy",
+    "name": "ScrollSpy",
+    "elementClass": "JdScrollSpy"
+  },
+  {
+    "tag": "jd-search-bar",
+    "dir": "search-bar",
+    "sourceDir": "search-bar",
+    "name": "SearchBar",
+    "elementClass": "JdSearchBar"
+  },
+  {
+    "tag": "jd-search-box",
+    "dir": "search-box",
+    "sourceDir": "search-box",
+    "name": "SearchBox",
+    "elementClass": "JdSearchBox"
+  },
+  {
+    "tag": "jd-search-input",
+    "dir": "search-input",
+    "sourceDir": "search-input",
+    "name": "SearchInput",
+    "elementClass": "JdSearchInput"
+  },
+  {
+    "tag": "jd-section",
+    "dir": "section",
+    "sourceDir": "section",
+    "name": "Section",
+    "elementClass": "JdSection"
+  },
+  {
+    "tag": "jd-security-badge",
+    "dir": "security-badge",
+    "sourceDir": "security-badge",
+    "name": "SecurityBadge",
+    "elementClass": "JdSecurityBadge"
+  },
+  {
+    "tag": "jd-security-checklist",
+    "dir": "security-checklist",
+    "sourceDir": "security-checklist",
+    "name": "SecurityChecklist",
+    "elementClass": "JdSecurityChecklist"
+  },
+  {
+    "tag": "jd-segmented-control",
+    "dir": "segmented-control",
+    "sourceDir": "segmented-control",
+    "name": "SegmentedControl",
+    "elementClass": "JdSegmentedControl"
+  },
+  {
+    "tag": "jd-segmented-pill",
+    "dir": "segmented-pill",
+    "sourceDir": "segmented-pill",
+    "name": "SegmentedPill",
+    "elementClass": "JdSegmentedPill"
+  },
+  {
+    "tag": "jd-select",
+    "dir": "select",
+    "sourceDir": "select",
+    "name": "Select",
+    "elementClass": "JdSelect"
+  },
+  {
+    "tag": "jd-settings-layout",
+    "dir": "settings-layout",
+    "sourceDir": "settings-layout",
+    "name": "SettingsLayout",
+    "elementClass": "JdSettingsLayout"
+  },
+  {
+    "tag": "jd-severity-badge",
+    "dir": "severity-badge",
+    "sourceDir": "severity-badge",
+    "name": "SeverityBadge",
+    "elementClass": "JdSeverityBadge"
+  },
+  {
+    "tag": "jd-show",
+    "dir": "show",
+    "sourceDir": "show",
+    "name": "Show",
+    "elementClass": "JdShow"
+  },
+  {
+    "tag": "jd-sidebar",
+    "dir": "sidebar",
+    "sourceDir": "sidebar",
+    "name": "Sidebar",
+    "elementClass": "JdSidebar"
+  },
+  {
+    "tag": "jd-sidebar-link",
+    "dir": "sidebar-link",
+    "sourceDir": "sidebar-link",
+    "name": "SidebarLink",
+    "elementClass": "JdSidebarLink"
+  },
+  {
+    "tag": "jd-sidebar-provider",
+    "dir": "sidebar-provider",
+    "sourceDir": "sidebar-provider",
+    "name": "SidebarProvider",
+    "elementClass": "JdSidebarProvider"
+  },
+  {
+    "tag": "jd-sidebar-section",
+    "dir": "sidebar-section",
+    "sourceDir": "sidebar-section",
+    "name": "SidebarSection",
+    "elementClass": "JdSidebarSection"
+  },
+  {
+    "tag": "jd-signature-pad",
+    "dir": "signature-pad",
+    "sourceDir": "signature-pad",
+    "name": "SignaturePad",
+    "elementClass": "JdSignaturePad"
+  },
+  {
+    "tag": "jd-simple-grid",
+    "dir": "simple-grid",
+    "sourceDir": "simple-grid",
+    "name": "SimpleGrid",
+    "elementClass": "JdSimpleGrid"
+  },
+  {
+    "tag": "jd-skeleton",
+    "dir": "skeleton",
+    "sourceDir": "skeleton",
+    "name": "Skeleton",
+    "elementClass": "JdSkeleton"
+  },
+  {
+    "tag": "jd-skeleton-preset",
+    "dir": "skeleton-preset",
+    "sourceDir": "skeleton-preset",
+    "name": "SkeletonPreset",
+    "elementClass": "JdSkeletonPreset"
+  },
+  {
+    "tag": "jd-slider",
+    "dir": "slider",
+    "sourceDir": "slider",
+    "name": "Slider",
+    "elementClass": "JdSlider"
+  },
+  {
+    "tag": "jd-snackbar",
+    "dir": "snackbar",
+    "sourceDir": "snackbar",
+    "name": "Snackbar",
+    "elementClass": "JdSnackbar"
+  },
+  {
+    "tag": "jd-social-feed",
+    "dir": "social-feed",
+    "sourceDir": "social-feed",
+    "name": "SocialFeed",
+    "elementClass": "JdSocialFeed"
+  },
+  {
+    "tag": "jd-social-share",
+    "dir": "social-share",
+    "sourceDir": "social-share",
+    "name": "SocialShare",
+    "elementClass": "JdSocialShare"
+  },
+  {
+    "tag": "jd-sortable-list",
+    "dir": "sortable-list",
+    "sourceDir": "sortable-list",
+    "name": "SortableList",
+    "elementClass": "JdSortableList"
+  },
+  {
+    "tag": "jd-spacer",
+    "dir": "spacer",
+    "sourceDir": "spacer",
+    "name": "Spacer",
+    "elementClass": "JdSpacer"
+  },
+  {
+    "tag": "jd-sparkline",
+    "dir": "sparkline",
+    "sourceDir": "sparkline",
+    "name": "Sparkline",
+    "elementClass": "JdSparkline"
+  },
+  {
+    "tag": "jd-spinner",
+    "dir": "spinner",
+    "sourceDir": "spinner",
+    "name": "Spinner",
+    "elementClass": "JdSpinner"
+  },
+  {
+    "tag": "jd-split-pane",
+    "dir": "split-pane",
+    "sourceDir": "split-pane",
+    "name": "SplitPane",
+    "elementClass": "JdSplitPane"
+  },
+  {
+    "tag": "jd-spoiler-block",
+    "dir": "spoiler-block",
+    "sourceDir": "spoiler-block",
+    "name": "SpoilerBlock",
+    "elementClass": "JdSpoilerBlock"
+  },
+  {
+    "tag": "jd-spotlight",
+    "dir": "spotlight",
+    "sourceDir": "spotlight",
+    "name": "Spotlight",
+    "elementClass": "JdSpotlight"
+  },
+  {
+    "tag": "jd-spotlight-card",
+    "dir": "spotlight-card",
+    "sourceDir": "spotlight-card",
+    "name": "SpotlightCard",
+    "elementClass": "JdSpotlightCard"
+  },
+  {
+    "tag": "jd-stack",
+    "dir": "stack",
+    "sourceDir": "stack",
+    "name": "Stack",
+    "elementClass": "JdStack"
+  },
+  {
+    "tag": "jd-star-button",
+    "dir": "star-button",
+    "sourceDir": "star-button",
+    "name": "StarButton",
+    "elementClass": "JdStarButton"
+  },
+  {
+    "tag": "jd-starfield",
+    "dir": "starfield",
+    "sourceDir": "starfield",
+    "name": "Starfield",
+    "elementClass": "JdStarfield"
+  },
+  {
+    "tag": "jd-star-rating",
+    "dir": "star-rating",
+    "sourceDir": "star-rating",
+    "name": "StarRating",
+    "elementClass": "JdStarRating"
+  },
+  {
+    "tag": "jd-stat",
+    "dir": "stat",
+    "sourceDir": "stat",
+    "name": "Stat",
+    "elementClass": "JdStat"
+  },
+  {
+    "tag": "jd-stat-card",
+    "dir": "stat-card",
+    "sourceDir": "stat-card",
+    "name": "StatCard",
+    "elementClass": "JdStatCard"
+  },
+  {
+    "tag": "jd-stats-grid",
+    "dir": "stats-grid",
+    "sourceDir": "stats-grid",
+    "name": "StatsGrid",
+    "elementClass": "JdStatsGrid"
+  },
+  {
+    "tag": "jd-status-dot",
+    "dir": "status-dot",
+    "sourceDir": "status-dot",
+    "name": "StatusDot",
+    "elementClass": "JdStatusDot"
+  },
+  {
+    "tag": "jd-stepper",
+    "dir": "stepper",
+    "sourceDir": "stepper",
+    "name": "Stepper",
+    "elementClass": "JdStepper"
+  },
+  {
+    "tag": "jd-sticky",
+    "dir": "sticky",
+    "sourceDir": "sticky",
+    "name": "Sticky",
+    "elementClass": "JdSticky"
+  },
+  {
+    "tag": "jd-stock-top-bar",
+    "dir": "stock-top-bar",
+    "sourceDir": "stock-top-bar",
+    "name": "StockTopBar",
+    "elementClass": "JdStockTopBar"
+  },
+  {
+    "tag": "jd-story-circle",
+    "dir": "story-circle",
+    "sourceDir": "story-circle",
+    "name": "StoryCircle",
+    "elementClass": "JdStoryCircle"
+  },
+  {
+    "tag": "jd-strategy-panel",
+    "dir": "strategy-panel",
+    "sourceDir": "strategy-panel",
+    "name": "StrategyPanel",
+    "elementClass": "JdStrategyPanel"
+  },
+  {
+    "tag": "jd-swipe-action",
+    "dir": "swipe-action",
+    "sourceDir": "swipe-action",
+    "name": "SwipeAction",
+    "elementClass": "JdSwipeAction"
+  },
+  {
+    "tag": "jd-switch",
+    "dir": "switch",
+    "sourceDir": "switch",
+    "name": "Switch",
+    "elementClass": "JdSwitch"
+  },
+  {
+    "tag": "jd-table",
+    "dir": "table",
+    "sourceDir": "table",
+    "name": "Table",
+    "elementClass": "JdTable"
+  },
+  {
+    "tag": "jd-table-of-contents",
+    "dir": "table-of-contents",
+    "sourceDir": "table-of-contents",
+    "name": "TableOfContents",
+    "elementClass": "JdTableOfContents"
+  },
+  {
+    "tag": "jd-tabs",
+    "dir": "tabs",
+    "sourceDir": "tabs",
+    "name": "Tabs",
+    "elementClass": "JdTabs"
+  },
+  {
+    "tag": "jd-tag",
+    "dir": "tag",
+    "sourceDir": "tag",
+    "name": "Tag",
+    "elementClass": "JdTag"
+  },
+  {
+    "tag": "jd-tag-input",
+    "dir": "tag-input",
+    "sourceDir": "tag-input",
+    "name": "TagInput",
+    "elementClass": "JdTagInput"
+  },
+  {
+    "tag": "jd-testimonial-card",
+    "dir": "testimonial-card",
+    "sourceDir": "testimonial-card",
+    "name": "TestimonialCard",
+    "elementClass": "JdTestimonialCard"
+  },
+  {
+    "tag": "jd-text",
+    "dir": "text",
+    "sourceDir": "text",
+    "name": "Text",
+    "elementClass": "JdText"
+  },
+  {
+    "tag": "jd-textarea",
+    "dir": "textarea",
+    "sourceDir": "textarea",
+    "name": "Textarea",
+    "elementClass": "JdTextarea"
+  },
+  {
+    "tag": "jd-textarea-autosize",
+    "dir": "textarea-autosize",
+    "sourceDir": "textarea-autosize",
+    "name": "TextareaAutosize",
+    "elementClass": "JdTextareaAutosize"
+  },
+  {
+    "tag": "jd-theme-card",
+    "dir": "theme-card",
+    "sourceDir": "theme-card",
+    "name": "ThemeCard",
+    "elementClass": "JdThemeCard"
+  },
+  {
+    "tag": "jd-theme-drill-down",
+    "dir": "theme-drill-down",
+    "sourceDir": "theme-drill-down",
+    "name": "ThemeDrillDown",
+    "elementClass": "JdThemeDrillDown"
+  },
+  {
+    "tag": "jd-theme-news-summary",
+    "dir": "theme-news-summary",
+    "sourceDir": "theme-news-summary",
+    "name": "ThemeNewsSummary",
+    "elementClass": "JdThemeNewsSummary"
+  },
+  {
+    "tag": "jd-theme-pill-card",
+    "dir": "theme-pill-card",
+    "sourceDir": "theme-pill-card",
+    "name": "ThemePillCard",
+    "elementClass": "JdThemePillCard"
+  },
+  {
+    "tag": "jd-theme-tag-list",
+    "dir": "theme-tag-list",
+    "sourceDir": "theme-tag-list",
+    "name": "ThemeTagList",
+    "elementClass": "JdThemeTagList"
+  },
+  {
+    "tag": "jd-theme-toggle",
+    "dir": "theme-toggle",
+    "sourceDir": "theme-toggle",
+    "name": "ThemeToggle",
+    "elementClass": "JdThemeToggle"
+  },
+  {
+    "tag": "jd-thinking-indicator",
+    "dir": "thinking-indicator",
+    "sourceDir": "thinking-indicator",
+    "name": "ThinkingIndicator",
+    "elementClass": "JdThinkingIndicator"
+  },
+  {
+    "tag": "jd-timeline",
+    "dir": "timeline",
+    "sourceDir": "timeline",
+    "name": "Timeline",
+    "elementClass": "JdTimeline"
+  },
+  {
+    "tag": "jd-time-picker",
+    "dir": "time-picker",
+    "sourceDir": "time-picker",
+    "name": "TimePicker",
+    "elementClass": "JdTimePicker"
+  },
+  {
+    "tag": "jd-toast",
+    "dir": "toast",
+    "sourceDir": "toast",
+    "name": "Toast",
+    "elementClass": "JdToast"
+  },
+  {
+    "tag": "jd-toggle",
+    "dir": "toggle",
+    "sourceDir": "toggle",
+    "name": "Toggle",
+    "elementClass": "JdToggle"
+  },
+  {
+    "tag": "jd-tooltip",
+    "dir": "tooltip",
+    "sourceDir": "tooltip",
+    "name": "Tooltip",
+    "elementClass": "JdTooltip"
+  },
+  {
+    "tag": "jd-top-bar",
+    "dir": "top-bar",
+    "sourceDir": "top-bar",
+    "name": "TopBar",
+    "elementClass": "JdTopBar"
+  },
+  {
+    "tag": "jd-tour",
+    "dir": "tour",
+    "sourceDir": "tour",
+    "name": "Tour",
+    "elementClass": "JdTour"
+  },
+  {
+    "tag": "jd-trade-journal",
+    "dir": "trade-journal",
+    "sourceDir": "trade-journal",
+    "name": "TradeJournal",
+    "elementClass": "JdTradeJournal"
+  },
+  {
+    "tag": "jd-transfer",
+    "dir": "transfer",
+    "sourceDir": "transfer",
+    "name": "Transfer",
+    "elementClass": "JdTransfer"
+  },
+  {
+    "tag": "jd-treemap-chart",
+    "dir": "treemap-chart",
+    "sourceDir": "treemap-chart",
+    "name": "TreemapChart",
+    "elementClass": "JdTreemapChart"
+  },
+  {
+    "tag": "jd-tree-nav",
+    "dir": "tree-nav",
+    "sourceDir": "tree-nav",
+    "name": "TreeNav",
+    "elementClass": "JdTreeNav"
+  },
+  {
+    "tag": "jd-tree-view",
+    "dir": "tree-view",
+    "sourceDir": "tree-view",
+    "name": "TreeView",
+    "elementClass": "JdTreeView"
+  },
+  {
+    "tag": "jd-trust-indicator",
+    "dir": "trust-indicator",
+    "sourceDir": "trust-indicator",
+    "name": "TrustIndicator",
+    "elementClass": "JdTrustIndicator"
+  },
+  {
+    "tag": "jd-typewriter",
+    "dir": "typewriter",
+    "sourceDir": "typewriter",
+    "name": "Typewriter",
+    "elementClass": "JdTypewriter"
+  },
+  {
+    "tag": "jd-video-player",
+    "dir": "video-player",
+    "sourceDir": "video-player",
+    "name": "VideoPlayer",
+    "elementClass": "JdVideoPlayer"
+  },
+  {
+    "tag": "jd-virtual-list",
+    "dir": "virtual-list",
+    "sourceDir": "virtual-list",
+    "name": "VirtualList",
+    "elementClass": "JdVirtualList"
+  },
+  {
+    "tag": "jd-virtual-scroll",
+    "dir": "virtual-scroll",
+    "sourceDir": "virtual-scroll",
+    "name": "VirtualScroll",
+    "elementClass": "JdVirtualScroll"
+  },
+  {
+    "tag": "jd-visually-hidden",
+    "dir": "visually-hidden",
+    "sourceDir": "visually-hidden",
+    "name": "VisuallyHidden",
+    "elementClass": "JdVisuallyHidden"
+  },
+  {
+    "tag": "jd-vstack",
+    "dir": "vstack",
+    "sourceDir": "vstack",
+    "name": "Vstack",
+    "elementClass": "JdVStack"
+  },
+  {
+    "tag": "jd-watchlist-widget",
+    "dir": "watchlist-widget",
+    "sourceDir": "watchlist-widget",
+    "name": "WatchlistWidget",
+    "elementClass": "JdWatchlistWidget"
+  },
+  {
+    "tag": "jd-watermark",
+    "dir": "watermark",
+    "sourceDir": "watermark",
+    "name": "Watermark",
+    "elementClass": "JdWatermark"
+  },
+  {
+    "tag": "jd-wrap",
+    "dir": "wrap",
+    "sourceDir": "wrap",
+    "name": "Wrap",
+    "elementClass": "JdWrap"
+  },
+  {
+    "tag": "jd-year-picker",
+    "dir": "year-picker",
+    "sourceDir": "year-picker",
+    "name": "YearPicker",
+    "elementClass": "JdYearPicker"
+  }
+]

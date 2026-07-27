@@ -6,7 +6,8 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import "../src/components/button/index.js";
 import { JdButton } from "../src/components/button/element.js";
 
-const tick = () => new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
+const tick = () =>
+  new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
 
 async function mount(html: string): Promise<JdButton> {
   document.body.innerHTML = html;
@@ -21,7 +22,9 @@ beforeEach(() => {
 describe("jd-button 골격·반영", () => {
   test("네이티브 <button class=jd-button>을 렌더하고 children을 이동한다", async () => {
     const el = await mount(`<jd-button>저장</jd-button>`);
-    const btn = el.querySelector<HTMLButtonElement>(":scope > button.jd-button");
+    const btn = el.querySelector<HTMLButtonElement>(
+      ":scope > button.jd-button",
+    );
     expect(btn).not.toBeNull();
     expect(btn!.textContent).toBe("저장");
     expect(el.childElementCount).toBe(1);
@@ -37,7 +40,9 @@ describe("jd-button 골격·반영", () => {
   });
 
   test("attribute → property 강제 (variant enum)", async () => {
-    const el = await mount(`<jd-button variant="ghost" size="xs">x</jd-button>`);
+    const el = await mount(
+      `<jd-button variant="ghost" size="xs">x</jd-button>`,
+    );
     expect(el.variant).toBe("ghost");
     expect(el.size).toBe("xs");
   });
@@ -68,6 +73,13 @@ describe("jd-button 골격·반영", () => {
     const el = await mount(`<jd-button type="submit">제출</jd-button>`);
     const btn = el.querySelector<HTMLButtonElement>("button.jd-button")!;
     expect(btn.type).toBe("submit");
+  });
+
+  test("지원하지 않는 type 값은 안전한 button으로 정규화한다", async () => {
+    const el = await mount(`<jd-button type="menu">메뉴</jd-button>`);
+    expect(el.querySelector<HTMLButtonElement>("button.jd-button")!.type).toBe(
+      "button",
+    );
   });
 
   test("fullWidth ↔ full-width kebab 반영", async () => {
@@ -102,12 +114,22 @@ describe("jd-button 이벤트·키보드", () => {
     btn.focus();
     expect(document.activeElement).toBe(btn);
   });
+
+  test("호스트 focus()/click()이 내부 네이티브 button으로 위임된다", async () => {
+    const el = await mount(`<jd-button>저장</jd-button>`);
+    const btn = el.querySelector<HTMLButtonElement>("button.jd-button")!;
+    const spy = vi.fn();
+    btn.addEventListener("click", spy);
+    el.focus();
+    expect(document.activeElement).toBe(btn);
+    el.click();
+    expect(spy).toHaveBeenCalledOnce();
+  });
 });
 
 describe("jd-button 렌더 멱등·입양 (§3.3)", () => {
   test("기존 골격을 입양하고 재구축하지 않는다", async () => {
-    document.body.innerHTML =
-      `<jd-button variant="primary"><button class="jd-button" type="button">SSR</button></jd-button>`;
+    document.body.innerHTML = `<jd-button variant="primary"><button class="jd-button" type="button">SSR</button></jd-button>`;
     const el = document.querySelector<JdButton>("jd-button")!;
     await tick();
     const btn = el.querySelector("button.jd-button")!;

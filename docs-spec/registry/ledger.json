@@ -1,16 +1,16 @@
 {
   "$schema": "docs-spec/tools/gen-ledger.mjs 가 생성 — 직접 편집은 상태 필드만",
-  "generatedAt": "2026-07-23",
+  "generatedAt": "2026-07-27",
   "source": "ds/{core,layout,primitives,composites,patterns,hooks,finance}/index.ts",
   "counts": {
     "core": 13,
     "layout": 12,
     "primitives": 51,
-    "hooks": 55,
-    "composites": 185,
+    "hooks": 61,
+    "composites": 194,
     "patterns": 43,
     "finance": 86,
-    "total": 445
+    "total": 460
   },
   "rows": [
     {
@@ -1455,6 +1455,72 @@
       "notes": "B8 createWindowSizeWatcher — passive resize, 값 동일이면 미통지 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
     },
     {
+      "id": "useCodeCopy",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "todo",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — 커밋된 DOM 의 코드 블록에 복사 버튼 주입"
+    },
+    {
+      "id": "useJsonLd",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — schema.org JSON-LD 주입/정리"
+    },
+    {
+      "id": "useRevealOnScroll",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "todo",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — 스크롤 진입 시 is-visible 토글"
+    },
+    {
+      "id": "useDominantColor",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "todo",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — useAlbumColors 일반화. 이미지 지배색 추출"
+    },
+    {
+      "id": "useAudioPlayer",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "todo",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — 재생목록 엔진. volume·repeat·stop 추가"
+    },
+    {
+      "id": "useSeo",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "todo",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — SPA 라우팅용 head 메타 갱신"
+    },
+    {
       "id": "Accordion",
       "category": "composites",
       "tier": "T2",
@@ -2126,6 +2192,17 @@
       "notes": "<jd-image-lightbox> — v2 composites/ImageLightbox 바닐라 이식"
     },
     {
+      "id": "GlobalImageLightbox",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — docs/ImageLightbox(전역 위임형). 기존 ImageLightbox 와 공존"
+    },
+    {
       "id": "InlineEdit",
       "category": "composites",
       "tier": "T2",
@@ -2243,7 +2320,7 @@
       "ios": "done",
       "docs": "todo",
       "tests": "done",
-      "bench": "pass(S3 100회: open p95 12.2ms / close p95 8.7ms / longtask 0 / 누수 0)",
+      "bench": "n/a",
       "notes": "G1 파일럿 <jd-modal> — dismissible→persistent 반전(DEC-012), focus-trap Behavior 첫 소비처 / iOS G1 jdModal·JdModalViewController(시스템 시트 번역) — 빌드·XCTest 검증 완료(2026-07-24 시뮬레이터, DEC-015)"
     },
     {
@@ -3039,6 +3116,17 @@
       "notes": "<jd-table-of-contents> — v2 composites/TableOfContents 바닐라 이식"
     },
     {
+      "id": "TocHeading",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — core/heading/H2·H3. TocProvider 에 자기 등록하는 헤딩"
+    },
+    {
       "id": "LineChart",
       "category": "composites",
       "tier": "T2",
@@ -3488,6 +3576,83 @@
       "tests": "done",
       "bench": "n/a",
       "notes": "<jd-search-bar> — v2 composites/SearchBar 바닐라 이식"
+    },
+    {
+      "id": "SeoHead",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — core/seo/SeoHead. SeoProvider 로 사이트 기본값 분리"
+    },
+    {
+      "id": "Waveform",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — music/Waveform. 시드 결정적 파형 + role=slider 탐색"
+    },
+    {
+      "id": "AlbumArt",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — music/AlbumArt. 커버 실패 시 시드 기반 생성 커버"
+    },
+    {
+      "id": "NowPlayingBar",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — music/NowPlayingBar. useAudioPlayer 상태를 그리는 하단 재생 바"
+    },
+    {
+      "id": "DocPager",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — docs/DocsPager. 레지스트리 의존 제거, renderLink 로 라우터 주입"
+    },
+    {
+      "id": "ProjectCard",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — portfolio/ProjectCard + CaseStudyCard 를 variant 로 통합"
+    },
+    {
+      "id": "ScreenshotGrid",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration) — docs/ScreenshotGrid. 깨진 이미지 자동 제외"
     },
     {
       "id": "DataTable",

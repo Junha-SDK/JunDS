@@ -63,10 +63,16 @@ export function ProgressBar({
           {showLabel && <span className="text-xs text-muted tabular-nums">{Math.round(pct)}%</span>}
         </div>
       )}
-      <div className={cn("w-full bg-gray-100 rounded-full overflow-hidden", barSizes[size])}>
+      <div
+        className={cn(
+          "w-full bg-gray-100 rounded-full overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)]",
+          barSizes[size],
+        )}
+      >
         <div
           className={cn(
-            "h-full rounded-full transition-all duration-500",
+            "h-full rounded-full transition-all duration-500 ease-out",
+            "bg-gradient-to-b from-white/25 to-white/0 shadow-[0_0_6px_rgba(0,0,0,0.06)]",
             barColors[variant],
             animated && "animate-progress",
           )}
@@ -99,7 +105,7 @@ export function ProgressSteps({ current, total, labels, className }: ProgressSte
                 className={cn(
                   "w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all",
                   isDone
-                    ? "bg-primary text-white"
+                    ? "bg-primary text-white shadow-[0_1px_3px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.2)]"
                     : "bg-gray-100 text-muted border border-border",
                   isCurrent && "ring-2 ring-primary/30 ring-offset-1",
                 )}
@@ -119,7 +125,12 @@ export function ProgressSteps({ current, total, labels, className }: ProgressSte
               )}
             </div>
             {i < total - 1 && (
-              <div className={cn("flex-1 h-0.5 mx-1", step < current ? "bg-primary" : "bg-gray-200")} />
+              <div
+                className={cn(
+                  "flex-1 h-0.5 mx-1 rounded-full transition-colors duration-300",
+                  step < current ? "bg-primary" : "bg-gray-200",
+                )}
+              />
             )}
           </div>
         );

@@ -2,9 +2,13 @@
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import { Slot, Slottable } from "../../utils/Slot";
-import type { ButtonProps } from "./Button.types";
+import type {
+  ButtonProps,
+  ButtonSize,
+  ButtonVariant,
+} from "./Button.types";
 
-const variantStyles: Record<string, string> = {
+const variantStyles: Record<ButtonVariant, string> = {
   primary:
     "bg-primary text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15)] hover:shadow-[0_4px_12px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.1)] hover:brightness-110 active:brightness-95 active:shadow-[0_1px_1px_rgba(0,0,0,0.1)] active:scale-[0.98]",
   secondary:
@@ -19,7 +23,7 @@ const variantStyles: Record<string, string> = {
     "text-primary hover:underline underline-offset-2 decoration-primary/40 hover:decoration-primary p-0 h-auto",
 };
 
-const sizeStyles: Record<string, string> = {
+const sizeStyles: Record<ButtonSize, string> = {
   xs: "h-7 px-2.5 text-xs gap-1 rounded-lg",
   sm: "h-8 px-3.5 text-xs gap-1.5 rounded-lg",
   md: "h-9 px-4 text-sm gap-2 rounded-xl",
@@ -46,6 +50,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       fullWidth,
       disabled,
       asChild = false,
+      type,
+      tabIndex,
       className,
       children,
       ...props
@@ -54,24 +60,35 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const isDisabled = disabled || loading;
     const Comp = asChild ? Slot : "button";
-    const buttonOnlyProps = asChild
-      ? {}
-      : { disabled: isDisabled, "aria-busy": loading || undefined };
+    const interactiveProps = asChild
+      ? {
+          "aria-busy": loading || undefined,
+          "aria-disabled": isDisabled || undefined,
+          tabIndex: isDisabled ? -1 : tabIndex,
+        }
+      : {
+          disabled: isDisabled,
+          "aria-busy": loading || undefined,
+          type: type ?? "button",
+          tabIndex,
+        };
 
     return (
       <Comp
         ref={ref as never}
-        {...buttonOnlyProps}
+        {...interactiveProps}
         className={cn(
           "inline-flex items-center justify-center font-semibold transition-all duration-200 ease-out",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
           "disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none",
           "cursor-pointer select-none whitespace-nowrap",
+          asChild && isDisabled && "pointer-events-none opacity-40 shadow-none",
           variantStyles[variant],
           sizeStyles[size],
           fullWidth && "w-full",
           className,
         )}
+        data-loading={loading || undefined}
         {...props}
       >
         {loading ? (

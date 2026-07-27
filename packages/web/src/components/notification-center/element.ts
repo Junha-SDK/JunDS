@@ -12,6 +12,7 @@
  * 항목은 <button>으로 만들어 키보드로 도달 가능 — v2의 onClick div(비접근) 개선.
  */
 import { JdPopover } from "../popover/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import notificationCenterStyles from "./notification-center.css.js";
@@ -22,8 +23,8 @@ export interface JdNotification {
   description?: string;
   time: string;
   read?: boolean;
-  /** 아이콘 — "<svg…>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  icon?: string | Node;
+  /** 아이콘 — 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   /** v2 호환 콜백 — jd-notification-click보다 먼저 호출된다 */
   onClick?: () => void;
 }
@@ -241,12 +242,7 @@ export class JdNotificationCenter extends JdPopover {
       const icon = document.createElement("span");
       icon.className = "jd-notification-center__icon";
       icon.setAttribute("aria-hidden", "true");
-      if (typeof n.icon === "string") {
-        if (n.icon.trimStart().startsWith("<")) icon.innerHTML = n.icon;
-        else icon.textContent = n.icon;
-      } else {
-        icon.append(n.icon);
-      }
+      setContent(icon, n.icon);
       item.append(icon);
     }
 

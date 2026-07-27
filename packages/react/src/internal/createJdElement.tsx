@@ -4,7 +4,7 @@
  * createJdElement — <jd-*> 커스텀 엘리먼트를 감싸는 얇은 React 어댑터 공장 (DEC-044).
  *
  * 손으로 짠 어댑터 3종(Button·TextField·Modal)은 v2 API 표면을 보존하려고 골격까지
- * React가 소유한다(DEC-008-(1)). 나머지 379종은 그런 사연이 없다 — 필요한 것은
+ * React가 소유한다(DEC-008-(1)). 나머지 387종은 그런 사연이 없다 — 필요한 것은
  * "React 사람이 <jd-*>를 자연스럽게 쓰게" 하는 얇은 층이고, 그건 기계로 만들 수 있다.
  * 그래서 이 공장은 골격을 만들지 않는다: 호스트 태그만 렌더하고 값 전달만 맡는다.
  *
@@ -34,6 +34,7 @@ import {
   forwardRef,
   useRef,
   type ForwardRefExoticComponent,
+  type HTMLAttributes,
   type ReactNode,
   type Ref,
   type RefAttributes,
@@ -49,6 +50,8 @@ export interface JdElementSpec {
   tag: string;
   /** camelCase 프롭 이름 → 값 종류 */
   props: Readonly<Record<string, JdPropKind>>;
+  /** scalar prop을 제거했을 때 복원할 JdElement의 type/default 값 */
+  defaults: Readonly<Record<string, string | number | boolean>>;
   /** "onJdChange" → "jd-change" */
   events: Readonly<Record<string, string>>;
 }
@@ -57,29 +60,43 @@ export interface JdElementSpec {
 const toAttr = (name: string): string =>
   name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 
-export interface JdBaseProps {
-  children?: ReactNode;
-  className?: string;
-  id?: string;
-  style?: React.CSSProperties;
-}
+type DataAttributes = {
+  [name: `data-${string}`]: string | number | boolean | null | undefined;
+};
 
-export function createJdElement<P extends JdBaseProps>(
+/**
+ * 생성 어댑터의 공통 호스트 프롭.
+ *
+ * HTMLAttributes를 그대로 사용하므로 ARIA·tabIndex·role·onClick 같은 네이티브
+ * React 프롭이 모두 열리고, 이벤트의 currentTarget도 실제 Jd* 클래스가 된다.
+ * OwnKeys는 CE 고유 프롭과 이름이 겹치는 HTML 프롭을 먼저 걷어낸다.
+ */
+export type JdBaseProps<
+  E extends HTMLElement = HTMLElement,
+  OwnKeys extends PropertyKey = never,
+> = Omit<HTMLAttributes<E>, OwnKeys> &
+  DataAttributes & {
+    children?: ReactNode;
+  };
+
+export function createJdElement<E extends HTMLElement, P extends object>(
   spec: JdElementSpec,
   displayName: string,
-): ForwardRefExoticComponent<P & RefAttributes<HTMLElement>> {
-  const Component = forwardRef<HTMLElement, P>(function JdAdapter(props, ref) {
-    const hostRef = useRef<HTMLElement | null>(null);
+): ForwardRefExoticComponent<P & RefAttributes<E>> {
+  const Component = forwardRef<E, P>(function JdAdapter(props, ref) {
+    const hostRef = useRef<E | null>(null);
 
     /* 세 갈래로 나눈다. 매 렌더 새로 만드는 평범한 객체 — 프롭 수가 최대 62개(card)라
        메모이제이션이 되레 비싸다. */
     const attrs: Record<string, unknown> = {};
     const data: Record<string, unknown> = {};
+    const scalar: Record<string, unknown> = {};
     const listeners: Record<string, unknown> = {};
 
-    for (const key of Object.keys(props)) {
+    const propsRecord = props as Record<string, unknown>;
+    for (const key of Object.keys(propsRecord)) {
       if (key === "children") continue;
-      const value = (props as Record<string, unknown>)[key];
+      const value = propsRecord[key];
 
       const eventName = spec.events[key];
       if (eventName !== undefined) {
@@ -89,7 +106,9 @@ export function createJdElement<P extends JdBaseProps>(
 
       const kind = spec.props[key];
       if (kind === undefined) {
-        attrs[key] = value; // React가 아는 프롭 — 그대로 넘긴다
+        // React 18은 Custom Element의 className을 `classname` attribute로 내보낸다.
+        // 표준 DOM 이름으로 정규화하면 React 18/19와 SSR이 모두 같은 class를 만든다.
+        attrs[key === "className" ? "class" : key] = value;
         continue;
       }
       if (value === undefined || value === null) continue;
@@ -98,19 +117,57 @@ export function createJdElement<P extends JdBaseProps>(
         continue;
       }
       if (kind === "boolean") {
+        scalar[key] = value;
         if (value !== false) attrs[toAttr(key)] = true;
         continue;
       }
+      scalar[key] = value;
       attrs[toAttr(key)] = value;
     }
 
-    // ② 복합 데이터 — 첫 페인트 전에
+    /* ② 복합 데이터 — 첫 페인트 전에.
+       프롭이 빠졌을 때 undefined를 무작정 넣으면 `undefined`를 받지 않는 setter가
+       기본값을 복원하지 못할 수 있다. 첫 대입 직전의 CE 기본값을 보관했다가 복원하면
+       배열([])·객체({})·null·컴포넌트 고유 기본값을 모두 정확히 되돌릴 수 있다. */
+    const dataHostRef = useRef<E | null>(null);
+    const dataDefaultsRef = useRef(new Map<string, unknown>());
+    const appliedDataKeysRef = useRef(new Set<string>());
     useIsoLayoutEffect(() => {
-      const host = hostRef.current as (HTMLElement & Record<string, unknown>) | null;
+      const host = hostRef.current;
       if (!host) return;
-      for (const key of Object.keys(data)) host[key] = data[key];
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [JSON.stringify(Object.keys(data).sort()), ...Object.values(data)]);
+      const hostProperties = host as unknown as Record<string, unknown>;
+
+      if (dataHostRef.current !== host) {
+        dataHostRef.current = host;
+        dataDefaultsRef.current.clear();
+        appliedDataKeysRef.current.clear();
+      }
+
+      // React 19는 제거된 CE prop에 undefined를 대입한다. JdElement 기본값을 명시적으로
+      // 복원해 `variant="danger"` → 미지정이 실제 기본 variant로 돌아가게 한다.
+      for (const [key, kind] of Object.entries(spec.props)) {
+        if (kind === "data") continue;
+        const next = Object.prototype.hasOwnProperty.call(scalar, key)
+          ? scalar[key]
+          : spec.defaults[key];
+        if (!Object.is(hostProperties[key], next)) hostProperties[key] = next;
+      }
+
+      const nextKeys = new Set(Object.keys(data));
+      for (const key of appliedDataKeysRef.current) {
+        if (!nextKeys.has(key)) {
+          hostProperties[key] = dataDefaultsRef.current.get(key);
+          appliedDataKeysRef.current.delete(key);
+        }
+      }
+      for (const key of nextKeys) {
+        if (!dataDefaultsRef.current.has(key)) {
+          dataDefaultsRef.current.set(key, hostProperties[key]);
+        }
+        hostProperties[key] = data[key];
+        appliedDataKeysRef.current.add(key);
+      }
+    }, [data, scalar]);
 
     /* ③ 이벤트 — 핸들러가 매 렌더 새 화살표여도 재구독하지 않는다. ref 한 겹을 두고
        구독은 이벤트 이름 집합이 바뀔 때만 갈아 끼운다(손저작 어댑터와 같은 규율). */
@@ -134,10 +191,10 @@ export function createJdElement<P extends JdBaseProps>(
 
     return createElement(
       spec.tag,
-      { ...attrs, ref: composeRefs(hostRef as Ref<HTMLElement>, ref) },
-      props.children,
+      { ...attrs, ref: composeRefs(hostRef as Ref<E>, ref) },
+      propsRecord["children"] as ReactNode,
     );
   });
   Component.displayName = displayName;
-  return Component as ForwardRefExoticComponent<P & RefAttributes<HTMLElement>>;
+  return Component as ForwardRefExoticComponent<P & RefAttributes<E>>;
 }

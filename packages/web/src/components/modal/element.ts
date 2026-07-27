@@ -10,34 +10,72 @@
  * 이벤트(§1.5): ESC/백드롭/close() 모두 요청형 jd-request-close(cancelable)를
  * 먼저 발행 — preventDefault되면 상태 변화 중단. 상태 변화 후 jd-open/jd-close(사후).
  */
-import { JdElement } from "../../core/element.js";
+import { defineProps, JdElement, type PropDefs } from "../../core/element.js";
 import { adoptStyles } from "../../core/styles.js";
+import { lockScroll } from "../../behaviors/document.js";
 import { createFocusTrap, type FocusTrap } from "../../behaviors/focus-trap.js";
 import modalStyles from "./modal.css.js";
 
+export type JdModalSize = "sm" | "md" | "lg" | "xl" | "full";
+
+const modalStacks = new WeakMap<Document, JdModal[]>();
+
+function pushModal(doc: Document, modal: JdModal): void {
+  const stack = modalStacks.get(doc) ?? [];
+  const previous = stack.indexOf(modal);
+  if (previous !== -1) stack.splice(previous, 1);
+  stack.push(modal);
+  modalStacks.set(doc, stack);
+}
+
+function removeModal(doc: Document, modal: JdModal): void {
+  const stack = modalStacks.get(doc);
+  if (!stack) return;
+  const index = stack.indexOf(modal);
+  if (index !== -1) stack.splice(index, 1);
+  if (!stack.length) modalStacks.delete(doc);
+}
+
+function isTopModal(doc: Document, modal: JdModal): boolean {
+  const stack = modalStacks.get(doc);
+  return stack?.at(-1) === modal;
+}
+
 export class JdModal extends JdElement {
   static override tag = "jd-modal";
-  static override props = {
+  static override props: PropDefs = defineProps({
     open: { type: Boolean, reflect: true },
     size: { type: String, default: "md", reflect: true },
     /** true면 백드롭 클릭으로 닫히지 않음. ESC는 항상 동작(v2 Modal과 동일) */
     persistent: { type: Boolean, reflect: true },
-  };
+    /** 내부 dialog panel로 전달되는 접근 가능한 이름 */
+    ariaLabel: { type: String, attribute: "aria-label" },
+    ariaLabelledby: { type: String, attribute: "aria-labelledby" },
+    ariaDescribedby: { type: String, attribute: "aria-describedby" },
+  });
 
   declare open: boolean;
-  declare size: string;
+  declare size: JdModalSize;
   declare persistent: boolean;
+  declare ariaLabel: string;
+  declare ariaLabelledby: string;
+  declare ariaDescribedby: string;
 
   #panel!: HTMLDivElement;
   #trap!: FocusTrap;
   #wasOpen = false;
-  #prevBodyOverflow: string | null = null;
+  #unlockScroll: (() => void) | undefined;
+  #syncedPanelAria = new Map<string, string>();
 
   protected render(): void {
     adoptStyles(modalStyles);
     // 입양 규칙(§3.3)
-    let backdrop = this.querySelector<HTMLDivElement>(":scope > .jd-modal__backdrop");
-    const panel = this.querySelector<HTMLDivElement>(":scope > .jd-modal__panel");
+    let backdrop = this.querySelector<HTMLDivElement>(
+      ":scope > .jd-modal__backdrop",
+    );
+    const panel = this.querySelector<HTMLDivElement>(
+      ":scope > .jd-modal__panel",
+    );
     if (panel && backdrop) {
       this.#panel = panel;
     } else {
@@ -56,8 +94,11 @@ export class JdModal extends JdElement {
 
   protected override connected(): void {
     // Behavior 수명은 own()이 관리(§1.2) — disconnected 시 자동 destroy
-    this.#trap = this.own(createFocusTrap(this.#panel, { initialFocus: "[data-autofocus]" }));
-    if (this.open && !this.#wasOpen) this.#applyOpenChange(true); // 재연결 복원
+    this.#trap = this.own(
+      createFocusTrap(this.#panel, { initialFocus: "[data-autofocus]" }),
+    );
+    if (this.open && !this.#wasOpen)
+      this.#applyOpenChange(true); // 재연결 복원
     else if (this.open) this.#trap.activate(); // 최초 연결: render가 이미 전이 적용 — 트랩만 늦게 합류
   }
 
@@ -66,7 +107,31 @@ export class JdModal extends JdElement {
   }
 
   protected override update(): void {
+    this.#syncPanelAria();
     if (this.open !== this.#wasOpen) this.#applyOpenChange(this.open);
+  }
+
+  #syncPanelAria(): void {
+    const attrs = {
+      "aria-label": this.ariaLabel,
+      "aria-labelledby": this.ariaLabelledby,
+      "aria-describedby": this.ariaDescribedby,
+    };
+    for (const [name, value] of Object.entries(attrs)) {
+      if (value) {
+        this.#panel.setAttribute(name, value);
+        this.#syncedPanelAria.set(name, value);
+        continue;
+      }
+      const previous = this.#syncedPanelAria.get(name);
+      if (
+        previous !== undefined &&
+        this.#panel.getAttribute(name) === previous
+      ) {
+        this.#panel.removeAttribute(name);
+      }
+      this.#syncedPanelAria.delete(name);
+    }
   }
 
   /** open 전이의 부수효과 1곳: 포커스트랩·스크롤 락·ESC 리스너·사후 이벤트 */
@@ -74,18 +139,17 @@ export class JdModal extends JdElement {
     this.#wasOpen = open;
     const doc = this.ownerDocument;
     if (open) {
+      pushModal(doc, this);
       doc.addEventListener("keydown", this.#onKeydown);
-      this.#prevBodyOverflow = doc.body.style.overflow;
-      doc.body.style.overflow = "hidden"; // 스크롤 락(v2 동일 전략)
+      this.#unlockScroll ??= lockScroll();
       this.#trap?.activate();
       if (!opts?.silent) this.emit("jd-open");
     } else {
+      removeModal(doc, this);
       doc.removeEventListener("keydown", this.#onKeydown);
       this.#trap?.deactivate();
-      if (this.#prevBodyOverflow !== null) {
-        doc.body.style.overflow = this.#prevBodyOverflow;
-        this.#prevBodyOverflow = null;
-      }
+      this.#unlockScroll?.();
+      this.#unlockScroll = undefined;
       if (!opts?.silent) this.emit("jd-close");
     }
   }
@@ -102,12 +166,16 @@ export class JdModal extends JdElement {
 
   #requestClose(reason: "escape" | "backdrop" | "close"): void {
     if (!this.open) return;
-    const proceed = this.emit("jd-request-close", { reason }, { cancelable: true });
+    const proceed = this.emit(
+      "jd-request-close",
+      { reason },
+      { cancelable: true },
+    );
     if (proceed) this.open = false; // → update()가 전이 부수효과 수행
   }
 
   #onKeydown = (e: KeyboardEvent): void => {
-    if (e.key !== "Escape") return;
+    if (e.key !== "Escape" || !isTopModal(this.ownerDocument, this)) return;
     e.stopPropagation();
     this.#requestClose("escape");
   };

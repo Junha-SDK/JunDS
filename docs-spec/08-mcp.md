@@ -79,8 +79,8 @@ v2 서버(`mcp/`)는 v2 동결 구역과 함께 그대로 존치한다 — 01 §
 
 | 소스 | 내용 | 스키마 근거 |
 |---|---|---|
-| `docs-spec/registry/ledger.json` | 445행 전환 원장 `{id, category, tier, web, ios, docs, tests, bench, notes}` | 실측·07 §4 (상태 정본) |
-| `docs-content/<kebab>.json` (레포 루트) | 컴포넌트별 콘텐츠 정본 445건 — oneLiner·tags·controls·snippets 4탭·tokens·a11y | 콘텐츠 트랙 DEC-021 (06 §2.2+§2.3 정렬) — §3.2 |
+| `docs-spec/registry/ledger.json` | 460행 전환 원장 `{id, category, tier, web, ios, docs, tests, bench, notes}` | 실측·07 §4 (상태 정본) |
+| `docs-content/<kebab>.json` (레포 루트) | 컴포넌트별 콘텐츠 정본 460건 — oneLiner·tags·controls·snippets 4탭·tokens·a11y | 콘텐츠 트랙 DEC-021 (06 §2.2+§2.3 정렬) — §3.2 |
 | `tokens/*.json` (12그룹) | 토큰 단일 소스. 파생 네이밍은 생성기 규약: CSS `--jd-<prefix>-<kebab>`, Swift `JdToken.<Group>.<name>` | 02·tokens/build/generate.mjs 실측 |
 | `docs-spec/registry/size-baseline.json` | 컴포넌트별 gzip bytes `{core, components: {<kebab>: bytes}}` | 실측 (05 게이트 산출물) |
 
@@ -88,7 +88,7 @@ v2 서버(`mcp/`)는 v2 동결 구역과 함께 그대로 존치한다 — 01 §
 
 Q2 승인의 원칙(문서 화면과 MCP의 **단일 저작점** + ledger 정합 게이트)은 유지하되,
 위치·스키마는 본 트랙 구현 중 병행 콘텐츠 트랙이 선착시킨 **레포 루트
-`docs-content/<kebab>.json` 445건**(DEC-021, d88592b)을 정본으로 채택한다 — 같은
+`docs-content/<kebab>.json` 460건**(DEC-021, d88592b)을 정본으로 채택한다 — 같은
 목적의 저장소 이원화 금지. 초판이 계획한 `docs-spec/registry/docs-content/`는
 폐기(미커밋 상태에서 회수, DEC-026).
 
@@ -202,7 +202,7 @@ MCP 측 어댑테이션:
 
 ```
 입력: { category?: ... }   // §4.1과 동일 enum
-응답: { ok, generatedAt, total: 445,
+응답: { ok, generatedAt, total: 460,
         byCategory: { core: { total: 13, web: {done, wip, todo, na}, ios: {...} }, ... },
         overall: { web: {...}, ios: {...} } }
 ```
@@ -218,7 +218,7 @@ MCP 측 어댑테이션:
 |---|---|---|
 | `locate` | → `search_components` | 개념 검색 계승. 파일 랭킹(레포 전제)은 소비자에 무의미 |
 | `get_component_props` | → `get_component` + `get_usage`의 `attributes` | 정본이 .ai/props.json(v2)에서 docs-content(v3)로 이동 |
-| `list_hooks` | → `search_components {category:"hooks"}` | hooks도 원장 445행에 포함(→Behavior 전환 상태 노출) |
+| `list_hooks` | → `search_components {category:"hooks"}` | hooks도 원장 460행에 포함(→Behavior 전환 상태 노출) |
 | `get_bundle_info` | → `get_component.gzipBytes` | 정본이 size-baseline.json(05 게이트 산출물)으로 이동 |
 | `list_recipes` / `read_recipe` | 미계승 (후속 재심의) | .ai/recipes는 v2 자산. v3 대응물 생기면 `get_usage` 확장으로 수용 |
 | `scaffold` | **미계승** | 기여자 쓰기 도구. v3 스캐폴딩은 배치 워크플로(07)가 담당, 소비자 표면에 부적합 |

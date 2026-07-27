@@ -95,17 +95,26 @@ export function FileUpload({
         onDragLeave={() => setDragOver(false)}
         onClick={() => !disabled && inputRef.current?.click()}
         className={cn(
-          "flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl p-8 transition-all cursor-pointer",
+          "group flex flex-col items-center justify-center gap-2.5 border-2 border-dashed rounded-2xl p-8 bg-gray-50/50 transition-all duration-200 ease-out cursor-pointer",
           "hover:border-primary/40 hover:bg-primary-light/30",
-          dragOver && "border-primary bg-primary-light/40 scale-[1.01]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
+          dragOver && "border-primary bg-primary-light/40 scale-[1.01] shadow-[0_0_0_4px_var(--primary-glow)]",
           disabled && "opacity-50 cursor-not-allowed",
           error ? "border-danger/40" : "border-border",
         )}
       >
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="text-muted-light">
-          <path d="M16 20V8m0 0l-4 4m4-4l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M4 22v2a4 4 0 004 4h16a4 4 0 004-4v-2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        </svg>
+        <div
+          className={cn(
+            "flex items-center justify-center w-12 h-12 rounded-full bg-white text-muted-light shadow-[0_1px_3px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-black/[0.04] transition-all duration-200",
+            "group-hover:text-primary group-hover:scale-105",
+            dragOver && "text-primary scale-110 shadow-[0_4px_12px_var(--primary-glow)]",
+          )}
+        >
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <path d="M16 20V8m0 0l-4 4m4-4l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4 22v2a4 4 0 004 4h16a4 4 0 004-4v-2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </div>
         <p className="text-sm text-muted text-center">{description}</p>
         {accept && <p className="text-[10px] text-muted-light">{accept.replace(/,/g, ", ")}</p>}
         {maxSize && <p className="text-[10px] text-muted-light">최대 {(maxSize / 1024 / 1024).toFixed(0)}MB</p>}

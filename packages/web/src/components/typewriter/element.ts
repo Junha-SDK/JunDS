@@ -68,6 +68,7 @@ export class JdTypewriter extends JdElement {
   #deleting = false;
   #started = false;
   #finished = false;
+  #sourceText = "";
   #timer: Timer | null = null;
   #motion: Watcher<boolean> | null = null;
 
@@ -106,6 +107,7 @@ export class JdTypewriter extends JdElement {
     }
 
     // 정지 상태의 정답 = 완성된 첫 문장
+    this.#sourceText = this.text;
     this.#chars = this.current.length;
     this.#paint();
   }
@@ -169,6 +171,12 @@ export class JdTypewriter extends JdElement {
   }
 
   protected override update(): void {
+    const textChanged = this.text !== this.#sourceText;
+    this.#sourceText = this.text;
+    // texts 프로퍼티가 없을 때 text가 곧 애니메이션 소스다. 완료된 once 상태까지
+    // 초기화해야 새 문장이 이전 문장의 글자 수·완료 상태를 물려받지 않는다.
+    if (textChanged && this.#texts.length === 0) this.#reset();
+
     if (!this.#started) {
       this.#chars = this.current.length; // 프리렌더 경로 — 완성형만
       this.#paint();

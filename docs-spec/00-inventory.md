@@ -3,6 +3,18 @@
 작성일: 2026-07-23 · 기준: `@junds/ui` v2.2.0 (`/Users/junha/develop/jjunhaa/JunDS`) + MySelf 독스 갤러리 (`src/features/docs/components/pages/junds`)
 모든 수치는 grep/스크립트 실측. 추정치는 (추정)으로 표기.
 
+> **갱신 이력.** 이 문서는 2026-07-23 Phase 0 감사 스냅샷이다. 이후 배럴이 늘면
+> §1 총계와 §3·§4 표를 갱신하고 여기에 델타를 남긴다 — `docs-spec/tools/gen-ledger.mjs`
+> 의 `EXPECTED` 가 §1 수치와 1:1이므로 둘이 어긋나면 원장 생성이 실패한다.
+>
+> - **2026-07-27 · myself-migration** — MySelf(junome.info) 디자인 시스템 흡수로
+>   composites 185→**194** (+9: Waveform · AlbumArt · NowPlayingBar · DocPager ·
+>   ProjectCard · ScreenshotGrid · SeoHead · TocHeading · GlobalImageLightbox),
+>   hooks 55→**61** (+6: useCodeCopy · useJsonLd · useRevealOnScroll ·
+>   useDominantColor · useAudioPlayer · useSeo). UI 합계 304→**313**, 원장 445→**460**.
+>   갤러리/USAGE 열은 모두 `—` (MySelf 갤러리 스펙 시점 이후 추가분).
+>   상세는 `requirements/myself-migration.md`.
+
 ## 1. 요약
 
 | 항목 | 실측치 | 근거 |
@@ -12,13 +24,13 @@
 | USAGE_DATA 키 | **211** | `junds-usage.data.ts` (Primitive 40 · Composite 115 · Pattern 24 · Hook 22 · Layout 10) |
 | USAGE_ALIAS | **17** | 조회 키 총 228 (211+17) |
 | 라이브러리 value export 총계 | **678** | ds/ 12개 배럴 (타입 export 별도 564) |
-| — UI 컴포넌트 (core+layout+primitives+composites+patterns) | **304** | core 13 · layout 12 · primitives 51 · composites 185 · patterns 43 |
-| — hooks (use*) | **55** | +`invalidateResource` 1 |
+| — UI 컴포넌트 (core+layout+primitives+composites+patterns) | **313** | core 13 · layout 12 · primitives 51 · composites 194 · patterns 43 |
+| — hooks (use*) | **61** | +`invalidateResource` 1 |
 | — finance | **86 컴포넌트 + 131 lib + 6 lazy** | UI/도메인 로직 혼재 배럴 |
 | — tokens / providers / runtime / utils / auth | 24 / 12 / 19 / 9 / 4 | 인프라 계층 |
 | COMPONENTS.md | 137KB · 헤딩 182 (h1 1 · h2 7 · h3 174) | 문서화된 컴포넌트 항목 = h3 174 |
 
-**"219개" 주장과의 차이**: 현행 소스 어디에도 문자열 219는 없다 (독스/갤러리 grep 0건). 실측 스펙트럼은 갤러리 188(Specimen) ~ 208(정규화 토큰) ~ 211(USAGE 키) ~ 228(별칭 포함 조회 키)로, 219는 이 사이에 위치한다. (추정) 과거 세대 갤러리의 항목 수이거나 별칭/복합 스펙 일부만 반영한 시점의 집계로 보이며, 이후 문서에서는 **"갤러리 188 스펙 / USAGE 211 키"를 공식 수치**로 쓴다. 참고로 라이브러리의 실제 UI 컴포넌트는 304개(+finance 86)로, 어떤 집계 기준으로도 "전부 라이브"는 아니다 — 5장 gap 참조.
+**"219개" 주장과의 차이**: 현행 소스 어디에도 문자열 219는 없다 (독스/갤러리 grep 0건). 실측 스펙트럼은 갤러리 188(Specimen) ~ 208(정규화 토큰) ~ 211(USAGE 키) ~ 228(별칭 포함 조회 키)로, 219는 이 사이에 위치한다. (추정) 과거 세대 갤러리의 항목 수이거나 별칭/복합 스펙 일부만 반영한 시점의 집계로 보이며, 이후 문서에서는 **"갤러리 188 스펙 / USAGE 211 키"를 공식 수치**로 쓴다. 참고로 라이브러리의 실제 UI 컴포넌트는 313개(감사 시점 304 + myself-migration 9, +finance 86)로, 어떤 집계 기준으로도 "전부 라이브"는 아니다 — 5장 gap 참조.
 
 ## 2. 의존성 감사
 
@@ -39,7 +51,7 @@
 난이도 기준 — S: 상태 없는 표시용 / M: 상호작용·포커스·애니메이션 / L: 가상스크롤·차트·에디터·복잡 상태머신. iOS의 N/a는 웹 전용 개념에만 부여.
 갤러리 O 판정은 Specimen 복합 이름 분해+별칭 정규화 후 매칭 기준.
 
-난이도 분포 (UI 304개, finance 제외): 바닐라 **S 88 · M 174 · L 42** / iOS **S 90 · M 187 · L 24 · N/a 3** (차트·가상스크롤·미디어가 네이티브 프레임워크로 강등되어 iOS의 L이 적음).
+난이도 분포 (UI 313개, finance 제외): 바닐라 **S 92 · M 177 · L 42 · N/a 2** / iOS **S 92 · M 189 · L 24 · N/a 6** (차트·가상스크롤·미디어가 네이티브 프레임워크로 강등되어 iOS의 L이 적음). 2026-07-27 myself-migration 9건 반영 — 바닐라 S 4·M 3·N/a 2, iOS S 2·M 3·N/a 3.
 
 ### core — 13개
 
@@ -144,7 +156,7 @@ core와 역할이 겹치는 별도 레이아웃 계층 (Stack vs HStack/VStack, 
 
 소계: 51개 중 갤러리 36 · USAGE 38 · 양쪽 모두 부재 9
 
-### composites — 185개
+### composites — 194개
 
 최대 카테고리. 도메인 시리즈(Book*, Photo*, 소셜, 커머스, 차트)가 다수 포함 — 재구축 시 도메인 시리즈의 분리 여부가 스코프를 좌우.
 
@@ -336,7 +348,18 @@ core와 역할이 겹치는 별도 레이아웃 계층 (Stack vs HStack/VStack, 
 | BrandSwitcher | — | — | M | M | BrandProvider 의존 |
 | SearchBar | — | — | M | M |  |
 
-소계: 185개 중 갤러리 76 · USAGE 115 · 양쪽 모두 부재 62
+| Waveform | — | — | M | M | myself-migration — 시드 결정적 파형 + 탐색 슬라이더 |
+| AlbumArt | — | — | S | S | myself-migration — 생성 커버 폴백 |
+| NowPlayingBar | — | — | M | M | myself-migration — useAudioPlayer 의존 |
+| DocPager | — | — | S | S | myself-migration — 이전/다음 문서 |
+| ProjectCard | — | — | S | S | myself-migration — 인덱스 행 카드 |
+| ScreenshotGrid | — | — | S | S | myself-migration — 깨진 이미지 자동 제외 |
+| SeoHead | — | — | N/a | N/a | myself-migration — head 조작, 렌더 없음 (웹 전용) |
+| TocHeading | — | — | S | N/a | myself-migration — TocProvider 자기 등록 (React 컨텍스트 전제) |
+| GlobalImageLightbox | — | — | M | N/a | myself-migration — document 클릭 위임 (웹 전용) |
+
+소계: 194개 중 갤러리 76 · USAGE 115 · 양쪽 모두 부재 71
+(2026-07-27 myself-migration 9건 추가 — 전부 갤러리·USAGE 부재)
 
 ### patterns — 43개
 
@@ -416,7 +439,7 @@ finance는 UI와 도메인 로직(모의 데이터·세금 계산·실시간 틱
 | utils | 9 | cn, Slot/Slottable, createCompound, polymorphic, raceGuard, contrast(WCAG), zodAdapter | contrast/raceGuard는 언어 중립, Slot류는 React 전용 |
 | auth | 4 | JunDSProvider, useJunDS, useLicenseStatus, withLicense | 라이선스 게이트 — 정책 결정 후 이식 |
 
-## 4. hooks → Behavior 매핑 (55개)
+## 4. hooks → Behavior 매핑 (61개)
 
 바닐라 규약: `createXxx(element, options): { update?, destroy }` 또는 순수 유틸. 순수 상태 훅은 "N/A — 컴포넌트 내부화".
 
@@ -478,7 +501,17 @@ finance는 UI와 도메인 로직(모의 데이터·세금 계산·실시간 틱
 | useKeyboardShortcut | — | createHotkeys와 통합 (중복 훅) | UIKeyCommand |
 | useWindowSize | O | createWindowSizeWatcher(): { size, subscribe, destroy } | GeometryReader / windowScene |
 
-집계: 55개 중 바닐라 Behavior/유틸로 존속 46 · N/A(내부화/React 전용) 9. 중복 통합 후보: useClipboard=useCopyToClipboard, useHotkeys=useKeyboardShortcut, useElementSize=useResizeObserver, useBreakpoint 계열=useMediaQuery 파생.
+| useCodeCopy | — | enhanceCodeBlocks(root, options): { destroy } | N/A — 웹 DOM 보강 전용 |
+| useJsonLd | — | setJsonLd(key, data): { destroy } 유틸 | N/A — 웹 SEO 전용 |
+| useRevealOnScroll | — | createRevealObserver(root, options): { destroy } | .onAppear + withAnimation |
+| useDominantColor | — | extractDominantColor(src): Promise<{tint, deep}> 유틸 | UIImage 평균색 / CIAreaAverage |
+| useAudioPlayer | — | createAudioPlayer(el, tracks): { play, toggle, seek, subscribe, destroy } | AVAudioPlayer / AVQueuePlayer |
+| useSeo | — | applySeo(options): { restore } 유틸 | N/A — 웹 전용 |
+
+집계: 61개 중 바닐라 Behavior/유틸로 존속 50 · N/A(내부화/React 전용) 11.
+(2026-07-27 myself-migration 6건 추가 — 존속 4 · N/A 2)
+
+중복 통합 후보: useClipboard=useCopyToClipboard, useHotkeys=useKeyboardShortcut, useElementSize=useResizeObserver, useBreakpoint 계열=useMediaQuery 파생.
 
 ## 5. 갤러리 vs 라이브러리 gap (이후 문서화 대상)
 

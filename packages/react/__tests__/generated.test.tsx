@@ -11,7 +11,13 @@
 import { describe, expect, test, vi } from "vitest";
 import { createRef } from "react";
 import { render } from "@testing-library/react";
-import { Alert, Accordion, AnimatedCounter } from "../src/index.js";
+import {
+  Alert,
+  Accordion,
+  AnimatedCounter,
+  NumberInput,
+} from "../src/index.js";
+import type { JdAccordion } from "@junds/web/accordion/element";
 import { flushCE } from "./test-utils.js";
 
 describe("스칼라 프롭 — 프로퍼티/attribute 어느 경로로 가든 값이 옳다", () => {
@@ -47,6 +53,35 @@ describe("스칼라 프롭 — 프로퍼티/attribute 어느 경로로 가든 �
     await flushCE();
     expect(host.variant).toBe("info"); // CE 기본값
   });
+
+  test("스칼라 프롭을 제거하면 CE 기본값으로 돌아간다", async () => {
+    const { container, rerender } = render(<Alert variant="danger" dismissible />);
+    const host = container.querySelector("jd-alert")! as HTMLElement & {
+      variant: string;
+      dismissible: boolean;
+    };
+    await flushCE();
+    expect(host.variant).toBe("danger");
+    expect(host.dismissible).toBe(true);
+
+    rerender(<Alert />);
+    await flushCE();
+    expect(host.variant).toBe("info");
+    expect(host.dismissible).toBe(false);
+  });
+
+  test("NaN 같은 숫자 기본값도 JSON null로 변질시키지 않고 복원한다", async () => {
+    const { container, rerender } = render(<NumberInput value={7} />);
+    const host = container.querySelector("jd-number-input")! as HTMLElement & {
+      value: number;
+    };
+    await flushCE();
+    expect(host.value).toBe(7);
+
+    rerender(<NumberInput />);
+    await flushCE();
+    expect(Number.isNaN(host.value)).toBe(true);
+  });
 });
 
 describe("복합 데이터 → 프로퍼티", () => {
@@ -59,6 +94,38 @@ describe("복합 데이터 → 프로퍼티", () => {
     expect(host.hasAttribute("items")).toBe(false);
     expect(host.items).toEqual(items);
     await flushCE();
+  });
+
+  test("프롭을 제거하면 undefined가 아니라 대입 전 CE 기본값으로 복원한다", async () => {
+    const items = [{ key: "a", title: "가", content: "내용" }];
+    const { container, rerender } = render(
+      <Accordion items={items} openKeys={["a"]} />,
+    );
+    const host = container.querySelector("jd-accordion")! as JdAccordion;
+    await flushCE();
+    expect(host.items).toEqual(items);
+    expect(host.openKeys).toEqual(["a"]);
+
+    rerender(<Accordion />);
+    await flushCE();
+    expect(host.items).toEqual([]);
+    expect(host.openKeys).toEqual([]);
+  });
+
+  test("데이터 프롭 집합이 달라져도 effect 의존성 배열 크기 경고가 없다", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const { rerender } = render(
+      <Accordion items={[{ key: "a", title: "가" }]} />,
+    );
+    rerender(<Accordion items={[]} openKeys={["a"]} />);
+    rerender(<Accordion openKeys={[]} />);
+    await flushCE();
+    expect(
+      error.mock.calls.some((args) =>
+        args.some((arg) => String(arg).includes("changed size between renders")),
+      ),
+    ).toBe(false);
+    error.mockRestore();
   });
 });
 
@@ -90,17 +157,32 @@ describe("이벤트 → addEventListener", () => {
 });
 
 describe("나머지 프롭은 React 소유", () => {
-  test("className·id·data-* 는 손대지 않고 넘긴다", () => {
-    const { container } = render(<Alert className="my-alert" id="a1" data-testid="t" />);
+  test("className·id·data-*·ARIA·네이티브 이벤트는 손대지 않고 넘긴다", () => {
+    const onClick = vi.fn();
+    const { container } = render(
+      <Alert
+        className="my-alert"
+        id="a1"
+        data-testid="t"
+        aria-label="알림"
+        tabIndex={0}
+        onClick={onClick}
+      />,
+    );
     const host = container.querySelector("jd-alert")!;
     expect(host.getAttribute("class")).toBe("my-alert");
     expect(host.id).toBe("a1");
     expect(host.getAttribute("data-testid")).toBe("t");
+    expect(host.getAttribute("aria-label")).toBe("알림");
+    expect((host as HTMLElement).tabIndex).toBe(0);
+    host.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  test("ref 는 호스트 엘리먼트를 가리킨다", () => {
-    const ref = createRef<HTMLElement>();
-    const { container } = render(<Alert ref={ref} />);
-    expect(ref.current).toBe(container.querySelector("jd-alert"));
+  test("ref 는 구체적인 Jd* 호스트 엘리먼트를 가리킨다", () => {
+    const ref = createRef<JdAccordion>();
+    const { container } = render(<Accordion ref={ref} />);
+    expect(ref.current).toBe(container.querySelector("jd-accordion"));
+    expect(typeof ref.current?.toggle).toBe("function");
   });
 });

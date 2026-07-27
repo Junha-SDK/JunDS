@@ -16,6 +16,11 @@
  *  4. **목록이 목록이 아니었다.** div 나열 → `<ul>/<li>` + 랜드마크(role=navigation).
  */
 import { JdElement } from "../../core/element.js";
+import {
+  isContentEmpty,
+  setContent,
+  type JdContent,
+} from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createClickOutside, createKeyHandler } from "../../behaviors/input.js";
@@ -27,8 +32,8 @@ export interface JdNavMenuChild {
   label: string;
   description?: string;
   href: string;
-  /** 아이콘. "<svg…>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  icon?: string | Node;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
 }
 
 export interface JdNavMenuItem {
@@ -45,19 +50,14 @@ const CHEVRON_SVG =
   `stroke="currentColor" stroke-width="2" aria-hidden="true">` +
   `<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>`;
 
-function fillIcon(slot: HTMLElement, icon: string | Node | undefined): void {
-  slot.textContent = "";
-  if (icon === undefined || icon === null || icon === "") {
+function fillIcon(slot: HTMLElement, icon: JdContent | undefined): void {
+  if (isContentEmpty(icon)) {
     slot.hidden = true;
+    setContent(slot, icon);
     return;
   }
   slot.hidden = false;
-  if (typeof icon === "string") {
-    if (icon.trimStart().startsWith("<")) slot.innerHTML = icon;
-    else slot.textContent = icon;
-  } else {
-    slot.append(icon);
-  }
+  setContent(slot, icon);
 }
 
 export class JdNavigationMenu extends JdElement {

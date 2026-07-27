@@ -2,7 +2,8 @@
  * <jd-form-array> — 추가/삭제 가능한 반복 항목(배열형 폼 필드) (v2 patterns/FormArray).
  *
  * v2는 render-prop(renderItem)으로 각 행을 그렸다. 바닐라에도 그 표면을 유지한다 —
- * `renderItem`은 함수라 property 전용(§1.3), `(item, index, helpers) => Node|string`.
+ * `renderItem`은 함수라 property 전용(§1.3), `(item, index, helpers) => JdContent`.
+ * 문자열은 평문이며 검증된 마크업만 `unsafeHtml()`로 표시한다.
  * JS 없는 소비자를 위해 자식 `<template>` 폴백도 지원한다(행마다 clone,
  * [name]/[data-field] 입력을 item에 시드하고 input마다 되수집).
  *
@@ -15,12 +16,17 @@
  * - 이벤트(§1.5): jd-change { value } — 항목 추가·삭제·편집 후 새 배열.
  */
 import { JdElement } from "../../core/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import formArrayStyles from "./form-array.css.js";
 
 type Item = unknown;
 type Helpers = { remove: () => void; update: (val: Item) => void };
-type RenderItem = (item: Item, index: number, helpers: Helpers) => Node | string | null | undefined;
+type RenderItem = (
+  item: Item,
+  index: number,
+  helpers: Helpers,
+) => JdContent | null | undefined;
 
 const ADD_SVG =
   `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">` +
@@ -227,8 +233,7 @@ export class JdFormArray extends JdElement {
 
     if (this.#renderItem) {
       const out = this.#renderItem(item, index, helpers);
-      if (typeof out === "string") control.innerHTML = out;
-      else if (out) control.append(out);
+      setContent(control, out);
     } else if (this.#template) {
       this.#bindTemplate(control, item, index);
     }

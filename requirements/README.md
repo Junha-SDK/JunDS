@@ -24,6 +24,7 @@ touches a feature listed below — code may have drifted, this file has not.
 | [`i18n`](./i18n.md) | shipped | `I18nProvider` + `defaultLocale` 사전으로 컴포넌트 내장 문자열을 부분 override. |
 | [`license-and-auth`](./license-and-auth.md) | shipped | `JunDSProvider` 라이선스 검증 + 도메인 잠금 + 무결성 모니터 + `withLicense` HOC. |
 | [`motion`](./motion.md) | active | `<Motion preset="…">` + `useAnimationFrame` + reduced-motion 자동 대응 — 8개 진입 프리셋. |
+| [`myself-migration`](./myself-migration.md) | active | MySelf(junome.info) 의 디자인 시스템 자산을 JunDS 로 흡수 — 신규 이식 + 겹치는 것의 superset 화. |
 | [`multi-brand-theming`](./multi-brand-theming.md) | active | `BrandProvider` + 5종 브랜드 프리셋 — color+radius+density+font 묶음 단위 전환. |
 | [`no-code-framework-phase-0`](./no-code-framework-phase-0.md) | draft | `PageDoc` / `ProjectDoc` JSON 스키마 정식화 + `ds/runtime/` 단일 렌더러 분리 — 노코드 프레임워크의 토대. |
 | [`no-code-personas`](./no-code-personas.md) | draft | 비개발자 5페르소나 (랜딩·블로그·쇼핑·대시보드·예약) end-to-end 시나리오 + Phase 매핑. |
@@ -31,6 +32,7 @@ touches a feature listed below — code may have drifted, this file has not.
 | [`showcase-site`](./showcase-site.md) | shipped | `app/design-system/*` Next.js 쇼케이스 — 사이드바, 검색 팔레트, 테마 스위처, 컴포넌트 페이지. |
 | [`sns-domain`](./sns-domain.md) | active | SNS 도메인 — 게시물·댓글·프로필·스토리·좋아요/팔로우·투표 + `SocialFeed` 패턴 + `useInfiniteFeed`. |
 | [`theming`](./theming.md) | shipped | `ThemeProvider` + 다크모드 + 디자인 토큰 + `app/globals.css` CSS 변수 브리지. |
+| [`web-react-components`](./web-react-components.md) | shipped | `@junds/web` 바닐라 Custom Elements + `@junds/react` 어댑터의 공통 API·타입·SSR·접근성 계약. |
 
 ## Quick lookup for agents
 

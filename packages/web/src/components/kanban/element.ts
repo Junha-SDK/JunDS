@@ -7,8 +7,8 @@
  *
  * 카드 본문: v2는 `renderCard(item, columnId): ReactNode` 렌더 프롭이었다. 바닐라에는
  * JSX가 없으므로 두 경로를 준다 — 기본 카드(제목+설명 자동 렌더)와, JS 소비자용
- * `renderCard` **함수 프로퍼티**(`(item, columnId) => HTMLElement | string`). 함수는
- * 복합값이라 property 전용.
+ * `renderCard` **함수 프로퍼티**(`(item, columnId) => JdContent`). 문자열은 평문이며
+ * 검증된 마크업만 `unsafeHtml()`로 표시한다. 함수는 복합값이라 property 전용.
  *
  * 상태 소유(uncontrolled): v2는 `columns`를 부모가 쥐고 `onMove`만 받았다. 바닐라에는
  * 상태를 되돌려줄 부모가 없으므로 jd-onboarding/jd-star-rating 선례대로 **요소가 상태를
@@ -23,6 +23,7 @@
  *     v3는 컬럼=role=list(제목이 이름), 카드=role=listitem + roledescription.
  */
 import { JdElement } from "../../core/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import kanbanStyles from "./kanban.css.js";
@@ -47,7 +48,7 @@ export interface JdKanbanColumn<T extends JdKanbanItem = JdKanbanItem> {
 export type JdKanbanCardRenderer = (
   item: JdKanbanItem,
   columnId: string,
-) => HTMLElement | string;
+) => JdContent | null | undefined;
 
 export class JdKanban extends JdElement {
   static override tag = "jd-kanban";
@@ -226,10 +227,8 @@ export class JdKanban extends JdElement {
     if (this.#hintId) li.setAttribute("aria-describedby", this.#hintId);
 
     const custom = this.#renderCard?.(item, columnId);
-    if (custom instanceof HTMLElement) {
-      li.append(custom);
-    } else if (typeof custom === "string") {
-      li.innerHTML = custom;
+    if (custom !== undefined && custom !== null) {
+      setContent(li, custom);
     } else {
       const title = document.createElement("p");
       title.className = "jd-kanban__card-title";

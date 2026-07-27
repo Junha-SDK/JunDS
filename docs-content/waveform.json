@@ -1,0 +1,68 @@
+{
+  "id": "waveform",
+  "ledgerId": "Waveform",
+  "category": "composites",
+  "title": "Waveform",
+  "oneLiner": "시드에서 결정적으로 만드는 막대 파형 — 재생 진행분이 차오르고, onSeek 을 주면 탐색 슬라이더가 된다.",
+  "tags": [
+    "media",
+    "audio",
+    "스크러버"
+  ],
+  "controls": [
+    {
+      "prop": "bars",
+      "kind": "number",
+      "min": 16,
+      "max": 128,
+      "step": 8,
+      "default": 56
+    },
+    {
+      "prop": "height",
+      "kind": "number",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "prop": "playing",
+      "kind": "boolean",
+      "default": false
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { Waveform } from \"@/ds/composites/Waveform\";",
+      "code": "<Waveform\n  seed={track.slug}\n  progress={currentTime / duration}\n  playing={isPlaying}\n  onSeek={(f) => seek(f * duration)}\n/>\n\n{/* 실제 진폭 데이터가 있으면 peaks 로 넘긴다 */}\n<Waveform seed={track.slug} peaks={track.peaks} progress={0.4} />"
+    }
+  },
+  "tokens": [
+    {
+      "token": "--color-primary",
+      "usage": "재생된 막대·재생 헤드 색"
+    },
+    {
+      "token": "--color-border",
+      "usage": "아직 재생되지 않은 막대 색"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "역할",
+      "note": "onSeek 이 있으면 role=slider + aria-valuenow(0~100), 없고 라벨도 없으면 aria-hidden(장식)"
+    },
+    {
+      "item": "키보드",
+      "note": "←/→ 5%(Shift 10%), Home/End 처음·끝 — 포인터 없이도 탐색 가능"
+    },
+    {
+      "item": "모션",
+      "note": "재생 헤드 맥동은 prefers-reduced-motion 에서 정지"
+    }
+  ]
+}

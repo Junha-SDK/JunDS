@@ -63,7 +63,11 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(
         return (
           <span
             key={i}
-            className={cn("relative", interactive && "cursor-pointer")}
+            className={cn(
+              "relative inline-flex transition-transform duration-150",
+              interactive && "cursor-pointer hover:scale-110 active:scale-95",
+              (filled || halfFilled) && "drop-shadow-[0_1px_1.5px_rgba(0,0,0,0.15)]",
+            )}
             onMouseMove={(e) => {
               if (!interactive) return;
               const rect = e.currentTarget.getBoundingClientRect();
@@ -97,7 +101,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(
               )}
               <path
                 d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                fill={filled ? "var(--warning)" : halfFilled ? `url(#half-${i})` : "none"}
+                fill={filled ? "var(--warning)" : halfFilled ? `url(#half-${i})` : "rgba(0,0,0,0.04)"}
                 stroke={filled || halfFilled ? "var(--warning)" : "var(--border)"}
                 strokeWidth="1.5"
                 strokeLinejoin="round"

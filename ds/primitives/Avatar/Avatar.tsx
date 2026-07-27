@@ -49,14 +49,14 @@ function getInitials(name: string): string {
 // 이름 기반 배경색 (해시)
 function getColor(name: string): string {
   const colors = [
-    "bg-violet-100 text-violet-700",
-    "bg-blue-100 text-blue-700",
-    "bg-emerald-100 text-emerald-700",
-    "bg-amber-100 text-amber-700",
-    "bg-rose-100 text-rose-700",
-    "bg-cyan-100 text-cyan-700",
-    "bg-purple-100 text-purple-700",
-    "bg-teal-100 text-teal-700",
+    "bg-gradient-to-br from-violet-100 to-violet-200/80 text-violet-700",
+    "bg-gradient-to-br from-blue-100 to-blue-200/80 text-blue-700",
+    "bg-gradient-to-br from-emerald-100 to-emerald-200/80 text-emerald-700",
+    "bg-gradient-to-br from-amber-100 to-amber-200/80 text-amber-700",
+    "bg-gradient-to-br from-rose-100 to-rose-200/80 text-rose-700",
+    "bg-gradient-to-br from-cyan-100 to-cyan-200/80 text-cyan-700",
+    "bg-gradient-to-br from-purple-100 to-purple-200/80 text-purple-700",
+    "bg-gradient-to-br from-teal-100 to-teal-200/80 text-teal-700",
   ];
   let hash = 0;
   for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
@@ -79,14 +79,18 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar({ 
         <img
           src={src}
           alt={name || "avatar"}
-          className={cn("rounded-full object-cover", sizeStyles[size])}
+          className={cn(
+            "rounded-full object-cover ring-1 ring-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.08)]",
+            sizeStyles[size],
+          )}
         />
       ) : (
         <div
           className={cn(
             "rounded-full flex items-center justify-center font-semibold select-none",
+            "ring-1 ring-black/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_1px_2px_rgba(0,0,0,0.05)]",
             sizeStyles[size],
-            name ? getColor(name) : "bg-gray-200 text-gray-500",
+            name ? getColor(name) : "bg-gradient-to-br from-gray-100 to-gray-200/80 text-gray-500",
           )}
         >
           {name ? getInitials(name) : "?"}
@@ -95,7 +99,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar({ 
       {status && (
         <span
           className={cn(
-            "absolute bottom-0 right-0 rounded-full border-white",
+            "absolute bottom-0 right-0 rounded-full border-white shadow-[0_1px_2px_rgba(0,0,0,0.15)]",
             statusColors[status],
             statusDotSize[size],
           )}

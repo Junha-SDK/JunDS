@@ -23,6 +23,10 @@
       "types": "./dist/types/define.d.ts",
       "default": "./dist/define.js"
     },
+    "./content": {
+      "types": "./dist/types/core/content.d.ts",
+      "default": "./dist/core/content.js"
+    },
     "./accordion": {
       "types": "./dist/types/components/accordion/index.d.ts",
       "default": "./dist/components/accordion/index.js"
@@ -3152,6 +3156,7 @@
       "default": "./dist/behaviors/*.js"
     },
     "./junds.css": "./dist/junds.css",
+    "./core.css": "./dist/core.css",
     "./css/*": "./dist/css/*",
     "./tokens.css": "./src/styles/tokens.css"
   },
@@ -3165,6 +3170,11 @@
     "typecheck": "tsc -p tsconfig.json",
     "gen:exports": "node scripts/gen-exports.mjs",
     "test": "node scripts/gen-exports.mjs --check && node scripts/scan-render-only-props.mjs --check && vitest run",
+    "coverage": "node scripts/gen-exports.mjs --check && node scripts/scan-render-only-props.mjs --check && vitest run --coverage",
+    "test:browser": "playwright test -c playwright.config.ts",
+    "test:browser:chromium": "playwright test -c playwright.config.ts --project=chromium",
+    "audit:a11y": "node ../../.github/scripts/web-a11y-audit.mjs",
+    "audit:a11y:strict": "JUNDS_A11Y_STRICT=1 node ../../.github/scripts/web-a11y-audit.mjs",
     "scan:reactivity": "node scripts/scan-render-only-props.mjs"
   },
   "devDependencies": {

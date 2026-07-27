@@ -32,6 +32,7 @@ export default css`
     /* DEC-044 톤 레시피 — 팔레트 8종은 앵커만 바꾼다(base.css --jd-tone-*).
        채워진 원이라 배경은 한 단 진한 혼합비를 쓴다. */
     --jd-tone: var(--jd-color-hue-gray); /* 무이름 기본 */
+    --jd-tone-ink-mix: 68%; /* xs 크기 이니셜까지 AA 대비를 유지 */
     --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
     background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-strong-mix), transparent);
     color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));

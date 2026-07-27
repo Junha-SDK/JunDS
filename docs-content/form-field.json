@@ -3,13 +3,16 @@
   "ledgerId": "FormField",
   "category": "composites",
   "title": "FormField",
-  "oneLiner": "폼 필드 래퍼 (Label + Input + Error + Hint)",
+  "oneLiner": "임의의 네이티브 입력에 Label·Error·Hint를 자동 연결하는 폼 필드 래퍼.",
   "tags": [
     "form"
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/form-field\";",
+      "code": "<p id=\"name-help\">프로필에 표시할 이름입니다.</p>\n<jd-form-field label=\"이름\" hint=\"2자 이상 입력하세요\" required>\n  <input name=\"name\" aria-describedby=\"name-help\" />\n</jd-form-field>\n\n<script type=\"module\">\n  const field = document.querySelector(\"jd-form-field\");\n  field.error = \"이름을 입력해주세요\";\n  // name-help는 유지되고 JunDS 오류 id만 자동으로 추가됩니다.\n</script>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {
@@ -18,5 +21,14 @@
     }
   },
   "tokens": [],
-  "a11y": []
+  "a11y": [
+    {
+      "item": "자동 연결",
+      "note": "첫 네이티브 컨트롤에 label[for]·aria-describedby·aria-invalid·aria-required를 자동 배선"
+    },
+    {
+      "item": "소유권 보존",
+      "note": "소비자가 지정한 aria-describedby·aria-invalid·aria-required는 유지하고 JunDS가 추가한 값만 상태에 따라 회수"
+    }
+  ]
 }

@@ -1,99 +1,312 @@
 /**
- * .github/scripts/web-a11y-audit.mjs — v3 web-a11y 게이트 (01-repo-structure §9).
- * packages/web/demo/*.html 전 페이지를 Playwright Chromium으로 열고 axe-core를 주입해
- * 감사한다. critical/serious 위반 → exit 1 (v2 audit:a11y:strict의 v3 이식 —
- * 데모 페이지가 대표 컴포넌트 집합이며, 페이지 목록은 디렉터리 스캔으로 자동 확장).
+ * @junds/web 실브라우저 접근성 감사.
  *
- * 전제: `npm run build -w @junds/web` 완료 (데모는 dist/junds.css + dist/junds.min.js만 로드).
- * 의존성: 루트 devDependency의 playwright(@playwright/test 경유)·axe-core — 신규 설치 없음.
- * 사용: node .github/scripts/web-a11y-audit.mjs
+ * - 작성된 demo fixture만 axe 대상으로 인정한다. 빈 jd-* 태그를 자동 생성해
+ *   coverage를 부풀리지 않는다.
+ * - critical/serious는 항상 실패한다.
+ * - moderate/minor는 기본 advisory지만 보고서와 로그에 반드시 남는다.
+ *   JUNDS_A11Y_STRICT=1이면 impact와 무관하게 모든 위반이 실패한다.
+ * - 공개 태그 등록 수, 페이지 수, 실제 fixture coverage가 기준선보다 내려가면
+ *   axe 위반이 0이어도 실패한다.
+ *
+ * 전제: `npm run build -w @junds/web`
+ * 사용: `npm run audit:a11y -w @junds/web`
  */
 import { chromium } from "playwright";
 import { createRequire } from "node:module";
-import { existsSync, readdirSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  writeFileSync,
+} from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const require = createRequire(import.meta.url);
 const axePath = require.resolve("axe-core/axe.min.js");
 const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
-const demoDir = join(root, "packages/web/demo");
+const webRoot = join(root, "packages/web");
+const demoDir = join(webRoot, "demo");
+const componentDir = join(webRoot, "src/components");
+const reportPath = join(root, "coverage/web-a11y/a11y-summary.json");
 
-// 전제 검증 — 빈 감사(false pass) 금지
-if (!existsSync(join(root, "packages/web/dist/junds.min.js"))) {
-  console.error("[a11y] packages/web/dist 산출물 없음 — 먼저 `npm run build -w @junds/web`");
+const strict = process.env.JUNDS_A11Y_STRICT === "1";
+const minimumPages = Number(process.env.JUNDS_A11Y_MIN_PAGES ?? 9);
+const minimumPublicComponents = Number(
+  process.env.JUNDS_A11Y_MIN_PUBLIC_COMPONENTS ?? 390,
+);
+const minimumComponents = Number(process.env.JUNDS_A11Y_MIN_COMPONENTS ?? 87);
+// 최초 실측 87/390. 새 컴포넌트에 fixture가 없으면 비율이 내려가 CI가 알려준다.
+const minimumCoverageRatio = Number(
+  process.env.JUNDS_A11Y_MIN_COVERAGE_RATIO ?? 87 / 390,
+);
+
+function publicTagInventory() {
+  const tags = new Set();
+  for (const directory of readdirSync(componentDir, { withFileTypes: true })) {
+    if (!directory.isDirectory()) continue;
+    const file = join(componentDir, directory.name, "element.ts");
+    if (!existsSync(file)) continue;
+    const source = readFileSync(file, "utf8");
+    const constants = new Map();
+    for (const match of source.matchAll(
+      /\bconst\s+([A-Za-z_$][\w$]*)\s*=\s*(?:"([^"]+)"|'([^']+)')/g,
+    )) {
+      constants.set(match[1], match[2] ?? match[3]);
+    }
+    for (const match of source.matchAll(
+      /static\s+(?:override\s+)?(?:readonly\s+)?tag\s*=\s*(?:"([^"]+)"|'([^']+)'|([A-Za-z_$][\w$]*))/g,
+    )) {
+      const tag = match[1] ?? match[2] ?? constants.get(match[3]);
+      if (tag?.startsWith("jd-")) tags.add(tag);
+    }
+  }
+  return [...tags].sort();
+}
+
+function authoredTags(file) {
+  const source = readFileSync(join(demoDir, file), "utf8");
+  return [
+    ...new Set(
+      [...source.matchAll(/<\s*(jd-[a-z0-9-]+)/gi)].map((match) =>
+        match[1].toLowerCase(),
+      ),
+    ),
+  ].sort();
+}
+
+if (!existsSync(join(webRoot, "dist/junds.min.js"))) {
+  console.error("[a11y] packages/web/dist 없음 — 먼저 `npm run build -w @junds/web`");
   process.exit(1);
 }
-const pages = existsSync(demoDir) ? readdirSync(demoDir).filter((f) => f.endsWith(".html")).sort() : [];
-if (pages.length === 0) {
-  console.error("[a11y] 감사 대상 데모 페이지 0건(packages/web/demo/*.html) — 빈 통과 금지");
+
+const pages = existsSync(demoDir)
+  ? readdirSync(demoDir)
+      .filter((file) => file.endsWith(".html"))
+      .sort()
+  : [];
+const inventory = publicTagInventory();
+if (pages.length < minimumPages) {
+  console.error(
+    `[a11y] 데모 페이지 ${pages.length}건 < 기준 ${minimumPages}건 — 빈/축소 통과 금지`,
+  );
+  process.exit(1);
+}
+if (inventory.length === 0) {
+  console.error("[a11y] 공개 jd-* 태그 인벤토리 0건 — 소스 스캔 실패");
   process.exit(1);
 }
 
-// Playwright 관리 chromium 부재 시 시스템 Chrome 폴백 (benchmarks/run.mjs와 동일 규약)
+// 관리 브라우저가 없는 개발 머신에서는 시스템 Chrome으로만 폴백한다.
 const browser = await chromium.launch({ headless: true }).catch(() => {
-  console.warn("[a11y] playwright chromium 미설치 — 시스템 Chrome(channel: chrome)으로 폴백");
+  console.warn("[a11y] Playwright Chromium 없음 — 시스템 Chrome으로 폴백");
   return chromium.launch({ headless: true, channel: "chrome" });
 });
 
-let gateViolations = 0;
+const coveredTags = new Set();
+const auditErrors = [];
+const pageReports = [];
+let blockingRules = 0;
+let advisoryRules = 0;
+let missingDefinitions = [];
+let checkedDefinitions = false;
+
 try {
   const page = await browser.newPage();
-  page.on("pageerror", (e) => {
-    console.error(`[a11y] pageerror: ${e.message}`);
-    process.exitCode = 1;
+  page.on("pageerror", (error) => {
+    auditErrors.push(`pageerror: ${error.message}`);
   });
 
   for (const file of pages) {
-    await page.goto(pathToFileURL(join(demoDir, file)).href, { waitUntil: "load" });
-    // 최초 render는 지연 실행(DEC-012-1: DCL/microtask) — rAF+tick으로 플러시 대기
-    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 50))));
-
-    // 진입 애니메이션이 끝난 뒤 감사한다. jd-motion 같은 fill:both 진입 모션은 감사 시점에
-    // 아직 opacity 0이라 색대비가 "실패"로 잡힌다 — 감사 대상은 정지 상태여야 한다.
-    // 무한 반복(스피너 등)은 finished가 영원히 대기하므로 제외하고, 전체에 상한을 둔다.
+    await page.goto(pathToFileURL(join(demoDir, file)).href, {
+      waitUntil: "load",
+    });
+    await page.evaluate(
+      () => new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 50))),
+    );
     await page.evaluate(
       () =>
         new Promise((resolve) => {
           const finite = document
             .getAnimations()
-            .filter((a) => a.effect?.getComputedTiming?.().iterations !== Infinity);
-          const done = Promise.all(finite.map((a) => a.finished.catch(() => {})));
-          const cap = new Promise((r) => setTimeout(r, 2000));
-          Promise.race([done, cap]).then(resolve);
+            .filter(
+              (animation) =>
+                animation.effect?.getComputedTiming?.().iterations !== Infinity,
+            );
+          const done = Promise.all(
+            finite.map((animation) => animation.finished.catch(() => {})),
+          );
+          Promise.race([done, new Promise((resolveCap) => setTimeout(resolveCap, 2000))])
+            .then(resolve);
         }),
     );
 
-    // 업그레이드 검증 — 미정의 CE만 있는 죽은 페이지를 감사해 통과하는 것을 차단
-    const upgraded = await page.evaluate(() => {
-      const jd = [...document.querySelectorAll("*")].filter((el) => el.tagName.startsWith("JD-"));
-      return { total: jd.length, defined: jd.filter((el) => el.matches(":defined")).length };
-    });
-    if (upgraded.total === 0 || upgraded.defined === 0) {
-      console.error(`[a11y] ${file}: jd-* 요소 업그레이드 0건 (total=${upgraded.total}) — dist 로드 실패 의심`);
-      process.exitCode = 1;
-      continue;
+    if (!checkedDefinitions) {
+      missingDefinitions = await page.evaluate(
+        (tags) => tags.filter((tag) => customElements.get(tag) === undefined),
+        inventory,
+      );
+      checkedDefinitions = true;
+    }
+
+    const declared = authoredTags(file);
+    const fixtureState = await page.evaluate(
+      (tags) =>
+        tags.map((tag) => {
+          const elements = [...document.querySelectorAll(tag)];
+          return {
+            tag,
+            total: elements.length,
+            defined: elements.filter((element) => element.matches(":defined")).length,
+          };
+        }),
+      declared,
+    );
+    const liveFixtures = fixtureState.filter(
+      ({ total, defined }) => total > 0 && total === defined,
+    );
+    for (const { tag } of liveFixtures) coveredTags.add(tag);
+
+    const deadFixtures = fixtureState.filter(
+      ({ total, defined }) => total === 0 || total !== defined,
+    );
+    if (liveFixtures.length === 0) {
+      auditErrors.push(`${file}: 실제 업그레이드된 작성 fixture 0종`);
+    }
+    if (deadFixtures.length > 0) {
+      auditErrors.push(
+        `${file}: 미렌더/미정의 fixture ${deadFixtures
+          .map(({ tag, defined, total }) => `${tag}(${defined}/${total})`)
+          .join(", ")}`,
+      );
     }
 
     await page.addScriptTag({ path: axePath });
-    const res = await page.evaluate(() => window.axe.run(document, { resultTypes: ["violations"] }));
-    const gate = res.violations.filter((v) => v.impact === "critical" || v.impact === "serious");
-    const advisory = res.violations.length - gate.length;
+    const result = await page.evaluate(() =>
+      window.axe.run(document, { resultTypes: ["violations"] }),
+    );
+    const blocking = result.violations.filter(
+      (violation) =>
+        strict ||
+        violation.impact === "critical" ||
+        violation.impact === "serious",
+    );
+    const advisory = result.violations.filter(
+      (violation) => !blocking.includes(violation),
+    );
+    blockingRules += blocking.length;
+    advisoryRules += advisory.length;
 
-    console.log(`[a11y] ${file}: jd-* ${upgraded.defined}/${upgraded.total} 업그레이드 · 위반 ${res.violations.length}건 (게이트 대상 ${gate.length} · advisory ${advisory})`);
-    for (const v of res.violations) {
-      const mark = v.impact === "critical" || v.impact === "serious" ? "✗" : "·";
-      console.log(`  ${mark} [${v.impact}] ${v.id}: ${v.help} (${v.nodes.length} nodes)`);
-      for (const n of v.nodes.slice(0, 5)) console.log(`      ${n.target.join(" ")}`);
+    console.log(
+      `[a11y] ${file}: fixture ${liveFixtures.length}종 · 위반 ${result.violations.length}건 ` +
+        `(blocking ${blocking.length} · advisory ${advisory.length})`,
+    );
+    for (const violation of result.violations) {
+      const isBlocking = blocking.includes(violation);
+      console.log(
+        `  ${isBlocking ? "✗" : "·"} [${violation.impact ?? "unknown"}] ` +
+          `${violation.id}: ${violation.help} (${violation.nodes.length} nodes)`,
+      );
+      for (const node of violation.nodes.slice(0, 5)) {
+        console.log(`      ${node.target.join(" ")}`);
+      }
     }
-    gateViolations += gate.length;
+
+    pageReports.push({
+      file,
+      authoredComponents: declared,
+      auditedComponents: liveFixtures.map(({ tag }) => tag),
+      violations: result.violations.map((violation) => ({
+        id: violation.id,
+        impact: violation.impact,
+        help: violation.help,
+        blocking: blocking.includes(violation),
+        nodes: violation.nodes.map((node) => ({
+          target: node.target,
+          html: node.html,
+          failureSummary: node.failureSummary,
+        })),
+      })),
+    });
   }
 } finally {
   await browser.close();
 }
 
-if (gateViolations > 0 || process.exitCode === 1) {
-  console.error(`\n[a11y] FAIL — critical/serious ${gateViolations}건`);
+const coverageRatio = coveredTags.size / inventory.length;
+const uncoveredTags = inventory.filter((tag) => !coveredTags.has(tag));
+if (inventory.length < minimumPublicComponents) {
+  auditErrors.push(
+    `공개 태그 인벤토리 ${inventory.length}종 < 기준 ${minimumPublicComponents}종`,
+  );
+}
+if (missingDefinitions.length > 0) {
+  auditErrors.push(`dist 미등록 공개 태그 ${missingDefinitions.length}종`);
+}
+if (coveredTags.size < minimumComponents) {
+  auditErrors.push(
+    `작성 fixture ${coveredTags.size}종 < 기준 ${minimumComponents}종`,
+  );
+}
+if (coverageRatio + Number.EPSILON < minimumCoverageRatio) {
+  auditErrors.push(
+    `fixture coverage ${(coverageRatio * 100).toFixed(2)}% < 기준 ` +
+      `${(minimumCoverageRatio * 100).toFixed(2)}%`,
+  );
+}
+
+const report = {
+  generatedAt: new Date().toISOString(),
+  policy: {
+    mode: strict ? "strict" : "release",
+    blockingImpacts: strict ? ["all"] : ["critical", "serious"],
+    advisoryImpacts: strict ? [] : ["moderate", "minor", "unknown"],
+  },
+  inventory: {
+    publicComponents: inventory.length,
+    registeredComponents: inventory.length - missingDefinitions.length,
+    auditedComponents: coveredTags.size,
+    coveragePercent: Number((coverageRatio * 100).toFixed(2)),
+    minimumPages,
+    minimumPublicComponents,
+    minimumComponents,
+    minimumCoveragePercent: Number((minimumCoverageRatio * 100).toFixed(2)),
+    missingDefinitions,
+    uncoveredComponents: uncoveredTags,
+  },
+  summary: {
+    pages: pages.length,
+    blockingRules,
+    advisoryRules,
+    auditErrors,
+  },
+  pages: pageReports,
+};
+mkdirSync(dirname(reportPath), { recursive: true });
+writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
+
+console.log(
+  `\n[a11y] coverage ${coveredTags.size}/${inventory.length} ` +
+    `(${(coverageRatio * 100).toFixed(2)}%) · 미감사 ${uncoveredTags.length}종`,
+);
+if (uncoveredTags.length > 0) {
+  console.log(
+    `[a11y] 다음 fixture 후보: ${uncoveredTags.slice(0, 30).join(", ")}` +
+      (uncoveredTags.length > 30 ? " …" : ""),
+  );
+}
+console.log(`[a11y] report ${reportPath}`);
+
+if (blockingRules > 0 || auditErrors.length > 0) {
+  for (const error of auditErrors) console.error(`[a11y] ✗ ${error}`);
+  console.error(
+    `\n[a11y] FAIL — blocking ${blockingRules}건 · 감사 오류 ${auditErrors.length}건`,
+  );
   process.exit(1);
 }
-console.log(`\n[a11y] PASS — ${pages.length}페이지, critical/serious 0건`);
+
+console.log(
+  `\n[a11y] PASS — ${pages.length}페이지 · blocking 0건 · advisory ${advisoryRules}건`,
+);

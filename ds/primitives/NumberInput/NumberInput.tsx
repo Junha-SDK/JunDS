@@ -53,16 +53,16 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
     const decrement = () => onChange?.(clamp((value ?? 0) - step));
 
     const btnClass = cn(
-      "flex items-center justify-center w-7 border-l border-border text-muted",
-      "hover:bg-gray-50 hover:text-foreground transition-colors cursor-pointer",
-      "disabled:opacity-30 disabled:cursor-not-allowed",
-      "first:border-l-0 first:border-r first:rounded-l-lg last:rounded-r-lg",
+      "flex items-center justify-center w-8 border-l border-border text-muted",
+      "hover:bg-gray-50 hover:text-foreground active:bg-gray-100 active:scale-95 transition-all duration-150 cursor-pointer",
+      "disabled:opacity-30 disabled:cursor-not-allowed disabled:active:scale-100",
+      "first:border-l-0 first:border-r first:rounded-l-xl last:rounded-r-xl",
     );
 
     return (
-      <div className={cn("inline-flex border rounded-lg bg-white overflow-hidden", error ? "border-danger" : "border-border", "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]", disabled && "opacity-50", className)}>
+      <div className={cn("inline-flex border rounded-xl bg-white overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out", error ? "border-danger" : "border-border", "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]", disabled && "opacity-50", className)}>
         {!hideControls && (
-          <button type="button" onClick={decrement} disabled={disabled || (min !== undefined && (value ?? 0) <= min)} className={cn(btnClass, "border-l-0 border-r rounded-l-lg")} tabIndex={-1} aria-label="감소">
+          <button type="button" onClick={decrement} disabled={disabled || (min !== undefined && (value ?? 0) <= min)} className={cn(btnClass, "border-l-0 border-r rounded-l-xl")} tabIndex={-1} aria-label="감소">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
           </button>
         )}
@@ -83,7 +83,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
           {...props}
         />
         {!hideControls && (
-          <button type="button" onClick={increment} disabled={disabled || (max !== undefined && (value ?? 0) >= max)} className={cn(btnClass, "rounded-r-lg")} tabIndex={-1} aria-label="증가">
+          <button type="button" onClick={increment} disabled={disabled || (max !== undefined && (value ?? 0) >= max)} className={cn(btnClass, "rounded-r-xl")} tabIndex={-1} aria-label="증가">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.5v7M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
           </button>
         )}

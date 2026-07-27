@@ -11,6 +11,7 @@
  * 데이터 입력 2경로: `options` 프로퍼티 / 자식 `<script type="application/json">`.
  */
 import { JdTabs, type JdTab } from "../tabs/element.js";
+import type { JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import segmentedPillStyles from "./segmented-pill.css.js";
 
@@ -19,8 +20,8 @@ export interface JdSegmentOption {
   value?: string;
   key?: string;
   label: string;
-  /** 아이콘: "<svg…>" 마크업 문자열(신뢰된 값) 또는 텍스트 */
-  icon?: string | Node;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   /** 0보다 클 때만 노출되는 카운트 배지 (v2 규칙) */
   badge?: number;
   disabled?: boolean;

@@ -3,13 +3,16 @@
   "ledgerId": "Tooltip",
   "category": "composites",
   "title": "Tooltip",
-  "oneLiner": "툴팁",
+  "oneLiner": "기존 설명과 안전하게 조합되고 키보드·ESC를 지원하는 툴팁.",
   "tags": [
     "overlay"
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/tooltip\";",
+      "code": "<span id=\"save-shortcut\">단축키 ⌘S</span>\n<jd-tooltip content=\"변경 내용을 저장합니다\">\n  <button slot=\"trigger\" type=\"button\" aria-describedby=\"save-shortcut\">\n    저장\n  </button>\n</jd-tooltip>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {
@@ -18,5 +21,14 @@
     }
   },
   "tokens": [],
-  "a11y": []
+  "a11y": [
+    {
+      "item": "설명 병합",
+      "note": "열린 동안 tooltip id를 기존 aria-describedby에 더하고 닫히면 자기 id만 제거"
+    },
+    {
+      "item": "키보드",
+      "note": "포커스로 열 수 있고 ESC로 닫을 수 있어 마우스 없이도 같은 정보를 확인"
+    }
+  ]
 }

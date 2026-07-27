@@ -16,11 +16,14 @@ export class JdSection extends JdElement {
     ...STYLE_PROPS,
     title: { type: String },
     description: { type: String },
+    headingLevel: { type: Number, default: 2, reflect: true },
     border: { type: Boolean, reflect: true }, // v2 boolean 표면 — CSS 훅
   };
 
   declare title: string;
   declare description: string;
+  /** 섹션 제목의 시맨틱 레벨(1–6). 페이지 제목 다음 단계인 2가 기본값입니다. */
+  declare headingLevel: number;
   declare border: boolean;
 
   #header!: HTMLDivElement;
@@ -45,7 +48,7 @@ export class JdSection extends JdElement {
   #build(): void {
     this.#header = document.createElement("div");
     this.#header.className = "jd-section__header";
-    this.#title = document.createElement("h4");
+    this.#title = document.createElement("h2");
     this.#title.className = "jd-section__title";
     this.#desc = document.createElement("p");
     this.#desc.className = "jd-section__desc";
@@ -61,6 +64,7 @@ export class JdSection extends JdElement {
     // border는 attr 셀렉터가, gap은 본문이 소비 — 호스트 스타일 프롭에서 제외
     applyStyleProps(this, { skip: ["border", "gap"] });
 
+    this.#syncHeadingLevel();
     this.#title.textContent = this.title;
     this.#title.hidden = !this.title;
     this.#desc.textContent = this.description;
@@ -70,6 +74,17 @@ export class JdSection extends JdElement {
     const resolved = this.gap !== "" && this.gap != null ? resolveSpace(String(this.gap)) : null;
     if (resolved) this.#body.style.setProperty("gap", resolved);
     else this.#body.style.removeProperty("gap");
+  }
+
+  #syncHeadingLevel(): void {
+    const level = Math.min(6, Math.max(1, Math.trunc(this.headingLevel || 2)));
+    const tagName = `H${level}`;
+    if (this.#title.tagName === tagName) return;
+
+    const replacement = document.createElement(`h${level}`) as HTMLHeadingElement;
+    replacement.className = this.#title.className;
+    this.#title.replaceWith(replacement);
+    this.#title = replacement;
   }
 }
 

@@ -43,3 +43,10 @@ export * from "./providers";
 export { cn } from "./utils/cn";
 export { Slot, Slottable, createCompound } from "./utils";
 export type { SlotProps } from "./utils";
+export {
+  applyKinsoku,
+  applyKinsokuToHtml,
+  stripKinsoku,
+  remarkKinsoku,
+  WORD_JOINER,
+} from "./utils";

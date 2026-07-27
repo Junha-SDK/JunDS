@@ -11,7 +11,7 @@ export { useElementSize } from "./useElementSize";
 export type { ElementSize } from "./useElementSize";
 export { useEventListener } from "./useEventListener";
 export { useFocusMode } from "./useFocusMode";
-export type { FocusModeState } from "./useFocusMode";
+export type { FocusModeState, FocusModeOptions } from "./useFocusMode";
 export { useForm } from "./useForm";
 export type { UseFormReturn, FormRules, ValidationRule } from "./useForm";
 export { useIdle } from "./useIdle";
@@ -77,3 +77,19 @@ export { useAnimationFrame } from "./useAnimationFrame";
 export type { UseAnimationFrameOptions } from "./useAnimationFrame";
 export { useKeyboardShortcut } from "./useKeyboardShortcut";
 export { useWindowSize } from "./useWindowSize";
+export { useCodeCopy } from "./useCodeCopy";
+export type { UseCodeCopyOptions } from "./useCodeCopy";
+export { useJsonLd } from "./useJsonLd";
+export { useRevealOnScroll } from "./useRevealOnScroll";
+export type { UseRevealOnScrollOptions } from "./useRevealOnScroll";
+export { useDominantColor } from "./useDominantColor";
+export type { DominantColor, UseDominantColorOptions } from "./useDominantColor";
+export { useAudioPlayer, formatAudioTime } from "./useAudioPlayer";
+export type {
+  PlayerTrack,
+  AudioPlayerState,
+  RepeatMode,
+  UseAudioPlayerOptions,
+} from "./useAudioPlayer";
+export { useSeo } from "./useSeo";
+export type { SeoProps } from "./useSeo";

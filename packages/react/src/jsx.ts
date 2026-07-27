@@ -17,7 +17,10 @@ import type { JdModal } from "@junds/web/modal/element";
 
 type JdHost<T extends HTMLElement, P> = HTMLAttributes<T> &
   RefAttributes<T> &
-  P;
+  P & {
+    /** React 18 Custom Element의 className 직렬화 차이를 피하는 표준 attribute 이름 */
+    class?: string;
+  };
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace

@@ -21,6 +21,11 @@
  * 필요한 소비자를 위해 아코디언은 `jd-change`({ key, open, openKeys })를 추가 발행한다.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  isContentEmpty,
+  setContent,
+  type JdContent,
+} from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { on, createKeyHandler } from "../../behaviors/input.js";
 import type { JdDisclosure } from "../disclosure/element.js";
@@ -30,10 +35,10 @@ export interface JdAccordionItem {
   /** 항목 식별자 — openKeys·jd-change detail과 대응 */
   key: string;
   title: string;
-  /** 본문. "<p>…</p>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  content?: string | Node;
-  /** 제목 왼쪽 아이콘. 마크업 문자열 또는 DOM 노드 */
-  icon?: string | Node;
+  /** 본문. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  content?: JdContent;
+  /** 제목 왼쪽 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   /** 최초 반영 시 1회만 적용된다 — 사용자가 닫은 항목이 재동기화로 되살아나지 않는다 */
   defaultOpen?: boolean;
 }
@@ -42,21 +47,10 @@ const CHEVRON_SVG =
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">` +
   `<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-/**
- * 슬롯 채우기 — 문자열이 마크업이면 innerHTML(신뢰된 값만), 아니면 텍스트.
- * 마크업 경로는 HTML 파서 재파싱이라 SVG 네임스페이스도 올바르게 생긴다(DEC-030-1).
- */
-function fillSlot(slot: HTMLElement, value: string | Node | undefined, keep = false): void {
-  slot.textContent = "";
-  const empty = value === undefined || value === null || value === "";
+function fillSlot(slot: HTMLElement, value: JdContent | undefined, keep = false): void {
+  const empty = isContentEmpty(value);
   if (!keep) slot.hidden = empty;
-  if (empty) return;
-  if (typeof value === "string") {
-    if (value.trimStart().startsWith("<")) slot.innerHTML = value;
-    else slot.textContent = value;
-  } else {
-    slot.append(value);
-  }
+  setContent(slot, value);
 }
 
 export class JdAccordion extends JdElement {

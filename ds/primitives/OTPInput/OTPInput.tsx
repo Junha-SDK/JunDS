@@ -83,7 +83,7 @@ export function OTPInput({
       {Array.from({ length }, (_, i) => (
         <span key={i} className="contents">
           {i === half && (
-            <span className="w-3 h-0.5 bg-border rounded-full mx-1" aria-hidden="true" />
+            <span className="w-2.5 h-0.5 bg-border rounded-full mx-1.5" aria-hidden="true" />
           )}
           <input
             ref={(el) => { refs.current[i] = el; }}
@@ -100,10 +100,14 @@ export function OTPInput({
             onFocus={(e) => e.target.select()}
             className={cn(
               "w-11 h-13 text-center text-xl font-bold border-2 rounded-xl bg-white",
-              "transition-all duration-150 outline-none",
-              "focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)] focus:scale-105",
+              "shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out outline-none",
+              "focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)] focus:scale-105 focus:-translate-y-0.5",
               "disabled:opacity-50 disabled:cursor-not-allowed",
-              error ? "border-danger animate-[shake_0.3s_ease-in-out]" : values[i] ? "border-primary/40" : "border-border",
+              error
+                ? "border-danger animate-[shake_0.3s_ease-in-out]"
+                : values[i]
+                  ? "border-primary/50 bg-primary-light/20 shadow-[0_1px_3px_var(--primary-glow)]"
+                  : "border-border hover:border-gray-300",
             )}
           />
         </span>

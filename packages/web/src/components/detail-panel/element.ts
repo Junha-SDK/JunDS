@@ -31,6 +31,10 @@
  * 그 밖에 `max-width: 100vw`를 걸어 420px 패널이 모바일 뷰포트를 넘지 않게 했다.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  syncAriaIdRefs,
+  syncOwnedAttribute,
+} from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createKeyHandler } from "../../behaviors/input.js";
@@ -159,11 +163,11 @@ export class JdDetailPanel extends JdElement {
     this.#titleEl.textContent = this.title;
     // 이름이 있을 때만 랜드마크가 된다 (jd-announcement-bar 선례)
     if (this.title) {
-      this.setAttribute("role", "region");
-      this.setAttribute("aria-labelledby", this.#titleEl.id);
+      syncOwnedAttribute(this, "role", "region", { preserveExisting: true });
+      syncAriaIdRefs(this, "aria-labelledby", this.#titleEl.id);
     } else {
-      this.removeAttribute("role");
-      this.removeAttribute("aria-labelledby");
+      syncOwnedAttribute(this, "role", null);
+      syncAriaIdRefs(this, "aria-labelledby", null);
     }
 
     this.#subtitleEl.textContent = this.subtitle;

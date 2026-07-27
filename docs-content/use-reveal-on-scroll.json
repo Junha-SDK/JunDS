@@ -1,0 +1,33 @@
+{
+  "id": "use-reveal-on-scroll",
+  "ledgerId": "useRevealOnScroll",
+  "category": "hooks",
+  "title": "useRevealOnScroll",
+  "oneLiner": "스크롤 진입 시 자식에 is-visible 클래스를 붙인다 — 모션은 CSS 가 정한다.",
+  "tags": [
+    "hook",
+    "스크롤",
+    "모션"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { useRevealOnScroll } from \"@/ds/hooks\";",
+      "code": "const ref = useRevealOnScroll();\n\nreturn (\n  <section ref={ref}>\n    <div className=\"jds-reveal\">첫 번째</div>\n    <div className=\"jds-reveal\">두 번째</div>\n  </section>\n);"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "모션 축소",
+      "note": "prefers-reduced-motion 이면 관찰 없이 전부 즉시 보이게 한다 — 콘텐츠가 영영 숨지 않는다"
+    },
+    {
+      "item": "폴백",
+      "note": "IntersectionObserver 가 없는 환경에서도 같은 경로로 즉시 노출"
+    }
+  ]
+}

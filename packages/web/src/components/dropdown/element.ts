@@ -18,6 +18,7 @@
  * 항목 삭제·divider 혼입 시 인덱스가 어긋났다 — 여기서는 실제 DOM 포커스가 유일한 상태다.
  */
 import { JdPopover } from "../popover/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import dropdownStyles from "./dropdown.css.js";
 
@@ -25,8 +26,8 @@ export interface JdMenuItem {
   /** 선택 식별자 — jd-select detail로 전달 */
   key: string;
   label: string;
-  /** 아이콘. "<svg…>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  icon?: string | Node;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   /** 우측 단축키 표기 (v2 ContextMenu·Menubar) */
   shortcut?: string;
   danger?: boolean;
@@ -124,13 +125,7 @@ export function buildMenuList(
       const icon = doc.createElement("span");
       icon.className = "jd-dropdown__icon";
       icon.setAttribute("aria-hidden", "true");
-      if (typeof item.icon === "string") {
-        // 마크업으로 보이면 그대로, 아니면 텍스트 — 임의 문자열이 HTML로 새지 않는다
-        if (item.icon.trimStart().startsWith("<")) icon.innerHTML = item.icon;
-        else icon.textContent = item.icon;
-      } else {
-        icon.append(item.icon);
-      }
+      setContent(icon, item.icon);
       btn.append(icon);
     }
     const label = doc.createElement("span");

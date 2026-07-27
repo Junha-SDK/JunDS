@@ -1,25 +1,1590 @@
 {
   "name": "@junds/react",
   "version": "3.0.0-alpha.0",
-  "description": "JunDS v3 React 어댑터 — 바닐라 코어(@junds/web)를 감싸 v2(@junds/ui) API 표면(프롭·이벤트·타입)을 유지하는 얇은 래퍼 (03-web-arch §11). G1 파일럿: Button·TextField(Input+FormField)·Modal. src/tokens.generated.ts는 tokens/build/generate.mjs 산출물. 개발 도구(react·vitest·esbuild 등)는 루트 devDependencies 호이스팅을 사용한다.",
+  "description": "JunDS v3 React 어댑터 — @junds/web 전체 컴포넌트를 타입 안전한 props·events·refs와 컴포넌트별 subpath로 제공",
   "type": "module",
-  "private": true,
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./button": {
+      "types": "./dist/types/entries/button.d.ts",
+      "default": "./dist/button.js"
+    },
+    "./text-field": {
+      "types": "./dist/types/entries/text-field.d.ts",
+      "default": "./dist/text-field.js"
+    },
+    "./modal": {
+      "types": "./dist/types/entries/modal.d.ts",
+      "default": "./dist/modal.js"
+    },
+    "./accordion": {
+      "types": "./dist/types/generated/Accordion.d.ts",
+      "default": "./dist/accordion.js"
+    },
+    "./action-bar": {
+      "types": "./dist/types/generated/ActionBar.d.ts",
+      "default": "./dist/action-bar.js"
+    },
+    "./action-sheet": {
+      "types": "./dist/types/generated/ActionSheet.d.ts",
+      "default": "./dist/action-sheet.js"
+    },
+    "./address-input": {
+      "types": "./dist/types/generated/AddressInput.d.ts",
+      "default": "./dist/address-input.js"
+    },
+    "./affix": {
+      "types": "./dist/types/generated/Affix.d.ts",
+      "default": "./dist/affix.js"
+    },
+    "./alert": {
+      "types": "./dist/types/generated/Alert.d.ts",
+      "default": "./dist/alert.js"
+    },
+    "./alert-button": {
+      "types": "./dist/types/generated/AlertButton.d.ts",
+      "default": "./dist/alert-button.js"
+    },
+    "./alert-dialog": {
+      "types": "./dist/types/generated/AlertDialog.d.ts",
+      "default": "./dist/alert-dialog.js"
+    },
+    "./alert-header-button": {
+      "types": "./dist/types/generated/AlertHeaderButton.d.ts",
+      "default": "./dist/alert-header-button.js"
+    },
+    "./alert-manager": {
+      "types": "./dist/types/generated/AlertManager.d.ts",
+      "default": "./dist/alert-manager.js"
+    },
+    "./alert-sheet": {
+      "types": "./dist/types/generated/AlertSheet.d.ts",
+      "default": "./dist/alert-sheet.js"
+    },
+    "./animated-counter": {
+      "types": "./dist/types/generated/AnimatedCounter.d.ts",
+      "default": "./dist/animated-counter.js"
+    },
+    "./annotation-note": {
+      "types": "./dist/types/generated/AnnotationNote.d.ts",
+      "default": "./dist/annotation-note.js"
+    },
+    "./announcement-bar": {
+      "types": "./dist/types/generated/AnnouncementBar.d.ts",
+      "default": "./dist/announcement-bar.js"
+    },
+    "./announcer": {
+      "types": "./dist/types/generated/Announcer.d.ts",
+      "default": "./dist/announcer.js"
+    },
+    "./app-header": {
+      "types": "./dist/types/generated/AppHeader.d.ts",
+      "default": "./dist/app-header.js"
+    },
+    "./app-icon": {
+      "types": "./dist/types/generated/AppIcon.d.ts",
+      "default": "./dist/app-icon.js"
+    },
+    "./app-shell": {
+      "types": "./dist/types/generated/AppShell.d.ts",
+      "default": "./dist/app-shell.js"
+    },
+    "./area-chart": {
+      "types": "./dist/types/generated/AreaChart.d.ts",
+      "default": "./dist/area-chart.js"
+    },
+    "./aspect-ratio-box": {
+      "types": "./dist/types/generated/AspectRatioBox.d.ts",
+      "default": "./dist/aspect-ratio-box.js"
+    },
+    "./audio-player": {
+      "types": "./dist/types/generated/AudioPlayer.d.ts",
+      "default": "./dist/audio-player.js"
+    },
+    "./auth-layout": {
+      "types": "./dist/types/generated/AuthLayout.d.ts",
+      "default": "./dist/auth-layout.js"
+    },
+    "./auto-complete": {
+      "types": "./dist/types/generated/AutoComplete.d.ts",
+      "default": "./dist/auto-complete.js"
+    },
+    "./auto-hide-header": {
+      "types": "./dist/types/generated/AutoHideHeader.d.ts",
+      "default": "./dist/auto-hide-header.js"
+    },
+    "./auto-play-demo": {
+      "types": "./dist/types/generated/AutoPlayDemo.d.ts",
+      "default": "./dist/auto-play-demo.js"
+    },
+    "./avatar": {
+      "types": "./dist/types/generated/Avatar.d.ts",
+      "default": "./dist/avatar.js"
+    },
+    "./avatar-stack": {
+      "types": "./dist/types/generated/AvatarStack.d.ts",
+      "default": "./dist/avatar-stack.js"
+    },
+    "./backtest-runner": {
+      "types": "./dist/types/generated/BacktestRunner.d.ts",
+      "default": "./dist/backtest-runner.js"
+    },
+    "./back-top": {
+      "types": "./dist/types/generated/BackTop.d.ts",
+      "default": "./dist/back-top.js"
+    },
+    "./badge": {
+      "types": "./dist/types/generated/Badge.d.ts",
+      "default": "./dist/badge.js"
+    },
+    "./banner": {
+      "types": "./dist/types/generated/Banner.d.ts",
+      "default": "./dist/banner.js"
+    },
+    "./bar-chart": {
+      "types": "./dist/types/generated/BarChart.d.ts",
+      "default": "./dist/bar-chart.js"
+    },
+    "./battery-indicator": {
+      "types": "./dist/types/generated/BatteryIndicator.d.ts",
+      "default": "./dist/battery-indicator.js"
+    },
+    "./bento-grid": {
+      "types": "./dist/types/generated/BentoGrid.d.ts",
+      "default": "./dist/bento-grid.js"
+    },
+    "./bento-grid-item": {
+      "types": "./dist/types/generated/BentoGridItem.d.ts",
+      "default": "./dist/bento-grid-item.js"
+    },
+    "./blockquote": {
+      "types": "./dist/types/generated/Blockquote.d.ts",
+      "default": "./dist/blockquote.js"
+    },
+    "./blog-post": {
+      "types": "./dist/types/generated/BlogPost.d.ts",
+      "default": "./dist/blog-post.js"
+    },
+    "./bm-switch": {
+      "types": "./dist/types/generated/BmSwitch.d.ts",
+      "default": "./dist/bm-switch.js"
+    },
+    "./book-card": {
+      "types": "./dist/types/generated/BookCard.d.ts",
+      "default": "./dist/book-card.js"
+    },
+    "./book-cover": {
+      "types": "./dist/types/generated/BookCover.d.ts",
+      "default": "./dist/book-cover.js"
+    },
+    "./bookmark-button": {
+      "types": "./dist/types/generated/BookmarkButton.d.ts",
+      "default": "./dist/bookmark-button.js"
+    },
+    "./book-rating": {
+      "types": "./dist/types/generated/BookRating.d.ts",
+      "default": "./dist/book-rating.js"
+    },
+    "./book-reader": {
+      "types": "./dist/types/generated/BookReader.d.ts",
+      "default": "./dist/book-reader.js"
+    },
+    "./book-shelf": {
+      "types": "./dist/types/generated/BookShelf.d.ts",
+      "default": "./dist/book-shelf.js"
+    },
+    "./bottom-nav": {
+      "types": "./dist/types/generated/BottomNav.d.ts",
+      "default": "./dist/bottom-nav.js"
+    },
+    "./bottom-sheet": {
+      "types": "./dist/types/generated/BottomSheet.d.ts",
+      "default": "./dist/bottom-sheet.js"
+    },
+    "./box": {
+      "types": "./dist/types/generated/Box.d.ts",
+      "default": "./dist/box.js"
+    },
+    "./brand-switcher": {
+      "types": "./dist/types/generated/BrandSwitcher.d.ts",
+      "default": "./dist/brand-switcher.js"
+    },
+    "./breadcrumb": {
+      "types": "./dist/types/generated/Breadcrumb.d.ts",
+      "default": "./dist/breadcrumb.js"
+    },
+    "./button-group": {
+      "types": "./dist/types/generated/ButtonGroup.d.ts",
+      "default": "./dist/button-group.js"
+    },
+    "./calendar": {
+      "types": "./dist/types/generated/Calendar.d.ts",
+      "default": "./dist/calendar.js"
+    },
+    "./calendar-month": {
+      "types": "./dist/types/generated/CalendarMonth.d.ts",
+      "default": "./dist/calendar-month.js"
+    },
+    "./callout": {
+      "types": "./dist/types/generated/Callout.d.ts",
+      "default": "./dist/callout.js"
+    },
+    "./candle-chart": {
+      "types": "./dist/types/generated/CandleChart.d.ts",
+      "default": "./dist/candle-chart.js"
+    },
+    "./card": {
+      "types": "./dist/types/generated/Card.d.ts",
+      "default": "./dist/card.js"
+    },
+    "./card-body": {
+      "types": "./dist/types/generated/CardBody.d.ts",
+      "default": "./dist/card-body.js"
+    },
+    "./card-footer": {
+      "types": "./dist/types/generated/CardFooter.d.ts",
+      "default": "./dist/card-footer.js"
+    },
+    "./card-header": {
+      "types": "./dist/types/generated/CardHeader.d.ts",
+      "default": "./dist/card-header.js"
+    },
+    "./carousel": {
+      "types": "./dist/types/generated/Carousel.d.ts",
+      "default": "./dist/carousel.js"
+    },
+    "./cart-item": {
+      "types": "./dist/types/generated/CartItem.d.ts",
+      "default": "./dist/cart-item.js"
+    },
+    "./center": {
+      "types": "./dist/types/generated/Center.d.ts",
+      "default": "./dist/center.js"
+    },
+    "./chapter-list": {
+      "types": "./dist/types/generated/ChapterList.d.ts",
+      "default": "./dist/chapter-list.js"
+    },
+    "./chart-card": {
+      "types": "./dist/types/generated/ChartCard.d.ts",
+      "default": "./dist/chart-card.js"
+    },
+    "./chart-range-picker": {
+      "types": "./dist/types/generated/ChartRangePicker.d.ts",
+      "default": "./dist/chart-range-picker.js"
+    },
+    "./chat-bubble": {
+      "types": "./dist/types/generated/ChatBubble.d.ts",
+      "default": "./dist/chat-bubble.js"
+    },
+    "./chat-thread": {
+      "types": "./dist/types/generated/ChatThread.d.ts",
+      "default": "./dist/chat-thread.js"
+    },
+    "./checkbox": {
+      "types": "./dist/types/generated/Checkbox.d.ts",
+      "default": "./dist/checkbox.js"
+    },
+    "./checkbox-card-group": {
+      "types": "./dist/types/generated/CheckboxCardGroup.d.ts",
+      "default": "./dist/checkbox-card-group.js"
+    },
+    "./clock": {
+      "types": "./dist/types/generated/Clock.d.ts",
+      "default": "./dist/clock.js"
+    },
+    "./close-picks-card": {
+      "types": "./dist/types/generated/ClosePicksCard.d.ts",
+      "default": "./dist/close-picks-card.js"
+    },
+    "./code": {
+      "types": "./dist/types/generated/Code.d.ts",
+      "default": "./dist/code.js"
+    },
+    "./code-editor": {
+      "types": "./dist/types/generated/CodeEditor.d.ts",
+      "default": "./dist/code-editor.js"
+    },
+    "./collapsible": {
+      "types": "./dist/types/generated/Collapsible.d.ts",
+      "default": "./dist/collapsible.js"
+    },
+    "./collection-view": {
+      "types": "./dist/types/generated/CollectionView.d.ts",
+      "default": "./dist/collection-view.js"
+    },
+    "./color-picker": {
+      "types": "./dist/types/generated/ColorPicker.d.ts",
+      "default": "./dist/color-picker.js"
+    },
+    "./color-swatch": {
+      "types": "./dist/types/generated/ColorSwatch.d.ts",
+      "default": "./dist/color-swatch.js"
+    },
+    "./combobox": {
+      "types": "./dist/types/generated/Combobox.d.ts",
+      "default": "./dist/combobox.js"
+    },
+    "./command-palette": {
+      "types": "./dist/types/generated/CommandPalette.d.ts",
+      "default": "./dist/command-palette.js"
+    },
+    "./command-palette-host": {
+      "types": "./dist/types/generated/CommandPaletteHost.d.ts",
+      "default": "./dist/command-palette-host.js"
+    },
+    "./comment-thread": {
+      "types": "./dist/types/generated/CommentThread.d.ts",
+      "default": "./dist/comment-thread.js"
+    },
+    "./compare-slider": {
+      "types": "./dist/types/generated/CompareSlider.d.ts",
+      "default": "./dist/compare-slider.js"
+    },
+    "./comparison-grid": {
+      "types": "./dist/types/generated/ComparisonGrid.d.ts",
+      "default": "./dist/comparison-grid.js"
+    },
+    "./component-showcase": {
+      "types": "./dist/types/generated/ComponentShowcase.d.ts",
+      "default": "./dist/component-showcase.js"
+    },
+    "./confetti": {
+      "types": "./dist/types/generated/Confetti.d.ts",
+      "default": "./dist/confetti.js"
+    },
+    "./consensus-screener": {
+      "types": "./dist/types/generated/ConsensusScreener.d.ts",
+      "default": "./dist/consensus-screener.js"
+    },
+    "./container": {
+      "types": "./dist/types/generated/Container.d.ts",
+      "default": "./dist/container.js"
+    },
+    "./context-menu": {
+      "types": "./dist/types/generated/ContextMenu.d.ts",
+      "default": "./dist/context-menu.js"
+    },
+    "./cookie-consent": {
+      "types": "./dist/types/generated/CookieConsent.d.ts",
+      "default": "./dist/cookie-consent.js"
+    },
+    "./copy-block": {
+      "types": "./dist/types/generated/CopyBlock.d.ts",
+      "default": "./dist/copy-block.js"
+    },
+    "./copy-button": {
+      "types": "./dist/types/generated/CopyButton.d.ts",
+      "default": "./dist/copy-button.js"
+    },
+    "./countdown": {
+      "types": "./dist/types/generated/Countdown.d.ts",
+      "default": "./dist/countdown.js"
+    },
+    "./cron-expression": {
+      "types": "./dist/types/generated/CronExpression.d.ts",
+      "default": "./dist/cron-expression.js"
+    },
+    "./cta-section": {
+      "types": "./dist/types/generated/CtaSection.d.ts",
+      "default": "./dist/cta-section.js"
+    },
+    "./currency-input": {
+      "types": "./dist/types/generated/CurrencyInput.d.ts",
+      "default": "./dist/currency-input.js"
+    },
+    "./daily-themes-calendar": {
+      "types": "./dist/types/generated/DailyThemesCalendar.d.ts",
+      "default": "./dist/daily-themes-calendar.js"
+    },
+    "./data-grid": {
+      "types": "./dist/types/generated/DataGrid.d.ts",
+      "default": "./dist/data-grid.js"
+    },
+    "./data-table": {
+      "types": "./dist/types/generated/DataTable.d.ts",
+      "default": "./dist/data-table.js"
+    },
+    "./date-input": {
+      "types": "./dist/types/generated/DateInput.d.ts",
+      "default": "./dist/date-input.js"
+    },
+    "./date-range-filter": {
+      "types": "./dist/types/generated/DateRangeFilter.d.ts",
+      "default": "./dist/date-range-filter.js"
+    },
+    "./date-range-picker": {
+      "types": "./dist/types/generated/DateRangePicker.d.ts",
+      "default": "./dist/date-range-picker.js"
+    },
+    "./day-detail-drawer": {
+      "types": "./dist/types/generated/DayDetailDrawer.d.ts",
+      "default": "./dist/day-detail-drawer.js"
+    },
+    "./descriptions": {
+      "types": "./dist/types/generated/Descriptions.d.ts",
+      "default": "./dist/descriptions.js"
+    },
+    "./detail-panel": {
+      "types": "./dist/types/generated/DetailPanel.d.ts",
+      "default": "./dist/detail-panel.js"
+    },
+    "./diff-viewer": {
+      "types": "./dist/types/generated/DiffViewer.d.ts",
+      "default": "./dist/diff-viewer.js"
+    },
+    "./disclosure": {
+      "types": "./dist/types/generated/Disclosure.d.ts",
+      "default": "./dist/disclosure.js"
+    },
+    "./disclosures": {
+      "types": "./dist/types/generated/Disclosures.d.ts",
+      "default": "./dist/disclosures.js"
+    },
+    "./disclosure-tone-badge": {
+      "types": "./dist/types/generated/DisclosureToneBadge.d.ts",
+      "default": "./dist/disclosure-tone-badge.js"
+    },
+    "./divider": {
+      "types": "./dist/types/generated/Divider.d.ts",
+      "default": "./dist/divider.js"
+    },
+    "./dock": {
+      "types": "./dist/types/generated/Dock.d.ts",
+      "default": "./dist/dock.js"
+    },
+    "./dock-item": {
+      "types": "./dist/types/generated/DockItem.d.ts",
+      "default": "./dist/dock-item.js"
+    },
+    "./donut-chart": {
+      "types": "./dist/types/generated/DonutChart.d.ts",
+      "default": "./dist/donut-chart.js"
+    },
+    "./drawer": {
+      "types": "./dist/types/generated/Drawer.d.ts",
+      "default": "./dist/drawer.js"
+    },
+    "./dropdown": {
+      "types": "./dist/types/generated/Dropdown.d.ts",
+      "default": "./dist/dropdown.js"
+    },
+    "./email-inbox": {
+      "types": "./dist/types/generated/EmailInbox.d.ts",
+      "default": "./dist/email-inbox.js"
+    },
+    "./emoji-picker": {
+      "types": "./dist/types/generated/EmojiPicker.d.ts",
+      "default": "./dist/emoji-picker.js"
+    },
+    "./emoji-reaction": {
+      "types": "./dist/types/generated/EmojiReaction.d.ts",
+      "default": "./dist/emoji-reaction.js"
+    },
+    "./empty-state": {
+      "types": "./dist/types/generated/EmptyState.d.ts",
+      "default": "./dist/empty-state.js"
+    },
+    "./error-boundary": {
+      "types": "./dist/types/generated/ErrorBoundary.d.ts",
+      "default": "./dist/error-boundary.js"
+    },
+    "./exif-panel": {
+      "types": "./dist/types/generated/ExifPanel.d.ts",
+      "default": "./dist/exif-panel.js"
+    },
+    "./faq": {
+      "types": "./dist/types/generated/Faq.d.ts",
+      "default": "./dist/faq.js"
+    },
+    "./feature-grid": {
+      "types": "./dist/types/generated/FeatureGrid.d.ts",
+      "default": "./dist/feature-grid.js"
+    },
+    "./file-upload": {
+      "types": "./dist/types/generated/FileUpload.d.ts",
+      "default": "./dist/file-upload.js"
+    },
+    "./filter-bar": {
+      "types": "./dist/types/generated/FilterBar.d.ts",
+      "default": "./dist/filter-bar.js"
+    },
+    "./filter-button-group": {
+      "types": "./dist/types/generated/FilterButtonGroup.d.ts",
+      "default": "./dist/filter-button-group.js"
+    },
+    "./flex": {
+      "types": "./dist/types/generated/Flex.d.ts",
+      "default": "./dist/flex.js"
+    },
+    "./floating-action-button": {
+      "types": "./dist/types/generated/FloatingActionButton.d.ts",
+      "default": "./dist/floating-action-button.js"
+    },
+    "./flow-diagram": {
+      "types": "./dist/types/generated/FlowDiagram.d.ts",
+      "default": "./dist/flow-diagram.js"
+    },
+    "./focus-guard": {
+      "types": "./dist/types/generated/FocusGuard.d.ts",
+      "default": "./dist/focus-guard.js"
+    },
+    "./follow-button": {
+      "types": "./dist/types/generated/FollowButton.d.ts",
+      "default": "./dist/follow-button.js"
+    },
+    "./form": {
+      "types": "./dist/types/generated/Form.d.ts",
+      "default": "./dist/form.js"
+    },
+    "./form-array": {
+      "types": "./dist/types/generated/FormArray.d.ts",
+      "default": "./dist/form-array.js"
+    },
+    "./form-builder": {
+      "types": "./dist/types/generated/FormBuilder.d.ts",
+      "default": "./dist/form-builder.js"
+    },
+    "./form-field": {
+      "types": "./dist/types/generated/FormField.d.ts",
+      "default": "./dist/form-field.js"
+    },
+    "./form-wizard": {
+      "types": "./dist/types/generated/FormWizard.d.ts",
+      "default": "./dist/form-wizard.js"
+    },
+    "./forum-thread": {
+      "types": "./dist/types/generated/ForumThread.d.ts",
+      "default": "./dist/forum-thread.js"
+    },
+    "./funnel-chart": {
+      "types": "./dist/types/generated/FunnelChart.d.ts",
+      "default": "./dist/funnel-chart.js"
+    },
+    "./fx-board": {
+      "types": "./dist/types/generated/FxBoard.d.ts",
+      "default": "./dist/fx-board.js"
+    },
+    "./fzone-card": {
+      "types": "./dist/types/generated/FzoneCard.d.ts",
+      "default": "./dist/fzone-card.js"
+    },
+    "./fzone-help-modal": {
+      "types": "./dist/types/generated/FzoneHelpModal.d.ts",
+      "default": "./dist/fzone-help-modal.js"
+    },
+    "./gantt-chart": {
+      "types": "./dist/types/generated/GanttChart.d.ts",
+      "default": "./dist/gantt-chart.js"
+    },
+    "./gauge-chart": {
+      "types": "./dist/types/generated/GaugeChart.d.ts",
+      "default": "./dist/gauge-chart.js"
+    },
+    "./global-kis-seeder": {
+      "types": "./dist/types/generated/GlobalKisSeeder.d.ts",
+      "default": "./dist/global-kis-seeder.js"
+    },
+    "./globe": {
+      "types": "./dist/types/generated/Globe.d.ts",
+      "default": "./dist/globe.js"
+    },
+    "./gradient-border": {
+      "types": "./dist/types/generated/GradientBorder.d.ts",
+      "default": "./dist/gradient-border.js"
+    },
+    "./grid": {
+      "types": "./dist/types/generated/Grid.d.ts",
+      "default": "./dist/grid.js"
+    },
+    "./grid-layout": {
+      "types": "./dist/types/generated/GridLayout.d.ts",
+      "default": "./dist/grid-layout.js"
+    },
+    "./group": {
+      "types": "./dist/types/generated/Group.d.ts",
+      "default": "./dist/group.js"
+    },
+    "./hashtag": {
+      "types": "./dist/types/generated/Hashtag.d.ts",
+      "default": "./dist/hashtag.js"
+    },
+    "./heading": {
+      "types": "./dist/types/generated/Heading.d.ts",
+      "default": "./dist/heading.js"
+    },
+    "./heatmap": {
+      "types": "./dist/types/generated/Heatmap.d.ts",
+      "default": "./dist/heatmap.js"
+    },
+    "./hero-section": {
+      "types": "./dist/types/generated/HeroSection.d.ts",
+      "default": "./dist/hero-section.js"
+    },
+    "./hide": {
+      "types": "./dist/types/generated/Hide.d.ts",
+      "default": "./dist/hide.js"
+    },
+    "./highlight": {
+      "types": "./dist/types/generated/Highlight.d.ts",
+      "default": "./dist/highlight.js"
+    },
+    "./hint": {
+      "types": "./dist/types/generated/Hint.d.ts",
+      "default": "./dist/hint.js"
+    },
+    "./holding-form-modal": {
+      "types": "./dist/types/generated/HoldingFormModal.d.ts",
+      "default": "./dist/holding-form-modal.js"
+    },
+    "./hot-pct-chip": {
+      "types": "./dist/types/generated/HotPctChip.d.ts",
+      "default": "./dist/hot-pct-chip.js"
+    },
+    "./hover-card": {
+      "types": "./dist/types/generated/HoverCard.d.ts",
+      "default": "./dist/hover-card.js"
+    },
+    "./hstack": {
+      "types": "./dist/types/generated/Hstack.d.ts",
+      "default": "./dist/hstack.js"
+    },
+    "./icon": {
+      "types": "./dist/types/generated/Icon.d.ts",
+      "default": "./dist/icon.js"
+    },
+    "./icon-button": {
+      "types": "./dist/types/generated/IconButton.d.ts",
+      "default": "./dist/icon-button.js"
+    },
+    "./image": {
+      "types": "./dist/types/generated/Image.d.ts",
+      "default": "./dist/image.js"
+    },
+    "./image-compare": {
+      "types": "./dist/types/generated/ImageCompare.d.ts",
+      "default": "./dist/image-compare.js"
+    },
+    "./image-cropper": {
+      "types": "./dist/types/generated/ImageCropper.d.ts",
+      "default": "./dist/image-cropper.js"
+    },
+    "./image-lightbox": {
+      "types": "./dist/types/generated/ImageLightbox.d.ts",
+      "default": "./dist/image-lightbox.js"
+    },
+    "./image-with-fallback": {
+      "types": "./dist/types/generated/ImageWithFallback.d.ts",
+      "default": "./dist/image-with-fallback.js"
+    },
+    "./image-zoom": {
+      "types": "./dist/types/generated/ImageZoom.d.ts",
+      "default": "./dist/image-zoom.js"
+    },
+    "./infinite-list": {
+      "types": "./dist/types/generated/InfiniteList.d.ts",
+      "default": "./dist/infinite-list.js"
+    },
+    "./inline-edit": {
+      "types": "./dist/types/generated/InlineEdit.d.ts",
+      "default": "./dist/inline-edit.js"
+    },
+    "./investor-council": {
+      "types": "./dist/types/generated/InvestorCouncil.d.ts",
+      "default": "./dist/investor-council.js"
+    },
+    "./investor-flow-chart": {
+      "types": "./dist/types/generated/InvestorFlowChart.d.ts",
+      "default": "./dist/investor-flow-chart.js"
+    },
+    "./investor-ranking": {
+      "types": "./dist/types/generated/InvestorRanking.d.ts",
+      "default": "./dist/investor-ranking.js"
+    },
+    "./json-viewer": {
+      "types": "./dist/types/generated/JsonViewer.d.ts",
+      "default": "./dist/json-viewer.js"
+    },
+    "./kanban": {
+      "types": "./dist/types/generated/Kanban.d.ts",
+      "default": "./dist/kanban.js"
+    },
+    "./kbd": {
+      "types": "./dist/types/generated/Kbd.d.ts",
+      "default": "./dist/kbd.js"
+    },
+    "./key-cap": {
+      "types": "./dist/types/generated/KeyCap.d.ts",
+      "default": "./dist/key-cap.js"
+    },
+    "./key-value-grid": {
+      "types": "./dist/types/generated/KeyValueGrid.d.ts",
+      "default": "./dist/key-value-grid.js"
+    },
+    "./key-value-grid-client": {
+      "types": "./dist/types/generated/KeyValueGridClient.d.ts",
+      "default": "./dist/key-value-grid-client.js"
+    },
+    "./label": {
+      "types": "./dist/types/generated/Label.d.ts",
+      "default": "./dist/label.js"
+    },
+    "./like-button": {
+      "types": "./dist/types/generated/LikeButton.d.ts",
+      "default": "./dist/like-button.js"
+    },
+    "./limit-hits-card": {
+      "types": "./dist/types/generated/LimitHitsCard.d.ts",
+      "default": "./dist/limit-hits-card.js"
+    },
+    "./line-chart": {
+      "types": "./dist/types/generated/LineChart.d.ts",
+      "default": "./dist/line-chart.js"
+    },
+    "./link": {
+      "types": "./dist/types/generated/Link.d.ts",
+      "default": "./dist/link.js"
+    },
+    "./live-index-card": {
+      "types": "./dist/types/generated/LiveIndexCard.d.ts",
+      "default": "./dist/live-index-card.js"
+    },
+    "./live-investor-board": {
+      "types": "./dist/types/generated/LiveInvestorBoard.d.ts",
+      "default": "./dist/live-investor-board.js"
+    },
+    "./live-investor-flow-cards": {
+      "types": "./dist/types/generated/LiveInvestorFlowCards.d.ts",
+      "default": "./dist/live-investor-flow-cards.js"
+    },
+    "./live-market-stats": {
+      "types": "./dist/types/generated/LiveMarketStats.d.ts",
+      "default": "./dist/live-market-stats.js"
+    },
+    "./live-micro-kpi-row": {
+      "types": "./dist/types/generated/LiveMicroKpiRow.d.ts",
+      "default": "./dist/live-micro-kpi-row.js"
+    },
+    "./live-order-book": {
+      "types": "./dist/types/generated/LiveOrderBook.d.ts",
+      "default": "./dist/live-order-book.js"
+    },
+    "./live-pct-badge": {
+      "types": "./dist/types/generated/LivePctBadge.d.ts",
+      "default": "./dist/live-pct-badge.js"
+    },
+    "./live-pct-text": {
+      "types": "./dist/types/generated/LivePctText.d.ts",
+      "default": "./dist/live-pct-text.js"
+    },
+    "./live-price": {
+      "types": "./dist/types/generated/LivePrice.d.ts",
+      "default": "./dist/live-price.js"
+    },
+    "./live-price-text": {
+      "types": "./dist/types/generated/LivePriceText.d.ts",
+      "default": "./dist/live-price-text.js"
+    },
+    "./live-sector-strength": {
+      "types": "./dist/types/generated/LiveSectorStrength.d.ts",
+      "default": "./dist/live-sector-strength.js"
+    },
+    "./live-stacked-cell": {
+      "types": "./dist/types/generated/LiveStackedCell.d.ts",
+      "default": "./dist/live-stacked-cell.js"
+    },
+    "./live-status-dot": {
+      "types": "./dist/types/generated/LiveStatusDot.d.ts",
+      "default": "./dist/live-status-dot.js"
+    },
+    "./live-stock-hero-chart": {
+      "types": "./dist/types/generated/LiveStockHeroChart.d.ts",
+      "default": "./dist/live-stock-hero-chart.js"
+    },
+    "./live-stock-table": {
+      "types": "./dist/types/generated/LiveStockTable.d.ts",
+      "default": "./dist/live-stock-table.js"
+    },
+    "./live-ticker": {
+      "types": "./dist/types/generated/LiveTicker.d.ts",
+      "default": "./dist/live-ticker.js"
+    },
+    "./live-top-movers": {
+      "types": "./dist/types/generated/LiveTopMovers.d.ts",
+      "default": "./dist/live-top-movers.js"
+    },
+    "./loading-button": {
+      "types": "./dist/types/generated/LoadingButton.d.ts",
+      "default": "./dist/loading-button.js"
+    },
+    "./loading-overlay": {
+      "types": "./dist/types/generated/LoadingOverlay.d.ts",
+      "default": "./dist/loading-overlay.js"
+    },
+    "./loading-screen": {
+      "types": "./dist/types/generated/LoadingScreen.d.ts",
+      "default": "./dist/loading-screen.js"
+    },
+    "./login-form": {
+      "types": "./dist/types/generated/LoginForm.d.ts",
+      "default": "./dist/login-form.js"
+    },
+    "./logo": {
+      "types": "./dist/types/generated/Logo.d.ts",
+      "default": "./dist/logo.js"
+    },
+    "./logo-cloud": {
+      "types": "./dist/types/generated/LogoCloud.d.ts",
+      "default": "./dist/logo-cloud.js"
+    },
+    "./mark": {
+      "types": "./dist/types/generated/Mark.d.ts",
+      "default": "./dist/mark.js"
+    },
+    "./markdown-viewer": {
+      "types": "./dist/types/generated/MarkdownViewer.d.ts",
+      "default": "./dist/markdown-viewer.js"
+    },
+    "./market-alert-banner": {
+      "types": "./dist/types/generated/MarketAlertBanner.d.ts",
+      "default": "./dist/market-alert-banner.js"
+    },
+    "./market-header-badge": {
+      "types": "./dist/types/generated/MarketHeaderBadge.d.ts",
+      "default": "./dist/market-header-badge.js"
+    },
+    "./market-heatmap": {
+      "types": "./dist/types/generated/MarketHeatmap.d.ts",
+      "default": "./dist/market-heatmap.js"
+    },
+    "./market-index-chart": {
+      "types": "./dist/types/generated/MarketIndexChart.d.ts",
+      "default": "./dist/market-index-chart.js"
+    },
+    "./marquee": {
+      "types": "./dist/types/generated/Marquee.d.ts",
+      "default": "./dist/marquee.js"
+    },
+    "./masonry-grid": {
+      "types": "./dist/types/generated/MasonryGrid.d.ts",
+      "default": "./dist/masonry-grid.js"
+    },
+    "./mention": {
+      "types": "./dist/types/generated/Mention.d.ts",
+      "default": "./dist/mention.js"
+    },
+    "./mention-chip": {
+      "types": "./dist/types/generated/MentionChip.d.ts",
+      "default": "./dist/mention-chip.js"
+    },
+    "./menubar": {
+      "types": "./dist/types/generated/Menubar.d.ts",
+      "default": "./dist/menubar.js"
+    },
+    "./metric-card": {
+      "types": "./dist/types/generated/MetricCard.d.ts",
+      "default": "./dist/metric-card.js"
+    },
+    "./mini-candle": {
+      "types": "./dist/types/generated/MiniCandle.d.ts",
+      "default": "./dist/mini-candle.js"
+    },
+    "./mini-chart": {
+      "types": "./dist/types/generated/MiniChart.d.ts",
+      "default": "./dist/mini-chart.js"
+    },
+    "./month-picker": {
+      "types": "./dist/types/generated/MonthPicker.d.ts",
+      "default": "./dist/month-picker.js"
+    },
+    "./motion": {
+      "types": "./dist/types/generated/Motion.d.ts",
+      "default": "./dist/motion.js"
+    },
+    "./multi-line-chart": {
+      "types": "./dist/types/generated/MultiLineChart.d.ts",
+      "default": "./dist/multi-line-chart.js"
+    },
+    "./multi-select": {
+      "types": "./dist/types/generated/MultiSelect.d.ts",
+      "default": "./dist/multi-select.js"
+    },
+    "./my-position-panel": {
+      "types": "./dist/types/generated/MyPositionPanel.d.ts",
+      "default": "./dist/my-position-panel.js"
+    },
+    "./navigation-menu": {
+      "types": "./dist/types/generated/NavigationMenu.d.ts",
+      "default": "./dist/navigation-menu.js"
+    },
+    "./nav-sidebar": {
+      "types": "./dist/types/generated/NavSidebar.d.ts",
+      "default": "./dist/nav-sidebar.js"
+    },
+    "./newsletter": {
+      "types": "./dist/types/generated/Newsletter.d.ts",
+      "default": "./dist/newsletter.js"
+    },
+    "./news-list": {
+      "types": "./dist/types/generated/NewsList.d.ts",
+      "default": "./dist/news-list.js"
+    },
+    "./notification": {
+      "types": "./dist/types/generated/Notification.d.ts",
+      "default": "./dist/notification.js"
+    },
+    "./notification-center": {
+      "types": "./dist/types/generated/NotificationCenter.d.ts",
+      "default": "./dist/notification-center.js"
+    },
+    "./number-formatter": {
+      "types": "./dist/types/generated/NumberFormatter.d.ts",
+      "default": "./dist/number-formatter.js"
+    },
+    "./number-input": {
+      "types": "./dist/types/generated/NumberInput.d.ts",
+      "default": "./dist/number-input.js"
+    },
+    "./offline-indicator": {
+      "types": "./dist/types/generated/OfflineIndicator.d.ts",
+      "default": "./dist/offline-indicator.js"
+    },
+    "./onboarding": {
+      "types": "./dist/types/generated/Onboarding.d.ts",
+      "default": "./dist/onboarding.js"
+    },
+    "./onboarding-tour": {
+      "types": "./dist/types/generated/OnboardingTour.d.ts",
+      "default": "./dist/onboarding-tour.js"
+    },
+    "./online-status": {
+      "types": "./dist/types/generated/OnlineStatus.d.ts",
+      "default": "./dist/online-status.js"
+    },
+    "./open-picks-card": {
+      "types": "./dist/types/generated/OpenPicksCard.d.ts",
+      "default": "./dist/open-picks-card.js"
+    },
+    "./otp-input": {
+      "types": "./dist/types/generated/OtpInput.d.ts",
+      "default": "./dist/otp-input.js"
+    },
+    "./overlay": {
+      "types": "./dist/types/generated/Overlay.d.ts",
+      "default": "./dist/overlay.js"
+    },
+    "./page": {
+      "types": "./dist/types/generated/Page.d.ts",
+      "default": "./dist/page.js"
+    },
+    "./page-body": {
+      "types": "./dist/types/generated/PageBody.d.ts",
+      "default": "./dist/page-body.js"
+    },
+    "./page-empty-state": {
+      "types": "./dist/types/generated/PageEmptyState.d.ts",
+      "default": "./dist/page-empty-state.js"
+    },
+    "./page-header": {
+      "types": "./dist/types/generated/PageHeader.d.ts",
+      "default": "./dist/page-header.js"
+    },
+    "./page-header-bar": {
+      "types": "./dist/types/generated/PageHeaderBar.d.ts",
+      "default": "./dist/page-header-bar.js"
+    },
+    "./page-shell": {
+      "types": "./dist/types/generated/PageShell.d.ts",
+      "default": "./dist/page-shell.js"
+    },
+    "./pagination": {
+      "types": "./dist/types/generated/Pagination.d.ts",
+      "default": "./dist/pagination.js"
+    },
+    "./password-input": {
+      "types": "./dist/types/generated/PasswordInput.d.ts",
+      "default": "./dist/password-input.js"
+    },
+    "./password-strength": {
+      "types": "./dist/types/generated/PasswordStrength.d.ts",
+      "default": "./dist/password-strength.js"
+    },
+    "./phone-input": {
+      "types": "./dist/types/generated/PhoneInput.d.ts",
+      "default": "./dist/phone-input.js"
+    },
+    "./photo-album": {
+      "types": "./dist/types/generated/PhotoAlbum.d.ts",
+      "default": "./dist/photo-album.js"
+    },
+    "./photo-card": {
+      "types": "./dist/types/generated/PhotoCard.d.ts",
+      "default": "./dist/photo-card.js"
+    },
+    "./photo-carousel": {
+      "types": "./dist/types/generated/PhotoCarousel.d.ts",
+      "default": "./dist/photo-carousel.js"
+    },
+    "./photo-filters": {
+      "types": "./dist/types/generated/PhotoFilters.d.ts",
+      "default": "./dist/photo-filters.js"
+    },
+    "./photo-grid": {
+      "types": "./dist/types/generated/PhotoGrid.d.ts",
+      "default": "./dist/photo-grid.js"
+    },
+    "./photo-lightbox": {
+      "types": "./dist/types/generated/PhotoLightbox.d.ts",
+      "default": "./dist/photo-lightbox.js"
+    },
+    "./photo-uploader": {
+      "types": "./dist/types/generated/PhotoUploader.d.ts",
+      "default": "./dist/photo-uploader.js"
+    },
+    "./pie-chart": {
+      "types": "./dist/types/generated/PieChart.d.ts",
+      "default": "./dist/pie-chart.js"
+    },
+    "./pin-input": {
+      "types": "./dist/types/generated/PinInput.d.ts",
+      "default": "./dist/pin-input.js"
+    },
+    "./poll-card": {
+      "types": "./dist/types/generated/PollCard.d.ts",
+      "default": "./dist/poll-card.js"
+    },
+    "./popover": {
+      "types": "./dist/types/generated/Popover.d.ts",
+      "default": "./dist/popover.js"
+    },
+    "./portal": {
+      "types": "./dist/types/generated/Portal.d.ts",
+      "default": "./dist/portal.js"
+    },
+    "./portfolio-council": {
+      "types": "./dist/types/generated/PortfolioCouncil.d.ts",
+      "default": "./dist/portfolio-council.js"
+    },
+    "./portfolio-day-detail-modal": {
+      "types": "./dist/types/generated/PortfolioDayDetailModal.d.ts",
+      "default": "./dist/portfolio-day-detail-modal.js"
+    },
+    "./portfolio-heatmap": {
+      "types": "./dist/types/generated/PortfolioHeatmap.d.ts",
+      "default": "./dist/portfolio-heatmap.js"
+    },
+    "./position-bar": {
+      "types": "./dist/types/generated/PositionBar.d.ts",
+      "default": "./dist/position-bar.js"
+    },
+    "./post-card": {
+      "types": "./dist/types/generated/PostCard.d.ts",
+      "default": "./dist/post-card.js"
+    },
+    "./price-badge": {
+      "types": "./dist/types/generated/PriceBadge.d.ts",
+      "default": "./dist/price-badge.js"
+    },
+    "./price-display": {
+      "types": "./dist/types/generated/PriceDisplay.d.ts",
+      "default": "./dist/price-display.js"
+    },
+    "./pricing-page": {
+      "types": "./dist/types/generated/PricingPage.d.ts",
+      "default": "./dist/pricing-page.js"
+    },
+    "./pricing-table": {
+      "types": "./dist/types/generated/PricingTable.d.ts",
+      "default": "./dist/pricing-table.js"
+    },
+    "./product-card": {
+      "types": "./dist/types/generated/ProductCard.d.ts",
+      "default": "./dist/product-card.js"
+    },
+    "./profile-header": {
+      "types": "./dist/types/generated/ProfileHeader.d.ts",
+      "default": "./dist/profile-header.js"
+    },
+    "./progress-bar": {
+      "types": "./dist/types/generated/ProgressBar.d.ts",
+      "default": "./dist/progress-bar.js"
+    },
+    "./progress-ring": {
+      "types": "./dist/types/generated/ProgressRing.d.ts",
+      "default": "./dist/progress-ring.js"
+    },
+    "./progress-steps": {
+      "types": "./dist/types/generated/ProgressSteps.d.ts",
+      "default": "./dist/progress-steps.js"
+    },
+    "./pull-to-refresh": {
+      "types": "./dist/types/generated/PullToRefresh.d.ts",
+      "default": "./dist/pull-to-refresh.js"
+    },
+    "./qr-code": {
+      "types": "./dist/types/generated/QrCode.d.ts",
+      "default": "./dist/qr-code.js"
+    },
+    "./quantity-selector": {
+      "types": "./dist/types/generated/QuantitySelector.d.ts",
+      "default": "./dist/quantity-selector.js"
+    },
+    "./quarter-bar-chart": {
+      "types": "./dist/types/generated/QuarterBarChart.d.ts",
+      "default": "./dist/quarter-bar-chart.js"
+    },
+    "./radar-chart": {
+      "types": "./dist/types/generated/RadarChart.d.ts",
+      "default": "./dist/radar-chart.js"
+    },
+    "./radio-card-group": {
+      "types": "./dist/types/generated/RadioCardGroup.d.ts",
+      "default": "./dist/radio-card-group.js"
+    },
+    "./radio-group": {
+      "types": "./dist/types/generated/RadioGroup.d.ts",
+      "default": "./dist/radio-group.js"
+    },
+    "./range-slider": {
+      "types": "./dist/types/generated/RangeSlider.d.ts",
+      "default": "./dist/range-slider.js"
+    },
+    "./rating": {
+      "types": "./dist/types/generated/Rating.d.ts",
+      "default": "./dist/rating.js"
+    },
+    "./reaction-picker": {
+      "types": "./dist/types/generated/ReactionPicker.d.ts",
+      "default": "./dist/reaction-picker.js"
+    },
+    "./reading-goal": {
+      "types": "./dist/types/generated/ReadingGoal.d.ts",
+      "default": "./dist/reading-goal.js"
+    },
+    "./reading-progress": {
+      "types": "./dist/types/generated/ReadingProgress.d.ts",
+      "default": "./dist/reading-progress.js"
+    },
+    "./reading-stats": {
+      "types": "./dist/types/generated/ReadingStats.d.ts",
+      "default": "./dist/reading-stats.js"
+    },
+    "./reading-time": {
+      "types": "./dist/types/generated/ReadingTime.d.ts",
+      "default": "./dist/reading-time.js"
+    },
+    "./real-candle-chart": {
+      "types": "./dist/types/generated/RealCandleChart.d.ts",
+      "default": "./dist/real-candle-chart.js"
+    },
+    "./real-quote-header": {
+      "types": "./dist/types/generated/RealQuoteHeader.d.ts",
+      "default": "./dist/real-quote-header.js"
+    },
+    "./recently-viewed": {
+      "types": "./dist/types/generated/RecentlyViewed.d.ts",
+      "default": "./dist/recently-viewed.js"
+    },
+    "./recent-visit-tracker": {
+      "types": "./dist/types/generated/RecentVisitTracker.d.ts",
+      "default": "./dist/recent-visit-tracker.js"
+    },
+    "./resizable": {
+      "types": "./dist/types/generated/Resizable.d.ts",
+      "default": "./dist/resizable.js"
+    },
+    "./result": {
+      "types": "./dist/types/generated/Result.d.ts",
+      "default": "./dist/result.js"
+    },
+    "./rich-text-editor": {
+      "types": "./dist/types/generated/RichTextEditor.d.ts",
+      "default": "./dist/rich-text-editor.js"
+    },
+    "./sankey-diagram": {
+      "types": "./dist/types/generated/SankeyDiagram.d.ts",
+      "default": "./dist/sankey-diagram.js"
+    },
+    "./scatter-plot": {
+      "types": "./dist/types/generated/ScatterPlot.d.ts",
+      "default": "./dist/scatter-plot.js"
+    },
+    "./scroll-area": {
+      "types": "./dist/types/generated/ScrollArea.d.ts",
+      "default": "./dist/scroll-area.js"
+    },
+    "./scroll-progress": {
+      "types": "./dist/types/generated/ScrollProgress.d.ts",
+      "default": "./dist/scroll-progress.js"
+    },
+    "./scroll-spy": {
+      "types": "./dist/types/generated/ScrollSpy.d.ts",
+      "default": "./dist/scroll-spy.js"
+    },
+    "./search-bar": {
+      "types": "./dist/types/generated/SearchBar.d.ts",
+      "default": "./dist/search-bar.js"
+    },
+    "./search-box": {
+      "types": "./dist/types/generated/SearchBox.d.ts",
+      "default": "./dist/search-box.js"
+    },
+    "./search-input": {
+      "types": "./dist/types/generated/SearchInput.d.ts",
+      "default": "./dist/search-input.js"
+    },
+    "./section": {
+      "types": "./dist/types/generated/Section.d.ts",
+      "default": "./dist/section.js"
+    },
+    "./security-badge": {
+      "types": "./dist/types/generated/SecurityBadge.d.ts",
+      "default": "./dist/security-badge.js"
+    },
+    "./security-checklist": {
+      "types": "./dist/types/generated/SecurityChecklist.d.ts",
+      "default": "./dist/security-checklist.js"
+    },
+    "./segmented-control": {
+      "types": "./dist/types/generated/SegmentedControl.d.ts",
+      "default": "./dist/segmented-control.js"
+    },
+    "./segmented-pill": {
+      "types": "./dist/types/generated/SegmentedPill.d.ts",
+      "default": "./dist/segmented-pill.js"
+    },
+    "./select": {
+      "types": "./dist/types/generated/Select.d.ts",
+      "default": "./dist/select.js"
+    },
+    "./settings-layout": {
+      "types": "./dist/types/generated/SettingsLayout.d.ts",
+      "default": "./dist/settings-layout.js"
+    },
+    "./severity-badge": {
+      "types": "./dist/types/generated/SeverityBadge.d.ts",
+      "default": "./dist/severity-badge.js"
+    },
+    "./show": {
+      "types": "./dist/types/generated/Show.d.ts",
+      "default": "./dist/show.js"
+    },
+    "./sidebar": {
+      "types": "./dist/types/generated/Sidebar.d.ts",
+      "default": "./dist/sidebar.js"
+    },
+    "./sidebar-link": {
+      "types": "./dist/types/generated/SidebarLink.d.ts",
+      "default": "./dist/sidebar-link.js"
+    },
+    "./sidebar-provider": {
+      "types": "./dist/types/generated/SidebarProvider.d.ts",
+      "default": "./dist/sidebar-provider.js"
+    },
+    "./sidebar-section": {
+      "types": "./dist/types/generated/SidebarSection.d.ts",
+      "default": "./dist/sidebar-section.js"
+    },
+    "./signature-pad": {
+      "types": "./dist/types/generated/SignaturePad.d.ts",
+      "default": "./dist/signature-pad.js"
+    },
+    "./simple-grid": {
+      "types": "./dist/types/generated/SimpleGrid.d.ts",
+      "default": "./dist/simple-grid.js"
+    },
+    "./skeleton": {
+      "types": "./dist/types/generated/Skeleton.d.ts",
+      "default": "./dist/skeleton.js"
+    },
+    "./skeleton-preset": {
+      "types": "./dist/types/generated/SkeletonPreset.d.ts",
+      "default": "./dist/skeleton-preset.js"
+    },
+    "./slider": {
+      "types": "./dist/types/generated/Slider.d.ts",
+      "default": "./dist/slider.js"
+    },
+    "./snackbar": {
+      "types": "./dist/types/generated/Snackbar.d.ts",
+      "default": "./dist/snackbar.js"
+    },
+    "./social-feed": {
+      "types": "./dist/types/generated/SocialFeed.d.ts",
+      "default": "./dist/social-feed.js"
+    },
+    "./social-share": {
+      "types": "./dist/types/generated/SocialShare.d.ts",
+      "default": "./dist/social-share.js"
+    },
+    "./sortable-list": {
+      "types": "./dist/types/generated/SortableList.d.ts",
+      "default": "./dist/sortable-list.js"
+    },
+    "./spacer": {
+      "types": "./dist/types/generated/Spacer.d.ts",
+      "default": "./dist/spacer.js"
+    },
+    "./sparkline": {
+      "types": "./dist/types/generated/Sparkline.d.ts",
+      "default": "./dist/sparkline.js"
+    },
+    "./spinner": {
+      "types": "./dist/types/generated/Spinner.d.ts",
+      "default": "./dist/spinner.js"
+    },
+    "./split-pane": {
+      "types": "./dist/types/generated/SplitPane.d.ts",
+      "default": "./dist/split-pane.js"
+    },
+    "./spoiler-block": {
+      "types": "./dist/types/generated/SpoilerBlock.d.ts",
+      "default": "./dist/spoiler-block.js"
+    },
+    "./spotlight": {
+      "types": "./dist/types/generated/Spotlight.d.ts",
+      "default": "./dist/spotlight.js"
+    },
+    "./spotlight-card": {
+      "types": "./dist/types/generated/SpotlightCard.d.ts",
+      "default": "./dist/spotlight-card.js"
+    },
+    "./stack": {
+      "types": "./dist/types/generated/Stack.d.ts",
+      "default": "./dist/stack.js"
+    },
+    "./star-button": {
+      "types": "./dist/types/generated/StarButton.d.ts",
+      "default": "./dist/star-button.js"
+    },
+    "./starfield": {
+      "types": "./dist/types/generated/Starfield.d.ts",
+      "default": "./dist/starfield.js"
+    },
+    "./star-rating": {
+      "types": "./dist/types/generated/StarRating.d.ts",
+      "default": "./dist/star-rating.js"
+    },
+    "./stat": {
+      "types": "./dist/types/generated/Stat.d.ts",
+      "default": "./dist/stat.js"
+    },
+    "./stat-card": {
+      "types": "./dist/types/generated/StatCard.d.ts",
+      "default": "./dist/stat-card.js"
+    },
+    "./stats-grid": {
+      "types": "./dist/types/generated/StatsGrid.d.ts",
+      "default": "./dist/stats-grid.js"
+    },
+    "./status-dot": {
+      "types": "./dist/types/generated/StatusDot.d.ts",
+      "default": "./dist/status-dot.js"
+    },
+    "./stepper": {
+      "types": "./dist/types/generated/Stepper.d.ts",
+      "default": "./dist/stepper.js"
+    },
+    "./sticky": {
+      "types": "./dist/types/generated/Sticky.d.ts",
+      "default": "./dist/sticky.js"
+    },
+    "./stock-top-bar": {
+      "types": "./dist/types/generated/StockTopBar.d.ts",
+      "default": "./dist/stock-top-bar.js"
+    },
+    "./story-circle": {
+      "types": "./dist/types/generated/StoryCircle.d.ts",
+      "default": "./dist/story-circle.js"
+    },
+    "./strategy-panel": {
+      "types": "./dist/types/generated/StrategyPanel.d.ts",
+      "default": "./dist/strategy-panel.js"
+    },
+    "./swipe-action": {
+      "types": "./dist/types/generated/SwipeAction.d.ts",
+      "default": "./dist/swipe-action.js"
+    },
+    "./switch": {
+      "types": "./dist/types/generated/Switch.d.ts",
+      "default": "./dist/switch.js"
+    },
+    "./table": {
+      "types": "./dist/types/generated/Table.d.ts",
+      "default": "./dist/table.js"
+    },
+    "./table-of-contents": {
+      "types": "./dist/types/generated/TableOfContents.d.ts",
+      "default": "./dist/table-of-contents.js"
+    },
+    "./tabs": {
+      "types": "./dist/types/generated/Tabs.d.ts",
+      "default": "./dist/tabs.js"
+    },
+    "./tag": {
+      "types": "./dist/types/generated/Tag.d.ts",
+      "default": "./dist/tag.js"
+    },
+    "./tag-input": {
+      "types": "./dist/types/generated/TagInput.d.ts",
+      "default": "./dist/tag-input.js"
+    },
+    "./testimonial-card": {
+      "types": "./dist/types/generated/TestimonialCard.d.ts",
+      "default": "./dist/testimonial-card.js"
+    },
+    "./text": {
+      "types": "./dist/types/generated/Text.d.ts",
+      "default": "./dist/text.js"
+    },
+    "./textarea": {
+      "types": "./dist/types/generated/Textarea.d.ts",
+      "default": "./dist/textarea.js"
+    },
+    "./textarea-autosize": {
+      "types": "./dist/types/generated/TextareaAutosize.d.ts",
+      "default": "./dist/textarea-autosize.js"
+    },
+    "./theme-card": {
+      "types": "./dist/types/generated/ThemeCard.d.ts",
+      "default": "./dist/theme-card.js"
+    },
+    "./theme-drill-down": {
+      "types": "./dist/types/generated/ThemeDrillDown.d.ts",
+      "default": "./dist/theme-drill-down.js"
+    },
+    "./theme-news-summary": {
+      "types": "./dist/types/generated/ThemeNewsSummary.d.ts",
+      "default": "./dist/theme-news-summary.js"
+    },
+    "./theme-pill-card": {
+      "types": "./dist/types/generated/ThemePillCard.d.ts",
+      "default": "./dist/theme-pill-card.js"
+    },
+    "./theme-tag-list": {
+      "types": "./dist/types/generated/ThemeTagList.d.ts",
+      "default": "./dist/theme-tag-list.js"
+    },
+    "./theme-toggle": {
+      "types": "./dist/types/generated/ThemeToggle.d.ts",
+      "default": "./dist/theme-toggle.js"
+    },
+    "./thinking-indicator": {
+      "types": "./dist/types/generated/ThinkingIndicator.d.ts",
+      "default": "./dist/thinking-indicator.js"
+    },
+    "./timeline": {
+      "types": "./dist/types/generated/Timeline.d.ts",
+      "default": "./dist/timeline.js"
+    },
+    "./time-picker": {
+      "types": "./dist/types/generated/TimePicker.d.ts",
+      "default": "./dist/time-picker.js"
+    },
+    "./toast": {
+      "types": "./dist/types/generated/Toast.d.ts",
+      "default": "./dist/toast.js"
+    },
+    "./toggle": {
+      "types": "./dist/types/generated/Toggle.d.ts",
+      "default": "./dist/toggle.js"
+    },
+    "./tooltip": {
+      "types": "./dist/types/generated/Tooltip.d.ts",
+      "default": "./dist/tooltip.js"
+    },
+    "./top-bar": {
+      "types": "./dist/types/generated/TopBar.d.ts",
+      "default": "./dist/top-bar.js"
+    },
+    "./tour": {
+      "types": "./dist/types/generated/Tour.d.ts",
+      "default": "./dist/tour.js"
+    },
+    "./trade-journal": {
+      "types": "./dist/types/generated/TradeJournal.d.ts",
+      "default": "./dist/trade-journal.js"
+    },
+    "./transfer": {
+      "types": "./dist/types/generated/Transfer.d.ts",
+      "default": "./dist/transfer.js"
+    },
+    "./treemap-chart": {
+      "types": "./dist/types/generated/TreemapChart.d.ts",
+      "default": "./dist/treemap-chart.js"
+    },
+    "./tree-nav": {
+      "types": "./dist/types/generated/TreeNav.d.ts",
+      "default": "./dist/tree-nav.js"
+    },
+    "./tree-view": {
+      "types": "./dist/types/generated/TreeView.d.ts",
+      "default": "./dist/tree-view.js"
+    },
+    "./trust-indicator": {
+      "types": "./dist/types/generated/TrustIndicator.d.ts",
+      "default": "./dist/trust-indicator.js"
+    },
+    "./typewriter": {
+      "types": "./dist/types/generated/Typewriter.d.ts",
+      "default": "./dist/typewriter.js"
+    },
+    "./video-player": {
+      "types": "./dist/types/generated/VideoPlayer.d.ts",
+      "default": "./dist/video-player.js"
+    },
+    "./virtual-list": {
+      "types": "./dist/types/generated/VirtualList.d.ts",
+      "default": "./dist/virtual-list.js"
+    },
+    "./virtual-scroll": {
+      "types": "./dist/types/generated/VirtualScroll.d.ts",
+      "default": "./dist/virtual-scroll.js"
+    },
+    "./visually-hidden": {
+      "types": "./dist/types/generated/VisuallyHidden.d.ts",
+      "default": "./dist/visually-hidden.js"
+    },
+    "./vstack": {
+      "types": "./dist/types/generated/Vstack.d.ts",
+      "default": "./dist/vstack.js"
+    },
+    "./watchlist-widget": {
+      "types": "./dist/types/generated/WatchlistWidget.d.ts",
+      "default": "./dist/watchlist-widget.js"
+    },
+    "./watermark": {
+      "types": "./dist/types/generated/Watermark.d.ts",
+      "default": "./dist/watermark.js"
+    },
+    "./wrap": {
+      "types": "./dist/types/generated/Wrap.d.ts",
+      "default": "./dist/wrap.js"
+    },
+    "./year-picker": {
+      "types": "./dist/types/generated/YearPicker.d.ts",
+      "default": "./dist/year-picker.js"
     }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "node build.mjs",
+    "build": "node scripts/gen-adapters.mjs --check && node scripts/gen-exports.mjs --check && node build.mjs",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "node scripts/gen-adapters.mjs --check && vitest run",
-    "gen:adapters": "node scripts/gen-adapters.mjs"
+    "test:types": "tsc -p tsconfig.type-tests.json",
+    "test": "node scripts/gen-adapters.mjs --check && node scripts/gen-exports.mjs --check && npm run test:types && vitest run",
+    "coverage": "node scripts/gen-adapters.mjs --check && node scripts/gen-exports.mjs --check && npm run test:types && vitest run --coverage",
+    "gen:adapters": "node scripts/gen-adapters.mjs",
+    "gen:exports": "node scripts/gen-exports.mjs"
   },
   "dependencies": {
     "@junds/web": "3.0.0-alpha.0"

@@ -48,6 +48,13 @@ const thumbColorMap = {
   danger: "border-danger",
 };
 
+const glowRingMap = {
+  primary: "ring-primary/15",
+  success: "ring-success/15",
+  warning: "ring-warning/15",
+  danger: "ring-danger/15",
+};
+
 /**
  * 슬라이더/레인지
  * @example
@@ -131,7 +138,10 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
         )}
         <div
           ref={trackRef}
-          className={cn("relative w-full rounded-full bg-gray-200 cursor-pointer select-none", trackH)}
+          className={cn(
+            "relative w-full rounded-full bg-gray-200 shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)] cursor-pointer select-none",
+            trackH,
+          )}
           onMouseDown={handleMouseDown}
           role="slider"
           aria-valuemin={min}
@@ -145,17 +155,22 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
         >
           {/* Fill */}
           <div
-            className={cn("absolute inset-y-0 left-0 rounded-full transition-all", colorMap[color], !dragging && "duration-150")}
+            className={cn(
+              "absolute inset-y-0 left-0 rounded-full bg-gradient-to-b from-white/25 to-white/0 transition-all",
+              colorMap[color],
+              !dragging && "duration-150",
+            )}
             style={{ width: `${pct}%` }}
           />
           {/* Thumb */}
           <div
             className={cn(
-              "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full bg-white border-2 shadow-sm",
-              "transition-shadow",
+              "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full bg-white border-2",
+              "shadow-[0_1px_3px_rgba(0,0,0,0.15),0_1px_1px_rgba(0,0,0,0.08)] transition-all duration-150",
               thumbSize,
               thumbColorMap[color],
-              dragging ? "shadow-md scale-110" : "hover:shadow-md",
+              glowRingMap[color],
+              dragging ? "scale-110 ring-4" : "hover:ring-4",
               "focus-visible:ring-2 focus-visible:ring-primary/40",
             )}
             style={{ left: `${pct}%` }}
@@ -165,7 +180,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
             const markPct = ((mark.value - min) / (max - min)) * 100;
             return (
               <div key={mark.value} className="absolute top-full" style={{ left: `${markPct}%` }}>
-                <div className="w-0.5 h-1.5 bg-gray-300 mx-auto mt-1" />
+                <div className="w-0.5 h-1.5 bg-gray-300 rounded-full mx-auto mt-1" />
                 {mark.label && (
                   <span className="text-[10px] text-muted -translate-x-1/2 block text-center mt-0.5 whitespace-nowrap">
                     {mark.label}

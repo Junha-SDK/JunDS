@@ -13,6 +13,11 @@
  *     항목마다 통과했다. v3는 `aria-hidden="true"` + 텍스트 구분자 옵션(`separator`).
  */
 import { JdElement } from "../../core/element.js";
+import {
+  isContentEmpty,
+  setContent,
+  type JdContent,
+} from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import breadcrumbStyles from "./breadcrumb.css.js";
 
@@ -20,8 +25,8 @@ export interface JdBreadcrumbItem {
   label: string;
   /** 링크 주소 — 없거나 마지막 항목이면 텍스트로 렌더된다 */
   href?: string;
-  /** 아이콘. "<svg…>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  icon?: string | Node;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
 }
 
 /** v2 기본 구분자 — 14×14 셰브론 */
@@ -30,19 +35,14 @@ const SEPARATOR_SVG =
   `<path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" ` +
   `stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-function fillIcon(slot: HTMLElement, icon: string | Node | undefined): void {
-  slot.textContent = "";
-  if (icon === undefined || icon === null || icon === "") {
+function fillIcon(slot: HTMLElement, icon: JdContent | undefined): void {
+  if (isContentEmpty(icon)) {
     slot.hidden = true;
+    setContent(slot, icon);
     return;
   }
   slot.hidden = false;
-  if (typeof icon === "string") {
-    if (icon.trimStart().startsWith("<")) slot.innerHTML = icon;
-    else slot.textContent = icon;
-  } else {
-    slot.append(icon);
-  }
+  setContent(slot, icon);
 }
 
 export class JdBreadcrumb extends JdElement {

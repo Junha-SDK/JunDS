@@ -19,6 +19,11 @@
  * v2가 variant마다 통째로 복제했던 3벌 JSX는 골격 1벌 + CSS로 접힌다.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  isContentEmpty,
+  setContent,
+  type JdContent,
+} from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createKeyHandler } from "../../behaviors/input.js";
@@ -28,8 +33,8 @@ export interface JdTab {
   /** 선택 식별자 — value 프로퍼티·jd-change detail과 대응 */
   value: string;
   label: string;
-  /** 아이콘. "<svg…>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  icon?: string | Node;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   /** 라벨 오른쪽 카운트 배지 */
   badge?: number | string;
   disabled?: boolean;
@@ -38,19 +43,14 @@ export interface JdTab {
 }
 
 /** 아이콘 슬롯 채우기 — 문자열은 마크업이면 innerHTML, 아니면 텍스트 (jd-dropdown 선례) */
-function fillIcon(slot: HTMLElement, icon: string | Node | undefined): void {
-  slot.textContent = "";
-  if (icon === undefined || icon === null || icon === "") {
+function fillIcon(slot: HTMLElement, icon: JdContent | undefined): void {
+  if (isContentEmpty(icon)) {
     slot.hidden = true;
+    setContent(slot, icon);
     return;
   }
   slot.hidden = false;
-  if (typeof icon === "string") {
-    if (icon.trimStart().startsWith("<")) slot.innerHTML = icon;
-    else slot.textContent = icon;
-  } else {
-    slot.append(icon);
-  }
+  setContent(slot, icon);
 }
 
 export class JdTabs extends JdElement {

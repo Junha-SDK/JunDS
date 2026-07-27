@@ -23,6 +23,7 @@
  * 실측은 connected() 이후 — back-top·junds.page.tsx와 같은 규율.
  */
 import { JdElement } from "../../core/element.js";
+import { syncOwnedAttribute } from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { createScrollSpy } from "../../behaviors/scroll.js";
 import type { Watcher } from "../../behaviors/subscribe.js";
@@ -117,7 +118,7 @@ export class JdScrollSpy extends JdElement {
     adoptStyles(scrollSpyStyles);
     this.#readJson();
     this.collect();
-    this.setAttribute("role", "navigation");
+    syncOwnedAttribute(this, "role", "navigation", { preserveExisting: true });
     const cls = this.baseClass;
     // 입양(§3.3): SSR/어댑터가 그린 목록이 있으면 재사용
     this.#list = this.querySelector<HTMLUListElement>(`:scope > ul.${cls}__list`);
@@ -245,7 +246,7 @@ export class JdScrollSpy extends JdElement {
   };
 
   protected override update(): void {
-    this.setAttribute("aria-label", this.label);
+    syncOwnedAttribute(this, "aria-label", this.label || null);
     if (this.#built !== this.#sections) this.#sync();
     // v2는 항목이 없으면 null을 반환했다 — CE는 노드를 유지하고 표시만 끈다
     this.toggleAttribute("data-empty", this.#sections.length === 0);

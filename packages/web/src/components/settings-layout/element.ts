@@ -25,6 +25,7 @@
  * `bg-surface-soft`→card-hover, `bg-primary-soft`→primary-light(DEC-025-4/blockquote 선례).
  */
 import { JdElement } from "../../core/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createKeyHandler } from "../../behaviors/input.js";
@@ -35,24 +36,16 @@ export interface JdSettingsSection {
   id: string;
   /** 사이드바 라벨 */
   label: string;
-  /** 좌측 아이콘. "<svg…>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  icon?: string | Node;
+  /** 좌측 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   /** 그룹명 — 있으면 카테고리 라벨로 묶인다 */
   group?: string;
   /** 편의 컨텐츠 — 대응 data-section 슬롯 패널이 없을 때만 이 값으로 패널을 만든다 */
-  content?: string | Node;
+  content?: JdContent;
 }
 
-/** 아이콘/컨텐츠 슬롯 채우기 — 문자열은 마크업이면 innerHTML, 아니면 텍스트 (tabs.fillIcon 선례) */
-function fill(slot: HTMLElement, value: string | Node | undefined | null): void {
-  slot.textContent = "";
-  if (value === undefined || value === null || value === "") return;
-  if (typeof value === "string") {
-    if (value.trimStart().startsWith("<")) slot.innerHTML = value;
-    else slot.textContent = value;
-  } else {
-    slot.append(value);
-  }
+function fill(slot: HTMLElement, value: JdContent | undefined | null): void {
+  setContent(slot, value);
 }
 
 export class JdSettingsLayout extends JdElement {

@@ -1,0 +1,48 @@
+{
+  "id": "toc-heading",
+  "ledgerId": "TocHeading",
+  "category": "composites",
+  "title": "TocHeading",
+  "oneLiner": "렌더되는 순간 스스로 목차에 등록되는 헤딩 — TocProvider 밖에서는 평범한 h2~h6.",
+  "tags": [
+    "navigation",
+    "content",
+    "목차"
+  ],
+  "controls": [
+    {
+      "prop": "level",
+      "kind": "segmented",
+      "options": [
+        "2",
+        "3",
+        "4"
+      ],
+      "default": "2"
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { TocHeading } from \"@/ds/composites/TableOfContents\";\nimport { TocProvider, useToc } from \"@/ds/providers\";",
+      "code": "<TocProvider>\n  <aside><Outline /></aside>\n  <article>\n    <TocHeading level={2}>들어가며</TocHeading>\n    <TocHeading level={3}>배경</TocHeading>\n  </article>\n</TocProvider>\n\n{/* children 이 문자열이 아니면 label 을 직접 준다 */}\n<TocHeading level={2} label=\"정리\">정리 <Badge>new</Badge></TocHeading>"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "실요소",
+      "note": "level 그대로 h2~h6 를 렌더 — 헤딩 레벨 건너뜀 없이 문서 구조가 성립한다"
+    },
+    {
+      "item": "앵커 id",
+      "note": "id 미지정 시 텍스트 슬러그, 그것도 없으면 useId 기반 — 서버·클라이언트가 같은 id 를 낸다"
+    },
+    {
+      "item": "목차 제외",
+      "note": "hidden 은 등록만 건너뛰고 헤딩 자체는 그대로 남는다"
+    }
+  ]
+}

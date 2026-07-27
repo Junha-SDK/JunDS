@@ -29,7 +29,10 @@ const dirs = readdirSync(componentsDir, { withFileTypes: true })
   .sort();
 
 const CLASS_RE = /^export class (Jd\w+) extends /gm;
-const TAG_RE = /static override tag = "jd-([\w-]+)"/g;
+const TAG_RE =
+  /static\s+(?:override\s+)?(?:readonly\s+)?tag\s*=\s*(?:"([^"]+)"|'([^']+)'|([A-Za-z_$][\w$]*))/g;
+const TAG_CONST_RE =
+  /\bconst\s+([A-Za-z_$][\w$]*)\s*=\s*(?:"([^"]+)"|'([^']+)')/g;
 /** 폴더 이름과 다른 태그(하위 요소) — 소비자는 폴더가 아니라 **태그**를 안다 */
 const tagAliases = [];
 const perDir = dirs.map((dir) => {
@@ -39,8 +42,15 @@ const perDir = dirs.map((dir) => {
     console.error(`✗ ${dir}/element.ts 에서 export class Jd* 를 찾지 못함`);
     process.exit(1);
   }
+  const constants = new Map();
+  for (const match of src.matchAll(TAG_CONST_RE)) {
+    constants.set(match[1], match[2] ?? match[3]);
+  }
   for (const m of src.matchAll(TAG_RE)) {
-    if (m[1] !== dir) tagAliases.push({ tag: m[1], dir });
+    const tagName = m[1] ?? m[2] ?? constants.get(m[3]);
+    if (!tagName?.startsWith("jd-")) continue;
+    const tag = tagName.slice(3);
+    if (tag !== dir) tagAliases.push({ tag, dir });
   }
   return { dir, classes };
 });
@@ -58,6 +68,7 @@ const entry = (js) => ({
 const exportsMap = {
   ".": entry("./dist/index.js"),
   "./define": entry("./dist/define.js"),
+  "./content": entry("./dist/core/content.js"),
 };
 for (const { dir } of perDir) {
   exportsMap[`./${dir}`] = entry(`./dist/components/${dir}/index.js`);
@@ -76,6 +87,7 @@ Object.assign(exportsMap, {
   "./behaviors": entry("./dist/behaviors/index.js"),
   "./behaviors/*": entry("./dist/behaviors/*.js"),
   "./junds.css": "./dist/junds.css",
+  "./core.css": "./dist/core.css",
   "./css/*": "./dist/css/*",
   "./tokens.css": "./src/styles/tokens.css",
 });

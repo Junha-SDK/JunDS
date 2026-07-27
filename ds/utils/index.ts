@@ -7,3 +7,10 @@ export { createRaceGuard } from "./raceGuard";
 export { contrastRatio, meetsWcag, checkContrast } from "./contrast";
 export type { WcagLevel, TextSize } from "./contrast";
 export { zodAdapter } from "./zodAdapter";
+export {
+  applyKinsoku,
+  applyKinsokuToHtml,
+  stripKinsoku,
+  remarkKinsoku,
+  WORD_JOINER,
+} from "./kinsoku";

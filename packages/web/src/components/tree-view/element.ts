@@ -22,6 +22,11 @@
  * 반드시 접히는 구조였다). 행 전체 클릭은 v2 그대로 토글+선택.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  isContentEmpty,
+  setContent,
+  type JdContent,
+} from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { createKeyHandler } from "../../behaviors/input.js";
 import treeViewStyles from "./tree-view.css.js";
@@ -30,8 +35,8 @@ export interface JdTreeNode {
   /** 트리 안에서 유일해야 한다 — 선택·확장 상태의 식별자 */
   key: string;
   label: string;
-  /** 아이콘. "<svg…>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  icon?: string | Node;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   children?: JdTreeNode[];
   disabled?: boolean;
   /** 우측 카운트 배지 */
@@ -45,19 +50,14 @@ const CHEVRON_SVG =
   `stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
   `<path d="M9 18l6-6-6-6"/></svg>`;
 
-function fillIcon(slot: HTMLElement, icon: string | Node | undefined): void {
-  slot.textContent = "";
-  if (icon === undefined || icon === null || icon === "") {
+function fillIcon(slot: HTMLElement, icon: JdContent | undefined): void {
+  if (isContentEmpty(icon)) {
     slot.hidden = true;
+    setContent(slot, icon);
     return;
   }
   slot.hidden = false;
-  if (typeof icon === "string") {
-    if (icon.trimStart().startsWith("<")) slot.innerHTML = icon;
-    else slot.textContent = icon;
-  } else {
-    slot.append(icon);
-  }
+  setContent(slot, icon);
 }
 
 const hasChildren = (node: JdTreeNode): boolean =>

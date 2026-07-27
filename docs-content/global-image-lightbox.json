@@ -1,0 +1,51 @@
+{
+  "id": "global-image-lightbox",
+  "ledgerId": "GlobalImageLightbox",
+  "category": "composites",
+  "title": "GlobalImageLightbox",
+  "oneLiner": "본문 이미지 클릭을 위임받아 확대하는 전역 라이트박스 — 문서에 한 번만 둔다.",
+  "tags": [
+    "media",
+    "overlay",
+    "문서"
+  ],
+  "controls": [
+    {
+      "prop": "minSize",
+      "kind": "number",
+      "min": 24,
+      "max": 240,
+      "step": 8,
+      "default": 80
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { GlobalImageLightbox } from \"@/ds/composites/ImageLightbox\";",
+      "code": "{/* 본문 어딘가에 한 번 */}\n<GlobalImageLightbox rootSelector=\".article__body\" />\n\n{/* 아이콘까지 잡히면 임계값을 올린다 */}\n<GlobalImageLightbox rootSelector=\"article\" minSize={120} exclude=\".no-zoom\" />"
+    }
+  },
+  "tokens": [
+    {
+      "token": "(리터럴 rgba)",
+      "usage": "백드롭은 테마와 무관하게 어둡게 — 확대 이미지의 색을 왜곡하지 않기 위해"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "다이얼로그",
+      "note": "role=dialog + aria-modal, 이름은 원본 img 의 alt 를 물려받는다"
+    },
+    {
+      "item": "닫기",
+      "note": "Escape·백드롭 클릭·닫기 버튼 세 경로 모두 지원"
+    },
+    {
+      "item": "스크롤 락",
+      "note": "열려 있는 동안 body 스크롤을 잠그고 닫을 때 이전 값을 복원한다"
+    }
+  ]
+}

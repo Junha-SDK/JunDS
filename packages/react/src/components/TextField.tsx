@@ -166,7 +166,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         required={props.required ? true : undefined}
         error={error || undefined}
         invalid={isInvalid ? true : undefined}
-        className={rootClassName}
+        class={rootClassName}
       >
         {/* CE가 textContent로 재구축하는 노드 — dSIH로 React의 내부 diff 차단(모듈 주석 2).
             jsx-a11y는 dSIH 텍스트를 못 보지만 htmlFor 연결·텍스트 모두 실재한다 */}

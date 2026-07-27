@@ -6,25 +6,33 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import "../src/components/modal/index.js";
 import { JdModal } from "../src/components/modal/element.js";
 
-const tick = () => new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
+const tick = () =>
+  new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
 
-async function mount(inner = `<button id="ok">확인</button>`): Promise<JdModal> {
+async function mount(
+  inner = `<button id="ok">확인</button>`,
+): Promise<JdModal> {
   document.body.innerHTML = `<jd-modal>${inner}</jd-modal>`;
   await tick(); // 최초 render 지연 실행
   return document.querySelector<JdModal>("jd-modal")!;
 }
 const esc = () =>
-  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  document.dispatchEvent(
+    new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+  );
 
 beforeEach(() => {
   document.body.innerHTML = "";
   document.body.style.overflow = "";
+  document.body.style.paddingRight = "";
 });
 
 describe("jd-modal 골격·ARIA", () => {
   test("backdrop + panel(role=dialog, aria-modal) 골격, children은 패널로 이동", async () => {
     const el = await mount(`<p>내용</p>`);
-    const panel = el.querySelector<HTMLDivElement>(":scope > .jd-modal__panel")!;
+    const panel = el.querySelector<HTMLDivElement>(
+      ":scope > .jd-modal__panel",
+    )!;
     expect(el.querySelector(":scope > .jd-modal__backdrop")).not.toBeNull();
     expect(panel.getAttribute("role")).toBe("dialog");
     expect(panel.getAttribute("aria-modal")).toBe("true");
@@ -37,6 +45,22 @@ describe("jd-modal 골격·ARIA", () => {
     el.size = "lg";
     await tick();
     expect(el.getAttribute("size")).toBe("lg");
+  });
+
+  test("호스트의 aria-label/labelledby/describedby를 내부 dialog panel로 전달한다", async () => {
+    const el = await mount(
+      `<h2 id="title">제목</h2><p id="description">설명</p>`,
+    );
+    el.setAttribute("aria-labelledby", "title");
+    el.setAttribute("aria-describedby", "description");
+    await el.updateComplete;
+    const panel = el.querySelector(".jd-modal__panel")!;
+    expect(panel.getAttribute("aria-labelledby")).toBe("title");
+    expect(panel.getAttribute("aria-describedby")).toBe("description");
+
+    el.ariaLabel = "직접 이름";
+    await el.updateComplete;
+    expect(panel.getAttribute("aria-label")).toBe("직접 이름");
   });
 });
 
@@ -64,7 +88,9 @@ describe("jd-modal 열림/닫힘 상태", () => {
     el.close();
     await tick();
     expect(el.open).toBe(false);
-    expect((reqSpy.mock.calls[0]![0] as CustomEvent).detail).toEqual({ reason: "close" });
+    expect((reqSpy.mock.calls[0]![0] as CustomEvent).detail).toEqual({
+      reason: "close",
+    });
     expect((reqSpy.mock.calls[0]![0] as CustomEvent).cancelable).toBe(true);
     expect(closeSpy).toHaveBeenCalledTimes(1);
   });
@@ -88,7 +114,9 @@ describe("jd-modal 열림/닫힘 상태", () => {
     esc();
     await tick();
     expect(el.open).toBe(false);
-    expect((reqSpy.mock.calls[0]![0] as CustomEvent).detail).toEqual({ reason: "escape" });
+    expect((reqSpy.mock.calls[0]![0] as CustomEvent).detail).toEqual({
+      reason: "escape",
+    });
   });
 
   test("백드롭 클릭 → 닫힘 / persistent면 무시 (ESC는 항상 동작)", async () => {
@@ -132,6 +160,50 @@ describe("jd-modal 스크롤 락", () => {
     await tick();
     expect(document.body.style.overflow).toBe("auto");
   });
+
+  test("중첩 모달은 마지막 모달이 닫힐 때까지 body 잠금을 유지한다", async () => {
+    document.body.innerHTML =
+      `<jd-modal id="first"><button>첫 번째</button></jd-modal>` +
+      `<jd-modal id="second"><button>두 번째</button></jd-modal>`;
+    await tick();
+    const first = document.querySelector<JdModal>("#first")!;
+    const second = document.querySelector<JdModal>("#second")!;
+
+    first.showModal();
+    second.showModal();
+    await tick();
+    expect(document.body.style.overflow).toBe("hidden");
+
+    second.close();
+    await tick();
+    expect(document.body.style.overflow).toBe("hidden");
+
+    first.close();
+    await tick();
+    expect(document.body.style.overflow).toBe("");
+  });
+
+  test("중첩 모달에서 Escape는 가장 위 모달만 닫는다", async () => {
+    document.body.innerHTML =
+      `<jd-modal id="first"><button>첫 번째</button></jd-modal>` +
+      `<jd-modal id="second"><button>두 번째</button></jd-modal>`;
+    await tick();
+    const first = document.querySelector<JdModal>("#first")!;
+    const second = document.querySelector<JdModal>("#second")!;
+    first.showModal();
+    second.showModal();
+    await tick();
+
+    esc();
+    await tick();
+    expect(second.open).toBe(false);
+    expect(first.open).toBe(true);
+    expect(document.body.style.overflow).toBe("hidden");
+
+    esc();
+    await tick();
+    expect(first.open).toBe(false);
+  });
 });
 
 describe("jd-modal 포커스 트랩 연동", () => {
@@ -152,8 +224,7 @@ describe("jd-modal 포커스 트랩 연동", () => {
   });
 
   test("data-autofocus가 initialFocus 우선", async () => {
-    document.body.innerHTML =
-      `<jd-modal><button id="a">A</button><button id="b" data-autofocus>B</button></jd-modal>`;
+    document.body.innerHTML = `<jd-modal><button id="a">A</button><button id="b" data-autofocus>B</button></jd-modal>`;
     await tick();
     const el = document.querySelector<JdModal>("jd-modal")!;
     el.showModal();
@@ -162,14 +233,19 @@ describe("jd-modal 포커스 트랩 연동", () => {
   });
 
   test("열림 중 Tab 순환 감금 (마지막 → 첫번째 랩)", async () => {
-    document.body.innerHTML =
-      `<jd-modal><button id="a">A</button><button id="b">B</button></jd-modal>`;
+    document.body.innerHTML = `<jd-modal><button id="a">A</button><button id="b">B</button></jd-modal>`;
     await tick();
     const el = document.querySelector<JdModal>("jd-modal")!;
     el.showModal();
     await tick();
     document.querySelector<HTMLButtonElement>("#b")!.focus();
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true, cancelable: true }));
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Tab",
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
     expect(document.activeElement?.id).toBe("a");
   });
 });

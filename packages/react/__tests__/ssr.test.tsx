@@ -29,16 +29,20 @@ describe("Node 모듈 평가·renderToString", () => {
     expect(html).toContain("삭제 중...");
   });
 
-  test("Button 기본값 — 디폴트 미반영(DEC-012-2 동형) + type은 submit 유지", () => {
+  test("Button 기본값 — 디폴트 미반영(DEC-012-2 동형) + 안전한 type=button", () => {
     const html = renderToString(<Button>저장</Button>);
     expect(html).not.toContain("variant=");
     expect(html).not.toContain("size=");
-    expect(html).toContain('type="submit"');
+    expect(html).toContain('type="button"');
   });
 
   test("TextField — 라벨·에러 행·aria 연결까지 완성 골격", () => {
     const html = renderToString(
-      <TextField label="이름" error="이름을 입력해주세요" placeholder="이름 입력" />,
+      <TextField
+        label="이름"
+        error="이름을 입력해주세요"
+        placeholder="이름 입력"
+      />,
     );
     expect(html).toContain("<jd-text-field");
     expect(html).toContain('label="이름"');
@@ -46,10 +50,22 @@ describe("Node 모듈 평가·renderToString", () => {
     expect(html).toContain("jd-text-field__label");
     expect(html).toContain("이름"); // 라벨 텍스트(dSIH)
     expect(html).toContain("jd-text-field__input");
+    expect(html).toContain("jd-text-field__control");
+    expect(html).toContain("jd-text-field__slot--start");
     expect(html).toContain('aria-invalid="true"');
     expect(html).toContain("aria-describedby");
     expect(html).toContain("jd-text-field__error");
     expect(html).toContain("이름을 입력해주세요");
+  });
+
+  test("Input invalid와 좌우 슬롯도 서버 완성 골격에 포함된다", () => {
+    const html = renderToString(
+      <Input error leftSlot={<span>₩</span>} rightSlot={<span>KRW</span>} />,
+    );
+    expect(html).toContain("invalid");
+    expect(html).toContain('aria-invalid="true"');
+    expect(html).toContain("₩");
+    expect(html).toContain("KRW");
   });
 
   test("FormField+Input 폴드도 서버에서 동일 골격", () => {
@@ -76,7 +92,9 @@ describe("Node 모듈 평가·renderToString", () => {
   });
 
   test("controlled value가 서버 HTML에 직렬화된다", () => {
-    const html = renderToString(<TextField value="서버값" onChange={() => {}} />);
+    const html = renderToString(
+      <TextField value="서버값" onChange={() => {}} />,
+    );
     expect(html).toContain('value="서버값"');
   });
 });

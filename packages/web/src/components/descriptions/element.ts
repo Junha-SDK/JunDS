@@ -26,6 +26,7 @@
  * 툴팁이 거슬리면 attribute 대신 프로퍼티(`el.title = "…"`)로 넣는다.
  */
 import { JdElement } from "../../core/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import descriptionsStyles from "./descriptions.css.js";
@@ -34,22 +35,14 @@ export interface JdDescriptionItem {
   /** 항목 식별자 */
   key: string;
   label: string;
-  /** 값. "<a …>" 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  value?: string | Node;
+  /** 값. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  value?: JdContent;
   /** 차지할 열 수. 기본 1 */
   span?: number;
 }
 
-/** 마크업 문자열이면 innerHTML(신뢰된 값만), 아니면 텍스트 (jd-tabs fillIcon 선례) */
-function fillSlot(slot: HTMLElement, value: string | Node | undefined): void {
-  slot.textContent = "";
-  if (value === undefined || value === null || value === "") return;
-  if (typeof value === "string") {
-    if (value.trimStart().startsWith("<")) slot.innerHTML = value;
-    else slot.textContent = value;
-  } else {
-    slot.append(value);
-  }
+function fillSlot(slot: HTMLElement, value: JdContent | undefined): void {
+  setContent(slot, value);
 }
 
 export class JdDescriptions extends JdElement {

@@ -8,6 +8,16 @@ describe("Button", () => {
     expect(screen.getByText("저장")).toBeInTheDocument();
   });
 
+  it("defaults to a non-submitting button", () => {
+    render(<Button>열기</Button>);
+    expect(screen.getByRole("button", { name: "열기" })).toHaveAttribute("type", "button");
+  });
+
+  it("allows an explicit submit type", () => {
+    render(<Button type="submit">저장</Button>);
+    expect(screen.getByRole("button", { name: "저장" })).toHaveAttribute("type", "submit");
+  });
+
   it("applies variant classes", () => {
     const { container } = render(<Button variant="danger">삭제</Button>);
     expect(container.firstChild).toHaveClass("bg-danger");
@@ -54,5 +64,18 @@ describe("Button", () => {
     const ref = vi.fn();
     render(<Button ref={ref}>ref</Button>);
     expect(ref).toHaveBeenCalled();
+  });
+
+  it("exposes a loading link as disabled when using asChild", () => {
+    render(
+      <Button asChild loading>
+        <a href="/next">다음</a>
+      </Button>,
+    );
+    const link = screen.getByRole("link", { name: "다음" });
+    expect(link).toHaveAttribute("aria-disabled", "true");
+    expect(link).toHaveAttribute("aria-busy", "true");
+    expect(link).toHaveAttribute("tabindex", "-1");
+    expect(link).toHaveClass("pointer-events-none");
   });
 });

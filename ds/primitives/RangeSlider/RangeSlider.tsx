@@ -81,9 +81,9 @@ export function RangeSlider({
         role="group"
         aria-label="범위 슬라이더"
       >
-        <div className="absolute inset-x-0 h-1.5 bg-gray-200 rounded-full" />
+        <div className="absolute inset-x-0 h-1.5 bg-gray-200 rounded-full shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)]" />
         <div
-          className="absolute h-1.5 bg-primary rounded-full"
+          className="absolute h-1.5 bg-primary rounded-full bg-gradient-to-b from-white/25 to-white/0"
           style={{ left: `${pct(safeValue[0])}%`, right: `${100 - pct(safeValue[1])}%` }}
         />
         {(["min", "max"] as const).map((handle, i) => (
@@ -106,10 +106,11 @@ export function RangeSlider({
               else onChange([safeValue[0], Math.max(nv, safeValue[0] + step)]);
             }}
             className={cn(
-              "absolute w-5 h-5 bg-white border-2 border-primary rounded-full shadow-sm -translate-x-1/2 cursor-grab",
+              "absolute w-5 h-5 bg-white border-2 border-primary rounded-full -translate-x-1/2 cursor-grab",
+              "shadow-[0_1px_3px_rgba(0,0,0,0.15),0_1px_1px_rgba(0,0,0,0.08)] transition-all duration-150",
               "focus:outline-none focus:ring-2 focus:ring-primary/40",
-              "hover:scale-110 transition-transform",
-              dragging === handle && "cursor-grabbing scale-110",
+              "hover:ring-4 ring-primary/15",
+              dragging === handle && "cursor-grabbing scale-110 ring-4",
             )}
             style={{ left: `${pct(safeValue[i])}%` }}
           />

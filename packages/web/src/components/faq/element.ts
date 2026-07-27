@@ -22,6 +22,15 @@
  *  jd-search({ query }) · jd-filter({ category })를 추가 발행한다.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  syncAriaIdRefs,
+  syncOwnedAttribute,
+} from "../../core/aria.js";
+import {
+  contentText,
+  setContent,
+  type JdContent,
+} from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { on, createKeyHandler } from "../../behaviors/input.js";
@@ -31,10 +40,10 @@ import faqStyles from "./faq.css.js";
 export interface JdFaqItem {
   /** ID (선택) — 없으면 인덱스 */
   id?: string;
-  /** 질문. 마크업 문자열(신뢰된 값만) 또는 DOM 노드 */
-  question: string | Node;
-  /** 답변. 마크업 문자열 또는 DOM 노드 */
-  answer: string | Node;
+  /** 질문. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  question: JdContent;
+  /** 답변. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  answer: JdContent;
   /** 카테고리 — 필터 칩으로 파생 */
   category?: string;
 }
@@ -42,30 +51,6 @@ export interface JdFaqItem {
 const CHEVRON_SVG =
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">` +
   `<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-
-/** 슬롯 채우기 — 문자열이 마크업이면 innerHTML(신뢰된 값만), 아니면 텍스트 (accordion 선례) */
-function fillSlot(slot: HTMLElement, value: string | Node | undefined): void {
-  slot.textContent = "";
-  if (value === undefined || value === null || value === "") return;
-  if (typeof value === "string") {
-    if (value.trimStart().startsWith("<")) slot.innerHTML = value;
-    else slot.textContent = value;
-  } else {
-    slot.append(value);
-  }
-}
-
-/** 검색 색인용 평문 추출 — 마크업이면 파서로 텍스트만 뽑는다(태그 매칭 방지) */
-function textOf(value: string | Node | undefined): string {
-  if (value === undefined || value === null) return "";
-  if (typeof value !== "string") return value.textContent ?? "";
-  if (value.trimStart().startsWith("<")) {
-    const tpl = document.createElement("template");
-    tpl.innerHTML = value;
-    return tpl.content.textContent ?? "";
-  }
-  return value;
-}
 
 export class JdFaq extends JdElement {
   static override tag = "jd-faq";
@@ -206,9 +191,10 @@ export class JdFaq extends JdElement {
       if (!item) return;
       row.dataset.faqId = item.id ?? String(i);
       row.dataset.category = item.category ?? "";
-      row.dataset.search = `${textOf(item.question)} ${textOf(item.answer)}`.toLowerCase();
-      fillSlot(row.querySelector<HTMLElement>(".jd-faq__question")!, item.question);
-      fillSlot(row.querySelector<HTMLElement>(".jd-faq__answer")!, item.answer);
+      row.dataset.search =
+        `${contentText(item.question)} ${contentText(item.answer)}`.toLowerCase();
+      setContent(row.querySelector<HTMLElement>(".jd-faq__question")!, item.question);
+      setContent(row.querySelector<HTMLElement>(".jd-faq__answer")!, item.answer);
     });
   }
 
@@ -322,19 +308,19 @@ export class JdFaq extends JdElement {
   /* ── 반영 ─────────────────────────────────────────────────── */
 
   protected override update(): void {
-    fillSlot(this.#titleEl, this.title);
+    setContent(this.#titleEl, this.title);
     this.#titleEl.hidden = !this.title;
-    fillSlot(this.#subtitleEl, this.subtitle);
+    setContent(this.#subtitleEl, this.subtitle);
     this.#subtitleEl.hidden = !this.subtitle;
     this.#header.hidden = !this.title && !this.subtitle;
 
     if (this.title) {
       if (!this.#titleEl.id) this.#titleEl.id = this.#titleId ||= jdUid("jd-faq-title");
-      this.setAttribute("role", "region");
-      this.setAttribute("aria-labelledby", this.#titleEl.id);
+      syncOwnedAttribute(this, "role", "region", { preserveExisting: true });
+      syncAriaIdRefs(this, "aria-labelledby", this.#titleEl.id);
     } else {
-      this.removeAttribute("role");
-      this.removeAttribute("aria-labelledby");
+      syncOwnedAttribute(this, "role", null);
+      syncAriaIdRefs(this, "aria-labelledby", null);
     }
 
     if (this.#built !== this.#items) {

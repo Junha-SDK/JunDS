@@ -4,9 +4,12 @@
  * 팔로우 호버 라벨 교체 — happy-dom으로는 어느 것도 재현되지 않는다.
  */
 import { expect, test } from "@playwright/test";
-import { mount } from "./helpers.js";
+import { mount, pressTab } from "./helpers.js";
 
-test("jd-focus-guard: 실제 Tab이 영역 밖으로 나가지 못한다", async ({ page }) => {
+test("jd-focus-guard: 실제 Tab이 영역 밖으로 나가지 못한다", async ({
+  page,
+  browserName,
+}) => {
   await mount(
     page,
     `<button id="out">밖</button>
@@ -17,33 +20,41 @@ test("jd-focus-guard: 실제 Tab이 영역 밖으로 나가지 못한다", async
   await expect(page.locator("#a")).toBeFocused(); // active면 첫 요소로 진입
 
   for (let i = 0; i < 6; i++) {
-    await page.keyboard.press("Tab");
+    await pressTab(page, browserName);
     const inside = await page.evaluate(() =>
       document.querySelector("#g")!.contains(document.activeElement),
     );
     expect(inside).toBe(true);
   }
   // Shift+Tab 역방향도 감금
-  await page.keyboard.press("Shift+Tab");
+  await pressTab(page, browserName, true);
   expect(
     await page.evaluate(() => document.querySelector("#g")!.contains(document.activeElement)),
   ).toBe(true);
 });
 
-test("jd-focus-guard: 기본(비활성)은 포커스를 강탈하지 않는다", async ({ page }) => {
+test("jd-focus-guard: 기본(비활성)은 포커스를 강탈하지 않는다", async ({
+  page,
+  browserName,
+}) => {
   await mount(
     page,
-    `<button id="out">밖</button><jd-focus-guard><button id="a">A</button></jd-focus-guard>`,
+    `<button id="out">밖</button>
+     <jd-focus-guard><button id="a">A</button></jd-focus-guard>
+     <button id="after">다음</button>`,
   );
   await page.locator("#out").focus();
   await expect(page.locator("#out")).toBeFocused();
-  await page.keyboard.press("Tab");
+  await pressTab(page, browserName);
   await expect(page.locator("#a")).toBeFocused(); // 그냥 통과
-  await page.keyboard.press("Tab");
-  expect(await page.evaluate(() => document.activeElement?.id)).not.toBe("a"); // 밖으로 나간다
+  await pressTab(page, browserName);
+  await expect(page.locator("#after")).toBeFocused(); // 감금 없이 다음 컨트롤로 나간다
 });
 
-test("jd-focus-guard: 조상이 재부모화해도 감금이 살아남는다", async ({ page }) => {
+test("jd-focus-guard: 조상이 재부모화해도 감금이 살아남는다", async ({
+  page,
+  browserName,
+}) => {
   await mount(
     page,
     `<div id="box1"><jd-focus-guard id="g" active>
@@ -55,7 +66,7 @@ test("jd-focus-guard: 조상이 재부모화해도 감금이 살아남는다", a
     document.querySelector("#box2")!.append(document.querySelector("#g")!),
   );
   await page.locator("#b").focus();
-  await page.keyboard.press("Tab");
+  await pressTab(page, browserName);
   expect(await page.evaluate(() => document.activeElement?.id)).toBe("a"); // 순환 유지
 });
 

@@ -3,7 +3,7 @@
 - **Slug:** `forms`
 - **Status:** active
 - **Owner:** goodjunha@gmail.com
-- **Last updated:** 2026-05-04
+- **Last updated:** 2026-07-27
 
 ## Goal
 
@@ -43,7 +43,12 @@ JunDS는 외부 폼 라이브러리(RHF, Formik 등)를 강제하지 않는다. 
 - **register vs Controller**: native ref만 필요한 컴포넌트(Input/Textarea)는
   `register`. value-prop 컴포넌트(Switch/Select/...)는 반드시 `Controller`.
 - **에러 메시지**: `<FormField error={...}>`가 메시지를 표시 + 자식 input의
-  `aria-invalid`를 자동 동기화 (FormField가 자식 cloneElement).
+  `aria-invalid`를 자동 동기화 (FormField가 단일 자식을 cloneElement).
+- **필드 연결 자동화**: 단일 자식에는 안정적인 `id`를 자동 생성하고 label,
+  hint, error를 각각 `htmlFor`, `aria-describedby`, `aria-errormessage`로
+  연결한다. 자식이 이미 가진 id/설명 참조는 덮어쓰지 않고 병합한다.
+- **글자 수**: `Textarea showCount`는 controlled/uncontrolled 양쪽에서 현재
+  길이를 표시하며, 카운터를 입력의 설명으로 자동 연결한다.
 - **submit 가드**: `useForm`은 모든 룰 통과 시에만 `onSubmit` 호출. 외부 검증
   실패는 `setError(field, message)`로 다시 통보.
 
@@ -51,6 +56,9 @@ JunDS는 외부 폼 라이브러리(RHF, Formik 등)를 강제하지 않는다. 
 
 - `ds/hooks/useForm.ts`
 - `ds/patterns/Form/Form.tsx`
+- `ds/composites/FormField/FormField.tsx`
+- `ds/primitives/Input/Input.tsx`
+- `ds/primitives/Textarea/Textarea.tsx`
 - `.ai/recipes/rhf-zod-form.md`
 
 ## Open questions
@@ -62,4 +70,5 @@ JunDS는 외부 폼 라이브러리(RHF, Formik 등)를 강제하지 않는다. 
 
 ## Changelog
 
+- 2026-07-27 — FormField 자동 id/ARIA 연결과 Textarea uncontrolled 카운터 동기화.
 - 2026-05-04 — created.

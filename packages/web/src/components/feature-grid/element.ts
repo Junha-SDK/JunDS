@@ -18,38 +18,36 @@
  *  - 아이콘 컨테이너는 aria-hidden(장식), 제목은 <h3>, 링크는 네이티브 <a>.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  syncAriaIdRefs,
+  syncOwnedAttribute,
+} from "../../core/aria.js";
+import {
+  isContentEmpty,
+  setContent,
+  type JdContent,
+} from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import featureGridStyles from "./feature-grid.css.js";
 
 export interface JdFeatureItem {
-  /** 아이콘/이미지. 마크업 문자열(신뢰된 값만)·이모지·DOM 노드 */
-  icon?: string | Node;
-  /** 제목. 마크업 문자열 또는 DOM 노드 */
-  title: string | Node;
-  /** 설명. 마크업 문자열 또는 DOM 노드 */
-  description?: string | Node;
+  /** 아이콘/이미지. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
+  /** 제목. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  title: JdContent;
+  /** 설명. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  description?: JdContent;
   /** 링크 — 있으면 카드 전체가 <a>가 된다 */
   href?: string;
   /** 강조 (card 레이아웃에서만 테두리·링) */
   highlighted?: boolean;
 }
 
-/**
- * 슬롯 채우기 — 문자열이 마크업이면 innerHTML(신뢰된 값만), 아니면 텍스트.
- * 마크업 경로는 HTML 파서 재파싱이라 SVG 네임스페이스도 올바르게 생긴다(accordion 선례).
- */
-function fillSlot(slot: HTMLElement, value: string | Node | undefined, keep = false): void {
-  slot.textContent = "";
-  const empty = value === undefined || value === null || value === "";
+function fillSlot(slot: HTMLElement, value: JdContent | undefined, keep = false): void {
+  const empty = isContentEmpty(value);
   if (!keep) slot.hidden = empty;
-  if (empty) return;
-  if (typeof value === "string") {
-    if (value.trimStart().startsWith("<")) slot.innerHTML = value;
-    else slot.textContent = value;
-  } else {
-    slot.append(value);
-  }
+  setContent(slot, value);
 }
 
 export class JdFeatureGrid extends JdElement {
@@ -147,11 +145,11 @@ export class JdFeatureGrid extends JdElement {
     // 섹션 접근 이름 — 제목이 있을 때만 이름 있는 region으로 노출 (v2 개선)
     if (this.title) {
       if (!this.#titleEl.id) this.#titleEl.id = this.#titleId ||= jdUid("jd-fg-title");
-      this.setAttribute("role", "region");
-      this.setAttribute("aria-labelledby", this.#titleEl.id);
+      syncOwnedAttribute(this, "role", "region", { preserveExisting: true });
+      syncAriaIdRefs(this, "aria-labelledby", this.#titleEl.id);
     } else {
-      this.removeAttribute("role");
-      this.removeAttribute("aria-labelledby");
+      syncOwnedAttribute(this, "role", null);
+      syncAriaIdRefs(this, "aria-labelledby", null);
     }
 
     if (this.#built !== this.#features) this.#syncCards();

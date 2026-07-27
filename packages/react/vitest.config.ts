@@ -12,6 +12,26 @@ export default defineConfig({
     globals: true, // @testing-library/react 자동 cleanup 활성 조건
     setupFiles: ["./__tests__/setup.ts"],
     include: ["__tests__/**/*.test.{ts,tsx}"],
+    coverage: {
+      provider: "v8",
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: [
+        "src/generated/index.ts",
+        "src/index.ts",
+        "src/jsx.ts",
+        "src/tokens.generated.ts",
+      ],
+      reporter: ["text", "json-summary", "html"],
+      reportsDirectory: "../../coverage/react",
+      // 2026-07-27 실측(lines 98.3 / branches 85.1 / functions 93.9)의
+      // 작은 흔들림은 허용하되 생성·손작성 어댑터의 큰 회귀는 즉시 막는다.
+      thresholds: {
+        lines: 97,
+        statements: 96,
+        functions: 92,
+        branches: 82,
+      },
+    },
   },
   resolve: {
     // 접두 매칭 오염 방지: element 딥 경로를 먼저(더 긴 키 우선) 둔다

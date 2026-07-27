@@ -14,6 +14,7 @@
  * 안 맞으면 "더보기"가 활성. 라우트가 바뀌면(=activePath 변경) 시트를 자동으로 닫는다.
  */
 import { JdElement } from "../../core/element.js";
+import { setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 // 합성 대상 <jd-bottom-sheet>의 **정의**(side-effect)는 index.ts가 보장한다 —
 // element.ts는 부작용 0 규약을 지켜 타입만 가져온다(§6.3).
@@ -23,8 +24,8 @@ import bottomNavStyles from "./bottom-nav.css.js";
 export interface JdBottomNavTab {
   href: string;
   label: string;
-  /** 신뢰 SVG 마크업 문자열(소비자 제공). 없으면 아이콘 슬롯 비움 */
-  icon?: string;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   /** 접두 일치로 활성 판정할 추가 경로 */
   matchPaths?: string[];
 }
@@ -32,7 +33,8 @@ export interface JdBottomNavTab {
 export interface JdBottomNavSheetItem {
   href: string;
   label: string;
-  icon?: string;
+  /** 아이콘. 문자열(평문), DOM 노드 또는 `unsafeHtml()`로 표시한 값 */
+  icon?: JdContent;
   description?: string;
 }
 
@@ -214,7 +216,7 @@ export class JdBottomNav extends JdElement {
       const icon = document.createElement("span");
       icon.className = "jd-bottom-nav__tab-icon";
       icon.setAttribute("aria-hidden", "true");
-      if (tab.icon) icon.innerHTML = tab.icon; // 신뢰 마크업
+      setContent(icon, tab.icon);
       const text = document.createElement("span");
       text.className = "jd-bottom-nav__tab-label";
       text.textContent = tab.label;
@@ -257,7 +259,7 @@ export class JdBottomNav extends JdElement {
         const icon = document.createElement("span");
         icon.className = "jd-bottom-nav__sheet-icon";
         icon.setAttribute("aria-hidden", "true");
-        if (item.icon) icon.innerHTML = item.icon;
+        setContent(icon, item.icon);
         const label = document.createElement("span");
         label.className = "jd-bottom-nav__sheet-label";
         label.textContent = item.label;

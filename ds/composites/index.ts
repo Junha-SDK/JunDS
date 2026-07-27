@@ -182,8 +182,8 @@ export type { HoverCardProps } from "./HoverCard";
 export { ImageCropper } from "./ImageCropper";
 export type { ImageCropperProps } from "./ImageCropper";
 
-export { ImageLightbox } from "./ImageLightbox";
-export type { ImageLightboxProps } from "./ImageLightbox";
+export { ImageLightbox, GlobalImageLightbox } from "./ImageLightbox";
+export type { ImageLightboxProps, GlobalImageLightboxProps } from "./ImageLightbox";
 
 export { InlineEdit } from "./InlineEdit";
 export type { InlineEditProps } from "./InlineEdit";
@@ -428,8 +428,8 @@ export type { PasswordStrengthProps } from "./PasswordStrength";
 export { ScrollProgress } from "./ScrollProgress";
 export type { ScrollProgressProps } from "./ScrollProgress";
 
-export { TableOfContents } from "./TableOfContents";
-export type { TableOfContentsProps } from "./TableOfContents";
+export { TableOfContents, TocHeading } from "./TableOfContents";
+export type { TableOfContentsProps, TocHeadingProps, TocItem } from "./TableOfContents";
 
 export { LineChart } from "./LineChart";
 export type { LineChartProps } from "./LineChart";
@@ -553,3 +553,24 @@ export type { BrandSwitcherProps } from "./BrandSwitcher";
 
 export { SearchBar } from "./SearchBar";
 export type { SearchBarProps } from "./SearchBar";
+
+export { SeoHead } from "./SeoHead";
+export type { SeoHeadProps } from "./SeoHead";
+
+export { Waveform } from "./Waveform";
+export type { WaveformProps } from "./Waveform";
+
+export { AlbumArt } from "./AlbumArt";
+export type { AlbumArtProps } from "./AlbumArt";
+
+export { NowPlayingBar } from "./NowPlayingBar";
+export type { NowPlayingBarProps } from "./NowPlayingBar";
+
+export { DocPager } from "./DocPager";
+export type { DocPagerProps, DocPagerEntry } from "./DocPager";
+
+export { ProjectCard } from "./ProjectCard";
+export type { ProjectCardProps, ProjectCardVariant } from "./ProjectCard";
+
+export { ScreenshotGrid } from "./ScreenshotGrid";
+export type { ScreenshotGridProps } from "./ScreenshotGrid";

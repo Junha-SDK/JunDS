@@ -30,11 +30,14 @@ describe("COMPONENTS.md Example — 원문 무수정", () => {
     expect(buttons[1]!.querySelector(".jd-button__spinner")).not.toBeNull();
   });
 
-  test("Input: <Input error placeholder='필수 입력' /> — 렌더는 무수정 통과(시각 한계는 판정표)", async () => {
+  test("Input: <Input error placeholder='필수 입력' /> — 내부 네이티브 입력에 그대로 반영", async () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     render(<Input error placeholder="필수 입력" />);
     await flushCE();
-    expect(screen.getByPlaceholderText("필수 입력")).toBeInTheDocument();
+    expect(screen.getByRole("textbox")).toHaveAttribute(
+      "placeholder",
+      "필수 입력",
+    );
     warn.mockRestore();
   });
 

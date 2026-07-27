@@ -9,6 +9,10 @@
  * 있으면 role="group" + aria-labelledby로 선반을 이름 있는 묶음으로 만든다.
  */
 import { JdElement } from "../../core/element.js";
+import {
+  syncAriaIdRefs,
+  syncOwnedAttribute,
+} from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import bookShelfStyles from "./book-shelf.css.js";
@@ -73,11 +77,12 @@ export class JdBookShelf extends JdElement {
     this.#header.hidden = !hasLabel;
 
     if (hasLabel) {
-      this.setAttribute("role", "group");
-      this.setAttribute("aria-labelledby", this.#header.id);
+      if (!this.#header.id) this.#header.id = jdUid(`${CLS}-label`);
+      syncOwnedAttribute(this, "role", "group", { preserveExisting: true });
+      syncAriaIdRefs(this, "aria-labelledby", this.#header.id);
     } else {
-      this.removeAttribute("role");
-      this.removeAttribute("aria-labelledby");
+      syncOwnedAttribute(this, "role", null);
+      syncAriaIdRefs(this, "aria-labelledby", null);
     }
   }
 }

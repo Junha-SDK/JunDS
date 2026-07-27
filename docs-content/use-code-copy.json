@@ -1,0 +1,33 @@
+{
+  "id": "use-code-copy",
+  "ledgerId": "useCodeCopy",
+  "category": "hooks",
+  "title": "useCodeCopy",
+  "oneLiner": "이미 커밋된 DOM 의 코드 블록마다 복사 버튼을 주입 — 컴포넌트로 감쌀 수 없는 본문용.",
+  "tags": [
+    "hook",
+    "클립보드",
+    "코드"
+  ],
+  "controls": [],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { useCodeCopy } from \"@/ds/hooks\";",
+      "code": "// 빌드 타임에 HTML 로 굳힌 본문에 복사 버튼을 붙인다\nuseCodeCopy(\".article__body\", [slug]);\n\n// 셀렉터·라벨을 바꿔서\nuseCodeCopy(\"#post\", [slug], { blockSelector: \"pre.codebox\", label: \"Copy\" });"
+    }
+  },
+  "tokens": [],
+  "a11y": [
+    {
+      "item": "버튼 이름",
+      "note": "aria-label 기본 \"코드 복사\" — 버튼 텍스트가 상태에 따라 바뀌어도 이름은 안정적"
+    },
+    {
+      "item": "터치",
+      "note": "hover 가 없는 기기에서는 버튼이 항상 노출된다"
+    }
+  ]
+}

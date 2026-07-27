@@ -4,15 +4,18 @@
  * 실제 드래그 상태·스크롤을 재현하지 못한다. 배치 판단의 근거가 된 항목만 고정한다.
  */
 import { expect, test } from "@playwright/test";
-import { mount } from "./helpers.js";
+import { mount, pressTab } from "./helpers.js";
 
-test("jd-star-rating: 라디오 그룹은 탭스톱 1개 (v2는 별 개수만큼 탭했다)", async ({ page }) => {
+test("jd-star-rating: 라디오 그룹은 탭스톱 1개 (v2는 별 개수만큼 탭했다)", async ({
+  page,
+  browserName,
+}) => {
   await mount(page, `<button id="before">앞</button><jd-star-rating value="3"></jd-star-rating><button id="after">뒤</button>`);
   await page.locator("#before").focus();
 
   let stops = 0;
   for (let i = 0; i < 10; i++) {
-    await page.keyboard.press("Tab");
+    await pressTab(page, browserName);
     const inside = await page.evaluate(() =>
       document.querySelector("jd-star-rating")!.contains(document.activeElement),
     );
@@ -55,10 +58,13 @@ test("jd-pin-input: 칸 포커스 시 기존 글자가 선택되어 덮어쓰기
   await expect(first).toHaveValue("5");
 });
 
-test("jd-number-input: 스텝 버튼은 탭 순서 밖 — Tab은 입력으로 바로 간다", async ({ page }) => {
+test("jd-number-input: 스텝 버튼은 탭 순서 밖 — Tab은 입력으로 바로 간다", async ({
+  page,
+  browserName,
+}) => {
   await mount(page, `<button id="before">앞</button><jd-number-input value="1" label="수량"></jd-number-input>`);
   await page.locator("#before").focus();
-  await page.keyboard.press("Tab");
+  await pressTab(page, browserName);
   await expect(page.locator("jd-number-input input")).toBeFocused();
 });
 

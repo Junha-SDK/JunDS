@@ -106,7 +106,7 @@
     },
     {
       "item": "에러 연결",
-      "note": "error 설정 시 aria-invalid=true + aria-describedby로 메시지 연결, 해제 시 제거"
+      "note": "error 설정 시 aria-invalid=true + aria-describedby로 메시지 연결 — 해제 시 JunDS가 추가한 값만 제거하고 기존 소비자 값은 복원"
     },
     {
       "item": "네이티브 위임",

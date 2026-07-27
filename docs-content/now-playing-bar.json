@@ -1,0 +1,64 @@
+{
+  "id": "now-playing-bar",
+  "ledgerId": "NowPlayingBar",
+  "category": "composites",
+  "title": "NowPlayingBar",
+  "oneLiner": "하단 재생 바 — 커버·곡 정보·파형 스크러버·이전/재생/다음. useAudioPlayer 상태를 그대로 받는다.",
+  "tags": [
+    "media",
+    "audio",
+    "플레이어"
+  ],
+  "controls": [
+    {
+      "prop": "fixed",
+      "kind": "boolean",
+      "default": true
+    },
+    {
+      "prop": "bars",
+      "kind": "number",
+      "min": 24,
+      "max": 128,
+      "step": 8,
+      "default": 72
+    }
+  ],
+  "snippets": {
+    "web": null,
+    "swiftui": null,
+    "uikit": null,
+    "react": {
+      "imp": "import { NowPlayingBar } from \"@/ds/composites/NowPlayingBar\";\nimport { useAudioPlayer } from \"@/ds/hooks\";",
+      "code": "const player = useAudioPlayer(tracks);\n\nreturn <NowPlayingBar player={player} onExpand={() => setFullscreen(true)} />;"
+    }
+  },
+  "tokens": [
+    {
+      "token": "--color-card",
+      "usage": "바 배경 (backdrop-blur 위)"
+    },
+    {
+      "token": "--color-border",
+      "usage": "상단 구분선"
+    },
+    {
+      "token": "--color-primary",
+      "usage": "재생 버튼·파형 진행분"
+    }
+  ],
+  "a11y": [
+    {
+      "item": "랜드마크",
+      "note": "role=region + aria-label=\"재생 중\""
+    },
+    {
+      "item": "버튼 라벨",
+      "note": "이전/다음은 고정 라벨, 재생 버튼은 상태에 따라 재생↔일시정지로 바뀐다"
+    },
+    {
+      "item": "audio 유지",
+      "note": "트랙이 없어도 <audio>는 마운트를 유지 — 언마운트되면 훅의 ref 가 끊겨 이벤트가 오지 않는다"
+    }
+  ]
+}

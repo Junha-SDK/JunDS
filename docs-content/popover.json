@@ -3,13 +3,16 @@
   "ledgerId": "Popover",
   "category": "composites",
   "title": "Popover",
-  "oneLiner": "팝오버",
+  "oneLiner": "사용자 트리거의 의미를 보존하며 클릭·ESC·바깥 클릭을 처리하는 팝오버.",
   "tags": [
     "overlay"
   ],
   "controls": [],
   "snippets": {
-    "web": null,
+    "web": {
+      "imp": "import \"@junds/web/popover\";",
+      "code": "<jd-popover>\n  <button slot=\"trigger\" type=\"button\">필터 열기</button>\n  <form slot=\"content\" aria-label=\"필터\">\n    <label>상태 <select name=\"status\"><option>전체</option></select></label>\n  </form>\n</jd-popover>\n\n<script type=\"module\">\n  const popover = document.querySelector(\"jd-popover\");\n  popover.addEventListener(\"jd-request-close\", (event) => {\n    // 필요하면 event.preventDefault()로 닫힘을 취소할 수 있습니다.\n  });\n</script>"
+    },
     "swiftui": null,
     "uikit": null,
     "react": {
@@ -18,5 +21,14 @@
     }
   },
   "tokens": [],
-  "a11y": []
+  "a11y": [
+    {
+      "item": "트리거 연결",
+      "note": "실제 포커스 가능 자식에 aria-haspopup·aria-expanded·aria-controls를 자동 연결"
+    },
+    {
+      "item": "소유권 보존",
+      "note": "기존 aria-controls를 병합하고 컴포넌트 분리 시 트리거의 원래 ARIA 값을 복원"
+    }
+  ]
 }

@@ -52,6 +52,67 @@
 
 .jds-spacing { gap: calc(var(--jds-spacing-mult) * 1rem); }
 
+/* ─── Font families ──────────────────────────────────────────────────────
+   `ds/tokens/fontFamily.ts` 와 값이 1:1 로 대응한다. 웹폰트(Pretendard /
+   Noto Serif KR / Playfair Display / Caveat)는 호스트 앱이 로드하며, 없으면
+   같은 계열의 시스템 폰트로 자연스럽게 떨어진다. */
+:root {
+  --font-sans: "Pretendard Variable", Pretendard, "Inter", "Noto Sans KR",
+    ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-serif: "Noto Serif KR", "Nanum Myeongjo", Georgia, "Times New Roman",
+    serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-hand: "Caveat", "Bradley Hand", "Segoe Script", cursive;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo,
+    Consolas, "Liberation Mono", monospace;
+}
+
+/* ─── Content category accents ───────────────────────────────────────────
+   `ds/tokens/categoryColors.ts` 와 대응. 어두운 배경 기준으로 튜닝된 값이라
+   밝은 테마에서는 -soft/-text 를 앱에서 덮어쓰는 것을 권장한다. */
+:root {
+  --cat-movie: #67b1ff;
+  --cat-movie-soft: rgba(59, 130, 246, 0.16);
+  --cat-movie-border: rgba(103, 177, 255, 0.46);
+  --cat-movie-text: #dcecff;
+
+  --cat-daily: #4ade80;
+  --cat-daily-soft: rgba(34, 197, 94, 0.14);
+  --cat-daily-border: rgba(74, 222, 128, 0.38);
+  --cat-daily-text: #dcfce7;
+
+  --cat-comic: #fb7185;
+  --cat-comic-soft: rgba(244, 114, 182, 0.15);
+  --cat-comic-border: rgba(251, 113, 133, 0.38);
+  --cat-comic-text: #ffe4eb;
+
+  --cat-retrospect: #fbbf24;
+  --cat-retrospect-soft: rgba(251, 191, 36, 0.14);
+  --cat-retrospect-border: rgba(251, 191, 36, 0.36);
+  --cat-retrospect-text: #fff1c5;
+
+  --cat-book: #f59e0b;
+  --cat-book-soft: rgba(245, 158, 11, 0.14);
+  --cat-book-border: rgba(245, 158, 11, 0.34);
+  --cat-book-text: #ffefc3;
+
+  --cat-musical: #c084fc;
+  --cat-musical-soft: rgba(192, 132, 252, 0.14);
+  --cat-musical-border: rgba(192, 132, 252, 0.46);
+  --cat-musical-text: #f0e2ff;
+
+  --cat-anime: #5eead4;
+  --cat-anime-soft: rgba(45, 212, 191, 0.14);
+  --cat-anime-border: rgba(94, 234, 212, 0.4);
+  --cat-anime-text: #d5fff6;
+
+  --cat-neutral: #a4aabc;
+  --cat-neutral-soft: rgba(164, 170, 188, 0.12);
+  --cat-neutral-border: rgba(164, 170, 188, 0.32);
+  --cat-neutral-text: #e8eaf2;
+}
+
 /* ─── Light theme tokens ─────────────────────────────────────────────── */
 :root {
   --background: #f5f4f8;
@@ -170,6 +231,9 @@
   --color-sidebar-hover: var(--sidebar-hover);
   --color-sidebar-text: var(--sidebar-text);
   --color-sidebar-active: var(--sidebar-active);
+  /* `ds/tokens/typography.ts` 의 fontSize["2xs"] 와 짝 — `text-2xs` 유틸리티 */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1.4;
 }
 
 /* ─── Animations used by Modal/Toast/Tooltip ─────────────────────────── */
@@ -183,3 +247,61 @@
 }
 .animate-fade-in { animation: jds-fade-in 0.18s ease-out; }
 .animate-fade-in-scale { animation: jds-fade-in-scale 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* ─── useCodeCopy — 코드 블록에 주입되는 복사 버튼 ────────────────────────
+   훅이 DOM 에 직접 만들어 붙이는 버튼이라 대응하는 React 컴포넌트가 없다.
+   부모 <pre> 에 position 이 없으면 버튼이 페이지 구석으로 날아가므로 여기서
+   같이 세워 준다. */
+:where(pre:has(> .jds-code-copy-btn)) { position: relative; }
+
+.jds-code-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--jds-radius-sm);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+pre:hover > .jds-code-copy-btn,
+.jds-code-copy-btn:focus-visible { opacity: 1; }
+.jds-code-copy-btn:hover { color: var(--foreground); border-color: var(--muted-light); }
+.jds-code-copy-btn.is-copied { opacity: 1; color: var(--success); border-color: var(--success); }
+
+/* 터치 기기에는 hover 가 없어 버튼이 영영 안 보인다 — 항상 노출한다 */
+@media (hover: none) {
+  .jds-code-copy-btn { opacity: 1; }
+}
+
+/* ─── useRevealOnScroll — 스크롤 진입 등장 ───────────────────────────────
+   훅은 클래스만 토글하고 모션은 여기서 준다. 앱이 자체 모션을 원하면
+   `.jds-reveal` 규칙을 덮어쓰면 된다. */
+.jds-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.jds-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .jds-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ─── Waveform — 재생 헤드 맥동 ──────────────────────────────────────── */
+@keyframes jds-waveform-pulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.55; transform: scaleY(1.18); }
+}
+.jds-waveform-head { animation: jds-waveform-pulse 0.9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .jds-waveform-head { animation: none; }
+}

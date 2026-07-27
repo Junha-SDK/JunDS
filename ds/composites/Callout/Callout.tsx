@@ -12,8 +12,11 @@ import { cn } from "../../utils";
  * - variant별 배경 틴트
  */
 export interface CalloutProps {
-  /** 콜아웃 유형 */
-  variant?: "note" | "warning" | "danger" | "tip" | "info";
+  /**
+   * 콜아웃 유형.
+   * `warn` 은 `warning` 의 별칭 — 마크다운 문법 `:::warn` 같은 표기를 그대로 받기 위한 것이다.
+   */
+  variant?: "note" | "warning" | "warn" | "danger" | "tip" | "info" | "success";
   /** 제목 */
   title?: string;
   /** 본문 내용 */
@@ -25,7 +28,7 @@ export interface CalloutProps {
 }
 
 const VARIANT_CONFIG: Record<
-  NonNullable<CalloutProps["variant"]>,
+  "note" | "warning" | "danger" | "tip" | "info" | "success",
   { icon: string; border: string; bg: string; text: string }
 > = {
   tip: {
@@ -58,6 +61,17 @@ const VARIANT_CONFIG: Record<
     bg: "bg-blue-500/5",
     text: "text-blue-700 dark:text-blue-400",
   },
+  success: {
+    icon: "\u2705",
+    border: "border-l-green-500",
+    bg: "bg-green-500/5",
+    text: "text-green-700 dark:text-green-400",
+  },
+};
+
+/** \uD45C\uAE30 \uD754\uB4E4\uB9BC\uC744 \uC815\uADDC variant \uB85C \uC811\uB294\uB2E4 */
+const VARIANT_ALIAS: Record<string, keyof typeof VARIANT_CONFIG> = {
+  warn: "warning",
 };
 
 /**
@@ -78,7 +92,7 @@ export function Callout({
   className,
 }: CalloutProps) {
   const [collapsed, setCollapsed] = useState(collapsible);
-  const config = VARIANT_CONFIG[variant];
+  const config = VARIANT_CONFIG[VARIANT_ALIAS[variant] ?? (variant as keyof typeof VARIANT_CONFIG)];
 
   const toggleCollapse = () => {
     if (collapsible) setCollapsed((prev) => !prev);

@@ -23,6 +23,10 @@
  * 배치에서는 최초 수집이 헤딩 파싱 전에 일어난다 — 파싱 중이면 완료 후 한 번 더 줍는다.
  */
 import { adoptStyles } from "../../core/styles.js";
+import {
+  syncAriaIdRefs,
+  syncOwnedAttribute,
+} from "../../core/aria.js";
 import { jdUid } from "../../core/uid.js";
 import { on } from "../../behaviors/input.js";
 import { JdScrollSpy, type JdScrollSpySection } from "../scroll-spy/element.js";
@@ -147,10 +151,10 @@ export class JdTableOfContents extends JdScrollSpy {
     // 보이는 캡션이 랜드마크 이름 — label attribute를 명시했으면 그쪽이 이긴다
     if (this.heading && !this.hasAttribute("label")) {
       if (!el.id) el.id = jdUid("jd-toc-heading");
-      this.setAttribute("aria-labelledby", el.id);
-      this.removeAttribute("aria-label");
+      syncAriaIdRefs(this, "aria-labelledby", el.id);
+      syncOwnedAttribute(this, "aria-label", null);
     } else {
-      this.removeAttribute("aria-labelledby");
+      syncAriaIdRefs(this, "aria-labelledby", null);
     }
   }
 }

@@ -57,9 +57,11 @@ export function Stepper({ steps, current, direction = "horizontal", className }:
               <div
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 transition-all duration-300",
-                  status === "completed" && "bg-primary text-white",
-                  status === "current" && "bg-primary text-white ring-4 ring-primary-light",
-                  status === "upcoming" && "bg-gray-200 text-muted",
+                  status === "completed" &&
+                    "bg-primary text-white shadow-[0_1px_3px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.2)]",
+                  status === "current" &&
+                    "bg-primary text-white ring-4 ring-primary-light shadow-[0_1px_3px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.2)]",
+                  status === "upcoming" && "bg-gray-100 text-muted border border-border",
                 )}
               >
                 {step.icon ? (
@@ -77,7 +79,8 @@ export function Stepper({ steps, current, direction = "horizontal", className }:
                 <div
                   className={cn(
                     "transition-all duration-300",
-                    isVertical ? "w-px flex-1 min-h-[24px] mx-auto mt-1 mb-1" : "flex-1 h-px mx-2",
+                    "rounded-full",
+                    isVertical ? "w-0.5 flex-1 min-h-[24px] mx-auto mt-1 mb-1" : "flex-1 h-0.5 mx-2",
                     i < current ? "bg-primary" : "bg-gray-200",
                   )}
                 />
@@ -87,7 +90,8 @@ export function Stepper({ steps, current, direction = "horizontal", className }:
             <div className={cn(isVertical ? "pb-6 pt-0.5" : "mt-2 text-center")}>
               <div
                 className={cn(
-                  "text-sm font-medium",
+                  "text-sm transition-colors duration-300",
+                  status === "current" ? "font-semibold text-foreground" : "font-medium",
                   status === "upcoming" ? "text-muted" : "text-foreground",
                 )}
               >

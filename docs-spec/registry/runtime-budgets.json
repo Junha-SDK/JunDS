@@ -1,0 +1,9 @@
+{
+  "$comment": "Chromium headless 런타임 상한(ms). CI 하드웨어 편차를 고려한 실패선이며 실제 측정치는 coverage/runtime/runtime-summary.json에 기록한다.",
+  "registrationMs": 500,
+  "buttonRenderMs": 180,
+  "buttonUpdateMs": 140,
+  "virtualList5000Ms": 180,
+  "lifecycle5000Ms": 900,
+  "heapGrowthBytes": 6291456
+}

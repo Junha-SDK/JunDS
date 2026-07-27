@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-06T00:57:26.557Z",
-  "componentCount": 277,
+  "generatedAt": "2026-07-27T04:07:50.602Z",
+  "componentCount": 282,
   "graph": {
     "Announcer": {
       "kind": "primitive",
@@ -352,17 +352,6 @@
       ],
       "importedBy": []
     },
-    "Marquee": {
-      "kind": "composite",
-      "file": "ds/composites/Marquee/Marquee.tsx",
-      "imports": [
-        {
-          "kind": "util",
-          "name": "cn"
-        }
-      ],
-      "importedBy": []
-    },
     "MentionChip": {
       "kind": "primitive",
       "file": "ds/primitives/MentionChip/MentionChip.tsx",
@@ -663,6 +652,17 @@
     "Affix": {
       "kind": "composite",
       "file": "ds/composites/Affix/Affix.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "AlbumArt": {
+      "kind": "composite",
+      "file": "ds/composites/AlbumArt/AlbumArt.tsx",
       "imports": [
         {
           "kind": "util",
@@ -1364,6 +1364,17 @@
       ],
       "importedBy": []
     },
+    "DocPager": {
+      "kind": "composite",
+      "file": "ds/composites/DocPager/DocPager.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "Dock": {
       "kind": "composite",
       "file": "ds/composites/Dock/Dock.tsx",
@@ -1713,6 +1724,21 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "kinsoku"
+        }
+      ],
+      "importedBy": []
+    },
+    "Marquee": {
+      "kind": "composite",
+      "file": "ds/composites/Marquee/Marquee.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
         }
       ],
       "importedBy": []
@@ -1844,6 +1870,21 @@
       "kind": "composite",
       "file": "ds/composites/Notification/Notification.tsx",
       "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "NowPlayingBar": {
+      "kind": "composite",
+      "file": "ds/composites/NowPlayingBar/NowPlayingBar.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useAudioPlayer"
+        },
         {
           "kind": "util",
           "name": "cn"
@@ -2107,6 +2148,17 @@
       ],
       "importedBy": []
     },
+    "ProjectCard": {
+      "kind": "composite",
+      "file": "ds/composites/ProjectCard/ProjectCard.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "PullToRefresh": {
       "kind": "composite",
       "file": "ds/composites/PullToRefresh/PullToRefresh.tsx",
@@ -2274,6 +2326,17 @@
       ],
       "importedBy": []
     },
+    "ScreenshotGrid": {
+      "kind": "composite",
+      "file": "ds/composites/ScreenshotGrid/ScreenshotGrid.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
     "ScrollProgress": {
       "kind": "composite",
       "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
@@ -2366,6 +2429,17 @@
       "importedBy": [
         "FormBuilder"
       ]
+    },
+    "SeoHead": {
+      "kind": "composite",
+      "file": "ds/composites/SeoHead/SeoHead.tsx",
+      "imports": [
+        {
+          "kind": "hook",
+          "name": "useSeo"
+        }
+      ],
+      "importedBy": []
     },
     "Sheet": {
       "kind": "composite",
@@ -2750,8 +2824,8 @@
       "importedBy": []
     },
     "VideoPlayer": {
-      "kind": "pattern",
-      "file": "ds/patterns/VideoPlayer/VideoPlayer.tsx",
+      "kind": "composite",
+      "file": "ds/composites/VideoPlayer/VideoPlayer.tsx",
       "imports": [
         {
           "kind": "util",
@@ -2774,6 +2848,17 @@
     "Watermark": {
       "kind": "composite",
       "file": "ds/composites/Watermark/Watermark.tsx",
+      "imports": [
+        {
+          "kind": "util",
+          "name": "cn"
+        }
+      ],
+      "importedBy": []
+    },
+    "Waveform": {
+      "kind": "composite",
+      "file": "ds/composites/Waveform/Waveform.tsx",
       "imports": [
         {
           "kind": "util",

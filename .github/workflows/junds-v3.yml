@@ -1,7 +1,9 @@
-# CI v3 — JunDS v3 레인 (01-repo-structure §9의 11게이트)
+# CI v3 — JunDS v3 레인 (01-repo-structure §9의 12게이트)
 #
-# 게이트: tokens-fresh · tokens-test · web-build · web-test · web-a11y · size-budget ·
-#         react-build · finance-data-test · ios-build · ios-test(macos-14) · bench-smoke
+# 게이트: tokens-fresh · tokens-test · web-build · web-test(coverage) ·
+#         web-browser(Chromium/Firefox/WebKit) · web-a11y · size-budget ·
+#         react-build(React 18/19) · finance-data-test · ios-build ·
+#         ios-test(macos-14) · bench-smoke
 # install 잡은 캐시 워머(인프라)이며 게이트가 아니다.
 #
 # 스펙 이탈 주석:
@@ -9,10 +11,9 @@
 #    UIKit 타겟이라 host swift build 불가 (DEC-013-6이 정본).
 #  - bench-smoke는 05-perf §3.2에 따라 G2까지 advisory(continue-on-error) —
 #    G3 정식화 시 continue-on-error 제거 + 회귀 >10% 실패로 승격할 것.
-#  - react-build/finance-data-test는 대상 패키지가 자리표시자인 동안 --if-present
-#    무해 통과(DEC-011-5와 동형). 스크립트가 생기는 즉시 실게이트로 자동 전환된다.
-#  - web-test의 Playwright 스위트는 스펙 합류 시 자동 활성(현재 HEAD 스펙 0건) —
-#    1순위 packages/web/e2e/*.spec.ts(자체 config), 2순위 루트 e2e/v3-*.spec.ts.
+#  - finance-data-test는 대상 패키지가 자리표시자인 동안 --if-present로 무해 통과한다.
+#  - Web 실브라우저와 React peer 검증은 matrix로 분리해 한 환경의 실패가 다른 결과를
+#    가리지 않으며, coverage 보고서는 패키지별 artifact로 보존한다.
 #
 # 로컬 검증 기록(릴리스 준비 트랙): iOS 2게이트 제외 전 스텝 명령을 로컬 1회 실행으로
 # 성립 확인. iOS는 작업 머신 Xcode 서명 파손(DEC-015-2: libclang 코드서명 invalid →
@@ -83,7 +84,7 @@ jobs:
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
 
-  # ── 게이트 1/11: tokens-fresh — 재생성 후 산출물 3종 diff 0 (01 §9) ──
+  # ── 게이트 1/12: tokens-fresh — 재생성 후 산출물 3종 diff 0 (01 §9) ──
   tokens-fresh:
     needs: install
     runs-on: ubuntu-latest
@@ -104,7 +105,7 @@ jobs:
       - name: Regenerate tokens and verify outputs committed
         run: npm run tokens:fresh
 
-  # ── 게이트 2/11: tokens-test — 스냅샷 + v2 패리티 (02-tokens §6) ──
+  # ── 게이트 2/12: tokens-test — 스냅샷 + v2 패리티 (02-tokens §6) ──
   tokens-test:
     needs: install
     runs-on: ubuntu-latest
@@ -125,7 +126,7 @@ jobs:
       - name: Run token tests
         run: npm run tokens:test
 
-  # ── 게이트 3/11: web-build — typecheck + build.mjs 산출물 (01 §9) ──
+  # ── 게이트 3/12: web-build — typecheck + build.mjs 산출물 (01 §9) ──
   web-build:
     needs: install
     runs-on: ubuntu-latest
@@ -148,7 +149,7 @@ jobs:
       - name: Build @junds/web (esbuild 4산출물)
         run: npm run build -w @junds/web
 
-  # ── 게이트 4/11: web-test — vitest(happy-dom) + Playwright 스모크(스펙 합류 시) ──
+  # ── 게이트 4/12: web-test — vitest(happy-dom) + Web 전용 coverage 회귀선 ──
   web-test:
     needs: install
     runs-on: ubuntu-latest
@@ -166,25 +167,59 @@ jobs:
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
-      - name: Run @junds/web unit tests (vitest, happy-dom)
-        run: npm run test -w @junds/web
-      # Playwright 스위트 자동 활성 가드 — 1순위: packages/web/e2e/*.spec.ts (자체 config,
-      # 03-web-arch §9.1 의무 구간 — config는 HEAD에 존재하나 스펙 0건이면 "No tests found"로
-      # 오탐 실패하므로 스펙 존재를 키로 삼는다) · 2순위: 루트 e2e/v3-*.spec.ts (01 §9 표기).
-      - name: Playwright suite (스펙 합류 시 자동 활성)
-        run: |
-          if ls packages/web/e2e/*.spec.ts >/dev/null 2>&1; then
-            npm run build -w @junds/web
-            npx playwright install --with-deps chromium
-            npx playwright test -c packages/web/playwright.config.ts
-          elif ls e2e/v3-*.spec.ts >/dev/null 2>&1; then
-            npx playwright install --with-deps chromium
-            npx playwright test e2e/v3-*.spec.ts
-          else
-            echo "::notice title=web-test::Playwright 스펙 없음(packages/web/e2e/*.spec.ts · e2e/v3-*.spec.ts) — vitest만 실행. 스펙이 합류하면 이 스텝이 자동 활성된다."
-          fi
+      - name: Run @junds/web unit coverage gate
+        run: npm run coverage -w @junds/web
+      - name: Upload @junds/web coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junds-web-coverage
+          path: coverage/web
+          if-no-files-found: error
 
-  # ── 게이트 5/11: web-a11y — 데모 페이지에 axe-core 주입 감사, critical/serious 실패 ──
+  # happy-dom으로 대체할 수 없는 실제 엔진 차이를 세 브라우저에서 병렬 검증한다.
+  # 각 잡은 자기 브라우저만 설치하므로 한 잡의 설치/실패가 다른 결과를 가리지 않는다.
+  # ── 게이트 5/12: web-browser — Chromium/Firefox/WebKit 실엔진 매트릭스 ──
+  web-browser:
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    name: web-browser (${{ matrix.browser }})
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Restore node_modules
+        id: cache-deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - name: Install dependencies (cache miss fallback)
+        if: steps.cache-deps.outputs.cache-hit != 'true'
+        run: npm ci --ignore-scripts
+      - name: Install Playwright ${{ matrix.browser }}
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Build @junds/web
+        run: npm run build -w @junds/web
+      - name: Run browser suite on ${{ matrix.browser }}
+        run: npm run test:browser -w @junds/web -- --project=${{ matrix.browser }}
+      - name: Upload browser failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junds-web-${{ matrix.browser }}-failure
+          path: |
+            packages/web/test-results
+            packages/web/playwright-report
+          if-no-files-found: ignore
+
+  # ── 게이트 6/12: web-a11y — 실제 fixture 범위 + axe 정책/coverage 검증 ──
   web-a11y:
     needs: install
     runs-on: ubuntu-latest
@@ -212,9 +247,16 @@ jobs:
       - name: Build @junds/web (데모는 dist 산출물만 로드)
         run: npm run build -w @junds/web
       - name: Run axe-core audit on demo pages
-        run: node .github/scripts/web-a11y-audit.mjs
+        run: npm run audit:a11y -w @junds/web
+      - name: Upload accessibility report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junds-web-a11y
+          path: coverage/web-a11y/a11y-summary.json
+          if-no-files-found: error
 
-  # ── 게이트 6/11: size-budget — W1/W2 gzip 예산 + 기준선 +3% (05-perf §3.1) ──
+  # ── 게이트 7/12: size-budget — W1/W2 gzip 예산 + 기준선 +3% (05-perf §3.1) ──
   size-budget:
     needs: install
     runs-on: ubuntu-latest
@@ -235,10 +277,16 @@ jobs:
       - name: Enforce size budgets (benchmarks/size-gate.mjs)
         run: npm run size:web
 
-  # ── 게이트 7/11: react-build — 자리표시자 동안 --if-present 무해 통과(DEC-011-5와 동형) ──
+  # ── 게이트 8/12: react-build — React >=18 약속을 18/19 양쪽에서 실측 ──
   react-build:
     needs: install
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        react: [18, 19]
+    name: react-build (React ${{ matrix.react }})
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -253,19 +301,28 @@ jobs:
       - name: Install dependencies (cache miss fallback)
         if: steps.cache-deps.outputs.cache-hit != 'true'
         run: npm ci --ignore-scripts
-      # 어댑터는 워크스페이스 의존 @junds/web의 dist(+types)를 전제로 typecheck된다 —
-      # 웹 선빌드 없이는 TS2307 (run 30021929365 실측).
+      - name: Select React ${{ matrix.react }} peer
+        run: |
+          npm install --no-save --package-lock=false --ignore-scripts --legacy-peer-deps \
+            react@${{ matrix.react }} react-dom@${{ matrix.react }} \
+            @types/react@${{ matrix.react }} @types/react-dom@${{ matrix.react }}
+          node -e "for (const p of ['react','react-dom']) { const v=require(p+'/package.json').version; if (!v.startsWith('${{ matrix.react }}.')) throw new Error(p+' resolved to '+v); console.log(p, v) }"
+      # 어댑터 typecheck는 @junds/web dist/types를 참조한다.
       - name: Build @junds/web (어댑터 typecheck 전제)
         run: npm run build -w @junds/web
       - name: Build + typecheck @junds/react
-        run: |
-          if ! node -e "const s=require('./packages/react/package.json').scripts||{};process.exit(s.build?0:1)"; then
-            echo "::notice title=react-build::@junds/react는 자리표시자(G2에서 rollup 빌드+typecheck 구현) — 스크립트 부재로 무해 통과. 스크립트가 생기면 실게이트로 자동 전환."
-          fi
-          npm run build -w @junds/react --if-present
-          npm run typecheck -w @junds/react --if-present
+        run: npm run build -w @junds/react && npm run typecheck -w @junds/react
+      - name: Run @junds/react coverage gate
+        run: npm run coverage -w @junds/react
+      - name: Upload React ${{ matrix.react }} coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junds-react-${{ matrix.react }}-coverage
+          path: coverage/react
+          if-no-files-found: error
 
-  # ── 게이트 8/11: finance-data-test — 모킹 기반 vitest, 실 API 호출 금지 (01 §9) ──
+  # ── 게이트 9/12: finance-data-test — 모킹 기반 vitest, 실 API 호출 금지 (01 §9) ──
   finance-data-test:
     needs: install
     runs-on: ubuntu-latest
@@ -290,7 +347,7 @@ jobs:
           fi
           npm run test -w @junds/finance-data --if-present
 
-  # ── 게이트 9/11: ios-build — macos-14, xcodebuild 경유 (DEC-013-6) ──
+  # ── 게이트 10/12: ios-build — macos-14, xcodebuild 경유 (DEC-013-6) ──
   # 로컬 검증 불가(작업 머신 Xcode 서명 파손) — CI 첫 실행 확인 항목.
   # 실패 시 1순위 확인: 스킴 이름. 진단 스텝의 `xcodebuild -list` 출력에서 실제 스킴을
   # 확인하고, `JunDS`가 아니라 `JunDS-Package`라면 루트 package.json의 ios:* 스크립트를 교정.
@@ -306,7 +363,7 @@ jobs:
       - name: Build JunDS (SPM via xcodebuild)
         run: npm run ios:build
 
-  # ── 게이트 10/11: ios-test — macos-14 시뮬레이터 (Core 로직 + 토큰 패리티 XCTest) ──
+  # ── 게이트 11/12: ios-test — macos-14 시뮬레이터 (Core 로직 + 토큰 패리티 XCTest) ──
   # macos-14 기본 Xcode 15.x의 iOS 17 런타임에 iPhone 15 시뮬레이터가 포함된다 —
   # ios:test의 'iPhone 15' destination은 macos-14에선 성립 예상. 단 DEC-015-4b가 실측했듯
   # 최신 로컬 런타임(iPhone 17 세대)에는 없는 이름이므로, 러너 이미지/Xcode 승급 시
@@ -321,7 +378,7 @@ jobs:
       - name: Test JunDS (simulator)
         run: npm run ios:test
 
-  # ── 게이트 11/11: bench-smoke — G2까지 advisory (05-perf §3.2), G3부터 실게이트 승격 ──
+  # ── 게이트 12/12: bench-smoke — G2까지 advisory (05-perf §3.2), G3부터 실게이트 승격 ──
   bench-smoke:
     needs: install
     runs-on: ubuntu-latest

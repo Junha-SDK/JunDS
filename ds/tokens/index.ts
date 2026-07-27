@@ -1,5 +1,9 @@
 export { colors, priorityColors, statusColors } from "./colors";
 export { fontSize, fontWeight, lineHeight, letterSpacing } from "./typography";
+export { fontFamily } from "./fontFamily";
+export type { FontFamily } from "./fontFamily";
+export { categoryColors, getCategoryColor, categoryColorVars } from "./categoryColors";
+export type { CategoryName, CategoryColorSet } from "./categoryColors";
 export { spacing } from "./spacing";
 export { shadows } from "./shadows";
 export { radius } from "./radius";
