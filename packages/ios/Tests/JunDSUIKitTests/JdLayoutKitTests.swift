@@ -323,4 +323,83 @@ final class JdLayoutKitTests: XCTestCase {
         XCTAssertEqual(table.rows[0][1].frame.minX - table.rows[0][0].frame.maxX,
                        JdGap.md.value, accuracy: 0.001)
     }
+
+    // MARK: - 측정 회귀 (DEC-044)
+    //
+    // 위 Box 픽스처는 sizeThatFits를 **재정의**한다. 그래서 첫 경로에서 답이 나와 나머지
+    // 경로를 밟지 않았고, 실제 결함(내부 제약으로 크기가 정해지는 뷰가 0높이로 접힘)을
+    // 통과시켰다 — 시뮬레이터에서 KPI 행이 테두리 선만 남은 빈 줄로 렌더됐다.
+    // 여기서는 **재정의하지 않은** 진짜 Auto Layout 뷰로 본다.
+
+    /// 내부 스택을 네 변에 핀 컨테이너 — JdMicroKpiCellView와 같은 구조.
+    /// sizeThatFits도 intrinsicContentSize도 재정의하지 않는다(그게 요점이다).
+    private final class AutoLayoutCard: UIView {
+        init(text: String) {
+            super.init(frame: .zero)
+            let label = UILabel()
+            label.text = text
+            label.numberOfLines = 1
+            label.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(label)
+            NSLayoutConstraint.activate([
+                label.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+                label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+                label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+                label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -12),
+            ])
+        }
+        required init?(coder: NSCoder) { fatalError() }
+    }
+
+    // 이 단언이 DEC-044 이전 코드에서 실패한다 — sizeThatFits가 .zero를 주기 때문이다
+    func test_measure_reads_internal_constraints_not_just_sizeThatFits() {
+        let card = AutoLayoutCard(text: "USD/KRW")
+        XCTAssertEqual(card.sizeThatFits(CGSize(width: 132, height: 999)), .zero,
+                       "전제 확인: 기본 sizeThatFits는 bounds(=0)를 돌려준다")
+        XCTAssertEqual(card.intrinsicContentSize.height, UIView.noIntrinsicMetric,
+                       "전제 확인: 컨테이너는 고유 높이가 없다")
+
+        let measured = JdMeasure.size(of: card, width: 132)
+        XCTAssertGreaterThan(measured.height, 20,
+                             "내부 제약(위아래 10 + 라벨 높이)을 읽지 못했다 — 셀이 0높이로 접힌다")
+        XCTAssertLessThanOrEqual(measured.width, 132)
+    }
+
+    // 자체 배치 뷰(제약 없음)는 두 번째 경로로 내려가야 한다 — 순서가 뒤바뀌면 여기서 깨진다
+    func test_measure_falls_through_to_sizeThatFits_for_self_laying_views() {
+        let inner = JdWrapView(itemSpacing: 8, [Box(40, 20), Box(40, 20)])
+        let measured = JdMeasure.size(of: inner, width: 200)
+        XCTAssertEqual(measured.height, 20, accuracy: 0.001,
+                       "자체 배치 뷰의 sizeThatFits를 쓰지 못했다")
+    }
+
+    func test_measure_uses_intrinsic_for_content_leaves() {
+        let label = UILabel()
+        label.text = "71,200"
+        let measured = JdMeasure.size(of: label, width: CGFloat.greatestFiniteMagnitude)
+        XCTAssertGreaterThan(measured.width, 0)
+        XCTAssertGreaterThan(measured.height, 0)
+    }
+
+    // 랩·열 뷰가 Auto Layout 카드를 실제로 배치한다 — 결함의 최종 재현 지점
+    func test_wrap_places_auto_layout_cards_with_real_height() {
+        let wrap = JdWrapView(itemSpacing: 8, equalWidths: true, minItemWidth: 132,
+                              [AutoLayoutCard(text: "USD/KRW"), AutoLayoutCard(text: "외국인")])
+        laidOut(wrap, width: 360)
+        for card in wrap.arrangedViews {
+            XCTAssertGreaterThan(card.frame.height, 20, "카드가 0높이로 접혔다")
+            XCTAssertGreaterThan(card.frame.width, 0)
+        }
+        XCTAssertGreaterThan(wrap.sizeThatFits(CGSize(width: 360, height: CGFloat.greatestFiniteMagnitude)).height, 20)
+    }
+
+    func test_columns_places_auto_layout_cards_with_real_height() {
+        let table = JdColumnsView(columns: [.fit(), .flex()], gap: .sm) {
+            [AutoLayoutCard(text: "삼성전자"), AutoLayoutCard(text: "71,200")]
+        }
+        laidOut(table, width: 320)
+        for cell in table.rows[0] {
+            XCTAssertGreaterThan(cell.frame.height, 20, "셀이 0높이로 접혔다")
+        }
+    }
 }

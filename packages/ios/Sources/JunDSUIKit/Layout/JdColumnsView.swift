@@ -245,15 +245,10 @@ public final class JdColumnsView: UIView {
         return widths
     }
 
-    /// 셀 측정 — sizeThatFits가 0을 주는 뷰(순수 컨테이너 등)는 intrinsic으로 보정한다
+    /// 셀 측정 — 규칙은 JdMeasure 한 곳에 있다 (DEC-044).
+    /// 여기서 직접 sizeThatFits만 묻던 옛 코드는 내부 제약으로 크기가 정해지는 셀에 0을
+    /// 받아 행 높이를 0으로 접었다.
     private func measure(_ view: UIView, width: CGFloat) -> CGSize {
-        var size = view.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
-        if size.height <= 0 || size.width <= 0 {
-            let intrinsic = view.intrinsicContentSize
-            if size.width <= 0 { size.width = max(0, intrinsic.width) }
-            if size.height <= 0 { size.height = max(0, intrinsic.height) }
-        }
-        if width.isFinite { size.width = min(size.width, width) }
-        return size
+        JdMeasure.size(of: view, width: width)
     }
 }

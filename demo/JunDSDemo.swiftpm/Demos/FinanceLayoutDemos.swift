@@ -71,16 +71,72 @@ private struct StackedCellStage: View {
     }
 }
 
+// UIKit 스테이지는 이 셀의 **실제 서식지**를 보여준다: 열 정렬 표.
+// JdColumnsView가 전 행의 열 폭을 공유하므로 종목명 길이가 달라도 가격 열이 어긋나지 않는다.
 private struct StackedCellStageUIKit: View {
     @ObservedObject var state: DemoState
+
+    private static let quotes: [(String, Double, Double, Double, Double, Double)] = [
+        ("삼성전자",            71_200,  1.24, 0.31, 0.86, 0.62),
+        ("에이치엘비생명과학",     8_240, -2.15, 0.12, 0.74, 0.20),
+        ("SK",                168_500,  0.00, 0.44, 0.91, 0.55),
+    ]
+
     var body: some View {
-        UIKitBox {
-            JdLiveStackedCellView(price: doubleValue(state, "price", 0),
-                                  change: doubleValue(state, "change", 0),
-                                  priceFallback: doubleValue(state, "priceFallback", 0),
-                                  pctFallback: doubleValue(state, "pctFallback", 0))
+        let table = Self.makeTable(first: (price: doubleValue(state, "price", 0),
+                                          change: doubleValue(state, "change", 0),
+                                          priceFallback: doubleValue(state, "priceFallback", 0),
+                                          pctFallback: doubleValue(state, "pctFallback", 0)))
+        let width: CGFloat = 340
+        let height = table.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
+        return VStack(spacing: JdToken.Space.s2) {
+            UIKitBox { Self.makeTable(first: (price: doubleValue(state, "price", 0),
+                                             change: doubleValue(state, "change", 0),
+                                             priceFallback: doubleValue(state, "priceFallback", 0),
+                                             pctFallback: doubleValue(state, "pctFallback", 0))) }
+                .frame(width: width, height: max(height, 1))
+            Text("JdColumnsView가 전 행의 열 폭을 공유한다 — 종목명 길이가 달라도\n가격 열 끝이 맞는다(가격 열 align: .end)")
+                .font(.caption2)
+                .foregroundColor(JdToken.Color.muted.color)
+                .multilineTextAlignment(.center)
         }
-        .fixedSize()
+    }
+
+    @MainActor
+    private static func makeTable(
+        first: (price: Double, change: Double, priceFallback: Double, pctFallback: Double)
+    ) -> JdColumnsView {
+        JdColumnsView(
+            columns: [
+                .fit(max: 150, align: .start),   // 종목명 — 전 행 중 가장 긴 이름에 맞춘다
+                .flex(weight: 1),                // 위치 막대 — 남는 폭
+                .fixed(96, align: .end),         // 가격·등락 — 숫자는 끝을 맞춘다
+            ],
+            gap: .sm,
+            rowGap: .sm
+        ) {
+            // 첫 행은 컨트롤 값을 그대로 받는다(컨트롤을 만지면 이 행만 바뀐다)
+            [nameLabel(quotes[0].0),
+             JdPositionBarView(low: quotes[0].3, high: quotes[0].4, cur: quotes[0].5),
+             JdLiveStackedCellView(price: first.price, change: first.change,
+                                   priceFallback: first.priceFallback, pctFallback: first.pctFallback)]
+            for q in quotes.dropFirst() {
+                [nameLabel(q.0),
+                 JdPositionBarView(low: q.3, high: q.4, cur: q.5, tone: q.2 < 0 ? .down : .up),
+                 JdLiveStackedCellView(price: q.1, change: q.2)]
+            }
+        }
+    }
+
+    @MainActor
+    private static func nameLabel(_ text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.font = JdFontBridge.scaledFont(size: 13, weight: JdToken.FontWeight.semibold)
+        label.textColor = JdToken.Color.foreground.uiColor
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 1
+        return label
     }
 }
 

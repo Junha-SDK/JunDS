@@ -14,7 +14,8 @@ import JunDSCore
 /// - 좌→우로 흘리고 폭이 모자라면 다음 행. 행 안에서는 세로 중앙 정렬(웹 `align-items: center`).
 /// - `itemSpacing`은 행 안 간격, `lineSpacing`은 행 사이 간격. 웹의 단일 `gap`을 쓰려면
 ///   `lineSpacing`을 생략한다(itemSpacing과 같아진다).
-/// - 자식은 `intrinsicContentSize`(또는 `sizeThatFits`)로 자기 크기를 말해야 한다. 폭이
+/// - 자식 크기는 `JdMeasure`가 묻는다(내부 제약 → sizeThatFits → intrinsic 순). 그래서
+///   Auto Layout로 짜인 카드도, 스스로 배치하는 뷰도, 라벨도 전부 측정된다. 폭이
 ///   컨테이너보다 넓은 자식은 한 행을 혼자 쓰고 컨테이너 폭으로 줄어든다.
 /// - `equalWidths`를 켜면 한 행의 아이템이 같은 폭을 나눠 갖는다(KPI 셀처럼 격자로 보여야
 ///   할 때). 끄면 각자 고유 폭을 쓴다(칩·태그처럼).
@@ -135,9 +136,9 @@ public final class JdWrapView: UIView {
             var used: CGFloat = 0
             while index < items.count {
                 let view = items[index]
-                var size = view.sizeThatFits(CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
-                if size.width <= 0 || size.height <= 0 { size = view.intrinsicContentSize }
-                size.width = min(size.width, maxWidth) // 컨테이너보다 넓으면 줄인다
+                // 측정은 JdMeasure 단일 규칙 — sizeThatFits만 묻던 옛 코드는 내부 제약으로
+                // 크기가 정해지는 뷰에 0을 받아 아이템이 사라졌다 (DEC-044)
+                let size = JdMeasure.size(of: view, width: maxWidth)
                 let needed = line.isEmpty ? size.width : used + itemSpacing + size.width
                 if !line.isEmpty && needed > maxWidth { break }
                 line.append((view, size))
@@ -162,9 +163,8 @@ public final class JdWrapView: UIView {
         while index < items.count {
             let slice = Array(items[index..<min(index + perLine, items.count)])
             let sized = slice.map { view -> (view: UIView, size: CGSize) in
-                var size = view.sizeThatFits(CGSize(width: itemWidth, height: .greatestFiniteMagnitude))
-                if size.height <= 0 { size.height = view.intrinsicContentSize.height }
-                // 격자는 폭을 강제한다 — 그래서 열이 맞는다
+                // 격자는 폭을 강제한다 — 그래서 열이 맞는다. 높이는 그 폭에서 측정한다.
+                let size = JdMeasure.size(of: view, width: itemWidth)
                 return (view, CGSize(width: itemWidth, height: size.height))
             }
             // 한 행의 셀 높이를 가장 큰 것으로 맞춘다(격자가 들쭉날쭉해지지 않게)
