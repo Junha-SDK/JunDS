@@ -20,6 +20,7 @@ import JunDS   // 이 한 줄로 JunDSCore + JunDSUIKit + JunDSSwiftUI 전부
 | [USAGE/03-display.md](USAGE/03-display.md) | Badge · Tag · Avatar · Spinner · StatusDot · SeverityBadge · BatteryIndicator · Kbd · KeyCap |
 | [USAGE/04-text-actions.md](USAGE/04-text-actions.md) | Button · Code · Mark · Highlight · Link · MentionChip · Hashtag · Bookmark/Like/Follow/Star/Copy/BackTop/FileUpload |
 | [USAGE/05-overlays-feedback.md](USAGE/05-overlays-feedback.md) | Modal · Drawer · BottomSheet · ActionSheet · AlertDialog · Alert · Banner · Callout · Notification · EmptyState · Result · Toast · Snackbar |
+| [USAGE/06-finance.md](USAGE/06-finance.md) | LivePctText · LivePctBadge · LivePriceText · LiveStatusDot · PriceBadge · HotPctChip (+ 추세 판정 2규칙 · `JdFinanceTheme` 색 override) |
 | [RECIPES.md](RECIPES.md) | 레시피(레이아웃 컨테이너·아이콘·이미지) + Behaviors(hooks → iOS) |
 
 ## 공통 규약

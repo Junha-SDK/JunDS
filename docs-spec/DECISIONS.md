@@ -4,6 +4,81 @@
 
 ---
 
+## 2026-07-27 — iOS finance 착수: 공통 어휘 + 리프 6종 (원장 iOS 135/445 · finance 6/86)
+
+### DEC-040. 86종을 나열하기 전에 어휘를 먼저 세운다
+사람 지시: "iOS 컴포넌트 추가 — 없는 것, 특히 finance 기준으로 먼저." finance는 원장
+86행 전부 `ios: todo`(웹은 86/86 done)였다.
+
+#### 1. 왜 어휘부터인가 — 실측 근거
+웹 finance CSS를 세어 보니 **33개 파일이 `--jd-fin-*` 팔레트를 각자 재선언**하고 있다
+(`--jd-fin-up: var(--bm-up, var(--jd-color-success))` …). 단일 소스가 없고, 추세 판정
+규칙도 컴포넌트마다 손으로 다시 쓰여 있다. 그 상태를 iOS로 그대로 옮기면 86종이 같은
+판정을 86번 구현한다. 그래서 Core가 세 가지를 소유하고 렌더는 결과만 그린다(04 §4.2):
+- `JdTrend` · `JdTrendPolicy` — 추세 판정
+- `JdFinanceTheme` — 도메인 색 단일 소스 + 앱 override
+- `JdFinanceFormat` — 부호·소수·퍼센트·가격 포맷(로케일 고정 계약은 JdNumberFormat 상속)
+- `JdFinanceSpecMix` — 웹 `color-mix(in srgb, …)`의 Swift 대응(그라디언트·워시)
+
+#### 2. 판정 규칙이 **두 개**라는 사실을 타입으로 올렸다
+웹에 실제로 두 규칙이 공존한다. 하나로 합치면 표면이 달라지므로 정책을 열거형으로 만들었다.
+- `.live`(웹 jd-live-pct-badge): `up(> 0)`이 flat보다 **우선**. `+0.003`은 상승이고 flat은
+  `[-0.005, 0]` 구간뿐이다 — 실시간 틱이 잘게 흔들릴 때 "거의 0"을 회색으로 눌러 준다.
+- `.exact`(웹 jd-price-badge): flat은 **정확히 0**. 확정된 등락률엔 임계값을 두지 않는다.
+
+같은 `-0.003`이 live에선 보합, exact에선 하락이다. 테스트가 이 **불일치 자체를 단언**한다 —
+두 규칙이 하나로 합쳐지면 즉시 실패한다.
+
+#### 3. 색 기본값은 웹을 따르고, 관례 전환은 앱에 남겼다
+상승=success(초록)·하락=danger(빨강)이 기본이다. 한국 시장 관례(적상승·청하락)를 기본으로
+삼지 **않은** 이유: 웹 v2/v3가 이미 초록 상승으로 출고돼 있어 3플랫폼 표면이 갈라진다.
+대신 `JdFinanceTheme.up/down/flat/live`를 앱이 시작 시 1회 덮어쓸 수 있게 했고, override가
+스펙까지 실제로 흐르는지 테스트가 검증한다(죽은 노브 차단).
+
+#### 4. 리프 6종 완성 — 3플랫폼 표면 동형
+LivePctText(골격 정본·색 없음) · LivePctBadge(골격 재사용 + 색, live 판정) ·
+LivePriceText(폴백·em dash) · LiveStatusDot(확장-소멸 링) · PriceBadge(화살표, exact 판정) ·
+HotPctChip(늘 상승 표기 알약). 각 SwiftUI + UIKit 양 계층.
+
+계층 간 파생 관계를 각 언어의 관용구로 옮겼다: 웹이 `class extends`로 한 것을 UIKit은
+**상속**(JdLivePctBadgeView: JdLivePctTextView), SwiftUI는 struct에 상속이 없어 **합성**으로.
+어느 쪽이든 포맷은 Core 한 곳에만 있다.
+
+#### 5. 웹 대비 보정 3건 (전부 접근성 — 웹엔 없다)
+1. 추세 배지가 "상승/하락/보합"을 말한다 — 색이 유일한 신호이면 색각 이상 사용자에게 정보가
+   사라진다.
+2. em dash 가격을 "가격 정보 없음"으로 낭독한다 — VoiceOver는 "대시"라고 읽는다.
+3. HotPctChip의 `↑`를 "급등"으로 낭독한다 — 화살표 문자는 안 읽히거나 "위쪽 화살표"가 된다.
+
+#### 6. 신설 인프라
+- `JdFontBridge.scaledDigitFont` — 웹 `font-variant-numeric: tabular-nums`의 정확한 대응.
+  기존 `scaledMonoFont`는 글자까지 등폭이라 한글 라벨이 타자기처럼 보인다. finance 86종이
+  전부 숫자를 그리므로 브리지에 둔다.
+- `USAGE/06-finance.md` 신설 — 어휘(판정 2규칙·색 override·tabular 계약)를 문서 앞머리에
+  두어 나머지 80종이 참조할 지점을 만들었다.
+
+#### 7. 게이트
+iOS 빌드 성공 · XCTest **668/668**(Core 277 + SwiftUI 106 + UIKit 285, 신규 47) ·
+쇼룸 재빌드 + 시뮬레이터 실기동(카탈로그 iOS 129 → 135). 쇼룸 데모는 `byId` 조회라 id가
+원장과 어긋나면 **조용히 안 보이므로**, 6종의 (데모 정의 · 원장 행 · 레지스트리 등록 ·
+ios=done) 4중 일치와 전 데모 98종의 원장 id 존재를 스크립트로 검증했다(고아 0건).
+⚠️ 카탈로그가 445행 깊이이고 쇼룸에 딥링크가 없어 finance 상세 화면은 **눈으로 확인하지
+않았다** — 배선은 정적 검증, 렌더는 호스팅 테스트(SwiftUI sizeThatFits · UIKit 프로퍼티
+반영)로 대신했다.
+
+#### 8. 남은 finance 80종 — 다음 배치 순서
+1. **표시 전용 소형**(LiveStackedCell · PositionBar · MarketHeaderBadge ·
+   DisclosureToneBadge · LivePrice · AppIcon · Logo) — 이번 어휘로 바로 만들어진다.
+2. **미니 그래픽**(Sparkline · MiniCandle) — Core 지오메트리 + Canvas/CALayer 분할(04 §4.2).
+3. **차트 8종**(Area · Candle · Donut · MultiLine · QuarterBar · RealCandle · MarketIndex ·
+   InvestorFlow) — Swift Charts 위 토큰 테마, 캔들은 표현력 밖이라 자체 렌더(04 표 참조).
+4. **셸·내비**(PageShell · TopBar · Sidebar · BottomNav · AppHeader) — 시스템 위임 판단 필요.
+5. **큰 조합체**(LiveStockTable · MarketHeatmap · PortfolioCouncil · TradeJournal …) —
+   `JdTickStore`(04 §4 패턴 · 00-inventory 리스크 #4) 분리가 선행 조건.
+- 결정자: 사람 지시에 따른 배치 착수, 어휘 설계 근거 기록 후 기본값 채택 (2026-07-27).
+
+---
+
 ## 2026-07-27 — 시각 품질: **v2 패리티 → v3 고유 시각 언어로 승격** (파운데이션 + 컨트롤 1차)
 
 ### DEC-039. "v2와 똑같이"가 목표선을 낮추고 있었다

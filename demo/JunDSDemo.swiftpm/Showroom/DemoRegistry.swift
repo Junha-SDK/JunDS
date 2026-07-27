@@ -109,6 +109,14 @@ enum DemoRegistry {
         ResultDemo.demo,
         DsToastProviderDemo.demo, // Toast 센터
         SnackbarDemo.demo,
+        // finance leaf 6종 (DEC-040) — 가격·등락 어휘의 기반.
+        // 판정 규칙 두 개가 다르다: LivePctBadge=live(|v|<0.005 보합) / PriceBadge=exact(0만 보합)
+        LivePctTextDemo.demo,
+        LivePctBadgeDemo.demo,
+        LivePriceTextDemo.demo,
+        LiveStatusDotDemo.demo,
+        PriceBadgeDemo.demo,
+        HotPctChipDemo.demo,
         // hooks Core 유틸 데모 5종
         DebounceDemo.demo,        // useDebounce
         CountUpDemo.demo,         // useCountUp

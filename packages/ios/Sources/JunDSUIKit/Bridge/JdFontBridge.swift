@@ -35,6 +35,19 @@ public enum JdFontBridge {
         return UIFontMetrics(forTextStyle: textStyle(forSize: size))
             .scaledFont(for: base, compatibleWith: traits)
     }
+
+    /// **숫자만** 등폭인 변형 — 웹 `font-variant-numeric: tabular-nums`의 정확한 대응 (DEC-040).
+    ///
+    /// scaledMonoFont와 다르다: mono는 글자까지 전부 등폭이라 한글·라벨이 타자기처럼 보인다.
+    /// 시세·등락률은 값이 갱신될 때 자리수가 바뀌어도 **폭이 흔들리지 않는 것**만 필요하므로
+    /// 숫자 폭만 고정한다(SwiftUI 쪽 대응은 `.monospacedDigit()`).
+    /// finance 86종이 전부 숫자를 그리므로 브리지에 둔다.
+    public static func scaledDigitFont(size: CGFloat, weight: CGFloat,
+                                       compatibleWith traits: UITraitCollection? = nil) -> UIFont {
+        let base = UIFont.monospacedDigitSystemFont(ofSize: size, weight: uiWeight(weight))
+        return UIFontMetrics(forTextStyle: textStyle(forSize: size))
+            .scaledFont(for: base, compatibleWith: traits)
+    }
 }
 
 // JdMotion(Core) 부트스트랩 — 앱 시작 시 1회 호출 (04 §7.3)

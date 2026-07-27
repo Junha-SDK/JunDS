@@ -4308,11 +4308,11 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "todo",
-      "notes": "<jd-live-pct-badge> — v2 finance/LivePctBadge 바닐라 이식"
+      "notes": "<jd-live-pct-badge> — v2 finance/LivePctBadge 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdLivePctBadge·JdLivePctBadgeView — 골격 재사용 + 추세 색, live 판정(up>0 우선·flat은 [-0.005,0]) — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
     },
     {
       "id": "LivePrice",
@@ -4330,33 +4330,33 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "todo",
-      "notes": "<jd-live-status-dot> — v2 finance/LiveStatusDot 바닐라 이식"
+      "notes": "<jd-live-status-dot> — v2 finance/LiveStatusDot 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdLiveStatusDot·JdLiveStatusDotView — 확장-소멸 링(CAAnimation/SwiftUI), Reduce Motion 정지, 세션 판정은 앱 주입 — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
     },
     {
       "id": "LivePriceText",
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "todo",
-      "notes": "<jd-live-price-text> — v2 finance/LivePriceText 바닐라 이식"
+      "notes": "<jd-live-price-text> — v2 finance/LivePriceText 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdLivePriceText·JdLivePriceTextView — price>0 아니면 fallback, 둘 다 없으면 em dash(+ VoiceOver \"가격 정보 없음\") — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
     },
     {
       "id": "LivePctText",
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "todo",
-      "notes": "<jd-live-pct-text> — v2 finance/LivePctText 바닐라 이식"
+      "notes": "<jd-live-pct-text> — v2 finance/LivePctText 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdLivePctText·JdLivePctTextView — 등락률 포맷 골격 정본, 색 없음(파생 몫) — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
     },
     {
       "id": "LiveStackedCell",
@@ -4682,22 +4682,22 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "<jd-hot-pct-chip> — v2 finance/HotPctChip 바닐라 이식"
+      "notes": "<jd-hot-pct-chip> — v2 finance/HotPctChip 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdHotPctChip·JdHotPctChipView — 늘 상승 표기, 세로 그라디언트, 알약 반경=높이/2 — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
     },
     {
       "id": "PriceBadge",
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "<jd-price-badge> — v2 finance/PriceBadge 바닐라 이식"
+      "notes": "<jd-price-badge> — v2 finance/PriceBadge 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdPriceBadge·JdPriceBadgeView — exact 판정(0만 보합), 화살표는 SF Symbols(웹 lucide 대응), flat엔 없음 — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
     },
     {
       "id": "QuarterBarChart",
