@@ -1,7 +1,10 @@
 # JunDS iOS — 사용법 06 · finance 리프 (가격·등락 어휘)
 
-시세를 **읽는** 최소 단위 6종 + 그것들을 화면에 **놓는** 조립 3종. 웹 finance 86종 중 대부분이 이 리프들을 조립해 만들어지므로,
-이 문서의 어휘(추세 판정·도메인 색·숫자 포맷)를 먼저 이해하면 나머지가 따라온다.
+구현된 finance 13종. 성격이 넷으로 갈린다 — 시세를 **읽는** 리프 7종, 그것들을 화면에
+**놓는** 조립 3종, **분류**를 보여주는 칩·톤 2종, 값의 흐름을 그리는 **그래픽** 1종.
+
+웹 finance 86종 중 대부분이 이들을 조립해 만들어지므로, 아래 「공통 규칙」의 어휘
+(추세 판정 3규칙 · 도메인 색 · 숫자 포맷 · 차트 좌표)를 먼저 이해하면 나머지가 따라온다.
 
 | # | SwiftUI | UIKit | 웹 | 한 줄 |
 |---|---|---|---|---|
@@ -16,6 +19,8 @@
 | 9 | `JdMicroKpiRow` | `JdMicroKpiRowView` | `jd-live-micro-kpi-row` | KPI 셀 N칸 (배치 자체 소유) |
 | 10 | `JdDisclosureToneBadge` | `JdDisclosureToneBadgeView` | `jd-disclosure-tone-badge` | 공시 톤 라벨 (호재·악재·중립) |
 | 11 | `JdThemeTagList` | `JdThemeTagListView` | `jd-theme-tag-list` | 테마 해시태그 칩 줄 |
+| 12 | `JdLivePrice` | `JdLivePriceView` | `jd-live-price` | 현재가 + 값 변화 플래시 |
+| 13 | `JdSparkline` | `JdSparklineView` | `jd-sparkline` | 추세 스파크라인 |
 
 ## 공통 규칙
 
@@ -73,6 +78,29 @@ JdFinanceTheme.down = JdDynamicColor(light: 0x2563EBFF, dark: 0x60A5FAFF)
 포맷은 **로케일이 고정**이다(`JdFinanceFormat` → `JdNumberFormat`). Core는 `Locale.current`를
 읽지 않으며, 기기 지역 설정이 결과에 새면 스냅샷·테스트·디자인 대조가 흔들린다. 지역이 필요하면
 `locale:` 인자로 명시한다.
+
+### 차트 좌표는 Core가 만든다
+
+그래픽 계열(지금은 Sparkline, 앞으로 차트 8종)은 **그리기 전에 좌표를 Core에 묻는다**
+(`JdChartGeometry`). SwiftUI `Canvas`와 UIKit `draw(_:)`가 같은 산수를 각자 구현하면 두
+계층의 그림이 서로 어긋나기 때문이다.
+
+```swift
+let points = JdChartGeometry.points(values, in: size, inset: spec.inset)
+let area   = JdChartGeometry.areaPath(points, in: size)   // 바닥까지 닫은 채움 경로
+let trend  = JdChartGeometry.direction(values)            // 첫 값 대비 마지막 값
+```
+
+세 가지 안전 규칙이 여기 들어 있다 — 컴포넌트가 다시 구현하지 않는다:
+
+| 규칙 | 없으면 |
+|---|---|
+| 평평한 데이터(min == max)는 0으로 나누지 않고 눕힌다 | 좌표가 전부 NaN |
+| 비수치(NaN·무한)는 **대입 시점에** 거른다(`sanitize`) | 좌표 하나가 NaN이면 선 전체가 **에러 없이** 사라진다 |
+| 획 두께만큼 위아래를 비운다(`inset`) | 굵은 선이 상자 경계에서 잘린다 |
+
+⚠️ `sanitize`는 **값을 넣는 시점**에 부른다. 그리기 직전에 거르면 이미 인덱스가 밀려
+x축이 어긋난다.
 
 ---
 
@@ -448,3 +476,98 @@ list.themes = updated       // 개수가 바뀌어도 재배치된다
 
 **접근성**: 앞머리 `#`는 장식이라 낭독에서 뺀다("샵 반도체"가 아니라 "반도체"). 탭 콜백이
 있을 때만 `.link` 트레이트가 붙는다 — 표시 전용 칩이 눌리는 것처럼 보이면 안 된다.
+
+---
+
+## 12. JdLivePrice / JdLivePriceView
+
+현재가 + **값이 바뀔 때 배경 플래시**. `JdLivePriceText` 파생이라 포맷 골격은 그대로 쓰고
+(a) 크기 (b) 플래시 둘만 얹는다.
+
+```swift
+// SwiftUI
+JdLivePrice(price: quote.price, fallback: seed.price)                 // md(14)
+JdLivePrice(price: quote.price, size: .lg)                            // 18
+JdLivePrice(price: quote.price, showsFlash: false)                    // 플래시 끔
+```
+
+```swift
+// UIKit — 상속(JdLivePriceTextView)
+let live = JdLivePriceView(price: 71_200)
+live.size = .lg
+live.price = 71_400        // 여기서 초록 플래시가 0.6초
+live.price = 70_900        // 여기서 빨강 플래시
+```
+
+**최초 표시에서는 절대 켜지지 않는다.** 화면에 처음 뜨는 순간의 플래시는 "값이 바뀌었다"는
+거짓 신호다. SwiftUI는 `onChange`가 변화에만 반응해 구조적으로 지켜지고, UIKit은 직전 값이
+`nil`인 첫 대입을 건너뛴다(웹 `#started` 게이트와 같은 규칙).
+
+**색은 방향과 무관하게 늘 상승색이다.** 웹 라이브 티커 관습을 승계한 것이고, 방향은 색이
+아니라 **플래시 배경**이 말한다 — 상승은 up 틴트, 하락은 down 틴트.
+
+**Reduce Motion**이면 플래시가 붙지 않는다(`JdMotion` 단일 진입점 경유, 04 §7.3).
+
+**언제 `JdLivePriceText`를 쓰나**: 값이 갱신되지 않는 자리(주문 확인, 상세 요약)엔 리프를
+쓴다. 플래시는 "지금 움직이고 있다"는 뜻이라 정지된 숫자에 붙으면 거짓말이 된다.
+
+---
+
+## 13. JdSparkline / JdSparklineView
+
+값 배열의 추세를 작은 선으로 그린다. 좌표는 `JdChartGeometry`가 만들고 여기서는 그리기만 한다.
+
+```swift
+// SwiftUI — Canvas 한 패스에 선·면적·기준선·점
+JdSparkline(values: series)                                        // 80×24, 점만
+JdSparkline(values: series, width: 140, height: 40, showsFill: true)
+JdSparkline(values: series, showsBaseline: true, label: "최근 7일 추세")
+JdSparkline(values: series, color: JdToken.Color.primary)          // 색 고정
+```
+
+```swift
+// UIKit — draw(_:) 한 패스
+let spark = JdSparklineView(values: series, width: 140, height: 40, showsFill: true)
+spark.values = updated       // 다시 그린다(좌표 재계산은 Core)
+spark.label = "최근 7일 추세" // 라벨을 주면 장식 → 정보로 승격
+```
+
+**색은 첫 값 대비 마지막 값이 정한다.** 웹 v2는 늘 초록 고정이었지만(라이브 티커 관습),
+스파크라인은 **방향을 보여주는 물건**이라 하락을 초록으로 그리면 정보가 거꾸로 간다.
+판정은 `gainOrEven`(보합 없음) — 회색이 끼면 "데이터가 없다"로 오독된다.
+`color:`를 명시하면 그쪽이 이긴다.
+
+**라벨 유무가 정보/장식을 가른다.** `label`을 주면 `.isImage` + 접근성 라벨로 승격되고,
+없으면 접근성 트리에서 숨는다(표 안 미니 차트처럼 옆 숫자가 이미 값을 말하는 경우).
+웹 v2는 이 구분이 아예 없어 전부 침묵했다.
+
+**경계값은 전부 안전하다** — 값 0개(아무것도 안 그림) · 1개(왼쪽 끝에 점) ·
+평평한 데이터(바닥에 눕는 직선) · NaN·무한 혼입(걸러내고 나머지로 그림).
+
+---
+
+## 조립 예 3 — 종목 카드 한 장
+
+13종이 한 화면에서 어떻게 맞물리는지.
+
+```swift
+JdVStack(gap: .sm, padding: .md) {                       // 레이아웃은 RECIPES 참고
+    JdHStack(gap: .sm) {
+        nameLabel
+        JdDisclosureToneBadgeView(tone: .positive, category: .earnings,
+                                  confidence: 0.87, compact: true)
+        JdFlex()
+        JdLiveStatusDotView(live: session.isTrading)
+    }
+    JdHStack(gap: .md) {
+        JdSparklineView(values: quote.intraday, width: 96, height: 28, showsFill: true)
+        JdFlex()
+        JdVStack(gap: .xs, align: .end) {
+            JdLivePriceView(price: quote.price, size: .lg)
+            JdLivePctBadgeView(change: quote.changeRate)
+        }
+    }
+    JdPositionBarView(low: quote.dayLow, high: quote.dayHigh, cur: quote.position)
+    JdThemeTagListView(themes: quote.themes) { router.push(.theme($0)) }
+}
+```
