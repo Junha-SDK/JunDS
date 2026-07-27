@@ -102,6 +102,7 @@ export class JdCommentThread extends JdElement {
 
   /** 트리 전체 재구축 — 중첩 구조라 키 기반 증분 대신 재빌드가 단순·정확 */
   #rebuild(): void {
+    this.#builtDepth = this.maxDepth;
     this.#root.textContent = "";
     for (const c of this.#comments) this.#root.append(this.#buildRow(c, 0));
     if (this.#mounted) this.#applyRelativeTime();
@@ -211,7 +212,14 @@ export class JdCommentThread extends JdElement {
 
   protected override update(): void {
     this.#root.setAttribute("aria-label", this.label);
+    /* maxDepth 는 트리의 **모양**을 정하므로 골격을 다시 짜야 반영된다. update()에서
+       읽지 않으면 마운트 뒤 값을 바꿔도 화면이 따라오지 않는다(DEC-041 스캐너 검출).
+       매번 다시 짜면 낭비이자 스크롤 튐이라, 지난번 짠 깊이와 다를 때만 짓는다. */
+    if (this.#builtDepth !== this.maxDepth) this.#rebuild();
   }
+
+  /** #rebuild() 가 실제로 사용한 maxDepth — 미설정 표식은 도달 불가능한 -1 */
+  #builtDepth = -1;
 
   /** 트리 안 모든 <time>을 now 기준 상대 표기로 갱신(connected 이후에만) */
   #applyRelativeTime(): void {

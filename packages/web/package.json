@@ -3164,7 +3164,8 @@
     "prepack": "node build.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "gen:exports": "node scripts/gen-exports.mjs",
-    "test": "node scripts/gen-exports.mjs --check && vitest run"
+    "test": "node scripts/gen-exports.mjs --check && node scripts/scan-render-only-props.mjs --check && vitest run",
+    "scan:reactivity": "node scripts/scan-render-only-props.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.28.1",
