@@ -324,7 +324,7 @@ final class JdLayoutKitTests: XCTestCase {
                        JdGap.md.value, accuracy: 0.001)
     }
 
-    // MARK: - 측정 회귀 (DEC-044)
+    // MARK: - 측정 회귀 (DEC-046)
     //
     // 위 Box 픽스처는 sizeThatFits를 **재정의**한다. 그래서 첫 경로에서 답이 나와 나머지
     // 경로를 밟지 않았고, 실제 결함(내부 제약으로 크기가 정해지는 뷰가 0높이로 접힘)을
@@ -351,7 +351,7 @@ final class JdLayoutKitTests: XCTestCase {
         required init?(coder: NSCoder) { fatalError() }
     }
 
-    // 이 단언이 DEC-044 이전 코드에서 실패한다 — sizeThatFits가 .zero를 주기 때문이다
+    // 이 단언이 DEC-046 이전 코드에서 실패한다 — sizeThatFits가 .zero를 주기 때문이다
     func test_measure_reads_internal_constraints_not_just_sizeThatFits() {
         let card = AutoLayoutCard(text: "USD/KRW")
         XCTAssertEqual(card.sizeThatFits(CGSize(width: 132, height: 999)), .zero,

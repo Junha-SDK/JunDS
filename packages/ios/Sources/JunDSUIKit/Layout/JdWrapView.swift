@@ -137,7 +137,7 @@ public final class JdWrapView: UIView {
             while index < items.count {
                 let view = items[index]
                 // 측정은 JdMeasure 단일 규칙 — sizeThatFits만 묻던 옛 코드는 내부 제약으로
-                // 크기가 정해지는 뷰에 0을 받아 아이템이 사라졌다 (DEC-044)
+                // 크기가 정해지는 뷰에 0을 받아 아이템이 사라졌다 (DEC-046)
                 let size = JdMeasure.size(of: view, width: maxWidth)
                 let needed = line.isEmpty ? size.width : used + itemSpacing + size.width
                 if !line.isEmpty && needed > maxWidth { break }

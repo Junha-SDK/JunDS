@@ -4,9 +4,69 @@
 
 ---
 
+## 2026-07-27 — MySelf 디자인 시스템 흡수: 원장 445 → 460
+
+### DEC-045. 개인 사이트의 디자인 시스템을 JunDS로 끌어올린다
+`MySelf`(junome.info)는 `core/ui`·`core/hooks`·`styles/tokens.css`로 작은 자체 디자인
+시스템을 갖고 있었다. 앞으로 MySelf를 포함한 모든 화면을 JunDS 위에 세우려면 **MySelf가
+가진 자산이 먼저 JunDS 안에 있어야 한다**. 이번 패스의 목표는 교체가 아니라 흡수다 —
+"MySelf를 통째로 JunDS로 갈아 끼워도 후퇴가 없는 상태"를 만든다.
+
+#### 1. 신규 15종 — composites 9 · hooks 6
+composites: Waveform · AlbumArt · NowPlayingBar · DocPager · ProjectCard ·
+ScreenshotGrid · SeoHead · TocHeading · GlobalImageLightbox
+hooks: useCodeCopy · useJsonLd · useRevealOnScroll · useDominantColor ·
+useAudioPlayer · useSeo
+
+원장 composites 185→194 · hooks 55→61 · 총 445→**460**. `gen-ledger.mjs`의 `EXPECTED`와
+`00-inventory.md` §1이 1:1이므로 둘을 함께 올렸다(어긋나면 원장 생성이 exit 1).
+
+#### 2. 사이트 종속성은 이식하지 않는다
+junome 도메인·OG 이미지·문서 레지스트리처럼 MySelf 고유의 값은 prop이나 provider로
+주입받게 바꿨다(`SeoProvider`, `DocPager.renderLink`). 그래서 라우트→제목 매핑
+(`SeoResolver`)과 `LeftNav`의 문서 그룹 정렬 규칙은 MySelf에 남는다 — 이것들은
+디자인 시스템이 아니라 그 사이트의 정보 구조다.
+
+#### 3. 겹치는 것은 JunDS를 superset으로, 단 새 동작은 전부 opt-in
+`useFocusMode`(엣지 peek·좁은 화면 비활성) · `TableOfContents`(지연 콘텐츠 재수집) ·
+`ImageWithFallback`(재시도·백그라운드 소생) · `TreeNav`(프리페치·확장 제어) ·
+`Toast`(전체화면 포털·title·show/close/clear) · `Callout`·`SpoilerBlock`·`MarkdownViewer`.
+
+**추가한 동작의 기본값은 전부 off로 뒀다.** superset화가 기존 사용처의 동작을 조용히
+바꾸면 그건 흡수가 아니라 파괴다. `disableBelow`를 900으로 기본화하려다 되돌린 이유가
+이것이다 — 읽기 레이아웃에는 옳지만, 포커스 모드를 다른 용도로 쓰는 화면에는 아니다.
+
+#### 4. 흡수 과정에서 드러난 기존 결함 2건
+- **`Toast.confirm()`이 엉뚱한 토스트를 닫았다.** 버튼 클로저가 클릭 시점에
+  `nextId - 1`을 읽어서, 그 사이 다른 토스트가 뜨면 그것을 닫았다. id를 미리 확보해
+  클로저에 담도록 고쳤다.
+- **`MarkdownViewer`가 raw HTML을 그대로 통과시켰다.** 정규식 렌더러의 산출물이
+  `dangerouslySetInnerHTML`로 들어가는데 이스케이프가 없었다 — 원문에 섞인 스크립트가
+  실행된다. 기본 이스케이프로 바꾸고 예전 동작은 `allowHtml`로 명시하게 했다.
+  **이번 패스에서 기본 동작이 바뀐 유일한 항목이다.**
+
+#### 5. 금칙처리는 HTML이 된 뒤에 건다
+MySelf의 `remarkKinsoku`는 mdast 텍스트 노드에만 걸어서 안전했다. JunDS의
+`MarkdownViewer`는 문자열 렌더러라 같은 방식을 쓸 수 없다. 원문에 먼저 걸면 삽입한
+word joiner가 `](` 사이에 끼어 링크 문법이 깨진다. 그래서 `applyKinsokuToHtml`은 태그와
+`<code>` 바깥의 텍스트만 처리한다 — URL이 깨지지 않고, 복사한 코드도 그대로 실행된다.
+
+#### 6. 검증
+748 tests / 332 files 통과 · a11y 위반 0(감사 중 `Waveform`·`AlbumArt`의 role 누락을
+잡아 수정) · `build:lib` dist 반영 확인 · `docs-content` 460건 검증 통과.
+상세 대응표는 `requirements/myself-migration.md`.
+
+결정자: 사용자 요청(흡수 우선, 교체는 다음 단계) + 기본값 보수화는 기본값 채택.
+
+---
+
 ## 2026-07-27 — 시각 증명에서 잡은 측정 결함 + 자기충족적 테스트 교정
 
-### DEC-044. 테스트 737개가 통과하는데 화면은 비어 있었다
+### DEC-046. 테스트 737개가 통과하는데 화면은 비어 있었다
+> 번호 정정(2026-07-27): 처음 DEC-044로 적었으나, 동시 진행 중인 웹 트랙이 `fd944ea`에서
+> 044를 먼저 스테이킹했다(그쪽도 041 충돌로 옮겨 온 번호였다). 045로 옮기려던 사이 그쪽이
+> 045까지 가져가 046이 됐다. 같은 번호가 두 결정을 가리키면 코드 주석의 근거 추적이 끊긴다
+> — 동시 트랙에서는 **번호를 잡는 즉시 커밋**하는 것이 유일한 예방책이다.
 DEC-042·043을 끝내고 시뮬레이터로 확인하러 갔다(딥링크 `ad2d337`가 착륙해 445행을
 스크롤하지 않고 상세로 바로 들어갈 수 있게 됐다). `junds://component/LiveMicroKpiRow`의
 **UIKit 탭이 비어 있었다** — KPI 카드가 0높이로 접혀 테두리 선 두 줄만 남았다.

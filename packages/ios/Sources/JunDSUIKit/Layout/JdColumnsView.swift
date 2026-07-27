@@ -245,7 +245,7 @@ public final class JdColumnsView: UIView {
         return widths
     }
 
-    /// 셀 측정 — 규칙은 JdMeasure 한 곳에 있다 (DEC-044).
+    /// 셀 측정 — 규칙은 JdMeasure 한 곳에 있다 (DEC-046).
     /// 여기서 직접 sizeThatFits만 묻던 옛 코드는 내부 제약으로 크기가 정해지는 셀에 0을
     /// 받아 행 높이를 0으로 접었다.
     private func measure(_ view: UIView, width: CGFloat) -> CGSize {
