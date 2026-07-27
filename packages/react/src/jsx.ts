@@ -15,7 +15,9 @@ import type { JdButton } from "@junds/web/button/element";
 import type { JdTextField } from "@junds/web/text-field/element";
 import type { JdModal } from "@junds/web/modal/element";
 
-type JdHost<T extends HTMLElement, P> = HTMLAttributes<T> & RefAttributes<T> & P;
+type JdHost<T extends HTMLElement, P> = HTMLAttributes<T> &
+  RefAttributes<T> &
+  P;
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -42,6 +44,7 @@ declare module "react" {
           size?: string;
           value?: string;
           error?: string;
+          invalid?: true;
           disabled?: true;
           required?: true;
         }

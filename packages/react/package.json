@@ -18,7 +18,8 @@
   "scripts": {
     "build": "node build.mjs",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "node scripts/gen-adapters.mjs --check && vitest run",
+    "gen:adapters": "node scripts/gen-adapters.mjs"
   },
   "dependencies": {
     "@junds/web": "3.0.0-alpha.0"

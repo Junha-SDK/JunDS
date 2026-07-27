@@ -24,13 +24,16 @@
  * jd-open을 놓친다 — useIsoLayoutEffect 주석 참조.
  */
 import {
+  Children,
   createContext,
   forwardRef,
+  isValidElement,
   useContext,
   useEffect,
   useId,
   useRef,
   useState,
+  type HTMLAttributes,
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
@@ -40,7 +43,10 @@ import "../jsx.js";
 import { cx } from "../internal/cx.js";
 import { useIsoLayoutEffect } from "../internal/useIsoLayoutEffect.js";
 
-const ModalIdContext = createContext<{ titleId: string; descId: string } | null>(null);
+const ModalIdContext = createContext<{
+  titleId: string;
+  descId: string;
+} | null>(null);
 
 export type ModalSize = "sm" | "md" | "lg" | "xl" | "full";
 
@@ -57,6 +63,8 @@ export interface ModalProps {
   children: ReactNode;
   /** 패널(콘텐츠 영역)에 추가할 CSS 클래스 */
   className?: string;
+  /** Header를 사용하지 않을 때 다이얼로그에 직접 제공할 접근 가능한 이름 */
+  "aria-label"?: string;
   /**
    * v3 가산 프롭 — 열림 상태 변화 합성 콜백 (jd-open/jd-close → 단일 콜백, DEC-008-(2)).
    * v2 표면에는 없던 프롭이라 v2 코드에 영향 없음.
@@ -64,25 +72,55 @@ export interface ModalProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export interface ModalHeaderProps {
+export interface ModalHeaderProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
   /** 헤더 내용 — <h3>로 렌더되고 aria-labelledby로 연결된다(v2 동일) */
   children: ReactNode;
   /** 전달하면 우측에 닫기(×) 버튼 표시(v2 동일) */
   onClose?: () => void;
-  /** 헤더 영역 추가 클래스 */
-  className?: string;
 }
 
-export interface ModalFooterProps {
+export interface ModalBodyProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
+  /** 다이얼로그의 설명으로 aria-describedby에 자동 연결되는 본문 */
   children: ReactNode;
-  className?: string;
+}
+
+export interface ModalFooterProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
+  children: ReactNode;
 }
 
 const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
-  ({ open, onClose, size = "md", dismissible = true, children, className, onOpenChange }, ref) => {
+  (
+    {
+      open,
+      onClose,
+      size = "md",
+      dismissible = true,
+      children,
+      className,
+      onOpenChange,
+      "aria-label": ariaLabel,
+    },
+    ref,
+  ) => {
     const hostRef = useRef<JdModal>(null);
     const titleId = useId();
     const descId = useId();
+    const childArray = Children.toArray(children);
+    const hasHeader = childArray.some(
+      (child) => isValidElement(child) && child.type === ModalHeader,
+    );
+    const hasBody = childArray.some(
+      (child) => isValidElement(child) && child.type === ModalBody,
+    );
 
     // v2 Portal의 mounted 게이트 동형 — SSR은 null, 클라이언트 마운트 후 포털
     const [mounted, setMounted] = useState(false);
@@ -123,6 +161,9 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
         open={true}
         size={size !== "md" ? size : undefined}
         persistent={!dismissible ? true : undefined}
+        aria-label={ariaLabel}
+        aria-labelledby={hasHeader ? titleId : undefined}
+        aria-describedby={hasBody ? descId : undefined}
       >
         {/* 입양 골격(§3.3): CE render()가 재사용 — 백드롭 클릭·트랩·락은 CE 소유 */}
         <div className="jd-modal__backdrop" />
@@ -130,8 +171,9 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
           ref={ref}
           role="dialog"
           aria-modal="true"
-          aria-labelledby={titleId}
-          aria-describedby={descId}
+          aria-label={ariaLabel}
+          aria-labelledby={hasHeader ? titleId : undefined}
+          aria-describedby={hasBody ? descId : undefined}
           className={cx("jd-modal__panel", className)}
         >
           <ModalIdContext.Provider value={{ titleId, descId }}>
@@ -146,14 +188,15 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
 
 ModalBase.displayName = "Modal";
 
-/**
- * 주의: jd-modal css는 파일럿 기준 backdrop/panel만 규정한다 — header/title/close/footer
- * 클래스는 스타일 미존재(웹 트랙 후속, DECISIONS DEC-022 판정표). 구조·a11y는 v2 동형.
- */
-function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
+function ModalHeader({
+  children,
+  onClose,
+  className,
+  ...props
+}: ModalHeaderProps) {
   const ids = useContext(ModalIdContext);
   return (
-    <div className={cx("jd-modal__header", className)}>
+    <div className={cx("jd-modal__header", className)} {...props}>
       <h3 id={ids?.titleId} className="jd-modal__title">
         {children}
       </h3>
@@ -164,7 +207,13 @@ function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
           aria-label="닫기"
           onClick={onClose}
         >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            aria-hidden="true"
+          >
             <path
               d="M4.5 4.5l9 9M13.5 4.5l-9 9"
               stroke="currentColor"
@@ -178,16 +227,33 @@ function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
   );
 }
 
-function ModalFooter({ children, className }: ModalFooterProps) {
-  return <div className={cx("jd-modal__footer", className)}>{children}</div>;
+function ModalBody({ children, className, id, ...props }: ModalBodyProps) {
+  const ids = useContext(ModalIdContext);
+  return (
+    <div
+      id={ids?.descId ?? id}
+      className={cx("jd-modal__body", className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+function ModalFooter({ children, className, ...props }: ModalFooterProps) {
+  return (
+    <div className={cx("jd-modal__footer", className)} {...props}>
+      {children}
+    </div>
+  );
 }
 
 /**
- * 모달 다이얼로그 (v2 API 호환 어댑터) — Compound: Modal.Header / Modal.Footer
+ * 모달 다이얼로그 — Compound: Modal.Header / Modal.Body / Modal.Footer
  * @example
  * <Modal open={isOpen} onClose={close}>
  *   <Modal.Header onClose={close}>삭제 확인</Modal.Header>
- *   <div className="p-5">정말 삭제하시겠습니까?</div>
+ *   <Modal.Body>정말 삭제하시겠습니까?</Modal.Body>
  *   <Modal.Footer>
  *     <Button variant="secondary" onClick={close}>취소</Button>
  *     <Button variant="danger" onClick={handleDelete}>삭제</Button>
@@ -196,5 +262,6 @@ function ModalFooter({ children, className }: ModalFooterProps) {
  */
 export const Modal = Object.assign(ModalBase, {
   Header: ModalHeader,
+  Body: ModalBody,
   Footer: ModalFooter,
 });

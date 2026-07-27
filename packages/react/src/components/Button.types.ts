@@ -1,7 +1,4 @@
-/**
- * v2 ds/primitives/Button/Button.types.ts의 무수정 사본 — 어댑터의 호환 계약 원본.
- * v2 소비 코드가 타입 수준에서도 그대로 컴파일되어야 하므로 표면을 편집하지 않는다.
- */
+/** @junds/react Button의 공개 타입. 네이티브 button 프롭을 그대로 확장한다. */
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 /**
@@ -12,7 +9,8 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
  * `outline` — 테두리만. secondary와 비슷하지만 더 가벼움
  * `link` — 텍스트 링크처럼 동작. 패딩/높이 없음
  */
-export type ButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "outline" | "link";
+export type ButtonVariant =
+  "primary" | "secondary" | "danger" | "ghost" | "outline" | "link";
 
 /**
  * `xs` — 28px. 테이블 내 인라인 액션, 칩 삭제 등
@@ -23,6 +21,14 @@ export type ButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "outl
 export type ButtonSize = "xs" | "sm" | "md" | "lg";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * 네이티브 버튼 타입. 폼에서 의도치 않은 제출을 막기 위해 기본값은 `button`이다.
+   * 제출 액션에서만 `submit`을 명시한다.
+   *
+   * @default "button"
+   */
+  type?: "button" | "submit" | "reset";
+
   /**
    * 버튼 스타일 변형.
    *
@@ -97,8 +103,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * content는 자식의 children 위치에 자동 합쳐집니다.
    *
    * Next의 `<Link>`, 외부 wrapper 등 임의의 element에 Button 디자인을
-   * 적용할 때 사용하세요. `loading`/`disabled`는 element가 button일
-   * 때만 의미를 갖습니다.
+   * 적용할 때 사용하세요. `loading`/`disabled`는 비-button 엘리먼트에서도
+   * `aria-disabled`, 탭 제외, 클릭 차단으로 일관되게 적용됩니다.
    *
    * @default false
    *

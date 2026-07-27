@@ -5,18 +5,15 @@
  *
  * DEC-012-5의 통합(v2 Input + FormField → jd-text-field 단일 표면)을 어댑터에서
  * v2 의미론으로 역번역한다:
- * - TextField: v3 네이티브 표면(label·error 메시지 문자열·size). CE와 1:1.
- * - Input: v2 표면(size·error boolean·leftSlot/rightSlot) → TextField 위임.
- *   leftSlot/rightSlot은 G1 범위 외(DEC-012-5) — 개발 경고 후 무시.
- *   메시지 없는 error(boolean true)는 v3 표면에 시각 훅이 없다
- *   (css가 [error]:not([error=""]) — 메시지가 곧 상태) — 경고 후 미반영.
+ * - TextField: label·error 메시지·invalid·좌우 슬롯을 CE와 1:1로 매핑.
+ * - Input: v2 표면(size·error boolean·leftSlot/rightSlot)을 손실 없이 TextField로 위임.
  * - FormField: 직계 자식 Input/TextField를 찾아 label/required/error(문자열)/htmlFor를
  *   그 자식의 jd-text-field로 접어 넣는다(fold) — 라벨·에러 행·aria 연결이 전부
  *   CE 한 곳에서 나오게 하는 역번역. hint는 CE 표면에 없어 FormField가 아래에 렌더.
  *
  * 입양 계약 주의(DEC-008-(1) 실측 마찰 — DECISIONS DEC-022):
- * 1) CE render()의 입양 경로는 label·input·error 3형제를 전부 요구(비-널 단언) —
- *    어댑터는 라벨/에러가 비어도 항상 3형제를 렌더한다(hidden으로 접음, CE와 동일 규칙).
+ * 1) CE render()의 입양 경로와 같은 label·control(start/input/end)·error 골격을
+ *    어댑터도 항상 렌더한다(hidden/empty로 접음).
  * 2) CE update()가 입양한 label(textContent=)과 error 행(innerHTML=)의 children을
  *    통째로 재구축한다 — React가 그 텍스트 노드를 소유하면 이후 리컨실에서 분리 노드를
  *    만진다. 회피: 두 노드는 dangerouslySetInnerHTML로 렌더해 React가 내부 children을
@@ -52,14 +49,33 @@ const ERROR_ICON_SVG =
 
 export type InputSize = "sm" | "md" | "lg";
 
-export interface TextFieldProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface TextFieldProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "size"
+> {
   /** 라벨 행 — 비어 있으면 행 자체가 접힌다(hidden) */
   label?: string;
   /** 입력 필드 크기 — v2 Input과 동일 램프 (sm 32px / md 40px / lg 48px) */
   size?: InputSize;
   /** 에러 메시지 — 비어있지 않으면 곧 에러 상태 (aria-invalid + 메시지 행, DEC-012-5) */
   error?: string;
+  /** 메시지 없이도 유효성 실패 시각과 aria-invalid를 표시한다. */
+  invalid?: boolean;
+  /** 입력 앞쪽 장식. pointer event가 없는 아이콘·단위 표시에 적합하다. */
+  leftSlot?: ReactNode;
+  /** 입력 뒤쪽 콘텐츠. 지우기·보기 전환 같은 인터랙션도 사용할 수 있다. */
+  rightSlot?: ReactNode;
+  /** `<jd-text-field>` 호스트에 적용할 클래스. input의 className과 분리된다. */
+  rootClassName?: string;
+}
+
+function mergeIdRefs(...values: Array<string | undefined>): string | undefined {
+  const ids = [
+    ...new Set(
+      values.flatMap((value) => value?.split(/\s+/).filter(Boolean) ?? []),
+    ),
+  ];
+  return ids.length ? ids.join(" ") : undefined;
 }
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
@@ -68,6 +84,10 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       label,
       size = "md",
       error,
+      invalid = false,
+      leftSlot,
+      rightSlot,
+      rootClassName,
       className,
       id: idProp,
       value,
@@ -75,6 +95,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       onChange,
       type = "text",
       placeholder = "",
+      "aria-invalid": ariaInvalid,
+      "aria-describedby": ariaDescribedBy,
+      "aria-errormessage": ariaErrorMessage,
       ...props
     },
     ref,
@@ -86,6 +109,19 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const innerRef = useRef<HTMLInputElement>(null);
     const controlled = value !== undefined;
     const hasError = Boolean(error);
+    const hasAriaInvalid =
+      ariaInvalid !== undefined &&
+      ariaInvalid !== false &&
+      ariaInvalid !== "false";
+    const isInvalid = invalid || hasError || hasAriaInvalid;
+    const describedBy = mergeIdRefs(
+      ariaDescribedBy,
+      hasError ? errorId : undefined,
+    );
+    const errorMessage = mergeIdRefs(
+      ariaErrorMessage,
+      hasError ? errorId : undefined,
+    );
 
     // controlled 거부 방어(모듈 주석 3): React의 restoreControlledState(디스패치 종료 후
     // 동기 복원)보다 먼저 host 상태를 prop 값으로 되돌려, 이미 큐된 CE update()가
@@ -105,12 +141,18 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       valueRef.current = value;
       const host = hostRef.current;
       if (!host) return;
-      host.value = controlled ? String(value ?? "") : (innerRef.current?.value ?? "");
+      host.value = controlled
+        ? String(value ?? "")
+        : (innerRef.current?.value ?? "");
     });
 
     // SSR 초기값: CE 최초 update()가 host.value 기본 ""와의 diff로 서버 직렬화 값을
     // hydration 전에 지우는 플래시를 host value attribute(업그레이드 초기값, §1.3)로 차단
-    const ssrValue = controlled ? String(value ?? "") : defaultValue != null ? String(defaultValue) : "";
+    const ssrValue = controlled
+      ? String(value ?? "")
+      : defaultValue != null
+        ? String(defaultValue)
+        : "";
     return (
       <jd-text-field
         ref={hostRef}
@@ -123,6 +165,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         disabled={props.disabled ? true : undefined}
         required={props.required ? true : undefined}
         error={error || undefined}
+        invalid={isInvalid ? true : undefined}
+        className={rootClassName}
       >
         {/* CE가 textContent로 재구축하는 노드 — dSIH로 React의 내부 diff 차단(모듈 주석 2).
             jsx-a11y는 dSIH 텍스트를 못 보지만 htmlFor 연결·텍스트 모두 실재한다 */}
@@ -133,21 +177,30 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           hidden={!label}
           dangerouslySetInnerHTML={{ __html: label ? escapeHtml(label) : "" }}
         />
-        {/* type/placeholder는 CE update()가 항상 정규화(기본값 명시)하므로 어댑터도 항상
-            명시해 서버 HTML = CE 정규화 결과 = 클라이언트 프롭을 일치시킨다 — React 19
-            속성 hydration 검사(실측: type="text"/placeholder="" 불일치 경고) 대응 */}
-        <input
-          {...props}
-          type={type}
-          placeholder={placeholder}
-          ref={composeRefs(ref, innerRef)}
-          id={id}
-          className={cx("jd-text-field__input", className)}
-          value={value}
-          defaultValue={defaultValue}
-          onChange={handleChange}
-          {...(hasError ? { "aria-invalid": "true" as const, "aria-describedby": errorId } : null)}
-        />
+        <div className="jd-text-field__control">
+          <span className="jd-text-field__slot jd-text-field__slot--start">
+            {leftSlot}
+          </span>
+          {/* type/placeholder는 CE update()가 항상 정규화(기본값 명시)하므로 어댑터도
+              항상 명시해 서버 HTML = CE 정규화 결과를 일치시킨다. */}
+          <input
+            {...props}
+            type={type}
+            placeholder={placeholder}
+            ref={composeRefs(ref, innerRef)}
+            id={id}
+            className={cx("jd-text-field__input", className)}
+            value={value}
+            defaultValue={defaultValue}
+            onChange={handleChange}
+            aria-invalid={isInvalid ? "true" : undefined}
+            aria-describedby={describedBy}
+            aria-errormessage={errorMessage}
+          />
+          <span className="jd-text-field__slot jd-text-field__slot--end">
+            {rightSlot}
+          </span>
+        </div>
         <p
           className="jd-text-field__error"
           id={errorId}
@@ -165,16 +218,20 @@ TextField.displayName = "TextField";
 
 /* ---------------------------------------------------------------- Input (v2) */
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "size"
+> {
   /** 입력 필드의 높이 및 텍스트 크기 (v2와 동일: sm/md/lg, 기본 md) */
   size?: InputSize;
   /** 유효성 검증 실패 시 에러 상태 표시 (v2: boolean) */
   error?: boolean;
-  /** v2 leftSlot — G1 범위 외(DEC-012-5), 무시됨 */
+  /** 입력 앞쪽 아이콘·단위 */
   leftSlot?: ReactNode;
-  /** v2 rightSlot — G1 범위 외(DEC-012-5), 무시됨 */
+  /** 입력 뒤쪽 액션·상태 */
   rightSlot?: ReactNode;
+  /** jd-text-field 호스트 클래스 */
+  wrapperClassName?: string;
 }
 
 /**
@@ -183,26 +240,23 @@ export interface InputProps
  * <Input error placeholder="필수 입력" />
  */
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ error, leftSlot, rightSlot, ...props }, ref) => {
-    if (leftSlot || rightSlot) {
-      warnOnce(
-        "input-slots",
-        "Input leftSlot/rightSlot은 G1 파일럿 범위 외입니다(DEC-012-5, 후속 배치 재심의) — 무시됩니다.",
-      );
-    }
+  ({ error, leftSlot, rightSlot, wrapperClassName, ...props }, ref) => {
     // FormField fold 경로는 error를 문자열 메시지로 덮어 내려보낸다(아래 FormField 참조).
     let message: string | undefined;
     if (typeof error === "string") {
       message = error;
-    } else if (error === true) {
-      warnOnce(
-        "input-error-boolean",
-        "Input error={true}: v3 jd-text-field는 메시지 없는 에러 시각이 없습니다" +
-          "(css 훅이 [error]:not([error=\"\"]) — 메시지가 곧 상태, DEC-012-5). " +
-          "FormField error 메시지와 함께 쓰면 완전 호환됩니다.",
-      );
     }
-    return <TextField ref={ref} error={message} {...props} />;
+    return (
+      <TextField
+        ref={ref}
+        error={message}
+        invalid={error === true || Boolean(message)}
+        leftSlot={leftSlot}
+        rightSlot={rightSlot}
+        rootClassName={wrapperClassName}
+        {...props}
+      />
+    );
   },
 );
 
@@ -246,6 +300,7 @@ export function FormField({
   children,
   className,
 }: FormFieldProps) {
+  const hintId = useId();
   const arr = Children.toArray(children);
   const foldIdx = arr.findIndex(
     (c) => isValidElement(c) && (c.type === Input || c.type === TextField),
@@ -257,10 +312,19 @@ export function FormField({
         if (i !== foldIdx || !isValidElement(child)) return child;
         const childProps = child.props as Record<string, unknown>;
         const patch: Record<string, unknown> = {};
-        if (label !== undefined && childProps["label"] === undefined) patch["label"] = label;
-        if (required !== undefined && childProps["required"] === undefined) patch["required"] = required;
+        if (label !== undefined && childProps["label"] === undefined)
+          patch["label"] = label;
+        if (required !== undefined && childProps["required"] === undefined)
+          patch["required"] = required;
         if (error) patch["error"] = error; // 문자열 메시지가 자식의 boolean error보다 우선
-        if (htmlFor !== undefined && childProps["id"] === undefined) patch["id"] = htmlFor;
+        if (htmlFor !== undefined && childProps["id"] === undefined)
+          patch["id"] = htmlFor;
+        if (hint && !error) {
+          patch["aria-describedby"] = mergeIdRefs(
+            childProps["aria-describedby"] as string | undefined,
+            hintId,
+          );
+        }
         return cloneElement(child, patch as never);
       });
 
@@ -284,10 +348,16 @@ export function FormField({
       {!folded && error ? (
         <p
           className="jd-text-field__error"
-          dangerouslySetInnerHTML={{ __html: ERROR_ICON_SVG + escapeHtml(error) }}
+          dangerouslySetInnerHTML={{
+            __html: ERROR_ICON_SVG + escapeHtml(error),
+          }}
         />
       ) : null}
-      {hint && !error ? <p className="jd-form-field__hint">{hint}</p> : null}
+      {hint && !error ? (
+        <p id={hintId} className="jd-form-field__hint">
+          {hint}
+        </p>
+      ) : null}
     </div>
   );
 }
