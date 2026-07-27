@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useCountUp — iOS 대응: JdCountUp.easeOutExpo/value\nTimelineView(.animation) { ctx in\n    let t = min(elapsed(ctx.date) / duration, 1)\n    Text(\"\\(Int(JdCountUp.value(from: 0, to: 1234, progress: t)))\")\n}"
+    },
     "uikit": null,
     "react": null
   },

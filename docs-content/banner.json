@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdBanner(\"새 버전이 있습니다\", variant: .info,\n         actionLabel: \"업데이트\", onAction: { update() },\n         isDismissible: true, onDismiss: { })"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 동일 시그니처\nlet banner = JdBannerView(\"새 버전이 있습니다\", variant: .info,\n                          actionLabel: \"업데이트\", onAction: { update() },\n                          isDismissible: true, onDismiss: { })\ncontainer.addSubview(banner)"
+    },
     "react": {
       "imp": "import { Banner } from \"@/ds/composites/Banner\";",
       "code": "<Banner variant=\"info\" dismissible>중요한 공지사항입니다.</Banner>"

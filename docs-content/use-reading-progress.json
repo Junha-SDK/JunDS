@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useReadingProgress — iOS 대응: JdScrollProgress.reading\n// 오프셋→진행률. 구동은 스크롤 델리게이트"
+    },
     "uikit": null,
     "react": null
   },

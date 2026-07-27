@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 피커는 .fileImporter로 소비자가 붙인다\n@State private var files: [String] = []\n@State private var importing = false\n\nJdFileUploadZone(description: \"PDF를 선택하세요\", fileNames: files) {\n    importing = true\n}\n.fileImporter(isPresented: $importing,\n              allowedContentTypes: [.pdf],\n              allowsMultipleSelection: true) { result in\n    files = (try? result.get())?.map(\\.lastPathComponent) ?? files\n}\n// 오류 상태: JdFileUploadZone(isError: true, …)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 피커는 UIDocumentPickerViewController로 소비자가 붙인다\nlet zone = JdFileUploadZoneView(description: \"PDF를 선택하세요\", fileNames: [])\nzone.onTap = { [weak self] in\n    let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.pdf])\n    picker.delegate = self\n    self?.present(picker, animated: true)\n}\n// 델리게이트에서: zone.fileNames = urls.map { $0.lastPathComponent }\n// zone.isError = true / zone.isEnabled = false"
+    },
     "react": {
       "imp": "import { FileUpload } from \"@/ds/primitives/FileUpload\";",
       "code": "<FileUpload onFiles={handleFiles} accept=\"image/*\" multiple maxSize={5*1024*1024} />"

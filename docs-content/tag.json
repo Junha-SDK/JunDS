@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-tag>기본</jd-tag>\n<jd-tag color=\"purple\" closable>필터</jd-tag>\n\n<script>\n  // closable ✕ 클릭 → jd-remove 사후 통지(제거는 소비자 몫 — v2 onClose 동형)\n  document.querySelector(\"jd-tag[closable]\").addEventListener(\"jd-remove\", (e) => e.target.remove());\n</script>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdTag(\"Swift\")                                // gray 기본, 닫기 없음\nJdTag(\"iOS\", color: .blue)\nJdTag(\"삭제 가능\", color: .green) {            // onRemove 있으면 x 버튼 노출\n    removeFromSelection()\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet tag = JdTagView(\"Swift\", color: .blue)\ntag.onRemove = { [weak self] in self?.remove(tag) }   // 대입하면 닫기 버튼 표시\ncontainer.addSubview(tag)\ntag.jd.layout {\n    $0.top.equalToSuperview()\n    $0.leading.equalToSuperview()\n}"
+    },
     "react": {
       "imp": "import { Tag } from \"@/ds/primitives/Tag\";",
       "code": "<Tag color=\"blue\">프론트엔드</Tag>\n<Tag color=\"red\" closable onClose={handleRemove}>긴급</Tag>"

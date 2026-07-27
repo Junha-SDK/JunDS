@@ -31,8 +31,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-stack direction=\"{direction}\" gap=\"{gap}\">\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>첫째</jd-box>\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>둘째</jd-box>\n</jd-stack>\n\n<!-- 구분선은 children으로 직접 — v2 divider 프롭은 react 어댑터 몫 (DEC-018-4) -->\n<jd-stack gap=\"3\">\n  위 블록\n  <jd-divider my=\"0\"></jd-divider>\n  아래 블록\n</jd-stack>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — direction=column(기본) / row\nVStack(spacing: JdGap.md.value) { content }     // 또는 HStack"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// 세로 스택 — 기본 gap md(16) · align .fill(=웹 stretch)\nlet column = JdStackView.vertical(gap: .md, [rowA, rowB, rowC])\n\n// 가로 스택 — 기본 gap sm(8) · align .center\nlet row = JdStackView.horizontal(gap: .sm, [iconView, titleLabel])\n\n// 전체 지정 init\nlet bar = JdStackView(axis: .horizontal,\n                      gap: .lg,\n                      alignment: .center,\n                      distribution: .equalSpacing,\n                      arranged: [leadingView, spacer, trailingView])\nbar.gap = .xl                    // 런타임 간격 변경 → spacing 자동 환산 (didSet)\nbar.backgroundColor = JdToken.Color.card.uiColor\n\nview.addSubview(column)\ncolumn.jd.layout {\n    $0.top.leading.trailing.equalToSuperview().inset(JdGap.md.value)\n}"
+    },
     "react": null
   },
   "tokens": [

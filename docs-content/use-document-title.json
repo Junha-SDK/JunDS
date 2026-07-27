@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useDocumentTitle — iOS 대응: navigationItem.title / .navigationTitle\n// | useIdle | 사용자 이벤트 타임스탬프 + Timer (커스텀)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useDocumentTitle — iOS(UIKit) 대응: .navigationTitle"
+    },
     "react": null
   },
   "tokens": [],

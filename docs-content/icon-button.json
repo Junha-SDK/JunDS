@@ -36,8 +36,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-icon-button label=\"설정\" variant=\"{variant}\" size=\"{size}\">⚙︎</jd-icon-button>\n<jd-icon-button label=\"닫기\" variant=\"outline\">✕</jd-icon-button>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — action은 후행 클로저\nstruct Toolbar: View {\n    var body: some View {\n        HStack(spacing: JdGap.sm.value) {\n            JdIconButton(systemImage: \"heart\", accessibilityLabel: \"좋아요\",\n                         variant: .ghost, size: .md) { toggleLike() }\n            JdIconButton(systemImage: \"square.and.arrow.up\", accessibilityLabel: \"공유\",\n                         variant: .outline) { share() }\n            JdIconButton(systemImage: \"plus\", accessibilityLabel: \"추가\",\n                         variant: .filled, size: .lg) { add() }\n        }\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 탭은 onTap 프로퍼티\nlet button = JdIconButtonView(systemImage: \"heart\",\n                              accessibilityLabel: \"좋아요\",\n                              variant: .ghost, size: .md)\nbutton.onTap = { toggleLike() }\nbutton.jd.layout { $0.top.trailing.equalToSuperview().inset(JdToken.Space.s2) }"
+    },
     "react": {
       "imp": "import { IconButton } from \"@/ds/primitives/IconButton\";",
       "code": "<IconButton icon={<CloseIcon />} label=\"닫기\" variant=\"ghost\" />"

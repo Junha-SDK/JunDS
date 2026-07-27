@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-kbd keys=\"⌘ K\"></jd-kbd>\n<jd-kbd>Esc</jd-kbd>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdKbd(\"⌘K\")\nJdKbd(\"⌘ ⇧ P\")                                 // → \"⌘⇧P\"\nJdKbd(\"Esc\")"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — UILabel 서브클래스\nlet kbd = JdKbdView(\"⌘K\")\nkbd.keys = \"⌘ ⇧ P\"            // 대입 시 재정규화 → \"⌘⇧P\"\ncontainer.addSubview(kbd)\nkbd.jd.layout {\n    $0.trailing.centerY.equalToSuperview()\n}"
+    },
     "react": {
       "imp": "import { Kbd } from \"@/ds/primitives/Kbd\";",
       "code": "<Kbd keys={[\"⌘\", \"K\"]} />"

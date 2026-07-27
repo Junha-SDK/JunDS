@@ -29,8 +29,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "위 콘텐츠\n<jd-spacer size=\"{size}\"></jd-spacer>\n아래 콘텐츠\n\n<jd-hstack gap=\"0\">\n  왼쪽 <jd-spacer size=\"8\" axis=\"horizontal\"></jd-spacer> 오른쪽\n</jd-hstack>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "VStack(spacing: 0) {\n    JdHeading(\"제목\")\n    JdSpacer(.lg)                    // 세로 lg(24) → 실제 48pt\n    JdText(\"본문\")\n}\n\nJdSpacer()                           // 기본 세로 md(16) → 실제 32pt\nJdSpacer(.sm, axis: .horizontal)     // 가로 sm(8) → 실제 16pt\n\nlet spacer = JdSpacerView(.md)       // 세로, intrinsic 높이 32 (=2×16)\nspacer.size = .lg                    // 런타임 변경 → intrinsic 무효화 후 재계산 (didSet)\n\nstack.addArrangedSubview(headerView)\nstack.addArrangedSubview(spacer)     // 스택 아이템 사이 고정 간격\nstack.addArrangedSubview(bodyView)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "let spacer = JdSpacerView(.md)       // 세로, intrinsic 높이 32 (=2×16)\nspacer.size = .lg                    // 런타임 변경 → intrinsic 무효화 후 재계산 (didSet)\n\nstack.addArrangedSubview(headerView)\nstack.addArrangedSubview(spacer)     // 스택 아이템 사이 고정 간격\nstack.addArrangedSubview(bodyView)"
+    },
     "react": null
   },
   "tokens": [

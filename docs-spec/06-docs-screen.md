@@ -214,6 +214,20 @@ export const DETAIL_LOADERS: Record<Cat, () => Promise<Record<string, DetailSpec
 
 ### 4.2 hook 카테고리의 상세
 
+### 빈 코드 탭의 문구 (2026-07-27 추가)
+
+탭이 비어 있는 이유가 셋인데 화면이 구분하지 않으면 사용자는 "문서가 없다"로만 읽는다.
+`snippets.<plat>` 이 null 일 때 원장 상태를 보고 아래를 표시한다.
+
+| 조건 | 문구 |
+|---|---|
+| 원장 `ios`/`web` 이 `todo` | **아직 구현되지 않았습니다** (+ 원장 진행률 링크) |
+| 원장이 `n/a` | **이 플랫폼에는 해당 개념이 없습니다** (+ 이유 한 줄) |
+| 구현은 `done` 인데 스니펫 null | **양 계층 코드가 동일합니다** — 다른 탭을 가리킨다 |
+
+세 번째가 실제로 많다(훅 23종·SwiftUI 전용 모디파이어 등, DEC-054). 빈 화면 대신
+"SwiftUI 탭과 같습니다"라고 적어야 사용자가 다른 탭을 찾아본다.
+
 hook(62개)은 시각 스테이지가 없는 항목이 많다. `DetailSpec.render`가 있으면 동작 데모(예: useDebounce 입력 데모), 없으면 스테이지를 접고 코드 탭을 첫 화면으로 올린다. 코드 탭 매핑: 웹 바닐라 = Behavior(`createXxx(el, opts)`, D2), SwiftUI/UIKit = 대응 유틸 또는 "웹 전용" 표기(`ios: "na"`).
 
 ---

@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 본문은 @ViewBuilder content\nJdAlert(\"저장됨\", variant: .success, isDismissible: true, onDismiss: { hide() }) {\n    Text(\"변경 사항이 반영되었습니다.\")\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 본문은 message 문자열\nlet alert = JdAlertView(\"저장됨\", message: \"변경 사항이 반영되었습니다.\",\n                        variant: .success, isDismissible: true, onDismiss: { })\ncontainer.addSubview(alert)"
+    },
     "react": {
       "imp": "import { Alert } from \"@/ds/composites/Alert\";",
       "code": "<Alert variant=\"success\" title=\"완료\">작업이 성공했습니다.</Alert>\n<Alert variant=\"danger\" onClose={dismiss}>오류가 발생했습니다.</Alert>"

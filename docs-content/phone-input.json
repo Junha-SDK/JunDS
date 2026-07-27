@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 값과 국가 둘 다 바인딩\nstruct PhoneField: View {\n    @State private var phone = \"\"                  // 숫자만: \"01012345678\"\n    @State private var country: JdPhoneCountry = .kr\n\n    var body: some View {\n        JdPhoneInput(value: $phone, country: $country, size: .md,\n                     accessibilityLabel: \"휴대폰 번호\")\n        // 표시는 \"010-1234-5678\", 국제 표기는 JdPhoneMask.fullNumber(phone, country: country)\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 국가는 프로퍼티 + onCountryChange\nlet field = JdPhoneInputView(value: \"\", country: .kr)\nfield.onValueChange = { digits in draft = digits }      // 숫자만\nfield.onCommit = { digits in save(digits) }\nfield.onCountryChange = { c in print(c.dialCode) }      // 웹 jd-change(detail.country) 동형\nlet intl = field.fullNumber                              // \"+82 1012345678\"\nfield.jd.layout {\n    $0.leading.trailing.equalToSuperview().inset(JdToken.Space.s4)\n}"
+    },
     "react": {
       "imp": "import { PhoneInput } from \"@/ds/primitives/PhoneInput\";",
       "code": "<PhoneInput value={phone} onChange={setPhone} defaultCountry=\"KR\" />"

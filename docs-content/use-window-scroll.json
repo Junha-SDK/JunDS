@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useWindowScroll — iOS 대응: ScrollView + .onScrollGeometryChange(iOS 18) 또는 scrollViewDidScroll\n// | useNetworkStatus | NWPathMonitor (Network 프레임워크)"
+    },
     "uikit": null,
     "react": null
   },

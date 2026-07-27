@@ -28,7 +28,10 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-show above=\"{above}\">md 이상에서만 보임</jd-show>\n<jd-show below=\"md\">md 미만에서만 보임</jd-show>\n\n<!-- 병용 = 구간: w>=sm && w<lg (v2 의미론 재현 — DEC-018-3) -->\n<jd-show above=\"sm\" below=\"lg\">사이 구간에서만</jd-show>"
     },
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "sidebar.jdShow(above: .md)                    // md(768) 이상에서만 표시 (모바일 폭에서 숨김)\ncompactNav.jdShow(below: .lg)                 // lg(1024) 미만에서만 표시\ntabletOnly.jdShow(above: .md, below: .lg)     // md 이상 AND lg 미만 (태블릿 구간만)\n\nmobileHint.jdHide(above: .lg)                 // lg 이상이면 숨김 (데스크톱 폭에서 제거)"
+    },
     "uikit": null,
     "react": null
   },

@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useForm — iOS 대응: JdForm.firstViolation/isValid + JdFieldRule\nlet rules: [JdFieldRule] = [.required, .email]\nif let violation = JdForm.firstViolation(email, rules: rules) {\n    errorText = violation.message(label: \"이메일\")\n}"
+    },
     "uikit": null,
     "react": null
   },

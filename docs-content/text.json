@@ -62,8 +62,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-text as=\"{as}\" font-size=\"{fontSize}\">본문 텍스트</jd-text>\n<jd-text as=\"span\" dimmed>보조 설명 (dimmed가 color 프롭보다 우선)</jd-text>\n<jd-text line-clamp=\"2\">두 줄에서 잘리는 긴 문단…</jd-text>\n<jd-text mono>console.log(\"mono\")</jd-text>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "JdText(\"본문 텍스트입니다.\")                                       // size .md · weight 400\nJdText(\"굵은 캡션\", size: .sm, weight: JdToken.FontWeight.semibold) // 크기·굵기 변형\nJdText(\"코드 값 0x5B4CC7\", mono: true)                             // 모노스페이스 패밀리\nJdText(\"긴 문장을 두 줄까지만…\", dimmed: true, lineLimit: 2)        // muted 색 + 말줄임\n\nlet label = JdTextView(\"본문 텍스트입니다.\", size: .md)\nlabel.dimmed = true              // muted 색으로 전환 (프로퍼티 didSet가 재스타일)\nlabel.mono = true                // 모노스페이스 패밀리로 전환\nlabel.textSize = .lg             // ⚠️ 크기 프로퍼티명은 textSize (UILabel의 size와 충돌 회피)\n\n// jd.layout DSL로 배치 — 좌우 md 인셋, 상단 정렬\ncontainer.addSubview(label)\nlabel.jd.layout {\n    $0.leading.trailing.equalToSuperview().inset(JdGap.md.value)\n    $0.top.equalToSuperview()\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "let label = JdTextView(\"본문 텍스트입니다.\", size: .md)\nlabel.dimmed = true              // muted 색으로 전환 (프로퍼티 didSet가 재스타일)\nlabel.mono = true                // 모노스페이스 패밀리로 전환\nlabel.textSize = .lg             // ⚠️ 크기 프로퍼티명은 textSize (UILabel의 size와 충돌 회피)\n\n// jd.layout DSL로 배치 — 좌우 md 인셋, 상단 정렬\ncontainer.addSubview(label)\nlabel.jd.layout {\n    $0.leading.trailing.equalToSuperview().inset(JdGap.md.value)\n    $0.top.equalToSuperview()\n}"
+    },
     "react": null
   },
   "tokens": [

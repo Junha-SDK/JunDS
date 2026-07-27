@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdLivePrice(price: quote.price, fallback: seed.price)                 // md(14)\nJdLivePrice(price: quote.price, size: .lg)                            // 18\nJdLivePrice(price: quote.price, showsFlash: false)                    // 플래시 끔"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 상속(JdLivePriceTextView)\nlet live = JdLivePriceView(price: 71_200)\nlive.size = .lg\nlive.price = 71_400        // 여기서 초록 플래시가 0.6초\nlive.price = 70_900        // 여기서 빨강 플래시"
+    },
     "react": null
   },
   "tokens": [],

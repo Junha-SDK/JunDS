@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\n@State private var following = false\nJdFollowButton(isFollowing: $following)\nJdFollowButton(isFollowing: $following, size: .sm,\n               followLabel: \"구독\", followingLabel: \"구독 중\")"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet follow = JdFollowButtonView(isFollowing: false)\nfollow.onChange = { isOn in api.setFollow(isOn) }\nfollow.followLabel = \"구독\"\nfollow.size = .lg"
+    },
     "react": null
   },
   "tokens": [],

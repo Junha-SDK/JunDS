@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdHashtagLabel(tag: \"SwiftUI\")                                  // \"#SwiftUI\"\nJdHashtagLabel(tag: \"iOS\", count: 12800, isTrending: true)     // 🔥 #iOS (1.3만)\nJdHashtagLabel(tag: \"design\", destination: URL(string: \"app://tag/design\"))"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet tag = JdHashtagLabelView(tag: \"iOS\", count: 12800, isTrending: true)\ntag.onTap = { router.openTag(\"iOS\") }\ntag.count = 12801             // ⚠️ 저장 프로퍼티는 hashtag/count/isTrending (init 라벨은 tag:)"
+    },
     "react": null
   },
   "tokens": [],

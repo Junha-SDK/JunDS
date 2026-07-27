@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useHotkeys — iOS 대응: JdHotkey.normalize\n// 정규화만 Core, 실제 처리는 UIKeyCommand/.onKeyPress"
+    },
     "uikit": null,
     "react": null
   },

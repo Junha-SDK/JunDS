@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdLivePctText(change: 1.234)                                  // \"+1.23%\"\nJdLivePctText(change: 0, fallback: -2.5)                      // \"-2.50%\"\nJdLivePctText(change: 3, showSign: false)                     // \"3.00%\"\nJdLivePctText(change: 3, withPercent: false)                  // \"+3.00\"\nJdLivePctText(change: 1.23456, decimals: 4)                   // \"+1.2346%\""
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 프로퍼티 변경이 곧 재렌더(didSet)\nlet pct = JdLivePctTextView(change: 1.234)\npct.change = -0.87\npct.decimals = 1\nprint(pct.formatted)   // \"-0.9%\""
+    },
     "react": null
   },
   "tokens": [],

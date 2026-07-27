@@ -34,8 +34,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-hstack gap=\"{gap}\" justify=\"{justify}\">\n  <jd-button size=\"sm\">확인</jd-button>\n  <jd-button size=\"sm\" variant=\"secondary\">취소</jd-button>\n  <jd-text as=\"span\" dimmed>기본 align=center</jd-text>\n</jd-hstack>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "HStack(alignment: .center, spacing: JdGap.sm.value) { a; b; c }        // SwiftUI\nJdStackView.horizontal(gap: .sm, [a, b, c])                            // UIKit"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 가로 스택. gap 은 JdGap 축을 그대로 쓴다\nlet row = JdStackView.horizontal(gap: .sm, [a, b, c])"
+    },
     "react": null
   },
   "tokens": [

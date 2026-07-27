@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useMutation — iOS 대응: Task + async/await, 결과는 Result\n// | useScrollLock | scrollView.isScrollEnabled = false (시트가 시스템 스크롤락을 이미 처리)"
+    },
     "uikit": null,
     "react": null
   },

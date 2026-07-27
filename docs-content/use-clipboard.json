@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useClipboard — iOS 대응: UIPasteboard.general (복사 컴포넌트는 JdCopyButton)\n// | useInterval · useTimeout | Timer / Task.sleep / DispatchQueue.asyncAfter"
+    },
     "uikit": null,
     "react": null
   },

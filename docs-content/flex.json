@@ -62,8 +62,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-flex direction=\"{direction}\" align=\"{align}\" justify=\"{justify}\" gap=\"{gap}\">\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>A</jd-box>\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>B</jd-box>\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>C</jd-box>\n</jd-flex>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI (direction=row)\nHStack(alignment: .center, spacing: JdGap.md.value) { a; b; c }   // align center\n// (direction=column) → VStack(alignment: .leading/.center/.trailing, spacing:)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit → JdStackView(axis: .horizontal, gap: .md, alignment: .center, arranged: [a, b, c])"
+    },
     "react": null
   },
   "tokens": [

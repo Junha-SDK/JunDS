@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — @Binding\n@State private var rating = 3.5\nJdStarRating(value: $rating)                                  // 5점 만점\nJdStarRating(value: $rating, max: 5, size: .lg)\nJdStarRating(value: .constant(4.0), isReadOnly: true,        // 표시 전용\n             accessibilityLabel: \"평균 별점\")"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 값 프로퍼티 + onValueChange (사용자 조작만 발화)\nlet stars = JdStarRatingView(value: 3.5, max: 5, size: .md)\nstars.onValueChange = { v in draft.rating = v }\nstars.value = 4.0        // 프로그램 변경 — onValueChange 미발화\nstars.isReadOnly = true"
+    },
     "react": {
       "imp": "import { StarRating } from \"@/ds/primitives/StarRating\";",
       "code": "<StarRating value={3} onChange={setRating} />\n<StarRating value={4.5} max={5} readonly />"

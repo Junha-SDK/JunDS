@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — onComplete는 init 인자\nstruct OTPField: View {\n    @State private var code = \"\"\n\n    var body: some View {\n        // OTP: 숫자 6자리 + 자동완성(설정 변형 — 별도 타입 아님)\n        JdPinInput(value: $code, length: 6, alphanumeric: false) { completed in\n            verify(completed)\n        }\n        // 마스킹 핀(●):\n        JdPinInput(value: $code, length: 4, masked: true)\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — onComplete는 프로퍼티(init 인자 아님)\nlet pin = JdPinInputView(value: \"\", length: 6, masked: false, alphanumeric: false)\npin.onValueChange = { v in draft = v }\npin.onComplete = { completed in verify(completed) }   // length 채워지면 발화\npin.jd.layout { $0.center.equalToSuperview() }"
+    },
     "react": {
       "imp": "import { PinInput } from \"@/ds/primitives/PinInput\";",
       "code": "<PinInput length={6} masked onComplete={verifyOTP} />\n<PinInput length={4} numeric onComplete={verifyPin} />"

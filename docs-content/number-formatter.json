@@ -10,7 +10,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "JdNumberFormat.string(value: 1234.5)                               // \"1,234.5\"\nJdNumberFormat.string(value: 12000, style: .currency)              // \"₩12,000\" (KRW 기본)\nJdNumberFormat.string(value: 1234.5, style: .currency,\n                      currency: \"USD\", locale: \"en-US\")            // \"$1,234.50\"\nJdNumberFormat.string(value: 0.153, style: .percent, decimals: 1)  // ×100 → \"15.3%\"\nJdNumberFormat.string(value: 12_800, style: .compact)              // \"1.3만\"\nJdNumberFormat.compactCount(1_200)                                 // \"1.2천\"\n\nJdText(JdNumberFormat.string(value: total, style: .currency), size: .lg, mono: true)"
+    },
     "uikit": null,
     "react": {
       "imp": "import { NumberFormatter } from \"@/ds/primitives/NumberFormatter\";",

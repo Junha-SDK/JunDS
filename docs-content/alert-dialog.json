@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nstruct DeleteButton: View {\n    @State private var isOpen = false\n    var body: some View {\n        Button(\"삭제\") { isOpen = true }\n            .background {\n                JdAlertDialog(isPresented: $isOpen,\n                              title: \"삭제할까요?\", message: \"되돌릴 수 없습니다.\",\n                              confirmLabel: \"삭제\", cancelLabel: \"취소\",\n                              isDestructive: true,\n                              onConfirm: { delete() },\n                              onCancel: { })\n            }\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — JdAlertDialogController\nlet dialog = JdAlertDialogController(title: \"삭제할까요?\", message: \"되돌릴 수 없습니다.\",\n                                     confirmLabel: \"삭제\", cancelLabel: \"취소\",\n                                     isDestructive: true,\n                                     onConfirm: { delete() },\n                                     onCancel: { })\ndialog.present(from: self)"
+    },
     "react": {
       "imp": "import { AlertDialog } from \"@/ds/composites/AlertDialog\";",
       "code": "<AlertDialog\n  open={show}\n  onConfirm={handleConfirm}\n  onCancel={() => setShow(false)}\n  title=\"삭제하시겠습니까?\"\n  description=\"이 작업은 되돌릴 수 없습니다.\"\n  variant=\"danger\"\n/>"

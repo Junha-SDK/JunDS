@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "AsyncImage(url: url) { phase in\n    switch phase {\n    case .empty:                                   // 웹 status=\"loading\"\n        JdSpinner(size: .sm)\n            .frame(maxWidth: .infinity, minHeight: 120)\n            .background(JdToken.Color.cardHover.color)\n    case .success(let image):                      // status=\"loaded\"\n        image.resizable()\n            .aspectRatio(contentMode: .fill)       // JdImageFit.cover (.fit = contain)\n    case .failure:                                 // status=\"error\" — 폴백\n        Image(systemName: \"photo\")\n            .font(.system(size: JdIconSize.lg.side))\n            .foregroundColor(JdToken.Color.mutedLight.color)\n            .frame(maxWidth: .infinity, minHeight: 120)\n            .background(JdToken.Color.cardHover.color)\n    @unknown default:\n        EmptyView()\n    }\n}\n.frame(height: 160)\n.clipShape(RoundedRectangle(cornerRadius: JdToken.Radius.lg, style: .continuous))  // 웹 radius\n.accessibilityLabel(Text(alt))    // 의미 있는 이미지만. 장식이면 .accessibilityHidden(true)\n\n// UIKit — 로딩은 URLSession, 표시는 UIImageView\nlet imageView = UIImageView()\nimageView.contentMode = .scaleAspectFill    // cover (.scaleAspectFit = contain, .scaleToFill = fill)\nimageView.clipsToBounds = true\nimageView.layer.cornerRadius = JdToken.Radius.lg\nimageView.backgroundColor = JdToken.Color.cardHover.uiColor\n\nURLSession.shared.dataTask(with: url) { data, _, _ in\n    let loaded = data.flatMap(UIImage.init(data:))\n    DispatchQueue.main.async {\n        imageView.image = loaded ?? UIImage(systemName: \"photo\")   // 에러 폴백\n    }\n}.resume()"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit — 로딩은 URLSession, 표시는 UIImageView\nlet imageView = UIImageView()\nimageView.contentMode = .scaleAspectFill    // cover (.scaleAspectFit = contain, .scaleToFill = fill)\nimageView.clipsToBounds = true\nimageView.layer.cornerRadius = JdToken.Radius.lg\nimageView.backgroundColor = JdToken.Color.cardHover.uiColor\n\nURLSession.shared.dataTask(with: url) { data, _, _ in\n    let loaded = data.flatMap(UIImage.init(data:))\n    DispatchQueue.main.async {\n        imageView.image = loaded ?? UIImage(systemName: \"photo\")   // 에러 폴백\n    }\n}.resume()"
+    },
     "react": null
   },
   "tokens": [],

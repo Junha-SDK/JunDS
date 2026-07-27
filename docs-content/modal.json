@@ -39,12 +39,12 @@
       "code": "<jd-modal size=\"{size}\">\n  <h2>제목</h2>\n  <p>내용…</p>\n  <jd-button data-autofocus>확인</jd-button>\n</jd-modal>\n\n<script>\n  const modal = document.querySelector(\"jd-modal\");\n  modal.showModal();                       // 열기 (open 프로퍼티와 동치)\n  modal.addEventListener(\"jd-request-close\", (e) => {\n    // reason: \"escape\" | \"backdrop\" | \"close\" — preventDefault로 닫기 거부\n    if (isDirty) e.preventDefault();\n  });\n  modal.addEventListener(\"jd-close\", () => console.log(\"닫힘\"));\n  modal.close();\n</script>"
     },
     "swiftui": {
-      "imp": "import JunDS",
-      "code": "@State private var showSettings = false\n\ncontent.jdModal(isPresented: $showSettings,\n                size: .md,              // sm·md = medium+large 디텐트, lg = large\n                persistent: false,      // true면 스와이프 다운 차단\n                onClose: { print(\"닫힘\") }) {\n    SettingsView()\n}"
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — jdModal은 View \"모디파이어\"다 (구조체가 아님)\nstruct ProfileScreen: View {\n    @State private var isOpen = false\n    var body: some View {\n        Button(\"프로필 편집\") { isOpen = true }\n            .jdModal(isPresented: $isOpen, size: .md, persistent: false) {\n                VStack(alignment: .leading, spacing: JdToken.Space.s4) {\n                    Text(\"프로필 편집\").jdFont(size: JdToken.FontSize.lg, weight: JdToken.FontWeight.semibold)\n                    // …폼…\n                }\n            }\n    }\n}"
     },
     "uikit": {
-      "imp": "import JunDS",
-      "code": "let modal = JdModalViewController(size: .md, persistent: false)\nmodal.contentView.addSubview(body)\nmodal.onRequestClose = { reason in    // 웹 jd-request-close 등가\n    reason != .backdrop               // false 반환 시 닫기 중단\n}\nmodal.onClose = { print(\"닫힘\") }\nmodal.present(from: self)\n\nmodal.requestClose(.close)            // 코드로 닫기 요청"
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — JdModalViewController, present(from:)\nlet modal = JdModalViewController(size: .md, persistent: false)\nmodal.onRequestClose = { reason in     // false면 닫힘 취소 (reason: .escape/.backdrop/.close)\n    reason != .backdrop                 // 예: 백드롭 스와이프만 막기\n}\nmodal.onClose = { print(\"닫힘\") }\nlet form = UILabel()                    // 임의 자식\nmodal.contentView.addSubview(form)      // 콘텐츠는 contentView에 얹는다\nmodal.present(from: self)               // self = 현재 UIViewController\n// 닫기: modal.requestClose(.close)"
     },
     "react": null
   },

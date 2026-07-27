@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// Motion — 감속 대응은 Core JdMotion 이 단일 진입점이다.\n// duration 이 0 이면 시스템이 모션 축소를 요구한 것 — 애니메이션을 통째로 끈다.\nwithAnimation(JdMotion.duration(0.3) == 0 ? nil : .easeOut) { isOpen.toggle() }"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 같은 판정을 UIView 애니메이션에 적용\nlet d = JdMotion.duration(0.3)\nif d == 0 { apply() } else { UIView.animate(withDuration: d) { apply() } }"
+    },
     "react": null
   },
   "tokens": [],

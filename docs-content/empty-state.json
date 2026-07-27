@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 액션은 @ViewBuilder action 슬롯\nJdEmptyState(title: \"메시지가 없습니다\", description: \"새 대화를 시작해 보세요.\",\n             systemImage: \"tray\") {\n    Button(\"새 대화\") { startChat() }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — actionLabel/onAction 파라미터\nlet empty = JdEmptyStateView(title: \"메시지가 없습니다\", description: \"새 대화를 시작해 보세요.\",\n                             systemImage: \"tray\",\n                             actionLabel: \"새 대화\", onAction: { startChat() })\ncontainer.addSubview(empty)"
+    },
     "react": {
       "imp": "import { EmptyState } from \"@/ds/composites/EmptyState\";",
       "code": "<EmptyState title=\"업무가 없습니다\" description=\"새 업무를 추가해보세요\" action={<Button>추가</Button>} />"

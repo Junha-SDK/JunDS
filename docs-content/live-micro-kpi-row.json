@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — items만 넘기면 폭에 맞춰 열 수가 정해진다\nJdMicroKpiRow(items: [\n    .init(label: \"USD/KRW\", value: \"1,320\", pct: -0.4, unit: \"원\"),\n    .init(label: \"외국인\",  value: \"+1,204\", pct: 1.2, hint: \"순매수\"),\n    .init(label: \"기관\",    value: \"-820\",  pct: -0.8, hint: \"순매도\"),\n    .init(label: \"WTI\",    value: \"78.2\",  pct: 1.1, unit: \"$\"),\n])\nJdMicroKpiRow(items: items, minCellWidth: 160)   // 셀을 더 넓게 → 열 수가 줄어든다\nJdMicroKpiCell(item: items[0])                    // 한 칸만 단독으로도 쓸 수 있다"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 높이는 랩 뷰가 계산해 보고한다\nlet row = JdMicroKpiRowView(items: items, minCellWidth: 132)\nrow.items = updated                  // 개수가 바뀌어도 재배치된다\nrow.sizeThatFits(CGSize(width: 360, height: .greatestFiniteMagnitude))"
+    },
     "react": null
   },
   "tokens": [],

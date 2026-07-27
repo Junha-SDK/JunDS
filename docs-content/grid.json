@@ -28,7 +28,10 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-grid cols=\"{cols}\" gap=\"{gap}\">\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>1</jd-box>\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>2</jd-box>\n</jd-grid>\n\n<!-- 반응형 자동 칼럼: repeat(auto-fit, minmax(220px, 1fr)) -->\n<jd-grid auto-fit=\"220\" gap=\"4\">…</jd-grid>"
     },
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// cols = N\nLazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: JdGap.md.value), count: n),\n          spacing: JdGap.md.value) { cells }\n// auto-fit / auto-fill / min-child-width = N\nLazyVGrid(columns: [GridItem(.adaptive(minimum: n), spacing: JdGap.md.value)],\n          spacing: JdGap.md.value) { cells }"
+    },
     "uikit": null,
     "react": null
   },

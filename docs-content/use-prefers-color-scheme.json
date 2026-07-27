@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// usePrefersColorScheme — iOS 대응: @Environment(\\.colorScheme)"
+    },
     "uikit": null,
     "react": null
   },

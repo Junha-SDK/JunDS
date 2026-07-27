@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 실뷰에 라벨을 싣는 것이 1순위\nJdText(\"42\", size: .lg)\n    .accessibilityLabel(Text(\"읽지 않은 알림\"))\n    .accessibilityValue(Text(\"42개\"))\n    .accessibilityHint(Text(\"두 번 탭하면 알림함이 열립니다\"))\n\n// 시각 요소 없이 AT 전용 문구가 정말 필요할 때만 — 0×0 뷰\nColor.clear\n    .frame(width: 0, height: 0)\n    .accessibilityElement()\n    .accessibilityLabel(Text(\"정렬 기준: 날짜 내림차순\"))"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit\nlabel.isAccessibilityElement = true\nlabel.accessibilityLabel = \"읽지 않은 알림\"\nlabel.accessibilityValue = \"42개\""
+    },
     "react": null
   },
   "tokens": [],

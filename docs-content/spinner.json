@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-spinner></jd-spinner>\n<jd-spinner size=\"lg\" color=\"muted\" label=\"불러오는 중\"></jd-spinner>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 자체 드로잉(25% 트랙 링 + 75% 1/4 호)\nJdSpinner()                                    // md, label \"로딩 중\", primary\nJdSpinner(size: .sm)\nJdSpinner(size: .lg, label: \"업로드 중\", color: JdToken.Color.danger)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 시스템 UIActivityIndicatorView 스킨\nlet spinner = JdSpinnerView(size: .lg, color: JdToken.Color.primary)\nspinner.label = \"동기화 중\"                     // 접근성 라벨(var)\ncontainer.addSubview(spinner)\nspinner.jd.layout {\n    $0.center.equalToSuperview()\n}\n// spinner.isAnimating  // get-only — Reduce Motion 정지 여부 관측용"
+    },
     "react": {
       "imp": "import { Spinner } from \"@/ds/primitives/Spinner\";",
       "code": "<Spinner size=\"md\" />"

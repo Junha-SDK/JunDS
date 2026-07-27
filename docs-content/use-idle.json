@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useIdle — iOS 대응: 사용자 이벤트 타임스탬프 + Timer (커스텀)"
+    },
     "uikit": null,
     "react": null
   },

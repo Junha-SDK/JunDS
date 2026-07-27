@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — ① 앱 루트에 호스트 1회 부착\nstruct RootView: View {\n    var body: some View {\n        ContentView()\n            .jdToastHost(.shared, position: .topRight)   // 큐를 position별로 오버레이\n    }\n}\n// ② 어디서든 센터에 show\nJdToastCenter.shared.show(\n    JdToast(title: \"업로드 완료\", message: \"3개 파일\", variant: .success, duration: 4)\n)\n// 수동 닫기: let id = center.show(...); center.dismiss(id) / center.clear()"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — ① 윈도우/루트에 호스트 뷰 1회 부착\nlet host = JdToastHostView(position: .topRight, maxVisible: 4)\nwindow.addSubview(host)\nhost.jd.layout { $0.edges.equalToSuperview() }   // 빈 공간은 터치 통과(카드만 상호작용)\n// ② show\nhost.show(JdToast(title: \"업로드 완료\", message: \"3개 파일\", variant: .success))\n// host.dismiss(id) / host.clear()"
+    },
     "react": null
   },
   "tokens": [],

@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "JdAnnouncer.announce(\"복사됨\")                             // 기본 polite\nJdAnnouncer.announce(\"업로드 실패\", priority: .assertive)   // 진행 중 발화를 끊고 즉시"
+    },
     "uikit": null,
     "react": null
   },

@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 앵커를 .background에 심고 isPresented로 연다\nstruct PostRow: View {\n    @State private var isOpen = false\n    private let actions = [\n        JdActionItem(id: \"edit\", label: \"편집\"),\n        JdActionItem(id: \"delete\", label: \"삭제\", isDestructive: true),\n    ]\n    var body: some View {\n        Button(\"⋯\") { isOpen = true }\n            .background {\n                JdActionSheet(isPresented: $isOpen, title: \"게시물\", message: \"작업을 고르세요\",\n                              actions: actions) { item in\n                    handle(item.id)     // 취소는 자동 — 여기로 오지 않는다\n                }\n            }\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — JdActionSheetController, present(from:sourceView:)\nlet actions = [\n    JdActionItem(id: \"edit\", label: \"편집\"),\n    JdActionItem(id: \"delete\", label: \"삭제\", isDestructive: true),\n]\nlet sheet = JdActionSheetController(title: \"게시물\", message: \"작업을 고르세요\",\n                                    actions: actions, cancelLabel: \"취소\") { item in\n    handle(item.id)\n}\nsheet.present(from: self, sourceView: moreButton)   // iPad popover 앵커(없으면 크래시)"
+    },
     "react": {
       "imp": "import { ActionSheet } from \"@/ds/composites/ActionSheet\";",
       "code": "<ActionSheet\n  open={open}\n  onClose={() => setOpen(false)}\n  actions={[{ label: \"삭제\", onClick: handleDelete, variant: \"danger\" }]}\n/>"

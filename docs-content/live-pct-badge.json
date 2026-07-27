@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 합성(struct는 상속이 없다)\nJdLivePctBadge(change: 1.234)          // 초록 \"+1.23%\"\nJdLivePctBadge(change: -0.003)         // 회색 \"-0.00%\"  ← live 규칙: 보합\nJdLivePctBadge(change: 0.003)          // 초록 \"+0.00%\"  ← up이 flat보다 우선"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 상속(웹의 class extends를 그대로)\nlet badge = JdLivePctBadgeView(change: 0, fallback: -3)\nbadge.trend            // .down — 원시 change(0)가 아니라 표시값(-3%)으로 판정한다\nbadge.accessibilityLabel  // \"하락 -3.00%\""
+    },
     "react": null
   },
   "tokens": [],

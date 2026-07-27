@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — Canvas 한 패스에 선·면적·기준선·점\nJdSparkline(values: series)                                        // 80×24, 점만\nJdSparkline(values: series, width: 140, height: 40, showsFill: true)\nJdSparkline(values: series, showsBaseline: true, label: \"최근 7일 추세\")\nJdSparkline(values: series, color: JdToken.Color.primary)          // 색 고정"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — draw(_:) 한 패스\nlet spark = JdSparklineView(values: series, width: 140, height: 40, showsFill: true)\nspark.values = updated       // 다시 그린다(좌표 재계산은 Core)\nspark.label = \"최근 7일 추세\" // 라벨을 주면 장식 → 정보로 승격"
+    },
     "react": null
   },
   "tokens": [],

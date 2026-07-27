@@ -14,8 +14,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-key-cap>⌘</jd-key-cap>\n<jd-key-cap variant=\"primary\" size=\"lg\">Enter</jd-key-cap>\n<jd-key-cap pressed>K</jd-key-cap>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdKeyCap(\"A\")\nJdKeyCap(\"⏎\", variant: .primary, size: .lg)\nJdKeyCap(\"⌫\", variant: .muted)\nJdKeyCap(\"W\", isPressed: keyStates.contains(\"W\"))   // 소비자 상태에 바인딩"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — UILabel 서브클래스\nlet cap = JdKeyCapView(\"A\", variant: .default, size: .lg)\ncap.isPressed = true           // didSet → 1pt 하강 + 그림자 제거(Reduce Motion 시 즉시)\ncontainer.addSubview(cap)\ncap.jd.layout {\n    $0.top.leading.equalToSuperview()\n}"
+    },
     "react": null
   },
   "tokens": [],

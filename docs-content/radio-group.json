@@ -15,8 +15,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-radio-group name=\"priority\" value=\"1\" direction=\"horizontal\">\n  <script type=\"application/json\">[\n    {\"value\":\"0\",\"label\":\"긴급\"},\n    {\"value\":\"1\",\"label\":\"높음\"},\n    {\"value\":\"2\",\"label\":\"보통\"}\n  ]</script>\n</jd-radio-group>\n\n<script>\n  // options는 프로퍼티로도 주입 가능: el.options = [{value,label,disabled?}]\n  document.querySelector(\"jd-radio-group\").addEventListener(\"change\", (e) => console.log(e.target.value));\n</script>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 선택값은 옵션 value와 매칭되는 String?\nstruct PlanPicker: View {\n    @State private var plan: String? = \"pro\"\n    private let options = [\n        JdRadioOption(value: \"free\", label: \"무료\"),\n        JdRadioOption(value: \"pro\", label: \"프로\"),\n        JdRadioOption(value: \"team\", label: \"팀\", isDisabled: true),\n    ]\n\n    var body: some View {\n        JdRadioGroup(options, selection: $plan, axis: .vertical)\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet group = JdRadioGroupView(\n    options: [JdRadioOption(value: \"free\", label: \"무료\"),\n              JdRadioOption(value: \"pro\", label: \"프로\")],\n    selectedValue: \"pro\",\n    axis: .horizontal\n)\ngroup.onChange = { value in viewModel.plan = value }   // 선택된 옵션 value\ngroup.jd.layout { $0.edges.equalToSuperview() }"
+    },
     "react": null
   },
   "tokens": [],

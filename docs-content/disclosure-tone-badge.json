@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdDisclosureToneBadge(tone: .positive, category: .earnings, confidence: 0.87)\nJdDisclosureToneBadge(tone: .negative, category: .litigation, compact: true)  // 표 행용\nJdDisclosureToneBadge(tone: .neutral)                                          // 신뢰도 0 = 숨김"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet badge = JdDisclosureToneBadgeView(tone: .positive, category: .earnings, confidence: 0.87)\nbadge.compact = true      // 톤만 남는다 — 낭독은 그대로 전부"
+    },
     "react": null
   },
   "tokens": [],

@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 값은 Double? (빈 값 = nil, v2처럼 0을 강제하지 않는다)\nstruct QuantityStepper: View {\n    @State private var qty: Double? = 1\n\n    var body: some View {\n        JdNumberInput(value: $qty, min: 1, max: 99, step: 1, size: .md)\n        // 버튼 없이 숫자 필드만:\n        JdNumberInput(value: $qty, min: 0, hidesControls: true,\n                      accessibilityLabel: \"수량\")\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 프로퍼티명은 minValue/maxValue다(Swift.min/max와의 충돌 회피)\nlet input = JdNumberInputView(value: 1, min: 1, max: 99, step: 1, size: .md)\ninput.onValueChange = { v in draft = v }     // 타이핑 중(클램프 전)\ninput.onCommit = { v in save(v) }            // 커밋·스텝(클램프 후)\n// 이후 경계 변경 시: input.minValue = 5 / input.maxValue = 50\ninput.jd.layout { $0.leading.top.equalToSuperview() }"
+    },
     "react": {
       "imp": "import { NumberInput } from \"@/ds/primitives/NumberInput\";",
       "code": "<NumberInput value={count} onChange={setCount} min={0} max={100} step={5} />"

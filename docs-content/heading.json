@@ -29,8 +29,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-heading level=\"{level}\">분기 실적 요약</jd-heading>\n\n<!-- 스타일 프롭 병용 — 타이포 기본값은 레벨별 CSS, 인라인이 이긴다 -->\n<jd-heading level=\"3\" color=\"muted\" font-weight=\"medium\">보조 제목</jd-heading>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "JdHeading(\"페이지 제목\", level: .h1)                     // 24pt bold\nJdHeading(\"섹션 제목\")                                   // 기본 level .h2 (20pt bold)\nJdHeading(\"한 줄로 자르는 제목\", level: .h3, truncate: true)\n\nlet heading = JdHeadingView(\"페이지 제목\", level: .h1)\nheading.level = .h2              // 레벨 변경 → 램프 재적용 (didSet)\nheading.text = \"새 제목\"          // 세터를 가로채 원문 보존 + 재스타일 (VoiceOver는 원문으로 읽음)\n\ncontainer.addSubview(heading)\nheading.jd.layout {\n    $0.top.leading.trailing.equalToSuperview()\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "let heading = JdHeadingView(\"페이지 제목\", level: .h1)\nheading.level = .h2              // 레벨 변경 → 램프 재적용 (didSet)\nheading.text = \"새 제목\"          // 세터를 가로채 원문 보존 + 재스타일 (VoiceOver는 원문으로 읽음)\n\ncontainer.addSubview(heading)\nheading.jd.layout {\n    $0.top.leading.trailing.equalToSuperview()\n}"
+    },
     "react": null
   },
   "tokens": [

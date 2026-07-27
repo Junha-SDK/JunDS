@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — ScrollViewReader로 스크롤, shouldShow로 노출 제어\nScrollViewReader { proxy in\n    // …콘텐츠, 최상단에 .id(\"top\")…\n    if JdBackTop.shouldShow(scrollY: offset, threshold: JdBackTop.defaultThreshold) {  // 400\n        JdBackTopButton {\n            withAnimation { proxy.scrollTo(\"top\", anchor: .top) }\n        }\n    }\n}\n// 라벨 커스터마이즈: JdBackTopButton(action: …, label: \"맨 위로\")"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — onTap에서 setContentOffset, isHidden으로 노출 제어\nlet backTop = JdBackTopButtonView()      // label 기본 \"상단으로 이동\"\nbackTop.onTap = { [weak scrollView] in\n    scrollView?.setContentOffset(.zero, animated: true)\n}\n// scrollViewDidScroll(_:)에서:\nbackTop.isHidden = !JdBackTop.shouldShow(scrollY: scrollView.contentOffset.y,\n                                         threshold: JdBackTop.defaultThreshold)"
+    },
     "react": {
       "imp": "import { BackTop } from \"@/ds/primitives/BackTop\";",
       "code": "<BackTop threshold={300} />"

@@ -25,7 +25,10 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-box position=\"relative\" h=\"180\" radius=\"md\" overflow=\"hidden\" bg=\"card\" border>\n  기저 콘텐츠\n  <!-- attr는 blur, 프로퍼티는 blurred (HTMLElement.blur() 충돌 회피 — DEC-018-5) -->\n  <jd-overlay bg=\"rgba(10, 8, 20, 0.45)\" color=\"white\" blur>겹침 콘텐츠</jd-overlay>\n</jd-box>"
     },
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "base.overlay(alignment: noCenter ? .topLeading : .center) {\n    content\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n        .background(.ultraThinMaterial)      // 웹 backdrop-filter: blur(4px) 등가\n}\n// blur 없이 딤만 필요하면 .background(JdToken.Color.foreground.color.opacity(0.5))"
+    },
     "uikit": null,
     "react": null
   },

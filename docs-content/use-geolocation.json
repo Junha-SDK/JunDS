@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useGeolocation — iOS 대응: CLLocationManager\n// | useFullscreen | .fullScreenCover / present(_:animated:)"
+    },
     "uikit": null,
     "react": null
   },

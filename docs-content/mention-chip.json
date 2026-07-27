@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — destination으로 프로필 링크\nJdMentionLabel(handle: \"junha\")                                   // \"@junha\"\nJdMentionLabel(handle: \"junha\", label: \"전준하\", isVerified: true)  // \"전준하\" + ✓\nJdMentionLabel(handle: \"junha\", destination: URL(string: \"app://user/junha\"))"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 열기는 onTap 클로저(소비자·라우터 몫)\nlet mention = JdMentionLabelView(handle: \"junha\", label: \"전준하\", isVerified: true)\nmention.onTap = { router.openProfile(\"junha\") }\nmention.isVerified = false"
+    },
     "react": null
   },
   "tokens": [],

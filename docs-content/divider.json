@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-divider></jd-divider>\n\n<!-- primitives Divider는 별칭 — 신규 태그 없음(R12·DEC-014-5). 무여백이 필요하면: -->\n<jd-divider my=\"0\"></jd-divider>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "JdDivider()                                   // 가로 1pt 선 (부모 폭만큼 stretch)\nJdDivider(label: \"또는\")                        // 선—라벨—선 (라벨 = muted)\nJdDivider(orientation: .vertical)             // 세로 선 — 부모가 높이를 줘야 보인다\n\nlet divider = JdDividerView()                 // 가로 선\ndivider.label = \"또는\"                          // 런타임에 라벨 부여 → line—label—line 재구성\n\ncontainer.addSubview(divider)\ndivider.jd.layout {\n    // 두께(1pt)는 intrinsicContentSize가 고정 — 길이·위치만 제약한다\n    $0.leading.trailing.equalToSuperview().inset(JdGap.md.value)\n    $0.centerY.equalToSuperview()\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "let divider = JdDividerView()                 // 가로 선\ndivider.label = \"또는\"                          // 런타임에 라벨 부여 → line—label—line 재구성\n\ncontainer.addSubview(divider)\ndivider.jd.layout {\n    // 두께(1pt)는 intrinsicContentSize가 고정 — 길이·위치만 제약한다\n    $0.leading.trailing.equalToSuperview().inset(JdGap.md.value)\n    $0.centerY.equalToSuperview()\n}"
+    },
     "react": {
       "imp": "import { Divider } from \"@/ds/primitives/Divider\";",
       "code": "<Divider />\n<Divider label=\"또는\" />\n<Divider orientation=\"vertical\" />"

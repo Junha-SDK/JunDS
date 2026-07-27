@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdThemeTagList(themes: [\"반도체\", \"2차전지\", \"바이오\"])\nJdThemeTagList(themes: themes) { theme in router.push(.theme(theme)) }   // 탭 가능\nJdThemeChip(theme: \"반도체\", index: 2)                                    // 칩 하나만"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet list = JdThemeTagListView(themes: themes) { theme in open(theme) }\nlist.themes = updated       // 개수가 바뀌어도 재배치된다"
+    },
     "react": null
   },
   "tokens": [],

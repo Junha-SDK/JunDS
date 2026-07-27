@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdCopyButton(\"복사할 코드\")\nJdCopyButton(shareURL.absoluteString, label: \"링크 복사\", copiedLabel: \"복사됨!\")\nJdCopyButton(token, variant: .primary, size: .sm)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet copy = JdCopyButtonView(text: \"복사할 코드\")\ncopy.onCopy = { copied in analytics.log(\"copy\", copied) }\ncopy.text = newValue          // 복사 대상 갱신\n// copy.isCopied 는 읽기 전용(private(set)) — 2초 뒤 자동 복귀"
+    },
     "react": {
       "imp": "import { CopyButton } from \"@/ds/primitives/CopyButton\";",
       "code": "<CopyButton text=\"복사할 텍스트\" />\n<CopyButton text={code} variant=\"button\" label=\"코드 복사\" />"

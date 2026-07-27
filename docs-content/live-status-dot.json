@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdLiveStatusDot(live: true)                        // 초록 점 + \"실시간\" + 링 펄스\nJdLiveStatusDot(live: false)                       // 회색 점 + \"장마감\"\nJdLiveStatusDot(live: true, label: \"프리마켓\")      // 라벨 override"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet dot = JdLiveStatusDotView(live: true)\ndot.label = \"정규장\"\ndot.label = \"\"          // 빈 문자열 = override 해제 → \"실시간\"으로 복귀\ndot.live = false        // 링이 숨는다(멈춘 반투명 원이 남으면 점이 두 겹으로 보인다)"
+    },
     "react": null
   },
   "tokens": [],

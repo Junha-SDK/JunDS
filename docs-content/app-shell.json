@@ -39,7 +39,10 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-app-shell sticky-header content-padding=\"{contentPadding}\">\n  <nav slot=\"sidebar\">…내비게이션…</nav>\n  <div slot=\"header\">헤더</div>\n  본문 콘텐츠 (slot 없는 children)\n  <div slot=\"footer\">푸터</div>\n</jd-app-shell>\n\n<script>\n  // 데스크톱 접힘 토글 사후 통지 (Ctrl/⌘+B 또는 메뉴 버튼)\n  document.querySelector(\"jd-app-shell\")\n    .addEventListener(\"jd-sidebar-toggle\", (e) => console.log(e.detail.collapsed));\n</script>"
     },
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "struct RootView: View {\n    @State private var collapsed = false\n    @State private var compactOpen = false\n\n    var body: some View {\n        JdAppShell(collapsed: $collapsed, compactOpen: $compactOpen) {\n            SidebarView()                                  // sidebar 슬롯\n        } header: {\n            HeaderView(onMenu: { compactOpen = true })     // compact 진입 메뉴는 소비자 몫\n        } content: {\n            ContentView()\n        } footer: {\n            EmptyView()                                    // 슬롯 생략 = EmptyView() 전달\n        }\n    }\n}\n\n// 폭 변형\nJdAppShell(sidebarWidth: 320, collapsedWidth: JdToken.Space.s16,   // 64\n           collapsed: $collapsed, compactOpen: $compactOpen) { /* … 4슬롯 … */ }\n\nlet shell = JdAppShellController(sidebar: sidebarVC, content: contentVC)\nshell.sidebarWidth = 260\nshell.collapsedWidth = JdToken.Space.s16     // 64\nshell.isCollapsed = true                     // 레일 접기 (애니메이션 전환)\nshell.isCompactOpen = true                   // compact 폭에서 드로어 열기 (regular 복귀 시 자동 닫힘)"
+    },
     "uikit": null,
     "react": null
   },

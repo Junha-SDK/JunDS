@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// AspectRatio 는 AspectRatioBox 별칭이다 — 같은 레시피를 쓴다\n// SwiftUI — 웹 <jd-aspect-ratio-box> 동형. 기본 16/9.\ncontent\n    .aspectRatio(16.0 / 9.0, contentMode: .fill)\n    .clipped()                                      // 웹 overflow:hidden"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// AspectRatio 는 AspectRatioBox 별칭이다 — 같은 레시피를 쓴다\n// UIKit — 폭·높이 제약의 배율로 비율을 고정한다\nchild.jd.layout { $0.width.equal(to: child.jd.height).multiplier(16.0 / 9.0) }"
+    },
     "react": {
       "imp": "import { AspectRatio } from \"@/ds/primitives/AspectRatio\";",
       "code": "<AspectRatio ratio={16 / 9}>\n  <img src=\"/photo.jpg\" className=\"object-cover w-full h-full\" />\n</AspectRatio>\n<AspectRatio ratio={1}>\n  <div>정사각형</div>\n</AspectRatio>"

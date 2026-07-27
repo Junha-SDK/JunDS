@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-status-dot status=\"success\" label=\"정상\"></jd-status-dot>\n<jd-status-dot status=\"warning\" label=\"점검 중\" size=\"lg\"></jd-status-dot>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdStatusDot(.success, label: \"정상 가동\")\nJdStatusDot(.danger, label: \"오류\", size: .lg)\nJdStatusDot(.pulse, label: \"실시간\")           // success 색 + 2s 맥동\nJdStatusDot(.neutral)                          // 라벨 없음 → 상태명이 AT 라벨로"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet dot = JdStatusDotView(.warning, label: \"지연\", size: .md)\ndot.status = .pulse            // didSet → 재해석 + 맥동 재부착\ndot.label = nil                // 라벨 제거 시 상태명이 접근성 라벨 대체\ncontainer.addSubview(dot)\ndot.jd.layout {\n    $0.leading.centerY.equalToSuperview()\n}"
+    },
     "react": {
       "imp": "import { StatusDot } from \"@/ds/primitives/StatusDot\";",
       "code": "<StatusDot status=\"success\" label=\"온라인\" />\n<StatusDot status=\"danger\" label=\"오프라인\" />"

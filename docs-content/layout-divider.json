@@ -15,8 +15,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<!-- LayoutDivider 전용 태그는 없다 — jd-divider(단일 정본)를 그대로 사용 -->\n<jd-divider></jd-divider>\n<jd-divider label=\"또는\"></jd-divider>\n<!-- v2 spacing 프롭 차이는 react 어댑터가 my/mx 매핑으로 해소 -->"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — Layout 프로토콜\nJdFlowLayout(spacing: JdGap.sm.value) { chips }"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit — 줄바꿈 컨테이너 (DEC-041에서 신설)\nlet wrap = JdWrapView(itemSpacing: JdGap.sm.value, chips)          // 고유 폭 흐름(칩·태그)\nlet grid = JdWrapView(itemSpacing: JdGap.sm.value,\n                      equalWidths: true, minItemWidth: 132, cells)  // 균등 분할 격자(KPI 셀)\ngrid.maxPerLine = 2                                                 // 2×2로 고정하고 싶을 때"
+    },
     "react": null
   },
   "tokens": [

@@ -53,12 +53,12 @@
       "code": "<jd-text-field label=\"{label}\" placeholder=\"{placeholder}\" size=\"{size}\"\n               name=\"email\" error=\"{error}\"></jd-text-field>\n\n<script>\n  const field = document.querySelector(\"jd-text-field\");\n  field.addEventListener(\"jd-input\",  (e) => console.log(e.detail.value)); // 실시간\n  field.addEventListener(\"jd-change\", (e) => console.log(e.detail.value)); // 확정\n  field.error = \"형식이 올바르지 않습니다\"; // 빈 문자열이 아니면 에러 상태\n</script>"
     },
     "swiftui": {
-      "imp": "import JunDS",
-      "code": "@State private var email = \"\"\n\nJdTextField(\"이메일\", placeholder: \"you@example.com\", text: $email)\n\n// 에러 메시지가 곧 상태 — 빈 값이 아니면 에러 표시\nJdTextField(\"이메일\", text: $email,\n            error: email.contains(\"@\") ? nil : \"형식이 올바르지 않습니다\",\n            onCommit: { submit() })"
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nstruct EmailField: View {\n    @State private var email = \"\"\n    @State private var error: String?\n\n    var body: some View {\n        JdTextField(\"이메일\",\n                    placeholder: \"you@example.com\",\n                    text: $email,\n                    size: .md,\n                    error: error,                       // nil/\"\" = 정상, 문자열 = 에러\n                    onCommit: { validate() })\n    }\n}"
     },
     "uikit": {
-      "imp": "import JunDS",
-      "code": "let field = JdTextFieldView(label: \"이메일\", placeholder: \"you@example.com\")\nfield.onTextChange = { text in print(text) }   // 실시간\nfield.onCommit = { text in submit(text) }      // 편집 종료\nfield.error = \"형식이 올바르지 않습니다\"          // nil·빈 값이면 해제\nview.addSubview(field)"
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet field = JdTextFieldView(label: \"이메일\", placeholder: \"you@example.com\", size: .md)\nfield.onTextChange = { text in draft = text }       // 매 키 입력\nfield.onCommit = { text in validate(text) }         // 편집 종료\nfield.error = \"올바른 이메일이 아닙니다\"              // 문자열 대입 = 에러 표시 + 낭독\nfield.jd.layout {\n    $0.leading.trailing.equalToSuperview().inset(JdToken.Space.s4)\n}"
     },
     "react": {
       "imp": "import { Input } from \"@/ds/primitives/Input\";",

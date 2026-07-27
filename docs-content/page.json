@@ -29,7 +29,10 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-page max-width=\"{maxWidth}\">\n  <jd-page-header title=\"대시보드\" description=\"오늘의 요약\">\n    <a slot=\"breadcrumb\" href=\"/\">홈</a>\n    <jd-button size=\"sm\">새로 만들기</jd-button>  <!-- 나머지 children = actions -->\n  </jd-page-header>\n  <jd-page-body>\n    <jd-section title=\"현황\">…</jd-section>\n  </jd-page-body>\n</jd-page>"
     },
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "NavigationStack {\n    ScrollView {\n        VStack(alignment: .leading, spacing: JdGap.lg.value) {\n            // jd-page-header\n            VStack(alignment: .leading, spacing: JdGap.xs.value) {\n                JdHeading(\"제목\", level: .h1)\n                JdText(\"설명\", size: .md, dimmed: true)\n            }\n            // jd-page-body: 섹션들\n            sectionA; sectionB\n        }\n        .padding(JdToken.Space.s4)          // 웹 16px, regular-width 24pt\n        .frame(maxWidth: 1280)               // max-width xl 프리셋\n        .frame(maxWidth: .infinity)          // margin-inline auto\n    }\n}"
+    },
     "uikit": null,
     "react": null
   },

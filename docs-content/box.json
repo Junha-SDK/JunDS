@@ -62,8 +62,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-box p=\"{p}\" bg=\"{bg}\" radius=\"{radius}\" shadow=\"{shadow}\" border>내용</jd-box>\n\n<!-- 반응형: attribute 마이크로문법 \"base md:값\" (JSON 금지 — DEC-014-2) -->\n<jd-box p=\"2 md:6\" bg=\"primary-light\" radius=\"lg\">반응형 패딩</jd-box>\n\n<!-- spacing은 4px 스케일·named(xs~4xl), 색은 토큰명(card·primary·danger-light…) -->\n<jd-box mx=\"auto\" max-w=\"640\" px=\"4\">중앙 정렬 칼럼</jd-box>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\ncontent\n    .padding(JdGap.md.value)                 // p=\"md\"\n    .background(JdToken.Color.card.color)     // bg=\"card\"\n    .cornerRadius(JdToken.Radius.lg)          // radius=\"lg\"\n    .overlay(RoundedRectangle(cornerRadius: JdToken.Radius.lg)\n        .stroke(JdToken.Color.border.color, lineWidth: JdToken.Border.thin)) // border"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit\nlet box = UIView()\nbox.backgroundColor = JdToken.Color.card.uiColor\nbox.layer.cornerRadius = JdToken.Radius.lg\nbox.layoutMargins = UIEdgeInsets(top: JdGap.md.value, left: JdGap.md.value,\n                                 bottom: JdGap.md.value, right: JdGap.md.value)"
+    },
     "react": null
   },
   "tokens": [

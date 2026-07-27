@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nScrollView(.vertical) {\n    VStack(alignment: .leading, spacing: JdGap.sm.value) { rows }\n        .frame(maxWidth: .infinity, alignment: .leading)\n        .padding(JdGap.md.value)\n}\n.frame(maxHeight: 240)                       // 웹 max-height\n.clipShape(RoundedRectangle(cornerRadius: JdToken.Radius.lg, style: .continuous))\n\n// orientation=\"horizontal\"\nScrollView(.horizontal) { HStack(spacing: JdGap.sm.value) { chips } }\n    .scrollIndicators(.hidden)               // iOS 16+"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit\nlet scroll = UIScrollView()\nscroll.alwaysBounceVertical = true\nscroll.showsHorizontalScrollIndicator = false"
+    },
     "react": {
       "imp": "import { ScrollArea } from \"@/ds/primitives/ScrollArea\";",
       "code": "<ScrollArea maxHeight={300}>\n  <p>긴 내용...</p>\n</ScrollArea>\n<ScrollArea orientation=\"horizontal\" maxHeight=\"200px\">\n  <div className=\"flex gap-4\">...</div>\n</ScrollArea>"

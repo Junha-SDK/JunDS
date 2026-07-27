@@ -28,7 +28,10 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-hide above=\"{above}\">md 이상에서 숨김</jd-hide>\n<jd-hide below=\"md\">md 미만에서 숨김</jd-hide>"
     },
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "sidebar.jdShow(above: .md)                    // md(768) 이상에서만 표시 (모바일 폭에서 숨김)\ncompactNav.jdShow(below: .lg)                 // lg(1024) 미만에서만 표시\ntabletOnly.jdShow(above: .md, below: .lg)     // md 이상 AND lg 미만 (태블릿 구간만)\n\nmobileHint.jdHide(above: .lg)                 // lg 이상이면 숨김 (데스크톱 폭에서 제거)"
+    },
     "uikit": null,
     "react": null
   },

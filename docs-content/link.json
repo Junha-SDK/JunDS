@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 시스템 Link → openURL\nJdLink(\"문서 열기\", destination: URL(string: \"https://junds.dev\"))\nJdLink(\"외부 사이트\", destination: url, isExternal: true)   // ↗ 아이콘 + \"새 창에서 열림\" 라벨\nJdLink(\"밑줄 없이\", destination: url, variant: .muted, underline: false)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 기본은 UIApplication.open, onTap을 주면 라우터가 가로챈다\nlet link = JdLinkView(\"문서 열기\", destination: URL(string: \"https://junds.dev\"), isExternal: true)\nlink.onTap = { router.push(route) }   // ⚠️ 지정 시 destination 열기 대신 이 클로저만 실행\nlink.text = \"바뀐 링크 문구\""
+    },
     "react": null
   },
   "tokens": [],

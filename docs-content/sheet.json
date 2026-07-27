@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// Sheet 는 BottomSheet 별칭이다 — draggable BottomSheet 가 표면 전량을 덮는다\n// SwiftUI — 시트는 시스템 레이어에 뜨므로 앵커만 .background에 심는다\nstruct Player: View {\n    @State private var isOpen = false\n    var body: some View {\n        Button(\"공유\") { isOpen = true }\n            .background {\n                JdBottomSheet(isPresented: $isOpen, size: .md, draggable: true) {\n                    ShareContent()\n                }\n            }\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// Sheet 는 BottomSheet 별칭이다 — draggable BottomSheet 가 표면 전량을 덮는다\n// UIKit — JdBottomSheetController\nlet sheet = JdBottomSheetController(size: .lg, draggable: true, persistent: false)\nsheet.onDismissAttempt = { _ in true }\nsheet.onClose = { }\nsheet.contentView.addSubview(shareView)\nsheet.present(from: self)"
+    },
     "react": {
       "imp": "import { Sheet } from \"@/ds/composites/Sheet\";",
       "code": "<Sheet open={isOpen} onClose={close} title=\"옵션\">\n  <p>시트 내용</p>\n</Sheet>"

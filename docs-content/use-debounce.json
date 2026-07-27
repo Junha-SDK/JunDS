@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useDebounce — iOS 대응: JdDebouncer(delay:)\nlet debouncer = JdDebouncer(delay: 0.3)\nfunc onQueryChange(_ q: String) { debouncer.call { runSearch(q) } }"
+    },
     "uikit": null,
     "react": null
   },

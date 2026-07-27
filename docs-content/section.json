@@ -36,7 +36,10 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-section title=\"{title}\" description=\"{description}\" gap=\"{gap}\">\n  <jd-text>본문 블록 1</jd-text>\n  <jd-text>본문 블록 2</jd-text>\n</jd-section>\n\n<jd-section title=\"테두리 섹션\" border>…</jd-section>"
     },
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "VStack(alignment: .leading, spacing: JdGap.md.value) {\n    VStack(alignment: .leading, spacing: JdToken.Space.s0_5) {\n        JdHeading(title, level: .h4)\n        JdText(description, size: .sm, dimmed: true)\n    }\n    VStack(alignment: .leading, spacing: gap.value) { content }\n}\n.padding(JdToken.Space.s4)\n// border 플래그 → radius xl2(16) + 1px stroke\n.overlay(RoundedRectangle(cornerRadius: JdToken.Radius.xl2, style: .continuous)\n    .stroke(JdToken.Color.border.color, lineWidth: JdToken.Border.thin))"
+    },
     "uikit": null,
     "react": null
   },

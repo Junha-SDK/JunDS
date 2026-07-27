@@ -19,7 +19,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-box> — style-props 원형 컨테이너. as 폴리모피즘은 react 어댑터 몫(DEC-014-3) / iOS B-core(2026-07-24, DEC-028): 레시피(신규 타입 없음) — 스타일 모디파이어 번들, RECIPES.md + 쇼룸 데모 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -30,7 +30,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-center> — Box 파생(양축 중앙) / iOS B-core(2026-07-24, DEC-028): 레시피 — ZStack/frame 중앙 정렬, RECIPES.md + 쇼룸 데모 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -41,7 +41,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-divider> — 구분선 단일 정본(R12·DEC-014-5), LayoutDivider(B2)·primitives Divider(B4)는 별칭 예정 / iOS B-core(2026-07-24, DEC-028): JdDivider(SwiftUI)·JdDividerView(UIKit) 실구현 — 라벨 모드 line—label—line 동형 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -63,7 +63,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-flex> — Box 파생, inline 프롭 / iOS B-core(2026-07-24, DEC-028): 레시피 — direction별 HStack/VStack 관용구 + JdGap — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -74,7 +74,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-grid-layout> — Box 파생. layout Grid 단일화는 B2 별칭(R12) / iOS B-core(2026-07-24, DEC-028): 레시피 — LazyVGrid(cols/adaptive), autoFit→GridItem(.adaptive) — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -85,7 +85,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-group> — Box 파생, no-wrap 프롭 / iOS B-core(2026-07-24, DEC-028): JdFlowLayout(SwiftUI 실구현, wrap) / UIKit은 JdStackView no-wrap 폴백(UIStackView 한계) — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -96,7 +96,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-hstack> — Box 파생(row·gap sm·align center) / iOS B-core(2026-07-24, DEC-028): JdStackView.horizontal(UIKit) + SwiftUI HStack 레시피 — 웹 기본 gap sm·center 동형 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -107,7 +107,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-heading> — 내부 h1~h6 렌더·레벨 교체(children 보존) / iOS B-core(2026-07-24, DEC-028): JdHeading(SwiftUI)·JdHeadingView(UIKit) 실구현 — 레벨 램프 L1~L6, .isHeader/헤딩레벨, L6 uppercase(원문 보존) — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -118,7 +118,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 컴파운드 3태그 jd-page/jd-page-header/jd-page-body = 1행(DEC-014-4), 기본 패딩 @media 정상화 / iOS B-core(2026-07-24, DEC-028): 레시피 — NavigationStack+ScrollView, max-width 프리셋 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -129,7 +129,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-section> — 헤더+본문 입양, gap은 본문 flex 적용(skip 규약) / iOS B-core(2026-07-24, DEC-028): 레시피 — 헤더(h4+dimmed)+본문 VStack, border 시 radius xl2+stroke — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -140,7 +140,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-text> — 내부 시맨틱 요소(as), dimmed 우선·line-clamp·mono / iOS B-core(2026-07-24, DEC-028): JdText(SwiftUI)·JdTextView(UIKit) 실구현 — 사다리 9종(2xs~4xl)·dimmed·mono·lineLimit — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -151,7 +151,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B1 <jd-vstack> — Box 파생(column·gap md) / iOS B-core(2026-07-24, DEC-028): JdStackView.vertical(UIKit) + SwiftUI VStack 레시피 — 웹 stretch 기본 주의 문서화 — 빌드·XCTest 76/76·쇼룸 데모 등록·벤치 기준선"
@@ -162,7 +162,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-stack> — Box 파생(column·gap md). divider 프롭은 react 어댑터 몫(DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — VStack/HStack + JdStackView(기구현), RECIPES.md + 데모 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -173,7 +173,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-grid> — GridLayout 별칭 파생(R12·DEC-018). auto-fit/auto-fill은 기반 클래스 수용 / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — LazyVGrid(cols/adaptive), GridLayout과 동일 구현(R12 별칭) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -184,7 +184,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-container> — size 프리셋(xs 512~full)+px 반응형 기본, center 기본은 no-center 반전(DEC-012-4 동형) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — JdContainerSize.maxWidth 프리셋 + 중앙 정렬·패딩 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -195,7 +195,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-spacer> — axis별 padding-block/inline(v2 py/px 동형), aria-hidden 고정 / iOS 대기열 배치(2026-07-24, DEC-031): JdSpacer·JdSpacerView 실구현 — 웹 양쪽 패딩이라 차지 공간 총 2×size(탐욕적 Spacer 아님) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -206,7 +206,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-app-shell> — 슬롯 3종(sidebar/header/footer)+단일 aside 상태 전환, Ctrl/⌘+B(jd-sidebar-toggle)·모바일 드로어·스크롤락. bg white 리터럴은 v2 실태(G2 다크 재심의) / iOS 대기열 배치(2026-07-24, DEC-031): JdAppShell(SwiftUI)·JdAppShellController(UIKit) 실구현 — 레일 접기 + compact 드로어·딤 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -217,7 +217,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-wrap> — Group 별칭 파생(표면 동형, DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): 별칭 — JdFlowLayout(SwiftUI)/JdStackView no-wrap(UIKit), Group과 표면 동형 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -228,7 +228,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-simple-grid> — GridLayout 별칭 파생, min-child-width→auto-fill(R12) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — LazyVGrid adaptive(min-child-width), GridLayout 별칭 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -239,7 +239,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-show> — CSS 전용(display:contents+attr 미디어 규칙, JS 상태 0 — DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): .jdShow(above:below:) 모디파이어 — 판정은 Core JdBreakpoint.isVisible, 컨테이너 폭 기준 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -250,7 +250,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-hide> — Show 역방향 규칙, 동일 CSS 전용(DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): .jdHide(above:below:) — jdShow의 단순 부정이 아니라 웹 CSS와 동형인 OR 합성 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -261,7 +261,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-aspect-ratio-box> — aspect-ratio 원문 수용(수치·분수), primitives AspectRatio 단일화는 B6 별칭 심의(R12) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — .aspectRatio(_:contentMode:) + clipped — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -272,7 +272,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 <jd-overlay> — inset 0+중앙 기본(no-center 반전), blur attr↔blurred 프로퍼티(네이티브 blur() 보존 — DEC-018) / iOS 대기열 배치(2026-07-24, DEC-031): 레시피 — .overlay(alignment:) + 재질 블러 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -283,7 +283,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B2 별칭 — <jd-divider>(B1 단일 정본)가 표면 전량 커버, 신규 태그 없음. spacing 프롭은 react 어댑터 매핑(alias-of: CoreDivider) / iOS 대기열 배치(2026-07-24, DEC-031): 별칭 — JdDivider/JdDividerView가 표면 전량 커버(R12), 신규 타입 없음 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -294,7 +294,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "G1 파일럿 <jd-button> — leftIcon/rightIcon/asChild는 react 어댑터 몫 / iOS G1 JdButton·JdButtonView — 빌드·XCTest 검증 완료(2026-07-24 시뮬레이터, DEC-015)"
@@ -305,7 +305,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "G1 파일럿 <jd-text-field> — v2 Input+FormField 통합 표면(label/error 내장) / iOS G1 JdTextField·JdTextFieldView — 빌드·XCTest 검증 완료(2026-07-24 시뮬레이터, DEC-015)"
@@ -316,7 +316,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-textarea> — 네이티브 textarea 위임, auto-resize(scrollHeight)·show-count·error boolean(v2 표면), IME 안전 미러 / iOS 대기열 배치(2026-07-24, DEC-031): JdTextarea·JdTextareaView 실구현 — autoResize·showCount·error(웹 aria-invalid 부재를 값으로 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -327,7 +327,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-badge> — variant 7종(color-mix 10%/15% 관용구), dot=::before(DOM 0), count 모드=전용 스팬(children 병용 금지 문서화), icon은 어댑터 몫 / iOS 대기열 배치(2026-07-24, DEC-031): JdBadge·JdBadgeView 실구현 — variant 7·dot·count 모드(maxCount 초과 시 N+) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -338,7 +338,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-avatar> — 이니셜+이름 해시 팔레트 8종(결정적 — §3.1-3 정합), src/이니셜 전환, status 점 / iOS 대기열 배치(2026-07-24, DEC-031): JdAvatar·JdAvatarView 실구현 — 이니셜 폴백(이름 해시 결정적 색)·status 링, 상태를 접근성 값으로 노출 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -349,7 +349,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-spinner> — role=status, jd-button 스피너 SVG 공유, reduced-motion 감속 / iOS 대기열 배치(2026-07-24, DEC-031): JdSpinner·JdSpinnerView 실구현 — Reduce Motion 시 회전 정지(웹은 감속, iOS는 정지) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -360,7 +360,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "n/a",
       "bench": "n/a",
       "notes": "B4 별칭 — <jd-divider>(B1 단일 정본)가 커버, 신규 태그 없음. 무여백 기본 차는 어댑터 매핑(alias-of: CoreDivider, DEC-018-5) / iOS 대기열 배치(2026-07-24, DEC-031): 별칭 — CoreDivider와 동일 JdDivider/JdDividerView(R12 단일 정본), 신규 타입 없음 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -371,7 +371,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-toggle> — button role=switch+트랙/썸, label 래핑 클릭 토글 / iOS 대기열 배치(2026-07-24, DEC-031): JdToggle·JdToggleView 실구현 — 시스템 UISwitch/Toggle 위임(픽셀 재현 아님, 04 §10.1) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -382,7 +382,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-checkbox> — 네이티브 checkbox 위임(accent-color), indeterminate는 네이티브 프로퍼티(수동 aria 불필요) / iOS 대기열 배치(2026-07-24, DEC-031): JdCheckbox·JdCheckboxView 실구현 — iOS 관용구 부재로 SF Symbols 자체 드로잉, 3상태(indeterminate) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -393,7 +393,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-radio-group> — 네이티브 radio 묶음(화살표·단일 탭스톱 공짜), options=property+JSON 슬롯(§1.3 예외), name 자동 발급(DEC-019) / iOS 대기열 배치(2026-07-24, DEC-031): JdRadioGroup·JdRadioGroupView 실구현 — JdRadioOption 배열·axis·개별 disabled — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -404,7 +404,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-label> — 내부 <label>, htmlFor↔for, required *는 CSS ::after / iOS 대기열 배치(2026-07-24, DEC-031): JdLabel·JdLabelView 실구현 — required 표식을 접근성 라벨에 '필수'로 합류(웹 시각 전용 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -415,7 +415,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-tag> — 8색, closable→jd-remove 사후 통지(제거는 소비자 몫 — v2 onClose 동형) / iOS 대기열 배치(2026-07-24, DEC-031): JdTag·JdTagView 실구현 — color 8종·closable(onRemove), 제거는 소비자 몫 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -426,7 +426,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-icon-button> — 네이티브 button 위임, variant ghost/outline/filled·size xs~lg, label=aria-label 필수 / iOS 대기열 배치(2026-07-24, DEC-031): JdIconButton·JdIconButtonView 실구현 — 접근성 라벨 init 강제(04 §7.1), 히트 타깃 44pt 미만 각주 — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -437,7 +437,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-kbd> — 내부 <kbd> 시맨틱, keys attr 공백 제거 결합(v2 join 등가) / iOS 대기열 배치(2026-07-24, DEC-031): JdKbd·JdKbdView 실구현 — JdKbdSpec.normalize로 공백 제거(웹 동형) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -459,7 +459,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B7 <jd-visually-hidden> — 골격 0·JS 0, clip-path inset(50%) 관용구(v2 폐기 예정 clip에서 갱신). display:none이 아니어야 AT가 읽는다는 것이 존재 이유 / iOS primitives 잔여 배치(2026-07-24, DEC-034): 컴포넌트 없음 — 접근성 모디파이어가 대응물(.hidden()/isHidden은 AT에서도 제거되므로 대체재 아님) — 빌드·XCTest·쇼룸 데모 등록"
@@ -470,7 +470,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-slider> — v2 수제 마우스 구현 → 네이티브 range 위임(§1.6-1), 채움=트랙 그라디언트 %(DEC-019), marks=property+JSON 슬롯 / iOS 대기열 배치(2026-07-24, DEC-031): JdSlider·JdSliderView 실구현 — color 4종·showsValue 헤더·marks — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -481,7 +481,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-number-input> — 네이티브 number 위임 + 스텝 버튼(tabIndex -1), 클램프는 확정(change/버튼) 시점만(v2는 매 키 입력 클램프로 min=10에 \"50\" 불가), 값 없음=NaN 센티널 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdNumberInput·JdNumberInputView 실구현 — 타이핑 중 미클램프·커밋/스텝만 클램프(v2 결함 재도입 방지), 램프 32/36/44 — 빌드·XCTest·쇼룸 데모 등록"
@@ -492,7 +492,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-copy-button> — clipboard 실패를 try/catch 후 jd-error로 흡수(v2는 unhandled rejection), 2초 타이머는 disconnected에서 해제, icon 변형도 aria-label 유지 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdCopyButton·JdCopyButtonView 실구현 — 복사는 UIPasteboard, 완료 시 JdAnnouncer 통지(웹 결함 보정) — 빌드·XCTest·쇼룸 데모 등록"
@@ -503,7 +503,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-status-dot> — 점=::before, pulse 키프레임+reduced-motion 정지, info=primary(v2 동형) / iOS 대기열 배치(2026-07-24, DEC-031): JdStatusDot·JdStatusDotView 실구현 — pulse는 Reduce Motion 정지, 라벨 없으면 상태명을 접근성 라벨로(웹 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -514,7 +514,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-file-upload> — 숨은 네이티브 input[type=file] + 드롭존(role=button·Enter/Space), 커스텀 트리거는 v2 trigger prop 대신 light DOM children, File은 이벤트 detail·files 게터로만 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdFileUploadZone·JdFileUploadZoneView 실구현(드롭존 외형만) — 피커는 시스템 .fileImporter/UIDocumentPicker — 빌드·XCTest·쇼룸 데모 등록"
@@ -525,7 +525,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-password-input> — 표시 토글(type 전환)·강도 4단 게이지·규칙 체크리스트. 강도 산식 v2 이식, 색은 danger/warning/info/success 토큰(DEC-025-1 단서). 규칙 2경로: rules 프로퍼티(함수) + JSON 슬롯(pattern|minLength) / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdPasswordInput·JdPasswordInputView 실구현 — 강도 5규칙+길이보너스(웹 산식), 라벨 취약/보통/양호/강력 — 빌드·XCTest·쇼룸 데모 등록"
@@ -536,7 +536,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-pin-input> — 칸=네이티브 input(maxlength 1·one-time-code), 리스너는 호스트 위임 4종(focusin), v2 numeric=true는 반전 플래그 alphanumeric으로 옵트아웃, 붙여넣기는 구분자 제거 후 수용(v2는 전량 거부) / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdPinInput·JdPinInputView 실구현 — 정리·표시·포커스·완료 판정은 Core JdPinRules, 접근성은 요소 하나 — 빌드·XCTest·쇼룸 데모 등록"
@@ -547,7 +547,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-switch> — Toggle 파생(iOS 스타일·size lg 추가), i18n 기본 라벨은 상수(후속 Behavior) / iOS 대기열 배치(2026-07-24, DEC-031): 별칭 — typealias JdSwitch = JdToggle / JdSwitchView = JdToggleView(iOS는 같은 시스템 컨트롤, R12) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -558,7 +558,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 별칭 — <jd-aspect-ratio-box>(B2 단일 정본)가 표면 전량 커버, 신규 태그 없음. v2 padding-bottom 트릭 대신 CSS aspect-ratio(수치·분수 모두 수용하는 상위집합) (alias-of: AspectRatioBox, R12) / iOS primitives 잔여 배치(2026-07-24, DEC-034): 별칭 — AspectRatioBox 레시피와 동일(R12), 신규 타입 없음 — 빌드·XCTest·쇼룸 데모 등록"
@@ -569,7 +569,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-scroll-area> — 호스트가 곧 스크롤 컨테이너(골격 0), role=region+tabIndex 0으로 PageDown 스크롤, box-sizing 자기 선언(DEC-014-9 — max-height가 padding 포함 총높이 상한), thumb은 토큰이라 다크에서도 성립 / iOS primitives 잔여 배치(2026-07-24, DEC-034): 레시피 — ScrollView 그 자체(iOS 스크롤바는 이미 얇고 자동 숨김), RECIPES.md — 빌드·XCTest·쇼룸 데모 등록"
@@ -580,7 +580,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-star-rating> — 네이티브 radio 위임으로 단일 탭스톱 + 화살표 순회(v2는 별 개수만큼 탭스톱 + aria-checked 다중 참). 채움은 CSS fill 전환, 호버 미리보기는 포인터 이벤트에서만 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdStarRating·JdStarRatingView 실구현 — iOS 시스템 대응 부재. 별 N개가 아니라 컨트롤 하나에 .adjustable(0.5 증감) — 빌드·XCTest·쇼룸 데모 등록"
@@ -591,7 +591,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-back-top> — 첫 측정은 render가 아니라 connected(§3.1-3 프리렌더 결정성), 노드 유지 + visible attribute로 표시 전환(v2는 null 반환), scroll 리스너 passive / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdBackTopButton·JdBackTopButtonView 실구현 + 스크롤은 시스템(ScrollViewReader/setContentOffset), 판정은 Core JdBackTop — 빌드·XCTest·쇼룸 데모 등록"
@@ -613,7 +613,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-battery-indicator> — auto-color 임계(>70/>30), lg만 % 텍스트(mix-blend-difference), 다크 보더는 [data-jd-theme] 셀렉터 / iOS 대기열 배치(2026-07-24, DEC-031): JdBatteryIndicator·JdBatteryIndicatorView 실구현 — autoColor 임계(>70/>30), 값을 'N 퍼센트' 접근성 값으로(웹 결함 보정) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -624,7 +624,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-severity-badge> — CSS 전용 렌더(JS 상태 0), 5단계+dot ::before / iOS 대기열 배치(2026-07-24, DEC-031): JdSeverityBadge·JdSeverityBadgeView 실구현 — 심각도명을 접근성 값으로 노출(웹은 색으로만 전달) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -635,7 +635,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-otp-input> — PinInput 파생(§6 R12·DEC-023-5 선례): 숫자 고정 + 중앙 구분자 + 큰 칸만 재정의, 로직 전량 공유 / iOS primitives 잔여 배치(2026-07-24, DEC-034): 별칭 — JdPinInput의 설정 변형(alphanumeric=false + .oneTimeCode), 신규 타입 없음(R12) — 빌드·XCTest·쇼룸 데모 등록"
@@ -646,7 +646,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-currency-input> — 포커스 밖=Intl 통화 표기/포커스 중=원시값(표기 전환은 update 가드를 우회해 직접 기록), 소수 자릿수는 Intl 통화 기본값(v2 KRW?0:2 하드코딩이 JPY를 ￥800.00로 오표기), 빈 값=NaN 유지(v2는 0 강제) / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdCurrencyInput·JdCurrencyInputView 실구현 — 포맷은 JdNumberFormat(통화별 기본 자릿수 위임) — 빌드·XCTest·쇼룸 데모 등록"
@@ -657,7 +657,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B5 <jd-phone-input> — 국가 선택을 네이티브 select로 위임(v2 수제 드롭다운은 키보드·role·외부클릭 전무), value는 숫자만·표시만 3-4-4 포맷, v2 미사용 필드 format은 미승계 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdPhoneInput·JdPhoneInputView 실구현 — 마스킹·국제표기는 Core JdPhoneMask, 국가는 시스템 Picker/UIMenu — 빌드·XCTest·쇼룸 데모 등록"
@@ -668,7 +668,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-number-formatter> — 골격 0(호스트가 텍스트 자리), Intl 위임, decimals NaN 센티널, 통화 자릿수는 Intl 기본값(DEC-029-8 동일 판단) / iOS primitives 잔여 배치(2026-07-24, DEC-034): 뷰 없음 — Core JdNumberFormat.string(...). Foundation .compactName(1K)이 웹과 달라 자체 규칙 — 빌드·XCTest·쇼룸 데모 등록"
@@ -679,7 +679,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B7 <jd-announcer> — live region 2종(polite=status/assertive=alert). Context 대신 요소 메서드 + 문서당 하나를 지연 생성하는 모듈 announce(). 같은 문구 반복 전달을 위해 비우고 다음 프레임에 채운다(v2 동형) / iOS primitives 잔여 배치(2026-07-24, DEC-034): 뷰 없음 — Core JdAnnouncer.announce(_:priority:). 웹의 '비우고 다음 프레임' 해킹은 미이식 — 빌드·XCTest·쇼룸 데모 등록"
@@ -701,7 +701,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B3 <jd-range-slider> — 듀얼 썸 포인터 캡처(네이티브 미지원 예외), value 튜플→min-value/max-value 스칼라 2프롭(WEB-03) / iOS 대기열 배치(2026-07-24, DEC-031): JdRangeSlider·JdRangeSliderView 실구현 — 클램프·양자화 전량 Core JdRangeState(렌더는 fraction만) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -712,7 +712,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-link> — 내부 <a> 위임(미들클릭·컨텍스트메뉴·상태바 URL 유지), 외부 판정 3상태를 external/internal 반전 플래그 쌍으로(DEC-029-5 관용구), 명시 target/rel이 자동값 우선 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdLink·JdLinkView 실구현 — 열기는 시스템, external은 '새 창에서 열림'을 라벨에 합류(웹 아이콘 전용 보정) — 빌드·XCTest·쇼룸 데모 등록"
@@ -723,7 +723,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-image> — 호스트가 래퍼 역할(노드 1개 절약), placeholder/fallback은 light DOM 슬롯(DEC-014-4), 캐시 로드는 connected에서 성공만 보정(complete+naturalWidth), fallback은 흐름 배치(절대배치면 실패 시 높이 0) / iOS primitives 잔여 배치(2026-07-24, DEC-034): 레시피 — AsyncImage phase로 로딩/에러 폴백(웹 status 3상태 동형), RECIPES.md — 빌드·XCTest·쇼룸 데모 등록"
@@ -734,7 +734,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-code> — 내부 <code> 시맨틱 위임, variant 5×size 3 순수 CSS 훅. 틴트 변형 글자색은 semantic 원색이 AA 미달이라 foreground 65% 혼합(axe 실측) / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdCode·JdCodeView 실구현 — mono 폰트 + variant별 틴트 — 빌드·XCTest·쇼룸 데모 등록"
@@ -745,7 +745,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-mark> — 내부 <mark> 시맨틱 위임(AT가 강조로 읽는다), 6색을 색당 3변수(--_jd-mark-bg/fg/line)로 압축해 규칙 수 1/6, 다크 반전은 [data-jd-theme] 규약 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdMark·JdMarkView 실구현 — 형광펜 5색(팔레트는 JdTagSpec 재사용) — 빌드·XCTest·쇼룸 데모 등록"
@@ -756,7 +756,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-icon> — children을 svg.innerHTML로 **재파싱**(HTML 파서가 만든 <path>는 HTML 네임스페이스라 옮기기만 하면 안 그려진다 — 실측 발견), 이름 레지스트리 미보유(아이콘 세트 import는 사이즈 게이트 파괴) / iOS primitives 잔여 배치(2026-07-24, DEC-034): 레시피 — SF Symbols + JdIconSize.side, RECIPES.md — 빌드·XCTest·쇼룸 데모 등록"
@@ -767,7 +767,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B7 <jd-bookmark-button> — aria-pressed 토글, v2 px size는 --_jd-bookmark-size 변수로 수용, 활성 amber-500 채움(리터럴 승계) / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdBookmarkButton·JdBookmarkButtonView 실구현 — 심볼 토글, .isSelected 트레이트 — 빌드·XCTest·쇼룸 데모 등록"
@@ -778,7 +778,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B7 <jd-like-button> — aria-pressed 토글 + count 증감(비제어), 하트는 rose 원색이지만 **숫자는 텍스트라 AA 미달** → foreground 65% 혼합(axe 실측, DEC-030-7 처방) / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdLikeButton·JdLikeButtonView 실구현 — 카운트 축약은 JdNumberFormat.compactCount — 빌드·XCTest·쇼룸 데모 등록"
@@ -789,7 +789,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B7 <jd-follow-button> — 라벨 3종을 전부 DOM에 두고 :hover/:focus-visible로 고른다(v2 hover state 리렌더 제거, 포커스 경로도 공짜). 접근 이름은 호버로 흔들리지 않게 상태 기준 고정 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdFollowButton·JdFollowButtonView 실구현 — 팔로우/팔로잉 두 변형 캡슐 — 빌드·XCTest·쇼룸 데모 등록"
@@ -800,7 +800,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B7 <jd-mention-chip> — @handle 정적 링크 칩(에디터용 composites/Mention과 별개), 인증 마크는 v2 텍스트 ✓ + aria-label 승계 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdMentionLabel·JdMentionLabelView 실구현 — 표시 문자열은 Core JdMentionChip.displayText — 빌드·XCTest·쇼룸 데모 등록"
@@ -811,7 +811,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B7 <jd-hashtag> — #tag 링크 칩, count 축약(k/M) v2 formatCount 이식, count/trending은 NaN·attribute 부재로 숨김 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdHashtagLabel·JdHashtagLabelView 실구현 — 카운트는 Core JdHashtag.countText — 빌드·XCTest·쇼룸 데모 등록"
@@ -822,7 +822,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-motion> — 8프리셋 keyframes 로컬 이식, 감속 대응이 전량 CSS(v2 useReducedMotion은 프리렌더 산출물을 환경 의존으로 만든다), force-motion 옵트아웃, v2 죽은 프롭 once 미승계 / iOS primitives 잔여 배치(2026-07-24, DEC-034): .jdMotion(_:delay:) 모디파이어 — Reduce Motion 시 즉시 최종 상태 — 빌드·XCTest·쇼룸 데모 등록"
@@ -833,7 +833,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B6 <jd-highlight> — 캡처 그룹 split의 홀수 인덱스가 곧 일치 조각(v2는 g 플래그 lastIndex 상태를 섞어 판정이 흔들렸다), 텍스트 노드만 생성(innerHTML 경로 없음), text 미지정 시 children 흡수 / iOS primitives 잔여 배치(2026-07-24, DEC-034): JdHighlightText·JdHighlightTextView 실구현 — 매칭 구간은 Core JdHighlight.segments(렌더는 칠하기만) — 빌드·XCTest·쇼룸 데모 등록"
@@ -844,7 +844,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B4 <jd-key-cap> — 내부 <kbd>, variant 3종·pressed. v2 bg-surface/soft는 card/card-hover 토큰 근사(DEC-024) / iOS 대기열 배치(2026-07-24, DEC-031): JdKeyCap·JdKeyCapView 실구현 — variant 3·pressed 오프셋, 웹 height는 하한으로 번역(04 §7.2) — 빌드·XCTest 293/293·쇼룸 데모 등록"
@@ -855,7 +855,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createBreakpointObserver — 질의 4개 겹침(v2 resize+innerWidth 폴링 대체), 파생 of createMediaQueryWatcher / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -866,7 +866,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createBreakpointValueWatcher + resolveBreakpointValue(맵 해석 유틸) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdBreakpointValue.resolve"
@@ -888,7 +888,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 copyText/readText — 실패를 boolean/null로 흡수(v2는 rejection 방치) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -899,7 +899,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 copyText 통합 — 신규 API 없음(alias-of: useClipboard) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -910,7 +910,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createCountUp — easeOutExpo(v2 이식), 값 구독이 아니라 요소 textContent 직접 갱신 / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdCountUp"
@@ -921,7 +921,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 debounce(fn, ms) — v2는 '값'을 지연시키는 React 관용구였으나 바닐라는 함수 지연 표준형(§4 매핑표) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdDebouncer"
@@ -943,7 +943,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createSizeObserver — ResizeObserver, useResizeObserver와 통합(alias-of: useResizeObserver) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -954,7 +954,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 on(target, type, fn) → off 유틸 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -965,7 +965,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B11 createFocusMode — 저장값 + [data-jd-focus-mode] 루트 attribute + mod+. 단축키(v2 동형) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -976,7 +976,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B12 createForm — FormData가 정본이고 Behavior는 규칙 판정·에러 표시만(네이티브 위임의 폼판). 에러는 jd-* error 프롭 또는 aria-invalid로 / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdForm+JdFieldRule"
@@ -987,7 +987,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createIdleWatcher — 활동 이벤트 5종 passive, 기본 60초(v2 동형) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -998,7 +998,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createInViewObserver — once 옵션 포함, IO 부재 시 no-op / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1009,7 +1009,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createInterval — stop/restart/destroy 멱등 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1020,7 +1020,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createKeyHandler — createHotkeys의 요소 스코프 표면(단일 엔진) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1031,7 +1031,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 createStoredValue — local/session 통합, 손상 JSON은 초기값 흡수, 탭 간 storage 동기화 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1042,7 +1042,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createLongPress — v2 mouse/touch 쌍 대신 pointer 이벤트(펜·터치 포함 상위집합) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1053,7 +1053,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createMediaQueryWatcher — 미디어 질의 계열 단일 엔진(나머지 4종이 파생), 초기값 즉시 실측 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1075,7 +1075,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createNetworkWatcher — online/offline + 전환 시각(ms) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1086,7 +1086,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B11 createPanelResize — pointer 이벤트 + setPointerCapture(v2 mousemove 대비 터치·펜 지원) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1097,7 +1097,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createColorSchemeWatcher — 미디어 워처 파생 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1119,7 +1119,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createReducedMotionWatcher — 미디어 워처 파생. CSS로 충분한 곳은 @media를 쓰고 이건 JS 분기용 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1130,7 +1130,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B11 createScrollSpy — rAF 합류 측정, v2의 전역 커스텀 이벤트 결합을 suspend(ms) 명시 표면으로 교체 / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdScrollProgress.activeSection"
@@ -1152,7 +1152,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 throttle(fn, ms) — 선행 실행 + 남은 간격 후행 1회(v2 알고리즘 이식) + cancel / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdThrottler"
@@ -1174,7 +1174,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createScrollWatcher — passive scroll, 값 동일이면 미통지 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1185,7 +1185,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createHotkeys — v2 normalizeChord 승계(mod/cmd/esc/space 별칭+정렬), 입력 요소 가드, key 비문자열 방어(v2 실사고) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdHotkey.normalize"
@@ -1207,7 +1207,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 lockScroll() → unlock — 참조 계수로 중첩 안전 + 스크롤바 폭 보정(v2 동형) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1218,7 +1218,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 setDocumentTitle(title) → 복원 함수 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1240,7 +1240,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 createFullscreen — enter/exit/toggle/subscribe, supported 노출 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1251,7 +1251,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createSizeObserver 통합 구현 — 신규 API 없음(§6 R12) / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1262,7 +1262,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createTimeout — stop/restart/destroy 멱등 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1306,7 +1306,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B11 createGeolocationWatcher — watch 옵션, 미지원/거부를 상태로 흡수 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1317,7 +1317,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 createStoredValue({storage:'session'}) 변형 — 신규 API 없음 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1328,7 +1328,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 getCookie/setCookie/removeCookie — v2 이스케이프·path 기본 '/' 승계 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1339,7 +1339,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createHoverWatcher — mouseenter/leave / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1361,7 +1361,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B11 createInfiniteFeed — 관찰+중복 호출 가드만 담당. 목록 상태는 데이터 계층 몫으로 분리(v2는 훅이 페이지네이션까지 보유) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdInfiniteFeedGate"
@@ -1372,7 +1372,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B11 createReadingProgress — 진행률 + 현재 제목, rAF 합류(v2 시간 스로틀 대체) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdScrollProgress.reading"
@@ -1383,7 +1383,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B10 preloadImages(urls, concurrency) — 기본 동시 3(v2 동형), loaded/failed 분리 / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 JdPreload.batches"
@@ -1394,7 +1394,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B12 createResource — v2 모듈 캐시+구독을 그대로 승계(React 강제 리렌더만 제거), in-flight 합류·ttl·invalidate / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1405,7 +1405,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B12 runMutation(fn, cbs) — 결과를 판별 유니온으로 반환하고 던지지 않는다 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1427,7 +1427,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createRafLoop — delta/total(ms) 제공, 중복 start 무해 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1438,7 +1438,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B9 createHotkeys 통합 — 신규 API 없음(alias-of: useHotkeys) / iOS hooks 배치(2026-07-24, DEC-037): Core 유틸 별칭(useHotkeys)"
@@ -1449,7 +1449,7 @@
       "tier": "T1",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B8 createWindowSizeWatcher — passive resize, 값 동일이면 미통지 / iOS hooks 배치(2026-07-24, DEC-037): 시스템 API/환경값 레시피(RECIPES Behaviors)"
@@ -1548,7 +1548,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-action-sheet> — Modal 파생. 액션은 property 또는 JSON 슬롯, 선택 시 jd-select 후 닫힘. v2엔 없던 ESC·감금 확보 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdActionSheet·JdActionSheetController — .confirmationDialog/UIAlertController(.actionSheet), JdActionItem destructive 매핑"
@@ -1581,7 +1581,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-alert> — 좌측 강조선 + variant 4종. role은 danger/warning만 alert, 나머지 status(v2 role 없음). 제목 색은 foreground 혼합(AA) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdAlert·JdAlertView 자체 구현 — 좌측 강조선+variant, danger/warning는 assertive/polite announce"
@@ -1592,7 +1592,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-alert-dialog> — Modal 파생. role=alertdialog(v2 dialog에서 교정) + aria-labelledby/describedby 실노드 연결, 확인은 data-autofocus / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdAlertDialog·JdAlertDialogController — .alert/UIAlertController(.alert), danger→destructive"
@@ -1669,7 +1669,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-banner> — role=status(v2 role=banner는 랜드마크 오용). 흰 글자 대비를 위해 배경에 foreground 20% 혼합(axe 실측, v2 승계 결함) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdBanner·JdBannerView 자체 구현 — 폭 꽉 찬 바, variant.color 배경+흰 글자"
@@ -1702,7 +1702,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-bottom-sheet> — Modal 파생. v2 BottomSheet+Sheet 통합(차이는 draggable 하나), 끌어 닫기는 pointer 이벤트(v2 touch 전용) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdBottomSheet·JdBottomSheetController — presentationDetents(size.sheetHeight), draggable→grabber"
@@ -1735,7 +1735,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-callout> — 이모지+강조선 5종. collapsible은 네이티브 details/summary 위임(v2 useState div는 aria-expanded가 없었다) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdCallout·JdCalloutView 자체 구현 — 이모지+강조선 5종(Core JdCalloutVariant), collapsible=DisclosureGroup"
@@ -1889,7 +1889,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 별칭 — <jd-alert-dialog>가 표면 전량 커버(제목·설명·확인/취소·danger), 신규 태그 없음(alias-of: AlertDialog) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): 별칭 — AlertDialog(제목·설명·확인/취소·danger), 신규 타입 없음(R12)"
@@ -2032,7 +2032,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-drawer> — Modal 파생(§6 R12). side 3종×size 4종 기하만 재정의, ESC·백드롭·스크롤락·포커스감금·요청형 닫기는 상속(v2는 넷이 각자 구현했고 감금·요청형 닫기는 없었다) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdDrawer·JdDrawerController — side별 시스템 위임(bottom=detent, left/right=커스텀 슬라이드+딤)"
@@ -2054,7 +2054,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-toast> — Context 대신 요소 메서드 + 문서당 하나 지연 생성 toast()(DEC-031-4 규약). 스택이 live region이라 개별 토스트에 role 미부여, max 초과 시 오래된 것부터 제거 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdToastCenter+JdToastHost 자체 구현 — 큐 상태는 Core JdToastQueue, 자동닫힘·hover 정지(WCAG 2.2.1)"
@@ -2076,7 +2076,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-empty-state> — 아이콘/액션 light DOM 슬롯. Result가 이 골격을 파생 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdEmptyState·JdEmptyStateView 자체 구현 — 중앙 배치(아이콘 칩+제목+설명+액션)"
@@ -2329,7 +2329,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "G1 파일럿 <jd-modal> — dismissible→persistent 반전(DEC-012), focus-trap Behavior 첫 소비처 / iOS G1 jdModal·JdModalViewController(시스템 시트 번역) — 빌드·XCTest 검증 완료(2026-07-24 시뮬레이터, DEC-015)"
@@ -2362,7 +2362,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-notification> — 제목·설명·액션 카드, 30% 테두리+5% 틴트. 토스트가 담는 표면과 분리 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdNotification·JdNotificationView 자체 구현 — 아이콘+제목+설명+액션+닫기 카드"
@@ -2494,7 +2494,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-result> — EmptyState 파생(§6 R12), status별 64px 아이콘·색. v2 404/403 얼굴 일러스트는 정보 없는 장식이라 미승계 / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdResult·JdResultView 자체 구현 — status 6종(Core JdResultStatus 심볼·색), 64pt 대형 심볼"
@@ -2560,7 +2560,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 별칭 — <jd-bottom-sheet draggable>이 v2 Sheet 표면 전량 커버, 신규 태그 없음(alias-of: BottomSheet) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): 별칭 — BottomSheet draggable(신규 타입 없음, R12)"
@@ -2956,7 +2956,7 @@
       "tier": "T2",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "B13 <jd-snackbar> — 위치 4종+자동 닫힘. 포인터/포커스가 올라가면 타이머 정지(WCAG 2.2.1 — v2엔 없음) / iOS composites 오버레이·피드백 배치(2026-07-24, DEC-037): JdSnackbar·JdSnackbarView 자체 구현 — 단일 바, 위치 4종, 자동닫힘 정지"
@@ -4375,7 +4375,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "<jd-disclosure-tone-badge> — v2 finance/DisclosureToneBadge 바닐라 이식 / iOS finance 칩·톤(2026-07-27, DEC-047): JdDisclosureToneBadge·JdDisclosureToneBadgeView — 톤 3종 틴트 배지, compact은 톤만 남기되 낭독은 전부(웹 v2엔 접근 이름 없었음) — 빌드·XCTest 753/753"
@@ -4562,7 +4562,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "todo",
       "notes": "<jd-live-pct-badge> — v2 finance/LivePctBadge 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdLivePctBadge·JdLivePctBadgeView — 골격 재사용 + 추세 색, live 판정(up>0 우선·flat은 [-0.005,0]) — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
@@ -4573,7 +4573,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "todo",
       "notes": "<jd-live-price> — v2 finance/LivePrice 바닐라 이식 / iOS finance(2026-07-27, DEC-048): JdLivePrice·JdLivePriceView — LivePriceText 파생 + 값 변화 플래시(최초 표시엔 안 켠다). 색은 늘 상승색이고 방향은 플래시 배경이 말한다 — 빌드·XCTest 770/770"
@@ -4584,7 +4584,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "todo",
       "notes": "<jd-live-status-dot> — v2 finance/LiveStatusDot 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdLiveStatusDot·JdLiveStatusDotView — 확장-소멸 링(CAAnimation/SwiftUI), Reduce Motion 정지, 세션 판정은 앱 주입 — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
@@ -4595,7 +4595,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "todo",
       "notes": "<jd-live-price-text> — v2 finance/LivePriceText 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdLivePriceText·JdLivePriceTextView — price>0 아니면 fallback, 둘 다 없으면 em dash(+ VoiceOver \"가격 정보 없음\") — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
@@ -4606,7 +4606,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "todo",
       "notes": "<jd-live-pct-text> — v2 finance/LivePctText 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdLivePctText·JdLivePctTextView — 등락률 포맷 골격 정본, 색 없음(파생 몫) — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
@@ -4617,7 +4617,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "todo",
       "notes": "<jd-live-stacked-cell> — v2 finance/LiveStackedCell 바닐라 이식 / iOS finance 조립 1차(2026-07-27, DEC-041): JdLiveStackedCell·JdLiveStackedCellView — 2단 우측정렬 테이블 셀, 두 값이 한 색(gainOrEven 판정: 0%도 상승) — 빌드·XCTest 707/707·쇼룸 데모 등록"
@@ -4683,7 +4683,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "todo",
       "notes": "<jd-live-micro-kpi-row> — v2 finance/LiveMicroKpiRow 바닐라 이식 / iOS finance 조립 1차(2026-07-27, DEC-041): JdMicroKpiRow(+Cell)·JdMicroKpiRowView(+CellView) — 배치를 스스로 소유(SwiftUI adaptive LazyVGrid / UIKit 신설 JdWrapView equalWidths), 소비자가 격자 미정의 — 빌드·XCTest 707/707·쇼룸 데모 등록"
@@ -4925,7 +4925,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "<jd-position-bar> — v2 finance/PositionBar 바닐라 이식 / iOS finance 조립 1차(2026-07-27, DEC-041): JdPositionBar·JdPositionBarView — 좌표는 Core JdPositionBarGeometry가 클램프까지(음수 폭 결함 교정), 마커>트랙이라 트랙만 클립 — 빌드·XCTest 707/707·쇼룸 데모 등록"
@@ -4936,7 +4936,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "<jd-hot-pct-chip> — v2 finance/HotPctChip 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdHotPctChip·JdHotPctChipView — 늘 상승 표기, 세로 그라디언트, 알약 반경=높이/2 — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
@@ -4947,7 +4947,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "<jd-price-badge> — v2 finance/PriceBadge 바닐라 이식 / iOS finance leaf 1차(2026-07-27, DEC-040): JdPriceBadge·JdPriceBadgeView — exact 판정(0만 보합), 화살표는 SF Symbols(웹 lucide 대응), flat엔 없음 — 빌드·XCTest 668/668·쇼룸 데모 등록. 공통 어휘는 JdFinanceSpecs(JdTrend·JdTrendPolicy·JdFinanceTheme·JdFinanceFormat)"
@@ -5046,7 +5046,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "todo",
       "notes": "<jd-sparkline> — v2 finance/Sparkline 바닐라 이식 / iOS finance 미니 그래픽(2026-07-27, DEC-049): JdSparkline(Canvas)·JdSparklineView(draw) — 좌표는 Core JdChartGeometry가 소유(남은 차트 8종 공유). 색은 첫값 대비 마지막값이 정하고, 평평/NaN/값1개를 전부 안전 처리 — 빌드·XCTest 783/783"
@@ -5123,7 +5123,7 @@
       "tier": "T3",
       "web": "done",
       "ios": "done",
-      "docs": "todo",
+      "docs": "done",
       "tests": "done",
       "bench": "n/a",
       "notes": "<jd-theme-tag-list> — v2 finance/ThemeTagList 바닐라 이식 / iOS finance 칩·톤(2026-07-27, DEC-047): JdThemeTagList·JdThemeTagListView — 회전 팔레트 칩 줄. JdWrapView(흐름)/JdFlowLayout 위에 얹은 첫 실사용처 — 빌드·XCTest 753/753"

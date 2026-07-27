@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdHighlightText(\"SwiftUI로 만든 디자인 시스템\", query: \"디자인\")\nJdHighlightText(row.title, query: searchText, color: .green)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet hl = JdHighlightTextView(\"SwiftUI로 만든 디자인 시스템\", query: \"디자인\")\nhl.query = searchText     // 입력마다 갱신 — 재매칭은 Core가 한다\nhl.content = row.title"
+    },
     "react": null
   },
   "tokens": [],

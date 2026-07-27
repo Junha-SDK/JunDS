@@ -14,8 +14,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-toggle label=\"알림 받기\" checked></jd-toggle>\n<jd-toggle label=\"비활성\" disabled></jd-toggle>\n\n<script>\n  // 네이티브 change가 그대로 버블 — checked 프로퍼티로 상태 읽기\n  document.querySelector(\"jd-toggle\").addEventListener(\"change\", (e) => console.log(e.target.checked));\n</script>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nstruct NotificationRow: View {\n    @State private var isOn = true\n\n    var body: some View {\n        JdToggle(\"알림 받기\", isOn: $isOn)          // 가장 흔한 형태: 라벨 + 바인딩\n        JdToggle(isOn: $isOn, size: .lg)            // 라벨 없이(트레이트는 시스템이 낭독)\n        JdSwitch(\"동일 컨트롤\", isOn: $isOn)         // 별칭 — JdToggle과 같은 타입\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet toggle = JdToggleView(label: \"알림 받기\", isOn: true, size: .md)\ntoggle.onChange = { isOn in          // 사용자 조작 시에만 발화(프로그램 대입은 미발화)\n    settings.notify = isOn\n}\ncontainer.addSubview(toggle)\ntoggle.jd.layout {\n    $0.top.equalToSuperview().inset(JdToken.Space.s4)\n    $0.leading.equalToSuperview().inset(JdToken.Space.s4)\n}"
+    },
     "react": {
       "imp": "import { Toggle } from \"@/ds/primitives/Toggle\";",
       "code": "<Toggle checked={on} onChange={setOn} label=\"알림\" />"

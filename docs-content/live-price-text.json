@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdLivePriceText(price: 71_200)                      // \"71,200\"\nJdLivePriceText(price: 0, fallback: 68_000)         // \"68,000\"\nJdLivePriceText(price: 0)                           // \"—\"\nJdLivePriceText(price: 1_234.5, decimals: 2)        // \"1,234.50\"\nJdLivePriceText(price: 1_234.5, locale: \"de-DE\")    // \"1.234,5\""
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet price = JdLivePriceTextView(price: 71_200)\nprice.price = 0        // \"—\" + accessibilityLabel \"가격 정보 없음\""
+    },
     "react": null
   },
   "tokens": [],

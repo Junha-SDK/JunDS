@@ -14,8 +14,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-slider value=\"40\" min=\"0\" max=\"100\" step=\"1\" show-value></jd-slider>\n<jd-slider value=\"70\" color=\"success\" size=\"sm\"></jd-slider>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nstruct VolumeControl: View {\n    @State private var volume: Double = 40\n\n    var body: some View {\n        JdSlider(value: $volume, in: 0...100, step: 5,\n                 color: .primary, showsValue: true)\n\n        // 마크 + 커스텀 포맷\n        JdSlider(value: $volume, in: 0...100, step: 10,\n                 showsValue: true,\n                 marks: [JdSliderMark(value: 0, label: \"0\"),\n                         JdSliderMark(value: 50, label: \"50\"),\n                         JdSliderMark(value: 100, label: \"100\")],\n                 format: { \"\\(Int($0))%\" })\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 웹 이벤트 대응: onValueChange = jd-input, onCommit = jd-change\nlet slider = JdSliderView(value: 40, in: 0...100, step: 5,\n                          color: .success, showsValue: true)\nslider.format = { \"\\(Int($0))%\" }\nslider.onValueChange = { v in liveLabel.text = \"\\(Int(v))%\" }   // 드래그 중\nslider.onCommit = { v in save(v) }                              // 손을 뗄 때\nslider.jd.layout {\n    $0.leading.equalToSuperview().inset(JdToken.Space.s4)\n    $0.trailing.equalToSuperview().inset(JdToken.Space.s4)\n}"
+    },
     "react": {
       "imp": "import { Slider } from \"@/ds/primitives/Slider\";",
       "code": "<Slider value={50} onChange={setValue} min={0} max={100} showValue />\n<Slider marks={[{value:0,label:\"0%\"},{value:50,label:\"50%\"},{value:100,label:\"100%\"}]} />"

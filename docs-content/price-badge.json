@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdPriceBadge(pct: 1.24)                            // ↗ \"+1.24%\" 초록\nJdPriceBadge(pct: -4.56, size: .sm)                // ↘ \"-4.56%\" 빨강, 12pt\nJdPriceBadge(pct: 0)                               // \"0.00%\" 회색, 화살표 없음\nJdPriceBadge(pct: 1.24, showArrow: false)          // 화살표만 끈다\nJdPriceBadge(pct: 1.24, bold: false)               // 굵기 medium(500)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet badge = JdPriceBadgeView(pct: 1.24)\nbadge.pct = -0.003     // .exact 규칙이므로 하락(빨강) — LivePctBadge라면 보합이다\nbadge.size = .sm"
+    },
     "react": null
   },
   "tokens": [],

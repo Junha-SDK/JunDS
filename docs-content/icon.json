@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — SF Symbol의 크기는 폰트에 실린다\nImage(systemName: \"star.fill\")\n    .font(.system(size: JdIconSize.md.side))          // md = 20\n    .foregroundColor(JdToken.Color.primary.color)\n    .accessibilityHidden(true)                        // 장식 아이콘은 AT에서 제거\n\n// 본문과 함께 자라야 하면 변을 스케일한다 (View 프로퍼티로)\n@ScaledMetric(relativeTo: .body) private var iconSide: CGFloat = JdIconSize.md.side"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit\nlet config = UIImage.SymbolConfiguration(\n    pointSize: UIFontMetrics(forTextStyle: .body)\n        .scaledValue(for: JdIconSize.md.side, compatibleWith: traitCollection),\n    weight: .medium)\nlet iconView = UIImageView(image: UIImage(systemName: \"star.fill\", withConfiguration: config))\niconView.tintColor = JdToken.Color.primary.uiColor\niconView.isAccessibilityElement = false"
+    },
     "react": null
   },
   "tokens": [],

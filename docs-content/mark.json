@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 폰트 미지정: 둘러싼 Text 문단의 서체를 그대로 받는다\nJdMark(\"여기가 핵심\")                        // 노랑 배경형\nJdMark(\"밑줄만\", color: .blue, underline: true)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — UILabel엔 상속 서체가 없어 본문 md를 기본으로 쓴다\nlet mark = JdMarkView(\"여기가 핵심\", color: .yellow)\nmark.content = \"바뀐 문구\"     // 원문 교체(attributedText 재구성)\nmark.underline = true          // 배경형 ↔ 밑줄형 전환"
+    },
     "react": null
   },
   "tokens": [],

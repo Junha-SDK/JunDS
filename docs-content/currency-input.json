@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nstruct AmountField: View {\n    @State private var amount: Double? = 12000\n\n    var body: some View {\n        JdCurrencyInput(value: $amount)                       // ₩12,000 (KRW·ko-KR 기본)\n        JdCurrencyInput(value: $amount, currency: \"USD\",\n                        locale: \"en-US\", size: .lg)           // $12,000.00\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet field = JdCurrencyInputView(value: 12000, currency: \"KRW\", locale: \"ko-KR\")\nfield.onValueChange = { v in draft = v }     // 타이핑 중(숫자만 파싱)\nfield.onCommit = { v in save(v) }            // 편집 종료(통화 표기로 확정)\nfield.jd.layout {\n    $0.leading.trailing.equalToSuperview().inset(JdToken.Space.s4)\n}"
+    },
     "react": {
       "imp": "import { CurrencyInput } from \"@/ds/primitives/CurrencyInput\";",
       "code": "<CurrencyInput value={amount} onChange={setAmount} currency=\"KRW\" />"

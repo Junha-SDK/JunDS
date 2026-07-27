@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useSessionStorage — iOS 대응: @AppStorage / UserDefaults (세션은 인메모리 캐시)\n// | useCookie | HTTPCookieStorage.shared"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useSessionStorage — iOS(UIKit) 대응: UserDefaults (세션은 인메모리 캐시)"
+    },
     "react": null
   },
   "tokens": [],

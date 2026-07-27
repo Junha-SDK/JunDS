@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 폭은 소비자가, 높이는 스펙이 정한다(마커 12pt)\nJdPositionBar(low: 0.2, high: 0.8, cur: 0.5).frame(width: 220)\nJdPositionBar(low: 0.4, high: 0.9, cur: 0.45, tone: .down)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet bar = JdPositionBarView(low: 0.2, high: 0.8, cur: 0.5)\nbar.cur = 0.1          // low보다 작아도 채움이 음수가 되지 않는다\nbar.tone = .down"
+    },
     "react": null
   },
   "tokens": [],

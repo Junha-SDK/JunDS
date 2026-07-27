@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useInfiniteFeed — iOS 대응: JdInfiniteFeedGate\n// 중복 로드 가드. 목록 상태는 데이터 계층"
+    },
     "uikit": null,
     "react": null
   },

@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useAnimationFrame — iOS 대응: CADisplayLink / TimelineView(.animation)\n// | useLongPress | .onLongPressGesture / UILongPressGestureRecognizer"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useAnimationFrame — iOS(UIKit) 대응: TimelineView(.animation)"
+    },
     "react": null
   },
   "tokens": [],

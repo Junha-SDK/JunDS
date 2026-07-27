@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useResource — iOS 대응: actor 기반 캐시 레이어(서드파티 0 — SWR류 미도입)"
+    },
     "uikit": null,
     "react": null
   },

@@ -20,8 +20,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-aspect-ratio-box ratio=\"{ratio}\" bg=\"card\" radius=\"md\" border>\n  <jd-center h=\"full\">16/9</jd-center>\n</jd-aspect-ratio-box>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 웹 <jd-aspect-ratio-box> 동형. 기본 16/9.\ncontent\n    .aspectRatio(16.0 / 9.0, contentMode: .fill)\n    .clipped()                                      // 웹 overflow:hidden"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit: child.jd.layout { $0.width.equal(to: child.jd.height).multiplier(16.0/9.0) }"
+    },
     "react": null
   },
   "tokens": [

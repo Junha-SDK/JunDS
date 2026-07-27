@@ -14,8 +14,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-checkbox label=\"이용약관에 동의합니다\" name=\"tos\" required></jd-checkbox>\n<jd-checkbox label=\"부분 선택\" indeterminate></jd-checkbox>\n<jd-checkbox label=\"비활성\" disabled></jd-checkbox>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nstruct TermsRow: View {\n    @State private var state: JdCheckboxState = .off\n\n    var body: some View {\n        JdCheckbox(\"약관에 동의합니다\", state: $state)\n        // 부분 선택(mixed)을 순환에 넣으려면:\n        JdCheckbox(\"전체 선택\", state: $state, indeterminateAllowed: true)\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — UIControl이라 isSelected가 이미 점유돼 상태 프로퍼티는 isSelectedState다\nlet box = JdCheckboxView(label: \"약관에 동의합니다\", state: .off, indeterminateAllowed: true)\nbox.onChange = { state in\n    viewModel.agreed = (state == .on)\n}\nbox.jd.layout { $0.edges.equalToSuperview() }"
+    },
     "react": {
       "imp": "import { Checkbox } from \"@/ds/primitives/Checkbox\";",
       "code": "<Checkbox label=\"동의합니다\" checked={ok} onChange={...} />"

@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\n@State private var liked = false\nJdLikeButton(isLiked: $liked)\nJdLikeButton(isLiked: $liked, count: 1200, size: .md)   // ♥ 1.2천"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet like = JdLikeButtonView(isLiked: false, count: 1200)\nlike.onChange = { isOn in api.setLike(isOn) }\nlike.count = 1201     // 카운트 갱신(축약은 Core)"
+    },
     "react": null
   },
   "tokens": [],

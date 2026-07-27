@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useIntersectionObserver — iOS 대응: .onAppear"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useIntersectionObserver — iOS(UIKit) 대응: UICollectionView willDisplay"
+    },
     "react": null
   },
   "tokens": [],

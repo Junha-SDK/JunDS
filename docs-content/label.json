@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-label for=\"bio\" required>자기소개</jd-label>\n<jd-textarea id=\"bio\" name=\"bio\"></jd-textarea>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nVStack(alignment: .leading, spacing: JdToken.Space.s1_5) {\n    JdLabel(\"이메일\", isRequired: true)     // 화면엔 \"이메일 *\", AT는 \"이메일 필수\"\n    JdTextField(placeholder: \"you@example.com\", text: $email)\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — JdLabelView는 UILabel 서브클래스라 그대로 스택에 넣는다\nlet label = JdLabelView(\"이메일\", isRequired: true)\nlabel.jd.layout { $0.leading.top.equalToSuperview() }\n// 이후 텍스트 교체도 표식·접근성 계약 유지: label.text = \"이메일 주소\""
+    },
     "react": {
       "imp": "import { Label } from \"@/ds/primitives/Label\";",
       "code": "<Label htmlFor=\"name\" required>이름</Label>"

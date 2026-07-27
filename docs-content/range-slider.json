@@ -14,8 +14,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-range-slider min=\"0\" max=\"100\" min-value=\"20\" max-value=\"80\" show-values></jd-range-slider>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 값은 JdRangeState 하나로 묶여 다닌다(두 손잡이의 규칙이 Core에 있으므로)\nstruct PriceFilter: View {\n    @State private var range = JdRangeState(bounds: 0...100, step: 5, lower: 20, upper: 80)\n\n    var body: some View {\n        JdRangeSlider(state: $range, showsValues: true,\n                      format: { \"\\(Int($0))만원\" })\n        // 읽을 때: range.lower / range.upper (읽기 전용 — 세터는 setLower/setUpper)\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — UIControl.state가 이미 있어 상태 프로퍼티는 rangeState다\nlet slider = JdRangeSliderView(\n    state: JdRangeState(bounds: 0...100, step: 5, lower: 20, upper: 80),\n    showsValues: true\n)\nslider.format = { \"\\(Int($0))만원\" }\nslider.onChange = { state in                 // 드래그 중·조정 직후 모두 통지\n    applyFilter(min: state.lower, max: state.upper)\n}\nslider.jd.layout {\n    $0.leading.equalToSuperview().inset(JdToken.Space.s4)\n    $0.trailing.equalToSuperview().inset(JdToken.Space.s4)\n}"
+    },
     "react": {
       "imp": "import { RangeSlider } from \"@/ds/primitives/RangeSlider\";",
       "code": "<RangeSlider value={[20, 80]} onChange={setRange} min={0} max={100} />"

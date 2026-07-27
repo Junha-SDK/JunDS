@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-severity-badge severity=\"critical\" dot>심각</jd-severity-badge>\n<jd-severity-badge severity=\"low\" size=\"sm\">낮음</jd-severity-badge>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdSeverityBadge(\"정상\", severity: .ok, showsDot: true)\nJdSeverityBadge(\"점검 필요\", severity: .warn)\nJdSeverityBadge(\"장애\", severity: .danger, size: .sm)\nJdSeverityBadge(\"기본\")                        // neutral — 심각도 값 미노출"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet sev = JdSeverityBadgeView(\"점검 필요\", severity: .warn, showsDot: true)\nsev.severity = .danger         // didSet → 재해석·재적용\nsev.showsDot = false\ncontainer.addSubview(sev)\nsev.jd.layout {\n    $0.top.equalToSuperview()\n    $0.trailing.equalToSuperview()\n}"
+    },
     "react": {
       "imp": "import { SeverityBadge } from \"@/ds/primitives/SeverityBadge\";",
       "code": "<SeverityBadge severity=\"ok\">정상</SeverityBadge>\n<SeverityBadge severity=\"danger\" dot>오류</SeverityBadge>"

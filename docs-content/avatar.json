@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-avatar name=\"박준하\" status=\"online\"></jd-avatar>\n<jd-avatar src=\"/me.jpg\" name=\"박준하\" size=\"lg\"></jd-avatar>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — image는 SwiftUI Image?\nJdAvatar(name: \"김준하\", image: Image(\"profile\"), size: .lg, status: .online)\nJdAvatar(name: \"홍길동\")                       // 이미지 없음 → 이니셜 \"홍길\", 이름 해시 색\nJdAvatar(name: \"Ada Lovelace\", size: .xl)      // 2어절 → \"AL\"\nJdAvatar()                                     // 이름·이미지 없음 → \"?\""
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — image는 UIImage?\nlet avatar = JdAvatarView(name: \"김준하\", size: .lg, status: .online)\navatar.image = UIImage(named: \"profile\")       // 있으면 이미지, 없으면 이니셜 폴백\navatar.status = .busy                          // nil이면 도트 제거\ncontainer.addSubview(avatar)\navatar.jd.layout {\n    $0.top.leading.equalToSuperview()\n}"
+    },
     "react": {
       "imp": "import { Avatar } from \"@/ds/primitives/Avatar\";",
       "code": "<Avatar name=\"김준하\" size=\"md\" status=\"online\" />\n<Avatar src=\"/photo.jpg\" size=\"lg\" />"

@@ -12,7 +12,10 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// useScrollLock — iOS 대응: scrollView.isScrollEnabled = false (시트가 시스템 스크롤락을 이미 처리)\n// swift\n// useMediaQuery / useBreakpoint — 폭이 아니라 사이즈 클래스가 판단 근거(04 §10)\n@Environment(\\.horizontalSizeClass) private var sizeClass\nvar isCompact: Bool { sizeClass == .compact }\n\n// useLocalStorage — @AppStorage가 UserDefaults 구독까지 해준다\n@AppStorage(\"jd.theme\") private var theme = \"system\"\n\n// useReducedMotion — Core 단일 진입점\nwithAnimation(JdMotion.duration(0.3) == 0 ? nil : .easeOut) { … }\n\n\n## N/a (iOS에 개념 없음)"
+    },
     "uikit": null,
     "react": null
   },

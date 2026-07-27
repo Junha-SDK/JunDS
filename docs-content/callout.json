@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 본문은 @ViewBuilder content\nJdCallout(\"알아두기\", variant: .tip, isCollapsible: true, initiallyExpanded: false) {\n    Text(\"이 값은 캐시됩니다.\")\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 본문은 message 문자열\nlet callout = JdCalloutView(\"알아두기\", message: \"이 값은 캐시됩니다.\",\n                            variant: .tip, isCollapsible: true, initiallyExpanded: false)\ncontainer.addSubview(callout)\n// callout.toggleExpansion()  // 프로그램 토글"
+    },
     "react": {
       "imp": "import { Callout } from \"@/ds/composites/Callout\";",
       "code": "<Callout variant=\"info\" title=\"알려드립니다\">\n  본문 내용을 입력하세요.\n</Callout>"

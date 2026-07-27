@@ -56,12 +56,12 @@
       "code": "<jd-button variant=\"{variant}\" size=\"{size}\">저장</jd-button>\n<jd-button loading>저장 중…</jd-button>\n<jd-button disabled>비활성</jd-button>\n\n<script>\n  // 내부 <button>의 click이 그대로 버블 — 전용 이벤트 없음\n  document.querySelector(\"jd-button\").addEventListener(\"click\", save);\n</script>"
     },
     "swiftui": {
-      "imp": "import JunDS",
-      "code": "JdButton(\"저장\") { save() }\n\n// variant 4종(primary·secondary·ghost·danger) · size 3종(sm·md·lg)\nJdButton(\"삭제\", variant: .danger, size: .lg) { remove() }\nJdButton(\"저장 중…\", loading: true) {}"
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — action 클로저를 init에서 받는다\nJdButton(\"저장\") { save() }\nJdButton(\"삭제\", variant: .danger, size: .lg) { delete() }\nJdButton(\"전송 중\", variant: .primary, loading: isSubmitting) { submit() }"
     },
     "uikit": {
-      "imp": "import JunDS",
-      "code": "let button = JdButtonView(title: \"저장\", variant: .primary, size: .md)\nbutton.onTap = { save() }\nview.addSubview(button)\n\nbutton.isLoading = true   // 스피너 표시 + 입력 차단\nbutton.isEnabled = false  // 비활성"
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 동작은 onTap 프로퍼티, 로딩은 isLoading 프로퍼티\nlet button = JdButtonView(title: \"저장\", variant: .primary, size: .md)\nbutton.onTap = { save() }\nbutton.isLoading = isSubmitting   // 스피너 시작 + 입력 차단 + a11y 값 \"로딩 중\"\nbutton.isEnabled = false          // UIControl 상속"
     },
     "react": {
       "imp": "import { Button } from \"@/ds/primitives/Button\";",

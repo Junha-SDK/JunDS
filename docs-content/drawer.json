@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 커스텀 슬라이드(left/right)는 화면 위에 그려지므로 .overlay로 얹는다\nstruct Catalog: View {\n    @State private var isOpen = false\n    var body: some View {\n        Button(\"필터\") { isOpen = true }\n            .frame(maxWidth: .infinity, maxHeight: .infinity)\n            .overlay {\n                JdDrawer(isPresented: $isOpen, side: .right, size: .md, title: \"필터\",\n                         persistent: false,\n                         onDismissAttempt: { _ in true }) {   // false면 닫힘 취소\n                    Text(\"필터 옵션…\")\n                }\n            }\n    }\n}\n// (side: .bottom은 시스템 시트라 .background로 얹어도 된다)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — JdDrawerController\nlet drawer = JdDrawerController(side: .right, size: .md, title: \"필터\", persistent: false)\ndrawer.onDismissAttempt = { reason in reason != .backdrop }   // 백드롭 탭만 막기\ndrawer.onClose = { /* 상태 동기화 */ }\ndrawer.contentView.addSubview(filterList)\ndrawer.present(from: self)"
+    },
     "react": {
       "imp": "import { Drawer } from \"@/ds/composites/Drawer\";",
       "code": "<Drawer open={isOpen} onClose={close} side=\"right\" title=\"필터\">\n  <FilterContent />\n</Drawer>"

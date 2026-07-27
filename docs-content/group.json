@@ -26,8 +26,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-group gap=\"{gap}\">\n  <jd-box p=\"1\" px=\"3\" bg=\"card\" radius=\"full\" border>알파</jd-box>\n  <jd-box p=\"1\" px=\"3\" bg=\"card\" radius=\"full\" border>베타</jd-box>\n  <jd-box p=\"1\" px=\"3\" bg=\"card\" radius=\"full\" border>감마</jd-box>\n</jd-group>\n\n<jd-group no-wrap>줄바꿈 금지 — 넘치면 그대로</jd-group>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// Group 의 iOS 실구현은 JdFlowLayout(= Wrap)이다\n// 태그 무리 — 넘치면 자동 줄바꿈\nJdFlowLayout(spacing: JdToken.Space.s2) {\n    ForEach(tags, id: \\.self) { tag in\n        JdText(tag, size: .sm)\n    }\n}\n\n// 행 내 간격과 행 사이 간격을 분리\nJdFlowLayout(spacing: JdGap.sm.value, rowSpacing: JdGap.md.value) {\n    chipA\n    chipB\n    chipC\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// Group 의 iOS 실구현은 JdFlowLayout(= Wrap)이다\n\n// UIKit — 줄바꿈 컨테이너 (DEC-041에서 신설)\nlet wrap = JdWrapView(itemSpacing: JdGap.sm.value, chips)          // 고유 폭 흐름(칩·태그)\nlet grid = JdWrapView(itemSpacing: JdGap.sm.value,\n                      equalWidths: true, minItemWidth: 132, cells)  // 균등 분할 격자(KPI 셀)\ngrid.maxPerLine = 2                                                 // 2×2로 고정하고 싶을 때"
+    },
     "react": null
   },
   "tokens": [

@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdResult(status: .success, title: \"주문 완료\", description: \"곧 배송을 시작합니다.\") {\n    Button(\"주문 내역\") { openOrders() }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet result = JdResultView(status: .notFound, title: \"페이지를 찾을 수 없어요\",\n                          description: \"주소를 다시 확인해 주세요.\",\n                          actionLabel: \"홈으로\", onAction: { goHome() })\ncontainer.addSubview(result)"
+    },
     "react": {
       "imp": "import { Result } from \"@/ds/composites/Result\";",
       "code": "<Result status=\"success\" title=\"결제가 완료되었습니다\" description=\"주문 내역을 확인해주세요\" extra={<Button>홈으로</Button>} />"

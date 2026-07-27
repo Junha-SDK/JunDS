@@ -14,8 +14,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-switch label=\"다크 모드\" checked></jd-switch>\n<jd-switch label=\"큰 스위치\" size=\"lg\"></jd-switch>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// Switch 는 Toggle 파생이다 — iOS 스타일 스위치가 곧 JdToggle\n// SwiftUI\nstruct NotificationRow: View {\n    @State private var isOn = true\n\n    var body: some View {\n        JdToggle(\"알림 받기\", isOn: $isOn)          // 가장 흔한 형태: 라벨 + 바인딩\n        JdToggle(isOn: $isOn, size: .lg)            // 라벨 없이(트레이트는 시스템이 낭독)\n        JdSwitch(\"동일 컨트롤\", isOn: $isOn)         // 별칭 — JdToggle과 같은 타입\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// Switch 는 Toggle 파생이다 — iOS 스타일 스위치가 곧 JdToggle\n// UIKit\nlet toggle = JdToggleView(label: \"알림 받기\", isOn: true, size: .md)\ntoggle.onChange = { isOn in          // 사용자 조작 시에만 발화(프로그램 대입은 미발화)\n    settings.notify = isOn\n}\ncontainer.addSubview(toggle)\ntoggle.jd.layout {\n    $0.top.equalToSuperview().inset(JdToken.Space.s4)\n    $0.leading.equalToSuperview().inset(JdToken.Space.s4)\n}"
+    },
     "react": {
       "imp": "import { Switch } from \"@/ds/primitives/Switch\";",
       "code": "<Switch checked={on} onChange={setOn} label=\"알림 수신\" />\n<Switch checked={on} onChange={setOn} size=\"lg\" />"

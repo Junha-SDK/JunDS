@@ -33,8 +33,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-vstack gap=\"{gap}\" align=\"{align}\">\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>첫째 행</jd-box>\n  <jd-box p=\"2\" bg=\"card\" radius=\"md\" border>둘째 행</jd-box>\n</jd-vstack>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — ⚠️ 기본 교차축이 center라 웹 stretch를 원하면 자식에 .frame(maxWidth: .infinity)\nVStack(spacing: JdGap.md.value) { rowA.frame(maxWidth: .infinity); rowB.frame(maxWidth: .infinity) }\nJdStackView.vertical(gap: .md, [rowA, rowB])                           // UIKit — .fill이 곧 stretch"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 세로 스택. .fill 이 곧 웹의 stretch 라, SwiftUI 처럼 자식마다 폭을 열어 줄 필요가 없다\nlet column = JdStackView.vertical(gap: .md, [rowA, rowB])"
+    },
     "react": null
   },
   "tokens": [

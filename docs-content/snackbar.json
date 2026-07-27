@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — isPresented 바인딩으로 제어, 트리에 얹는다(오버레이)\nstruct Editor: View {\n    @State private var show = false\n    var body: some View {\n        Button(\"실행 취소 표시\") { show = true }\n            .frame(maxWidth: .infinity, maxHeight: .infinity)\n            .overlay {\n                JdSnackbar(isPresented: $show, message: \"메시지를 보관함으로 옮겼습니다\",\n                           variant: .info, position: .bottom, duration: 4,\n                           actionLabel: \"실행 취소\", onAction: { undo() })\n            }\n    }\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — present(in:)으로 컨테이너에 얹는다\nlet snack = JdSnackbarView(message: \"메시지를 보관함으로 옮겼습니다\",\n                           variant: .info, position: .bottom, duration: 4,\n                           actionLabel: \"실행 취소\", onAction: { undo() })\nsnack.onDismiss = { /* 상태 동기화 */ }\nsnack.present(in: view)      // view.safeArea 기준 위치별 정렬\n// 수동 닫기: snack.dismiss()"
+    },
     "react": null
   },
   "tokens": [],

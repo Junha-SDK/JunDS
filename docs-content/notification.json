@@ -10,8 +10,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 추가 콘텐츠는 @ViewBuilder extra 슬롯(액션 파라미터 없음)\nJdNotification(title: \"결제 완료\", description: \"영수증을 메일로 보냈습니다.\",\n               variant: .success, systemImage: \"checkmark.seal\", isDismissible: true,\n               onDismiss: { }) {\n    Button(\"영수증 보기\") { openReceipt() }   // extra 슬롯\n}"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — actionLabel/onAction 파라미터(extra 슬롯 없음)\nlet note = JdNotificationView(title: \"결제 완료\", description: \"영수증을 메일로 보냈습니다.\",\n                              variant: .success, systemImage: \"checkmark.seal\",\n                              actionLabel: \"영수증 보기\", onAction: { openReceipt() },\n                              isDismissible: true, onDismiss: { })\ncontainer.addSubview(note)"
+    },
     "react": {
       "imp": "import { Notification } from \"@/ds/composites/Notification\";",
       "code": "<Notification title=\"저장 완료\" description=\"변경사항이 저장되었습니다.\" variant=\"success\" />"

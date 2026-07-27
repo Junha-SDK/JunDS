@@ -29,8 +29,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-grid-layout cols=\"{cols}\" gap=\"{gap}\">\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>1</jd-box>\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border>2</jd-box>\n  <jd-box p=\"3\" bg=\"card\" radius=\"md\" border col-span=\"2\">colSpan=2</jd-box>\n</jd-grid-layout>\n\n<!-- 반응형 칼럼 · 자동 칼럼(우선순위 auto-fit > auto-fill > min-child-width > cols) -->\n<jd-grid-layout cols=\"1 md:3\" gap=\"4\">…</jd-grid-layout>\n<jd-grid-layout auto-fit=\"220\" gap=\"4\">…</jd-grid-layout>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — cols=N\nLazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: JdGap.md.value), count: n),\n          spacing: JdGap.md.value) { cells }\n// autoFit/minChildWidth → GridItem(.adaptive(minimum: 120), spacing: JdGap.md.value)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit (DEC-042로 갱신)\nJdWrapView(itemSpacing: JdGap.md.value, equalWidths: true, minItemWidth: 120, cells)  // autoFit\nJdColumnsView(columns: Array(repeating: .flexible(), count: n), columnGap: JdGap.md.value) { rows }\n// 셀이 수백 개거나 재사용·프리페치가 필요하면 여전히 UICollectionViewCompositionalLayout이 맞다"
+    },
     "react": null
   },
   "tokens": [

@@ -35,7 +35,10 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-divider></jd-divider>\n<jd-divider label=\"{label}\"></jd-divider>\n\n<!-- 세로선은 flex 행 안에서 — 기본 여백은 my=4, my/mx 프롭이 덮는다 -->\n<jd-hstack gap=\"3\">\n  왼쪽 <jd-divider orientation=\"vertical\"></jd-divider> 오른쪽\n</jd-hstack>"
     },
-    "swiftui": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// 구분선 단일 정본 — layout/primitives Divider 도 같은 타입이다\nJdDivider()                                   // 가로 1pt 선 (부모 폭만큼 stretch)\nJdDivider(label: \"또는\")                        // 선—라벨—선 (라벨 = muted)\nJdDivider(orientation: .vertical)             // 세로 선 — 부모가 높이를 줘야 보인다\n\nlet divider = JdDividerView()                 // 가로 선\ndivider.label = \"또는\"                          // 런타임에 라벨 부여 → line—label—line 재구성\n\ncontainer.addSubview(divider)\ndivider.jd.layout {\n    // 두께(1pt)는 intrinsicContentSize가 고정 — 길이·위치만 제약한다\n    $0.leading.trailing.equalToSuperview().inset(JdGap.md.value)\n    $0.centerY.equalToSuperview()\n}"
+    },
     "uikit": null,
     "react": null
   },

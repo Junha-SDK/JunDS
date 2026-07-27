@@ -26,8 +26,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-center h=\"{h}\" bg=\"{bg}\" radius=\"md\" border>정중앙</jd-center>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nZStack { content }.frame(maxWidth: .infinity, maxHeight: .infinity)   // 기본 정렬 .center\n// 또는 content.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "\n// UIKit — child.jd.layout { $0.center.equalToSuperview() }"
+    },
     "react": null
   },
   "tokens": [

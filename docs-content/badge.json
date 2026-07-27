@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-badge>기본</jd-badge>\n<jd-badge variant=\"success\" dot>온라인</jd-badge>\n<jd-badge variant=\"danger\" count=\"120\" max-count=\"99\"></jd-badge>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI — 텍스트 모드\nJdBadge(\"신규\", variant: .primary)\nJdBadge(\"대기\", variant: .warning, size: .sm, showsDot: true)\nJdBadge(\"초안\", variant: .outline)            // outline만 테두리 + 투명 배경\n\n// 카운트 모드 — variant/size 없음, 원형·danger 고정\nJdBadge(count: 5)                             // \"5\"\nJdBadge(count: 128)                           // \"99+\" (maxCount 99 기본)\nJdBadge(count: 250, maxCount: 200)            // \"200+\""
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit — 생성 + 프로퍼티 + 배치\nlet badge = JdBadgeView(\"대기\", variant: .warning, size: .sm, showsDot: true)\nbadge.variant = .danger        // didSet → 스펙 재해석·재적용\nbadge.showsDot = false\ncontainer.addSubview(badge)\nbadge.jd.layout {\n    $0.centerY.equalToSuperview()\n    $0.leading.equal(to: titleLabel.jd.trailing, offset: JdGap.sm.value)\n}\n\n// 카운트 모드는 전용 init — 이후 axes를 바꿀 수 없다\nlet unread = JdBadgeView(count: 12)"
+    },
     "react": {
       "imp": "import { Badge } from \"@/ds/primitives/Badge\";",
       "code": "<Badge variant=\"success\" dot>활성</Badge>\n<Badge count={42} maxCount={99} />"

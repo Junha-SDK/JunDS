@@ -12,8 +12,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdLiveStackedCell(price: 71_200, change: 1.234)                    // \"71,200\" / \"+1.23%\" 초록\nJdLiveStackedCell(price: 0, change: 0,\n                  priceFallback: 68_000, pctFallback: -2.5)        // \"68,000\" / \"-2.50%\" 빨강\nJdLiveStackedCell(price: 8_240, change: 0)                         // 0%도 상승색"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet cell = JdLiveStackedCellView(price: 71_200, change: 1.234)\ncell.change = -2.15          // 두 줄이 같이 빨강으로 바뀐다\nprint(cell.lines)            // (price: \"71,200\", pct: \"-2.15%\")"
+    },
     "react": null
   },
   "tokens": [],

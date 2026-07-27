@@ -13,8 +13,14 @@
       "imp": "import \"@junds/web/junds.css\";\nimport \"@junds/web/define\";",
       "code": "<jd-battery-indicator value=\"82\" auto-color size=\"lg\" label=\"배터리\"></jd-battery-indicator>\n<jd-battery-indicator value=\"18\" auto-color></jd-battery-indicator>"
     },
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdBatteryIndicator(value: 82, autoColor: true)          // >70 → success\nJdBatteryIndicator(value: 45, size: .lg, label: \"배터리\", autoColor: true)  // >30 → warning, lg는 % 노출\nJdBatteryIndicator(value: 15, color: .danger)           // 수동 색\nJdBatteryIndicator(value: 150)                          // 100으로 클램프"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet battery = JdBatteryIndicatorView(value: 82, size: .lg, autoColor: true)\nbattery.value = 24             // didSet → 채움 폭·색 애니메이션(Reduce Motion 시 즉시)\nbattery.label = \"배터리\"\ncontainer.addSubview(battery)\nbattery.jd.layout {\n    $0.center.equalToSuperview()\n}"
+    },
     "react": {
       "imp": "import { BatteryIndicator } from \"@/ds/primitives/BatteryIndicator\";",
       "code": "<BatteryIndicator value={75} autoColor />\n<BatteryIndicator value={30} color=\"warning\" size=\"lg\" label=\"배터리\" />"

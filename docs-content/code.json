@@ -11,8 +11,14 @@
   "controls": [],
   "snippets": {
     "web": null,
-    "swiftui": null,
-    "uikit": null,
+    "swiftui": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// SwiftUI\nJdCode(\"npm install\")                         // 기본\nJdCode(\"git push --force\", variant: .danger)  // 위험 명령 강조\nJdCode(\"SELECT *\", variant: .primary, size: .lg)"
+    },
+    "uikit": {
+      "imp": "import JunDS   // Core + UIKit + SwiftUI 를 한 번에",
+      "code": "// UIKit\nlet code = JdCodeView(\"npm install\", variant: .primary, size: .md)\ncode.variant = .success       // 다시 그린다\ncode.codeSize = .lg           // ⚠️ size 프로퍼티는 UILabel API와 겹쳐 codeSize로 노출"
+    },
     "react": null
   },
   "tokens": [],
