@@ -164,4 +164,52 @@ final class JdFinanceChipTests: XCTestCase {
         let list = JdThemeTagListView(themes: [])
         XCTAssertEqual(list.sizeThatFits(CGSize(width: 300, height: 300)).height, 0)
     }
+
+    // MARK: - LivePrice (DEC-048)
+
+    // 최초 표시에서는 절대 번쩍이지 않는다 — 화면에 처음 뜨는 순간의 플래시는
+    // "값이 바뀌었다"는 거짓 신호다(웹 #started 게이트와 같은 규칙)
+    func test_live_price_does_not_flash_on_first_display() {
+        XCTAssertNil(JdLivePriceSpec.flashTrend(previous: nil, current: 71_200))
+        let view = JdLivePriceView(price: 71_200)
+        XCTAssertNil(view.backgroundColor?.cgColor.alpha == 0 ? nil : view.backgroundColor,
+                     "최초 표시에서 배경이 칠해졌다")
+    }
+
+    func test_live_price_flash_direction() {
+        XCTAssertEqual(JdLivePriceSpec.flashTrend(previous: 100, current: 110), .up)
+        XCTAssertEqual(JdLivePriceSpec.flashTrend(previous: 110, current: 100), .down)
+        XCTAssertNil(JdLivePriceSpec.flashTrend(previous: 100, current: 100), "같으면 안 켠다")
+        XCTAssertNil(JdLivePriceSpec.flashTrend(previous: .nan, current: 100))
+    }
+
+    // 색은 방향과 무관하게 늘 상승색 — 방향은 플래시 배경이 말한다(웹 라이브 티커 관습)
+    func test_live_price_text_color_is_always_up() {
+        for size in JdLivePriceSize.allCases {
+            XCTAssertEqual(JdLivePriceSpec.resolve(size: size).textColor.light,
+                           JdFinanceTheme.up.light, "\(size)")
+        }
+        XCTAssertNotEqual(JdLivePriceSpec.flashColor(.up).light,
+                          JdLivePriceSpec.flashColor(.down).light,
+                          "플래시가 방향을 구분하지 않으면 색 정보가 아예 없다")
+    }
+
+    func test_live_price_size_ramp() {
+        XCTAssertLessThan(JdLivePriceSize.sm.fontSize, JdLivePriceSize.md.fontSize)
+        XCTAssertLessThan(JdLivePriceSize.md.fontSize, JdLivePriceSize.lg.fontSize)
+        let view = JdLivePriceView(price: 71_200)
+        let md = view.font.pointSize
+        view.size = .lg
+        XCTAssertGreaterThan(view.font.pointSize, md)
+    }
+
+    // 파생 관계 — 포맷 골격은 부모 것을 그대로 쓴다
+    func test_live_price_inherits_format_skeleton() {
+        let view = JdLivePriceView(price: 71_200)
+        XCTAssertTrue(view is JdLivePriceTextView, "파생 관계가 끊겼다")
+        XCTAssertEqual(view.text, "71,200")
+        view.price = 0
+        view.fallback = 0
+        XCTAssertEqual(view.text, JdFinanceFormat.emDash)
+    }
 }

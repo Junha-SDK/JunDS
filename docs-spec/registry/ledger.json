@@ -6,11 +6,11 @@
     "core": 13,
     "layout": 12,
     "primitives": 51,
-    "hooks": 61,
-    "composites": 194,
+    "hooks": 62,
+    "composites": 201,
     "patterns": 43,
     "finance": 86,
-    "total": 460
+    "total": 468
   },
   "rows": [
     {
@@ -1519,6 +1519,17 @@
       "tests": "todo",
       "bench": "n/a",
       "notes": "MySelf 이식(myself-migration) — SPA 라우팅용 head 메타 갱신"
+    },
+    {
+      "id": "useUrlFilters",
+      "category": "hooks",
+      "tier": "T1",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration 2차) — daily/useDailyFilters 일반화. 필터↔URL 쿼리 동기화(라우터 비종속)"
     },
     {
       "id": "Accordion",
@@ -3655,6 +3666,83 @@
       "notes": "MySelf 이식(myself-migration) — docs/ScreenshotGrid. 깨진 이미지 자동 제외"
     },
     {
+      "id": "Lyrics",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration 2차) — music/NowPlayingFull 의 가사 로직 + Lyric. 연 단위 강조·자동 스크롤"
+    },
+    {
+      "id": "NowPlayingFull",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration 2차) — music/NowPlayingFull. Modal 위에 조립, NowPlayingBar 와 재생 상태 공유"
+    },
+    {
+      "id": "RelatedPosts",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration 2차) — blog/BlogRelated. 연관 글 선정은 콘텐츠 몫, 렌더만 담당"
+    },
+    {
+      "id": "DocHero",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration 2차) — docs/DocHeader. 배너·아이콘·기술 칩·지표 스트립"
+    },
+    {
+      "id": "DocLinks",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration 2차) — docs/DocLinks. URL 로 종류 추론 + 아이콘"
+    },
+    {
+      "id": "GlobeWireframe",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration 2차) — daily/GlobeWireframe. 캔버스 와이어프레임 + 드래그 회전"
+    },
+    {
+      "id": "BarList",
+      "category": "composites",
+      "tier": "T2",
+      "web": "todo",
+      "ios": "todo",
+      "docs": "todo",
+      "tests": "done",
+      "bench": "n/a",
+      "notes": "MySelf 이식(myself-migration 2차) — daily/DailyStats 의 BarList. 가로 막대 순위 목록"
+    },
+    {
       "id": "DataTable",
       "category": "patterns",
       "tier": "T2",
@@ -4484,11 +4572,11 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "todo",
-      "notes": "<jd-live-price> — v2 finance/LivePrice 바닐라 이식"
+      "notes": "<jd-live-price> — v2 finance/LivePrice 바닐라 이식 / iOS finance(2026-07-27, DEC-048): JdLivePrice·JdLivePriceView — LivePriceText 파생 + 값 변화 플래시(최초 표시엔 안 켠다). 색은 늘 상승색이고 방향은 플래시 배경이 말한다 — 빌드·XCTest 770/770"
     },
     {
       "id": "LiveStatusDot",

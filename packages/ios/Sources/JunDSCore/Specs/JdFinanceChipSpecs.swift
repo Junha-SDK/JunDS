@@ -169,3 +169,53 @@ public struct JdThemeChipSpec: Sendable {
                                prefixOpacity: 0.7)
     }
 }
+
+// MARK: - LivePrice (웹 jd-live-price)
+
+/// 웹 size 맵 — sm 12 / md 14 / lg 18
+public enum JdLivePriceSize: String, CaseIterable, Sendable {
+    case sm, md, lg
+
+    public var fontSize: CGFloat {
+        switch self {
+        case .sm: return 12
+        case .md: return 14
+        case .lg: return 18
+        }
+    }
+}
+
+public struct JdLivePriceSpec: Sendable {
+    public var fontSize: CGFloat
+    public var fontWeight: CGFloat
+    /// 웹 v2 관습 승계 — 라이브 티커 숫자는 방향과 무관하게 늘 상승색이다.
+    /// 방향은 색이 아니라 **플래시 배경**이 말한다(아래 flashColor).
+    public var textColor: JdDynamicColor
+    public var cornerRadius: CGFloat
+    /// 플래시 중에만 붙는 여백 — 배경이 글자에 딱 붙지 않게
+    public var flashPadding: (h: CGFloat, v: CGFloat)
+
+    /// 웹 keyframe 0.6s — Duration 램프(최대 slower 0.5) 밖이라 리터럴이다. notes 보고분.
+    public static let flashDuration: TimeInterval = 0.6
+
+    public static func resolve(size: JdLivePriceSize = .md) -> JdLivePriceSpec {
+        JdLivePriceSpec(fontSize: size.fontSize,
+                        fontWeight: JdToken.FontWeight.bold,
+                        textColor: JdFinanceTheme.up,
+                        cornerRadius: JdToken.Radius.sm,
+                        flashPadding: (h: 4, v: 1))
+    }
+
+    /// 플래시 배경 — 방향을 색으로 남긴다(웹 16% 틴트)
+    public static func flashColor(_ trend: JdTrend) -> JdDynamicColor {
+        JdFinanceSpecMix.wash(JdFinanceTheme.color(trend), alpha: 0.16)
+    }
+
+    /// 직전 값 대비 방향. 같으면 nil — 플래시를 켜지 않는다.
+    /// **최초 표시에서는 절대 켜지 않는다**(previous가 nil): 웹의 결정적 렌더 규칙(§3.1-3)과
+    /// 같은 이유로, 화면에 처음 뜨는 순간 번쩍이면 값이 바뀐 것처럼 보인다.
+    public static func flashTrend(previous: Double?, current: Double) -> JdTrend? {
+        guard let previous, previous != current, current.isFinite, previous.isFinite else { return nil }
+        return current > previous ? .up : .down
+    }
+}
