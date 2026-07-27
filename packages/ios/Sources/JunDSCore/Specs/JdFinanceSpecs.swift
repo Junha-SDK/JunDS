@@ -25,8 +25,11 @@ public enum JdTrend: String, CaseIterable, Sendable {
 ///   숫자에서 "거의 0"을 회색으로 눌러 눈이 덜 피로하게 하려는 규칙이다.
 /// - `exact`: 웹 `jd-price-badge` — flat은 **정확히 0**이다. 일봉 등락률처럼 확정된
 ///   숫자에는 임계값을 두지 않는다.
+/// - `gainOrEven`: 웹 `jd-live-stacked-cell` — **flat이 없다.** `c >= 0`이면 상승, 나머지는
+///   하락이다. 테이블 셀은 가격과 등락률이 **한 색으로 묶여** 있어서, 0%에 회색을 주면 그
+///   행 전체가 죽은 것처럼 보인다. v2가 의도적으로 0을 상승 쪽에 붙인 규칙을 보존한다.
 public enum JdTrendPolicy: String, CaseIterable, Sendable {
-    case live, exact
+    case live, exact, gainOrEven
 
     /// 웹 live 규칙의 flat 임계값(|v| < 0.005)
     public static let liveFlatEpsilon: Double = 0.005
@@ -46,6 +49,9 @@ public extension JdTrend {
             if value > 0 { return .up }
             if value == 0 { return .flat }
             return .down
+        case .gainOrEven:
+            // flat을 내지 않는다 — 두 값이 한 색으로 묶인 셀에서 회색은 "죽은 행"으로 읽힌다
+            return value >= 0 ? .up : .down
         }
     }
 }

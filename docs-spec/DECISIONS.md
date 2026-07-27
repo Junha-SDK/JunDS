@@ -3,6 +3,71 @@
 각 항목: 날짜 / 결정 / 근거 / 결정자(사람 승인 or 기본값 채택).
 
 ---
+
+## 2026-07-27 — 배치를 컴포넌트가 소유한다: UIKit 랩 컨테이너 + finance 조립 3종 (iOS 138/445)
+
+### DEC-041. "복잡한 레이아웃이라도 쉽게"의 답은 레이아웃 DSL이 아니라 소유권 이전이다
+사람 지시: 다음 배치를 "가장 쉽고, 레이아웃 배치가 쉽고, 복잡한 레이아웃이라도 쉽게 할 수
+있도록". 새 레이아웃 프레임워크를 만드는 대신 **컴포넌트가 자기 배치를 소유**하게 했다 —
+소비자가 격자를 정의하지 않는 것이 곧 "쉬움"이기 때문이다.
+
+#### 1. 실측한 비대칭 — UIKit엔 줄바꿈 컨테이너가 없었다
+`UIStackView`는 줄바꿈을 못 한다. 그래서 RECIPES는 `Wrap`을 "SwiftUI는 JdFlowLayout,
+UIKit은 JdStackView.horizontal **no-wrap 폴백**"으로, `GridLayout`을 "UIKit →
+UICollectionViewCompositionalLayout(소비자 작성)"으로 안내하고 있었다. 즉 **웹에서 한 줄이던
+배치가 iOS에서는 컬렉션 뷰 한 채**였다. finance KPI 행처럼 셀 개수가 런타임에 정해지는
+배치를 컴포넌트가 스스로 소유하려면 이 공백을 먼저 메워야 한다.
+
+#### 2. `JdWrapView` 신설 (UIKit Layout)
+`JdFlowLayout`(SwiftUI)의 UIKit 대응. 두 모드:
+- 고유 폭 흐름(칩·태그) — 좌→우, 넘치면 다음 행, 행 안 세로 중앙(웹 `align-items: center`).
+- 균등 분할 격자(`equalWidths`) — `minItemWidth`·`maxPerLine`이 열 수를 정하고 행 높이를
+  가장 큰 셀로 맞춘다(열이 들쭉날쭉해지지 않게).
+
+설계 판단 2건:
+- **frame 배치**(Auto Layout 제약 아님): 아이템 수가 바뀔 때 제약을 세우고 허무는 비용과
+  충돌 로그가 랩 배치에서는 순손실이다. 대신 `sizeThatFits`/`intrinsicContentSize`를
+  정확히 보고해 부모 Auto Layout에는 정상 참여한다 — 테스트가 **보고 높이 == 배치 하단**을
+  단언한다(둘이 어긋나면 부모가 자르거나 빈 공간을 남긴다).
+- **재사용 없음**: 셀이 수백 개면 여전히 `UICollectionView`가 맞다. 이 뷰는 화면에 들어오는
+  규모(칩 묶음·KPI 4~8칸)를 전제한다 — RECIPES에 그 경계를 명시했다.
+
+#### 3. 조립 3종 — 배치를 소유하는 finance 컴포넌트
+- **LiveStackedCell**: 가격+등락률 2단 우측정렬. 리프를 조립하지 **않는다** — 이 셀은 색
+  통로가 하나이고, 리프를 얹으면 배지는 색을 정하고 텍스트는 안 정해 통로가 둘로 갈린다.
+- **PositionBar**: 좌표를 Core(`JdPositionBarGeometry`)가 클램프까지 마쳐 준다. 마커(12pt)가
+  트랙(8pt)보다 커서 **트랙만 클립**한다.
+- **MicroKpiRow**: items만 받아 스스로 감싸 배치. SwiftUI는 `.adaptive(minimum:)` 격자,
+  UIKit은 위 `JdWrapView(equalWidths:)`. 웹은 호스트를 `display: contents`로 두어 격자
+  정의를 소비자에게 넘겼는데, iOS에서 그 선택은 소비자가 매번 열 정의를 짜는 비용이 된다.
+  중단점 나열(`grid-cols-2 md:grid-cols-4`) 대신 **최소 셀 폭 하나**로 정했다 — iOS는 기기
+  폭이 연속적이고 분할 화면·회전까지 있어 최소 폭이 더 잘 맞는다.
+
+#### 4. 세 번째 추세 규칙: `.gainOrEven`
+웹 `jd-live-stacked-cell`은 `up = c >= 0`이다 — **flat이 없다.** 두 값이 한 색으로 묶여
+있어서 0%에 회색을 주면 그 행 전체가 죽은 것처럼 보인다. `jd-live-micro-kpi-row`도
+`(pct ?? 0) >= 0`으로 같다. DEC-040의 두 규칙에 세 번째로 추가했고, 테스트가 **세 규칙이
+0에서 모두 갈린다**는 것을 단언한다(하나로 합쳐지면 즉시 실패).
+
+#### 5. 웹 결함 교정 확인
+`cur < low`일 때 웹 v2가 음수 width를 내던 결함이 Core 클램프로 막혀 있는지 테스트로 고정.
+비유한(NaN·무한)은 100이 아니라 **0**이다 — 최대로 접으면 데이터 결손이 "구간 끝 도달"로
+잘못 보인다(웹 v3 동형, 처음엔 테스트를 100으로 잘못 썼다가 웹 소스 확인 후 교정).
+
+#### 6. 게이트
+iOS 빌드 성공 · XCTest **707/707**(Core 295 + SwiftUI 115 + UIKit 297, 이번 신규 39) ·
+쇼룸 재빌드 + 실기동(iOS 135 → 138) · 데모 3종 배선 4중 일치 검증(고아 0건).
+RECIPES `Wrap`/`GridLayout` 항목의 "no-wrap 폴백" 안내를 갱신했다 — 문서가 실제 능력보다
+낮게 안내하고 있으면 소비자가 컬렉션 뷰를 계속 짠다.
+
+#### 7. 남은 finance 77종
+DEC-040 §8 순서 유지. 이번에 ①의 대표 3종을 끝냈으므로 다음은 ①의 잔여
+(MarketHeaderBadge · DisclosureToneBadge · LivePrice · AppIcon · Logo) → ② 미니 그래픽.
+`JdWrapView`가 생겨서 ThemeTagList·SegmentedPill 같은 칩 묶음 계열도 바로 만들어진다.
+- 결정자: 사람 지시("복잡한 Layout이라도 쉽게")를 배치 소유권으로 해석, 근거 기록 후
+  기본값 채택 (2026-07-27).
+
+---
 ## 2026-07-27 — 웹 시각 결함 전수 교정: 톤 레시피 + 토큰 층 구멍 3종
 
 ### DEC-041. 다크에서 뒤집히는 것들은 취향이 아니라 토큰 층의 구멍이었다

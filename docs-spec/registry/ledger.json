@@ -4363,11 +4363,11 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "todo",
-      "notes": "<jd-live-stacked-cell> — v2 finance/LiveStackedCell 바닐라 이식"
+      "notes": "<jd-live-stacked-cell> — v2 finance/LiveStackedCell 바닐라 이식 / iOS finance 조립 1차(2026-07-27, DEC-041): JdLiveStackedCell·JdLiveStackedCellView — 2단 우측정렬 테이블 셀, 두 값이 한 색(gainOrEven 판정: 0%도 상승) — 빌드·XCTest 707/707·쇼룸 데모 등록"
     },
     {
       "id": "GlobalKisSeeder",
@@ -4429,11 +4429,11 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "todo",
-      "notes": "<jd-live-micro-kpi-row> — v2 finance/LiveMicroKpiRow 바닐라 이식"
+      "notes": "<jd-live-micro-kpi-row> — v2 finance/LiveMicroKpiRow 바닐라 이식 / iOS finance 조립 1차(2026-07-27, DEC-041): JdMicroKpiRow(+Cell)·JdMicroKpiRowView(+CellView) — 배치를 스스로 소유(SwiftUI adaptive LazyVGrid / UIKit 신설 JdWrapView equalWidths), 소비자가 격자 미정의 — 빌드·XCTest 707/707·쇼룸 데모 등록"
     },
     {
       "id": "LiveOrderBook",
@@ -4671,11 +4671,11 @@
       "category": "finance",
       "tier": "T3",
       "web": "done",
-      "ios": "todo",
+      "ios": "done",
       "docs": "todo",
       "tests": "done",
       "bench": "n/a",
-      "notes": "<jd-position-bar> — v2 finance/PositionBar 바닐라 이식"
+      "notes": "<jd-position-bar> — v2 finance/PositionBar 바닐라 이식 / iOS finance 조립 1차(2026-07-27, DEC-041): JdPositionBar·JdPositionBarView — 좌표는 Core JdPositionBarGeometry가 클램프까지(음수 폭 결함 교정), 마커>트랙이라 트랙만 클립 — 빌드·XCTest 707/707·쇼룸 데모 등록"
     },
     {
       "id": "HotPctChip",

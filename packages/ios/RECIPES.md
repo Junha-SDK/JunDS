@@ -175,14 +175,29 @@ content
 
 ## Wrap · LayoutDivider — 기구현 별칭 (layout)
 
-`Wrap` = `jd-group`과 표면 동형 → SwiftUI `JdFlowLayout`, UIKit `JdStackView.horizontal`(no-wrap 폴백).
+`Wrap` = `jd-group`과 표면 동형 → SwiftUI `JdFlowLayout`, UIKit **`JdWrapView`**.
 `LayoutDivider` = `jd-divider`와 동일 → `JdDivider` / `JdDividerView`를 그대로 쓴다. 신규 타입 없음.
 
----
+```swift
+// SwiftUI — Layout 프로토콜
+JdFlowLayout(spacing: JdGap.sm.value) { chips }
 
-주: Group의 줄바꿈(wrap)은 UIKit `UIStackView`가 지원하지 않아 SwiftUI `JdFlowLayout`(실컴포넌트)이
-전담하고, UIKit은 `JdStackView.horizontal` no-wrap 폴백이다(04 §10.1). 이 한계는 데모 UIKit 탭에
-각주로 표기된다.
+// UIKit — 줄바꿈 컨테이너 (DEC-041에서 신설)
+let wrap = JdWrapView(itemSpacing: JdGap.sm.value, chips)          // 고유 폭 흐름(칩·태그)
+let grid = JdWrapView(itemSpacing: JdGap.sm.value,
+                      equalWidths: true, minItemWidth: 132, cells)  // 균등 분할 격자(KPI 셀)
+grid.maxPerLine = 2                                                 // 2×2로 고정하고 싶을 때
+```
+
+**갱신 (2026-07-27, DEC-041)**: UIKit의 줄바꿈 공백이 메워졌다. 이전에는 `UIStackView`가
+줄바꿈을 못 해서 `JdStackView.horizontal` no-wrap 폴백이었고, 격자는 아래 GridLayout 항목처럼
+소비자가 `UICollectionViewCompositionalLayout`을 직접 세워야 했다 — 웹에서 한 줄이던 배치가
+iOS에서는 컬렉션 뷰 한 채가 되는 비대칭이었다. `JdWrapView`는 frame 배치로 흘리고
+`sizeThatFits`/`intrinsicContentSize`로 높이를 정확히 보고해 부모 Auto Layout에 정상 참여한다.
+
+**언제 컬렉션 뷰가 여전히 맞나**: 셀이 수백 개거나 재사용·프리페치가 필요하면
+`UICollectionView`가 맞다. `JdWrapView`는 **개수가 화면에 들어오는 규모**(칩 묶음, KPI 4~8칸)를
+전제로 재사용 없이 전부 배치한다. `JdMicroKpiRowView`가 이 뷰를 쓰는 이유이기도 하다.
 
 ---
 

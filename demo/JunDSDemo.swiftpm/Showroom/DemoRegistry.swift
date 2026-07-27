@@ -117,6 +117,10 @@ enum DemoRegistry {
         LiveStatusDotDemo.demo,
         PriceBadgeDemo.demo,
         HotPctChipDemo.demo,
+        // finance 조립 3종 (DEC-041) — 배치를 스스로 소유한다(소비자가 격자를 짜지 않는다)
+        LiveStackedCellDemo.demo,
+        PositionBarDemo.demo,
+        LiveMicroKpiRowDemo.demo,
         // hooks Core 유틸 데모 5종
         DebounceDemo.demo,        // useDebounce
         CountUpDemo.demo,         // useCountUp

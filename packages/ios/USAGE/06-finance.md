@@ -1,6 +1,6 @@
 # JunDS iOS — 사용법 06 · finance 리프 (가격·등락 어휘)
 
-시세를 **읽는** 최소 단위 6종. 웹 finance 86종 중 대부분이 이 리프들을 조립해 만들어지므로,
+시세를 **읽는** 최소 단위 6종 + 그것들을 화면에 **놓는** 조립 3종. 웹 finance 86종 중 대부분이 이 리프들을 조립해 만들어지므로,
 이 문서의 어휘(추세 판정·도메인 색·숫자 포맷)를 먼저 이해하면 나머지가 따라온다.
 
 | # | SwiftUI | UIKit | 웹 | 한 줄 |
@@ -11,6 +11,9 @@
 | 4 | `JdLiveStatusDot` | `JdLiveStatusDotView` | `jd-live-status-dot` | 장 세션 라이브 점 + 라벨 |
 | 5 | `JdPriceBadge` | `JdPriceBadgeView` | `jd-price-badge` | 등락률 + 추세 화살표 (exact 판정) |
 | 6 | `JdHotPctChip` | `JdHotPctChipView` | `jd-hot-pct-chip` | 급등 강조 알약 (늘 상승 표기) |
+| 7 | `JdLiveStackedCell` | `JdLiveStackedCellView` | `jd-live-stacked-cell` | 가격+등락률 2단 우측정렬 셀 |
+| 8 | `JdPositionBar` | `JdPositionBarView` | `jd-position-bar` | 구간 대비 현재 위치 막대 |
+| 9 | `JdMicroKpiRow` | `JdMicroKpiRowView` | `jd-live-micro-kpi-row` | KPI 셀 N칸 (배치 자체 소유) |
 
 ## 공통 규칙
 
@@ -26,18 +29,21 @@ JdLivePctBadge(change: quote.changeRate, fallback: seed.changeRate)
 JdLiveStatusDot(live: session.isTrading)
 ```
 
-### 추세 판정 규칙이 **두 개** 있다
+### 추세 판정 규칙이 **세 개** 있다
 
-같은 값이 컴포넌트에 따라 다른 추세로 판정된다. 버그가 아니라 웹에서 승계한 의도된 차이다.
+같은 값이 컴포넌트에 따라 다른 추세로 판정된다. 버그가 아니라 웹에서 승계한 의도된 차이이고,
+그래서 규칙 자체가 타입(`JdTrendPolicy`)이다.
 
-| 정책 | 쓰는 곳 | flat(보합) 범위 | 왜 |
+| 정책 | 쓰는 곳 | flat(보합) | 왜 |
 |---|---|---|---|
 | `.live` | `JdLivePctBadge` | `[-0.005, 0]` — 음수 쪽만 | 실시간 틱은 잘게 흔들린다. "거의 0"을 회색으로 눌러 눈이 덜 피로하게. `up(> 0)`이 flat보다 **우선**하므로 `+0.003`은 상승색이다 |
 | `.exact` | `JdPriceBadge` | `0`뿐 | 확정된 일봉 등락률엔 임계값을 두지 않는다 |
+| `.gainOrEven` | `JdLiveStackedCell` · `JdMicroKpiCell` | **없음** (`>= 0`은 상승) | 두 값이 **한 색으로 묶인** 셀이다. 0%에 회색을 주면 그 행 전체가 죽은 것처럼 보인다 |
 
 ```swift
-JdTrend.resolve(-0.003, policy: .live)   // .flat  (보합 — 회색)
-JdTrend.resolve(-0.003, policy: .exact)  // .down  (하락 — 빨강)
+JdTrend.resolve(-0.003, policy: .live)        // .flat  (보합 — 회색)
+JdTrend.resolve(-0.003, policy: .exact)       // .down  (하락 — 빨강)
+JdTrend.resolve( 0.0,   policy: .gainOrEven)  // .up    (상승 — flat이 없다)
 ```
 
 ### 색은 `JdFinanceTheme` 한 곳에서 온다
@@ -251,4 +257,132 @@ HStack {
     }
 }
 .padding(JdGap.md.value)
+```
+
+
+---
+
+## 7. JdLiveStackedCell / JdLiveStackedCellView
+
+현재가(위) + 등락률(아래)을 **한 색으로 묶어** 우측정렬로 쌓은 셀. 표 종목 열의 관용구다.
+
+```swift
+// SwiftUI
+JdLiveStackedCell(price: 71_200, change: 1.234)                    // "71,200" / "+1.23%" 초록
+JdLiveStackedCell(price: 0, change: 0,
+                  priceFallback: 68_000, pctFallback: -2.5)        // "68,000" / "-2.50%" 빨강
+JdLiveStackedCell(price: 8_240, change: 0)                         // 0%도 상승색
+```
+
+```swift
+// UIKit
+let cell = JdLiveStackedCellView(price: 71_200, change: 1.234)
+cell.change = -2.15          // 두 줄이 같이 빨강으로 바뀐다
+print(cell.lines)            // (price: "71,200", pct: "-2.15%")
+```
+
+**리프를 조립하지 않는 이유**: 이 셀은 색 통로가 **하나**다. `JdLivePriceText` +
+`JdLivePctBadge`를 얹으면 배지는 자기 색을 정하고 가격 텍스트는 정하지 않아 통로가 둘로
+갈린다. 웹도 같은 이유로 상속하지 않았다.
+
+**판정은 `.gainOrEven`** — flat이 없고 `0%`도 상승 쪽이다. 두 값이 한 색이라 0%에 회색을
+주면 그 행 전체가 죽은 것처럼 보인다(v2 규칙 보존). 리프의 두 규칙과 함께 세 규칙이 된다.
+
+**정렬**: `trailing`이 계약이다. 표 오른쪽 열에서 숫자 끝이 맞아야 읽히므로 소비자가
+`.frame(width:, alignment: .trailing)`으로 열 폭만 잡아 주면 된다.
+
+---
+
+## 8. JdPositionBar / JdPositionBarView
+
+`[low, high]` 구간 안에서 `cur`의 위치를 보여주는 막대. 값은 전부 **0~1 분수**다.
+
+```swift
+// SwiftUI — 폭은 소비자가, 높이는 스펙이 정한다(마커 12pt)
+JdPositionBar(low: 0.2, high: 0.8, cur: 0.5).frame(width: 220)
+JdPositionBar(low: 0.4, high: 0.9, cur: 0.45, tone: .down)
+```
+
+```swift
+// UIKit
+let bar = JdPositionBarView(low: 0.2, high: 0.8, cur: 0.5)
+bar.cur = 0.1          // low보다 작아도 채움이 음수가 되지 않는다
+bar.tone = .down
+```
+
+**좌표는 Core가 계산한다** (`JdPositionBarGeometry`). 두 렌더 계층이 같은 산수를 각자
+구현하면 반드시 어긋나기 때문이다(04 §4.2). 클램프도 여기 있다:
+
+- 범위 밖(`< 0`, `> 1`)은 0/100으로 접는다.
+- **비유한(NaN·무한)은 0이다** — 100(최대)으로 접으면 데이터 결손이 "구간 끝 도달"로
+  잘못 보인다. 웹 v3와 동형.
+- 폭은 음수가 되지 않는다. 웹 v2는 `cur < low`일 때 음수 width를 냈다.
+
+**마커는 트랙보다 크다**(12 vs 8pt). 그래서 트랙만 클립하고 마커는 그 바깥에 얹는다 —
+전체 높이는 마커 기준이다. 마커는 `cur`이 아니라 **정중앙 50% 기준선**이다(웹 동형).
+
+---
+
+## 9. JdMicroKpiRow / JdMicroKpiRowView
+
+KPI 소형 셀 N칸. **이 컴포넌트는 자기 배치를 스스로 소유한다.**
+
+```swift
+// SwiftUI — items만 넘기면 폭에 맞춰 열 수가 정해진다
+JdMicroKpiRow(items: [
+    .init(label: "USD/KRW", value: "1,320", pct: -0.4, unit: "원"),
+    .init(label: "외국인",  value: "+1,204", pct: 1.2, hint: "순매수"),
+    .init(label: "기관",    value: "-820",  pct: -0.8, hint: "순매도"),
+    .init(label: "WTI",    value: "78.2",  pct: 1.1, unit: "$"),
+])
+JdMicroKpiRow(items: items, minCellWidth: 160)   // 셀을 더 넓게 → 열 수가 줄어든다
+JdMicroKpiCell(item: items[0])                    // 한 칸만 단독으로도 쓸 수 있다
+```
+
+```swift
+// UIKit — 높이는 랩 뷰가 계산해 보고한다
+let row = JdMicroKpiRowView(items: items, minCellWidth: 132)
+row.items = updated                  // 개수가 바뀌어도 재배치된다
+row.sizeThatFits(CGSize(width: 360, height: .greatestFiniteMagnitude))
+```
+
+**왜 배치를 컴포넌트가 갖는가**: 웹은 호스트를 `display: contents`로 두어 격자 정의를
+소비자에게 넘겼다. iOS엔 그런 투명 호스트가 없고, 무엇보다 소비자가 SwiftUI `LazyVGrid`
+열 정의나 UIKit `UICollectionViewCompositionalLayout`을 **매번 짜야 하는 것**이 실제 비용이다.
+그래서 SwiftUI는 `.adaptive(minimum:)` 격자, UIKit은 `JdWrapView(equalWidths:)`로 스스로
+감싸 배치한다. 소비자가 정하는 것은 `minCellWidth` 하나다.
+
+**중단점을 나열하지 않는 이유**: 웹은 `grid-cols-2 md:grid-cols-4`처럼 중단점을 썼지만
+iOS는 기기 폭이 연속적이고 분할 화면·회전까지 있어 **최소 셀 폭**이 더 잘 맞는다.
+
+**값은 이미 포맷된 문자열**이다 — 폴링·포맷은 앱의 몫(DEC-019). `pct`는 hint가 있어도
+**착색을 결정**하고, `pct` 자체가 없으면 방향이 없어 muted다. `pct: 0`은 상승색이다
+(`.gainOrEven`, StackedCell과 같은 규칙).
+
+---
+
+## 조립 예 2 — KPI 대시보드 + 종목 표
+
+```swift
+ScrollView {
+    VStack(alignment: .leading, spacing: JdGap.md.value) {
+        // 상단 KPI — 격자 정의 없이 한 줄
+        JdMicroKpiRow(items: kpis)
+
+        // 종목 표 — 왼쪽 정체성, 오른쪽 2단 셀
+        ForEach(quotes) { q in
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(q.name)
+                    JdPositionBar(low: q.dayLow, high: q.dayHigh, cur: q.position)
+                        .frame(width: 88)
+                }
+                Spacer()
+                JdLiveStackedCell(price: q.price, change: q.changeRate)
+                    .frame(width: 96, alignment: .trailing)
+            }
+        }
+    }
+    .padding(JdToken.Space.s4)
+}
 ```
