@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo, useEffect, useId } from "react";
 import { cn } from "../../utils/cn";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { Portal } from "../../primitives/Portal";
@@ -58,7 +58,7 @@ export function AutoComplete({
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const listboxId = `autocomplete-listbox-${useState(() => Math.random().toString(36).slice(2, 8))[0]}`;
+  const listboxId = `autocomplete-listbox-${useId()}`;
 
   useClickOutside(ref, () => setOpen(false), open);
 
@@ -132,10 +132,10 @@ export function AutoComplete({
     <div ref={wrapperRef} className={cn("relative w-full", className)}>
       <div
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-card rounded-lg transition-all duration-150",
-          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "flex items-center gap-2 h-9 px-3 border bg-card rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out",
+          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           disabled && "opacity-50 cursor-not-allowed",
-          "border-border",
+          "border-border hover:border-gray-300",
         )}
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted shrink-0">
@@ -166,7 +166,7 @@ export function AutoComplete({
             ref={ref}
             id={listboxId}
             role="listbox"
-            className="fixed z-50 bg-card border border-border rounded-lg shadow-lg max-h-60 overflow-auto py-1 animate-fade-in-scale"
+            className="fixed z-50 bg-card border border-border rounded-xl shadow-xl max-h-60 overflow-auto p-1 animate-fade-in-scale"
             style={{ top: pos.top, left: pos.left, width: pos.width }}
           >
             {filtered.length === 0 && !loading && (
@@ -184,9 +184,8 @@ export function AutoComplete({
                 aria-selected={i === highlightIdx}
                 onClick={() => handleSelect(opt)}
                 className={cn(
-                  "w-full flex items-center gap-2 px-3 py-2 text-left transition-colors cursor-pointer text-sm",
-                  i === highlightIdx && "bg-primary-light",
-                  "hover:bg-primary/10",
+                  "w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-colors cursor-pointer text-sm",
+                  i === highlightIdx ? "bg-primary/10 text-primary" : "hover:bg-primary/10 hover:text-primary",
                 )}
               >
                 <div className="flex-1 min-w-0">

@@ -39,10 +39,12 @@ export function ChatBubble({
       <div>
         {sender && <p className={cn("text-[10px] text-muted mb-0.5 px-1", isRight && "text-right")}>{sender}</p>}
         <div className={cn(
-          "px-3.5 py-2 rounded-2xl text-sm leading-relaxed",
+          "px-3.5 py-2 rounded-2xl text-sm leading-relaxed transition-shadow duration-200",
           isRight
-            ? variant === "primary" ? "bg-primary text-white rounded-br-sm" : "bg-gray-100 text-foreground rounded-br-sm"
-            : "bg-gray-100 text-foreground rounded-bl-sm",
+            ? variant === "primary"
+              ? "bg-primary text-white rounded-br-md shadow-[0_2px_8px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.15)]"
+              : "bg-gray-100 text-foreground rounded-br-md shadow-[0_1px_2px_rgba(0,0,0,0.05)] ring-1 ring-black/[0.04]"
+            : "bg-gray-100 text-foreground rounded-bl-md shadow-[0_1px_2px_rgba(0,0,0,0.05)] ring-1 ring-black/[0.04]",
         )}>
           {children}
         </div>

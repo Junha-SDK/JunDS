@@ -110,9 +110,9 @@ export function Combobox({
     <div ref={ref} className={cn("relative w-full", className)}>
       <div
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-white rounded-lg transition-all duration-150 cursor-text",
-          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
-          error ? "border-danger" : "border-border",
+          "flex items-center gap-2 h-9 px-3 border bg-white rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out cursor-text",
+          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
+          error ? "border-danger" : "border-border hover:border-gray-300",
           disabled && "opacity-50 cursor-not-allowed",
         )}
         onClick={() => { if (!disabled) { setOpen(true); inputRef.current?.focus(); } }}
@@ -135,7 +135,7 @@ export function Combobox({
       </div>
 
       {open && (
-        <div className="absolute z-50 mt-1 w-full bg-white border border-border rounded-lg shadow-lg max-h-60 overflow-auto py-1 animate-fade-in-scale">
+        <div className="absolute z-50 mt-1 w-full bg-white border border-border rounded-xl shadow-xl max-h-60 overflow-auto p-1 animate-fade-in-scale">
           {allItems.length === 0 && !loading && (
             <div className="px-3 py-4 text-sm text-muted text-center">{emptyMessage}</div>
           )}
@@ -149,11 +149,10 @@ export function Combobox({
               disabled={opt.disabled}
               onClick={() => !opt.disabled && handleSelect(opt.value)}
               className={cn(
-                "w-full flex items-center gap-2 px-3 py-2 text-left transition-colors cursor-pointer text-sm",
-                i === highlightIdx && "bg-primary-light",
+                "w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-colors cursor-pointer text-sm",
+                i === highlightIdx ? "bg-primary/10 text-primary" : "hover:bg-gray-50",
                 opt.value === value && "text-primary font-medium",
                 opt.disabled && "opacity-40 cursor-not-allowed",
-                "hover:bg-gray-50",
               )}
             >
               {opt.icon && <span className="shrink-0">{opt.icon}</span>}

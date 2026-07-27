@@ -48,7 +48,8 @@ export function Dock({ children, magnification = 1.6, className }: DockProps) {
       onMouseMove={handleMove}
       onMouseLeave={() => setMouseX(null)}
       className={cn(
-        "inline-flex items-end gap-1 px-3 py-2 bg-white/80 backdrop-blur-xl border border-border rounded-2xl shadow-lg",
+        "inline-flex items-end gap-1 px-3 py-2 bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl",
+        "shadow-[0_12px_32px_-8px_rgba(0,0,0,0.25),0_2px_8px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-black/[0.03]",
         className,
       )}
       role="toolbar"
@@ -89,11 +90,11 @@ function DockItem({ children, label, onClick, className }: DockItemProps) {
       style={{ transform: `scale(${scale})` }}
       aria-label={label}
     >
-      <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-b from-gray-100 to-gray-50 border border-border shadow-sm group-hover:shadow-md transition-shadow">
+      <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-b from-white to-gray-100 border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] group-hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.8)] transition-shadow duration-200">
         {children}
       </div>
       {label && scale > 1.2 && (
-        <span className="absolute -top-7 px-2 py-0.5 text-[10px] bg-foreground text-white rounded-md whitespace-nowrap animate-fade-in" aria-hidden="true">
+        <span className="absolute -top-8 px-2 py-1 text-[10px] font-medium bg-foreground text-white rounded-lg shadow-md whitespace-nowrap animate-fade-in" aria-hidden="true">
           {label}
         </span>
       )}

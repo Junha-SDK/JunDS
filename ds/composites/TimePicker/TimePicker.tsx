@@ -145,10 +145,10 @@ export function TimePicker({
         ref={triggerRef}
         onClick={handleOpen}
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-white rounded-lg transition-all duration-150 cursor-pointer",
-          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "flex items-center gap-2 h-9 px-3 border bg-white rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out cursor-pointer",
+          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           disabled && "opacity-50 cursor-not-allowed",
-          open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
+          open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]" : "border-border hover:border-gray-300",
         )}
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted shrink-0">
@@ -164,7 +164,7 @@ export function TimePicker({
         <Portal>
           <div
             ref={ref}
-            className="fixed z-50 bg-white border border-border rounded-lg shadow-lg animate-fade-in-scale flex"
+            className="fixed z-50 bg-white border border-border rounded-xl shadow-xl animate-fade-in-scale flex overflow-hidden"
             style={{ top: pos.top, left: pos.left }}
           >
             {/* 시 */}

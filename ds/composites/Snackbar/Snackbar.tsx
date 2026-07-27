@@ -73,11 +73,12 @@ export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(function Snack
       aria-live="polite"
       onTransitionEnd={() => { if (!open) setMounted(false); }}
       className={cn(
-        "fixed z-50 flex items-center gap-3 rounded-lg shadow-lg px-4 py-3 text-sm",
-        "min-w-[220px] max-w-[420px] transition-all duration-200",
+        "fixed z-50 flex items-center gap-3 rounded-xl px-4 py-3 text-sm",
+        "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-white/10",
+        "min-w-[220px] max-w-[420px] transition-all duration-300 ease-[cubic-bezier(0.34,1.3,0.64,1)]",
         positionClass[position],
         variantClass[variant],
-        open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
+        open ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95",
         className,
       )}
       {...props}
@@ -87,7 +88,7 @@ export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(function Snack
         <button
           type="button"
           onClick={() => { onAction?.(); onClose?.(); }}
-          className="text-xs font-semibold uppercase tracking-wider hover:opacity-80 cursor-pointer"
+          className="text-xs font-semibold uppercase tracking-wider rounded px-1.5 py-1 -my-1 hover:bg-white/15 active:bg-white/25 transition-colors cursor-pointer"
         >
           {actionLabel}
         </button>
