@@ -36,13 +36,16 @@ export const BrandSwitcher = forwardRef<HTMLDivElement, BrandSwitcherProps>(
           value={brand?.id ?? "default"}
           onChange={(e) => setBrand(e.target.value)}
           className={cn(
-            "h-9 px-3 text-sm rounded-md border border-border bg-surface text-foreground cursor-pointer",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+            "h-9 px-3 text-sm rounded-xl border border-border bg-surface text-foreground cursor-pointer",
+            "transition-colors duration-150 hover:border-muted-light",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             className,
           )}
         >
           {presets.map((p) => (
-            <option key={p.id} value={p.id}>{p.label}</option>
+            <option key={p.id} value={p.id}>
+              {p.label}
+            </option>
           ))}
         </select>
       );
@@ -50,7 +53,12 @@ export const BrandSwitcher = forwardRef<HTMLDivElement, BrandSwitcherProps>(
 
     if (variant === "list") {
       return (
-        <div ref={ref} role="radiogroup" aria-label="브랜드 선택" className={cn("space-y-1", className)}>
+        <div
+          ref={ref}
+          role="radiogroup"
+          aria-label="브랜드 선택"
+          className={cn("space-y-1", className)}
+        >
           {presets.map((p) => {
             const active = brand?.id === p.id;
             return (
@@ -61,21 +69,33 @@ export const BrandSwitcher = forwardRef<HTMLDivElement, BrandSwitcherProps>(
                 aria-checked={active}
                 onClick={() => setBrand(p.id)}
                 className={cn(
-                  "w-full flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer text-left",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
-                  active ? "border-primary bg-primary/5" : "border-border hover:border-primary/40",
+                  // 바뀌는 건 테두리·배경색뿐이다 — transition-all 이면 padding 까지 대상이 된다.
+                  "w-full flex items-center gap-3 p-3 rounded-xl border transition-colors duration-150 cursor-pointer text-left",
+                  "active:scale-[0.99] motion-reduce:active:scale-100 motion-reduce:transition-none",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                  active
+                    ? "border-primary bg-primary/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+                    : "border-border hover:border-primary/40 hover:bg-surface-soft",
                 )}
               >
                 <span
                   aria-hidden="true"
                   className="w-8 h-8 rounded-md shrink-0"
-                  style={{ background: `linear-gradient(135deg, ${p.theme.primary}, ${p.theme.accent})` }}
+                  style={{
+                    background: `linear-gradient(135deg, ${p.theme.primary}, ${p.theme.accent})`,
+                  }}
                 />
                 <span className="min-w-0 flex-1">
                   <span className="block text-sm font-semibold text-foreground">{p.label}</span>
-                  {p.tagline && <span className="block text-xs text-muted truncate">{p.tagline}</span>}
+                  {p.tagline && (
+                    <span className="block text-xs text-muted truncate">{p.tagline}</span>
+                  )}
                 </span>
-                {active && <span aria-hidden="true" className="text-primary text-sm">✓</span>}
+                {active && (
+                  <span aria-hidden="true" className="text-primary-ink text-sm">
+                    ✓
+                  </span>
+                )}
               </button>
             );
           })}
@@ -85,7 +105,12 @@ export const BrandSwitcher = forwardRef<HTMLDivElement, BrandSwitcherProps>(
 
     // chips (default)
     return (
-      <div ref={ref} role="radiogroup" aria-label="브랜드 선택" className={cn("flex flex-wrap gap-2", className)}>
+      <div
+        ref={ref}
+        role="radiogroup"
+        aria-label="브랜드 선택"
+        className={cn("flex flex-wrap gap-2", className)}
+      >
         {presets.map((p) => {
           const active = brand?.id === p.id;
           return (
@@ -96,9 +121,13 @@ export const BrandSwitcher = forwardRef<HTMLDivElement, BrandSwitcherProps>(
               aria-checked={active}
               onClick={() => setBrand(p.id)}
               className={cn(
-                "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
-                active ? "bg-primary text-white" : "bg-surface-soft text-foreground hover:bg-surface",
+                // 활성/비활성 모두 테두리를 둔다 — 한쪽만 두면 전환할 때 1px 씩 밀린다.
+                "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium transition-colors duration-150 cursor-pointer",
+                "active:scale-[0.97] motion-reduce:active:scale-100 motion-reduce:transition-none",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                active
+                  ? "bg-primary border-primary text-white shadow-[0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.18)]"
+                  : "bg-surface-soft border-border text-foreground hover:bg-surface hover:border-muted-light",
               )}
             >
               <span

@@ -49,9 +49,7 @@ export default function DesignSystemLayout({ children }: { children: React.React
         </aside>
 
         {/* 우측 콘텐츠 */}
-        <LabMainWrapper>
-          {children}
-        </LabMainWrapper>
+        <LabMainWrapper>{children}</LabMainWrapper>
       </Flex>
     </FrameworkWrapper>
   );

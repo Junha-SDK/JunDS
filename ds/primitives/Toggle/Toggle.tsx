@@ -41,10 +41,24 @@ const thumbTranslate: Record<ToggleSize, string> = {
  * @since 2.2.0
  * @tags form, control
  */
-export function Toggle({ checked = false, onChange, size = "md", disabled, label, className, ...rest }: ToggleProps) {
+export function Toggle({
+  checked = false,
+  onChange,
+  size = "md",
+  disabled,
+  label,
+  className,
+  ...rest
+}: ToggleProps) {
   const ariaLabel = rest["aria-label"] ?? label ?? "토글";
   return (
-    <label className={cn("inline-flex items-center gap-2 cursor-pointer select-none", disabled && "opacity-50 cursor-not-allowed", className)}>
+    <label
+      className={cn(
+        "inline-flex items-center gap-2 cursor-pointer select-none",
+        disabled && "opacity-50 cursor-not-allowed",
+        className,
+      )}
+    >
       <button
         type="button"
         role="switch"
@@ -53,17 +67,21 @@ export function Toggle({ checked = false, onChange, size = "md", disabled, label
         disabled={disabled}
         onClick={() => onChange?.(!checked)}
         className={cn(
-          "relative inline-flex shrink-0 rounded-full transition-all duration-200 ease-out",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
+          // 트랙에서 변하는 것은 배경색·그림자·밝기뿐 — transition-all 은 폭까지 물어 리플로우를 부른다
+          "relative inline-flex shrink-0 rounded-full transition-[background-color,box-shadow,filter] duration-200 ease-out",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           trackSize[size],
           checked
             ? "bg-primary shadow-[inset_0_1px_2px_rgba(0,0,0,0.12),0_1px_3px_var(--primary-glow)] hover:brightness-110"
-            : "bg-gray-200 shadow-[inset_0_1px_3px_rgba(0,0,0,0.12)] hover:bg-gray-300/80",
+            : // gray-200 은 다크에서 무너진다 — border 토큰이 두 모드 모두에서 꺼진 트랙으로 읽힌다
+              "bg-border shadow-[inset_0_1px_3px_rgba(0,0,0,0.12)] hover:bg-muted-light/60",
         )}
       >
         <span
           className={cn(
-            "absolute top-[2px] left-[2px] rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+            // 손잡이는 두 모드 모두 흰색이어야 한다. globals 의 다크 오버라이드가 `.bg-white` 를
+            // 어두운 표면색으로 덮어써 손잡이가 트랙에 묻히므로 그 규칙을 타지 않는 값으로 적는다.
+            "absolute top-[2px] left-[2px] rounded-full bg-[#fff] transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] motion-reduce:transition-none",
             "shadow-[0_1px_3px_rgba(0,0,0,0.2),0_1px_1px_rgba(0,0,0,0.08)]",
             thumbSize[size],
             checked && thumbTranslate[size],

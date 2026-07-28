@@ -49,7 +49,18 @@ const positionClass: Record<SnackbarPosition, string> = {
  * @tags feedback
  */
 export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(function Snackbar(
-  { open, message, variant = "default", position = "bottom", duration = 4000, actionLabel, onAction, onClose, className, ...props },
+  {
+    open,
+    message,
+    variant = "default",
+    position = "bottom",
+    duration = 4000,
+    actionLabel,
+    onAction,
+    onClose,
+    className,
+    ...props
+  },
   ref,
 ) {
   const [mounted, setMounted] = useState(open);
@@ -71,14 +82,22 @@ export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(function Snack
       ref={ref}
       role="status"
       aria-live="polite"
-      onTransitionEnd={() => { if (!open) setMounted(false); }}
+      onTransitionEnd={() => {
+        if (!open) setMounted(false);
+      }}
       className={cn(
         "fixed z-50 flex items-center gap-3 rounded-xl px-4 py-3 text-sm",
         "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-white/10",
-        "min-w-[220px] max-w-[420px] transition-all duration-300 ease-[cubic-bezier(0.34,1.3,0.64,1)]",
+        // 변하는 것은 투명도와 변환뿐 — transition-all 은 패딩·폭까지 물어 매 프레임 리플로우를 만든다.
+        // 감속 요청에도 전이를 끄지 않는다: 닫힘 해제(`onTransitionEnd`)가 이 전이에 매달려 있어
+        // transition-none 이면 보이지 않는 스낵바가 DOM 에 그대로 남아 클릭을 가로챈다.
+        "min-w-[220px] max-w-[420px] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.34,1.3,0.64,1)]",
         positionClass[position],
         variantClass[variant],
-        open ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95",
+        // 사라지는 동안에도 투명한 판이 클릭을 먹지 않게 한다
+        open
+          ? "opacity-100 translate-y-0 scale-100"
+          : "opacity-0 translate-y-2 scale-95 pointer-events-none",
         className,
       )}
       {...props}
@@ -87,8 +106,12 @@ export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(function Snack
       {actionLabel && (
         <button
           type="button"
-          onClick={() => { onAction?.(); onClose?.(); }}
-          className="text-xs font-semibold uppercase tracking-wider rounded px-1.5 py-1 -my-1 hover:bg-white/15 active:bg-white/25 transition-colors cursor-pointer"
+          onClick={() => {
+            onAction?.();
+            onClose?.();
+          }}
+          // 스낵바는 변형마다 배경이 달라진다 — 링을 currentColor 로 잡아야 어떤 변형에서도 보인다
+          className="text-xs font-semibold uppercase tracking-wider rounded-lg px-1.5 py-1 -my-1 hover:bg-white/15 active:bg-white/25 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-inset"
         >
           {actionLabel}
         </button>
@@ -97,10 +120,15 @@ export const Snackbar = forwardRef<HTMLDivElement, SnackbarProps>(function Snack
         type="button"
         onClick={onClose}
         aria-label="닫기"
-        className="ml-1 p-1 rounded hover:bg-white/20 transition-colors cursor-pointer"
+        className="ml-1 p-1 rounded-lg hover:bg-white/20 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-inset"
       >
         <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-          <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path
+            d="M3.5 3.5l7 7M10.5 3.5l-7 7"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
         </svg>
       </button>
     </div>

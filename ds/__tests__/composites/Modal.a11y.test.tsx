@@ -9,7 +9,7 @@ describe("Modal a11y", () => {
       <Modal open onClose={vi.fn()}>
         <Modal.Header>Test Title</Modal.Header>
         <div>Content</div>
-      </Modal>
+      </Modal>,
     );
     const dialog = screen.getByRole("dialog");
     expect(dialog).toBeDefined();
@@ -22,7 +22,7 @@ describe("Modal a11y", () => {
       <Modal open onClose={onClose}>
         <Modal.Header onClose={onClose}>Title</Modal.Header>
         <div>Content</div>
-      </Modal>
+      </Modal>,
     );
     await userEvent.keyboard("{Escape}");
     expect(onClose).toHaveBeenCalled();
@@ -33,7 +33,7 @@ describe("Modal a11y", () => {
     const { container } = render(
       <Modal open onClose={onClose} dismissible>
         <div>Content</div>
-      </Modal>
+      </Modal>,
     );
     // Click the backdrop (first child of the portal - the overlay div)
     const backdrop = container.ownerDocument.querySelector(".fixed.inset-0 .absolute.inset-0");
@@ -45,7 +45,7 @@ describe("Modal a11y", () => {
     render(
       <Modal open={false} onClose={vi.fn()}>
         <div>Hidden Content</div>
-      </Modal>
+      </Modal>,
     );
     expect(screen.queryByText("Hidden Content")).toBeNull();
   });

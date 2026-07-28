@@ -52,7 +52,10 @@ export function SegmentedControl({
   className,
 }: SegmentedControlProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
+  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; width: number }>({
+    left: 0,
+    width: 0,
+  });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -72,14 +75,18 @@ export function SegmentedControl({
     <div
       ref={containerRef}
       className={cn(
-        "relative inline-flex bg-gray-100 rounded-xl p-1 gap-0.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]",
+        "relative inline-flex bg-muted/12 rounded-xl p-1 gap-0.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]",
         fullWidth && "w-full",
         className,
       )}
     >
-      {/* 슬라이딩 인디케이터 */}
+      {/* 슬라이딩 인디케이터 — 실제로 움직이는 값은 left/width 둘뿐이라 그것만 전이한다 */}
       <div
-        className="absolute top-1 bottom-1 bg-white rounded-lg ring-1 ring-black/[0.04] shadow-[0_1px_3px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 ease-[cubic-bezier(0.3,1.2,0.5,1)]"
+        className={cn(
+          "absolute top-1 bottom-1 bg-card rounded-lg ring-1 ring-border",
+          "shadow-[0_1px_3px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.12)]",
+          "transition-[left,width] duration-300 ease-[cubic-bezier(0.3,1.2,0.5,1)] motion-reduce:transition-none",
+        )}
         style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
       />
       {options.map((option) => (
@@ -90,11 +97,16 @@ export function SegmentedControl({
           disabled={option.disabled}
           onClick={() => !option.disabled && onChange(option.key)}
           className={cn(
-            "relative z-10 inline-flex items-center justify-center gap-1.5 rounded-lg transition-all duration-150 cursor-pointer",
-            "disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.97]",
+            "relative z-10 inline-flex items-center justify-center gap-1.5 rounded-lg cursor-pointer whitespace-nowrap",
+            "transition-[color,transform] duration-150 motion-reduce:transition-none",
+            "disabled:opacity-40 disabled:cursor-not-allowed",
+            "active:scale-[0.97] motion-reduce:active:scale-100",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-1 focus-visible:ring-offset-background",
             sizeClasses[size],
             fullWidth && "flex-1",
-            value === option.key ? "text-foreground font-semibold" : "text-muted font-medium hover:text-foreground",
+            value === option.key
+              ? "text-foreground font-semibold"
+              : "text-muted font-medium hover:text-foreground",
           )}
         >
           {option.icon && <span className="shrink-0">{option.icon}</span>}

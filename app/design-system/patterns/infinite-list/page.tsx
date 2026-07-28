@@ -14,7 +14,9 @@ function generateItems(start: number, count: number): FakeItem[] {
   return Array.from({ length: count }, (_, i) => ({
     id: start + i,
     title: `항목 #${start + i + 1}`,
-    description: `이것은 ${start + i + 1}번째 항목의 설명입니다. 스크롤하면 더 많은 항목이 로드됩니다.`,
+    description: `이것은 ${
+      start + i + 1
+    }번째 항목의 설명입니다. 스크롤하면 더 많은 항목이 로드됩니다.`,
   }));
 }
 
@@ -58,7 +60,10 @@ export default function InfiniteListPage() {
               onLoadMore={loadMore}
               keyExtractor={(item) => String(item.id)}
               renderItem={(item) => (
-                <div key={item.id} className="flex items-center gap-3 px-4 py-3 border-b border-border">
+                <div
+                  key={item.id}
+                  className="flex items-center gap-3 px-4 py-3 border-b border-border"
+                >
                   <span className="text-xs font-mono text-muted w-8 text-right">{item.id + 1}</span>
                   <div>
                     <p className="text-sm font-medium text-foreground">{item.title}</p>
@@ -68,7 +73,9 @@ export default function InfiniteListPage() {
               )}
             />
           </div>
-          <p className="text-xs text-muted mt-2">현재 {items.length}개 로드됨 {!hasMore && "— 모두 로드 완료"}</p>
+          <p className="text-xs text-muted mt-2">
+            현재 {items.length}개 로드됨 {!hasMore && "— 모두 로드 완료"}
+          </p>
         </Preview>
       </Section>
     </ComponentPage>

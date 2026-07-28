@@ -18,12 +18,41 @@ const intents: Intent[] = [
     label: "폼 / 입력",
     icon: "✍️",
     names: [
-      "Input", "Textarea", "Select", "MultiSelect", "Combobox", "Checkbox", "Radio",
-      "Switch", "Toggle", "Slider", "RangeSlider", "NumberInput", "FileUpload",
-      "DateInput", "PasswordInput", "PinInput", "OTPInput", "CurrencyInput",
-      "PhoneInput", "TagInput", "SearchInput", "AddressInput", "Form", "FormWizard",
-      "FormArray", "FormBuilder", "InlineEdit", "StarRating", "Rating", "ColorPicker",
-      "EmojiPicker", "Label", "FormField", "MonthPicker", "YearPicker",
+      "Input",
+      "Textarea",
+      "Select",
+      "MultiSelect",
+      "Combobox",
+      "Checkbox",
+      "Radio",
+      "Switch",
+      "Toggle",
+      "Slider",
+      "RangeSlider",
+      "NumberInput",
+      "FileUpload",
+      "DateInput",
+      "PasswordInput",
+      "PinInput",
+      "OTPInput",
+      "CurrencyInput",
+      "PhoneInput",
+      "TagInput",
+      "SearchInput",
+      "AddressInput",
+      "Form",
+      "FormWizard",
+      "FormArray",
+      "FormBuilder",
+      "InlineEdit",
+      "StarRating",
+      "Rating",
+      "ColorPicker",
+      "EmojiPicker",
+      "Label",
+      "FormField",
+      "MonthPicker",
+      "YearPicker",
     ],
   },
   {
@@ -31,9 +60,23 @@ const intents: Intent[] = [
     label: "데이터 / 표",
     icon: "📊",
     names: [
-      "Table", "DataTable", "DataGrid", "Pagination", "Timeline", "TreeView",
-      "Kanban", "Heatmap", "DiffViewer", "JSONViewer", "InfiniteList", "VirtualList",
-      "MasonryGrid", "CollectionView", "Descriptions", "SortableList", "Transfer",
+      "Table",
+      "DataTable",
+      "DataGrid",
+      "Pagination",
+      "Timeline",
+      "TreeView",
+      "Kanban",
+      "Heatmap",
+      "DiffViewer",
+      "JSONViewer",
+      "InfiniteList",
+      "VirtualList",
+      "MasonryGrid",
+      "CollectionView",
+      "Descriptions",
+      "SortableList",
+      "Transfer",
     ],
   },
   {
@@ -41,9 +84,19 @@ const intents: Intent[] = [
     label: "차트 / 시각화",
     icon: "📈",
     names: [
-      "MiniChart", "ProgressRing", "GaugeChart", "FunnelChart", "TreemapChart",
-      "ChartCard", "MetricCard", "StatCard", "BatteryIndicator", "AnimatedCounter",
-      "BentoGrid", "ProgressBar", "Globe",
+      "MiniChart",
+      "ProgressRing",
+      "GaugeChart",
+      "FunnelChart",
+      "TreemapChart",
+      "ChartCard",
+      "MetricCard",
+      "StatCard",
+      "BatteryIndicator",
+      "AnimatedCounter",
+      "BentoGrid",
+      "ProgressBar",
+      "Globe",
     ],
   },
   {
@@ -51,10 +104,29 @@ const intents: Intent[] = [
     label: "피드백 / 알림",
     icon: "💬",
     names: [
-      "Toast", "Alert", "AlertDialog", "ConfirmDialog", "Modal", "Drawer", "Sheet",
-      "Tooltip", "Popover", "HoverCard", "Banner", "Snackbar", "Notification",
-      "Callout", "EmptyState", "LoadingOverlay", "Skeleton", "SkeletonPreset",
-      "Spinner", "Onboarding", "Tour", "ChatBubble", "ThinkingIndicator",
+      "Toast",
+      "Alert",
+      "AlertDialog",
+      "ConfirmDialog",
+      "Modal",
+      "Drawer",
+      "Sheet",
+      "Tooltip",
+      "Popover",
+      "HoverCard",
+      "Banner",
+      "Snackbar",
+      "Notification",
+      "Callout",
+      "EmptyState",
+      "LoadingOverlay",
+      "Skeleton",
+      "SkeletonPreset",
+      "Spinner",
+      "Onboarding",
+      "Tour",
+      "ChatBubble",
+      "ThinkingIndicator",
     ],
   },
   {
@@ -62,9 +134,22 @@ const intents: Intent[] = [
     label: "내비게이션",
     icon: "🧭",
     names: [
-      "Tabs", "Accordion", "Breadcrumb", "Stepper", "NavigationMenu", "Menubar",
-      "ContextMenu", "Dropdown", "Sidebar", "BackTop", "AutoHideHeader", "TreeNav",
-      "AppShell", "PageHeader", "Affix", "Sticky",
+      "Tabs",
+      "Accordion",
+      "Breadcrumb",
+      "Stepper",
+      "NavigationMenu",
+      "Menubar",
+      "ContextMenu",
+      "Dropdown",
+      "Sidebar",
+      "BackTop",
+      "AutoHideHeader",
+      "TreeNav",
+      "AppShell",
+      "PageHeader",
+      "Affix",
+      "Sticky",
     ],
   },
   {
@@ -72,9 +157,17 @@ const intents: Intent[] = [
     label: "액션 / 트리거",
     icon: "🎯",
     names: [
-      "Button", "ButtonGroup", "IconButton", "ActionBar", "ActionSheet",
-      "BottomSheet", "CommandPalette", "Dock", "FloatingActionButton",
-      "CopyButton", "CopyBlock",
+      "Button",
+      "ButtonGroup",
+      "IconButton",
+      "ActionBar",
+      "ActionSheet",
+      "BottomSheet",
+      "CommandPalette",
+      "Dock",
+      "FloatingActionButton",
+      "CopyButton",
+      "CopyBlock",
     ],
   },
   {
@@ -82,8 +175,16 @@ const intents: Intent[] = [
     label: "미디어",
     icon: "🎬",
     names: [
-      "VideoPlayer", "AudioPlayer", "Carousel", "ImageCropper", "ImageLightbox",
-      "CompareSlider", "AvatarStack", "Avatar", "QRCode", "ColorSwatch",
+      "VideoPlayer",
+      "AudioPlayer",
+      "Carousel",
+      "ImageCropper",
+      "ImageLightbox",
+      "CompareSlider",
+      "AvatarStack",
+      "Avatar",
+      "QRCode",
+      "ColorSwatch",
       "Image",
     ],
   },
@@ -92,9 +193,17 @@ const intents: Intent[] = [
     label: "마케팅 / 랜딩",
     icon: "✨",
     names: [
-      "SpotlightCard", "BentoGrid", "GradientBorder", "Marquee", "Confetti",
-      "Typewriter", "Starfield", "PricingTable", "AnnouncementBar",
-      "CookieConsent", "BookCard",
+      "SpotlightCard",
+      "BentoGrid",
+      "GradientBorder",
+      "Marquee",
+      "Confetti",
+      "Typewriter",
+      "Starfield",
+      "PricingTable",
+      "AnnouncementBar",
+      "CookieConsent",
+      "BookCard",
     ],
   },
 ];
@@ -125,7 +234,15 @@ export default function ShowcasePage() {
         <div className="relative px-8 pt-8 pb-6">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="text-primary-ink"
+              >
                 <rect x="3" y="3" width="7" height="7" rx="2" />
                 <rect x="14" y="3" width="7" height="7" rx="2" />
                 <rect x="3" y="14" width="7" height="7" rx="2" />
@@ -140,7 +257,8 @@ export default function ShowcasePage() {
             </div>
           </div>
           <p className="text-xs text-muted/70 max-w-lg mb-5">
-            카드 위에 마우스를 올리면 컴포넌트의 실제 동작을 미리볼 수 있습니다. 클릭하면 상세 문서 페이지로 이동합니다.
+            카드 위에 마우스를 올리면 컴포넌트의 실제 동작을 미리볼 수 있습니다. 클릭하면 상세 문서
+            페이지로 이동합니다.
           </p>
 
           {/* ── Intent chips ── */}
@@ -184,14 +302,17 @@ export default function ShowcasePage() {
                   >
                     <span aria-hidden>{i.icon}</span>
                     {i.label}
-                    <span className={cn("text-[10px]", active ? "opacity-80" : "opacity-60")}>{count}</span>
+                    <span className={cn("text-[10px]", active ? "opacity-80" : "opacity-60")}>
+                      {count}
+                    </span>
                   </button>
                 );
               })}
             </div>
             {activeIntent && (
               <p className="mt-2 text-[11px] text-muted">
-                <span className="font-medium text-primary">{activeIntent.label}</span> 의도로 {items.length}개 컴포넌트만 표시 중 — 칩을 다시 누르거나 "전체"로 돌아가세요.
+                <span className="font-medium text-primary-ink">{activeIntent.label}</span> 의도로{" "}
+                {items.length}개 컴포넌트만 표시 중 — 칩을 다시 누르거나 "전체"로 돌아가세요.
               </p>
             )}
           </div>

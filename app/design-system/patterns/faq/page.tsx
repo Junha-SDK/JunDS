@@ -13,7 +13,13 @@ export default function FAQPage() {
     >
       <Section title="Default">
         <Preview>
-          <FAQ title="자주 묻는 질문" items={[{question:"환불은?",answer:"7일 내 가능"},{question:"무료 체험?",answer:"14일 무료"}]} />
+          <FAQ
+            title="자주 묻는 질문"
+            items={[
+              { question: "환불은?", answer: "7일 내 가능" },
+              { question: "무료 체험?", answer: "14일 무료" },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

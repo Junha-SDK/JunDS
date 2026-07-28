@@ -95,14 +95,11 @@ export function Sidebar() {
         borderRight: "1px solid var(--bm-border)",
       }}
     >
-      <div
-        className="px-5 py-5 border-b"
-        style={{ borderColor: "var(--bm-border)" }}
-      >
+      <div className="px-5 py-5 border-b" style={{ borderColor: "var(--bm-border)" }}>
         <Logo size="lg" href="/dashboard" showSubtitle />
       </div>
 
-      <nav className="flex-1 overflow-y-auto py-4">
+      <nav className="flex-1 overflow-y-auto overscroll-y-contain py-4">
         <RecentlyViewed />
         {sections.map((section) => (
           <div key={section.title} className="px-3 pb-4">
@@ -122,7 +119,8 @@ export function Sidebar() {
                     <Link
                       href={item.href}
                       prefetch
-                      className={`relative flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13.5px] font-semibold transition-colors${
+                      // 29개 링크를 탭으로 지나가는 동안 포커스가 어디 있는지 보이지 않았다.
+                      className={`relative flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13.5px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bm-card)]${
                         active ? "" : " hover:bg-[color:var(--bm-soft-100)]"
                       }`}
                       style={{
@@ -180,8 +178,7 @@ export function Sidebar() {
             borderRadius: 6,
           }}
         >
-          <AppIcon name="command" size={11} strokeWidth={2.5} />
-          K
+          <AppIcon name="command" size={11} strokeWidth={2.5} />K
         </kbd>
       </div>
     </aside>

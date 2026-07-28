@@ -16,31 +16,46 @@ export interface SecurityBadgeProps {
   className?: string;
 }
 
-const config: Record<SecurityLevel, { icon: string; defaultLabel: string; bg: string; text: string; border: string }> = {
+// 배경(bg-*-50)만 다크 오버라이드가 있고 글자(text-*-700)·테두리(border-*-200)에는 없다.
+// 그 조합은 다크에서 어두운 글자 + 밝은 테두리로 뒤집힌다 — 다섯 단계 모두 의미 토큰으로 옮긴다
+const config: Record<
+  SecurityLevel,
+  { icon: string; defaultLabel: string; bg: string; text: string; border: string }
+> = {
   critical: {
     icon: "M10 2L1.5 17h17L10 2zM10 7v4M10 13.5h.01",
     defaultLabel: "위험",
-    bg: "bg-red-50", text: "text-red-700", border: "border-red-200",
+    bg: "bg-danger-light",
+    text: "text-danger",
+    border: "border-danger/30",
   },
   warning: {
     icon: "M10 2L1.5 17h17L10 2zM10 7v4M10 13.5h.01",
     defaultLabel: "주의",
-    bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200",
+    bg: "bg-warning-light",
+    text: "text-warning",
+    border: "border-warning/30",
   },
   safe: {
     icon: "M9 12l2 2 4-4M5.8 4.5A7.5 7.5 0 0110 3a7.5 7.5 0 014.2 1.5c.2 1.4.3 2.5.3 3.5 0 4.5-2 7.5-4.5 9-2.5-1.5-4.5-4.5-4.5-9 0-1 .1-2.1.3-3.5z",
     defaultLabel: "안전",
-    bg: "bg-green-50", text: "text-green-700", border: "border-green-200",
+    bg: "bg-success-light",
+    text: "text-success",
+    border: "border-success/30",
   },
   verified: {
     icon: "M5 10l3.5 3.5L15 7",
     defaultLabel: "인증됨",
-    bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200",
+    bg: "bg-info-light",
+    text: "text-info",
+    border: "border-info/30",
   },
   unverified: {
     icon: "M10 5v5M10 13h.01",
     defaultLabel: "미인증",
-    bg: "bg-gray-50", text: "text-gray-600", border: "border-gray-200",
+    bg: "bg-muted/10",
+    text: "text-muted",
+    border: "border-border",
   },
 };
 
@@ -59,20 +74,42 @@ const sizeStyles = {
  * @since 2.2.0
  * @tags data-display
  */
-export function SecurityBadge({ level, label, showIcon = true, size = "md", className }: SecurityBadgeProps) {
+export function SecurityBadge({
+  level,
+  label,
+  showIcon = true,
+  size = "md",
+  className,
+}: SecurityBadgeProps) {
   const c = config[level];
   const iconSize = size === "sm" ? 10 : size === "md" ? 12 : 14;
 
   return (
-    <span className={cn(
-      "inline-flex items-center font-semibold rounded-full border",
-      c.bg, c.text, c.border,
-      sizeStyles[size],
-      className,
-    )}>
+    <span
+      className={cn(
+        "inline-flex items-center font-semibold rounded-full border whitespace-nowrap",
+        c.bg,
+        c.text,
+        c.border,
+        sizeStyles[size],
+        className,
+      )}
+    >
       {showIcon && (
-        <svg width={iconSize} height={iconSize} viewBox="0 0 20 20" fill="none" className="shrink-0">
-          <path d={c.icon} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width={iconSize}
+          height={iconSize}
+          viewBox="0 0 20 20"
+          fill="none"
+          className="shrink-0"
+        >
+          <path
+            d={c.icon}
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       )}
       {label || c.defaultLabel}

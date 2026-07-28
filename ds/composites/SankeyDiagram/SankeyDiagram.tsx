@@ -35,7 +35,15 @@ export interface SankeyDiagramProps extends HTMLAttributes<HTMLDivElement> {
   nodeGap?: number;
 }
 
-const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b82f6", "#a855f7", "#ec4899"];
+const DEFAULT_COLORS = [
+  "var(--primary)",
+  "#22c55e",
+  "#f59e0b",
+  "#ef4444",
+  "#3b82f6",
+  "#a855f7",
+  "#ec4899",
+];
 
 interface ResolvedNode extends SankeyNode {
   column: number;
@@ -53,7 +61,9 @@ function autoColumns(nodes: SankeyNode[], links: SankeyLink[]): Map<string, numb
   links.forEach((l) => incoming.set(l.target, (incoming.get(l.target) ?? 0) + 1));
   const cols = new Map<string, number>();
   const queue: { id: string; col: number }[] = [];
-  nodes.forEach((n) => { if ((incoming.get(n.id) ?? 0) === 0) queue.push({ id: n.id, col: 0 }); });
+  nodes.forEach((n) => {
+    if ((incoming.get(n.id) ?? 0) === 0) queue.push({ id: n.id, col: 0 });
+  });
   while (queue.length) {
     const { id, col } = queue.shift()!;
     const prev = cols.get(id);
@@ -61,7 +71,9 @@ function autoColumns(nodes: SankeyNode[], links: SankeyLink[]): Map<string, numb
     links.filter((l) => l.source === id).forEach((l) => queue.push({ id: l.target, col: col + 1 }));
   }
   // any unreached: column 0
-  nodes.forEach((n) => { if (!cols.has(n.id)) cols.set(n.id, 0); });
+  nodes.forEach((n) => {
+    if (!cols.has(n.id)) cols.set(n.id, 0);
+  });
   return cols;
 }
 
@@ -111,7 +123,8 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(func
 
     // height scale
     const maxColTotal = Math.max(...cols.map((c) => c.reduce((s, n) => s + n.total, 0)));
-    const scale = (height - (Math.max(...cols.map((c) => c.length)) - 1) * nodeGap) / Math.max(1, maxColTotal);
+    const scale =
+      (height - (Math.max(...cols.map((c) => c.length)) - 1) * nodeGap) / Math.max(1, maxColTotal);
 
     cols.forEach((col) => {
       let y = 0;
@@ -126,24 +139,40 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(func
     const colWidth = (width - nodeWidth) / Math.max(1, cols.length - 1);
     const sourceOffsets = new Map<string, number>();
     const targetOffsets = new Map<string, number>();
-    const linkPaths = links.map((l, li) => {
-      const sourceNode = resolved.find((n) => n.id === l.source);
-      const targetNode = resolved.find((n) => n.id === l.target);
-      if (!sourceNode || !targetNode) return null;
-      const sx = sourceNode.column * colWidth + nodeWidth;
-      const tx = targetNode.column * colWidth;
-      const so = sourceOffsets.get(l.source) ?? 0;
-      const to = targetOffsets.get(l.target) ?? 0;
-      const linkH = Math.max(1, l.value * scale);
-      const sy = sourceNode.y + so + linkH / 2;
-      const ty = targetNode.y + to + linkH / 2;
-      sourceOffsets.set(l.source, so + linkH);
-      targetOffsets.set(l.target, to + linkH);
-      const cx = (sx + tx) / 2;
-      const path = `M${sx},${sy} C${cx},${sy} ${cx},${ty} ${tx},${ty}`;
-      const color = sourceNode.color ?? DEFAULT_COLORS[li % DEFAULT_COLORS.length];
-      return { path, strokeWidth: linkH, color, source: l.source, target: l.target, value: l.value };
-    }).filter(Boolean) as { path: string; strokeWidth: number; color: string; source: string; target: string; value: number }[];
+    const linkPaths = links
+      .map((l, li) => {
+        const sourceNode = resolved.find((n) => n.id === l.source);
+        const targetNode = resolved.find((n) => n.id === l.target);
+        if (!sourceNode || !targetNode) return null;
+        const sx = sourceNode.column * colWidth + nodeWidth;
+        const tx = targetNode.column * colWidth;
+        const so = sourceOffsets.get(l.source) ?? 0;
+        const to = targetOffsets.get(l.target) ?? 0;
+        const linkH = Math.max(1, l.value * scale);
+        const sy = sourceNode.y + so + linkH / 2;
+        const ty = targetNode.y + to + linkH / 2;
+        sourceOffsets.set(l.source, so + linkH);
+        targetOffsets.set(l.target, to + linkH);
+        const cx = (sx + tx) / 2;
+        const path = `M${sx},${sy} C${cx},${sy} ${cx},${ty} ${tx},${ty}`;
+        const color = sourceNode.color ?? DEFAULT_COLORS[li % DEFAULT_COLORS.length];
+        return {
+          path,
+          strokeWidth: linkH,
+          color,
+          source: l.source,
+          target: l.target,
+          value: l.value,
+        };
+      })
+      .filter(Boolean) as {
+      path: string;
+      strokeWidth: number;
+      color: string;
+      source: string;
+      target: string;
+      value: number;
+    }[];
 
     const colWidthFinal = (width - nodeWidth) / Math.max(1, cols.length - 1);
     return { resolved, columns: cols, linkPaths, colWidth: colWidthFinal };
@@ -153,12 +182,29 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(func
   const colWidth = (width - nodeWidth) / Math.max(1, colCount - 1);
 
   return (
-    <div ref={ref} className={cn("inline-block", className)} {...props}>
-      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Sankey 다이어그램">
+    <div ref={ref} className={cn("inline-block max-w-full", className)} {...props}>
+      {/* viewBox 는 이미 있었지만 CSS 로 크기를 풀어 주지 않아 좁은 칸에서 그대로 넘쳤다. */}
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        className="block h-auto max-w-full"
+        role="img"
+        aria-label="Sankey 다이어그램"
+      >
         {/* links first so nodes overlap */}
         {linkPaths.map((l, i) => (
-          <path key={i} d={l.path} stroke={l.color} strokeWidth={l.strokeWidth} fill="none" strokeOpacity={0.35}>
-            <title>{l.source} → {l.target}: {l.value}</title>
+          <path
+            key={i}
+            d={l.path}
+            stroke={l.color}
+            strokeWidth={l.strokeWidth}
+            fill="none"
+            strokeOpacity={0.35}
+          >
+            <title>
+              {l.source} → {l.target}: {l.value}
+            </title>
           </path>
         ))}
         {resolved.map((n, i) => {
@@ -168,7 +214,9 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(func
           return (
             <g key={n.id}>
               <rect x={x} y={n.y} width={nodeWidth} height={n.height} fill={color} rx={2}>
-                <title>{n.label ?? n.id}: {n.total}</title>
+                <title>
+                  {n.label ?? n.id}: {n.total}
+                </title>
               </rect>
               <text
                 x={isLast ? x - 4 : x + nodeWidth + 4}

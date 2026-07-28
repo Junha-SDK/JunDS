@@ -21,7 +21,11 @@ export default function TagPage() {
       <Section title="Colors">
         <Preview>
           <div className="flex items-center gap-2 flex-wrap">
-            {colors.map((c) => <Tag key={c} color={c}>{c}</Tag>)}
+            {colors.map((c) => (
+              <Tag key={c} color={c}>
+                {c}
+              </Tag>
+            ))}
           </div>
         </Preview>
       </Section>
@@ -29,9 +33,15 @@ export default function TagPage() {
       <Section title="Closable">
         <Preview>
           <div className="flex items-center gap-2">
-            <Tag color="primary" closable onClose={() => {}}>프론트엔드</Tag>
-            <Tag color="blue" closable onClose={() => {}}>React</Tag>
-            <Tag color="green" closable onClose={() => {}}>완료</Tag>
+            <Tag color="primary" closable onClose={() => {}}>
+              프론트엔드
+            </Tag>
+            <Tag color="blue" closable onClose={() => {}}>
+              React
+            </Tag>
+            <Tag color="green" closable onClose={() => {}}>
+              완료
+            </Tag>
           </div>
         </Preview>
       </Section>

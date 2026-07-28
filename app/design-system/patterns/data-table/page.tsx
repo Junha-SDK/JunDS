@@ -20,7 +20,18 @@ interface User {
 const departments = ["Engineering", "Design", "Marketing", "Sales", "HR"];
 const roles = ["Admin", "Manager", "Lead", "Member", "Guest"];
 const statuses: User["status"][] = ["active", "inactive", "pending"];
-const names = ["김준하", "이서연", "박민수", "최유진", "정다은", "한지우", "송태현", "오수빈", "임재혁", "윤하나"];
+const names = [
+  "김준하",
+  "이서연",
+  "박민수",
+  "최유진",
+  "정다은",
+  "한지우",
+  "송태현",
+  "오수빈",
+  "임재혁",
+  "윤하나",
+];
 
 const data: User[] = Array.from({ length: 200 }, (_, i) => ({
   id: String(i + 1),
@@ -30,7 +41,10 @@ const data: User[] = Array.from({ length: 200 }, (_, i) => ({
   department: departments[i % departments.length],
   salary: 3000 + ((i * 1733 + 541) % 7000),
   status: statuses[i % 3],
-  joinDate: `2024-${String((i % 12) + 1).padStart(2, "0")}-${String((i % 28) + 1).padStart(2, "0")}`,
+  joinDate: `2024-${String((i % 12) + 1).padStart(2, "0")}-${String((i % 28) + 1).padStart(
+    2,
+    "0",
+  )}`,
 }));
 
 const columns: DataTableColumn<User>[] = [
@@ -43,7 +57,9 @@ const columns: DataTableColumn<User>[] = [
     filterable: true,
     sortFn: (a, b) => a.name.localeCompare(b.name),
     editable: true,
-    onEdit: (row, value) => { row.name = value; },
+    onEdit: (row, value) => {
+      row.name = value;
+    },
     sticky: true,
   },
   {
@@ -67,7 +83,10 @@ const columns: DataTableColumn<User>[] = [
     header: "역할",
     group: "소속",
     render: (r) => (
-      <Badge variant={r.role === "Admin" ? "primary" : r.role === "Manager" ? "info" : "default"} size="sm">
+      <Badge
+        variant={r.role === "Admin" ? "primary" : r.role === "Manager" ? "info" : "default"}
+        size="sm"
+      >
         {r.role}
       </Badge>
     ),
@@ -85,7 +104,7 @@ const columns: DataTableColumn<User>[] = [
     align: "right",
     aggregate: (rows) => {
       const avg = Math.round(rows.reduce((s, r) => s + r.salary, 0) / rows.length);
-      return <span className="text-primary">평균: {avg.toLocaleString()}</span>;
+      return <span className="text-primary-ink">평균: {avg.toLocaleString()}</span>;
     },
   },
   {
@@ -159,7 +178,16 @@ export default function DataTablePage() {
               {
                 label: "삭제",
                 variant: "danger",
-                icon: <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 3h8M4.5 3V2h3v1M3 3v7a1 1 0 001 1h4a1 1 0 001-1V3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>,
+                icon: (
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path
+                      d="M2 3h8M4.5 3V2h3v1M3 3v7a1 1 0 001 1h4a1 1 0 001-1V3"
+                      stroke="currentColor"
+                      strokeWidth="1.2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                ),
                 onClick: (keys) => alert(`${keys.size}개 항목 삭제`),
               },
               {

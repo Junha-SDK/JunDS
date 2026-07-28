@@ -20,11 +20,7 @@ export function AlertManager() {
   // 활성 알림이 걸린 종목 이름만 추출 — 비활성/이미 트리거된 것은 시드 불필요.
   const liveNames = useMemo(
     () =>
-      hydrated
-        ? Array.from(
-            new Set(alertItems.filter((a) => a.active).map((a) => a.name)),
-          )
-        : [],
+      hydrated ? Array.from(new Set(alertItems.filter((a) => a.active).map((a) => a.name))) : [],
     [alertItems, hydrated],
   );
   useRealPrices(liveNames);
@@ -47,9 +43,7 @@ export function AlertManager() {
       for (const name of wantedNames) {
         if (cleanupsRef.current.has(name)) continue;
         const off = subscribe(name, ({ price }) => {
-          for (const a of getAlerts().filter(
-            (x) => x.active && x.name === name,
-          )) {
+          for (const a of getAlerts().filter((x) => x.active && x.name === name)) {
             const crossed =
               a.direction === "above"
                 ? a.basePrice < a.target && price >= a.target
@@ -57,7 +51,9 @@ export function AlertManager() {
             if (crossed) {
               markTriggered(a.id);
               toast.warning(
-                `${a.name} 알림 — 목표가 ${a.target.toLocaleString("ko-KR")}원 ${a.direction === "above" ? "돌파 ↑" : "이탈 ↓"}`,
+                `${a.name} 알림 — 목표가 ${a.target.toLocaleString("ko-KR")}원 ${
+                  a.direction === "above" ? "돌파 ↑" : "이탈 ↓"
+                }`,
                 {
                   duration: 6000,
                   action: { label: "확인", onClick: () => undefined },

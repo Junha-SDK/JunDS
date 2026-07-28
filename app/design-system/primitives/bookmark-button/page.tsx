@@ -13,7 +13,7 @@ export default function BookmarkButtonPage() {
     >
       <Section title="Default">
         <Preview>
-          <BookmarkButton bookmarked={true} onChange={()=>{}} />
+          <BookmarkButton bookmarked={true} onChange={() => {}} />
         </Preview>
       </Section>
     </ComponentPage>

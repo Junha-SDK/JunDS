@@ -19,46 +19,98 @@ export interface TrustIndicatorProps {
   className?: string;
 }
 
+// 아이콘의 12개 리터럴 색은 상태를 뜻하는 것이지 브랜드가 아니다 — 라이트 값이 그대로 박혀
+// 있어 다크에서 배지가 그대로 튄다. 같은 뜻의 의미 토큰(연한 면 + 진한 선)으로 옮긴다.
 const statusConfig = {
   pass: {
     icon: (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="7" fill="#dcfce7" stroke="#16a34a" strokeWidth="1" />
-        <path d="M5 8.2l2 2 4-4" stroke="#16a34a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle
+          cx="8"
+          cy="8"
+          r="7"
+          fill="var(--success-light)"
+          stroke="var(--success)"
+          strokeWidth="1"
+        />
+        <path
+          d="M5 8.2l2 2 4-4"
+          stroke="var(--success)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     label: "통과",
-    textColor: "text-green-700",
+    textColor: "text-success",
   },
   fail: {
     icon: (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="7" fill="#fef2f2" stroke="#dc2626" strokeWidth="1" />
-        <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round" />
+        <circle
+          cx="8"
+          cy="8"
+          r="7"
+          fill="var(--danger-light)"
+          stroke="var(--danger)"
+          strokeWidth="1"
+        />
+        <path
+          d="M5.5 5.5l5 5M10.5 5.5l-5 5"
+          stroke="var(--danger)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
       </svg>
     ),
     label: "실패",
-    textColor: "text-red-700",
+    textColor: "text-danger",
   },
   warning: {
     icon: (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="7" fill="#fef3c7" stroke="#d97706" strokeWidth="1" />
-        <path d="M8 5v3.5M8 11h.01" stroke="#d97706" strokeWidth="1.5" strokeLinecap="round" />
+        <circle
+          cx="8"
+          cy="8"
+          r="7"
+          fill="var(--warning-light)"
+          stroke="var(--warning)"
+          strokeWidth="1"
+        />
+        <path
+          d="M8 5v3.5M8 11h.01"
+          stroke="var(--warning)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
       </svg>
     ),
     label: "주의",
-    textColor: "text-amber-700",
+    textColor: "text-warning",
   },
   pending: {
     icon: (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="7" fill="#f3f4f6" stroke="#9ca3af" strokeWidth="1" />
-        <path d="M8 5v3l2 1" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle
+          cx="8"
+          cy="8"
+          r="7"
+          fill="var(--border-light)"
+          stroke="var(--muted-light)"
+          strokeWidth="1"
+        />
+        <path
+          d="M8 5v3l2 1"
+          stroke="var(--muted-light)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     ),
     label: "대기",
-    textColor: "text-gray-500",
+    textColor: "text-muted",
   },
 };
 
@@ -76,17 +128,28 @@ const statusConfig = {
 export function TrustIndicator({ items, title, className }: TrustIndicatorProps) {
   const passCount = items.filter((i) => i.status === "pass").length;
   const score = Math.round((passCount / items.length) * 100);
-  const scoreColor = score >= 80 ? "text-green-600" : score >= 50 ? "text-amber-600" : "text-red-600";
+  const scoreColor = score >= 80 ? "text-success" : score >= 50 ? "text-warning" : "text-danger";
 
   return (
-    <div className={cn("bg-white border border-border rounded-xl overflow-hidden", className)}>
+    <div
+      className={cn(
+        // 카드는 면이다 — 얕은 그림자 한 겹으로 배경에서 살짝 들어올린다
+        "bg-card border border-border rounded-xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+        className,
+      )}
+    >
       {/* Header */}
       {title && (
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border-light bg-gray-50/50">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border-light bg-surface-soft">
           <span className="text-sm font-semibold text-foreground">{title}</span>
           <div className="flex items-center gap-2">
-            <span className={cn("text-lg font-bold tabular-nums", scoreColor)}>{score}%</span>
-            <span className="text-[10px] text-muted">({passCount}/{items.length})</span>
+            {/* 숫자+단위는 좁은 칸에서 갈라지면 안 된다 */}
+            <span className={cn("text-lg font-bold tabular-nums whitespace-nowrap", scoreColor)}>
+              {score}%
+            </span>
+            <span className="text-[10px] text-muted tabular-nums whitespace-nowrap">
+              ({passCount}/{items.length})
+            </span>
           </div>
         </div>
       )}
@@ -99,10 +162,15 @@ export function TrustIndicator({ items, title, className }: TrustIndicatorProps)
             <div key={item.key} className="flex items-center gap-3 px-4 py-2.5">
               <span className="shrink-0">{item.icon || cfg.icon}</span>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-foreground">{item.label}</div>
+                <div className="text-sm font-medium text-foreground truncate">{item.label}</div>
                 {item.description && <div className="text-xs text-muted">{item.description}</div>}
               </div>
-              <span className={cn("text-[10px] font-semibold uppercase", cfg.textColor)}>
+              <span
+                className={cn(
+                  "text-[10px] font-semibold uppercase whitespace-nowrap shrink-0",
+                  cfg.textColor,
+                )}
+              >
                 {cfg.label}
               </span>
             </div>

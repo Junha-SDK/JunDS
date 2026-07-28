@@ -84,11 +84,16 @@ export function Dropdown({ trigger, items, onSelect, align = "right", className 
   return (
     <div ref={ref} className={cn("relative inline-block", className)} onKeyDown={handleKeyDown}>
       <div
-        onClick={() => { setOpen(!open); setFocusIndex(-1); }}
+        onClick={() => {
+          setOpen(!open);
+          setFocusIndex(-1);
+        }}
         role="button"
         tabIndex={0}
         aria-haspopup="true"
         aria-expanded={open}
+        // tabIndex 가 붙어 실제로 포커스를 받는 래퍼다 — 여기에 링이 없으면 키보드로 왔을 때 아무 표시가 없다.
+        className="rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         {trigger}
       </div>
@@ -96,7 +101,10 @@ export function Dropdown({ trigger, items, onSelect, align = "right", className 
         <div
           role="menu"
           className={cn(
-            "absolute z-50 mt-1 min-w-[160px] bg-white border border-border rounded-lg shadow-xl shadow-black/15 py-1 animate-fade-in-scale",
+            "absolute z-50 mt-1 min-w-[160px] bg-card border border-border rounded-xl p-1",
+            // 떠 있는 메뉴 — 한 겹 그림자로는 카드 위에서 떠 보이지 않는다.
+            "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-black/5",
+            "animate-fade-in-scale motion-reduce:animate-none",
             align === "right" ? "right-0" : "left-0",
           )}
         >
@@ -109,7 +117,9 @@ export function Dropdown({ trigger, items, onSelect, align = "right", className 
             return (
               <button
                 key={item.key}
-                ref={(el) => { itemRefs.current[idx] = el; }}
+                ref={(el) => {
+                  itemRefs.current[idx] = el;
+                }}
                 type="button"
                 role="menuitem"
                 disabled={item.disabled}
@@ -120,10 +130,11 @@ export function Dropdown({ trigger, items, onSelect, align = "right", className 
                   }
                 }}
                 className={cn(
-                  "w-full flex items-center gap-2 px-3 py-1.5 text-sm text-left transition-colors cursor-pointer",
+                  "w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-sm text-left transition-colors cursor-pointer",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset",
                   item.danger
-                    ? "text-danger hover:bg-danger/10 hover:text-danger"
-                    : "text-foreground hover:bg-primary/10",
+                    ? "text-danger hover:bg-danger/10 focus-visible:bg-danger/10 focus-visible:ring-danger/55"
+                    : "text-foreground hover:bg-primary/10 focus-visible:bg-primary/10 focus-visible:ring-primary/55",
                   item.disabled && "opacity-40 cursor-not-allowed",
                 )}
               >

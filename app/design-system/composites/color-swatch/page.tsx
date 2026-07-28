@@ -4,7 +4,16 @@ import { ComponentPage, Section } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { ColorSwatch } from "@/ds/composites/ColorSwatch";
 
-const PALETTE = ["#0070F3", "#7C3AED", "#10B981", "#F59E0B", "#EF4444", "#06B6D4", "#EC4899", "#111827"];
+const PALETTE = [
+  "#0070F3",
+  "#7C3AED",
+  "#10B981",
+  "#F59E0B",
+  "#EF4444",
+  "#06B6D4",
+  "#EC4899",
+  "#111827",
+];
 
 export default function ColorSwatchPage() {
   const [selected, setSelected] = useState<string>("#0070F3");
@@ -24,12 +33,7 @@ export default function ColorSwatchPage() {
     >
       <Section title="Default">
         <Preview>
-          <ColorSwatch
-            colors={PALETTE}
-            selected={selected}
-            onSelect={setSelected}
-            showLabel
-          />
+          <ColorSwatch colors={PALETTE} selected={selected} onSelect={setSelected} showLabel />
         </Preview>
       </Section>
 

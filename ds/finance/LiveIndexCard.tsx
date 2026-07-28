@@ -73,25 +73,22 @@ export function LiveIndexCard({
   const tipTime = liveTick
     ? new Date(liveTick.receivedAt).toLocaleTimeString("ko-KR")
     : snap
-      ? new Date(snap.asOf).toLocaleTimeString("ko-KR")
-      : null;
+    ? new Date(snap.asOf).toLocaleTimeString("ko-KR")
+    : null;
 
   return (
     <article
       className="bm-card overflow-hidden"
-      title={
-        liveTick
-          ? `KIS 소켓 · ${tipTime}`
-          : snap
-            ? `KIS REST · ${tipTime}`
-            : "KIS 연결 중"
-      }
+      title={liveTick ? `KIS 소켓 · ${tipTime}` : snap ? `KIS REST · ${tipTime}` : "KIS 연결 중"}
     >
       <header
         className="px-3.5 py-2.5 flex items-center justify-between"
         style={{ borderBottom: "1px solid var(--bm-border)" }}
       >
-        <span className="font-extrabold" style={{ color: "var(--bm-text)", fontSize: titleSize - 4 }}>
+        <span
+          className="font-extrabold"
+          style={{ color: "var(--bm-text)", fontSize: titleSize - 4 }}
+        >
           {label}
         </span>
         <span
@@ -109,10 +106,7 @@ export function LiveIndexCard({
         >
           {value.toLocaleString("ko-KR", { maximumFractionDigits: 2 })}
         </div>
-        <div
-          className="bm-num font-bold mt-0.5"
-          style={{ color, fontSize: 12 }}
-        >
+        <div className="bm-num font-bold mt-0.5" style={{ color, fontSize: 12 }}>
           {up ? "+" : ""}
           {diff.toFixed(2)}
         </div>
@@ -138,7 +132,13 @@ function Spark({ values, color }: { values: number[]; color: string }) {
     .join(" ");
   const fillPath = `${path} L${w},${h} L0,${h} Z`;
   return (
-    <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} className="mt-2" preserveAspectRatio="none">
+    <svg
+      width="100%"
+      height={h}
+      viewBox={`0 0 ${w} ${h}`}
+      className="mt-2"
+      preserveAspectRatio="none"
+    >
       <path d={fillPath} fill={color} fillOpacity={0.12} />
       <path d={path} fill="none" stroke={color} strokeWidth={1.5} />
     </svg>

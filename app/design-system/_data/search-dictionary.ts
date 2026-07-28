@@ -29,7 +29,11 @@ export const sections: NavSection[] = [
   {
     title: "Foundation",
     items: [
-      { href: "/design-system", label: "개요", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" },
+      {
+        href: "/design-system",
+        label: "개요",
+        icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1",
+      },
       { href: "/design-system/tokens/colors", label: "Colors" },
       { href: "/design-system/tokens/typography", label: "Typography" },
       { href: "/design-system/tokens/spacing", label: "Spacing" },
@@ -374,7 +378,7 @@ export const categoryColors: Record<string, string> = {
 };
 
 const koreanKeywords: Record<string, string[]> = {
-  "개요": ["개요", "홈", "소개", "overview"],
+  개요: ["개요", "홈", "소개", "overview"],
   Colors: ["색상", "컬러", "색깔"],
   Typography: ["타이포그래피", "폰트", "글꼴", "글자"],
   Spacing: ["간격", "여백", "스페이싱"],
@@ -577,7 +581,7 @@ const koreanKeywords: Record<string, string[]> = {
   Text: ["텍스트", "본문", "글자", "문단"],
   Page: ["페이지", "페이지레이아웃", "전체레이아웃"],
   Section: ["섹션", "구역", "영역"],
-  "실험실": ["실험실", "랩", "플레이그라운드", "lab", "playground"],
+  실험실: ["실험실", "랩", "플레이그라운드", "lab", "playground"],
   "컬렉션 보기": ["컬렉션", "갤러리", "쇼케이스", "시각적", "미리보기"],
   "레고 조합": ["레고", "조합", "구성", "컴포지션", "예시", "사용법"],
   "페이지 템플릿": ["템플릿", "페이지", "예제", "보일러플레이트"],
@@ -626,10 +630,7 @@ export function buildSearchIndex(): SearchEntry[] {
   return entries;
 }
 
-export function searchComponents(
-  entries: SearchEntry[],
-  query: string,
-): SearchEntry[] {
+export function searchComponents(entries: SearchEntry[], query: string): SearchEntry[] {
   const q = query.toLowerCase().trim();
   if (!q) return entries;
   return entries.filter(

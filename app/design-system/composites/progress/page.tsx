@@ -12,7 +12,12 @@ export default function ProgressPage() {
       props={[
         { name: "value", type: "number", required: true, description: "현재 값" },
         { name: "max", type: "number", default: "100", description: "최대 값" },
-        { name: "variant", type: '"default"|"success"|"warning"|"danger"', default: '"default"', description: "색상" },
+        {
+          name: "variant",
+          type: '"default"|"success"|"warning"|"danger"',
+          default: '"default"',
+          description: "색상",
+        },
         { name: "showLabel", type: "boolean", description: "퍼센트 표시" },
       ]}
     >
@@ -30,7 +35,11 @@ export default function ProgressPage() {
       <Section title="ProgressSteps">
         <Preview>
           <div className="max-w-lg">
-            <ProgressSteps current={3} total={5} labels={["접수", "진행", "검토", "테스트", "완료"]} />
+            <ProgressSteps
+              current={3}
+              total={5}
+              labels={["접수", "진행", "검토", "테스트", "완료"]}
+            />
           </div>
         </Preview>
       </Section>

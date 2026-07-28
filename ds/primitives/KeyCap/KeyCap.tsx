@@ -21,7 +21,8 @@ const sizeClass = {
 } as const;
 
 const variantClass = {
-  default: "bg-surface text-foreground border-border shadow-[0_1px_0_rgba(0,0,0,0.06),inset_0_-1px_0_rgba(0,0,0,0.04)]",
+  default:
+    "bg-surface text-foreground border-border shadow-[0_1px_0_rgba(0,0,0,0.06),inset_0_-1px_0_rgba(0,0,0,0.04)]",
   primary: "bg-primary text-white border-primary",
   muted: "bg-surface-soft text-muted border-border-light",
 } as const;
@@ -43,7 +44,9 @@ export const KeyCap = forwardRef<HTMLElement, KeyCapProps>(
     <kbd
       ref={ref as never}
       className={cn(
-        "inline-flex items-center justify-center font-mono font-medium rounded-md border transition-transform",
+        // pressed 가 키를 1px 눌러 내리는 움직임이므로 감속 요청을 받는다.
+        "inline-flex items-center justify-center font-mono font-medium rounded-md border align-middle whitespace-nowrap",
+        "transition-transform duration-100 ease-out motion-reduce:transition-none",
         sizeClass[size],
         variantClass[variant],
         pressed && "translate-y-px shadow-none",

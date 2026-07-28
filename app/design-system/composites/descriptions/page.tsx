@@ -10,11 +10,21 @@ export default function DescriptionsPage() {
       description="키-값 쌍을 구조화하여 표시하는 컴포넌트. 테두리/비테두리 모드와 다중 컬럼을 지원합니다."
       importPath='import { Descriptions } from "@/ds/composites/Descriptions"'
       props={[
-        { name: "items", type: "DescriptionItem[]", required: true, description: "키-값 아이템 목록" },
+        {
+          name: "items",
+          type: "DescriptionItem[]",
+          required: true,
+          description: "키-값 아이템 목록",
+        },
         { name: "title", type: "string", description: "제목" },
         { name: "columns", type: "number", default: "2", description: "컬럼 수" },
         { name: "bordered", type: "boolean", default: "false", description: "테두리 모드" },
-        { name: "layout", type: '"horizontal" | "vertical"', default: '"horizontal"', description: "레이아웃 방향" },
+        {
+          name: "layout",
+          type: '"horizontal" | "vertical"',
+          default: '"horizontal"',
+          description: "레이아웃 방향",
+        },
       ]}
     >
       <Section title="기본 사용">

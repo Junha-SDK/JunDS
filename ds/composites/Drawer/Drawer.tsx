@@ -30,8 +30,18 @@ export interface DrawerProps {
 
 /** Drawer panel widths — fixed sizes for consistent layout, not spacing tokens */
 const sizeMap: Record<DrawerSide, Record<DrawerSize, string>> = {
-  right: { sm: "w-full sm:w-80", md: "w-full sm:w-[420px]", lg: "w-full sm:w-[560px]", xl: "w-full sm:w-[720px]" },
-  left: { sm: "w-full sm:w-80", md: "w-full sm:w-[420px]", lg: "w-full sm:w-[560px]", xl: "w-full sm:w-[720px]" },
+  right: {
+    sm: "w-full sm:w-80",
+    md: "w-full sm:w-[420px]",
+    lg: "w-full sm:w-[560px]",
+    xl: "w-full sm:w-[720px]",
+  },
+  left: {
+    sm: "w-full sm:w-80",
+    md: "w-full sm:w-[420px]",
+    lg: "w-full sm:w-[560px]",
+    xl: "w-full sm:w-[720px]",
+  },
   bottom: { sm: "h-48", md: "h-72", lg: "h-96", xl: "h-[480px]" },
 };
 
@@ -48,9 +58,21 @@ const slideOut: Record<DrawerSide, string> = {
 };
 
 const positionClass: Record<DrawerSide, string> = {
-  right: "right-0 top-0 h-full",
-  left: "left-0 top-0 h-full",
-  bottom: "bottom-0 left-0 w-full",
+  right: "right-0 top-0 h-full rounded-l-2xl",
+  left: "left-0 top-0 h-full rounded-r-2xl",
+  bottom: "bottom-0 left-0 w-full rounded-t-2xl",
+};
+
+/**
+ * 그림자는 패널이 들어온 방향의 반대쪽으로 떨어져야 한다 — 한 방향으로 고정하면
+ * left/bottom 드로어에서 빛이 반대편에서 오는 것처럼 보인다.
+ */
+const shadowClass: Record<DrawerSide, string> = {
+  right:
+    "shadow-[-24px_0_60px_-12px_rgba(0,0,0,0.30),-6px_0_16px_-8px_rgba(0,0,0,0.16)] ring-1 ring-black/[0.04]",
+  left: "shadow-[24px_0_60px_-12px_rgba(0,0,0,0.30),6px_0_16px_-8px_rgba(0,0,0,0.16)] ring-1 ring-black/[0.04]",
+  bottom:
+    "shadow-[0_-24px_60px_-12px_rgba(0,0,0,0.30),0_-6px_16px_-8px_rgba(0,0,0,0.16)] ring-1 ring-black/[0.04]",
 };
 
 /**
@@ -64,81 +86,95 @@ const positionClass: Record<DrawerSide, string> = {
  * @tags overlay
  */
 export const Drawer = forwardRef<HTMLDivElement, DrawerProps>(
-  ({
-  open,
-  onClose,
-  side = "right",
-  size = "md",
-  title,
-  children,
-  footer,
-  dismissible = true,
-  className,
-}, ref) => {
-  const handleEsc = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Escape") onClose();
-  }, [onClose]);
+  (
+    {
+      open,
+      onClose,
+      side = "right",
+      size = "md",
+      title,
+      children,
+      footer,
+      dismissible = true,
+      className,
+    },
+    ref,
+  ) => {
+    const handleEsc = useCallback(
+      (e: KeyboardEvent) => {
+        if (e.key === "Escape") onClose();
+      },
+      [onClose],
+    );
 
-  useEffect(() => {
-    if (!open) return;
-    document.addEventListener("keydown", handleEsc);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "";
-    };
-  }, [open, handleEsc]);
+    useEffect(() => {
+      if (!open) return;
+      document.addEventListener("keydown", handleEsc);
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.removeEventListener("keydown", handleEsc);
+        document.body.style.overflow = "";
+      };
+    }, [open, handleEsc]);
 
-  return (
-    <Portal>
-      {/* Backdrop */}
-      <div
-        className={cn(
-          "fixed inset-0 z-50 bg-black/25 backdrop-blur-[2px] transition-opacity duration-300",
-          open ? "opacity-100" : "opacity-0 pointer-events-none",
-        )}
-        onClick={dismissible ? onClose : undefined}
-      />
-      {/* Panel */}
-      <div
-        ref={ref}
-        role="dialog"
-        aria-modal="true"
-        aria-label={title}
-        className={cn(
-          "fixed z-50 bg-white shadow-[-20px_0_60px_rgba(0,0,0,0.1)] flex flex-col transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          positionClass[side],
-          sizeMap[side][size],
-          open ? slideIn[side] : slideOut[side],
-          className,
-        )}
-      >
-        {/* Header */}
-        {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-border/40 shrink-0">
-            <h3 className="text-base font-semibold text-foreground">{title}</h3>
-            <button
-              type="button"
-              onClick={onClose}
-              className="text-muted hover:text-foreground transition-colors p-1.5 rounded-xl hover:bg-gray-100 cursor-pointer"
-            >
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M4.5 4.5l9 9M13.5 4.5l-9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </button>
-          </div>
-        )}
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto p-5">{children}</div>
-        {/* Footer */}
-        {footer && (
-          <div className="flex items-center justify-end gap-2 px-6 py-3.5 border-t border-border/40 bg-gray-50/30 shrink-0">
-            {footer}
-          </div>
-        )}
-      </div>
-    </Portal>
-  );
-},
+    return (
+      <Portal>
+        {/* Backdrop */}
+        <div
+          className={cn(
+            "fixed inset-0 z-50 bg-black/25 backdrop-blur-[2px] transition-opacity duration-300",
+            open ? "opacity-100" : "opacity-0 pointer-events-none",
+          )}
+          onClick={dismissible ? onClose : undefined}
+        />
+        {/* Panel */}
+        <div
+          ref={ref}
+          role="dialog"
+          aria-modal="true"
+          aria-label={title}
+          className={cn(
+            "fixed z-50 bg-card flex flex-col",
+            "transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
+            positionClass[side],
+            shadowClass[side],
+            sizeMap[side][size],
+            open ? slideIn[side] : slideOut[side],
+            className,
+          )}
+        >
+          {/* Header */}
+          {title && (
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border/40 shrink-0">
+              <h3 className="text-base font-semibold text-foreground">{title}</h3>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="닫기"
+                className="text-muted hover:text-foreground transition-colors p-1.5 rounded-xl hover:bg-muted/10 active:bg-muted/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+              >
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <path
+                    d="M4.5 4.5l9 9M13.5 4.5l-9 9"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          )}
+          {/* Body */}
+          <div className="flex-1 overflow-y-auto p-5">{children}</div>
+          {/* Footer */}
+          {footer && (
+            <div className="flex items-center justify-end gap-2 px-6 py-3.5 border-t border-border/40 bg-surface-soft/60 shrink-0">
+              {footer}
+            </div>
+          )}
+        </div>
+      </Portal>
+    );
+  },
 );
 Drawer.displayName = "Drawer";

@@ -31,10 +31,30 @@ const SHEET_SECTIONS: { title: string; items: SheetItem[] }[] = [
   {
     title: "버터 데이터",
     items: [
-      { href: "/workspace", label: "워크스페이스", icon: "grid2x2", description: "위젯으로 조립하는 내 화면" },
-      { href: "/feed", label: "정보 피드", icon: "newspaper", description: "뉴스·거시·외국인 매매 통합" },
-      { href: "/themes/daily", label: "일별버터", icon: "calendarCheck", description: "일자별 주도 테마와 코스피·평가금액" },
-      { href: "/themes/monthly", label: "월별버터", icon: "calendar", description: "월간 코스피·평가금액·테마 추이" },
+      {
+        href: "/workspace",
+        label: "워크스페이스",
+        icon: "grid2x2",
+        description: "위젯으로 조립하는 내 화면",
+      },
+      {
+        href: "/feed",
+        label: "정보 피드",
+        icon: "newspaper",
+        description: "뉴스·거시·외국인 매매 통합",
+      },
+      {
+        href: "/themes/daily",
+        label: "일별버터",
+        icon: "calendarCheck",
+        description: "일자별 주도 테마와 코스피·평가금액",
+      },
+      {
+        href: "/themes/monthly",
+        label: "월별버터",
+        icon: "calendar",
+        description: "월간 코스피·평가금액·테마 추이",
+      },
       { href: "/nxt", label: "NXT 랭킹", icon: "listOrdered", description: "거래대금 통계" },
       { href: "/market", label: "시장종합", icon: "lineChart", description: "투자자 매매동향" },
     ],
@@ -44,8 +64,18 @@ const SHEET_SECTIONS: { title: string; items: SheetItem[] }[] = [
     items: [
       { href: "/screener", label: "스크리너", icon: "sliders", description: "조건 결합 종목 발굴" },
       { href: "/compare", label: "종목 비교", icon: "swap" },
-      { href: "/schedule", label: "마켓 일정", icon: "calendar", description: "실적·박람회·휴장일·배당" },
-      { href: "/tax", label: "세금 계산기", icon: "banknote", description: "양도소득세·배당세 추정" },
+      {
+        href: "/schedule",
+        label: "마켓 일정",
+        icon: "calendar",
+        description: "실적·박람회·휴장일·배당",
+      },
+      {
+        href: "/tax",
+        label: "세금 계산기",
+        icon: "banknote",
+        description: "양도소득세·배당세 추정",
+      },
     ],
   },
   {
@@ -53,13 +83,25 @@ const SHEET_SECTIONS: { title: string; items: SheetItem[] }[] = [
     items: [
       { href: "/portfolio", label: "매매손익", icon: "banknote" },
       { href: "/portfolio/holdings", label: "보유 종목", icon: "wallet" },
-      { href: "/notes", label: "리서치 노트", icon: "pencil", description: "작성 시점 가격과 함께 복기" },
+      {
+        href: "/notes",
+        label: "리서치 노트",
+        icon: "pencil",
+        description: "작성 시점 가격과 함께 복기",
+      },
       { href: "/alerts", label: "가격 알림", icon: "bell" },
       { href: "/search", label: "검색", icon: "search" },
       { href: "/settings", label: "설정", icon: "settings" },
     ],
   },
 ];
+
+/**
+ * 탭·시트 항목이 공유하는 포커스 링. 이 표면은 --bm-* 호스트 테마를 쓰므로 링도
+ * 그 강조색을 따라야 색이 따로 놀지 않는다.
+ */
+const focusRing =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bm-card)]";
 
 export function BottomNav() {
   const path = usePathname();
@@ -73,7 +115,9 @@ export function BottomNav() {
   if (path === "/login") return null;
 
   const sheetActive = !TABS.some(
-    (t) => path === t.href || (t.matchPaths?.some((p) => path === p || path.startsWith(`${p}/`)) ?? false),
+    (t) =>
+      path === t.href ||
+      (t.matchPaths?.some((p) => path === p || path.startsWith(`${p}/`)) ?? false),
   );
 
   return (
@@ -89,11 +133,12 @@ export function BottomNav() {
                 key={t.href}
                 href={t.href}
                 prefetch
-                className="flex-1 flex flex-col items-center gap-1 py-1"
+                className={`flex-1 flex flex-col items-center gap-1 py-1 rounded-xl ${focusRing}`}
                 data-active={active ? "true" : "false"}
+                aria-current={active ? "page" : undefined}
               >
                 <span
-                  className="grid place-items-center size-9 rounded-full"
+                  className="grid place-items-center size-9 rounded-full transition-colors duration-150"
                   style={{
                     color: active ? "var(--bm-accent)" : "var(--bm-muted)",
                     background: active ? "var(--bm-accent-soft-bg)" : "transparent",
@@ -114,12 +159,12 @@ export function BottomNav() {
           <button
             type="button"
             onClick={() => setSheetOpen(true)}
-            className="flex-1 flex flex-col items-center gap-1 py-1"
+            className={`flex-1 flex flex-col items-center gap-1 py-1 rounded-xl cursor-pointer ${focusRing}`}
             aria-haspopup="dialog"
             aria-expanded={sheetOpen}
           >
             <span
-              className="grid place-items-center size-9 rounded-full"
+              className="grid place-items-center size-9 rounded-full transition-colors duration-150"
               style={{
                 color: sheetActive ? "var(--bm-accent)" : "var(--bm-muted)",
                 background: sheetActive ? "var(--bm-accent-soft-bg)" : "transparent",
@@ -146,10 +191,7 @@ export function BottomNav() {
           className="fixed inset-0 z-40 flex items-end lg:hidden"
           onClick={() => setSheetOpen(false)}
         >
-          <div
-            className="absolute inset-0"
-            style={{ background: "rgba(15,23,42,0.42)" }}
-          />
+          <div className="absolute inset-0" style={{ background: "rgba(15,23,42,0.42)" }} />
           <div
             className="relative w-full"
             style={{
@@ -175,7 +217,7 @@ export function BottomNav() {
               <button
                 type="button"
                 onClick={() => setSheetOpen(false)}
-                className="size-8 rounded-full grid place-items-center"
+                className={`size-8 rounded-full grid place-items-center cursor-pointer transition-colors duration-150 ${focusRing}`}
                 style={{ color: "var(--bm-muted)" }}
                 aria-label="닫기"
               >
@@ -191,7 +233,10 @@ export function BottomNav() {
                   >
                     {section.title.toUpperCase()}
                   </div>
-                  <ul className="rounded-2xl overflow-hidden" style={{ border: "1px solid var(--bm-border)" }}>
+                  <ul
+                    className="rounded-2xl overflow-hidden"
+                    style={{ border: "1px solid var(--bm-border)" }}
+                  >
                     {section.items.map((item, i) => {
                       const active = path === item.href;
                       return (
@@ -199,7 +244,8 @@ export function BottomNav() {
                           <Link
                             href={item.href}
                             prefetch
-                            className="flex items-center gap-3 px-4 py-3 text-[13.5px] font-bold"
+                            className="flex items-center gap-3 px-4 py-3 text-[13.5px] font-bold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--bm-accent)]"
+                            aria-current={active ? "page" : undefined}
                             style={{
                               borderTop: i === 0 ? undefined : "1px solid var(--bm-border)",
                               background: active ? "var(--bm-accent-soft-bg)" : "transparent",
@@ -208,7 +254,9 @@ export function BottomNav() {
                           >
                             <span
                               className="grid place-items-center w-5 shrink-0"
-                              style={{ color: active ? "var(--bm-accent-strong)" : "var(--bm-muted)" }}
+                              style={{
+                                color: active ? "var(--bm-accent-strong)" : "var(--bm-muted)",
+                              }}
                             >
                               <AppIcon name={item.icon} size={16} strokeWidth={2} />
                             </span>

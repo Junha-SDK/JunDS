@@ -13,7 +13,13 @@ export default function TestimonialCardPage() {
     >
       <Section title="Default">
         <Preview>
-          <TestimonialCard variant="card" quote="이 디자인 시스템은 정말 빠르고 직관적입니다." rating={5} authorName="홍길동" authorRole="CTO @ Acme" />
+          <TestimonialCard
+            variant="card"
+            quote="이 디자인 시스템은 정말 빠르고 직관적입니다."
+            rating={5}
+            authorName="홍길동"
+            authorRole="CTO @ Acme"
+          />
         </Preview>
       </Section>
     </ComponentPage>

@@ -25,17 +25,48 @@ export interface LoadingOverlayProps {
  * @since 2.2.0
  * @tags feedback, overlay
  */
-export function LoadingOverlay({ active, children, label = "로딩 중...", blur, className }: LoadingOverlayProps) {
+export function LoadingOverlay({
+  active,
+  children,
+  label = "로딩 중...",
+  blur,
+  className,
+}: LoadingOverlayProps) {
   return (
     <div className={cn("relative", className)}>
       {children}
       {active && (
-        <div className={cn("absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/70", blur && "backdrop-blur-sm")} role="status" aria-label={label}>
-          <svg className="animate-spin w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+        <div
+          className={cn(
+            // bg-white/70 은 다크에서 흰 안개가 된다 — 모드를 따라가는 bg-card 로 덮는다
+            "absolute inset-0 z-10 flex flex-col items-center justify-center bg-card/70",
+            blur && "backdrop-blur-sm",
+          )}
+          role="status"
+          aria-label={label}
+        >
+          <svg
+            // 회전은 움직임이다 — 감속 요청이면 멈춘다
+            className="animate-spin motion-reduce:animate-none w-6 h-6 text-primary-ink"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="3"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+            />
           </svg>
-          {label && <p className="text-sm text-muted mt-2">{label}</p>}
+          {label && <p className="text-sm text-muted mt-2 px-4 text-center">{label}</p>}
         </div>
       )}
     </div>

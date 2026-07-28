@@ -32,13 +32,7 @@ export function Stepper({ steps, current, direction = "horizontal", className }:
   const isVertical = direction === "vertical";
 
   return (
-    <div
-      className={cn(
-        "flex",
-        isVertical ? "flex-col gap-0" : "items-center gap-0",
-        className,
-      )}
-    >
+    <div className={cn("flex", isVertical ? "flex-col gap-0" : "items-center gap-0", className)}>
       {steps.map((step, i) => {
         const status = i < current ? "completed" : i === current ? "current" : "upcoming";
         const isLast = i === steps.length - 1;
@@ -46,28 +40,33 @@ export function Stepper({ steps, current, direction = "horizontal", className }:
         return (
           <div
             key={step.key}
-            className={cn(
-              "flex",
-              isVertical ? "flex-row gap-3" : "flex-col items-center flex-1",
-            )}
+            className={cn("flex", isVertical ? "flex-row gap-3" : "flex-col items-center flex-1")}
           >
             {/* 동그라미 + 연결선 */}
             <div className={cn("flex items-center", isVertical ? "flex-col" : "w-full")}>
               {/* 스텝 원 */}
               <div
                 className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 transition-all duration-300",
+                  // 크기는 고정이고 변하는 건 색·링뿐이다. transition-all 은 w-8/h-8 까지 대상으로 삼는다.
+                  "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 tabular-nums",
+                  "transition-[background-color,color,box-shadow,border-color] duration-300",
                   status === "completed" &&
                     "bg-primary text-white shadow-[0_1px_3px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.2)]",
                   status === "current" &&
                     "bg-primary text-white ring-4 ring-primary-light shadow-[0_1px_3px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.2)]",
-                  status === "upcoming" && "bg-gray-100 text-muted border border-border",
+                  status === "upcoming" && "bg-surface-soft text-muted border border-border",
                 )}
               >
                 {step.icon ? (
                   step.icon
                 ) : status === "completed" ? (
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 ) : (
@@ -78,16 +77,18 @@ export function Stepper({ steps, current, direction = "horizontal", className }:
               {!isLast && (
                 <div
                   className={cn(
-                    "transition-all duration-300",
+                    "transition-colors duration-300",
                     "rounded-full",
-                    isVertical ? "w-0.5 flex-1 min-h-[24px] mx-auto mt-1 mb-1" : "flex-1 h-0.5 mx-2",
-                    i < current ? "bg-primary" : "bg-gray-200",
+                    isVertical
+                      ? "w-0.5 flex-1 min-h-[24px] mx-auto mt-1 mb-1"
+                      : "flex-1 h-0.5 mx-2",
+                    i < current ? "bg-primary" : "bg-border",
                   )}
                 />
               )}
             </div>
             {/* 텍스트 */}
-            <div className={cn(isVertical ? "pb-6 pt-0.5" : "mt-2 text-center")}>
+            <div className={cn("min-w-0", isVertical ? "pb-6 pt-0.5" : "mt-2 text-center")}>
               <div
                 className={cn(
                   "text-sm transition-colors duration-300",

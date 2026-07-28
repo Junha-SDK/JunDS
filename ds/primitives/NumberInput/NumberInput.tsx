@@ -3,7 +3,8 @@ import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { InputHTMLAttributes } from "react";
 
-export interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "size"> {
+export interface NumberInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "onChange" | "size"> {
   /** 현재 숫자 값 */
   value?: number;
   /** 값 변경 콜백 */
@@ -37,7 +38,22 @@ const sizeStyles = {
  * @tags form, input
  */
 export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
-  ({ value, onChange, min, max, step = 1, error, size = "md", hideControls, className, disabled, ...props }, ref) => {
+  (
+    {
+      value,
+      onChange,
+      min,
+      max,
+      step = 1,
+      error,
+      size = "md",
+      hideControls,
+      className,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
     const clamp = (v: number) => {
       if (min !== undefined) v = Math.max(min, v);
       if (max !== undefined) v = Math.min(max, v);
@@ -54,16 +70,37 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 
     const btnClass = cn(
       "flex items-center justify-center w-8 border-l border-border text-muted",
-      "hover:bg-gray-50 hover:text-foreground active:bg-gray-100 active:scale-95 transition-all duration-150 cursor-pointer",
+      // 회색 팔레트는 다크에서 무너진다 — muted 틴트는 두 모드 모두에서 같은 세기로 읽힌다.
+      // 누를 때 줄어드는 것은 움직임이므로 감속 요청을 받는다.
+      "hover:bg-muted/10 hover:text-foreground active:bg-muted/20 active:scale-95",
+      "transition-[background-color,color,transform] duration-150 ease-out motion-reduce:transition-none motion-reduce:active:scale-100 cursor-pointer",
       "disabled:opacity-30 disabled:cursor-not-allowed disabled:active:scale-100",
       "first:border-l-0 first:border-r first:rounded-l-xl last:rounded-r-xl",
     );
 
     return (
-      <div className={cn("inline-flex border rounded-xl bg-white overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out", error ? "border-danger" : "border-border", "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]", disabled && "opacity-50", className)}>
+      <div
+        className={cn(
+          // 변하는 것은 테두리색과 글로우 둘뿐 — transition-all 은 높이까지 물어 리플로우를 부른다
+          "inline-flex border rounded-xl bg-card overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-200 ease-out",
+          error ? "border-danger" : "border-border",
+          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
+          disabled && "opacity-50",
+          className,
+        )}
+      >
         {!hideControls && (
-          <button type="button" onClick={decrement} disabled={disabled || (min !== undefined && (value ?? 0) <= min)} className={cn(btnClass, "border-l-0 border-r rounded-l-xl")} tabIndex={-1} aria-label="감소">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+          <button
+            type="button"
+            onClick={decrement}
+            disabled={disabled || (min !== undefined && (value ?? 0) <= min)}
+            className={cn(btnClass, "border-l-0 border-r rounded-l-xl")}
+            tabIndex={-1}
+            aria-label="감소"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
           </button>
         )}
         <input
@@ -83,8 +120,22 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
           {...props}
         />
         {!hideControls && (
-          <button type="button" onClick={increment} disabled={disabled || (max !== undefined && (value ?? 0) >= max)} className={cn(btnClass, "rounded-r-xl")} tabIndex={-1} aria-label="증가">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 2.5v7M2.5 6h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+          <button
+            type="button"
+            onClick={increment}
+            disabled={disabled || (max !== undefined && (value ?? 0) >= max)}
+            className={cn(btnClass, "rounded-r-xl")}
+            tabIndex={-1}
+            aria-label="증가"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path
+                d="M6 2.5v7M2.5 6h7"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
           </button>
         )}
       </div>

@@ -21,9 +21,7 @@ describe("ProjectCard", () => {
   });
 
   it("marks http(s) hrefs as external", () => {
-    const { container } = render(
-      <ProjectCard title="GitHub" href="https://github.com/x" />,
-    );
+    const { container } = render(<ProjectCard title="GitHub" href="https://github.com/x" />);
     const a = container.querySelector("a")!;
     expect(a).toHaveAttribute("target", "_blank");
     expect(a).toHaveAttribute("rel", "noopener noreferrer");

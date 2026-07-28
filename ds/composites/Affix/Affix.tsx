@@ -23,7 +23,12 @@ export interface AffixProps {
  * @since 2.2.0
  * @tags layout
  */
-export function Affix({ children, position = { bottom: 20, right: 20 }, zIndex = 40, className }: AffixProps) {
+export function Affix({
+  children,
+  position = { bottom: 20, right: 20 },
+  zIndex = 40,
+  className,
+}: AffixProps) {
   const style: CSSProperties = { position: "fixed", zIndex, ...position };
   return (
     <div className={cn(className)} style={style}>

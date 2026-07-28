@@ -83,7 +83,9 @@ export function AutoPlayDemo({
           <div
             key={i}
             className={cn(
-              "transition-all pointer-events-none",
+              // 프레임 전환에서 변하는 건 투명도와 위치뿐이다. `all` 로 두면 프레임 안쪽
+              // 컴포넌트의 크기 변화까지 같이 전이되어 내용이 흐물거린다.
+              "transition-[opacity,transform] pointer-events-none motion-reduce:transition-none",
               i === 0 ? "relative" : "absolute inset-0",
               isActive ? t.enter : t.exit,
             )}

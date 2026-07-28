@@ -52,7 +52,11 @@ export function Preview({
       <Box
         position="relative"
         p={padding ? 6 : undefined}
-        className={cn("transition-[border-color] duration-200", showSource ? "border-b border-border" : undefined, className)}
+        className={cn(
+          "transition-[border-color] duration-200",
+          showSource ? "border-b border-border" : undefined,
+          className,
+        )}
       >
         <Box position="absolute" className="top-3 right-3 flex items-center gap-1 z-10">
           <button
@@ -60,11 +64,15 @@ export function Preview({
             onClick={handleCopy}
             aria-label={copied ? "코드가 복사되었습니다" : "코드 복사"}
             className={cn(
-              "flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium cursor-pointer border",
-              "transition-all duration-200 active:scale-95",
+              "flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium cursor-pointer border",
+              // all 은 border-width·padding 까지 잡는다 — 실제로 바뀌는 것만 지목
+              "transition-[background-color,border-color,color,transform] duration-200 active:scale-95",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+              "focus-visible:ring-offset-2 focus-visible:ring-offset-card",
               copied
                 ? "bg-success/10 text-success border-success/20"
-                : "bg-white/80 text-muted border-border hover:text-primary hover:border-primary/30 backdrop-blur-sm",
+                : // bg-white/80 은 다크에서 흰 알약으로 떠오른다 — 카드 토큰으로 옮긴다
+                  "bg-card/80 text-muted border-border hover:text-primary-ink hover:border-primary/30 backdrop-blur-sm",
             )}
           >
             <span className="relative inline-flex w-[11px] h-[11px]">
@@ -75,11 +83,17 @@ export function Preview({
                 fill="none"
                 aria-hidden
                 className={cn(
-                  "absolute inset-0 transition-all duration-200",
+                  "absolute inset-0 transition-[opacity,transform] duration-200",
                   copied ? "opacity-100 scale-100" : "opacity-0 scale-50",
                 )}
               >
-                <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M2.5 6l2.5 2.5 4.5-5"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               <svg
                 width="11"
@@ -88,12 +102,24 @@ export function Preview({
                 fill="none"
                 aria-hidden
                 className={cn(
-                  "absolute inset-0 transition-all duration-200",
+                  "absolute inset-0 transition-[opacity,transform] duration-200",
                   copied ? "opacity-0 scale-50" : "opacity-100 scale-100",
                 )}
               >
-                <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-                <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+                <rect
+                  x="4.5"
+                  y="4.5"
+                  width="7"
+                  height="7"
+                  rx="1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                />
+                <path
+                  d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                />
               </svg>
             </span>
             <span>{copied ? "복사됨" : "복사"}</span>
@@ -104,11 +130,13 @@ export function Preview({
             aria-expanded={showSource}
             aria-label="소스 코드 보기 토글"
             className={cn(
-              "flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium cursor-pointer border",
-              "transition-all duration-200 active:scale-95",
+              "flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium cursor-pointer border",
+              "transition-[background-color,border-color,color,transform] duration-200 active:scale-95",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+              "focus-visible:ring-offset-2 focus-visible:ring-offset-card",
               showSource
-                ? "bg-primary/10 text-primary border-primary/20"
-                : "bg-white/80 text-muted border-border hover:text-primary hover:border-primary/30 backdrop-blur-sm",
+                ? "bg-primary/10 text-primary-ink border-primary/20"
+                : "bg-card/80 text-muted border-border hover:text-primary-ink hover:border-primary/30 backdrop-blur-sm",
             )}
           >
             <svg
@@ -117,9 +145,18 @@ export function Preview({
               viewBox="0 0 14 14"
               fill="none"
               aria-hidden
-              className={cn("transition-transform duration-200", showSource ? "rotate-90" : undefined)}
+              className={cn(
+                "transition-transform duration-200",
+                showSource ? "rotate-90" : undefined,
+              )}
             >
-              <path d="M5 3.5L1.5 7L5 10.5M9 3.5L12.5 7L9 10.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M5 3.5L1.5 7L5 10.5M9 3.5L12.5 7L9 10.5"
+                stroke="currentColor"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             <span>{showSource ? "닫기" : "코드"}</span>
           </button>
@@ -128,11 +165,15 @@ export function Preview({
       </Box>
       <div className="smooth-expand" data-open={showSource}>
         <div className="smooth-expand__inner">
+          {/* bg-gray-950 은 의도적인 어두운 코드 크롬 — 토큰으로 옮기지 않는다 */}
           <Box className="bg-gray-950">
-            <Box className="px-4 py-1.5 border-b border-white/5">
-              <span className="text-[10px] font-mono text-white/30 uppercase tracking-wider">{language}</span>
+            <Box className="px-4 py-1.5 border-b border-white/10">
+              {/* white/30 은 이 배경에서 2.2:1 — 언어 라벨을 읽을 수 없었다 */}
+              <span className="text-[10px] font-mono text-white/55 uppercase tracking-wider">
+                {language}
+              </span>
             </Box>
-            <pre className="p-4 text-xs leading-relaxed overflow-x-auto text-gray-100">
+            <pre className="p-4 text-xs leading-relaxed overflow-x-auto overscroll-x-contain text-gray-100">
               <code>{sourceCode}</code>
             </pre>
           </Box>

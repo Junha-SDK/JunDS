@@ -19,15 +19,31 @@ export interface TreemapChartProps {
   className?: string;
 }
 
-const COLORS = ["var(--primary)", "var(--info)", "var(--success)", "var(--warning)", "var(--danger)", "var(--accent)"];
+const COLORS = [
+  "var(--primary)",
+  "var(--info)",
+  "var(--success)",
+  "var(--warning)",
+  "var(--danger)",
+  "var(--accent)",
+];
 
-interface Rect { x: number; y: number; w: number; h: number; item: TreemapItem; }
+interface Rect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  item: TreemapItem;
+}
 
 function squarify(items: TreemapItem[], x: number, y: number, w: number, h: number): Rect[] {
   if (items.length === 0) return [];
   const total = items.reduce((s, d) => s + d.value, 0);
   const rects: Rect[] = [];
-  let cx = x, cy = y, cw = w, ch = h;
+  let cx = x,
+    cy = y,
+    cw = w,
+    ch = h;
 
   items.forEach((item) => {
     const ratio = item.value / total;
@@ -62,11 +78,39 @@ export function TreemapChart({ data, width = 400, height = 250, className }: Tre
     <svg width={width} height={height} className={cn(className)}>
       {rects.map((r, i) => (
         <g key={i}>
-          <rect x={r.x} y={r.y} width={r.w} height={r.h} fill={r.item.color ?? COLORS[i % COLORS.length]} rx={4} stroke="white" strokeWidth={2} opacity={0.85} />
+          <rect
+            x={r.x}
+            y={r.y}
+            width={r.w}
+            height={r.h}
+            fill={r.item.color ?? COLORS[i % COLORS.length]}
+            rx={4}
+            stroke="white"
+            strokeWidth={2}
+            opacity={0.85}
+          />
           {r.w > 40 && r.h > 20 && (
             <>
-              <text x={r.x + r.w / 2} y={r.y + r.h / 2 - 4} textAnchor="middle" fill="white" fontSize={11} fontWeight={600}>{r.item.label}</text>
-              <text x={r.x + r.w / 2} y={r.y + r.h / 2 + 10} textAnchor="middle" fill="white" fontSize={9} opacity={0.8}>{r.item.value.toLocaleString()}</text>
+              <text
+                x={r.x + r.w / 2}
+                y={r.y + r.h / 2 - 4}
+                textAnchor="middle"
+                fill="white"
+                fontSize={11}
+                fontWeight={600}
+              >
+                {r.item.label}
+              </text>
+              <text
+                x={r.x + r.w / 2}
+                y={r.y + r.h / 2 + 10}
+                textAnchor="middle"
+                fill="white"
+                fontSize={9}
+                opacity={0.8}
+              >
+                {r.item.value.toLocaleString()}
+              </text>
             </>
           )}
         </g>

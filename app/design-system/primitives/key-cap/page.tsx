@@ -13,7 +13,9 @@ export default function KeyCapPage() {
     >
       <Section title="Default">
         <Preview>
-          <><KeyCap>⌘</KeyCap> <KeyCap>K</KeyCap></>
+          <>
+            <KeyCap>⌘</KeyCap> <KeyCap>K</KeyCap>
+          </>
         </Preview>
       </Section>
     </ComponentPage>

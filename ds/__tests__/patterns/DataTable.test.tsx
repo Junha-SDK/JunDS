@@ -16,7 +16,13 @@ const data: Item[] = [
 ];
 
 const columns: DataTableColumn<Item>[] = [
-  { key: "name", header: "이름", render: (r) => r.name, sortable: true, sortFn: (a, b) => a.name.localeCompare(b.name) },
+  {
+    key: "name",
+    header: "이름",
+    render: (r) => r.name,
+    sortable: true,
+    sortFn: (a, b) => a.name.localeCompare(b.name),
+  },
   { key: "age", header: "나이", render: (r) => String(r.age) },
 ];
 

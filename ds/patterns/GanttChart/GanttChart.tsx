@@ -84,12 +84,20 @@ export const GanttChart = forwardRef<HTMLDivElement, GanttChartProps>(function G
   return (
     <div
       ref={ref}
-      className={cn("border border-border rounded-lg overflow-auto bg-surface", className)}
+      // 넓은 타임라인이 페이지를 밀지 않도록 스크롤을 이 상자 안에서 끝낸다
+      className={cn(
+        "border border-border rounded-xl overflow-auto overscroll-x-contain bg-surface",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.05)]",
+        className,
+      )}
       {...props}
     >
       <div className="flex" style={{ minWidth: labelWidth + totalWidth }}>
         {/* Sticky left labels */}
-        <div className="sticky left-0 z-10 bg-surface border-r border-border" style={{ width: labelWidth, minWidth: labelWidth }}>
+        <div
+          className="sticky left-0 z-10 bg-surface border-r border-border shadow-[4px_0_8px_-6px_rgba(0,0,0,0.25)]"
+          style={{ width: labelWidth, minWidth: labelWidth }}
+        >
           <div className="h-8 border-b border-border px-3 flex items-center text-xs font-semibold uppercase text-muted">
             태스크
           </div>
@@ -110,7 +118,11 @@ export const GanttChart = forwardRef<HTMLDivElement, GanttChartProps>(function G
             {weeks.map((w, i) => {
               const offset = dayDiff(minDate, w) * dayWidth;
               return (
-                <div key={i} className="absolute top-0 h-full border-l border-border/50 px-1 flex items-center" style={{ left: offset }}>
+                <div
+                  key={i}
+                  className="absolute top-0 h-full border-l border-border/50 px-1 flex items-center whitespace-nowrap tabular-nums"
+                  style={{ left: offset }}
+                >
                   {w.toLocaleDateString("ko-KR", { month: "numeric", day: "numeric" })}
                 </div>
               );
@@ -132,12 +144,23 @@ export const GanttChart = forwardRef<HTMLDivElement, GanttChartProps>(function G
                 <button
                   type="button"
                   onClick={() => onSelect?.(t)}
-                  className="absolute top-1 bottom-1 rounded-md overflow-hidden text-white text-[11px] font-medium px-2 flex items-center cursor-pointer hover:brightness-110 transition"
+                  className={cn(
+                    "absolute top-1 bottom-1 rounded-lg overflow-hidden text-white text-[11px] font-medium px-2 flex items-center cursor-pointer",
+                    "shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]",
+                    // 바뀌는 것은 filter(brightness) 하나다 — 나머지를 전이 대상으로 둘 이유가 없다
+                    "transition-[filter] duration-150 ease-out hover:brightness-110 active:brightness-95",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+                  )}
                   style={{ left: offset, width, background: bg }}
                   title={`${t.name} (${start.toLocaleDateString()} ~ ${end.toLocaleDateString()})`}
                 >
-                  <span className="absolute inset-y-0 left-0 bg-black/20" style={{ width: `${progress}%` }} />
-                  <span className="relative truncate">{t.name} {progress > 0 && `· ${progress}%`}</span>
+                  <span
+                    className="absolute inset-y-0 left-0 bg-black/20"
+                    style={{ width: `${progress}%` }}
+                  />
+                  <span className="relative truncate min-w-0 tabular-nums">
+                    {t.name} {progress > 0 && `· ${progress}%`}
+                  </span>
                 </button>
               </div>
             );

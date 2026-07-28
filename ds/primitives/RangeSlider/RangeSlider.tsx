@@ -30,8 +30,14 @@ export interface RangeSliderProps {
  * @tags form, input
  */
 export function RangeSlider({
-  min = 0, max = 100, step = 1,
-  value, onChange, disabled, showValues, className,
+  min = 0,
+  max = 100,
+  step = 1,
+  value,
+  onChange,
+  disabled,
+  showValues,
+  className,
 }: RangeSliderProps) {
   const safeValue: [number, number] = [
     typeof value?.[0] === "number" ? value[0] : min,
@@ -42,13 +48,16 @@ export function RangeSlider({
 
   const pct = (v: number) => ((v - min) / (max - min)) * 100;
 
-  const valueFromX = useCallback((clientX: number) => {
-    if (!trackRef.current) return min;
-    const rect = trackRef.current.getBoundingClientRect();
-    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-    const raw = min + ratio * (max - min);
-    return Math.round(raw / step) * step;
-  }, [min, max, step]);
+  const valueFromX = useCallback(
+    (clientX: number) => {
+      if (!trackRef.current) return min;
+      const rect = trackRef.current.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      const raw = min + ratio * (max - min);
+      return Math.round(raw / step) * step;
+    },
+    [min, max, step],
+  );
 
   const handlePointerDown = (handle: "min" | "max") => (e: React.PointerEvent) => {
     if (disabled) return;
@@ -57,12 +66,15 @@ export function RangeSlider({
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
   };
 
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!dragging) return;
-    const v = valueFromX(e.clientX);
-    if (dragging === "min") onChange([Math.min(v, safeValue[1] - step), safeValue[1]]);
-    else onChange([safeValue[0], Math.max(v, safeValue[0] + step)]);
-  }, [dragging, valueFromX, onChange, value, step]);
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      if (!dragging) return;
+      const v = valueFromX(e.clientX);
+      if (dragging === "min") onChange([Math.min(v, safeValue[1] - step), safeValue[1]]);
+      else onChange([safeValue[0], Math.max(v, safeValue[0] + step)]);
+    },
+    [dragging, valueFromX, onChange, value, step],
+  );
 
   const handlePointerUp = useCallback(() => setDragging(null), []);
 
@@ -70,7 +82,8 @@ export function RangeSlider({
     <div className={cn("w-full", disabled && "opacity-50", className)}>
       {showValues && (
         <div className="flex justify-between text-xs text-muted mb-1 tabular-nums">
-          <span>{safeValue[0]}</span><span>{safeValue[1]}</span>
+          <span>{safeValue[0]}</span>
+          <span>{safeValue[1]}</span>
         </div>
       )}
       <div
@@ -81,7 +94,7 @@ export function RangeSlider({
         role="group"
         aria-label="범위 슬라이더"
       >
-        <div className="absolute inset-x-0 h-1.5 bg-gray-200 rounded-full shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)]" />
+        <div className="absolute inset-x-0 h-1.5 bg-border rounded-full shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)]" />
         <div
           className="absolute h-1.5 bg-primary rounded-full bg-gradient-to-b from-white/25 to-white/0"
           style={{ left: `${pct(safeValue[0])}%`, right: `${100 - pct(safeValue[1])}%` }}
@@ -98,7 +111,12 @@ export function RangeSlider({
             onPointerDown={handlePointerDown(handle)}
             onKeyDown={(e) => {
               if (disabled) return;
-              const d = e.key === "ArrowRight" || e.key === "ArrowUp" ? step : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -step : 0;
+              const d =
+                e.key === "ArrowRight" || e.key === "ArrowUp"
+                  ? step
+                  : e.key === "ArrowLeft" || e.key === "ArrowDown"
+                  ? -step
+                  : 0;
               if (!d) return;
               e.preventDefault();
               const nv = safeValue[i] + d;
@@ -106,9 +124,11 @@ export function RangeSlider({
               else onChange([safeValue[0], Math.max(nv, safeValue[0] + step)]);
             }}
             className={cn(
-              "absolute w-5 h-5 bg-white border-2 border-primary rounded-full -translate-x-1/2 cursor-grab",
-              "shadow-[0_1px_3px_rgba(0,0,0,0.15),0_1px_1px_rgba(0,0,0,0.08)] transition-all duration-150",
-              "focus:outline-none focus:ring-2 focus:ring-primary/40",
+              "absolute w-5 h-5 bg-card border-2 border-primary rounded-full -translate-x-1/2 cursor-grab",
+              "shadow-[0_1px_3px_rgba(0,0,0,0.15),0_1px_1px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.5)]",
+              // 핸들이 커지는 건 transform·ring 뿐이다 — all 로 잡으면 left 까지 전이돼 드래그가 끈적해진다
+              "transition-[transform,box-shadow] duration-150 motion-reduce:transition-none",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               "hover:ring-4 ring-primary/15",
               dragging === handle && "cursor-grabbing scale-110 ring-4",
             )}

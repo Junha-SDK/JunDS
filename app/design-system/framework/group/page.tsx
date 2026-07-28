@@ -18,20 +18,26 @@ export default function GroupPage() {
       <Section title="버튼 그룹">
         <Preview>
           <Group gap="sm">
-            <Button variant="primary" size="sm">저장</Button>
-            <Button variant="secondary" size="sm">취소</Button>
-            <Button variant="ghost" size="sm">초기화</Button>
+            <Button variant="primary" size="sm">
+              저장
+            </Button>
+            <Button variant="secondary" size="sm">
+              취소
+            </Button>
+            <Button variant="ghost" size="sm">
+              초기화
+            </Button>
           </Group>
         </Preview>
       </Section>
       <Section title="Gap 변형">
         <Preview>
           <div className="space-y-3">
-            {(["xs", "sm", "md", "lg"] as const).map(g => (
+            {(["xs", "sm", "md", "lg"] as const).map((g) => (
               <div key={g}>
                 <p className="text-[10px] text-muted mb-1 font-mono">gap=&quot;{g}&quot;</p>
                 <Group gap={g}>
-                  {[1,2,3,4,5].map(n => (
+                  {[1, 2, 3, 4, 5].map((n) => (
                     <Box key={n} px={3} py={1} bg="primary" radius="full" color="white">
                       <span className="text-xs">Tag {n}</span>
                     </Box>

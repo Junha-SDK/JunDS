@@ -23,7 +23,13 @@ export default function MetricCardPage() {
       <Section title="Default">
         <Preview>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
-            <MetricCard label="매출" value="₩12.4M" change={12.5} changeLabel="전월 대비" sparkline={spark} />
+            <MetricCard
+              label="매출"
+              value="₩12.4M"
+              change={12.5}
+              changeLabel="전월 대비"
+              sparkline={spark}
+            />
             <MetricCard label="활성 사용자" value="3,482" change={-4.2} changeLabel="전주 대비" />
           </div>
         </Preview>

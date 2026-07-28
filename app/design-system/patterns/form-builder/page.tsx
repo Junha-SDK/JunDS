@@ -24,13 +24,31 @@ export default function FormBuilderPage() {
           <div className="max-w-lg">
             <FormBuilder
               fields={[
-                { name: "name", label: "이름", type: "text", required: true, placeholder: "홍길동" },
-                { name: "email", label: "이메일", type: "email", required: true, placeholder: "user@example.com" },
-                { name: "department", label: "부서", type: "select", required: true, options: [
-                  { value: "dev", label: "개발팀" },
-                  { value: "design", label: "디자인팀" },
-                  { value: "pm", label: "기획팀" },
-                ]},
+                {
+                  name: "name",
+                  label: "이름",
+                  type: "text",
+                  required: true,
+                  placeholder: "홍길동",
+                },
+                {
+                  name: "email",
+                  label: "이메일",
+                  type: "email",
+                  required: true,
+                  placeholder: "user@example.com",
+                },
+                {
+                  name: "department",
+                  label: "부서",
+                  type: "select",
+                  required: true,
+                  options: [
+                    { value: "dev", label: "개발팀" },
+                    { value: "design", label: "디자인팀" },
+                    { value: "pm", label: "기획팀" },
+                  ],
+                },
                 { name: "bio", label: "자기소개", type: "textarea", placeholder: "간단한 소개" },
               ]}
               onSubmit={(values) => setResult(values)}

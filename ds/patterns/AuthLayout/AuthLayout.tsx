@@ -33,7 +33,18 @@ export interface AuthLayoutProps extends Omit<HTMLAttributes<HTMLDivElement>, "t
  * @tags layout
  */
 export const AuthLayout = forwardRef<HTMLDivElement, AuthLayoutProps>(function AuthLayout(
-  { variant = "centered", brandSide, logo, title, subtitle, children, footer, pageFooter, className, ...props },
+  {
+    variant = "centered",
+    brandSide,
+    logo,
+    title,
+    subtitle,
+    children,
+    footer,
+    pageFooter,
+    className,
+    ...props
+  },
   ref,
 ) {
   const card = (
@@ -53,9 +64,7 @@ export const AuthLayout = forwardRef<HTMLDivElement, AuthLayoutProps>(function A
           </div>
         )}
       </div>
-      {pageFooter && (
-        <div className="mt-6 text-center text-xs text-muted">{pageFooter}</div>
-      )}
+      {pageFooter && <div className="mt-6 text-center text-xs text-muted">{pageFooter}</div>}
     </div>
   );
 
@@ -63,7 +72,10 @@ export const AuthLayout = forwardRef<HTMLDivElement, AuthLayoutProps>(function A
     return (
       <div
         ref={ref}
-        className={cn("min-h-screen flex items-center justify-center bg-background px-4 py-10", className)}
+        className={cn(
+          "min-h-screen flex items-center justify-center bg-background px-4 py-10",
+          className,
+        )}
         {...props}
       >
         {card}
@@ -75,7 +87,10 @@ export const AuthLayout = forwardRef<HTMLDivElement, AuthLayoutProps>(function A
     return (
       <div
         ref={ref}
-        className={cn("relative min-h-screen flex items-center justify-center px-4 py-10", className)}
+        className={cn(
+          "relative min-h-screen flex items-center justify-center px-4 py-10",
+          className,
+        )}
         {...props}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-hover -z-10" />
@@ -85,11 +100,7 @@ export const AuthLayout = forwardRef<HTMLDivElement, AuthLayoutProps>(function A
   }
 
   return (
-    <div
-      ref={ref}
-      className={cn("min-h-screen grid lg:grid-cols-2", className)}
-      {...props}
-    >
+    <div ref={ref} className={cn("min-h-screen grid lg:grid-cols-2", className)} {...props}>
       <aside className="hidden lg:flex items-center justify-center bg-primary text-white p-10">
         <div className="max-w-md">
           {brandSide ?? (

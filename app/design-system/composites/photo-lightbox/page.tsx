@@ -13,7 +13,13 @@ export default function PhotoLightboxPage() {
     >
       <Section title="Default">
         <Preview>
-          <PhotoLightbox open={false} index={0} onClose={()=>{}} onIndexChange={()=>{}} photos={[{src:"https://picsum.photos/seed/l1/800/600",alt:"1"}]} />
+          <PhotoLightbox
+            open={false}
+            index={0}
+            onClose={() => {}}
+            onIndexChange={() => {}}
+            photos={[{ src: "https://picsum.photos/seed/l1/800/600", alt: "1" }]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

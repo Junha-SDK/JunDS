@@ -94,11 +94,7 @@ export async function verifyToken(token: string): Promise<AuthClaims | null> {
   } catch {
     return null;
   }
-  const expected = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    new TextEncoder().encode(payload),
-  );
+  const expected = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload));
   let sig: Uint8Array;
   try {
     sig = b64urlDecode(sigB64);

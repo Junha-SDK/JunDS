@@ -13,7 +13,27 @@ export default function ScatterPlotPage() {
     >
       <Section title="Default">
         <Preview>
-          <ScatterPlot series={[{name:"A",data:[{x:1,y:2},{x:3,y:5},{x:5,y:3},{x:7,y:8}]},{name:"B",data:[{x:2,y:6},{x:4,y:4},{x:6,y:7}]}]} />
+          <ScatterPlot
+            series={[
+              {
+                name: "A",
+                data: [
+                  { x: 1, y: 2 },
+                  { x: 3, y: 5 },
+                  { x: 5, y: 3 },
+                  { x: 7, y: 8 },
+                ],
+              },
+              {
+                name: "B",
+                data: [
+                  { x: 2, y: 6 },
+                  { x: 4, y: 4 },
+                  { x: 6, y: 7 },
+                ],
+              },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

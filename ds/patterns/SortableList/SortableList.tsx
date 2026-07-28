@@ -62,19 +62,27 @@ export function SortableList<T extends SortableItem>({
           onDragStart={() => handleDragStart(i)}
           onDragOver={(e) => handleDragOver(e, i)}
           onDrop={() => handleDrop(i)}
-          onDragEnd={() => { setDragIdx(null); setOverIdx(null); }}
+          onDragEnd={() => {
+            setDragIdx(null);
+            setOverIdx(null);
+          }}
           className={cn(
-            "flex items-center gap-2 transition-all",
+            // 드롭 표시를 border-t-2 로 그리면 그 순간 행 높이가 2px 늘어 목록 전체가 튄다.
+            // inset box-shadow 는 같은 선을 레이아웃 밖에서 그린다 — 전이 대상도 그 둘뿐이다.
+            "flex items-center gap-2 rounded-lg transition-[opacity,box-shadow] duration-150",
             dragIdx === i && "opacity-40",
-            overIdx === i && dragIdx !== i && "border-t-2 border-primary",
+            overIdx === i && dragIdx !== i && "shadow-[inset_0_2px_0_0_var(--primary)]",
           )}
         >
           {showHandle && (
-            <span className="cursor-grab active:cursor-grabbing text-muted hover:text-foreground shrink-0">
+            <span className="cursor-grab active:cursor-grabbing text-muted transition-colors hover:text-foreground shrink-0">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <circle cx="5" cy="3" r="1" fill="currentColor" /><circle cx="9" cy="3" r="1" fill="currentColor" />
-                <circle cx="5" cy="7" r="1" fill="currentColor" /><circle cx="9" cy="7" r="1" fill="currentColor" />
-                <circle cx="5" cy="11" r="1" fill="currentColor" /><circle cx="9" cy="11" r="1" fill="currentColor" />
+                <circle cx="5" cy="3" r="1" fill="currentColor" />
+                <circle cx="9" cy="3" r="1" fill="currentColor" />
+                <circle cx="5" cy="7" r="1" fill="currentColor" />
+                <circle cx="9" cy="7" r="1" fill="currentColor" />
+                <circle cx="5" cy="11" r="1" fill="currentColor" />
+                <circle cx="9" cy="11" r="1" fill="currentColor" />
               </svg>
             </span>
           )}

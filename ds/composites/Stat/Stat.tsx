@@ -40,12 +40,17 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
   { label, value, unit, change, trend, hint, align = "left", className, ...props },
   ref,
 ) {
-  const finalTrend: StatTrend = trend ?? (change === undefined ? "flat" : change > 0 ? "up" : change < 0 ? "down" : "flat");
+  const finalTrend: StatTrend =
+    trend ?? (change === undefined ? "flat" : change > 0 ? "up" : change < 0 ? "down" : "flat");
   const t = trendStyles[finalTrend];
   return (
     <div
       ref={ref}
-      className={cn("flex flex-col gap-1", align === "center" && "items-center text-center", className)}
+      className={cn(
+        "flex flex-col gap-1",
+        align === "center" && "items-center text-center",
+        className,
+      )}
       {...props}
     >
       <div className="text-xs text-muted uppercase tracking-wider">{label}</div>

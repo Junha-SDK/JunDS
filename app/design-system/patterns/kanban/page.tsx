@@ -35,9 +35,7 @@ const initialColumns: KanbanColumn<Task>[] = [
     id: "done",
     title: "완료",
     color: "#22c55e",
-    items: [
-      { id: "5", title: "프로젝트 초기 설정", assignee: "김준하", priority: "low" },
-    ],
+    items: [{ id: "5", title: "프로젝트 초기 설정", assignee: "김준하", priority: "low" }],
   },
 ];
 
@@ -71,9 +69,21 @@ export default function KanbanPage() {
       importPath='import { Kanban } from "@/ds/patterns/Kanban"'
       props={[
         { name: "columns", type: "KanbanColumn<T>[]", description: "컬럼 목록 (id, title, items)" },
-        { name: "renderCard", type: "(item: T, columnId: string) => ReactNode", description: "카드 렌더 함수" },
-        { name: "onMove", type: "(itemId, fromColumn, toColumn) => void", description: "드래그 이동 콜백" },
-        { name: "renderColumnHeader", type: "(column) => ReactNode", description: "컬럼 헤더 커스텀" },
+        {
+          name: "renderCard",
+          type: "(item: T, columnId: string) => ReactNode",
+          description: "카드 렌더 함수",
+        },
+        {
+          name: "onMove",
+          type: "(itemId, fromColumn, toColumn) => void",
+          description: "드래그 이동 콜백",
+        },
+        {
+          name: "renderColumnHeader",
+          type: "(column) => ReactNode",
+          description: "컬럼 헤더 커스텀",
+        },
       ]}
     >
       <Section title="3열 칸반 보드">
@@ -87,8 +97,16 @@ export default function KanbanPage() {
                   <p className="text-sm font-medium text-foreground mb-2">{task.title}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-muted">{task.assignee}</span>
-                    <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${priorityColors[task.priority]}`}>
-                      {task.priority === "high" ? "높음" : task.priority === "medium" ? "보통" : "낮음"}
+                    <span
+                      className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${
+                        priorityColors[task.priority]
+                      }`}
+                    >
+                      {task.priority === "high"
+                        ? "높음"
+                        : task.priority === "medium"
+                        ? "보통"
+                        : "낮음"}
                     </span>
                   </div>
                 </div>

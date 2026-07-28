@@ -14,10 +14,17 @@ export default function BentoGridPage() {
         { name: "gap", type: "number", default: "4", description: "간격 단위 (4px 곱)" },
       ]}
     >
-      <Section title="Default" description="BentoGrid.Item 의 colSpan / rowSpan 으로 면적을 조절합니다.">
+      <Section
+        title="Default"
+        description="BentoGrid.Item 의 colSpan / rowSpan 으로 면적을 조절합니다."
+      >
         <Preview>
           <BentoGrid cols={4} gap={4} className="w-full">
-            <BentoGrid.Item colSpan={2} rowSpan={2} className="bg-gradient-to-br from-primary/10 to-primary/5">
+            <BentoGrid.Item
+              colSpan={2}
+              rowSpan={2}
+              className="bg-gradient-to-br from-primary/10 to-primary/5"
+            >
               <p className="text-sm font-bold text-foreground mb-1">Hero</p>
               <p className="text-xs text-muted">colSpan=2, rowSpan=2</p>
             </BentoGrid.Item>

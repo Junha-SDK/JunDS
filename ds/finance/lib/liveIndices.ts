@@ -28,8 +28,7 @@ let currentNames: string[] = [];
 function reconnect(): void {
   const wanted = Array.from(subscribers.keys()).sort();
   const same =
-    wanted.length === currentNames.length &&
-    wanted.every((n, i) => n === currentNames[i]);
+    wanted.length === currentNames.length && wanted.every((n, i) => n === currentNames[i]);
   if (same && es) return;
 
   if (es) {
@@ -40,10 +39,9 @@ function reconnect(): void {
   if (wanted.length === 0 || typeof window === "undefined") return;
 
   try {
-    es = new EventSource(
-      `/api/kis/stream?indices=${encodeURIComponent(wanted.join(","))}`,
-      { withCredentials: true },
-    );
+    es = new EventSource(`/api/kis/stream?indices=${encodeURIComponent(wanted.join(","))}`, {
+      withCredentials: true,
+    });
     es.addEventListener("index", (ev) => {
       try {
         const raw = JSON.parse((ev as MessageEvent).data) as IndexTick;
@@ -100,9 +98,7 @@ function subscribe(name: string, cb: Listener): () => void {
  * 첫 tick 전에는 `null` 을 반환한다 — 호출부가 fallback을 표시할 수 있게.
  */
 export function useLiveIndex(name: string): IndexTick | null {
-  const [tick, setTick] = useState<IndexTick | null>(
-    () => lastTicks.get(name) ?? null,
-  );
+  const [tick, setTick] = useState<IndexTick | null>(() => lastTicks.get(name) ?? null);
   useEffect(() => {
     const off = subscribe(name, setTick);
     return off;

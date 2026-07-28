@@ -14,7 +14,12 @@ export default function AvatarStackPage() {
       props={[
         { name: "names", type: "string[]", description: "사용자 이름 목록" },
         { name: "max", type: "number", default: "4", description: "최대 표시 수" },
-        { name: "size", type: '"xs"|"sm"|"md"|"lg"|"xl"', default: '"sm"', description: "아바타 크기" },
+        {
+          name: "size",
+          type: '"xs"|"sm"|"md"|"lg"|"xl"',
+          default: '"sm"',
+          description: "아바타 크기",
+        },
       ]}
     >
       <Section title="기본">

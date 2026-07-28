@@ -17,7 +17,7 @@ describe("Skeleton", () => {
 
   it("renders rect", () => {
     const { container } = render(<Skeleton variant="rect" height={100} />);
-    expect(container.firstChild).toHaveClass("rounded-lg");
+    expect(container.firstChild).toHaveClass("rounded-xl");
     expect(container.firstChild).toHaveStyle({ height: "100px" });
   });
 

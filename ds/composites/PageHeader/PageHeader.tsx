@@ -36,7 +36,18 @@ export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLElement>, "titl
  * @tags layout
  */
 export const PageHeader = forwardRef<HTMLElement, PageHeaderProps>(function PageHeader(
-  { title, description, breadcrumb, onBack, actions, avatar, footer, divider = true, className, ...props },
+  {
+    title,
+    description,
+    breadcrumb,
+    onBack,
+    actions,
+    avatar,
+    footer,
+    divider = true,
+    className,
+    ...props
+  },
   ref,
 ) {
   return (
@@ -54,7 +65,12 @@ export const PageHeader = forwardRef<HTMLElement, PageHeaderProps>(function Page
           {breadcrumb.map((b, i) => (
             <span key={i} className="flex items-center gap-1">
               {b.href ? (
-                <a href={b.href} className="hover:text-foreground transition-colors">{b.label}</a>
+                <a
+                  href={b.href}
+                  className="rounded-sm hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  {b.label}
+                </a>
               ) : (
                 <span className="text-foreground">{b.label}</span>
               )}
@@ -69,19 +85,27 @@ export const PageHeader = forwardRef<HTMLElement, PageHeaderProps>(function Page
             type="button"
             onClick={onBack}
             aria-label="뒤로 가기"
-            className="mt-1 flex items-center justify-center w-8 h-8 rounded-md hover:bg-surface-soft text-muted hover:text-foreground transition-colors cursor-pointer"
+            className={cn(
+              "mt-1 flex items-center justify-center w-8 h-8 shrink-0 rounded-lg cursor-pointer",
+              "text-muted hover:text-foreground hover:bg-muted/10 active:bg-muted/15 transition-colors",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            )}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M10 12L6 8l4-4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         )}
         {avatar && <div className="shrink-0">{avatar}</div>}
         <div className="flex-1 min-w-0">
           <h1 className="text-xl sm:text-2xl font-semibold leading-tight truncate">{title}</h1>
-          {description && (
-            <p className="mt-1 text-sm text-muted line-clamp-2">{description}</p>
-          )}
+          {description && <p className="mt-1 text-sm text-muted line-clamp-2">{description}</p>}
         </div>
         {actions && <div className="shrink-0 flex items-center gap-2">{actions}</div>}
       </div>

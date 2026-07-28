@@ -10,7 +10,13 @@ export interface FunnelChartProps {
   className?: string;
 }
 
-const DEFAULT_COLORS = ["var(--primary)", "var(--info)", "var(--success)", "var(--warning)", "var(--danger)"];
+const DEFAULT_COLORS = [
+  "var(--primary)",
+  "var(--info)",
+  "var(--success)",
+  "var(--warning)",
+  "var(--danger)",
+];
 
 /**
  * 단계별 전환율을 시각화하는 퍼널 차트.
@@ -33,17 +39,31 @@ export function FunnelChart({ data, height = 300, className }: FunnelChartProps)
         const convRate = i > 0 ? ((item.value / data[i - 1].value) * 100).toFixed(1) : null;
         return (
           <div key={i} className="flex items-center gap-3" style={{ height: stepH }}>
-            <div className="flex-1 flex justify-center">
+            <div className="flex-1 min-w-0 flex justify-center">
               <div
-                className="rounded-lg transition-all duration-500 flex items-center justify-center text-white text-sm font-bold"
-                style={{ width: `${widthPct}%`, height: stepH - 4, backgroundColor: color, minWidth: 60 }}
+                className={cn(
+                  "rounded-xl flex items-center justify-center text-white text-sm font-bold tabular-nums",
+                  // 폭만 바뀌는 막대다. all 로 두면 height·font-size 까지 전이 대상이 된다
+                  "transition-[width] duration-500 ease-out motion-reduce:transition-none",
+                  "shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]",
+                )}
+                style={{
+                  width: `${widthPct}%`,
+                  height: stepH - 4,
+                  backgroundColor: color,
+                  minWidth: 60,
+                }}
               >
                 {item.value.toLocaleString()}
               </div>
             </div>
-            <div className="w-32 shrink-0 text-right">
-              <p className="text-sm font-medium">{item.label}</p>
-              {convRate && <p className="text-[10px] text-muted">전환: {convRate}%</p>}
+            <div className="w-32 shrink-0 min-w-0 text-right">
+              <p className="text-sm font-medium truncate">{item.label}</p>
+              {convRate && (
+                <p className="text-[10px] text-muted tabular-nums whitespace-nowrap">
+                  전환: {convRate}%
+                </p>
+              )}
             </div>
           </div>
         );

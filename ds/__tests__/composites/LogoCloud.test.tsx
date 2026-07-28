@@ -4,7 +4,7 @@ import { LogoCloud } from "../../composites/LogoCloud";
 
 describe("LogoCloud", () => {
   it("renders", () => {
-    const { container } = render(<LogoCloud logos={[{name:"Acme"}]} data-testid="root" />);
+    const { container } = render(<LogoCloud logos={[{ name: "Acme" }]} data-testid="root" />);
     expect(container.firstChild).toBeTruthy();
   });
 });

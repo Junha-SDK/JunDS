@@ -4,7 +4,15 @@ import { Preview } from "../../_components/Preview";
 import { Marquee } from "@/ds/composites/Marquee";
 import { Badge } from "@/ds/primitives/Badge";
 
-const tags = ["React", "Next.js", "TypeScript", "Tailwind", "Design System", "Accessibility", "Storybook"];
+const tags = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Tailwind",
+  "Design System",
+  "Accessibility",
+  "Storybook",
+];
 
 export default function MarqueePage() {
   return (
@@ -15,7 +23,12 @@ export default function MarqueePage() {
       props={[
         { name: "speed", type: "number", default: "30", description: "한 바퀴 도는 시간(초)" },
         { name: "direction", type: '"left"|"right"', default: '"left"', description: "흐름 방향" },
-        { name: "pauseOnHover", type: "boolean", default: "true", description: "호버 시 일시 정지" },
+        {
+          name: "pauseOnHover",
+          type: "boolean",
+          default: "true",
+          description: "호버 시 일시 정지",
+        },
         { name: "gap", type: "number", default: "48", description: "아이템 간 간격(px)" },
       ]}
     >
@@ -24,7 +37,9 @@ export default function MarqueePage() {
           <div className="w-full max-w-2xl">
             <Marquee>
               {tags.map((t) => (
-                <Badge key={t} variant="primary">{t}</Badge>
+                <Badge key={t} variant="primary">
+                  {t}
+                </Badge>
               ))}
             </Marquee>
           </div>
@@ -36,7 +51,9 @@ export default function MarqueePage() {
           <div className="w-full max-w-2xl">
             <Marquee direction="right" speed={15}>
               {tags.map((t) => (
-                <Badge key={t} variant="default">{t}</Badge>
+                <Badge key={t} variant="default">
+                  {t}
+                </Badge>
               ))}
             </Marquee>
           </div>

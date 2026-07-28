@@ -13,14 +13,32 @@ const basicCards: ComparisonCard[] = [
 
 const varianceCards: ComparisonCard[] = [
   { key: "revenue", label: "매출", value: "₩32.5M", change: { value: "+12.3%", direction: "up" } },
-  { key: "cost", label: "비용", value: "₩18.2M", change: { value: "+3.1%", direction: "up" }, hasVariance: true },
+  {
+    key: "cost",
+    label: "비용",
+    value: "₩18.2M",
+    change: { value: "+3.1%", direction: "up" },
+    hasVariance: true,
+  },
   { key: "profit", label: "순이익", value: "₩14.3M", change: { value: "+8.7%", direction: "up" } },
-  { key: "refund", label: "환불", value: "₩1.2M", change: { value: "-5.2%", direction: "down" }, hasVariance: true },
+  {
+    key: "refund",
+    label: "환불",
+    value: "₩1.2M",
+    change: { value: "-5.2%", direction: "down" },
+    hasVariance: true,
+  },
 ];
 
 const twoColCards: ComparisonCard[] = [
   { key: "before", label: "변경 전", value: "2,500", subtext: "2024년 1분기" },
-  { key: "after", label: "변경 후", value: "3,800", subtext: "2024년 2분기", change: { value: "+52%", direction: "up" } },
+  {
+    key: "after",
+    label: "변경 후",
+    value: "3,800",
+    subtext: "2024년 2분기",
+    change: { value: "+52%", direction: "up" },
+  },
 ];
 
 const threeColCards: ComparisonCard[] = [
@@ -51,7 +69,8 @@ export default function ComparisonGridPage() {
 
       <Section title="변동 표시">
         <p className="text-sm text-muted mb-3">
-          change prop으로 증가/감소를 표시하고, hasVariance를 true로 설정하면 경고 하이라이트가 적용됩니다.
+          change prop으로 증가/감소를 표시하고, hasVariance를 true로 설정하면 경고 하이라이트가
+          적용됩니다.
         </p>
         <Preview>
           <ComparisonGrid cards={varianceCards} />

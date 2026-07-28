@@ -41,7 +41,8 @@ const TYPE_CONFIG: Record<
   spoiler: {
     defaultLabel: "스포일러 보기",
     defaultNotice: "스포일러가 포함된 내용입니다",
-    bg: "bg-gray-50",
+    // 본문 면이라 라이트 전용 회색(bg-gray-50) 대신 모드를 따라가는 카드 토큰을 쓴다.
+    bg: "bg-card-hover",
     border: "border-border",
     badge: "bg-foreground/80 hover:bg-foreground text-background",
   },
@@ -89,7 +90,9 @@ export function SpoilerBlock({
   return (
     <div
       className={cn(
-        "relative rounded-lg border border-border p-4 overflow-hidden transition-all duration-300",
+        // 감싸는 면은 색만 바뀐다 — transition-all 은 padding·height 까지 대상으로 잡아
+        // 내용이 늘어날 때마다 리플로우를 만든다.
+        "relative rounded-xl border border-border p-4 overflow-hidden transition-colors duration-200",
         config.bg,
         config.border,
         className,
@@ -98,7 +101,8 @@ export function SpoilerBlock({
       {/* 콘텐츠 */}
       <div
         className={cn(
-          "transition-[filter] duration-500 ease-out",
+          // 블러 해제는 0.5초짜리 시각 효과다 — 감속 요청을 받으면 즉시 전환한다.
+          "transition-[filter] duration-500 ease-out motion-reduce:transition-none",
           revealed ? "blur-0" : "blur-sm select-none pointer-events-none",
         )}
         aria-hidden={!revealed}
@@ -109,14 +113,20 @@ export function SpoilerBlock({
       {/* 오버레이 버튼 */}
       {!revealed && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center">
-          {noticeText && (
-            <p className="text-xs text-muted">{noticeText}</p>
-          )}
+          {noticeText && <p className="text-xs text-muted">{noticeText}</p>}
           <button
             type="button"
             onClick={reveal}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-semibold text-white shadow-md hover:shadow-lg transition-colors",
+              "px-4 py-2 rounded-full text-sm font-semibold text-white cursor-pointer",
+              // 색·그림자·눌림만 전이한다. 그림자를 바꾸면서 transition-colors 만 걸면
+              // 그림자는 튀어 오른다.
+              "transition-[background-color,box-shadow,transform] duration-150",
+              "shadow-[0_2px_6px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.14)]",
+              "hover:shadow-[0_6px_16px_-4px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.14)]",
+              "active:scale-[0.97]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "motion-reduce:transition-none motion-reduce:active:scale-100",
               config.badge,
             )}
           >

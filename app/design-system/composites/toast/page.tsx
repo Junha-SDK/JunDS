@@ -21,10 +21,18 @@ function BasicToastDemo() {
   const { success, error, warning, info } = useDsToast();
   return (
     <div className="flex gap-3 flex-wrap">
-      <Button variant="secondary" onClick={() => success("저장되었습니다!")}>Success</Button>
-      <Button variant="secondary" onClick={() => error("오류가 발생했습니다.")}>Error</Button>
-      <Button variant="secondary" onClick={() => warning("주의가 필요합니다.")}>Warning</Button>
-      <Button variant="secondary" onClick={() => info("참고 알림입니다.")}>Info</Button>
+      <Button variant="secondary" onClick={() => success("저장되었습니다!")}>
+        Success
+      </Button>
+      <Button variant="secondary" onClick={() => error("오류가 발생했습니다.")}>
+        Error
+      </Button>
+      <Button variant="secondary" onClick={() => warning("주의가 필요합니다.")}>
+        Warning
+      </Button>
+      <Button variant="secondary" onClick={() => info("참고 알림입니다.")}>
+        Info
+      </Button>
     </div>
   );
 }
@@ -67,7 +75,9 @@ function CustomContentDemo() {
         onClick={() =>
           custom(
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-lg">🎉</div>
+              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-lg">
+                🎉
+              </div>
               <div>
                 <p className="text-sm font-medium text-foreground">축하합니다!</p>
                 <p className="text-xs text-muted">레벨이 올랐습니다.</p>
@@ -123,8 +133,18 @@ export default function ToastPage() {
         status="stable"
         version="1.2.0"
         props={[
-          { name: "position", type: '"top-right" | "top-center" | "bottom-right" | "bottom-center"', default: '"bottom-right"', description: "토스트가 나타나는 화면 위치" },
-          { name: "maxToasts", type: "number", default: "5", description: "동시에 표시 가능한 최대 토스트 수" },
+          {
+            name: "position",
+            type: '"top-right" | "top-center" | "bottom-right" | "bottom-center"',
+            default: '"bottom-right"',
+            description: "토스트가 나타나는 화면 위치",
+          },
+          {
+            name: "maxToasts",
+            type: "number",
+            default: "5",
+            description: "동시에 표시 가능한 최대 토스트 수",
+          },
         ]}
         related={[
           { name: "Alert", href: "/design-system/composites/alert" },
@@ -133,7 +153,10 @@ export default function ToastPage() {
         ]}
       >
         {/* ── 개요 ── */}
-        <Section title="개요" description="버튼을 클릭하여 각 유형의 토스트를 확인해보세요. 토스트는 일정 시간 후 자동으로 사라집니다.">
+        <Section
+          title="개요"
+          description="버튼을 클릭하여 각 유형의 토스트를 확인해보세요. 토스트는 일정 시간 후 자동으로 사라집니다."
+        >
           <Preview
             sourceCode={`// 1. 앱 루트에 Provider 설정
 <DsToastProvider position="bottom-right">
@@ -156,16 +179,35 @@ function MyComponent() {
         <Section title="구조 (Anatomy)">
           <Anatomy
             items={[
-              { label: "DsToastProvider", description: "토스트 시스템의 컨텍스트를 제공하는 최상위 래퍼입니다. 앱 루트에 한 번만 배치합니다." },
-              { label: "Toast Container", description: "토스트 목록을 렌더링하는 영역입니다. position에 따라 화면 모서리에 고정됩니다." },
-              { label: "Toast Item", description: "개별 토스트 메시지입니다. 아이콘, 메시지, 액션 버튼, 닫기 버튼을 포함합니다." },
-              { label: "useDsToast Hook", description: "success, error, warning, info, custom, confirm 메서드를 제공하는 훅입니다." },
+              {
+                label: "DsToastProvider",
+                description:
+                  "토스트 시스템의 컨텍스트를 제공하는 최상위 래퍼입니다. 앱 루트에 한 번만 배치합니다.",
+              },
+              {
+                label: "Toast Container",
+                description:
+                  "토스트 목록을 렌더링하는 영역입니다. position에 따라 화면 모서리에 고정됩니다.",
+              },
+              {
+                label: "Toast Item",
+                description:
+                  "개별 토스트 메시지입니다. 아이콘, 메시지, 액션 버튼, 닫기 버튼을 포함합니다.",
+              },
+              {
+                label: "useDsToast Hook",
+                description:
+                  "success, error, warning, info, custom, confirm 메서드를 제공하는 훅입니다.",
+              },
             ]}
           />
         </Section>
 
         {/* ── 유형 ── */}
-        <Section title="유형 (Types)" description="4가지 기본 유형의 토스트를 지원합니다. 메시지의 성격에 맞는 유형을 선택하세요.">
+        <Section
+          title="유형 (Types)"
+          description="4가지 기본 유형의 토스트를 지원합니다. 메시지의 성격에 맞는 유형을 선택하세요."
+        >
           <VariantGrid cols={2}>
             <VariantItem
               label="Success"
@@ -211,7 +253,10 @@ function MyComponent() {
         </Section>
 
         {/* ── Decision Matrix ── */}
-        <Section title="비슷한 알림 컴포넌트 비교" description="알림에는 영속성·강조·위치에 따라 여러 컴포넌트가 있습니다. 의도에 맞춰 선택하세요.">
+        <Section
+          title="비슷한 알림 컴포넌트 비교"
+          description="알림에는 영속성·강조·위치에 따라 여러 컴포넌트가 있습니다. 의도에 맞춰 선택하세요."
+        >
           <DecisionMatrix
             rows={[
               {
@@ -239,7 +284,8 @@ function MyComponent() {
                 name: "Snackbar",
                 href: "/design-system/composites/snackbar",
                 signature: "Material식 토스트",
-                useWhen: "모바일에서 하단 중앙에 짧게 노출되는 가벼운 피드백 (Material Design 스타일).",
+                useWhen:
+                  "모바일에서 하단 중앙에 짧게 노출되는 가벼운 피드백 (Material Design 스타일).",
                 avoidWhen: "데스크탑 — Toast로 일관.",
               },
               {
@@ -261,7 +307,10 @@ function MyComponent() {
         </Section>
 
         {/* ── 위치 ── */}
-        <Section title="위치 (Positions)" description="DsToastProvider의 position prop으로 토스트가 나타나는 위치를 지정합니다.">
+        <Section
+          title="위치 (Positions)"
+          description="DsToastProvider의 position prop으로 토스트가 나타나는 위치를 지정합니다."
+        >
           <Preview
             sourceCode={`<DsToastProvider position="bottom-right">{/* 또는 top-right · top-center · bottom-center */}
   {children}
@@ -269,16 +318,24 @@ function MyComponent() {
           >
             <div className="relative w-full h-48 border border-border-light rounded-xl bg-gray-50/50">
               <div className="absolute top-3 right-3 flex flex-col gap-1">
-                <div className="px-3 py-1.5 bg-primary/10 text-primary text-[10px] font-semibold rounded-lg border border-primary/20">top-right</div>
+                <div className="px-3 py-1.5 bg-primary/10 text-primary-ink text-[10px] font-semibold rounded-lg border border-primary/20">
+                  top-right
+                </div>
               </div>
               <div className="absolute top-3 left-1/2 -translate-x-1/2">
-                <div className="px-3 py-1.5 bg-gray-100 text-muted text-[10px] font-semibold rounded-lg border border-border-light">top-center</div>
+                <div className="px-3 py-1.5 bg-gray-100 text-muted text-[10px] font-semibold rounded-lg border border-border-light">
+                  top-center
+                </div>
               </div>
               <div className="absolute bottom-3 right-3 flex flex-col gap-1">
-                <div className="px-3 py-1.5 bg-gray-100 text-muted text-[10px] font-semibold rounded-lg border border-border-light">bottom-right &#40;기본&#41;</div>
+                <div className="px-3 py-1.5 bg-gray-100 text-muted text-[10px] font-semibold rounded-lg border border-border-light">
+                  bottom-right &#40;기본&#41;
+                </div>
               </div>
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                <div className="px-3 py-1.5 bg-gray-100 text-muted text-[10px] font-semibold rounded-lg border border-border-light">bottom-center</div>
+                <div className="px-3 py-1.5 bg-gray-100 text-muted text-[10px] font-semibold rounded-lg border border-border-light">
+                  bottom-center
+                </div>
               </div>
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-xs text-muted">화면 영역</span>
@@ -286,12 +343,19 @@ function MyComponent() {
             </div>
           </Preview>
           <UsageNote type="info">
-            <code className="text-xs font-mono bg-gray-100 px-1 rounded">bottom-right</code>가 기본값이며, 대부분의 웹 앱에서 가장 자연스러운 위치입니다. 모바일에서는 <code className="text-xs font-mono bg-gray-100 px-1 rounded">top-center</code>나 <code className="text-xs font-mono bg-gray-100 px-1 rounded">bottom-center</code>가 더 적합할 수 있습니다.
+            <code className="text-xs font-mono bg-gray-100 px-1 rounded">bottom-right</code>가
+            기본값이며, 대부분의 웹 앱에서 가장 자연스러운 위치입니다. 모바일에서는{" "}
+            <code className="text-xs font-mono bg-gray-100 px-1 rounded">top-center</code>나{" "}
+            <code className="text-xs font-mono bg-gray-100 px-1 rounded">bottom-center</code>가 더
+            적합할 수 있습니다.
           </UsageNote>
         </Section>
 
         {/* ── 액션 버튼 ── */}
-        <Section title="액션 버튼" description="토스트에 되돌리기, 이동하기 등의 인라인 액션을 추가할 수 있습니다.">
+        <Section
+          title="액션 버튼"
+          description="토스트에 되돌리기, 이동하기 등의 인라인 액션을 추가할 수 있습니다."
+        >
           <Preview>
             <ActionToastDemo />
           </Preview>
@@ -314,17 +378,24 @@ warning("업데이트가 필요합니다.", {
         </Section>
 
         {/* ── 자동 사라짐 시간 ── */}
-        <Section title="자동 사라짐 시간 (Duration)" description="각 토스트의 표시 시간을 개별적으로 설정할 수 있습니다.">
+        <Section
+          title="자동 사라짐 시간 (Duration)"
+          description="각 토스트의 표시 시간을 개별적으로 설정할 수 있습니다."
+        >
           <Preview>
             <DurationDemo />
           </Preview>
           <UsageNote type="warning">
-            에러 메시지는 사용자가 충분히 읽을 수 있도록 기본보다 긴 duration을 설정하거나, 수동 닫기만 허용하는 것을 권장합니다.
+            에러 메시지는 사용자가 충분히 읽을 수 있도록 기본보다 긴 duration을 설정하거나, 수동
+            닫기만 허용하는 것을 권장합니다.
           </UsageNote>
         </Section>
 
         {/* ── 커스텀 콘텐츠 ── */}
-        <Section title="커스텀 콘텐츠" description="custom 메서드를 사용하면 자유롭게 토스트 내부를 구성할 수 있습니다. confirm 메서드는 확인/취소 액션이 있는 토스트를 생성합니다.">
+        <Section
+          title="커스텀 콘텐츠"
+          description="custom 메서드를 사용하면 자유롭게 토스트 내부를 구성할 수 있습니다. confirm 메서드는 확인/취소 액션이 있는 토스트를 생성합니다."
+        >
           <Preview>
             <CustomContentDemo />
           </Preview>
@@ -357,27 +428,33 @@ confirm(
             items={[
               {
                 type: "do",
-                description: "짧고 명확한 메시지를 사용하세요. 사용자가 1~2초 안에 이해할 수 있어야 합니다. (예: '저장되었습니다', '링크가 복사되었습니다')",
+                description:
+                  "짧고 명확한 메시지를 사용하세요. 사용자가 1~2초 안에 이해할 수 있어야 합니다. (예: '저장되었습니다', '링크가 복사되었습니다')",
               },
               {
                 type: "dont",
-                description: "사용자의 즉각적인 의사결정이 필요한 내용은 토스트가 아니라 모달(Dialog)을 사용하세요.",
+                description:
+                  "사용자의 즉각적인 의사결정이 필요한 내용은 토스트가 아니라 모달(Dialog)을 사용하세요.",
               },
               {
                 type: "do",
-                description: "되돌릴 수 있는 파괴적 작업(삭제 등)에는 '되돌리기' 액션 버튼을 함께 제공하세요.",
+                description:
+                  "되돌릴 수 있는 파괴적 작업(삭제 등)에는 '되돌리기' 액션 버튼을 함께 제공하세요.",
               },
               {
                 type: "dont",
-                description: "동일한 메시지의 토스트를 연속으로 중복 표시하지 마세요. 사용자 경험을 해칩니다.",
+                description:
+                  "동일한 메시지의 토스트를 연속으로 중복 표시하지 마세요. 사용자 경험을 해칩니다.",
               },
               {
                 type: "caution",
-                description: "에러 토스트는 자동 사라짐 시간을 충분히 길게 설정하거나, 사용자가 직접 닫을 수 있게 하세요.",
+                description:
+                  "에러 토스트는 자동 사라짐 시간을 충분히 길게 설정하거나, 사용자가 직접 닫을 수 있게 하세요.",
               },
               {
                 type: "do",
-                description: "메시지 유형에 맞는 토스트 함수를 사용하세요. 성공이면 success(), 에러면 error()를 사용합니다.",
+                description:
+                  "메시지 유형에 맞는 토스트 함수를 사용하세요. 성공이면 success(), 에러면 error()를 사용합니다.",
               },
             ]}
           />
@@ -387,8 +464,8 @@ confirm(
         <Section title="접근성">
           <AccessibilityNote
             items={[
-              "토스트 컨테이너에 aria-live=\"polite\" 속성이 적용되어 스크린 리더가 새로운 토스트를 자동으로 읽습니다.",
-              "에러 토스트에는 role=\"alert\"가 사용되어 즉시 공지됩니다.",
+              '토스트 컨테이너에 aria-live="polite" 속성이 적용되어 스크린 리더가 새로운 토스트를 자동으로 읽습니다.',
+              '에러 토스트에는 role="alert"가 사용되어 즉시 공지됩니다.',
               "각 토스트에는 닫기 버튼이 포함되어 있으며, 키보드로 접근 가능합니다.",
               "자동 사라짐은 사용자가 토스트 위에 마우스를 올리면 일시 중지됩니다.",
               "토스트가 나타나도 현재 포커스 위치가 변경되지 않아 키보드 사용자의 작업 흐름을 방해하지 않습니다.",

@@ -50,12 +50,13 @@ const spanStyles: Record<number, string> = {
  * @tags data-display
  */
 export function KeyValueGrid({ items, columns = 3, bordered, className }: KeyValueGridProps) {
+  // dt/dd 는 dl 안에 있어야 스크린리더가 정의 목록으로 읽는다 — div 로는 그냥 텍스트다
   return (
-    <div
+    <dl
       className={cn(
         "grid gap-px",
         columnStyles[columns],
-        bordered && "border border-border rounded-lg overflow-hidden bg-border",
+        bordered && "border border-border rounded-xl overflow-hidden bg-border",
         !bordered && "gap-4",
         className,
       )}
@@ -64,17 +65,19 @@ export function KeyValueGrid({ items, columns = 3, bordered, className }: KeyVal
         <div
           key={item.key}
           className={cn(
-            "space-y-1 transition-colors duration-150",
+            "space-y-1 min-w-0 transition-colors duration-150",
             spanStyles[item.span ?? 1],
-            bordered ? "bg-white p-3" : "p-0",
+            bordered ? "bg-card p-3" : "p-0",
           )}
         >
-          <dt className="text-[10px] font-medium text-muted uppercase tracking-wider">
+          <dt className="text-[10px] font-medium text-muted uppercase tracking-wider truncate">
             {item.label}
           </dt>
-          <dd className="text-sm font-medium text-foreground rounded px-1 -mx-1 transition-colors duration-150 hover:bg-gray-50">{item.value}</dd>
+          <dd className="text-sm font-medium text-foreground break-words rounded-lg px-1 -mx-1 transition-colors duration-150 hover:bg-muted/10">
+            {item.value}
+          </dd>
         </div>
       ))}
-    </div>
+    </dl>
   );
 }

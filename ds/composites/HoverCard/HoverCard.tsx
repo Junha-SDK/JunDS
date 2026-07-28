@@ -67,8 +67,10 @@ export function HoverCard({
       {show && (
         <div
           className={cn(
-            "absolute z-50 w-64 p-4 bg-card rounded-xl shadow-lg border border-border",
-            "animate-fade-in",
+            "absolute z-50 w-64 p-4 bg-card rounded-xl border border-border",
+            // 떠 있는 카드에 그림자 한 겹은 유령처럼 보인다 — 확산 + 접지 두 겹에 얇은 링.
+            "shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35),0_4px_12px_-6px_rgba(0,0,0,0.2)] ring-1 ring-border/50",
+            "animate-fade-in motion-reduce:animate-none",
             sideStyles[side],
           )}
         >

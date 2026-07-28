@@ -69,6 +69,9 @@ export function Starfield({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // 화면 전체가 계속 반짝이고 유성이 가로지른다 — 감속 요청이면 한 장만 그리고 멈춘다
+    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+
     const dpr = window.devicePixelRatio || 1;
     let w: number;
     let h: number;
@@ -81,18 +84,19 @@ export function Starfield({
       stars.push({
         x: 0,
         y: 0,
-        r: bright
-          ? Math.random() * 1.0 + 1.2
-          : Math.random() * 1.2 + 0.15,
-        a: bright
-          ? Math.random() * 0.25 + 0.55
-          : Math.random() * 0.4 + 0.08,
+        r: bright ? Math.random() * 1.0 + 1.2 : Math.random() * 1.2 + 0.15,
+        a: bright ? Math.random() * 0.25 + 0.55 : Math.random() * 0.4 + 0.08,
         phase: Math.random() * TWO_PI,
         speed: Math.random() * 0.4 + 0.7,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
         bright,
       });
     }
+
+    let lastShoot = 0;
+    let t = 0;
+    let raf: number;
+    const intervalMs = shootingStarInterval * 1000;
 
     function resize() {
       const parent = canvas!.parentElement;
@@ -107,13 +111,10 @@ export function Starfield({
         s.x = Math.random() * w;
         s.y = Math.random() * h;
       }
+      // 정지 모드에선 rAF 루프가 없으니 리사이즈마다 한 장을 다시 그려야 한다
+      if (reduced) draw(0);
     }
     resize();
-
-    let lastShoot = 0;
-    let t = 0;
-    let raf: number;
-    const intervalMs = shootingStarInterval * 1000;
 
     function draw(now: number) {
       ctx!.clearRect(0, 0, w, h);
@@ -144,12 +145,10 @@ export function Starfield({
       }
 
       /* --- 유성 --- */
-      if (now - lastShoot > intervalMs) {
+      if (!reduced && now - lastShoot > intervalMs) {
         const left = Math.random() > 0.5;
         shootings.push({
-          x: left
-            ? Math.random() * w * 0.5
-            : w * 0.5 + Math.random() * w * 0.5,
+          x: left ? Math.random() * w * 0.5 : w * 0.5 + Math.random() * w * 0.5,
           y: Math.random() * h * 0.4,
           vx: (left ? 1 : -1) * (Math.random() * 3 + 5),
           vy: Math.random() * 1.5 + 1.5,
@@ -183,7 +182,7 @@ export function Starfield({
       }
 
       ctx!.globalAlpha = 1;
-      raf = requestAnimationFrame(draw);
+      if (!reduced) raf = requestAnimationFrame(draw);
     }
     raf = requestAnimationFrame(draw);
 
@@ -199,7 +198,8 @@ export function Starfield({
       className={cn("relative w-full h-full overflow-hidden", className)}
       style={{ backgroundColor }}
     >
-      <canvas ref={canvasRef} className="absolute inset-0" />
+      {/* 장식용 배경이다 — 스크린리더가 읽을 것이 없다 */}
+      <canvas ref={canvasRef} className="absolute inset-0 block" aria-hidden="true" />
     </div>
   );
 }

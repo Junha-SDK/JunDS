@@ -26,15 +26,29 @@
   --jds-spacing-mult: 1;
 }
 
-[data-density="compact"] .jds-density-text { font-size: 0.75rem; }
+[data-density="compact"] .jds-density-text {
+  font-size: 0.75rem;
+}
 [data-density="normal"] .jds-density-text,
-[data-density="comfortable"] .jds-density-text { font-size: 0.875rem; }
+[data-density="comfortable"] .jds-density-text {
+  font-size: 0.875rem;
+}
 
-[data-radius="none"] .jds-radius { border-radius: 0; }
-[data-radius="sm"] .jds-radius { border-radius: var(--jds-radius-md); }
-[data-radius="md"] .jds-radius { border-radius: var(--jds-radius-md); }
-[data-radius="lg"] .jds-radius { border-radius: var(--jds-radius-lg); }
-[data-radius="full"] .jds-radius { border-radius: 9999px; }
+[data-radius="none"] .jds-radius {
+  border-radius: 0;
+}
+[data-radius="sm"] .jds-radius {
+  border-radius: var(--jds-radius-md);
+}
+[data-radius="md"] .jds-radius {
+  border-radius: var(--jds-radius-md);
+}
+[data-radius="lg"] .jds-radius {
+  border-radius: var(--jds-radius-lg);
+}
+[data-radius="full"] .jds-radius {
+  border-radius: 9999px;
+}
 
 [data-radius="none"] input,
 [data-radius="none"] button,
@@ -43,29 +57,34 @@
 [data-radius="none"] .rounded-lg,
 [data-radius="none"] .rounded-xl,
 [data-radius="none"] .rounded-2xl,
-[data-radius="none"] .rounded-3xl { border-radius: 0 !important; }
+[data-radius="none"] .rounded-3xl {
+  border-radius: 0 !important;
+}
 
 [data-radius="full"] input,
 [data-radius="full"] button,
 [data-radius="full"] select,
-[data-radius="full"] textarea { border-radius: 9999px !important; }
+[data-radius="full"] textarea {
+  border-radius: 9999px !important;
+}
 
-.jds-spacing { gap: calc(var(--jds-spacing-mult) * 1rem); }
+.jds-spacing {
+  gap: calc(var(--jds-spacing-mult) * 1rem);
+}
 
 /* ─── Font families ──────────────────────────────────────────────────────
    `ds/tokens/fontFamily.ts` 와 값이 1:1 로 대응한다. 웹폰트(Pretendard /
    Noto Serif KR / Playfair Display / Caveat)는 호스트 앱이 로드하며, 없으면
    같은 계열의 시스템 폰트로 자연스럽게 떨어진다. */
 :root {
-  --font-sans: "Pretendard Variable", Pretendard, "Inter", "Noto Sans KR",
-    ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-serif: "Noto Serif KR", "Nanum Myeongjo", Georgia, "Times New Roman",
-    serif;
+  --font-sans: "Pretendard Variable", Pretendard, "Inter", "Noto Sans KR", ui-sans-serif,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  --font-serif: "Noto Serif KR", "Nanum Myeongjo", Georgia, "Times New Roman", serif;
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-hand: "Caveat", "Bradley Hand", "Segoe Script", cursive;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo,
-    Consolas, "Liberation Mono", monospace;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas,
+    "Liberation Mono", monospace;
 }
 
 /* ─── Content category accents ───────────────────────────────────────────
@@ -170,21 +189,45 @@
    rollup-plugin-postcss(minimize: cssnano)가 중첩을 이해하지 못해 자식
    선택자를 떨궈 버리고(베어 선언만 남음), 다크 모드 재도색 전체가 dist 에서
    소실되는 버그가 있었다 (Modal/CommandPalette 흰 패널). */
-[data-theme="dark"] .bg-white { background-color: var(--dm-surface); }
+[data-theme="dark"] .bg-white {
+  background-color: var(--dm-surface);
+}
 [data-theme="dark"] .bg-gray-50,
 [data-theme="dark"] .bg-gray-50\/50,
-[data-theme="dark"] .bg-gray-50\/80 { background-color: var(--dm-surface-raised); }
-[data-theme="dark"] .bg-gray-100 { background-color: var(--dm-surface-overlay); }
-[data-theme="dark"] .bg-gray-200 { background-color: #2a2744; }
-[data-theme="dark"] .bg-gray-900 { background-color: #08060f; }
-[data-theme="dark"] .text-foreground { color: var(--foreground); }
+[data-theme="dark"] .bg-gray-50\/80 {
+  background-color: var(--dm-surface-raised);
+}
+[data-theme="dark"] .bg-gray-100 {
+  background-color: var(--dm-surface-overlay);
+}
+[data-theme="dark"] .bg-gray-200 {
+  background-color: #2a2744;
+}
+[data-theme="dark"] .bg-gray-900 {
+  background-color: #08060f;
+}
+[data-theme="dark"] .text-foreground {
+  color: var(--foreground);
+}
 [data-theme="dark"] .text-gray-700,
-[data-theme="dark"] .text-gray-800 { color: #d0cee0; }
-[data-theme="dark"] .text-gray-600 { color: #a8a5be; }
-[data-theme="dark"] .text-gray-500 { color: #8885a0; }
-[data-theme="dark"] .text-gray-400 { color: #706d88; }
-[data-theme="dark"] .hover\:bg-gray-50:hover { background-color: var(--dm-surface-raised); }
-[data-theme="dark"] .hover\:bg-gray-100:hover { background-color: var(--dm-surface-overlay); }
+[data-theme="dark"] .text-gray-800 {
+  color: #d0cee0;
+}
+[data-theme="dark"] .text-gray-600 {
+  color: #a8a5be;
+}
+[data-theme="dark"] .text-gray-500 {
+  color: #8885a0;
+}
+[data-theme="dark"] .text-gray-400 {
+  color: #706d88;
+}
+[data-theme="dark"] .hover\:bg-gray-50:hover {
+  background-color: var(--dm-surface-raised);
+}
+[data-theme="dark"] .hover\:bg-gray-100:hover {
+  background-color: var(--dm-surface-overlay);
+}
 [data-theme="dark"] input,
 [data-theme="dark"] textarea,
 [data-theme="dark"] select {
@@ -193,12 +236,24 @@
   border-color: var(--border);
 }
 [data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder { color: var(--muted-light); }
-[data-theme="dark"] input[type="date"] { color-scheme: dark; }
-[data-theme="dark"] .border-border { border-color: var(--border); }
-[data-theme="dark"] .border-border-light { border-color: var(--border-light); }
-[data-theme="dark"] .divide-border > :not(:last-child) { border-color: var(--border); }
-[data-theme="dark"] .divide-border-light > :not(:last-child) { border-color: var(--border-light); }
+[data-theme="dark"] textarea::placeholder {
+  color: var(--muted-light);
+}
+[data-theme="dark"] input[type="date"] {
+  color-scheme: dark;
+}
+[data-theme="dark"] .border-border {
+  border-color: var(--border);
+}
+[data-theme="dark"] .border-border-light {
+  border-color: var(--border-light);
+}
+[data-theme="dark"] .divide-border > :not(:last-child) {
+  border-color: var(--border);
+}
+[data-theme="dark"] .divide-border-light > :not(:last-child) {
+  border-color: var(--border-light);
+}
 
 /* ─── Tailwind v4 utility registration ───────────────────────────────── */
 @theme inline {
@@ -238,21 +293,37 @@
 
 /* ─── Animations used by Modal/Toast/Tooltip ─────────────────────────── */
 @keyframes jds-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes jds-fade-in-scale {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
-.animate-fade-in { animation: jds-fade-in 0.18s ease-out; }
-.animate-fade-in-scale { animation: jds-fade-in-scale 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate-fade-in {
+  animation: jds-fade-in 0.18s ease-out;
+}
+.animate-fade-in-scale {
+  animation: jds-fade-in-scale 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 /* ─── useCodeCopy — 코드 블록에 주입되는 복사 버튼 ────────────────────────
    훅이 DOM 에 직접 만들어 붙이는 버튼이라 대응하는 React 컴포넌트가 없다.
    부모 <pre> 에 position 이 없으면 버튼이 페이지 구석으로 날아가므로 여기서
    같이 세워 준다. */
-:where(pre:has(> .jds-code-copy-btn)) { position: relative; }
+:where(pre:has(> .jds-code-copy-btn)) {
+  position: relative;
+}
 
 .jds-code-copy-btn {
   position: absolute;
@@ -271,13 +342,24 @@
   transition: opacity 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 pre:hover > .jds-code-copy-btn,
-.jds-code-copy-btn:focus-visible { opacity: 1; }
-.jds-code-copy-btn:hover { color: var(--foreground); border-color: var(--muted-light); }
-.jds-code-copy-btn.is-copied { opacity: 1; color: var(--success); border-color: var(--success); }
+.jds-code-copy-btn:focus-visible {
+  opacity: 1;
+}
+.jds-code-copy-btn:hover {
+  color: var(--foreground);
+  border-color: var(--muted-light);
+}
+.jds-code-copy-btn.is-copied {
+  opacity: 1;
+  color: var(--success);
+  border-color: var(--success);
+}
 
 /* 터치 기기에는 hover 가 없어 버튼이 영영 안 보인다 — 항상 노출한다 */
 @media (hover: none) {
-  .jds-code-copy-btn { opacity: 1; }
+  .jds-code-copy-btn {
+    opacity: 1;
+  }
 }
 
 /* ─── useRevealOnScroll — 스크롤 진입 등장 ───────────────────────────────
@@ -293,15 +375,30 @@ pre:hover > .jds-code-copy-btn,
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .jds-reveal { opacity: 1; transform: none; transition: none; }
+  .jds-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ─── Waveform — 재생 헤드 맥동 ──────────────────────────────────────── */
 @keyframes jds-waveform-pulse {
-  0%, 100% { opacity: 1; transform: scaleY(1); }
-  50% { opacity: 0.55; transform: scaleY(1.18); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scaleY(1.18);
+  }
 }
-.jds-waveform-head { animation: jds-waveform-pulse 0.9s ease-in-out infinite; }
+.jds-waveform-head {
+  animation: jds-waveform-pulse 0.9s ease-in-out infinite;
+}
 @media (prefers-reduced-motion: reduce) {
-  .jds-waveform-head { animation: none; }
+  .jds-waveform-head {
+    animation: none;
+  }
 }

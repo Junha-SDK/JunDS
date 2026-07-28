@@ -13,7 +13,7 @@ export default function PhotoUploaderPage() {
     >
       <Section title="Default">
         <Preview>
-          <PhotoUploader onAdd={()=>{}} />
+          <PhotoUploader onAdd={() => {}} />
         </Preview>
       </Section>
     </ComponentPage>

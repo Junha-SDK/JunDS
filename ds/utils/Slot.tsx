@@ -92,9 +92,7 @@ export const Slot = forwardRef<HTMLElement, SlotProps>(function Slot(
     const userElement = slottable.props.children;
     if (!isValidElement(userElement)) {
       if (process.env.NODE_ENV !== "production") {
-        console.warn(
-          "[junds/Slot] <Slottable> must wrap exactly one React element.",
-        );
+        console.warn("[junds/Slot] <Slottable> must wrap exactly one React element.");
       }
       return null;
     }
@@ -174,9 +172,7 @@ function isEventKey(key: string): boolean {
   return key.length > 2 && key.startsWith("on") && key[2] === key[2].toUpperCase();
 }
 
-function composeRefs<T>(
-  ...refs: Array<Ref<T> | undefined>
-): Ref<T> | undefined {
+function composeRefs<T>(...refs: Array<Ref<T> | undefined>): Ref<T> | undefined {
   const filtered = refs.filter(Boolean) as Array<Ref<T>>;
   if (filtered.length === 0) return undefined;
   if (filtered.length === 1) return filtered[0];

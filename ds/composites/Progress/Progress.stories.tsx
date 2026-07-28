@@ -63,11 +63,7 @@ export const Animated: Story = {
 export const Steps: Story = {
   render: () => (
     <div className="w-[420px]">
-      <ProgressSteps
-        current={2}
-        total={4}
-        labels={["접수", "진행", "검토", "완료"]}
-      />
+      <ProgressSteps current={2} total={4} labels={["접수", "진행", "검토", "완료"]} />
     </div>
   ),
 };

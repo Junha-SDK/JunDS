@@ -10,7 +10,12 @@ export default function TextPage() {
       description="프레임워크가 강제하는 본문 텍스트. raw <p>, <span> 대신 사용하여 일관된 크기·무게·색상을 보장합니다."
       importPath='import { Text } from "@junds/ui/core"'
       props={[
-        { name: "as", type: '"p"|"span"|"div"|"label"|"strong"|"em"|"small"', default: '"p"', description: "렌더링 태그" },
+        {
+          name: "as",
+          type: '"p"|"span"|"div"|"label"|"strong"|"em"|"small"',
+          default: '"p"',
+          description: "렌더링 태그",
+        },
         { name: "fontSize", type: "FontSizeToken", default: '"md"', description: "글자 크기" },
         { name: "fontWeight", type: "FontWeightToken", description: "글자 무게" },
         { name: "color", type: "ColorToken", description: "텍스트 색상" },
@@ -23,8 +28,10 @@ export default function TextPage() {
       <Section title="Size 스케일">
         <Preview>
           <VStack gap="xs">
-            {(["xs","sm","md","lg","xl","2xl"] as const).map(s => (
-              <Text key={s} fontSize={s}>Text fontSize=&quot;{s}&quot; — 디자인 시스템이 크기를 결정합니다</Text>
+            {(["xs", "sm", "md", "lg", "xl", "2xl"] as const).map((s) => (
+              <Text key={s} fontSize={s}>
+                Text fontSize=&quot;{s}&quot; — 디자인 시스템이 크기를 결정합니다
+              </Text>
             ))}
           </VStack>
         </Preview>
@@ -46,7 +53,8 @@ export default function TextPage() {
         <Preview>
           <div className="max-w-sm">
             <Text lineClamp={2}>
-              이 텍스트는 최대 2줄까지만 표시됩니다. 프레임워크가 말줄임을 자동으로 처리합니다. 더 긴 텍스트는 잘리고 ...으로 표시됩니다. 이렇게 길게 쓰면 2줄을 넘기게 됩니다.
+              이 텍스트는 최대 2줄까지만 표시됩니다. 프레임워크가 말줄임을 자동으로 처리합니다. 더
+              긴 텍스트는 잘리고 ...으로 표시됩니다. 이렇게 길게 쓰면 2줄을 넘기게 됩니다.
             </Text>
           </div>
         </Preview>

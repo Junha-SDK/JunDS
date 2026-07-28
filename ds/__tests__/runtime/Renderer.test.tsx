@@ -11,9 +11,7 @@ function makeDoc(tree: PageDoc["tree"]): PageDoc {
 
 describe("Renderer", () => {
   it("renders a Button with text children", () => {
-    const doc = makeDoc([
-      { id: "n1", componentId: "Button", children: "Click me" },
-    ]);
+    const doc = makeDoc([{ id: "n1", componentId: "Button", children: "Click me" }]);
     render(<Renderer doc={doc} />);
     expect(screen.getByRole("button", { name: "Click me" })).toBeInTheDocument();
   });
@@ -50,9 +48,7 @@ describe("Renderer", () => {
         },
       },
     ]);
-    const { container } = render(
-      <Renderer doc={doc} scope={{ tone: "success" }} />,
-    );
+    const { container } = render(<Renderer doc={doc} scope={{ tone: "success" }} />);
     const el = container.querySelector("span");
     expect(el).not.toBeNull();
   });
@@ -90,12 +86,7 @@ describe("Renderer", () => {
       },
     ]);
     render(
-      <Renderer
-        doc={doc}
-        mode="design"
-        actions={{ navigate }}
-        onDesignEvent={onDesignEvent}
-      />,
+      <Renderer doc={doc} mode="design" actions={{ navigate }} onDesignEvent={onDesignEvent} />,
     );
     fireEvent.click(screen.getByRole("button", { name: "Go" }));
     expect(navigate).not.toHaveBeenCalled();
@@ -105,8 +96,6 @@ describe("Renderer", () => {
   it("renders a placeholder for unknown components in design mode", () => {
     const doc = makeDoc([{ id: "n1", componentId: "DoesNotExist" }]);
     const { container } = render(<Renderer doc={doc} mode="design" />);
-    expect(
-      container.querySelector("[data-junds-unknown='DoesNotExist']"),
-    ).toBeInTheDocument();
+    expect(container.querySelector("[data-junds-unknown='DoesNotExist']")).toBeInTheDocument();
   });
 });

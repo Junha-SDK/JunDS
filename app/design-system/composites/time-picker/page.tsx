@@ -16,11 +16,21 @@ export default function TimePickerPage() {
       importPath='import { TimePicker } from "@/ds/composites/TimePicker"'
       props={[
         { name: "value", type: "string", description: "HH:mm 형식의 시간 값" },
-        { name: "onChange", type: "(time: string) => void", required: true, description: "시간 변경 콜백" },
+        {
+          name: "onChange",
+          type: "(time: string) => void",
+          required: true,
+          description: "시간 변경 콜백",
+        },
         { name: "format", type: '"12h" | "24h"', default: '"24h"', description: "시간 형식" },
         { name: "minuteStep", type: "number", default: "1", description: "분 단위 간격" },
         { name: "disabled", type: "boolean", default: "false", description: "비활성화 상태" },
-        { name: "placeholder", type: "string", default: '"시간 선택"', description: "플레이스홀더" },
+        {
+          name: "placeholder",
+          type: "string",
+          default: '"시간 선택"',
+          description: "플레이스홀더",
+        },
       ]}
     >
       <Section title="24시간 형식">

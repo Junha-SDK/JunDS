@@ -13,7 +13,11 @@ export default function FormFieldPage() {
       props={[
         { name: "label", type: "string", description: "필드 상단 라벨" },
         { name: "required", type: "boolean", description: "필수 표시(*) 여부" },
-        { name: "error", type: "string", description: "에러 메시지. 존재하면 hint 대신 표시됩니다." },
+        {
+          name: "error",
+          type: "string",
+          description: "에러 메시지. 존재하면 hint 대신 표시됩니다.",
+        },
         { name: "hint", type: "string", description: "보조 설명 텍스트" },
         { name: "htmlFor", type: "string", description: "라벨이 가리킬 input id" },
         { name: "children", type: "ReactNode", description: "Input 등 폼 컨트롤" },

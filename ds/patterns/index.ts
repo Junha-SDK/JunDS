@@ -8,7 +8,12 @@ export { CommandPalette } from "./CommandPalette";
 export type { CommandPaletteProps, CommandItem } from "./CommandPalette";
 
 export { DsSidebarProvider, useSidebar, DsSidebar, SidebarLink, SidebarSection } from "./Sidebar";
-export type { SidebarProviderProps, SidebarProps, SidebarLinkProps, SidebarSectionProps } from "./Sidebar";
+export type {
+  SidebarProviderProps,
+  SidebarProps,
+  SidebarLinkProps,
+  SidebarSectionProps,
+} from "./Sidebar";
 
 export { DsCalendar } from "./Calendar";
 export type { CalendarProps, CalendarEvent } from "./Calendar";
@@ -32,7 +37,14 @@ export { VirtualList } from "./VirtualList";
 export type { VirtualListProps } from "./VirtualList";
 
 export { ChartCard } from "./ChartCard";
-export type { ChartCardProps, ChartDataPoint, ChartSegment, ChartTone, ChartTrend, ChartType } from "./ChartCard";
+export type {
+  ChartCardProps,
+  ChartDataPoint,
+  ChartSegment,
+  ChartTone,
+  ChartTrend,
+  ChartType,
+} from "./ChartCard";
 
 export { NotificationCenter } from "./NotificationCenter";
 export type { NotificationCenterProps, NotificationItem } from "./NotificationCenter";

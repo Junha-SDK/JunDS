@@ -22,11 +22,7 @@ export default function BookCardPage() {
       <Section title="기본">
         <Preview>
           <div className="max-w-[180px]">
-            <BookCard
-              title="디자인 시스템 구축하기"
-              author="김디자인"
-              kind="기술서"
-            />
+            <BookCard title="디자인 시스템 구축하기" author="김디자인" kind="기술서" />
           </div>
         </Preview>
       </Section>
@@ -34,17 +30,8 @@ export default function BookCardPage() {
       <Section title="잠금 상태">
         <Preview>
           <div className="grid grid-cols-2 gap-4 max-w-[400px]">
-            <BookCard
-              title="공개된 챕터"
-              author="이작가"
-              kind="소설"
-            />
-            <BookCard
-              title="프리미엄 콘텐츠"
-              author="박작가"
-              kind="에세이"
-              locked
-            />
+            <BookCard title="공개된 챕터" author="이작가" kind="소설" />
+            <BookCard title="프리미엄 콘텐츠" author="박작가" kind="에세이" locked />
           </div>
         </Preview>
       </Section>
@@ -52,27 +39,10 @@ export default function BookCardPage() {
       <Section title="다양한 카드">
         <Preview>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <BookCard
-              title="리액트 완벽 가이드"
-              author="김리액트"
-              kind="기술서"
-            />
-            <BookCard
-              title="밤의 도서관"
-              author="최소설"
-              kind="소설"
-            />
-            <BookCard
-              title="커피 한 잔의 여유"
-              author="정에세이"
-              kind="에세이"
-              locked
-            />
-            <BookCard
-              title="우주의 끝에서"
-              author="한SF"
-              kind="SF"
-            />
+            <BookCard title="리액트 완벽 가이드" author="김리액트" kind="기술서" />
+            <BookCard title="밤의 도서관" author="최소설" kind="소설" />
+            <BookCard title="커피 한 잔의 여유" author="정에세이" kind="에세이" locked />
+            <BookCard title="우주의 끝에서" author="한SF" kind="SF" />
           </div>
         </Preview>
       </Section>

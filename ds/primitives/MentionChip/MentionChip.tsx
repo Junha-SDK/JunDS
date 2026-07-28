@@ -3,7 +3,8 @@ import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { AnchorHTMLAttributes } from "react";
 
-export interface MentionChipProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children"> {
+export interface MentionChipProps
+  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children"> {
   /** @ 없는 사용자 핸들 (예: "junha") */
   handle: string;
   /** 표시 라벨 (기본 @handle) */
@@ -26,14 +27,18 @@ export const MentionChip = forwardRef<HTMLAnchorElement, MentionChipProps>(
     <a
       ref={ref}
       className={cn(
-        "inline-flex items-center gap-0.5 text-primary hover:underline font-medium",
+        "inline-flex items-center gap-0.5 text-primary-ink hover:underline font-medium",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm",
         className,
       )}
       {...props}
     >
       <span>{label ?? `@${handle}`}</span>
-      {verified && <span aria-label="인증됨" className="text-[11px]">✓</span>}
+      {verified && (
+        <span aria-label="인증됨" className="text-[11px]">
+          ✓
+        </span>
+      )}
     </a>
   ),
 );

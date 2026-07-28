@@ -3,7 +3,14 @@ import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import type { HTMLAttributes, ReactNode } from "react";
 
-export type BadgeVariant = "default" | "primary" | "success" | "warning" | "danger" | "info" | "outline";
+export type BadgeVariant =
+  | "default"
+  | "primary"
+  | "success"
+  | "warning"
+  | "danger"
+  | "info"
+  | "outline";
 export type BadgeSize = "sm" | "md" | "lg";
 
 /**
@@ -71,29 +78,31 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   icon?: ReactNode;
 }
 
+// default·info 만 Tailwind 팔레트를 직접 쓰고 있었다 — 나머지 5종처럼 의미색으로
+// 맞춰야 다크에서도 같은 계열로 어두워진다
 const variantStyles: Record<BadgeVariant, string> = {
-  default: "bg-gray-500/10 text-gray-700 shadow-[0_0_0_1px_inset_rgba(0,0,0,0.06)]",
-  primary: "bg-primary/10 text-primary shadow-[0_0_0_1px_inset] shadow-primary/15",
+  default: "bg-muted/10 text-muted shadow-[0_0_0_1px_inset] shadow-muted/15",
+  primary: "bg-primary/10 text-primary-ink shadow-[0_0_0_1px_inset] shadow-primary/15",
   success: "bg-success/10 text-success shadow-[0_0_0_1px_inset] shadow-success/15",
   warning: "bg-warning/10 text-warning shadow-[0_0_0_1px_inset] shadow-warning/15",
   danger: "bg-danger/10 text-danger shadow-[0_0_0_1px_inset] shadow-danger/15",
-  info: "bg-blue-500/10 text-blue-700 shadow-[0_0_0_1px_inset] shadow-blue-500/15",
+  info: "bg-info/10 text-info shadow-[0_0_0_1px_inset] shadow-info/15",
   outline: "bg-transparent border border-border text-foreground",
 };
 
 const sizeStyles: Record<BadgeSize, string> = {
-  sm: "px-2 py-0.5 text-[10px] rounded-md",
+  sm: "px-2 py-0.5 text-[10px] rounded-lg",
   md: "px-2.5 py-1 text-xs rounded-lg",
   lg: "px-3 py-1 text-sm rounded-lg",
 };
 
 const dotColors: Record<BadgeVariant, string> = {
-  default: "bg-gray-400",
+  default: "bg-muted-light",
   primary: "bg-primary",
   success: "bg-success",
   warning: "bg-warning",
   danger: "bg-danger",
-  info: "bg-blue-500",
+  info: "bg-info",
   outline: "bg-foreground",
 };
 
@@ -109,17 +118,20 @@ const dotColors: Record<BadgeVariant, string> = {
  * @since 2.2.0
  * @tags data-display
  */
-export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge({
-  variant = "default",
-  size = "md",
-  dot,
-  count,
-  maxCount = 99,
-  icon,
-  className,
-  children,
-  ...props
-}, ref) {
+export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
+  {
+    variant = "default",
+    size = "md",
+    dot,
+    count,
+    maxCount = 99,
+    icon,
+    className,
+    children,
+    ...props
+  },
+  ref,
+) {
   if (count !== undefined) {
     const display = count > maxCount ? `${maxCount}+` : count;
     return (
@@ -127,8 +139,8 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge({
         ref={ref}
         className={cn(
           "inline-flex items-center justify-center rounded-full font-semibold tabular-nums",
-          "min-w-[18px] h-[18px] px-1 text-[10px]",
-          "bg-danger text-white",
+          "min-w-[18px] h-[18px] px-1 text-[10px] whitespace-nowrap",
+          "bg-danger text-white shadow-[0_1px_2px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.2)]",
           className,
         )}
         {...props}

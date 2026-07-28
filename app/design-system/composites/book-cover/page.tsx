@@ -13,7 +13,13 @@ export default function BookCoverPage() {
     >
       <Section title="Default">
         <Preview>
-          <BookCover title="모비 딕" author="허먼 멜빌" size="lg" effect="tilt" hue="from-slate-700 to-slate-900" />
+          <BookCover
+            title="모비 딕"
+            author="허먼 멜빌"
+            size="lg"
+            effect="tilt"
+            hue="from-slate-700 to-slate-900"
+          />
         </Preview>
       </Section>
     </ComponentPage>

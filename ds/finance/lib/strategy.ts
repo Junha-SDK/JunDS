@@ -126,13 +126,23 @@ export function strategyFor(name: string): StrategySnapshot {
   // 사용자에게 보여줄 자연어 근거
   const reasons: string[] = [];
   reasons.push(
-    `시작 점수 ${BASE}점 + 등락률 ${change >= 0 ? "+" : ""}${change.toFixed(2)}% × ${CHANGE_WEIGHT} = ${changeContribution >= 0 ? "+" : ""}${changeContribution.toFixed(1)}점`,
+    `시작 점수 ${BASE}점 + 등락률 ${change >= 0 ? "+" : ""}${change.toFixed(
+      2,
+    )}% × ${CHANGE_WEIGHT} = ${changeContribution >= 0 ? "+" : ""}${changeContribution.toFixed(
+      1,
+    )}점`,
   );
   reasons.push(
-    `손익비 ${rr.toFixed(2)} : 1 × ${RR_WEIGHT} = ${rrContribution >= 0 ? "+" : ""}${rrContribution.toFixed(1)}점 (T2 ${t2.toLocaleString("ko-KR")} ↗ vs SL ${stop.toLocaleString("ko-KR")} ↘ 기준)`,
+    `손익비 ${rr.toFixed(2)} : 1 × ${RR_WEIGHT} = ${
+      rrContribution >= 0 ? "+" : ""
+    }${rrContribution.toFixed(1)}점 (T2 ${t2.toLocaleString("ko-KR")} ↗ vs SL ${stop.toLocaleString(
+      "ko-KR",
+    )} ↘ 기준)`,
   );
   reasons.push(
-    `합계 ${rawTotal.toFixed(1)}점 → 0~100 클램프 후 ${score.toFixed(0)}점 → "${recommendation}" 판정 (≥80 강력매수 / ≥62 매수 / ≤38 매도 / ≤20 강력매도)`,
+    `합계 ${rawTotal.toFixed(1)}점 → 0~100 클램프 후 ${score.toFixed(
+      0,
+    )}점 → "${recommendation}" 판정 (≥80 강력매수 / ≥62 매수 / ≤38 매도 / ≤20 강력매도)`,
   );
 
   const notes: string[] = [];
@@ -143,7 +153,8 @@ export function strategyFor(name: string): StrategySnapshot {
   else notes.push("약세 흐름. 손절선 이탈 시 추가 하락 가능 — 보수적 접근");
 
   if (rr >= 2.5) notes.push(`목표 대비 위험 비율 ${rr.toFixed(1)} : 1 — 매력적 손익비`);
-  else if (rr < 1.2) notes.push(`목표 대비 위험 비율 ${rr.toFixed(1)} : 1 — 손익비 낮음, 분할 진입`);
+  else if (rr < 1.2)
+    notes.push(`목표 대비 위험 비율 ${rr.toFixed(1)} : 1 — 손익비 낮음, 분할 진입`);
 
   return {
     current,

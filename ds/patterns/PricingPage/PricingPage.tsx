@@ -35,7 +35,17 @@ export interface PricingPageProps extends Omit<HTMLAttributes<HTMLDivElement>, "
  * @tags marketing
  */
 export const PricingPage = forwardRef<HTMLDivElement, PricingPageProps>(function PricingPage(
-  { title, description, monthlyPlans, yearlyPlans, toggleLabels, faqs, footerCta, className, ...props },
+  {
+    title,
+    description,
+    monthlyPlans,
+    yearlyPlans,
+    toggleLabels,
+    faqs,
+    footerCta,
+    className,
+    ...props
+  },
   ref,
 ) {
   const [yearly, setYearly] = useState(false);
@@ -47,22 +57,23 @@ export const PricingPage = forwardRef<HTMLDivElement, PricingPageProps>(function
   const plans = yearly && yearlyPlans ? yearlyPlans : monthlyPlans;
 
   return (
-    <div
-      ref={ref}
-      className={cn("max-w-6xl mx-auto px-4 py-10 sm:py-16", className)}
-      {...props}
-    >
+    <div ref={ref} className={cn("max-w-6xl mx-auto px-4 py-10 sm:py-16", className)} {...props}>
       <div className="text-center mb-10">
         {title && <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{title}</h1>}
-        {description && <p className="mt-3 text-base text-muted max-w-2xl mx-auto">{description}</p>}
+        {description && (
+          <p className="mt-3 text-base text-muted max-w-2xl mx-auto">{description}</p>
+        )}
         {yearlyPlans && (
           <div className="mt-6 inline-flex items-center gap-1 rounded-full border border-border bg-surface p-1">
             <button
               type="button"
               onClick={() => setYearly(false)}
               className={cn(
-                "px-4 py-1.5 text-sm rounded-full transition-colors cursor-pointer",
-                !yearly ? "bg-primary text-white" : "text-foreground hover:bg-surface-soft",
+                "px-4 py-1.5 text-sm rounded-full transition-colors duration-150 cursor-pointer",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+                !yearly
+                  ? "bg-primary text-white shadow-[0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)]"
+                  : "text-foreground hover:bg-surface-soft",
               )}
             >
               {labels.monthly}
@@ -71,14 +82,20 @@ export const PricingPage = forwardRef<HTMLDivElement, PricingPageProps>(function
               type="button"
               onClick={() => setYearly(true)}
               className={cn(
-                "px-4 py-1.5 text-sm rounded-full transition-colors flex items-center gap-2 cursor-pointer",
-                yearly ? "bg-primary text-white" : "text-foreground hover:bg-surface-soft",
+                "px-4 py-1.5 text-sm rounded-full transition-colors duration-150 flex items-center gap-2 cursor-pointer",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+                yearly
+                  ? "bg-primary text-white shadow-[0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)]"
+                  : "text-foreground hover:bg-surface-soft",
               )}
             >
               {labels.yearly}
-              <span className={cn("text-[10px] font-semibold rounded-full px-1.5 py-0.5",
-                yearly ? "bg-white/20" : "bg-success/10 text-success",
-              )}>
+              <span
+                className={cn(
+                  "text-[10px] font-semibold rounded-full px-1.5 py-0.5 whitespace-nowrap",
+                  yearly ? "bg-white/20" : "bg-success/10 text-success",
+                )}
+              >
                 {labels.saveLabel}
               </span>
             </button>
@@ -93,10 +110,16 @@ export const PricingPage = forwardRef<HTMLDivElement, PricingPageProps>(function
           <h2 className="text-2xl font-semibold text-center mb-6">자주 묻는 질문</h2>
           <div className="max-w-2xl mx-auto space-y-3">
             {faqs.map((f, i) => (
-              <details key={i} className="rounded-lg border border-border bg-surface p-4 group">
-                <summary className="cursor-pointer font-medium list-none flex items-center justify-between">
-                  <span>{f.question}</span>
-                  <span className="text-muted group-open:rotate-180 transition-transform">⌄</span>
+              <details
+                key={i}
+                className="rounded-xl border border-border bg-surface p-4 group shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
+              >
+                {/* <summary> 는 실제로 포커스를 받는다 — 링이 없으면 키보드로 어디를 펼치는지 알 수 없다 */}
+                <summary className="cursor-pointer font-medium list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-4 focus-visible:ring-offset-surface">
+                  <span className="min-w-0">{f.question}</span>
+                  <span className="text-muted shrink-0 group-open:rotate-180 transition-transform duration-200 motion-reduce:transition-none">
+                    ⌄
+                  </span>
                 </summary>
                 <div className="mt-3 text-sm text-muted">{f.answer}</div>
               </details>
@@ -105,9 +128,7 @@ export const PricingPage = forwardRef<HTMLDivElement, PricingPageProps>(function
         </section>
       )}
 
-      {footerCta && (
-        <section className="mt-16 text-center">{footerCta}</section>
-      )}
+      {footerCta && <section className="mt-16 text-center">{footerCta}</section>}
     </div>
   );
 });

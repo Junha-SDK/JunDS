@@ -15,7 +15,11 @@ export default function PinInputPage() {
         { name: "length", type: "number", default: "6", description: "자릿수" },
         { name: "masked", type: "boolean", description: "마스킹 (●)" },
         { name: "numeric", type: "boolean", default: "true", description: "숫자만 허용" },
-        { name: "onComplete", type: "(value: string) => void", description: "모든 자리 입력 완료 시" },
+        {
+          name: "onComplete",
+          type: "(value: string) => void",
+          description: "모든 자리 입력 완료 시",
+        },
         { name: "error", type: "boolean", description: "에러 상태" },
       ]}
     >

@@ -18,7 +18,7 @@ export interface SpinnerProps {
 
 const sizeMap: Record<SpinnerSize, number> = { xs: 14, sm: 16, md: 20, lg: 28 };
 const colorMap: Record<SpinnerColor, string> = {
-  primary: "text-primary",
+  primary: "text-primary-ink",
   white: "text-white",
   muted: "text-muted",
 };
@@ -31,12 +31,16 @@ const colorMap: Record<SpinnerColor, string> = {
  * @since 2.2.0
  * @tags feedback
  */
-export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(function Spinner({ size = "md", color = "primary", className, label = "로딩 중" }, ref) {
+export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(function Spinner(
+  { size = "md", color = "primary", className, label = "로딩 중" },
+  ref,
+) {
   const s = sizeMap[size];
   return (
     <svg
       ref={ref}
-      className={cn("animate-spin", colorMap[color], className)}
+      // 회전은 움직임이다 — 감속 요청이면 멈춘 링으로 남되 role=status 는 그대로 알린다
+      className={cn("animate-spin motion-reduce:animate-none", colorMap[color], className)}
       width={s}
       height={s}
       viewBox="0 0 24 24"

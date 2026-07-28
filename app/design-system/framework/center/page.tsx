@@ -9,9 +9,7 @@ export default function CenterPage() {
       name="Center"
       description="콘텐츠를 수평·수직 중앙 정렬하는 컴포넌트."
       importPath='import { Center } from "@junds/ui/core"'
-      props={[
-        { name: "...", type: "BoxProps", description: "Box의 모든 스타일 props 사용 가능" },
-      ]}
+      props={[{ name: "...", type: "BoxProps", description: "Box의 모든 스타일 props 사용 가능" }]}
     >
       <Section title="기본 사용">
         <Preview>

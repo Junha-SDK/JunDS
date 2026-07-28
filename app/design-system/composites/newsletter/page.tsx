@@ -13,7 +13,12 @@ export default function NewsletterPage() {
     >
       <Section title="Default">
         <Preview>
-          <Newsletter title="업데이트 받기" description="주간 소식을 이메일로 받아보세요" variant="card" requireConsent />
+          <Newsletter
+            title="업데이트 받기"
+            description="주간 소식을 이메일로 받아보세요"
+            variant="card"
+            requireConsent
+          />
         </Preview>
       </Section>
     </ComponentPage>

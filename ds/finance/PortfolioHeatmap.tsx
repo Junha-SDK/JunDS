@@ -15,19 +15,19 @@ interface Holding {
 }
 
 const SEED: Holding[] = [
-  { name: "삼성전자",       qty: 220,  avg: 88_400,  current: 98_400,  pct: 6.5 },
-  { name: "SK하이닉스",    qty: 35,   avg: 245_000, current: 281_500, pct: 7.4 },
-  { name: "삼성SDI",        qty: 18,   avg: 470_000, current: 498_000, pct: 6.8 },
-  { name: "LG에너지솔루션", qty: 22,   avg: 380_000, current: 376_393, pct: -1.2 },
-  { name: "에코프로비엠",   qty: 28,   avg: 195_000, current: 183_890, pct: -2.7 },
-  { name: "한미반도체",    qty: 40,   avg: 102_000, current: 118_500, pct: 9.6 },
-  { name: "SKC",             qty: 25,   avg: 138_000, current: 152_300, pct: 7.8 },
-  { name: "현대차",          qty: 30,   avg: 232_000, current: 248_500, pct: 4.2 },
-  { name: "POSCO홀딩스",     qty: 12,   avg: 398_000, current: 412_000, pct: 3.6 },
-  { name: "카카오",          qty: 60,   avg: 60_500,  current: 64_800,  pct: 4.8 },
-  { name: "두산에너빌리티",  qty: 80,   avg: 35_400,  current: 38_400,  pct: 5.9 },
-  { name: "유안타증권",      qty: 200,  avg: 6_700,   current: 7_762,   pct: 28.9 },
-  { name: "KBI메탈",         qty: 350,  avg: 7_400,   current: 8_603,   pct: 29.8 },
+  { name: "삼성전자", qty: 220, avg: 88_400, current: 98_400, pct: 6.5 },
+  { name: "SK하이닉스", qty: 35, avg: 245_000, current: 281_500, pct: 7.4 },
+  { name: "삼성SDI", qty: 18, avg: 470_000, current: 498_000, pct: 6.8 },
+  { name: "LG에너지솔루션", qty: 22, avg: 380_000, current: 376_393, pct: -1.2 },
+  { name: "에코프로비엠", qty: 28, avg: 195_000, current: 183_890, pct: -2.7 },
+  { name: "한미반도체", qty: 40, avg: 102_000, current: 118_500, pct: 9.6 },
+  { name: "SKC", qty: 25, avg: 138_000, current: 152_300, pct: 7.8 },
+  { name: "현대차", qty: 30, avg: 232_000, current: 248_500, pct: 4.2 },
+  { name: "POSCO홀딩스", qty: 12, avg: 398_000, current: 412_000, pct: 3.6 },
+  { name: "카카오", qty: 60, avg: 60_500, current: 64_800, pct: 4.8 },
+  { name: "두산에너빌리티", qty: 80, avg: 35_400, current: 38_400, pct: 5.9 },
+  { name: "유안타증권", qty: 200, avg: 6_700, current: 7_762, pct: 28.9 },
+  { name: "KBI메탈", qty: 350, avg: 7_400, current: 8_603, pct: 29.8 },
 ];
 
 function tickHoldings(prev: Holding[], jitter: () => number): Holding[] {
@@ -66,14 +66,8 @@ export function PortfolioHeatmap({
     return () => clearInterval(id);
   }, []);
 
-  const totalEval = useMemo(
-    () => holdings.reduce((s, h) => s + h.qty * h.current, 0),
-    [holdings],
-  );
-  const totalCost = useMemo(
-    () => holdings.reduce((s, h) => s + h.qty * h.avg, 0),
-    [holdings],
-  );
+  const totalEval = useMemo(() => holdings.reduce((s, h) => s + h.qty * h.current, 0), [holdings]);
+  const totalCost = useMemo(() => holdings.reduce((s, h) => s + h.qty * h.avg, 0), [holdings]);
   const dayPnL = useMemo(
     () =>
       holdings.reduce((s, h) => {
@@ -141,7 +135,8 @@ function Stat({
   sub?: string;
   tone?: "up" | "down";
 }) {
-  const color = tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
+  const color =
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
   return (
     <div className="flex flex-col items-end leading-tight">
       <span className="text-[10px] font-extrabold" style={{ color: "var(--bm-muted)" }}>

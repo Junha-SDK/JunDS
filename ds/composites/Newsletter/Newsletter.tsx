@@ -5,7 +5,8 @@ import type { HTMLAttributes, ReactNode } from "react";
 
 export type NewsletterStatus = "idle" | "submitting" | "success" | "error";
 
-export interface NewsletterProps extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "onSubmit"> {
+export interface NewsletterProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "title" | "onSubmit"> {
   /** 제목 */
   title?: ReactNode;
   /** 부제 */
@@ -84,7 +85,13 @@ export const Newsletter = forwardRef<HTMLDivElement, NewsletterProps>(function N
   };
 
   const inner = (
-    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-3", variant === "inline" && "sm:flex-row sm:gap-2 sm:items-center")}>
+    <form
+      onSubmit={handleSubmit}
+      className={cn(
+        "flex flex-col gap-3",
+        variant === "inline" && "sm:flex-row sm:gap-2 sm:items-center",
+      )}
+    >
       <div className={cn("flex gap-2", variant === "inline" ? "sm:flex-1" : "flex-col")}>
         <input
           type="email"
@@ -93,7 +100,7 @@ export const Newsletter = forwardRef<HTMLDivElement, NewsletterProps>(function N
           onChange={(e) => setEmail(e.target.value)}
           placeholder={placeholder}
           aria-label="이메일"
-          className="flex-1 rounded-md border border-border bg-surface px-3 py-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex-1 rounded-md border border-border bg-surface px-3 py-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55"
         />
         {variant === "inline" && (
           <button
@@ -116,13 +123,30 @@ export const Newsletter = forwardRef<HTMLDivElement, NewsletterProps>(function N
       )}
       {requireConsent && (
         <label className="flex items-start gap-2 text-xs text-muted">
-          <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 accent-primary" />
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            className="mt-0.5 accent-primary"
+          />
           <span>{consentLabel ?? "개인정보 수집·이용에 동의합니다"}</span>
         </label>
       )}
-      {error && <div role="alert" className="text-xs text-danger">{error}</div>}
-      {status === "success" && <div role="status" className="text-xs text-success">{successMessage}</div>}
-      {status === "error" && <div role="alert" className="text-xs text-danger">{errorMessage}</div>}
+      {error && (
+        <div role="alert" className="text-xs text-danger">
+          {error}
+        </div>
+      )}
+      {status === "success" && (
+        <div role="status" className="text-xs text-success">
+          {successMessage}
+        </div>
+      )}
+      {status === "error" && (
+        <div role="alert" className="text-xs text-danger">
+          {errorMessage}
+        </div>
+      )}
     </form>
   );
 

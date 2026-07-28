@@ -13,7 +13,14 @@ export default function PollCardPage() {
     >
       <Section title="Default">
         <Preview>
-          <PollCard question="가장 좋아하는 디자인 시스템은?" options={[{id:"a",label:"JunDS",votes:42},{id:"b",label:"기타",votes:8}]} closesIn="2일 남음" />
+          <PollCard
+            question="가장 좋아하는 디자인 시스템은?"
+            options={[
+              { id: "a", label: "JunDS", votes: 42 },
+              { id: "b", label: "기타", votes: 8 },
+            ]}
+            closesIn="2일 남음"
+          />
         </Preview>
       </Section>
     </ComponentPage>

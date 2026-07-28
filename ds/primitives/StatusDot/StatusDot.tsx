@@ -20,8 +20,10 @@ const statusColors: Record<StatusDotStatus, string> = {
   warning: "bg-warning",
   danger: "bg-danger",
   info: "bg-primary",
-  neutral: "bg-gray-400",
-  pulse: "bg-success animate-pulse",
+  // gray-400 은 다크에서 무너진다 — muted-light 가 두 모드 모두에서 "상태 없음"으로 읽힌다
+  neutral: "bg-muted-light",
+  // 깜빡임은 움직임이다 — 감속 요청을 받으면 색만 남긴다
+  pulse: "bg-success animate-pulse motion-reduce:animate-none",
 };
 
 const sizeMap = {
@@ -39,7 +41,10 @@ const sizeMap = {
  * @since 2.2.0
  * @tags data-display
  */
-export const StatusDot = forwardRef<HTMLSpanElement, StatusDotProps>(function StatusDot({ status = "neutral", label, size = "md", className }, ref) {
+export const StatusDot = forwardRef<HTMLSpanElement, StatusDotProps>(function StatusDot(
+  { status = "neutral", label, size = "md", className },
+  ref,
+) {
   return (
     <span ref={ref} className={cn("inline-flex items-center gap-1.5", className)}>
       <span className={cn("rounded-full shrink-0", statusColors[status], sizeMap[size])} />

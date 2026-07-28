@@ -3,8 +3,7 @@
 import { forwardRef, useMemo, useRef, type CSSProperties, type HTMLAttributes } from "react";
 import { cn } from "../../utils/cn";
 
-export interface WaveformProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onSeek"> {
+export interface WaveformProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSeek"> {
   /**
    * 파형을 만들 시드 문자열 (곡 슬러그·제목 등).
    * 같은 시드는 언제나 같은 파형을 만든다.
@@ -95,10 +94,7 @@ export const Waveform = forwardRef<HTMLDivElement, WaveformProps>(function Wavef
   },
   ref,
 ) {
-  const heights = useMemo(
-    () => peaks ?? makeBars(seed, bars),
-    [peaks, seed, bars],
-  );
+  const heights = useMemo(() => peaks ?? makeBars(seed, bars), [peaks, seed, bars]);
   const innerRef = useRef<HTMLDivElement | null>(null);
 
   const clamped = Math.max(0, Math.min(1, progress));
@@ -159,7 +155,8 @@ export const Waveform = forwardRef<HTMLDivElement, WaveformProps>(function Wavef
       }}
       className={cn(
         "flex items-end gap-[2px] select-none",
-        interactive && "cursor-pointer touch-none focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4",
+        interactive &&
+          "cursor-pointer touch-none focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4",
         className,
       )}
       style={{ height, ...style }}

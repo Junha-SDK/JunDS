@@ -23,7 +23,9 @@ const HEIGHTS = [120, 180, 140, 200, 160, 220, 130, 190, 150, 170, 210, 140];
 function Card({ index, height }: { index: number; height: number }) {
   return (
     <div
-      className={`rounded-xl bg-gradient-to-br ${COLORS[index % COLORS.length]} p-4 flex flex-col justify-between text-white shadow-md`}
+      className={`rounded-xl bg-gradient-to-br ${
+        COLORS[index % COLORS.length]
+      } p-4 flex flex-col justify-between text-white shadow-md`}
       style={{ height }}
     >
       <span className="text-xs font-medium opacity-70">Card {index + 1}</span>
@@ -59,7 +61,9 @@ export default function MasonryGridPage() {
         <Preview>
           <div className="space-y-6">
             <div>
-              <p className="text-xs font-semibold text-muted mb-2 uppercase tracking-wide">2 Columns</p>
+              <p className="text-xs font-semibold text-muted mb-2 uppercase tracking-wide">
+                2 Columns
+              </p>
               <MasonryGrid columns={2} gap={10}>
                 {HEIGHTS.slice(0, 6).map((h, i) => (
                   <Card key={i} index={i} height={h} />
@@ -67,7 +71,9 @@ export default function MasonryGridPage() {
               </MasonryGrid>
             </div>
             <div>
-              <p className="text-xs font-semibold text-muted mb-2 uppercase tracking-wide">3 Columns</p>
+              <p className="text-xs font-semibold text-muted mb-2 uppercase tracking-wide">
+                3 Columns
+              </p>
               <MasonryGrid columns={3} gap={10}>
                 {HEIGHTS.slice(0, 9).map((h, i) => (
                   <Card key={i} index={i + 2} height={h} />
@@ -75,7 +81,9 @@ export default function MasonryGridPage() {
               </MasonryGrid>
             </div>
             <div>
-              <p className="text-xs font-semibold text-muted mb-2 uppercase tracking-wide">4 Columns</p>
+              <p className="text-xs font-semibold text-muted mb-2 uppercase tracking-wide">
+                4 Columns
+              </p>
               <MasonryGrid columns={4} gap={10}>
                 {HEIGHTS.map((h, i) => (
                   <Card key={i} index={i + 4} height={h} />

@@ -49,7 +49,14 @@ export interface FormProps {
  * @tags form
  */
 export function Form({
-  values, errors = {}, touched = {}, onChange, onBlur, onSubmit, children, className,
+  values,
+  errors = {},
+  touched = {},
+  onChange,
+  onBlur,
+  onSubmit,
+  children,
+  className,
 }: FormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,13 +64,15 @@ export function Form({
   };
 
   return (
-    <FormContext.Provider value={{
-      values,
-      errors,
-      touched,
-      setValue: onChange,
-      setTouched: (name) => onBlur?.(name),
-    }}>
+    <FormContext.Provider
+      value={{
+        values,
+        errors,
+        touched,
+        setValue: onChange,
+        setTouched: (name) => onBlur?.(name),
+      }}
+    >
       <form onSubmit={handleSubmit} className={cn("space-y-4", className)} noValidate>
         {children}
       </form>

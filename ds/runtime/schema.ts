@@ -1,11 +1,6 @@
 import * as v from "valibot";
 
-const literalValueSchema = v.union([
-  v.string(),
-  v.number(),
-  v.boolean(),
-  v.null(),
-]);
+const literalValueSchema = v.union([v.string(), v.number(), v.boolean(), v.null()]);
 
 export type LiteralValue = v.InferOutput<typeof literalValueSchema>;
 
@@ -146,10 +141,7 @@ const dataSourceSchema = v.variant("kind", [
     kind: v.literal("rest"),
     id: v.pipe(v.string(), v.minLength(1)),
     url: v.pipe(v.string(), v.url()),
-    method: v.optional(
-      v.picklist(["GET", "POST", "PUT", "DELETE"]),
-      "GET",
-    ),
+    method: v.optional(v.picklist(["GET", "POST", "PUT", "DELETE"]), "GET"),
     headers: v.optional(v.record(v.string(), v.string())),
   }),
   v.object({
@@ -198,7 +190,8 @@ function formatIssuePath(issue: v.BaseIssue<unknown>): string {
     .map((segment) => {
       const key = segment.key;
       if (typeof key === "number") return `[${key}]`;
-      if (typeof key === "string") return /^[A-Za-z_$][\w$]*$/.test(key) ? `.${key}` : `[${JSON.stringify(key)}]`;
+      if (typeof key === "string")
+        return /^[A-Za-z_$][\w$]*$/.test(key) ? `.${key}` : `[${JSON.stringify(key)}]`;
       return "";
     })
     .join("")
@@ -210,9 +203,7 @@ export class PageDocParseError extends Error {
   constructor(issues: ReadonlyArray<v.BaseIssue<unknown>>) {
     const first = issues[0];
     const path = first ? formatIssuePath(first) : "<root>";
-    const message = first
-      ? `${path}: ${first.message}`
-      : "PageDoc validation failed";
+    const message = first ? `${path}: ${first.message}` : "PageDoc validation failed";
     super(message);
     this.name = "PageDocParseError";
     this.issues = issues;
@@ -233,9 +224,7 @@ export function parseProjectDoc(input: unknown): ProjectDoc {
 
 export function safeParsePageDoc(
   input: unknown,
-):
-  | { ok: true; doc: PageDoc }
-  | { ok: false; error: PageDocParseError } {
+): { ok: true; doc: PageDoc } | { ok: false; error: PageDocParseError } {
   const result = v.safeParse(pageDocSchema, input);
   if (result.success) return { ok: true, doc: result.output };
   return { ok: false, error: new PageDocParseError(result.issues) };

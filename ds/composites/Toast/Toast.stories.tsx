@@ -18,8 +18,14 @@ type Story = StoryObj<typeof DsToastProvider>;
 
 function Trigger() {
   const t = useDsToast();
-  const btn =
-    "px-3 py-1.5 text-sm rounded-lg border border-border text-foreground hover:bg-gray-50 cursor-pointer";
+  // 스토리 트리거도 라이브러리와 같은 기준선을 따른다 — hover/active/focus-visible 3종 +
+  // 라이트 전용 회색(bg-gray-50) 대신 모드를 따라가는 표면 토큰.
+  const btn = [
+    "px-3 py-1.5 text-sm rounded-xl border border-border bg-card text-foreground cursor-pointer",
+    "transition-colors duration-150 hover:bg-surface-soft",
+    "active:scale-[0.97] motion-reduce:active:scale-100 motion-reduce:transition-none",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+  ].join(" ");
   return (
     <div className="flex flex-wrap gap-2">
       <button type="button" className={btn} onClick={() => t.success("저장되었습니다")}>

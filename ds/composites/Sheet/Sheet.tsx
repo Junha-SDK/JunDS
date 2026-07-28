@@ -31,14 +31,7 @@ const DRAG_DISMISS_THRESHOLD = 150;
  * @since 2.2.0
  * @tags overlay
  */
-export function Sheet({
-  open,
-  onClose,
-  children,
-  title,
-  snapPoints,
-  className,
-}: SheetProps) {
+export function Sheet({ open, onClose, children, title, snapPoints, className }: SheetProps) {
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartY = useRef(0);
@@ -87,28 +80,31 @@ export function Sheet({
     setDragY(0);
   }, [dragY, onClose]);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    dragStartY.current = e.clientY;
-    setIsDragging(true);
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      dragStartY.current = e.clientY;
+      setIsDragging(true);
 
-    const handleMouseMove = (ev: MouseEvent) => {
-      const delta = ev.clientY - dragStartY.current;
-      if (delta > 0) setDragY(delta);
-    };
+      const handleMouseMove = (ev: MouseEvent) => {
+        const delta = ev.clientY - dragStartY.current;
+        if (delta > 0) setDragY(delta);
+      };
 
-    const handleMouseUp = () => {
-      setIsDragging(false);
-      setDragY((current) => {
-        if (current > DRAG_DISMISS_THRESHOLD) onClose();
-        return 0;
-      });
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
+      const handleMouseUp = () => {
+        setIsDragging(false);
+        setDragY((current) => {
+          if (current > DRAG_DISMISS_THRESHOLD) onClose();
+          return 0;
+        });
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
 
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  }, [onClose]);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    },
+    [onClose],
+  );
 
   /* snapPoints 로 최대 높이 결정 */
   const maxSnap = snapPoints?.length ? Math.max(...snapPoints) : 70;
@@ -119,7 +115,7 @@ export function Sheet({
       {/* 배경 */}
       <div
         className={cn(
-          "fixed inset-0 z-50 bg-black/40 transition-opacity duration-300",
+          "fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] transition-opacity duration-300",
           open ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         onClick={onClose}
@@ -128,8 +124,11 @@ export function Sheet({
       <div
         ref={sheetRef}
         className={cn(
-          "fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-2xl flex flex-col",
-          "transition-transform ease-[cubic-bezier(0.16,1,0.3,1)]",
+          // bg-white 는 라이트 전용 값 — 다크에서 시트만 하얗게 남는다.
+          "fixed bottom-0 left-0 right-0 z-50 bg-card rounded-t-2xl flex flex-col",
+          // 화면 아래에서 올라오는 판이라 그림자 한 겹으로는 배경 위에 서지 않는다.
+          "shadow-[0_-16px_40px_-12px_rgba(0,0,0,0.35),0_-4px_12px_-6px_rgba(0,0,0,0.2)] ring-1 ring-black/[0.06]",
+          "transition-transform ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
           !isDragging && "duration-300",
           open ? "translate-y-0" : "translate-y-full",
           className,
@@ -147,7 +146,8 @@ export function Sheet({
           onTouchEnd={handleTouchEnd}
           onMouseDown={handleMouseDown}
         >
-          <div className="w-10 h-1 rounded-full bg-gray-300" />
+          {/* bg-gray-300 은 다크에서 대비가 뒤집힌다 — 모드를 따라가는 muted 계열로. */}
+          <div className="w-10 h-1 rounded-full bg-muted-light/70" />
         </div>
         {/* 헤더 */}
         {title && (
@@ -156,10 +156,16 @@ export function Sheet({
             <button
               type="button"
               onClick={onClose}
-              className="text-muted hover:text-foreground transition-colors p-1 rounded-lg hover:bg-gray-100 cursor-pointer"
+              aria-label="닫기"
+              className="text-muted hover:text-foreground hover:bg-surface-soft transition-colors p-1 rounded-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M4.5 4.5l9 9M13.5 4.5l-9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M4.5 4.5l9 9M13.5 4.5l-9 9"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           </div>

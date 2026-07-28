@@ -21,7 +21,10 @@ export interface BackTopProps {
  * @since 2.2.0
  * @tags navigation
  */
-export const BackTop = forwardRef<HTMLButtonElement, BackTopProps>(function BackTop({ threshold = 400, className, children }, ref) {
+export const BackTop = forwardRef<HTMLButtonElement, BackTopProps>(function BackTop(
+  { threshold = 400, className, children },
+  ref,
+) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -47,10 +50,16 @@ export const BackTop = forwardRef<HTMLButtonElement, BackTopProps>(function Back
       aria-label="상단으로 이동"
       className={cn(
         "fixed bottom-6 right-6 z-50 flex items-center justify-center",
-        "w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200",
-        "text-gray-600 hover:text-primary hover:border-primary/30",
-        "transition-all duration-200 hover:shadow-xl",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+        "w-10 h-10 rounded-full bg-card border border-border text-muted",
+        // 떠 있는 버튼이라 한 겹 그림자로는 배경에서 떨어져 보이지 않는다 — 넓은 확산 +
+        // 좁은 접지 그림자에 얇은 링을 더해 면을 세운다.
+        "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-border/60",
+        "hover:text-primary-ink hover:border-primary/30",
+        "hover:shadow-[0_14px_36px_-10px_rgba(0,0,0,0.4),0_6px_14px_-6px_rgba(0,0,0,0.24)]",
+        "active:scale-95",
+        // transform 이 섞이므로 감속 요청을 받는다. all 을 쓰면 크기·여백까지 전이 대상이 된다.
+        "transition-[color,border-color,box-shadow,transform] duration-200 ease-out motion-reduce:transition-none",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
     >

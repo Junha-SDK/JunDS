@@ -25,8 +25,7 @@ export const gradients = {
   candy: "linear-gradient(135deg, #ee9ca7 0%, #ffdde1 100%)",
 
   // Skeleton / shimmer
-  shimmer:
-    "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
+  shimmer: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
 } as const;
 
 export type GradientPreset = keyof typeof gradients;

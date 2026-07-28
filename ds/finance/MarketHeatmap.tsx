@@ -236,12 +236,7 @@ export function MarketHeatmap({
           </>
         ) : (
           cells.placed.map((c, i) => (
-            <Cell
-              key={`${c.name}-${i}`}
-              cell={c}
-              onClick={onCellClick}
-              scale={scale}
-            />
+            <Cell key={`${c.name}-${i}`} cell={c} onClick={onCellClick} scale={scale} />
           ))
         )}
       </svg>
@@ -279,9 +274,31 @@ function Cell({
   // Light text glow improves legibility on saturated reds/blues
   const textShadow = "drop-shadow(0 1px 1.5px rgba(0,0,0,0.55))";
 
+  const sub = `${sign}${change.toFixed(2)}%`;
+
   return (
     <g
       onClick={onClick ? () => onClick(cell) : undefined}
+      // 칸이 클릭 가능한데 키보드로는 닿을 수 없었다. 포커스 표시는 finance 의
+      // outline 어법을 그대로 쓰고, 칸 안쪽으로 넣어 이웃 칸을 덮지 않게 한다.
+      tabIndex={onClick ? 0 : undefined}
+      role={onClick ? "button" : undefined}
+      aria-label={onClick ? `${cell.name} ${sub}` : undefined}
+      onKeyDown={
+        onClick
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick(cell);
+              }
+            }
+          : undefined
+      }
+      className={
+        onClick
+          ? "transition-[filter] duration-150 hover:brightness-110 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-[color:var(--bm-accent)] focus-visible:outline-offset-[-3px]"
+          : undefined
+      }
       style={{ cursor: onClick ? "pointer" : "default" }}
     >
       <rect
@@ -331,8 +348,7 @@ function Cell({
           dominantBaseline="middle"
           style={{ pointerEvents: "none", filter: textShadow }}
         >
-          {sign}
-          {change.toFixed(2)}%
+          {sub}
         </text>
       ) : null}
       {showPrice && price ? (

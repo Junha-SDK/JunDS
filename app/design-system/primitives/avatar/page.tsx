@@ -23,7 +23,9 @@ export default function AvatarPage() {
       <Section title="Sizes">
         <Preview>
           <div className="flex items-end gap-3">
-            {sizes.map((s) => <Avatar key={s} name="김준하" size={s} />)}
+            {sizes.map((s) => (
+              <Avatar key={s} name="김준하" size={s} />
+            ))}
           </div>
         </Preview>
       </Section>
@@ -31,7 +33,9 @@ export default function AvatarPage() {
       <Section title="Auto Color">
         <Preview>
           <div className="flex items-center gap-2 flex-wrap">
-            {names.map((n) => <Avatar key={n} name={n} size="lg" />)}
+            {names.map((n) => (
+              <Avatar key={n} name={n} size="lg" />
+            ))}
           </div>
         </Preview>
       </Section>

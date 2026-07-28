@@ -4,7 +4,9 @@ import { ScatterPlot } from "../../composites/ScatterPlot";
 
 describe("ScatterPlot", () => {
   it("renders", () => {
-    const { container } = render(<ScatterPlot series={[{name:"a",data:[{x:1,y:2}]}]} data-testid="root" />);
+    const { container } = render(
+      <ScatterPlot series={[{ name: "a", data: [{ x: 1, y: 2 }] }]} data-testid="root" />,
+    );
     expect(container.firstChild).toBeTruthy();
   });
 });

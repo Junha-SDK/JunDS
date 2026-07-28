@@ -9,24 +9,18 @@ import type { PropDef, PropValue } from "../_lib/types";
 /* ── Category badge colors ─────────────────────────────────────────── */
 
 const catBadge: Record<string, string> = {
-  "레이아웃": "bg-violet-100 text-violet-700",
-  "기본": "bg-blue-100 text-blue-700",
-  "입력": "bg-emerald-100 text-emerald-700",
-  "데이터": "bg-amber-100 text-amber-700",
-  "피드백": "bg-rose-100 text-rose-700",
-  "네비게이션": "bg-cyan-100 text-cyan-700",
-  "오버레이": "bg-pink-100 text-pink-700",
+  레이아웃: "bg-violet-100 text-violet-700",
+  기본: "bg-blue-100 text-blue-700",
+  입력: "bg-emerald-100 text-emerald-700",
+  데이터: "bg-amber-100 text-amber-700",
+  피드백: "bg-rose-100 text-rose-700",
+  네비게이션: "bg-cyan-100 text-cyan-700",
+  오버레이: "bg-pink-100 text-pink-700",
 };
 
 /* ── Toggle switch ─────────────────────────────────────────────────── */
 
-function ToggleSwitch({
-  checked,
-  onChange,
-}: {
-  checked: boolean;
-  onChange: (v: boolean) => void;
-}) {
+function ToggleSwitch({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <button
       type="button"
@@ -50,16 +44,13 @@ function ToggleSwitch({
 
 /* ── Color picker ──────────────────────────────────────────────────── */
 
-function ColorInput({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+function ColorInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
     <div className="flex items-center gap-2">
-      <label className="relative w-7 h-7 rounded-lg border border-border overflow-hidden cursor-pointer shrink-0" aria-label="색상 선택">
+      <label
+        className="relative w-7 h-7 rounded-lg border border-border overflow-hidden cursor-pointer shrink-0"
+        aria-label="색상 선택"
+      >
         <input
           type="color"
           value={value || "#000000"}
@@ -270,8 +261,7 @@ export function PropsPanel() {
 
   /* ── Panel content ─────────────────────────── */
 
-  const hasTextChildren =
-    def.defaultChildren !== undefined || selectedNode.children !== undefined;
+  const hasTextChildren = def.defaultChildren !== undefined || selectedNode.children !== undefined;
 
   return (
     <aside className="w-72 shrink-0 bg-card border-l border-border flex flex-col h-full overflow-hidden">
@@ -279,12 +269,8 @@ export function PropsPanel() {
       <div className="px-4 py-3 border-b border-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-base leading-none shrink-0">
-              {def.icon ?? "?"}
-            </span>
-            <span className="text-sm font-semibold text-foreground truncate">
-              {def.label}
-            </span>
+            <span className="text-base leading-none shrink-0">{def.icon ?? "?"}</span>
+            <span className="text-sm font-semibold text-foreground truncate">{def.label}</span>
             <span
               className={cn(
                 "text-[9px] font-semibold px-1.5 py-0.5 rounded-full shrink-0",
@@ -359,9 +345,7 @@ export function PropsPanel() {
         {/* No props */}
         {def.props.length === 0 && !hasTextChildren && (
           <div className="px-4 py-8 text-center">
-            <p className="text-xs text-[var(--muted)]">
-              편집 가능한 속성이 없습니다
-            </p>
+            <p className="text-xs text-[var(--muted)]">편집 가능한 속성이 없습니다</p>
           </div>
         )}
       </div>

@@ -13,7 +13,10 @@ export default function AreaChartPage() {
     >
       <Section title="Default">
         <Preview>
-          <AreaChart labels={["1월","2월","3월","4월","5월"]} series={[{name:"매출",data:[10,20,15,30,25]}]} />
+          <AreaChart
+            labels={["1월", "2월", "3월", "4월", "5월"]}
+            series={[{ name: "매출", data: [10, 20, 15, 30, 25] }]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

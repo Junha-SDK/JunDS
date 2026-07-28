@@ -24,15 +24,10 @@ export interface UseScrollSpyOptions {
  * const activeId = useScrollSpy(["intro", "features", "pricing"], { offset: 80 });
  * ```
  */
-export function useScrollSpy(
-  selectors: string[],
-  options?: UseScrollSpyOptions,
-): string | null {
+export function useScrollSpy(selectors: string[], options?: UseScrollSpyOptions): string | null {
   const { offset = 0, threshold = 0 } = options ?? {};
 
-  const [activeId, setActiveId] = useState<string | null>(
-    selectors[0] ?? null,
-  );
+  const [activeId, setActiveId] = useState<string | null>(selectors[0] ?? null);
   const raf = useRef<number | null>(null);
   const manualUntil = useRef<number>(0);
 
@@ -59,13 +54,12 @@ export function useScrollSpy(
     const getElements = () =>
       selectors
         .map((sel) => {
-          const el = sel.startsWith("#") || sel.startsWith(".")
-            ? document.querySelector(sel)
-            : document.getElementById(sel);
+          const el =
+            sel.startsWith("#") || sel.startsWith(".")
+              ? document.querySelector(sel)
+              : document.getElementById(sel);
           if (!el) return null;
-          const id =
-            el.id ||
-            sel.replace(/^#/, "");
+          const id = el.id || sel.replace(/^#/, "");
           const top = el.getBoundingClientRect().top + window.scrollY;
           return { id, top };
         })
@@ -89,9 +83,7 @@ export function useScrollSpy(
       }
 
       // 페이지 바닥에서는 마지막 섹션을 강제 활성화
-      const nearBottom =
-        window.innerHeight + window.scrollY >=
-        document.body.scrollHeight - 2;
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 2;
       if (nearBottom && tops.length) {
         current = tops[tops.length - 1].id;
       }
@@ -128,9 +120,10 @@ export function useScrollSpy(
         { threshold },
       );
       selectors.forEach((sel) => {
-        const el = sel.startsWith("#") || sel.startsWith(".")
-          ? document.querySelector(sel)
-          : document.getElementById(sel);
+        const el =
+          sel.startsWith("#") || sel.startsWith(".")
+            ? document.querySelector(sel)
+            : document.getElementById(sel);
         if (el) observer!.observe(el);
       });
     }

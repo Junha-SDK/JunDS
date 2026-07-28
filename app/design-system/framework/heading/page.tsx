@@ -31,9 +31,15 @@ export default function HeadingPage() {
       <Section title="Color">
         <Preview>
           <div>
-            <Heading level={3} color="primary">Primary 색상 제목</Heading>
-            <Heading level={3} color="danger">Danger 색상 제목</Heading>
-            <Heading level={3} color="success">Success 색상 제목</Heading>
+            <Heading level={3} color="primary">
+              Primary 색상 제목
+            </Heading>
+            <Heading level={3} color="danger">
+              Danger 색상 제목
+            </Heading>
+            <Heading level={3} color="success">
+              Success 색상 제목
+            </Heading>
           </div>
         </Preview>
       </Section>

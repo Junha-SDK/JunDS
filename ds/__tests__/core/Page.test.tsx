@@ -50,22 +50,12 @@ describe("Page.Header", () => {
   });
 
   it("renders an actions slot when provided", () => {
-    render(
-      <Page.Header
-        title="Users"
-        actions={<button data-testid="cta">New</button>}
-      />,
-    );
+    render(<Page.Header title="Users" actions={<button data-testid="cta">New</button>} />);
     expect(screen.getByTestId("cta")).toBeInTheDocument();
   });
 
   it("renders a breadcrumb slot when provided", () => {
-    render(
-      <Page.Header
-        title="Users"
-        breadcrumb={<nav data-testid="bc">a / b</nav>}
-      />,
-    );
+    render(<Page.Header title="Users" breadcrumb={<nav data-testid="bc">a / b</nav>} />);
     expect(screen.getByTestId("bc")).toBeInTheDocument();
   });
 });

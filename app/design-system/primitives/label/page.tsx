@@ -12,7 +12,12 @@ export default function LabelPage() {
       importPath='import { Label } from "@/ds/primitives/Label"'
       props={[
         { name: "htmlFor", type: "string", description: "연결할 폼 컨트롤의 id." },
-        { name: "required", type: "boolean", default: "false", description: "필수 입력 표시 (별표)." },
+        {
+          name: "required",
+          type: "boolean",
+          default: "false",
+          description: "필수 입력 표시 (별표).",
+        },
         { name: "className", type: "string", description: "추가 CSS 클래스." },
         { name: "children", type: "ReactNode", description: "라벨 텍스트." },
       ]}
@@ -25,7 +30,9 @@ export default function LabelPage() {
               <Input id="name" placeholder="홍길동" />
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="email" required>이메일</Label>
+              <Label htmlFor="email" required>
+                이메일
+              </Label>
               <Input id="email" type="email" placeholder="user@example.com" />
             </div>
           </div>

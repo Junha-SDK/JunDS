@@ -19,7 +19,7 @@ export function InvestorFlowChart({ data, width = 800, height = 240 }: InvestorF
   const innerW = width - padL - padR;
   const innerH = height - padT - padB;
   const slot = innerW / data.length;
-  const barW = Math.max(2, slot * 0.78 / 3);
+  const barW = Math.max(2, (slot * 0.78) / 3);
 
   const { min, max } = useMemo(() => {
     let mn = 0;
@@ -48,35 +48,22 @@ export function InvestorFlowChart({ data, width = 800, height = 240 }: InvestorF
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       className="bm-num"
-      style={{ display: "block", maxWidth: "100%" }}
+      role="img"
+      aria-label="투자자별 순매수 추이"
+      // maxWidth 만 걸면 좁은 화면에서 폭만 줄고 height 는 그대로라 그래프가 눌린다.
+      // viewBox 가 있으니 height:auto 로 비율을 지킨다.
+      style={{ display: "block", maxWidth: "100%", height: "auto" }}
     >
+      <title>투자자별 순매수 추이</title>
       {ticks.map((tv) => (
         <g key={tv}>
-          <line
-            x1={padL}
-            x2={width - padR}
-            y1={yOf(tv)}
-            y2={yOf(tv)}
-            stroke="var(--bm-grid)"
-          />
-          <text
-            x={padL - 4}
-            y={yOf(tv) + 3}
-            fontSize={10}
-            fill="var(--bm-axis)"
-            textAnchor="end"
-          >
+          <line x1={padL} x2={width - padR} y1={yOf(tv)} y2={yOf(tv)} stroke="var(--bm-grid)" />
+          <text x={padL - 4} y={yOf(tv) + 3} fontSize={10} fill="var(--bm-axis)" textAnchor="end">
             {Math.round(tv)}
           </text>
         </g>
       ))}
-      <line
-        x1={padL}
-        x2={width - padR}
-        y1={yOf(0)}
-        y2={yOf(0)}
-        stroke="var(--bm-axis)"
-      />
+      <line x1={padL} x2={width - padR} y1={yOf(0)} y2={yOf(0)} stroke="var(--bm-axis)" />
       {data.map((d, i) => {
         const cx = padL + i * slot + slot / 2;
         return (
@@ -90,6 +77,8 @@ export function InvestorFlowChart({ data, width = 800, height = 240 }: InvestorF
               colorPos="var(--bm-up)"
               colorNeg="var(--bm-down)"
             />
+            {/* 기관/개인 매도 색은 up/down(빨강·파랑)과 겹치지 않으려고 고른 계열색이다.
+                의미색이 아니라 주체를 구분하는 정체성 색이라 토큰으로 옮기지 않는다. */}
             <Bar
               x={cx - barW * 0.5}
               barW={barW}
@@ -109,13 +98,7 @@ export function InvestorFlowChart({ data, width = 800, height = 240 }: InvestorF
               colorNeg="#64748b"
             />
             {i % Math.ceil(data.length / 8) === 0 ? (
-              <text
-                x={cx}
-                y={height - 6}
-                fontSize={10}
-                fill="var(--bm-axis)"
-                textAnchor="middle"
-              >
+              <text x={cx} y={height - 6} fontSize={10} fill="var(--bm-axis)" textAnchor="middle">
                 {d.date}
               </text>
             ) : null}
@@ -150,7 +133,9 @@ function Bar({
 }) {
   const top = Math.min(y0, y);
   const h = Math.max(1, Math.abs(y - y0));
-  return <rect x={x} y={top} width={barW} height={h} rx={1.5} fill={v >= 0 ? colorPos : colorNeg} />;
+  return (
+    <rect x={x} y={top} width={barW} height={h} rx={1.5} fill={v >= 0 ? colorPos : colorNeg} />
+  );
 }
 
 function Legend({ label, color, x }: { label: string; color: string; x: number }) {

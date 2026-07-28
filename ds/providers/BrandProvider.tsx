@@ -66,7 +66,9 @@ export function useBrand(): BrandContextValue {
     return {
       brand: null,
       presets: brandPresets,
-      setBrand: (idOrPreset) => { applyBrand(idOrPreset); },
+      setBrand: (idOrPreset) => {
+        applyBrand(idOrPreset);
+      },
     };
   }
   return ctx;

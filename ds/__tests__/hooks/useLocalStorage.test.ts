@@ -10,17 +10,33 @@ describe("useLocalStorage", () => {
     store = {};
     const mock = {
       getItem: (key: string) => store[key] ?? null,
-      setItem: (key: string, value: string) => { store[key] = value; },
-      removeItem: (key: string) => { delete store[key]; },
-      clear: () => { store = {}; },
-      get length() { return Object.keys(store).length; },
+      setItem: (key: string, value: string) => {
+        store[key] = value;
+      },
+      removeItem: (key: string) => {
+        delete store[key];
+      },
+      clear: () => {
+        store = {};
+      },
+      get length() {
+        return Object.keys(store).length;
+      },
       key: (i: number) => Object.keys(store)[i] ?? null,
     };
-    Object.defineProperty(window, "localStorage", { value: mock, writable: true, configurable: true });
+    Object.defineProperty(window, "localStorage", {
+      value: mock,
+      writable: true,
+      configurable: true,
+    });
   });
 
   afterEach(() => {
-    Object.defineProperty(window, "localStorage", { value: originalLocalStorage, writable: true, configurable: true });
+    Object.defineProperty(window, "localStorage", {
+      value: originalLocalStorage,
+      writable: true,
+      configurable: true,
+    });
   });
 
   it("returns initial value when key is not in localStorage", () => {

@@ -17,7 +17,12 @@ export default function ActionSheetPage() {
         { name: "open", type: "boolean", required: true, description: "열림 상태" },
         { name: "onClose", type: "() => void", required: true, description: "닫기 핸들러" },
         { name: "title", type: "string", description: "상단 제목" },
-        { name: "actions", type: "ActionSheetAction[]", required: true, description: "{ label, onClick, danger?, disabled? } 배열" },
+        {
+          name: "actions",
+          type: "ActionSheetAction[]",
+          required: true,
+          description: "{ label, onClick, danger?, disabled? } 배열",
+        },
         { name: "cancelLabel", type: "string", default: '"취소"', description: "취소 버튼 라벨" },
       ]}
     >

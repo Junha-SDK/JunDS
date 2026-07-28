@@ -93,9 +93,7 @@ export function getCategoryColor(name: string | undefined | null): CategoryColor
  * @example
  * <article style={categoryColorVars("book")}>…</article>
  */
-export function categoryColorVars(
-  name: string | undefined | null,
-): Record<string, string> {
+export function categoryColorVars(name: string | undefined | null): Record<string, string> {
   const c = getCategoryColor(name);
   return {
     "--cat-accent": c.accent,

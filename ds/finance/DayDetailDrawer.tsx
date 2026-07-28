@@ -89,11 +89,15 @@ export function DayDetailDrawer({ entry, onClose }: DayDetailDrawerProps) {
         onClick={onClose}
       />
       <aside
-        className="fixed top-0 right-0 z-50 h-full w-[480px] max-w-[95vw] overflow-y-auto"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${entry.date} 상세`}
+        // 시트 스크롤이 뒤 페이지로 새지 않게 가둔다. 그림자는 한 겹으로는 떠 보이지 않아 두 겹으로 세운다
+        className="fixed top-0 right-0 z-50 h-full w-[480px] max-w-[95vw] overflow-y-auto overscroll-contain"
         style={{
           background: "var(--bm-card)",
           borderLeft: "1px solid var(--bm-border)",
-          boxShadow: "-12px 0 28px rgba(15,23,42,0.18)",
+          boxShadow: "-18px 0 44px -16px rgba(15,23,42,0.34), -6px 0 14px -8px rgba(15,23,42,0.18)",
         }}
       >
         <header
@@ -121,8 +125,10 @@ export function DayDetailDrawer({ entry, onClose }: DayDetailDrawerProps) {
             </span>
           </div>
           <button
+            type="button"
             onClick={onClose}
-            className="ml-auto size-8 rounded-full grid place-items-center"
+            // 누를 수 있는 것에는 hover·active·focus-visible 이 전부 있어야 한다
+            className="ml-auto size-8 shrink-0 rounded-full grid place-items-center cursor-pointer transition-[filter,opacity] hover:brightness-95 active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bm-card)]"
             style={{ background: "var(--bm-soft-100)", color: "var(--bm-muted)" }}
             aria-label="닫기"
           >
@@ -161,11 +167,14 @@ export function DayDetailDrawer({ entry, onClose }: DayDetailDrawerProps) {
               {entry.themes.map((t) => (
                 <span
                   key={t}
-                  className="text-[11px] font-extrabold rounded-full px-2.5 py-1"
+                  className="text-[11px] font-extrabold rounded-full px-2.5 py-1 whitespace-nowrap"
+                  // rgba(13,148,136,…) 은 --bm-accent-strong 을 손으로 베낀 값이다 —
+                  // 토큰에서 섞으면 테마가 바뀌어도 칩이 따라온다 (DailyThemesCalendar 와 같은 어법)
                   style={{
-                    background: "rgba(13,148,136,0.12)",
+                    background: "color-mix(in srgb, var(--bm-accent-strong) 12%, transparent)",
                     color: "var(--bm-accent-strong)",
-                    border: "1px solid rgba(13,148,136,0.28)",
+                    border:
+                      "1px solid color-mix(in srgb, var(--bm-accent-strong) 28%, transparent)",
                   }}
                 >
                   {t}
@@ -206,14 +215,13 @@ export function DayDetailDrawer({ entry, onClose }: DayDetailDrawerProps) {
                     style={{
                       gridTemplateColumns: "auto 1fr auto",
                       gap: 8,
-                      borderBottom: i === entry.leaders!.length - 1 ? "none" : "1px solid var(--bm-border)",
+                      borderBottom:
+                        i === entry.leaders!.length - 1 ? "none" : "1px solid var(--bm-border)",
                       background: i % 2 === 0 ? "transparent" : "var(--bm-soft-100)",
                     }}
                   >
                     <AppIcon name="crown" size={14} strokeWidth={2.4} color="var(--bm-warning)" />
-                    <span className="font-extrabold text-[12.5px] truncate">
-                      {l.name}
-                    </span>
+                    <span className="font-extrabold text-[12.5px] truncate">{l.name}</span>
                     <div className="flex flex-col items-end leading-tight">
                       <span className="bm-num font-extrabold text-[12px]">
                         {l.close.toLocaleString("ko-KR")}
@@ -259,20 +267,21 @@ function Stat({
   sub?: string;
   tone?: "up" | "down";
 }) {
-  const color = tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
+  const color =
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
   return (
     <div
-      className="px-3 py-2 rounded-xl"
+      className="px-3 py-2 rounded-xl min-w-0"
       style={{ background: "var(--bm-soft-100)", border: "1px solid var(--bm-border)" }}
     >
-      <div className="text-[10.5px] font-extrabold" style={{ color: "var(--bm-muted)" }}>
+      <div className="text-[10.5px] font-extrabold truncate" style={{ color: "var(--bm-muted)" }}>
         {label}
       </div>
-      <div className="bm-num font-extrabold text-[14px] truncate" style={{ color }}>
+      <div className="bm-num font-extrabold text-[14px] truncate tabular-nums" style={{ color }}>
         {value}
       </div>
       {sub ? (
-        <div className="bm-num font-bold text-[10.5px] truncate" style={{ color }}>
+        <div className="bm-num font-bold text-[10.5px] truncate tabular-nums" style={{ color }}>
           {sub}
         </div>
       ) : null}
@@ -295,7 +304,7 @@ function NetCard({ label, value, color }: { label: string; value: number; color:
         {label}
       </span>
       <span
-        className="bm-num font-extrabold text-[13.5px] mt-0.5"
+        className="bm-num font-extrabold text-[13.5px] mt-0.5 whitespace-nowrap tabular-nums"
         style={{ color: up ? "var(--bm-up)" : "var(--bm-down)" }}
       >
         {up ? "+" : ""}
@@ -316,11 +325,13 @@ function DayCandle({ candles }: { candles: { o: number; h: number; l: number; c:
   const range = hi - lo || 1;
   const yOf = (v: number) => pad + ((hi - v) / range) * (h - pad * 2);
   return (
-    <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} className="bm-num" style={{ display: "block" }}>
+    // 좁은 칸에서 비율이 눌리지 않게 viewBox + w-full h-auto 로 둔다
+    <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} className="bm-num block w-full h-auto">
       {candles.map((c, i) => {
         const cx = pad + slot * (i + 0.5);
         const up = c.c >= c.o;
-        const color = up ? "#dc2626" : "#2563eb";
+        // 이 화면 밖의 캔들은 모두 --bm-up/--bm-down 을 쓴다 — 여기만 hex 로 굳어 있었다
+        const color = up ? "var(--bm-up)" : "var(--bm-down)";
         const top = yOf(Math.max(c.o, c.c));
         const bottom = yOf(Math.min(c.o, c.c));
         return (
@@ -356,7 +367,12 @@ function DayFlowChart({
   const yOf = (v: number) => pad + ((hi - v) / range) * (h - pad * 2);
   const barW = (slot * 0.78) / 3;
   return (
-    <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} className="bm-num mt-2" style={{ display: "block" }}>
+    <svg
+      width="100%"
+      height={h}
+      viewBox={`0 0 ${w} ${h}`}
+      className="bm-num mt-2 block w-full h-auto"
+    >
       <line
         x1={pad}
         x2={w - pad}
@@ -369,9 +385,30 @@ function DayFlowChart({
         const cx = pad + slot * (i + 0.5);
         return (
           <g key={i}>
-            <Bar x={cx - barW * 1.55} barW={barW} v={f.foreign} y0={yOf(0)} y={yOf(f.foreign)} color="var(--bm-up)" />
-            <Bar x={cx - barW * 0.5} barW={barW} v={f.institution} y0={yOf(0)} y={yOf(f.institution)} color="#a855f7" />
-            <Bar x={cx + barW * 0.55} barW={barW} v={f.individual} y0={yOf(0)} y={yOf(f.individual)} color="var(--bm-warning)" />
+            <Bar
+              x={cx - barW * 1.55}
+              barW={barW}
+              v={f.foreign}
+              y0={yOf(0)}
+              y={yOf(f.foreign)}
+              color="var(--bm-up)"
+            />
+            <Bar
+              x={cx - barW * 0.5}
+              barW={barW}
+              v={f.institution}
+              y0={yOf(0)}
+              y={yOf(f.institution)}
+              color="#a855f7"
+            />
+            <Bar
+              x={cx + barW * 0.55}
+              barW={barW}
+              v={f.individual}
+              y0={yOf(0)}
+              y={yOf(f.individual)}
+              color="var(--bm-warning)"
+            />
           </g>
         );
       })}
@@ -396,5 +433,15 @@ function Bar({
 }) {
   const top = Math.min(y0, y);
   const h = Math.max(1, Math.abs(y - y0));
-  return <rect x={x} y={top} width={barW} height={h} rx={1.5} fill={color} fillOpacity={v >= 0 ? 1 : 0.55} />;
+  return (
+    <rect
+      x={x}
+      y={top}
+      width={barW}
+      height={h}
+      rx={1.5}
+      fill={color}
+      fillOpacity={v >= 0 ? 1 : 0.55}
+    />
+  );
 }

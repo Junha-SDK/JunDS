@@ -68,7 +68,10 @@ export function AutoHideHeader({
     <header
       className={cn(
         "sticky top-0 z-50 w-full transition-transform duration-300 ease-in-out",
-        hidden && "-translate-y-full",
+        // 감속 요청을 켠 사용자에게는 숨김 자체가 통제 불가능한 움직임이다 —
+        // 전이만 끄면 순간이동으로 사라지므로 헤더를 아예 붙잡아 둔다
+        "motion-reduce:transition-none",
+        hidden && "-translate-y-full motion-reduce:translate-y-0",
         className,
       )}
       style={{ height }}

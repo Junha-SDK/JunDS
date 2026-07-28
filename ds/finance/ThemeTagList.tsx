@@ -28,7 +28,9 @@ export function ThemeTagList({ themes }: { themes: string[] }) {
               } as React.CSSProperties
             }
           >
-            <span aria-hidden style={{ opacity: 0.7 }}>#</span>
+            <span aria-hidden style={{ opacity: 0.7 }}>
+              #
+            </span>
             {t}
           </Link>
         );

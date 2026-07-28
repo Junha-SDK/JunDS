@@ -5,7 +5,12 @@ import { PhotoCarousel } from "../../composites/PhotoCarousel";
 describe("PhotoCarousel", () => {
   it("renders", () => {
     const { container } = render(
-      <PhotoCarousel photos={[{ src: "/a.jpg", alt: "1" }, { src: "/b.jpg", alt: "2" }]} />,
+      <PhotoCarousel
+        photos={[
+          { src: "/a.jpg", alt: "1" },
+          { src: "/b.jpg", alt: "2" },
+        ]}
+      />,
     );
     expect(container.firstChild).toBeTruthy();
   });

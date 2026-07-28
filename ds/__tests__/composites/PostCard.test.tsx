@@ -4,9 +4,7 @@ import { PostCard } from "../../composites/PostCard";
 
 describe("PostCard", () => {
   it("renders", () => {
-    const { container } = render(
-      <PostCard author={{ name: "준하" }} content="안녕" />,
-    );
+    const { container } = render(<PostCard author={{ name: "준하" }} content="안녕" />);
     expect(container.firstChild).toBeTruthy();
   });
 });

@@ -92,13 +92,13 @@ const KST = "Asia/Seoul";
 
 interface KoreaTimeParts {
   ampm: "오전" | "오후";
-  hour12: number;        // 1~12
-  hour24: number;        // 0~23
-  minute: number;        // 0~59
-  second: number;        // 0~59
+  hour12: number; // 1~12
+  hour24: number; // 0~23
+  minute: number; // 0~59
+  second: number; // 0~59
   year: number;
-  month: number;         // 1~12
-  day: number;           // 1~31
+  month: number; // 1~12
+  day: number; // 1~31
   /** 0=일, 1=월, ..., 6=토 */
   weekday: number;
   weekdayKor: "일" | "월" | "화" | "수" | "목" | "금" | "토";
@@ -129,7 +129,13 @@ export function toKoreaParts(d: Date): KoreaTimeParts {
   const hour12 = hour24 % 12 === 0 ? 12 : hour24 % 12;
   const weekdayShort = get("weekday"); // "Wed", "Sun" 등
   const map: Record<string, number> = {
-    Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6,
+    Sun: 0,
+    Mon: 1,
+    Tue: 2,
+    Wed: 3,
+    Thu: 4,
+    Fri: 5,
+    Sat: 6,
   };
   const weekday = map[weekdayShort] ?? 0;
   return {
@@ -151,9 +157,7 @@ export function formatKoreaClock(d: Date, withSeconds = true): string {
   const p = toKoreaParts(d);
   const mm = String(p.minute).padStart(2, "0");
   const ss = String(p.second).padStart(2, "0");
-  return withSeconds
-    ? `${p.ampm} ${p.hour12}:${mm}:${ss}`
-    : `${p.ampm} ${p.hour12}:${mm}`;
+  return withSeconds ? `${p.ampm} ${p.hour12}:${mm}:${ss}` : `${p.ampm} ${p.hour12}:${mm}`;
 }
 
 /** "15:31:21" — 24h 표기 */

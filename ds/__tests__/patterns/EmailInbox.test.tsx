@@ -8,7 +8,14 @@ describe("EmailInbox", () => {
       <EmailInbox
         folders={[{ id: "inbox", label: "받은편지함" }]}
         messages={[
-          { id: "m1", folderId: "inbox", from: "준하", subject: "테스트", preview: "본문 미리보기", receivedAt: new Date() },
+          {
+            id: "m1",
+            folderId: "inbox",
+            from: "준하",
+            subject: "테스트",
+            preview: "본문 미리보기",
+            receivedAt: new Date(),
+          },
         ]}
         activeFolderId="inbox"
         onFolderChange={() => {}}

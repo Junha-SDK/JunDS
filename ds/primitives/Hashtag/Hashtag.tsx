@@ -31,15 +31,21 @@ export const Hashtag = forwardRef<HTMLAnchorElement, HashtagProps>(
     <a
       ref={ref}
       className={cn(
-        "inline-flex items-center gap-1 text-primary hover:underline font-medium",
+        "inline-flex items-center gap-1 text-primary-ink hover:underline font-medium",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-sm",
         className,
       )}
       {...props}
     >
       <span>#{tag}</span>
-      {trending && <span aria-label="인기 태그" className="text-[11px]">🔥</span>}
-      {count !== undefined && <span className="text-[11px] text-muted tabular-nums">({formatCount(count)})</span>}
+      {trending && (
+        <span aria-label="인기 태그" className="text-[11px]">
+          🔥
+        </span>
+      )}
+      {count !== undefined && (
+        <span className="text-[11px] text-muted tabular-nums">({formatCount(count)})</span>
+      )}
     </a>
   ),
 );

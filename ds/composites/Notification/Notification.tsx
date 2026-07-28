@@ -42,10 +42,25 @@ const iconColors = {
  * @tags feedback
  */
 export function Notification({
-  title, description, variant = "info", icon, action, onClose, className,
+  title,
+  description,
+  variant = "info",
+  icon,
+  action,
+  onClose,
+  className,
 }: NotificationProps) {
   return (
-    <div className={cn("flex gap-3 p-4 rounded-xl border", variantStyles[variant], className)} role="alert">
+    <div
+      className={cn(
+        "flex gap-3 p-4 rounded-xl border",
+        // 면이 있는 카드 — 얕은 그림자 + 상단 인셋 하이라이트로 배경에서 한 겹 띄운다
+        "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.10)]",
+        variantStyles[variant],
+        className,
+      )}
+      role="alert"
+    >
       {icon && <div className={cn("shrink-0 mt-0.5", iconColors[variant])}>{icon}</div>}
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-foreground">{title}</p>
@@ -53,8 +68,24 @@ export function Notification({
         {action && <div className="mt-2">{action}</div>}
       </div>
       {onClose && (
-        <button type="button" onClick={onClose} className="shrink-0 p-1 text-muted hover:text-foreground transition-colors cursor-pointer" aria-label="닫기">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+        <button
+          type="button"
+          onClick={onClose}
+          className={cn(
+            "shrink-0 self-start p-1 rounded-lg text-muted cursor-pointer",
+            "transition-colors duration-150 hover:text-foreground hover:bg-muted/10",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          )}
+          aria-label="닫기"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path
+              d="M3.5 3.5l7 7M10.5 3.5l-7 7"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
         </button>
       )}
     </div>

@@ -10,7 +10,12 @@ export default function SkeletonPresetPage() {
       description="자주 쓰이는 로딩 상태 골격을 미리 만들어 둔 프리셋 컴포넌트. card, table, profile, article, list 5종을 제공합니다."
       importPath='import { SkeletonPreset } from "@/ds/composites/SkeletonPreset"'
       props={[
-        { name: "variant", type: '"card" | "table" | "profile" | "article" | "list"', required: true, description: "골격 형태" },
+        {
+          name: "variant",
+          type: '"card" | "table" | "profile" | "article" | "list"',
+          required: true,
+          description: "골격 형태",
+        },
         { name: "rows", type: "number", default: "5", description: "table / list 변형의 행 수" },
         { name: "className", type: "string", description: "추가 클래스" },
       ]}

@@ -79,26 +79,34 @@ function TableInner<T extends Record<string, any>>({
 
   const wrapperStyle: React.CSSProperties | undefined =
     stickyHeader && maxHeight
-      ? { maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight, overflowY: "auto" }
+      ? {
+          maxHeight: typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight,
+          overflowY: "auto",
+        }
       : undefined;
 
   return (
     <div
       ref={innerRef}
-      className={cn("overflow-x-auto border border-border rounded-xl", className)}
+      className={cn(
+        "overflow-x-auto overscroll-x-contain border border-border rounded-xl bg-card shadow-xs",
+        className,
+      )}
       style={wrapperStyle}
     >
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-border bg-gray-50">
+          <tr className="border-b border-border bg-surface-soft">
             {columns.map((col) => (
               <th
                 key={col.key}
                 className={cn(
-                  "font-medium text-muted",
+                  "font-medium text-muted whitespace-nowrap",
                   thPad,
                   alignClass[col.align ?? "left"],
-                  stickyHeader && "sticky top-0 z-[2] bg-gray-50",
+                  // 고정 헤더는 스크롤되는 행 위로 떠 있어야 한다 — 배경 + 아래쪽 그림자
+                  stickyHeader &&
+                    "sticky top-0 z-[2] bg-surface-soft shadow-[0_1px_0_var(--border)]",
                   bordered && "border border-border",
                   col.className,
                 )}
@@ -111,10 +119,7 @@ function TableInner<T extends Record<string, any>>({
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td
-                colSpan={columns.length}
-                className="px-4 py-8 text-center text-muted"
-              >
+              <td colSpan={columns.length} className="px-4 py-8 text-center text-muted">
                 {emptyMessage}
               </td>
             </tr>
@@ -123,11 +128,24 @@ function TableInner<T extends Record<string, any>>({
               <tr
                 key={rowIndex}
                 onClick={() => onRowClick?.(row, rowIndex)}
+                // 클릭 가능한 행은 키보드로도 닿아야 focus-visible 이 의미를 갖는다
+                tabIndex={onRowClick ? 0 : undefined}
+                onKeyDown={
+                  onRowClick
+                    ? (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          onRowClick(row, rowIndex);
+                        }
+                      }
+                    : undefined
+                }
                 className={cn(
                   "border-b border-border last:border-b-0 transition-colors",
-                  striped && rowIndex % 2 === 1 && "bg-gray-50/50",
-                  hoverable && "hover:bg-gray-50",
-                  onRowClick && "cursor-pointer",
+                  striped && rowIndex % 2 === 1 && "bg-surface-soft/60",
+                  hoverable && "hover:bg-surface-soft",
+                  onRowClick &&
+                    "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
                 )}
               >
                 {columns.map((col) => (
@@ -141,9 +159,7 @@ function TableInner<T extends Record<string, any>>({
                       col.className,
                     )}
                   >
-                    {col.render
-                      ? col.render(row[col.key], row)
-                      : (row[col.key] as ReactNode)}
+                    {col.render ? col.render(row[col.key], row) : (row[col.key] as ReactNode)}
                   </td>
                 ))}
               </tr>

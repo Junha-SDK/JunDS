@@ -51,10 +51,14 @@ export function BookCard({
       type="button"
       onClick={onClick}
       className={cn(
-        "group relative block w-full text-left rounded-xl overflow-hidden",
-        "transition-all duration-300 ease-out",
-        "hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+        "group relative block w-full text-left rounded-xl overflow-hidden cursor-pointer",
+        "shadow-[0_1px_3px_rgba(0,0,0,0.10),0_1px_2px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.04]",
+        // 떠오르는 건 transform·shadow 뿐 — all 이면 카드 내부 크기 변화까지 전이된다
+        "transition-[transform,box-shadow] duration-300 ease-out",
+        "hover:-translate-y-1 hover:shadow-[0_18px_36px_-12px_rgba(0,0,0,0.35),0_6px_12px_-6px_rgba(0,0,0,0.2)]",
+        "active:-translate-y-0",
+        "motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
       aria-label={
@@ -106,10 +110,7 @@ export function BookCard({
         {/* 잠금 오버레이 */}
         {locked && (
           <>
-            <div
-              className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"
-              aria-hidden="true"
-            />
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" aria-hidden="true" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-white">
               <span className="text-3xl" aria-hidden="true">
                 {"\u{1F512}"}
@@ -123,24 +124,14 @@ export function BookCard({
       </div>
 
       {/* 메타 정보 */}
-      <div className="p-3 bg-white dark:bg-slate-900">
-        <div className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
-          {title}
-        </div>
-        <div className="flex items-center gap-2 mt-1">
-          {kind && (
-            <span className="text-xs text-slate-500 dark:text-slate-400">
-              {kind}
-            </span>
-          )}
-          {author && (
-            <span className="text-xs text-slate-400 dark:text-slate-500">
-              {author}
-            </span>
-          )}
+      <div className="p-3 bg-card">
+        <div className="text-sm font-semibold text-foreground truncate">{title}</div>
+        <div className="flex items-center gap-2 mt-1 min-w-0">
+          {kind && <span className="text-xs text-muted truncate">{kind}</span>}
+          {author && <span className="text-xs text-muted-light truncate">{author}</span>}
         </div>
         {locked && (
-          <span className="inline-block mt-1.5 px-2 py-0.5 text-[10px] font-medium rounded bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400">
+          <span className="inline-block mt-1.5 px-2 py-0.5 text-[10px] font-medium rounded-lg bg-warning-light text-warning">
             {"\uAD8C\uD55C \uD544\uC694"}
           </span>
         )}

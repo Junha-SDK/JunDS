@@ -36,9 +36,7 @@ function isProperty(name: string): boolean {
 }
 
 function setMeta(name: string, content: string) {
-  let el = document.querySelector<HTMLElement>(
-    `meta[property="${name}"], meta[name="${name}"]`,
-  );
+  let el = document.querySelector<HTMLElement>(`meta[property="${name}"], meta[name="${name}"]`);
   if (!el) {
     el = document.createElement("meta");
     el.setAttribute(isProperty(name) ? "property" : "name", name);
@@ -70,11 +68,7 @@ function absolutize(url: string | undefined, siteUrl: string | undefined): strin
   return `${siteUrl.replace(/\/$/, "")}${url}`;
 }
 
-function buildTitle(
-  title: string | undefined,
-  raw: boolean,
-  d: SeoDefaults,
-): string {
+function buildTitle(title: string | undefined, raw: boolean, d: SeoDefaults): string {
   if (!title) return d.title;
   if (raw || !d.titleTemplate) return title;
   return d.titleTemplate.includes("%s")

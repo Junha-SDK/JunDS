@@ -23,9 +23,7 @@ describe("TocProvider + TocHeading", () => {
         <TocHeading level={3}>배경</TocHeading>
       </TocProvider>,
     );
-    const items = Array.from(screen.getByTestId("outline").children).map(
-      (li) => li.textContent,
-    );
+    const items = Array.from(screen.getByTestId("outline").children).map((li) => li.textContent);
     expect(items).toEqual(["2:들어가며:들어가며", "3:배경:배경"]);
   });
 

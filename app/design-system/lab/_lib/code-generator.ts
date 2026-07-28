@@ -110,12 +110,7 @@ function formatPropValue(value: PropValue): string {
   return '""';
 }
 
-function renderNode(
-  nodeId: NodeId,
-  state: LabState,
-  depth: number,
-  imports: Set<string>,
-): string {
+function renderNode(nodeId: NodeId, state: LabState, depth: number, imports: Set<string>): string {
   const node = state.nodes[nodeId];
   if (!node) return "";
 

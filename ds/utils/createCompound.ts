@@ -20,9 +20,9 @@
  * The returned value is the root component augmented with the members object,
  * so existing call sites that use the root directly (`<Card>`) keep working.
  */
-export function createCompound<
-  Root extends object,
-  Members extends Record<string, unknown>,
->(root: Root, members: Members): Root & Members {
+export function createCompound<Root extends object, Members extends Record<string, unknown>>(
+  root: Root,
+  members: Members,
+): Root & Members {
   return Object.assign(root, members);
 }

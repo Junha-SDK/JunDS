@@ -41,9 +41,7 @@ describe("previewProps merging", () => {
       route: "/",
       tree: [{ id: "n1", componentId: "Button", children: "ok" }],
     };
-    const { container } = render(
-      <Renderer doc={doc} registry={registry} mode="runtime" />,
-    );
+    const { container } = render(<Renderer doc={doc} registry={registry} mode="runtime" />);
     expect(container.querySelector("[data-preview]")).toBeNull();
   });
 
@@ -83,14 +81,7 @@ describe("previewProps merging", () => {
       route: "/",
       tree: [{ id: "btn", componentId: "Button", children: "Hi" }],
     };
-    render(
-      <Renderer
-        doc={doc}
-        registry={registry}
-        mode="design"
-        onDesignEvent={onDesignEvent}
-      />,
-    );
+    render(<Renderer doc={doc} registry={registry} mode="design" onDesignEvent={onDesignEvent} />);
     fireEvent.click(screen.getByRole("button", { name: "Hi" }));
     expect(onDesignEvent).toHaveBeenCalledWith({
       kind: "select",

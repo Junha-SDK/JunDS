@@ -2,40 +2,55 @@
 import { useEffect, useState } from "react";
 
 const colorVars = [
-  { group: "Primary (테마 연동)", vars: [
-    { name: "--primary", label: "Primary" },
-    { name: "--primary-hover", label: "Hover" },
-    { name: "--primary-light", label: "Light" },
-    { name: "--primary-glow", label: "Glow" },
-  ]},
-  { group: "Accent (테마 연동)", vars: [
-    { name: "--accent", label: "Accent" },
-    { name: "--accent-light", label: "Light" },
-  ]},
-  { group: "Semantic", vars: [
-    { name: "--success", label: "Success" },
-    { name: "--success-light", label: "Success Light" },
-    { name: "--warning", label: "Warning" },
-    { name: "--warning-light", label: "Warning Light" },
-    { name: "--danger", label: "Danger" },
-    { name: "--danger-hover", label: "Danger Hover" },
-    { name: "--danger-light", label: "Danger Light" },
-  ]},
-  { group: "Neutral", vars: [
-    { name: "--foreground", label: "Foreground" },
-    { name: "--muted", label: "Muted" },
-    { name: "--muted-light", label: "Muted Light" },
-    { name: "--border", label: "Border" },
-    { name: "--border-light", label: "Border Light" },
-    { name: "--card", label: "Card" },
-    { name: "--background", label: "Background" },
-  ]},
-  { group: "Sidebar", vars: [
-    { name: "--sidebar-bg", label: "Background" },
-    { name: "--sidebar-hover", label: "Hover" },
-    { name: "--sidebar-text", label: "Text" },
-    { name: "--sidebar-active", label: "Active" },
-  ]},
+  {
+    group: "Primary (테마 연동)",
+    vars: [
+      { name: "--primary", label: "Primary" },
+      { name: "--primary-hover", label: "Hover" },
+      { name: "--primary-light", label: "Light" },
+      { name: "--primary-glow", label: "Glow" },
+    ],
+  },
+  {
+    group: "Accent (테마 연동)",
+    vars: [
+      { name: "--accent", label: "Accent" },
+      { name: "--accent-light", label: "Light" },
+    ],
+  },
+  {
+    group: "Semantic",
+    vars: [
+      { name: "--success", label: "Success" },
+      { name: "--success-light", label: "Success Light" },
+      { name: "--warning", label: "Warning" },
+      { name: "--warning-light", label: "Warning Light" },
+      { name: "--danger", label: "Danger" },
+      { name: "--danger-hover", label: "Danger Hover" },
+      { name: "--danger-light", label: "Danger Light" },
+    ],
+  },
+  {
+    group: "Neutral",
+    vars: [
+      { name: "--foreground", label: "Foreground" },
+      { name: "--muted", label: "Muted" },
+      { name: "--muted-light", label: "Muted Light" },
+      { name: "--border", label: "Border" },
+      { name: "--border-light", label: "Border Light" },
+      { name: "--card", label: "Card" },
+      { name: "--background", label: "Background" },
+    ],
+  },
+  {
+    group: "Sidebar",
+    vars: [
+      { name: "--sidebar-bg", label: "Background" },
+      { name: "--sidebar-hover", label: "Hover" },
+      { name: "--sidebar-text", label: "Text" },
+      { name: "--sidebar-active", label: "Active" },
+    ],
+  },
 ];
 
 function useComputedColors() {
@@ -45,9 +60,11 @@ function useComputedColors() {
     const read = () => {
       const style = getComputedStyle(document.documentElement);
       const result: Record<string, string> = {};
-      colorVars.forEach((g) => g.vars.forEach((v) => {
-        result[v.name] = style.getPropertyValue(v.name).trim();
-      }));
+      colorVars.forEach((g) =>
+        g.vars.forEach((v) => {
+          result[v.name] = style.getPropertyValue(v.name).trim();
+        }),
+      );
       setColors(result);
     };
     read();
@@ -68,7 +85,8 @@ export default function ColorsPage() {
       <h1 className="text-2xl font-bold mb-1">Colors</h1>
       <p className="text-sm text-muted mb-2">CSS 변수 기반 시맨틱 컬러 시스템</p>
       <p className="text-xs text-muted-light mb-6">
-        왼쪽 사이드바의 <span className="font-semibold text-primary">Theme</span> 선택기로 Primary 색상을 변경하면 연동된 모든 색상이 자동으로 바뀝니다.
+        왼쪽 사이드바의 <span className="font-semibold text-primary-ink">Theme</span> 선택기로 Primary
+        색상을 변경하면 연동된 모든 색상이 자동으로 바뀝니다.
       </p>
 
       {colorVars.map((group) => (
@@ -78,7 +96,10 @@ export default function ColorsPage() {
             {group.vars.map((v) => {
               const value = computed[v.name] || "";
               return (
-                <div key={v.name} className="border border-border rounded-xl overflow-hidden bg-white">
+                <div
+                  key={v.name}
+                  className="border border-border rounded-xl overflow-hidden bg-white"
+                >
                   <div
                     className="h-16 transition-colors duration-300"
                     style={{ backgroundColor: value || "transparent" }}

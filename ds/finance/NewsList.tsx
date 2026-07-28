@@ -18,6 +18,10 @@ interface NewsListProps {
   showOriginBadge?: boolean;
 }
 
+/**
+ * `Date.now()` 를 렌더에서 부르지만 하이드레이션은 어긋나지 않는다 — `items` 는 마운트 후
+ * fetch 가 끝나야 채워지고, 그전까지는 스켈레톤만 그린다. 서버 산출물에는 이 문자열이 없다.
+ */
 function timeAgo(iso: string): string {
   const t = new Date(iso).getTime();
   if (Number.isNaN(t)) return "";
@@ -85,6 +89,7 @@ export function NewsList({ query, limit = 6, showOriginBadge = true }: NewsListP
     <div className="bm-card overflow-hidden">
       {showOriginBadge ? (
         <div className="px-3 pt-2 pb-1 flex items-center gap-2">
+          {/* #03C75A 는 네이버 브랜드 그린이다 — 출처를 알아보게 하는 정체성이라 토큰으로 옮기지 않는다 */}
           <span
             className="bm-pill"
             style={{
@@ -108,7 +113,12 @@ export function NewsList({ query, limit = 6, showOriginBadge = true }: NewsListP
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block px-3 py-2.5 active:bg-[color:var(--bm-soft-100)]"
+              className={[
+                "block px-3 py-2.5 transition-colors",
+                "hover:bg-[color:var(--bm-soft-100)] active:bg-[color:var(--bm-soft-200)]",
+                // 링크 목록인데 포커스 표시가 없으면 키보드로는 어디에 있는지 알 수 없다.
+                "focus-visible:outline-2 focus-visible:outline-[color:var(--bm-accent)] focus-visible:outline-offset-[-2px]",
+              ].join(" ")}
             >
               <div className="flex items-start gap-2">
                 <div className="flex-1 min-w-0">
@@ -119,9 +129,7 @@ export function NewsList({ query, limit = 6, showOriginBadge = true }: NewsListP
                     {item.description}
                   </p>
                   <div className="flex items-center gap-2 mt-1.5 text-[11px] text-[color:var(--bm-muted)]">
-                    {item.source ? (
-                      <span className="font-semibold">{item.source}</span>
-                    ) : null}
+                    {item.source ? <span className="font-semibold">{item.source}</span> : null}
                     <span>·</span>
                     <span>{timeAgo(item.publishedAt)}</span>
                   </div>

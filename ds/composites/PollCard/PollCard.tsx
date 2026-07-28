@@ -41,7 +41,14 @@ export const PollCard = forwardRef<HTMLElement, PollCardProps>(
     const showResults = voted || alwaysShowResults;
 
     return (
-      <article ref={ref} className={cn("rounded-xl border border-border bg-surface p-4", className)}>
+      <article
+        ref={ref}
+        className={cn(
+          "rounded-xl border border-border bg-surface p-4",
+          "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.12)]",
+          className,
+        )}
+      >
         <p className="text-sm font-semibold text-foreground">{question}</p>
         <ul className="mt-3 space-y-2">
           {options.map((opt) => {
@@ -56,9 +63,12 @@ export const PollCard = forwardRef<HTMLElement, PollCardProps>(
                   disabled={voted}
                   aria-pressed={mine}
                   className={cn(
-                    "relative w-full overflow-hidden rounded-md text-sm border transition-all text-left",
-                    "px-3 py-2",
-                    mine ? "border-primary bg-primary/5" : "border-border hover:border-primary/40",
+                    "relative w-full overflow-hidden rounded-xl text-sm border text-left cursor-pointer",
+                    "px-3 py-2 transition-colors duration-150",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+                    mine
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-primary/40 hover:bg-primary/5",
                     voted && "cursor-default",
                   )}
                 >
@@ -66,19 +76,20 @@ export const PollCard = forwardRef<HTMLElement, PollCardProps>(
                     <span
                       aria-hidden="true"
                       className={cn(
-                        "absolute inset-y-0 left-0 transition-[width] duration-500",
-                        mine ? "bg-primary/15" : top ? "bg-amber-200/50 dark:bg-amber-900/30" : "bg-gray-100 dark:bg-gray-800",
+                        // 막대가 자라는 건 움직임이다 — 감속 요청이면 즉시 최종 너비로
+                        "absolute inset-y-0 left-0 transition-[width] duration-500 motion-reduce:transition-none",
+                        mine ? "bg-primary/15" : top ? "bg-warning/20" : "bg-muted/15",
                       )}
                       style={{ width: `${pct}%` }}
                     />
                   )}
-                  <span className="relative flex items-center justify-between">
-                    <span className="flex items-center gap-2">
+                  <span className="relative flex items-center justify-between gap-2 min-w-0">
+                    <span className="flex items-center gap-2 min-w-0 truncate">
                       {mine && <span aria-hidden="true">✓</span>}
                       {opt.label}
                     </span>
                     {showResults && (
-                      <span className="text-xs text-muted tabular-nums">
+                      <span className="shrink-0 whitespace-nowrap text-xs text-muted tabular-nums">
                         {Math.round(pct)}% · {opt.votes.toLocaleString()}
                       </span>
                     )}

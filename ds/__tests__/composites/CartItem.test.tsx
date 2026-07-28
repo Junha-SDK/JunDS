@@ -4,7 +4,9 @@ import { CartItem } from "../../composites/CartItem";
 
 describe("CartItem", () => {
   it("renders", () => {
-    const { container } = render(<CartItem title="t" price="₩1,000" quantity={1} data-testid="root" />);
+    const { container } = render(
+      <CartItem title="t" price="₩1,000" quantity={1} data-testid="root" />,
+    );
     expect(container.firstChild).toBeTruthy();
   });
 });

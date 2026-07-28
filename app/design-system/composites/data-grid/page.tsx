@@ -26,8 +26,17 @@ export default function DataGridPage() {
       importPath='import { DataGrid } from "@/ds/composites/DataGrid"'
       props={[
         { name: "data", type: "T[]", description: "표시할 행 데이터 배열" },
-        { name: "columns", type: "DataGridColumn<T>[]", description: "key, header, sortable, render 등을 가진 컬럼 정의" },
-        { name: "pageSize", type: "number", default: "20", description: "한 페이지에 표시할 행 수" },
+        {
+          name: "columns",
+          type: "DataGridColumn<T>[]",
+          description: "key, header, sortable, render 등을 가진 컬럼 정의",
+        },
+        {
+          name: "pageSize",
+          type: "number",
+          default: "20",
+          description: "한 페이지에 표시할 행 수",
+        },
         { name: "selectable", type: "boolean", description: "체크박스 선택 활성화" },
         { name: "onSelect", type: "(rows: T[]) => void", description: "선택 변경 콜백" },
         { name: "className", type: "string", description: "컨테이너 클래스" },

@@ -13,7 +13,15 @@ export default function PieChartPage() {
     >
       <Section title="Default">
         <Preview>
-          <PieChart data={[{label:"Free",value:30},{label:"Pro",value:55},{label:"Team",value:15}]} innerRatio={0.55} centerLabel="100%" />
+          <PieChart
+            data={[
+              { label: "Free", value: 30 },
+              { label: "Pro", value: 55 },
+              { label: "Team", value: 15 },
+            ]}
+            innerRatio={0.55}
+            centerLabel="100%"
+          />
         </Preview>
       </Section>
     </ComponentPage>

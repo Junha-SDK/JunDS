@@ -1,10 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  _hmacSign,
-  _sha256,
-  _obfuscateKey,
-  _deobfuscateKey,
-} from "@/ds/auth/crypto";
+import { _hmacSign, _sha256, _obfuscateKey, _deobfuscateKey } from "@/ds/auth/crypto";
 
 describe("crypto._sha256", () => {
   it("produces 64-char lowercase hex digest", async () => {
@@ -26,9 +21,7 @@ describe("crypto._sha256", () => {
 
   it("matches the known SHA-256 of empty string", async () => {
     const hash = await _sha256("");
-    expect(hash).toBe(
-      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    );
+    expect(hash).toBe("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
   });
 });
 

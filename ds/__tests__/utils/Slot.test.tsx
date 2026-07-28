@@ -18,7 +18,9 @@ describe("Slot", () => {
   it("merges className via tailwind-merge so child wins on conflicts", () => {
     const { container } = render(
       <Slot className="text-red-500 px-2">
-        <a href="#" className="text-blue-500">link</a>
+        <a href="#" className="text-blue-500">
+          link
+        </a>
       </Slot>,
     );
     const root = container.firstChild as HTMLElement;
@@ -43,7 +45,9 @@ describe("Slot", () => {
     const childClick = vi.fn(() => order.push("child"));
     const { container } = render(
       <Slot onClick={slotClick}>
-        <button type="button" onClick={childClick}>x</button>
+        <button type="button" onClick={childClick}>
+          x
+        </button>
       </Slot>,
     );
     fireEvent.click(container.firstChild as HTMLElement);

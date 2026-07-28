@@ -63,7 +63,9 @@ export function FormBuilder({
 }: FormBuilderProps) {
   const [values, setValues] = useState<Record<string, string>>(() => {
     const init: Record<string, string> = {};
-    fields.forEach((f) => { init[f.name] = ""; });
+    fields.forEach((f) => {
+      init[f.name] = "";
+    });
     return init;
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -82,7 +84,8 @@ export function FormBuilder({
     if (!error && field.validate) error = field.validate(value);
     setErrors((prev) => {
       const next = { ...prev };
-      if (error) next[name] = error; else delete next[name];
+      if (error) next[name] = error;
+      else delete next[name];
       return next;
     });
     return !error;
@@ -93,24 +96,39 @@ export function FormBuilder({
     const allTouched = new Set(fields.map((f) => f.name));
     setTouched(allTouched);
     let valid = true;
-    fields.forEach((f) => { if (!validateField(f.name, values[f.name])) valid = false; });
+    fields.forEach((f) => {
+      if (!validateField(f.name, values[f.name])) valid = false;
+    });
     if (valid) onSubmit(values);
   };
 
   return (
     <form onSubmit={handleSubmit} className={cn("flex flex-col gap-4", className)}>
-      <div className={cn("grid gap-4", columns === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1")}>
+      <div
+        className={cn("grid gap-4", columns === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1")}
+      >
         {fields.map((field) => {
           const hasError = !!errors[field.name] && touched.has(field.name);
           return (
-            <div key={field.name} className={cn("flex flex-col gap-1.5", field.type === "textarea" && columns === 2 && "sm:col-span-2")}>
-              <Label htmlFor={field.name} required={field.required}>{field.label}</Label>
+            <div
+              key={field.name}
+              className={cn(
+                "flex flex-col gap-1.5",
+                field.type === "textarea" && columns === 2 && "sm:col-span-2",
+              )}
+            >
+              <Label htmlFor={field.name} required={field.required}>
+                {field.label}
+              </Label>
               {field.type === "textarea" ? (
                 <Textarea
                   id={field.name}
                   value={values[field.name]}
                   onChange={(e) => setValue(field.name, e.target.value)}
-                  onBlur={() => { setTouched((p) => new Set(p).add(field.name)); validateField(field.name, values[field.name]); }}
+                  onBlur={() => {
+                    setTouched((p) => new Set(p).add(field.name));
+                    validateField(field.name, values[field.name]);
+                  }}
                   placeholder={field.placeholder}
                   error={hasError}
                 />
@@ -118,7 +136,10 @@ export function FormBuilder({
                 <Select
                   options={field.options || []}
                   value={values[field.name]}
-                  onChange={(v) => { setValue(field.name, v); setTouched((p) => new Set(p).add(field.name)); }}
+                  onChange={(v) => {
+                    setValue(field.name, v);
+                    setTouched((p) => new Set(p).add(field.name));
+                  }}
                   placeholder={field.placeholder}
                   error={hasError}
                   fullWidth
@@ -129,7 +150,10 @@ export function FormBuilder({
                   type={field.type}
                   value={values[field.name]}
                   onChange={(e) => setValue(field.name, e.target.value)}
-                  onBlur={() => { setTouched((p) => new Set(p).add(field.name)); validateField(field.name, values[field.name]); }}
+                  onBlur={() => {
+                    setTouched((p) => new Set(p).add(field.name));
+                    validateField(field.name, values[field.name]);
+                  }}
                   placeholder={field.placeholder}
                   error={hasError}
                 />
@@ -140,7 +164,9 @@ export function FormBuilder({
         })}
       </div>
       <div className="flex items-center gap-2 pt-2">
-        <Button type="submit" loading={loading}>{submitLabel}</Button>
+        <Button type="submit" loading={loading}>
+          {submitLabel}
+        </Button>
         {actions}
       </div>
     </form>

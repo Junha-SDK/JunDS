@@ -11,7 +11,12 @@ export default function ChatBubblePage() {
       importPath='import { ChatBubble } from "@/ds/composites/ChatBubble"'
       props={[
         { name: "side", type: '"left"|"right"', default: '"left"', description: "정렬 방향" },
-        { name: "variant", type: '"default"|"primary"', default: '"default"', description: "오른쪽일 때 강조 색상 적용" },
+        {
+          name: "variant",
+          type: '"default"|"primary"',
+          default: '"default"',
+          description: "오른쪽일 때 강조 색상 적용",
+        },
         { name: "sender", type: "string", description: "발신자 이름" },
         { name: "avatar", type: "ReactNode", description: "아바타 노드" },
         { name: "timestamp", type: "string", description: "시간 표시 (예: 오후 2:34)" },
@@ -38,7 +43,11 @@ export default function ChatBubblePage() {
           <div className="flex flex-col gap-2 w-full max-w-md">
             <ChatBubble
               sender="봇"
-              avatar={<div className="w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">B</div>}
+              avatar={
+                <div className="w-7 h-7 rounded-full bg-primary/10 text-primary-ink text-xs font-bold flex items-center justify-center">
+                  B
+                </div>
+              }
             >
               무엇을 도와드릴까요?
             </ChatBubble>

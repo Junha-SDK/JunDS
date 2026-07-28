@@ -14,7 +14,11 @@ export default function RangeSliderPage() {
       importPath='import { RangeSlider } from "@/ds/primitives/RangeSlider"'
       props={[
         { name: "value", type: "[number, number]", description: "현재 [최솟값, 최댓값] 튜플." },
-        { name: "onChange", type: "(value: [number, number]) => void", description: "값 변경 핸들러." },
+        {
+          name: "onChange",
+          type: "(value: [number, number]) => void",
+          description: "값 변경 핸들러.",
+        },
         { name: "min", type: "number", default: "0", description: "전체 범위의 최솟값." },
         { name: "max", type: "number", default: "100", description: "전체 범위의 최댓값." },
         { name: "step", type: "number", default: "1", description: "값 변경 단위." },
@@ -27,11 +31,16 @@ export default function RangeSliderPage() {
         <Preview>
           <div className="w-full max-w-sm">
             <RangeSlider value={range} onChange={setRange} showValues />
-            <p className="mt-3 text-xs text-muted font-mono">value: [{range[0]}, {range[1]}]</p>
+            <p className="mt-3 text-xs text-muted font-mono">
+              value: [{range[0]}, {range[1]}]
+            </p>
           </div>
         </Preview>
       </Section>
-      <Section title="Custom Range" description="가격대 필터처럼 큰 범위와 step을 지정할 수 있습니다.">
+      <Section
+        title="Custom Range"
+        description="가격대 필터처럼 큰 범위와 step을 지정할 수 있습니다."
+      >
         <Preview>
           <div className="w-full max-w-sm">
             <RangeSlider

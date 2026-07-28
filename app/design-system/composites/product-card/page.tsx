@@ -13,7 +13,17 @@ export default function ProductCardPage() {
     >
       <Section title="Default">
         <Preview>
-          <ProductCard title="베이직 셔츠" image="https://placehold.co/400x400" price={<span>₩29,000</span>} rating={4.5} reviewCount={128} badge="NEW" brand="JunDS" onWishlist={()=>{}} onAddToCart={()=>{}} />
+          <ProductCard
+            title="베이직 셔츠"
+            image="https://placehold.co/400x400"
+            price={<span>₩29,000</span>}
+            rating={4.5}
+            reviewCount={128}
+            badge="NEW"
+            brand="JunDS"
+            onWishlist={() => {}}
+            onAddToCart={() => {}}
+          />
         </Preview>
       </Section>
     </ComponentPage>

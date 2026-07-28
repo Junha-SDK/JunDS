@@ -8,8 +8,14 @@ import { holidayName } from "./lib/marketHolidays";
 import type { DailyThemeEntry } from "./lib/dailyThemes";
 
 const THEME_COLORS = [
-  "var(--bm-cat-1)", "var(--bm-cat-2)", "var(--bm-cat-3)", "var(--bm-cat-4)",
-  "var(--bm-cat-5)", "var(--bm-cat-6)", "var(--bm-cat-7)", "var(--bm-cat-8)",
+  "var(--bm-cat-1)",
+  "var(--bm-cat-2)",
+  "var(--bm-cat-3)",
+  "var(--bm-cat-4)",
+  "var(--bm-cat-5)",
+  "var(--bm-cat-6)",
+  "var(--bm-cat-7)",
+  "var(--bm-cat-8)",
 ];
 
 function colorFor(theme: string): string {
@@ -77,12 +83,7 @@ export function DailyThemesCalendar({
             {Array.from({ length: 5 }).map((_, ci) => {
               const entry = week.find((e) => e.weekday === ci + 1);
               if (!entry) {
-                return (
-                  <div
-                    key={ci}
-                    style={{ borderRight: "1px solid var(--bm-border)" }}
-                  />
-                );
+                return <div key={ci} style={{ borderRight: "1px solid var(--bm-border)" }} />;
               }
               return (
                 <DayCell
@@ -181,7 +182,13 @@ function DayCell({
       <button
         type="button"
         onClick={onPick}
-        className="w-full text-left transition-colors hover:bg-[color:var(--bm-soft-100)]"
+        className={[
+          "w-full text-left transition-colors duration-150 hover:bg-[color:var(--bm-soft-100)]",
+          // 달력 칸은 마우스로만 열 수 있었다 — 포커스 링을 안쪽에 넣어 격자를 밀지 않는다.
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--bm-accent)]",
+        ].join(" ")}
+        // 오늘 표시의 분홍은 DayDetailDrawer 와 짝을 이루는 고정 표식이라 유지한다 —
+        // 액센트 토큰으로 옮기면 사용자 액센트에 묻혀 "오늘"이 안 보인다.
         style={{
           background: entry.isToday ? "rgba(236,72,153,0.06)" : "transparent",
           border: entry.isToday ? "2px solid #ec4899" : "none",
@@ -253,7 +260,13 @@ function DayCell({
                       onPickTheme(theme);
                     }
                   }}
-                  className="text-[10px] font-extrabold rounded-full px-2 py-[2px] cursor-pointer hover:brightness-110"
+                  className={[
+                    "text-[10px] font-extrabold rounded-full px-2 py-[2px] cursor-pointer",
+                    // tabIndex 가 붙어 실제로 포커스를 받는데 표시가 없었다.
+                    "transition-[filter,transform] duration-150 hover:brightness-110 active:scale-[0.94]",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-1 focus-visible:ring-offset-[color:var(--bm-card)]",
+                    "motion-reduce:transition-none motion-reduce:active:scale-100",
+                  ].join(" ")}
                   style={{
                     background: `color-mix(in srgb, ${c} 10%, transparent)`,
                     color: c,
@@ -272,15 +285,9 @@ function DayCell({
             {entry.leaders.map((leader) => {
               const up = leader.pct >= 0;
               return (
-                <li
-                  key={leader.name}
-                  className="text-[10.5px] flex items-center gap-1"
-                >
+                <li key={leader.name} className="text-[10.5px] flex items-center gap-1">
                   <AppIcon name="crown" size={10} strokeWidth={2.4} color="var(--bm-warning)" />
-                  <span
-                    className="font-bold truncate"
-                    style={{ color: "var(--bm-text)" }}
-                  >
+                  <span className="font-bold truncate" style={{ color: "var(--bm-text)" }}>
                     {leader.name}
                   </span>
                   <span
@@ -378,9 +385,7 @@ function WeekSummary({
     : 0;
 
   const themeCount = new Map<string, number>();
-  trading.forEach((d) =>
-    d.themes.forEach((t) => themeCount.set(t, (themeCount.get(t) ?? 0) + 1))
-  );
+  trading.forEach((d) => d.themes.forEach((t) => themeCount.set(t, (themeCount.get(t) ?? 0) + 1)));
   const dominant = [...themeCount.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 2)
@@ -388,7 +393,7 @@ function WeekSummary({
 
   const leaderSet = new Map<string, number>();
   trading.forEach((d) =>
-    d.leaders?.forEach((l) => leaderSet.set(l.name, (leaderSet.get(l.name) ?? 0) + 1))
+    d.leaders?.forEach((l) => leaderSet.set(l.name, (leaderSet.get(l.name) ?? 0) + 1)),
   );
   const topLeaders = [...leaderSet.entries()]
     .sort((a, b) => b[1] - a[1])
@@ -446,7 +451,12 @@ function WeekSummary({
                 key={t}
                 type="button"
                 onClick={() => onPickTheme(t)}
-                className="text-[9.5px] font-extrabold rounded-full px-1.5 py-[1px] hover:brightness-110"
+                className={[
+                  "text-[9.5px] font-extrabold rounded-full px-1.5 py-[1px]",
+                  "transition-[filter,transform] duration-150 hover:brightness-110 active:scale-[0.94]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-1 focus-visible:ring-offset-[color:var(--bm-card)]",
+                  "motion-reduce:transition-none motion-reduce:active:scale-100",
+                ].join(" ")}
                 style={{
                   background: "color-mix(in srgb, var(--bm-accent-strong) 10%, transparent)",
                   color: "var(--bm-accent-strong)",

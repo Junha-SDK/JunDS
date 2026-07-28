@@ -27,7 +27,9 @@ export default function SettingsTemplate() {
     <VStack gap={6} maxW="768px">
       <Box>
         <Heading level={1}>설정</Heading>
-        <Text fontSize="sm" dimmed>계정 및 앱 환경을 설정합니다.</Text>
+        <Text fontSize="sm" dimmed>
+          계정 및 앱 환경을 설정합니다.
+        </Text>
       </Box>
 
       <Tabs
@@ -79,8 +81,12 @@ export default function SettingsTemplate() {
           </Card.Body>
           <Card.Footer>
             <HStack gap="sm" justify="end" className="w-full">
-              <Button variant="secondary" size="sm">취소</Button>
-              <Button variant="primary" size="sm">저장</Button>
+              <Button variant="secondary" size="sm">
+                취소
+              </Button>
+              <Button variant="primary" size="sm">
+                저장
+              </Button>
             </HStack>
           </Card.Footer>
         </Card>
@@ -93,15 +99,23 @@ export default function SettingsTemplate() {
               <Heading level={3}>알림 채널</Heading>
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">이메일 알림</Text>
-                  <Text fontSize="xs" dimmed>새로운 소식을 이메일로 받습니다</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    이메일 알림
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    새로운 소식을 이메일로 받습니다
+                  </Text>
                 </Box>
                 <Switch checked={emailNotif} onChange={setEmailNotif} />
               </HStack>
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">푸시 알림</Text>
-                  <Text fontSize="xs" dimmed>모바일 푸시 알림을 받습니다</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    푸시 알림
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    모바일 푸시 알림을 받습니다
+                  </Text>
                 </Box>
                 <Switch checked={pushNotif} onChange={setPushNotif} />
               </HStack>
@@ -109,15 +123,23 @@ export default function SettingsTemplate() {
               <Heading level={3}>수신 항목</Heading>
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">마케팅 및 프로모션</Text>
-                  <Text fontSize="xs" dimmed>이벤트와 할인 정보를 받습니다</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    마케팅 및 프로모션
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    이벤트와 할인 정보를 받습니다
+                  </Text>
                 </Box>
                 <Switch checked={marketingNotif} onChange={setMarketingNotif} />
               </HStack>
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">주간 요약 리포트</Text>
-                  <Text fontSize="xs" dimmed>매주 월요일 활동 요약을 받습니다</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    주간 요약 리포트
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    매주 월요일 활동 요약을 받습니다
+                  </Text>
                 </Box>
                 <Switch checked={weeklyDigest} onChange={setWeeklyDigest} />
               </HStack>
@@ -125,8 +147,12 @@ export default function SettingsTemplate() {
           </Card.Body>
           <Card.Footer>
             <HStack gap="sm" justify="end" className="w-full">
-              <Button variant="secondary" size="sm">취소</Button>
-              <Button variant="primary" size="sm">저장</Button>
+              <Button variant="secondary" size="sm">
+                취소
+              </Button>
+              <Button variant="primary" size="sm">
+                저장
+              </Button>
             </HStack>
           </Card.Footer>
         </Card>
@@ -153,15 +179,23 @@ export default function SettingsTemplate() {
               <Heading level={3}>보안 옵션</Heading>
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">2단계 인증 (2FA)</Text>
-                  <Text fontSize="xs" dimmed>로그인 시 추가 인증을 요구합니다</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    2단계 인증 (2FA)
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    로그인 시 추가 인증을 요구합니다
+                  </Text>
                 </Box>
                 <Switch checked={twoFactor} onChange={setTwoFactor} />
               </HStack>
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">새 기기 로그인 알림</Text>
-                  <Text fontSize="xs" dimmed>새로운 기기에서 로그인 시 알림을 보냅니다</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    새 기기 로그인 알림
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    새로운 기기에서 로그인 시 알림을 보냅니다
+                  </Text>
                 </Box>
                 <Switch checked={sessionAlert} onChange={setSessionAlert} />
               </HStack>
@@ -169,8 +203,12 @@ export default function SettingsTemplate() {
           </Card.Body>
           <Card.Footer>
             <HStack gap="sm" justify="end" className="w-full">
-              <Button variant="secondary" size="sm">취소</Button>
-              <Button variant="primary" size="sm">저장</Button>
+              <Button variant="secondary" size="sm">
+                취소
+              </Button>
+              <Button variant="primary" size="sm">
+                저장
+              </Button>
             </HStack>
           </Card.Footer>
         </Card>
@@ -178,7 +216,15 @@ export default function SettingsTemplate() {
       {/* Code */}
       <Box as="details" className="rounded-2xl border border-border bg-white overflow-hidden">
         <summary className="px-5 py-3 text-sm font-semibold cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><path d="M4.5 3L1.5 7l3 4M9.5 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+            <path
+              d="M4.5 3L1.5 7l3 4M9.5 3l3 4-3 4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
           코드 보기
         </summary>
         <pre className="p-5 text-xs font-mono text-gray-300 bg-gray-950 overflow-x-auto leading-relaxed border-t border-border max-h-[500px] overflow-y-auto">

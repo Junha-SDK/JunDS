@@ -32,9 +32,7 @@ describe("withLicense HOC", () => {
     try {
       const Wrapped = withLicense(Sample, "MyComp");
       render(<Wrapped label="x" />);
-      expect(
-        screen.getByText(/MyComp.*requires a valid JunDS license/),
-      ).toBeInTheDocument();
+      expect(screen.getByText(/MyComp.*requires a valid JunDS license/)).toBeInTheDocument();
     } finally {
       vi.unstubAllEnvs();
     }
@@ -46,9 +44,7 @@ describe("withLicense HOC", () => {
     try {
       const Wrapped = withLicense(Sample);
       render(<Wrapped label="x" />);
-      expect(
-        screen.getByText(/Sample.*requires a valid JunDS license/),
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Sample.*requires a valid JunDS license/)).toBeInTheDocument();
     } finally {
       vi.unstubAllEnvs();
     }

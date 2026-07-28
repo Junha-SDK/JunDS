@@ -61,7 +61,11 @@ export const PhotoAlbum = forwardRef<HTMLElement, PhotoAlbumProps>(function Phot
     [photos, tag],
   );
 
-  const lightboxPhotos: LightboxPhoto[] = filtered.map((p) => ({ src: p.src, alt: p.alt, caption: p.caption ?? p.title }));
+  const lightboxPhotos: LightboxPhoto[] = filtered.map((p) => ({
+    src: p.src,
+    alt: p.alt,
+    caption: p.caption ?? p.title,
+  }));
 
   return (
     <section ref={ref} className={cn("space-y-4", className)} aria-label={title ?? "사진 앨범"}>
@@ -78,8 +82,14 @@ export const PhotoAlbum = forwardRef<HTMLElement, PhotoAlbumProps>(function Phot
             aria-checked={tag === null}
             onClick={() => setTag(null)}
             className={cn(
-              "inline-flex items-center px-3 py-1 rounded-full text-xs font-medium transition-colors cursor-pointer",
-              tag === null ? "bg-primary text-white" : "bg-surface-soft text-foreground hover:bg-surface",
+              // 필터 칩에 포커스 표시가 없어 키보드로는 어느 칩에 있는지 알 수 없었다.
+              // 활성/비활성 모두 테두리를 둬야 전환할 때 1px 씩 밀리지 않는다.
+              "inline-flex items-center px-3 py-1 rounded-full border text-xs font-medium transition-colors cursor-pointer",
+              "active:scale-[0.97] motion-reduce:active:scale-100",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              tag === null
+                ? "bg-primary border-primary text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]"
+                : "bg-surface-soft border-border text-foreground hover:bg-surface hover:border-muted-light",
             )}
           >
             전체
@@ -92,8 +102,12 @@ export const PhotoAlbum = forwardRef<HTMLElement, PhotoAlbumProps>(function Phot
               aria-checked={tag === t}
               onClick={() => setTag(t)}
               className={cn(
-                "inline-flex items-center px-3 py-1 rounded-full text-xs font-medium transition-colors cursor-pointer",
-                tag === t ? "bg-primary text-white" : "bg-surface-soft text-foreground hover:bg-surface",
+                "inline-flex items-center px-3 py-1 rounded-full border text-xs font-medium transition-colors cursor-pointer",
+                "active:scale-[0.97] motion-reduce:active:scale-100",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                tag === t
+                  ? "bg-primary border-primary text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]"
+                  : "bg-surface-soft border-border text-foreground hover:bg-surface hover:border-muted-light",
               )}
             >
               {t}
@@ -112,7 +126,7 @@ export const PhotoAlbum = forwardRef<HTMLElement, PhotoAlbumProps>(function Phot
               type="button"
               onClick={() => setLightboxIndex(i)}
               aria-label={`${p.alt} 크게 보기`}
-              className="text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-xl"
+              className="block w-full text-left cursor-pointer rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <PhotoCard
                 src={p.src}

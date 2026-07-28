@@ -49,7 +49,16 @@ const TABS = [
   { key: "investor", label: "AI 위원회", suffix: "/investor" },
 ] as const;
 
-export function StockTopBar({ symbol, active, price, diff, pct, amount억, displayName, trailing }: StockTopBarProps) {
+export function StockTopBar({
+  symbol,
+  active,
+  price,
+  diff,
+  pct,
+  amount억,
+  displayName,
+  trailing,
+}: StockTopBarProps) {
   const router = useRouter();
   const decoded = decodeURIComponent(symbol);
   const stock = findStock(decoded);
@@ -62,11 +71,11 @@ export function StockTopBar({ symbol, active, price, diff, pct, amount억, displ
   // 보통 SSR 시점 KIS REST 스냅샷이라 수초~수십초 지연됨 — live 가 있으면 무조건 우선.
   // tick 전(`live.price === 0`)에는 SSR prop → JunDS 정적 stocks → 0 순서로 폴백.
   const liveActive = live.price > 0;
-  const displayPrice = liveActive ? live.price : (price ?? stock?.price ?? 0);
-  const displayPct = liveActive ? live.change : (pct ?? stock?.change ?? 0);
+  const displayPrice = liveActive ? live.price : price ?? stock?.price ?? 0;
+  const displayPct = liveActive ? live.change : pct ?? stock?.change ?? 0;
   const displayDiff = liveActive
     ? Math.round((live.price * live.change) / Math.max(100 + live.change, 1))
-    : (diff ?? Math.round((displayPrice * displayPct) / Math.max(100 + displayPct, 1)));
+    : diff ?? Math.round((displayPrice * displayPct) / Math.max(100 + displayPct, 1));
   const displayAmt = amount억 ?? 0;
 
   const up = displayPct >= 0;
@@ -88,7 +97,7 @@ export function StockTopBar({ symbol, active, price, diff, pct, amount억, displ
             type="button"
             aria-label="뒤로"
             onClick={() => router.back()}
-            className="size-9 rounded-full grid place-items-center transition-colors hover:bg-[var(--bm-soft-100)] shrink-0"
+            className="size-9 rounded-full grid place-items-center cursor-pointer transition-colors hover:bg-[var(--bm-soft-100)] active:scale-95 motion-reduce:active:scale-100 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-bg)]"
             style={{ color: "var(--bm-muted-strong)" }}
           >
             <AppIcon name="chevronLeft" size={20} strokeWidth={2.4} />
@@ -155,7 +164,11 @@ export function StockTopBar({ symbol, active, price, diff, pct, amount억, displ
         </div>
 
         {/* Row 2: tabs */}
-        <nav className="bm-tabs mt-2.5 sm:mt-3 -mx-3 sm:mx-0 px-3 sm:px-0" aria-label="종목 메뉴">
+        {/* 탭 줄은 좁은 화면에서 가로로 흐른다 — 끝에서 페이지가 같이 끌려가지 않게 한다 */}
+        <nav
+          className="bm-tabs mt-2.5 sm:mt-3 -mx-3 sm:mx-0 px-3 sm:px-0 overscroll-x-contain"
+          aria-label="종목 메뉴"
+        >
           {TABS.map((tab) => {
             const isActive = tab.key === active;
             const href = `/stock/${symbol}${tab.suffix}`;
@@ -163,7 +176,7 @@ export function StockTopBar({ symbol, active, price, diff, pct, amount억, displ
               <Link
                 key={tab.key}
                 href={href}
-                className="bm-tab"
+                className="bm-tab focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-bg)]"
                 data-active={isActive}
                 aria-current={isActive ? "page" : undefined}
               >

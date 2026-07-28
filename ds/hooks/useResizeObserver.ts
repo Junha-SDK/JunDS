@@ -16,7 +16,9 @@ export interface ResizeObserverEntry2 {
  * const rect = useResizeObserver(ref);
  * if (rect) console.log(rect.width);
  */
-export function useResizeObserver<T extends HTMLElement>(ref: RefObject<T | null>): ResizeObserverEntry2 | null {
+export function useResizeObserver<T extends HTMLElement>(
+  ref: RefObject<T | null>,
+): ResizeObserverEntry2 | null {
   const [rect, setRect] = useState<ResizeObserverEntry2 | null>(null);
 
   useEffect(() => {

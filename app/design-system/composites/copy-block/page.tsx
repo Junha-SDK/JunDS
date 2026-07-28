@@ -12,7 +12,12 @@ export default function CopyBlockPage() {
       props={[
         { name: "code", type: "string", description: "표시 및 복사할 코드 문자열" },
         { name: "language", type: "string", description: "헤더에 표시할 언어 라벨" },
-        { name: "showLineNumbers", type: "boolean", default: "false", description: "줄 번호 표시 여부" },
+        {
+          name: "showLineNumbers",
+          type: "boolean",
+          default: "false",
+          description: "줄 번호 표시 여부",
+        },
         { name: "className", type: "string", description: "컨테이너 클래스" },
       ]}
     >

@@ -4,22 +4,15 @@
 
 const _encoder = new TextEncoder();
 
-export async function _hmacSign(
-  message: string,
-  secret: string
-): Promise<string> {
+export async function _hmacSign(message: string, secret: string): Promise<string> {
   const key = await crypto.subtle.importKey(
     "raw",
     _encoder.encode(secret),
     { name: "HMAC", hash: "SHA-256" },
     false,
-    ["sign"]
+    ["sign"],
   );
-  const signature = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    _encoder.encode(message)
-  );
+  const signature = await crypto.subtle.sign("HMAC", key, _encoder.encode(message));
   return Array.from(new Uint8Array(signature))
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
@@ -33,11 +26,7 @@ export async function _sha256(data: string): Promise<string> {
 }
 
 export function _obfuscateKey(key: string): string {
-  return btoa(key.split("").reverse().join(""))
-    .replace(/=/g, "")
-    .split("")
-    .reverse()
-    .join("");
+  return btoa(key.split("").reverse().join("")).replace(/=/g, "").split("").reverse().join("");
 }
 
 export function _deobfuscateKey(obfuscated: string): string {

@@ -13,7 +13,15 @@ export default function BlogPostPage() {
     >
       <Section title="Default">
         <Preview>
-          <BlogPost title="JunDS 소개" excerpt="에이전트 친화 디자인 시스템" author={{name:"홍길동"}} publishedAt="2026-04-30" readingMinutes={5}>본문</BlogPost>
+          <BlogPost
+            title="JunDS 소개"
+            excerpt="에이전트 친화 디자인 시스템"
+            author={{ name: "홍길동" }}
+            publishedAt="2026-04-30"
+            readingMinutes={5}
+          >
+            본문
+          </BlogPost>
         </Preview>
       </Section>
     </ComponentPage>

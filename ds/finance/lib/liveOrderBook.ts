@@ -33,10 +33,9 @@ export function useLiveOrderBook(symbol: string): OrderBookTick | null {
     if (!symbol || typeof window === "undefined") return;
     let es: EventSource | null = null;
     try {
-      es = new EventSource(
-        `/api/kis/stream?orderbook=${encodeURIComponent(symbol)}`,
-        { withCredentials: true },
-      );
+      es = new EventSource(`/api/kis/stream?orderbook=${encodeURIComponent(symbol)}`, {
+        withCredentials: true,
+      });
       es.addEventListener("orderbook", (ev) => {
         try {
           const raw = JSON.parse((ev as MessageEvent).data) as OrderBookTick;

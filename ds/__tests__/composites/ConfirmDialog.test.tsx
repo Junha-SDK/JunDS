@@ -4,7 +4,15 @@ import { ConfirmDialog } from "../../composites/ConfirmDialog";
 
 describe("ConfirmDialog", () => {
   it("renders title and description", () => {
-    render(<ConfirmDialog open onClose={() => {}} onConfirm={() => {}} title="삭제?" description="되돌릴 수 없습니다" />);
+    render(
+      <ConfirmDialog
+        open
+        onClose={() => {}}
+        onConfirm={() => {}}
+        title="삭제?"
+        description="되돌릴 수 없습니다"
+      />,
+    );
     expect(screen.getByText("삭제?")).toBeInTheDocument();
     expect(screen.getByText("되돌릴 수 없습니다")).toBeInTheDocument();
   });
@@ -24,7 +32,16 @@ describe("ConfirmDialog", () => {
   });
 
   it("shows danger style", () => {
-    render(<ConfirmDialog open onClose={() => {}} onConfirm={() => {}} title="정말 삭제?" danger confirmLabel="삭제" />);
+    render(
+      <ConfirmDialog
+        open
+        onClose={() => {}}
+        onConfirm={() => {}}
+        title="정말 삭제?"
+        danger
+        confirmLabel="삭제"
+      />,
+    );
     expect(screen.getByText("정말 삭제?")).toBeInTheDocument();
     expect(screen.getByText("삭제")).toBeInTheDocument();
   });

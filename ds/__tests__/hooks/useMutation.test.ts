@@ -4,9 +4,7 @@ import { useMutation } from "../../hooks/useMutation";
 
 describe("useMutation", () => {
   it("runs mutation and updates state", async () => {
-    const { result } = renderHook(() =>
-      useMutation(async (n: number) => n * 2),
-    );
+    const { result } = renderHook(() => useMutation(async (n: number) => n * 2));
     await act(async () => {
       await result.current.mutate(21);
     });

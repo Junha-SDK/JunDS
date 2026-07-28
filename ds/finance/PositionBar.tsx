@@ -15,10 +15,12 @@ export function PositionBar({ low, high, cur, tone = "up" }: PositionBarProps) {
     <div className="relative h-2 rounded-full bg-[color:var(--bm-soft-100)] overflow-visible">
       <div
         className="absolute top-0 h-full rounded-full"
+        // rgba(239,68,68)/rgba(37,99,235) 는 바로 아래 줄이 쓰는 --bm-up/--bm-down 을
+        // 손으로 베낀 값이다 — 같은 토큰에서 섞어야 테마가 바뀌어도 두 층이 함께 움직인다
         style={{
           left: `${left}%`,
           width: `${right - left}%`,
-          background: tone === "up" ? "rgba(239,68,68,0.18)" : "rgba(37,99,235,0.18)",
+          background: `color-mix(in srgb, ${color} 18%, transparent)`,
         }}
       />
       <div
@@ -31,7 +33,8 @@ export function PositionBar({ low, high, cur, tone = "up" }: PositionBarProps) {
       />
       <div
         className="absolute top-1/2 -translate-y-1/2 w-[2px] h-3 rounded"
-        style={{ left: "50%", background: "#0f172a" }}
+        // #0f172a 는 라이트 전용 잉크라 다크 배경에서 눈금이 사라진다
+        style={{ left: "50%", background: "var(--bm-text)" }}
       />
     </div>
   );

@@ -70,12 +70,12 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     source: "Berkshire Hathaway letters · 1965~",
     weights: {
       valuation: 0.18,
-      quality: 0.30,
-      growth: 0.10,
-      moat: 0.20,
+      quality: 0.3,
+      growth: 0.1,
+      moat: 0.2,
       dividend: 0.08,
       momentum: 0.04,
-      risk: 0.10,
+      risk: 0.1,
     },
     preferences: {
       maxPER: 22,
@@ -106,11 +106,11 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     weights: {
       valuation: 0.15,
       quality: 0.18,
-      growth: 0.30,
-      moat: 0.10,
+      growth: 0.3,
+      moat: 0.1,
       dividend: 0.05,
       momentum: 0.12,
-      risk: 0.10,
+      risk: 0.1,
     },
     preferences: {
       maxPER: 30,
@@ -142,7 +142,7 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
       moat: 0.22,
       dividend: 0.04,
       momentum: 0.04,
-      risk: 0.10,
+      risk: 0.1,
     },
     preferences: {
       maxPER: 25,
@@ -170,13 +170,13 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     ],
     source: "Security Analysis · The Intelligent Investor",
     weights: {
-      valuation: 0.40,
+      valuation: 0.4,
       quality: 0.18,
       growth: 0.05,
       moat: 0.05,
       dividend: 0.12,
-      momentum: 0.00,
-      risk: 0.20,
+      momentum: 0.0,
+      risk: 0.2,
     },
     preferences: {
       maxPER: 15,
@@ -204,12 +204,12 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     source: "ARK Big Ideas · 연간 리포트",
     weights: {
       valuation: 0.05,
-      quality: 0.10,
+      quality: 0.1,
       growth: 0.45,
-      moat: 0.10,
-      dividend: 0.00,
-      momentum: 0.20,
-      risk: 0.10,
+      moat: 0.1,
+      dividend: 0.0,
+      momentum: 0.2,
+      risk: 0.1,
     },
     preferences: {
       preferLargeCap: false,
@@ -233,9 +233,9 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     ],
     source: "The Little Book That Beats the Market",
     weights: {
-      valuation: 0.30,
-      quality: 0.30,
-      growth: 0.10,
+      valuation: 0.3,
+      quality: 0.3,
+      growth: 0.1,
       moat: 0.05,
       dividend: 0.05,
       momentum: 0.05,
@@ -265,13 +265,13 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     ],
     source: "Principles · Big Debt Crises",
     weights: {
-      valuation: 0.10,
+      valuation: 0.1,
       quality: 0.15,
-      growth: 0.10,
+      growth: 0.1,
       moat: 0.05,
-      dividend: 0.10,
-      momentum: 0.20,
-      risk: 0.30,
+      dividend: 0.1,
+      momentum: 0.2,
+      risk: 0.3,
     },
     preferences: {
       preferLargeCap: true,
@@ -296,13 +296,13 @@ export const INVESTORS: Record<InvestorId, InvestorProfile> = {
     ],
     source: "Pershing Square 연간 서한",
     weights: {
-      valuation: 0.20,
+      valuation: 0.2,
       quality: 0.25,
       growth: 0.15,
-      moat: 0.20,
+      moat: 0.2,
       dividend: 0.05,
       momentum: 0.05,
-      risk: 0.10,
+      risk: 0.1,
     },
     preferences: {
       maxPER: 25,
@@ -397,7 +397,11 @@ export function scoreForInvestor(
   if (f.per != null && inv.preferences.maxPER) {
     if (f.per <= inv.preferences.maxPER * 0.7) {
       valuation += 0.6;
-      reasons.push(`PER ${f.per.toFixed(1)}배 — ${inv.korean}의 기준(${inv.preferences.maxPER}배)보다 30%↓ 저평가`);
+      reasons.push(
+        `PER ${f.per.toFixed(1)}배 — ${inv.korean}의 기준(${
+          inv.preferences.maxPER
+        }배)보다 30%↓ 저평가`,
+      );
     } else if (f.per <= inv.preferences.maxPER) {
       valuation += 0.25;
       reasons.push(`PER ${f.per.toFixed(1)}배 — 허용 범위 내`);
@@ -454,7 +458,7 @@ export function scoreForInvestor(
     if (g >= 0.25) {
       growth += 0.8;
       reasons.push(`매출 YoY ${(g * 100).toFixed(0)}% 성장 — 폭발적`);
-    } else if (g >= 0.10) {
+    } else if (g >= 0.1) {
       growth += 0.4;
       reasons.push(`매출 YoY ${(g * 100).toFixed(0)}% — 견조한 성장`);
     } else if (g >= 0) {
@@ -569,10 +573,13 @@ export function scoreForInvestor(
     const stopMul = inv.id === "graham" ? 0.85 : inv.id === "wood" ? 0.7 : 0.88;
     const stop = Math.round(f.price * stopMul);
     const sizePct =
-      inv.id === "ackman" ? 12 :
-      inv.id === "wood" ? 6 :
-      inv.id === "buffett" || inv.id === "munger" ? 10 :
-      8;
+      inv.id === "ackman"
+        ? 12
+        : inv.id === "wood"
+        ? 6
+        : inv.id === "buffett" || inv.id === "munger"
+        ? 10
+        : 8;
     plan = {
       entryLow,
       entryHigh,

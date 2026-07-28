@@ -30,8 +30,14 @@ export interface ImageCompareProps {
  * @tags photo, media
  */
 export function ImageCompare({
-  beforeSrc, afterSrc, beforeAlt, afterAlt,
-  initialSplit = 50, aspectRatio = "16 / 9", showLabels = true, className,
+  beforeSrc,
+  afterSrc,
+  beforeAlt,
+  afterAlt,
+  initialSplit = 50,
+  aspectRatio = "16 / 9",
+  showLabels = true,
+  className,
 }: ImageCompareProps) {
   const [split, setSplit] = useState(Math.max(0, Math.min(100, initialSplit)));
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,7 +60,9 @@ export function ImageCompare({
     if (!dragging.current) return;
     updateFromX(e.clientX);
   };
-  const onPointerUp = () => { dragging.current = false; };
+  const onPointerUp = () => {
+    dragging.current = false;
+  };
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") setSplit((s) => Math.max(0, s - 2));
     else if (e.key === "ArrowRight") setSplit((s) => Math.min(100, s + 2));
@@ -74,15 +82,26 @@ export function ImageCompare({
       className={cn("relative overflow-hidden rounded-xl bg-black select-none", className)}
       style={{ aspectRatio }}
     >
-      <img src={beforeSrc} alt={beforeAlt} className="absolute inset-0 w-full h-full object-cover" />
-      <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}>
+      <img
+        src={beforeSrc}
+        alt={beforeAlt}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div
+        className="absolute inset-0 overflow-hidden"
+        style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}
+      >
         <img src={afterSrc} alt={afterAlt} className="w-full h-full object-cover" />
       </div>
 
       {showLabels && (
         <>
-          <span className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-black/60 text-white text-[11px] font-semibold backdrop-blur">After</span>
-          <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/60 text-white text-[11px] font-semibold backdrop-blur">Before</span>
+          <span className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-black/60 text-white text-[11px] font-semibold backdrop-blur">
+            After
+          </span>
+          <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/60 text-white text-[11px] font-semibold backdrop-blur">
+            Before
+          </span>
         </>
       )}
 

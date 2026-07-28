@@ -14,7 +14,12 @@ export default function PortalPage() {
       importPath='import { Portal } from "@/ds/primitives/Portal"'
       props={[
         { name: "children", type: "ReactNode", description: "포털 대상에 렌더링할 자식." },
-        { name: "container", type: "Element", default: "document.body", description: "마운트 대상 DOM 노드." },
+        {
+          name: "container",
+          type: "Element",
+          default: "document.body",
+          description: "마운트 대상 DOM 노드.",
+        },
       ]}
     >
       <Section title="Basic" description="버튼을 누르면 body 끝에 포털 콘텐츠가 추가됩니다.">

@@ -1,8 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import {
-  _validateLicense,
-  _validateLicenseOffline,
-} from "@/ds/auth/license-validator";
+import { _validateLicense, _validateLicenseOffline } from "@/ds/auth/license-validator";
 import { _sha256 } from "@/ds/auth/crypto";
 
 const VALID_KEY = "JUNDS-ABCD-1234-EFGH-5678";
@@ -61,9 +58,7 @@ describe("_validateLicense — server response", () => {
   });
 
   it("returns valid=false on non-OK HTTP status", async () => {
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response("forbidden", { status: 403 }),
-    );
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response("forbidden", { status: 403 }));
     const result = await _validateLicense(VALID_KEY);
     expect(result.valid).toBe(false);
   });
@@ -73,9 +68,7 @@ describe("_validateLicense — caching", () => {
   it("hits the cache on the second call (same key) without calling fetch again", async () => {
     const fetchSpy = vi
       .spyOn(globalThis, "fetch")
-      .mockResolvedValue(
-        new Response(JSON.stringify({ valid: true }), { status: 200 }),
-      );
+      .mockResolvedValue(new Response(JSON.stringify({ valid: true }), { status: 200 }));
 
     await _validateLicense(VALID_KEY);
     await _validateLicense(VALID_KEY);
@@ -106,9 +99,7 @@ describe("_validateLicense — caching", () => {
 
     const fetchSpy = vi
       .spyOn(globalThis, "fetch")
-      .mockResolvedValue(
-        new Response(JSON.stringify({ valid: true }), { status: 200 }),
-      );
+      .mockResolvedValue(new Response(JSON.stringify({ valid: true }), { status: 200 }));
 
     await _validateLicense(keyA);
     await _validateLicense(keyB);

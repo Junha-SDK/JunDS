@@ -20,7 +20,9 @@ describe("useOptimisticState", () => {
       try {
         await result.current[1].run(
           (cur) => ({ count: cur.count + 5 }),
-          async () => { throw new Error("nope"); },
+          async () => {
+            throw new Error("nope");
+          },
         );
       } catch {}
     });

@@ -96,7 +96,11 @@ export default function ChartCardPage() {
       importPath='import { ChartCard } from "@/ds/patterns/ChartCard"'
       props={[
         { name: "title", type: "string", description: "카드 제목" },
-        { name: "type", type: "'bar' | 'horizontal-bar' | 'stacked-bar' | 'line' | 'area' | 'donut' | 'sparkline' | 'progress' | 'radial'", description: "차트 유형" },
+        {
+          name: "type",
+          type: "'bar' | 'horizontal-bar' | 'stacked-bar' | 'line' | 'area' | 'donut' | 'sparkline' | 'progress' | 'radial'",
+          description: "차트 유형",
+        },
         { name: "data", type: "ChartDataPoint[]", description: "차트 데이터" },
         { name: "value", type: "ReactNode", description: "헤더에 표시할 KPI 값" },
         { name: "trend", type: "ChartTrend", description: "상승/하락/유지 추세 뱃지" },
@@ -109,7 +113,11 @@ export default function ChartCardPage() {
         { name: "showAxis", type: "boolean", description: "축/라벨 표시" },
         { name: "loading", type: "boolean", description: "스켈레톤 로딩 상태" },
         { name: "emptyMessage", type: "string", description: "빈 데이터 메시지" },
-        { name: "tone", type: "'default' | 'success' | 'warning' | 'danger' | 'info'", description: "차트 기본 색상 톤" },
+        {
+          name: "tone",
+          type: "'default' | 'success' | 'warning' | 'danger' | 'info'",
+          description: "차트 기본 색상 톤",
+        },
         { name: "variant", type: "'card' | 'plain'", description: "카드 또는 무배경 렌더링" },
       ]}
     >
@@ -123,7 +131,11 @@ export default function ChartCardPage() {
               data={revenueData}
               value="1,010만"
               trend={{ value: "+18.4%", direction: "up", label: "전월 대비" }}
-              badge={<Badge variant="success" size="sm">Live</Badge>}
+              badge={
+                <Badge variant="success" size="sm">
+                  Live
+                </Badge>
+              }
               formatValue={formatCurrency}
             />
             <ChartCard
@@ -169,7 +181,11 @@ export default function ChartCardPage() {
               type="horizontal-bar"
               data={activationData}
               max={900}
-              actions={<Button variant="ghost" size="xs">보기</Button>}
+              actions={
+                <Button variant="ghost" size="xs">
+                  보기
+                </Button>
+              }
             />
             <ChartCard
               title="응답 시간"
@@ -224,7 +240,11 @@ export default function ChartCardPage() {
               data={progressData}
               max={100}
               formatValue={formatPercent}
-              footer={<span className="text-xs text-muted">배포 전 4개 항목 중 2개 항목이 추가 확인이 필요합니다.</span>}
+              footer={
+                <span className="text-xs text-muted">
+                  배포 전 4개 항목 중 2개 항목이 추가 확인이 필요합니다.
+                </span>
+              }
             />
             <ChartCard
               title="장애 비율"
@@ -241,13 +261,7 @@ export default function ChartCardPage() {
       <Section title="상태 UI">
         <Preview>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <ChartCard
-              title="로딩 중"
-              description="데이터 요청 중"
-              type="bar"
-              data={[]}
-              loading
-            />
+            <ChartCard title="로딩 중" description="데이터 요청 중" type="bar" data={[]} loading />
             <ChartCard
               title="빈 그래프"
               description="필터 조건에 맞는 데이터 없음"

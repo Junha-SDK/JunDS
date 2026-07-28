@@ -50,18 +50,21 @@ export function ContextMenu({ items, children, className }: ContextMenuProps) {
     [items],
   );
 
-  const handleContextMenu = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    const menuWidth = 180;
-    const menuHeight = items.length * 36;
-    let x = e.clientX;
-    let y = e.clientY;
-    if (x + menuWidth > window.innerWidth) x = window.innerWidth - menuWidth - 8;
-    if (y + menuHeight > window.innerHeight) y = window.innerHeight - menuHeight - 8;
-    setPos({ x, y });
-    setOpen(true);
-    setFocusedIndex(-1);
-  }, [items.length]);
+  const handleContextMenu = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      const menuWidth = 180;
+      const menuHeight = items.length * 36;
+      let x = e.clientX;
+      let y = e.clientY;
+      if (x + menuWidth > window.innerWidth) x = window.innerWidth - menuWidth - 8;
+      if (y + menuHeight > window.innerHeight) y = window.innerHeight - menuHeight - 8;
+      setPos({ x, y });
+      setOpen(true);
+      setFocusedIndex(-1);
+    },
+    [items.length],
+  );
 
   const close = useCallback(() => {
     setOpen(false);
@@ -95,8 +98,7 @@ export function ContextMenu({ items, children, className }: ContextMenuProps) {
           e.preventDefault();
           setFocusedIndex((prev) => {
             const curPos = actionableIndices.indexOf(prev);
-            const next =
-              curPos > 0 ? curPos - 1 : actionableIndices.length - 1;
+            const next = curPos > 0 ? curPos - 1 : actionableIndices.length - 1;
             return actionableIndices[next] ?? -1;
           });
           break;
@@ -146,8 +148,10 @@ export function ContextMenu({ items, children, className }: ContextMenuProps) {
           <div
             ref={menuRef}
             className={cn(
-              "fixed z-50 min-w-[180px] py-1 bg-card rounded-xl shadow-lg border border-border",
-              "animate-fade-in",
+              // 커서 위에 떠 있는 메뉴 — 그림자 한 겹으로는 아래 내용에서 떨어지지 않는다
+              "fixed z-50 min-w-[180px] py-1 bg-card rounded-xl border border-border",
+              "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-border-light",
+              "animate-fade-in motion-reduce:animate-none",
               className,
             )}
             style={{ left: pos.x, top: pos.y }}
@@ -177,7 +181,9 @@ export function ContextMenu({ items, children, className }: ContextMenuProps) {
                     close();
                   }}
                   className={cn(
-                    "w-full flex items-center gap-2 px-3 py-2 text-sm text-left transition-colors cursor-pointer",
+                    "w-full flex items-center gap-2 px-3 py-2 text-sm text-left transition-colors duration-150 cursor-pointer",
+                    // 키보드 이동은 여기로 포커스를 옮긴다 — 링이 없으면 어디에 있는지 알 수 없다
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
                     "hover:bg-primary/10 disabled:opacity-40 disabled:cursor-not-allowed",
                     item.danger ? "text-danger hover:bg-danger-light" : "text-foreground",
                     isFocused && "bg-primary/10",

@@ -17,7 +17,7 @@ export interface GlobeProps {
 /**
  * 회전하는 인터랙티브 3D 지구본.
  * @example
- * <Globe size={400} dotColor="#3b82f6" speed={0.5} />
+ * <Globe size={400} dotColor="var(--accent)" speed={0.5} />
  * @status stable
  * @since 2.2.0
  * @tags data-display
@@ -64,13 +64,16 @@ export function Globe({
         className="absolute inset-0 rounded-full border-2 opacity-20"
         style={{ borderColor: color }}
       />
-      {/* Rotating container */}
+      {/* Rotating container — 회전 선언은 클래스가 쥐고 속도만 변수로 넘긴다.
+          인라인 `animation` 이면 감속 요청 미디어 쿼리가 이길 수 없다. */}
       <div
-        className="absolute inset-0"
-        style={{
-          transformStyle: "preserve-3d",
-          animation: `globe-spin ${speed}s linear infinite`,
-        }}
+        className="junds-globe-rotor absolute inset-0"
+        style={
+          {
+            transformStyle: "preserve-3d",
+            "--junds-globe-speed": `${speed}s`,
+          } as React.CSSProperties
+        }
       >
         {dots.map((dot, i) => (
           <div
@@ -83,7 +86,7 @@ export function Globe({
               left: "50%",
               top: "50%",
               transform: `translate(-50%, -50%) translate3d(${dot.x}px, ${dot.y}px, ${dot.z}px)`,
-              opacity: 0.3 + (dot.z + size / 2) / size * 0.7,
+              opacity: 0.3 + ((dot.z + size / 2) / size) * 0.7,
             }}
           />
         ))}
@@ -91,12 +94,23 @@ export function Globe({
       {/* Equator ring */}
       <div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border opacity-10"
-        style={{ width: size, height: size, borderColor: color, transform: "translate(-50%, -50%) rotateX(75deg)" }}
+        style={{
+          width: size,
+          height: size,
+          borderColor: color,
+          transform: "translate(-50%, -50%) rotateX(75deg)",
+        }}
       />
       <style>{`
+        .junds-globe-rotor {
+          animation: globe-spin var(--junds-globe-speed, 20s) linear infinite;
+        }
         @keyframes globe-spin {
           from { transform: rotateY(0deg); }
           to { transform: rotateY(360deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .junds-globe-rotor { animation: none; }
         }
       `}</style>
     </div>

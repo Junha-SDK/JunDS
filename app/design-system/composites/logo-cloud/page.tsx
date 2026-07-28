@@ -13,7 +13,17 @@ export default function LogoCloudPage() {
     >
       <Section title="Default">
         <Preview>
-          <LogoCloud title="신뢰받는 파트너" columns={5} logos={[{name:"Acme"},{name:"Globex"},{name:"Initech"},{name:"Umbrella"},{name:"Stark"}]} />
+          <LogoCloud
+            title="신뢰받는 파트너"
+            columns={5}
+            logos={[
+              { name: "Acme" },
+              { name: "Globex" },
+              { name: "Initech" },
+              { name: "Umbrella" },
+              { name: "Stark" },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

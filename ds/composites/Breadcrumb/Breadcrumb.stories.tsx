@@ -22,10 +22,7 @@ export const Default: Story = {
 
 export const TwoLevels: Story = {
   args: {
-    items: [
-      { label: "대시보드", href: "/" },
-      { label: "사용자 관리" },
-    ],
+    items: [{ label: "대시보드", href: "/" }, { label: "사용자 관리" }],
   },
 };
 
@@ -43,11 +40,7 @@ export const Deep: Story = {
 
 export const SlashSeparator: Story = {
   args: {
-    items: [
-      { label: "홈", href: "/" },
-      { label: "문서", href: "/docs" },
-      { label: "API" },
-    ],
+    items: [{ label: "홈", href: "/" }, { label: "문서", href: "/docs" }, { label: "API" }],
     separator: <span className="text-muted-light">/</span>,
   },
 };

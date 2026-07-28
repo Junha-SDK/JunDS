@@ -13,7 +13,12 @@ export default function NotificationPage() {
       props={[
         { name: "title", type: "string", description: "알림 제목" },
         { name: "description", type: "string", description: "보조 설명" },
-        { name: "variant", type: '"info"|"success"|"warning"|"danger"', default: '"info"', description: "유형" },
+        {
+          name: "variant",
+          type: '"info"|"success"|"warning"|"danger"',
+          default: '"info"',
+          description: "유형",
+        },
         { name: "icon", type: "ReactNode", description: "좌측 아이콘" },
         { name: "action", type: "ReactNode", description: "본문 하단 액션 영역" },
         { name: "onClose", type: "() => void", description: "닫기 핸들러 (있으면 X 버튼 표시)" },
@@ -22,10 +27,26 @@ export default function NotificationPage() {
       <Section title="All Variants">
         <Preview>
           <div className="flex flex-col gap-3 w-full max-w-md">
-            <Notification variant="info" title="새 메시지" description="3개의 새 메시지가 도착했습니다." />
-            <Notification variant="success" title="저장 완료" description="변경 사항이 저장되었습니다." />
-            <Notification variant="warning" title="용량 부족" description="저장 공간이 90% 이상 찼습니다." />
-            <Notification variant="danger" title="연결 실패" description="서버에 연결할 수 없습니다." />
+            <Notification
+              variant="info"
+              title="새 메시지"
+              description="3개의 새 메시지가 도착했습니다."
+            />
+            <Notification
+              variant="success"
+              title="저장 완료"
+              description="변경 사항이 저장되었습니다."
+            />
+            <Notification
+              variant="warning"
+              title="용량 부족"
+              description="저장 공간이 90% 이상 찼습니다."
+            />
+            <Notification
+              variant="danger"
+              title="연결 실패"
+              description="서버에 연결할 수 없습니다."
+            />
           </div>
         </Preview>
       </Section>

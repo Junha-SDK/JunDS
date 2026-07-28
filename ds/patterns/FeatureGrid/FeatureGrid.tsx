@@ -66,10 +66,14 @@ export const FeatureGrid = forwardRef<HTMLElement, FeatureGridProps>(function Fe
           const inner = (
             <>
               {f.icon && (
-                <div className={cn(
-                  "inline-flex items-center justify-center rounded-md text-primary",
-                  layout === "iconLeft" ? "w-10 h-10 bg-primary-soft mb-0 shrink-0" : "w-12 h-12 bg-primary-soft mb-4 text-2xl",
-                )}>
+                // `primary-soft` 는 토큰에 없는 이름이라 배경이 아예 칠해지지 않았다.
+                // 실제로 존재하는 `primary-light` 로 바로잡는다.
+                <div
+                  className={cn(
+                    "inline-flex items-center justify-center rounded-xl bg-primary-light text-primary-ink",
+                    layout === "iconLeft" ? "w-10 h-10 mb-0 shrink-0" : "w-12 h-12 mb-4 text-2xl",
+                  )}
+                >
                   {f.icon}
                 </div>
               )}
@@ -81,7 +85,13 @@ export const FeatureGrid = forwardRef<HTMLElement, FeatureGridProps>(function Fe
           );
 
           const baseClass = cn(
-            layout === "card" && "rounded-xl border bg-surface p-6 transition-shadow hover:shadow-md",
+            layout === "card" && [
+              "rounded-xl border bg-surface p-6 transition-shadow",
+              // 카드는 면이다 — 얇은 기본 그림자 + 상단 인셋 하이라이트로 두께를 주고,
+              // 호버에서만 다층 그림자로 한 단 들어올린다.
+              "shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.1)]",
+              "hover:shadow-[0_12px_30px_-14px_rgba(0,0,0,0.26),0_4px_10px_-6px_rgba(0,0,0,0.14),inset_0_1px_0_rgba(255,255,255,0.12)]",
+            ],
             layout === "iconLeft" && "flex items-start gap-4",
             layout === "minimal" && "px-2",
             f.highlighted && layout === "card" && "border-primary ring-1 ring-primary/30",
@@ -90,7 +100,15 @@ export const FeatureGrid = forwardRef<HTMLElement, FeatureGridProps>(function Fe
 
           if (f.href) {
             return (
-              <a key={i} href={f.href} className={cn(baseClass, "block hover:no-underline")}>
+              <a
+                key={i}
+                href={f.href}
+                className={cn(
+                  baseClass,
+                  "block hover:no-underline rounded-xl",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                )}
+              >
                 {inner}
               </a>
             );

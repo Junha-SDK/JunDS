@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 import type { Candle } from "./lib/mock";
 import {
   computeATR,
@@ -109,6 +110,9 @@ interface CandleChartProps {
   compareLine?: CompareLine;
 }
 
+// 지표 계열색(RSI 보라, MACD 청/주황, Stoch 시안/주황, %R 핑크, CCI 바이올렛, 회귀 스카이,
+// 피벗 S/R 단계색)은 서로 구분되는 것 자체가 기능이라 의미 토큰으로 접지 않고 리터럴로 둔다.
+// 표면색(배경·격자·축·툴팁)만 --bm-* 를 따른다.
 const MA_PALETTE: Record<number, string> = {
   5: "var(--bm-cat-2)",
   10: "var(--bm-cat-1)",
@@ -165,27 +169,27 @@ export function CandleChart({
     return {
       bb: bb
         ? {
-            period: typeof bb === "object" ? (bb.period ?? 20) : 20,
-            stdDev: typeof bb === "object" ? (bb.stdDev ?? 2) : 2,
+            period: typeof bb === "object" ? bb.period ?? 20 : 20,
+            stdDev: typeof bb === "object" ? bb.stdDev ?? 2 : 2,
           }
         : null,
-      rsi: rsi ? { period: typeof rsi === "object" ? (rsi.period ?? 14) : 14 } : null,
+      rsi: rsi ? { period: typeof rsi === "object" ? rsi.period ?? 14 : 14 } : null,
       macd: macd
         ? {
-            fast: typeof macd === "object" ? (macd.fast ?? 12) : 12,
-            slow: typeof macd === "object" ? (macd.slow ?? 26) : 26,
-            signal: typeof macd === "object" ? (macd.signal ?? 9) : 9,
+            fast: typeof macd === "object" ? macd.fast ?? 12 : 12,
+            slow: typeof macd === "object" ? macd.slow ?? 26 : 26,
+            signal: typeof macd === "object" ? macd.signal ?? 9 : 9,
           }
         : null,
       stoch: stoch
         ? {
-            period: typeof stoch === "object" ? (stoch.period ?? 14) : 14,
-            smooth: typeof stoch === "object" ? (stoch.smooth ?? 3) : 3,
+            period: typeof stoch === "object" ? stoch.period ?? 14 : 14,
+            smooth: typeof stoch === "object" ? stoch.smooth ?? 3 : 3,
           }
         : null,
-      wr: wr ? { period: typeof wr === "object" ? (wr.period ?? 14) : 14 } : null,
-      cci: cci ? { period: typeof cci === "object" ? (cci.period ?? 20) : 20 } : null,
-      atr: atr ? { period: typeof atr === "object" ? (atr.period ?? 14) : 14 } : null,
+      wr: wr ? { period: typeof wr === "object" ? wr.period ?? 14 : 14 } : null,
+      cci: cci ? { period: typeof cci === "object" ? cci.period ?? 20 : 20 } : null,
+      atr: atr ? { period: typeof atr === "object" ? atr.period ?? 14 : 14 } : null,
       obv: !!indicators.obv,
       vwap: !!indicators.vwap,
       ichimoku: !!indicators.ichimoku,
@@ -194,12 +198,18 @@ export function CandleChart({
       regression: !!indicators.regression,
       volumeHeatmap: !!indicators.volumeHeatmap,
       sessionShading: !!indicators.sessionShading,
-      vp: vp ? { bins: typeof vp === "object" ? (vp.bins ?? 24) : 24 } : null,
+      vp: vp ? { bins: typeof vp === "object" ? vp.bins ?? 24 : 24 } : null,
     };
   }, [indicators]);
 
   const rsiData = useMemo(
-    () => (ind.rsi ? computeRSI(candles.map((c) => c.c), ind.rsi.period) : null),
+    () =>
+      ind.rsi
+        ? computeRSI(
+            candles.map((c) => c.c),
+            ind.rsi.period,
+          )
+        : null,
     [candles, ind.rsi],
   );
   const macdData = useMemo(
@@ -216,7 +226,13 @@ export function CandleChart({
   );
   const bbData = useMemo(
     () =>
-      ind.bb ? computeBollinger(displayCandles.map((c) => c.c), ind.bb.period, ind.bb.stdDev) : null,
+      ind.bb
+        ? computeBollinger(
+            displayCandles.map((c) => c.c),
+            ind.bb.period,
+            ind.bb.stdDev,
+          )
+        : null,
     [displayCandles, ind.bb],
   );
   const stochData = useMemo(
@@ -331,25 +347,25 @@ export function CandleChart({
     const volBottom = volTop + volH;
     // Subpanel cursor — 활성 지표를 순서대로 쌓는다 (RSI → MACD → Stoch → WR → CCI → ATR → OBV).
     let cursor = volBottom;
-    const rsiTop = rsiH > 0 ? (cursor += 6, cursor) : 0;
+    const rsiTop = rsiH > 0 ? ((cursor += 6), cursor) : 0;
     if (rsiH > 0) cursor += rsiH;
     const rsiBottom = rsiTop + rsiH;
-    const macdTop = macdH > 0 ? (cursor += 6, cursor) : 0;
+    const macdTop = macdH > 0 ? ((cursor += 6), cursor) : 0;
     if (macdH > 0) cursor += macdH;
     const macdBottom = macdTop + macdH;
-    const stochTop = stochH > 0 ? (cursor += 6, cursor) : 0;
+    const stochTop = stochH > 0 ? ((cursor += 6), cursor) : 0;
     if (stochH > 0) cursor += stochH;
     const stochBottom = stochTop + stochH;
-    const wrTop = wrH > 0 ? (cursor += 6, cursor) : 0;
+    const wrTop = wrH > 0 ? ((cursor += 6), cursor) : 0;
     if (wrH > 0) cursor += wrH;
     const wrBottom = wrTop + wrH;
-    const cciTop = cciH > 0 ? (cursor += 6, cursor) : 0;
+    const cciTop = cciH > 0 ? ((cursor += 6), cursor) : 0;
     if (cciH > 0) cursor += cciH;
     const cciBottom = cciTop + cciH;
-    const atrTop = atrH > 0 ? (cursor += 6, cursor) : 0;
+    const atrTop = atrH > 0 ? ((cursor += 6), cursor) : 0;
     if (atrH > 0) cursor += atrH;
     const atrBottom = atrTop + atrH;
-    const obvTop = obvH > 0 ? (cursor += 6, cursor) : 0;
+    const obvTop = obvH > 0 ? ((cursor += 6), cursor) : 0;
     if (obvH > 0) cursor += obvH;
     const obvBottom = obvTop + obvH;
 
@@ -460,6 +476,8 @@ export function CandleChart({
 
   const svgRef = useRef<SVGSVGElement>(null);
   const [hover, setHover] = useState<{ x: number; idx: number } | null>(null);
+  // 실시간 체결가 점의 무한 맥동은 SMIL 이라 CSS 로 못 끈다 — 렌더 단계에서 걷어낸다.
+  const reducedMotion = useReducedMotion();
 
   function onMove(e: React.MouseEvent<SVGSVGElement>) {
     const svg = svgRef.current;
@@ -504,7 +522,9 @@ export function CandleChart({
     if (closeLinePoints.length < 2) return "";
     const start = `M${layout.padL},${layout.padT + layout.candleH}`;
     const line = closeLinePoints.map((p, i) => (i === 0 ? `L${p}` : `L${p}`)).join("");
-    const end = `L${(width - layout.padR).toFixed(1)},${(layout.padT + layout.candleH).toFixed(1)} Z`;
+    const end = `L${(width - layout.padR).toFixed(1)},${(layout.padT + layout.candleH).toFixed(
+      1,
+    )} Z`;
     return start + line + end;
   }, [closeLinePoints, layout, width]);
 
@@ -517,7 +537,9 @@ export function CandleChart({
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className="bm-num"
-      style={{ display: "block", maxWidth: "100%", cursor: "crosshair" }}
+      // maxWidth 만 두면 좁은 칸에서 폭만 줄고 height 속성은 그대로라 비율이 찌그러진다.
+      // viewBox 가 있으니 height:auto 로 맡긴다.
+      style={{ display: "block", maxWidth: "100%", height: "auto", cursor: "crosshair" }}
     >
       {ticks.map((t) => (
         <line
@@ -546,9 +568,30 @@ export function CandleChart({
       {/* 시간대 음영 — intraday 차트에서 09:00~09:30 (opening), 14:30~15:30 (closing) 강조 */}
       {ind.sessionShading
         ? (() => {
-            const SHADING_RANGES: { fromHour: number; fromMin: number; toHour: number; toMin: number; color: string; label: string }[] = [
-              { fromHour: 9, fromMin: 0, toHour: 9, toMin: 30, color: "rgba(34, 197, 94, 0.06)", label: "opening" },
-              { fromHour: 14, fromMin: 30, toHour: 15, toMin: 30, color: "rgba(239, 68, 68, 0.06)", label: "closing" },
+            const SHADING_RANGES: {
+              fromHour: number;
+              fromMin: number;
+              toHour: number;
+              toMin: number;
+              color: string;
+              label: string;
+            }[] = [
+              {
+                fromHour: 9,
+                fromMin: 0,
+                toHour: 9,
+                toMin: 30,
+                color: "rgba(34, 197, 94, 0.06)",
+                label: "opening",
+              },
+              {
+                fromHour: 14,
+                fromMin: 30,
+                toHour: 15,
+                toMin: 30,
+                color: "rgba(239, 68, 68, 0.06)",
+                label: "closing",
+              },
             ];
             const tToHourMin = (t: string): { h: number; m: number } | null => {
               const n = Number(t);
@@ -631,7 +674,9 @@ export function CandleChart({
               .map((v, i) =>
                 v == null
                   ? null
-                  : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout.yPrice(v).toFixed(1)}`,
+                  : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout
+                      .yPrice(v)
+                      .toFixed(1)}`,
               )
               .filter(Boolean)
               .join(" ")}
@@ -646,7 +691,9 @@ export function CandleChart({
               .map((v, i) =>
                 v == null
                   ? null
-                  : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout.yPrice(v).toFixed(1)}`,
+                  : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout
+                      .yPrice(v)
+                      .toFixed(1)}`,
               )
               .filter(Boolean)
               .join(" ")}
@@ -660,7 +707,9 @@ export function CandleChart({
               .map((v, i) =>
                 v == null
                   ? null
-                  : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout.yPrice(v).toFixed(1)}`,
+                  : `${(layout.padL + i * layout.slot + layout.slot / 2).toFixed(1)},${layout
+                      .yPrice(v)
+                      .toFixed(1)}`,
               )
               .filter(Boolean)
               .join(" ")}
@@ -710,7 +759,8 @@ export function CandleChart({
           // 의미있는 거래량 봉이 시각적으로 강조됨.
           let op = isLast ? 1 : 0.92;
           if (ind.volumeHeatmap && layout.maxVol > 0) {
-            const avgVol = displayCandles.reduce((s, x) => s + x.v, 0) / Math.max(1, displayCandles.length);
+            const avgVol =
+              displayCandles.reduce((s, x) => s + x.v, 0) / Math.max(1, displayCandles.length);
             const ratio = avgVol > 0 ? c.v / avgVol : 1;
             op = Math.max(0.3, Math.min(1, 0.35 + 0.45 * Math.tanh(ratio - 0.5)));
             if (isLast) op = Math.max(op, 0.95);
@@ -781,28 +831,88 @@ export function CandleChart({
             {m.live ? (
               <g>
                 <circle cx={width - layout.padR} cy={y} r={5} fill={m.color} opacity={0.25}>
-                  <animate attributeName="r" values="4;9;4" dur="1.8s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.35;0;0.35" dur="1.8s" repeatCount="indefinite" />
+                  {reducedMotion ? null : (
+                    <>
+                      <animate
+                        attributeName="r"
+                        values="4;9;4"
+                        dur="1.8s"
+                        repeatCount="indefinite"
+                      />
+                      <animate
+                        attributeName="opacity"
+                        values="0.35;0;0.35"
+                        dur="1.8s"
+                        repeatCount="indefinite"
+                      />
+                    </>
+                  )}
                 </circle>
                 <circle cx={width - layout.padR} cy={y} r={3.2} fill={m.color} />
                 {offTop ? (
-                  <text x={width - layout.padR} y={y - 8} fontSize={9} fontWeight={700} fill={m.color} textAnchor="middle">▲</text>
+                  <text
+                    x={width - layout.padR}
+                    y={y - 8}
+                    fontSize={9}
+                    fontWeight={700}
+                    fill={m.color}
+                    textAnchor="middle"
+                  >
+                    ▲
+                  </text>
                 ) : null}
                 {offBottom ? (
-                  <text x={width - layout.padR} y={y + 14} fontSize={9} fontWeight={700} fill={m.color} textAnchor="middle">▼</text>
+                  <text
+                    x={width - layout.padR}
+                    y={y + 14}
+                    fontSize={9}
+                    fontWeight={700}
+                    fill={m.color}
+                    textAnchor="middle"
+                  >
+                    ▼
+                  </text>
                 ) : null}
               </g>
             ) : null}
             {!(m.live && offRange) ? (
               <>
-                <rect x={width - layout.padR - 36} y={y - 9} width={32} height={18} rx={4} fill={m.color} />
-                <text x={width - layout.padR - 20} y={y + 4} fontSize={10.5} fontWeight={700} fill="white" textAnchor="middle">
+                <rect
+                  x={width - layout.padR - 36}
+                  y={y - 9}
+                  width={32}
+                  height={18}
+                  rx={4}
+                  fill={m.color}
+                />
+                <text
+                  x={width - layout.padR - 20}
+                  y={y + 4}
+                  fontSize={10.5}
+                  fontWeight={700}
+                  fill="white"
+                  textAnchor="middle"
+                >
                   {m.label}
                 </text>
               </>
             ) : null}
-            <rect x={width - layout.padR + 2} y={y - 9} width={layout.padR - 6} height={18} rx={4} fill={m.color} />
-            <text x={width - 6} y={y + 4} fontSize={10.5} fontWeight={700} fill="white" textAnchor="end">
+            <rect
+              x={width - layout.padR + 2}
+              y={y - 9}
+              width={layout.padR - 6}
+              height={18}
+              rx={4}
+              fill={m.color}
+            />
+            <text
+              x={width - 6}
+              y={y + 4}
+              fontSize={10.5}
+              fontWeight={700}
+              fill="white"
+              textAnchor="end"
+            >
               {m.price.toLocaleString("ko-KR")}
             </text>
           </g>
@@ -825,7 +935,14 @@ export function CandleChart({
               opacity={0.55}
             />
             <circle cx={cx} cy={layout.padT + 4} r={7} fill={ev.color} />
-            <text x={cx} y={layout.padT + 7.5} fontSize={9} fontWeight={800} fill="white" textAnchor="middle">
+            <text
+              x={cx}
+              y={layout.padT + 7.5}
+              fontSize={9}
+              fontWeight={800}
+              fill="white"
+              textAnchor="middle"
+            >
               {ev.label}
             </text>
             {ev.title ? <title>{ev.title}</title> : null}
@@ -833,31 +950,45 @@ export function CandleChart({
         );
       })}
 
-      {showCurrent && last ? (
-        (() => {
-          const y = layout.yPrice(last.c);
-          const up = last.c >= last.o;
-          const color = up ? "var(--bm-up)" : "var(--bm-down)";
-          return (
-            <g>
-              <line
-                x1={layout.padL}
-                x2={width - layout.padR}
-                y1={y}
-                y2={y}
-                stroke={color}
-                strokeWidth={1}
-                strokeDasharray="2 3"
-                opacity={0.6}
-              />
-              <rect x={width - layout.padR + 2} y={y - 9} width={layout.padR - 6} height={18} rx={4} fill={color} />
-              <text x={width - 6} y={y + 4} fontSize={10.5} fontWeight={700} fill="white" textAnchor="end">
-                {Math.round(last.c).toLocaleString("ko-KR")}
-              </text>
-            </g>
-          );
-        })()
-      ) : null}
+      {showCurrent && last
+        ? (() => {
+            const y = layout.yPrice(last.c);
+            const up = last.c >= last.o;
+            const color = up ? "var(--bm-up)" : "var(--bm-down)";
+            return (
+              <g>
+                <line
+                  x1={layout.padL}
+                  x2={width - layout.padR}
+                  y1={y}
+                  y2={y}
+                  stroke={color}
+                  strokeWidth={1}
+                  strokeDasharray="2 3"
+                  opacity={0.6}
+                />
+                <rect
+                  x={width - layout.padR + 2}
+                  y={y - 9}
+                  width={layout.padR - 6}
+                  height={18}
+                  rx={4}
+                  fill={color}
+                />
+                <text
+                  x={width - 6}
+                  y={y + 4}
+                  fontSize={10.5}
+                  fontWeight={700}
+                  fill="white"
+                  textAnchor="end"
+                >
+                  {Math.round(last.c).toLocaleString("ko-KR")}
+                </text>
+              </g>
+            );
+          })()
+        : null}
 
       {/* Volume bars */}
       {showVolume
@@ -947,96 +1078,108 @@ export function CandleChart({
             strokeLinejoin="round"
             strokeLinecap="round"
           />
-          <text x={layout.padL + 4} y={layout.rsiTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
+          <text
+            x={layout.padL + 4}
+            y={layout.rsiTop + 11}
+            fontSize={9.5}
+            fontWeight={800}
+            fill="var(--bm-muted)"
+          >
             RSI({ind.rsi.period})
           </text>
         </g>
       ) : null}
 
       {/* MACD subpanel */}
-      {macdData && ind.macd ? (
-        (() => {
-          // MACD y 범위
-          const all: number[] = [];
-          for (const v of macdData.macd) if (v != null) all.push(v);
-          for (const v of macdData.signal) if (v != null) all.push(v);
-          for (const v of macdData.histogram) if (v != null) all.push(v);
-          if (all.length === 0) return null;
-          const m = Math.max(...all.map((v) => Math.abs(v)));
-          const range = m || 1;
-          const mid = layout.macdTop + layout.macdH / 2;
-          const yMacd = (v: number) => mid - (v / range) * (layout.macdH / 2 - 4);
-          return (
-            <g>
-              <rect
-                x={layout.padL}
-                y={layout.macdTop}
-                width={width - layout.padL - layout.padR}
-                height={layout.macdH}
-                fill="var(--bm-soft-100)"
-                opacity={0.35}
-              />
-              <line
-                x1={layout.padL}
-                x2={width - layout.padR}
-                y1={mid}
-                y2={mid}
-                stroke="var(--bm-axis)"
-                strokeDasharray="3 3"
-                opacity={0.4}
-              />
-              {/* histogram */}
-              {macdData.histogram.map((v, i) => {
-                if (v == null) return null;
-                const cx = layout.padL + i * layout.slot + layout.slot / 2;
-                const yTop = v >= 0 ? yMacd(v) : mid;
-                const yBot = v >= 0 ? mid : yMacd(v);
-                return (
-                  <rect
-                    key={`h-${i}`}
-                    x={cx - layout.bodyW / 2}
-                    y={yTop}
-                    width={layout.bodyW}
-                    height={Math.max(1, yBot - yTop)}
-                    fill={v >= 0 ? "rgba(34,197,94,0.55)" : "rgba(244,63,94,0.55)"}
-                  />
-                );
-              })}
-              <polyline
-                points={macdData.macd
-                  .map((v, i) => {
-                    if (v == null) return null;
-                    const cx = layout.padL + i * layout.slot + layout.slot / 2;
-                    return `${cx.toFixed(1)},${yMacd(v).toFixed(1)}`;
-                  })
-                  .filter(Boolean)
-                  .join(" ")}
-                fill="none"
-                stroke="#1d4ed8"
-                strokeWidth={1.4}
-                strokeLinejoin="round"
-              />
-              <polyline
-                points={macdData.signal
-                  .map((v, i) => {
-                    if (v == null) return null;
-                    const cx = layout.padL + i * layout.slot + layout.slot / 2;
-                    return `${cx.toFixed(1)},${yMacd(v).toFixed(1)}`;
-                  })
-                  .filter(Boolean)
-                  .join(" ")}
-                fill="none"
-                stroke="var(--bm-warning)"
-                strokeWidth={1.4}
-                strokeLinejoin="round"
-              />
-              <text x={layout.padL + 4} y={layout.macdTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
-                MACD({ind.macd.fast},{ind.macd.slow},{ind.macd.signal})
-              </text>
-            </g>
-          );
-        })()
-      ) : null}
+      {macdData && ind.macd
+        ? (() => {
+            // MACD y 범위
+            const all: number[] = [];
+            for (const v of macdData.macd) if (v != null) all.push(v);
+            for (const v of macdData.signal) if (v != null) all.push(v);
+            for (const v of macdData.histogram) if (v != null) all.push(v);
+            if (all.length === 0) return null;
+            const m = Math.max(...all.map((v) => Math.abs(v)));
+            const range = m || 1;
+            const mid = layout.macdTop + layout.macdH / 2;
+            const yMacd = (v: number) => mid - (v / range) * (layout.macdH / 2 - 4);
+            return (
+              <g>
+                <rect
+                  x={layout.padL}
+                  y={layout.macdTop}
+                  width={width - layout.padL - layout.padR}
+                  height={layout.macdH}
+                  fill="var(--bm-soft-100)"
+                  opacity={0.35}
+                />
+                <line
+                  x1={layout.padL}
+                  x2={width - layout.padR}
+                  y1={mid}
+                  y2={mid}
+                  stroke="var(--bm-axis)"
+                  strokeDasharray="3 3"
+                  opacity={0.4}
+                />
+                {/* histogram */}
+                {macdData.histogram.map((v, i) => {
+                  if (v == null) return null;
+                  const cx = layout.padL + i * layout.slot + layout.slot / 2;
+                  const yTop = v >= 0 ? yMacd(v) : mid;
+                  const yBot = v >= 0 ? mid : yMacd(v);
+                  return (
+                    <rect
+                      key={`h-${i}`}
+                      x={cx - layout.bodyW / 2}
+                      y={yTop}
+                      width={layout.bodyW}
+                      height={Math.max(1, yBot - yTop)}
+                      fill={v >= 0 ? "rgba(34,197,94,0.55)" : "rgba(244,63,94,0.55)"}
+                    />
+                  );
+                })}
+                <polyline
+                  points={macdData.macd
+                    .map((v, i) => {
+                      if (v == null) return null;
+                      const cx = layout.padL + i * layout.slot + layout.slot / 2;
+                      return `${cx.toFixed(1)},${yMacd(v).toFixed(1)}`;
+                    })
+                    .filter(Boolean)
+                    .join(" ")}
+                  fill="none"
+                  stroke="#1d4ed8"
+                  strokeWidth={1.4}
+                  strokeLinejoin="round"
+                />
+                <polyline
+                  points={macdData.signal
+                    .map((v, i) => {
+                      if (v == null) return null;
+                      const cx = layout.padL + i * layout.slot + layout.slot / 2;
+                      return `${cx.toFixed(1)},${yMacd(v).toFixed(1)}`;
+                    })
+                    .filter(Boolean)
+                    .join(" ")}
+                  fill="none"
+                  stroke="var(--bm-warning)"
+                  strokeWidth={1.4}
+                  strokeLinejoin="round"
+                />
+                <text
+                  x={layout.padL + 4}
+                  y={layout.macdTop + 11}
+                  fontSize={9.5}
+                  fontWeight={800}
+                  fill="var(--bm-muted)"
+                >
+                  MACD({ind.macd.fast},{ind.macd.slow},{ind.macd.signal})
+                </text>
+              </g>
+            );
+          })()
+        : null}
 
       {/* Stochastic subpanel — %K + %D, 0~100 */}
       {stochData && ind.stoch ? (
@@ -1096,7 +1239,13 @@ export function CandleChart({
             stroke="#f97316"
             strokeWidth={1.3}
           />
-          <text x={layout.padL + 4} y={layout.stochTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
+          <text
+            x={layout.padL + 4}
+            y={layout.stochTop + 11}
+            fontSize={9.5}
+            fontWeight={800}
+            fill="var(--bm-muted)"
+          >
             Stoch({ind.stoch.period},{ind.stoch.smooth})
           </text>
         </g>
@@ -1142,142 +1291,169 @@ export function CandleChart({
             stroke="#ec4899"
             strokeWidth={1.3}
           />
-          <text x={layout.padL + 4} y={layout.wrTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
+          <text
+            x={layout.padL + 4}
+            y={layout.wrTop + 11}
+            fontSize={9.5}
+            fontWeight={800}
+            fill="var(--bm-muted)"
+          >
             Williams%R({ind.wr.period})
           </text>
         </g>
       ) : null}
 
       {/* CCI — 가변 범위, ±100 가이드 */}
-      {cciData && ind.cci ? (
-        (() => {
-          const maxAbs = Math.max(200, ...cciData.filter((v): v is number => v != null).map((v) => Math.abs(v)));
-          const mid = layout.cciTop + layout.cciH / 2;
-          const yCci = (v: number) => mid - (v / maxAbs) * (layout.cciH / 2 - 4);
-          return (
-            <g>
-              <rect
-                x={layout.padL}
-                y={layout.cciTop}
-                width={width - layout.padL - layout.padR}
-                height={layout.cciH}
-                fill="var(--bm-soft-100)"
-                opacity={0.35}
-              />
-              {[100, -100].map((lev) => (
+      {cciData && ind.cci
+        ? (() => {
+            const maxAbs = Math.max(
+              200,
+              ...cciData.filter((v): v is number => v != null).map((v) => Math.abs(v)),
+            );
+            const mid = layout.cciTop + layout.cciH / 2;
+            const yCci = (v: number) => mid - (v / maxAbs) * (layout.cciH / 2 - 4);
+            return (
+              <g>
+                <rect
+                  x={layout.padL}
+                  y={layout.cciTop}
+                  width={width - layout.padL - layout.padR}
+                  height={layout.cciH}
+                  fill="var(--bm-soft-100)"
+                  opacity={0.35}
+                />
+                {[100, -100].map((lev) => (
+                  <line
+                    key={`cci-g-${lev}`}
+                    x1={layout.padL}
+                    x2={width - layout.padR}
+                    y1={yCci(lev)}
+                    y2={yCci(lev)}
+                    stroke={lev === 100 ? "var(--bm-up)" : "var(--bm-down)"}
+                    strokeDasharray="3 3"
+                    opacity={0.45}
+                  />
+                ))}
                 <line
-                  key={`cci-g-${lev}`}
                   x1={layout.padL}
                   x2={width - layout.padR}
-                  y1={yCci(lev)}
-                  y2={yCci(lev)}
-                  stroke={lev === 100 ? "var(--bm-up)" : "var(--bm-down)"}
-                  strokeDasharray="3 3"
-                  opacity={0.45}
+                  y1={mid}
+                  y2={mid}
+                  stroke="var(--bm-axis)"
+                  strokeDasharray="2 4"
+                  opacity={0.3}
                 />
-              ))}
-              <line
-                x1={layout.padL}
-                x2={width - layout.padR}
-                y1={mid}
-                y2={mid}
-                stroke="var(--bm-axis)"
-                strokeDasharray="2 4"
-                opacity={0.3}
-              />
-              <polyline
-                points={cciData
-                  .map((v, i) => {
-                    if (v == null) return null;
-                    const cx = layout.padL + i * layout.slot + layout.slot / 2;
-                    return `${cx.toFixed(1)},${yCci(v).toFixed(1)}`;
-                  })
-                  .filter(Boolean)
-                  .join(" ")}
-                fill="none"
-                stroke="#8b5cf6"
-                strokeWidth={1.3}
-              />
-              <text x={layout.padL + 4} y={layout.cciTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
-                CCI({ind.cci.period})
-              </text>
-            </g>
-          );
-        })()
-      ) : null}
+                <polyline
+                  points={cciData
+                    .map((v, i) => {
+                      if (v == null) return null;
+                      const cx = layout.padL + i * layout.slot + layout.slot / 2;
+                      return `${cx.toFixed(1)},${yCci(v).toFixed(1)}`;
+                    })
+                    .filter(Boolean)
+                    .join(" ")}
+                  fill="none"
+                  stroke="#8b5cf6"
+                  strokeWidth={1.3}
+                />
+                <text
+                  x={layout.padL + 4}
+                  y={layout.cciTop + 11}
+                  fontSize={9.5}
+                  fontWeight={800}
+                  fill="var(--bm-muted)"
+                >
+                  CCI({ind.cci.period})
+                </text>
+              </g>
+            );
+          })()
+        : null}
 
       {/* ATR — 변동성 */}
-      {atrData && ind.atr ? (
-        (() => {
-          const max = Math.max(0.0001, ...atrData.filter((v): v is number => v != null));
-          const yAtr = (v: number) => layout.atrTop + layout.atrH - (v / max) * (layout.atrH - 8);
-          return (
-            <g>
-              <rect
-                x={layout.padL}
-                y={layout.atrTop}
-                width={width - layout.padL - layout.padR}
-                height={layout.atrH}
-                fill="var(--bm-soft-100)"
-                opacity={0.35}
-              />
-              <polyline
-                points={atrData
-                  .map((v, i) => {
-                    if (v == null) return null;
-                    const cx = layout.padL + i * layout.slot + layout.slot / 2;
-                    return `${cx.toFixed(1)},${yAtr(v).toFixed(1)}`;
-                  })
-                  .filter(Boolean)
-                  .join(" ")}
-                fill="none"
-                stroke="var(--bm-warning)"
-                strokeWidth={1.3}
-              />
-              <text x={layout.padL + 4} y={layout.atrTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
-                ATR({ind.atr.period})
-              </text>
-            </g>
-          );
-        })()
-      ) : null}
+      {atrData && ind.atr
+        ? (() => {
+            const max = Math.max(0.0001, ...atrData.filter((v): v is number => v != null));
+            const yAtr = (v: number) => layout.atrTop + layout.atrH - (v / max) * (layout.atrH - 8);
+            return (
+              <g>
+                <rect
+                  x={layout.padL}
+                  y={layout.atrTop}
+                  width={width - layout.padL - layout.padR}
+                  height={layout.atrH}
+                  fill="var(--bm-soft-100)"
+                  opacity={0.35}
+                />
+                <polyline
+                  points={atrData
+                    .map((v, i) => {
+                      if (v == null) return null;
+                      const cx = layout.padL + i * layout.slot + layout.slot / 2;
+                      return `${cx.toFixed(1)},${yAtr(v).toFixed(1)}`;
+                    })
+                    .filter(Boolean)
+                    .join(" ")}
+                  fill="none"
+                  stroke="var(--bm-warning)"
+                  strokeWidth={1.3}
+                />
+                <text
+                  x={layout.padL + 4}
+                  y={layout.atrTop + 11}
+                  fontSize={9.5}
+                  fontWeight={800}
+                  fill="var(--bm-muted)"
+                >
+                  ATR({ind.atr.period})
+                </text>
+              </g>
+            );
+          })()
+        : null}
 
       {/* OBV — 절대값보다 추세가 핵심, 정규화해 보여줌 */}
-      {obvData && ind.obv ? (
-        (() => {
-          const min = Math.min(...obvData);
-          const max = Math.max(...obvData);
-          const range = max - min || 1;
-          const yObv = (v: number) =>
-            layout.obvTop + layout.obvH - ((v - min) / range) * (layout.obvH - 8);
-          return (
-            <g>
-              <rect
-                x={layout.padL}
-                y={layout.obvTop}
-                width={width - layout.padL - layout.padR}
-                height={layout.obvH}
-                fill="var(--bm-soft-100)"
-                opacity={0.35}
-              />
-              <polyline
-                points={obvData
-                  .map((v, i) => {
-                    const cx = layout.padL + i * layout.slot + layout.slot / 2;
-                    return `${cx.toFixed(1)},${yObv(v).toFixed(1)}`;
-                  })
-                  .join(" ")}
-                fill="none"
-                stroke="var(--bm-success)"
-                strokeWidth={1.3}
-              />
-              <text x={layout.padL + 4} y={layout.obvTop + 11} fontSize={9.5} fontWeight={800} fill="var(--bm-muted)">
-                OBV
-              </text>
-            </g>
-          );
-        })()
-      ) : null}
+      {obvData && ind.obv
+        ? (() => {
+            const min = Math.min(...obvData);
+            const max = Math.max(...obvData);
+            const range = max - min || 1;
+            const yObv = (v: number) =>
+              layout.obvTop + layout.obvH - ((v - min) / range) * (layout.obvH - 8);
+            return (
+              <g>
+                <rect
+                  x={layout.padL}
+                  y={layout.obvTop}
+                  width={width - layout.padL - layout.padR}
+                  height={layout.obvH}
+                  fill="var(--bm-soft-100)"
+                  opacity={0.35}
+                />
+                <polyline
+                  points={obvData
+                    .map((v, i) => {
+                      const cx = layout.padL + i * layout.slot + layout.slot / 2;
+                      return `${cx.toFixed(1)},${yObv(v).toFixed(1)}`;
+                    })
+                    .join(" ")}
+                  fill="none"
+                  stroke="var(--bm-success)"
+                  strokeWidth={1.3}
+                />
+                <text
+                  x={layout.padL + 4}
+                  y={layout.obvTop + 11}
+                  fontSize={9.5}
+                  fontWeight={800}
+                  fill="var(--bm-muted)"
+                >
+                  OBV
+                </text>
+              </g>
+            );
+          })()
+        : null}
 
       {/* Pivot Points — 전일 H/L/C 기준 S/R 자동 표시 */}
       {pivot ? (
@@ -1287,7 +1463,7 @@ export function CandleChart({
               ["R3", pivot.r3, "var(--bm-up)"],
               ["R2", pivot.r2, "#f87171"],
               ["R1", pivot.r1, "#fb923c"],
-              ["P",  pivot.pivot, "#94a3b8"],
+              ["P", pivot.pivot, "#94a3b8"],
               ["S1", pivot.s1, "#60a5fa"],
               ["S2", pivot.s2, "var(--bm-down)"],
               ["S3", pivot.s3, "#1d4ed8"],
@@ -1334,59 +1510,68 @@ export function CandleChart({
       ) : null}
 
       {/* Linear Regression Channel — 가시 영역 자동 회귀 + ±2σ */}
-      {regression ? (
-        (() => {
-          const x1 = layout.padL + layout.slot / 2;
-          const x2 = width - layout.padR - layout.slot / 2;
-          const yMid1 = layout.yPrice(regression.startY);
-          const yMid2 = layout.yPrice(regression.endY);
-          const yU1 = layout.yPrice(regression.startY + 2 * regression.stdDev);
-          const yU2 = layout.yPrice(regression.endY + 2 * regression.stdDev);
-          const yL1 = layout.yPrice(regression.startY - 2 * regression.stdDev);
-          const yL2 = layout.yPrice(regression.endY - 2 * regression.stdDev);
-          return (
-            <g opacity={0.8}>
-              {/* 채널 영역 음영 */}
-              <path
-                d={`M${x1},${yU1} L${x2},${yU2} L${x2},${yL2} L${x1},${yL1} Z`}
-                fill="rgba(14, 165, 233, 0.08)"
-                stroke="none"
-              />
-              {/* 중심선 */}
-              <line
-                x1={x1}
-                y1={yMid1}
-                x2={x2}
-                y2={yMid2}
-                stroke="#0ea5e9"
-                strokeWidth={1.4}
-              />
-              {/* 상/하 채널선 */}
-              <line x1={x1} y1={yU1} x2={x2} y2={yU2} stroke="#0ea5e9" strokeWidth={1} strokeDasharray="3 3" />
-              <line x1={x1} y1={yL1} x2={x2} y2={yL2} stroke="#0ea5e9" strokeWidth={1} strokeDasharray="3 3" />
-              {/* R² 라벨 */}
-              <rect
-                x={layout.padL + 4}
-                y={layout.padT + (compareLine ? 32 : 4)}
-                width={66}
-                height={16}
-                rx={4}
-                fill="rgba(14, 165, 233, 0.85)"
-              />
-              <text
-                x={layout.padL + 37}
-                y={layout.padT + (compareLine ? 44 : 16)}
-                fontSize={10}
-                fontWeight={800}
-                fill="white"
-                textAnchor="middle"
-              >
-                R² {regression.r2.toFixed(2)}
-              </text>
-            </g>
-          );
-        })()
-      ) : null}
+      {regression
+        ? (() => {
+            const x1 = layout.padL + layout.slot / 2;
+            const x2 = width - layout.padR - layout.slot / 2;
+            const yMid1 = layout.yPrice(regression.startY);
+            const yMid2 = layout.yPrice(regression.endY);
+            const yU1 = layout.yPrice(regression.startY + 2 * regression.stdDev);
+            const yU2 = layout.yPrice(regression.endY + 2 * regression.stdDev);
+            const yL1 = layout.yPrice(regression.startY - 2 * regression.stdDev);
+            const yL2 = layout.yPrice(regression.endY - 2 * regression.stdDev);
+            return (
+              <g opacity={0.8}>
+                {/* 채널 영역 음영 */}
+                <path
+                  d={`M${x1},${yU1} L${x2},${yU2} L${x2},${yL2} L${x1},${yL1} Z`}
+                  fill="rgba(14, 165, 233, 0.08)"
+                  stroke="none"
+                />
+                {/* 중심선 */}
+                <line x1={x1} y1={yMid1} x2={x2} y2={yMid2} stroke="#0ea5e9" strokeWidth={1.4} />
+                {/* 상/하 채널선 */}
+                <line
+                  x1={x1}
+                  y1={yU1}
+                  x2={x2}
+                  y2={yU2}
+                  stroke="#0ea5e9"
+                  strokeWidth={1}
+                  strokeDasharray="3 3"
+                />
+                <line
+                  x1={x1}
+                  y1={yL1}
+                  x2={x2}
+                  y2={yL2}
+                  stroke="#0ea5e9"
+                  strokeWidth={1}
+                  strokeDasharray="3 3"
+                />
+                {/* R² 라벨 */}
+                <rect
+                  x={layout.padL + 4}
+                  y={layout.padT + (compareLine ? 32 : 4)}
+                  width={66}
+                  height={16}
+                  rx={4}
+                  fill="rgba(14, 165, 233, 0.85)"
+                />
+                <text
+                  x={layout.padL + 37}
+                  y={layout.padT + (compareLine ? 44 : 16)}
+                  fontSize={10}
+                  fontWeight={800}
+                  fill="white"
+                  textAnchor="middle"
+                >
+                  R² {regression.r2.toFixed(2)}
+                </text>
+              </g>
+            );
+          })()
+        : null}
 
       {/* 비교 라인 — KOSPI/타종목을 정규화해서 같은 y축에 오버레이 */}
       {compareLine ? (
@@ -1418,13 +1603,7 @@ export function CandleChart({
               fill={compareLine.color}
               opacity={0.95}
             />
-            <text
-              x={4}
-              y={3}
-              fontSize={10}
-              fontWeight={800}
-              fill="white"
-            >
+            <text x={4} y={3} fontSize={10} fontWeight={800} fill="white">
               vs {compareLine.label}
             </text>
           </g>
@@ -1466,7 +1645,9 @@ export function CandleChart({
               bPts.push(`${cx.toFixed(1)},${layout.yPrice(b).toFixed(1)}`);
             }
             if (aPts.length < 2) return null;
-            const path = `M${aPts[0]} ${aPts.map((p, i) => (i === 0 ? "" : `L${p}`)).join("")} ${bPts
+            const path = `M${aPts[0]} ${aPts
+              .map((p, i) => (i === 0 ? "" : `L${p}`))
+              .join("")} ${bPts
               .slice()
               .reverse()
               .map((p) => `L${p}`)
@@ -1515,14 +1696,7 @@ export function CandleChart({
           const y = layout.padT + layout.candleH - 8;
           return (
             <g key={`pat-${i}`}>
-              <text
-                x={cx}
-                y={y}
-                fontSize={11}
-                fontWeight={900}
-                fill={color}
-                textAnchor="middle"
-              >
+              <text x={cx} y={y} fontSize={11} fontWeight={900} fill={color} textAnchor="middle">
                 {isGolden ? "▲" : "▼"}
               </text>
               <title>{isGolden ? "골든크로스" : "데드크로스"} (MA5/MA20)</title>
@@ -1588,10 +1762,26 @@ export function CandleChart({
           />
           {(() => {
             const lines: { label: string; value: string; color: string }[] = [
-              { label: "시", value: Math.round(hovered.o).toLocaleString("ko-KR"), color: "#cbd5e1" },
-              { label: "고", value: Math.round(hovered.h).toLocaleString("ko-KR"), color: "#fda4af" },
-              { label: "저", value: Math.round(hovered.l).toLocaleString("ko-KR"), color: "#93c5fd" },
-              { label: "종", value: Math.round(hovered.c).toLocaleString("ko-KR"), color: hovered.c >= hovered.o ? "#fda4af" : "#93c5fd" },
+              {
+                label: "시",
+                value: Math.round(hovered.o).toLocaleString("ko-KR"),
+                color: "#cbd5e1",
+              },
+              {
+                label: "고",
+                value: Math.round(hovered.h).toLocaleString("ko-KR"),
+                color: "#fda4af",
+              },
+              {
+                label: "저",
+                value: Math.round(hovered.l).toLocaleString("ko-KR"),
+                color: "#93c5fd",
+              },
+              {
+                label: "종",
+                value: Math.round(hovered.c).toLocaleString("ko-KR"),
+                color: hovered.c >= hovered.o ? "#fda4af" : "#93c5fd",
+              },
               { label: "거래량", value: hovered.v.toLocaleString("ko-KR"), color: "#cbd5e1" },
             ];
             if (rsiData) {
@@ -1607,8 +1797,18 @@ export function CandleChart({
             if (bbData) {
               const u = bbData.upper[hover.idx];
               const l = bbData.lower[hover.idx];
-              if (u != null) lines.push({ label: "BB↑", value: Math.round(u).toLocaleString("ko-KR"), color: "#6ee7b7" });
-              if (l != null) lines.push({ label: "BB↓", value: Math.round(l).toLocaleString("ko-KR"), color: "#6ee7b7" });
+              if (u != null)
+                lines.push({
+                  label: "BB↑",
+                  value: Math.round(u).toLocaleString("ko-KR"),
+                  color: "#6ee7b7",
+                });
+              if (l != null)
+                lines.push({
+                  label: "BB↓",
+                  value: Math.round(l).toLocaleString("ko-KR"),
+                  color: "#6ee7b7",
+                });
             }
 
             const tooltipW = 170;
@@ -1631,7 +1831,14 @@ export function CandleChart({
                 <text x={10} y={16} fontSize={10.5} fill="var(--bm-tooltip-muted)" fontWeight={700}>
                   #{hover.idx}
                 </text>
-                <text x={tooltipW - 10} y={16} fontSize={10.5} fill={tone} fontWeight={800} textAnchor="end">
+                <text
+                  x={tooltipW - 10}
+                  y={16}
+                  fontSize={10.5}
+                  fill={tone}
+                  fontWeight={800}
+                  textAnchor="end"
+                >
                   {(((hovered.c - hovered.o) / Math.max(1, hovered.o)) * 100).toFixed(2)}%
                 </text>
                 {lines.map((line, i) => (
@@ -1639,7 +1846,13 @@ export function CandleChart({
                     <text x={10} fontSize={10.5} fill="var(--bm-tooltip-muted)">
                       {line.label}
                     </text>
-                    <text x={tooltipW - 10} fontSize={10.5} fill={line.color} fontWeight={700} textAnchor="end">
+                    <text
+                      x={tooltipW - 10}
+                      fontSize={10.5}
+                      fill={line.color}
+                      fontWeight={700}
+                      textAnchor="end"
+                    >
                       {line.value}
                     </text>
                   </g>

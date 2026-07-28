@@ -13,7 +13,12 @@ export default function ImageWithFallbackPage() {
     >
       <Section title="Default">
         <Preview>
-          <ImageWithFallback src="https://picsum.photos/seed/iwf/300" alt="사진" fallbackSrc="https://picsum.photos/seed/fb/300" aspectRatio="1/1" />
+          <ImageWithFallback
+            src="https://picsum.photos/seed/iwf/300"
+            alt="사진"
+            fallbackSrc="https://picsum.photos/seed/fb/300"
+            aspectRatio="1/1"
+          />
         </Preview>
       </Section>
     </ComponentPage>

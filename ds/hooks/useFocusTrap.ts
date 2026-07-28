@@ -32,7 +32,9 @@ export function useFocusTrap<T extends HTMLElement>(
     const root = ref.current;
     if (!root) return;
 
-    previousFocus.current = (typeof document !== "undefined" ? document.activeElement : null) as HTMLElement | null;
+    previousFocus.current = (
+      typeof document !== "undefined" ? document.activeElement : null
+    ) as HTMLElement | null;
 
     if (autoFocus) {
       const focusable = root.querySelectorAll<HTMLElement>(FOCUSABLE);
@@ -65,7 +67,11 @@ export function useFocusTrap<T extends HTMLElement>(
     root.addEventListener("keydown", handleKey);
     return () => {
       root.removeEventListener("keydown", handleKey);
-      if (restoreFocus && previousFocus.current && typeof previousFocus.current.focus === "function") {
+      if (
+        restoreFocus &&
+        previousFocus.current &&
+        typeof previousFocus.current.focus === "function"
+      ) {
         previousFocus.current.focus({ preventScroll: true });
       }
     };

@@ -8,7 +8,9 @@ export default function DetailPanelPage() {
   const [basicOpen, setBasicOpen] = useState(false);
   const [tabOpen, setTabOpen] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
-  const [statusVariant, setStatusVariant] = useState<"success" | "warning" | "danger" | "info">("success");
+  const [statusVariant, setStatusVariant] = useState<"success" | "warning" | "danger" | "info">(
+    "success",
+  );
 
   return (
     <ComponentPage
@@ -21,7 +23,11 @@ export default function DetailPanelPage() {
         { name: "title", type: "string", required: true, description: "패널 제목" },
         { name: "subtitle", type: "string", description: "부제목" },
         { name: "status", type: '"success"|"warning"|"danger"|"info"', description: "상태 배지" },
-        { name: "tabs", type: "DetailPanelTab[]", description: "탭 목록 ({ key, label, content, badge? })" },
+        {
+          name: "tabs",
+          type: "DetailPanelTab[]",
+          description: "탭 목록 ({ key, label, content, badge? })",
+        },
         { name: "children", type: "ReactNode", description: "탭이 없을 때 기본 콘텐츠" },
         { name: "width", type: "number", default: "420", description: "패널 너비 (px)" },
       ]}
@@ -68,7 +74,8 @@ export default function DetailPanelPage() {
 
       <Section title="탭 + 배지">
         <p className="text-sm text-muted mb-3">
-          tabs prop을 사용하면 패널 내부에서 탭으로 콘텐츠를 전환할 수 있습니다. badge 속성으로 탭에 숫자 배지를 표시합니다.
+          tabs prop을 사용하면 패널 내부에서 탭으로 콘텐츠를 전환할 수 있습니다. badge 속성으로 탭에
+          숫자 배지를 표시합니다.
         </p>
         <Preview>
           <button
@@ -92,7 +99,9 @@ export default function DetailPanelPage() {
                   <div className="space-y-3">
                     <div>
                       <p className="text-xs font-medium text-gray-500 uppercase">상품명</p>
-                      <p className="text-sm font-medium text-gray-900 mt-0.5">무선 블루투스 이어폰</p>
+                      <p className="text-sm font-medium text-gray-900 mt-0.5">
+                        무선 블루투스 이어폰
+                      </p>
                     </div>
                     <div>
                       <p className="text-xs font-medium text-gray-500 uppercase">수량</p>
@@ -134,9 +143,7 @@ export default function DetailPanelPage() {
                 label: "메모",
                 badge: 1,
                 content: (
-                  <p className="text-sm text-gray-600">
-                    고객 요청: 부재 시 경비실에 맡겨주세요.
-                  </p>
+                  <p className="text-sm text-gray-600">고객 요청: 부재 시 경비실에 맡겨주세요.</p>
                 ),
               },
             ]}
@@ -146,7 +153,8 @@ export default function DetailPanelPage() {
 
       <Section title="상태">
         <p className="text-sm text-muted mb-3">
-          status prop으로 패널 제목 옆에 상태 배지를 표시할 수 있습니다. success, warning, danger, info 4가지 변형을 지원합니다.
+          status prop으로 패널 제목 옆에 상태 배지를 표시할 수 있습니다. success, warning, danger,
+          info 4가지 변형을 지원합니다.
         </p>
         <Preview>
           <div className="flex gap-2 flex-wrap">

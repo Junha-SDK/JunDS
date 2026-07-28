@@ -23,7 +23,10 @@ const colsMap: Record<NonNullable<PhotoGridProps["columns"]>, string> = {
   5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
 };
 const gapMap: Record<NonNullable<PhotoGridProps["gap"]>, string> = {
-  1: "gap-1", 2: "gap-2", 3: "gap-3", 4: "gap-4",
+  1: "gap-1",
+  2: "gap-2",
+  3: "gap-3",
+  4: "gap-4",
 };
 const masonryColsMap: Record<NonNullable<PhotoGridProps["columns"]>, string> = {
   2: "columns-1 sm:columns-2",
@@ -46,14 +49,32 @@ export const PhotoGrid = forwardRef<HTMLDivElement, PhotoGridProps>(
   ({ children, layout = "uniform", columns = 3, gap = 2, className, ...props }, ref) => {
     if (layout === "masonry") {
       return (
-        <div ref={ref} className={cn(masonryColsMap[columns], gapMap[gap], "[&>*]:mb-2 [&>*]:break-inside-avoid", className)} {...props}>
+        <div
+          ref={ref}
+          className={cn(
+            masonryColsMap[columns],
+            gapMap[gap],
+            "[&>*]:mb-2 [&>*]:break-inside-avoid",
+            className,
+          )}
+          {...props}
+        >
           {children}
         </div>
       );
     }
     if (layout === "mosaic") {
       return (
-        <div ref={ref} className={cn("grid grid-cols-4 grid-rows-2", gapMap[gap], "[&>*:first-child]:col-span-2 [&>*:first-child]:row-span-2", className)} {...props}>
+        <div
+          ref={ref}
+          className={cn(
+            "grid grid-cols-4 grid-rows-2",
+            gapMap[gap],
+            "[&>*:first-child]:col-span-2 [&>*:first-child]:row-span-2",
+            className,
+          )}
+          {...props}
+        >
           {children}
         </div>
       );

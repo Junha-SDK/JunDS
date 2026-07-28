@@ -34,44 +34,47 @@ const positionStyles: Record<TooltipPosition, string> = {
  */
 export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
   ({ content, position = "top", delay = 200, children, className }, ref) => {
-  const [show, setShow] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const tooltipId = useId();
+    const [show, setShow] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+    const tooltipId = useId();
 
-  const handleEnter = () => {
-    timerRef.current = setTimeout(() => setShow(true), delay);
-  };
-  const handleLeave = () => {
-    clearTimeout(timerRef.current);
-    setShow(false);
-  };
+    const handleEnter = () => {
+      timerRef.current = setTimeout(() => setShow(true), delay);
+    };
+    const handleLeave = () => {
+      clearTimeout(timerRef.current);
+      setShow(false);
+    };
 
-  return (
-    <div
-      ref={ref}
-      className={cn("relative inline-flex", className)}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      onFocus={handleEnter}
-      onBlur={handleLeave}
-      aria-describedby={show ? tooltipId : undefined}
-    >
-      {children}
-      {show && (
-        <div
-          id={tooltipId}
-          className={cn(
-            "absolute z-80 px-2.5 py-1.5 text-xs text-white bg-gray-900/95 rounded-lg shadow-xl shadow-black/25 border border-gray-700/50 backdrop-blur-sm",
-            "whitespace-nowrap pointer-events-none animate-fade-in",
-            positionStyles[position],
-          )}
-          role="tooltip"
-        >
-          {content}
-        </div>
-      )}
-    </div>
-  );
-},
+    return (
+      <div
+        ref={ref}
+        className={cn("relative inline-flex", className)}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        onFocus={handleEnter}
+        onBlur={handleLeave}
+        aria-describedby={show ? tooltipId : undefined}
+      >
+        {children}
+        {show && (
+          <div
+            id={tooltipId}
+            className={cn(
+              // bg-gray-900 은 다크 크롬을 의도한 값이라 두 모드 모두에서 맞다 —
+              // 대신 그림자 한 겹으로는 떠 보이지 않으므로 다층 그림자 + 얇은 링으로 세운다
+              "absolute z-80 px-2.5 py-1.5 text-xs text-white bg-gray-900/95 rounded-lg backdrop-blur-sm",
+              "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.45),0_4px_10px_-4px_rgba(0,0,0,0.3)] ring-1 ring-white/12",
+              "whitespace-nowrap pointer-events-none animate-fade-in motion-reduce:animate-none",
+              positionStyles[position],
+            )}
+            role="tooltip"
+          >
+            {content}
+          </div>
+        )}
+      </div>
+    );
+  },
 );
 Tooltip.displayName = "Tooltip";

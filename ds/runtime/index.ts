@@ -36,16 +36,8 @@ export type { BindingScope, Breakpoint } from "./bindings";
 export { runAction, runActions } from "./actions";
 export type { ActionContext } from "./actions";
 
-export {
-  defaultRegistry,
-  createRegistry,
-} from "./registry";
-export type {
-  ComponentRegistry,
-  ComponentEntry,
-  FallbackRenderer,
-  SlotName,
-} from "./registry";
+export { defaultRegistry, createRegistry } from "./registry";
+export type { ComponentRegistry, ComponentEntry, FallbackRenderer, SlotName } from "./registry";
 
 export { Renderer } from "./Renderer";
 export type { RendererProps, RendererMode, DesignEvent } from "./Renderer";

@@ -38,14 +38,20 @@ export default function KeyValueGridPage() {
       description="필드명과 값을 그리드로 배치하여 정보를 표시하는 컴포넌트. 테두리 스타일과 다양한 컬럼 수를 지원합니다."
       importPath='import { KeyValueGrid } from "@/ds/composites/KeyValueGrid"'
       props={[
-        { name: "items", type: "KeyValueItem[]", required: true, description: "키-값 항목 목록 ({ key, label, value, span? })" },
+        {
+          name: "items",
+          type: "KeyValueItem[]",
+          required: true,
+          description: "키-값 항목 목록 ({ key, label, value, span? })",
+        },
         { name: "columns", type: "2 | 3 | 4", default: "3", description: "컬럼 수" },
         { name: "bordered", type: "boolean", default: "false", description: "테두리 스타일 적용" },
       ]}
     >
       <Section title="기본">
         <p className="text-sm text-muted mb-3">
-          6개의 항목을 2컬럼으로 배치한 기본 형태입니다. 라벨은 작은 대문자로, 값은 본문 텍스트로 표시됩니다.
+          6개의 항목을 2컬럼으로 배치한 기본 형태입니다. 라벨은 작은 대문자로, 값은 본문 텍스트로
+          표시됩니다.
         </p>
         <Preview>
           <KeyValueGrid items={basicItems} columns={2} />

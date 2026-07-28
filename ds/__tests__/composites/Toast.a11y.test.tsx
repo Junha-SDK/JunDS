@@ -6,7 +6,9 @@ import { DsToastProvider, useDsToast } from "../../composites/Toast";
 function Trigger() {
   const toast = useDsToast();
   return (
-    <button type="button" onClick={() => toast.success("저장되었습니다")}>show</button>
+    <button type="button" onClick={() => toast.success("저장되었습니다")}>
+      show
+    </button>
   );
 }
 

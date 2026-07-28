@@ -13,7 +13,12 @@ export default function ReadingProgressPage() {
     >
       <Section title="Default">
         <Preview>
-          <ReadingProgress currentPage={86} totalPages={312} chapter="3장. 노이즈" remainingMinutes={42} />
+          <ReadingProgress
+            currentPage={86}
+            totalPages={312}
+            chapter="3장. 노이즈"
+            remainingMinutes={42}
+          />
         </Preview>
       </Section>
     </ComponentPage>

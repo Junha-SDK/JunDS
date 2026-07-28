@@ -3,8 +3,10 @@ import { ComponentPage, Section } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { VideoPlayer } from "@/ds/composites/VideoPlayer";
 
-const SAMPLE_SRC = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-const SAMPLE_POSTER = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg";
+const SAMPLE_SRC =
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+const SAMPLE_POSTER =
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg";
 
 export default function VideoPlayerPage() {
   return (

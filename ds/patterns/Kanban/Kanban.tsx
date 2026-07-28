@@ -68,12 +68,14 @@ export function Kanban<T extends KanbanItem>({
   };
 
   return (
-    <div className={cn("flex gap-4 overflow-x-auto pb-4", className)}>
+    <div className={cn("flex gap-4 overflow-x-auto overscroll-x-contain pb-4", className)}>
       {columns.map((col) => (
         <div
           key={col.id}
           className={cn(
-            "flex flex-col w-72 shrink-0 rounded-xl bg-gray-50/80 border border-border/50",
+            // gray-50 은 라이트 전용이라 다크에서 밝은 판이 된다 — 배경보다 한 단계 뜬
+            // 면을 뜻하는 card-hover 로 옮기면 두 모드 모두에서 같은 관계가 유지된다.
+            "flex flex-col w-72 shrink-0 rounded-xl bg-card-hover/80 border border-border/50 transition-colors",
             dragOver === col.id && "ring-2 ring-primary/30 bg-primary-light/20",
           )}
           onDragOver={(e) => handleDragOver(e, col.id)}
@@ -85,9 +87,18 @@ export function Kanban<T extends KanbanItem>({
             renderColumnHeader(col)
           ) : (
             <div className="flex items-center gap-2 px-3 py-2.5 border-b border-border/50">
-              {col.color && <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: col.color }} />}
-              <span className="text-sm font-semibold text-foreground">{col.title}</span>
-              <Badge variant="default" size="sm">{col.items.length}</Badge>
+              {col.color && (
+                <span
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ backgroundColor: col.color }}
+                />
+              )}
+              <span className="text-sm font-semibold text-foreground min-w-0 flex-1 truncate">
+                {col.title}
+              </span>
+              <Badge variant="default" size="sm">
+                {col.items.length}
+              </Badge>
             </div>
           )}
 
@@ -98,9 +109,12 @@ export function Kanban<T extends KanbanItem>({
                 key={item.id}
                 draggable
                 onDragStart={() => handleDragStart(item.id, col.id)}
-                onDragEnd={() => { setDragItem(null); setDragOver(null); }}
+                onDragEnd={() => {
+                  setDragItem(null);
+                  setDragOver(null);
+                }}
                 className={cn(
-                  "cursor-grab active:cursor-grabbing",
+                  "cursor-grab active:cursor-grabbing transition-opacity duration-150",
                   dragItem?.id === item.id && "opacity-40",
                 )}
               >

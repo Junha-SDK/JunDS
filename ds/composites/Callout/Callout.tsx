@@ -49,11 +49,12 @@ const VARIANT_CONFIG: Record<
     bg: "bg-red-500/5",
     text: "text-red-700 dark:text-red-400",
   },
+  // note 만 의미색이다 — slate 는 라이트 팔레트라 다크에서 본문과 구분이 사라진다
   note: {
     icon: "\u{1F4DD}",
-    border: "border-l-slate-500",
-    bg: "bg-slate-500/5",
-    text: "text-slate-700 dark:text-slate-400",
+    border: "border-l-muted",
+    bg: "bg-muted/5",
+    text: "text-muted",
   },
   info: {
     icon: "\u2139\uFE0F",
@@ -101,7 +102,7 @@ export function Callout({
   return (
     <aside
       className={cn(
-        "relative border-l-4 rounded-r-lg px-4 py-3",
+        "relative border-l-4 rounded-r-xl px-4 py-3",
         config.border,
         config.bg,
         className,
@@ -111,12 +112,25 @@ export function Callout({
       {/* 헤더 */}
       <div
         className={cn(
-          "flex items-center gap-2 font-semibold text-sm",
+          "flex items-center gap-2 font-semibold text-sm rounded-sm",
           config.text,
-          collapsible && "cursor-pointer select-none",
+          collapsible &&
+            "cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         )}
         onClick={toggleCollapse}
         role={collapsible ? "button" : undefined}
+        // role="button" 만 붙고 탭 순서에 없으면 키보드로는 영영 펼칠 수 없다
+        tabIndex={collapsible ? 0 : undefined}
+        onKeyDown={
+          collapsible
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggleCollapse();
+                }
+              }
+            : undefined
+        }
         aria-expanded={collapsible ? !collapsed : undefined}
       >
         <span className="text-base leading-none" aria-hidden="true">
@@ -126,7 +140,7 @@ export function Callout({
         {collapsible && (
           <span
             className={cn(
-              "ml-auto transition-transform duration-200 text-xs",
+              "ml-auto transition-transform duration-200 text-xs motion-reduce:transition-none",
               collapsed ? "rotate-0" : "rotate-90",
             )}
             aria-hidden="true"
@@ -139,7 +153,8 @@ export function Callout({
       {/* 내용 */}
       <div
         className={cn(
-          "text-sm leading-relaxed mt-1 overflow-hidden transition-all duration-200",
+          // transition-all 은 padding·font-size 까지 물어 접힘이 흐른다. 실제로 변하는 둘만 지목한다
+          "text-sm leading-relaxed mt-1 overflow-hidden transition-[max-height,opacity] duration-200 motion-reduce:transition-none",
           collapsed ? "max-h-0 opacity-0" : "max-h-[2000px] opacity-100",
         )}
       >

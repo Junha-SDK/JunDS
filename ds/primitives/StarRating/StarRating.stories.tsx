@@ -21,9 +21,23 @@ const Interactive = (props: Parameters<typeof StarRating>[0]) => {
   return <StarRating {...props} value={value} onChange={setValue} />;
 };
 
-export const Default: Story = { render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const Small: Story = { args: { size: "sm" }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const Large: Story = { args: { size: "lg" }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
+export const Default: Story = {
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const Small: Story = {
+  args: { size: "sm" },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const Large: Story = {
+  args: { size: "lg" },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
 export const ReadOnly: Story = { args: { readonly: true, value: 4 } };
-export const Empty: Story = { args: { value: 0 }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const TenStars: Story = { args: { max: 10, value: 7 }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
+export const Empty: Story = {
+  args: { value: 0 },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const TenStars: Story = {
+  args: { max: 10, value: 7 },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};

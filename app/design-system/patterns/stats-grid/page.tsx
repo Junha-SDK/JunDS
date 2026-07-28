@@ -20,10 +20,22 @@ export default function StatsGridPage() {
             <StatsGrid
               columns={4}
               stats={[
-                { label: "총 업무", value: 142, change: "+12%", trend: "up", description: "지난 주 대비" },
+                {
+                  label: "총 업무",
+                  value: 142,
+                  change: "+12%",
+                  trend: "up",
+                  description: "지난 주 대비",
+                },
                 { label: "완료", value: 98, change: "+5건", trend: "up" },
                 { label: "진행 중", value: 32, change: "0%", trend: "neutral" },
-                { label: "지연", value: 12, change: "+3건", trend: "down", description: "긴급 처리 필요" },
+                {
+                  label: "지연",
+                  value: 12,
+                  change: "+3건",
+                  trend: "down",
+                  description: "긴급 처리 필요",
+                },
               ]}
             />
           </div>

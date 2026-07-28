@@ -10,38 +10,85 @@
 /* ─── Spacing Scale ─── */
 const SPACING: Record<string | number, string> = {
   0: "0px",
-  0.5: "2px", 1: "4px", 1.5: "6px", 2: "8px", 2.5: "10px",
-  3: "12px", 3.5: "14px", 4: "16px", 5: "20px", 6: "24px",
-  7: "28px", 8: "32px", 9: "36px", 10: "40px", 12: "48px",
-  14: "56px", 16: "64px", 20: "80px", 24: "96px", 28: "112px",
-  32: "128px", 36: "144px", 40: "160px",
+  0.5: "2px",
+  1: "4px",
+  1.5: "6px",
+  2: "8px",
+  2.5: "10px",
+  3: "12px",
+  3.5: "14px",
+  4: "16px",
+  5: "20px",
+  6: "24px",
+  7: "28px",
+  8: "32px",
+  9: "36px",
+  10: "40px",
+  12: "48px",
+  14: "56px",
+  16: "64px",
+  20: "80px",
+  24: "96px",
+  28: "112px",
+  32: "128px",
+  36: "144px",
+  40: "160px",
   // Named
-  xs: "4px", sm: "8px", md: "16px", lg: "24px", xl: "32px",
-  "2xl": "48px", "3xl": "64px", "4xl": "96px",
+  xs: "4px",
+  sm: "8px",
+  md: "16px",
+  lg: "24px",
+  xl: "32px",
+  "2xl": "48px",
+  "3xl": "64px",
+  "4xl": "96px",
 };
 
 /* ─── Color Tokens ─── */
 const COLORS: Record<string, string> = {
-  primary: "var(--primary)", "primary-hover": "var(--primary-hover)",
-  "primary-light": "var(--primary-light)", "primary-glow": "var(--primary-glow)",
-  accent: "var(--accent)", "accent-light": "var(--accent-light)",
-  danger: "var(--danger)", "danger-hover": "var(--danger-hover)", "danger-light": "var(--danger-light)",
-  success: "var(--success)", "success-light": "var(--success-light)",
-  warning: "var(--warning)", "warning-light": "var(--warning-light)",
-  info: "var(--info)", "info-light": "var(--info-light)",
-  background: "var(--background)", foreground: "var(--foreground)",
-  surface: "var(--background)", "surface-raised": "var(--card)", card: "var(--card)",
+  primary: "var(--primary)",
+  "primary-hover": "var(--primary-hover)",
+  "primary-light": "var(--primary-light)",
+  "primary-glow": "var(--primary-glow)",
+  accent: "var(--accent)",
+  "accent-light": "var(--accent-light)",
+  danger: "var(--danger)",
+  "danger-hover": "var(--danger-hover)",
+  "danger-light": "var(--danger-light)",
+  success: "var(--success)",
+  "success-light": "var(--success-light)",
+  warning: "var(--warning)",
+  "warning-light": "var(--warning-light)",
+  info: "var(--info)",
+  "info-light": "var(--info-light)",
+  background: "var(--background)",
+  foreground: "var(--foreground)",
+  surface: "var(--background)",
+  "surface-raised": "var(--card)",
+  card: "var(--card)",
   "card-hover": "var(--card-hover)",
-  border: "var(--border)", "border-light": "var(--border-light)",
-  muted: "var(--muted)", "muted-light": "var(--muted-light)",
-  white: "#ffffff", black: "#000000",
-  transparent: "transparent", inherit: "inherit", current: "currentColor",
+  border: "var(--border)",
+  "border-light": "var(--border-light)",
+  muted: "var(--muted)",
+  "muted-light": "var(--muted-light)",
+  white: "#ffffff",
+  black: "#000000",
+  transparent: "transparent",
+  inherit: "inherit",
+  current: "currentColor",
 };
 
 /* ─── Radius ─── */
 const RADII: Record<string, string> = {
-  none: "0px", xs: "4px", sm: "6px", md: "8px",
-  lg: "12px", xl: "16px", "2xl": "20px", "3xl": "24px", full: "9999px",
+  none: "0px",
+  xs: "4px",
+  sm: "6px",
+  md: "8px",
+  lg: "12px",
+  xl: "16px",
+  "2xl": "20px",
+  "3xl": "24px",
+  full: "9999px",
 };
 
 /* ─── Shadows ─── */
@@ -58,34 +105,64 @@ const SHADOWS: Record<string, string> = {
 
 /* ─── Font Sizes ─── */
 const FONT_SIZES: Record<string, string> = {
-  "2xs": "0.625rem", xs: "0.75rem", sm: "0.875rem", md: "1rem",
-  lg: "1.125rem", xl: "1.25rem", "2xl": "1.5rem", "3xl": "1.875rem",
-  "4xl": "2.25rem", "5xl": "3rem", "6xl": "3.75rem",
+  "2xs": "0.625rem",
+  xs: "0.75rem",
+  sm: "0.875rem",
+  md: "1rem",
+  lg: "1.125rem",
+  xl: "1.25rem",
+  "2xl": "1.5rem",
+  "3xl": "1.875rem",
+  "4xl": "2.25rem",
+  "5xl": "3rem",
+  "6xl": "3.75rem",
 };
 
 /* ─── Font Weights ─── */
 const FONT_WEIGHTS: Record<string, number> = {
-  thin: 100, light: 300, normal: 400, medium: 500,
-  semibold: 600, bold: 700, extrabold: 800, black: 900,
+  thin: 100,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+  black: 900,
 };
 
 /* ─── Line Heights ─── */
 const LINE_HEIGHTS: Record<string, string | number> = {
-  none: 1, tight: 1.25, snug: 1.375, normal: 1.5,
-  relaxed: 1.625, loose: 2,
+  none: 1,
+  tight: 1.25,
+  snug: 1.375,
+  normal: 1.5,
+  relaxed: 1.625,
+  loose: 2,
 };
 
 /* ─── Letter Spacings ─── */
 const LETTER_SPACINGS: Record<string, string> = {
-  tighter: "-0.05em", tight: "-0.025em", normal: "0em",
-  wide: "0.025em", wider: "0.05em", widest: "0.1em",
+  tighter: "-0.05em",
+  tight: "-0.025em",
+  normal: "0em",
+  wide: "0.025em",
+  wider: "0.05em",
+  widest: "0.1em",
 };
 
 /* ─── Z-Index Scale ─── */
 const Z_INDICES: Record<string, number> = {
-  hide: -1, base: 0, docked: 10, dropdown: 1000,
-  sticky: 1100, banner: 1200, overlay: 1300,
-  modal: 1400, popover: 1500, toast: 1600, tooltip: 1700,
+  hide: -1,
+  base: 0,
+  docked: 10,
+  dropdown: 1000,
+  sticky: 1100,
+  banner: 1200,
+  overlay: 1300,
+  modal: 1400,
+  popover: 1500,
+  toast: 1600,
+  tooltip: 1700,
 };
 
 /* ─── Transitions ─── */
@@ -157,7 +234,9 @@ export interface StyleProps {
   color?: Responsive<ColorToken>;
   borderColor?: ColorToken;
   // Display & Layout (반응형 지원)
-  display?: Responsive<"flex" | "grid" | "block" | "inline" | "inline-flex" | "inline-block" | "none" | "contents">;
+  display?: Responsive<
+    "flex" | "grid" | "block" | "inline" | "inline-flex" | "inline-block" | "none" | "contents"
+  >;
   direction?: Responsive<"row" | "column" | "row-reverse" | "column-reverse">;
   align?: "start" | "center" | "end" | "stretch" | "baseline";
   justify?: "start" | "center" | "end" | "between" | "around" | "evenly";
@@ -241,20 +320,39 @@ function resolveTransition(value: TransitionToken | undefined): string | undefin
 }
 
 const JUSTIFY_MAP: Record<string, string> = {
-  start: "flex-start", center: "center", end: "flex-end",
-  between: "space-between", around: "space-around", evenly: "space-evenly",
+  start: "flex-start",
+  center: "center",
+  end: "flex-end",
+  between: "space-between",
+  around: "space-around",
+  evenly: "space-evenly",
 };
 
 const ALIGN_MAP: Record<string, string> = {
-  start: "flex-start", center: "center", end: "flex-end",
-  stretch: "stretch", baseline: "baseline",
+  start: "flex-start",
+  center: "center",
+  end: "flex-end",
+  stretch: "stretch",
+  baseline: "baseline",
 };
 
 /* ═══════════════════════════ Responsive CSS ═══════════════════════════ */
 
 /** 반응형 값인지 확인 */
-function isResponsive<T>(value: Responsive<T>): value is Partial<Record<"base" | BreakpointKey, T>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value) && ("base" in value || "sm" in value || "md" in value || "lg" in value || "xl" in value || "2xl" in value);
+function isResponsive<T>(
+  value: Responsive<T>,
+): value is Partial<Record<"base" | BreakpointKey, T>> {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    !Array.isArray(value) &&
+    ("base" in value ||
+      "sm" in value ||
+      "md" in value ||
+      "lg" in value ||
+      "xl" in value ||
+      "2xl" in value)
+  );
 }
 
 /** 반응형 값에서 base(기본) 값을 추출 */
@@ -277,23 +375,59 @@ export function generateResponsiveCSS(
   const responsiveEntries: { bp: BreakpointKey; prop: string; value: string }[] = [];
 
   // Check each responsive prop
-  const check = (propName: string, propValue: unknown, resolver: (v: unknown) => string | undefined, cssProperty: string) => {
+  const check = (
+    propName: string,
+    propValue: unknown,
+    resolver: (v: unknown) => string | undefined,
+    cssProperty: string,
+  ) => {
     if (propValue === undefined || !isResponsive(propValue)) return;
     for (const [bp, val] of Object.entries(propValue)) {
       if (bp === "base") continue;
       const resolved = resolver(val);
-      if (resolved) responsiveEntries.push({ bp: bp as BreakpointKey, prop: cssProperty, value: resolved });
+      if (resolved)
+        responsiveEntries.push({ bp: bp as BreakpointKey, prop: cssProperty, value: resolved });
     }
   };
 
   // Spacing props
-  const spacingProps = ["p", "px", "py", "pt", "pr", "pb", "pl", "m", "mx", "my", "mt", "mr", "mb", "ml", "gap", "rowGap", "columnGap"] as const;
+  const spacingProps = [
+    "p",
+    "px",
+    "py",
+    "pt",
+    "pr",
+    "pb",
+    "pl",
+    "m",
+    "mx",
+    "my",
+    "mt",
+    "mr",
+    "mb",
+    "ml",
+    "gap",
+    "rowGap",
+    "columnGap",
+  ] as const;
   const spacingCSSMap: Record<string, string[]> = {
-    p: ["padding"], px: ["padding-left", "padding-right"], py: ["padding-top", "padding-bottom"],
-    pt: ["padding-top"], pr: ["padding-right"], pb: ["padding-bottom"], pl: ["padding-left"],
-    m: ["margin"], mx: ["margin-left", "margin-right"], my: ["margin-top", "margin-bottom"],
-    mt: ["margin-top"], mr: ["margin-right"], mb: ["margin-bottom"], ml: ["margin-left"],
-    gap: ["gap"], rowGap: ["row-gap"], columnGap: ["column-gap"],
+    p: ["padding"],
+    px: ["padding-left", "padding-right"],
+    py: ["padding-top", "padding-bottom"],
+    pt: ["padding-top"],
+    pr: ["padding-right"],
+    pb: ["padding-bottom"],
+    pl: ["padding-left"],
+    m: ["margin"],
+    mx: ["margin-left", "margin-right"],
+    my: ["margin-top", "margin-bottom"],
+    mt: ["margin-top"],
+    mr: ["margin-right"],
+    mb: ["margin-bottom"],
+    ml: ["margin-left"],
+    gap: ["gap"],
+    rowGap: ["row-gap"],
+    columnGap: ["column-gap"],
   };
 
   for (const sp of spacingProps) {
@@ -314,11 +448,16 @@ export function generateResponsiveCSS(
   // Other responsive props
   check("display", props.display, (v) => v as string, "display");
   check("direction", props.direction, (v) => v as string, "flex-direction");
-  check("cols", props.cols, (v) => typeof v === "number" ? `repeat(${v}, 1fr)` : v as string, "grid-template-columns");
+  check(
+    "cols",
+    props.cols,
+    (v) => (typeof v === "number" ? `repeat(${v}, 1fr)` : (v as string)),
+    "grid-template-columns",
+  );
   check("bg", props.bg, (v) => resolveColor(v as ColorToken), "background-color");
   check("color", props.color, (v) => resolveColor(v as ColorToken), "color");
-  check("fontSize", props.fontSize, (v) => FONT_SIZES[v as string] ?? v as string, "font-size");
-  check("radius", props.radius, (v) => RADII[v as string] ?? v as string, "border-radius");
+  check("fontSize", props.fontSize, (v) => FONT_SIZES[v as string] ?? (v as string), "font-size");
+  check("radius", props.radius, (v) => RADII[v as string] ?? (v as string), "border-radius");
   check("textAlign", props.textAlign, (v) => v as string, "text-align");
   check("w", props.w, (v) => resolveSize(v as string | number), "width");
   check("h", props.h, (v) => resolveSize(v as string | number), "height");
@@ -371,26 +510,42 @@ export function resolveStyleProps(props: StyleProps): React.CSSProperties {
   const style: React.CSSProperties = {};
 
   // Helper to get base value for responsive-aware props
-  const base = <T,>(v: Responsive<T> | undefined): T | undefined => {
+  const base = <T>(v: Responsive<T> | undefined): T | undefined => {
     if (v === undefined) return undefined;
     return (isResponsive(v) ? getBaseValue(v) : v) as T;
   };
 
   // Padding
-  const p = base(props.p); const px = base(props.px); const py = base(props.py);
+  const p = base(props.p);
+  const px = base(props.px);
+  const py = base(props.py);
   if (p !== undefined) style.padding = resolveSpacing(p);
-  if (px !== undefined) { style.paddingLeft = resolveSpacing(px); style.paddingRight = resolveSpacing(px); }
-  if (py !== undefined) { style.paddingTop = resolveSpacing(py); style.paddingBottom = resolveSpacing(py); }
+  if (px !== undefined) {
+    style.paddingLeft = resolveSpacing(px);
+    style.paddingRight = resolveSpacing(px);
+  }
+  if (py !== undefined) {
+    style.paddingTop = resolveSpacing(py);
+    style.paddingBottom = resolveSpacing(py);
+  }
   if (props.pt !== undefined) style.paddingTop = resolveSpacing(base(props.pt));
   if (props.pr !== undefined) style.paddingRight = resolveSpacing(base(props.pr));
   if (props.pb !== undefined) style.paddingBottom = resolveSpacing(base(props.pb));
   if (props.pl !== undefined) style.paddingLeft = resolveSpacing(base(props.pl));
 
   // Margin
-  const m = base(props.m); const mx = base(props.mx); const my = base(props.my);
+  const m = base(props.m);
+  const mx = base(props.mx);
+  const my = base(props.my);
   if (m !== undefined) style.margin = resolveSpacing(m);
-  if (mx !== undefined) { style.marginLeft = resolveSpacing(mx); style.marginRight = resolveSpacing(mx); }
-  if (my !== undefined) { style.marginTop = resolveSpacing(my); style.marginBottom = resolveSpacing(my); }
+  if (mx !== undefined) {
+    style.marginLeft = resolveSpacing(mx);
+    style.marginRight = resolveSpacing(mx);
+  }
+  if (my !== undefined) {
+    style.marginTop = resolveSpacing(my);
+    style.marginBottom = resolveSpacing(my);
+  }
   if (props.mt !== undefined) style.marginTop = resolveSpacing(base(props.mt));
   if (props.mr !== undefined) style.marginRight = resolveSpacing(base(props.mr));
   if (props.mb !== undefined) style.marginBottom = resolveSpacing(base(props.mb));
@@ -403,7 +558,8 @@ export function resolveStyleProps(props: StyleProps): React.CSSProperties {
   if (props.columnGap !== undefined) style.columnGap = resolveSpacing(base(props.columnGap));
 
   // Sizing
-  const w = base(props.w); const h = base(props.h);
+  const w = base(props.w);
+  const h = base(props.h);
   if (w !== undefined) style.width = resolveSize(w);
   if (h !== undefined) style.height = resolveSize(h);
   if (props.minW !== undefined) style.minWidth = resolveSize(props.minW);
@@ -412,13 +568,15 @@ export function resolveStyleProps(props: StyleProps): React.CSSProperties {
   if (props.maxH !== undefined) style.maxHeight = resolveSize(props.maxH);
 
   // Colors
-  const bg = base(props.bg); const color = base(props.color);
+  const bg = base(props.bg);
+  const color = base(props.color);
   if (bg !== undefined) style.backgroundColor = resolveColor(bg);
   if (color !== undefined) style.color = resolveColor(color);
   if (props.borderColor !== undefined) style.borderColor = resolveColor(props.borderColor);
 
   // Display & Flex
-  const display = base(props.display); const direction = base(props.direction);
+  const display = base(props.display);
+  const direction = base(props.direction);
   if (display !== undefined) style.display = display;
   if (direction !== undefined) style.flexDirection = direction;
   if (props.align !== undefined) style.alignItems = ALIGN_MAP[props.align];
@@ -430,8 +588,11 @@ export function resolveStyleProps(props: StyleProps): React.CSSProperties {
 
   // Grid
   const cols = base(props.cols);
-  if (cols !== undefined) style.gridTemplateColumns = typeof cols === "number" ? `repeat(${cols}, 1fr)` : cols;
-  if (props.rows !== undefined) style.gridTemplateRows = typeof props.rows === "number" ? `repeat(${props.rows}, 1fr)` : props.rows;
+  if (cols !== undefined)
+    style.gridTemplateColumns = typeof cols === "number" ? `repeat(${cols}, 1fr)` : cols;
+  if (props.rows !== undefined)
+    style.gridTemplateRows =
+      typeof props.rows === "number" ? `repeat(${props.rows}, 1fr)` : props.rows;
   if (props.colSpan !== undefined) style.gridColumn = `span ${props.colSpan}`;
   if (props.rowSpan !== undefined) style.gridRow = `span ${props.rowSpan}`;
 
@@ -446,9 +607,17 @@ export function resolveStyleProps(props: StyleProps): React.CSSProperties {
   // Border
   const radius = base(props.radius);
   if (radius !== undefined) style.borderRadius = RADII[radius as string] ?? radius;
-  if (props.border === true) { style.borderWidth = 1; style.borderStyle = "solid"; style.borderColor = style.borderColor ?? COLORS.border; }
-  else if (typeof props.border === "string") { style.border = props.border; }
-  if (props.borderWidth !== undefined) { style.borderWidth = props.borderWidth; style.borderStyle = "solid"; }
+  if (props.border === true) {
+    style.borderWidth = 1;
+    style.borderStyle = "solid";
+    style.borderColor = style.borderColor ?? COLORS.border;
+  } else if (typeof props.border === "string") {
+    style.border = props.border;
+  }
+  if (props.borderWidth !== undefined) {
+    style.borderWidth = props.borderWidth;
+    style.borderStyle = "solid";
+  }
 
   // Effects
   if (props.shadow !== undefined) style.boxShadow = SHADOWS[props.shadow] ?? props.shadow;
@@ -459,14 +628,16 @@ export function resolveStyleProps(props: StyleProps): React.CSSProperties {
   // Typography
   const fontSize = base(props.fontSize);
   if (fontSize !== undefined) style.fontSize = FONT_SIZES[fontSize as string] ?? fontSize;
-  if (props.fontWeight !== undefined) style.fontWeight = FONT_WEIGHTS[props.fontWeight] ?? props.fontWeight;
+  if (props.fontWeight !== undefined)
+    style.fontWeight = FONT_WEIGHTS[props.fontWeight] ?? props.fontWeight;
   const textAlign = base(props.textAlign);
   if (textAlign !== undefined) style.textAlign = textAlign;
   if (props.lineHeight !== undefined) {
     const lh = LINE_HEIGHTS[props.lineHeight as string];
     style.lineHeight = lh ?? props.lineHeight;
   }
-  if (props.letterSpacing !== undefined) style.letterSpacing = LETTER_SPACINGS[props.letterSpacing] ?? props.letterSpacing;
+  if (props.letterSpacing !== undefined)
+    style.letterSpacing = LETTER_SPACINGS[props.letterSpacing] ?? props.letterSpacing;
   if (props.textTransform !== undefined) style.textTransform = props.textTransform;
   if (props.textDecoration !== undefined) style.textDecoration = props.textDecoration;
 
@@ -483,19 +654,67 @@ export function resolveStyleProps(props: StyleProps): React.CSSProperties {
 /* ═══════════════════════════ Prop Splitter ═══════════════════════════ */
 
 const STYLE_PROP_KEYS = new Set<string>([
-  "p","px","py","pt","pr","pb","pl",
-  "m","mx","my","mt","mr","mb","ml",
-  "gap","rowGap","columnGap",
-  "w","h","minW","minH","maxW","maxH",
-  "bg","color","borderColor",
-  "display","direction","align","justify","wrap","flex","grow","shrink",
-  "cols","rows","colSpan","rowSpan",
-  "position","top","right","bottom","left","zIndex",
-  "radius","border","borderWidth",
-  "shadow","opacity","overflow","cursor",
-  "fontSize","fontWeight","textAlign","lineHeight","letterSpacing","textTransform","textDecoration",
+  "p",
+  "px",
+  "py",
+  "pt",
+  "pr",
+  "pb",
+  "pl",
+  "m",
+  "mx",
+  "my",
+  "mt",
+  "mr",
+  "mb",
+  "ml",
+  "gap",
+  "rowGap",
+  "columnGap",
+  "w",
+  "h",
+  "minW",
+  "minH",
+  "maxW",
+  "maxH",
+  "bg",
+  "color",
+  "borderColor",
+  "display",
+  "direction",
+  "align",
+  "justify",
+  "wrap",
+  "flex",
+  "grow",
+  "shrink",
+  "cols",
+  "rows",
+  "colSpan",
+  "rowSpan",
+  "position",
+  "top",
+  "right",
+  "bottom",
+  "left",
+  "zIndex",
+  "radius",
+  "border",
+  "borderWidth",
+  "shadow",
+  "opacity",
+  "overflow",
+  "cursor",
+  "fontSize",
+  "fontWeight",
+  "textAlign",
+  "lineHeight",
+  "letterSpacing",
+  "textTransform",
+  "textDecoration",
   "transition",
-  "userSelect","pointerEvents",
+  "userSelect",
+  "pointerEvents",
 ]);
 
 /** props 객체에서 StyleProps와 나머지를 분리 */
@@ -526,7 +745,17 @@ export function hasResponsiveProps(props: StyleProps): boolean {
 }
 
 export {
-  SPACING, COLORS, RADII, SHADOWS, FONT_SIZES, FONT_WEIGHTS,
-  LINE_HEIGHTS, LETTER_SPACINGS, Z_INDICES, TRANSITIONS, BREAKPOINTS,
-  isResponsive, getBaseValue,
+  SPACING,
+  COLORS,
+  RADII,
+  SHADOWS,
+  FONT_SIZES,
+  FONT_WEIGHTS,
+  LINE_HEIGHTS,
+  LETTER_SPACINGS,
+  Z_INDICES,
+  TRANSITIONS,
+  BREAKPOINTS,
+  isResponsive,
+  getBaseValue,
 };

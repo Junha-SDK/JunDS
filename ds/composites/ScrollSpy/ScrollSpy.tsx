@@ -59,7 +59,10 @@ export function ScrollSpy({ sections, offset = 80, className }: ScrollSpyProps) 
       const el = document.getElementById(targetId);
       if (!el) return;
       const top = el.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
+      // 부드러운 스크롤은 화면 전체가 흐르는 움직임이다 — 감속 요청이면 즉시 점프한다.
+      // (JS 의 behavior 는 CSS 변형으로 못 막으니 여기서 직접 본다)
+      const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
     },
     [offset],
   );
@@ -71,11 +74,15 @@ export function ScrollSpy({ sections, offset = 80, className }: ScrollSpyProps) 
           key={section.key}
           type="button"
           onClick={() => handleClick(section.targetId)}
+          aria-current={activeKey === section.key ? "true" : undefined}
           className={cn(
-            "text-left px-3 py-1.5 text-sm rounded-md transition-colors border-l-2",
+            "text-left px-3 py-1.5 text-sm rounded-lg border-l-2 cursor-pointer truncate",
+            "transition-colors duration-150",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             activeKey === section.key
-              ? "border-primary text-primary font-medium bg-primary/5"
-              : "border-transparent text-muted hover:text-foreground hover:bg-gray-50",
+              ? "border-primary text-primary-ink font-medium bg-primary-light"
+              : // hover:bg-gray-50 은 라이트 전용 — 카드 호버 토큰이 모드를 따라간다.
+                "border-transparent text-muted hover:text-foreground hover:bg-card-hover",
           )}
         >
           {section.label}

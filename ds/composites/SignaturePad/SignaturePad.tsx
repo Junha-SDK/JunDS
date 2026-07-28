@@ -103,18 +103,41 @@ export function SignaturePad({
         onTouchMove={draw}
         onTouchEnd={stop}
         className={cn(
-          "border-2 border-dashed border-border rounded-xl cursor-crosshair touch-none bg-white",
+          // 선 색이 var(--foreground) 라 캔버스도 모드를 따라가야 한다 — bg-white 면 다크에서 서명이 사라진다.
+          // 고정 width 라 좁은 칸에서 넘치므로 max-w-full 로 가둔다
+          "border-2 border-dashed border-border rounded-xl cursor-crosshair touch-none bg-card max-w-full",
           disabled && "opacity-50 cursor-not-allowed",
         )}
         aria-label="서명 패드"
       />
       <div className="flex gap-2 mt-2">
-        <button type="button" onClick={clear} disabled={disabled || !hasSignature}
-          className="px-3 py-1.5 text-xs border border-border rounded-lg hover:bg-gray-50 disabled:opacity-50 cursor-pointer transition-colors">
+        <button
+          type="button"
+          onClick={clear}
+          disabled={disabled || !hasSignature}
+          className={cn(
+            "px-3 py-1.5 text-xs border border-border bg-card rounded-xl cursor-pointer",
+            "transition-colors active:scale-[0.97] motion-reduce:active:scale-100",
+            "hover:bg-card-hover hover:border-muted-light",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-card",
+          )}
+        >
           지우기
         </button>
-        <button type="button" onClick={save} disabled={disabled || !hasSignature}
-          className="px-3 py-1.5 text-xs bg-primary text-white rounded-lg hover:bg-primary-hover disabled:opacity-50 cursor-pointer transition-colors">
+        <button
+          type="button"
+          onClick={save}
+          disabled={disabled || !hasSignature}
+          className={cn(
+            "px-3 py-1.5 text-xs bg-primary text-white rounded-xl cursor-pointer",
+            "shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]",
+            "transition-colors active:scale-[0.97] motion-reduce:active:scale-100",
+            "hover:bg-primary-hover",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary",
+          )}
+        >
           저장
         </button>
       </div>

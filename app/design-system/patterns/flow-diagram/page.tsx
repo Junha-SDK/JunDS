@@ -102,10 +102,43 @@ const diamondConnections: FlowConnection[] = [
 const pipelineNodes: FlowNode[] = [
   { id: "src-api", title: "API", x: 30, y: 30, variant: "info", outputs: 2, icon: <span>🌐</span> },
   { id: "src-db", title: "DB", x: 30, y: 150, variant: "info", outputs: 2, icon: <span>🗄️</span> },
-  { id: "src-file", title: "File", x: 30, y: 270, variant: "info", outputs: 2, icon: <span>📁</span> },
-  { id: "merger", title: "병합 처리기", x: 300, y: 130, variant: "warning", inputs: 3, outputs: 2, icon: <span>🔀</span> },
-  { id: "proc-a", title: "실시간 분석", x: 580, y: 60, variant: "success", inputs: 1, icon: <span>📊</span> },
-  { id: "proc-b", title: "배치 저장", x: 580, y: 220, variant: "success", inputs: 1, icon: <span>💾</span> },
+  {
+    id: "src-file",
+    title: "File",
+    x: 30,
+    y: 270,
+    variant: "info",
+    outputs: 2,
+    icon: <span>📁</span>,
+  },
+  {
+    id: "merger",
+    title: "병합 처리기",
+    x: 300,
+    y: 130,
+    variant: "warning",
+    inputs: 3,
+    outputs: 2,
+    icon: <span>🔀</span>,
+  },
+  {
+    id: "proc-a",
+    title: "실시간 분석",
+    x: 580,
+    y: 60,
+    variant: "success",
+    inputs: 1,
+    icon: <span>📊</span>,
+  },
+  {
+    id: "proc-b",
+    title: "배치 저장",
+    x: 580,
+    y: 220,
+    variant: "success",
+    inputs: 1,
+    icon: <span>💾</span>,
+  },
 ];
 
 const pipelineConnections: FlowConnection[] = [
@@ -175,19 +208,47 @@ export default function FlowDiagramPage() {
       description="인터랙티브 플로우 다이어그램. 노드를 자유롭게 배치하고 연결선으로 프로세스 흐름을 시각화합니다."
       importPath='import { FlowDiagram } from "@/ds/patterns/FlowDiagram"'
       props={[
-        { name: "nodes", type: "FlowNode[]", description: "노드 배열 (id, title, x, y, variant, content, icon, group, inputs, outputs)" },
-        { name: "connections", type: "FlowConnection[]", description: "연결선 배열 (id, from, to, label, fromPort, toPort)" },
+        {
+          name: "nodes",
+          type: "FlowNode[]",
+          description:
+            "노드 배열 (id, title, x, y, variant, content, icon, group, inputs, outputs)",
+        },
+        {
+          name: "connections",
+          type: "FlowConnection[]",
+          description: "연결선 배열 (id, from, to, label, fromPort, toPort)",
+        },
         { name: "onNodeMove", type: "(id, x, y) => void", description: "노드 이동 핸들러" },
         { name: "onConnect", type: "(from, to) => void", description: "연결 생성 핸들러" },
         { name: "onDisconnect", type: "(connId) => void", description: "연결 삭제 핸들러" },
-        { name: "onNodeDelete", type: "(ids) => void", description: "노드 삭제 핸들러 (Delete 키)" },
+        {
+          name: "onNodeDelete",
+          type: "(ids) => void",
+          description: "노드 삭제 핸들러 (Delete 키)",
+        },
         { name: "onNodeDoubleClick", type: "(id) => void", description: "노드 더블클릭 핸들러" },
         { name: "selectedIds", type: "string[]", description: "선택된 노드 ID" },
         { name: "showGrid", type: "boolean", default: "true", description: "그리드 배경 표시" },
         { name: "showMinimap", type: "boolean", default: "false", description: "미니맵 표시" },
-        { name: "fitToView", type: "boolean", default: "false", description: "전체 보기 자동 적용" },
-{ name: "connectionStyle", type: '"bezier" | "straight" | "step"', default: '"bezier"', description: "연결선 스타일" },
-        { name: "animateConnections", type: "boolean", default: "false", description: "연결선 애니메이션" },
+        {
+          name: "fitToView",
+          type: "boolean",
+          default: "false",
+          description: "전체 보기 자동 적용",
+        },
+        {
+          name: "connectionStyle",
+          type: '"bezier" | "straight" | "step"',
+          default: '"bezier"',
+          description: "연결선 스타일",
+        },
+        {
+          name: "animateConnections",
+          type: "boolean",
+          default: "false",
+          description: "연결선 애니메이션",
+        },
       ]}
     >
       {/* Section 1: 프로세스 흐름 예시 */}
@@ -266,7 +327,6 @@ export default function FlowDiagramPage() {
           <p>- step 스타일 연결선과 애니메이션으로 파이프라인 시각화</p>
         </div>
       </Section>
-
     </ComponentPage>
   );
 }

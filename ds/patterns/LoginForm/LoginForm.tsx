@@ -78,10 +78,22 @@ export function LoginForm({
     e.preventDefault();
     setLocalError("");
 
-    if (!email.trim()) { setLocalError("이메일을 입력하세요"); return; }
-    if (!/\S+@\S+\.\S+/.test(email)) { setLocalError("올바른 이메일 형식이 아닙니다"); return; }
-    if (!password) { setLocalError("비밀번호를 입력하세요"); return; }
-    if (showConfirmPassword && password !== confirm) { setLocalError("비밀번호가 일치하지 않습니다"); return; }
+    if (!email.trim()) {
+      setLocalError("이메일을 입력하세요");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setLocalError("올바른 이메일 형식이 아닙니다");
+      return;
+    }
+    if (!password) {
+      setLocalError("비밀번호를 입력하세요");
+      return;
+    }
+    if (showConfirmPassword && password !== confirm) {
+      setLocalError("비밀번호가 일치하지 않습니다");
+      return;
+    }
 
     onSubmit({ email, password, remember });
   };
@@ -99,13 +111,17 @@ export function LoginForm({
 
       {/* Error */}
       {displayError && (
-        <Alert variant="danger" className="mb-4">{displayError}</Alert>
+        <Alert variant="danger" className="mb-4">
+          {displayError}
+        </Alert>
       )}
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* Email */}
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="login-email" required>이메일</Label>
+          <Label htmlFor="login-email" required>
+            이메일
+          </Label>
           <Input
             id="login-email"
             type="email"
@@ -120,9 +136,11 @@ export function LoginForm({
         {/* Password */}
         <div className="flex flex-col gap-1.5">
           <div className="flex items-center justify-between">
-            <Label htmlFor="login-pw" required>비밀번호</Label>
+            <Label htmlFor="login-pw" required>
+              비밀번호
+            </Label>
             {forgotHref && (
-              <a href={forgotHref} className="text-xs text-primary hover:underline">
+              <a href={forgotHref} className="text-xs text-primary-ink hover:underline">
                 비밀번호 찾기
               </a>
             )}
@@ -141,7 +159,9 @@ export function LoginForm({
         {/* Confirm Password */}
         {showConfirmPassword && (
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="login-pw2" required>비밀번호 확인</Label>
+            <Label htmlFor="login-pw2" required>
+              비밀번호 확인
+            </Label>
             <PasswordInput
               id="login-pw2"
               value={confirm}
@@ -181,7 +201,9 @@ export function LoginForm({
         {signupHref && (
           <p className="text-center text-sm text-muted">
             계정이 없으신가요?{" "}
-            <a href={signupHref} className="text-primary font-medium hover:underline">회원가입</a>
+            <a href={signupHref} className="text-primary-ink font-medium hover:underline">
+              회원가입
+            </a>
           </p>
         )}
       </form>
@@ -189,7 +211,11 @@ export function LoginForm({
       {/* Security notice */}
       <div className="mt-6 flex items-center justify-center gap-1.5 text-[10px] text-muted-light">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M6 1c-.4.2-1.3.6-2.5.8C3.2 3 3 4.2 3 5.2c0 2.5 1.4 4.2 3 5 1.6-.8 3-2.5 3-5 0-1-.2-2.2-.5-3.4C7.3 1.6 6.4 1.2 6 1z" stroke="currentColor" strokeWidth="0.8" />
+          <path
+            d="M6 1c-.4.2-1.3.6-2.5.8C3.2 3 3 4.2 3 5.2c0 2.5 1.4 4.2 3 5 1.6-.8 3-2.5 3-5 0-1-.2-2.2-.5-3.4C7.3 1.6 6.4 1.2 6 1z"
+            stroke="currentColor"
+            strokeWidth="0.8"
+          />
         </svg>
         <span>보안 연결 (TLS 1.3)</span>
       </div>

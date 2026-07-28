@@ -10,5 +10,13 @@ export default meta;
 type Story = StoryObj<typeof DateRangeFilter>;
 
 export const Default: Story = {
-  render: () => <DateRangeFilter startDate="" endDate="" onStartChange={() => {}} onEndChange={() => {}} onApply={() => {}} />,
+  render: () => (
+    <DateRangeFilter
+      startDate=""
+      endDate=""
+      onStartChange={() => {}}
+      onEndChange={() => {}}
+      onApply={() => {}}
+    />
+  ),
 };

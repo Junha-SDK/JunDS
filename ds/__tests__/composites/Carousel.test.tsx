@@ -4,7 +4,12 @@ import { Carousel } from "../../composites/Carousel";
 
 describe("Carousel", () => {
   it("renders without throwing", () => {
-    const { container } = render(<Carousel>{null}{null}</Carousel>);
+    const { container } = render(
+      <Carousel>
+        {null}
+        {null}
+      </Carousel>,
+    );
     expect(container.firstChild).toBeDefined();
   });
 });

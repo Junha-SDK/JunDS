@@ -51,18 +51,8 @@ export function LiveInvestorFlowCards({ spark }: { spark?: number[] } = {}) {
 
   return (
     <>
-      <FlowCard
-        label="외국인 순매수"
-        value억={flow?.foreign}
-        spark={spark}
-        note="코스피 기준"
-      />
-      <FlowCard
-        label="기관 순매수"
-        value억={flow?.institution}
-        spark={spark}
-        note="비차익 포함"
-      />
+      <FlowCard label="외국인 순매수" value억={flow?.foreign} spark={spark} note="코스피 기준" />
+      <FlowCard label="기관 순매수" value억={flow?.institution} spark={spark} note="비차익 포함" />
     </>
   );
 }
@@ -91,9 +81,7 @@ function FlowCard({
     <article className="bm-card p-4">
       <div className="flex items-center justify-between">
         <span className="text-[12.5px] font-bold text-[color:var(--bm-muted)]">{label}</span>
-        {value억 != null ? (
-          <PriceBadge pct={up ? 1 : -1} size="sm" showArrow={false} />
-        ) : null}
+        {value억 != null ? <PriceBadge pct={up ? 1 : -1} size="sm" showArrow={false} /> : null}
       </div>
       <div className="mt-1.5 bm-num font-extrabold text-[22px]" style={{ color }}>
         {display}

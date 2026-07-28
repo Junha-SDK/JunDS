@@ -124,10 +124,7 @@ export function useTradeJournal() {
   }, []);
 
   const update = useCallback(
-    (
-      id: string,
-      patch: Partial<Pick<TradeEntry, "note" | "tags" | "emotion" | "violations">>,
-    ) => {
+    (id: string, patch: Partial<Pick<TradeEntry, "note" | "tags" | "emotion" | "violations">>) => {
       const next = read().map((t) => (t.id === id ? { ...t, ...patch } : t));
       write(next);
       setItems(next);

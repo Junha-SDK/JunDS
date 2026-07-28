@@ -14,7 +14,7 @@ export default function SeoHeadPage() {
         <Preview>
           {/* 실제로 <head> 를 바꾸므로 쇼케이스에서는 렌더하지 않고 코드만 보여준다 */}
           <pre className="w-full overflow-x-auto rounded-lg border border-border bg-card p-4 text-xs leading-relaxed">
-{`// 앱 루트에서 한 번
+            {`// 앱 루트에서 한 번
 <SeoProvider defaults={{
   title: "junome",
   titleTemplate: "%s | junome",

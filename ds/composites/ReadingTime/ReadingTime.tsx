@@ -37,11 +37,8 @@ function estimateReadingTime(text: string): {
   const cleaned = (text ?? "").replace(/\s+/g, " ").trim();
 
   // CJK(한/중/일) 문자 수
-  const cjkChars = (
-    cleaned.match(
-      /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af]/g,
-    ) ?? []
-  ).length;
+  const cjkChars = (cleaned.match(/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af]/g) ?? [])
+    .length;
 
   // CJK 문자를 제거한 후 공백 기반 단어 수 (영문/숫자/혼합)
   const words = cleaned
@@ -64,10 +61,7 @@ function estimateReadingTime(text: string): {
  * 콘텐츠 난이도를 추정
  * - 헤딩 수 + 콘텐츠 길이(분) 기반 점수 산출
  */
-function estimateDifficulty(
-  minutes: number,
-  headingCount: number,
-): DifficultyKo {
+function estimateDifficulty(minutes: number, headingCount: number): DifficultyKo {
   const score = minutes * 1.0 + headingCount * 0.25;
   if (score < 5) return "초급";
   if (score < 10) return "중급";
@@ -111,30 +105,26 @@ export function ReadingTime({
   const headingCount = countHeadings(content);
   const difficulty = estimateDifficulty(minutes, headingCount);
 
-  const timeText =
-    format === "short" ? `${minutes}분 읽기` : `약 ${minutes}분 소요`;
+  const timeText = format === "short" ? `${minutes}분 읽기` : `약 ${minutes}분 소요`;
 
   const showDifficultyText = format === "long" || showDifficulty;
 
   return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 text-sm text-neutral-500",
-        className,
-      )}
-    >
-      <span>{timeText}</span>
+    // neutral-500/300 과 green/yellow/red 팔레트는 다크에서 무너진다 —
+    // 같은 뜻의 의미 토큰(muted / success·warning·danger)으로 옮긴다.
+    <span className={cn("inline-flex items-center gap-1.5 text-sm text-muted", className)}>
+      <span className="tabular-nums whitespace-nowrap">{timeText}</span>
       {showDifficultyText && (
         <>
-          <span aria-hidden="true" className="text-neutral-300">
+          <span aria-hidden="true" className="text-muted-light">
             ·
           </span>
           <span
             className={cn(
-              "font-medium",
-              difficulty === "초급" && "text-green-600",
-              difficulty === "중급" && "text-yellow-600",
-              difficulty === "고급" && "text-red-600",
+              "font-medium whitespace-nowrap",
+              difficulty === "초급" && "text-success",
+              difficulty === "중급" && "text-warning",
+              difficulty === "고급" && "text-danger",
             )}
           >
             {difficulty}

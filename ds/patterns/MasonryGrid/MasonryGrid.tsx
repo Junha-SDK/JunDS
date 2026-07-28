@@ -37,24 +37,13 @@ const columnClasses: Record<2 | 3 | 4, string> = {
  * @since 2.2.0
  * @tags layout
  */
-export function MasonryGrid({
-  children,
-  columns = 3,
-  gap = 16,
-  className,
-}: MasonryGridProps) {
+export function MasonryGrid({ children, columns = 3, gap = 16, className }: MasonryGridProps) {
   return (
-    <div
-      className={cn(columnClasses[columns], className)}
-      style={{ columnGap: gap }}
-    >
+    <div className={cn(columnClasses[columns], className)} style={{ columnGap: gap }}>
       {React.Children.map(children, (child) => {
         if (!React.isValidElement(child)) return child;
         return (
-          <div
-            className="break-inside-avoid"
-            style={{ marginBottom: gap }}
-          >
+          <div className="break-inside-avoid" style={{ marginBottom: gap }}>
             {child}
           </div>
         );

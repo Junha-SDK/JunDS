@@ -11,8 +11,18 @@ export default function GlobePage() {
       importPath='import { Globe } from "@/ds/composites/Globe"'
       props={[
         { name: "size", type: "number", default: "300", description: "지구본 지름(px)" },
-        { name: "color", type: "string", default: "var(--primary)", description: "외곽선/글로우 색상" },
-        { name: "dotColor", type: "string", default: "var(--primary-light)", description: "격자 점 색상" },
+        {
+          name: "color",
+          type: "string",
+          default: "var(--primary)",
+          description: "외곽선/글로우 색상",
+        },
+        {
+          name: "dotColor",
+          type: "string",
+          default: "var(--primary-light)",
+          description: "격자 점 색상",
+        },
         { name: "speed", type: "number", default: "20", description: "한 바퀴 회전에 걸리는 초" },
         { name: "className", type: "string", description: "컨테이너 클래스" },
       ]}

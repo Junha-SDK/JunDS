@@ -50,9 +50,7 @@ export const SingleOpen: Story = {
 export const DefaultOpen: Story = {
   render: () => (
     <div className="w-96">
-      <Accordion
-        items={items.map((item, i) => ({ ...item, defaultOpen: i === 0 }))}
-      />
+      <Accordion items={items.map((item, i) => ({ ...item, defaultOpen: i === 0 }))} />
     </div>
   ),
 };

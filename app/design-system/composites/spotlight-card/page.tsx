@@ -11,8 +11,17 @@ export default function SpotlightCardPage() {
       importPath='import { SpotlightCard } from "@/ds/composites/SpotlightCard"'
       props={[
         { name: "children", type: "ReactNode", required: true, description: "카드 내부 콘텐츠" },
-        { name: "spotlightColor", type: "string", description: "스포트라이트 색상(기본: 프라이머리 톤)" },
-        { name: "spotlightSize", type: "number", default: "300", description: "스포트라이트 반지름(px)" },
+        {
+          name: "spotlightColor",
+          type: "string",
+          description: "스포트라이트 색상(기본: 프라이머리 톤)",
+        },
+        {
+          name: "spotlightSize",
+          type: "number",
+          default: "300",
+          description: "스포트라이트 반지름(px)",
+        },
         { name: "className", type: "string", description: "추가 클래스" },
       ]}
     >

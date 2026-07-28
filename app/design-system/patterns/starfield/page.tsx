@@ -11,7 +11,12 @@ export default function StarfieldPage() {
       importPath='import { Starfield } from "@/ds/patterns/Starfield"'
       props={[
         { name: "starCount", type: "number", default: "220", description: "별 개수" },
-        { name: "shootingStarInterval", type: "number", default: "5", description: "유성 발생 간격 (초)" },
+        {
+          name: "shootingStarInterval",
+          type: "number",
+          default: "5",
+          description: "유성 발생 간격 (초)",
+        },
         { name: "backgroundColor", type: "string", default: '"#0b0d1a"', description: "배경색" },
         { name: "className", type: "string", description: "추가 CSS 클래스" },
       ]}

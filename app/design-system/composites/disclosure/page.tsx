@@ -12,11 +12,30 @@ export default function DisclosurePage() {
       status="stable"
       version="2.3.0"
       props={[
-        { name: "defaultOpen", type: "boolean", default: "false", description: "초기 열림 상태 (uncontrolled)" },
+        {
+          name: "defaultOpen",
+          type: "boolean",
+          default: "false",
+          description: "초기 열림 상태 (uncontrolled)",
+        },
         { name: "open", type: "boolean", description: "controlled 모드에서의 열림 상태" },
-        { name: "onOpenChange", type: "(open: boolean) => void", description: "열림 상태 변경 콜백" },
-        { name: "asChild", type: "boolean", default: "false", description: "true이면 자체 div 대신 단일 자식으로 위임 (Slot)" },
-        { name: "children", type: "ReactNode", required: true, description: "Disclosure.Trigger와 Disclosure.Content를 포함" },
+        {
+          name: "onOpenChange",
+          type: "(open: boolean) => void",
+          description: "열림 상태 변경 콜백",
+        },
+        {
+          name: "asChild",
+          type: "boolean",
+          default: "false",
+          description: "true이면 자체 div 대신 단일 자식으로 위임 (Slot)",
+        },
+        {
+          name: "children",
+          type: "ReactNode",
+          required: true,
+          description: "Disclosure.Trigger와 Disclosure.Content를 포함",
+        },
       ]}
     >
       <Section title="Default — uncontrolled">
@@ -26,7 +45,8 @@ export default function DisclosurePage() {
               자세히 보기
             </Disclosure.Trigger>
             <Disclosure.Content className="mt-2 text-sm text-muted">
-              Disclosure는 단일 토글 패널입니다. compound 패턴으로 Trigger와 Content를 자유롭게 배치할 수 있습니다.
+              Disclosure는 단일 토글 패널입니다. compound 패턴으로 Trigger와 Content를 자유롭게
+              배치할 수 있습니다.
             </Disclosure.Content>
           </Disclosure>
         </Preview>

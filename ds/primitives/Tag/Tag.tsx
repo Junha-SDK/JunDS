@@ -14,9 +14,11 @@ export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
   onClose?: () => void;
 }
 
+// gray 는 "색 없음"을 뜻하는 중립 태그다 — 라이트 전용인 gray-100/gray-700 대신
+// 모드를 따라가는 의미 토큰을 쓴다. 나머지 색은 소비자가 분류에 고르는 정체성 색이라 유지.
 const colorStyles: Record<TagColor, string> = {
-  gray: "bg-gray-100 text-gray-700 shadow-[0_0_0_1px_inset_rgba(0,0,0,0.05)]",
-  primary: "bg-primary-light text-primary shadow-[0_0_0_1px_inset] shadow-primary/15",
+  gray: "bg-muted/10 text-muted shadow-[0_0_0_1px_inset] shadow-muted/20",
+  primary: "bg-primary-light text-primary-ink shadow-[0_0_0_1px_inset] shadow-primary/15",
   blue: "bg-blue-50 text-blue-700 shadow-[0_0_0_1px_inset] shadow-blue-600/15",
   green: "bg-emerald-50 text-emerald-700 shadow-[0_0_0_1px_inset] shadow-emerald-600/15",
   red: "bg-red-50 text-red-700 shadow-[0_0_0_1px_inset] shadow-red-600/15",
@@ -34,12 +36,15 @@ const colorStyles: Record<TagColor, string> = {
  * @since 2.2.0
  * @tags data-display
  */
-export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag({ color = "gray", closable, onClose, className, children, ...props }, ref) {
+export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
+  { color = "gray", closable, onClose, className, children, ...props },
+  ref,
+) {
   return (
     <span
       ref={ref}
       className={cn(
-        "inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium whitespace-nowrap",
+        "inline-flex items-center gap-1 rounded-lg px-2 py-0.5 text-xs font-medium whitespace-nowrap",
         colorStyles[color],
         className,
       )}
@@ -53,11 +58,16 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag({ color = 
             e.stopPropagation();
             onClose?.();
           }}
-          className="ml-0.5 -mr-0.5 rounded-full p-0.5 hover:bg-black/10 active:bg-black/15 transition-colors cursor-pointer"
+          className="ml-0.5 -mr-0.5 rounded-full p-0.5 hover:bg-black/10 active:bg-black/15 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current"
           aria-label="삭제"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path
+              d="M3 3l6 6M9 3l-6 6"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       )}

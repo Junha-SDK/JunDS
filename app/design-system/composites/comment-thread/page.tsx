@@ -13,7 +13,9 @@ export default function CommentThreadPage() {
     >
       <Section title="Default">
         <Preview>
-          <CommentThread comments={[{id:"1",authorName:"준하",body:"좋네요",likes:2,liked:true}]} />
+          <CommentThread
+            comments={[{ id: "1", authorName: "준하", body: "좋네요", likes: 2, liked: true }]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

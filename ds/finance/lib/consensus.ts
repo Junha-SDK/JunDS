@@ -62,17 +62,14 @@ export function snapshotForName(name: string): FundamentalSnapshot {
   const quarters = quarterlyFor(name);
   const last = quarters[quarters.length - 1];
   const prev = quarters[quarters.length - 5] ?? quarters[0];
-  const revenueGrowthYoY =
-    prev.revenue > 0 ? (last.revenue - prev.revenue) / prev.revenue : 0;
+  const revenueGrowthYoY = prev.revenue > 0 ? (last.revenue - prev.revenue) / prev.revenue : 0;
   const opMargin = (last.operatingIncome / Math.max(1, last.revenue)) * 100;
 
   const price = stock?.price ?? 0;
   const high52 = metrics.high52 ?? price;
   const low52 = metrics.low52 ?? price;
   const pricePosition52w =
-    high52 - low52 > 0
-      ? Math.max(0, Math.min(1, (price - low52) / (high52 - low52)))
-      : 0.5;
+    high52 - low52 > 0 ? Math.max(0, Math.min(1, (price - low52) / (high52 - low52))) : 0.5;
 
   return {
     price,
@@ -103,8 +100,7 @@ export function scoreConsensusRow(name: string): ConsensusRow {
   const cards = scoreAllInvestors(snap, name);
   const bulls = cards.filter((c) => isBullish(c.verdict));
   const bears = cards.filter((c) => isBearish(c.verdict));
-  const avgScore =
-    cards.reduce((s, c) => s + c.score, 0) / Math.max(1, cards.length);
+  const avgScore = cards.reduce((s, c) => s + c.score, 0) / Math.max(1, cards.length);
   const topScore = cards.reduce((m, c) => Math.max(m, c.score), -Infinity);
   return {
     name,
@@ -164,14 +160,14 @@ export function consensusOverview(rows: ConsensusRow[]): {
   bullishness: Record<InvestorId, number>;
 } {
   const total = rows.length;
-  const meanBulls =
-    total === 0 ? 0 : rows.reduce((s, r) => s + r.bullCount, 0) / total;
+  const meanBulls = total === 0 ? 0 : rows.reduce((s, r) => s + r.bullCount, 0) / total;
   const sorted = [...rows].sort((a, b) => b.avgScore - a.avgScore);
   const topPick = sorted[0];
   const worstPick = sorted[sorted.length - 1];
-  const bullishness = Object.fromEntries(
-    Object.keys(INVESTORS).map((id) => [id, 0]),
-  ) as Record<InvestorId, number>;
+  const bullishness = Object.fromEntries(Object.keys(INVESTORS).map((id) => [id, 0])) as Record<
+    InvestorId,
+    number
+  >;
   for (const r of rows) {
     for (const id of r.bulls) bullishness[id]++;
   }

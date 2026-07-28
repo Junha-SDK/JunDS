@@ -3,12 +3,7 @@
  * 라이선스에 등록된 도메인에서만 동작하도록 제한.
  */
 
-const _ALLOWED_LOCAL = [
-  "localhost",
-  "127.0.0.1",
-  "0.0.0.0",
-  "::1",
-] as const;
+const _ALLOWED_LOCAL = ["localhost", "127.0.0.1", "0.0.0.0", "::1"] as const;
 
 /**
  * 현재 도메인이 허용 목록에 있는지 확인
@@ -35,10 +30,7 @@ export function _isDomainAllowed(allowedDomains?: string[]): boolean {
   return allowedDomains.some((allowed) => {
     if (allowed.startsWith("*.")) {
       const baseDomain = allowed.slice(2);
-      return (
-        currentDomain === baseDomain ||
-        currentDomain.endsWith(`.${baseDomain}`)
-      );
+      return currentDomain === baseDomain || currentDomain.endsWith(`.${baseDomain}`);
     }
     return currentDomain === allowed;
   });
@@ -53,10 +45,7 @@ export function _isLocationTampered(): boolean {
 
   try {
     // location 객체의 프로퍼티가 읽기 전용인지 확인
-    const descriptor = Object.getOwnPropertyDescriptor(
-      window,
-      "location"
-    );
+    const descriptor = Object.getOwnPropertyDescriptor(window, "location");
     if (descriptor && descriptor.configurable) {
       return true; // 정상적인 브라우저에서는 configurable이 false
     }

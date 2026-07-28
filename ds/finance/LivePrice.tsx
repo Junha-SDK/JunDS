@@ -36,8 +36,8 @@ export function LivePrice({ name, decimals = 0, size = "md", showFlash = true }:
           flash === "up"
             ? "var(--bm-up-flash)"
             : flash === "down"
-              ? "var(--bm-down-flash)"
-              : "transparent",
+            ? "var(--bm-down-flash)"
+            : "transparent",
         padding: flash ? "1px 4px" : "0",
         borderRadius: 4,
         transition: "background-color .35s ease",
@@ -59,10 +59,7 @@ export function LivePctBadge({ name }: { name: string }) {
   const flat = Math.abs(change) < 0.005;
   const color = up ? "var(--bm-up)" : flat ? "var(--bm-muted)" : "var(--bm-down)";
   return (
-    <span
-      className="bm-num font-bold"
-      style={{ color, fontSize: 12 }}
-    >
+    <span className="bm-num font-bold" style={{ color, fontSize: 12 }}>
       {up ? "+" : ""}
       {change.toFixed(2)}%
     </span>
@@ -76,6 +73,9 @@ export function LiveStatusDot() {
   const isLive = status === "장중" || status === "프리장" || status === "애프터장";
   useEffect(() => {
     if (!isLive) return;
+    // 이 깜빡임은 CSS 애니메이션이 아니라 setInterval 이라 motion-reduce: 가 닿지 않는다.
+    // 감속 요청은 여기서 직접 읽어 멈춘다 — 점은 켜진 채로 남는다.
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => setPulse((p) => !p), 800);
     return () => clearInterval(id);
   }, [isLive]);
@@ -101,9 +101,7 @@ export function LiveStatusDot() {
         className="size-2 rounded-full"
         style={{
           background: "var(--bm-live-bright)",
-          boxShadow: pulse
-            ? "0 0 0 4px var(--bm-live-glow)"
-            : "0 0 0 0 transparent",
+          boxShadow: pulse ? "0 0 0 4px var(--bm-live-glow)" : "0 0 0 0 transparent",
           transition: "box-shadow .8s ease",
         }}
       />

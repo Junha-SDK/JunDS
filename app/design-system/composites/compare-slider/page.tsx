@@ -14,7 +14,12 @@ export default function CompareSliderPage() {
         { name: "after", type: "string", required: true, description: "이후 이미지 URL" },
         { name: "beforeLabel", type: "string", default: '"Before"', description: "좌측 라벨" },
         { name: "afterLabel", type: "string", default: '"After"', description: "우측 라벨" },
-        { name: "initialPosition", type: "number", default: "50", description: "초기 슬라이더 위치(0~100)" },
+        {
+          name: "initialPosition",
+          type: "number",
+          default: "50",
+          description: "초기 슬라이더 위치(0~100)",
+        },
       ]}
     >
       <Section title="Default" description="핸들을 드래그해 보세요.">

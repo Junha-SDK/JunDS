@@ -42,11 +42,7 @@ const STOCK_POOL: { name: string; sector: string }[] = [
   { name: "에코프로비엠", sector: "2차전지" },
 ];
 
-export function PortfolioDayDetailModal({
-  open,
-  onClose,
-  day,
-}: PortfolioDayDetailModalProps) {
+export function PortfolioDayDetailModal({ open, onClose, day }: PortfolioDayDetailModalProps) {
   const { brokerage } = useBrokerage();
 
   if (!day) {
@@ -72,16 +68,8 @@ export function PortfolioDayDetailModal({
       <div className="px-5 pb-5 pt-1 max-h-[75vh] overflow-y-auto">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <Stat label="실현손익" value={fmtSigned(day.profit)} color={profitColor} />
-          <Stat
-            label="실현수익률"
-            value={fmtSignedPct(day.pct)}
-            color={profitColor}
-          />
-          <Stat
-            label="거래 회전"
-            value={turnover.toLocaleString("ko-KR")}
-            unit="원"
-          />
+          <Stat label="실현수익률" value={fmtSignedPct(day.pct)} color={profitColor} />
+          <Stat label="거래 회전" value={turnover.toLocaleString("ko-KR")} unit="원" />
           <Stat
             label="순손익(세후)"
             value={fmtSigned(Math.round(netProfit))}
@@ -91,28 +79,15 @@ export function PortfolioDayDetailModal({
 
         <h4 className="text-[13px] font-extrabold mt-5 mb-2">금액 구성</h4>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <Stat
-            label="매도금액"
-            value={day.sellAmount.toLocaleString("ko-KR")}
-            unit="원"
-          />
-          <Stat
-            label="매수금액"
-            value={day.buyAmount.toLocaleString("ko-KR")}
-            unit="원"
-          />
+          <Stat label="매도금액" value={day.sellAmount.toLocaleString("ko-KR")} unit="원" />
+          <Stat label="매수금액" value={day.buyAmount.toLocaleString("ko-KR")} unit="원" />
           <Stat
             label={`수수료 (${brokerage.name.split(" ")[0]})`}
             value={fees.commission.toLocaleString("ko-KR")}
             unit="원"
             muted
           />
-          <Stat
-            label="거래세 0.18%"
-            value={fees.tax.toLocaleString("ko-KR")}
-            unit="원"
-            muted
-          />
+          <Stat label="거래세 0.18%" value={fees.tax.toLocaleString("ko-KR")} unit="원" muted />
         </div>
 
         <h4 className="text-[13px] font-extrabold mt-5 mb-2">체결 내역</h4>
@@ -152,29 +127,19 @@ export function PortfolioDayDetailModal({
                       className="inline-block rounded px-1.5 py-0.5 text-[10.5px] font-extrabold"
                       style={{
                         background:
-                          t.side === "매도"
-                            ? "rgba(239,68,68,0.12)"
-                            : "rgba(59,130,246,0.12)",
-                        color:
-                          t.side === "매도" ? "var(--bm-up)" : "var(--bm-down)",
+                          t.side === "매도" ? "rgba(239,68,68,0.12)" : "rgba(59,130,246,0.12)",
+                        color: t.side === "매도" ? "var(--bm-up)" : "var(--bm-down)",
                       }}
                     >
                       {t.side}
                     </span>
                   </td>
-                  <td className="text-right px-3 py-2">
-                    {t.qty.toLocaleString("ko-KR")}
-                  </td>
-                  <td className="text-right px-3 py-2">
-                    {t.price.toLocaleString("ko-KR")}
-                  </td>
+                  <td className="text-right px-3 py-2">{t.qty.toLocaleString("ko-KR")}</td>
+                  <td className="text-right px-3 py-2">{t.price.toLocaleString("ko-KR")}</td>
                   <td className="text-right px-3 py-2 font-semibold">
                     {t.amount.toLocaleString("ko-KR")}
                   </td>
-                  <td
-                    className="text-right px-3 py-2"
-                    style={{ color: "var(--bm-muted)" }}
-                  >
+                  <td className="text-right px-3 py-2" style={{ color: "var(--bm-muted)" }}>
                     {t.fee.toLocaleString("ko-KR")}
                   </td>
                   <td
@@ -197,8 +162,8 @@ export function PortfolioDayDetailModal({
         </div>
 
         <p className="mt-4 text-[11.5px] leading-relaxed text-[color:var(--bm-muted)]">
-          ※ 체결 내역은 일별 합계 기준으로 자동 분배해 표시한 데모 자료입니다.
-          실제 거래 내역은 체결 화면에서 확인해 주세요.
+          ※ 체결 내역은 일별 합계 기준으로 자동 분배해 표시한 데모 자료입니다. 실제 거래 내역은 체결
+          화면에서 확인해 주세요.
         </p>
       </div>
     </Modal>
@@ -219,14 +184,8 @@ function Stat({
   muted?: boolean;
 }) {
   return (
-    <div
-      className="rounded-xl px-3 py-2.5"
-      style={{ background: "var(--bm-soft-100)" }}
-    >
-      <div
-        className="text-[10.5px] font-bold"
-        style={{ color: "var(--bm-muted)" }}
-      >
+    <div className="rounded-xl px-3 py-2.5" style={{ background: "var(--bm-soft-100)" }}>
+      <div className="text-[10.5px] font-bold" style={{ color: "var(--bm-muted)" }}>
         {label}
       </div>
       <div
@@ -235,9 +194,7 @@ function Stat({
       >
         {value}
         {unit ? (
-          <span className="text-[10.5px] ml-0.5 font-semibold opacity-70">
-            {unit}
-          </span>
+          <span className="text-[10.5px] ml-0.5 font-semibold opacity-70">{unit}</span>
         ) : null}
       </div>
     </div>

@@ -18,8 +18,10 @@ export function RecentlyViewed() {
           최근 본 종목
         </span>
         <button
+          type="button"
           onClick={() => clearRecent()}
-          className="text-[10px] font-semibold"
+          // finance 표면은 --bm-* 어휘를 쓴다 — 포커스 링도 그 어휘로 그린다
+          className="text-[10px] font-semibold px-1 rounded-md cursor-pointer transition-colors hover:bg-[color:var(--bm-soft-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
           style={{ color: "var(--bm-muted)" }}
         >
           지우기
@@ -45,12 +47,10 @@ function RecentRow({ name }: { name: string }) {
   return (
     <Link
       href={`/stock/${encodeURIComponent(resolved)}`}
-      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12.5px] hover:bg-[color:var(--bm-soft-100)]"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[12.5px] transition-colors hover:bg-[color:var(--bm-soft-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
     >
       <span className="flex-1 truncate font-bold">{resolved}</span>
-      <span className="bm-num text-[11px]">
-        {price ? price.toLocaleString("ko-KR") : "—"}
-      </span>
+      <span className="bm-num text-[11px]">{price ? price.toLocaleString("ko-KR") : "—"}</span>
       <span
         className="bm-num text-[10.5px] font-bold min-w-[38px] text-right"
         style={{ color: up ? "var(--bm-up)" : "var(--bm-down)" }}

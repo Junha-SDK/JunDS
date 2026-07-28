@@ -220,10 +220,7 @@ function pickRenderable(components: ComponentMeta[]): Renderable[] {
     ) {
       props["aria-label"] = `${c.name} 샘플`;
     }
-    if (
-      props.children === undefined &&
-      !NO_CHILDREN_COMPONENTS.has(c.name)
-    ) {
+    if (props.children === undefined && !NO_CHILDREN_COMPONENTS.has(c.name)) {
       props.children = "샘플 컨텐츠";
     }
 

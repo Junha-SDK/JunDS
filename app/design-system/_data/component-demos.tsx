@@ -151,8 +151,12 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center gap-2">
         <Button size="sm">Primary</Button>
-        <Button size="sm" variant="secondary">Secondary</Button>
-        <Button size="sm" variant="danger">Danger</Button>
+        <Button size="sm" variant="secondary">
+          Secondary
+        </Button>
+        <Button size="sm" variant="danger">
+          Danger
+        </Button>
       </div>
     ),
     hoverDemo: <ButtonLiveDemo />,
@@ -186,11 +190,21 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[200px]"><Textarea placeholder="설명을 입력하세요..." rows={2} /></div>,
-        <div key="2" className="w-full max-w-[200px]"><Textarea placeholder="피드백을 남겨주세요..." rows={3} /></div>,
-        <div key="3" className="w-full max-w-[200px]"><Textarea placeholder="비활성 상태" rows={2} disabled /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[200px]">
+            <Textarea placeholder="설명을 입력하세요..." rows={2} />
+          </div>,
+          <div key="2" className="w-full max-w-[200px]">
+            <Textarea placeholder="피드백을 남겨주세요..." rows={3} />
+          </div>,
+          <div key="3" className="w-full max-w-[200px]">
+            <Textarea placeholder="비활성 상태" rows={2} disabled />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -229,13 +243,17 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1000} transition="scale" frames={[
-        <Avatar key="xs" size="xs" />,
-        <Avatar key="sm" size="sm" />,
-        <Avatar key="md" size="md" />,
-        <Avatar key="lg" size="lg" />,
-        <Avatar key="xl" size="xl" />,
-      ]} />
+      <AutoPlayDemo
+        interval={1000}
+        transition="scale"
+        frames={[
+          <Avatar key="xs" size="xs" />,
+          <Avatar key="sm" size="sm" />,
+          <Avatar key="md" size="md" />,
+          <Avatar key="lg" size="lg" />,
+          <Avatar key="xl" size="xl" />,
+        ]}
+      />
     ),
   },
 
@@ -269,11 +287,27 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[200px] space-y-2"><div className="text-xs">위 콘텐츠</div><Divider /><div className="text-xs">아래 콘텐츠</div></div>,
-        <div key="2" className="w-full max-w-[200px] space-y-2"><div className="text-xs">섹션 A</div><Divider label="구분" /><div className="text-xs">섹션 B</div></div>,
-        <div key="3" className="w-full max-w-[200px] space-y-2"><div className="text-xs">항목 1</div><Divider label="OR" /><div className="text-xs">항목 2</div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[200px] space-y-2">
+            <div className="text-xs">위 콘텐츠</div>
+            <Divider />
+            <div className="text-xs">아래 콘텐츠</div>
+          </div>,
+          <div key="2" className="w-full max-w-[200px] space-y-2">
+            <div className="text-xs">섹션 A</div>
+            <Divider label="구분" />
+            <div className="text-xs">섹션 B</div>
+          </div>,
+          <div key="3" className="w-full max-w-[200px] space-y-2">
+            <div className="text-xs">항목 1</div>
+            <Divider label="OR" />
+            <div className="text-xs">항목 2</div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -324,13 +358,27 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1000} transition="slide-up" frames={[
-        <Tag key="1" color="primary">React</Tag>,
-        <Tag key="2" color="green">완료</Tag>,
-        <Tag key="3" color="red">긴급</Tag>,
-        <Tag key="4" color="orange">대기</Tag>,
-        <Tag key="5" color="purple">TypeScript</Tag>,
-      ]} />
+      <AutoPlayDemo
+        interval={1000}
+        transition="slide-up"
+        frames={[
+          <Tag key="1" color="primary">
+            React
+          </Tag>,
+          <Tag key="2" color="green">
+            완료
+          </Tag>,
+          <Tag key="3" color="red">
+            긴급
+          </Tag>,
+          <Tag key="4" color="orange">
+            대기
+          </Tag>,
+          <Tag key="5" color="purple">
+            TypeScript
+          </Tag>,
+        ]}
+      />
     ),
   },
 
@@ -377,12 +425,28 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="fade" frames={[
-        <div key="1" className="flex items-center gap-2"><Kbd keys={["⌘", "K"]} /><span className="text-xs text-muted">검색</span></div>,
-        <div key="2" className="flex items-center gap-2"><Kbd keys={["⌘", "S"]} /><span className="text-xs text-muted">저장</span></div>,
-        <div key="3" className="flex items-center gap-2"><Kbd keys={["⌘", "⇧", "P"]} /><span className="text-xs text-muted">명령 팔레트</span></div>,
-        <div key="4" className="flex items-center gap-2"><Kbd keys={["Ctrl", "Z"]} /><span className="text-xs text-muted">실행 취소</span></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="fade"
+        frames={[
+          <div key="1" className="flex items-center gap-2">
+            <Kbd keys={["⌘", "K"]} />
+            <span className="text-xs text-muted">검색</span>
+          </div>,
+          <div key="2" className="flex items-center gap-2">
+            <Kbd keys={["⌘", "S"]} />
+            <span className="text-xs text-muted">저장</span>
+          </div>,
+          <div key="3" className="flex items-center gap-2">
+            <Kbd keys={["⌘", "⇧", "P"]} />
+            <span className="text-xs text-muted">명령 팔레트</span>
+          </div>,
+          <div key="4" className="flex items-center gap-2">
+            <Kbd keys={["Ctrl", "Z"]} />
+            <span className="text-xs text-muted">실행 취소</span>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -432,11 +496,24 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="flex flex-col gap-1 w-full max-w-[200px]"><Label required>이메일 주소</Label><Input placeholder="email@example.com" /></div>,
-        <div key="2" className="flex flex-col gap-1 w-full max-w-[200px]"><Label>닉네임 (선택)</Label><Input placeholder="선택 사항" /></div>,
-        <div key="3" className="flex flex-col gap-1 w-full max-w-[200px]"><Label required>비밀번호</Label><Input placeholder="••••••••" type="password" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="flex flex-col gap-1 w-full max-w-[200px]">
+            <Label required>이메일 주소</Label>
+            <Input placeholder="email@example.com" />
+          </div>,
+          <div key="2" className="flex flex-col gap-1 w-full max-w-[200px]">
+            <Label>닉네임 (선택)</Label>
+            <Input placeholder="선택 사항" />
+          </div>,
+          <div key="3" className="flex flex-col gap-1 w-full max-w-[200px]">
+            <Label required>비밀번호</Label>
+            <Input placeholder="••••••••" type="password" />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -540,8 +617,16 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="w-full max-w-[220px]">
         <Accordion
           items={[
-            { key: "1", title: "결제 방법은?", content: <p className="text-xs text-muted">카드, 계좌이체 가능</p> },
-            { key: "2", title: "환불 정책", content: <p className="text-xs text-muted">7일 이내 전액 환불</p> },
+            {
+              key: "1",
+              title: "결제 방법은?",
+              content: <p className="text-xs text-muted">카드, 계좌이체 가능</p>,
+            },
+            {
+              key: "2",
+              title: "환불 정책",
+              content: <p className="text-xs text-muted">7일 이내 전액 환불</p>,
+            },
           ]}
         />
       </div>
@@ -566,11 +651,30 @@ export const showcaseItems: ShowcaseItem[] = [
       />
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <Breadcrumb key="1" items={[{ label: "홈", href: undefined }, { label: "프로젝트" }]} />,
-        <Breadcrumb key="2" items={[{ label: "홈", href: undefined }, { label: "프로젝트", href: undefined }, { label: "설정" }]} />,
-        <Breadcrumb key="3" items={[{ label: "홈", href: undefined }, { label: "프로젝트", href: undefined }, { label: "디자인 시스템", href: undefined }, { label: "컴포넌트" }]} />,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <Breadcrumb key="1" items={[{ label: "홈", href: undefined }, { label: "프로젝트" }]} />,
+          <Breadcrumb
+            key="2"
+            items={[
+              { label: "홈", href: undefined },
+              { label: "프로젝트", href: undefined },
+              { label: "설정" },
+            ]}
+          />,
+          <Breadcrumb
+            key="3"
+            items={[
+              { label: "홈", href: undefined },
+              { label: "프로젝트", href: undefined },
+              { label: "디자인 시스템", href: undefined },
+              { label: "컴포넌트" },
+            ]}
+          />,
+        ]}
+      />
     ),
   },
 
@@ -581,9 +685,7 @@ export const showcaseItems: ShowcaseItem[] = [
     description: "페이지 간 이동을 위한 페이지네이션 컨트롤",
     category: "Composites",
     href: "/design-system/composites/pagination",
-    preview: (
-      <Pagination page={1} totalPages={10} onChange={noop} />
-    ),
+    preview: <Pagination page={1} totalPages={10} onChange={noop} />,
     hoverDemo: <PaginationLiveDemo />,
   },
 
@@ -640,7 +742,9 @@ export const showcaseItems: ShowcaseItem[] = [
         <div className="px-2.5 py-1.5 text-xs text-white bg-gray-800 rounded-lg shadow-lg whitespace-nowrap mb-2">
           저장합니다
         </div>
-        <Button size="sm" variant="secondary">Hover me</Button>
+        <Button size="sm" variant="secondary">
+          Hover me
+        </Button>
       </div>
     ),
     hoverDemo: <TooltipLiveDemo />,
@@ -655,7 +759,9 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/empty-state",
     preview: (
       <div className="flex flex-col items-center gap-1 text-center">
-        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-muted text-sm">∅</div>
+        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-muted text-sm">
+          ∅
+        </div>
         <span className="text-xs font-medium text-foreground">업무가 없습니다</span>
         <span className="text-[10px] text-muted">새로운 업무를 추가하세요</span>
       </div>
@@ -704,10 +810,40 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[280px]"><Table columns={[{ key: "name", header: "이름" }, { key: "role", header: "역할" }]} data={[{ name: "김준하", role: "프론트엔드" }, { name: "이서연", role: "디자이너" }]} size="sm" /></div>,
-        <div key="2" className="w-full max-w-[280px]"><Table columns={[{ key: "name", header: "이름" }, { key: "role", header: "역할" }]} data={[{ name: "김준하", role: "프론트엔드" }, { name: "이서연", role: "디자이너" }, { name: "박지민", role: "PM" }]} striped size="sm" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[280px]">
+            <Table
+              columns={[
+                { key: "name", header: "이름" },
+                { key: "role", header: "역할" },
+              ]}
+              data={[
+                { name: "김준하", role: "프론트엔드" },
+                { name: "이서연", role: "디자이너" },
+              ]}
+              size="sm"
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[280px]">
+            <Table
+              columns={[
+                { key: "name", header: "이름" },
+                { key: "role", header: "역할" },
+              ]}
+              data={[
+                { name: "김준하", role: "프론트엔드" },
+                { name: "이서연", role: "디자이너" },
+                { name: "박지민", role: "PM" },
+              ]}
+              striped
+              size="sm"
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -740,10 +876,61 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[300px]"><DataTable columns={[{ key: "id", header: "ID", render: (row) => <span className="text-muted">#{row.id}</span>, width: "50px" }, { key: "name", header: "이름", render: (row) => <span className="font-medium">{row.name}</span> }]} data={[{ id: 1, name: "프로젝트 A" }, { id: 2, name: "프로젝트 B" }, { id: 3, name: "프로젝트 C" }]} rowKey={(row) => String(row.id)} pageSize={3} /></div>,
-        <div key="2" className="w-full max-w-[300px]"><DataTable columns={[{ key: "id", header: "ID", render: (row) => <span className="text-muted">#{row.id}</span>, width: "50px" }, { key: "name", header: "이름", render: (row) => <span className="font-medium">{row.name}</span> }]} data={[{ id: 4, name: "프로젝트 D" }, { id: 5, name: "프로젝트 E" }, { id: 6, name: "프로젝트 F" }]} rowKey={(row) => String(row.id)} pageSize={3} striped /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[300px]">
+            <DataTable
+              columns={[
+                {
+                  key: "id",
+                  header: "ID",
+                  render: (row) => <span className="text-muted">#{row.id}</span>,
+                  width: "50px",
+                },
+                {
+                  key: "name",
+                  header: "이름",
+                  render: (row) => <span className="font-medium">{row.name}</span>,
+                },
+              ]}
+              data={[
+                { id: 1, name: "프로젝트 A" },
+                { id: 2, name: "프로젝트 B" },
+                { id: 3, name: "프로젝트 C" },
+              ]}
+              rowKey={(row) => String(row.id)}
+              pageSize={3}
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[300px]">
+            <DataTable
+              columns={[
+                {
+                  key: "id",
+                  header: "ID",
+                  render: (row) => <span className="text-muted">#{row.id}</span>,
+                  width: "50px",
+                },
+                {
+                  key: "name",
+                  header: "이름",
+                  render: (row) => <span className="font-medium">{row.name}</span>,
+                },
+              ]}
+              data={[
+                { id: 4, name: "프로젝트 D" },
+                { id: 5, name: "프로젝트 E" },
+                { id: 6, name: "프로젝트 F" },
+              ]}
+              rowKey={(row) => String(row.id)}
+              pageSize={3}
+              striped
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -757,13 +944,17 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="w-full max-w-[220px]">
         <div className="grid grid-cols-7 gap-0.5 text-center">
-          {["일","월","화","수","목","금","토"].map((d) => (
-            <span key={d} className="text-[9px] font-medium text-muted py-0.5">{d}</span>
+          {["일", "월", "화", "수", "목", "금", "토"].map((d) => (
+            <span key={d} className="text-[9px] font-medium text-muted py-0.5">
+              {d}
+            </span>
           ))}
           {Array.from({ length: 7 }, (_, i) => (
             <span
               key={i}
-              className={`text-[10px] w-5 h-5 flex items-center justify-center rounded-full mx-auto ${i === 3 ? "bg-primary text-white" : "text-foreground"}`}
+              className={`text-[10px] w-5 h-5 flex items-center justify-center rounded-full mx-auto ${
+                i === 3 ? "bg-primary text-white" : "text-foreground"
+              }`}
             >
               {i + 14}
             </span>
@@ -786,7 +977,12 @@ export const showcaseItems: ShowcaseItem[] = [
         <div className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
             <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M9.5 9.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path
+              d="M9.5 9.5L13 13"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
           <span className="text-xs text-muted-light">검색...</span>
           <Kbd keys={["⌘", "K"]} />
@@ -794,11 +990,54 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[260px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"><div className="flex items-center gap-2 px-3 py-2 border-b border-border"><span className="text-xs text-foreground">설정</span></div><div className="py-1"><div className="px-3 py-1.5 text-xs bg-primary-light text-primary font-medium">일반 설정</div><div className="px-3 py-1.5 text-xs text-foreground">알림 설정</div></div></div>,
-        <div key="2" className="w-full max-w-[260px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"><div className="flex items-center gap-2 px-3 py-2 border-b border-border"><span className="text-xs text-foreground">파일</span></div><div className="py-1"><div className="px-3 py-1.5 text-xs bg-primary-light text-primary font-medium">새 파일</div><div className="px-3 py-1.5 text-xs text-foreground">열기</div></div></div>,
-        <div key="3" className="w-full max-w-[260px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"><div className="flex items-center gap-2 px-3 py-2 border-b border-border"><span className="text-xs text-foreground">검색...</span></div><div className="py-1"><div className="px-3 py-1.5 text-xs bg-primary-light text-primary font-medium">컴포넌트 검색</div><div className="px-3 py-1.5 text-xs text-foreground">페이지 이동</div></div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div
+            key="1"
+            className="w-full max-w-[260px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"
+          >
+            <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
+              <span className="text-xs text-foreground">설정</span>
+            </div>
+            <div className="py-1">
+              <div className="px-3 py-1.5 text-xs bg-primary-light text-primary-ink font-medium">
+                일반 설정
+              </div>
+              <div className="px-3 py-1.5 text-xs text-foreground">알림 설정</div>
+            </div>
+          </div>,
+          <div
+            key="2"
+            className="w-full max-w-[260px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"
+          >
+            <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
+              <span className="text-xs text-foreground">파일</span>
+            </div>
+            <div className="py-1">
+              <div className="px-3 py-1.5 text-xs bg-primary-light text-primary-ink font-medium">
+                새 파일
+              </div>
+              <div className="px-3 py-1.5 text-xs text-foreground">열기</div>
+            </div>
+          </div>,
+          <div
+            key="3"
+            className="w-full max-w-[260px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"
+          >
+            <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
+              <span className="text-xs text-foreground">검색...</span>
+            </div>
+            <div className="py-1">
+              <div className="px-3 py-1.5 text-xs bg-primary-light text-primary-ink font-medium">
+                컴포넌트 검색
+              </div>
+              <div className="px-3 py-1.5 text-xs text-foreground">페이지 이동</div>
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -811,11 +1050,21 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/patterns/flow-diagram",
     preview: (
       <div className="flex items-center gap-3">
-        <div className="w-14 h-8 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-[9px] font-bold text-blue-600">시작</div>
-        <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h14M14 5l-4-4M14 5l-4 4" stroke="#6b7280" strokeWidth="1.5" fill="none" /></svg>
-        <div className="w-14 h-8 rounded-lg bg-green-500/20 border border-green-500/40 flex items-center justify-center text-[9px] font-bold text-green-600">처리</div>
-        <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h14M14 5l-4-4M14 5l-4 4" stroke="#6b7280" strokeWidth="1.5" fill="none" /></svg>
-        <div className="w-14 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-[9px] font-bold text-amber-600">완료</div>
+        <div className="w-14 h-8 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-[9px] font-bold text-blue-600">
+          시작
+        </div>
+        <svg width="20" height="10" viewBox="0 0 20 10">
+          <path d="M0 5h14M14 5l-4-4M14 5l-4 4" stroke="#6b7280" strokeWidth="1.5" fill="none" />
+        </svg>
+        <div className="w-14 h-8 rounded-lg bg-green-500/20 border border-green-500/40 flex items-center justify-center text-[9px] font-bold text-green-600">
+          처리
+        </div>
+        <svg width="20" height="10" viewBox="0 0 20 10">
+          <path d="M0 5h14M14 5l-4-4M14 5l-4 4" stroke="#6b7280" strokeWidth="1.5" fill="none" />
+        </svg>
+        <div className="w-14 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-[9px] font-bold text-amber-600">
+          완료
+        </div>
       </div>
     ),
     hoverDemo: <FlowDiagramLiveDemo />,
@@ -834,17 +1083,103 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/primitives/icon-button",
     preview: (
       <div className="flex items-center gap-2">
-        <IconButton icon={<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>} label="추가" variant="filled" />
-        <IconButton icon={<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6.5 7v4M9.5 7v4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>} label="삭제" variant="outline" />
-        <IconButton icon={<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.5 2.5l2 2M7 7l5-5M3 13h2l8-8-2-2-8 8v2z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>} label="편집" variant="ghost" />
+        <IconButton
+          icon={
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M8 3v10M3 8h10"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          }
+          label="추가"
+          variant="filled"
+        />
+        <IconButton
+          icon={
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M2 4h12M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6.5 7v4M9.5 7v4"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+            </svg>
+          }
+          label="삭제"
+          variant="outline"
+        />
+        <IconButton
+          icon={
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M11.5 2.5l2 2M7 7l5-5M3 13h2l8-8-2-2-8 8v2z"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
+          label="편집"
+          variant="ghost"
+        />
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1000} transition="scale" frames={[
-        <IconButton key="ghost" icon={<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>} label="Ghost" variant="ghost" />,
-        <IconButton key="outline" icon={<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>} label="Outline" variant="outline" />,
-        <IconButton key="filled" icon={<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>} label="Filled" variant="filled" />,
-      ]} />
+      <AutoPlayDemo
+        interval={1000}
+        transition="scale"
+        frames={[
+          <IconButton
+            key="ghost"
+            icon={
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8 3v10M3 8h10"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            }
+            label="Ghost"
+            variant="ghost"
+          />,
+          <IconButton
+            key="outline"
+            icon={
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8 3v10M3 8h10"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            }
+            label="Outline"
+            variant="outline"
+          />,
+          <IconButton
+            key="filled"
+            icon={
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8 3v10M3 8h10"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            }
+            label="Filled"
+            variant="filled"
+          />,
+        ]}
+      />
     ),
   },
 
@@ -855,15 +1190,26 @@ export const showcaseItems: ShowcaseItem[] = [
     description: "증감 버튼이 포함된 숫자 입력 필드",
     category: "Primitives",
     href: "/design-system/primitives/number-input",
-    preview: (
-      <NumberInput value={42} onChange={noop} />
-    ),
+    preview: <NumberInput value={42} onChange={noop} />,
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[200px]"><Label>수량</Label><NumberInput value={5} onChange={noop} min={0} max={100} step={1} /></div>,
-        <div key="2" className="w-full max-w-[200px]"><Label>가격 (원)</Label><NumberInput value={10000} onChange={noop} min={0} max={1000000} step={1000} /></div>,
-        <div key="3" className="w-full max-w-[200px]"><Label>온도 (°C)</Label><NumberInput value={22} onChange={noop} min={-10} max={50} step={1} /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[200px]">
+            <Label>수량</Label>
+            <NumberInput value={5} onChange={noop} min={0} max={100} step={1} />
+          </div>,
+          <div key="2" className="w-full max-w-[200px]">
+            <Label>가격 (원)</Label>
+            <NumberInput value={10000} onChange={noop} min={0} max={1000000} step={1000} />
+          </div>,
+          <div key="3" className="w-full max-w-[200px]">
+            <Label>온도 (°C)</Label>
+            <NumberInput value={22} onChange={noop} min={-10} max={50} step={1} />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -887,11 +1233,51 @@ export const showcaseItems: ShowcaseItem[] = [
       />
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1"><Label>우선순위</Label><RadioGroup name="demo-radio-1" options={[{ value: "high", label: "높음" }, { value: "medium", label: "중간" }, { value: "low", label: "낮음" }]} value="high" onChange={noop} /></div>,
-        <div key="2"><Label>우선순위</Label><RadioGroup name="demo-radio-2" options={[{ value: "high", label: "높음" }, { value: "medium", label: "중간" }, { value: "low", label: "낮음" }]} value="medium" onChange={noop} /></div>,
-        <div key="3"><Label>우선순위</Label><RadioGroup name="demo-radio-3" options={[{ value: "high", label: "높음" }, { value: "medium", label: "중간" }, { value: "low", label: "낮음" }]} value="low" onChange={noop} /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1">
+            <Label>우선순위</Label>
+            <RadioGroup
+              name="demo-radio-1"
+              options={[
+                { value: "high", label: "높음" },
+                { value: "medium", label: "중간" },
+                { value: "low", label: "낮음" },
+              ]}
+              value="high"
+              onChange={noop}
+            />
+          </div>,
+          <div key="2">
+            <Label>우선순위</Label>
+            <RadioGroup
+              name="demo-radio-2"
+              options={[
+                { value: "high", label: "높음" },
+                { value: "medium", label: "중간" },
+                { value: "low", label: "낮음" },
+              ]}
+              value="medium"
+              onChange={noop}
+            />
+          </div>,
+          <div key="3">
+            <Label>우선순위</Label>
+            <RadioGroup
+              name="demo-radio-3"
+              options={[
+                { value: "high", label: "높음" },
+                { value: "medium", label: "중간" },
+                { value: "low", label: "낮음" },
+              ]}
+              value="low"
+              onChange={noop}
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -908,11 +1294,31 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[240px]"><FileUpload onFiles={noop} description="파일을 드래그하세요" className="[&>div]:p-4" /></div>,
-        <div key="2" className="w-full max-w-[240px]"><FileUpload onFiles={noop} accept="image/*" description="이미지를 업로드하세요" className="[&>div]:p-4" /></div>,
-        <div key="3" className="w-full max-w-[240px]"><FileUpload onFiles={noop} accept=".pdf" description="PDF만 업로드 가능" className="[&>div]:p-4" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[240px]">
+            <FileUpload onFiles={noop} description="파일을 드래그하세요" className="[&>div]:p-4" />
+          </div>,
+          <div key="2" className="w-full max-w-[240px]">
+            <FileUpload
+              onFiles={noop}
+              accept="image/*"
+              description="이미지를 업로드하세요"
+              className="[&>div]:p-4"
+            />
+          </div>,
+          <div key="3" className="w-full max-w-[240px]">
+            <FileUpload
+              onFiles={noop}
+              accept=".pdf"
+              description="PDF만 업로드 가능"
+              className="[&>div]:p-4"
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -929,11 +1335,27 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-border max-w-[220px]"><code className="text-xs flex-1 text-foreground">npm install junds</code><CopyButton text="npm install junds" size="sm" /></div>,
-        <CopyButton key="2" text="API_KEY_12345" variant="button" label="API 키 복사" />,
-        <div key="3" className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-border max-w-[220px]"><code className="text-xs flex-1 text-foreground">yarn add junds</code><CopyButton text="yarn add junds" size="sm" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-border max-w-[220px]"
+          >
+            <code className="text-xs flex-1 text-foreground">npm install junds</code>
+            <CopyButton text="npm install junds" size="sm" />
+          </div>,
+          <CopyButton key="2" text="API_KEY_12345" variant="button" label="API 키 복사" />,
+          <div
+            key="3"
+            className="flex items-center gap-2 px-3 py-2 bg-gray-50 rounded-lg border border-border max-w-[220px]"
+          >
+            <code className="text-xs flex-1 text-foreground">yarn add junds</code>
+            <CopyButton text="yarn add junds" size="sm" />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -954,11 +1376,33 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="scale" frames={[
-        <div key="1" className="w-full max-w-[160px]"><AspectRatio ratio={1}><div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center"><span className="text-[10px] font-medium text-purple-600">1:1</span></div></AspectRatio></div>,
-        <div key="2" className="w-full max-w-[160px]"><AspectRatio ratio={4 / 3}><div className="w-full h-full bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center"><span className="text-[10px] font-medium text-green-600">4:3</span></div></AspectRatio></div>,
-        <div key="3" className="w-full max-w-[160px]"><AspectRatio ratio={16 / 9}><div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center"><span className="text-[10px] font-medium text-blue-600">16:9</span></div></AspectRatio></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="scale"
+        frames={[
+          <div key="1" className="w-full max-w-[160px]">
+            <AspectRatio ratio={1}>
+              <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
+                <span className="text-[10px] font-medium text-purple-600">1:1</span>
+              </div>
+            </AspectRatio>
+          </div>,
+          <div key="2" className="w-full max-w-[160px]">
+            <AspectRatio ratio={4 / 3}>
+              <div className="w-full h-full bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center">
+                <span className="text-[10px] font-medium text-green-600">4:3</span>
+              </div>
+            </AspectRatio>
+          </div>,
+          <div key="3" className="w-full max-w-[160px]">
+            <AspectRatio ratio={16 / 9}>
+              <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
+                <span className="text-[10px] font-medium text-blue-600">16:9</span>
+              </div>
+            </AspectRatio>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -974,17 +1418,43 @@ export const showcaseItems: ShowcaseItem[] = [
         <ScrollArea maxHeight={80}>
           <div className="flex flex-col gap-1 p-1">
             {["항목 1", "항목 2", "항목 3", "항목 4", "항목 5", "항목 6"].map((item) => (
-              <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">{item}</div>
+              <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">
+                {item}
+              </div>
             ))}
           </div>
         </ScrollArea>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[220px]"><ScrollArea maxHeight={80}><div className="flex flex-col gap-1 p-1">{["항목 1", "항목 2", "항목 3", "항목 4", "항목 5"].map((item) => <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">{item}</div>)}</div></ScrollArea></div>,
-        <div key="2" className="w-full max-w-[220px]"><ScrollArea maxHeight={80}><div className="flex flex-col gap-1 p-1">{["React", "Vue", "Angular", "Svelte", "Solid"].map((item) => <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">{item}</div>)}</div></ScrollArea></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[220px]">
+            <ScrollArea maxHeight={80}>
+              <div className="flex flex-col gap-1 p-1">
+                {["항목 1", "항목 2", "항목 3", "항목 4", "항목 5"].map((item) => (
+                  <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </ScrollArea>
+          </div>,
+          <div key="2" className="w-full max-w-[220px]">
+            <ScrollArea maxHeight={80}>
+              <div className="flex flex-col gap-1 p-1">
+                {["React", "Vue", "Angular", "Svelte", "Solid"].map((item) => (
+                  <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </ScrollArea>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -999,16 +1469,52 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="flex items-center justify-center">
         <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 text-gray-600">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M10 16V4M10 4l-5 5M10 4l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M10 16V4M10 4l-5 5M10 4l5 5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="scale" frames={[
-        <div key="1" className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 text-gray-600"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 16V4M10 4l-5 5M10 4l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></div>,
-        <div key="2" className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white shadow-xl"><svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M10 16V4M10 4l-5 5M10 4l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="scale"
+        frames={[
+          <div
+            key="1"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-lg border border-gray-200 text-gray-600"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 16V4M10 4l-5 5M10 4l5 5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>,
+          <div
+            key="2"
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white shadow-xl"
+          >
+            <svg width="22" height="22" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 16V4M10 4l-5 5M10 4l5 5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1019,16 +1525,18 @@ export const showcaseItems: ShowcaseItem[] = [
     description: "배터리 형태로 레벨을 시각화하는 인디케이터",
     category: "Primitives",
     href: "/design-system/primitives/battery-indicator",
-    preview: (
-      <BatteryIndicator value={75} autoColor size="md" />
-    ),
+    preview: <BatteryIndicator value={75} autoColor size="md" />,
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="fade" frames={[
-        <BatteryIndicator key="100" value={100} autoColor label="충전 완료" />,
-        <BatteryIndicator key="60" value={60} autoColor label="보통" />,
-        <BatteryIndicator key="20" value={20} autoColor label="부족" />,
-        <BatteryIndicator key="5" value={5} autoColor label="위험" />,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="fade"
+        frames={[
+          <BatteryIndicator key="100" value={100} autoColor label="충전 완료" />,
+          <BatteryIndicator key="60" value={60} autoColor label="보통" />,
+          <BatteryIndicator key="20" value={20} autoColor label="부족" />,
+          <BatteryIndicator key="5" value={5} autoColor label="위험" />,
+        ]}
+      />
     ),
   },
 
@@ -1041,19 +1549,39 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/primitives/severity-badge",
     preview: (
       <div className="flex items-center gap-1.5">
-        <SeverityBadge severity="ok" dot>정상</SeverityBadge>
-        <SeverityBadge severity="warn" dot>경고</SeverityBadge>
-        <SeverityBadge severity="danger" dot>위험</SeverityBadge>
+        <SeverityBadge severity="ok" dot>
+          정상
+        </SeverityBadge>
+        <SeverityBadge severity="warn" dot>
+          경고
+        </SeverityBadge>
+        <SeverityBadge severity="danger" dot>
+          위험
+        </SeverityBadge>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1000} transition="slide-up" frames={[
-        <SeverityBadge key="ok" severity="ok" dot>OK</SeverityBadge>,
-        <SeverityBadge key="warn" severity="warn" dot>WARN</SeverityBadge>,
-        <SeverityBadge key="danger" severity="danger" dot>DANGER</SeverityBadge>,
-        <SeverityBadge key="info" severity="info" dot>INFO</SeverityBadge>,
-        <SeverityBadge key="neutral" severity="neutral" dot>NEUTRAL</SeverityBadge>,
-      ]} />
+      <AutoPlayDemo
+        interval={1000}
+        transition="slide-up"
+        frames={[
+          <SeverityBadge key="ok" severity="ok" dot>
+            OK
+          </SeverityBadge>,
+          <SeverityBadge key="warn" severity="warn" dot>
+            WARN
+          </SeverityBadge>,
+          <SeverityBadge key="danger" severity="danger" dot>
+            DANGER
+          </SeverityBadge>,
+          <SeverityBadge key="info" severity="info" dot>
+            INFO
+          </SeverityBadge>,
+          <SeverityBadge key="neutral" severity="neutral" dot>
+            NEUTRAL
+          </SeverityBadge>,
+        ]}
+      />
     ),
   },
 
@@ -1101,11 +1629,33 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="flex items-center gap-1 flex-wrap min-h-[36px] w-full max-w-[220px] border border-border bg-white rounded-lg px-2 py-1.5"><Tag color="primary">React</Tag></div>,
-        <div key="2" className="flex items-center gap-1 flex-wrap min-h-[36px] w-full max-w-[220px] border border-border bg-white rounded-lg px-2 py-1.5"><Tag color="primary">React</Tag><Tag color="primary">TypeScript</Tag></div>,
-        <div key="3" className="flex items-center gap-1 flex-wrap min-h-[36px] w-full max-w-[220px] border border-border bg-white rounded-lg px-2 py-1.5"><Tag color="primary">React</Tag><Tag color="primary">TypeScript</Tag><Tag color="primary">Next.js</Tag></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="flex items-center gap-1 flex-wrap min-h-[36px] w-full max-w-[220px] border border-border bg-white rounded-lg px-2 py-1.5"
+          >
+            <Tag color="primary">React</Tag>
+          </div>,
+          <div
+            key="2"
+            className="flex items-center gap-1 flex-wrap min-h-[36px] w-full max-w-[220px] border border-border bg-white rounded-lg px-2 py-1.5"
+          >
+            <Tag color="primary">React</Tag>
+            <Tag color="primary">TypeScript</Tag>
+          </div>,
+          <div
+            key="3"
+            className="flex items-center gap-1 flex-wrap min-h-[36px] w-full max-w-[220px] border border-border bg-white rounded-lg px-2 py-1.5"
+          >
+            <Tag color="primary">React</Tag>
+            <Tag color="primary">TypeScript</Tag>
+            <Tag color="primary">Next.js</Tag>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1121,7 +1671,9 @@ export const showcaseItems: ShowcaseItem[] = [
         <div className="text-xs font-semibold text-foreground mb-1">알림</div>
         <p className="text-[10px] text-muted">변경사항을 저장하시겠습니까?</p>
         <div className="flex justify-end gap-1.5 mt-3">
-          <Button size="sm" variant="secondary">취소</Button>
+          <Button size="sm" variant="secondary">
+            취소
+          </Button>
           <Button size="sm">확인</Button>
         </div>
       </div>
@@ -1138,7 +1690,16 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/toast",
     preview: (
       <div className="w-full max-w-[220px] border border-success/20 bg-success-light rounded-lg px-3 py-2 flex items-center gap-2">
-        <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#2f8f57" strokeWidth="1.5" /><path d="M5.5 9.5l2 2 5-5" stroke="#2f8f57" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="8" stroke="#2f8f57" strokeWidth="1.5" />
+          <path
+            d="M5.5 9.5l2 2 5-5"
+            stroke="#2f8f57"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
         <span className="text-xs font-medium text-foreground">저장되었습니다</span>
       </div>
     ),
@@ -1154,7 +1715,9 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/dropdown",
     preview: (
       <div className="flex flex-col items-start">
-        <Button size="sm" variant="secondary">메뉴 열기</Button>
+        <Button size="sm" variant="secondary">
+          메뉴 열기
+        </Button>
       </div>
     ),
     hoverDemo: <DropdownLiveDemo />,
@@ -1172,8 +1735,12 @@ export const showcaseItems: ShowcaseItem[] = [
         <div className="text-xs font-semibold text-foreground mb-1">삭제 확인</div>
         <p className="text-[10px] text-muted">이 작업은 되돌릴 수 없습니다.</p>
         <div className="flex justify-end gap-1.5 mt-3">
-          <Button size="sm" variant="secondary">취소</Button>
-          <Button size="sm" variant="danger">삭제</Button>
+          <Button size="sm" variant="secondary">
+            취소
+          </Button>
+          <Button size="sm" variant="danger">
+            삭제
+          </Button>
         </div>
       </div>
     ),
@@ -1211,11 +1778,39 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[200px]"><Input placeholder="도시 검색..." /><div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1"><div className="px-3 py-1.5 text-xs bg-primary-light text-primary font-medium">서울</div><div className="px-3 py-1.5 text-xs text-foreground">부산</div></div></div>,
-        <div key="2" className="w-full max-w-[200px]"><Input placeholder="과일 검색..." /><div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1"><div className="px-3 py-1.5 text-xs bg-primary-light text-primary font-medium">사과</div><div className="px-3 py-1.5 text-xs text-foreground">바나나</div></div></div>,
-        <div key="3" className="w-full max-w-[200px]"><Input placeholder="색상 검색..." /><div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1"><div className="px-3 py-1.5 text-xs bg-primary-light text-primary font-medium">파랑</div><div className="px-3 py-1.5 text-xs text-foreground">빨강</div></div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div key="1" className="w-full max-w-[200px]">
+            <Input placeholder="도시 검색..." />
+            <div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1">
+              <div className="px-3 py-1.5 text-xs bg-primary-light text-primary-ink font-medium">
+                서울
+              </div>
+              <div className="px-3 py-1.5 text-xs text-foreground">부산</div>
+            </div>
+          </div>,
+          <div key="2" className="w-full max-w-[200px]">
+            <Input placeholder="과일 검색..." />
+            <div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1">
+              <div className="px-3 py-1.5 text-xs bg-primary-light text-primary-ink font-medium">
+                사과
+              </div>
+              <div className="px-3 py-1.5 text-xs text-foreground">바나나</div>
+            </div>
+          </div>,
+          <div key="3" className="w-full max-w-[200px]">
+            <Input placeholder="색상 검색..." />
+            <div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1">
+              <div className="px-3 py-1.5 text-xs bg-primary-light text-primary-ink font-medium">
+                파랑
+              </div>
+              <div className="px-3 py-1.5 text-xs text-foreground">빨강</div>
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1228,17 +1823,53 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/button-group",
     preview: (
       <ButtonGroup>
-        <Button size="sm" variant="secondary">왼쪽</Button>
-        <Button size="sm" variant="secondary">중앙</Button>
-        <Button size="sm" variant="secondary">오른쪽</Button>
+        <Button size="sm" variant="secondary">
+          왼쪽
+        </Button>
+        <Button size="sm" variant="secondary">
+          중앙
+        </Button>
+        <Button size="sm" variant="secondary">
+          오른쪽
+        </Button>
       </ButtonGroup>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <ButtonGroup key="1"><Button size="sm">활성</Button><Button size="sm" variant="secondary">비활성</Button><Button size="sm" variant="secondary">비활성</Button></ButtonGroup>,
-        <ButtonGroup key="2"><Button size="sm" variant="secondary">비활성</Button><Button size="sm">활성</Button><Button size="sm" variant="secondary">비활성</Button></ButtonGroup>,
-        <ButtonGroup key="3" separated><Button size="sm" variant="secondary">복사</Button><Button size="sm" variant="secondary">붙여넣기</Button><Button size="sm" variant="danger">삭제</Button></ButtonGroup>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <ButtonGroup key="1">
+            <Button size="sm">활성</Button>
+            <Button size="sm" variant="secondary">
+              비활성
+            </Button>
+            <Button size="sm" variant="secondary">
+              비활성
+            </Button>
+          </ButtonGroup>,
+          <ButtonGroup key="2">
+            <Button size="sm" variant="secondary">
+              비활성
+            </Button>
+            <Button size="sm">활성</Button>
+            <Button size="sm" variant="secondary">
+              비활성
+            </Button>
+          </ButtonGroup>,
+          <ButtonGroup key="3" separated>
+            <Button size="sm" variant="secondary">
+              복사
+            </Button>
+            <Button size="sm" variant="secondary">
+              붙여넣기
+            </Button>
+            <Button size="sm" variant="danger">
+              삭제
+            </Button>
+          </ButtonGroup>,
+        ]}
+      />
     ),
   },
 
@@ -1249,15 +1880,27 @@ export const showcaseItems: ShowcaseItem[] = [
     description: "여러 아바타를 겹쳐서 표시하는 스택 컴포넌트",
     category: "Composites",
     href: "/design-system/composites/avatar-stack",
-    preview: (
-      <AvatarStack names={["김준하", "이서연", "박지민", "최유진"]} max={3} />
-    ),
+    preview: <AvatarStack names={["김준하", "이서연", "박지민", "최유진"]} max={3} />,
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="scale" frames={[
-        <AvatarStack key="2" names={["김준하", "이서연"]} max={3} size="md" />,
-        <AvatarStack key="4" names={["김준하", "이서연", "박지민", "최유진"]} max={4} size="md" />,
-        <AvatarStack key="6" names={["김준하", "이서연", "박지민", "최유진", "정다은", "홍길동"]} max={4} size="md" />,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="scale"
+        frames={[
+          <AvatarStack key="2" names={["김준하", "이서연"]} max={3} size="md" />,
+          <AvatarStack
+            key="4"
+            names={["김준하", "이서연", "박지민", "최유진"]}
+            max={4}
+            size="md"
+          />,
+          <AvatarStack
+            key="6"
+            names={["김준하", "이서연", "박지민", "최유진", "정다은", "홍길동"]}
+            max={4}
+            size="md"
+          />,
+        ]}
+      />
     ),
   },
 
@@ -1271,7 +1914,19 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="w-full max-w-[200px]">
         <Collapsible
-          trigger={<div className="flex items-center gap-1 text-xs font-medium text-foreground cursor-pointer">더보기 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg></div>}
+          trigger={
+            <div className="flex items-center gap-1 text-xs font-medium text-foreground cursor-pointer">
+              더보기{" "}
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path
+                  d="M3 5l3 3 3-3"
+                  stroke="currentColor"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </div>
+          }
           defaultOpen
         >
           <p className="text-[10px] text-muted mt-1">숨겨진 내용이 여기에 표시됩니다.</p>
@@ -1279,10 +1934,35 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[220px]"><Collapsible trigger={<div className="flex items-center gap-1 text-xs font-medium text-foreground cursor-pointer px-2 py-1 border border-border rounded-lg">펼쳐진 섹션</div>} defaultOpen><div className="text-xs text-muted mt-1 px-2">이 섹션은 펼쳐져 있습니다.</div></Collapsible></div>,
-        <div key="2" className="w-full max-w-[220px]"><Collapsible trigger={<div className="flex items-center gap-1 text-xs font-medium text-foreground cursor-pointer px-2 py-1 border border-border rounded-lg">접힌 섹션</div>}><div className="text-xs text-muted mt-1 px-2">숨겨진 내용</div></Collapsible></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div key="1" className="w-full max-w-[220px]">
+            <Collapsible
+              trigger={
+                <div className="flex items-center gap-1 text-xs font-medium text-foreground cursor-pointer px-2 py-1 border border-border rounded-lg">
+                  펼쳐진 섹션
+                </div>
+              }
+              defaultOpen
+            >
+              <div className="text-xs text-muted mt-1 px-2">이 섹션은 펼쳐져 있습니다.</div>
+            </Collapsible>
+          </div>,
+          <div key="2" className="w-full max-w-[220px]">
+            <Collapsible
+              trigger={
+                <div className="flex items-center gap-1 text-xs font-medium text-foreground cursor-pointer px-2 py-1 border border-border rounded-lg">
+                  접힌 섹션
+                </div>
+              }
+            >
+              <div className="text-xs text-muted mt-1 px-2">숨겨진 내용</div>
+            </Collapsible>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1299,14 +1979,42 @@ export const showcaseItems: ShowcaseItem[] = [
           <div className="font-medium text-foreground">@jjunhaa</div>
           <div>디자인 시스템 개발자</div>
         </div>
-        <span className="text-xs text-primary underline cursor-pointer">@jjunhaa</span>
+        <span className="text-xs text-primary-ink underline cursor-pointer">@jjunhaa</span>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="px-3 py-2 border border-border rounded-xl bg-white shadow-lg max-w-[200px]"><div className="flex items-center gap-2 mb-1"><Avatar name="김준하" size="sm" /><div><div className="text-xs font-semibold text-foreground">김준하</div><div className="text-[10px] text-muted">@jjunhaa</div></div></div><p className="text-[10px] text-muted">프론트엔드 개발자</p></div>,
-        <div key="2" className="px-3 py-2 border border-border rounded-xl bg-white shadow-lg max-w-[200px]"><div className="flex items-center gap-2 mb-1"><Avatar name="이서연" size="sm" /><div><div className="text-xs font-semibold text-foreground">이서연</div><div className="text-[10px] text-muted">@seoyeon</div></div></div><p className="text-[10px] text-muted">UI 디자이너</p></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="px-3 py-2 border border-border rounded-xl bg-white shadow-lg max-w-[200px]"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <Avatar name="김준하" size="sm" />
+              <div>
+                <div className="text-xs font-semibold text-foreground">김준하</div>
+                <div className="text-[10px] text-muted">@jjunhaa</div>
+              </div>
+            </div>
+            <p className="text-[10px] text-muted">프론트엔드 개발자</p>
+          </div>,
+          <div
+            key="2"
+            className="px-3 py-2 border border-border rounded-xl bg-white shadow-lg max-w-[200px]"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <Avatar name="이서연" size="sm" />
+              <div>
+                <div className="text-xs font-semibold text-foreground">이서연</div>
+                <div className="text-[10px] text-muted">@seoyeon</div>
+              </div>
+            </div>
+            <p className="text-[10px] text-muted">UI 디자이너</p>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1323,10 +2031,28 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="flex flex-col gap-1 w-full max-w-[140px] border border-border rounded-lg bg-white shadow-lg py-1"><div className="px-3 py-1.5 text-xs bg-gray-50 text-foreground">뒤로 가기</div><div className="px-3 py-1.5 text-xs text-foreground">새로고침</div><div className="px-3 py-1.5 text-xs text-foreground">소스 보기</div></div>,
-        <div key="2" className="flex flex-col gap-1 w-full max-w-[140px] border border-border rounded-lg bg-white shadow-lg py-1"><div className="px-3 py-1.5 text-xs bg-gray-50 text-foreground">복사</div><div className="px-3 py-1.5 text-xs text-foreground">붙여넣기</div><div className="px-3 py-1.5 text-xs text-foreground">삭제</div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div
+            key="1"
+            className="flex flex-col gap-1 w-full max-w-[140px] border border-border rounded-lg bg-white shadow-lg py-1"
+          >
+            <div className="px-3 py-1.5 text-xs bg-gray-50 text-foreground">뒤로 가기</div>
+            <div className="px-3 py-1.5 text-xs text-foreground">새로고침</div>
+            <div className="px-3 py-1.5 text-xs text-foreground">소스 보기</div>
+          </div>,
+          <div
+            key="2"
+            className="flex flex-col gap-1 w-full max-w-[140px] border border-border rounded-lg bg-white shadow-lg py-1"
+          >
+            <div className="px-3 py-1.5 text-xs bg-gray-50 text-foreground">복사</div>
+            <div className="px-3 py-1.5 text-xs text-foreground">붙여넣기</div>
+            <div className="px-3 py-1.5 text-xs text-foreground">삭제</div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1342,7 +2068,9 @@ export const showcaseItems: ShowcaseItem[] = [
         <div className="text-xs font-semibold text-red-600 mb-1">경고</div>
         <p className="text-[10px] text-muted">데이터가 삭제됩니다.</p>
         <div className="flex justify-end mt-3">
-          <Button size="sm" variant="danger">확인</Button>
+          <Button size="sm" variant="danger">
+            확인
+          </Button>
         </div>
       </div>
     ),
@@ -1365,10 +2093,32 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[220px] h-[120px] border border-border rounded-lg bg-gray-50 relative overflow-hidden"><div className="p-2 text-[10px] text-muted">메인 콘텐츠</div><div className="absolute bottom-0 left-0 right-0 h-[55%] bg-white border-t border-border rounded-t-xl shadow-lg"><div className="w-8 h-1 bg-gray-300 rounded-full mx-auto mt-2 mb-1" /><div className="px-3 text-xs font-semibold text-foreground">옵션 선택</div></div></div>,
-        <div key="2" className="w-full max-w-[220px] h-[120px] border border-border rounded-lg bg-gray-50 relative overflow-hidden"><div className="p-2 text-[10px] text-muted">메인 콘텐츠</div><div className="absolute bottom-0 left-0 right-0 h-[70%] bg-white border-t border-border rounded-t-xl shadow-lg"><div className="w-8 h-1 bg-gray-300 rounded-full mx-auto mt-2 mb-1" /><div className="px-3 text-xs font-semibold text-foreground">상세 정보</div></div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div
+            key="1"
+            className="w-full max-w-[220px] h-[120px] border border-border rounded-lg bg-gray-50 relative overflow-hidden"
+          >
+            <div className="p-2 text-[10px] text-muted">메인 콘텐츠</div>
+            <div className="absolute bottom-0 left-0 right-0 h-[55%] bg-white border-t border-border rounded-t-xl shadow-lg">
+              <div className="w-8 h-1 bg-gray-300 rounded-full mx-auto mt-2 mb-1" />
+              <div className="px-3 text-xs font-semibold text-foreground">옵션 선택</div>
+            </div>
+          </div>,
+          <div
+            key="2"
+            className="w-full max-w-[220px] h-[120px] border border-border rounded-lg bg-gray-50 relative overflow-hidden"
+          >
+            <div className="p-2 text-[10px] text-muted">메인 콘텐츠</div>
+            <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-white border-t border-border rounded-t-xl shadow-lg">
+              <div className="w-8 h-1 bg-gray-300 rounded-full mx-auto mt-2 mb-1" />
+              <div className="px-3 text-xs font-semibold text-foreground">상세 정보</div>
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1382,7 +2132,14 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center gap-3">
         {["홈", "제품", "문서"].map((label, i) => (
-          <span key={label} className={`text-xs font-medium cursor-pointer ${i === 0 ? "text-primary" : "text-muted hover:text-foreground"}`}>{label}</span>
+          <span
+            key={label}
+            className={`text-xs font-medium cursor-pointer ${
+              i === 0 ? "text-primary-ink" : "text-muted hover:text-foreground"
+            }`}
+          >
+            {label}
+          </span>
         ))}
       </div>
     ),
@@ -1399,16 +2156,54 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center gap-0 border border-border rounded-lg bg-white overflow-hidden">
         {["파일", "편집", "보기"].map((label, i) => (
-          <span key={label} className={`px-3 py-1.5 text-xs font-medium cursor-pointer ${i === 0 ? "bg-gray-100 text-foreground" : "text-muted hover:bg-gray-50"}`}>{label}</span>
+          <span
+            key={label}
+            className={`px-3 py-1.5 text-xs font-medium cursor-pointer ${
+              i === 0 ? "bg-gray-100 text-foreground" : "text-muted hover:bg-gray-50"
+            }`}
+          >
+            {label}
+          </span>
         ))}
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="flex items-center gap-0 border border-border rounded-lg bg-white overflow-hidden"><span className="px-3 py-1.5 text-xs font-medium bg-gray-100 text-foreground">파일</span><span className="px-3 py-1.5 text-xs font-medium text-muted">편집</span><span className="px-3 py-1.5 text-xs font-medium text-muted">보기</span></div>,
-        <div key="2" className="flex items-center gap-0 border border-border rounded-lg bg-white overflow-hidden"><span className="px-3 py-1.5 text-xs font-medium text-muted">파일</span><span className="px-3 py-1.5 text-xs font-medium bg-gray-100 text-foreground">편집</span><span className="px-3 py-1.5 text-xs font-medium text-muted">보기</span></div>,
-        <div key="3" className="flex items-center gap-0 border border-border rounded-lg bg-white overflow-hidden"><span className="px-3 py-1.5 text-xs font-medium text-muted">파일</span><span className="px-3 py-1.5 text-xs font-medium text-muted">편집</span><span className="px-3 py-1.5 text-xs font-medium bg-gray-100 text-foreground">보기</span></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="flex items-center gap-0 border border-border rounded-lg bg-white overflow-hidden"
+          >
+            <span className="px-3 py-1.5 text-xs font-medium bg-gray-100 text-foreground">
+              파일
+            </span>
+            <span className="px-3 py-1.5 text-xs font-medium text-muted">편집</span>
+            <span className="px-3 py-1.5 text-xs font-medium text-muted">보기</span>
+          </div>,
+          <div
+            key="2"
+            className="flex items-center gap-0 border border-border rounded-lg bg-white overflow-hidden"
+          >
+            <span className="px-3 py-1.5 text-xs font-medium text-muted">파일</span>
+            <span className="px-3 py-1.5 text-xs font-medium bg-gray-100 text-foreground">
+              편집
+            </span>
+            <span className="px-3 py-1.5 text-xs font-medium text-muted">보기</span>
+          </div>,
+          <div
+            key="3"
+            className="flex items-center gap-0 border border-border rounded-lg bg-white overflow-hidden"
+          >
+            <span className="px-3 py-1.5 text-xs font-medium text-muted">파일</span>
+            <span className="px-3 py-1.5 text-xs font-medium text-muted">편집</span>
+            <span className="px-3 py-1.5 text-xs font-medium bg-gray-100 text-foreground">
+              보기
+            </span>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1426,7 +2221,10 @@ export const showcaseItems: ShowcaseItem[] = [
         </div>
         <div className="flex items-center gap-1">
           {[0, 1, 2].map((i) => (
-            <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 0 ? "bg-primary" : "bg-gray-300"}`} />
+            <div
+              key={i}
+              className={`w-1.5 h-1.5 rounded-full ${i === 0 ? "bg-primary" : "bg-gray-300"}`}
+            />
           ))}
         </div>
       </div>
@@ -1443,18 +2241,36 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/resizable",
     preview: (
       <div className="w-full max-w-[200px] h-[60px] flex border border-border rounded-lg overflow-hidden">
-        <div className="flex-[3] bg-blue-50 flex items-center justify-center text-[10px] text-blue-600">패널 A</div>
+        <div className="flex-[3] bg-blue-50 flex items-center justify-center text-[10px] text-blue-600">
+          패널 A
+        </div>
         <div className="w-[3px] bg-gray-200 cursor-col-resize hover:bg-primary flex items-center justify-center">
           <div className="w-0.5 h-4 bg-gray-400 rounded-full" />
         </div>
-        <div className="flex-[2] bg-green-50 flex items-center justify-center text-[10px] text-green-600">패널 B</div>
+        <div className="flex-[2] bg-green-50 flex items-center justify-center text-[10px] text-green-600">
+          패널 B
+        </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[240px] h-[80px]"><Resizable direction="horizontal" defaultSize={40}><div className="h-full bg-blue-50 p-2 text-xs text-blue-700">왼쪽</div><div className="h-full bg-green-50 p-2 text-xs text-green-700">오른쪽</div></Resizable></div>,
-        <div key="2" className="w-full max-w-[240px] h-[80px]"><Resizable direction="horizontal" defaultSize={60}><div className="h-full bg-purple-50 p-2 text-xs text-purple-700">넓은 패널</div><div className="h-full bg-amber-50 p-2 text-xs text-amber-700">좁은</div></Resizable></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[240px] h-[80px]">
+            <Resizable direction="horizontal" defaultSize={40}>
+              <div className="h-full bg-blue-50 p-2 text-xs text-blue-700">왼쪽</div>
+              <div className="h-full bg-green-50 p-2 text-xs text-green-700">오른쪽</div>
+            </Resizable>
+          </div>,
+          <div key="2" className="w-full max-w-[240px] h-[80px]">
+            <Resizable direction="horizontal" defaultSize={60}>
+              <div className="h-full bg-purple-50 p-2 text-xs text-purple-700">넓은 패널</div>
+              <div className="h-full bg-amber-50 p-2 text-xs text-amber-700">좁은</div>
+            </Resizable>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1469,10 +2285,14 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="w-full max-w-[160px]">
         <TreeView
           nodes={[
-            { key: "src", label: "src", children: [
-              { key: "app", label: "app.tsx" },
-              { key: "index", label: "index.ts" },
-            ]},
+            {
+              key: "src",
+              label: "src",
+              children: [
+                { key: "app", label: "app.tsx" },
+                { key: "index", label: "index.ts" },
+              ],
+            },
             { key: "pkg", label: "package.json" },
           ]}
           defaultExpanded={["src"]}
@@ -1494,22 +2314,70 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center gap-1 w-full max-w-[200px]">
         <div className="flex-1 border border-border rounded-lg p-1.5">
-          {["React", "Vue"].map((s) => <div key={s} className="text-[10px] text-foreground py-0.5 px-1">{s}</div>)}
+          {["React", "Vue"].map((s) => (
+            <div key={s} className="text-[10px] text-foreground py-0.5 px-1">
+              {s}
+            </div>
+          ))}
         </div>
         <div className="flex flex-col gap-0.5">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><path d="M5 7h4M9 7l-2-2M9 7l-2 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><path d="M9 7H5M5 7l2-2M5 7l2 2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+            <path
+              d="M5 7h4M9 7l-2-2M9 7l-2 2"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+          </svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+            <path
+              d="M9 7H5M5 7l2-2M5 7l2 2"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+          </svg>
         </div>
         <div className="flex-1 border border-border rounded-lg p-1.5">
-          {["Next.js"].map((s) => <div key={s} className="text-[10px] text-foreground py-0.5 px-1">{s}</div>)}
+          {["Next.js"].map((s) => (
+            <div key={s} className="text-[10px] text-foreground py-0.5 px-1">
+              {s}
+            </div>
+          ))}
         </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[280px]"><Transfer source={[{ key: "1", label: "React" }, { key: "2", label: "Vue" }]} target={[{ key: "3", label: "Next.js" }]} onChange={noop} sourceTitle="선택 가능" targetTitle="선택됨" /></div>,
-        <div key="2" className="w-full max-w-[280px]"><Transfer source={[{ key: "1", label: "React" }]} target={[{ key: "2", label: "Vue" }, { key: "3", label: "Next.js" }]} onChange={noop} sourceTitle="선택 가능" targetTitle="선택됨" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[280px]">
+            <Transfer
+              source={[
+                { key: "1", label: "React" },
+                { key: "2", label: "Vue" },
+              ]}
+              target={[{ key: "3", label: "Next.js" }]}
+              onChange={noop}
+              sourceTitle="선택 가능"
+              targetTitle="선택됨"
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[280px]">
+            <Transfer
+              source={[{ key: "1", label: "React" }]}
+              target={[
+                { key: "2", label: "Vue" },
+                { key: "3", label: "Next.js" },
+              ]}
+              onChange={noop}
+              sourceTitle="선택 가능"
+              targetTitle="선택됨"
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1532,10 +2400,34 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[260px]"><Descriptions items={[{ key: "name", label: "이름", value: "홍길동" }, { key: "role", label: "역할", value: "프론트엔드" }]} columns={1} /></div>,
-        <div key="2" className="w-full max-w-[260px]"><Descriptions title="사용자 정보" items={[{ key: "name", label: "이름", value: "홍길동" }, { key: "email", label: "이메일", value: "hong@example.com" }, { key: "role", label: "역할", value: "프론트엔드" }, { key: "team", label: "팀", value: "디자인 시스템" }]} columns={2} bordered /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[260px]">
+            <Descriptions
+              items={[
+                { key: "name", label: "이름", value: "홍길동" },
+                { key: "role", label: "역할", value: "프론트엔드" },
+              ]}
+              columns={1}
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[260px]">
+            <Descriptions
+              title="사용자 정보"
+              items={[
+                { key: "name", label: "이름", value: "홍길동" },
+                { key: "email", label: "이메일", value: "hong@example.com" },
+                { key: "role", label: "역할", value: "프론트엔드" },
+                { key: "team", label: "팀", value: "디자인 시스템" },
+              ]}
+              columns={2}
+              bordered
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1571,17 +2463,49 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center gap-2">
         {["#3B82F6", "#22C55E", "#EF4444", "#8B5CF6"].map((c) => (
-          <div key={c} className="w-6 h-6 rounded-md border border-gray-200 cursor-pointer" style={{ backgroundColor: c }} />
+          <div
+            key={c}
+            className="w-6 h-6 rounded-md border border-gray-200 cursor-pointer"
+            style={{ backgroundColor: c }}
+          />
         ))}
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1000} transition="fade" frames={[
-        <div key="1" className="flex items-center gap-2"><div className="w-8 h-8 rounded-md border border-gray-200 ring-2 ring-primary ring-offset-1" style={{ backgroundColor: "#3B82F6" }} /><span className="text-xs font-mono text-foreground">#3B82F6</span></div>,
-        <div key="2" className="flex items-center gap-2"><div className="w-8 h-8 rounded-md border border-gray-200 ring-2 ring-primary ring-offset-1" style={{ backgroundColor: "#22C55E" }} /><span className="text-xs font-mono text-foreground">#22C55E</span></div>,
-        <div key="3" className="flex items-center gap-2"><div className="w-8 h-8 rounded-md border border-gray-200 ring-2 ring-primary ring-offset-1" style={{ backgroundColor: "#EF4444" }} /><span className="text-xs font-mono text-foreground">#EF4444</span></div>,
-        <div key="4" className="flex items-center gap-2"><div className="w-8 h-8 rounded-md border border-gray-200 ring-2 ring-primary ring-offset-1" style={{ backgroundColor: "#8B5CF6" }} /><span className="text-xs font-mono text-foreground">#8B5CF6</span></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1000}
+        transition="fade"
+        frames={[
+          <div key="1" className="flex items-center gap-2">
+            <div
+              className="w-8 h-8 rounded-md border border-gray-200 ring-2 ring-primary ring-offset-1"
+              style={{ backgroundColor: "#3B82F6" }}
+            />
+            <span className="text-xs font-mono text-foreground">#3B82F6</span>
+          </div>,
+          <div key="2" className="flex items-center gap-2">
+            <div
+              className="w-8 h-8 rounded-md border border-gray-200 ring-2 ring-primary ring-offset-1"
+              style={{ backgroundColor: "#22C55E" }}
+            />
+            <span className="text-xs font-mono text-foreground">#22C55E</span>
+          </div>,
+          <div key="3" className="flex items-center gap-2">
+            <div
+              className="w-8 h-8 rounded-md border border-gray-200 ring-2 ring-primary ring-offset-1"
+              style={{ backgroundColor: "#EF4444" }}
+            />
+            <span className="text-xs font-mono text-foreground">#EF4444</span>
+          </div>,
+          <div key="4" className="flex items-center gap-2">
+            <div
+              className="w-8 h-8 rounded-md border border-gray-200 ring-2 ring-primary ring-offset-1"
+              style={{ backgroundColor: "#8B5CF6" }}
+            />
+            <span className="text-xs font-mono text-foreground">#8B5CF6</span>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1594,16 +2518,65 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/time-picker",
     preview: (
       <div className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[140px]">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" /><path d="M7 4v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+          <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" />
+          <path d="M7 4v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
         <span className="text-sm text-foreground">14:30</span>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="fade" frames={[
-        <div key="1" className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[160px]"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" /><path d="M7 4v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg><span className="text-sm text-foreground">09:00</span></div>,
-        <div key="2" className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[160px]"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" /><path d="M7 4v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg><span className="text-sm text-foreground">14:30</span></div>,
-        <div key="3" className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[160px]"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" /><path d="M7 4v3l2 1.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg><span className="text-sm text-foreground">22:15</span></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[160px]"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+              <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" />
+              <path
+                d="M7 4v3l2 1.5"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="text-sm text-foreground">09:00</span>
+          </div>,
+          <div
+            key="2"
+            className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[160px]"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+              <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" />
+              <path
+                d="M7 4v3l2 1.5"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="text-sm text-foreground">14:30</span>
+          </div>,
+          <div
+            key="3"
+            className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[160px]"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+              <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" />
+              <path
+                d="M7 4v3l2 1.5"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="text-sm text-foreground">22:15</span>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1616,16 +2589,51 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/date-range-picker",
     preview: (
       <div className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[200px]">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><rect x="1.5" y="2.5" width="11" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.2" /><path d="M1.5 5.5h11M4.5 1v2M9.5 1v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+          <rect
+            x="1.5"
+            y="2.5"
+            width="11"
+            height="9"
+            rx="1.5"
+            stroke="currentColor"
+            strokeWidth="1.2"
+          />
+          <path
+            d="M1.5 5.5h11M4.5 1v2M9.5 1v2"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
+        </svg>
         <span className="text-xs text-foreground">2026.04.01 ~ 2026.04.20</span>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[220px]"><span className="text-xs text-foreground">2026.04.01 ~ 2026.04.20</span></div>,
-        <div key="2" className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[220px]"><span className="text-xs text-foreground">2026.03.15 ~ 2026.04.15</span></div>,
-        <div key="3" className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[220px]"><span className="text-xs text-foreground">2026.01.01 ~ 2026.12.31</span></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[220px]"
+          >
+            <span className="text-xs text-foreground">2026.04.01 ~ 2026.04.20</span>
+          </div>,
+          <div
+            key="2"
+            className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[220px]"
+          >
+            <span className="text-xs text-foreground">2026.03.15 ~ 2026.04.15</span>
+          </div>,
+          <div
+            key="3"
+            className="flex items-center gap-2 px-3 py-2 border border-border rounded-lg bg-white max-w-[220px]"
+          >
+            <span className="text-xs text-foreground">2026.01.01 ~ 2026.12.31</span>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1642,11 +2650,24 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[180px]"><Label>시작일</Label><DateInput value="2026-04-20" onChange={noop} /></div>,
-        <div key="2" className="w-full max-w-[180px]"><Label>종료일</Label><DateInput placeholder="종료일 선택" /></div>,
-        <div key="3" className="w-full max-w-[180px]"><Label>생년월일</Label><DateInput placeholder="YYYY-MM-DD" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[180px]">
+            <Label>시작일</Label>
+            <DateInput value="2026-04-20" onChange={noop} />
+          </div>,
+          <div key="2" className="w-full max-w-[180px]">
+            <Label>종료일</Label>
+            <DateInput placeholder="종료일 선택" />
+          </div>,
+          <div key="3" className="w-full max-w-[180px]">
+            <Label>생년월일</Label>
+            <DateInput placeholder="YYYY-MM-DD" />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1660,16 +2681,35 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="w-full max-w-[200px]">
         <div className="px-3 py-2 border border-border rounded-lg bg-white text-xs text-foreground">
-          <span className="text-primary font-medium">@김준하</span> 님에게 업무를 할당
+          <span className="text-primary-ink font-medium">@김준하</span> 님에게 업무를 할당
         </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="px-3 py-2 border border-border rounded-lg bg-white text-xs text-foreground max-w-[200px]"><span className="text-primary font-medium">@김준하</span> 확인 부탁드립니다</div>,
-        <div key="2" className="px-3 py-2 border border-border rounded-lg bg-white text-xs text-foreground max-w-[200px]"><span className="text-primary font-medium">@이서연</span> 리뷰 요청드립니다</div>,
-        <div key="3" className="px-3 py-2 border border-border rounded-lg bg-white text-xs text-foreground max-w-[200px]"><span className="text-primary font-medium">@박지민</span> 회의 참석해주세요</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="px-3 py-2 border border-border rounded-lg bg-white text-xs text-foreground max-w-[200px]"
+          >
+            <span className="text-primary-ink font-medium">@김준하</span> 확인 부탁드립니다
+          </div>,
+          <div
+            key="2"
+            className="px-3 py-2 border border-border rounded-lg bg-white text-xs text-foreground max-w-[200px]"
+          >
+            <span className="text-primary-ink font-medium">@이서연</span> 리뷰 요청드립니다
+          </div>,
+          <div
+            key="3"
+            className="px-3 py-2 border border-border rounded-lg bg-white text-xs text-foreground max-w-[200px]"
+          >
+            <span className="text-primary-ink font-medium">@박지민</span> 회의 참석해주세요
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1686,10 +2726,30 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[200px]"><Input placeholder="프로그래밍 언어..." /><div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1"><div className="px-3 py-1.5 text-xs bg-primary-light text-primary font-medium">Java</div><div className="px-3 py-1.5 text-xs text-foreground">JavaScript</div></div></div>,
-        <div key="2" className="w-full max-w-[200px]"><Input placeholder="프레임워크..." /><div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1"><div className="px-3 py-1.5 text-xs bg-primary-light text-primary font-medium">React</div><div className="px-3 py-1.5 text-xs text-foreground">React Native</div></div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div key="1" className="w-full max-w-[200px]">
+            <Input placeholder="프로그래밍 언어..." />
+            <div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1">
+              <div className="px-3 py-1.5 text-xs bg-primary-light text-primary-ink font-medium">
+                Java
+              </div>
+              <div className="px-3 py-1.5 text-xs text-foreground">JavaScript</div>
+            </div>
+          </div>,
+          <div key="2" className="w-full max-w-[200px]">
+            <Input placeholder="프레임워크..." />
+            <div className="border border-border rounded-lg bg-white shadow-lg py-1 mt-1">
+              <div className="px-3 py-1.5 text-xs bg-primary-light text-primary-ink font-medium">
+                React
+              </div>
+              <div className="px-3 py-1.5 text-xs text-foreground">React Native</div>
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1700,15 +2760,32 @@ export const showcaseItems: ShowcaseItem[] = [
     description: "작업 결과를 아이콘과 함께 표시하는 컴포넌트",
     category: "Composites",
     href: "/design-system/composites/result",
-    preview: (
-      <Result status="success" title="완료!" className="py-3 [&_svg]:w-10 [&_svg]:h-10" />
-    ),
+    preview: <Result status="success" title="완료!" className="py-3 [&_svg]:w-10 [&_svg]:h-10" />,
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="scale" frames={[
-        <Result key="success" status="success" title="성공" className="py-2 [&_svg]:w-8 [&_svg]:h-8 [&_h2]:text-xs" />,
-        <Result key="error" status="error" title="오류" className="py-2 [&_svg]:w-8 [&_svg]:h-8 [&_h2]:text-xs" />,
-        <Result key="info" status="info" title="안내" className="py-2 [&_svg]:w-8 [&_svg]:h-8 [&_h2]:text-xs" />,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="scale"
+        frames={[
+          <Result
+            key="success"
+            status="success"
+            title="성공"
+            className="py-2 [&_svg]:w-8 [&_svg]:h-8 [&_h2]:text-xs"
+          />,
+          <Result
+            key="error"
+            status="error"
+            title="오류"
+            className="py-2 [&_svg]:w-8 [&_svg]:h-8 [&_h2]:text-xs"
+          />,
+          <Result
+            key="info"
+            status="info"
+            title="안내"
+            className="py-2 [&_svg]:w-8 [&_svg]:h-8 [&_h2]:text-xs"
+          />,
+        ]}
+      />
     ),
   },
 
@@ -1722,14 +2799,36 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="relative w-full max-w-[180px] h-[60px] bg-white rounded-lg border border-border p-2 overflow-hidden">
         <div className="text-xs text-foreground">보호된 콘텐츠</div>
-        <div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">기밀</div>
+        <div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">
+          기밀
+        </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="relative w-full max-w-[220px] h-[80px] bg-white rounded-lg border border-border p-3 overflow-hidden"><div className="text-xs font-medium text-foreground">기밀 문서</div><div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">기밀</div></div>,
-        <div key="2" className="relative w-full max-w-[220px] h-[80px] bg-white rounded-lg border border-border p-3 overflow-hidden"><div className="text-xs font-medium text-foreground">미리보기</div><div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">PREVIEW</div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="relative w-full max-w-[220px] h-[80px] bg-white rounded-lg border border-border p-3 overflow-hidden"
+          >
+            <div className="text-xs font-medium text-foreground">기밀 문서</div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">
+              기밀
+            </div>
+          </div>,
+          <div
+            key="2"
+            className="relative w-full max-w-[220px] h-[80px] bg-white rounded-lg border border-border p-3 overflow-hidden"
+          >
+            <div className="text-xs font-medium text-foreground">미리보기</div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-10 rotate-[-20deg] text-foreground text-lg font-bold select-none pointer-events-none">
+              PREVIEW
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1743,16 +2842,66 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center gap-2">
         {["개요", "API", "예시"].map((label, i) => (
-          <span key={label} className={`text-xs font-medium ${i === 0 ? "text-primary border-b-2 border-primary pb-0.5" : "text-muted"}`}>{label}</span>
+          <span
+            key={label}
+            className={`text-xs font-medium ${
+              i === 0 ? "text-primary-ink border-b-2 border-primary pb-0.5" : "text-muted"
+            }`}
+          >
+            {label}
+          </span>
         ))}
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="fade" frames={[
-        <div key="1" className="flex items-center gap-2">{["소개", "설치", "사용법"].map((s, i) => <span key={s} className={`text-xs ${i === 0 ? "text-primary font-medium border-b-2 border-primary pb-0.5" : "text-muted"}`}>{s}</span>)}</div>,
-        <div key="2" className="flex items-center gap-2">{["소개", "설치", "사용법"].map((s, i) => <span key={s} className={`text-xs ${i === 1 ? "text-primary font-medium border-b-2 border-primary pb-0.5" : "text-muted"}`}>{s}</span>)}</div>,
-        <div key="3" className="flex items-center gap-2">{["소개", "설치", "사용법"].map((s, i) => <span key={s} className={`text-xs ${i === 2 ? "text-primary font-medium border-b-2 border-primary pb-0.5" : "text-muted"}`}>{s}</span>)}</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="fade"
+        frames={[
+          <div key="1" className="flex items-center gap-2">
+            {["소개", "설치", "사용법"].map((s, i) => (
+              <span
+                key={s}
+                className={`text-xs ${
+                  i === 0
+                    ? "text-primary-ink font-medium border-b-2 border-primary pb-0.5"
+                    : "text-muted"
+                }`}
+              >
+                {s}
+              </span>
+            ))}
+          </div>,
+          <div key="2" className="flex items-center gap-2">
+            {["소개", "설치", "사용법"].map((s, i) => (
+              <span
+                key={s}
+                className={`text-xs ${
+                  i === 1
+                    ? "text-primary-ink font-medium border-b-2 border-primary pb-0.5"
+                    : "text-muted"
+                }`}
+              >
+                {s}
+              </span>
+            ))}
+          </div>,
+          <div key="3" className="flex items-center gap-2">
+            {["소개", "설치", "사용법"].map((s, i) => (
+              <span
+                key={s}
+                className={`text-xs ${
+                  i === 2
+                    ? "text-primary-ink font-medium border-b-2 border-primary pb-0.5"
+                    : "text-muted"
+                }`}
+              >
+                {s}
+              </span>
+            ))}
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1770,11 +2919,33 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="relative overflow-hidden rounded-xl bg-gray-900 p-4 max-w-[200px]"><div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-20 h-20 bg-primary/20 rounded-full blur-xl" /><div className="relative text-xs font-semibold text-white text-center">Spotlight</div></div>,
-        <div key="2" className="relative overflow-hidden rounded-xl bg-gray-900 p-4 max-w-[200px]"><div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-purple-500/20 rounded-full blur-xl" /><div className="relative text-xs font-semibold text-white text-center">Spotlight</div></div>,
-        <div key="3" className="relative overflow-hidden rounded-xl bg-gray-900 p-4 max-w-[200px]"><div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-20 h-20 bg-green-500/20 rounded-full blur-xl" /><div className="relative text-xs font-semibold text-white text-center">Spotlight</div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="relative overflow-hidden rounded-xl bg-gray-900 p-4 max-w-[200px]"
+          >
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-20 h-20 bg-primary/20 rounded-full blur-xl" />
+            <div className="relative text-xs font-semibold text-white text-center">Spotlight</div>
+          </div>,
+          <div
+            key="2"
+            className="relative overflow-hidden rounded-xl bg-gray-900 p-4 max-w-[200px]"
+          >
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-purple-500/20 rounded-full blur-xl" />
+            <div className="relative text-xs font-semibold text-white text-center">Spotlight</div>
+          </div>,
+          <div
+            key="3"
+            className="relative overflow-hidden rounded-xl bg-gray-900 p-4 max-w-[200px]"
+          >
+            <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-20 h-20 bg-green-500/20 rounded-full blur-xl" />
+            <div className="relative text-xs font-semibold text-white text-center">Spotlight</div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1787,18 +2958,70 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/date-range-filter",
     preview: (
       <div className="flex items-center gap-1">
-        <div className="px-2 py-1 border border-border rounded-md bg-white text-[10px] text-foreground">2026.04.01</div>
+        <div className="px-2 py-1 border border-border rounded-md bg-white text-[10px] text-foreground">
+          2026.04.01
+        </div>
         <span className="text-[10px] text-muted">~</span>
-        <div className="px-2 py-1 border border-border rounded-md bg-white text-[10px] text-foreground">2026.04.20</div>
+        <div className="px-2 py-1 border border-border rounded-md bg-white text-[10px] text-foreground">
+          2026.04.20
+        </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="fade" frames={[
-        <div key="1" className="flex flex-wrap gap-1">{["오늘", "이번 주", "이번 달", "최근 30일"].map((preset, i) => <span key={preset} className={`px-2 py-0.5 rounded-full text-[10px] cursor-pointer ${i === 0 ? "bg-primary text-white" : "bg-gray-100 text-muted"}`}>{preset}</span>)}</div>,
-        <div key="2" className="flex flex-wrap gap-1">{["오늘", "이번 주", "이번 달", "최근 30일"].map((preset, i) => <span key={preset} className={`px-2 py-0.5 rounded-full text-[10px] cursor-pointer ${i === 1 ? "bg-primary text-white" : "bg-gray-100 text-muted"}`}>{preset}</span>)}</div>,
-        <div key="3" className="flex flex-wrap gap-1">{["오늘", "이번 주", "이번 달", "최근 30일"].map((preset, i) => <span key={preset} className={`px-2 py-0.5 rounded-full text-[10px] cursor-pointer ${i === 2 ? "bg-primary text-white" : "bg-gray-100 text-muted"}`}>{preset}</span>)}</div>,
-        <div key="4" className="flex flex-wrap gap-1">{["오늘", "이번 주", "이번 달", "최근 30일"].map((preset, i) => <span key={preset} className={`px-2 py-0.5 rounded-full text-[10px] cursor-pointer ${i === 3 ? "bg-primary text-white" : "bg-gray-100 text-muted"}`}>{preset}</span>)}</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="fade"
+        frames={[
+          <div key="1" className="flex flex-wrap gap-1">
+            {["오늘", "이번 주", "이번 달", "최근 30일"].map((preset, i) => (
+              <span
+                key={preset}
+                className={`px-2 py-0.5 rounded-full text-[10px] cursor-pointer ${
+                  i === 0 ? "bg-primary text-white" : "bg-gray-100 text-muted"
+                }`}
+              >
+                {preset}
+              </span>
+            ))}
+          </div>,
+          <div key="2" className="flex flex-wrap gap-1">
+            {["오늘", "이번 주", "이번 달", "최근 30일"].map((preset, i) => (
+              <span
+                key={preset}
+                className={`px-2 py-0.5 rounded-full text-[10px] cursor-pointer ${
+                  i === 1 ? "bg-primary text-white" : "bg-gray-100 text-muted"
+                }`}
+              >
+                {preset}
+              </span>
+            ))}
+          </div>,
+          <div key="3" className="flex flex-wrap gap-1">
+            {["오늘", "이번 주", "이번 달", "최근 30일"].map((preset, i) => (
+              <span
+                key={preset}
+                className={`px-2 py-0.5 rounded-full text-[10px] cursor-pointer ${
+                  i === 2 ? "bg-primary text-white" : "bg-gray-100 text-muted"
+                }`}
+              >
+                {preset}
+              </span>
+            ))}
+          </div>,
+          <div key="4" className="flex flex-wrap gap-1">
+            {["오늘", "이번 주", "이번 달", "최근 30일"].map((preset, i) => (
+              <span
+                key={preset}
+                className={`px-2 py-0.5 rounded-full text-[10px] cursor-pointer ${
+                  i === 3 ? "bg-primary text-white" : "bg-gray-100 text-muted"
+                }`}
+              >
+                {preset}
+              </span>
+            ))}
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1819,10 +3042,48 @@ export const showcaseItems: ShowcaseItem[] = [
       />
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <ComparisonGrid key="1" cards={[{ key: "a", label: "매출", value: "₩1.2M", change: { value: "+12%", direction: "up" as const } }, { key: "b", label: "비용", value: "₩800K", change: { value: "+3%", direction: "up" as const } }]} columns={2} />,
-        <ComparisonGrid key="2" cards={[{ key: "c", label: "이익", value: "₩400K", change: { value: "+18%", direction: "up" as const } }, { key: "d", label: "이탈률", value: "2.1%", change: { value: "-0.5%", direction: "down" as const } }]} columns={2} />,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <ComparisonGrid
+            key="1"
+            cards={[
+              {
+                key: "a",
+                label: "매출",
+                value: "₩1.2M",
+                change: { value: "+12%", direction: "up" as const },
+              },
+              {
+                key: "b",
+                label: "비용",
+                value: "₩800K",
+                change: { value: "+3%", direction: "up" as const },
+              },
+            ]}
+            columns={2}
+          />,
+          <ComparisonGrid
+            key="2"
+            cards={[
+              {
+                key: "c",
+                label: "이익",
+                value: "₩400K",
+                change: { value: "+18%", direction: "up" as const },
+              },
+              {
+                key: "d",
+                label: "이탈률",
+                value: "2.1%",
+                change: { value: "-0.5%", direction: "down" as const },
+              },
+            ]}
+            columns={2}
+          />,
+        ]}
+      />
     ),
   },
 
@@ -1845,11 +3106,42 @@ export const showcaseItems: ShowcaseItem[] = [
       />
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="fade" frames={[
-        <FilterButtonGroup key="1" options={[{ key: "all", label: "전체", count: 120 }, { key: "active", label: "활성", count: 85 }, { key: "inactive", label: "비활성", count: 35 }]} value="all" onChange={noop} />,
-        <FilterButtonGroup key="2" options={[{ key: "all", label: "전체", count: 120 }, { key: "active", label: "활성", count: 85 }, { key: "inactive", label: "비활성", count: 35 }]} value="active" onChange={noop} />,
-        <FilterButtonGroup key="3" options={[{ key: "all", label: "전체", count: 120 }, { key: "active", label: "활성", count: 85 }, { key: "inactive", label: "비활성", count: 35 }]} value="inactive" onChange={noop} />,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="fade"
+        frames={[
+          <FilterButtonGroup
+            key="1"
+            options={[
+              { key: "all", label: "전체", count: 120 },
+              { key: "active", label: "활성", count: 85 },
+              { key: "inactive", label: "비활성", count: 35 },
+            ]}
+            value="all"
+            onChange={noop}
+          />,
+          <FilterButtonGroup
+            key="2"
+            options={[
+              { key: "all", label: "전체", count: 120 },
+              { key: "active", label: "활성", count: 85 },
+              { key: "inactive", label: "비활성", count: 35 },
+            ]}
+            value="active"
+            onChange={noop}
+          />,
+          <FilterButtonGroup
+            key="3"
+            options={[
+              { key: "all", label: "전체", count: 120 },
+              { key: "active", label: "활성", count: 85 },
+              { key: "inactive", label: "비활성", count: 35 },
+            ]}
+            value="inactive"
+            onChange={noop}
+          />,
+        ]}
+      />
     ),
   },
 
@@ -1874,10 +3166,33 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[260px]"><KeyValueGrid items={[{ key: "name", label: "이름", value: "홍길동" }, { key: "team", label: "팀", value: "프론트엔드" }]} columns={2} /></div>,
-        <div key="2" className="w-full max-w-[260px]"><KeyValueGrid items={[{ key: "name", label: "이름", value: "홍길동" }, { key: "email", label: "이메일", value: "hong@example.com" }, { key: "team", label: "팀", value: "프론트엔드" }, { key: "status", label: "상태", value: "활성" }]} columns={2} bordered /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[260px]">
+            <KeyValueGrid
+              items={[
+                { key: "name", label: "이름", value: "홍길동" },
+                { key: "team", label: "팀", value: "프론트엔드" },
+              ]}
+              columns={2}
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[260px]">
+            <KeyValueGrid
+              items={[
+                { key: "name", label: "이름", value: "홍길동" },
+                { key: "email", label: "이메일", value: "hong@example.com" },
+                { key: "team", label: "팀", value: "프론트엔드" },
+                { key: "status", label: "상태", value: "활성" },
+              ]}
+              columns={2}
+              bordered
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1897,10 +3212,42 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[240px] border border-border rounded-xl bg-white overflow-hidden shadow-lg"><div className="px-3 py-2 border-b border-border"><div className="text-xs font-semibold text-foreground">프로젝트 상세</div></div><div className="flex border-b border-border"><span className="flex-1 text-center py-1.5 text-xs text-primary border-b-2 border-primary font-medium">정보</span><span className="flex-1 text-center py-1.5 text-xs text-muted">활동</span></div><div className="p-2 text-[10px] text-muted">정보 탭 콘텐츠</div></div>,
-        <div key="2" className="w-full max-w-[240px] border border-border rounded-xl bg-white overflow-hidden shadow-lg"><div className="px-3 py-2 border-b border-border"><div className="text-xs font-semibold text-foreground">프로젝트 상세</div></div><div className="flex border-b border-border"><span className="flex-1 text-center py-1.5 text-xs text-muted">정보</span><span className="flex-1 text-center py-1.5 text-xs text-primary border-b-2 border-primary font-medium">활동</span></div><div className="p-2 text-[10px] text-muted">활동 탭 콘텐츠</div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="w-full max-w-[240px] border border-border rounded-xl bg-white overflow-hidden shadow-lg"
+          >
+            <div className="px-3 py-2 border-b border-border">
+              <div className="text-xs font-semibold text-foreground">프로젝트 상세</div>
+            </div>
+            <div className="flex border-b border-border">
+              <span className="flex-1 text-center py-1.5 text-xs text-primary-ink border-b-2 border-primary font-medium">
+                정보
+              </span>
+              <span className="flex-1 text-center py-1.5 text-xs text-muted">활동</span>
+            </div>
+            <div className="p-2 text-[10px] text-muted">정보 탭 콘텐츠</div>
+          </div>,
+          <div
+            key="2"
+            className="w-full max-w-[240px] border border-border rounded-xl bg-white overflow-hidden shadow-lg"
+          >
+            <div className="px-3 py-2 border-b border-border">
+              <div className="text-xs font-semibold text-foreground">프로젝트 상세</div>
+            </div>
+            <div className="flex border-b border-border">
+              <span className="flex-1 text-center py-1.5 text-xs text-muted">정보</span>
+              <span className="flex-1 text-center py-1.5 text-xs text-primary-ink border-b-2 border-primary font-medium">
+                활동
+              </span>
+            </div>
+            <div className="p-2 text-[10px] text-muted">활동 탭 콘텐츠</div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1914,16 +3261,58 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center justify-center">
         <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg cursor-pointer">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path
+              d="M10 4v12M4 10h12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
         </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="scale" frames={[
-        <div key="1" className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg></div>,
-        <div key="2" className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center shadow-lg"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4 4 8-8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg></div>,
-        <div key="3" className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="scale"
+        frames={[
+          <div
+            key="1"
+            className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 4v12M4 10h12"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>,
+          <div
+            key="2"
+            className="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center shadow-lg"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10l4 4 8-8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </div>,
+          <div
+            key="3"
+            className="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 4v12M4 10h12"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1944,10 +3333,26 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="grid grid-cols-2 gap-1.5 w-full max-w-[200px]">{["Button", "Input", "Card", "Alert"].map((name) => <div key={name} className="border border-border rounded-lg p-1.5 bg-white"><div className="text-[10px] font-medium text-foreground">{name}</div></div>)}</div>,
-        <div key="2" className="grid grid-cols-2 gap-1.5 w-full max-w-[200px]">{["Badge", "Avatar", "Tag", "Toggle"].map((name) => <div key={name} className="border border-border rounded-lg p-1.5 bg-white"><div className="text-[10px] font-medium text-foreground">{name}</div></div>)}</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="grid grid-cols-2 gap-1.5 w-full max-w-[200px]">
+            {["Button", "Input", "Card", "Alert"].map((name) => (
+              <div key={name} className="border border-border rounded-lg p-1.5 bg-white">
+                <div className="text-[10px] font-medium text-foreground">{name}</div>
+              </div>
+            ))}
+          </div>,
+          <div key="2" className="grid grid-cols-2 gap-1.5 w-full max-w-[200px]">
+            {["Badge", "Avatar", "Tag", "Toggle"].map((name) => (
+              <div key={name} className="border border-border rounded-lg p-1.5 bg-white">
+                <div className="text-[10px] font-medium text-foreground">{name}</div>
+              </div>
+            ))}
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1965,14 +3370,37 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="w-full max-w-[220px] flex items-center gap-2">
         <Input placeholder="검색..." className="flex-1 h-7 text-xs" />
-        <Button size="sm" variant="secondary">필터</Button>
+        <Button size="sm" variant="secondary">
+          필터
+        </Button>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[300px]"><FilterBar searchValue="" onSearchChange={noop} searchPlaceholder="업무 검색..." onReset={noop} activeCount={0} /></div>,
-        <div key="2" className="w-full max-w-[300px]"><FilterBar searchValue="" onSearchChange={noop} searchPlaceholder="업무 검색..." actions={<Button size="sm">내보내기</Button>} onReset={noop} activeCount={2} /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[300px]">
+            <FilterBar
+              searchValue=""
+              onSearchChange={noop}
+              searchPlaceholder="업무 검색..."
+              onReset={noop}
+              activeCount={0}
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[300px]">
+            <FilterBar
+              searchValue=""
+              onSearchChange={noop}
+              searchPlaceholder="업무 검색..."
+              actions={<Button size="sm">내보내기</Button>}
+              onReset={noop}
+              activeCount={2}
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -1986,7 +3414,12 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="w-full max-w-[140px] border border-border rounded-lg bg-white p-2">
         {["대시보드", "프로젝트", "설정"].map((label, i) => (
-          <div key={label} className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs cursor-pointer ${i === 0 ? "bg-primary-light text-primary font-medium" : "text-muted hover:bg-gray-50"}`}>
+          <div
+            key={label}
+            className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs cursor-pointer ${
+              i === 0 ? "bg-primary-light text-primary-ink font-medium" : "text-muted hover:bg-gray-50"
+            }`}
+          >
             <div className="w-3 h-3 rounded bg-current opacity-30" />
             {label}
           </div>
@@ -1994,11 +3427,60 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[140px] border border-border rounded-lg bg-white p-2">{["대시보드", "프로젝트", "설정"].map((label, i) => <div key={label} className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs cursor-pointer ${i === 0 ? "bg-primary-light text-primary font-medium" : "text-muted"}`}><div className="w-3 h-3 rounded bg-current opacity-20" />{label}</div>)}</div>,
-        <div key="2" className="w-full max-w-[140px] border border-border rounded-lg bg-white p-2">{["대시보드", "프로젝트", "설정"].map((label, i) => <div key={label} className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs cursor-pointer ${i === 1 ? "bg-primary-light text-primary font-medium" : "text-muted"}`}><div className="w-3 h-3 rounded bg-current opacity-20" />{label}</div>)}</div>,
-        <div key="3" className="w-full max-w-[140px] border border-border rounded-lg bg-white p-2">{["대시보드", "프로젝트", "설정"].map((label, i) => <div key={label} className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs cursor-pointer ${i === 2 ? "bg-primary-light text-primary font-medium" : "text-muted"}`}><div className="w-3 h-3 rounded bg-current opacity-20" />{label}</div>)}</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="w-full max-w-[140px] border border-border rounded-lg bg-white p-2"
+          >
+            {["대시보드", "프로젝트", "설정"].map((label, i) => (
+              <div
+                key={label}
+                className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs cursor-pointer ${
+                  i === 0 ? "bg-primary-light text-primary-ink font-medium" : "text-muted"
+                }`}
+              >
+                <div className="w-3 h-3 rounded bg-current opacity-20" />
+                {label}
+              </div>
+            ))}
+          </div>,
+          <div
+            key="2"
+            className="w-full max-w-[140px] border border-border rounded-lg bg-white p-2"
+          >
+            {["대시보드", "프로젝트", "설정"].map((label, i) => (
+              <div
+                key={label}
+                className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs cursor-pointer ${
+                  i === 1 ? "bg-primary-light text-primary-ink font-medium" : "text-muted"
+                }`}
+              >
+                <div className="w-3 h-3 rounded bg-current opacity-20" />
+                {label}
+              </div>
+            ))}
+          </div>,
+          <div
+            key="3"
+            className="w-full max-w-[140px] border border-border rounded-lg bg-white p-2"
+          >
+            {["대시보드", "프로젝트", "설정"].map((label, i) => (
+              <div
+                key={label}
+                className={`flex items-center gap-2 px-2 py-1.5 rounded text-xs cursor-pointer ${
+                  i === 2 ? "bg-primary-light text-primary-ink font-medium" : "text-muted"
+                }`}
+              >
+                <div className="w-3 h-3 rounded bg-current opacity-20" />
+                {label}
+              </div>
+            ))}
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2019,18 +3501,81 @@ export const showcaseItems: ShowcaseItem[] = [
           <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1">
             <div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>
             {col.items.map((item) => (
-              <div key={item} className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5">{item}</div>
+              <div
+                key={item}
+                className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5"
+              >
+                {item}
+              </div>
             ))}
           </div>
         ))}
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="flex gap-1.5 w-full max-w-[260px]">{[{ title: "할 일", items: ["UI 디자인", "API 연동"] }, { title: "진행 중", items: ["DB 설계"] }, { title: "완료", items: [] }].map((col) => <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5"><div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>{col.items.map((item) => <div key={item} className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5">{item}</div>)}</div>)}</div>,
-        <div key="2" className="flex gap-1.5 w-full max-w-[260px]">{[{ title: "할 일", items: ["API 연동"] }, { title: "진행 중", items: ["DB 설계", "UI 디자인"] }, { title: "완료", items: [] }].map((col) => <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5"><div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>{col.items.map((item) => <div key={item} className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5">{item}</div>)}</div>)}</div>,
-        <div key="3" className="flex gap-1.5 w-full max-w-[260px]">{[{ title: "할 일", items: [] }, { title: "진행 중", items: ["API 연동"] }, { title: "완료", items: ["DB 설계", "UI 디자인"] }].map((col) => <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5"><div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>{col.items.map((item) => <div key={item} className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5">{item}</div>)}</div>)}</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="flex gap-1.5 w-full max-w-[260px]">
+            {[
+              { title: "할 일", items: ["UI 디자인", "API 연동"] },
+              { title: "진행 중", items: ["DB 설계"] },
+              { title: "완료", items: [] },
+            ].map((col) => (
+              <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5">
+                <div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>
+                {col.items.map((item) => (
+                  <div
+                    key={item}
+                    className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>,
+          <div key="2" className="flex gap-1.5 w-full max-w-[260px]">
+            {[
+              { title: "할 일", items: ["API 연동"] },
+              { title: "진행 중", items: ["DB 설계", "UI 디자인"] },
+              { title: "완료", items: [] },
+            ].map((col) => (
+              <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5">
+                <div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>
+                {col.items.map((item) => (
+                  <div
+                    key={item}
+                    className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>,
+          <div key="3" className="flex gap-1.5 w-full max-w-[260px]">
+            {[
+              { title: "할 일", items: [] },
+              { title: "진행 중", items: ["API 연동"] },
+              { title: "완료", items: ["DB 설계", "UI 디자인"] },
+            ].map((col) => (
+              <div key={col.title} className="flex-1 bg-gray-50 rounded-lg p-1.5">
+                <div className="text-[9px] font-semibold text-muted mb-1 px-1">{col.title}</div>
+                {col.items.map((item) => (
+                  <div
+                    key={item}
+                    className="bg-white rounded px-1.5 py-1 text-[9px] text-foreground border border-border mb-0.5"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2048,10 +3593,28 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <StatsGrid key="1" stats={[{ label: "총 업무", value: "142", change: "+12%", trend: "up" as const }, { label: "완료", value: "98", change: "+5", trend: "up" as const }]} columns={2} />,
-        <StatsGrid key="2" stats={[{ label: "진행 중", value: "32" }, { label: "지연", value: "12", change: "+3", trend: "down" as const }]} columns={2} />,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <StatsGrid
+            key="1"
+            stats={[
+              { label: "총 업무", value: "142", change: "+12%", trend: "up" as const },
+              { label: "완료", value: "98", change: "+5", trend: "up" as const },
+            ]}
+            columns={2}
+          />,
+          <StatsGrid
+            key="2"
+            stats={[
+              { label: "진행 중", value: "32" },
+              { label: "지연", value: "12", change: "+3", trend: "down" as const },
+            ]}
+            columns={2}
+          />,
+        ]}
+      />
     ),
   },
 
@@ -2066,14 +3629,53 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="w-full max-w-[220px] flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-800 text-white">
         <span className="text-xs">3개 선택</span>
         <div className="flex-1" />
-        <Button size="sm" variant="secondary" className="text-white border-white/20 bg-white/10 hover:bg-white/20">이동</Button>
+        <Button
+          size="sm"
+          variant="secondary"
+          className="text-white border-white/20 bg-white/10 hover:bg-white/20"
+        >
+          이동
+        </Button>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[260px] flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-800 text-white"><span className="text-xs">3개 선택</span><div className="flex-1" /><Button size="sm" variant="secondary" className="text-white border-white/20 bg-white/10">이동</Button></div>,
-        <div key="2" className="w-full max-w-[260px] flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-800 text-white"><span className="text-xs">5개 선택</span><div className="flex-1" /><Button size="sm" variant="secondary" className="text-white border-white/20 bg-white/10">이동</Button><Button size="sm" variant="danger">삭제</Button></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div
+            key="1"
+            className="w-full max-w-[260px] flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-800 text-white"
+          >
+            <span className="text-xs">3개 선택</span>
+            <div className="flex-1" />
+            <Button
+              size="sm"
+              variant="secondary"
+              className="text-white border-white/20 bg-white/10"
+            >
+              이동
+            </Button>
+          </div>,
+          <div
+            key="2"
+            className="w-full max-w-[260px] flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-800 text-white"
+          >
+            <span className="text-xs">5개 선택</span>
+            <div className="flex-1" />
+            <Button
+              size="sm"
+              variant="secondary"
+              className="text-white border-white/20 bg-white/10"
+            >
+              이동
+            </Button>
+            <Button size="sm" variant="danger">
+              삭제
+            </Button>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2090,14 +3692,51 @@ export const showcaseItems: ShowcaseItem[] = [
           <Label required>제목</Label>
           <Input placeholder="제목 입력" />
         </div>
-        <Button size="sm" className="self-end mt-1">저장</Button>
+        <Button size="sm" className="self-end mt-1">
+          저장
+        </Button>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[240px]"><FormBuilder fields={[{ name: "title", label: "제목", type: "text", required: true, placeholder: "프로젝트명" }]} onSubmit={noop} submitLabel="생성" columns={1} /></div>,
-        <div key="2" className="w-full max-w-[240px]"><FormBuilder fields={[{ name: "title", label: "제목", type: "text", required: true, placeholder: "프로젝트명" }, { name: "desc", label: "설명", type: "textarea", placeholder: "프로젝트 설명" }]} onSubmit={noop} submitLabel="생성" columns={1} /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[240px]">
+            <FormBuilder
+              fields={[
+                {
+                  name: "title",
+                  label: "제목",
+                  type: "text",
+                  required: true,
+                  placeholder: "프로젝트명",
+                },
+              ]}
+              onSubmit={noop}
+              submitLabel="생성"
+              columns={1}
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[240px]">
+            <FormBuilder
+              fields={[
+                {
+                  name: "title",
+                  label: "제목",
+                  type: "text",
+                  required: true,
+                  placeholder: "프로젝트명",
+                },
+                { name: "desc", label: "설명", type: "textarea", placeholder: "프로젝트 설명" },
+              ]}
+              onSubmit={noop}
+              submitLabel="생성"
+              columns={1}
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2111,7 +3750,9 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="w-full max-w-[180px] flex flex-col gap-1">
         {["항목 1", "항목 2", "항목 3"].map((item) => (
-          <div key={item} className="text-xs text-foreground px-2 py-1.5 bg-gray-50 rounded-lg">{item}</div>
+          <div key={item} className="text-xs text-foreground px-2 py-1.5 bg-gray-50 rounded-lg">
+            {item}
+          </div>
         ))}
         <div className="flex justify-center py-1">
           <Spinner size="sm" />
@@ -2119,10 +3760,32 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[200px] flex flex-col gap-1">{["항목 1", "항목 2", "항목 3"].map((item) => <div key={item} className="text-xs text-foreground px-2 py-1.5 bg-gray-50 rounded-lg">{item}</div>)}<div className="flex justify-center py-1"><Spinner size="sm" /></div></div>,
-        <div key="2" className="w-full max-w-[200px] flex flex-col gap-1">{["항목 1", "항목 2", "항목 3", "항목 4", "항목 5"].map((item) => <div key={item} className="text-xs text-foreground px-2 py-1.5 bg-gray-50 rounded-lg">{item}</div>)}<div className="flex justify-center py-1"><Spinner size="sm" /></div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div key="1" className="w-full max-w-[200px] flex flex-col gap-1">
+            {["항목 1", "항목 2", "항목 3"].map((item) => (
+              <div key={item} className="text-xs text-foreground px-2 py-1.5 bg-gray-50 rounded-lg">
+                {item}
+              </div>
+            ))}
+            <div className="flex justify-center py-1">
+              <Spinner size="sm" />
+            </div>
+          </div>,
+          <div key="2" className="w-full max-w-[200px] flex flex-col gap-1">
+            {["항목 1", "항목 2", "항목 3", "항목 4", "항목 5"].map((item) => (
+              <div key={item} className="text-xs text-foreground px-2 py-1.5 bg-gray-50 rounded-lg">
+                {item}
+              </div>
+            ))}
+            <div className="flex justify-center py-1">
+              <Spinner size="sm" />
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2136,16 +3799,48 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="w-full max-w-[180px] flex flex-col gap-1">
         {["행 1", "행 2", "행 3", "행 4"].map((item) => (
-          <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">{item}</div>
+          <div key={item} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded">
+            {item}
+          </div>
         ))}
         <div className="text-[10px] text-muted text-center">... 10,000+ 행</div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[200px] flex flex-col gap-1">{Array.from({ length: 4 }, (_, i) => <div key={i} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded flex items-center justify-between"><span>행 {i + 1}</span><span className="text-[10px] text-muted font-mono">ID-{String(i + 1).padStart(4, "0")}</span></div>)}<div className="text-[10px] text-center text-muted">... 10,000+ 행</div></div>,
-        <div key="2" className="w-full max-w-[200px] flex flex-col gap-1">{Array.from({ length: 4 }, (_, i) => <div key={i} className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded flex items-center justify-between"><span>행 {i + 5001}</span><span className="text-[10px] text-muted font-mono">ID-{String(i + 5001).padStart(4, "0")}</span></div>)}<div className="text-[10px] text-center text-muted">60fps 렌더링</div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div key="1" className="w-full max-w-[200px] flex flex-col gap-1">
+            {Array.from({ length: 4 }, (_, i) => (
+              <div
+                key={i}
+                className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded flex items-center justify-between"
+              >
+                <span>행 {i + 1}</span>
+                <span className="text-[10px] text-muted font-mono">
+                  ID-{String(i + 1).padStart(4, "0")}
+                </span>
+              </div>
+            ))}
+            <div className="text-[10px] text-center text-muted">... 10,000+ 행</div>
+          </div>,
+          <div key="2" className="w-full max-w-[200px] flex flex-col gap-1">
+            {Array.from({ length: 4 }, (_, i) => (
+              <div
+                key={i}
+                className="text-xs text-foreground px-2 py-1 bg-gray-50 rounded flex items-center justify-between"
+              >
+                <span>행 {i + 5001}</span>
+                <span className="text-[10px] text-muted font-mono">
+                  ID-{String(i + 5001).padStart(4, "0")}
+                </span>
+              </div>
+            ))}
+            <div className="text-[10px] text-center text-muted">60fps 렌더링</div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2173,10 +3868,40 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[240px]"><ChartCard title="주간 매출" type="bar" data={[{ label: "월", value: 40 }, { label: "화", value: 55 }, { label: "수", value: 35 }, { label: "목", value: 70 }, { label: "금", value: 65 }]} trend={{ value: "+12%", direction: "up" }} /></div>,
-        <div key="2" className="w-full max-w-[240px]"><ChartCard title="매출 추이" type="sparkline" data={[{ label: "1", value: 30 }, { label: "2", value: 50 }, { label: "3", value: 45 }, { label: "4", value: 70 }, { label: "5", value: 60 }, { label: "6", value: 85 }]} /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[240px]">
+            <ChartCard
+              title="주간 매출"
+              type="bar"
+              data={[
+                { label: "월", value: 40 },
+                { label: "화", value: 55 },
+                { label: "수", value: 35 },
+                { label: "목", value: 70 },
+                { label: "금", value: 65 },
+              ]}
+              trend={{ value: "+12%", direction: "up" }}
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[240px]">
+            <ChartCard
+              title="매출 추이"
+              type="sparkline"
+              data={[
+                { label: "1", value: 30 },
+                { label: "2", value: 50 },
+                { label: "3", value: 45 },
+                { label: "4", value: 70 },
+                { label: "5", value: 60 },
+                { label: "6", value: 85 },
+              ]}
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2191,18 +3916,71 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="flex items-center justify-center">
         <div className="relative">
           <div className="w-9 h-9 rounded-full border border-border bg-white flex items-center justify-center text-muted">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M13.5 6.75a4.5 4.5 0 10-9 0c0 5.25-2.25 6.75-2.25 6.75h13.5s-2.25-1.5-2.25-6.75zM10.3 15a1.5 1.5 0 01-2.6 0" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path
+                d="M13.5 6.75a4.5 4.5 0 10-9 0c0 5.25-2.25 6.75-2.25 6.75h13.5s-2.25-1.5-2.25-6.75zM10.3 15a1.5 1.5 0 01-2.6 0"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+              />
+            </svg>
           </div>
-          <div className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">3</div>
+          <div className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+            3
+          </div>
         </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[220px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"><div className="px-3 py-2 border-b border-border"><span className="text-xs font-semibold text-foreground">알림</span></div><div className="px-3 py-2 bg-blue-50/50"><div className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /><span className="text-xs font-medium text-foreground">새 업무 할당</span></div><span className="text-[10px] text-muted">방금</span></div></div>,
-        <div key="2" className="w-full max-w-[220px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"><div className="px-3 py-2 border-b border-border"><span className="text-xs font-semibold text-foreground">알림</span></div><div className="px-3 py-2 bg-blue-50/50"><div className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /><span className="text-xs font-medium text-foreground">코드 리뷰 요청</span></div><span className="text-[10px] text-muted">5분 전</span></div></div>,
-        <div key="3" className="w-full max-w-[220px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"><div className="px-3 py-2 border-b border-border"><span className="text-xs font-semibold text-foreground">알림</span></div><div className="px-3 py-2"><span className="text-xs font-medium text-foreground">배포 완료</span><br /><span className="text-[10px] text-muted">1시간 전</span></div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div
+            key="1"
+            className="w-full max-w-[220px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"
+          >
+            <div className="px-3 py-2 border-b border-border">
+              <span className="text-xs font-semibold text-foreground">알림</span>
+            </div>
+            <div className="px-3 py-2 bg-blue-50/50">
+              <div className="flex items-center gap-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                <span className="text-xs font-medium text-foreground">새 업무 할당</span>
+              </div>
+              <span className="text-[10px] text-muted">방금</span>
+            </div>
+          </div>,
+          <div
+            key="2"
+            className="w-full max-w-[220px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"
+          >
+            <div className="px-3 py-2 border-b border-border">
+              <span className="text-xs font-semibold text-foreground">알림</span>
+            </div>
+            <div className="px-3 py-2 bg-blue-50/50">
+              <div className="flex items-center gap-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                <span className="text-xs font-medium text-foreground">코드 리뷰 요청</span>
+              </div>
+              <span className="text-[10px] text-muted">5분 전</span>
+            </div>
+          </div>,
+          <div
+            key="3"
+            className="w-full max-w-[220px] border border-border rounded-xl bg-white shadow-lg overflow-hidden"
+          >
+            <div className="px-3 py-2 border-b border-border">
+              <span className="text-xs font-semibold text-foreground">알림</span>
+            </div>
+            <div className="px-3 py-2">
+              <span className="text-xs font-medium text-foreground">배포 완료</span>
+              <br />
+              <span className="text-[10px] text-muted">1시간 전</span>
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2216,19 +3994,66 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="w-full max-w-[180px] flex flex-col gap-1">
         {["항목 1", "항목 2", "항목 3"].map((item) => (
-          <div key={item} className="flex items-center gap-2 text-xs text-foreground px-2 py-1.5 bg-white border border-border rounded-lg">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-muted"><path d="M4 3h.01M4 6h.01M4 9h.01M8 3h.01M8 6h.01M8 9h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+          <div
+            key={item}
+            className="flex items-center gap-2 text-xs text-foreground px-2 py-1.5 bg-white border border-border rounded-lg"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-muted">
+              <path
+                d="M4 3h.01M4 6h.01M4 9h.01M8 3h.01M8 6h.01M8 9h.01"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
             {item}
           </div>
         ))}
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="slide-up" frames={[
-        <div key="1" className="w-full max-w-[200px] flex flex-col gap-1">{["디자인 리뷰", "API 개발", "테스트 작성"].map((item, i) => <div key={item} className={`flex items-center gap-2 text-xs text-foreground px-2 py-1.5 bg-white border rounded-lg ${i === 0 ? "border-primary shadow-md" : "border-border"}`}>{item}</div>)}</div>,
-        <div key="2" className="w-full max-w-[200px] flex flex-col gap-1">{["API 개발", "디자인 리뷰", "테스트 작성"].map((item, i) => <div key={item} className={`flex items-center gap-2 text-xs text-foreground px-2 py-1.5 bg-white border rounded-lg ${i === 1 ? "border-primary shadow-md" : "border-border"}`}>{item}</div>)}</div>,
-        <div key="3" className="w-full max-w-[200px] flex flex-col gap-1">{["API 개발", "테스트 작성", "디자인 리뷰"].map((item, i) => <div key={item} className={`flex items-center gap-2 text-xs text-foreground px-2 py-1.5 bg-white border rounded-lg ${i === 2 ? "border-primary shadow-md" : "border-border"}`}>{item}</div>)}</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="slide-up"
+        frames={[
+          <div key="1" className="w-full max-w-[200px] flex flex-col gap-1">
+            {["디자인 리뷰", "API 개발", "테스트 작성"].map((item, i) => (
+              <div
+                key={item}
+                className={`flex items-center gap-2 text-xs text-foreground px-2 py-1.5 bg-white border rounded-lg ${
+                  i === 0 ? "border-primary shadow-md" : "border-border"
+                }`}
+              >
+                {item}
+              </div>
+            ))}
+          </div>,
+          <div key="2" className="w-full max-w-[200px] flex flex-col gap-1">
+            {["API 개발", "디자인 리뷰", "테스트 작성"].map((item, i) => (
+              <div
+                key={item}
+                className={`flex items-center gap-2 text-xs text-foreground px-2 py-1.5 bg-white border rounded-lg ${
+                  i === 1 ? "border-primary shadow-md" : "border-border"
+                }`}
+              >
+                {item}
+              </div>
+            ))}
+          </div>,
+          <div key="3" className="w-full max-w-[200px] flex flex-col gap-1">
+            {["API 개발", "테스트 작성", "디자인 리뷰"].map((item, i) => (
+              <div
+                key={item}
+                className={`flex items-center gap-2 text-xs text-foreground px-2 py-1.5 bg-white border rounded-lg ${
+                  i === 2 ? "border-primary shadow-md" : "border-border"
+                }`}
+              >
+                {item}
+              </div>
+            ))}
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2243,17 +4068,66 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="w-full max-w-[200px] border border-border rounded-lg bg-white overflow-hidden">
         <div className="flex items-center gap-0.5 px-2 py-1 border-b border-border bg-gray-50">
           {["B", "I", "U"].map((tool) => (
-            <span key={tool} className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded hover:bg-gray-200 cursor-pointer">{tool}</span>
+            <span
+              key={tool}
+              className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded hover:bg-gray-200 cursor-pointer"
+            >
+              {tool}
+            </span>
           ))}
         </div>
         <div className="p-2 text-xs text-muted min-h-[30px]">내용을 입력하세요...</div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[240px] border border-border rounded-lg bg-white overflow-hidden"><div className="flex items-center gap-0.5 px-2 py-1 border-b border-border bg-gray-50"><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold bg-gray-200 text-foreground rounded">B</span><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">I</span><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">U</span></div><div className="p-2 text-xs text-foreground"><p><strong>굵은 텍스트</strong> 예시</p></div></div>,
-        <div key="2" className="w-full max-w-[240px] border border-border rounded-lg bg-white overflow-hidden"><div className="flex items-center gap-0.5 px-2 py-1 border-b border-border bg-gray-50"><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">B</span><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold bg-gray-200 text-foreground rounded">I</span><span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">U</span></div><div className="p-2 text-xs text-foreground"><p><em>기울임 텍스트</em> 예시</p></div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="w-full max-w-[240px] border border-border rounded-lg bg-white overflow-hidden"
+          >
+            <div className="flex items-center gap-0.5 px-2 py-1 border-b border-border bg-gray-50">
+              <span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold bg-gray-200 text-foreground rounded">
+                B
+              </span>
+              <span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">
+                I
+              </span>
+              <span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">
+                U
+              </span>
+            </div>
+            <div className="p-2 text-xs text-foreground">
+              <p>
+                <strong>굵은 텍스트</strong> 예시
+              </p>
+            </div>
+          </div>,
+          <div
+            key="2"
+            className="w-full max-w-[240px] border border-border rounded-lg bg-white overflow-hidden"
+          >
+            <div className="flex items-center gap-0.5 px-2 py-1 border-b border-border bg-gray-50">
+              <span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">
+                B
+              </span>
+              <span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold bg-gray-200 text-foreground rounded">
+                I
+              </span>
+              <span className="w-6 h-6 flex items-center justify-center text-[10px] font-bold text-muted rounded">
+                U
+              </span>
+            </div>
+            <div className="p-2 text-xs text-foreground">
+              <p>
+                <em>기울임 텍스트</em> 예시
+              </p>
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2267,16 +4141,48 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center gap-1">
         {[1, 2, 3].map((step, i) => (
-          <div key={step} className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${i === 0 ? "bg-primary text-white" : "bg-gray-200 text-muted"}`}>{step}</div>
+          <div
+            key={step}
+            className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${
+              i === 0 ? "bg-primary text-white" : "bg-gray-200 text-muted"
+            }`}
+          >
+            {step}
+          </div>
         ))}
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="border border-primary rounded-xl bg-white shadow-xl p-3 max-w-[200px]"><div className="text-xs font-semibold text-foreground mb-1">1/3 검색 기능</div><p className="text-[10px] text-muted mb-2">여기서 검색할 수 있습니다.</p><Button size="sm">다음</Button></div>,
-        <div key="2" className="border border-primary rounded-xl bg-white shadow-xl p-3 max-w-[200px]"><div className="text-xs font-semibold text-foreground mb-1">2/3 필터 설정</div><p className="text-[10px] text-muted mb-2">필터를 적용할 수 있습니다.</p><Button size="sm">다음</Button></div>,
-        <div key="3" className="border border-primary rounded-xl bg-white shadow-xl p-3 max-w-[200px]"><div className="text-xs font-semibold text-foreground mb-1">3/3 완료</div><p className="text-[10px] text-muted mb-2">가이드가 완료되었습니다.</p><Button size="sm">완료</Button></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="border border-primary rounded-xl bg-white shadow-xl p-3 max-w-[200px]"
+          >
+            <div className="text-xs font-semibold text-foreground mb-1">1/3 검색 기능</div>
+            <p className="text-[10px] text-muted mb-2">여기서 검색할 수 있습니다.</p>
+            <Button size="sm">다음</Button>
+          </div>,
+          <div
+            key="2"
+            className="border border-primary rounded-xl bg-white shadow-xl p-3 max-w-[200px]"
+          >
+            <div className="text-xs font-semibold text-foreground mb-1">2/3 필터 설정</div>
+            <p className="text-[10px] text-muted mb-2">필터를 적용할 수 있습니다.</p>
+            <Button size="sm">다음</Button>
+          </div>,
+          <div
+            key="3"
+            className="border border-primary rounded-xl bg-white shadow-xl p-3 max-w-[200px]"
+          >
+            <div className="text-xs font-semibold text-foreground mb-1">3/3 완료</div>
+            <p className="text-[10px] text-muted mb-2">가이드가 완료되었습니다.</p>
+            <Button size="sm">완료</Button>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2297,11 +4203,24 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[200px]"><Label required>비밀번호</Label><PasswordInput placeholder="비밀번호 입력" /></div>,
-        <div key="2" className="w-full max-w-[200px]"><Label required>비밀번호</Label><PasswordInput placeholder="비밀번호 입력" showStrength /></div>,
-        <div key="3" className="w-full max-w-[200px]"><Label>비밀번호 확인</Label><PasswordInput placeholder="다시 입력" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[200px]">
+            <Label required>비밀번호</Label>
+            <PasswordInput placeholder="비밀번호 입력" />
+          </div>,
+          <div key="2" className="w-full max-w-[200px]">
+            <Label required>비밀번호</Label>
+            <PasswordInput placeholder="비밀번호 입력" showStrength />
+          </div>,
+          <div key="3" className="w-full max-w-[200px]">
+            <Label>비밀번호 확인</Label>
+            <PasswordInput placeholder="다시 입력" />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2312,14 +4231,22 @@ export const showcaseItems: ShowcaseItem[] = [
     description: "PIN/OTP 코드를 입력하는 컴포넌트",
     category: "Security",
     href: "/design-system/primitives/pin-input",
-    preview: (
-      <PinInput length={4} numeric onChange={noop} />
-    ),
+    preview: <PinInput length={4} numeric onChange={noop} />,
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="flex flex-col items-center gap-2"><p className="text-xs text-muted">4자리 PIN</p><PinInput length={4} numeric onChange={noop} /></div>,
-        <div key="2" className="flex flex-col items-center gap-2"><p className="text-xs text-muted">6자리 OTP</p><PinInput length={6} numeric onChange={noop} /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="flex flex-col items-center gap-2">
+            <p className="text-xs text-muted">4자리 PIN</p>
+            <PinInput length={4} numeric onChange={noop} />
+          </div>,
+          <div key="2" className="flex flex-col items-center gap-2">
+            <p className="text-xs text-muted">6자리 OTP</p>
+            <PinInput length={6} numeric onChange={noop} />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2338,13 +4265,17 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1000} transition="slide-up" frames={[
-        <SecurityBadge key="verified" level="verified" showIcon />,
-        <SecurityBadge key="safe" level="safe" showIcon />,
-        <SecurityBadge key="warning" level="warning" showIcon />,
-        <SecurityBadge key="critical" level="critical" showIcon />,
-        <SecurityBadge key="unverified" level="unverified" showIcon />,
-      ]} />
+      <AutoPlayDemo
+        interval={1000}
+        transition="slide-up"
+        frames={[
+          <SecurityBadge key="verified" level="verified" showIcon />,
+          <SecurityBadge key="safe" level="safe" showIcon />,
+          <SecurityBadge key="warning" level="warning" showIcon />,
+          <SecurityBadge key="critical" level="critical" showIcon />,
+          <SecurityBadge key="unverified" level="unverified" showIcon />,
+        ]}
+      />
     ),
   },
 
@@ -2362,11 +4293,29 @@ export const showcaseItems: ShowcaseItem[] = [
           { label: "비밀번호 변경", ok: false },
         ].map((item) => (
           <div key={item.label} className="flex items-center gap-2 text-xs">
-            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${item.ok ? "bg-green-100" : "bg-red-100"}`}>
+            <div
+              className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                item.ok ? "bg-green-100" : "bg-red-100"
+              }`}
+            >
               {item.ok ? (
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 5.5l2 2 3.5-3.5" stroke="#16a34a" strokeWidth="1.2" strokeLinecap="round" /></svg>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path
+                    d="M2.5 5.5l2 2 3.5-3.5"
+                    stroke="#16a34a"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                  />
+                </svg>
               ) : (
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M3 3l4 4M7 3l-4 4" stroke="#dc2626" strokeWidth="1.2" strokeLinecap="round" /></svg>
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path
+                    d="M3 3l4 4M7 3l-4 4"
+                    stroke="#dc2626"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                  />
+                </svg>
               )}
             </div>
             <span className="text-foreground">{item.label}</span>
@@ -2375,10 +4324,30 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[240px]"><SecurityChecklist items={[{ key: "2fa", title: "2FA 인증", description: "활성화됨", status: "secure" }, { key: "pwd", title: "비밀번호", description: "최근 변경", status: "secure" }]} title="보안 점검" /></div>,
-        <div key="2" className="w-full max-w-[240px]"><SecurityChecklist items={[{ key: "2fa", title: "2FA 인증", description: "활성화됨", status: "secure" }, { key: "ssl", title: "SSL 인증서", description: "만료됨", status: "insecure" }]} title="보안 점검" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[240px]">
+            <SecurityChecklist
+              items={[
+                { key: "2fa", title: "2FA 인증", description: "활성화됨", status: "secure" },
+                { key: "pwd", title: "비밀번호", description: "최근 변경", status: "secure" },
+              ]}
+              title="보안 점검"
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[240px]">
+            <SecurityChecklist
+              items={[
+                { key: "2fa", title: "2FA 인증", description: "활성화됨", status: "secure" },
+                { key: "ssl", title: "SSL 인증서", description: "만료됨", status: "insecure" },
+              ]}
+              title="보안 점검"
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2401,10 +4370,32 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[220px]"><TrustIndicator title="보안 신뢰도" items={[{ key: "ssl", label: "SSL", status: "pass" }, { key: "2fa", label: "2FA", status: "pass" }]} /></div>,
-        <div key="2" className="w-full max-w-[220px]"><TrustIndicator title="보안 신뢰도" items={[{ key: "ssl", label: "SSL", status: "pass" }, { key: "2fa", label: "2FA", status: "pass" }, { key: "audit", label: "감사", status: "warning" }, { key: "backup", label: "백업", status: "fail" }]} /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[220px]">
+            <TrustIndicator
+              title="보안 신뢰도"
+              items={[
+                { key: "ssl", label: "SSL", status: "pass" },
+                { key: "2fa", label: "2FA", status: "pass" },
+              ]}
+            />
+          </div>,
+          <div key="2" className="w-full max-w-[220px]">
+            <TrustIndicator
+              title="보안 신뢰도"
+              items={[
+                { key: "ssl", label: "SSL", status: "pass" },
+                { key: "2fa", label: "2FA", status: "pass" },
+                { key: "audit", label: "감사", status: "warning" },
+                { key: "backup", label: "백업", status: "fail" },
+              ]}
+            />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2419,14 +4410,46 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="w-full max-w-[180px] flex flex-col gap-1.5">
         <Input placeholder="이메일" className="h-7 text-xs" />
         <Input placeholder="비밀번호" type="password" className="h-7 text-xs" />
-        <Button size="sm" className="w-full">로그인</Button>
+        <Button size="sm" className="w-full">
+          로그인
+        </Button>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[220px] p-3 border border-border rounded-xl bg-white shadow-lg"><h3 className="text-xs font-bold text-foreground text-center mb-2">로그인</h3><div className="flex flex-col gap-1.5"><Label>이메일</Label><Input placeholder="email@example.com" /><Button className="w-full" size="sm">로그인</Button></div></div>,
-        <div key="2" className="w-full max-w-[220px] p-3 border border-border rounded-xl bg-white shadow-lg"><h3 className="text-xs font-bold text-foreground text-center mb-2">로그인</h3><div className="flex flex-col gap-1.5"><Label>이메일</Label><Input placeholder="email@example.com" /><Label>비밀번호</Label><PasswordInput placeholder="비밀번호" /><Button className="w-full" size="sm">로그인</Button></div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div
+            key="1"
+            className="w-full max-w-[220px] p-3 border border-border rounded-xl bg-white shadow-lg"
+          >
+            <h3 className="text-xs font-bold text-foreground text-center mb-2">로그인</h3>
+            <div className="flex flex-col gap-1.5">
+              <Label>이메일</Label>
+              <Input placeholder="email@example.com" />
+              <Button className="w-full" size="sm">
+                로그인
+              </Button>
+            </div>
+          </div>,
+          <div
+            key="2"
+            className="w-full max-w-[220px] p-3 border border-border rounded-xl bg-white shadow-lg"
+          >
+            <h3 className="text-xs font-bold text-foreground text-center mb-2">로그인</h3>
+            <div className="flex flex-col gap-1.5">
+              <Label>이메일</Label>
+              <Input placeholder="email@example.com" />
+              <Label>비밀번호</Label>
+              <PasswordInput placeholder="비밀번호" />
+              <Button className="w-full" size="sm">
+                로그인
+              </Button>
+            </div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2439,14 +4462,26 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/image-lightbox",
     preview: (
       <div className="flex items-center justify-center">
-        <div className="w-24 h-16 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-[10px] font-bold shadow-md">🔍 클릭 확대</div>
+        <div className="w-24 h-16 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-[10px] font-bold shadow-md">
+          🔍 클릭 확대
+        </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="scale" frames={[
-        <div key="1" className="w-24 h-16 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-md" />,
-        <div key="2" className="w-40 h-28 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-2xl ring-2 ring-white/20" />,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="scale"
+        frames={[
+          <div
+            key="1"
+            className="w-24 h-16 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-md"
+          />,
+          <div
+            key="2"
+            className="w-40 h-28 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 shadow-2xl ring-2 ring-white/20"
+          />,
+        ]}
+      />
     ),
   },
 
@@ -2459,17 +4494,33 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/callout",
     preview: (
       <div className="w-full max-w-[200px]">
-        <Callout variant="tip" title="팁">유용한 정보입니다.</Callout>
+        <Callout variant="tip" title="팁">
+          유용한 정보입니다.
+        </Callout>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="slide-up" frames={[
-        <Callout key="1" variant="tip" title="팁">유용한 정보입니다.</Callout>,
-        <Callout key="2" variant="warning" title="주의">주의가 필요합니다.</Callout>,
-        <Callout key="3" variant="danger" title="위험">위험한 작업입니다.</Callout>,
-        <Callout key="4" variant="info" title="안내">참고 사항입니다.</Callout>,
-        <Callout key="5" variant="note" title="노트">메모 내용입니다.</Callout>,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="slide-up"
+        frames={[
+          <Callout key="1" variant="tip" title="팁">
+            유용한 정보입니다.
+          </Callout>,
+          <Callout key="2" variant="warning" title="주의">
+            주의가 필요합니다.
+          </Callout>,
+          <Callout key="3" variant="danger" title="위험">
+            위험한 작업입니다.
+          </Callout>,
+          <Callout key="4" variant="info" title="안내">
+            참고 사항입니다.
+          </Callout>,
+          <Callout key="5" variant="note" title="노트">
+            메모 내용입니다.
+          </Callout>,
+        ]}
+      />
     ),
   },
 
@@ -2484,15 +4535,30 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="w-full max-w-[180px] relative">
         <div className="blur-sm text-xs text-foreground">이 내용은 스포일러입니다.</div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[10px] bg-foreground/80 text-background px-2 py-0.5 rounded-full">스포일러 보기</span>
+          <span className="text-[10px] bg-foreground/80 text-background px-2 py-0.5 rounded-full">
+            스포일러 보기
+          </span>
         </div>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={2000} transition="fade" frames={[
-        <div key="1" className="w-full max-w-[200px] relative"><div className="blur-md text-xs">비밀 내용이 숨겨져 있습니다.</div><div className="absolute inset-0 flex items-center justify-center"><span className="text-xs bg-foreground/80 text-background px-3 py-1 rounded-full">🔒 스포일러</span></div></div>,
-        <div key="2" className="w-full max-w-[200px] text-xs text-foreground">✨ 비밀이 공개되었습니다!</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={2000}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-full max-w-[200px] relative">
+            <div className="blur-md text-xs">비밀 내용이 숨겨져 있습니다.</div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-xs bg-foreground/80 text-background px-3 py-1 rounded-full">
+                🔒 스포일러
+              </span>
+            </div>
+          </div>,
+          <div key="2" className="w-full max-w-[200px] text-xs text-foreground">
+            ✨ 비밀이 공개되었습니다!
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2509,10 +4575,18 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="w-[100px]"><BookCard title="열린 책" author="작가 A" /></div>,
-        <div key="2" className="w-[100px]"><BookCard title="잠긴 책" author="작가 B" locked /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="w-[100px]">
+            <BookCard title="열린 책" author="작가 A" />
+          </div>,
+          <div key="2" className="w-[100px]">
+            <BookCard title="잠긴 책" author="작가 B" locked />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2526,14 +4600,26 @@ export const showcaseItems: ShowcaseItem[] = [
     preview: (
       <div className="flex items-center gap-2 text-xs text-muted">
         <span>📖</span>
-        <ReadingTime content="안녕하세요. 이것은 디자인 시스템에 대한 긴 글입니다. 컴포넌트의 구조와 사용법을 설명합니다." format="long" showDifficulty />
+        <ReadingTime
+          content="안녕하세요. 이것은 디자인 시스템에 대한 긴 글입니다. 컴포넌트의 구조와 사용법을 설명합니다."
+          format="long"
+          showDifficulty
+        />
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="text-xs"><ReadingTime content="짧은 글입니다." format="long" showDifficulty /></div>,
-        <div key="2" className="text-xs"><ReadingTime content={"긴 ".repeat(500)} format="long" showDifficulty /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="text-xs">
+            <ReadingTime content="짧은 글입니다." format="long" showDifficulty />
+          </div>,
+          <div key="2" className="text-xs">
+            <ReadingTime content={"긴 ".repeat(500)} format="long" showDifficulty />
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2546,15 +4632,31 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/composites/auto-hide-header",
     preview: (
       <div className="flex flex-col items-center gap-1">
-        <div className="w-full max-w-[160px] h-6 rounded-t-lg bg-foreground/10 flex items-center justify-center text-[9px] text-muted font-medium">↕ 스크롤 감지 헤더</div>
+        <div className="w-full max-w-[160px] h-6 rounded-t-lg bg-foreground/10 flex items-center justify-center text-[9px] text-muted font-medium">
+          ↕ 스크롤 감지 헤더
+        </div>
         <div className="w-full max-w-[160px] h-12 rounded-b-lg bg-gray-50 border border-border" />
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="slide-up" frames={[
-        <div key="1" className="text-center"><div className="w-40 h-6 bg-foreground/10 rounded-lg flex items-center justify-center text-[9px] text-muted">📍 헤더 보임</div><div className="text-[8px] text-muted mt-1">↓ 아래로 스크롤</div></div>,
-        <div key="2" className="text-center"><div className="w-40 h-6 bg-foreground/5 rounded-lg flex items-center justify-center text-[9px] text-muted opacity-30 -translate-y-2">🙈 헤더 숨김</div><div className="text-[8px] text-muted mt-1">↑ 위로 스크롤하면 복원</div></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="slide-up"
+        frames={[
+          <div key="1" className="text-center">
+            <div className="w-40 h-6 bg-foreground/10 rounded-lg flex items-center justify-center text-[9px] text-muted">
+              📍 헤더 보임
+            </div>
+            <div className="text-[8px] text-muted mt-1">↓ 아래로 스크롤</div>
+          </div>,
+          <div key="2" className="text-center">
+            <div className="w-40 h-6 bg-foreground/5 rounded-lg flex items-center justify-center text-[9px] text-muted opacity-30 -translate-y-2">
+              🙈 헤더 숨김
+            </div>
+            <div className="text-[8px] text-muted mt-1">↑ 위로 스크롤하면 복원</div>
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2569,7 +4671,7 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="w-full max-w-[160px] text-xs space-y-0.5">
         <div className="font-medium text-foreground">▼ 컴포넌트</div>
         <div className="pl-3 text-muted">Button</div>
-        <div className="pl-3 text-primary font-medium">Input</div>
+        <div className="pl-3 text-primary-ink font-medium">Input</div>
         <div className="font-medium text-foreground">▶ 패턴</div>
       </div>
     ),
@@ -2577,15 +4679,24 @@ export const showcaseItems: ShowcaseItem[] = [
       <div className="w-full max-w-[180px]">
         <TreeNav
           items={[
-            { key: "comp", label: "컴포넌트", children: [
-              { key: "btn", label: "Button" },
-              { key: "inp", label: "Input" },
-              { key: "card", label: "Card" },
-            ]},
-            { key: "pat", label: "패턴", badge: 3, children: [
-              { key: "dt", label: "DataTable" },
-              { key: "cal", label: "Calendar" },
-            ]},
+            {
+              key: "comp",
+              label: "컴포넌트",
+              children: [
+                { key: "btn", label: "Button" },
+                { key: "inp", label: "Input" },
+                { key: "card", label: "Card" },
+              ],
+            },
+            {
+              key: "pat",
+              label: "패턴",
+              badge: 3,
+              children: [
+                { key: "dt", label: "DataTable" },
+                { key: "cal", label: "Calendar" },
+              ],
+            },
           ]}
           activeKey="inp"
           defaultExpanded={["comp", "pat"]}
@@ -2603,16 +4714,32 @@ export const showcaseItems: ShowcaseItem[] = [
     href: "/design-system/patterns/starfield",
     preview: (
       <div className="w-full h-[80px] rounded-lg bg-gray-950 relative overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "radial-gradient(1px 1px at 20% 30%, white, transparent), radial-gradient(1px 1px at 50% 60%, white, transparent), radial-gradient(1px 1px at 80% 20%, white, transparent), radial-gradient(1px 1px at 10% 80%, white, transparent), radial-gradient(1px 1px at 70% 70%, white, transparent)" }} />
+        <div
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage:
+              "radial-gradient(1px 1px at 20% 30%, white, transparent), radial-gradient(1px 1px at 50% 60%, white, transparent), radial-gradient(1px 1px at 80% 20%, white, transparent), radial-gradient(1px 1px at 10% 80%, white, transparent), radial-gradient(1px 1px at 70% 70%, white, transparent)",
+          }}
+        />
         <span className="text-white/40 text-[10px] z-10">✨ 별밤 캔버스</span>
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1500} transition="fade" frames={[
-        <div key="1" className="text-center text-[10px] text-muted">🌟 220개 별 반짝임</div>,
-        <div key="2" className="text-center text-[10px] text-muted">☄️ 유성 애니메이션</div>,
-        <div key="3" className="text-center text-[10px] text-muted">🎨 색상 변화 + HDR</div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1500}
+        transition="fade"
+        frames={[
+          <div key="1" className="text-center text-[10px] text-muted">
+            🌟 220개 별 반짝임
+          </div>,
+          <div key="2" className="text-center text-[10px] text-muted">
+            ☄️ 유성 애니메이션
+          </div>,
+          <div key="3" className="text-center text-[10px] text-muted">
+            🎨 색상 변화 + HDR
+          </div>,
+        ]}
+      />
     ),
   },
 
@@ -2634,10 +4761,26 @@ export const showcaseItems: ShowcaseItem[] = [
       </div>
     ),
     hoverDemo: (
-      <AutoPlayDemo interval={1200} transition="fade" frames={[
-        <div key="2" className="columns-2 gap-1 w-full max-w-[160px]"><div className="h-8 rounded bg-blue-200 mb-1" /><div className="h-14 rounded bg-emerald-200 mb-1" /><div className="h-6 rounded bg-amber-200 mb-1" /><div className="h-10 rounded bg-purple-200 mb-1" /></div>,
-        <div key="3" className="columns-3 gap-1 w-full max-w-[160px]"><div className="h-8 rounded bg-blue-200 mb-1" /><div className="h-12 rounded bg-emerald-200 mb-1" /><div className="h-6 rounded bg-amber-200 mb-1" /><div className="h-10 rounded bg-purple-200 mb-1" /><div className="h-7 rounded bg-pink-200 mb-1" /><div className="h-9 rounded bg-cyan-200 mb-1" /></div>,
-      ]} />
+      <AutoPlayDemo
+        interval={1200}
+        transition="fade"
+        frames={[
+          <div key="2" className="columns-2 gap-1 w-full max-w-[160px]">
+            <div className="h-8 rounded bg-blue-200 mb-1" />
+            <div className="h-14 rounded bg-emerald-200 mb-1" />
+            <div className="h-6 rounded bg-amber-200 mb-1" />
+            <div className="h-10 rounded bg-purple-200 mb-1" />
+          </div>,
+          <div key="3" className="columns-3 gap-1 w-full max-w-[160px]">
+            <div className="h-8 rounded bg-blue-200 mb-1" />
+            <div className="h-12 rounded bg-emerald-200 mb-1" />
+            <div className="h-6 rounded bg-amber-200 mb-1" />
+            <div className="h-10 rounded bg-purple-200 mb-1" />
+            <div className="h-7 rounded bg-pink-200 mb-1" />
+            <div className="h-9 rounded bg-cyan-200 mb-1" />
+          </div>,
+        ]}
+      />
     ),
   },
 ];

@@ -85,8 +85,20 @@ export function Combobox({
     );
   }, [options, query]);
 
-  const showCreate = creatable && query && !filtered.some((o) => o.label.toLowerCase() === query.toLowerCase());
-  const allItems = showCreate ? [...filtered, { value: query, label: `${onCreateLabel} "${query}"`, description: undefined, icon: undefined, disabled: false }] : filtered;
+  const showCreate =
+    creatable && query && !filtered.some((o) => o.label.toLowerCase() === query.toLowerCase());
+  const allItems = showCreate
+    ? [
+        ...filtered,
+        {
+          value: query,
+          label: `${onCreateLabel} "${query}"`,
+          description: undefined,
+          icon: undefined,
+          disabled: false,
+        },
+      ]
+    : filtered;
 
   const selected = options.find((o) => o.value === value);
 
@@ -97,9 +109,18 @@ export function Combobox({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") { setOpen(false); return; }
-    if (e.key === "ArrowDown") { e.preventDefault(); setHighlightIdx((i) => Math.min(i + 1, allItems.length - 1)); }
-    if (e.key === "ArrowUp") { e.preventDefault(); setHighlightIdx((i) => Math.max(i - 1, 0)); }
+    if (e.key === "Escape") {
+      setOpen(false);
+      return;
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightIdx((i) => Math.min(i + 1, allItems.length - 1));
+    }
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightIdx((i) => Math.max(i - 1, 0));
+    }
     if (e.key === "Enter" && allItems[highlightIdx]) {
       e.preventDefault();
       if (!allItems[highlightIdx].disabled) handleSelect(allItems[highlightIdx].value);
@@ -110,12 +131,18 @@ export function Combobox({
     <div ref={ref} className={cn("relative w-full", className)}>
       <div
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-white rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out cursor-text",
+          // 변하는 것은 테두리색과 글로우 둘뿐이다 — transition-all 은 높이까지 물어 리플로우를 부른다
+          "flex items-center gap-2 h-9 px-3 border bg-card rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-200 ease-out cursor-text",
           "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
-          error ? "border-danger" : "border-border hover:border-gray-300",
+          error ? "border-danger" : "border-border hover:border-muted-light",
           disabled && "opacity-50 cursor-not-allowed",
         )}
-        onClick={() => { if (!disabled) { setOpen(true); inputRef.current?.focus(); } }}
+        onClick={() => {
+          if (!disabled) {
+            setOpen(true);
+            inputRef.current?.focus();
+          }
+        }}
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted shrink-0">
           <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />
@@ -123,8 +150,12 @@ export function Combobox({
         </svg>
         <input
           ref={inputRef}
-          value={open ? query : (selected?.label || "")}
-          onChange={(e) => { setQuery(e.target.value); setHighlightIdx(0); if (!open) setOpen(true); }}
+          value={open ? query : selected?.label || ""}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setHighlightIdx(0);
+            if (!open) setOpen(true);
+          }}
           onFocus={() => setOpen(true)}
           onKeyDown={handleKeyDown}
           placeholder={selected ? selected.label : placeholder}
@@ -135,12 +166,15 @@ export function Combobox({
       </div>
 
       {open && (
-        <div className="absolute z-50 mt-1 w-full bg-white border border-border rounded-xl shadow-xl max-h-60 overflow-auto p-1 animate-fade-in-scale">
+        // 떠 있는 목록은 그림자 한 겹으로는 배경에서 떨어지지 않는다 — 다층 그림자 + 얇은 링
+        <div className="absolute z-50 mt-1 w-full bg-card border border-border rounded-xl shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-border-light max-h-60 overflow-auto p-1 animate-fade-in-scale motion-reduce:animate-none">
           {allItems.length === 0 && !loading && (
             <div className="px-3 py-4 text-sm text-muted text-center">{emptyMessage}</div>
           )}
           {loading && allItems.length === 0 && (
-            <div className="flex justify-center py-4"><Spinner size="sm" /></div>
+            <div className="flex justify-center py-4">
+              <Spinner size="sm" />
+            </div>
           )}
           {allItems.map((opt, i) => (
             <button
@@ -150,19 +184,34 @@ export function Combobox({
               onClick={() => !opt.disabled && handleSelect(opt.value)}
               className={cn(
                 "w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-colors cursor-pointer text-sm",
-                i === highlightIdx ? "bg-primary/10 text-primary" : "hover:bg-gray-50",
-                opt.value === value && "text-primary font-medium",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+                i === highlightIdx ? "bg-primary/10 text-primary-ink" : "hover:bg-card-hover",
+                opt.value === value && "text-primary-ink font-medium",
                 opt.disabled && "opacity-40 cursor-not-allowed",
               )}
             >
               {opt.icon && <span className="shrink-0">{opt.icon}</span>}
               <div className="flex-1 min-w-0">
                 <div className="truncate">{opt.label}</div>
-                {opt.description && <div className="text-xs text-muted truncate">{opt.description}</div>}
+                {opt.description && (
+                  <div className="text-xs text-muted truncate">{opt.description}</div>
+                )}
               </div>
               {opt.value === value && (
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-primary">
-                  <path d="M3 7.5l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  className="shrink-0 text-primary-ink"
+                >
+                  <path
+                    d="M3 7.5l3 3 5-5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               )}
             </button>

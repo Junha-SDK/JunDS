@@ -10,12 +10,27 @@ export interface LayoutDividerProps {
   className?: string;
 }
 
-export function LayoutDivider({ orientation = "horizontal", spacing = 4, color = "border", label, className }: LayoutDividerProps) {
+export function LayoutDivider({
+  orientation = "horizontal",
+  spacing = 4,
+  color = "border",
+  label,
+  className,
+}: LayoutDividerProps) {
   if (label) {
     return (
-      <Box display="flex" align="center" gap="sm" my={orientation === "horizontal" ? spacing : undefined} mx={orientation === "vertical" ? spacing : undefined} className={className}>
+      <Box
+        display="flex"
+        align="center"
+        gap="sm"
+        my={orientation === "horizontal" ? spacing : undefined}
+        mx={orientation === "vertical" ? spacing : undefined}
+        className={className}
+      >
         <Box grow={1} h={1} bg={color} />
-        <Box as="span" fontSize="xs" color="muted" fontWeight="medium" shrink={0}>{label}</Box>
+        <Box as="span" fontSize="xs" color="muted" fontWeight="medium" shrink={0}>
+          {label}
+        </Box>
         <Box grow={1} h={1} bg={color} />
       </Box>
     );

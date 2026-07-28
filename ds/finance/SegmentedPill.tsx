@@ -59,7 +59,11 @@ export function SegmentedPill({
             disabled={option.disabled}
             onClick={() => !option.disabled && onChange(option.key)}
             className={[
-              "relative z-10 inline-flex items-center justify-center gap-1.5 rounded-full font-bold transition-colors duration-200 cursor-pointer whitespace-nowrap",
+              "relative z-10 inline-flex items-center justify-center gap-1.5 rounded-full font-bold cursor-pointer whitespace-nowrap",
+              "transition-[color,background-color,box-shadow] duration-200",
+              // 선택 상태의 boxShadow 가 인라인 style 이라 ring(=box-shadow) 은 덮여 보이지
+              // 않는다. 포커스 표시는 인라인에 지지 않는 outline 으로 그린다.
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--bm-accent-strong)]",
               "disabled:opacity-40 disabled:cursor-not-allowed",
               fullWidth ? "flex-1" : "",
               sizeClasses[size],

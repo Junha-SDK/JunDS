@@ -11,7 +11,12 @@ export default function ScrollAreaPage() {
       importPath='import { ScrollArea } from "@/ds/primitives/ScrollArea"'
       props={[
         { name: "maxHeight", type: "string | number", description: "최대 높이" },
-        { name: "orientation", type: '"vertical"|"horizontal"|"both"', default: '"vertical"', description: "스크롤 방향" },
+        {
+          name: "orientation",
+          type: '"vertical"|"horizontal"|"both"',
+          default: '"vertical"',
+          description: "스크롤 방향",
+        },
         { name: "children", type: "ReactNode", description: "자식 요소" },
       ]}
     >
@@ -35,7 +40,7 @@ export default function ScrollAreaPage() {
                   {Array.from({ length: 12 }, (_, i) => (
                     <div
                       key={i}
-                      className="w-28 h-20 shrink-0 rounded-lg bg-primary/10 flex items-center justify-center text-sm font-medium text-primary"
+                      className="w-28 h-20 shrink-0 rounded-lg bg-primary/10 flex items-center justify-center text-sm font-medium text-primary-ink"
                     >
                       카드 {i + 1}
                     </div>

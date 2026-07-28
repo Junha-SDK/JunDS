@@ -78,7 +78,7 @@ export function Carousel({
       {/* 슬라이드 컨테이너 */}
       <div
         ref={scrollRef}
-        className="flex overflow-x-hidden snap-x snap-mandatory scroll-smooth"
+        className="flex overflow-x-hidden snap-x snap-mandatory scroll-smooth motion-reduce:scroll-auto"
       >
         {children.map((child, i) => (
           <div key={i} className="w-full flex-shrink-0 snap-start">
@@ -95,12 +95,23 @@ export function Carousel({
             onClick={prev}
             className={cn(
               "absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center",
-              "rounded-full bg-white/80 border border-border shadow-sm text-foreground",
-              "opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer hover:bg-white",
+              // 슬라이드 위에 떠 있는 조작부라 한 겹 shadow-sm 으로는 서지 않는다.
+              "rounded-full bg-card/85 backdrop-blur-sm border border-border text-foreground",
+              "shadow-[0_6px_18px_-6px_rgba(0,0,0,0.3),0_2px_6px_-2px_rgba(0,0,0,0.18)] ring-1 ring-black/5",
+              "opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer hover:bg-card",
+              // 마우스가 없으면 화살표를 볼 방법이 없다 — 포커스에도 드러낸다.
+              "focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "motion-reduce:transition-none",
             )}
             aria-label="이전 슬라이드"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
@@ -109,12 +120,21 @@ export function Carousel({
             onClick={next}
             className={cn(
               "absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center",
-              "rounded-full bg-white/80 border border-border shadow-sm text-foreground",
-              "opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer hover:bg-white",
+              "rounded-full bg-card/85 backdrop-blur-sm border border-border text-foreground",
+              "shadow-[0_6px_18px_-6px_rgba(0,0,0,0.3),0_2px_6px_-2px_rgba(0,0,0,0.18)] ring-1 ring-black/5",
+              "opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer hover:bg-card",
+              "focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "motion-reduce:transition-none",
             )}
             aria-label="다음 슬라이드"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -130,9 +150,13 @@ export function Carousel({
               type="button"
               onClick={() => scrollTo(i)}
               className={cn(
-                "w-2 h-2 rounded-full transition-all cursor-pointer",
+                // 도트가 바꾸는 건 너비와 색뿐이다.
+                "w-2 h-2 rounded-full cursor-pointer transition-[width,background-color] duration-200",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "motion-reduce:transition-none",
                 i === current ? "bg-foreground w-4" : "bg-border hover:bg-muted",
               )}
+              aria-current={i === current || undefined}
               aria-label={`슬라이드 ${i + 1}`}
             />
           ))}

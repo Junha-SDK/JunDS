@@ -8,7 +8,7 @@ describe("Drawer a11y", () => {
     render(
       <Drawer open onClose={vi.fn()} title="Test Drawer">
         <div>Content</div>
-      </Drawer>
+      </Drawer>,
     );
     const dialog = screen.getByRole("dialog");
     expect(dialog).toBeDefined();
@@ -19,7 +19,7 @@ describe("Drawer a11y", () => {
     render(
       <Drawer open onClose={vi.fn()} title="Filter Panel">
         <div>Content</div>
-      </Drawer>
+      </Drawer>,
     );
     expect(screen.getByRole("dialog").getAttribute("aria-label")).toBe("Filter Panel");
   });
@@ -29,7 +29,7 @@ describe("Drawer a11y", () => {
     render(
       <Drawer open onClose={onClose} title="Drawer">
         <div>Content</div>
-      </Drawer>
+      </Drawer>,
     );
     await userEvent.keyboard("{Escape}");
     expect(onClose).toHaveBeenCalled();

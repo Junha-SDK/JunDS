@@ -19,10 +19,7 @@ const TF_CONFIG: Record<Tf, { seed: number; count: number; vol: number }> = {
   분: { seed: 209, count: 110, vol: 0.005 },
 };
 
-export function MarketIndexChart({
-  baseSeed,
-  base = 6500,
-}: MarketIndexChartProps) {
+export function MarketIndexChart({ baseSeed, base = 6500 }: MarketIndexChartProps) {
   const [tf, setTf] = useState<Tf>("일");
 
   const candles = useMemo<Candle[]>(() => {
@@ -41,7 +38,7 @@ export function MarketIndexChart({
 
   return (
     <div className="bm-card p-3">
-      <div className="flex items-center gap-2 text-[11px] mb-1">
+      <div className="flex flex-wrap items-center gap-2 text-[11px] mb-1">
         {TFS.map((t) => {
           const active = t === tf;
           return (
@@ -49,9 +46,12 @@ export function MarketIndexChart({
               key={t}
               type="button"
               onClick={() => setTf(t)}
-              className="bm-pill"
+              aria-pressed={active}
+              className="bm-pill cursor-pointer transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bm-card)]"
               style={{
-                background: active ? "rgba(20,184,166,0.12)" : "var(--bm-soft-100)",
+                // 선택된 pill 배경은 호스트 테마의 강조 톤을 그대로 쓴다 — 하드코딩한
+                // teal 은 테마를 바꿔도 따라오지 않는다
+                background: active ? "var(--bm-accent-soft-bg)" : "var(--bm-soft-100)",
                 color: active ? "var(--bm-accent-strong)" : "var(--bm-muted)",
                 fontWeight: active ? 700 : 500,
               }}
@@ -61,7 +61,7 @@ export function MarketIndexChart({
             </button>
           );
         })}
-        <span className="ml-auto flex items-center gap-2 text-[11px]">
+        <span className="ml-auto flex flex-wrap items-center gap-2 text-[11px]">
           {(
             [
               ["#a855f7", "5"],

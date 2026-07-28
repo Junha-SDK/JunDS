@@ -13,7 +13,13 @@ export default function ReadingStatsPage() {
     >
       <Section title="Default">
         <Preview>
-          <ReadingStats pagesToday={42} pagesGoal={50} streakDays={12} booksCompleted={37} totalMinutes={2840} />
+          <ReadingStats
+            pagesToday={42}
+            pagesGoal={50}
+            streakDays={12}
+            booksCompleted={37}
+            totalMinutes={2840}
+          />
         </Preview>
       </Section>
     </ComponentPage>

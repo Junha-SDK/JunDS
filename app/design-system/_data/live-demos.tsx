@@ -222,7 +222,14 @@ export function AlertLiveDemo() {
 }
 
 /* ─── 9. BadgeLiveDemo ──────────────────────── */
-const badgeVariants: BadgeVariant[] = ["primary", "success", "warning", "danger", "info", "default"];
+const badgeVariants: BadgeVariant[] = [
+  "primary",
+  "success",
+  "warning",
+  "danger",
+  "info",
+  "default",
+];
 const badgeLabels: Record<string, string> = {
   primary: "New",
   success: "Done",
@@ -406,10 +413,13 @@ export function TooltipLiveDemo() {
         </span>
         <div
           className={`absolute z-50 px-2.5 py-1.5 text-xs text-white bg-gray-800 rounded-lg shadow-lg whitespace-nowrap pointer-events-none ${
-            pos === "top" ? "bottom-full left-1/2 -translate-x-1/2 mb-2" :
-            pos === "bottom" ? "top-full left-1/2 -translate-x-1/2 mt-2" :
-            pos === "left" ? "right-full top-1/2 -translate-y-1/2 mr-2" :
-            "left-full top-1/2 -translate-y-1/2 ml-2"
+            pos === "top"
+              ? "bottom-full left-1/2 -translate-x-1/2 mb-2"
+              : pos === "bottom"
+              ? "top-full left-1/2 -translate-x-1/2 mt-2"
+              : pos === "left"
+              ? "right-full top-1/2 -translate-y-1/2 mr-2"
+              : "left-full top-1/2 -translate-y-1/2 ml-2"
           }`}
         >
           {tooltipLabels[pos]}
@@ -474,7 +484,7 @@ export function SliderLiveDemo() {
 
   return (
     <div className="flex flex-col items-center justify-center h-full px-6 gap-2 w-full max-w-[200px] mx-auto">
-      <span className="text-lg font-bold text-primary tabular-nums">{value}</span>
+      <span className="text-lg font-bold text-primary-ink tabular-nums">{value}</span>
       <Slider value={value} onChange={setValue} size="sm" />
     </div>
   );
@@ -562,7 +572,7 @@ export function StatusDotLiveDemo() {
 export function EmptyStateLiveDemo() {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    const id = setInterval(() => setShow(p => !p), 2000);
+    const id = setInterval(() => setShow((p) => !p), 2000);
     return () => clearInterval(id);
   }, []);
   return (
@@ -571,13 +581,19 @@ export function EmptyStateLiveDemo() {
         <>
           <div className="text-xs font-medium text-foreground">업무 목록</div>
           <div className="space-y-1.5 w-full max-w-[160px]">
-            <div className="h-6 rounded bg-primary/10 flex items-center px-2 text-[10px]">디자인 리뷰</div>
-            <div className="h-6 rounded bg-primary/10 flex items-center px-2 text-[10px]">코드 작성</div>
+            <div className="h-6 rounded bg-primary/10 flex items-center px-2 text-[10px]">
+              디자인 리뷰
+            </div>
+            <div className="h-6 rounded bg-primary/10 flex items-center px-2 text-[10px]">
+              코드 작성
+            </div>
           </div>
         </>
       ) : (
         <>
-          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-muted text-sm">∅</div>
+          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-muted text-sm">
+            ∅
+          </div>
           <span className="text-xs font-medium text-foreground">업무가 없습니다</span>
           <span className="text-[10px] text-muted">빈 상태 → 데이터 전환</span>
         </>
@@ -591,7 +607,7 @@ export function StatCardLiveDemo() {
   const [value, setValue] = useState(1234);
   useEffect(() => {
     const id = setInterval(() => {
-      setValue(p => p + Math.floor(Math.random() * 20 - 5));
+      setValue((p) => p + Math.floor(Math.random() * 20 - 5));
     }, 800);
     return () => clearInterval(id);
   }, []);
@@ -608,21 +624,40 @@ export function StatCardLiveDemo() {
 export function FlowDiagramLiveDemo() {
   const [active, setActive] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setActive(p => (p + 1) % 4), 800);
+    const id = setInterval(() => setActive((p) => (p + 1) % 4), 800);
     return () => clearInterval(id);
   }, []);
   const nodes = ["수집", "처리", "검증", "완료"];
-  const colors = ["bg-blue-500/20 border-blue-500/50 text-blue-600", "bg-amber-500/20 border-amber-500/50 text-amber-600", "bg-purple-500/20 border-purple-500/50 text-purple-600", "bg-green-500/20 border-green-500/50 text-green-600"];
+  const colors = [
+    "bg-blue-500/20 border-blue-500/50 text-blue-600",
+    "bg-amber-500/20 border-amber-500/50 text-amber-600",
+    "bg-purple-500/20 border-purple-500/50 text-purple-600",
+    "bg-green-500/20 border-green-500/50 text-green-600",
+  ];
   return (
     <div className="flex items-center gap-2">
       {nodes.map((n, i) => (
         <div key={n} className="flex items-center gap-2">
-          <div className={cn(
-            "w-12 h-7 rounded-lg border flex items-center justify-center text-[9px] font-bold transition-all duration-300",
-            colors[i],
-            i === active && "ring-2 ring-primary scale-110",
-          )}>{n}</div>
-          {i < 3 && <svg width="12" height="8" viewBox="0 0 12 8"><path d="M0 4h8M8 4l-3-3M8 4l-3 3" stroke={i < active ? "#3b82f6" : "#d1d5db"} strokeWidth="1.5" fill="none" className="transition-colors duration-300" /></svg>}
+          <div
+            className={cn(
+              "w-12 h-7 rounded-lg border flex items-center justify-center text-[9px] font-bold transition-all duration-300",
+              colors[i],
+              i === active && "ring-2 ring-primary scale-110",
+            )}
+          >
+            {n}
+          </div>
+          {i < 3 && (
+            <svg width="12" height="8" viewBox="0 0 12 8">
+              <path
+                d="M0 4h8M8 4l-3-3M8 4l-3 3"
+                stroke={i < active ? "#3b82f6" : "#d1d5db"}
+                strokeWidth="1.5"
+                fill="none"
+                className="transition-colors duration-300"
+              />
+            </svg>
+          )}
         </div>
       ))}
     </div>
@@ -667,15 +702,21 @@ export function CalendarLiveDemo() {
       <div className="flex items-center justify-between mb-2">
         <span className="text-xs font-bold text-foreground">2026년 4월</span>
         <div className="flex gap-0.5">
-          <div className="w-4 h-4 rounded flex items-center justify-center text-muted text-[10px]">◀</div>
-          <div className="w-4 h-4 rounded flex items-center justify-center text-muted text-[10px]">▶</div>
+          <div className="w-4 h-4 rounded flex items-center justify-center text-muted text-[10px]">
+            ◀
+          </div>
+          <div className="w-4 h-4 rounded flex items-center justify-center text-muted text-[10px]">
+            ▶
+          </div>
         </div>
       </div>
 
       {/* 요일 헤더 */}
       <div className="grid grid-cols-7 gap-px mb-1">
         {weekdays.map((d) => (
-          <div key={d} className="text-[9px] text-center text-muted font-medium">{d}</div>
+          <div key={d} className="text-[9px] text-center text-muted font-medium">
+            {d}
+          </div>
         ))}
       </div>
 
@@ -683,11 +724,16 @@ export function CalendarLiveDemo() {
       <div className="grid grid-cols-7 gap-px">
         {days.map((d, i) => {
           const isSelected = i === selected;
-          const dayEvents = i === 0 ? visibleEvents.slice(0, 2)
-            : i === 2 ? visibleEvents.slice(2, 3)
-            : i === 3 ? visibleEvents.slice(3, 4)
-            : i === 4 ? visibleEvents.slice(4, 5)
-            : [];
+          const dayEvents =
+            i === 0
+              ? visibleEvents.slice(0, 2)
+              : i === 2
+              ? visibleEvents.slice(2, 3)
+              : i === 3
+              ? visibleEvents.slice(3, 4)
+              : i === 4
+              ? visibleEvents.slice(4, 5)
+              : [];
 
           return (
             <div
@@ -697,12 +743,14 @@ export function CalendarLiveDemo() {
                 isSelected ? "bg-primary/10 ring-1 ring-primary" : "bg-card",
               )}
             >
-              <div className={cn(
-                "text-[10px] font-medium mb-0.5 w-4 h-4 flex items-center justify-center rounded-full mx-auto transition-all duration-300",
-                d === 17 && "bg-primary text-white",
-                isSelected && d !== 17 && "text-primary font-bold",
-                d !== 17 && !isSelected && "text-foreground",
-              )}>
+              <div
+                className={cn(
+                  "text-[10px] font-medium mb-0.5 w-4 h-4 flex items-center justify-center rounded-full mx-auto transition-all duration-300",
+                  d === 17 && "bg-primary text-white",
+                  isSelected && d !== 17 && "text-primary-ink font-bold",
+                  d !== 17 && !isSelected && "text-foreground",
+                )}
+              >
                 {d}
               </div>
               <div className="space-y-0.5">
@@ -741,23 +789,48 @@ export function CalendarLiveDemo() {
 export function SelectLiveDemo() {
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    const id = setInterval(() => setOpen(p => !p), 1500);
+    const id = setInterval(() => setOpen((p) => !p), 1500);
     return () => clearInterval(id);
   }, []);
   const options = ["React", "Vue", "Svelte", "Angular"];
   const [sel, setSel] = useState(0);
   useEffect(() => {
-    if (!open) setSel(p => (p + 1) % options.length);
+    if (!open) setSel((p) => (p + 1) % options.length);
   }, [open]);
   return (
     <div className="w-full max-w-[180px] space-y-1">
-      <div className={cn("border border-border rounded-lg px-3 py-2 text-xs bg-card flex justify-between items-center transition-all", open && "border-primary ring-2 ring-primary/20")}>
+      <div
+        className={cn(
+          "border border-border rounded-lg px-3 py-2 text-xs bg-card flex justify-between items-center transition-all",
+          open && "border-primary ring-2 ring-primary/20",
+        )}
+      >
         <span>{options[sel]}</span>
-        <svg width="10" height="10" viewBox="0 0 10 10" className={cn("transition-transform", open && "rotate-180")}><path d="M2 3l3 4 3-4" stroke="currentColor" strokeWidth="1.5" fill="none"/></svg>
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          className={cn("transition-transform", open && "rotate-180")}
+        >
+          <path d="M2 3l3 4 3-4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        </svg>
       </div>
-      <div className={cn("border border-border rounded-lg bg-card shadow-lg overflow-hidden transition-all duration-300", open ? "max-h-[120px] opacity-100" : "max-h-0 opacity-0")}>
+      <div
+        className={cn(
+          "border border-border rounded-lg bg-card shadow-lg overflow-hidden transition-all duration-300",
+          open ? "max-h-[120px] opacity-100" : "max-h-0 opacity-0",
+        )}
+      >
         {options.map((o, i) => (
-          <div key={o} className={cn("px-3 py-1.5 text-xs transition-colors", i === sel ? "bg-primary/10 text-primary font-medium" : "text-foreground")}>{o}</div>
+          <div
+            key={o}
+            className={cn(
+              "px-3 py-1.5 text-xs transition-colors",
+              i === sel ? "bg-primary/10 text-primary-ink font-medium" : "text-foreground",
+            )}
+          >
+            {o}
+          </div>
         ))}
       </div>
     </div>
@@ -768,13 +841,23 @@ export function SelectLiveDemo() {
 export function ModalLiveDemo() {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    const id = setInterval(() => setShow(p => !p), 2000);
+    const id = setInterval(() => setShow((p) => !p), 2000);
     return () => clearInterval(id);
   }, []);
   return (
     <div className="relative w-full h-full flex items-center justify-center">
-      <div className={cn("absolute inset-0 bg-foreground/5 rounded-lg transition-opacity duration-300", show ? "opacity-100" : "opacity-0")} />
-      <div className={cn("relative bg-card border border-border rounded-xl shadow-2xl p-3 w-[180px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]", show ? "scale-100 opacity-100" : "scale-90 opacity-0")}>
+      <div
+        className={cn(
+          "absolute inset-0 bg-foreground/5 rounded-lg transition-opacity duration-300",
+          show ? "opacity-100" : "opacity-0",
+        )}
+      />
+      <div
+        className={cn(
+          "relative bg-card border border-border rounded-xl shadow-2xl p-3 w-[180px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+          show ? "scale-100 opacity-100" : "scale-90 opacity-0",
+        )}
+      >
         <div className="text-xs font-bold mb-1">삭제 확인</div>
         <div className="text-[10px] text-muted mb-2">이 작업은 되돌릴 수 없습니다.</div>
         <div className="flex gap-1.5 justify-end">
@@ -790,7 +873,7 @@ export function ModalLiveDemo() {
 export function ToastLiveDemo() {
   const [idx, setIdx] = useState(-1);
   useEffect(() => {
-    const id = setInterval(() => setIdx(p => (p + 1) % 5), 1200);
+    const id = setInterval(() => setIdx((p) => (p + 1) % 5), 1200);
     return () => clearInterval(id);
   }, []);
   const toasts = [
@@ -802,7 +885,14 @@ export function ToastLiveDemo() {
   return (
     <div className="flex flex-col gap-1.5 w-full max-w-[200px]">
       {toasts.map((t, i) => (
-        <div key={i} className={cn("flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs transition-all duration-300", t.bg, i <= idx ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4")}>
+        <div
+          key={i}
+          className={cn(
+            "flex items-center gap-2 px-2.5 py-1.5 rounded-lg border text-xs transition-all duration-300",
+            t.bg,
+            i <= idx ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4",
+          )}
+        >
           <span className={cn("text-sm", t.color)}>{t.icon}</span>
           <span className="text-foreground">{t.text}</span>
         </div>
@@ -815,13 +905,18 @@ export function ToastLiveDemo() {
 export function DrawerLiveDemo() {
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    const id = setInterval(() => setOpen(p => !p), 2000);
+    const id = setInterval(() => setOpen((p) => !p), 2000);
     return () => clearInterval(id);
   }, []);
   return (
     <div className="relative w-full h-[120px] bg-gray-50 rounded-lg overflow-hidden border border-border">
       <div className="p-2 text-[10px] text-muted">메인 콘텐츠</div>
-      <div className={cn("absolute top-0 right-0 h-full w-[120px] bg-card border-l border-border shadow-xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] p-2", open ? "translate-x-0" : "translate-x-full")}>
+      <div
+        className={cn(
+          "absolute top-0 right-0 h-full w-[120px] bg-card border-l border-border shadow-xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] p-2",
+          open ? "translate-x-0" : "translate-x-full",
+        )}
+      >
         <div className="text-[10px] font-bold mb-1">필터</div>
         <div className="space-y-1">
           <div className="h-4 rounded bg-gray-100"></div>
@@ -837,7 +932,7 @@ export function DrawerLiveDemo() {
 export function CarouselLiveDemo() {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setIdx(p => (p + 1) % 3), 1500);
+    const id = setInterval(() => setIdx((p) => (p + 1) % 3), 1500);
     return () => clearInterval(id);
   }, []);
   const colors = ["bg-blue-100", "bg-emerald-100", "bg-amber-100"];
@@ -845,14 +940,27 @@ export function CarouselLiveDemo() {
     <div className="w-full max-w-[200px]">
       <div className="relative h-[80px] rounded-lg overflow-hidden">
         {colors.map((c, i) => (
-          <div key={i} className={cn("absolute inset-0 flex items-center justify-center text-xs font-bold transition-all duration-500", c, i === idx ? "opacity-100 scale-100" : "opacity-0 scale-95")}>
+          <div
+            key={i}
+            className={cn(
+              "absolute inset-0 flex items-center justify-center text-xs font-bold transition-all duration-500",
+              c,
+              i === idx ? "opacity-100 scale-100" : "opacity-0 scale-95",
+            )}
+          >
             슬라이드 {i + 1}
           </div>
         ))}
       </div>
       <div className="flex justify-center gap-1 mt-2">
-        {[0,1,2].map(i => (
-          <div key={i} className={cn("w-1.5 h-1.5 rounded-full transition-all duration-300", i === idx ? "bg-primary w-4" : "bg-gray-300")} />
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className={cn(
+              "w-1.5 h-1.5 rounded-full transition-all duration-300",
+              i === idx ? "bg-primary w-4" : "bg-gray-300",
+            )}
+          />
         ))}
       </div>
     </div>
@@ -863,9 +971,17 @@ export function CarouselLiveDemo() {
 export function TreeViewLiveDemo() {
   const [expanded, setExpanded] = useState(new Set(["src"]));
   useEffect(() => {
-    const sequence = [new Set(["src"]), new Set(["src","components"]), new Set(["src","components","hooks"]), new Set<string>()];
+    const sequence = [
+      new Set(["src"]),
+      new Set(["src", "components"]),
+      new Set(["src", "components", "hooks"]),
+      new Set<string>(),
+    ];
     let i = 0;
-    const id = setInterval(() => { i = (i + 1) % sequence.length; setExpanded(sequence[i]); }, 1200);
+    const id = setInterval(() => {
+      i = (i + 1) % sequence.length;
+      setExpanded(sequence[i]);
+    }, 1200);
     return () => clearInterval(id);
   }, []);
   const items = [
@@ -876,7 +992,7 @@ export function TreeViewLiveDemo() {
     { id: "hooks", label: "hooks/", depth: 1, has: true, parent: "src" },
     { id: "useform", label: "useForm.ts", depth: 2, has: false, parent: "hooks" },
   ];
-  const visible = items.filter(it => {
+  const visible = items.filter((it) => {
     if (it.depth === 0) return true;
     if (it.depth === 1) return expanded.has("src");
     if (it.parent === "components") return expanded.has("components");
@@ -885,10 +1001,16 @@ export function TreeViewLiveDemo() {
   });
   return (
     <div className="text-xs space-y-0.5 w-full max-w-[180px]">
-      {visible.map(it => (
-        <div key={it.id} className={cn("flex items-center gap-1 py-0.5 transition-all duration-200")} style={{ paddingLeft: it.depth * 12 }}>
+      {visible.map((it) => (
+        <div
+          key={it.id}
+          className={cn("flex items-center gap-1 py-0.5 transition-all duration-200")}
+          style={{ paddingLeft: it.depth * 12 }}
+        >
           <span className="text-muted">{it.has ? (expanded.has(it.id) ? "▼" : "▶") : "·"}</span>
-          <span className={cn(it.has ? "font-medium text-foreground" : "text-muted")}>{it.label}</span>
+          <span className={cn(it.has ? "font-medium text-foreground" : "text-muted")}>
+            {it.label}
+          </span>
         </div>
       ))}
     </div>
@@ -899,7 +1021,7 @@ export function TreeViewLiveDemo() {
 export function DropdownLiveDemo() {
   const [step, setStep] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setStep(p => (p + 1) % 6), 600);
+    const id = setInterval(() => setStep((p) => (p + 1) % 6), 600);
     return () => clearInterval(id);
   }, []);
   const open = step >= 1 && step <= 4;
@@ -907,13 +1029,39 @@ export function DropdownLiveDemo() {
   const items = ["수정", "복제", "삭제"];
   return (
     <div className="space-y-1 w-full max-w-[140px]">
-      <div className={cn("px-3 py-1.5 rounded-lg bg-card border text-xs flex items-center justify-between transition-all", open ? "border-primary" : "border-border")}>
+      <div
+        className={cn(
+          "px-3 py-1.5 rounded-lg bg-card border text-xs flex items-center justify-between transition-all",
+          open ? "border-primary" : "border-border",
+        )}
+      >
         <span>작업</span>
-        <svg width="8" height="8" viewBox="0 0 8 8" className={cn("transition-transform", open && "rotate-180")}><path d="M1 2.5l3 3 3-3" stroke="currentColor" strokeWidth="1" fill="none"/></svg>
+        <svg
+          width="8"
+          height="8"
+          viewBox="0 0 8 8"
+          className={cn("transition-transform", open && "rotate-180")}
+        >
+          <path d="M1 2.5l3 3 3-3" stroke="currentColor" strokeWidth="1" fill="none" />
+        </svg>
       </div>
-      <div className={cn("border border-border rounded-lg bg-card shadow-lg overflow-hidden transition-all duration-300", open ? "max-h-[80px] opacity-100" : "max-h-0 opacity-0")}>
+      <div
+        className={cn(
+          "border border-border rounded-lg bg-card shadow-lg overflow-hidden transition-all duration-300",
+          open ? "max-h-[80px] opacity-100" : "max-h-0 opacity-0",
+        )}
+      >
         {items.map((it, i) => (
-          <div key={it} className={cn("px-3 py-1.5 text-xs transition-colors duration-150", i === highlight ? "bg-primary/10 text-primary" : "", i === 2 ? "text-danger" : "")}>{it}</div>
+          <div
+            key={it}
+            className={cn(
+              "px-3 py-1.5 text-xs transition-colors duration-150",
+              i === highlight ? "bg-primary/10 text-primary-ink" : "",
+              i === 2 ? "text-danger" : "",
+            )}
+          >
+            {it}
+          </div>
         ))}
       </div>
     </div>
@@ -924,22 +1072,46 @@ export function DropdownLiveDemo() {
 export function ConfirmDialogLiveDemo() {
   const [phase, setPhase] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setPhase(p => (p + 1) % 5), 1000);
+    const id = setInterval(() => setPhase((p) => (p + 1) % 5), 1000);
     return () => clearInterval(id);
   }, []);
   const show = phase >= 1 && phase <= 3;
   return (
     <div className="relative w-full h-[110px] flex items-center justify-center">
-      <div className={cn("absolute inset-0 bg-foreground/5 rounded-lg transition-opacity duration-300", show ? "opacity-100" : "opacity-0")} />
-      <div className={cn("relative bg-card border border-border rounded-xl shadow-xl p-3 w-[170px] transition-all duration-400", show ? "scale-100 opacity-100" : "scale-95 opacity-0")}>
+      <div
+        className={cn(
+          "absolute inset-0 bg-foreground/5 rounded-lg transition-opacity duration-300",
+          show ? "opacity-100" : "opacity-0",
+        )}
+      />
+      <div
+        className={cn(
+          "relative bg-card border border-border rounded-xl shadow-xl p-3 w-[170px] transition-all duration-400",
+          show ? "scale-100 opacity-100" : "scale-95 opacity-0",
+        )}
+      >
         <div className="flex items-center gap-1.5 mb-1">
           <span className="text-danger text-sm">⚠</span>
           <span className="text-xs font-bold">삭제하시겠습니까?</span>
         </div>
         <div className="text-[10px] text-muted mb-2">이 작업은 되돌릴 수 없습니다.</div>
         <div className="flex gap-1.5 justify-end">
-          <div className={cn("px-2 py-1 text-[10px] rounded-md border transition-all", phase === 2 ? "bg-gray-100 border-foreground/20" : "border-border")}>취소</div>
-          <div className={cn("px-2 py-1 text-[10px] rounded-md text-white transition-all", phase === 3 ? "bg-danger scale-105" : "bg-danger/80")}>삭제</div>
+          <div
+            className={cn(
+              "px-2 py-1 text-[10px] rounded-md border transition-all",
+              phase === 2 ? "bg-gray-100 border-foreground/20" : "border-border",
+            )}
+          >
+            취소
+          </div>
+          <div
+            className={cn(
+              "px-2 py-1 text-[10px] rounded-md text-white transition-all",
+              phase === 3 ? "bg-danger scale-105" : "bg-danger/80",
+            )}
+          >
+            삭제
+          </div>
         </div>
       </div>
     </div>
@@ -950,14 +1122,22 @@ export function ConfirmDialogLiveDemo() {
 export function NavigationMenuLiveDemo() {
   const [active, setActive] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setActive(p => (p + 1) % 4), 1000);
+    const id = setInterval(() => setActive((p) => (p + 1) % 4), 1000);
     return () => clearInterval(id);
   }, []);
   const items = ["홈", "제품", "문서", "블로그"];
   return (
     <div className="flex gap-1 bg-card border border-border rounded-lg p-1">
       {items.map((it, i) => (
-        <div key={it} className={cn("px-2.5 py-1 rounded-md text-[10px] font-medium transition-all duration-300", i === active ? "bg-primary/10 text-primary" : "text-muted")}>{it}</div>
+        <div
+          key={it}
+          className={cn(
+            "px-2.5 py-1 rounded-md text-[10px] font-medium transition-all duration-300",
+            i === active ? "bg-primary/10 text-primary-ink" : "text-muted",
+          )}
+        >
+          {it}
+        </div>
       ))}
     </div>
   );
@@ -967,14 +1147,22 @@ export function NavigationMenuLiveDemo() {
 export function SegmentedControlLiveDemo() {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setIdx(p => (p + 1) % 3), 1200);
+    const id = setInterval(() => setIdx((p) => (p + 1) % 3), 1200);
     return () => clearInterval(id);
   }, []);
   const items = ["일간", "주간", "월간"];
   return (
     <div className="flex rounded-xl bg-gray-100 p-1 gap-0.5 w-full max-w-[180px]">
       {items.map((it, i) => (
-        <div key={it} className={cn("flex-1 text-center py-1.5 text-[10px] font-medium rounded-lg transition-all duration-300", i === idx ? "bg-white shadow-sm text-foreground" : "text-muted")}>{it}</div>
+        <div
+          key={it}
+          className={cn(
+            "flex-1 text-center py-1.5 text-[10px] font-medium rounded-lg transition-all duration-300",
+            i === idx ? "bg-white shadow-sm text-foreground" : "text-muted",
+          )}
+        >
+          {it}
+        </div>
       ))}
     </div>
   );

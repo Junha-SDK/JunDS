@@ -5,7 +5,10 @@ const meta: Meta<typeof Badge> = {
   title: "Primitives/Badge",
   component: Badge,
   argTypes: {
-    variant: { control: "select", options: ["default", "primary", "success", "warning", "danger", "info", "outline"] },
+    variant: {
+      control: "select",
+      options: ["default", "primary", "success", "warning", "danger", "info", "outline"],
+    },
     size: { control: "select", options: ["sm", "md", "lg"] },
     dot: { control: "boolean" },
   },

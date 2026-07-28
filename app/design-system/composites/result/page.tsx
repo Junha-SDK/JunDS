@@ -11,7 +11,12 @@ export default function ResultPage() {
       description="작업 결과를 시각적으로 표시하는 페이지 컴포넌트. 성공, 에러, 404 등 다양한 상태를 지원합니다."
       importPath='import { Result } from "@/ds/composites/Result"'
       props={[
-        { name: "status", type: '"success" | "error" | "warning" | "info" | "404" | "403"', required: true, description: "결과 상태" },
+        {
+          name: "status",
+          type: '"success" | "error" | "warning" | "info" | "404" | "403"',
+          required: true,
+          description: "결과 상태",
+        },
         { name: "title", type: "string", required: true, description: "제목" },
         { name: "description", type: "string", description: "설명 텍스트" },
         { name: "extra", type: "ReactNode", description: "추가 액션 버튼 영역" },
@@ -69,11 +74,7 @@ export default function ResultPage() {
               title="주의가 필요합니다"
               description="일부 설정이 권장 사항과 다릅니다."
             />
-            <Result
-              status="info"
-              title="안내"
-              description="시스템 점검이 예정되어 있습니다."
-            />
+            <Result status="info" title="안내" description="시스템 점검이 예정되어 있습니다." />
           </div>
         </Preview>
       </Section>

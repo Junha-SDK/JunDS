@@ -44,10 +44,16 @@ export const Hint = forwardRef<HTMLDivElement, HintProps>(function Hint(
   return (
     <div
       ref={ref}
-      className={cn("inline-flex items-start gap-1.5 text-xs leading-snug", variantClass[variant], className)}
+      className={cn(
+        "inline-flex items-start gap-1.5 text-xs leading-snug",
+        variantClass[variant],
+        className,
+      )}
       {...props}
     >
-      <span className="shrink-0 mt-px" aria-hidden="true">{icon ?? defaultIcons[variant]}</span>
+      <span className="shrink-0 mt-px" aria-hidden="true">
+        {icon ?? defaultIcons[variant]}
+      </span>
       <span>{children}</span>
     </div>
   );

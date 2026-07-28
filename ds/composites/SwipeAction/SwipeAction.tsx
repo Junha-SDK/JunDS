@@ -29,7 +29,13 @@ export interface SwipeActionProps {
  * @since 2.2.0
  * @tags form, control
  */
-export function SwipeAction({ children, leftActions = [], rightActions = [], threshold = 80, className }: SwipeActionProps) {
+export function SwipeAction({
+  children,
+  leftActions = [],
+  rightActions = [],
+  threshold = 80,
+  className,
+}: SwipeActionProps) {
   const [offset, setOffset] = useState(0);
   const startX = useRef(0);
   const dragging = useRef(false);
@@ -39,13 +45,16 @@ export function SwipeAction({ children, leftActions = [], rightActions = [], thr
     dragging.current = true;
   };
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!dragging.current) return;
-    const delta = e.touches[0].clientX - startX.current;
-    const maxLeft = leftActions.length > 0 ? threshold : 0;
-    const maxRight = rightActions.length > 0 ? -threshold : 0;
-    setOffset(Math.max(maxRight, Math.min(maxLeft, delta)));
-  }, [leftActions.length, rightActions.length, threshold]);
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!dragging.current) return;
+      const delta = e.touches[0].clientX - startX.current;
+      const maxLeft = leftActions.length > 0 ? threshold : 0;
+      const maxRight = rightActions.length > 0 ? -threshold : 0;
+      setOffset(Math.max(maxRight, Math.min(maxLeft, delta)));
+    },
+    [leftActions.length, rightActions.length, threshold],
+  );
 
   const handleTouchEnd = () => {
     dragging.current = false;
@@ -61,8 +70,17 @@ export function SwipeAction({ children, leftActions = [], rightActions = [], thr
       {leftActions.length > 0 && (
         <div className="absolute inset-y-0 left-0 flex items-stretch">
           {leftActions.map((action, i) => (
-            <button key={i} type="button" onClick={() => { action.onClick(); reset(); }}
-              className="flex items-center px-4 text-white text-xs font-medium cursor-pointer" style={{ backgroundColor: action.color, width: threshold / leftActions.length }}>
+            <button
+              key={i}
+              type="button"
+              onClick={() => {
+                action.onClick();
+                reset();
+              }}
+              // 배경이 소비자가 넘긴 색이라 배경 오프셋 링은 통하지 않는다 — 안쪽 흰 링으로.
+              className="flex items-center px-4 text-white text-xs font-medium cursor-pointer transition-[filter] duration-150 hover:brightness-110 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/85 motion-reduce:transition-none"
+              style={{ backgroundColor: action.color, width: threshold / leftActions.length }}
+            >
               {action.label}
             </button>
           ))}
@@ -72,8 +90,17 @@ export function SwipeAction({ children, leftActions = [], rightActions = [], thr
       {rightActions.length > 0 && (
         <div className="absolute inset-y-0 right-0 flex items-stretch">
           {rightActions.map((action, i) => (
-            <button key={i} type="button" onClick={() => { action.onClick(); reset(); }}
-              className="flex items-center px-4 text-white text-xs font-medium cursor-pointer" style={{ backgroundColor: action.color, width: threshold / rightActions.length }}>
+            <button
+              key={i}
+              type="button"
+              onClick={() => {
+                action.onClick();
+                reset();
+              }}
+              // 배경이 소비자가 넘긴 색이라 배경 오프셋 링은 통하지 않는다 — 안쪽 흰 링으로.
+              className="flex items-center px-4 text-white text-xs font-medium cursor-pointer transition-[filter] duration-150 hover:brightness-110 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/85 motion-reduce:transition-none"
+              style={{ backgroundColor: action.color, width: threshold / rightActions.length }}
+            >
               {action.label}
             </button>
           ))}
@@ -81,8 +108,13 @@ export function SwipeAction({ children, leftActions = [], rightActions = [], thr
       )}
       {/* Content */}
       <div
-        className="relative bg-white transition-transform"
-        style={{ transform: `translateX(${offset}px)`, transitionDuration: dragging.current ? "0ms" : "300ms" }}
+        // bg-white 는 다크에서 라이트 면으로 남는다. 밑에 깔린 액션이 비치면 안 되므로
+        // 불투명한 카드 토큰이어야 한다.
+        className="relative bg-card transition-transform motion-reduce:transition-none"
+        style={{
+          transform: `translateX(${offset}px)`,
+          transitionDuration: dragging.current ? "0ms" : "300ms",
+        }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}

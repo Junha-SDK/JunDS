@@ -20,14 +20,8 @@ describe("ScreenshotGrid", () => {
         basePath="/img/"
       />,
     );
-    const srcs = Array.from(container.querySelectorAll("img")).map((i) =>
-      i.getAttribute("src"),
-    );
-    expect(srcs).toEqual([
-      "/img/a.png",
-      "/root.png",
-      "https://cdn.example.com/x.png",
-    ]);
+    const srcs = Array.from(container.querySelectorAll("img")).map((i) => i.getAttribute("src"));
+    expect(srcs).toEqual(["/img/a.png", "/root.png", "https://cdn.example.com/x.png"]);
   });
 
   it("drops an image that fails to load", () => {

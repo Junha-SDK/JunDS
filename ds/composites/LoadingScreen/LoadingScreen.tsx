@@ -29,7 +29,16 @@ export interface LoadingScreenProps extends HTMLAttributes<HTMLDivElement> {
  * @tags feedback
  */
 export const LoadingScreen = forwardRef<HTMLDivElement, LoadingScreenProps>(function LoadingScreen(
-  { variant = "spinner", message, progress, fullscreen = true, transparent = false, logo, className, ...props },
+  {
+    variant = "spinner",
+    message,
+    progress,
+    fullscreen = true,
+    transparent = false,
+    logo,
+    className,
+    ...props
+  },
   ref,
 ) {
   return (
@@ -47,9 +56,28 @@ export const LoadingScreen = forwardRef<HTMLDivElement, LoadingScreenProps>(func
       {...props}
     >
       {variant === "spinner" && (
-        <svg className="animate-spin" width="40" height="40" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.2" strokeWidth="3" />
-          <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="text-primary" />
+        <svg
+          className="animate-spin motion-reduce:animate-none"
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeOpacity="0.2"
+            strokeWidth="3"
+          />
+          <path
+            d="M22 12a10 10 0 0 1-10 10"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            className="text-primary-ink"
+          />
         </svg>
       )}
       {variant === "bars" && (
@@ -57,16 +85,27 @@ export const LoadingScreen = forwardRef<HTMLDivElement, LoadingScreenProps>(func
           {[0, 1, 2, 3, 4].map((i) => (
             <span
               key={i}
-              className="w-1.5 bg-primary rounded-full"
-              style={{ animation: `junds-bars 1s ease-in-out ${i * 0.1}s infinite`, height: "100%" }}
+              className="junds-loading-bar w-1.5 bg-primary rounded-full"
+              style={{
+                animationDelay: `${i * 0.1}s`,
+                height: "100%",
+              }}
             />
           ))}
-          <style>{`@keyframes junds-bars { 0%,100% { transform: scaleY(0.4) } 50% { transform: scaleY(1) } }`}</style>
+          {/* 애니메이션을 인라인 style 로 두면 `motion-reduce:animate-none` 이 이길 수 없다
+              (인라인이 항상 우선). 지연만 인라인으로 넘기고 재생은 클래스가 쥔다. */}
+          <style>{`
+            .junds-loading-bar { animation: junds-bars 1s ease-in-out infinite; }
+            @keyframes junds-bars { 0%,100% { transform: scaleY(0.4) } 50% { transform: scaleY(1) } }
+            @media (prefers-reduced-motion: reduce) {
+              .junds-loading-bar { animation: none; transform: scaleY(0.7); }
+            }
+          `}</style>
         </div>
       )}
       {variant === "pulse" && (
         <div className="relative w-12 h-12">
-          <span className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
+          <span className="absolute inset-0 rounded-full bg-primary/30 animate-ping motion-reduce:animate-none" />
           <span className="absolute inset-2 rounded-full bg-primary" />
         </div>
       )}
@@ -75,7 +114,8 @@ export const LoadingScreen = forwardRef<HTMLDivElement, LoadingScreenProps>(func
       {progress !== undefined && (
         <div className="w-48 h-1 rounded-full bg-surface-soft overflow-hidden">
           <div
-            className="h-full bg-primary transition-all duration-300"
+            // 자라는 건 너비 하나다.
+            className="h-full bg-primary transition-[width] duration-300 ease-out motion-reduce:transition-none"
             style={{ width: `${Math.max(0, Math.min(100, progress))}%` }}
           />
         </div>

@@ -121,8 +121,12 @@ export function DateRangeFilter({
           onChange={(e) => onStartChange(e.target.value)}
           aria-label={t("ariaDateStart")}
           className={cn(
-            "h-9 px-3 text-sm border border-border bg-white rounded-lg transition-all duration-150",
-            "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
+            // bg-white 는 다크에서 라이트 면으로 남는다 — 카드 토큰이 모드를 따라간다.
+            // 바뀌는 건 테두리와 글로우뿐이라 transition-all 로 잡을 이유가 없다.
+            "h-9 px-3 text-sm border border-border bg-card rounded-xl",
+            "shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-150",
+            "hover:border-muted-light",
+            "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           )}
         />
         <span className="text-sm text-muted">~</span>
@@ -132,17 +136,25 @@ export function DateRangeFilter({
           onChange={(e) => onEndChange(e.target.value)}
           aria-label={t("ariaDateEnd")}
           className={cn(
-            "h-9 px-3 text-sm border border-border bg-white rounded-lg transition-all duration-150",
-            "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
+            // bg-white 는 다크에서 라이트 면으로 남는다 — 카드 토큰이 모드를 따라간다.
+            // 바뀌는 건 테두리와 글로우뿐이라 transition-all 로 잡을 이유가 없다.
+            "h-9 px-3 text-sm border border-border bg-card rounded-xl",
+            "shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-150",
+            "hover:border-muted-light",
+            "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           )}
         />
         <button
           type="button"
           onClick={onApply}
           className={cn(
-            "h-9 px-4 text-sm font-medium rounded-lg transition-all duration-150",
-            "bg-primary text-white hover:bg-primary-hover active:scale-[0.97]",
-            "cursor-pointer",
+            "h-9 px-4 text-sm font-medium rounded-xl cursor-pointer",
+            "transition-[background-color,box-shadow,transform] duration-150",
+            "bg-primary text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]",
+            "hover:bg-primary-hover hover:shadow-[0_4px_12px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.15)]",
+            "active:scale-[0.97]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "motion-reduce:transition-none motion-reduce:active:scale-100",
           )}
         >
           조회
@@ -152,9 +164,11 @@ export function DateRangeFilter({
             type="button"
             onClick={onReset}
             className={cn(
-              "h-9 px-4 text-sm font-medium rounded-lg transition-all duration-150",
-              "bg-transparent text-muted hover:text-foreground hover:bg-gray-100",
-              "cursor-pointer",
+              "h-9 px-4 text-sm font-medium rounded-xl cursor-pointer",
+              "transition-[color,background-color,transform] duration-150 active:scale-[0.97]",
+              "bg-transparent text-muted hover:text-foreground hover:bg-card-hover",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              "motion-reduce:transition-none motion-reduce:active:scale-100",
             )}
           >
             초기화
@@ -170,10 +184,13 @@ export function DateRangeFilter({
               type="button"
               onClick={() => handlePreset(preset)}
               className={cn(
-                "h-7 px-3 text-xs font-medium rounded-full transition-all duration-150 cursor-pointer",
+                "h-7 px-3 text-xs font-medium rounded-full cursor-pointer border",
+                "transition-colors duration-150",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 activePresetKey === preset.key
-                  ? "bg-primary text-white"
-                  : "bg-gray-100 text-gray-600 hover:bg-primary-light hover:text-primary",
+                  ? "bg-primary border-primary text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]"
+                  : // gray-100/gray-600 은 라이트 전용이라 다크에서 칩이 사라진다.
+                    "bg-card-hover border-border text-muted hover:bg-primary-light hover:border-primary/30 hover:text-primary-ink",
               )}
             >
               {preset.label}

@@ -40,65 +40,105 @@ const sizeMap: Record<QuantitySize, { btn: string; input: string }> = {
  * @since 2.3.0
  * @tags ecommerce
  */
-export const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps>(function QuantitySelector(
-  { value, defaultValue = 1, onChange, min = 1, max, step = 1, disabled, size = "md", editable = true, className, ...props },
-  ref,
-) {
-  const [internal, setInternal] = useState(defaultValue);
-  const current = value ?? internal;
+export const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps>(
+  function QuantitySelector(
+    {
+      value,
+      defaultValue = 1,
+      onChange,
+      min = 1,
+      max,
+      step = 1,
+      disabled,
+      size = "md",
+      editable = true,
+      className,
+      ...props
+    },
+    ref,
+  ) {
+    const [internal, setInternal] = useState(defaultValue);
+    const current = value ?? internal;
 
-  const setValue = (n: number) => {
-    let next = Math.max(min, n);
-    if (max !== undefined) next = Math.min(max, next);
-    if (!value) setInternal(next);
-    onChange?.(next);
-  };
+    const setValue = (n: number) => {
+      let next = Math.max(min, n);
+      if (max !== undefined) next = Math.min(max, next);
+      if (!value) setInternal(next);
+      onChange?.(next);
+    };
 
-  const dec = () => setValue(current - step);
-  const inc = () => setValue(current + step);
+    const dec = () => setValue(current - step);
+    const inc = () => setValue(current + step);
 
-  const sz = sizeMap[size];
+    const sz = sizeMap[size];
 
-  return (
-    <div
-      ref={ref}
-      role="group"
-      aria-label="수량"
-      className={cn("inline-flex items-center rounded-md border border-border overflow-hidden", className)}
-      {...props}
-    >
-      <button
-        type="button"
-        onClick={dec}
-        disabled={disabled || current <= min}
-        aria-label="수량 감소"
-        className={cn("flex items-center justify-center hover:bg-surface-soft disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer", sz.btn)}
-      >−</button>
-      {editable ? (
-        <input
-          type="number"
-          value={current}
-          min={min}
-          max={max}
-          step={step}
-          disabled={disabled}
-          onChange={(e) => {
-            const n = parseInt(e.target.value, 10);
-            if (!Number.isNaN(n)) setValue(n);
-          }}
-          aria-label="수량"
-          className={cn("text-center font-medium tabular-nums bg-transparent border-x border-border focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring [&::-webkit-inner-spin-button]:appearance-none", sz.input, sz.btn)}
-        />
-      ) : (
-        <span className={cn("text-center font-medium tabular-nums border-x border-border flex items-center justify-center", sz.input, sz.btn)} aria-live="polite">{current}</span>
-      )}
-      <button
-        type="button"
-        onClick={inc}
-        disabled={disabled || (max !== undefined && current >= max)}
-        aria-label="수량 증가"
-        className={cn("flex items-center justify-center hover:bg-surface-soft disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer", sz.btn)}
-      >+</button>
-    </div>
-  );
-});
+    return (
+      <div
+        ref={ref}
+        role="group"
+        aria-label="수량"
+        className={cn(
+          "inline-flex items-center rounded-md border border-border overflow-hidden",
+          className,
+        )}
+        {...props}
+      >
+        <button
+          type="button"
+          onClick={dec}
+          disabled={disabled || current <= min}
+          aria-label="수량 감소"
+          className={cn(
+            "flex items-center justify-center hover:bg-surface-soft disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer",
+            sz.btn,
+          )}
+        >
+          −
+        </button>
+        {editable ? (
+          <input
+            type="number"
+            value={current}
+            min={min}
+            max={max}
+            step={step}
+            disabled={disabled}
+            onChange={(e) => {
+              const n = parseInt(e.target.value, 10);
+              if (!Number.isNaN(n)) setValue(n);
+            }}
+            aria-label="수량"
+            className={cn(
+              "text-center font-medium tabular-nums bg-transparent border-x border-border focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/55 [&::-webkit-inner-spin-button]:appearance-none",
+              sz.input,
+              sz.btn,
+            )}
+          />
+        ) : (
+          <span
+            className={cn(
+              "text-center font-medium tabular-nums border-x border-border flex items-center justify-center",
+              sz.input,
+              sz.btn,
+            )}
+            aria-live="polite"
+          >
+            {current}
+          </span>
+        )}
+        <button
+          type="button"
+          onClick={inc}
+          disabled={disabled || (max !== undefined && current >= max)}
+          aria-label="수량 증가"
+          className={cn(
+            "flex items-center justify-center hover:bg-surface-soft disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer",
+            sz.btn,
+          )}
+        >
+          +
+        </button>
+      </div>
+    );
+  },
+);

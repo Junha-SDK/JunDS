@@ -11,15 +11,7 @@ import type { PropValue, TreeNode } from "../_lib/types";
 import { Card } from "@/ds/composites/Card";
 import { Alert } from "@/ds/composites/Alert";
 
-const LAYOUT_IDS = new Set([
-  "div",
-  "section",
-  "header",
-  "footer",
-  "main",
-  "aside",
-  "nav",
-]);
+const LAYOUT_IDS = new Set(["div", "section", "header", "footer", "main", "aside", "nav"]);
 
 const padMap: Record<string, string> = {
   "4": "p-1",
@@ -58,23 +50,16 @@ function layoutClassName(props: Record<string, PropValue>): string {
   if (props.flexDirection === "column") classes.push("flex-col");
   if (props.padding) classes.push(padMap[String(props.padding)] ?? "");
   if (props.gap) classes.push(gapMap[String(props.gap)] ?? "");
-  if (props.alignItems)
-    classes.push(alignMap[String(props.alignItems)] ?? "");
-  if (props.justifyContent)
-    classes.push(justMap[String(props.justifyContent)] ?? "");
-  if (props.display === "grid" && props.gridCols)
-    classes.push(`grid-cols-${props.gridCols}`);
+  if (props.alignItems) classes.push(alignMap[String(props.alignItems)] ?? "");
+  if (props.justifyContent) classes.push(justMap[String(props.justifyContent)] ?? "");
+  if (props.display === "grid" && props.gridCols) classes.push(`grid-cols-${props.gridCols}`);
   return cn(...classes.filter(Boolean));
 }
 
 function leafToPageDoc(node: TreeNode): PageDoc {
   const props: Record<string, string | number | boolean> = {};
   for (const [key, value] of Object.entries(node.props)) {
-    if (
-      typeof value === "string" ||
-      typeof value === "number" ||
-      typeof value === "boolean"
-    ) {
+    if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
       props[key] = value;
     }
   }
@@ -206,7 +191,8 @@ function RenderNode({ nodeId }: { nodeId: string }) {
     const siblings = parentId ? state.nodes[parentId]?.childNodes : state.rootIds;
     if (!siblings) return;
     const idx = siblings.indexOf(nodeId);
-    if (idx < siblings.length - 1) dispatch({ type: "MOVE_NODE", nodeId, newParentId: parentId, index: idx + 1 });
+    if (idx < siblings.length - 1)
+      dispatch({ type: "MOVE_NODE", nodeId, newParentId: parentId, index: idx + 1 });
   }, [dispatch, nodeId, parentId, state.nodes, state.rootIds]);
 
   const handleDuplicate = useCallback(
@@ -226,10 +212,7 @@ function RenderNode({ nodeId }: { nodeId: string }) {
     [dispatch, nodeId],
   );
 
-  const leafDoc = useMemo(
-    () => (node ? leafToPageDoc(node) : null),
-    [node],
-  );
+  const leafDoc = useMemo(() => (node ? leafToPageDoc(node) : null), [node]);
 
   if (!node) return null;
 
@@ -286,9 +269,7 @@ function RenderNode({ nodeId }: { nodeId: string }) {
         "absolute top-0 right-0 z-20",
         "px-1.5 py-0.5 rounded-bl-md rounded-tr-sm",
         "text-[9px] font-medium",
-        isSelected
-          ? "bg-primary text-primary-foreground"
-          : "bg-muted/80 text-foreground",
+        isSelected ? "bg-primary text-primary-foreground" : "bg-muted/80 text-foreground",
       )}
     >
       {def?.label ?? node.componentId}
@@ -344,10 +325,7 @@ function RenderNode({ nodeId }: { nodeId: string }) {
           />
         )}
         {nameBadge}
-        <Card
-          hoverable={!!node.props.hoverable}
-          noPadding={!node.props.padding}
-        >
+        <Card hoverable={!!node.props.hoverable} noPadding={!node.props.padding}>
           {renderContainerContent()}
         </Card>
       </div>
@@ -372,11 +350,11 @@ function RenderNode({ nodeId }: { nodeId: string }) {
           />
         )}
         {nameBadge}
-        <Alert variant={node.props.variant as "info" | "success" | "warning" | "danger" | undefined}>
+        <Alert
+          variant={node.props.variant as "info" | "success" | "warning" | "danger" | undefined}
+        >
           {node.childNodes.length > 0 ? (
-            node.childNodes.map((childId) => (
-              <RenderNode key={childId} nodeId={childId} />
-            ))
+            node.childNodes.map((childId) => <RenderNode key={childId} nodeId={childId} />)
           ) : (
             <span>{node.children || "Alert message"}</span>
           )}
@@ -433,17 +411,10 @@ export function BuilderCanvas() {
     >
       <div className="max-w-4xl mx-auto px-6 pt-10 pb-6 space-y-2 min-h-screen">
         {state.rootIds.length === 0 ? (
-          <div
-            className={cn(
-              "flex flex-col items-center justify-center",
-              "py-32 text-muted",
-            )}
-          >
+          <div className={cn("flex flex-col items-center justify-center", "py-32 text-muted")}>
             <div className="text-4xl mb-4 opacity-30">+</div>
             <p className="text-sm font-medium mb-1">캔버스가 비어 있습니다</p>
-            <p className="text-xs">
-              왼쪽 패널에서 컴포넌트를 클릭하여 추가하세요
-            </p>
+            <p className="text-xs">왼쪽 패널에서 컴포넌트를 클릭하여 추가하세요</p>
           </div>
         ) : (
           state.rootIds.map((id) => <RenderNode key={id} nodeId={id} />)

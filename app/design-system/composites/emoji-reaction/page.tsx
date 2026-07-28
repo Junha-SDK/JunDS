@@ -13,7 +13,12 @@ export default function EmojiReactionPage() {
     >
       <Section title="Default">
         <Preview>
-          <EmojiReaction reactions={[{emoji:"👍",count:5,reactedByMe:true},{emoji:"🎉",count:2}]} />
+          <EmojiReaction
+            reactions={[
+              { emoji: "👍", count: 5, reactedByMe: true },
+              { emoji: "🎉", count: 2 },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

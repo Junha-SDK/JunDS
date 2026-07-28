@@ -27,15 +27,25 @@ const sizes = { sm: "w-6 h-6", md: "w-8 h-8", lg: "w-10 h-10" };
  * @since 2.2.0
  * @tags data-display
  */
-export function ColorSwatch({ colors, selected, onSelect, size = "md", showLabel, className }: ColorSwatchProps) {
+export function ColorSwatch({
+  colors,
+  selected,
+  onSelect,
+  size = "md",
+  showLabel,
+  className,
+}: ColorSwatchProps) {
   const [copied, setCopied] = useState<string | null>(null);
 
-  const handleClick = useCallback((color: string) => {
-    onSelect?.(color);
-    navigator.clipboard.writeText(color);
-    setCopied(color);
-    setTimeout(() => setCopied(null), 1500);
-  }, [onSelect]);
+  const handleClick = useCallback(
+    (color: string) => {
+      onSelect?.(color);
+      navigator.clipboard.writeText(color);
+      setCopied(color);
+      setTimeout(() => setCopied(null), 1500);
+    },
+    [onSelect],
+  );
 
   return (
     <div className={cn("flex flex-wrap gap-2", className)} role="listbox" aria-label="색상 팔레트">
@@ -45,9 +55,14 @@ export function ColorSwatch({ colors, selected, onSelect, size = "md", showLabel
           type="button"
           onClick={() => handleClick(color)}
           className={cn(
-            "rounded-lg border-2 transition-all cursor-pointer",
+            // 스와치 자체가 색이라 링만이 유일한 포커스 신호다 — 배경색 오프셋으로 어떤 색 위에서도 보이게 한다
+            "rounded-lg border-2 cursor-pointer",
+            "transition-[transform,border-color,box-shadow] duration-200 ease-out motion-reduce:transition-none",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             sizes[size],
-            selected === color ? "border-primary scale-110 shadow-md" : "border-transparent hover:scale-105",
+            selected === color
+              ? "border-primary scale-110 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.25),0_1px_3px_rgba(0,0,0,0.12)]"
+              : "border-transparent hover:scale-105",
           )}
           style={{ backgroundColor: color }}
           role="option"

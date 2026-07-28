@@ -46,7 +46,11 @@ export const PhotoFilters = forwardRef<HTMLDivElement, PhotoFiltersProps>(
       ref={ref}
       role="radiogroup"
       aria-label="사진 필터 선택"
-      className={cn("flex gap-2 overflow-x-auto py-2 -mx-2 px-2 snap-x", className)}
+      // 가로 스크롤이 끝에 닿았을 때 페이지까지 끌려가지 않게 한다
+      className={cn(
+        "flex gap-2 overflow-x-auto overscroll-x-contain py-2 -mx-2 px-2 snap-x",
+        className,
+      )}
     >
       {filters.map((f) => {
         const active = f.id === activeId;
@@ -58,13 +62,24 @@ export const PhotoFilters = forwardRef<HTMLDivElement, PhotoFiltersProps>(
             aria-checked={active}
             onClick={() => onChange(f.id)}
             className={cn(
-              "shrink-0 snap-start flex flex-col items-center gap-1 rounded-lg p-1.5 transition-all cursor-pointer",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
-              active ? "bg-primary/10 text-primary" : "hover:bg-surface-soft text-foreground",
+              // 변하는 것은 배경색과 글자색뿐 — transition-all 은 패딩까지 물어 리플로우를 부른다
+              "shrink-0 snap-start flex flex-col items-center gap-1 rounded-lg p-1.5 transition-colors duration-150 cursor-pointer",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              active ? "bg-primary/10 text-primary-ink" : "hover:bg-surface-soft text-foreground",
             )}
           >
-            <div className={cn("w-14 h-14 rounded-md overflow-hidden border-2", active ? "border-primary" : "border-transparent")}>
-              <img src={previewSrc} alt="" className="w-full h-full object-cover" style={{ filter: f.filter }} />
+            <div
+              className={cn(
+                "w-14 h-14 rounded-md overflow-hidden border-2 transition-colors duration-150",
+                active ? "border-primary" : "border-transparent",
+              )}
+            >
+              <img
+                src={previewSrc}
+                alt=""
+                className="w-full h-full object-cover"
+                style={{ filter: f.filter }}
+              />
             </div>
             <span className="text-[11px] font-medium">{f.label}</span>
           </button>

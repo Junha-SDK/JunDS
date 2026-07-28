@@ -10,5 +10,10 @@ export default meta;
 type Story = StoryObj<typeof Carousel>;
 
 export const Default: Story = {
-  render: () => <Carousel>{null}{null}</Carousel>,
+  render: () => (
+    <Carousel>
+      {null}
+      {null}
+    </Carousel>
+  ),
 };

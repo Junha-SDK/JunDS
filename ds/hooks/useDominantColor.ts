@@ -189,9 +189,7 @@ export function useDominantColor(
   };
 
   const [pair, setPair] = useState<Pair>(initial);
-  const [ready, setReady] = useState<boolean>(() =>
-    src ? CACHE.has(src) : Boolean(seed),
-  );
+  const [ready, setReady] = useState<boolean>(() => (src ? CACHE.has(src) : Boolean(seed)));
 
   useEffect(() => {
     let cancelled = false;

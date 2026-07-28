@@ -29,7 +29,9 @@ export function LiveMicroKpiRow() {
       try {
         const [fxRes, flowRes] = await Promise.all([
           fetch("/api/fx").then((r) => r.json()),
-          fetch("/api/kis/investor").then((r) => r.ok ? r.json() : null).catch(() => null),
+          fetch("/api/kis/investor")
+            .then((r) => (r.ok ? r.json() : null))
+            .catch(() => null),
         ]);
         if (!aborted) {
           setFx(fxRes?.items ?? []);
@@ -70,12 +72,7 @@ export function LiveMicroKpiRow() {
         pct={flow ? (flow.institution >= 0 ? 1 : -1) : 0}
         hint={flow && flow.institution >= 0 ? "순매수" : "순매도"}
       />
-      <Cell
-        label="WTI"
-        value={wti ? wti.value.toFixed(2) : "—"}
-        pct={wti?.pct ?? 0}
-        unit="$"
-      />
+      <Cell label="WTI" value={wti ? wti.value.toFixed(2) : "—"} pct={wti?.pct ?? 0} unit="$" />
     </>
   );
 }

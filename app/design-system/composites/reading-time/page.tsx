@@ -54,7 +54,12 @@ export default function ReadingTimePage() {
       props={[
         { name: "content", type: "string", description: "텍스트 내용 (HTML 또는 plain text)" },
         { name: "format", type: '"short"|"long"', default: '"short"', description: "표시 형식" },
-        { name: "showDifficulty", type: "boolean", default: "false", description: "난이도 표시 여부" },
+        {
+          name: "showDifficulty",
+          type: "boolean",
+          default: "false",
+          description: "난이도 표시 여부",
+        },
         { name: "className", type: "string", description: "추가 CSS 클래스" },
       ]}
     >
@@ -62,21 +67,27 @@ export default function ReadingTimePage() {
         <Preview>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-              <div className="w-8 h-8 rounded bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 text-sm">1</div>
+              <div className="w-8 h-8 rounded bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 text-sm">
+                1
+              </div>
               <div className="flex-1">
                 <p className="text-sm font-medium">짧은 글</p>
                 <ReadingTime content={shortText} format="short" />
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-              <div className="w-8 h-8 rounded bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 text-sm">2</div>
+              <div className="w-8 h-8 rounded bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 text-sm">
+                2
+              </div>
               <div className="flex-1">
                 <p className="text-sm font-medium">중간 길이 글</p>
                 <ReadingTime content={mediumText} format="short" />
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-              <div className="w-8 h-8 rounded bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 text-sm">3</div>
+              <div className="w-8 h-8 rounded bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 text-sm">
+                3
+              </div>
               <div className="flex-1">
                 <p className="text-sm font-medium">긴 글</p>
                 <ReadingTime content={longText} format="short" />
@@ -109,18 +120,30 @@ export default function ReadingTimePage() {
         <Preview>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="p-4 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 border border-green-200 dark:border-green-800">
-              <p className="text-xs font-semibold text-green-700 dark:text-green-400 uppercase tracking-wide mb-2">Short</p>
-              <p className="text-sm text-slate-700 dark:text-slate-300 mb-3 line-clamp-2">{shortText}</p>
+              <p className="text-xs font-semibold text-green-700 dark:text-green-400 uppercase tracking-wide mb-2">
+                Short
+              </p>
+              <p className="text-sm text-slate-700 dark:text-slate-300 mb-3 line-clamp-2">
+                {shortText}
+              </p>
               <ReadingTime content={shortText} format="long" showDifficulty />
             </div>
             <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30 border border-amber-200 dark:border-amber-800">
-              <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wide mb-2">Medium</p>
-              <p className="text-sm text-slate-700 dark:text-slate-300 mb-3 line-clamp-2">{mediumText}</p>
+              <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wide mb-2">
+                Medium
+              </p>
+              <p className="text-sm text-slate-700 dark:text-slate-300 mb-3 line-clamp-2">
+                {mediumText}
+              </p>
               <ReadingTime content={mediumText} format="long" showDifficulty />
             </div>
             <div className="p-4 rounded-xl bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30 border border-red-200 dark:border-red-800">
-              <p className="text-xs font-semibold text-red-700 dark:text-red-400 uppercase tracking-wide mb-2">Long</p>
-              <p className="text-sm text-slate-700 dark:text-slate-300 mb-3 line-clamp-2">{longText.replace(/<[^>]*>/g, "")}</p>
+              <p className="text-xs font-semibold text-red-700 dark:text-red-400 uppercase tracking-wide mb-2">
+                Long
+              </p>
+              <p className="text-sm text-slate-700 dark:text-slate-300 mb-3 line-clamp-2">
+                {longText.replace(/<[^>]*>/g, "")}
+              </p>
               <ReadingTime content={longText} format="long" showDifficulty />
             </div>
           </div>

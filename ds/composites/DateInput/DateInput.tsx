@@ -27,10 +27,12 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
           type="date"
           value={value}
           className={cn(
-            "w-full h-9 px-3 text-sm border bg-white rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out",
+            "w-full h-9 px-3 text-sm border bg-card rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+            // 전이하는 건 테두리색과 포커스 글로우뿐 — `all` 은 높이·패딩까지 끌고 온다.
+            "transition-[border-color,box-shadow] duration-200 ease-out",
             "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
             "disabled:opacity-50 disabled:cursor-not-allowed",
-            error ? "border-danger" : "border-border hover:border-gray-300",
+            error ? "border-danger" : "border-border hover:border-muted-light",
             className,
           )}
           {...props}
@@ -38,11 +40,21 @@ export const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
         {value && onClear && (
           <button
             type="button"
+            aria-label="날짜 지우기"
             onClick={onClear}
-            className="absolute right-8 top-1/2 -translate-y-1/2 rounded-full p-0.5 text-muted hover:bg-gray-100 hover:text-foreground active:bg-gray-200 transition-colors cursor-pointer"
+            className={cn(
+              "absolute right-8 top-1/2 -translate-y-1/2 rounded-full p-0.5 cursor-pointer text-muted",
+              "transition-colors hover:bg-muted/15 hover:text-foreground active:bg-muted/25",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+            )}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <path
+                d="M3.5 3.5l7 7M10.5 3.5l-7 7"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
             </svg>
           </button>
         )}

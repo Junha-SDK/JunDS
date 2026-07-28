@@ -59,51 +59,72 @@ const LEVEL_COLOR: Record<StrengthLevel, string> = {
  * @since 2.3.0
  * @tags input
  */
-export const PasswordStrength = forwardRef<HTMLDivElement, PasswordStrengthProps>(function PasswordStrength(
-  { password, rules = DEFAULT_RULES, showLabel = true, showChecklist = false, onChange, className, ...props },
-  ref,
-) {
-  const { level, passedIds } = useMemo(() => {
-    const passed = rules.filter((r) => r.test(password));
-    const ratio = rules.length === 0 ? 0 : passed.length / rules.length;
-    const lv: StrengthLevel = (Math.min(4, Math.round(ratio * 4)) as StrengthLevel);
-    return { level: lv, passedIds: passed.map((r) => r.id) };
-  }, [password, rules]);
+export const PasswordStrength = forwardRef<HTMLDivElement, PasswordStrengthProps>(
+  function PasswordStrength(
+    {
+      password,
+      rules = DEFAULT_RULES,
+      showLabel = true,
+      showChecklist = false,
+      onChange,
+      className,
+      ...props
+    },
+    ref,
+  ) {
+    const { level, passedIds } = useMemo(() => {
+      const passed = rules.filter((r) => r.test(password));
+      const ratio = rules.length === 0 ? 0 : passed.length / rules.length;
+      const lv: StrengthLevel = Math.min(4, Math.round(ratio * 4)) as StrengthLevel;
+      return { level: lv, passedIds: passed.map((r) => r.id) };
+    }, [password, rules]);
 
-  // emit on change
-  useMemo(() => { onChange?.(level, passedIds); }, [level, passedIds, onChange]);
+    // emit on change
+    useMemo(() => {
+      onChange?.(level, passedIds);
+    }, [level, passedIds, onChange]);
 
-  return (
-    <div ref={ref} className={cn("w-full flex flex-col gap-2", className)} {...props}>
-      <div className="flex items-center gap-2">
-        <div className="flex-1 grid grid-cols-4 gap-1">
-          {[1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className={cn(
-                "h-1.5 rounded-full transition-colors",
-                level >= i ? LEVEL_COLOR[level] : "bg-surface-soft",
-              )}
-            />
-          ))}
+    return (
+      <div ref={ref} className={cn("w-full flex flex-col gap-2", className)} {...props}>
+        <div className="flex items-center gap-2">
+          <div className="flex-1 grid grid-cols-4 gap-1">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className={cn(
+                  // 색만 바뀌고 움직이는 것이 없어 감속 요청 변형을 붙이지 않는다.
+                  "h-1.5 rounded-full transition-colors duration-200",
+                  level >= i
+                    ? `${LEVEL_COLOR[level]} shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]`
+                    : // 빈 칸은 파인 홈으로 읽혀야 채워진 칸이 앞으로 나온다.
+                      "bg-surface-soft shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)]",
+                )}
+              />
+            ))}
+          </div>
+          {showLabel && (
+            <span className="text-xs text-muted shrink-0 w-16 text-right">
+              {LEVEL_LABEL[level]}
+            </span>
+          )}
         </div>
-        {showLabel && (
-          <span className="text-xs text-muted shrink-0 w-16 text-right">{LEVEL_LABEL[level]}</span>
+        {showChecklist && (
+          <ul className="flex flex-col gap-0.5 text-xs">
+            {rules.map((r) => {
+              const ok = passedIds.includes(r.id);
+              return (
+                <li
+                  key={r.id}
+                  className={cn("flex items-center gap-1.5", ok ? "text-success" : "text-muted")}
+                >
+                  <span aria-hidden="true">{ok ? "✓" : "○"}</span>
+                  {r.label}
+                </li>
+              );
+            })}
+          </ul>
         )}
       </div>
-      {showChecklist && (
-        <ul className="flex flex-col gap-0.5 text-xs">
-          {rules.map((r) => {
-            const ok = passedIds.includes(r.id);
-            return (
-              <li key={r.id} className={cn("flex items-center gap-1.5", ok ? "text-success" : "text-muted")}>
-                <span aria-hidden="true">{ok ? "✓" : "○"}</span>
-                {r.label}
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
-  );
-});
+    );
+  },
+);

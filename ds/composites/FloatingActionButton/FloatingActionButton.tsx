@@ -31,7 +31,7 @@ const variantStyles: Record<NonNullable<FloatingAction["variant"]>, string> = {
   primary:
     "bg-primary text-white shadow-[0_8px_24px_var(--primary-glow),0_2px_6px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)] hover:brightness-110 hover:-translate-y-0.5",
   secondary:
-    "bg-white text-foreground border border-border shadow-[0_8px_24px_rgba(0,0,0,0.1),0_2px_6px_rgba(0,0,0,0.08)] hover:bg-gray-50 hover:-translate-y-0.5",
+    "bg-card text-foreground border border-border shadow-[0_8px_24px_rgba(0,0,0,0.1),0_2px_6px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.12)] hover:bg-card-hover hover:-translate-y-0.5",
   danger:
     "bg-danger text-white shadow-[0_8px_24px_rgba(220,63,63,0.28),0_2px_6px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)] hover:brightness-110 hover:-translate-y-0.5",
 };
@@ -77,16 +77,16 @@ export function FloatingActionButton({
         return (
           <div
             key={action.key}
-            className={cn(
-              "relative flex items-center",
-              isRight ? "justify-end" : "justify-start",
-            )}
+            className={cn("relative flex items-center", isRight ? "justify-end" : "justify-start")}
           >
             {/* 툴팁 */}
             {hoveredKey === action.key && (
               <div
+                // 툴팁은 본문 표면이 아니라 "어두운 크롬" 이 의도다 — 두 모드 모두에서
+                // 전경색을 뒤집어 쓰면 일관되고, `dark:` 변형(OS 선호도)에 기대지 않는다.
                 className={cn(
-                  "absolute whitespace-nowrap px-2 py-1 text-xs font-medium rounded-md bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 shadow-md pointer-events-none",
+                  "absolute whitespace-nowrap px-2 py-1 text-xs font-medium rounded-lg pointer-events-none",
+                  "bg-foreground text-background shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)] ring-1 ring-white/10",
                   isRight ? "right-full mr-2" : "left-full ml-2",
                 )}
               >
@@ -101,8 +101,12 @@ export function FloatingActionButton({
               onMouseEnter={() => setHoveredKey(action.key)}
               onMouseLeave={() => setHoveredKey(null)}
               className={cn(
-                "inline-flex items-center justify-center rounded-full transition-all duration-200 ease-out cursor-pointer active:translate-y-0 active:brightness-95",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
+                "inline-flex items-center justify-center rounded-full cursor-pointer",
+                // 실제로 변하는 건 들림(transform)·밝기·그림자 셋뿐이다.
+                "transition-[transform,box-shadow,filter,background-color] duration-200 ease-out",
+                "active:translate-y-0 active:brightness-95",
+                "motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:animate-none",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 "animate-[scaleIn_200ms_ease-out_forwards]",
                 variantStyles[variant],
                 isPrimary ? "w-14 h-14 text-lg" : "w-11 h-11 text-sm",

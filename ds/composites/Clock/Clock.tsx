@@ -28,7 +28,15 @@ export interface ClockProps extends HTMLAttributes<HTMLDivElement> {
  * @tags data-display
  */
 export const Clock = forwardRef<HTMLDivElement, ClockProps>(function Clock(
-  { mode = "digital", hour24 = true, showSeconds = true, timeZone, size = 120, className, ...props },
+  {
+    mode = "digital",
+    hour24 = true,
+    showSeconds = true,
+    timeZone,
+    size = 120,
+    className,
+    ...props
+  },
   ref,
 ) {
   const [now, setNow] = useState<Date>(() => new Date());
@@ -47,7 +55,11 @@ export const Clock = forwardRef<HTMLDivElement, ClockProps>(function Clock(
       timeZone,
     });
     return (
-      <div ref={ref} className={cn("inline-flex items-baseline gap-2 font-mono tabular-nums", className)} {...props}>
+      <div
+        ref={ref}
+        className={cn("inline-flex items-baseline gap-2 font-mono tabular-nums", className)}
+        {...props}
+      >
         <span className="text-2xl font-semibold">{fmt.format(now)}</span>
       </div>
     );
@@ -55,7 +67,11 @@ export const Clock = forwardRef<HTMLDivElement, ClockProps>(function Clock(
 
   const parts = timeZone
     ? new Intl.DateTimeFormat("en-US", {
-        hour: "numeric", minute: "numeric", second: "numeric", hour12: false, timeZone,
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: false,
+        timeZone,
       }).formatToParts(now)
     : null;
   const get = (t: string) => (parts ? Number(parts.find((p) => p.type === t)?.value ?? 0) : 0);
@@ -78,12 +94,49 @@ export const Clock = forwardRef<HTMLDivElement, ClockProps>(function Clock(
           const y1 = r + (r - 6) * Math.sin(a);
           const x2 = r + (r - 12) * Math.cos(a);
           const y2 = r + (r - 12) * Math.sin(a);
-          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} className="stroke-foreground" strokeWidth={1.5} />;
+          return (
+            <line
+              key={i}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              className="stroke-foreground"
+              strokeWidth={1.5}
+            />
+          );
         })}
-        <line x1={r} y1={r} x2={r} y2={r - r * 0.5} className="stroke-foreground" strokeWidth={3} strokeLinecap="round" transform={`rotate(${hAng} ${r} ${r})`} />
-        <line x1={r} y1={r} x2={r} y2={r - r * 0.7} className="stroke-foreground" strokeWidth={2} strokeLinecap="round" transform={`rotate(${mAng} ${r} ${r})`} />
+        <line
+          x1={r}
+          y1={r}
+          x2={r}
+          y2={r - r * 0.5}
+          className="stroke-foreground"
+          strokeWidth={3}
+          strokeLinecap="round"
+          transform={`rotate(${hAng} ${r} ${r})`}
+        />
+        <line
+          x1={r}
+          y1={r}
+          x2={r}
+          y2={r - r * 0.7}
+          className="stroke-foreground"
+          strokeWidth={2}
+          strokeLinecap="round"
+          transform={`rotate(${mAng} ${r} ${r})`}
+        />
         {showSeconds && (
-          <line x1={r} y1={r} x2={r} y2={r - r * 0.8} className="stroke-primary" strokeWidth={1} strokeLinecap="round" transform={`rotate(${sAng} ${r} ${r})`} />
+          <line
+            x1={r}
+            y1={r}
+            x2={r}
+            y2={r - r * 0.8}
+            className="stroke-primary"
+            strokeWidth={1}
+            strokeLinecap="round"
+            transform={`rotate(${sAng} ${r} ${r})`}
+          />
         )}
         <circle cx={r} cy={r} r={3} className="fill-primary" />
       </svg>

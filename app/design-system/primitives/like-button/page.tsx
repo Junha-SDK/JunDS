@@ -13,7 +13,7 @@ export default function LikeButtonPage() {
     >
       <Section title="Default">
         <Preview>
-          <LikeButton liked={true} onChange={()=>{}} count={42} />
+          <LikeButton liked={true} onChange={() => {}} count={42} />
         </Preview>
       </Section>
     </ComponentPage>

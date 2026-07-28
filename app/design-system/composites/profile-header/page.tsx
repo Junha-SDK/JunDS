@@ -13,7 +13,17 @@ export default function ProfileHeaderPage() {
     >
       <Section title="Default">
         <Preview>
-          <ProfileHeader name="준하" handle="junha" bio="디자인 시스템을 만듭니다" location="서울" verified stats={[{label:"팔로워",value:"3.2k"},{label:"팔로잉",value:148}]} />
+          <ProfileHeader
+            name="준하"
+            handle="junha"
+            bio="디자인 시스템을 만듭니다"
+            location="서울"
+            verified
+            stats={[
+              { label: "팔로워", value: "3.2k" },
+              { label: "팔로잉", value: 148 },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

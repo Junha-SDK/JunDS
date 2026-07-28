@@ -13,8 +13,17 @@ export default function PhoneInputPage() {
       importPath='import { PhoneInput } from "@/ds/primitives/PhoneInput"'
       props={[
         { name: "value", type: "string", description: "숫자만 포함된 전화번호 값." },
-        { name: "onChange", type: "(value: string, fullNumber: string) => void", description: "변경 콜백. 두 번째 인자는 국가 dial 코드가 붙은 전체 번호." },
-        { name: "defaultCountry", type: '"KR" | "US" | "JP" | "CN" | "GB"', default: '"KR"', description: "기본 국가 코드." },
+        {
+          name: "onChange",
+          type: "(value: string, fullNumber: string) => void",
+          description: "변경 콜백. 두 번째 인자는 국가 dial 코드가 붙은 전체 번호.",
+        },
+        {
+          name: "defaultCountry",
+          type: '"KR" | "US" | "JP" | "CN" | "GB"',
+          default: '"KR"',
+          description: "기본 국가 코드.",
+        },
         { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "인풋 크기." },
         { name: "error", type: "boolean", description: "오류 상태 표시." },
         { name: "disabled", type: "boolean", description: "비활성화." },

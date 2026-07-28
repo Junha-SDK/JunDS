@@ -40,7 +40,11 @@ export default function ComponentShowcasePage() {
       label: "Alert",
       description: "사용자에게 정보를 알리는 인라인 배너.",
       category: "Composites",
-      preview: <Badge variant="success" dot>알림</Badge>,
+      preview: (
+        <Badge variant="success" dot>
+          알림
+        </Badge>
+      ),
     },
   ];
 
@@ -50,11 +54,25 @@ export default function ComponentShowcasePage() {
       description="여러 컴포넌트의 미리보기를 검색·필터·호버 데모와 함께 진열하는 카탈로그 그리드. 디자인 시스템 랜딩 페이지에서 사용합니다."
       importPath='import { ComponentShowcase } from "@/ds/composites/ComponentShowcase"'
       props={[
-        { name: "items", type: "ShowcaseItem[]", required: true, description: "{ key, label, description, category, preview, hoverDemo? } 배열" },
+        {
+          name: "items",
+          type: "ShowcaseItem[]",
+          required: true,
+          description: "{ key, label, description, category, preview, hoverDemo? } 배열",
+        },
         { name: "searchable", type: "boolean", default: "true", description: "검색 입력 표시" },
-        { name: "filterable", type: "boolean", default: "true", description: "카테고리 필터 칩 표시" },
+        {
+          name: "filterable",
+          type: "boolean",
+          default: "true",
+          description: "카테고리 필터 칩 표시",
+        },
         { name: "columns", type: "2|3|4", default: "3", description: "그리드 컬럼 수" },
-        { name: "onItemClick", type: "(item: ShowcaseItem) => void", description: "카드 클릭 콜백" },
+        {
+          name: "onItemClick",
+          type: "(item: ShowcaseItem) => void",
+          description: "카드 클릭 콜백",
+        },
       ]}
     >
       <Section title="Default">

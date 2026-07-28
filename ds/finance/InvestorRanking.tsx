@@ -22,6 +22,8 @@ const INVESTOR_LABEL: Record<InvestorKey, string> = {
   individual: "개인",
 };
 
+// 기관의 보라(#a855f7)는 이 금융 화면 전체가 공유하는 투자자 계열색이다 —
+// InvestorFlowChart·LiveInvestorBoard·CandleChart 와 같은 값이어야 범례가 맞는다
 const INVESTOR_COLOR: Record<InvestorKey, string> = {
   foreign: "var(--bm-up)",
   institution: "#a855f7",
@@ -36,29 +38,27 @@ function hashSeed(s: string): number {
 
 // Build deterministic per-stock investor seeds from HEATMAP_FLAT.
 // Net buy magnitudes scale roughly with `size` (market cap proxy) and pct.
-const SEED: RankingStock[] = HEATMAP_FLAT
-  .filter((c) => (c.price ?? 0) > 0)
-  .map((c) => {
-    const seed = hashSeed(c.name);
-    const r1 = ((seed * 13) % 1000) / 1000 - 0.5;
-    const r2 = ((seed * 29) % 1000) / 1000 - 0.5;
-    const sizeFactor = Math.max(8, c.size * 0.6);
-    // Up-trending stocks tend to have positive foreign+institution flow
-    const trend = c.change > 0 ? 1 : -1;
-    const fNet = Math.round(trend * sizeFactor * (0.6 + Math.abs(r1) * 0.8));
-    const iNet = Math.round(trend * sizeFactor * 0.4 * (0.4 + Math.abs(r2) * 0.8));
-    return {
-      name: c.name,
-      close: c.price ?? 0,
-      pct: c.change,
-      group: c.group,
-      net: {
-        foreign: fNet,
-        institution: iNet,
-        individual: -(fNet + iNet),
-      },
-    };
-  });
+const SEED: RankingStock[] = HEATMAP_FLAT.filter((c) => (c.price ?? 0) > 0).map((c) => {
+  const seed = hashSeed(c.name);
+  const r1 = ((seed * 13) % 1000) / 1000 - 0.5;
+  const r2 = ((seed * 29) % 1000) / 1000 - 0.5;
+  const sizeFactor = Math.max(8, c.size * 0.6);
+  // Up-trending stocks tend to have positive foreign+institution flow
+  const trend = c.change > 0 ? 1 : -1;
+  const fNet = Math.round(trend * sizeFactor * (0.6 + Math.abs(r1) * 0.8));
+  const iNet = Math.round(trend * sizeFactor * 0.4 * (0.4 + Math.abs(r2) * 0.8));
+  return {
+    name: c.name,
+    close: c.price ?? 0,
+    pct: c.change,
+    group: c.group,
+    net: {
+      foreign: fNet,
+      institution: iNet,
+      individual: -(fNet + iNet),
+    },
+  };
+});
 
 function tickAll(prev: RankingStock[], jitter: () => number): RankingStock[] {
   return prev.map((s) => {
@@ -67,8 +67,12 @@ function tickAll(prev: RankingStock[], jitter: () => number): RankingStock[] {
       pct: +(s.pct + jitter() * 0.4).toFixed(2),
       close: Math.max(100, Math.round(s.close * (1 + jitter() * 0.005))),
       net: {
-        foreign: Math.round(s.net.foreign + jitter() * Math.max(40, Math.abs(s.net.foreign) * 0.18)),
-        institution: Math.round(s.net.institution + jitter() * Math.max(30, Math.abs(s.net.institution) * 0.20)),
+        foreign: Math.round(
+          s.net.foreign + jitter() * Math.max(40, Math.abs(s.net.foreign) * 0.18),
+        ),
+        institution: Math.round(
+          s.net.institution + jitter() * Math.max(30, Math.abs(s.net.institution) * 0.2),
+        ),
         individual: 0,
       },
     };
@@ -116,9 +120,11 @@ export function InvestorRanking() {
         className="flex items-center gap-2 px-3 py-2"
         style={{ borderBottom: "1px solid var(--bm-border)" }}
       >
-        <span className="text-[12.5px] font-extrabold">투자자별 순매수 TOP 5</span>
+        <span className="text-[12.5px] font-extrabold whitespace-nowrap">
+          투자자별 순매수 TOP 5
+        </span>
         <span
-          className="text-[10.5px] font-bold ml-2"
+          className="text-[10.5px] font-bold ml-auto min-w-0 truncate"
           style={{ color: "var(--bm-muted)" }}
         >
           전 종목({stocks.length}) 누적 · 3초마다 갱신
@@ -126,12 +132,7 @@ export function InvestorRanking() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3">
         {(Object.keys(INVESTOR_LABEL) as InvestorKey[]).map((ik, idx) => (
-          <RankingColumn
-            key={ik}
-            ik={ik}
-            rows={ranks[ik]}
-            isLast={idx === 2}
-          />
+          <RankingColumn key={ik} ik={ik} rows={ranks[ik]} isLast={idx === 2} />
         ))}
       </div>
     </div>
@@ -148,10 +149,12 @@ function RankingColumn({
   isLast: boolean;
 }) {
   return (
+    // 세로 1열로 접히면 오른쪽 테두리가 열 구분이 아니라 허공에 그어진 선이 된다 —
+    // 좁을 땐 아래 테두리로, md 이상에서만 오른쪽 테두리로 나눈다
     <div
-      style={{
-        borderRight: isLast ? "none" : "1px solid var(--bm-border)",
-      }}
+      className={
+        isLast ? undefined : "border-b md:border-b-0 md:border-r border-[color:var(--bm-border)]"
+      }
     >
       <div
         className="flex items-center gap-1.5 px-3 py-1.5"
@@ -160,11 +163,8 @@ function RankingColumn({
           background: "var(--bm-soft-100)",
         }}
       >
-        <span
-          className="size-2 rounded-full"
-          style={{ background: INVESTOR_COLOR[ik] }}
-        />
-        <span className="text-[11.5px] font-extrabold">
+        <span className="size-2 shrink-0 rounded-full" style={{ background: INVESTOR_COLOR[ik] }} />
+        <span className="text-[11.5px] font-extrabold whitespace-nowrap">
           {INVESTOR_LABEL[ik]} 순매수
         </span>
       </div>
@@ -183,7 +183,7 @@ function RankingColumn({
               }}
             >
               <span
-                className="bm-num text-[10px] font-extrabold inline-flex items-center justify-center rounded-full"
+                className="bm-num text-[10px] font-extrabold inline-flex shrink-0 items-center justify-center rounded-full tabular-nums"
                 style={{
                   width: 16,
                   height: 16,
@@ -194,15 +194,21 @@ function RankingColumn({
                 {i + 1}
               </span>
               <div className="min-w-0">
-                <div className="text-[11.5px] font-extrabold truncate" style={{ color: "var(--bm-text)" }}>
+                <div
+                  className="text-[11.5px] font-extrabold truncate"
+                  style={{ color: "var(--bm-text)" }}
+                >
                   {s.name}
                 </div>
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="bm-num text-[10px] font-bold" style={{ color: "var(--bm-muted)" }}>
+                  <span
+                    className="bm-num text-[10px] font-bold whitespace-nowrap tabular-nums"
+                    style={{ color: "var(--bm-muted)" }}
+                  >
                     {s.close.toLocaleString("ko-KR")}
                   </span>
                   <span
-                    className="bm-num text-[10px] font-extrabold"
+                    className="bm-num text-[10px] font-extrabold whitespace-nowrap tabular-nums"
                     style={{ color: s.pct >= 0 ? "var(--bm-up)" : "var(--bm-down)" }}
                   >
                     {s.pct >= 0 ? "+" : ""}
@@ -211,7 +217,7 @@ function RankingColumn({
                 </div>
               </div>
               <span
-                className="bm-num font-extrabold text-[11.5px] whitespace-nowrap"
+                className="bm-num font-extrabold text-[11.5px] whitespace-nowrap tabular-nums"
                 style={{ color: up ? "var(--bm-up)" : "var(--bm-down)" }}
               >
                 {up ? "+" : ""}

@@ -179,20 +179,19 @@ export const ImageWithFallback = forwardRef<HTMLImageElement, ImageWithFallbackP
     }, [retry]);
 
     const failed = status === "error";
-    const finalSrc = failed && fallbackSrc
-      ? fallbackSrc
-      : srcUrl
-        ? withRetryParam(srcUrl, attempt)
-        : src;
+    const finalSrc =
+      failed && fallbackSrc ? fallbackSrc : srcUrl ? withRetryParam(srcUrl, attempt) : src;
     const showCustomFallback = failed && !fallbackSrc && fallback != null;
 
     return (
       <div
-        className={cn("relative overflow-hidden bg-gray-100 dark:bg-gray-800", containerClassName)}
+        // gray-100/800 쌍은 테마를 손으로 갈라 쓴 것이다 — 표면 토큰은 모드를 스스로 따라간다
+        className={cn("relative overflow-hidden bg-surface-soft", containerClassName)}
         style={{ aspectRatio }}
       >
         {showSkeleton && status === "loading" && (
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 animate-pulse" />
+          // 맥동은 움직임이다 — 감속 요청을 받으면 정지한 회색 판만 남긴다
+          <div className="absolute inset-0 bg-gradient-to-r from-surface-soft via-border to-surface-soft animate-pulse motion-reduce:animate-none" />
         )}
         {showCustomFallback && <div className="absolute inset-0">{fallback}</div>}
         {failed && !fallbackSrc && fallback == null && (

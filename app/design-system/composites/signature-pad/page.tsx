@@ -13,10 +13,19 @@ export default function SignaturePadPage() {
       description="마우스 또는 터치로 서명을 받고 PNG 데이터 URL로 저장할 수 있는 캔버스 입력 컴포넌트입니다."
       importPath='import { SignaturePad } from "@/ds/composites/SignaturePad"'
       props={[
-        { name: "onSave", type: "(dataUrl: string) => void", description: "저장 시 PNG dataURL 반환" },
+        {
+          name: "onSave",
+          type: "(dataUrl: string) => void",
+          description: "저장 시 PNG dataURL 반환",
+        },
         { name: "width", type: "number", default: "400", description: "캔버스 너비(px)" },
         { name: "height", type: "number", default: "200", description: "캔버스 높이(px)" },
-        { name: "strokeColor", type: "string", default: '"var(--foreground)"', description: "선 색상" },
+        {
+          name: "strokeColor",
+          type: "string",
+          default: '"var(--foreground)"',
+          description: "선 색상",
+        },
         { name: "strokeWidth", type: "number", default: "2", description: "선 두께" },
         { name: "disabled", type: "boolean", description: "비활성화 여부" },
       ]}

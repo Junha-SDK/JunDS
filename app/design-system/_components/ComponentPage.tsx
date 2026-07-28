@@ -51,21 +51,30 @@ export function ComponentPage({
       {/* ── Header ── */}
       <Box mb={8}>
         <HStack gap="sm" mb={2}>
-          <Heading level={1} mb={0}>{name}</Heading>
+          <Heading level={1} mb={0}>
+            {name}
+          </Heading>
           {status && (
             <Badge variant={statusVariant[status]} size="sm">
               {statusLabel[status]}
             </Badge>
           )}
           {version && (
-            <Text as="span" fontSize="xs" mono dimmed
-              className="bg-gray-100 px-1.5 py-0.5 rounded"
+            // bg-gray-100 은 라이트 전용 값이다 — 의미 토큰으로 옮겨 다크를 따라가게 한다
+            <Text
+              as="span"
+              fontSize="xs"
+              mono
+              dimmed
+              className="bg-border-light px-1.5 py-0.5 rounded tabular-nums"
             >
               v{version}
             </Text>
           )}
         </HStack>
-        <Text fontSize="sm" dimmed mb={3} lineHeight="relaxed">{description}</Text>
+        <Text fontSize="sm" dimmed mb={3} lineHeight="relaxed">
+          {description}
+        </Text>
         <HStack gap={2}>
           <Box
             as="code"
@@ -83,12 +92,29 @@ export function ComponentPage({
           <button
             type="button"
             onClick={() => navigator.clipboard.writeText(importPath)}
-            className="p-1.5 text-muted hover:text-primary hover:bg-primary/5 rounded-lg transition-colors cursor-pointer"
+            className={cn(
+              "p-1.5 text-muted hover:text-primary-ink hover:bg-primary/5 rounded-lg cursor-pointer",
+              "transition-colors duration-150",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+              "focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            )}
             aria-label="import 복사"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-              <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+              <rect
+                x="4.5"
+                y="4.5"
+                width="7"
+                height="7"
+                rx="1.5"
+                stroke="currentColor"
+                strokeWidth="1.3"
+              />
+              <path
+                d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5"
+                stroke="currentColor"
+                strokeWidth="1.3"
+              />
             </svg>
           </button>
         </HStack>
@@ -97,15 +123,17 @@ export function ComponentPage({
       </Box>
 
       {/* ── Content ── */}
-      <VStack gap={10}>
-        {children}
-      </VStack>
+      <VStack gap={10}>{children}</VStack>
 
       {/* ── Props Table ── */}
       {props && props.length > 0 && (
         <Box mt={10}>
-          <Heading level={2} mb={1}>API Reference</Heading>
-          <Text fontSize="xs" dimmed mb={4}>컴포넌트에 전달할 수 있는 모든 props입니다.</Text>
+          <Heading level={2} mb={1}>
+            API Reference
+          </Heading>
+          <Text fontSize="xs" dimmed mb={4}>
+            컴포넌트에 전달할 수 있는 모든 props입니다.
+          </Text>
           <PropsTable props={props} />
         </Box>
       )}
@@ -113,19 +141,46 @@ export function ComponentPage({
       {/* ── Related Components ── */}
       {related && related.length > 0 && (
         <Box mt={10}>
-          <Heading level={2} mb={3}>관련 컴포넌트</Heading>
+          <Heading level={2} mb={3}>
+            관련 컴포넌트
+          </Heading>
           <Box display="grid" cols={{ base: 2, sm: 3 }} gap={3}>
             {related.map((r) => (
               <a
                 key={r.name}
                 href={r.href}
-                className="flex items-center gap-2 px-4 py-3 rounded-xl border border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                className={cn(
+                  "flex items-center gap-2 px-4 py-3 rounded-xl border border-border group",
+                  "hover:border-primary/30 hover:bg-primary/5",
+                  // all 은 padding·border-width 까지 전이 대상으로 삼는다
+                  "transition-[background-color,border-color] duration-200",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+                  "focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                )}
               >
-                <Text as="span" fontSize="sm" fontWeight="medium" color="foreground" className="group-hover:text-primary transition-colors">
+                <Text
+                  as="span"
+                  fontSize="sm"
+                  fontWeight="medium"
+                  color="foreground"
+                  className="group-hover:text-primary-ink transition-colors"
+                >
                   {r.name}
                 </Text>
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="ml-auto text-muted group-hover:text-primary transition-colors">
-                  <path d="M4.5 2.5L8 6L4.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  className="ml-auto text-muted group-hover:text-primary-ink transition-colors"
+                >
+                  <path
+                    d="M4.5 2.5L8 6L4.5 9.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </a>
             ))}
@@ -167,11 +222,16 @@ function McpHint({ name }: { name: string }) {
         aria-expanded={open}
         className={cn(
           "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] font-medium cursor-pointer",
-          "transition-all duration-200 active:scale-95",
-          "bg-primary/5 border border-primary/15 text-primary hover:bg-primary/10 hover:border-primary/30",
+          "transition-[background-color,border-color,transform] duration-200 active:scale-95",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+          "focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "bg-primary/5 border border-primary/15 text-primary-ink hover:bg-primary/10 hover:border-primary/30",
         )}
       >
-        <Box as="span" className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        <Box
+          as="span"
+          className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse motion-reduce:animate-none"
+        />
         <span>AI 에디터로 사용하기 (MCP)</span>
         <svg
           width="10"
@@ -181,15 +241,28 @@ function McpHint({ name }: { name: string }) {
           className={cn("transition-transform duration-200", open ? "rotate-180" : undefined)}
           aria-hidden
         >
-          <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M3 4.5L6 7.5L9 4.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
 
       <div className="smooth-expand" data-open={open}>
         <div className="smooth-expand__inner">
-          <Box mt={2} radius="xl" border p={4} className="bg-gradient-to-br from-primary/5 via-transparent to-accent/5">
+          <Box
+            mt={2}
+            radius="xl"
+            border
+            p={4}
+            className="bg-gradient-to-br from-primary/5 via-transparent to-accent/5"
+          >
             <Text fontSize="xs" dimmed mb={3} lineHeight="relaxed">
-              Cursor / Claude Code에서 다음 도구를 호출하면 hallucination 없이 정확한 정보를 받을 수 있습니다.
+              Cursor / Claude Code에서 다음 도구를 호출하면 hallucination 없이 정확한 정보를 받을 수
+              있습니다.
             </Text>
             <VStack gap={1.5} align="stretch">
               {lines.map((l) => {
@@ -200,10 +273,15 @@ function McpHint({ name }: { name: string }) {
                     key={l.tool}
                     align="center"
                     gap={2}
-                    className="bg-white border border-border rounded-lg px-3 py-2 transition-colors duration-200 hover:border-primary/30"
+                    // bg-white 는 다크에서 흰 카드로 남는다 — card 토큰으로 옮긴다
+                    className="bg-card border border-border rounded-lg px-3 py-2 transition-colors duration-200 hover:border-primary/30"
                   >
-                    <Box as="code" fontSize="xs" className="font-mono text-foreground flex-1 truncate">
-                      <span className="text-primary">{l.tool}</span>
+                    <Box
+                      as="code"
+                      fontSize="xs"
+                      className="font-mono text-foreground flex-1 truncate"
+                    >
+                      <span className="text-primary-ink">{l.tool}</span>
                       <span className="text-muted">(</span>
                       <span className="text-emerald-600">{l.arg}</span>
                       <span className="text-muted">)</span>
@@ -216,9 +294,13 @@ function McpHint({ name }: { name: string }) {
                       onClick={() => handleCopy(call)}
                       aria-label={isCopied ? "복사됨" : "도구 호출 복사"}
                       className={cn(
-                        "shrink-0 p-1 rounded-md cursor-pointer",
-                        "transition-all duration-200 active:scale-90",
-                        isCopied ? "text-success" : "text-muted hover:text-primary hover:bg-primary/5",
+                        "shrink-0 p-1 rounded-lg cursor-pointer",
+                        "transition-[color,background-color,transform] duration-200 active:scale-90",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+                        "focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                        isCopied
+                          ? "text-success"
+                          : "text-muted hover:text-primary-ink hover:bg-primary/5",
                       )}
                     >
                       <span className="relative inline-flex w-3 h-3">
@@ -229,11 +311,17 @@ function McpHint({ name }: { name: string }) {
                           fill="none"
                           aria-hidden
                           className={cn(
-                            "absolute inset-0 transition-all duration-200",
+                            "absolute inset-0 transition-[opacity,transform] duration-200",
                             isCopied ? "opacity-100 scale-100" : "opacity-0 scale-50",
                           )}
                         >
-                          <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          <path
+                            d="M2.5 6l2.5 2.5 4.5-5"
+                            stroke="currentColor"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                         <svg
                           width="12"
@@ -242,12 +330,24 @@ function McpHint({ name }: { name: string }) {
                           fill="none"
                           aria-hidden
                           className={cn(
-                            "absolute inset-0 transition-all duration-200",
+                            "absolute inset-0 transition-[opacity,transform] duration-200",
                             isCopied ? "opacity-0 scale-50" : "opacity-100 scale-100",
                           )}
                         >
-                          <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-                          <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+                          <rect
+                            x="4.5"
+                            y="4.5"
+                            width="7"
+                            height="7"
+                            rx="1.5"
+                            stroke="currentColor"
+                            strokeWidth="1.3"
+                          />
+                          <path
+                            d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5"
+                            stroke="currentColor"
+                            strokeWidth="1.3"
+                          />
                         </svg>
                       </span>
                     </button>
@@ -256,7 +356,12 @@ function McpHint({ name }: { name: string }) {
               })}
             </VStack>
             <Text fontSize="2xs" dimmed mt={3} mb={0} lineHeight="relaxed">
-              <Box as="code" className="px-1 py-0.5 rounded bg-white border border-border font-mono text-[10px]">.mcp.json</Box>
+              <Box
+                as="code"
+                className="px-1 py-0.5 rounded bg-card border border-border font-mono text-[10px]"
+              >
+                .mcp.json
+              </Box>
               은 저장소 루트에 이미 포함되어 있습니다 — AI 에디터로 프로젝트를 열면 자동 연결.
             </Text>
           </Box>
@@ -268,11 +373,25 @@ function McpHint({ name }: { name: string }) {
 
 /* ═══════════════════════ Section ═══════════════════════ */
 
-export function Section({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
+export function Section({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children: ReactNode;
+}) {
   return (
     <Box as="section">
-      <Heading level={4} mb={description ? 0.5 : 3}>{title}</Heading>
-      {description && <Text fontSize="xs" dimmed mb={3} lineHeight="relaxed">{description}</Text>}
+      <Heading level={4} mb={description ? 0.5 : 3}>
+        {title}
+      </Heading>
+      {description && (
+        <Text fontSize="xs" dimmed mb={3} lineHeight="relaxed">
+          {description}
+        </Text>
+      )}
       {children}
     </Box>
   );
@@ -288,9 +407,30 @@ export interface GuidelineItem {
 
 export function Guidelines({ items }: { items: GuidelineItem[] }) {
   const config = {
-    do: { label: "Do", icon: "\u2713", border: "border-success/30", bg: "bg-success/5", text: "text-success", iconBg: "bg-success" },
-    dont: { label: "Don't", icon: "\u2715", border: "border-danger/30", bg: "bg-danger/5", text: "text-danger", iconBg: "bg-danger" },
-    caution: { label: "Caution", icon: "!", border: "border-warning/30", bg: "bg-warning/5", text: "text-warning", iconBg: "bg-warning" },
+    do: {
+      label: "Do",
+      icon: "\u2713",
+      border: "border-success/30",
+      bg: "bg-success/5",
+      text: "text-success",
+      iconBg: "bg-success",
+    },
+    dont: {
+      label: "Don't",
+      icon: "\u2715",
+      border: "border-danger/30",
+      bg: "bg-danger/5",
+      text: "text-danger",
+      iconBg: "bg-danger",
+    },
+    caution: {
+      label: "Caution",
+      icon: "!",
+      border: "border-warning/30",
+      bg: "bg-warning/5",
+      text: "text-warning",
+      iconBg: "bg-warning",
+    },
   };
 
   return (
@@ -304,7 +444,8 @@ export function Guidelines({ items }: { items: GuidelineItem[] }) {
                 {item.preview}
               </Flex>
             )}
-            <Flex gap={2.5} px={4} py={3} align="start" className="bg-white">
+            {/* bg-white 는 다크에서 흰 판으로 남는다 — card 토큰이 모드를 따라간다 */}
+            <Flex gap={2.5} px={4} py={3} align="start" className="bg-card">
               <Box
                 as="span"
                 shrink={0}
@@ -323,10 +464,19 @@ export function Guidelines({ items }: { items: GuidelineItem[] }) {
                 {c.icon}
               </Box>
               <Box>
-                <Text as="span" fontSize="xs" fontWeight="bold" textTransform="uppercase" letterSpacing="wider" className={c.text}>
+                <Text
+                  as="span"
+                  fontSize="xs"
+                  fontWeight="bold"
+                  textTransform="uppercase"
+                  letterSpacing="wider"
+                  className={c.text}
+                >
                   {c.label}
                 </Text>
-                <Text fontSize="xs" dimmed mt={0.5} lineHeight="relaxed">{item.description}</Text>
+                <Text fontSize="xs" dimmed mt={0.5} lineHeight="relaxed">
+                  {item.description}
+                </Text>
               </Box>
             </Flex>
           </Box>
@@ -342,7 +492,15 @@ export function Anatomy({ items }: { items: { label: string; description: string
   return (
     <VStack gap={2}>
       {items.map((item, i) => (
-        <HStack key={i} gap={3} px={4} py={3} radius="lg" align="start" className="bg-gray-50/70 border border-border-light">
+        <HStack
+          key={i}
+          gap={3}
+          px={4}
+          py={3}
+          radius="lg"
+          align="start"
+          className="bg-surface-soft border border-border-light"
+        >
           <Box
             as="span"
             shrink={0}
@@ -355,13 +513,17 @@ export function Anatomy({ items }: { items: { label: string; description: string
             fontSize="xs"
             fontWeight="bold"
             mt={0.5}
-            className="bg-primary/10 text-primary"
+            className="bg-primary/10 text-primary-ink"
           >
             {i + 1}
           </Box>
           <Box>
-            <Text as="p" fontSize="sm" fontWeight="semibold" color="foreground">{item.label}</Text>
-            <Text fontSize="xs" dimmed mt={0.5}>{item.description}</Text>
+            <Text as="p" fontSize="sm" fontWeight="semibold" color="foreground">
+              {item.label}
+            </Text>
+            <Text fontSize="xs" dimmed mt={0.5}>
+              {item.description}
+            </Text>
           </Box>
         </HStack>
       ))}
@@ -371,18 +533,38 @@ export function Anatomy({ items }: { items: { label: string; description: string
 
 /* ═══════════════════════ Usage Note ═══════════════════════ */
 
-export function UsageNote({ children, type = "info" }: { children: ReactNode; type?: "info" | "warning" | "tip" }) {
+export function UsageNote({
+  children,
+  type = "info",
+}: {
+  children: ReactNode;
+  type?: "info" | "warning" | "tip";
+}) {
   const config = {
     info: { icon: "\u2139", bg: "bg-info/5", border: "border-info/20", text: "text-info" },
-    warning: { icon: "\u26A0", bg: "bg-warning/5", border: "border-warning/20", text: "text-warning" },
-    tip: { icon: "\uD83D\uDCA1", bg: "bg-success/5", border: "border-success/20", text: "text-success" },
+    warning: {
+      icon: "\u26A0",
+      bg: "bg-warning/5",
+      border: "border-warning/20",
+      text: "text-warning",
+    },
+    tip: {
+      icon: "\uD83D\uDCA1",
+      bg: "bg-success/5",
+      border: "border-success/20",
+      text: "text-success",
+    },
   };
   const c = config[type];
 
   return (
     <Flex gap={3} px={4} py={3} radius="xl" border className={cn(c.bg, c.border)}>
-      <Text as="span" fontSize="md" shrink={0} className={c.text}>{c.icon}</Text>
-      <Box fontSize="xs" color="foreground" lineHeight="relaxed">{children}</Box>
+      <Text as="span" fontSize="md" shrink={0} className={c.text}>
+        {c.icon}
+      </Text>
+      <Box fontSize="xs" color="foreground" lineHeight="relaxed">
+        {children}
+      </Box>
     </Flex>
   );
 }
@@ -391,20 +573,32 @@ export function UsageNote({ children, type = "info" }: { children: ReactNode; ty
 
 export function AccessibilityNote({ items }: { items: string[] }) {
   return (
-    <Box radius="xl" border p={4} className="bg-gray-50/50">
+    <Box radius="xl" border p={4} className="bg-surface-soft">
       <HStack gap={2} mb={3}>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-primary-ink">
           <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
           <circle cx="8" cy="4.5" r="1" fill="currentColor" />
-          <path d="M5.5 7L8 7.5M10.5 7L8 7.5M8 7.5V12M8 12L6 14M8 12L10 14" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M5.5 7L8 7.5M10.5 7L8 7.5M8 7.5V12M8 12L6 14M8 12L10 14"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
-        <Heading level={5} mb={0}>접근성</Heading>
+        <Heading level={5} mb={0}>
+          접근성
+        </Heading>
       </HStack>
       <VStack as="ul" gap={1.5}>
         {items.map((item, i) => (
           <HStack as="li" key={i} gap={2} align="start" fontSize="xs" color="muted">
-            <Text as="span" color="primary" shrink={0} mt={0.5}>•</Text>
-            <Text as="span" fontSize="xs" dimmed>{item}</Text>
+            <Text as="span" color="primary" shrink={0} mt={0.5}>
+              •
+            </Text>
+            <Text as="span" fontSize="xs" dimmed>
+              {item}
+            </Text>
           </HStack>
         ))}
       </VStack>
@@ -427,8 +621,21 @@ export function CodeExample({ code, language = "tsx" }: { code: string; language
   };
   return (
     <Box radius="xl" border overflow="hidden" position="relative">
-      <Flex align="center" justify="between" px={4} py={2} className="bg-gray-50 border-b border-border">
-        <Text as="span" fontSize="2xs" fontWeight="semibold" dimmed textTransform="uppercase" letterSpacing="wider">
+      <Flex
+        align="center"
+        justify="between"
+        px={4}
+        py={2}
+        className="bg-surface-soft border-b border-border"
+      >
+        <Text
+          as="span"
+          fontSize="2xs"
+          fontWeight="semibold"
+          dimmed
+          textTransform="uppercase"
+          letterSpacing="wider"
+        >
           {language}
         </Text>
         <button
@@ -436,11 +643,14 @@ export function CodeExample({ code, language = "tsx" }: { code: string; language
           onClick={handleCopy}
           aria-label={copied ? "코드가 복사되었습니다" : "코드 복사"}
           className={cn(
-            "flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium cursor-pointer",
-            "transition-all duration-200 active:scale-95",
+            "flex items-center gap-1 px-2 py-0.5 rounded-lg text-[10px] font-medium cursor-pointer",
+            "transition-[background-color,color,transform] duration-200 active:scale-95",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+            "focus-visible:ring-offset-2 focus-visible:ring-offset-surface-soft",
             copied
               ? "bg-success/10 text-success"
-              : "text-muted hover:text-primary hover:bg-gray-100",
+              : // hover:bg-gray-100 은 라이트 전용 — border-light 로 옮긴다
+                "text-muted hover:text-primary-ink hover:bg-border-light",
           )}
         >
           <span className="relative inline-flex w-3 h-3">
@@ -451,11 +661,17 @@ export function CodeExample({ code, language = "tsx" }: { code: string; language
               fill="none"
               aria-hidden
               className={cn(
-                "absolute inset-0 transition-all duration-200",
+                "absolute inset-0 transition-[opacity,transform] duration-200",
                 copied ? "opacity-100 scale-100" : "opacity-0 scale-50",
               )}
             >
-              <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M2.5 6l2.5 2.5 4.5-5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
             <svg
               width="12"
@@ -464,18 +680,31 @@ export function CodeExample({ code, language = "tsx" }: { code: string; language
               fill="none"
               aria-hidden
               className={cn(
-                "absolute inset-0 transition-all duration-200",
+                "absolute inset-0 transition-[opacity,transform] duration-200",
                 copied ? "opacity-0 scale-50" : "opacity-100 scale-100",
               )}
             >
-              <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-              <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+              <rect
+                x="4.5"
+                y="4.5"
+                width="7"
+                height="7"
+                rx="1.5"
+                stroke="currentColor"
+                strokeWidth="1.3"
+              />
+              <path
+                d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5"
+                stroke="currentColor"
+                strokeWidth="1.3"
+              />
             </svg>
           </span>
           <span>{copied ? "복사됨" : "복사"}</span>
         </button>
       </Flex>
-      <pre className="p-4 text-xs leading-relaxed overflow-x-auto bg-gray-950 text-gray-100">
+      {/* bg-gray-950 은 의도적인 어두운 코드 크롬 — 토큰으로 옮기지 않는다 */}
+      <pre className="p-4 text-xs leading-relaxed overflow-x-auto overscroll-x-contain bg-gray-950 text-gray-100">
         <code>{code}</code>
       </pre>
     </Box>
@@ -486,11 +715,7 @@ export function CodeExample({ code, language = "tsx" }: { code: string; language
 
 export function VariantGrid({ children, cols = 2 }: { children: ReactNode; cols?: number }) {
   return (
-    <Box
-      display="grid"
-      gap={4}
-      cols={{ base: 1, md: cols }}
-    >
+    <Box display="grid" gap={4} cols={{ base: 1, md: cols }}>
       {children}
     </Box>
   );
@@ -524,10 +749,23 @@ export function VariantItem({
       <Flex align="center" justify="center" p={5} minH="100px" bg="card">
         {children}
       </Flex>
-      <Flex align="start" justify="between" gap={2} px={4} py={2.5} className="bg-gray-50/70 border-t border-border">
+      <Flex
+        align="start"
+        justify="between"
+        gap={2}
+        px={4}
+        py={2.5}
+        className="bg-surface-soft border-t border-border"
+      >
         <Box className="flex-1 min-w-0">
-          <Text as="p" fontSize="xs" fontWeight="semibold" color="foreground">{label}</Text>
-          {description && <Text fontSize="2xs" dimmed mt={0.5}>{description}</Text>}
+          <Text as="p" fontSize="xs" fontWeight="semibold" color="foreground">
+            {label}
+          </Text>
+          {description && (
+            <Text fontSize="2xs" dimmed mt={0.5}>
+              {description}
+            </Text>
+          )}
         </Box>
         {sourceCode && (
           <button
@@ -535,11 +773,13 @@ export function VariantItem({
             onClick={handleCopy}
             aria-label={copied ? "코드가 복사되었습니다" : "이 변형의 코드 복사"}
             className={cn(
-              "shrink-0 flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium cursor-pointer border",
-              "transition-all duration-200 active:scale-95",
+              "shrink-0 flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium cursor-pointer border",
+              "transition-[background-color,border-color,color,transform] duration-200 active:scale-95",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+              "focus-visible:ring-offset-2 focus-visible:ring-offset-surface-soft",
               copied
                 ? "bg-success/10 text-success border-success/20"
-                : "bg-white text-muted border-border hover:text-primary hover:border-primary/30",
+                : "bg-card text-muted border-border hover:text-primary-ink hover:border-primary/30",
             )}
           >
             <span className="relative inline-flex w-[11px] h-[11px]">
@@ -550,11 +790,17 @@ export function VariantItem({
                 fill="none"
                 aria-hidden
                 className={cn(
-                  "absolute inset-0 transition-all duration-200",
+                  "absolute inset-0 transition-[opacity,transform] duration-200",
                   copied ? "opacity-100 scale-100" : "opacity-0 scale-50",
                 )}
               >
-                <path d="M2.5 6l2.5 2.5 4.5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M2.5 6l2.5 2.5 4.5-5"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               <svg
                 width="11"
@@ -563,12 +809,24 @@ export function VariantItem({
                 fill="none"
                 aria-hidden
                 className={cn(
-                  "absolute inset-0 transition-all duration-200",
+                  "absolute inset-0 transition-[opacity,transform] duration-200",
                   copied ? "opacity-0 scale-50" : "opacity-100 scale-100",
                 )}
               >
-                <rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-                <path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.3" />
+                <rect
+                  x="4.5"
+                  y="4.5"
+                  width="7"
+                  height="7"
+                  rx="1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                />
+                <path
+                  d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.3"
+                />
               </svg>
             </span>
             <span>{copied ? "복사됨" : "코드"}</span>
@@ -605,17 +863,42 @@ export function DecisionMatrix({
 }) {
   return (
     <Box radius="xl" border overflow="hidden">
-      <Box px={4} py={3} className="bg-gradient-to-r from-primary/5 to-accent/5 border-b border-border">
-        <Heading level={5} mb={description ? 0.5 : 0}>{title}</Heading>
-        {description && <Text fontSize="xs" dimmed mb={0} lineHeight="relaxed">{description}</Text>}
+      <Box
+        px={4}
+        py={3}
+        className="bg-gradient-to-r from-primary/5 to-accent/5 border-b border-border"
+      >
+        <Heading level={5} mb={description ? 0.5 : 0}>
+          {title}
+        </Heading>
+        {description && (
+          <Text fontSize="xs" dimmed mb={0} lineHeight="relaxed">
+            {description}
+          </Text>
+        )}
       </Box>
-      <Box className="overflow-x-auto">
+      <Box className="overflow-x-auto overscroll-x-contain">
         <table className="w-full text-xs">
           <thead>
-            <tr className="border-b border-border bg-gray-50/50">
-              <th className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px]">컴포넌트</th>
-              <th className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px]">언제 쓰는가</th>
-              <th className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px]">피해야 할 때</th>
+            <tr className="border-b border-border bg-surface-soft">
+              <th
+                scope="col"
+                className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px] whitespace-nowrap"
+              >
+                컴포넌트
+              </th>
+              <th
+                scope="col"
+                className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px] whitespace-nowrap"
+              >
+                언제 쓰는가
+              </th>
+              <th
+                scope="col"
+                className="text-left px-4 py-2.5 font-semibold text-muted uppercase tracking-wider text-[10px] whitespace-nowrap"
+              >
+                피해야 할 때
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -624,7 +907,8 @@ export function DecisionMatrix({
                 key={row.name}
                 className={cn(
                   "border-b border-border last:border-0 transition-colors duration-200",
-                  i % 2 === 1 ? "bg-gray-50/30" : "bg-white",
+                  // 얼룩말 줄무늬를 gray 리터럴로 깔면 다크에서 흰 줄이 남는다
+                  i % 2 === 1 ? "bg-surface-soft" : "bg-card",
                   "hover:bg-primary/5",
                 )}
               >
@@ -632,23 +916,37 @@ export function DecisionMatrix({
                   {row.href ? (
                     <a
                       href={row.href}
-                      className="font-mono text-[12px] font-semibold text-primary transition-colors duration-200 hover:underline"
+                      className={cn(
+                        "font-mono text-[12px] font-semibold text-primary-ink rounded",
+                        "transition-colors duration-200 hover:underline",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+                        "focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                      )}
                     >
                       {row.name}
                     </a>
                   ) : (
-                    <span className="font-mono text-[12px] font-semibold text-foreground">{row.name}</span>
+                    <span className="font-mono text-[12px] font-semibold text-foreground">
+                      {row.name}
+                    </span>
                   )}
                   {row.signature && (
                     <Box mt={1}>
-                      <Box as="span" className="inline-block text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary font-medium">
+                      <Box
+                        as="span"
+                        className="inline-block text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary-ink font-medium"
+                      >
                         {row.signature}
                       </Box>
                     </Box>
                   )}
                 </td>
-                <td className="px-4 py-3 align-top text-foreground leading-relaxed">{row.useWhen}</td>
-                <td className="px-4 py-3 align-top text-muted leading-relaxed">{row.avoidWhen || "—"}</td>
+                <td className="px-4 py-3 align-top text-foreground leading-relaxed">
+                  {row.useWhen}
+                </td>
+                <td className="px-4 py-3 align-top text-muted leading-relaxed">
+                  {row.avoidWhen || "—"}
+                </td>
               </tr>
             ))}
           </tbody>

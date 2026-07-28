@@ -14,10 +14,11 @@ const meta: Meta<typeof Tooltip> = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
+// 스토리의 트리거도 라이브러리의 상태 3종을 지켜야 한다 — 여기가 소비자가 베껴 가는 자리다
 const Trigger = (
   <button
     type="button"
-    className="px-3 py-1.5 text-sm rounded-lg bg-primary text-white"
+    className="px-3 py-1.5 text-sm rounded-xl bg-primary text-white cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)] transition-colors duration-150 hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
   >
     Hover me
   </button>

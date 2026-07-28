@@ -116,20 +116,8 @@ export function AreaChart({
 
       {ticks.map((tv) => (
         <g key={tv}>
-          <line
-            x1={padL}
-            x2={width - padR}
-            y1={yOf(tv)}
-            y2={yOf(tv)}
-            stroke="var(--bm-grid)"
-          />
-          <text
-            x={padL - 6}
-            y={yOf(tv) + 3}
-            fontSize={10}
-            fill="var(--bm-axis)"
-            textAnchor="end"
-          >
+          <line x1={padL} x2={width - padR} y1={yOf(tv)} y2={yOf(tv)} stroke="var(--bm-grid)" />
+          <text x={padL - 6} y={yOf(tv) + 3} fontSize={10} fill="var(--bm-axis)" textAnchor="end">
             {tv.toFixed(0)}
           </text>
         </g>
@@ -189,12 +177,7 @@ export function AreaChart({
           />
           <circle cx={hp.x} cy={hp.y} r={3.5} fill={stroke} stroke="white" strokeWidth={1.5} />
           <g transform={`translate(${tipX}, ${tipY})`}>
-            <rect
-              width={tipW}
-              height={tipH}
-              rx={6}
-              fill="rgba(15, 23, 42, 0.92)"
-            />
+            <rect width={tipW} height={tipH} rx={6} fill="rgba(15, 23, 42, 0.92)" />
             <text
               x={tipW / 2}
               y={hLabel ? 14 : 15}

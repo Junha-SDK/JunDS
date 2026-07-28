@@ -63,13 +63,18 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       el.style.height = `${el.scrollHeight}px`;
     }, [autoResize]);
 
-    useEffect(() => { resize(); }, [value, resize]);
+    useEffect(() => {
+      resize();
+    }, [value, resize]);
 
-    const setRefs = useCallback((el: HTMLTextAreaElement | null) => {
-      innerRef.current = el;
-      if (typeof ref === "function") ref(el);
-      else if (ref) (ref as React.RefObject<HTMLTextAreaElement | null>).current = el;
-    }, [ref]);
+    const setRefs = useCallback(
+      (el: HTMLTextAreaElement | null) => {
+        innerRef.current = el;
+        if (typeof ref === "function") ref(el);
+        else if (ref) (ref as React.RefObject<HTMLTextAreaElement | null>).current = el;
+      },
+      [ref],
+    );
 
     const length = value === undefined ? uncontrolledLength : String(value).length;
     const showCounter = showCount && maxLength !== undefined;
@@ -79,9 +84,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       resolvedAriaInvalid === "true" ||
       resolvedAriaInvalid === "grammar" ||
       resolvedAriaInvalid === "spelling";
-    const describedBy = [ariaDescribedBy, showCounter ? countId : undefined]
-      .filter(Boolean)
-      .join(" ") || undefined;
+    const describedBy =
+      [ariaDescribedBy, showCounter ? countId : undefined].filter(Boolean).join(" ") || undefined;
 
     return (
       <div className="relative">
@@ -100,21 +104,27 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             resize();
           }}
           className={cn(
-            "w-full border bg-white/80 backdrop-blur-sm px-3.5 py-2.5 text-sm rounded-xl transition-all duration-200 ease-out",
+            // autoResize 가 height 를 매 입력마다 바꾸는 요소다 — transition-all 이면
+            // 글자 칠 때마다 높이가 늦게 따라와 커서가 밀린다. 색·그림자만 전이시킨다.
+            // bg-white 는 다크에서 흰 판이 남으므로 bg-card 로 옮긴다
+            "w-full border bg-card/80 backdrop-blur-sm px-3.5 py-2.5 text-sm rounded-xl transition-[border-color,box-shadow,background-color] duration-200 ease-out",
             "placeholder:text-muted-light/60 resize-y min-h-[80px]",
-            "focus:outline-none focus:border-primary focus:bg-white focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
-            "disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-gray-50",
+            "focus:outline-none focus:border-primary focus:bg-card focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
+            "disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-card-hover",
             autoResize && "resize-none overflow-hidden",
             showCounter && "pb-8",
             isInvalid
               ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgba(220,63,63,0.12),0_1px_2px_rgba(0,0,0,0.04)]"
-              : "border-border",
+              : "border-border hover:border-muted-light",
             className,
           )}
           {...props}
         />
         {showCounter && (
-          <span id={countId} className="pointer-events-none absolute bottom-2 right-3 text-xs tabular-nums text-muted-light">
+          <span
+            id={countId}
+            className="pointer-events-none absolute bottom-2 right-3 text-xs tabular-nums text-muted-light"
+          >
             {length}/{maxLength}
           </span>
         )}

@@ -26,16 +26,35 @@ export interface HeroSectionProps extends Omit<HTMLAttributes<HTMLElement>, "tit
   footer?: ReactNode;
 }
 
-function CtaButton({ cta, primary }: { cta: NonNullable<HeroSectionProps["primaryCta"]>; primary: boolean }) {
+function CtaButton({
+  cta,
+  primary,
+}: {
+  cta: NonNullable<HeroSectionProps["primaryCta"]>;
+  primary: boolean;
+}) {
   const className = cn(
-    "inline-flex items-center justify-center rounded-md font-semibold px-5 py-2.5 text-sm transition-colors cursor-pointer",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    "inline-flex items-center justify-center rounded-xl font-semibold px-5 py-2.5 text-sm cursor-pointer whitespace-nowrap",
+    "transition-[background-color,box-shadow,transform] duration-150",
+    "active:scale-[0.97] motion-reduce:active:scale-100",
+    // ring-ring 은 --color-ring 이 이 저장소에 없어서 클래스 자체가 생성되지 않는다.
+    // outline 만 지워진 채 링이 안 나오던 자리 — 실재하는 primary 토큰으로 되돌린다
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     primary
-      ? "bg-primary text-white hover:bg-primary-hover"
-      : "border border-border bg-surface hover:bg-surface-soft text-foreground",
+      ? "bg-primary text-white hover:bg-primary-hover shadow-[0_2px_8px_-2px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.18)]"
+      : "border border-border bg-surface hover:bg-surface-soft text-foreground shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.12)]",
   );
-  if (cta.href) return <a href={cta.href} className={className}>{cta.label}</a>;
-  return <button type="button" onClick={cta.onClick} className={className}>{cta.label}</button>;
+  if (cta.href)
+    return (
+      <a href={cta.href} className={className}>
+        {cta.label}
+      </a>
+    );
+  return (
+    <button type="button" onClick={cta.onClick} className={className}>
+      {cta.label}
+    </button>
+  );
 }
 
 /**
@@ -47,13 +66,35 @@ function CtaButton({ cta, primary }: { cta: NonNullable<HeroSectionProps["primar
  * @tags marketing
  */
 export const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(function HeroSection(
-  { variant = "centered", eyebrow, title, subtitle, primaryCta, secondaryCta, media, bgImage, footer, className, ...props },
+  {
+    variant = "centered",
+    eyebrow,
+    title,
+    subtitle,
+    primaryCta,
+    secondaryCta,
+    media,
+    bgImage,
+    footer,
+    className,
+    ...props
+  },
   ref,
 ) {
   const content = (
-    <div className={cn("flex flex-col gap-5", variant === "centered" && "items-center text-center", variant === "split" && "max-w-xl")}>
-      {eyebrow && <div className="text-xs font-semibold uppercase tracking-wider text-primary">{eyebrow}</div>}
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">{title}</h1>
+    <div
+      className={cn(
+        "flex flex-col gap-5",
+        variant === "centered" && "items-center text-center",
+        variant === "split" && "max-w-xl",
+      )}
+    >
+      {eyebrow && (
+        <div className="text-xs font-semibold uppercase tracking-wider text-primary-ink">{eyebrow}</div>
+      )}
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+        {title}
+      </h1>
       {subtitle && <p className="text-base sm:text-lg text-muted max-w-2xl">{subtitle}</p>}
       {(primaryCta || secondaryCta) && (
         <div className={cn("flex flex-wrap gap-3", variant === "centered" && "justify-center")}>
@@ -67,7 +108,14 @@ export const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(function He
 
   if (variant === "split") {
     return (
-      <section ref={ref} className={cn("grid lg:grid-cols-2 gap-10 items-center px-4 sm:px-6 py-12 sm:py-20 max-w-7xl mx-auto", className)} {...props}>
+      <section
+        ref={ref}
+        className={cn(
+          "grid lg:grid-cols-2 gap-10 items-center px-4 sm:px-6 py-12 sm:py-20 max-w-7xl mx-auto",
+          className,
+        )}
+        {...props}
+      >
         {content}
         <div className="order-first lg:order-last">{media}</div>
       </section>
@@ -79,11 +127,21 @@ export const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(function He
       <section
         ref={ref}
         className={cn("relative px-4 sm:px-6 py-20 sm:py-32 text-white overflow-hidden", className)}
-        style={bgImage ? { backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${bgImage})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
+        style={
+          bgImage
+            ? {
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(${bgImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }
+            : undefined
+        }
         {...props}
       >
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-5">
-          {eyebrow && <div className="text-xs font-semibold uppercase tracking-wider">{eyebrow}</div>}
+          {eyebrow && (
+            <div className="text-xs font-semibold uppercase tracking-wider">{eyebrow}</div>
+          )}
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight">{title}</h1>
           {subtitle && <p className="text-lg text-white/90 max-w-2xl">{subtitle}</p>}
           {(primaryCta || secondaryCta) && (
@@ -99,14 +157,22 @@ export const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(function He
 
   if (variant === "minimal") {
     return (
-      <section ref={ref} className={cn("px-4 sm:px-6 py-10 max-w-4xl mx-auto", className)} {...props}>
+      <section
+        ref={ref}
+        className={cn("px-4 sm:px-6 py-10 max-w-4xl mx-auto", className)}
+        {...props}
+      >
         {content}
       </section>
     );
   }
 
   return (
-    <section ref={ref} className={cn("px-4 sm:px-6 py-16 sm:py-24 max-w-5xl mx-auto", className)} {...props}>
+    <section
+      ref={ref}
+      className={cn("px-4 sm:px-6 py-16 sm:py-24 max-w-5xl mx-auto", className)}
+      {...props}
+    >
       {content}
     </section>
   );

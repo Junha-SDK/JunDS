@@ -39,7 +39,9 @@ describe("Tabs", () => {
   });
 
   it("renders segment variant", () => {
-    const { container } = render(<Tabs tabs={tabs} value="all" onChange={() => {}} variant="segment" />);
-    expect(container.firstChild).toHaveClass("bg-gray-100");
+    const { container } = render(
+      <Tabs tabs={tabs} value="all" onChange={() => {}} variant="segment" />,
+    );
+    expect(container.firstChild).toHaveClass("bg-border-light");
   });
 });

@@ -24,16 +24,10 @@ export function PageEmptyState({
   action,
   size = "md",
 }: PageEmptyStateProps) {
-  const resolvedIcon =
-    icon ?? (emoji ? <span style={{ fontSize: 40 }}>{emoji}</span> : null);
+  const resolvedIcon = icon ?? (emoji ? <span style={{ fontSize: 40 }}>{emoji}</span> : null);
   return (
     <div className={`bm-card ${PADDING[size]}`}>
-      <EmptyState
-        icon={resolvedIcon}
-        title={title}
-        description={description}
-        action={action}
-      />
+      <EmptyState icon={resolvedIcon} title={title} description={description} action={action} />
     </div>
   );
 }

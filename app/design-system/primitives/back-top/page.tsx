@@ -10,7 +10,12 @@ export default function BackTopPage() {
       description="페이지를 스크롤하면 나타나는 상단 이동 버튼입니다."
       importPath='import { BackTop } from "@/ds/primitives/BackTop"'
       props={[
-        { name: "threshold", type: "number", default: "400", description: "버튼이 나타나는 스크롤 위치 (px)" },
+        {
+          name: "threshold",
+          type: "number",
+          default: "400",
+          description: "버튼이 나타나는 스크롤 위치 (px)",
+        },
         { name: "children", type: "ReactNode", description: "커스텀 버튼 콘텐츠" },
       ]}
     >

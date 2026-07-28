@@ -19,7 +19,12 @@ export default function SeverityBadgePage() {
       description="ok/warn/danger/info/neutral 심각도 수준을 시각적으로 표현하는 뱃지 컴포넌트."
       importPath='import { SeverityBadge } from "@/ds/primitives/SeverityBadge"'
       props={[
-        { name: "severity", type: '"ok"|"warn"|"danger"|"info"|"neutral"', required: true, description: "심각도 수준" },
+        {
+          name: "severity",
+          type: '"ok"|"warn"|"danger"|"info"|"neutral"',
+          required: true,
+          description: "심각도 수준",
+        },
         { name: "children", type: "ReactNode", required: true, description: "뱃지 내용" },
         { name: "dot", type: "boolean", default: "false", description: "작은 점만 표시" },
         { name: "size", type: '"sm"|"md"', default: '"md"', description: "크기" },
@@ -56,9 +61,7 @@ export default function SeverityBadgePage() {
       </Section>
 
       <Section title="크기">
-        <p className="text-sm text-muted mb-3">
-          sm과 md 두 가지 크기를 지원합니다.
-        </p>
+        <p className="text-sm text-muted mb-3">sm과 md 두 가지 크기를 지원합니다.</p>
         <Preview>
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-3">

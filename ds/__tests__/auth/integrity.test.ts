@@ -45,9 +45,7 @@ describe("_runIntegrityCheck — production behavior", () => {
 
     const violation = vi.fn();
     _runIntegrityCheck(violation);
-    expect(violation).toHaveBeenCalledWith(
-      expect.stringMatching(/devtools|prototype|global/),
-    );
+    expect(violation).toHaveBeenCalledWith(expect.stringMatching(/devtools|prototype|global/));
   });
 });
 

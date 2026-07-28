@@ -17,7 +17,12 @@ export default function SegmentedControlPage() {
       props={[
         { name: "options", type: "SegmentOption[]", required: true, description: "선택지 목록" },
         { name: "value", type: "string", required: true, description: "현재 선택된 값" },
-        { name: "onChange", type: "(value: string) => void", required: true, description: "값 변경 콜백" },
+        {
+          name: "onChange",
+          type: "(value: string) => void",
+          required: true,
+          description: "값 변경 콜백",
+        },
         { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "크기" },
         { name: "fullWidth", type: "boolean", default: "false", description: "전체 너비 사용" },
       ]}

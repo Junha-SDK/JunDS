@@ -27,14 +27,22 @@ export function AlertButton({ name }: AlertButtonProps) {
           }
           setOpen(true);
         }}
-        className="relative inline-flex items-center gap-1.5 px-3 h-9 rounded-full font-bold text-[12px] transition-colors"
+        className={[
+          "relative inline-flex items-center gap-1.5 px-3 h-9 rounded-full font-bold text-[12px] cursor-pointer",
+          "transition-[background-color,border-color,color,transform] duration-150 active:scale-[0.96]",
+          // 나머지 finance 조작부와 같은 포커스 어법 — 액센트 링 + 페이지 배경 오프셋.
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-bg)]",
+          "motion-reduce:transition-none motion-reduce:active:scale-100",
+        ].join(" ")}
         style={{
           background: mine.length > 0 ? "var(--bm-accent-soft-bg)" : "var(--bm-soft-100)",
           color: mine.length > 0 ? "var(--bm-accent-strong)" : "var(--bm-text-soft)",
           border: `1px solid ${mine.length > 0 ? "var(--bm-accent)" : "var(--bm-border)"}`,
         }}
       >
-        <span aria-hidden style={{ fontSize: 13, lineHeight: 1 }}>🔔</span>
+        <span aria-hidden style={{ fontSize: 13, lineHeight: 1 }}>
+          🔔
+        </span>
         <span>알림</span>
         {mine.length > 0 ? (
           <Badge size="sm" variant="danger">
@@ -42,9 +50,7 @@ export function AlertButton({ name }: AlertButtonProps) {
           </Badge>
         ) : null}
       </button>
-      {open ? (
-        <AlertSheet open={open} onClose={() => setOpen(false)} name={name} />
-      ) : null}
+      {open ? <AlertSheet open={open} onClose={() => setOpen(false)} name={name} /> : null}
     </>
   );
 }

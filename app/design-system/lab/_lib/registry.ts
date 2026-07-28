@@ -56,11 +56,7 @@ const layoutProps: PropDef[] = [
   { name: "backgroundColor", type: "color", defaultValue: undefined, label: "Background" },
 ];
 
-function layoutDef(
-  id: string,
-  label: string,
-  icon: string,
-): ComponentDef {
+function layoutDef(id: string, label: string, icon: string): ComponentDef {
   return {
     id,
     label,
@@ -147,9 +143,7 @@ export const componentDefs: ComponentDef[] = [
     isContainer: false,
     icon: "\uD83C\uDFF7",
     defaultChildren: "Label",
-    props: [
-      { name: "required", type: "boolean", defaultValue: false, label: "Required" },
-    ],
+    props: [{ name: "required", type: "boolean", defaultValue: false, label: "Required" }],
   },
   {
     id: "Badge",
@@ -256,9 +250,7 @@ export const componentDefs: ComponentDef[] = [
     category: "\uAE30\uBCF8",
     isContainer: false,
     icon: "\u2611",
-    props: [
-      { name: "label", type: "text", defaultValue: "", label: "Label" },
-    ],
+    props: [{ name: "label", type: "text", defaultValue: "", label: "Label" }],
   },
   {
     id: "Switch",
@@ -360,9 +352,7 @@ export const componentDefs: ComponentDef[] = [
     category: "\uC785\uB825",
     isContainer: false,
     icon: "\u25BE",
-    props: [
-      { name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" },
-    ],
+    props: [{ name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" }],
   },
   {
     id: "NumberInput",
@@ -370,9 +360,7 @@ export const componentDefs: ComponentDef[] = [
     category: "\uC785\uB825",
     isContainer: false,
     icon: "#",
-    props: [
-      { name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" },
-    ],
+    props: [{ name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" }],
   },
   {
     id: "PasswordInput",
@@ -380,9 +368,7 @@ export const componentDefs: ComponentDef[] = [
     category: "\uC785\uB825",
     isContainer: false,
     icon: "\uD83D\uDD12",
-    props: [
-      { name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" },
-    ],
+    props: [{ name: "placeholder", type: "text", defaultValue: "", label: "Placeholder" }],
   },
   {
     id: "DateInput",
@@ -511,7 +497,12 @@ export const componentDefs: ComponentDef[] = [
     isContainer: false,
     icon: "\u2205",
     props: [
-      { name: "title", type: "text", defaultValue: "\uB370\uC774\uD130 \uC5C6\uC74C", label: "Title" },
+      {
+        name: "title",
+        type: "text",
+        defaultValue: "\uB370\uC774\uD130 \uC5C6\uC74C",
+        label: "Title",
+      },
     ],
   },
 

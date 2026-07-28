@@ -13,7 +13,12 @@ export default function HeroSectionPage() {
     >
       <Section title="Default">
         <Preview>
-          <HeroSection title="당신의 디자인 시스템" subtitle="단 한 줄로 시작하세요" primaryCta={{label:"시작하기"}} secondaryCta={{label:"문서"}} />
+          <HeroSection
+            title="당신의 디자인 시스템"
+            subtitle="단 한 줄로 시작하세요"
+            primaryCta={{ label: "시작하기" }}
+            secondaryCta={{ label: "문서" }}
+          />
         </Preview>
       </Section>
     </ComponentPage>

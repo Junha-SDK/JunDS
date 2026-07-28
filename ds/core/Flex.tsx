@@ -10,12 +10,7 @@ export interface FlexProps extends Omit<BoxProps, "display"> {
 
 export const Flex = forwardRef<HTMLElement, FlexProps>(
   ({ inline, direction = "row", ...props }, ref) => (
-    <Box
-      ref={ref}
-      display={inline ? "inline-flex" : "flex"}
-      direction={direction}
-      {...props}
-    />
+    <Box ref={ref} display={inline ? "inline-flex" : "flex"} direction={direction} {...props} />
   ),
 );
 

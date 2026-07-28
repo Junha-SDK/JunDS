@@ -27,7 +27,11 @@ export const Container = forwardRef<HTMLElement, ContainerProps>(
       w="full"
       maxW={sizeMap[size]}
       px={px}
-      style={{ marginLeft: center ? "auto" : undefined, marginRight: center ? "auto" : undefined, ...props.style }}
+      style={{
+        marginLeft: center ? "auto" : undefined,
+        marginRight: center ? "auto" : undefined,
+        ...props.style,
+      }}
       {...props}
     />
   ),

@@ -20,9 +20,24 @@ export default function DateRangePickerPage() {
       description="두 개의 캘린더로 날짜 범위를 선택할 수 있는 컴포넌트입니다."
       importPath='import { DateRangePicker } from "@/ds/composites/DateRangePicker"'
       props={[
-        { name: "value", type: "DateRange", required: true, description: "선택된 날짜 범위 ({ start, end })" },
-        { name: "onChange", type: "(range: DateRange) => void", required: true, description: "범위 변경 콜백" },
-        { name: "placeholder", type: "string", default: '"날짜 범위 선택"', description: "플레이스홀더" },
+        {
+          name: "value",
+          type: "DateRange",
+          required: true,
+          description: "선택된 날짜 범위 ({ start, end })",
+        },
+        {
+          name: "onChange",
+          type: "(range: DateRange) => void",
+          required: true,
+          description: "범위 변경 콜백",
+        },
+        {
+          name: "placeholder",
+          type: "string",
+          default: '"날짜 범위 선택"',
+          description: "플레이스홀더",
+        },
         { name: "disabled", type: "boolean", default: "false", description: "비활성화 상태" },
         { name: "minDate", type: "Date", description: "선택 가능한 최소 날짜" },
         { name: "maxDate", type: "Date", description: "선택 가능한 최대 날짜" },
@@ -33,7 +48,9 @@ export default function DateRangePickerPage() {
           <DateRangePicker value={range1} onChange={setRange1} />
           <p className="mt-3 text-sm text-muted">
             {range1.start && range1.end
-              ? `${range1.start.toLocaleDateString("ko-KR")} ~ ${range1.end.toLocaleDateString("ko-KR")}`
+              ? `${range1.start.toLocaleDateString("ko-KR")} ~ ${range1.end.toLocaleDateString(
+                  "ko-KR",
+                )}`
               : "날짜를 선택해주세요"}
           </p>
         </Preview>

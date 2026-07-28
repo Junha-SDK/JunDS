@@ -16,9 +16,19 @@ export default function InlineEditPage() {
       props={[
         { name: "value", type: "string", description: "현재 값" },
         { name: "onChange", type: "(value: string) => void", description: "값 변경 핸들러" },
-        { name: "placeholder", type: "string", default: '"클릭하여 편집"', description: "비어있을 때 표시될 텍스트" },
+        {
+          name: "placeholder",
+          type: "string",
+          default: '"클릭하여 편집"',
+          description: "비어있을 때 표시될 텍스트",
+        },
         { name: "disabled", type: "boolean", description: "편집 비활성화" },
-        { name: "as", type: '"span"|"h1"|"h2"|"h3"|"p"', default: '"span"', description: "렌더링 태그" },
+        {
+          name: "as",
+          type: '"span"|"h1"|"h2"|"h3"|"p"',
+          default: '"span"',
+          description: "렌더링 태그",
+        },
       ]}
     >
       <Section title="Default">

@@ -21,7 +21,12 @@ export default function ConfettiPage() {
       props={[
         { name: "active", type: "boolean", description: "true가 되면 입자가 생성되어 떨어집니다." },
         { name: "count", type: "number", default: "50", description: "생성할 입자 개수" },
-        { name: "duration", type: "number", default: "3000", description: "낙하 애니메이션 지속 시간(ms)" },
+        {
+          name: "duration",
+          type: "number",
+          default: "3000",
+          description: "낙하 애니메이션 지속 시간(ms)",
+        },
         { name: "className", type: "string", description: "컨테이너에 추가할 클래스" },
       ]}
     >

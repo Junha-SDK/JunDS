@@ -4,13 +4,7 @@ import type { ComponentEntry } from "@/ds/runtime";
 import { defaultRegistry, createRegistry } from "@/ds/runtime";
 
 const PlusIcon = (
-  <svg
-    className="w-4 h-4"
-    viewBox="0 0 16 16"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
+  <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={2}>
     <path d="M8 3v10M3 8h10" />
   </svg>
 );

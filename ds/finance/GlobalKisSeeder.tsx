@@ -17,10 +17,7 @@ import { useRealPricesSnapshot } from "./lib/livePrices";
  */
 export function GlobalKisSeeder() {
   // tickerFor 매핑이 있는 종목만 (없는 종목은 KIS 호출 못함)
-  const names = useMemo(
-    () => Array.from(new Set(HEATMAP_FLAT.map((c) => c.name))),
-    [],
-  );
+  const names = useMemo(() => Array.from(new Set(HEATMAP_FLAT.map((c) => c.name))), []);
   // 히트맵에 등록된 수백 종목은 SSE 단일 커넥션의 등록 한도(약 40~50)를 넘기
   // 때문에 30초 REST 폴링으로 시드한다. 화면에 강조 표시되는 종목
   // (관심 종목·상세 페이지)은 별도로 SSE 기반 useRealPrices 가 즉시 갱신한다.

@@ -161,7 +161,10 @@ export function LiveMarketStats() {
               {stats.weightedAvg.toFixed(2)}%
             </span>
           </div>
-          <div className="h-2 rounded-full overflow-hidden flex" style={{ background: "var(--bm-soft-100)" }}>
+          <div
+            className="h-2 rounded-full overflow-hidden flex"
+            style={{ background: "var(--bm-soft-100)" }}
+          >
             <div
               style={{
                 width: `${(stats.upN / Math.max(1, stats.total)) * 100}%`,
@@ -191,7 +194,11 @@ export function LiveMarketStats() {
           style={{ borderBottom: "1px solid var(--bm-border)" }}
         >
           <span className="font-extrabold text-[13px]">거래대금</span>
-          <Link href="/nxt" className="text-[10.5px] font-bold" style={{ color: "var(--bm-accent-strong)" }}>
+          <Link
+            href="/nxt"
+            className="text-[10.5px] font-bold"
+            style={{ color: "var(--bm-accent-strong)" }}
+          >
             NXT ›
           </Link>
         </header>
@@ -199,7 +206,10 @@ export function LiveMarketStats() {
           <div className="bm-num font-extrabold text-[20px]">
             {fmtTotalAmount(stats.totalAmount억)}
           </div>
-          <div className="flex items-center justify-between text-[10.5px] mt-1.5" style={{ color: "var(--bm-muted)" }}>
+          <div
+            className="flex items-center justify-between text-[10.5px] mt-1.5"
+            style={{ color: "var(--bm-muted)" }}
+          >
             <span>코스피 {fmtTotalAmount(stats.kospiAmount)}</span>
             <span>코스닥 {fmtTotalAmount(stats.kosdaqAmount)}</span>
           </div>

@@ -80,13 +80,15 @@ export function Transfer({
     setTargetChecked(new Set());
   };
 
-  const filteredSource = searchable && sourceSearch
-    ? source.filter((item) => item.label.toLowerCase().includes(sourceSearch.toLowerCase()))
-    : source;
+  const filteredSource =
+    searchable && sourceSearch
+      ? source.filter((item) => item.label.toLowerCase().includes(sourceSearch.toLowerCase()))
+      : source;
 
-  const filteredTarget = searchable && targetSearch
-    ? target.filter((item) => item.label.toLowerCase().includes(targetSearch.toLowerCase()))
-    : target;
+  const filteredTarget =
+    searchable && targetSearch
+      ? target.filter((item) => item.label.toLowerCase().includes(targetSearch.toLowerCase()))
+      : target;
 
   const renderPanel = (
     title: string,
@@ -96,11 +98,13 @@ export function Transfer({
     search: string,
     setSearch: (v: string) => void,
   ) => (
-    <div className="flex-1 border border-border rounded-lg overflow-hidden min-w-[180px]">
-      {/* 헤더 */}
-      <div className="px-3 py-2 bg-gray-50 border-b border-border flex items-center justify-between">
-        <span className="text-sm font-medium text-foreground">{title}</span>
-        <span className="text-xs text-muted">{checked.size}/{items.length}</span>
+    <div className="flex-1 border border-border rounded-xl overflow-hidden min-w-[180px] bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+      {/* 헤더 — bg-gray-50 은 라이트 전용이라 다크에서 패널 머리만 하얗게 뜬다. */}
+      <div className="px-3 py-2 bg-card-hover border-b border-border flex items-center justify-between gap-2">
+        <span className="min-w-0 truncate text-sm font-medium text-foreground">{title}</span>
+        <span className="shrink-0 text-xs text-muted tabular-nums">
+          {checked.size}/{items.length}
+        </span>
       </div>
       {/* 검색 */}
       {searchable && (
@@ -110,7 +114,7 @@ export function Transfer({
             placeholder="검색..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-2 py-1 text-sm border border-border rounded-md outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+            className="w-full px-2 py-1 text-sm bg-card border border-border rounded-lg outline-none transition-[border-color,box-shadow] duration-150 focus:ring-2 focus:ring-primary/40 focus:border-primary"
           />
         </div>
       )}
@@ -123,7 +127,10 @@ export function Transfer({
             <label
               key={item.key}
               className={cn(
-                "flex items-center gap-2 px-3 py-1.5 text-sm cursor-pointer hover:bg-gray-50 transition-colors",
+                "flex items-center gap-2 px-3 py-1.5 text-sm cursor-pointer transition-colors duration-150",
+                "hover:bg-card-hover",
+                // 포커스를 받는 건 안쪽 체크박스다 — 어느 행에 있는지는 행이 알려 준다.
+                "focus-within:bg-card-hover focus-within:ring-1 focus-within:ring-inset focus-within:ring-primary/40",
                 item.disabled && "opacity-40 cursor-not-allowed",
               )}
             >
@@ -132,9 +139,9 @@ export function Transfer({
                 checked={checked.has(item.key)}
                 disabled={item.disabled}
                 onChange={() => toggleCheck(item.key, side)}
-                className="accent-primary"
+                className="accent-primary shrink-0"
               />
-              <span className="truncate">{item.label}</span>
+              <span className="min-w-0 truncate">{item.label}</span>
             </label>
           ))
         )}
@@ -144,7 +151,14 @@ export function Transfer({
 
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      {renderPanel(sourceTitle, filteredSource, sourceChecked, "source", sourceSearch, setSourceSearch)}
+      {renderPanel(
+        sourceTitle,
+        filteredSource,
+        sourceChecked,
+        "source",
+        sourceSearch,
+        setSourceSearch,
+      )}
       {/* 이동 버튼 */}
       <div className="flex flex-col gap-2">
         <button
@@ -153,12 +167,23 @@ export function Transfer({
           onClick={moveToTarget}
           aria-label={t("ariaTransferTo", { target: targetTitle })}
           className={cn(
-            "p-1.5 rounded-md border border-border transition-colors cursor-pointer",
-            "disabled:opacity-40 disabled:cursor-not-allowed",
-            "hover:bg-gray-100",
+            "p-1.5 rounded-lg border border-border bg-card cursor-pointer",
+            "transition-[background-color,transform] duration-150 active:scale-[0.94]",
+            // hover:bg-gray-100 은 라이트 전용 값이었다.
+            "hover:bg-card-hover",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100",
+            "motion-reduce:transition-none motion-reduce:active:scale-100",
           )}
         >
-          <svg className="w-4 h-4 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+          <svg
+            className="w-4 h-4 text-foreground"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -168,17 +193,35 @@ export function Transfer({
           onClick={moveToSource}
           aria-label={t("ariaTransferTo", { target: sourceTitle })}
           className={cn(
-            "p-1.5 rounded-md border border-border transition-colors cursor-pointer",
-            "disabled:opacity-40 disabled:cursor-not-allowed",
-            "hover:bg-gray-100",
+            "p-1.5 rounded-lg border border-border bg-card cursor-pointer",
+            "transition-[background-color,transform] duration-150 active:scale-[0.94]",
+            // hover:bg-gray-100 은 라이트 전용 값이었다.
+            "hover:bg-card-hover",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100",
+            "motion-reduce:transition-none motion-reduce:active:scale-100",
           )}
         >
-          <svg className="w-4 h-4 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+          <svg
+            className="w-4 h-4 text-foreground"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
       </div>
-      {renderPanel(targetTitle, filteredTarget, targetChecked, "target", targetSearch, setTargetSearch)}
+      {renderPanel(
+        targetTitle,
+        filteredTarget,
+        targetChecked,
+        "target",
+        targetSearch,
+        setTargetSearch,
+      )}
     </div>
   );
 }

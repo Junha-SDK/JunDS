@@ -12,7 +12,7 @@
 export interface ThemePreset {
   name: string;
   label: string;
-  primary: string;    // hex
+  primary: string; // hex
   primaryHover: string;
   primaryLight: string;
   primaryGlow: string;
@@ -37,12 +37,24 @@ function hexToRgb(hex: string) {
 function darken(hex: string, amount: number): string {
   const { r, g, b } = hexToRgb(hex);
   const f = 1 - amount;
-  return `#${Math.round(r * f).toString(16).padStart(2, "0")}${Math.round(g * f).toString(16).padStart(2, "0")}${Math.round(b * f).toString(16).padStart(2, "0")}`;
+  return `#${Math.round(r * f)
+    .toString(16)
+    .padStart(2, "0")}${Math.round(g * f)
+    .toString(16)
+    .padStart(2, "0")}${Math.round(b * f)
+    .toString(16)
+    .padStart(2, "0")}`;
 }
 
 function lighten(hex: string, amount: number): string {
   const { r, g, b } = hexToRgb(hex);
-  return `#${Math.min(255, Math.round(r + (255 - r) * amount)).toString(16).padStart(2, "0")}${Math.min(255, Math.round(g + (255 - g) * amount)).toString(16).padStart(2, "0")}${Math.min(255, Math.round(b + (255 - b) * amount)).toString(16).padStart(2, "0")}`;
+  return `#${Math.min(255, Math.round(r + (255 - r) * amount))
+    .toString(16)
+    .padStart(2, "0")}${Math.min(255, Math.round(g + (255 - g) * amount))
+    .toString(16)
+    .padStart(2, "0")}${Math.min(255, Math.round(b + (255 - b) * amount))
+    .toString(16)
+    .padStart(2, "0")}`;
 }
 
 function toGlow(hex: string, opacity = 0.18): string {
@@ -116,7 +128,10 @@ export function applyTheme(themeOrName: string | { name: string; primary: string
 
   // localStorage에 저장
   try {
-    localStorage.setItem("junds-theme", JSON.stringify({ name: theme.name, primary: theme.primary }));
+    localStorage.setItem(
+      "junds-theme",
+      JSON.stringify({ name: theme.name, primary: theme.primary }),
+    );
   } catch {}
 }
 

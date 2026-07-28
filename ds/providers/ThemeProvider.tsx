@@ -1,11 +1,17 @@
 "use client";
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
-import { themePresets, applyTheme, restoreTheme, generateTheme, type ThemePreset } from "../tokens/themes";
+import {
+  themePresets,
+  applyTheme,
+  restoreTheme,
+  generateTheme,
+  type ThemePreset,
+} from "../tokens/themes";
 
 type ColorMode = "light" | "dark" | "system";
 
 interface ThemeContextValue {
-  theme: string;              // current theme name
+  theme: string; // current theme name
   colorMode: ColorMode;
   isDark: boolean;
   setTheme: (name: string) => void;
@@ -22,7 +28,11 @@ export interface ThemeProviderProps {
   defaultColorMode?: ColorMode;
 }
 
-export function ThemeProvider({ children, defaultTheme = "purple", defaultColorMode = "system" }: ThemeProviderProps) {
+export function ThemeProvider({
+  children,
+  defaultTheme = "purple",
+  defaultColorMode = "system",
+}: ThemeProviderProps) {
   const [theme, setThemeState] = useState(defaultTheme);
   const [colorMode, setColorModeState] = useState<ColorMode>(defaultColorMode);
   const [isDark, setIsDark] = useState(false);
@@ -50,7 +60,9 @@ export function ThemeProvider({ children, defaultTheme = "purple", defaultColorM
       setIsDark(false);
       document.documentElement.setAttribute("data-theme", "light");
     }
-    try { localStorage.setItem("junds-color-mode", colorMode); } catch {}
+    try {
+      localStorage.setItem("junds-color-mode", colorMode);
+    } catch {}
   }, [colorMode]);
 
   // Restore on mount
@@ -78,10 +90,12 @@ export function ThemeProvider({ children, defaultTheme = "purple", defaultColorM
     setThemeState("custom");
   }, []);
 
-  const themePreset = themePresets.find(t => t.name === theme) || null;
+  const themePreset = themePresets.find((t) => t.name === theme) || null;
 
   return (
-    <ThemeContext.Provider value={{ theme, colorMode, isDark, setTheme, setColorMode, setCustomTheme, themePreset }}>
+    <ThemeContext.Provider
+      value={{ theme, colorMode, isDark, setTheme, setColorMode, setCustomTheme, themePreset }}
+    >
       {children}
     </ThemeContext.Provider>
   );

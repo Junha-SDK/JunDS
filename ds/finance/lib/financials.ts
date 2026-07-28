@@ -64,7 +64,9 @@ export function disclosuresFor(name: string, count = 12): Disclosure[] {
     const offset = ((seed * (i + 1)) % 8) + 1;
     day -= offset * 86400_000;
     const d = new Date(day);
-    const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+      d.getDate(),
+    ).padStart(2, "0")}`;
     const t = TITLES[(seed + i) % TITLES.length];
     const c = CATEGORIES[(seed + i * 3) % CATEGORIES.length];
     out.push({ id: `${name}-${i}`, date: dateStr, title: t, category: c });

@@ -53,13 +53,29 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
       }
       // Default fallback UI
       return (
-        <div className={cn("flex flex-col items-center justify-center p-8 text-center border border-danger/20 rounded-xl bg-danger-light", this.props.className)}>
-          <div className="text-danger text-2xl mb-2">⚠</div>
+        <div
+          className={cn(
+            "flex flex-col items-center justify-center p-8 text-center border border-danger/20 rounded-xl bg-danger-light",
+            this.props.className,
+          )}
+        >
+          <div className="text-danger text-2xl mb-2" aria-hidden="true">
+            ⚠
+          </div>
           <h3 className="text-sm font-semibold text-foreground mb-1">오류가 발생했습니다</h3>
-          <p className="text-xs text-muted mb-3">{this.state.error.message}</p>
+          <p className="max-w-full break-words text-xs text-muted mb-3">
+            {this.state.error.message}
+          </p>
           <button
+            type="button"
             onClick={this.reset}
-            className="px-3 py-1.5 text-xs font-medium bg-danger text-white rounded-lg hover:bg-danger-hover transition-colors"
+            className={cn(
+              "px-3 py-1.5 text-xs font-medium bg-danger text-white rounded-xl cursor-pointer",
+              "shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]",
+              // 누를 수 있는 것에는 hover·active·focus-visible 이 전부 있어야 한다
+              "transition-colors hover:bg-danger-hover active:scale-[0.97] motion-reduce:active:scale-100",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            )}
           >
             다시 시도
           </button>

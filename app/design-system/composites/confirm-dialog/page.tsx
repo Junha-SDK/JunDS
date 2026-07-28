@@ -20,7 +20,12 @@ export default function ConfirmDialogPage() {
         { name: "onConfirm", type: "() => void", description: "확인 핸들러" },
         { name: "title", type: "string", description: "제목" },
         { name: "description", type: "string | ReactNode", description: "설명 텍스트" },
-        { name: "confirmLabel", type: "string", default: '"확인"', description: "확인 버튼 텍스트" },
+        {
+          name: "confirmLabel",
+          type: "string",
+          default: '"확인"',
+          description: "확인 버튼 텍스트",
+        },
         { name: "cancelLabel", type: "string", default: '"취소"', description: "취소 버튼 텍스트" },
         { name: "danger", type: "boolean", default: "false", description: "위험 액션 여부" },
         { name: "loading", type: "boolean", default: "false", description: "로딩 상태" },
@@ -42,7 +47,9 @@ export default function ConfirmDialogPage() {
 
       <Section title="위험 확인">
         <Preview>
-          <Button variant="danger" onClick={() => setDangerOpen(true)}>삭제</Button>
+          <Button variant="danger" onClick={() => setDangerOpen(true)}>
+            삭제
+          </Button>
           <ConfirmDialog
             open={dangerOpen}
             onClose={() => setDangerOpen(false)}

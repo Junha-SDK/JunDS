@@ -34,6 +34,8 @@ export interface AreaChartProps extends HTMLAttributes<HTMLDivElement> {
   fillOpacity?: number;
 }
 
+// 계열색은 차트 정체성이라 리터럴을 유지한다. BarChart·LineChart·RadarChart·
+// ScatterPlot 이 같은 배열을 쓰므로 여기만 토큰으로 바꾸면 차트끼리 계열색이 어긋난다.
 const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b82f6"];
 const PADDING = { top: 12, right: 12, bottom: 28, left: 36 };
 
@@ -67,9 +69,18 @@ function buildPath(points: { x: number; y: number }[], smooth: boolean): string 
  */
 export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(function AreaChart(
   {
-    labels, series, width = 480, height = 240, mode = "overlap", smooth = true,
-    showGrid = true, showYAxis = true, showXAxis = true, fillOpacity = 0.25,
-    className, ...props
+    labels,
+    series,
+    width = 480,
+    height = 240,
+    mode = "overlap",
+    smooth = true,
+    showGrid = true,
+    showYAxis = true,
+    showXAxis = true,
+    fillOpacity = 0.25,
+    className,
+    ...props
   },
   ref,
 ) {
@@ -104,41 +115,102 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(function Are
       const y = PADDING.top + innerH - (top / range) * innerH;
       return { x, y };
     });
-    const bottomPoints = (offsets ? offsets.map((b, i) => {
-      const x = PADDING.left + (xCount === 1 ? innerW / 2 : (i / (xCount - 1)) * innerW);
-      const y = PADDING.top + innerH - (b / range) * innerH;
-      return { x, y };
-    }) : null);
+    const bottomPoints = offsets
+      ? offsets.map((b, i) => {
+          const x = PADDING.left + (xCount === 1 ? innerW / 2 : (i / (xCount - 1)) * innerW);
+          const y = PADDING.top + innerH - (b / range) * innerH;
+          return { x, y };
+        })
+      : null;
     if (offsets) {
-      s.data.forEach((v, i) => { offsets[i] += v; });
+      s.data.forEach((v, i) => {
+        offsets[i] += v;
+      });
     }
     const topPath = buildPath(topPoints, smooth);
     const baseline = bottomPoints ? buildPath([...bottomPoints].reverse(), smooth) : null;
     const areaPath = baseline
-      ? `${topPath} L${bottomPoints![bottomPoints!.length - 1].x},${bottomPoints![bottomPoints!.length - 1].y} ${baseline.replace(/^M/, "L")} Z`
-      : `${topPath} L${topPoints[topPoints.length - 1].x},${PADDING.top + innerH} L${topPoints[0].x},${PADDING.top + innerH} Z`;
+      ? `${topPath} L${bottomPoints![bottomPoints!.length - 1].x},${
+          bottomPoints![bottomPoints!.length - 1].y
+        } ${baseline.replace(/^M/, "L")} Z`
+      : `${topPath} L${topPoints[topPoints.length - 1].x},${PADDING.top + innerH} L${
+          topPoints[0].x
+        },${PADDING.top + innerH} Z`;
     return { color, topPoints, areaPath, topPath, name: s.name };
   });
 
   return (
-    <div ref={ref} className={cn("inline-block", className)} {...props}>
-      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} role="img" aria-label="영역 차트">
-        {showGrid && yTicks.map((v, i) => {
-          const y = PADDING.top + innerH - (v / range) * innerH;
-          return <line key={i} x1={PADDING.left} y1={y} x2={width - PADDING.right} y2={y} stroke="var(--border)" strokeDasharray="2 2" strokeOpacity={0.4} />;
-        })}
-        {showYAxis && yTicks.map((v, i) => {
-          const y = PADDING.top + innerH - (v / range) * innerH;
-          return <text key={i} x={PADDING.left - 6} y={y + 3} fontSize="10" textAnchor="end" className="fill-muted">{Math.round(v)}</text>;
-        })}
-        {showXAxis && labels && labels.map((l, i) => {
-          const x = PADDING.left + (xCount === 1 ? innerW / 2 : (i / (xCount - 1)) * innerW);
-          return <text key={i} x={x} y={height - 8} fontSize="10" textAnchor="middle" className="fill-muted">{l}</text>;
-        })}
+    <div ref={ref} className={cn("inline-block max-w-full", className)} {...props}>
+      {/* viewBox 가 있으니 폭이 모자라면 비율을 지키며 줄어들어야 한다 —
+          고정 width 만 두면 좁은 칸에서 그대로 넘친다. */}
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        className="block max-w-full h-auto"
+        role="img"
+        aria-label="영역 차트"
+      >
+        {showGrid &&
+          yTicks.map((v, i) => {
+            const y = PADDING.top + innerH - (v / range) * innerH;
+            return (
+              <line
+                key={i}
+                x1={PADDING.left}
+                y1={y}
+                x2={width - PADDING.right}
+                y2={y}
+                stroke="var(--border)"
+                strokeDasharray="2 2"
+                strokeOpacity={0.4}
+              />
+            );
+          })}
+        {showYAxis &&
+          yTicks.map((v, i) => {
+            const y = PADDING.top + innerH - (v / range) * innerH;
+            return (
+              <text
+                key={i}
+                x={PADDING.left - 6}
+                y={y + 3}
+                fontSize="10"
+                textAnchor="end"
+                className="fill-muted"
+              >
+                {Math.round(v)}
+              </text>
+            );
+          })}
+        {showXAxis &&
+          labels &&
+          labels.map((l, i) => {
+            const x = PADDING.left + (xCount === 1 ? innerW / 2 : (i / (xCount - 1)) * innerW);
+            return (
+              <text
+                key={i}
+                x={x}
+                y={height - 8}
+                fontSize="10"
+                textAnchor="middle"
+                className="fill-muted"
+              >
+                {l}
+              </text>
+            );
+          })}
         {computed.map((c, i) => (
           <g key={i}>
             <path d={c.areaPath} fill={c.color} fillOpacity={fillOpacity} />
-            <path d={c.topPath} fill="none" stroke={c.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d={c.topPath}
+              fill="none"
+              stroke={c.color}
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </g>
         ))}
       </svg>

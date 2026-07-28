@@ -55,7 +55,10 @@ export function Typewriter({
         setIsDeleting(false);
         const next = textIdx + 1;
         if (next >= texts.length) {
-          if (!loop) { onComplete?.(); return; }
+          if (!loop) {
+            onComplete?.();
+            return;
+          }
           setTextIdx(0);
         } else {
           setTextIdx(next);
@@ -79,7 +82,11 @@ export function Typewriter({
     <span className={cn("inline", className)} aria-label={currentText}>
       <span>{currentText.slice(0, charIdx)}</span>
       {cursor && (
-        <span className="animate-pulse ml-0.5 text-primary" aria-hidden="true">
+        // 깜빡이는 커서는 감속 요청을 켠 사용자에게 그대로 두면 안 된다 — 켜진 채로 멈춘다
+        <span
+          className="animate-pulse motion-reduce:animate-none ml-0.5 text-primary-ink"
+          aria-hidden="true"
+        >
           {cursorChar}
         </span>
       )}

@@ -30,9 +30,14 @@ export interface ProgressRingProps {
  * @tags feedback
  */
 export function ProgressRing({
-  value, max = 100, size = 80, strokeWidth = 6,
-  color = "var(--primary)", trackColor = "var(--border)",
-  children, className,
+  value,
+  max = 100,
+  size = 80,
+  strokeWidth = 6,
+  color = "var(--primary)",
+  trackColor = "var(--border)",
+  children,
+  className,
 }: ProgressRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -40,15 +45,35 @@ export function ProgressRing({
   const offset = circumference * (1 - progress);
 
   return (
-    <div className={cn("relative inline-flex items-center justify-center", className)} style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke={trackColor} strokeWidth={strokeWidth} />
+    <div
+      className={cn("relative inline-flex items-center justify-center shrink-0", className)}
+      style={{ width: size, height: size }}
+      role="progressbar"
+      aria-valuenow={Math.round(progress * 100)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+    >
+      <svg width={size} height={size} className="-rotate-90" aria-hidden="true">
         <circle
-          cx={size / 2} cy={size / 2} r={radius} fill="none"
-          stroke={color} strokeWidth={strokeWidth}
-          strokeDasharray={circumference} strokeDashoffset={offset}
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke={trackColor}
+          strokeWidth={strokeWidth}
+        />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke={color}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
           strokeLinecap="round"
-          className="transition-all duration-500"
+          // 호가 감기는 것 하나만 전이 대상이다. all 이면 stroke·r 까지 끌려간다
+          className="transition-[stroke-dashoffset] duration-500 ease-out motion-reduce:transition-none"
         />
       </svg>
       {children !== undefined ? (

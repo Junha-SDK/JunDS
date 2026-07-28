@@ -34,13 +34,22 @@ export function ThemeSwitcher() {
             key={t.name}
             type="button"
             title={t.label}
+            // 색만 있는 버튼은 접근 가능한 이름이 없다 — title 로는 AT 가 못 읽는다
+            aria-label={`${t.label} 테마`}
+            aria-pressed={current === t.name}
             onClick={() => handleSelect(t.name)}
             className={cn(
-              "w-6 h-6 min-w-[24px] min-h-[24px] shrink-0 rounded-full transition-all duration-150 cursor-pointer",
+              "w-6 h-6 min-w-[24px] min-h-[24px] shrink-0 rounded-full cursor-pointer",
+              // 스와치가 바꾸는 것은 변형·밝기·링뿐이다 — all 은 width 까지 잡는다
+              "transition-[transform,filter,box-shadow] duration-150",
               "hover:scale-110 hover:brightness-110",
+              // 선택 링과 포커스 링이 겹치지 않게 포커스는 sidebar-active 색을 쓴다
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-active",
+              "focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar-bg",
               current === t.name
-                ? "ring-[2.5px] ring-white/70 ring-offset-1 ring-offset-[#1a1726] scale-110"
-                : "ring-1 ring-white/10",
+                ? // 리터럴 #1a1726 은 sidebar-bg 토큰과 같은 값이다 — 토큰으로 옮긴다
+                  "ring-[2.5px] ring-white/70 ring-offset-1 ring-offset-sidebar-bg scale-110"
+                : "ring-1 ring-white/20",
             )}
             style={{ backgroundColor: t.primary }}
           />
@@ -52,11 +61,15 @@ export function ThemeSwitcher() {
         <button
           type="button"
           onClick={() => setShowCustom(!showCustom)}
+          aria-expanded={showCustom}
           className={cn(
             "flex-1 flex items-center justify-center gap-1.5 h-7 rounded-lg text-[11px] font-medium transition-colors cursor-pointer",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-active/70",
+            "focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar-bg",
             showCustom
-              ? "bg-white/15 text-white/80"
-              : "bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/60",
+              ? "bg-white/15 text-white/90"
+              : // white/40 은 어두운 레일 위에서 AA 미달이라 라벨이 잿빛이었다
+                "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/90",
           )}
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -75,17 +88,32 @@ export function ThemeSwitcher() {
             type="color"
             value={customColor}
             onChange={(e) => handleCustom(e.target.value)}
-            className="w-7 h-7 rounded-md cursor-pointer border-0 p-0 bg-transparent [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-md [&::-webkit-color-swatch]:border-white/20 [&::-webkit-color-swatch]:border"
+            aria-label="커스텀 테마 색상 선택"
+            className={cn(
+              "w-7 h-7 rounded-md cursor-pointer border-0 p-0 bg-transparent",
+              "[&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-md",
+              "[&::-webkit-color-swatch]:border-white/20 [&::-webkit-color-swatch]:border",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-active/70",
+              "focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar-bg",
+            )}
           />
           <input
             type="text"
             value={customColor}
             onChange={(e) => handleCustom(e.target.value)}
             placeholder="#000000"
-            className="flex-1 h-7 px-2 text-[11px] font-mono bg-white/10 text-white/80 rounded-md border-0 outline-none focus:bg-white/15 uppercase"
+            aria-label="커스텀 테마 색상 HEX"
+            className={cn(
+              "flex-1 min-w-0 h-7 px-2 text-[11px] font-mono bg-white/10 text-white/90 rounded-md border-0",
+              "placeholder:text-white/45 uppercase",
+              "transition-colors duration-150 focus:bg-white/15",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-active/70",
+              "focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar-bg",
+            )}
           />
+          {/* white/40 은 레일 위 AA 미달 — 상태 표시가 보이지 않았다 */}
           {current === "custom" && (
-            <span className="text-[10px] text-white/40">적용됨</span>
+            <span className="text-[10px] text-white/60 whitespace-nowrap">적용됨</span>
           )}
         </div>
       )}

@@ -33,8 +33,9 @@ const variantIcon: Record<string, { bg: string; stroke: string; path: string }> 
     path: "M10 2L1.5 17.5h17L10 2z",
   },
   warning: {
-    bg: "bg-yellow-50",
-    stroke: "#d97706",
+    // 리터럴 #d97706 / bg-yellow-50 은 다크에서 그대로 밝게 남는다 — 경고 토큰으로 옮긴다.
+    bg: "bg-warning-light",
+    stroke: "var(--warning)",
     path: "M10 2L1.5 17.5h17L10 2z",
   },
   info: {
@@ -100,11 +101,14 @@ export function AlertDialog({
         role="alertdialog"
       >
         {/* 배경 (클릭해도 닫히지 않음) */}
-        <div className="absolute inset-0 bg-black/40 animate-fade-in" />
+        <div className="absolute inset-0 bg-black/40 animate-fade-in motion-reduce:animate-none" />
         {/* 컨텐츠 */}
         <div
           className={cn(
-            "relative w-full max-w-md bg-white rounded-2xl shadow-2xl animate-fade-in-scale overflow-hidden",
+            "relative w-full max-w-md bg-card rounded-2xl overflow-hidden",
+            // 떠 있는 면은 한 겹 그림자로는 서지 않는다 — 다층 그림자 + 얇은 링으로 세운다.
+            "shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45),0_8px_20px_-8px_rgba(0,0,0,0.25)] ring-1 ring-border",
+            "animate-fade-in-scale motion-reduce:animate-none",
             className,
           )}
         >
@@ -117,8 +121,18 @@ export function AlertDialog({
                 )}
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d={icon.path} stroke={icon.stroke} strokeWidth="1.5" strokeLinejoin="round" />
-                  <path d="M10 8v4M10 14.5h.01" stroke={icon.stroke} strokeWidth="1.5" strokeLinecap="round" />
+                  <path
+                    d={icon.path}
+                    stroke={icon.stroke}
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M10 8v4M10 14.5h.01"
+                    stroke={icon.stroke}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </div>
               <div>
@@ -133,8 +147,13 @@ export function AlertDialog({
               onClick={onCancel}
               disabled={loading}
               className={cn(
-                "px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer",
-                "text-foreground bg-gray-100 hover:bg-gray-200 disabled:opacity-40",
+                "px-4 py-2 text-sm font-medium rounded-xl cursor-pointer",
+                "transition-[background-color,border-color,transform] duration-150",
+                // 라이트 전용 gray-100/200 대신 모드를 따라가는 카드·경계 토큰.
+                "text-foreground bg-card-hover border border-border hover:bg-border-light active:scale-[0.97]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100",
+                "motion-reduce:transition-none motion-reduce:active:scale-100",
               )}
             >
               {cancelLabel}
@@ -144,18 +163,36 @@ export function AlertDialog({
               onClick={onConfirm}
               disabled={loading}
               className={cn(
-                "px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer text-white",
-                "disabled:opacity-40",
-                variant === "danger" && "bg-danger hover:bg-danger/90",
-                variant === "warning" && "bg-amber-600 hover:bg-amber-700",
-                variant === "info" && "bg-primary hover:bg-primary/90",
+                "px-4 py-2 text-sm font-medium rounded-xl cursor-pointer text-white",
+                "transition-[background-color,box-shadow,transform] duration-150",
+                "shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] active:scale-[0.97]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100",
+                "motion-reduce:transition-none motion-reduce:active:scale-100",
+                variant === "danger" && "bg-danger hover:bg-danger-hover",
+                // amber-600 은 경고 토큰을 우회한 리터럴 팔레트였다.
+                variant === "warning" && "bg-warning hover:brightness-95",
+                variant === "info" && "bg-primary hover:bg-primary-hover",
               )}
             >
               {loading ? (
                 <span className="flex items-center gap-2">
                   <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25" />
-                    <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-75" />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      className="opacity-25"
+                    />
+                    <path
+                      d="M4 12a8 8 0 018-8"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      className="opacity-75"
+                    />
                   </svg>
                   {confirmLabel}
                 </span>

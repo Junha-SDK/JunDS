@@ -2,25 +2,21 @@
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
 import { Slot, Slottable } from "../../utils/Slot";
-import type {
-  ButtonProps,
-  ButtonSize,
-  ButtonVariant,
-} from "./Button.types";
+import type { ButtonProps, ButtonSize, ButtonVariant } from "./Button.types";
 
+// 중립 표면은 Tailwind 회색 대신 의미 토큰으로 잡는다. bg-white·bg-gray-50 은 라이트 전용
+// 값이라 다크에서 그대로 흰 판이 되고, muted 계열은 두 모드 모두에서 모드를 따라간다.
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
     "bg-primary text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15)] hover:shadow-[0_4px_12px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.1)] hover:brightness-110 active:brightness-95 active:shadow-[0_1px_1px_rgba(0,0,0,0.1)] active:scale-[0.98]",
   secondary:
-    "bg-white text-foreground border border-border shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:bg-gray-50 hover:border-gray-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] active:bg-gray-100 active:shadow-none active:scale-[0.98]",
+    "bg-card text-foreground border border-border shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.12)] hover:bg-card-hover hover:border-muted-light/60 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] active:bg-muted/15 active:shadow-none active:scale-[0.98]",
   danger:
     "bg-danger text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15)] hover:shadow-[0_4px_12px_rgba(220,63,63,0.25),0_1px_2px_rgba(0,0,0,0.1)] hover:brightness-110 active:brightness-95 active:scale-[0.98]",
-  ghost:
-    "text-foreground hover:bg-gray-100/80 active:bg-gray-200/80 active:scale-[0.98]",
+  ghost: "text-foreground hover:bg-muted/10 active:bg-muted/20 active:scale-[0.98]",
   outline:
-    "border border-border text-foreground hover:bg-gray-50 hover:border-gray-300 active:bg-gray-100 active:scale-[0.98]",
-  link:
-    "text-primary hover:underline underline-offset-2 decoration-primary/40 hover:decoration-primary p-0 h-auto",
+    "border border-border text-foreground hover:bg-muted/10 hover:border-muted-light/60 active:bg-muted/15 active:scale-[0.98]",
+  link: "text-primary-ink hover:underline underline-offset-2 decoration-primary/40 hover:decoration-primary p-0 h-auto",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -78,8 +74,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref as never}
         {...interactiveProps}
         className={cn(
-          "inline-flex items-center justify-center font-semibold transition-all duration-200 ease-out",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
+          "inline-flex items-center justify-center font-semibold",
+          // all 은 height·padding·font-size 까지 전이 대상으로 삼아 크기가 흐른다. 실제로 변하는
+          // 것만 지목하고, transform·filter 가 섞이므로 감속 요청을 받는다.
+          "transition-[color,background-color,border-color,box-shadow,transform,filter] duration-200 ease-out motion-reduce:transition-none",
+          // ring-offset 색을 지정하지 않으면 기본 흰색 틈이 생겨 다크에서 링이 잘려 보인다.
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           "disabled:opacity-40 disabled:pointer-events-none disabled:shadow-none",
           "cursor-pointer select-none whitespace-nowrap",
           asChild && isDisabled && "pointer-events-none opacity-40 shadow-none",
@@ -100,8 +100,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             fill="none"
             aria-hidden="true"
           >
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="3"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+            />
           </svg>
         ) : leftIcon ? (
           <span className="shrink-0">{leftIcon}</span>

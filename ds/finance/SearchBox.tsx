@@ -140,10 +140,11 @@ export function SearchBox({
           e.preventDefault();
           submitToSearch();
         }}
-        className="flex items-center gap-2 px-3 h-9 rounded-full"
+        // 초점은 input 이 받지만 시각적 경계는 이 껍데기다 — 링을 여기에 건다
+        className="flex items-center gap-2 px-3 h-9 rounded-full transition-shadow duration-150 focus-within:ring-2 focus-within:ring-[color:var(--bm-accent-strong)]"
         style={{ background: "var(--bm-card)", border: "1px solid var(--bm-border)" }}
       >
-        <span style={{ color: "var(--bm-muted)" }}>
+        <span className="shrink-0" style={{ color: "var(--bm-muted)" }}>
           <AppIcon name="search" size={15} strokeWidth={2} />
         </span>
         <input
@@ -157,11 +158,11 @@ export function SearchBox({
             setOpen(true);
           }}
           onFocus={() => setOpen(true)}
-          className="flex-1 bg-transparent outline-none text-[13.5px] placeholder:text-[color:var(--bm-muted)]"
+          className="flex-1 min-w-0 bg-transparent outline-none text-[13.5px] placeholder:text-[color:var(--bm-muted)]"
           style={{ color: "var(--bm-text)" }}
         />
         <kbd
-          className="hidden md:inline-flex items-center gap-1 bm-num font-bold text-[10px]"
+          className="hidden md:inline-flex items-center gap-1 bm-num font-bold text-[10px] shrink-0"
           style={{
             background: "var(--bm-soft-100)",
             border: "1px solid var(--bm-border)",
@@ -170,8 +171,7 @@ export function SearchBox({
             color: "var(--bm-muted)",
           }}
         >
-          <AppIcon name="command" size={10} strokeWidth={2.5} />
-          K
+          <AppIcon name="command" size={10} strokeWidth={2.5} />K
         </kbd>
         {value ? (
           <button
@@ -181,7 +181,7 @@ export function SearchBox({
               setValue("");
               setOpen(false);
             }}
-            className="grid place-items-center"
+            className="grid place-items-center shrink-0 size-5 rounded-full cursor-pointer transition-[filter,transform] duration-150 hover:brightness-90 active:scale-90 motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
             style={{ color: "var(--bm-muted)" }}
           >
             <AppIcon name="close" size={14} strokeWidth={2} />
@@ -191,17 +191,18 @@ export function SearchBox({
 
       {open && (results.length > 0 || remoteLoading) ? (
         <div
-          className="absolute left-0 right-0 mt-1.5 rounded-2xl shadow-lg z-30 overflow-hidden"
+          // 떠 있는 결과 패널 — 한 겹 shadow-lg 로는 카드와 같은 평면처럼 보인다
+          className="absolute left-0 right-0 mt-1.5 rounded-2xl z-30 overflow-hidden shadow-[0_18px_40px_-16px_rgba(15,23,42,0.42),0_6px_14px_-6px_rgba(15,23,42,0.22)] ring-1 ring-white/10"
           style={{ background: "var(--bm-card)", border: "1px solid var(--bm-border)" }}
         >
           {results.length > 0 ? (
-            <ul className="divide-y divide-[color:var(--bm-border)] max-h-[60vh] overflow-y-auto">
+            <ul className="divide-y divide-[color:var(--bm-border)] max-h-[60vh] overflow-y-auto overscroll-contain">
               {results.map((s) => (
                 <li key={s.key}>
                   <Link
                     href={s.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-between hover:bg-[color:var(--bm-soft-100)]"
+                    className="flex items-center justify-between gap-2 transition-colors duration-150 hover:bg-[color:var(--bm-soft-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--bm-accent-strong)]"
                     style={{ padding: "12px 18px" }}
                   >
                     <span className="flex items-center gap-2 min-w-0">
@@ -233,7 +234,10 @@ export function SearchBox({
                           <PriceBadge pct={s.change ?? 0} size="sm" showArrow={false} />
                         </>
                       ) : (
-                        <span className="bm-num text-[11px] font-bold" style={{ color: "var(--bm-muted)" }}>
+                        <span
+                          className="bm-num text-[11px] font-bold"
+                          style={{ color: "var(--bm-muted)" }}
+                        >
                           {s.code ?? ""}
                         </span>
                       )}
@@ -251,10 +255,11 @@ export function SearchBox({
             <button
               type="button"
               onClick={submitToSearch}
-              className="w-full px-3 py-2 text-[12.5px] text-[color:var(--bm-accent-strong)] font-bold flex items-center justify-center gap-1"
+              className="w-full px-3 py-2 text-[12.5px] text-[color:var(--bm-accent-strong)] font-bold flex items-center justify-center gap-1 cursor-pointer transition-[filter] duration-150 hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--bm-accent-strong)]"
               style={{ borderTop: "1px solid var(--bm-border)", background: "var(--bm-soft-100)" }}
             >
-              ‘{value}’ 전체 검색결과 보기 <AppIcon name="chevronRight" size={12} strokeWidth={2.5} />
+              ‘{value}’ 전체 검색결과 보기{" "}
+              <AppIcon name="chevronRight" size={12} strokeWidth={2.5} />
             </button>
           ) : null}
         </div>

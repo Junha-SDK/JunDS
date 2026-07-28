@@ -13,7 +13,13 @@ export default function CheckboxCardGroupPage() {
     >
       <Section title="Default">
         <Preview>
-          <CheckboxCardGroup options={[{value:"e",title:"이메일"},{value:"s",title:"SMS"},{value:"p",title:"푸시"}]} />
+          <CheckboxCardGroup
+            options={[
+              { value: "e", title: "이메일" },
+              { value: "s", title: "SMS" },
+              { value: "p", title: "푸시" },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

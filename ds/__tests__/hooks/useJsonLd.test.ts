@@ -2,8 +2,7 @@ import { renderHook } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { useJsonLd } from "../../hooks/useJsonLd";
 
-const scripts = (key: string) =>
-  document.querySelectorAll(`script[data-jsonld="${key}"]`);
+const scripts = (key: string) => document.querySelectorAll(`script[data-jsonld="${key}"]`);
 
 describe("useJsonLd", () => {
   it("injects a script tag with the serialized payload", () => {

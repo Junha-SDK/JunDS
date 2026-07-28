@@ -36,7 +36,13 @@ export interface TreeViewProps {
  * @since 2.2.0
  * @tags data-display
  */
-export function TreeView({ nodes, selected, onSelect, defaultExpanded = [], className }: TreeViewProps) {
+export function TreeView({
+  nodes,
+  selected,
+  onSelect,
+  defaultExpanded = [],
+  className,
+}: TreeViewProps) {
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(defaultExpanded));
 
   const toggle = (key: string) => {
@@ -63,17 +69,28 @@ export function TreeView({ nodes, selected, onSelect, defaultExpanded = [], clas
             if (!node.disabled) onSelect?.(node.key);
           }}
           className={cn(
-            "w-full flex items-center gap-1.5 px-2 py-1 text-sm rounded-md transition-colors cursor-pointer text-left",
+            "w-full flex items-center gap-1.5 px-2 py-1 text-sm rounded-lg transition-colors cursor-pointer text-left",
             "disabled:opacity-40 disabled:cursor-not-allowed",
-            isSelected ? "bg-primary-light text-primary font-medium" : "text-foreground hover:bg-gray-100",
+            // 트리는 키보드 이동이 핵심인 컨트롤인데 포커스 표시가 없었다.
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
+            isSelected
+              ? "bg-primary-light text-primary-ink font-medium"
+              : // gray-100 은 라이트 전용 — 다크에서도 살짝 뜬 면으로 남는 muted 반투명으로.
+                "text-foreground hover:bg-muted/10 active:bg-muted/15",
           )}
           style={{ paddingLeft: `${depth * 16 + 8}px` }}
         >
           {/* 펼침/접힘 화살표 */}
           {hasChildren ? (
             <svg
-              className={cn("w-4 h-4 shrink-0 text-muted transition-transform duration-200", isExpanded && "rotate-90")}
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+              className={cn(
+                "w-4 h-4 shrink-0 text-muted transition-transform duration-200 motion-reduce:transition-none",
+                isExpanded && "rotate-90",
+              )}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
@@ -84,9 +101,7 @@ export function TreeView({ nodes, selected, onSelect, defaultExpanded = [], clas
           <span className="truncate">{node.label}</span>
         </button>
         {hasChildren && isExpanded && (
-          <div>
-            {node.children!.map((child) => renderNode(child, depth + 1))}
-          </div>
+          <div>{node.children!.map((child) => renderNode(child, depth + 1))}</div>
         )}
       </div>
     );

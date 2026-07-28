@@ -33,18 +33,27 @@ export function CopyBlock({ code, language, showLineNumbers = false, className }
   const lines = code.split("\n");
 
   return (
-    <div className={cn("relative group rounded-xl overflow-hidden border border-border", className)}>
+    <div
+      className={cn(
+        "relative group rounded-xl overflow-hidden border border-border shadow-xs",
+        className,
+      )}
+    >
       {language && (
-        <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-border">
-          <span className="text-xs font-medium text-muted uppercase tracking-wider">{language}</span>
+        <div className="flex items-center justify-between px-4 py-2 bg-surface-soft border-b border-border">
+          <span className="text-xs font-medium text-muted uppercase tracking-wider">
+            {language}
+          </span>
         </div>
       )}
-      <pre className="overflow-x-auto p-4 text-sm leading-relaxed bg-gray-950 text-gray-100">
+      <pre className="overflow-x-auto overscroll-x-contain p-4 text-sm leading-relaxed bg-gray-950 text-gray-100">
         <code>
           {lines.map((line, i) => (
             <div key={i} className="flex">
               {showLineNumbers && (
-                <span className="select-none text-gray-500 w-8 shrink-0 text-right mr-4">{i + 1}</span>
+                <span className="select-none tabular-nums text-gray-500 w-8 shrink-0 text-right mr-4">
+                  {i + 1}
+                </span>
               )}
               <span>{line}</span>
             </div>
@@ -55,18 +64,44 @@ export function CopyBlock({ code, language, showLineNumbers = false, className }
         type="button"
         onClick={handleCopy}
         className={cn(
-          "absolute top-2 right-2 p-2 rounded-lg transition-all cursor-pointer",
-          "opacity-0 group-hover:opacity-100",
+          "absolute top-2 right-2 p-2 rounded-lg cursor-pointer",
+          "transition-[opacity,background-color,color] duration-150",
+          // 키보드로 왔을 때도 버튼이 보여야 한다 — hover 로만 드러내면 탭 이동이 허공을 짚는다
+          "opacity-0 group-hover:opacity-100 focus-visible:opacity-100",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950",
           copied
             ? "bg-success text-white"
-            : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white",
+            : "bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white active:bg-gray-600",
         )}
         aria-label={copied ? "복사됨" : "코드 복사"}
       >
         {copied ? (
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path
+              d="M3 7l3 3 5-6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         ) : (
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="4.5" y="4.5" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.5" /><path d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5" stroke="currentColor" strokeWidth="1.5" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect
+              x="4.5"
+              y="4.5"
+              width="7"
+              height="7"
+              rx="1.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            />
+            <path
+              d="M9.5 4.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v5A1.5 1.5 0 003 9.5h1.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            />
+          </svg>
         )}
       </button>
     </div>

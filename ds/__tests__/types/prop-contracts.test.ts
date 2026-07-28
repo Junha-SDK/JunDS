@@ -15,24 +15,12 @@ import type { ReactNode } from "react";
 import type { ButtonProps, ButtonVariant, ButtonSize } from "../../primitives/Button";
 import type { InputProps, InputSize } from "../../primitives/Input";
 import type { CardProps } from "../../composites/Card";
-import type {
-  ModalProps,
-  ModalSize,
-  ModalHeaderProps,
-} from "../../composites/Modal";
+import type { ModalProps, ModalSize, ModalHeaderProps } from "../../composites/Modal";
 import type { AlertProps, AlertVariant } from "../../composites/Alert";
 import type { SelectProps, SelectOption } from "../../composites/Select";
 import type { TabsProps, Tab } from "../../composites/Tabs";
-import type {
-  DrawerProps,
-  DrawerSide,
-  DrawerSize,
-} from "../../composites/Drawer";
-import type {
-  ToastProviderProps,
-  ToastType,
-  ToastPosition,
-} from "../../composites/Toast";
+import type { DrawerProps, DrawerSide, DrawerSize } from "../../composites/Drawer";
+import type { ToastProviderProps, ToastType, ToastPosition } from "../../composites/Toast";
 import type { FormProps } from "../../patterns/Form";
 
 describe("prop signature contracts", () => {
@@ -87,9 +75,7 @@ describe("prop signature contracts", () => {
     expectTypeOf<AlertProps>().toHaveProperty("onClose");
     expectTypeOf<AlertProps["title"]>().toEqualTypeOf<string | undefined>();
     expectTypeOf<AlertProps["onClose"]>().toEqualTypeOf<(() => void) | undefined>();
-    expectTypeOf<AlertVariant>().toEqualTypeOf<
-      "info" | "success" | "warning" | "danger"
-    >();
+    expectTypeOf<AlertVariant>().toEqualTypeOf<"info" | "success" | "warning" | "danger">();
   });
 
   it("Select props remain stable", () => {
@@ -135,16 +121,9 @@ describe("prop signature contracts", () => {
     expectTypeOf<ToastProviderProps>().toHaveProperty("maxToasts");
     expectTypeOf<ToastProviderProps["children"]>().toEqualTypeOf<ReactNode>();
     expectTypeOf<ToastProviderProps["maxToasts"]>().toEqualTypeOf<number | undefined>();
-    expectTypeOf<ToastType>().toEqualTypeOf<
-      "success" | "error" | "warning" | "info"
-    >();
+    expectTypeOf<ToastType>().toEqualTypeOf<"success" | "error" | "warning" | "info">();
     expectTypeOf<ToastPosition>().toEqualTypeOf<
-      | "top-right"
-      | "top-center"
-      | "top-left"
-      | "bottom-right"
-      | "bottom-center"
-      | "bottom-left"
+      "top-right" | "top-center" | "top-left" | "bottom-right" | "bottom-center" | "bottom-left"
     >();
   });
 
@@ -155,9 +134,7 @@ describe("prop signature contracts", () => {
     expectTypeOf<FormProps>().toHaveProperty("touched");
     expectTypeOf<FormProps>().toHaveProperty("onSubmit");
     expectTypeOf<FormProps["values"]>().toEqualTypeOf<Record<string, unknown>>();
-    expectTypeOf<FormProps["onChange"]>().toEqualTypeOf<
-      (name: string, value: unknown) => void
-    >();
+    expectTypeOf<FormProps["onChange"]>().toEqualTypeOf<(name: string, value: unknown) => void>();
     expectTypeOf<FormProps["onSubmit"]>().toEqualTypeOf<(() => void) | undefined>();
   });
 });

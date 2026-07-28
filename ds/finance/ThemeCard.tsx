@@ -37,14 +37,21 @@ export function ThemeCard({
 
   return (
     <article
-      className="bm-card overflow-hidden h-full flex flex-col transition-shadow hover:shadow-md"
-      style={{ boxShadow: "0 1px 2px rgba(15,23,42,0.04)" }}
+      // 기본 그림자를 인라인 style 로 주면 hover:shadow-* 는 절대 이기지 못한다 —
+      // 호버 승격이 아예 일어나지 않고 있었다. 두 상태 모두 className 으로 옮긴다.
+      className={[
+        "bm-card overflow-hidden h-full flex flex-col",
+        "shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-shadow duration-200",
+        "hover:shadow-[0_10px_28px_-12px_rgba(15,23,42,0.28),0_2px_6px_-2px_rgba(15,23,42,0.1)]",
+      ].join(" ")}
     >
       <header className="px-4 pt-3.5 pb-2.5 flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
             {theme.starred ? (
-              <span aria-hidden style={{ color: "var(--bm-warning)", fontSize: 14 }}>★</span>
+              <span aria-hidden style={{ color: "var(--bm-warning)", fontSize: 14 }}>
+                ★
+              </span>
             ) : null}
             <h3 className="font-extrabold text-[15px] tracking-tight truncate">{theme.name}</h3>
           </div>
@@ -88,7 +95,12 @@ function StockRow({ stock }: { stock: ThemeStock }) {
   return (
     <Link
       href={`/stock/${encodeURIComponent(stock.name)}`}
-      className="flex items-center gap-2 px-3 py-2.5 transition-colors hover:bg-[color:var(--bm-soft-100)]"
+      className={[
+        "flex items-center gap-2 px-3 py-2.5 transition-colors duration-150",
+        "hover:bg-[color:var(--bm-soft-100)]",
+        // 링크는 늘 포커스를 받는다 — 표시가 없으면 키보드로 어느 종목인지 알 수 없다.
+        "focus-visible:outline-2 focus-visible:outline-[color:var(--bm-accent)] focus-visible:outline-offset-[-2px]",
+      ].join(" ")}
     >
       <div className="min-w-0 flex-1 flex items-center gap-1.5">
         {stock.king ? <span style={{ color: "var(--bm-warning)" }}>♛</span> : null}
@@ -179,11 +191,8 @@ function useTrend(name: string, initial?: number[] | null): number[] | null {
 
 export function ThemePillCard({ name, total억 }: { name: string; total억: number }) {
   return (
-    <div
-      className="bm-card px-3 py-2.5 flex items-center justify-between transition-colors hover:bg-[color:var(--bm-soft-100)]"
-      style={{ boxShadow: "0 1px 2px rgba(15,23,42,0.04)" }}
-    >
-      <span className="font-bold text-[13px]">{name}</span>
+    <div className="bm-card px-3 py-2.5 flex items-center justify-between gap-2 transition-colors duration-150 hover:bg-[color:var(--bm-soft-100)] shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+      <span className="min-w-0 truncate font-bold text-[13px]">{name}</span>
       <Tag color="orange">{fmtKR억(total억)}</Tag>
     </div>
   );

@@ -13,7 +13,12 @@ export default function ImageComparePage() {
     >
       <Section title="Default">
         <Preview>
-          <ImageCompare beforeSrc="https://picsum.photos/seed/a/600/400" afterSrc="https://picsum.photos/seed/b/600/400" beforeAlt="이전" afterAlt="이후" />
+          <ImageCompare
+            beforeSrc="https://picsum.photos/seed/a/600/400"
+            afterSrc="https://picsum.photos/seed/b/600/400"
+            beforeAlt="이전"
+            afterAlt="이후"
+          />
         </Preview>
       </Section>
     </ComponentPage>

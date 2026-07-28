@@ -14,8 +14,12 @@ export interface ConfettiProps {
 }
 
 const COLORS = [
-  "var(--primary)", "var(--success)", "var(--warning)",
-  "var(--danger)", "var(--info)", "var(--accent)",
+  "var(--primary)",
+  "var(--success)",
+  "var(--warning)",
+  "var(--danger)",
+  "var(--info)",
+  "var(--accent)",
 ];
 
 interface Particle {
@@ -26,6 +30,8 @@ interface Particle {
   rotation: number;
   size: number;
   type: "square" | "circle" | "strip";
+  /** 회전 주기(ms). 렌더에서 뽑으면 리렌더마다 값이 튄다 — 생성 시점에 고정한다 */
+  spinMs: number;
 }
 
 /**
@@ -49,11 +55,15 @@ export function Confetti({ active, count = 50, duration = 3000, className }: Con
       rotation: Math.random() * 360,
       size: 6 + Math.random() * 6,
       type: types[Math.floor(Math.random() * types.length)],
+      spinMs: 600 + Math.random() * 400,
     }));
   }, [count]);
 
   useEffect(() => {
-    if (!active) { setParticles([]); return; }
+    if (!active) {
+      setParticles([]);
+      return;
+    }
     setParticles(generate());
     const timer = setTimeout(() => setParticles([]), duration);
     return () => clearTimeout(timer);
@@ -62,7 +72,15 @@ export function Confetti({ active, count = 50, duration = 3000, className }: Con
   if (particles.length === 0) return null;
 
   return (
-    <div className={cn("fixed inset-0 z-[9999] pointer-events-none overflow-hidden", className)} aria-hidden="true">
+    <div
+      // 순수 장식이고 화면 전체가 움직인다 — 감속을 요청했으면 아예 그리지 않는다.
+      // (애니메이션이 인라인 style 이라 `motion-reduce:animate-none` 으로는 못 이긴다)
+      className={cn(
+        "fixed inset-0 z-[9999] pointer-events-none overflow-hidden motion-reduce:hidden",
+        className,
+      )}
+      aria-hidden="true"
+    >
       {particles.map((p) => (
         <div
           key={p.id}
@@ -80,7 +98,7 @@ export function Confetti({ active, count = 50, duration = 3000, className }: Con
               backgroundColor: p.color,
               borderRadius: p.type === "circle" ? "50%" : "2px",
               transform: `rotate(${p.rotation}deg)`,
-              animation: `confetti-spin ${600 + Math.random() * 400}ms linear infinite`,
+              animation: `confetti-spin ${p.spinMs}ms linear infinite`,
             }}
           />
         </div>

@@ -37,11 +37,7 @@ export function GradientBorder({
 }: GradientBorderProps) {
   return (
     <div
-      className={cn(
-        "relative p-[var(--bw)]",
-        rounded,
-        className,
-      )}
+      className={cn("relative p-[var(--bw)]", rounded, className)}
       style={{ "--bw": `${borderWidth}px` } as React.CSSProperties}
     >
       <div
@@ -49,14 +45,14 @@ export function GradientBorder({
           "absolute inset-0 bg-gradient-to-r",
           gradient,
           rounded,
-          animated && "animate-[gradient-shift_3s_ease_infinite]",
+          // 끝없이 흐르는 그라디언트는 감속 요청 대상이다 — 멈춰도 테두리 색은 남는다.
+          animated && "animate-[gradient-shift_3s_ease_infinite] motion-reduce:animate-none",
         )}
         style={animated ? { backgroundSize: "200% 200%" } : undefined}
         aria-hidden="true"
       />
-      <div className={cn("relative bg-white", rounded)}>
-        {children}
-      </div>
+      {/* 안쪽 면이 bg-white 면 다크에서 그라디언트 테두리만 남고 내용이 흰 판으로 뜬다. */}
+      <div className={cn("relative bg-card", rounded)}>{children}</div>
       {animated && (
         <style>{`
           @keyframes gradient-shift {

@@ -4,7 +4,15 @@ import { DateRangeFilter } from "../../composites/DateRangeFilter";
 
 describe("DateRangeFilter", () => {
   it("renders without throwing", () => {
-    const { container } = render(<DateRangeFilter startDate="" endDate="" onStartChange={() => {}} onEndChange={() => {}} onApply={() => {}} />);
+    const { container } = render(
+      <DateRangeFilter
+        startDate=""
+        endDate=""
+        onStartChange={() => {}}
+        onEndChange={() => {}}
+        onApply={() => {}}
+      />,
+    );
     expect(container.firstChild).toBeDefined();
   });
 });

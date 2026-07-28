@@ -12,7 +12,12 @@ export default function HoverCardPage() {
       props={[
         { name: "trigger", type: "ReactNode", required: true, description: "호버 대상 요소" },
         { name: "children", type: "ReactNode", required: true, description: "카드 내용" },
-        { name: "side", type: '"top"|"bottom"|"left"|"right"', default: '"bottom"', description: "카드 표시 위치" },
+        {
+          name: "side",
+          type: '"top"|"bottom"|"left"|"right"',
+          default: '"bottom"',
+          description: "카드 표시 위치",
+        },
         { name: "openDelay", type: "number", default: "300", description: "열림 지연 시간 (ms)" },
         { name: "closeDelay", type: "number", default: "200", description: "닫힘 지연 시간 (ms)" },
       ]}
@@ -23,13 +28,13 @@ export default function HoverCardPage() {
             <span className="text-sm text-muted">작성자:</span>
             <HoverCard
               trigger={
-                <span className="text-sm font-medium text-primary cursor-pointer hover:underline">
+                <span className="text-sm font-medium text-primary-ink cursor-pointer hover:underline">
                   @junha
                 </span>
               }
             >
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm shrink-0">
+                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-ink font-bold text-sm shrink-0">
                   JH
                 </div>
                 <div>
@@ -37,8 +42,12 @@ export default function HoverCardPage() {
                   <div className="text-xs text-muted mt-0.5">Frontend Developer</div>
                   <div className="text-xs text-muted mt-1">JunDS 디자인 시스템 제작자</div>
                   <div className="flex items-center gap-3 mt-2">
-                    <span className="text-xs text-muted"><strong className="text-foreground">42</strong> 팔로잉</span>
-                    <span className="text-xs text-muted"><strong className="text-foreground">128</strong> 팔로워</span>
+                    <span className="text-xs text-muted">
+                      <strong className="text-foreground">42</strong> 팔로잉
+                    </span>
+                    <span className="text-xs text-muted">
+                      <strong className="text-foreground">128</strong> 팔로워
+                    </span>
                   </div>
                 </div>
               </div>
@@ -60,9 +69,7 @@ export default function HoverCardPage() {
                   </span>
                 }
               >
-                <p className="text-sm text-muted">
-                  {side} 방향으로 표시되는 호버 카드입니다.
-                </p>
+                <p className="text-sm text-muted">{side} 방향으로 표시되는 호버 카드입니다.</p>
               </HoverCard>
             ))}
           </div>

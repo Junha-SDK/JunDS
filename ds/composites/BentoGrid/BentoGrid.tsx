@@ -43,7 +43,10 @@ export function BentoGrid({ children, cols = 4, gap = 4, className }: BentoGridP
     6: "grid-cols-6",
   };
   return (
-    <div className={cn("grid auto-rows-[180px]", colsClass[cols] ?? "grid-cols-4", className)} style={{ gap: `${gap * 4}px` }}>
+    <div
+      className={cn("grid auto-rows-[180px]", colsClass[cols] ?? "grid-cols-4", className)}
+      style={{ gap: `${gap * 4}px` }}
+    >
       {children}
     </div>
   );
@@ -51,13 +54,19 @@ export function BentoGrid({ children, cols = 4, gap = 4, className }: BentoGridP
 
 function BentoGridItem({ children, colSpan = 1, rowSpan = 1, className }: BentoGridItemProps) {
   return (
-    <div className={cn(
-      "rounded-2xl border border-border bg-white p-5 overflow-hidden",
-      "transition-shadow duration-300 hover:shadow-lg",
-      colSpanMap[colSpan],
-      rowSpanMap[rowSpan],
-      className,
-    )}>
+    <div
+      className={cn(
+        "rounded-2xl border border-border bg-card p-5 overflow-hidden",
+        // 한 겹 shadow-lg 는 유령처럼 뜬다 — 평소엔 얕은 면 그림자 + 상단 인셋,
+        // 호버에서 넓은 그림자와 좁은 그림자를 겹쳐 실제로 들어 올린다
+        "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.12)]",
+        "transition-shadow duration-300",
+        "hover:shadow-[0_14px_34px_-12px_rgba(0,0,0,0.28),0_4px_10px_-4px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.14)]",
+        colSpanMap[colSpan],
+        rowSpanMap[rowSpan],
+        className,
+      )}
+    >
       {children}
     </div>
   );

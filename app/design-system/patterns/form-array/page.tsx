@@ -11,9 +11,7 @@ interface Contact {
 }
 
 function FormArrayDemo() {
-  const [items, setItems] = useState<Contact[]>([
-    { name: "홍길동", phone: "010-1111-2222" },
-  ]);
+  const [items, setItems] = useState<Contact[]>([{ name: "홍길동", phone: "010-1111-2222" }]);
 
   return (
     <div className="max-w-md">
@@ -52,11 +50,29 @@ export default function FormArrayPage() {
       props={[
         { name: "value", type: "T[]", description: "현재 항목 배열." },
         { name: "onChange", type: "(value: T[]) => void", description: "배열 변경 콜백." },
-        { name: "defaultItem", type: "T", description: "추가 시 사용할 기본 항목 (structuredClone으로 복제)." },
-        { name: "renderItem", type: "(item, index, { remove, update }) => ReactNode", description: "각 행을 렌더링하는 함수." },
-        { name: "minItems", type: "number", default: "0", description: "최소 항목 수 (이하로 줄지 않음)." },
+        {
+          name: "defaultItem",
+          type: "T",
+          description: "추가 시 사용할 기본 항목 (structuredClone으로 복제).",
+        },
+        {
+          name: "renderItem",
+          type: "(item, index, { remove, update }) => ReactNode",
+          description: "각 행을 렌더링하는 함수.",
+        },
+        {
+          name: "minItems",
+          type: "number",
+          default: "0",
+          description: "최소 항목 수 (이하로 줄지 않음).",
+        },
         { name: "maxItems", type: "number", description: "최대 항목 수 (이상 추가 불가)." },
-        { name: "addLabel", type: "string", default: '"항목 추가"', description: "추가 버튼 라벨." },
+        {
+          name: "addLabel",
+          type: "string",
+          default: '"항목 추가"',
+          description: "추가 버튼 라벨.",
+        },
         { name: "className", type: "string", description: "추가 CSS 클래스." },
       ]}
     >

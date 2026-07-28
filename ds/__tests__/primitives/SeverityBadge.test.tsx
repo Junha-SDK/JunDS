@@ -10,9 +10,7 @@ describe("SeverityBadge", () => {
 
   it("accepts each known severity without throwing", () => {
     for (const severity of ["ok", "warn", "danger", "info", "neutral"] as const) {
-      const { unmount } = render(
-        <SeverityBadge severity={severity}>x</SeverityBadge>,
-      );
+      const { unmount } = render(<SeverityBadge severity={severity}>x</SeverityBadge>);
       unmount();
     }
   });

@@ -13,10 +13,34 @@ const stats = [
 ];
 
 const timelineItems = [
-  { key: "1", title: "v2.0 릴리즈 완료", description: "디자인 시스템 메이저 업데이트를 배포했습니다.", time: "2시간 전", color: "success" as const },
-  { key: "2", title: "코드 리뷰 요청", description: "DateRangePicker 컴포넌트 PR 리뷰를 요청했습니다.", time: "어제", color: "primary" as const },
-  { key: "3", title: "이슈 해결", description: "Modal 포커스 트랩 버그를 수정했습니다.", time: "3일 전", color: "warning" as const },
-  { key: "4", title: "팀 합류", description: "JunDS 코어 팀에 합류했습니다.", time: "2주 전", color: "neutral" as const },
+  {
+    key: "1",
+    title: "v2.0 릴리즈 완료",
+    description: "디자인 시스템 메이저 업데이트를 배포했습니다.",
+    time: "2시간 전",
+    color: "success" as const,
+  },
+  {
+    key: "2",
+    title: "코드 리뷰 요청",
+    description: "DateRangePicker 컴포넌트 PR 리뷰를 요청했습니다.",
+    time: "어제",
+    color: "primary" as const,
+  },
+  {
+    key: "3",
+    title: "이슈 해결",
+    description: "Modal 포커스 트랩 버그를 수정했습니다.",
+    time: "3일 전",
+    color: "warning" as const,
+  },
+  {
+    key: "4",
+    title: "팀 합류",
+    description: "JunDS 코어 팀에 합류했습니다.",
+    time: "2주 전",
+    color: "neutral" as const,
+  },
 ];
 
 export default function ProfileTemplate() {
@@ -35,20 +59,26 @@ export default function ProfileTemplate() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold">김준하</h1>
-            <Badge variant="primary" size="sm">Pro</Badge>
+            <Badge variant="primary" size="sm">
+              Pro
+            </Badge>
           </div>
           <p className="text-sm text-muted mt-0.5">@junha · 프론트엔드 개발자</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="secondary" size="sm">메시지</Button>
-          <Button variant="primary" size="sm">팔로우</Button>
+          <Button variant="secondary" size="sm">
+            메시지
+          </Button>
+          <Button variant="primary" size="sm">
+            팔로우
+          </Button>
         </div>
       </div>
 
       {/* Bio */}
       <p className="text-sm text-foreground leading-relaxed">
-        사용자 중심의 디자인 시스템을 만듭니다. 접근성과 개발자 경험(DX)을
-        최우선으로 생각하며, 재사용 가능한 컴포넌트 설계에 열정을 가지고 있습니다.
+        사용자 중심의 디자인 시스템을 만듭니다. 접근성과 개발자 경험(DX)을 최우선으로 생각하며,
+        재사용 가능한 컴포넌트 설계에 열정을 가지고 있습니다.
       </p>
 
       {/* Stats */}
@@ -68,8 +98,19 @@ export default function ProfileTemplate() {
         <Card.Body>
           <h3 className="text-sm font-semibold mb-3">기술 스택</h3>
           <div className="flex flex-wrap gap-2">
-            {["React", "TypeScript", "Next.js", "Tailwind CSS", "Figma", "Storybook", "Node.js", "GraphQL"].map((skill) => (
-              <Badge key={skill} variant="default" size="sm">{skill}</Badge>
+            {[
+              "React",
+              "TypeScript",
+              "Next.js",
+              "Tailwind CSS",
+              "Figma",
+              "Storybook",
+              "Node.js",
+              "GraphQL",
+            ].map((skill) => (
+              <Badge key={skill} variant="default" size="sm">
+                {skill}
+              </Badge>
             ))}
           </div>
         </Card.Body>
@@ -87,7 +128,15 @@ export default function ProfileTemplate() {
       {/* Code */}
       <details className="rounded-2xl border border-border bg-white overflow-hidden">
         <summary className="px-5 py-3 text-sm font-semibold cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><path d="M4.5 3L1.5 7l3 4M9.5 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+            <path
+              d="M4.5 3L1.5 7l3 4M9.5 3l3 4-3 4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
           코드 보기
         </summary>
         <pre className="p-5 text-xs font-mono text-gray-300 bg-gray-950 overflow-x-auto leading-relaxed border-t border-border max-h-[500px] overflow-y-auto">

@@ -22,25 +22,23 @@ function seedVolume(price: number, size: number): number {
   return Math.max(40, Math.round(size * 4 + Math.sqrt(price) * 3));
 }
 
-const SEED: LiveStock[] = HEATMAP_FLAT
-  .filter((c) => (c.price ?? 0) > 0)
-  .map((c) => {
-    const ticker = TICKER_MAP[c.name] ?? "";
-    const market: LiveStock["market"] = ticker.endsWith(".KQ")
-      ? "KOSDAQ"
-      : ticker.endsWith(".KS")
-        ? "KOSPI"
-        : "—";
-    return {
-      name: c.name,
-      code: ticker.replace(/\.K[SQ]$/, ""),
-      market,
-      group: c.group,
-      price: c.price ?? 0,
-      pct: c.change,
-      volume: seedVolume(c.price ?? 0, c.size),
-    };
-  });
+const SEED: LiveStock[] = HEATMAP_FLAT.filter((c) => (c.price ?? 0) > 0).map((c) => {
+  const ticker = TICKER_MAP[c.name] ?? "";
+  const market: LiveStock["market"] = ticker.endsWith(".KQ")
+    ? "KOSDAQ"
+    : ticker.endsWith(".KS")
+    ? "KOSPI"
+    : "—";
+  return {
+    name: c.name,
+    code: ticker.replace(/\.K[SQ]$/, ""),
+    market,
+    group: c.group,
+    price: c.price ?? 0,
+    pct: c.change,
+    volume: seedVolume(c.price ?? 0, c.size),
+  };
+});
 
 function tick(prev: LiveStock[], jitter: () => number): LiveStock[] {
   return prev.map((s) => {
@@ -56,9 +54,7 @@ function fmt억(억: number): string {
   return `${Math.round(억).toLocaleString("ko-KR")}억`;
 }
 
-const GROUPS = Array.from(
-  new Set(SEED.map((s) => s.group).filter((g): g is string => Boolean(g))),
-);
+const GROUPS = Array.from(new Set(SEED.map((s) => s.group).filter((g): g is string => Boolean(g))));
 
 export function LiveStockTable() {
   const [stocks, setStocks] = useState<LiveStock[]>(SEED);
@@ -88,9 +84,7 @@ export function LiveStockTable() {
     if (groupFilter !== "ALL") out = out.filter((s) => s.group === groupFilter);
     if (query.trim()) {
       const q = query.trim().toLowerCase();
-      out = out.filter(
-        (s) => s.name.toLowerCase().includes(q) || s.code.includes(q),
-      );
+      out = out.filter((s) => s.name.toLowerCase().includes(q) || s.code.includes(q));
     }
     const sorted = [...out];
     if (sort === "pctDesc") sorted.sort((a, b) => b.pct - a.pct);
@@ -110,7 +104,10 @@ export function LiveStockTable() {
         <span className="relative flex size-2.5">
           <span
             className="absolute inline-flex h-full w-full rounded-full opacity-75"
-            style={{ background: "var(--bm-success)", animation: "bm-pulse 1.4s ease-out infinite" }}
+            style={{
+              background: "var(--bm-success)",
+              animation: "bm-pulse 1.4s ease-out infinite",
+            }}
           />
           <span
             className="relative inline-flex rounded-full size-2.5"
@@ -129,7 +126,9 @@ export function LiveStockTable() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="종목명·코드 검색 (예: 제주반도체, 제룡전기, 080220)"
-          className="ml-2 px-2.5 py-1 text-[11.5px] rounded-md flex-1 min-w-[200px]"
+          aria-label="종목명·코드 검색"
+          // finance 표면은 --bm-* 어휘를 쓴다 — 포커스 링도 그 어휘로 그려야 겉돌지 않는다
+          className="ml-2 px-2.5 py-1 text-[11.5px] rounded-md flex-1 min-w-[200px] outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
           style={{
             background: "var(--bm-soft-100)",
             border: "1px solid var(--bm-border)",
@@ -146,7 +145,8 @@ export function LiveStockTable() {
               key={m}
               type="button"
               onClick={() => setMarketFilter(m)}
-              className="px-2 py-0.5 text-[10.5px] font-extrabold"
+              aria-pressed={marketFilter === m}
+              className="px-2 py-0.5 text-[10.5px] font-extrabold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--bm-accent-strong)]"
               style={{
                 background: marketFilter === m ? "var(--bm-accent-strong)" : "transparent",
                 color: marketFilter === m ? "var(--bm-card)" : "var(--bm-muted)",
@@ -160,7 +160,8 @@ export function LiveStockTable() {
         <select
           value={groupFilter}
           onChange={(e) => setGroupFilter(e.target.value)}
-          className="px-2 py-1 text-[11px] rounded-md"
+          aria-label="섹터 선택"
+          className="px-2 py-1 text-[11px] rounded-md outline-none cursor-pointer transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
           style={{
             background: "var(--bm-soft-100)",
             border: "1px solid var(--bm-border)",
@@ -178,7 +179,8 @@ export function LiveStockTable() {
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value as SortKey)}
-          className="px-2 py-1 text-[11px] rounded-md"
+          aria-label="정렬 기준"
+          className="px-2 py-1 text-[11px] rounded-md outline-none cursor-pointer transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
           style={{
             background: "var(--bm-soft-100)",
             border: "1px solid var(--bm-border)",
@@ -193,12 +195,13 @@ export function LiveStockTable() {
         </select>
       </div>
 
-      <div className="overflow-y-auto" style={{ maxHeight: 480 }}>
-        <table className="w-full text-[11.5px]">
-          <thead
-            className="sticky top-0"
-            style={{ background: "var(--bm-soft-100)", zIndex: 1 }}
-          >
+      {/* 6열짜리 표라 좁은 칸에서는 가로로도 넘친다 — 페이지가 아니라 이 상자가 스크롤한다 */}
+      <div
+        className="overflow-y-auto overflow-x-auto overscroll-x-contain"
+        style={{ maxHeight: 480 }}
+      >
+        <table className="w-full text-[11.5px] min-w-[560px]">
+          <thead className="sticky top-0" style={{ background: "var(--bm-soft-100)", zIndex: 1 }}>
             <tr style={{ borderBottom: "1px solid var(--bm-border)" }}>
               <Th>#</Th>
               <Th>종목</Th>
@@ -211,16 +214,30 @@ export function LiveStockTable() {
           <tbody>
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={6} className="text-center py-6 text-[12px] font-bold" style={{ color: "var(--bm-muted)" }}>
+                <td
+                  colSpan={6}
+                  className="text-center py-6 text-[12px] font-bold"
+                  style={{ color: "var(--bm-muted)" }}
+                >
                   결과 없음
                 </td>
               </tr>
             ) : (
               filtered.map((s, i) => {
                 const ref = prev.find((p) => p.name === s.name);
-                const trend = ref ? (s.price > ref.price ? "up" : s.price < ref.price ? "down" : "flat") : "flat";
+                const trend = ref
+                  ? s.price > ref.price
+                    ? "up"
+                    : s.price < ref.price
+                    ? "down"
+                    : "flat"
+                  : "flat";
                 const tickColor =
-                  trend === "up" ? "var(--bm-up)" : trend === "down" ? "var(--bm-down)" : "var(--bm-text)";
+                  trend === "up"
+                    ? "var(--bm-up)"
+                    : trend === "down"
+                    ? "var(--bm-down)"
+                    : "var(--bm-text)";
                 return (
                   <tr
                     key={s.name}
@@ -229,18 +246,24 @@ export function LiveStockTable() {
                       background: i % 2 === 0 ? "transparent" : "var(--bm-soft-100)",
                     }}
                   >
-                    <td className="px-3 py-1.5 bm-num text-[10.5px] font-bold" style={{ color: "var(--bm-muted)" }}>
+                    <td
+                      className="px-3 py-1.5 bm-num text-[10.5px] font-bold"
+                      style={{ color: "var(--bm-muted)" }}
+                    >
                       {i + 1}
                     </td>
                     <td className="px-3 py-1.5">
                       <Link
                         href={`/stock/${encodeURIComponent(s.name)}`}
-                        className="flex flex-col leading-tight"
+                        className="flex flex-col leading-tight rounded-md transition-colors hover:bg-[color:var(--bm-soft-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
                       >
                         <span className="font-extrabold" style={{ color: "var(--bm-text)" }}>
                           {s.name}
                         </span>
-                        <span className="bm-num text-[9.5px] font-bold" style={{ color: "var(--bm-muted)" }}>
+                        <span
+                          className="bm-num text-[9.5px] font-bold"
+                          style={{ color: "var(--bm-muted)" }}
+                        >
                           {s.code || "—"} · {s.market}
                         </span>
                       </Link>

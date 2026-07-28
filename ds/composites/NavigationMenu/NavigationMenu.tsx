@@ -48,7 +48,12 @@ export function NavigationMenu({ items, className }: NavigationMenuProps) {
   }, []);
 
   return (
-    <nav className={cn("relative flex items-center gap-1 bg-surface border border-border rounded-xl px-2 py-1", className)}>
+    <nav
+      className={cn(
+        "relative flex items-center gap-1 bg-surface border border-border rounded-xl px-2 py-1",
+        className,
+      )}
+    >
       {items.map((item) => {
         const hasChildren = item.children && item.children.length > 0;
         const isOpen = openKey === item.key;
@@ -64,14 +69,24 @@ export function NavigationMenu({ items, className }: NavigationMenuProps) {
               <button
                 type="button"
                 className={cn(
-                  "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer",
-                  isOpen ? "bg-gray-100 text-foreground" : "text-muted hover:text-foreground hover:bg-gray-50",
+                  "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 cursor-pointer",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+                  // 회색 팔레트는 다크에서 무너진다 — muted 틴트는 nav 표면 위에서 두 모드 모두 같은 세기로 읽힌다
+                  isOpen
+                    ? "bg-muted/15 text-foreground"
+                    : "text-muted hover:text-foreground hover:bg-muted/10",
                 )}
               >
                 {item.label}
                 <svg
-                  className={cn("w-3.5 h-3.5 transition-transform duration-200", isOpen && "rotate-180")}
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                  className={cn(
+                    "w-3.5 h-3.5 transition-transform duration-200 motion-reduce:transition-none",
+                    isOpen && "rotate-180",
+                  )}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -79,15 +94,16 @@ export function NavigationMenu({ items, className }: NavigationMenuProps) {
             ) : (
               <a
                 href={item.href ?? "#"}
-                className="block px-3 py-2 text-sm font-medium text-muted hover:text-foreground hover:bg-gray-50 rounded-lg transition-colors"
+                className="block px-3 py-2 text-sm font-medium text-muted hover:text-foreground hover:bg-muted/10 rounded-lg transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
               >
                 {item.label}
               </a>
             )}
 
             {hasChildren && isOpen && (
+              // 떠 있는 메가패널은 그림자 한 겹으로는 배경에서 떨어지지 않는다 — 다층 그림자 + 얇은 링
               <div
-                className="absolute top-full left-0 mt-1 min-w-[280px] bg-surface border border-border rounded-xl shadow-lg p-2 z-50"
+                className="absolute top-full left-0 mt-1 min-w-[280px] bg-surface border border-border rounded-2xl p-2 z-50 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-border-light animate-fade-in-scale motion-reduce:animate-none"
                 onMouseEnter={() => handleEnter(item.key)}
                 onMouseLeave={handleLeave}
               >
@@ -95,15 +111,15 @@ export function NavigationMenu({ items, className }: NavigationMenuProps) {
                   <a
                     key={child.key}
                     href={child.href}
-                    className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-muted/10 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset"
                   >
-                    {child.icon && (
-                      <span className="mt-0.5 text-muted">{child.icon}</span>
-                    )}
+                    {child.icon && <span className="mt-0.5 text-muted">{child.icon}</span>}
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-foreground">{child.label}</div>
                       {child.description && (
-                        <div className="text-xs text-muted mt-0.5 line-clamp-2">{child.description}</div>
+                        <div className="text-xs text-muted mt-0.5 line-clamp-2">
+                          {child.description}
+                        </div>
                       )}
                     </div>
                   </a>

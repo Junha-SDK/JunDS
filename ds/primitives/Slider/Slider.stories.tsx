@@ -26,12 +26,29 @@ const Interactive = (props: Parameters<typeof Slider>[0]) => {
   );
 };
 
-export const Default: Story = { render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const ShowValue: Story = { args: { showValue: true }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const Step10: Story = { args: { step: 10, showValue: true }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const Success: Story = { args: { color: "success", showValue: true }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const Danger: Story = { args: { color: "danger", showValue: true }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const Disabled: Story = { args: { disabled: true, showValue: true }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} value={60} /> };
+export const Default: Story = {
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const ShowValue: Story = {
+  args: { showValue: true },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const Step10: Story = {
+  args: { step: 10, showValue: true },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const Success: Story = {
+  args: { color: "success", showValue: true },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const Danger: Story = {
+  args: { color: "danger", showValue: true },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const Disabled: Story = {
+  args: { disabled: true, showValue: true },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} value={60} />,
+};
 function WithMarksDemo() {
   const [value, setValue] = useState(50);
   return (

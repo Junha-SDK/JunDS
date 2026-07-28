@@ -4,8 +4,7 @@
 
 import { _hmacSign, _sha256, _obfuscateKey } from "./crypto";
 
-const _LICENSE_API =
-  "https://api.junds.dev/v1/license" as const;
+const _LICENSE_API = "https://api.junds.dev/v1/license" as const;
 
 const _CACHE_KEY = "__jds_lv" as const;
 const _CACHE_TTL = 1000 * 60 * 60 * 4; // 4시간
@@ -58,9 +57,7 @@ function _setCache(keyHash: string, valid: boolean): void {
   }
 }
 
-export async function _validateLicense(
-  licenseKey: string
-): Promise<_VerifyResult> {
+export async function _validateLicense(licenseKey: string): Promise<_VerifyResult> {
   // 키 형식 검증: JUNDS-XXXX-XXXX-XXXX-XXXX
   const _keyPattern = /^JUNDS-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
   if (!_keyPattern.test(licenseKey)) {
@@ -80,7 +77,7 @@ export async function _validateLicense(
     const timestamp = Date.now().toString();
     const signature = await _hmacSign(
       `${_obfuscateKey(licenseKey)}:${domain}:${timestamp}`,
-      keyHash.slice(0, 32)
+      keyHash.slice(0, 32),
     );
 
     const response = await fetch(`${_LICENSE_API}/verify`, {
@@ -123,9 +120,7 @@ export async function _validateLicense(
   }
 }
 
-export async function _validateLicenseOffline(
-  licenseKey: string
-): Promise<boolean> {
+export async function _validateLicenseOffline(licenseKey: string): Promise<boolean> {
   // 오프라인 기본 형식 검증만 수행
   const _keyPattern = /^JUNDS-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
   if (!_keyPattern.test(licenseKey)) return false;

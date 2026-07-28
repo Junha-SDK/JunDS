@@ -27,11 +27,7 @@ function read(): PriceAlert[] {
     if (!Array.isArray(parsed)) return [];
     return parsed.filter(
       (x: unknown): x is PriceAlert =>
-        typeof x === "object" &&
-        x !== null &&
-        "id" in x &&
-        "name" in x &&
-        "target" in x,
+        typeof x === "object" && x !== null && "id" in x && "name" in x && "target" in x,
     );
   } catch {
     return [];
@@ -69,19 +65,11 @@ export function removeAlert(id: string): void {
 }
 
 export function markTriggered(id: string): void {
-  write(
-    read().map((a) =>
-      a.id === id ? { ...a, active: false, triggeredAt: Date.now() } : a,
-    ),
-  );
+  write(read().map((a) => (a.id === id ? { ...a, active: false, triggeredAt: Date.now() } : a)));
 }
 
 export function reactivate(id: string): void {
-  write(
-    read().map((a) =>
-      a.id === id ? { ...a, active: true, triggeredAt: undefined } : a,
-    ),
-  );
+  write(read().map((a) => (a.id === id ? { ...a, active: true, triggeredAt: undefined } : a)));
 }
 
 export function useAlerts() {

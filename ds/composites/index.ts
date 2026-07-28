@@ -125,11 +125,7 @@ export { DetailPanel } from "./DetailPanel";
 export type { DetailPanelProps, DetailPanelTab } from "./DetailPanel";
 
 export { Disclosure } from "./Disclosure";
-export type {
-  DisclosureProps,
-  DisclosureTriggerProps,
-  DisclosureContentProps,
-} from "./Disclosure";
+export type { DisclosureProps, DisclosureTriggerProps, DisclosureContentProps } from "./Disclosure";
 
 export { DiffViewer } from "./DiffViewer";
 export type { DiffViewerProps } from "./DiffViewer";

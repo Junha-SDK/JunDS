@@ -18,8 +18,8 @@ export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 const variantClass: Record<LinkVariant, string> = {
-  default: "text-primary hover:text-primary-hover",
-  subtle: "text-foreground hover:text-primary",
+  default: "text-primary-ink hover:text-primary-hover",
+  subtle: "text-foreground hover:text-primary-ink",
   muted: "text-muted hover:text-foreground",
   danger: "text-danger hover:opacity-80",
 };
@@ -63,7 +63,9 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
       rel={finalRel}
       className={cn(
         "inline-flex items-center gap-1 transition-colors cursor-pointer rounded-sm",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        // ring-ring 은 이 라이브러리에 없는 토큰이라 포커스 링이 사실상 색을 잃고 있었다
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "active:opacity-80",
         variantClass[variant],
         underlineClass[underline],
         className,

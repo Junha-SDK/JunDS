@@ -45,8 +45,6 @@ export const HStack = forwardRef<HTMLElement, Omit<StackProps, "direction">>(
 HStack.displayName = "HStack";
 
 export const VStack = forwardRef<HTMLElement, Omit<StackProps, "direction">>(
-  ({ gap = "md", ...props }, ref) => (
-    <Stack ref={ref} direction="column" gap={gap} {...props} />
-  ),
+  ({ gap = "md", ...props }, ref) => <Stack ref={ref} direction="column" gap={gap} {...props} />,
 );
 VStack.displayName = "VStack";

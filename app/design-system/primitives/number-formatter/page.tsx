@@ -11,8 +11,18 @@ export default function NumberFormatterPage() {
       importPath='import { NumberFormatter } from "@/ds/primitives/NumberFormatter"'
       props={[
         { name: "value", type: "number", description: "포맷팅할 숫자." },
-        { name: "format", type: '"decimal" | "currency" | "percent" | "compact"', default: '"decimal"', description: "포맷 종류." },
-        { name: "currency", type: "string", default: '"KRW"', description: "ISO 4217 통화 코드 (currency 포맷 사용 시)." },
+        {
+          name: "format",
+          type: '"decimal" | "currency" | "percent" | "compact"',
+          default: '"decimal"',
+          description: "포맷 종류.",
+        },
+        {
+          name: "currency",
+          type: "string",
+          default: '"KRW"',
+          description: "ISO 4217 통화 코드 (currency 포맷 사용 시).",
+        },
         { name: "locale", type: "string", default: '"ko-KR"', description: "Intl 로케일 식별자." },
         { name: "decimals", type: "number", description: "표시할 소수점 자릿수." },
         { name: "prefix", type: "string", description: "값 앞에 붙일 접두사." },

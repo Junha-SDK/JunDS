@@ -16,15 +16,18 @@ export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
  * @since 2.2.0
  * @tags form
  */
-export const Label = forwardRef<HTMLLabelElement, LabelProps>(function Label({ required, className, children, ...props }, ref) {
+export const Label = forwardRef<HTMLLabelElement, LabelProps>(function Label(
+  { required, className, children, ...props },
+  ref,
+) {
   return (
-    <label
-      ref={ref}
-      className={cn("text-sm font-medium text-foreground", className)}
-      {...props}
-    >
+    <label ref={ref} className={cn("text-sm font-medium text-foreground", className)} {...props}>
       {children}
-      {required && <span className="text-danger ml-0.5" aria-hidden="true">*</span>}
+      {required && (
+        <span className="text-danger ml-0.5" aria-hidden="true">
+          *
+        </span>
+      )}
     </label>
   );
 });

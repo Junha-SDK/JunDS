@@ -21,9 +21,7 @@ interface FormControlProps {
 }
 
 function mergeIds(...values: Array<string | undefined>): string | undefined {
-  const ids = values
-    .flatMap((value) => value?.split(/\s+/) ?? [])
-    .filter(Boolean);
+  const ids = values.flatMap((value) => value?.split(/\s+/) ?? []).filter(Boolean);
   return ids.length > 0 ? [...new Set(ids)].join(" ") : undefined;
 }
 
@@ -63,7 +61,15 @@ export interface FormFieldProps {
  * @since 2.2.0
  * @tags form
  */
-export function FormField({ label, required, error, hint, htmlFor, children, className }: FormFieldProps) {
+export function FormField({
+  label,
+  required,
+  error,
+  hint,
+  htmlFor,
+  children,
+  className,
+}: FormFieldProps) {
   const generatedId = useId();
   const child =
     Children.count(children) === 1 &&
@@ -101,15 +107,29 @@ export function FormField({ label, required, error, hint, htmlFor, children, cla
       {control}
       {hasError && (
         <p id={errorId} className="flex items-center gap-1 text-xs text-danger" role="alert">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+          >
             <circle cx="6" cy="6" r="5.5" stroke="currentColor" />
-            <path d="M6 3.5v3M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+            <path
+              d="M6 3.5v3M6 8h.01"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
           </svg>
           {error}
         </p>
       )}
       {hint && !hasError && (
-        <p id={hintId} className="text-xs text-muted-light">{hint}</p>
+        <p id={hintId} className="text-xs text-muted-light">
+          {hint}
+        </p>
       )}
     </div>
   );

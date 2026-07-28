@@ -35,6 +35,8 @@ export interface LineChartProps extends HTMLAttributes<HTMLDivElement> {
   smooth?: boolean;
 }
 
+// 시리즈 계열색은 "서로 구분되는 것" 자체가 목적이라 의미 토큰으로 옮기지 않는다.
+// 브랜드 primary 하나만 테마를 따르고 나머지는 두 모드에서 같은 색으로 고정한다.
 const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b82f6"];
 const PADDING = { top: 12, right: 12, bottom: 28, left: 36 };
 
@@ -68,7 +70,19 @@ function buildPath(points: { x: number; y: number }[], smooth: boolean): string 
  * @tags chart
  */
 export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(function LineChart(
-  { labels, series, width = 480, height = 240, showYAxis = true, showXAxis = true, showGrid = true, showDots = true, smooth = true, className, ...props },
+  {
+    labels,
+    series,
+    width = 480,
+    height = 240,
+    showYAxis = true,
+    showXAxis = true,
+    showGrid = true,
+    showDots = true,
+    smooth = true,
+    className,
+    ...props
+  },
   ref,
 ) {
   const allValues = useMemo(() => series.flatMap((s) => s.data), [series]);
@@ -90,34 +104,89 @@ export const LineChart = forwardRef<HTMLDivElement, LineChartProps>(function Lin
       y: PADDING.top + innerH - ((v - min) / range) * innerH,
     }));
     const linePath = buildPath(points, smooth);
-    const areaPath = points.length > 0
-      ? `${linePath} L${points[points.length - 1].x},${PADDING.top + innerH} L${points[0].x},${PADDING.top + innerH} Z`
-      : "";
+    const areaPath =
+      points.length > 0
+        ? `${linePath} L${points[points.length - 1].x},${PADDING.top + innerH} L${points[0].x},${
+            PADDING.top + innerH
+          } Z`
+        : "";
     return { color, points, linePath, areaPath, area: s.area, name: s.name };
   });
 
   return (
-    <div ref={ref} className={cn("inline-block", className)} {...props}>
-      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} role="img" aria-label="라인 차트">
-        {showGrid && yTicks.map((v, i) => {
-          const y = PADDING.top + innerH - ((v - min) / range) * innerH;
-          return <line key={i} x1={PADDING.left} y1={y} x2={width - PADDING.right} y2={y} stroke="var(--border)" strokeDasharray="2 2" strokeOpacity={0.4} />;
-        })}
-        {showYAxis && yTicks.map((v, i) => {
-          const y = PADDING.top + innerH - ((v - min) / range) * innerH;
-          return <text key={i} x={PADDING.left - 6} y={y + 3} fontSize="10" textAnchor="end" className="fill-muted">{Math.round(v)}</text>;
-        })}
-        {showXAxis && labels && labels.map((l, i) => {
-          const x = PADDING.left + (xCount === 1 ? innerW / 2 : (i / (xCount - 1)) * innerW);
-          return <text key={i} x={x} y={height - 8} fontSize="10" textAnchor="middle" className="fill-muted">{l}</text>;
-        })}
+    <div ref={ref} className={cn("inline-block max-w-full", className)} {...props}>
+      {/* viewBox 가 있으므로 좁은 칸에서는 고유 크기를 넘지 않고 비율대로 줄어들면 된다.
+          block 이 없으면 inline 기준선 때문에 아래에 빈 줄이 생긴다. */}
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        className="block max-w-full h-auto"
+        role="img"
+        aria-label="라인 차트"
+      >
+        {showGrid &&
+          yTicks.map((v, i) => {
+            const y = PADDING.top + innerH - ((v - min) / range) * innerH;
+            return (
+              <line
+                key={i}
+                x1={PADDING.left}
+                y1={y}
+                x2={width - PADDING.right}
+                y2={y}
+                stroke="var(--border)"
+                strokeDasharray="2 2"
+                strokeOpacity={0.4}
+              />
+            );
+          })}
+        {showYAxis &&
+          yTicks.map((v, i) => {
+            const y = PADDING.top + innerH - ((v - min) / range) * innerH;
+            return (
+              <text
+                key={i}
+                x={PADDING.left - 6}
+                y={y + 3}
+                fontSize="10"
+                textAnchor="end"
+                className="fill-muted tabular-nums"
+              >
+                {Math.round(v)}
+              </text>
+            );
+          })}
+        {showXAxis &&
+          labels &&
+          labels.map((l, i) => {
+            const x = PADDING.left + (xCount === 1 ? innerW / 2 : (i / (xCount - 1)) * innerW);
+            return (
+              <text
+                key={i}
+                x={x}
+                y={height - 8}
+                fontSize="10"
+                textAnchor="middle"
+                className="fill-muted"
+              >
+                {l}
+              </text>
+            );
+          })}
         {seriesPaths.map((s, si) => (
           <g key={si}>
             {s.area && <path d={s.areaPath} fill={s.color} fillOpacity={0.15} />}
-            <path d={s.linePath} fill="none" stroke={s.color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-            {showDots && s.points.map((p, i) => (
-              <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={s.color} />
-            ))}
+            <path
+              d={s.linePath}
+              fill="none"
+              stroke={s.color}
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            {showDots &&
+              s.points.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r={2.5} fill={s.color} />)}
           </g>
         ))}
       </svg>

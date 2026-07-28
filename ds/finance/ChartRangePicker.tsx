@@ -47,11 +47,27 @@ export function ChartRangePicker({
             key={opt.range + opt.interval}
             type="button"
             onClick={() => pick(opt)}
-            className="px-3 py-1.5 rounded-full text-[12px] font-extrabold transition-colors"
+            aria-pressed={active}
+            // 인라인 style 이 box-shadow 를 쓰지 않더라도, 이 모듈의 다른 컨트롤과 맞추려면
+            // ring(=box-shadow) 보다 outline 이 안전하다 — 인라인 style 에 덮이지 않는다.
+            className={[
+              "px-3 py-1.5 rounded-full text-[12px] font-extrabold cursor-pointer whitespace-nowrap",
+              // 배경·글자색이 인라인 style 로 고정돼 있어 hover 배경 클래스는 먹지 않는다.
+              // 눌림 반응은 filter 로 준다.
+              "transition-[color,background-color,border-color,filter] duration-150",
+              "hover:brightness-95 active:brightness-90",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--bm-accent-strong)]",
+            ].join(" ")}
+            // 하드코딩된 teal 은 액센트가 사용자 설정으로 바뀌기 전에 남은 값이라, 글자는
+            // 액센트를 따라가는데 배경만 청록으로 굳어 있었다. 액센트 토큰으로 통일한다.
             style={{
-              background: active ? "rgba(20,184,166,0.12)" : "var(--bm-soft-100)",
+              background: active ? "var(--bm-accent-soft-bg)" : "var(--bm-soft-100)",
               color: active ? "var(--bm-accent-strong)" : "var(--bm-text)",
-              border: `1px solid ${active ? "rgba(20,184,166,0.3)" : "var(--bm-border)"}`,
+              border: `1px solid ${
+                active
+                  ? "color-mix(in srgb, var(--bm-accent) 30%, transparent)"
+                  : "var(--bm-border)"
+              }`,
             }}
           >
             {opt.label}

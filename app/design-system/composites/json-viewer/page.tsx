@@ -28,7 +28,12 @@ export default function JSONViewerPage() {
       importPath='import { JSONViewer } from "@/ds/composites/JSONViewer"'
       props={[
         { name: "data", type: "unknown", description: "표시할 JSON 데이터" },
-        { name: "initialExpanded", type: "boolean", default: "true", description: "초기 펼침 여부 (depth < 2)" },
+        {
+          name: "initialExpanded",
+          type: "boolean",
+          default: "true",
+          description: "초기 펼침 여부 (depth < 2)",
+        },
       ]}
     >
       <Section title="Default">

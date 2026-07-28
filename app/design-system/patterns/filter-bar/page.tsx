@@ -44,7 +44,10 @@ export default function FilterBarPage() {
               />
             }
             actions={<Button size="sm">내보내기</Button>}
-            onReset={() => { setSearch(""); setStatus(""); }}
+            onReset={() => {
+              setSearch("");
+              setStatus("");
+            }}
             activeCount={status ? 1 : 0}
           />
         </Preview>

@@ -13,7 +13,28 @@ export default function ForumThreadPage() {
     >
       <Section title="Default">
         <Preview>
-          <ForumThread title="React 19 use() 사용법" tags={["react","hook"]} opening={{id:"op",authorName:"준하",body:"use 훅 어떻게 쓰나요?",createdAt:Date.now()-86400000,upvotes:5}} answers={[{id:"a1",authorName:"지우",authorRole:"모더레이터",body:"이렇게 씁니다…",createdAt:Date.now()-3600000,upvotes:12,accepted:true}]} />
+          <ForumThread
+            title="React 19 use() 사용법"
+            tags={["react", "hook"]}
+            opening={{
+              id: "op",
+              authorName: "준하",
+              body: "use 훅 어떻게 쓰나요?",
+              createdAt: Date.now() - 86400000,
+              upvotes: 5,
+            }}
+            answers={[
+              {
+                id: "a1",
+                authorName: "지우",
+                authorRole: "모더레이터",
+                body: "이렇게 씁니다…",
+                createdAt: Date.now() - 3600000,
+                upvotes: 12,
+                accepted: true,
+              },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

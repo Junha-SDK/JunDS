@@ -21,7 +21,7 @@ export default function AspectRatioPage() {
             <div>
               <p className="text-sm text-muted-foreground mb-2">16:9</p>
               <AspectRatio ratio={16 / 9}>
-                <div className="w-full h-full bg-primary/20 rounded-lg flex items-center justify-center text-primary font-medium">
+                <div className="w-full h-full bg-primary/20 rounded-lg flex items-center justify-center text-primary-ink font-medium">
                   16 : 9
                 </div>
               </AspectRatio>

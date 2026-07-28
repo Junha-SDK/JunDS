@@ -37,17 +37,13 @@ export interface ProjectCardProps extends Omit<HTMLAttributes<HTMLElement>, "tit
    * 링크 렌더러. Next.js `<Link>` 나 react-router `<Link>` 를 쓰려면 넘긴다.
    * 기본은 평범한 `<a>`.
    */
-  renderLink?: (props: {
-    href: string;
-    className: string;
-    children: ReactNode;
-  }) => ReactNode;
+  renderLink?: (props: { href: string; className: string; children: ReactNode }) => ReactNode;
 }
 
 const baseClass =
-  "group flex items-center gap-3 rounded-xl border border-border bg-card no-underline transition-colors";
+  "group flex items-center gap-3 rounded-xl border border-border bg-card no-underline transition-[color,background-color,border-color,box-shadow] duration-200 ease-out";
 const interactiveClass =
-  "hover:border-primary hover:bg-card-hover focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2";
+  "hover:border-primary hover:bg-card-hover hover:shadow-[0_6px_18px_-10px_rgba(0,0,0,0.3)] active:bg-muted/10 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2";
 
 const variantClass: Record<ProjectCardVariant, string> = {
   row: "px-3 py-2.5",
@@ -115,7 +111,7 @@ export const ProjectCard = forwardRef<HTMLElement, ProjectCardProps>(function Pr
       <div className="min-w-0 flex-1">
         <h3
           className={cn(
-            "truncate font-medium text-foreground transition-colors group-hover:text-primary",
+            "truncate font-medium text-foreground transition-colors group-hover:text-primary-ink",
             variant === "feature" ? "text-base" : "text-sm",
           )}
         >
@@ -134,7 +130,8 @@ export const ProjectCard = forwardRef<HTMLElement, ProjectCardProps>(function Pr
         {showArrow && (
           <span
             aria-hidden="true"
-            className="text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-primary"
+            // 화살표가 실제로 이동하므로 감속 요청 시 전이와 최종 변형을 함께 끈다.
+            className="text-muted transition-[transform,color] duration-200 ease-out group-hover:translate-x-0.5 group-hover:text-primary-ink motion-reduce:transition-none motion-reduce:group-hover:transform-none"
           >
             →
           </span>

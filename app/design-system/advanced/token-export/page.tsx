@@ -50,27 +50,31 @@ $radius-md: 6px;
 $radius-lg: 8px;
 $radius-xl: 12px;`;
 
-const jsonTokens = JSON.stringify({
-  color: {
-    primary: { value: "#5b4cc7" },
-    "primary-hover": { value: "#4a3db0" },
-    "primary-light": { value: "#eceafc" },
-    accent: { value: "#7c5ce7" },
-    success: { value: "#2f8f57" },
-    warning: { value: "#b7791f" },
-    danger: { value: "#dc3f3f" },
-    foreground: { value: "#1a1726" },
-    background: { value: "#f5f4f8" },
-    card: { value: "#ffffff" },
-    border: { value: "#e2dfe8" },
-    muted: { value: "#6b6880" },
+const jsonTokens = JSON.stringify(
+  {
+    color: {
+      primary: { value: "#5b4cc7" },
+      "primary-hover": { value: "#4a3db0" },
+      "primary-light": { value: "#eceafc" },
+      accent: { value: "#7c5ce7" },
+      success: { value: "#2f8f57" },
+      warning: { value: "#b7791f" },
+      danger: { value: "#dc3f3f" },
+      foreground: { value: "#1a1726" },
+      background: { value: "#f5f4f8" },
+      card: { value: "#ffffff" },
+      border: { value: "#e2dfe8" },
+      muted: { value: "#6b6880" },
+    },
+    font: {
+      sans: { value: "Geist Sans, sans-serif" },
+      mono: { value: "Geist Mono, monospace" },
+    },
+    spacing: { unit: { value: "4px" } },
   },
-  font: {
-    sans: { value: "Geist Sans, sans-serif" },
-    mono: { value: "Geist Mono, monospace" },
-  },
-  spacing: { unit: { value: "4px" } },
-}, null, 2);
+  null,
+  2,
+);
 
 const tailwindConfig = `// junDS Tailwind Theme Extension
 // tailwind.config.ts 또는 globals.css @theme inline에 추가
@@ -99,13 +103,25 @@ const tabs = [
   { value: "tailwind" as Format, label: "Tailwind" },
 ];
 
-const content: Record<Format, string> = { css: cssVars, scss: scssVars, json: jsonTokens, tailwind: tailwindConfig };
+const content: Record<Format, string> = {
+  css: cssVars,
+  scss: scssVars,
+  json: jsonTokens,
+  tailwind: tailwindConfig,
+};
 
 export default function TokenExportPage() {
   const [format, setFormat] = useState<Format>("css");
 
   const handleDownload = () => {
-    const ext = format === "json" ? "json" : format === "scss" ? "scss" : format === "tailwind" ? "ts" : "css";
+    const ext =
+      format === "json"
+        ? "json"
+        : format === "scss"
+        ? "scss"
+        : format === "tailwind"
+        ? "ts"
+        : "css";
     const blob = new Blob([content[format]], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -124,7 +140,9 @@ export default function TokenExportPage() {
         <Tabs tabs={tabs} value={format} onChange={setFormat} variant="segment" size="sm" />
         <div className="flex items-center gap-2">
           <CopyButton text={content[format]} variant="button" label="복사" size="sm" />
-          <Button size="sm" variant="secondary" onClick={handleDownload}>다운로드</Button>
+          <Button size="sm" variant="secondary" onClick={handleDownload}>
+            다운로드
+          </Button>
         </div>
       </div>
 

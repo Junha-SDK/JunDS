@@ -20,14 +20,19 @@ export function WatchlistWidget() {
   const sourceLabel: Record<typeof source, { text: string; color: string } | null> = {
     kis: { text: "KIS 실시간", color: "var(--bm-success)" },
     yahoo: { text: "Yahoo (15분 지연)", color: "var(--bm-warning)" },
-    pending: { text: "연결 중", color: "#94a3b8" },
-    error: { text: "데이터 없음", color: "#94a3b8" },
+    // #94a3b8 은 "아직 값이 없음"을 뜻하는 회색이었다. 이 모듈에 이미 그 뜻의 토큰이
+    // 있으므로(muted) 리터럴을 남길 이유가 없다 — 다크에서도 대비가 따라온다.
+    pending: { text: "연결 중", color: "var(--bm-muted)" },
+    error: { text: "데이터 없음", color: "var(--bm-muted)" },
   };
   const srcMeta = sourceLabel[source];
 
   return (
     <section className="bm-card overflow-hidden">
-      <header className="flex items-center justify-between px-4 py-3" style={{ borderBottom: items.length > 0 ? "1px solid var(--bm-border)" : "none" }}>
+      <header
+        className="flex items-center justify-between px-4 py-3"
+        style={{ borderBottom: items.length > 0 ? "1px solid var(--bm-border)" : "none" }}
+      >
         <div className="flex items-center gap-2">
           <span style={{ color: "var(--bm-warning)", fontSize: 15 }}>★</span>
           <h2 className="font-extrabold text-[14px]">관심종목</h2>
@@ -37,7 +42,7 @@ export function WatchlistWidget() {
           {items.length > 0 ? <LiveStatusDot /> : null}
           {items.length > 0 && srcMeta ? (
             <span
-              className="text-[10px] font-extrabold px-1.5 py-0.5 rounded"
+              className="text-[10px] font-extrabold px-1.5 py-0.5 rounded whitespace-nowrap"
               style={{ background: "var(--bm-soft-100)", color: srcMeta.color }}
               title="가격 데이터 출처"
             >
@@ -47,7 +52,11 @@ export function WatchlistWidget() {
         </div>
         <Link
           href="/search"
-          className="text-[12px] text-[color:var(--bm-muted)] font-semibold"
+          className={[
+            "text-[12px] text-[color:var(--bm-muted)] font-semibold rounded-md px-1 -mx-1",
+            "transition-colors hover:text-[color:var(--bm-accent-strong)]",
+            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--bm-accent-strong)]",
+          ].join(" ")}
         >
           추가 ›
         </Link>
@@ -62,7 +71,10 @@ export function WatchlistWidget() {
           {items.map((name) => {
             const color = colorByName.get(name);
             return (
-              <li key={name} className="flex items-center px-3 py-2.5 gap-2">
+              <li
+                key={name}
+                className="flex items-center px-3 py-2.5 gap-2 transition-colors hover:bg-[color:var(--bm-soft-100)]"
+              >
                 <StarButton name={name} size={16} />
                 {color ? (
                   <span
@@ -74,7 +86,10 @@ export function WatchlistWidget() {
                 ) : null}
                 <Link
                   href={`/stock/${encodeURIComponent(name)}`}
-                  className="flex-1 flex items-center justify-between min-w-0"
+                  className={[
+                    "flex-1 flex items-center justify-between min-w-0 rounded-md",
+                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--bm-accent-strong)]",
+                  ].join(" ")}
                 >
                   <span className="font-bold text-[13.5px] truncate">{name}</span>
                   <span className="flex items-center gap-2 shrink-0">

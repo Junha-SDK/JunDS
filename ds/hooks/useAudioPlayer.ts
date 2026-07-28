@@ -112,7 +112,7 @@ export function useAudioPlayer(
   const repeatRef = useRef(repeat);
   repeatRef.current = repeat;
 
-  const current = index === null ? null : (tracks[index] ?? null);
+  const current = index === null ? null : tracks[index] ?? null;
 
   const next = useCallback(() => {
     setIndex((i) => {
@@ -145,8 +145,7 @@ export function useAudioPlayer(
     if (!audio) return;
 
     const onTime = () => setCurrentTime(audio.currentTime);
-    const onMeta = () =>
-      setDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
+    const onMeta = () => setDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
     const onEnd = () => {
       if (repeatRef.current === "one") {
         audio.currentTime = 0;

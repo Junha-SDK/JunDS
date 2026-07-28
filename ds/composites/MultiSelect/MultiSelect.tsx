@@ -60,16 +60,10 @@ export function MultiSelect({
     : options;
 
   const toggle = (val: string) => {
-    onChange(
-      value.includes(val)
-        ? value.filter((v) => v !== val)
-        : [...value, val],
-    );
+    onChange(value.includes(val) ? value.filter((v) => v !== val) : [...value, val]);
   };
 
-  const selectedLabels = value
-    .map((v) => options.find((o) => o.value === v))
-    .filter(Boolean);
+  const selectedLabels = value.map((v) => options.find((o) => o.value === v)).filter(Boolean);
 
   return (
     <div ref={ref} className={cn("relative w-full", className)}>
@@ -90,26 +84,25 @@ export function MultiSelect({
           }
         }}
         className={cn(
-          "flex items-center gap-1 flex-wrap min-h-[38px] w-full border bg-white px-2 py-1 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out",
+          // bg-white 는 라이트 전용 값 — 다크에서 트리거만 하얗게 남는다.
+          "flex items-center gap-1 flex-wrap min-h-[38px] w-full border bg-card px-2 py-1 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+          // 태그가 늘면 min-height 가 바뀐다. transition-all 이면 그 높이까지 전이 대상이 되어
+          // 선택할 때마다 상자가 흐르며 늘어난다 — 색과 그림자만 지목한다.
+          "transition-[border-color,box-shadow] duration-200 ease-out motion-reduce:transition-none",
           "focus:outline-none focus-visible:border-primary focus-visible:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer",
           disabled && "opacity-50 cursor-not-allowed",
           error
             ? "border-danger"
             : open
-              ? "border-primary shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]"
-              : "border-border hover:border-gray-300",
+            ? "border-primary shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]"
+            : "border-border hover:border-muted-light",
         )}
       >
         {selectedLabels.length === 0 && (
           <span className="text-sm text-muted-light px-1">{placeholder}</span>
         )}
         {selectedLabels.slice(0, maxDisplay).map((opt) => (
-          <Tag
-            key={opt!.value}
-            color="primary"
-            closable
-            onClose={() => toggle(opt!.value)}
-          >
+          <Tag key={opt!.value} color="primary" closable onClose={() => toggle(opt!.value)}>
             {opt!.label}
           </Tag>
         ))}
@@ -117,23 +110,36 @@ export function MultiSelect({
           <Tag color="gray">+{selectedLabels.length - maxDisplay}</Tag>
         )}
         <svg
-          className={cn("w-4 h-4 text-muted ml-auto shrink-0 transition-transform", open && "rotate-180")}
-          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+          className={cn(
+            "w-4 h-4 text-muted ml-auto shrink-0 transition-transform duration-200 motion-reduce:transition-none",
+            open && "rotate-180",
+          )}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
       </div>
 
       {open && (
-        <div className="absolute z-50 mt-1 w-full bg-white border border-border rounded-xl shadow-xl max-h-60 overflow-auto py-1 animate-fade-in-scale">
+        <div
+          className={cn(
+            "absolute z-50 mt-1 w-full bg-card border border-border rounded-xl max-h-60 overflow-auto py-1",
+            // 떠 있는 목록은 그림자 한 겹으로는 배경에서 떨어지지 않는다.
+            "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-black/[0.04]",
+            "animate-fade-in-scale motion-reduce:animate-none",
+          )}
+        >
           {searchable && (
-            <div className="px-2 py-1.5 sticky top-0 bg-white border-b border-border-light">
+            <div className="px-2 py-1.5 sticky top-0 bg-card border-b border-border-light">
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="검색..."
-                className="w-full px-2 py-1 text-sm border border-border rounded-md focus:outline-none focus:border-primary"
+                className="w-full px-2 py-1 text-sm bg-card border border-border rounded-lg transition-[border-color,box-shadow] duration-150 focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]"
                 // eslint-disable-next-line jsx-a11y/no-autofocus -- popup search input: focusing on open is the expected pattern (focus already inside the popup)
                 autoFocus
               />
@@ -149,7 +155,8 @@ export function MultiSelect({
                 key={opt.value}
                 className={cn(
                   "flex items-center gap-2 mx-1 px-2 py-1.5 rounded-lg text-sm cursor-pointer transition-colors",
-                  checked ? "bg-primary/10 text-primary font-medium" : "hover:bg-gray-50",
+                  "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/55 has-[:focus-visible]:ring-inset",
+                  checked ? "bg-primary/10 text-primary-ink font-medium" : "hover:bg-surface-soft",
                 )}
               >
                 <input

@@ -4,7 +4,13 @@ import { TableOfContents } from "../../composites/TableOfContents";
 
 describe("TableOfContents", () => {
   it("renders", () => {
-    const { container } = render(<TableOfContents items={[{id:"a",label:"A",level:2}]} activeTracking={false} data-testid="root" />);
+    const { container } = render(
+      <TableOfContents
+        items={[{ id: "a", label: "A", level: 2 }]}
+        activeTracking={false}
+        data-testid="root"
+      />,
+    );
     expect(container.firstChild).toBeTruthy();
   });
 });

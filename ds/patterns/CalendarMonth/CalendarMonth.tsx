@@ -33,7 +33,7 @@ export interface CalendarMonthProps {
 }
 
 const colorMap: Record<NonNullable<CalendarEvent["color"]>, string> = {
-  primary: "bg-primary/15 text-primary",
+  primary: "bg-primary/15 text-primary-ink",
   success: "bg-success/15 text-success",
   warning: "bg-warning/15 text-warning",
   danger: "bg-danger/15 text-danger",
@@ -43,10 +43,18 @@ const colorMap: Record<NonNullable<CalendarEvent["color"]>, string> = {
 
 const dayNamesKo = ["일", "월", "화", "수", "목", "금", "토"];
 
-function startOfMonth(d: Date) { return new Date(d.getFullYear(), d.getMonth(), 1); }
-function addMonths(d: Date, n: number) { return new Date(d.getFullYear(), d.getMonth() + n, 1); }
+function startOfMonth(d: Date) {
+  return new Date(d.getFullYear(), d.getMonth(), 1);
+}
+function addMonths(d: Date, n: number) {
+  return new Date(d.getFullYear(), d.getMonth() + n, 1);
+}
 function isSameDay(a: Date, b: Date) {
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
 }
 function parseDate(s: string): Date {
   const d = new Date(s);
@@ -62,7 +70,16 @@ function parseDate(s: string): Date {
  * @tags calendar, layout
  */
 export const CalendarMonth = forwardRef<HTMLElement, CalendarMonthProps>(function CalendarMonth(
-  { month, onMonthChange, selectedDate, onSelectDate, events = [], onEventClick, weekStartsOn = 0, className },
+  {
+    month,
+    onMonthChange,
+    selectedDate,
+    onSelectDate,
+    events = [],
+    onEventClick,
+    weekStartsOn = 0,
+    className,
+  },
   ref,
 ) {
   const today = useMemo(() => new Date(), []);
@@ -74,10 +91,12 @@ export const CalendarMonth = forwardRef<HTMLElement, CalendarMonthProps>(functio
     const offset = (firstWeekday - weekStartsOn + 7) % 7;
     const days: Date[] = [];
     // 앞 채움 (이전 달)
-    for (let i = offset; i > 0; i--) days.push(new Date(month.getFullYear(), month.getMonth(), 1 - i));
+    for (let i = offset; i > 0; i--)
+      days.push(new Date(month.getFullYear(), month.getMonth(), 1 - i));
     // 이번 달
     const last = new Date(month.getFullYear(), month.getMonth() + 1, 0);
-    for (let d = 1; d <= last.getDate(); d++) days.push(new Date(month.getFullYear(), month.getMonth(), d));
+    for (let d = 1; d <= last.getDate(); d++)
+      days.push(new Date(month.getFullYear(), month.getMonth(), d));
     // 뒤 채움 (6주 = 42칸 채우기)
     while (days.length < 42) {
       const tail = days[days.length - 1];
@@ -102,31 +121,41 @@ export const CalendarMonth = forwardRef<HTMLElement, CalendarMonthProps>(functio
     return map;
   }, [events]);
 
-  const handleKey = useCallback((e: React.KeyboardEvent) => {
-    let next = new Date(focusDate);
-    if (e.key === "ArrowLeft") next.setDate(next.getDate() - 1);
-    else if (e.key === "ArrowRight") next.setDate(next.getDate() + 1);
-    else if (e.key === "ArrowUp") next.setDate(next.getDate() - 7);
-    else if (e.key === "ArrowDown") next.setDate(next.getDate() + 7);
-    else if (e.key === "Home") next = new Date(next.getFullYear(), next.getMonth(), 1);
-    else if (e.key === "End") next = new Date(next.getFullYear(), next.getMonth() + 1, 0);
-    else if (e.key === "PageUp") next.setMonth(next.getMonth() - 1);
-    else if (e.key === "PageDown") next.setMonth(next.getMonth() + 1);
-    else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelectDate?.(focusDate); return; }
-    else return;
-    e.preventDefault();
-    setFocusDate(next);
-    if (next.getMonth() !== month.getMonth() || next.getFullYear() !== month.getFullYear()) {
-      onMonthChange?.(new Date(next.getFullYear(), next.getMonth(), 1));
-    }
-  }, [focusDate, month, onMonthChange, onSelectDate]);
+  const handleKey = useCallback(
+    (e: React.KeyboardEvent) => {
+      let next = new Date(focusDate);
+      if (e.key === "ArrowLeft") next.setDate(next.getDate() - 1);
+      else if (e.key === "ArrowRight") next.setDate(next.getDate() + 1);
+      else if (e.key === "ArrowUp") next.setDate(next.getDate() - 7);
+      else if (e.key === "ArrowDown") next.setDate(next.getDate() + 7);
+      else if (e.key === "Home") next = new Date(next.getFullYear(), next.getMonth(), 1);
+      else if (e.key === "End") next = new Date(next.getFullYear(), next.getMonth() + 1, 0);
+      else if (e.key === "PageUp") next.setMonth(next.getMonth() - 1);
+      else if (e.key === "PageDown") next.setMonth(next.getMonth() + 1);
+      else if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onSelectDate?.(focusDate);
+        return;
+      } else return;
+      e.preventDefault();
+      setFocusDate(next);
+      if (next.getMonth() !== month.getMonth() || next.getFullYear() !== month.getFullYear()) {
+        onMonthChange?.(new Date(next.getFullYear(), next.getMonth(), 1));
+      }
+    },
+    [focusDate, month, onMonthChange, onSelectDate],
+  );
 
   const headers = useMemo(() => {
     return Array.from({ length: 7 }).map((_, i) => dayNamesKo[(i + weekStartsOn) % 7]);
   }, [weekStartsOn]);
 
   return (
-    <section ref={ref} className={cn("rounded-xl border border-border bg-surface p-4", className)} aria-label="달력">
+    <section
+      ref={ref}
+      className={cn("rounded-xl border border-border bg-surface p-4", className)}
+      aria-label="달력"
+    >
       <header className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-semibold text-foreground tabular-nums">
           {month.getFullYear()}년 {month.getMonth() + 1}월
@@ -159,7 +188,11 @@ export const CalendarMonth = forwardRef<HTMLElement, CalendarMonthProps>(functio
       </header>
 
       <div className="grid grid-cols-7 gap-1 text-[11px] text-muted text-center" aria-hidden="true">
-        {headers.map((h) => <div key={h} className="py-1">{h}</div>)}
+        {headers.map((h) => (
+          <div key={h} className="py-1">
+            {h}
+          </div>
+        ))}
       </div>
 
       <div
@@ -174,7 +207,8 @@ export const CalendarMonth = forwardRef<HTMLElement, CalendarMonthProps>(functio
           const isToday = isSameDay(d, today);
           const isSelected = selectedDate && isSameDay(d, selectedDate);
           const isFocus = isSameDay(d, focusDate);
-          const dayEvents = eventsByDay.get(`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`) ?? [];
+          const dayEvents =
+            eventsByDay.get(`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`) ?? [];
           return (
             <div
               key={i}
@@ -187,13 +221,18 @@ export const CalendarMonth = forwardRef<HTMLElement, CalendarMonthProps>(functio
                 isSelected && "bg-primary/10 border-primary/30",
                 isFocus && !isSelected && "border-primary/50",
               )}
-              onClick={() => { setFocusDate(d); onSelectDate?.(d); }}
+              onClick={() => {
+                setFocusDate(d);
+                onSelectDate?.(d);
+              }}
             >
-              <span className={cn(
-                "inline-flex items-center justify-center w-6 h-6 rounded-full text-xs tabular-nums",
-                isToday && "bg-primary text-white font-bold",
-                !isToday && "text-foreground",
-              )}>
+              <span
+                className={cn(
+                  "inline-flex items-center justify-center w-6 h-6 rounded-full text-xs tabular-nums",
+                  isToday && "bg-primary text-white font-bold",
+                  !isToday && "text-foreground",
+                )}
+              >
                 {d.getDate()}
               </span>
               <ul className="flex-1 space-y-0.5 overflow-hidden">
@@ -201,7 +240,10 @@ export const CalendarMonth = forwardRef<HTMLElement, CalendarMonthProps>(functio
                   <li key={e.id}>
                     <button
                       type="button"
-                      onClick={(ev) => { ev.stopPropagation(); onEventClick?.(e); }}
+                      onClick={(ev) => {
+                        ev.stopPropagation();
+                        onEventClick?.(e);
+                      }}
                       className={cn(
                         "block w-full truncate text-left px-1.5 py-0.5 rounded text-[10px] font-medium cursor-pointer hover:opacity-80",
                         colorMap[e.color ?? "primary"],

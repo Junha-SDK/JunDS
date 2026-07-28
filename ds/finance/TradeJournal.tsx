@@ -33,8 +33,11 @@ export function TradeJournal() {
           매매 일지
         </div>
         <button
+          type="button"
           onClick={() => setOpen((v) => !v)}
-          className="bm-btn-pill"
+          aria-expanded={open}
+          // finance 표면은 --bm-* 어휘를 쓴다 — 포커스 링도 그 어휘로 그려야 겉돌지 않는다
+          className="bm-btn-pill cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
           data-active={open}
         >
           <AppIcon name="plus" size={12} strokeWidth={2.6} />
@@ -50,14 +53,19 @@ export function TradeJournal() {
         <Stat label="총 매매" value={`${stats.totalTrades}건`} />
         <Stat label="매수" value={`${stats.buys}건`} tone="up" />
         <Stat label="매도" value={`${stats.sells}건`} tone="down" />
-        <Stat
-          label="이번달"
-          value={`${stats.byMonth[stats.byMonth.length - 1]?.count ?? 0}건`}
-        />
+        <Stat label="이번달" value={`${stats.byMonth[stats.byMonth.length - 1]?.count ?? 0}건`} />
       </div>
 
       {/* Add form */}
-      {open ? <NewTradeForm onAdd={(e) => { add(e); setOpen(false); }} onCancel={() => setOpen(false)} /> : null}
+      {open ? (
+        <NewTradeForm
+          onAdd={(e) => {
+            add(e);
+            setOpen(false);
+          }}
+          onCancel={() => setOpen(false)}
+        />
+      ) : null}
 
       {/* List */}
       {items.length === 0 ? (
@@ -79,36 +87,24 @@ export function TradeJournal() {
   );
 }
 
-function Stat({
-  label,
-  value,
-  tone,
-}: {
-  label: string;
-  value: string;
-  tone?: "up" | "down";
-}) {
-  const color = tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
+function Stat({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" }) {
+  const color =
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
   return (
     <div className="bm-stat-tile">
       <span className="bm-stat-tile-label">{label}</span>
-      <span className="bm-stat-tile-value" style={{ color }}>{value}</span>
+      <span className="bm-stat-tile-value" style={{ color }}>
+        {value}
+      </span>
     </div>
   );
 }
 
-function TradeRow({
-  entry,
-  onDelete,
-}: {
-  entry: TradeEntry;
-  onDelete: () => void;
-}) {
+function TradeRow({ entry, onDelete }: { entry: TradeEntry; onDelete: () => void }) {
   const { price } = useLivePrice(entry.name);
   const review = reviewTrade(entry, price || entry.price);
   const sideColor = entry.side === "buy" ? "var(--bm-up)" : "var(--bm-down)";
-  const pctColor =
-    review.pctVsCurrent >= 0 ? "var(--bm-up)" : "var(--bm-down)";
+  const pctColor = review.pctVsCurrent >= 0 ? "var(--bm-up)" : "var(--bm-down)";
   const klassColor: Record<typeof review.classification, string> = {
     유지: "var(--bm-muted)",
     수익실현: "var(--bm-up)",
@@ -125,8 +121,7 @@ function TradeRow({
         className="text-[10.5px] font-extrabold px-2 h-6 rounded-md grid place-items-center"
         style={{
           color: sideColor,
-          background:
-            entry.side === "buy" ? "var(--bm-up-soft)" : "var(--bm-down-soft)",
+          background: entry.side === "buy" ? "var(--bm-up-soft)" : "var(--bm-down-soft)",
         }}
       >
         {entry.side === "buy" ? "매수" : "매도"}
@@ -134,24 +129,20 @@ function TradeRow({
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
           <span className="font-extrabold text-[13.5px] truncate">{entry.name}</span>
-          <span
-            className="bm-num text-[11px]"
-            style={{ color: "var(--bm-muted)" }}
-          >
+          <span className="bm-num text-[11px]" style={{ color: "var(--bm-muted)" }}>
             {entry.qty}주 × {entry.price.toLocaleString("ko-KR")}원
           </span>
         </div>
-        <div className="flex items-center gap-2 mt-0.5 text-[11px]"
-             style={{ color: "var(--bm-muted)" }}>
+        <div
+          className="flex items-center gap-2 mt-0.5 text-[11px]"
+          style={{ color: "var(--bm-muted)" }}
+        >
           <span className="bm-num">{new Date(entry.at).toLocaleDateString("ko-KR")}</span>
           {entry.note ? <span className="truncate">· {entry.note}</span> : null}
         </div>
       </div>
       <div className="text-right shrink-0">
-        <span
-          className="bm-num font-extrabold text-[13px]"
-          style={{ color: pctColor }}
-        >
+        <span className="bm-num font-extrabold text-[13px]" style={{ color: pctColor }}>
           {review.pctVsCurrent >= 0 ? "+" : ""}
           {(review.pctVsCurrent * 100).toFixed(2)}%
         </span>
@@ -163,9 +154,10 @@ function TradeRow({
         </div>
       </div>
       <button
+        type="button"
         onClick={onDelete}
         aria-label="삭제"
-        className="size-7 rounded-full grid place-items-center hover:bg-[var(--bm-soft-100)] shrink-0"
+        className="size-7 rounded-full grid place-items-center cursor-pointer transition-colors hover:bg-[var(--bm-soft-100)] shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
         style={{ color: "var(--bm-muted)" }}
       >
         <AppIcon name="close" size={14} strokeWidth={2.2} />
@@ -178,7 +170,13 @@ function NewTradeForm({
   onAdd,
   onCancel,
 }: {
-  onAdd: (entry: { name: string; side: TradeSide; qty: number; price: number; note?: string }) => void;
+  onAdd: (entry: {
+    name: string;
+    side: TradeSide;
+    qty: number;
+    price: number;
+    note?: string;
+  }) => void;
   onCancel: () => void;
 }) {
   const [name, setName] = useState("");
@@ -209,7 +207,8 @@ function NewTradeForm({
               setName("");
             }}
             placeholder="종목명"
-            className="w-full h-10 px-3 rounded-lg outline-none text-[13px] font-bold"
+            aria-label="종목명"
+            className="w-full h-10 px-3 rounded-lg outline-none text-[13px] font-bold transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
             style={{
               background: "var(--bm-card)",
               border: "1px solid var(--bm-border)",
@@ -225,7 +224,7 @@ function NewTradeForm({
                       setName(s.name);
                       setQuery("");
                     }}
-                    className="w-full px-3 py-2 text-left text-[13px] font-bold hover:bg-[var(--bm-soft-100)]"
+                    className="w-full px-3 py-2 text-left text-[13px] font-bold cursor-pointer transition-colors hover:bg-[var(--bm-soft-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--bm-accent-strong)]"
                   >
                     {s.name}
                   </button>
@@ -237,7 +236,8 @@ function NewTradeForm({
         <select
           value={side}
           onChange={(e) => setSide(e.target.value as TradeSide)}
-          className="h-10 px-3 rounded-lg outline-none text-[13px] font-bold"
+          aria-label="매수/매도"
+          className="h-10 px-3 rounded-lg outline-none text-[13px] font-bold cursor-pointer transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
           style={{ background: "var(--bm-card)", border: "1px solid var(--bm-border)" }}
         >
           <option value="buy">매수</option>
@@ -249,7 +249,8 @@ function NewTradeForm({
           value={qty || ""}
           onChange={(e) => setQty(Number(e.target.value))}
           placeholder="수량"
-          className="h-10 px-3 rounded-lg outline-none text-[13px] font-bold bm-num"
+          aria-label="수량"
+          className="h-10 px-3 rounded-lg outline-none text-[13px] font-bold bm-num transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
           style={{ background: "var(--bm-card)", border: "1px solid var(--bm-border)" }}
         />
         <input
@@ -258,7 +259,8 @@ function NewTradeForm({
           value={price || ""}
           onChange={(e) => setPrice(Number(e.target.value))}
           placeholder="단가"
-          className="h-10 px-3 rounded-lg outline-none text-[13px] font-bold bm-num"
+          aria-label="단가"
+          className="h-10 px-3 rounded-lg outline-none text-[13px] font-bold bm-num transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
           style={{ background: "var(--bm-card)", border: "1px solid var(--bm-border)" }}
         />
       </div>
@@ -266,22 +268,27 @@ function NewTradeForm({
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder="이유 (선택, 예: 1분기 호실적 기대)"
-        className="w-full h-10 px-3 rounded-lg outline-none text-[13px]"
+        aria-label="매매 이유"
+        className="w-full h-10 px-3 rounded-lg outline-none text-[13px] transition-shadow focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
         style={{ background: "var(--bm-card)", border: "1px solid var(--bm-border)" }}
       />
       <div className="flex items-center justify-end gap-2">
         <button
           type="button"
           onClick={onCancel}
-          className="h-9 px-4 rounded-full text-[12px] font-extrabold"
-          style={{ background: "var(--bm-card)", border: "1px solid var(--bm-border)", color: "var(--bm-text)" }}
+          className="h-9 px-4 rounded-full text-[12px] font-extrabold cursor-pointer transition-opacity hover:opacity-80 active:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
+          style={{
+            background: "var(--bm-card)",
+            border: "1px solid var(--bm-border)",
+            color: "var(--bm-text)",
+          }}
         >
           취소
         </button>
         <button
           type="submit"
           disabled={!valid}
-          className="h-9 px-4 rounded-full text-[12px] font-extrabold text-white disabled:opacity-50"
+          className="h-9 px-4 rounded-full text-[12px] font-extrabold text-white cursor-pointer transition-opacity hover:opacity-90 active:opacity-75 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
           style={{ background: "var(--bm-accent-strong)" }}
         >
           기록 저장

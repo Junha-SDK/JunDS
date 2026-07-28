@@ -10,7 +10,11 @@ export default function FunnelChartPage() {
       description="단계별 전환율을 시각화하는 깔때기 차트. 각 단계의 값과 직전 단계 대비 전환률을 함께 표시합니다."
       importPath='import { FunnelChart } from "@/ds/composites/FunnelChart"'
       props={[
-        { name: "data", type: "{ label: string; value: number; color?: string }[]", description: "단계별 데이터" },
+        {
+          name: "data",
+          type: "{ label: string; value: number; color?: string }[]",
+          description: "단계별 데이터",
+        },
         { name: "height", type: "number", default: "300", description: "차트 전체 높이(px)" },
         { name: "className", type: "string", description: "컨테이너 클래스" },
       ]}

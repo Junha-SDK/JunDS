@@ -90,22 +90,31 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
  */
 const CardBase = forwardRef<HTMLDivElement, CardProps>(
   ({ hoverable, noPadding, asChild, className, children, ...props }, ref) => {
-  const Comp = asChild ? Slot : "div";
-  return (
-    <Comp
-      ref={ref as never}
-      className={cn(
-        "bg-white/95 backdrop-blur-sm border border-border/60 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02)] transition-all duration-300 ease-out",
-        !noPadding && "p-0",
-        hoverable && "card-hover cursor-pointer hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 hover:border-border",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </Comp>
-  );
-},
+    const Comp = asChild ? Slot : "div";
+    return (
+      <Comp
+        ref={ref as never}
+        className={cn(
+          // bg-white 는 라이트 전용 값이다. --card 는 모드를 따라가므로 다크에서도 카드가 카드로 보인다.
+          "bg-card/95 backdrop-blur-sm border border-border/60 rounded-2xl",
+          "shadow-[0_1px_3px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.06)]",
+          // transition-all 은 자식 레이아웃 변화까지 물고 들어간다. 호버가 실제로 바꾸는 3개만 지목.
+          "transition-[transform,box-shadow,border-color] duration-300 ease-out motion-reduce:transition-none",
+          !noPadding && "p-0",
+          hoverable &&
+            "card-hover cursor-pointer hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 hover:border-border motion-reduce:hover:translate-y-0",
+          // asChild 로 <Link>·<button> 에 위임하면 이 className 이 실제 포커스 대상에 붙는다.
+          // 클릭 가능한 카드에는 키보드 포커스 표시가 반드시 있어야 한다.
+          hoverable &&
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </Comp>
+    );
+  },
 );
 CardBase.displayName = "Card";
 
@@ -132,7 +141,9 @@ function CardHeader({ className, children, ...props }: HTMLAttributes<HTMLDivEle
     <div className={cn("px-6 py-4 border-b border-border/40", className)} {...props}>
       {typeof children === "string" ? (
         <h3 className="text-base font-semibold text-foreground">{children}</h3>
-      ) : children}
+      ) : (
+        children
+      )}
     </div>
   );
 }
@@ -157,7 +168,7 @@ function CardBody({ className, children, ...props }: HTMLAttributes<HTMLDivEleme
 }
 
 /**
- * 카드 하단 액션 영역. 상단 구분선과 미묘한 배경색(`bg-gray-50/30`)이 적용됩니다.
+ * 카드 하단 액션 영역. 상단 구분선과 미묘한 배경색(`bg-surface-soft/50`)이 적용됩니다.
  *
  * 버튼, 링크 등 사용자 액션을 배치하는 데 사용합니다.
  * 하단 모서리가 카드의 `border-radius`에 맞게 둥글게 처리됩니다.
@@ -170,7 +181,14 @@ function CardBody({ className, children, ...props }: HTMLAttributes<HTMLDivEleme
  */
 function CardFooter({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("px-6 py-3.5 border-t border-border/40 bg-gray-50/30 rounded-b-2xl", className)} {...props}>
+    <div
+      className={cn(
+        // bg-gray-50 은 라이트 전용 값 — 다크에서 본문보다 밝아진다. surface-soft 가 모드를 따라간다.
+        "px-6 py-3.5 border-t border-border/40 bg-surface-soft/50 rounded-b-2xl",
+        className,
+      )}
+      {...props}
+    >
       {children}
     </div>
   );

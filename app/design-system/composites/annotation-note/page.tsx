@@ -13,7 +13,13 @@ export default function AnnotationNotePage() {
     >
       <Section title="Default">
         <Preview>
-          <AnnotationNote quote="우리는 가장 작은 디테일에서 디자인을 본다." note="첫 챕터 핵심" page={142} color="yellow" createdAt={new Date()} />
+          <AnnotationNote
+            quote="우리는 가장 작은 디테일에서 디자인을 본다."
+            note="첫 챕터 핵심"
+            page={142}
+            color="yellow"
+            createdAt={new Date()}
+          />
         </Preview>
       </Section>
     </ComponentPage>

@@ -28,14 +28,33 @@ export interface CTASectionProps extends Omit<HTMLAttributes<HTMLElement>, "titl
 
 function Button({ cta, primary, dark }: { cta: CTAButton; primary: boolean; dark: boolean }) {
   const className = cn(
-    "inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold transition-colors cursor-pointer",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+    "inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold cursor-pointer",
+    "transition-[background-color,border-color,transform] duration-150 active:scale-[0.98]",
+    "motion-reduce:transition-none motion-reduce:active:scale-100",
+    // `ring-ring` 은 이 저장소에 없는 토큰이라 포커스 링이 아예 그려지지 않았다.
+    // 어두운 CTA 위에서는 primary 링이 묻히므로 배경에 따라 링 색을 바꾼다
+    dark
+      ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+      : "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     primary
-      ? dark ? "bg-white text-foreground hover:bg-white/90" : "bg-primary text-white hover:bg-primary-hover"
-      : dark ? "border border-white/40 text-white hover:bg-white/10" : "border border-border bg-surface hover:bg-surface-soft",
+      ? dark
+        ? "bg-white text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_1px_2px_rgba(0,0,0,0.12)] hover:bg-white/90"
+        : "bg-primary text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_1px_2px_rgba(0,0,0,0.12)] hover:bg-primary-hover"
+      : dark
+      ? "border border-white/40 text-white hover:bg-white/10 active:bg-white/20"
+      : "border border-border bg-surface shadow-[inset_0_1px_0_rgba(255,255,255,0.10)] hover:bg-surface-soft hover:border-primary/40",
   );
-  if (cta.href) return <a href={cta.href} className={className}>{cta.label}</a>;
-  return <button type="button" onClick={cta.onClick} className={className}>{cta.label}</button>;
+  if (cta.href)
+    return (
+      <a href={cta.href} className={className}>
+        {cta.label}
+      </a>
+    );
+  return (
+    <button type="button" onClick={cta.onClick} className={className}>
+      {cta.label}
+    </button>
+  );
 }
 
 /**
@@ -54,7 +73,11 @@ export const CTASection = forwardRef<HTMLElement, CTASectionProps>(function CTAS
 
   if (variant === "split") {
     return (
-      <section ref={ref} className={cn("max-w-6xl mx-auto px-4 sm:px-6 py-12", className)} {...props}>
+      <section
+        ref={ref}
+        className={cn("max-w-6xl mx-auto px-4 sm:px-6 py-12", className)}
+        {...props}
+      >
         <div className="grid lg:grid-cols-2 gap-8 items-center rounded-2xl border border-border bg-surface p-8">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h2>
@@ -80,8 +103,19 @@ export const CTASection = forwardRef<HTMLElement, CTASectionProps>(function CTAS
   return (
     <section ref={ref} className={cn(wrapperClass, className)} {...props}>
       <div className="max-w-3xl mx-auto text-center">
-        <h2 className={cn("text-2xl sm:text-3xl font-bold tracking-tight", isDark ? "text-white" : "")}>{title}</h2>
-        {description && <p className={cn("mt-3 text-base", isDark ? "text-white/85" : "text-muted")}>{description}</p>}
+        <h2
+          className={cn(
+            "text-2xl sm:text-3xl font-bold tracking-tight",
+            isDark ? "text-white" : "",
+          )}
+        >
+          {title}
+        </h2>
+        {description && (
+          <p className={cn("mt-3 text-base", isDark ? "text-white/85" : "text-muted")}>
+            {description}
+          </p>
+        )}
         {(primaryCta || secondaryCta) && (
           <div className="mt-6 flex flex-wrap gap-3 justify-center">
             {primaryCta && <Button cta={primaryCta} primary dark={isDark} />}

@@ -28,6 +28,7 @@ export interface RadarChartProps extends HTMLAttributes<HTMLDivElement> {
   showLegend?: boolean;
 }
 
+// 시리즈 구분색 — 의미색이 아니라 "서로 다름"을 나타내는 계열색이라 리터럴로 둔다.
 const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b82f6"];
 
 /**
@@ -39,7 +40,18 @@ const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b8
  * @tags chart
  */
 export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function RadarChart(
-  { axes, series, size = 280, max, gridSteps = 4, fillOpacity = 0.2, showDots = true, showLegend = true, className, ...props },
+  {
+    axes,
+    series,
+    size = 280,
+    max,
+    gridSteps = 4,
+    fillOpacity = 0.2,
+    showDots = true,
+    showLegend = true,
+    className,
+    ...props
+  },
   ref,
 ) {
   const cx = size / 2;
@@ -52,23 +64,48 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function R
   const angle = (i: number) => (i / n) * Math.PI * 2 - Math.PI / 2;
 
   const polygonPoints = (data: number[]) =>
-    data.map((v, i) => {
-      const ratio = v / range;
-      const a = angle(i);
-      return `${cx + r * ratio * Math.cos(a)},${cy + r * ratio * Math.sin(a)}`;
-    }).join(" ");
+    data
+      .map((v, i) => {
+        const ratio = v / range;
+        const a = angle(i);
+        return `${cx + r * ratio * Math.cos(a)},${cy + r * ratio * Math.sin(a)}`;
+      })
+      .join(" ");
 
   return (
-    <div ref={ref} className={cn("inline-flex items-center gap-4", className)} {...props}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label="레이더 차트">
+    <div
+      ref={ref}
+      className={cn("inline-flex items-center gap-4 max-w-full", className)}
+      {...props}
+    >
+      {/* viewBox 가 있으므로 max-w-full + h-auto 면 좁은 칸에서 잘리지 않고 비율대로 줄어든다 */}
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        className="block max-w-full h-auto shrink"
+        role="img"
+        aria-label="레이더 차트"
+      >
         {/* grid polygons */}
         {Array.from({ length: gridSteps }, (_, gi) => {
           const ratio = (gi + 1) / gridSteps;
-          const points = axes.map((_, i) => {
-            const a = angle(i);
-            return `${cx + r * ratio * Math.cos(a)},${cy + r * ratio * Math.sin(a)}`;
-          }).join(" ");
-          return <polygon key={gi} points={points} fill="none" stroke="var(--border)" strokeOpacity={0.4} strokeWidth={1} />;
+          const points = axes
+            .map((_, i) => {
+              const a = angle(i);
+              return `${cx + r * ratio * Math.cos(a)},${cy + r * ratio * Math.sin(a)}`;
+            })
+            .join(" ");
+          return (
+            <polygon
+              key={gi}
+              points={points}
+              fill="none"
+              stroke="var(--border)"
+              strokeOpacity={0.4}
+              strokeWidth={1}
+            />
+          );
         })}
         {/* axis lines + labels */}
         {axes.map((label, i) => {
@@ -79,8 +116,25 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function R
           const labelY = cy + (r + 14) * Math.sin(a);
           return (
             <g key={i}>
-              <line x1={cx} y1={cy} x2={x} y2={y} stroke="var(--border)" strokeOpacity={0.3} strokeWidth={1} />
-              <text x={labelX} y={labelY} fontSize="10" textAnchor="middle" dominantBaseline="middle" className="fill-muted">{label}</text>
+              <line
+                x1={cx}
+                y1={cy}
+                x2={x}
+                y2={y}
+                stroke="var(--border)"
+                strokeOpacity={0.3}
+                strokeWidth={1}
+              />
+              <text
+                x={labelX}
+                y={labelY}
+                fontSize="10"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="fill-muted"
+              >
+                {label}
+              </text>
             </g>
           );
         })}
@@ -90,22 +144,41 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function R
           const points = polygonPoints(s.data);
           return (
             <g key={si}>
-              <polygon points={points} fill={color} fillOpacity={fillOpacity} stroke={color} strokeWidth={1.5} strokeLinejoin="round" />
-              {showDots && s.data.map((v, i) => {
-                const ratio = v / range;
-                const a = angle(i);
-                return <circle key={i} cx={cx + r * ratio * Math.cos(a)} cy={cy + r * ratio * Math.sin(a)} r={2.5} fill={color} />;
-              })}
+              <polygon
+                points={points}
+                fill={color}
+                fillOpacity={fillOpacity}
+                stroke={color}
+                strokeWidth={1.5}
+                strokeLinejoin="round"
+              />
+              {showDots &&
+                s.data.map((v, i) => {
+                  const ratio = v / range;
+                  const a = angle(i);
+                  return (
+                    <circle
+                      key={i}
+                      cx={cx + r * ratio * Math.cos(a)}
+                      cy={cy + r * ratio * Math.sin(a)}
+                      r={2.5}
+                      fill={color}
+                    />
+                  );
+                })}
             </g>
           );
         })}
       </svg>
       {showLegend && (
-        <ul className="flex flex-col gap-1 text-xs">
+        <ul className="flex flex-col gap-1 text-xs min-w-0">
           {series.map((s, i) => (
-            <li key={i} className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-sm shrink-0" style={{ background: s.color ?? DEFAULT_COLORS[i % DEFAULT_COLORS.length] }} />
-              <span className="text-foreground">{s.name}</span>
+            <li key={i} className="flex items-center gap-2 min-w-0">
+              <span
+                className="w-2.5 h-2.5 rounded-sm shrink-0"
+                style={{ background: s.color ?? DEFAULT_COLORS[i % DEFAULT_COLORS.length] }}
+              />
+              <span className="text-foreground truncate">{s.name}</span>
             </li>
           ))}
         </ul>

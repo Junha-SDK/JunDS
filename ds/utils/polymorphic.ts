@@ -24,16 +24,14 @@ type AsProp<C extends ElementType> = {
 // Merge own props with element props, excluding conflicts
 type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
 
-export type PolymorphicProps<
-  C extends ElementType,
-  Props = object,
-> = PropsWithChildren<Props & AsProp<C>> &
+export type PolymorphicProps<C extends ElementType, Props = object> = PropsWithChildren<
+  Props & AsProp<C>
+> &
   Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
 
-export type PolymorphicRef<C extends ElementType> =
-  ComponentPropsWithRef<C>["ref"];
+export type PolymorphicRef<C extends ElementType> = ComponentPropsWithRef<C>["ref"];
 
-export type PolymorphicPropsWithRef<
-  C extends ElementType,
-  Props = object,
-> = PolymorphicProps<C, Props> & { ref?: PolymorphicRef<C> };
+export type PolymorphicPropsWithRef<C extends ElementType, Props = object> = PolymorphicProps<
+  C,
+  Props
+> & { ref?: PolymorphicRef<C> };
