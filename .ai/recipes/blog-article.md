@@ -42,8 +42,8 @@ export default function ArticlePage() {
           <p>설치 5분짜리 라이브러리도 6개월 후엔 조용히 무너진다…</p>
 
           <Blockquote variant="quote" cite="2026 Annual DS Survey">
-            팀의 73%가 디자인 시스템을 "사용 중"이라 답했지만, 같은 비율이 회귀
-            방지 게이트를 가지고 있지 않았다.
+            팀의 73%가 디자인 시스템을 "사용 중"이라 답했지만, 같은 비율이 회귀 방지
+            게이트를 가지고 있지 않았다.
           </Blockquote>
 
           <h2 id="bundle-gate">번들 예산 게이트</h2>
@@ -53,8 +53,8 @@ export default function ArticlePage() {
           <p>22 → 0 critical을 지속하기 위한 CI 잡…</p>
 
           <Blockquote variant="warning">
-            strict 모드는 점진적으로 켜라. 0 위반을 만든 PR과 strict CI를 도입한
-            PR은 분리해야 회귀 디버깅이 쉽다.
+            strict 모드는 점진적으로 켜라. 0 위반을 만든 PR과 strict CI를 도입한 PR은
+            분리해야 회귀 디버깅이 쉽다.
           </Blockquote>
 
           <h2 id="motion-rtl">motion/RTL 스캐너</h2>

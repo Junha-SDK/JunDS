@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Sparkline 데모 (DEC-049) — 웹 <jd-sparkline> 동형.
 // 남은 차트 8종이 공유할 지오메트리(JdChartGeometry)의 첫 소비자다.
@@ -49,15 +49,18 @@ private struct SparkStage: View {
     var body: some View {
         let (w, h) = box(state)
         return VStack(spacing: JdToken.Space.s3) {
-            JdSparkline(values: series(state), width: w, height: h,
-                        showsFill: state.bool("fill"),
-                        showsBaseline: state.bool("baseline"),
-                        showsDot: state.bool("dot"),
-                        label: "추세 스파크라인")
-            Text("색은 첫 값 대비 마지막 값이 정한다 — 하락을 초록으로 그리면 정보가 거꾸로 간다.\n평평한 데이터도 0으로 나누지 않고 눕는다. 값 1개는 왼쪽 끝에 놓인다.")
-                .font(.caption)
-                .foregroundColor(JdToken.Color.muted.color)
-                .multilineTextAlignment(.center)
+            JdSparkline(
+                values: series(state), width: w, height: h,
+                showsFill: state.bool("fill"),
+                showsBaseline: state.bool("baseline"),
+                showsDot: state.bool("dot"),
+                label: "추세 스파크라인")
+            Text(
+                "색은 첫 값 대비 마지막 값이 정한다 — 하락을 초록으로 그리면 정보가 거꾸로 간다.\n평평한 데이터도 0으로 나누지 않고 눕는다. 값 1개는 왼쪽 끝에 놓인다."
+            )
+            .font(.caption)
+            .foregroundColor(JdToken.Color.muted.color)
+            .multilineTextAlignment(.center)
         }
     }
 }
@@ -67,11 +70,12 @@ private struct SparkStageUIKit: View {
     var body: some View {
         let (w, h) = box(state)
         return UIKitBox {
-            JdSparklineView(values: series(state), width: w, height: h,
-                            showsFill: state.bool("fill"),
-                            showsBaseline: state.bool("baseline"),
-                            showsDot: state.bool("dot"),
-                            label: "추세 스파크라인")
+            JdSparklineView(
+                values: series(state), width: w, height: h,
+                showsFill: state.bool("fill"),
+                showsBaseline: state.bool("baseline"),
+                showsDot: state.bool("dot"),
+                label: "추세 스파크라인")
         }
         .frame(width: w, height: h)
     }

@@ -1,9 +1,10 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-modal의 iOS 번역: 시스템 시트 프레젠테이션 위임 (04 §10 — 포커스 격리 공짜).
 // persistent = 인터랙티브 dismiss 차단 (웹: 백드롭 클릭 무시와 동일 의미론, DEC-012-4)
-public final class JdModalViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+public final class JdModalViewController: UIViewController, UIAdaptivePresentationControllerDelegate
+{
 
     public let contentView = UIView()
 
@@ -76,13 +77,16 @@ public final class JdModalViewController: UIViewController, UIAdaptivePresentati
 
     // MARK: UIAdaptivePresentationControllerDelegate — 스와이프 다운 = 웹 백드롭 경로
 
-    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+    public func presentationControllerShouldDismiss(
+        _ presentationController: UIPresentationController
+    ) -> Bool {
         if persistent { return false }
         if let handler = onRequestClose { return handler(.backdrop) }
         return true
     }
 
-    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController)
+    {
         onClose?()
     }
 }

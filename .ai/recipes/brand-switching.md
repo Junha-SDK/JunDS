@@ -47,7 +47,8 @@ export default function BrandShowcase() {
         <header>
           <h1 className="text-xl font-bold">브랜드 전환 데모</h1>
           <p className="text-sm text-muted mt-1">
-            칩을 클릭하면 색상·라운드·밀도·폰트가 즉시 바뀝니다 — 새로고침 후에도 유지됩니다.
+            칩을 클릭하면 색상·라운드·밀도·폰트가 즉시 바뀝니다 — 새로고침 후에도
+            유지됩니다.
           </p>
         </header>
 

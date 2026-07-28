@@ -1,10 +1,5 @@
 import { createRef } from "react";
-import {
-  Accordion,
-  AddressInput,
-  FlowDiagram,
-  InfiniteList,
-} from "../src/index.js";
+import { Accordion, AddressInput, FlowDiagram, InfiniteList } from "../src/index.js";
 import type { JdAccordion } from "@junds/web/accordion/element";
 
 const accordionRef = createRef<JdAccordion>();

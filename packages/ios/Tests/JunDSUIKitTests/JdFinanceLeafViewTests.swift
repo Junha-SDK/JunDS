@@ -1,12 +1,14 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // finance leaf 6종 UIKit 계층 (DEC-040).
 //
 // 보는 것: (1) 파생 상속 관계가 실제로 골격을 재사용하는가 (2) 색이 추세를 따라 흐르는가
 // (3) 접근성 표면이 색·기호에만 의존하지 않는가 (4) 프롭 변경이 반영되는가.
+@MainActor
 final class JdFinanceLeafViewTests: XCTestCase {
 
     override func tearDown() {
@@ -19,14 +21,17 @@ final class JdFinanceLeafViewTests: XCTestCase {
     // (JdChipTests와 같은 관용구).
     private let light = UITraitCollection(userInterfaceStyle: .light)
 
-    private func assertSameColor(_ actual: UIColor?,
-                                 _ expected: JdDynamicColor,
-                                 _ message: String = "",
-                                 line: UInt = #line) {
-        XCTAssertEqual(actual?.resolvedColor(with: light),
-                       expected.uiColor.resolvedColor(with: light),
-                       message,
-                       line: line)
+    private func assertSameColor(
+        _ actual: UIColor?,
+        _ expected: JdDynamicColor,
+        _ message: String = "",
+        line: UInt = #line
+    ) {
+        XCTAssertEqual(
+            actual?.resolvedColor(with: light),
+            expected.uiColor.resolvedColor(with: light),
+            message,
+            line: line)
     }
 
     // MARK: - LivePctText (골격 정본)
@@ -52,9 +57,10 @@ final class JdFinanceLeafViewTests: XCTestCase {
     func test_livePctText_does_not_paint_trend_color() {
         let up = JdLivePctTextView(change: 5)
         let down = JdLivePctTextView(change: -5)
-        XCTAssertEqual(up.textColor.resolvedColor(with: light),
-                       down.textColor.resolvedColor(with: light),
-                       "리프가 추세 색을 칠하면 파생 배지와 역할이 겹친다")
+        XCTAssertEqual(
+            up.textColor.resolvedColor(with: light),
+            down.textColor.resolvedColor(with: light),
+            "리프가 추세 색을 칠하면 파생 배지와 역할이 겹친다")
     }
 
     // 숫자 폭이 고정되어야 값이 갱신될 때 라벨이 흔들리지 않는다 (웹 tabular-nums)
@@ -120,8 +126,9 @@ final class JdFinanceLeafViewTests: XCTestCase {
 
         view.fallback = 0
         XCTAssertEqual(view.text, JdFinanceFormat.emDash)
-        XCTAssertEqual(view.accessibilityLabel, "가격 정보 없음",
-                       "em dash를 '대시'로 읽히게 두면 뜻이 사라진다")
+        XCTAssertEqual(
+            view.accessibilityLabel, "가격 정보 없음",
+            "em dash를 '대시'로 읽히게 두면 뜻이 사라진다")
 
         view.price = 1_234.5
         view.decimals = 2
@@ -210,8 +217,9 @@ final class JdFinanceLeafViewTests: XCTestCase {
     func test_hotPctChip_is_always_upward() {
         let chip = JdHotPctChipView(pct: 12.345)
         XCTAssertEqual(chip.valueLabel.text, "↑ 12.35%")
-        XCTAssertEqual(chip.accessibilityLabel, "급등 12.35%",
-                       "↑는 낭독되지 않거나 '위쪽 화살표'로 읽힌다 — 뜻을 말로 줘야 한다")
+        XCTAssertEqual(
+            chip.accessibilityLabel, "급등 12.35%",
+            "↑는 낭독되지 않거나 '위쪽 화살표'로 읽힌다 — 뜻을 말로 줘야 한다")
 
         chip.pct = -3
         XCTAssertEqual(chip.valueLabel.text, "↑ -3.00%", "웹과 동형 — 부호 분기가 없다")

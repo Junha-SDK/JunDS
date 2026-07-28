@@ -21,13 +21,20 @@ import { Form } from "@/ds/patterns/Form";
 import { Input } from "@/ds/primitives/Input";
 import { Button } from "@/ds/primitives/Button";
 
-export function LoginForm({ onSubmit }: { onSubmit: (v: { email: string; password: string }) => Promise<void> }) {
+export function LoginForm({
+  onSubmit,
+}: {
+  onSubmit: (v: { email: string; password: string }) => Promise<void>;
+}) {
   const form = useForm({
     initial: { email: "", password: "" },
     rules: {
       email: {
         required: "이메일을 입력하세요",
-        pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "이메일 형식이 아닙니다" },
+        pattern: {
+          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+          message: "이메일 형식이 아닙니다",
+        },
       },
       password: {
         required: "비밀번호를 입력하세요",
@@ -47,7 +54,9 @@ export function LoginForm({ onSubmit }: { onSubmit: (v: { email: string; passwor
           onChange={(e) => form.setValue("email", e.target.value)}
           aria-invalid={!!form.errors.email}
         />
-        {form.errors.email && <p className="text-xs text-danger mt-1">{form.errors.email}</p>}
+        {form.errors.email && (
+          <p className="text-xs text-danger mt-1">{form.errors.email}</p>
+        )}
       </label>
       <label className="block mt-3">
         <span className="text-sm">비밀번호</span>
@@ -57,9 +66,13 @@ export function LoginForm({ onSubmit }: { onSubmit: (v: { email: string; passwor
           onChange={(e) => form.setValue("password", e.target.value)}
           aria-invalid={!!form.errors.password}
         />
-        {form.errors.password && <p className="text-xs text-danger mt-1">{form.errors.password}</p>}
+        {form.errors.password && (
+          <p className="text-xs text-danger mt-1">{form.errors.password}</p>
+        )}
       </label>
-      <Button type="submit" loading={form.isSubmitting} className="mt-4">로그인</Button>
+      <Button type="submit" loading={form.isSubmitting} className="mt-4">
+        로그인
+      </Button>
     </Form>
   );
 }
@@ -92,8 +105,12 @@ export function ProfileForm() {
   const form = useForm<Values>({
     initial: { email: "", age: 0 },
     rules: {
-      email: { validate: valibotValidator(v.pipe(v.string(), v.email("이메일 형식 오류"))) },
-      age: { validate: valibotValidator(v.pipe(v.number(), v.minValue(13, "13세 이상"))) },
+      email: {
+        validate: valibotValidator(v.pipe(v.string(), v.email("이메일 형식 오류"))),
+      },
+      age: {
+        validate: valibotValidator(v.pipe(v.number(), v.minValue(13, "13세 이상"))),
+      },
     },
     onSubmit: async (values) => {
       // values는 정확히 Values 타입
@@ -121,7 +138,9 @@ export function ProfileForm() {
       />
       {form.errors.age && <p className="text-xs text-danger">{form.errors.age}</p>}
 
-      <Button type="submit" loading={form.isSubmitting}>저장</Button>
+      <Button type="submit" loading={form.isSubmitting}>
+        저장
+      </Button>
     </form>
   );
 }

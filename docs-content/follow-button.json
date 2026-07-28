@@ -4,11 +4,7 @@
   "category": "primitives",
   "title": "FollowButton",
   "oneLiner": "팔로우 상태 토글 버튼.",
-  "tags": [
-    "social",
-    "toggle",
-    "팔로우"
-  ],
+  "tags": ["social", "toggle", "팔로우"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // MARK: - 열 정렬 격자 (DEC-042)
 //
@@ -45,7 +45,9 @@ public struct JdColumn: Sendable, Equatable {
     public static func fixed(_ value: CGFloat, align: Align = .fill) -> JdColumn {
         JdColumn(width: .fixed(value), align: align)
     }
-    public static func fit(max: CGFloat = .greatestFiniteMagnitude, align: Align = .fill) -> JdColumn {
+    public static func fit(
+        max: CGFloat = .greatestFiniteMagnitude, align: Align = .fill
+    ) -> JdColumn {
         JdColumn(width: .fit(max: max), align: align)
     }
     public static func flex(weight: CGFloat = 1, align: Align = .fill) -> JdColumn {
@@ -83,10 +85,12 @@ public final class JdColumnsView: UIView {
     /// 행별 셀. 열 개수보다 셀이 적은 행은 빈 칸으로 남는다(마지막 행이 덜 찬 표를 허용).
     public private(set) var rows: [[UIView]] = []
 
-    public init(columns: [JdColumn],
-                gap: JdGap = .sm,
-                rowGap: JdGap = .sm,
-                @JdRowBuilder rows: () -> [[UIView]]) {
+    public init(
+        columns: [JdColumn],
+        gap: JdGap = .sm,
+        rowGap: JdGap = .sm,
+        @JdRowBuilder rows: () -> [[UIView]]
+    ) {
         self.columns = columns
         self.columnGap = gap
         self.rowGap = rowGap
@@ -107,7 +111,7 @@ public final class JdColumnsView: UIView {
         }
         rows = newRows
         for cell in newRows.flatMap({ $0 }) {
-            cell.translatesAutoresizingMaskIntoConstraints = true // frame 배치
+            cell.translatesAutoresizingMaskIntoConstraints = true  // frame 배치
             addSubview(cell)
         }
         invalidate()
@@ -130,7 +134,8 @@ public final class JdColumnsView: UIView {
         guard bounds.width > 0 else {
             return CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
         }
-        return CGSize(width: UIView.noIntrinsicMetric, height: solve(width: bounds.width, place: false))
+        return CGSize(
+            width: UIView.noIntrinsicMetric, height: solve(width: bounds.width, place: false))
     }
 
     public override func sizeThatFits(_ size: CGSize) -> CGSize {

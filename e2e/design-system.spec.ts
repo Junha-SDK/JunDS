@@ -31,9 +31,7 @@ test.describe("Design System", () => {
     await page.goto("/design-system");
     // The header dark-mode toggle has aria-label "다크 모드" or similar — look
     // for any button whose accessible name mentions theme/dark/light.
-    const toggle = page
-      .getByRole("button", { name: /다크|라이트|theme|mode/i })
-      .first();
+    const toggle = page.getByRole("button", { name: /다크|라이트|theme|mode/i }).first();
     await expect(toggle).toBeVisible();
   });
 

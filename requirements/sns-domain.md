@@ -9,12 +9,13 @@
 
 소셜 네트워크/커뮤니티 기능에 공통으로 필요한 시각·인터랙션 단위를 한 묶음
 으로 제공한다. 게시물 카드, 댓글, 프로필, 스토리 링, 팔로우/좋아요 등 일반
-패턴을 별도 라이브러리(react-twitter, react-instagram-* 등) 없이 JunDS만으로
+패턴을 별도 라이브러리(react-twitter, react-instagram-\* 등) 없이 JunDS만으로
 조립한다.
 
 ## Scope
 
 **In scope**
+
 - 게시물: `PostCard` (작성자 + 본문 + 미디어 + 액션 바)
 - 댓글: `CommentThread` (중첩 + 좋아요/답글 + 깊이 제한)
 - 프로필: `ProfileHeader` (배너 + 아바타 + 통계 + 액션 슬롯)
@@ -27,6 +28,7 @@
 - 훅: `useInfiniteFeed` (cursor 페이지네이션)
 
 **Out of scope**
+
 - 실시간 갱신/WebSocket — 호출자 측에서 `useEffect` 또는 SWR/RTK 사용.
 - DM/채팅 — 별도 도메인 (`ChatThread`, 후속).
 - 알림 — `NotificationCenter` (이미 존재하는 pattern) 사용.
@@ -36,19 +38,19 @@
 ## User stories / acceptance criteria
 
 - [x] **As a 사용자** I can 피드 끝까지 스크롤하면 다음 페이지가 자동 로드된다
-  (`SocialFeed onLoadMore` + `useInfiniteFeed`).
+      (`SocialFeed onLoadMore` + `useInfiniteFeed`).
 - [x] **As a 사용자** I can 좋아요 버튼을 클릭하면 하트가 채워지고 즉시 +1
-  카운트가 반영된다 (`LikeButton liked={true} count={41}`).
+      카운트가 반영된다 (`LikeButton liked={true} count={41}`).
 - [x] **As a 작성자** I can 본문에 `@user`, `#tag`을 칩으로 자동 변환할 수 있다
-  (`MentionChip`/`Hashtag` + 사용자 측 파서).
+      (`MentionChip`/`Hashtag` + 사용자 측 파서).
 - [x] **As a 사용자** I can 게시물 좋아요/댓글/공유 액션 중 일부만 표시할 수
-  있다 (`onLike`/`onComment`/`onShare` 콜백 유무로 결정).
+      있다 (`onLike`/`onComment`/`onShare` 콜백 유무로 결정).
 - [x] **As a 사용자** I can 프로필 헤더에서 팔로우 버튼이 hover 시 "언팔로우"
-  로 바뀌어 의도하지 않은 언팔을 방지한다 (`FollowButton unfollowOnHover`).
+      로 바뀌어 의도하지 않은 언팔을 방지한다 (`FollowButton unfollowOnHover`).
 - [x] **As a 시청자** I can 스토리 링에서 LIVE 사용자를 빨강 그라디언트와 LIVE
-  배지로 즉시 식별한다 (`StoryCircle state="live"`).
+      배지로 즉시 식별한다 (`StoryCircle state="live"`).
 - [x] **As a 사용자** I can 투표 카드에서 한 번 투표 후 결과 막대를 보고 다시
-  투표할 수 없다 (`PollCard votedId` 가드).
+      투표할 수 없다 (`PollCard votedId` 가드).
 
 ## Design / behavior notes
 

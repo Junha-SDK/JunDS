@@ -1,12 +1,13 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // 벤치 반복 수 — tools/bench-budgets.json의 perInstanceDivisor와 반드시 일치한다.
 // 러너(tools/run-bench.mjs)가 measure 평균을 이 값으로 나눠 인스턴스당 시간을 환산한다.
 private enum JdBenchReps {
     /// (a) JdButtonSpec.resolve — 조합 전수(variant 4 × size 3 = 12) × 1000회 = 12,000 resolve
     static let buttonSpecRounds = 1000
-    static let buttonSpecTotal = 1000 * JdButtonVariant.allCases.count * JdControlSize.allCases.count
+    static let buttonSpecTotal =
+        1000 * JdButtonVariant.allCases.count * JdControlSize.allCases.count
     /// (b) JdTextFieldSpec.resolve — size는 순환 소비, 총 3,000 resolve
     static let textFieldSpecTotal = 3000
     /// (c) 타이포 스펙 — (JdTextSize 9 + JdHeadingLevel 6 = 15) × 1000회 = 15,000 resolve

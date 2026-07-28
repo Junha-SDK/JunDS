@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "Select",
   "oneLiner": "옵션 목록에서 하나를 고르는 셀렉트.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

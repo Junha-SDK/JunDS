@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Hashtag 데모 — 실컴포넌트 JdHashtagLabel(SwiftUI)/JdHashtagLabelView(UIKit).
 // 웹 <jd-hashtag> 동형. 컨트롤 키·값은 웹 attribute 리터럴(tag/count/trending).
@@ -43,7 +43,8 @@ private func hashtagCountNote(_ state: DemoState) -> String {
         + "(JdNumberFormat.compactCount 재사용 — 1,000 미만은 그대로, 이상은 천·만 1자리)"
 }
 
-private let hashtagNote = "count가 nil이면 게시물 수를 아예 그리지 않는다(웹 NaN 동형) — 이 데모는 "
+private let hashtagNote =
+    "count가 nil이면 게시물 수를 아예 그리지 않는다(웹 NaN 동형) — 이 데모는 "
     + "슬라이더가 항상 값을 주므로 0도 \"(0)\"으로 표시된다. trending은 웹 🔥 이모지를 SF Symbol로 "
     + "옮긴 것이고 의미는 낭독 라벨이 \"인기 태그\"로 싣는다."
 
@@ -52,9 +53,10 @@ private struct HashtagStageSwiftUI: View {
 
     var body: some View {
         VStack(spacing: JdToken.Space.s4) {
-            JdHashtagLabel(tag: hashtagTag(state),
-                           count: hashtagCount(state),
-                           isTrending: state.bool("trending"))
+            JdHashtagLabel(
+                tag: hashtagTag(state),
+                count: hashtagCount(state),
+                isTrending: state.bool("trending"))
 
             VStack(spacing: JdToken.Space.s1) {
                 Text(hashtagCountNote(state))
@@ -73,10 +75,12 @@ private struct HashtagStageUIKit: View {
 
     var body: some View {
         VStack(spacing: JdToken.Space.s4) {
-            HashtagViewRep(tag: hashtagTag(state),
-                           count: hashtagCount(state),
-                           isTrending: state.bool("trending"))
-                .fixedSize()
+            HashtagViewRep(
+                tag: hashtagTag(state),
+                count: hashtagCount(state),
+                isTrending: state.bool("trending")
+            )
+            .fixedSize()
 
             VStack(spacing: JdToken.Space.s1) {
                 Text(hashtagCountNote(state))

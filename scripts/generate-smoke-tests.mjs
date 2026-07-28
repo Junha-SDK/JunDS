@@ -40,9 +40,7 @@ const KIND_TO_PLURAL = {
 // (e.g. dereference `items[current].title` on first paint). Owners must
 // hand-write tests with realistic data; the generator must not recreate
 // the broken auto-test for them.
-const SKIP_SMOKE = new Set([
-  "FormWizard",
-]);
+const SKIP_SMOKE = new Set(["FormWizard"]);
 
 function readPropsJson() {
   const raw = fs.readFileSync(PROPS_JSON, "utf8");
@@ -94,8 +92,7 @@ function fixtureFor(type) {
   // Tuple
   if (/^\[number,\s*number\]$/.test(t)) return { value: "{[0, 0]}" };
   // Union including string/number — pick string
-  if (/^string\s*\|\s*number$/.test(t) || /^number\s*\|\s*string$/.test(t))
-    return { value: '""' };
+  if (/^string\s*\|\s*number$/.test(t) || /^number\s*\|\s*string$/.test(t)) return { value: '""' };
   // Arrays
   if (/^Array<.+>$/.test(t) || /\[\]$/.test(t)) return { value: "{[]}" };
   // Function returning a Promise — give a resolved promise so async signatures match.
@@ -158,7 +155,9 @@ describe("${name}", () => {
 
 function main() {
   if (!fs.existsSync(PROPS_JSON)) {
-    console.error(`[generate-smoke-tests] missing ${PROPS_JSON}. Run \`npm run extract-props\` first.`);
+    console.error(
+      `[generate-smoke-tests] missing ${PROPS_JSON}. Run \`npm run extract-props\` first.`,
+    );
     process.exit(1);
   }
 
@@ -214,11 +213,19 @@ function main() {
   // Report
   console.log(`[generate-smoke-tests] components in props.json: ${stats.total}`);
   console.log(`[generate-smoke-tests] tests created:            ${stats.created.length}`);
-  console.log(`[generate-smoke-tests] skipped (already tested): ${stats.skippedAlreadyTested.length}`);
-  console.log(`[generate-smoke-tests] skipped (required props): ${stats.skippedRequiredProps.length}`);
-  console.log(`[generate-smoke-tests] skipped (not renderable): ${stats.skippedNotRenderable.length}`);
+  console.log(
+    `[generate-smoke-tests] skipped (already tested): ${stats.skippedAlreadyTested.length}`,
+  );
+  console.log(
+    `[generate-smoke-tests] skipped (required props): ${stats.skippedRequiredProps.length}`,
+  );
+  console.log(
+    `[generate-smoke-tests] skipped (not renderable): ${stats.skippedNotRenderable.length}`,
+  );
   if (stats.skippedUnknownKind.length) {
-    console.log(`[generate-smoke-tests] skipped (unknown kind):   ${stats.skippedUnknownKind.length}`);
+    console.log(
+      `[generate-smoke-tests] skipped (unknown kind):   ${stats.skippedUnknownKind.length}`,
+    );
   }
 
   if (stats.created.length) {
@@ -230,10 +237,16 @@ function main() {
   }
 
   if (stats.skippedRequiredProps.length) {
-    console.log(`[generate-smoke-tests] required-prop names:`, stats.skippedRequiredProps.join(", "));
+    console.log(
+      `[generate-smoke-tests] required-prop names:`,
+      stats.skippedRequiredProps.join(", "),
+    );
   }
   if (stats.skippedNotRenderable.length) {
-    console.log(`[generate-smoke-tests] not-renderable names:`, stats.skippedNotRenderable.join(", "));
+    console.log(
+      `[generate-smoke-tests] not-renderable names:`,
+      stats.skippedNotRenderable.join(", "),
+    );
   }
 }
 

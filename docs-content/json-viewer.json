@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "JSONViewer",
   "oneLiner": "JSON 데이터를 트리 구조로 펼쳐서 보여주는 뷰어.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

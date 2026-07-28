@@ -4,11 +4,7 @@
   "category": "primitives",
   "title": "MentionChip",
   "oneLiner": "@멘션 사용자 칩.",
-  "tags": [
-    "social",
-    "chip",
-    "멘션"
-  ],
+  "tags": ["social", "chip", "멘션"],
   "controls": [],
   "snippets": {
     "web": null,

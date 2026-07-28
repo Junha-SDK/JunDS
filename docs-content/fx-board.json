@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "FXBoard",
   "oneLiner": "환율 보드 — 주요 통화쌍.",
-  "tags": [
-    "finance",
-    "환율",
-    "보드"
-  ],
+  "tags": ["finance", "환율", "보드"],
   "controls": [],
   "snippets": {
     "web": null,

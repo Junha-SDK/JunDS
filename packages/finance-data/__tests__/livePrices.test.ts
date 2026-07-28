@@ -48,8 +48,8 @@ describe("subscribe / currentTick / seedTick (v2 시그니처)", () => {
     seedTick("A", 110, 2.0);
     seedTick("A", 105, 1.5);
     expect(seen).toEqual([
-      { price: 0, trend: "flat" },  // 구독 즉시 (시드 전 기본값)
-      { price: 100, trend: "up" },  // prev 는 0-시드 → 100 > 0
+      { price: 0, trend: "flat" }, // 구독 즉시 (시드 전 기본값)
+      { price: 100, trend: "up" }, // prev 는 0-시드 → 100 > 0
       { price: 110, trend: "up" },
       { price: 105, trend: "down" },
     ]);
@@ -69,7 +69,7 @@ describe("subscribe / currentTick / seedTick (v2 시그니처)", () => {
     subscribe("C", cb);
     seedTick("C", 100, 1.0, "KRX");
     seedTick("C", 100, 1.0, "KRX"); // 완전 동일 → skip
-    seedTick("C", 100, 1.0);        // venue undefined 도 동일 취급 → skip
+    seedTick("C", 100, 1.0); // venue undefined 도 동일 취급 → skip
     expect(cb).toHaveBeenCalledTimes(2); // 구독 즉시 1 + 첫 시드 1
   });
 
@@ -94,8 +94,9 @@ describe("subscribe / currentTick / seedTick (v2 시그니처)", () => {
 describe("seedSnapshotOnce (v2 useRealPricesSnapshot 페치부)", () => {
   it("KIS 프록시 성공 → 'kis' + 시드", async () => {
     stubFetchByUrl([
-      ["/api/kis/quotes", () =>
-        jsonResponse({ items: [{ symbol: "삼성전자", price: 71200, changePct: 1.7 }] }),
+      [
+        "/api/kis/quotes",
+        () => jsonResponse({ items: [{ symbol: "삼성전자", price: 71200, changePct: 1.7 }] }),
       ],
     ]);
     const { seedSnapshotOnce, currentTick } = await importStore();
@@ -106,13 +107,15 @@ describe("seedSnapshotOnce (v2 useRealPricesSnapshot 페치부)", () => {
   it("KIS 실패 → Yahoo 폴백 'yahoo' (source:'missing' 항목 제외)", async () => {
     stubFetchByUrl([
       ["/api/kis/quotes", () => jsonResponse({}, 500)],
-      ["/api/quotes", () =>
-        jsonResponse({
-          items: [
-            { symbol: "삼성전자", price: 71000, changePct: 1.5, source: "yahoo" },
-            { symbol: "미지종목", source: "missing" },
-          ],
-        }),
+      [
+        "/api/quotes",
+        () =>
+          jsonResponse({
+            items: [
+              { symbol: "삼성전자", price: 71000, changePct: 1.5, source: "yahoo" },
+              { symbol: "미지종목", source: "missing" },
+            ],
+          }),
       ],
     ]);
     const { seedSnapshotOnce, currentTick } = await importStore();
@@ -133,8 +136,9 @@ describe("seedSnapshotOnce (v2 useRealPricesSnapshot 페치부)", () => {
 
   it("configureFinanceData 로 엔드포인트 교체 가능", async () => {
     const fetchMock = stubFetchByUrl([
-      ["https://data.junha.dev/kis", () =>
-        jsonResponse({ items: [{ symbol: "A", price: 10, changePct: 0 }] }),
+      [
+        "https://data.junha.dev/kis",
+        () => jsonResponse({ items: [{ symbol: "A", price: 10, changePct: 0 }] }),
       ],
     ]);
     const { configureFinanceData } = await importConfig();
@@ -177,15 +181,28 @@ describe("SSE 풀 (registerPoolCodes / subscribePoolStatus / getPoolStatus)", ()
       ["/api/kis/quotes", () => jsonResponse({ items: [] })],
       ["/api/quotes", () => jsonResponse({ items: [] })],
     ]);
-    const { registerPoolCodes, subscribePoolStatus, currentTick, getPoolStatus } = await importStore();
+    const { registerPoolCodes, subscribePoolStatus, currentTick, getPoolStatus } =
+      await importStore();
     const statuses: string[] = [];
     subscribePoolStatus((s) => statuses.push(s.source));
     registerPoolCodes(["삼성전자"]);
     await vi.advanceTimersByTimeAsync(61);
     const es = FakeEventSource.instances[0]!;
-    es.emit("tick", { symbol: "삼성전자", code: "005930", price: 71200, change: 1200, changePct: 1.71, venue: "KRX" });
+    es.emit("tick", {
+      symbol: "삼성전자",
+      code: "005930",
+      price: 71200,
+      change: 1200,
+      changePct: 1.71,
+      venue: "KRX",
+    });
     // 직전 tick 이 없는 첫 시드 → trend 는 "flat" (v2 동작)
-    expect(currentTick("삼성전자")).toEqual({ price: 71200, change: 1.71, trend: "flat", venue: "KRX" });
+    expect(currentTick("삼성전자")).toEqual({
+      price: 71200,
+      change: 1.71,
+      trend: "flat",
+      venue: "KRX",
+    });
     expect(getPoolStatus().source).toBe("kis");
     expect(statuses).toEqual(["kis"]); // source 변경 즉시 통지
   });
@@ -217,12 +234,12 @@ describe("SSE 풀 (registerPoolCodes / subscribePoolStatus / getPoolStatus)", ()
     registerPoolCodes(["A"]);
     await vi.advanceTimersByTimeAsync(61);
     const es = FakeEventSource.instances[0]!;
-    es.emit("tick", { symbol: "A", price: 1, code: "", change: 0, changePct: 0 });   // source 변경 → 즉시
-    es.emit("tick", { symbol: "A", price: 2, code: "", change: 0, changePct: 0 });   // 1초 내 → 스로틀
-    es.emit("tick", { symbol: "A", price: 3, code: "", change: 0, changePct: 0 });   // 1초 내 → 스로틀
+    es.emit("tick", { symbol: "A", price: 1, code: "", change: 0, changePct: 0 }); // source 변경 → 즉시
+    es.emit("tick", { symbol: "A", price: 2, code: "", change: 0, changePct: 0 }); // 1초 내 → 스로틀
+    es.emit("tick", { symbol: "A", price: 3, code: "", change: 0, changePct: 0 }); // 1초 내 → 스로틀
     expect(cb).toHaveBeenCalledTimes(1);
     await vi.advanceTimersByTimeAsync(1001);
-    es.emit("tick", { symbol: "A", price: 4, code: "", change: 0, changePct: 0 });   // 1초 경과 → 통지
+    es.emit("tick", { symbol: "A", price: 4, code: "", change: 0, changePct: 0 }); // 1초 경과 → 통지
     expect(cb).toHaveBeenCalledTimes(2);
   });
 
@@ -250,16 +267,19 @@ describe("SSE 풀 (registerPoolCodes / subscribePoolStatus / getPoolStatus)", ()
     stubBrowserGlobals();
     vi.useFakeTimers();
     const fetchMock = stubFetchByUrl([
-      ["/api/kis/quotes", () =>
-        jsonResponse({ items: [{ symbol: "A", price: 10, changePct: 1 }] }),
+      [
+        "/api/kis/quotes",
+        () => jsonResponse({ items: [{ symbol: "A", price: 10, changePct: 1 }] }),
       ],
-      ["/api/quotes", () =>
-        jsonResponse({
-          items: [
-            { symbol: "A", price: 99, changePct: 9, source: "yahoo" },  // 이미 KIS 시드 → skip
-            { symbol: "B", price: 20, changePct: 2, source: "yahoo" },
-          ],
-        }),
+      [
+        "/api/quotes",
+        () =>
+          jsonResponse({
+            items: [
+              { symbol: "A", price: 99, changePct: 9, source: "yahoo" }, // 이미 KIS 시드 → skip
+              { symbol: "B", price: 20, changePct: 2, source: "yahoo" },
+            ],
+          }),
       ],
     ]);
     const { registerPoolCodes, currentTick } = await importStore();

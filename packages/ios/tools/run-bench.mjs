@@ -25,7 +25,8 @@ const here = dirname(fileURLToPath(import.meta.url)); // packages/ios/tools
 const repoRoot = resolve(here, "..", "..", "..");
 
 const CLT_SWIFT = "/Library/Developer/CommandLineTools/usr/bin/swift";
-const SIM_PLATFORM = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer";
+const SIM_PLATFORM =
+  "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer";
 const SIM_SDK = join(SIM_PLATFORM, "SDKs", "iPhoneSimulator.sdk");
 const SIM_FRAMEWORKS = join(SIM_PLATFORM, "Library", "Frameworks");
 const SIM_USR_LIB = join(SIM_PLATFORM, "usr", "lib");
@@ -43,14 +44,29 @@ const skipBuild = args.includes("--skip-build");
 if (!skipBuild) {
   const buildArgs = [
     "build",
-    "--triple", "arm64-apple-ios16.0-simulator",
-    "--sdk", SIM_SDK,
-    "--scratch-path", scratch,
+    "--triple",
+    "arm64-apple-ios16.0-simulator",
+    "--sdk",
+    SIM_SDK,
+    "--scratch-path",
+    scratch,
     "--build-tests",
-    "-Xswiftc", "-F", "-Xswiftc", SIM_FRAMEWORKS,
-    "-Xswiftc", "-I", "-Xswiftc", SIM_USR_LIB,
-    "-Xlinker", "-F", "-Xlinker", SIM_FRAMEWORKS,
-    "-Xlinker", "-L", "-Xlinker", SIM_USR_LIB,
+    "-Xswiftc",
+    "-F",
+    "-Xswiftc",
+    SIM_FRAMEWORKS,
+    "-Xswiftc",
+    "-I",
+    "-Xswiftc",
+    SIM_USR_LIB,
+    "-Xlinker",
+    "-F",
+    "-Xlinker",
+    SIM_FRAMEWORKS,
+    "-Xlinker",
+    "-L",
+    "-Xlinker",
+    SIM_USR_LIB,
   ];
   console.log(`[bench] 빌드: swift ${buildArgs.join(" ")}`);
   const build = spawnSync(CLT_SWIFT, buildArgs, {
@@ -88,7 +104,9 @@ const run = spawnSync("xcrun", ["simctl", "spawn", "booted", XCTEST_AGENT, bundl
 });
 const output = `${run.stdout ?? ""}\n${run.stderr ?? ""}`;
 if (run.error) {
-  console.error(`[bench] FAIL: xctest 실행 불가 — ${run.error.message} (시뮬레이터 부팅 여부 확인: xcrun simctl boot)`);
+  console.error(
+    `[bench] FAIL: xctest 실행 불가 — ${run.error.message} (시뮬레이터 부팅 여부 확인: xcrun simctl boot)`,
+  );
   process.exit(1);
 }
 
@@ -150,6 +168,8 @@ console.log(`[bench] 기록: ${outFile} (${matched}건)`);
 
 // 스위트 전체가 도는 구조라 벤치 외 테스트 실패도 여기서 드러난다 — 숨기지 않고 실패로 전파
 if (run.status !== 0) {
-  console.error(`[bench] WARN: xctest exit ${run.status} — 벤치 외 테스트 실패 포함 가능. 위 기록은 참고용.`);
+  console.error(
+    `[bench] WARN: xctest exit ${run.status} — 벤치 외 테스트 실패 포함 가능. 위 기록은 참고용.`,
+  );
   process.exit(run.status ?? 1);
 }

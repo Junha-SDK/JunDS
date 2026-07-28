@@ -60,7 +60,9 @@ test.describe("jd-app-shell 상호작용", () => {
       <p>본문</p>
     </jd-app-shell>`;
 
-  test("데스크톱: Ctrl+B가 레일을 접고(260→64) jd-sidebar-toggle을 사후 통지한다", async ({ page }) => {
+  test("데스크톱: Ctrl+B가 레일을 접고(260→64) jd-sidebar-toggle을 사후 통지한다", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1100, height: 700 });
     await mount(page, SHELL);
     const aside = page.locator("#shell .jd-app-shell__sidebar");
@@ -69,11 +71,13 @@ test.describe("jd-app-shell 상호작용", () => {
     const toggled = page.evaluate(
       () =>
         new Promise((r) =>
-          document.querySelector("#shell")!.addEventListener(
-            "jd-sidebar-toggle",
-            (e) => r((e as CustomEvent<{ collapsed: boolean }>).detail.collapsed),
-            { once: true },
-          ),
+          document
+            .querySelector("#shell")!
+            .addEventListener(
+              "jd-sidebar-toggle",
+              (e) => r((e as CustomEvent<{ collapsed: boolean }>).detail.collapsed),
+              { once: true },
+            ),
         ),
     );
     await page.keyboard.press("Control+b");
@@ -82,7 +86,9 @@ test.describe("jd-app-shell 상호작용", () => {
     await expect.poll(async () => (await aside.boundingBox())!.width).toBe(64); // 300ms 전이 수렴
   });
 
-  test("모바일: 데스크톱 레일이 사라지고 햄버거→드로어+백드롭+스크롤 락, 백드롭 클릭 해제", async ({ page }) => {
+  test("모바일: 데스크톱 레일이 사라지고 햄버거→드로어+백드롭+스크롤 락, 백드롭 클릭 해제", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 500, height: 700 });
     await mount(page, SHELL);
     const shell = page.locator("#shell");
@@ -102,7 +108,9 @@ test.describe("jd-app-shell 상호작용", () => {
     expect(await page.evaluate(() => document.body.style.overflow)).toBe("");
   });
 
-  test("드로어 열린 채 데스크톱 폭 복귀 → 드로어 자동 닫힘 (matchMedia change)", async ({ page }) => {
+  test("드로어 열린 채 데스크톱 폭 복귀 → 드로어 자동 닫힘 (matchMedia change)", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 500, height: 700 });
     await mount(page, SHELL);
     await page.locator("#shell .jd-app-shell__menu").click();
@@ -118,9 +126,13 @@ test.describe("jd-app-shell 상호작용", () => {
     await page.setViewportSize({ width: 1100, height: 700 });
     await mount(page, SHELL);
     await page.evaluate(() =>
-      document.addEventListener("keydown", (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key === "b") e.preventDefault();
-      }, { capture: true }),
+      document.addEventListener(
+        "keydown",
+        (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key === "b") e.preventDefault();
+        },
+        { capture: true },
+      ),
     );
     await page.keyboard.press("Control+b");
     await expect(page.locator("#shell")).not.toHaveAttribute("sidebar-collapsed");

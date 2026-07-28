@@ -38,18 +38,79 @@ const RESERVED = new Set(["index", "sprite", "aliases", "meta", "icons"]);
 // v2 ds/finance/AppIcon.tsx가 실제 import하던 lucide 이름 전수(73) — 커버리지 게이트.
 // AppIcon 마이그레이션 전까지 이 목록의 별칭·아이콘이 빠지면 빌드가 실패해야 한다.
 export const REQUIRED_LUCIDE = [
-  "Activity", "AlertTriangle", "ArrowDown", "ArrowLeft", "ArrowLeftRight",
-  "ArrowRight", "ArrowUp", "Banknote", "BarChart3", "Bell", "Building2",
-  "Calendar", "CalendarCheck", "Check", "ChevronDown", "ChevronLeft",
-  "ChevronRight", "ChevronUp", "ChevronsUpDown", "Clock", "Columns2",
-  "Command", "Crown", "Download", "Equal", "Eraser", "ExternalLink", "Eye",
-  "EyeOff", "Flame", "Globe2", "Grid2x2", "Hammer", "Info", "LayoutDashboard",
-  "LayoutGrid", "LineChart", "ListOrdered", "Lock", "Magnet", "Maximize",
-  "Menu", "Minus", "Moon", "MousePointer", "Move", "Newspaper", "Pencil",
-  "Percent", "PieChart", "Plane", "Plus", "Redo", "RefreshCw", "Rows2",
-  "Ruler", "Search", "Settings", "Slash", "SlidersHorizontal", "Sparkles",
-  "Square", "Star", "Sun", "Target", "Trash", "TrendingDown", "TrendingUp",
-  "Type", "Undo", "Wallet", "Wind", "X",
+  "Activity",
+  "AlertTriangle",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowLeftRight",
+  "ArrowRight",
+  "ArrowUp",
+  "Banknote",
+  "BarChart3",
+  "Bell",
+  "Building2",
+  "Calendar",
+  "CalendarCheck",
+  "Check",
+  "ChevronDown",
+  "ChevronLeft",
+  "ChevronRight",
+  "ChevronUp",
+  "ChevronsUpDown",
+  "Clock",
+  "Columns2",
+  "Command",
+  "Crown",
+  "Download",
+  "Equal",
+  "Eraser",
+  "ExternalLink",
+  "Eye",
+  "EyeOff",
+  "Flame",
+  "Globe2",
+  "Grid2x2",
+  "Hammer",
+  "Info",
+  "LayoutDashboard",
+  "LayoutGrid",
+  "LineChart",
+  "ListOrdered",
+  "Lock",
+  "Magnet",
+  "Maximize",
+  "Menu",
+  "Minus",
+  "Moon",
+  "MousePointer",
+  "Move",
+  "Newspaper",
+  "Pencil",
+  "Percent",
+  "PieChart",
+  "Plane",
+  "Plus",
+  "Redo",
+  "RefreshCw",
+  "Rows2",
+  "Ruler",
+  "Search",
+  "Settings",
+  "Slash",
+  "SlidersHorizontal",
+  "Sparkles",
+  "Square",
+  "Star",
+  "Sun",
+  "Target",
+  "Trash",
+  "TrendingDown",
+  "TrendingUp",
+  "Type",
+  "Undo",
+  "Wallet",
+  "Wind",
+  "X",
 ];
 
 // ── 초소형 XML 파서 (SVG 부분집합: 선언·주석·CDATA·텍스트 노드 불허) ──────────
@@ -61,7 +122,8 @@ export function parseSvg(text) {
     if (text[i] !== "<") {
       const end = text.indexOf("<", i);
       const chunk = end === -1 ? text.slice(i) : text.slice(i, end);
-      if (chunk.trim() !== "") throw new Error(`텍스트 노드 불허: ${JSON.stringify(chunk.trim().slice(0, 30))}`);
+      if (chunk.trim() !== "")
+        throw new Error(`텍스트 노드 불허: ${JSON.stringify(chunk.trim().slice(0, 30))}`);
       if (end === -1) break;
       i = end;
       continue;
@@ -88,20 +150,24 @@ export function parseSvg(text) {
     const node = { tag: m[1], attrs: {}, children: [] };
     let rest = inner.slice(m[1].length);
     const attrRe = /\s+([a-zA-Z_:][a-zA-Z0-9_:.-]*)="([^"]*)"/g;
-    let consumed = 0, am;
+    let consumed = 0,
+      am;
     while ((am = attrRe.exec(rest))) {
-      if (am.index !== consumed) throw new Error(`속성 문법 오류: ${rest.slice(consumed, consumed + 20)}`);
+      if (am.index !== consumed)
+        throw new Error(`속성 문법 오류: ${rest.slice(consumed, consumed + 20)}`);
       if (am[1] in node.attrs) throw new Error(`중복 속성: ${am[1]}`);
       node.attrs[am[1]] = am[2];
       consumed = attrRe.lastIndex;
     }
-    if (rest.slice(consumed).trim() !== "") throw new Error(`속성 파싱 실패: ${rest.slice(consumed, consumed + 30)}`);
+    if (rest.slice(consumed).trim() !== "")
+      throw new Error(`속성 파싱 실패: ${rest.slice(consumed, consumed + 30)}`);
     stack[stack.length - 1].children.push(node);
     if (!selfClose) stack.push(node);
     i = gt + 1;
   }
   if (stack.length !== 1) throw new Error(`미닫힘 태그: <${stack[stack.length - 1].tag}>`);
-  if (root.children.length !== 1) throw new Error(`루트 요소는 정확히 1개여야 함 (현재 ${root.children.length})`);
+  if (root.children.length !== 1)
+    throw new Error(`루트 요소는 정확히 1개여야 함 (현재 ${root.children.length})`);
   return root.children[0];
 }
 
@@ -181,7 +247,9 @@ export function validateIcon(name, text) {
 // ── 전체 검증: svg 셋 + 별칭표 + lucide 커버리지 ───────────────
 export function validateAll() {
   const problems = [];
-  const files = readdirSync(ICONS_DIR).filter((f) => f.endsWith(".svg")).sort();
+  const files = readdirSync(ICONS_DIR)
+    .filter((f) => f.endsWith(".svg"))
+    .sort();
   const names = files.map((f) => f.replace(/\.svg$/, ""));
   for (const file of files) {
     const name = file.replace(/\.svg$/, "");
@@ -197,7 +265,8 @@ export function validateAll() {
   const nameSet = new Set(names);
   for (const [lucide, jd] of Object.entries(aliases)) {
     if (lucide.startsWith("$")) continue;
-    if (!/^[A-Z][A-Za-z0-9]*$/.test(lucide)) problems.push(`aliases: 키가 PascalCase 아님: ${lucide}`);
+    if (!/^[A-Z][A-Za-z0-9]*$/.test(lucide))
+      problems.push(`aliases: 키가 PascalCase 아님: ${lucide}`);
     if (!nameSet.has(jd)) problems.push(`aliases: ${lucide} → "${jd}" 아이콘 없음`);
   }
   for (const req of REQUIRED_LUCIDE) {
@@ -213,5 +282,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     for (const p of problems) console.error("  - " + p);
     process.exit(1);
   }
-  console.log(`✓ ${names.length}종 검증 통과 (문법·별칭·lucide 커버리지 ${REQUIRED_LUCIDE.length}종)`);
+  console.log(
+    `✓ ${names.length}종 검증 통과 (문법·별칭·lucide 커버리지 ${REQUIRED_LUCIDE.length}종)`,
+  );
 }

@@ -24,17 +24,14 @@ export interface FocusTrap extends Behavior<FocusTrapOptions> {
 }
 
 const FOCUSABLE =
-  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), ' +
+  "a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), " +
   'select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 function focusables(container: HTMLElement): HTMLElement[] {
   return [...container.querySelectorAll<HTMLElement>(FOCUSABLE)];
 }
 
-export function createFocusTrap(
-  container: HTMLElement,
-  opts: FocusTrapOptions = {},
-): FocusTrap {
+export function createFocusTrap(container: HTMLElement, opts: FocusTrapOptions = {}): FocusTrap {
   let options = { returnFocus: true, ...opts };
   let active = false;
   let destroyed = false;

@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "AspectRatio",
   "oneLiner": "종횡비 유지 컨테이너",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

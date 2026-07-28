@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Sticky",
   "oneLiner": "스크롤 시 지정 위치에 달라붙는 sticky 래퍼.",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

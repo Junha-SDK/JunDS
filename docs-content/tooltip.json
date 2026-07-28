@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Tooltip",
   "oneLiner": "기존 설명과 안전하게 조합되고 키보드·ESC를 지원하는 툴팁.",
-  "tags": [
-    "overlay"
-  ],
+  "tags": ["overlay"],
   "controls": [],
   "snippets": {
     "web": {

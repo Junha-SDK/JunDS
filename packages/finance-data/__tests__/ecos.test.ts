@@ -33,16 +33,18 @@ describe("fetchSeries", () => {
 
   it("행을 시계열로 정규화, 비수치 값 필터", async () => {
     stubFetchByUrl([
-      ["ecos.bok.or.kr", () =>
-        jsonResponse({
-          StatisticSearch: {
-            row: [
-              { ...ROW, TIME: "20260722", DATA_VALUE: "1385.2" },
-              { ...ROW, TIME: "20260723", DATA_VALUE: "약보합" }, // 비수치 → 제외
-              { ...ROW, TIME: "20260724", DATA_VALUE: "1390.0" },
-            ],
-          },
-        }),
+      [
+        "ecos.bok.or.kr",
+        () =>
+          jsonResponse({
+            StatisticSearch: {
+              row: [
+                { ...ROW, TIME: "20260722", DATA_VALUE: "1385.2" },
+                { ...ROW, TIME: "20260723", DATA_VALUE: "약보합" }, // 비수치 → 제외
+                { ...ROW, TIME: "20260724", DATA_VALUE: "1390.0" },
+              ],
+            },
+          }),
       ],
     ]);
     const s = await fetchSeries({
@@ -64,14 +66,20 @@ describe("fetchSeries", () => {
 
   it("연 주기는 URL에서 A로 매핑되고 반환 cycle은 Y 유지", async () => {
     const fetchMock = stubFetchByUrl([
-      ["ecos.bok.or.kr", () =>
-        jsonResponse({
-          StatisticSearch: { row: [{ ...ROW, TIME: "2025", DATA_VALUE: "2.5" }] },
-        }),
+      [
+        "ecos.bok.or.kr",
+        () =>
+          jsonResponse({
+            StatisticSearch: { row: [{ ...ROW, TIME: "2025", DATA_VALUE: "2.5" }] },
+          }),
       ],
     ]);
     const s = await fetchSeries({
-      statCode: "902Y015", cycle: "Y", start: "2020", end: "2025", itemCode: "KOR",
+      statCode: "902Y015",
+      cycle: "Y",
+      start: "2020",
+      end: "2025",
+      itemCode: "KOR",
     });
     expect(s!.cycle).toBe("Y");
     const url = String(fetchMock.mock.calls[0]![0]);
@@ -89,13 +97,24 @@ describe("fetchSeries", () => {
 
   it("HTTP 실패/빈 행/네트워크 예외는 전부 null (graceful)", async () => {
     stubFetchByUrl([["ecos.bok.or.kr", () => jsonResponse({}, 500)]]);
-    expect(await fetchSeries({ statCode: "x", cycle: "D", start: "1", end: "2", itemCode: "i" })).toBeNull();
+    expect(
+      await fetchSeries({ statCode: "x", cycle: "D", start: "1", end: "2", itemCode: "i" }),
+    ).toBeNull();
 
     stubFetchByUrl([["ecos.bok.or.kr", () => jsonResponse({ StatisticSearch: { row: [] } })]]);
-    expect(await fetchSeries({ statCode: "x", cycle: "D", start: "1", end: "2", itemCode: "i" })).toBeNull();
+    expect(
+      await fetchSeries({ statCode: "x", cycle: "D", start: "1", end: "2", itemCode: "i" }),
+    ).toBeNull();
 
-    vi.stubGlobal("fetch", vi.fn(async () => { throw new Error("net down"); }));
-    expect(await fetchSeries({ statCode: "x", cycle: "D", start: "1", end: "2", itemCode: "i" })).toBeNull();
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new Error("net down");
+      }),
+    );
+    expect(
+      await fetchSeries({ statCode: "x", cycle: "D", start: "1", end: "2", itemCode: "i" }),
+    ).toBeNull();
   });
 });
 

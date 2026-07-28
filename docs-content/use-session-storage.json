@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useSessionStorage",
   "oneLiner": "sessionStorage 동기화 상태.",
-  "tags": [
-    "hook",
-    "storage",
-    "세션"
-  ],
+  "tags": ["hook", "storage", "세션"],
   "controls": [],
   "snippets": {
     "web": null,

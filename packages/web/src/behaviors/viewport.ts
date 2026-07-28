@@ -83,10 +83,7 @@ export function createNetworkWatcher(): Watcher<JdNetworkStatus> {
 }
 
 /** v2 useElementSize = useResizeObserver 통합 구현 (00-inventory §4 중복 통합) */
-export function createSizeObserver(
-  el: Element,
-  onResize: (size: JdSize) => void,
-): Behavior {
+export function createSizeObserver(el: Element, onResize: (size: JdSize) => void): Behavior {
   if (typeof ResizeObserver === "undefined") return { destroy: () => {} };
   const ro = new ResizeObserver((entries) => {
     for (const e of entries) {
@@ -126,7 +123,11 @@ export function createInViewObserver(
         if (opts.once && e.isIntersecting) io.unobserve(el);
       }
     },
-    { root: opts.root ?? null, rootMargin: opts.rootMargin ?? "0px", threshold: opts.threshold ?? 0 },
+    {
+      root: opts.root ?? null,
+      rootMargin: opts.rootMargin ?? "0px",
+      threshold: opts.threshold ?? 0,
+    },
   );
   io.observe(el);
   let destroyed = false;

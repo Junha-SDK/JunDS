@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // IconButton 데모 — 실컴포넌트 JdIconButton(SwiftUI)/JdIconButtonView(UIKit).
 // 아이콘 children은 iOS에서 SF Symbols 이름(systemImage)으로 번역한다(서드파티 0 규칙).
@@ -12,7 +12,9 @@ enum IconButtonDemo {
     static let demo = ComponentDemo(
         id: "IconButton",
         controls: [
-            .options("variant", "variant", JdIconButtonVariant.allCases.map(\.rawValue), initial: "ghost"),
+            .options(
+                "variant", "variant", JdIconButtonVariant.allCases.map(\.rawValue), initial: "ghost"
+            ),
             .options("size", "size", JdIconButtonSize.allCases.map(\.rawValue), initial: "md"),
             .options("systemImage", "systemImage", symbols.map(\.name), initial: "heart"),
         ],

@@ -14,13 +14,7 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), "..");
-const DICT_PATH = path.join(
-  ROOT,
-  "app",
-  "design-system",
-  "_data",
-  "search-dictionary.ts",
-);
+const DICT_PATH = path.join(ROOT, "app", "design-system", "_data", "search-dictionary.ts");
 const SHOWCASE_BASE = path.join(ROOT, "app", "design-system");
 
 const KINDS = ["primitives", "composites", "patterns"];
@@ -58,9 +52,7 @@ const dict = readDictionaryHrefs();
 const missing = [...showcase].filter((h) => !dict.has(h)).sort();
 const stale = [...dict]
   .filter(
-    (h) =>
-      h.match(/^\/design-system\/(primitives|composites|patterns)\//) &&
-      !showcase.has(h),
+    (h) => h.match(/^\/design-system\/(primitives|composites|patterns)\//) && !showcase.has(h),
   )
   .sort();
 

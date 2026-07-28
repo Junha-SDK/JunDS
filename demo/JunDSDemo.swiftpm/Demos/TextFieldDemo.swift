@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // TextField 데모 — ButtonDemo(정본) 구조 복제: ComponentDemo 하나 + 스테이지 뷰 2개.
 // ledger id는 "Input"(웹 <jd-text-field>의 원장 표기) — 파일·타입명은 iOS 표면(TextField)을 따른다.
@@ -14,7 +14,8 @@ enum TextFieldDemo {
             .toggle("error", "error"),
             .toggle("disabled", "disabled"),
             .text("label", "라벨", placeholder: "라벨 텍스트", initial: "이메일"),
-            .text("placeholder", "placeholder", placeholder: "플레이스홀더 텍스트", initial: "you@example.com"),
+            .text(
+                "placeholder", "placeholder", placeholder: "플레이스홀더 텍스트", initial: "you@example.com"),
         ],
         swiftUI: { state in AnyView(TextFieldStageSwiftUI(state: state)) },
         uikit: { state in AnyView(TextFieldStageUIKit(state: state)) }

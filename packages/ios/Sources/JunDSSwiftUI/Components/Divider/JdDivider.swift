@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-divider 동형 — 1px 구분선 (DESIGN §2.2).
 // 웹의 수평 margin-block 16px은 이식하지 않는다 — 간격은 소비자 스택 spacing 몫.
@@ -32,9 +32,12 @@ public struct JdDivider: View {
     @ViewBuilder
     private func labeled(_ text: String) -> some View {
         let labelText = Text(text)
-            .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.sm,
-                                       weight: JdToken.FontWeight.normal,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: JdToken.FontSize.sm,
+                    weight: JdToken.FontWeight.normal,
+                    category: sizeCategory)
+            )
             .foregroundColor(JdToken.Color.muted.color)
         switch orientation {
         case .horizontal:

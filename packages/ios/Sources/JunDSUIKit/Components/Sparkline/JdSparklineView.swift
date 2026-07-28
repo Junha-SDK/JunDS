@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-sparkline 동형 — 추세 스파크라인. (DEC-049)
 //
@@ -30,23 +30,26 @@ public final class JdSparklineView: UIView {
 
     private var spec: JdSparklineSpec
 
-    public init(values: [Double],
-                width: CGFloat = 80,
-                height: CGFloat = 24,
-                strokeWidth: CGFloat = 1.6,
-                color: JdDynamicColor? = nil,
-                showsFill: Bool = false,
-                showsBaseline: Bool = false,
-                showsDot: Bool = true,
-                label: String? = nil) {
+    public init(
+        values: [Double],
+        width: CGFloat = 80,
+        height: CGFloat = 24,
+        strokeWidth: CGFloat = 1.6,
+        color: JdDynamicColor? = nil,
+        showsFill: Bool = false,
+        showsBaseline: Bool = false,
+        showsDot: Bool = true,
+        label: String? = nil
+    ) {
         self.values = JdChartGeometry.sanitize(values)
         self.showsFill = showsFill
         self.showsBaseline = showsBaseline
         self.showsDot = showsDot
         self.color = color
         self.label = label
-        self.spec = JdSparklineSpec.resolve(values: values, width: width, height: height,
-                                            strokeWidth: strokeWidth, color: color)
+        self.spec = JdSparklineSpec.resolve(
+            values: values, width: width, height: height,
+            strokeWidth: strokeWidth, color: color)
         super.init(frame: .zero)
         backgroundColor = .clear
         isOpaque = false
@@ -82,14 +85,19 @@ public final class JdSparklineView: UIView {
             path.close()
             ctx.saveGState()
             path.addClip()
-            let colors = [base.withAlphaComponent(CGFloat(spec.fillTopAlpha)).cgColor,
-                          base.withAlphaComponent(CGFloat(spec.fillBottomAlpha)).cgColor]
-            if let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
-                                         colors: colors as CFArray, locations: [0, 1]) {
-                ctx.drawLinearGradient(gradient,
-                                       start: CGPoint(x: 0, y: 0),
-                                       end: CGPoint(x: 0, y: size.height),
-                                       options: [])
+            let colors = [
+                base.withAlphaComponent(CGFloat(spec.fillTopAlpha)).cgColor,
+                base.withAlphaComponent(CGFloat(spec.fillBottomAlpha)).cgColor,
+            ]
+            if let gradient = CGGradient(
+                colorsSpace: CGColorSpaceCreateDeviceRGB(),
+                colors: colors as CFArray, locations: [0, 1])
+            {
+                ctx.drawLinearGradient(
+                    gradient,
+                    start: CGPoint(x: 0, y: 0),
+                    end: CGPoint(x: 0, y: size.height),
+                    options: [])
             }
             ctx.restoreGState()
         }
@@ -117,21 +125,28 @@ public final class JdSparklineView: UIView {
         if showsDot, let last = points.last {
             // 헤일로가 점보다 커서 마지막 값이 어디인지 눈이 먼저 찾는다
             base.withAlphaComponent(CGFloat(spec.haloAlpha)).setFill()
-            UIBezierPath(ovalIn: CGRect(x: last.x - spec.dotRadius * 2,
-                                        y: last.y - spec.dotRadius * 2,
-                                        width: spec.dotRadius * 4,
-                                        height: spec.dotRadius * 4)).fill()
+            UIBezierPath(
+                ovalIn: CGRect(
+                    x: last.x - spec.dotRadius * 2,
+                    y: last.y - spec.dotRadius * 2,
+                    width: spec.dotRadius * 4,
+                    height: spec.dotRadius * 4)
+            ).fill()
             base.setFill()
-            UIBezierPath(ovalIn: CGRect(x: last.x - spec.dotRadius,
-                                        y: last.y - spec.dotRadius,
-                                        width: spec.dotRadius * 2,
-                                        height: spec.dotRadius * 2)).fill()
+            UIBezierPath(
+                ovalIn: CGRect(
+                    x: last.x - spec.dotRadius,
+                    y: last.y - spec.dotRadius,
+                    width: spec.dotRadius * 2,
+                    height: spec.dotRadius * 2)
+            ).fill()
         }
     }
 
     private func resolveAndApply() {
-        spec = JdSparklineSpec.resolve(values: values, width: spec.width, height: spec.height,
-                                       strokeWidth: spec.strokeWidth, color: color)
+        spec = JdSparklineSpec.resolve(
+            values: values, width: spec.width, height: spec.height,
+            strokeWidth: spec.strokeWidth, color: color)
         invalidateIntrinsicContentSize()
         setNeedsDisplay()
     }

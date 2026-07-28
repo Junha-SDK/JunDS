@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "Link",
   "oneLiner": "스타일드 링크 — 외부 링크 표시 지원.",
-  "tags": [
-    "navigation",
-    "link"
-  ],
+  "tags": ["navigation", "link"],
   "controls": [],
   "snippets": {
     "web": null,

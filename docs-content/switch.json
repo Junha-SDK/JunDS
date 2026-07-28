@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "Switch",
   "oneLiner": "iOS 스타일 스위치",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": {

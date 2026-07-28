@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "BookShelf",
   "oneLiner": "책 표지 책장 그리드.",
-  "tags": [
-    "book",
-    "독서",
-    "그리드"
-  ],
+  "tags": ["book", "독서", "그리드"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -30,11 +30,7 @@ export type { RssFeedSpec, RssItem } from "./rss.js";
 export { summarizeNews } from "./newsSummary.js";
 export type { NewsSummary, SummarizableNews } from "./newsSummary.js";
 
-export {
-  parseIndexTickEvent,
-  parseOrderBookTickEvent,
-  parseStreamTickEvent,
-} from "./stream.js";
+export { parseIndexTickEvent, parseOrderBookTickEvent, parseStreamTickEvent } from "./stream.js";
 export type {
   IndexTick,
   OrderBookLevel,

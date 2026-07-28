@@ -73,7 +73,9 @@ async function main() {
   await mkdir(path.dirname(outFile), { recursive: true });
   await writeFile(outFile, JSON.stringify(report, null, 2) + "\n");
   console.log(
-    `[extract-css-vars] ${uniqueNames.length} unique vars across ${blocks.length} blocks → ${path.relative(process.cwd(), outFile)}`,
+    `[extract-css-vars] ${uniqueNames.length} unique vars across ${
+      blocks.length
+    } blocks → ${path.relative(process.cwd(), outFile)}`,
   );
 }
 

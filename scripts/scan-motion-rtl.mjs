@@ -27,7 +27,11 @@ function* walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, entry.name);
     if (entry.isDirectory()) yield* walk(p);
-    else if (entry.isFile() && /\.(tsx|ts)$/.test(entry.name) && !/\.test\.|\.stories\./.test(entry.name)) {
+    else if (
+      entry.isFile() &&
+      /\.(tsx|ts)$/.test(entry.name) &&
+      !/\.test\.|\.stories\./.test(entry.name)
+    ) {
       yield p;
     }
   }
@@ -37,9 +41,11 @@ const MOTION_RE = /\b(animate-|transition-?\w*|duration-\d|ease-\w+)\b/;
 const MOTION_REDUCE_RE = /\bmotion-reduce:/;
 const PREFERS_REDUCED_RE = /prefers-reduced-motion/;
 
-const LR_RE = /\b(?:left|right)-(?:\d|auto|full|px)\b|\b(?:ml|mr|pl|pr|border-l|border-r|rounded-l|rounded-r|translate-x)-/;
+const LR_RE =
+  /\b(?:left|right)-(?:\d|auto|full|px)\b|\b(?:ml|mr|pl|pr|border-l|border-r|rounded-l|rounded-r|translate-x)-/;
 const RTL_RE = /\brtl:/;
-const LOGICAL_RE = /\b(?:start|end)-(?:\d|auto|full)\b|\b(?:ms|me|ps|pe|border-s|border-e|rounded-s|rounded-e)-/;
+const LOGICAL_RE =
+  /\b(?:start|end)-(?:\d|auto|full)\b|\b(?:ms|me|ps|pe|border-s|border-e|rounded-s|rounded-e)-/;
 
 const motionFindings = [];
 const rtlFindings = [];
@@ -73,7 +79,9 @@ fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
 fs.writeFileSync(REPORT_PATH, JSON.stringify(report, null, 2) + "\n", "utf8");
 
 console.log(
-  `[scan-motion-rtl] motion-without-reduce=${motionFindings.length} left-right-without-rtl=${rtlFindings.length} → ${path.relative(ROOT, REPORT_PATH)}`,
+  `[scan-motion-rtl] motion-without-reduce=${motionFindings.length} left-right-without-rtl=${
+    rtlFindings.length
+  } → ${path.relative(ROOT, REPORT_PATH)}`,
 );
 
 if (STRICT && (motionFindings.length > 0 || rtlFindings.length > 0)) {

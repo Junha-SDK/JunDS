@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Tabs",
   "oneLiner": "수평 탭 전환 컨트롤.",
-  "tags": [
-    "navigation"
-  ],
+  "tags": ["navigation"],
   "controls": [],
   "snippets": {
     "web": null,

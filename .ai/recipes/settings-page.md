@@ -52,7 +52,9 @@ export default function SettingsPage() {
     <VStack gap={6} maxW="768px">
       <Box>
         <Heading level={1}>설정</Heading>
-        <Text fontSize="sm" dimmed>계정 및 앱 환경을 설정합니다.</Text>
+        <Text fontSize="sm" dimmed>
+          계정 및 앱 환경을 설정합니다.
+        </Text>
       </Box>
 
       <Tabs<TabId>
@@ -72,7 +74,9 @@ export default function SettingsPage() {
             <VStack gap={5}>
               <Heading level={3}>프로필</Heading>
               <Box>
-                <Label className="mb-1.5 block text-xs" htmlFor="name">이름</Label>
+                <Label className="mb-1.5 block text-xs" htmlFor="name">
+                  이름
+                </Label>
                 <Input id="name" value={name} onChange={(e) => setName(e.target.value)} />
               </Box>
               <Divider />
@@ -90,8 +94,12 @@ export default function SettingsPage() {
           </Card.Body>
           <Card.Footer>
             <HStack gap="sm" justify="end" className="w-full">
-              <Button variant="secondary" size="sm">취소</Button>
-              <Button variant="primary" size="sm">저장</Button>
+              <Button variant="secondary" size="sm">
+                취소
+              </Button>
+              <Button variant="primary" size="sm">
+                저장
+              </Button>
             </HStack>
           </Card.Footer>
         </Card>
@@ -103,15 +111,23 @@ export default function SettingsPage() {
             <VStack gap={5}>
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">이메일 알림</Text>
-                  <Text fontSize="xs" dimmed>새 소식을 메일로 받습니다.</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    이메일 알림
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    새 소식을 메일로 받습니다.
+                  </Text>
                 </Box>
                 <Switch checked={emailNotif} onChange={setEmailNotif} />
               </HStack>
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">푸시 알림</Text>
-                  <Text fontSize="xs" dimmed>모바일 푸시를 받습니다.</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    푸시 알림
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    모바일 푸시를 받습니다.
+                  </Text>
                 </Box>
                 <Switch checked={pushNotif} onChange={setPushNotif} />
               </HStack>
@@ -126,18 +142,26 @@ export default function SettingsPage() {
             <VStack gap={5}>
               <Heading level={3}>비밀번호 변경</Heading>
               <Box>
-                <Label className="mb-1.5 block text-xs" htmlFor="cur">현재 비밀번호</Label>
+                <Label className="mb-1.5 block text-xs" htmlFor="cur">
+                  현재 비밀번호
+                </Label>
                 <Input id="cur" type="password" placeholder="현재 비밀번호" />
               </Box>
               <Box>
-                <Label className="mb-1.5 block text-xs" htmlFor="new">새 비밀번호</Label>
+                <Label className="mb-1.5 block text-xs" htmlFor="new">
+                  새 비밀번호
+                </Label>
                 <Input id="new" type="password" placeholder="새 비밀번호" />
               </Box>
               <Divider />
               <HStack align="center" justify="between" className="py-2">
                 <Box>
-                  <Text fontSize="sm" fontWeight="medium">2단계 인증</Text>
-                  <Text fontSize="xs" dimmed>로그인 시 OTP 를 요구합니다.</Text>
+                  <Text fontSize="sm" fontWeight="medium">
+                    2단계 인증
+                  </Text>
+                  <Text fontSize="xs" dimmed>
+                    로그인 시 OTP 를 요구합니다.
+                  </Text>
                 </Box>
                 <Switch checked={twoFactor} onChange={setTwoFactor} />
               </HStack>
@@ -145,7 +169,9 @@ export default function SettingsPage() {
           </Card.Body>
           <Card.Footer>
             <HStack gap="sm" justify="end" className="w-full">
-              <Button variant="primary" size="sm">변경 저장</Button>
+              <Button variant="primary" size="sm">
+                변경 저장
+              </Button>
             </HStack>
           </Card.Footer>
         </Card>

@@ -4,11 +4,7 @@
   "category": "primitives",
   "title": "RadioGroup",
   "oneLiner": "단일 선택 라디오 버튼 그룹.",
-  "tags": [
-    "form",
-    "control",
-    "선택"
-  ],
+  "tags": ["form", "control", "선택"],
   "controls": [],
   "snippets": {
     "web": {

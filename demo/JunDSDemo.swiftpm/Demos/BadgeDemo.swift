@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Badge 데모 — 실컴포넌트 JdBadge(SwiftUI)/JdBadgeView(UIKit). 웹 <jd-badge> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(variant/size/dot/count) — 3플랫폼 동일 (04 §3).
@@ -14,7 +14,8 @@ enum BadgeDemo {
     static let demo = ComponentDemo(
         id: "Badge",
         controls: [
-            .options("variant", "variant", JdBadgeVariant.allCases.map(\.rawValue), initial: "primary"),
+            .options(
+                "variant", "variant", JdBadgeVariant.allCases.map(\.rawValue), initial: "primary"),
             .options("size", "size", JdDisplaySize.allCases.map(\.rawValue), initial: "md"),
             .toggle("dot", "dot (showsDot)"),
             .toggle("countMode", "count 모드 (별도 init)"),
@@ -40,7 +41,8 @@ private func badgeCount(_ state: DemoState) -> Int {
     Int(state.number("count"))
 }
 
-private let badgeCountNote = "count 모드는 danger·sm 고정 원형 — variant/size/dot 축이 없다. maxCount(99) 초과는 \"99+\"."
+private let badgeCountNote =
+    "count 모드는 danger·sm 고정 원형 — variant/size/dot 축이 없다. maxCount(99) 초과는 \"99+\"."
 private let badgeTextNote = "텍스트는 현재 variant 이름 — 배경/글자 대비를 그대로 읽는다."
 
 private struct BadgeStageSwiftUI: View {

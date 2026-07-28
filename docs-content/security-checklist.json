@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "SecurityChecklist",
   "oneLiner": "보안 체크리스트 — 보안 설정 현황을 한눈에 확인 + 조치",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -6,21 +6,21 @@
 웹 finance 86종 중 대부분이 이들을 조립해 만들어지므로, 아래 「공통 규칙」의 어휘
 (추세 판정 3규칙 · 도메인 색 · 숫자 포맷 · 차트 좌표)를 먼저 이해하면 나머지가 따라온다.
 
-| # | SwiftUI | UIKit | 웹 | 한 줄 |
-|---|---|---|---|---|
-| 1 | `JdLivePctText` | `JdLivePctTextView` | `jd-live-pct-text` | 등락률 텍스트 (색 없음 — 골격 정본) |
-| 2 | `JdLivePctBadge` | `JdLivePctBadgeView` | `jd-live-pct-badge` | 등락률 + 추세 색 (live 판정) |
-| 3 | `JdLivePriceText` | `JdLivePriceTextView` | `jd-live-price-text` | 현재가 텍스트 (없으면 “—”) |
-| 4 | `JdLiveStatusDot` | `JdLiveStatusDotView` | `jd-live-status-dot` | 장 세션 라이브 점 + 라벨 |
-| 5 | `JdPriceBadge` | `JdPriceBadgeView` | `jd-price-badge` | 등락률 + 추세 화살표 (exact 판정) |
-| 6 | `JdHotPctChip` | `JdHotPctChipView` | `jd-hot-pct-chip` | 급등 강조 알약 (늘 상승 표기) |
-| 7 | `JdLiveStackedCell` | `JdLiveStackedCellView` | `jd-live-stacked-cell` | 가격+등락률 2단 우측정렬 셀 |
-| 8 | `JdPositionBar` | `JdPositionBarView` | `jd-position-bar` | 구간 대비 현재 위치 막대 |
-| 9 | `JdMicroKpiRow` | `JdMicroKpiRowView` | `jd-live-micro-kpi-row` | KPI 셀 N칸 (배치 자체 소유) |
-| 10 | `JdDisclosureToneBadge` | `JdDisclosureToneBadgeView` | `jd-disclosure-tone-badge` | 공시 톤 라벨 (호재·악재·중립) |
-| 11 | `JdThemeTagList` | `JdThemeTagListView` | `jd-theme-tag-list` | 테마 해시태그 칩 줄 |
-| 12 | `JdLivePrice` | `JdLivePriceView` | `jd-live-price` | 현재가 + 값 변화 플래시 |
-| 13 | `JdSparkline` | `JdSparklineView` | `jd-sparkline` | 추세 스파크라인 |
+| #   | SwiftUI                 | UIKit                       | 웹                         | 한 줄                               |
+| --- | ----------------------- | --------------------------- | -------------------------- | ----------------------------------- |
+| 1   | `JdLivePctText`         | `JdLivePctTextView`         | `jd-live-pct-text`         | 등락률 텍스트 (색 없음 — 골격 정본) |
+| 2   | `JdLivePctBadge`        | `JdLivePctBadgeView`        | `jd-live-pct-badge`        | 등락률 + 추세 색 (live 판정)        |
+| 3   | `JdLivePriceText`       | `JdLivePriceTextView`       | `jd-live-price-text`       | 현재가 텍스트 (없으면 “—”)          |
+| 4   | `JdLiveStatusDot`       | `JdLiveStatusDotView`       | `jd-live-status-dot`       | 장 세션 라이브 점 + 라벨            |
+| 5   | `JdPriceBadge`          | `JdPriceBadgeView`          | `jd-price-badge`           | 등락률 + 추세 화살표 (exact 판정)   |
+| 6   | `JdHotPctChip`          | `JdHotPctChipView`          | `jd-hot-pct-chip`          | 급등 강조 알약 (늘 상승 표기)       |
+| 7   | `JdLiveStackedCell`     | `JdLiveStackedCellView`     | `jd-live-stacked-cell`     | 가격+등락률 2단 우측정렬 셀         |
+| 8   | `JdPositionBar`         | `JdPositionBarView`         | `jd-position-bar`          | 구간 대비 현재 위치 막대            |
+| 9   | `JdMicroKpiRow`         | `JdMicroKpiRowView`         | `jd-live-micro-kpi-row`    | KPI 셀 N칸 (배치 자체 소유)         |
+| 10  | `JdDisclosureToneBadge` | `JdDisclosureToneBadgeView` | `jd-disclosure-tone-badge` | 공시 톤 라벨 (호재·악재·중립)       |
+| 11  | `JdThemeTagList`        | `JdThemeTagListView`        | `jd-theme-tag-list`        | 테마 해시태그 칩 줄                 |
+| 12  | `JdLivePrice`           | `JdLivePriceView`           | `jd-live-price`            | 현재가 + 값 변화 플래시             |
+| 13  | `JdSparkline`           | `JdSparklineView`           | `jd-sparkline`             | 추세 스파크라인                     |
 
 ## 공통 규칙
 
@@ -41,11 +41,11 @@ JdLiveStatusDot(live: session.isTrading)
 같은 값이 컴포넌트에 따라 다른 추세로 판정된다. 버그가 아니라 웹에서 승계한 의도된 차이이고,
 그래서 규칙 자체가 타입(`JdTrendPolicy`)이다.
 
-| 정책 | 쓰는 곳 | flat(보합) | 왜 |
-|---|---|---|---|
-| `.live` | `JdLivePctBadge` | `[-0.005, 0]` — 음수 쪽만 | 실시간 틱은 잘게 흔들린다. "거의 0"을 회색으로 눌러 눈이 덜 피로하게. `up(> 0)`이 flat보다 **우선**하므로 `+0.003`은 상승색이다 |
-| `.exact` | `JdPriceBadge` | `0`뿐 | 확정된 일봉 등락률엔 임계값을 두지 않는다 |
-| `.gainOrEven` | `JdLiveStackedCell` · `JdMicroKpiCell` | **없음** (`>= 0`은 상승) | 두 값이 **한 색으로 묶인** 셀이다. 0%에 회색을 주면 그 행 전체가 죽은 것처럼 보인다 |
+| 정책          | 쓰는 곳                                | flat(보합)                | 왜                                                                                                                              |
+| ------------- | -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `.live`       | `JdLivePctBadge`                       | `[-0.005, 0]` — 음수 쪽만 | 실시간 틱은 잘게 흔들린다. "거의 0"을 회색으로 눌러 눈이 덜 피로하게. `up(> 0)`이 flat보다 **우선**하므로 `+0.003`은 상승색이다 |
+| `.exact`      | `JdPriceBadge`                         | `0`뿐                     | 확정된 일봉 등락률엔 임계값을 두지 않는다                                                                                       |
+| `.gainOrEven` | `JdLiveStackedCell` · `JdMicroKpiCell` | **없음** (`>= 0`은 상승)  | 두 값이 **한 색으로 묶인** 셀이다. 0%에 회색을 주면 그 행 전체가 죽은 것처럼 보인다                                             |
 
 ```swift
 JdTrend.resolve(-0.003, policy: .live)        // .flat  (보합 — 회색)
@@ -93,11 +93,11 @@ let trend  = JdChartGeometry.direction(values)            // 첫 값 대비 마�
 
 세 가지 안전 규칙이 여기 들어 있다 — 컴포넌트가 다시 구현하지 않는다:
 
-| 규칙 | 없으면 |
-|---|---|
-| 평평한 데이터(min == max)는 0으로 나누지 않고 눕힌다 | 좌표가 전부 NaN |
+| 규칙                                                  | 없으면                                               |
+| ----------------------------------------------------- | ---------------------------------------------------- |
+| 평평한 데이터(min == max)는 0으로 나누지 않고 눕힌다  | 좌표가 전부 NaN                                      |
 | 비수치(NaN·무한)는 **대입 시점에** 거른다(`sanitize`) | 좌표 하나가 NaN이면 선 전체가 **에러 없이** 사라진다 |
-| 획 두께만큼 위아래를 비운다(`inset`) | 굵은 선이 상자 경계에서 잘린다 |
+| 획 두께만큼 위아래를 비운다(`inset`)                  | 굵은 선이 상자 경계에서 잘린다                       |
 
 ⚠️ `sanitize`는 **값을 넣는 시점**에 부른다. 그리기 직전에 거르면 이미 인덱스가 밀려
 x축이 어긋난다.
@@ -289,7 +289,6 @@ HStack {
 .padding(JdGap.md.value)
 ```
 
-
 ---
 
 ## 7. JdLiveStackedCell / JdLiveStackedCellView
@@ -416,7 +415,6 @@ ScrollView {
     .padding(JdToken.Space.s4)
 }
 ```
-
 
 ---
 

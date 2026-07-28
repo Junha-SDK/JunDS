@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 인라인 피드백 6종(Alert/Banner/Callout/Notification/EmptyState/Result)의 UIKit 뷰.
@@ -12,11 +13,15 @@ private let lightTrait = UITraitCollection(userInterfaceStyle: .light)
 
 private func rgba(_ color: UIColor?, _ trait: UITraitCollection) -> [CGFloat]? {
     guard let resolved = color?.resolvedColor(with: trait) else { return nil }
-    var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+    var r: CGFloat = 0
+    var g: CGFloat = 0
+    var b: CGFloat = 0
+    var a: CGFloat = 0
     resolved.getRed(&r, green: &g, blue: &b, alpha: &a)
     return [r, g, b, a]
 }
 
+@MainActor
 final class JdAlertViewTests: XCTestCase {
 
     // 좌측 3pt 강조선이 variant.color를 그대로 쓴다(색은 Core가 단일 소스)
@@ -43,15 +48,17 @@ final class JdAlertViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdBannerViewTests: XCTestCase {
 
     // 액션·닫기 버튼이 각각 자기 클로저를 발화한다
     func test_action_and_dismiss_fire() {
         var actionFired = false
         var dismissFired = false
-        let banner = JdBannerView("저장되었습니다", variant: .info,
-                                  actionLabel: "실행 취소", onAction: { actionFired = true },
-                                  isDismissible: true, onDismiss: { dismissFired = true })
+        let banner = JdBannerView(
+            "저장되었습니다", variant: .info,
+            actionLabel: "실행 취소", onAction: { actionFired = true },
+            isDismissible: true, onDismiss: { dismissFired = true })
 
         XCTAssertNotNil(banner.actionButton)
         XCTAssertNotNil(banner.dismissButton)
@@ -80,6 +87,7 @@ final class JdBannerViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdCalloutViewTests: XCTestCase {
 
     // 이모지는 Core JdCalloutVariant 매핑을 그대로 렌더한다
@@ -92,8 +100,9 @@ final class JdCalloutViewTests: XCTestCase {
 
     // collapsible 헤더 탭이 본문을 접었다 편다
     func test_collapsible_toggle_hides_and_shows_content() {
-        let view = JdCalloutView("주의", message: "본문", variant: .warning,
-                                 isCollapsible: true, initiallyExpanded: true)
+        let view = JdCalloutView(
+            "주의", message: "본문", variant: .warning,
+            isCollapsible: true, initiallyExpanded: true)
         XCTAssertNotNil(view.headerButton)
         XCTAssertTrue(view.isExpanded)
         XCTAssertFalse(view.contentContainer.isHidden)
@@ -109,8 +118,9 @@ final class JdCalloutViewTests: XCTestCase {
 
     // initiallyExpanded=false는 접힌 상태로 시작한다
     func test_initially_collapsed_starts_hidden() {
-        let view = JdCalloutView("참고", message: "본문", variant: .note,
-                                 isCollapsible: true, initiallyExpanded: false)
+        let view = JdCalloutView(
+            "참고", message: "본문", variant: .note,
+            isCollapsible: true, initiallyExpanded: false)
         XCTAssertFalse(view.isExpanded)
         XCTAssertTrue(view.contentContainer.isHidden)
     }
@@ -124,14 +134,16 @@ final class JdCalloutViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdNotificationViewTests: XCTestCase {
 
     // 닫기 버튼이 onDismiss를 발화한다
     func test_dismiss_fires() {
         var dismissed = false
-        let view = JdNotificationView(title: "새 알림", description: "설명",
-                                      variant: .info, systemImage: "bell",
-                                      isDismissible: true, onDismiss: { dismissed = true })
+        let view = JdNotificationView(
+            title: "새 알림", description: "설명",
+            variant: .info, systemImage: "bell",
+            isDismissible: true, onDismiss: { dismissed = true })
         XCTAssertNotNil(view.dismissButton)
         view.dismissButton?.jdSendActions(for: .touchUpInside)
         XCTAssertTrue(dismissed)
@@ -144,6 +156,7 @@ final class JdNotificationViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdEmptyStateViewTests: XCTestCase {
 
     // 제목·설명을 하나의 접근성 요소로 합친다
@@ -160,6 +173,7 @@ final class JdEmptyStateViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdResultViewTests: XCTestCase {
 
     // status별 심볼은 Core JdResultStatus.systemImage를 그대로 쓰고 실제 이미지가 존재한다
@@ -174,7 +188,8 @@ final class JdResultViewTests: XCTestCase {
     // 심볼 색은 Core status.color를 그대로 쓴다
     func test_symbol_color_uses_status_color() {
         let view = JdResultView(status: .success, title: "완료")
-        XCTAssertEqual(rgba(view.iconView.tintColor, lightTrait),
-                       rgba(JdResultStatus.success.color.uiColor, lightTrait))
+        XCTAssertEqual(
+            rgba(view.iconView.tintColor, lightTrait),
+            rgba(JdResultStatus.success.color.uiColor, lightTrait))
     }
 }

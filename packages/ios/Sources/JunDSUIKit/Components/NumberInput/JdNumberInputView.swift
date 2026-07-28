@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-number-input 동형 — 숫자 입력 + 증감 버튼 (DESIGN-3 §A).
 //
@@ -44,7 +44,7 @@ public final class JdNumberInputView: UIView {
     public var isEnabled: Bool = true {
         didSet {
             field.isEnabled = isEnabled
-            alpha = isEnabled ? 1 : JdToken.Opacity.o50 // 웹 [disabled] opacity-50
+            alpha = isEnabled ? 1 : JdToken.Opacity.o50  // 웹 [disabled] opacity-50
             applyControls()
         }
     }
@@ -65,15 +65,17 @@ public final class JdNumberInputView: UIView {
     private let rootStack = UIStackView()
     private let size: JdNumberInputSize
 
-    public init(value: Double? = nil,
-                min: Double? = nil,
-                max: Double? = nil,
-                step: Double = 1,
-                size: JdNumberInputSize = .md,
-                isError: Bool = false,
-                hidesControls: Bool = false,
-                placeholder: String = "",
-                accessibilityLabel: String? = nil) {
+    public init(
+        value: Double? = nil,
+        min: Double? = nil,
+        max: Double? = nil,
+        step: Double = 1,
+        size: JdNumberInputSize = .md,
+        isError: Bool = false,
+        hidesControls: Bool = false,
+        placeholder: String = "",
+        accessibilityLabel: String? = nil
+    ) {
         self.value = value
         self.minValue = min
         self.maxValue = max
@@ -161,7 +163,7 @@ public final class JdNumberInputView: UIView {
         button.addTarget(self, action: #selector(didTapStep(_:)), for: .touchUpInside)
         // 웹 스텝 버튼 폭 28px에 대응하는 토큰 부재분 — 하한만 두고 Dynamic Type에서 자란다
         button.jd.layout {
-            $0.width.greaterThanOrEqual(JdToken.Space.s8) // 32
+            $0.width.greaterThanOrEqual(JdToken.Space.s8)  // 32
         }
     }
 
@@ -173,13 +175,15 @@ public final class JdNumberInputView: UIView {
     }
 
     private func applyStyle() {
-        field.font = JdFontBridge.scaledFont(size: size.fontSize,
-                                             weight: JdToken.FontWeight.normal,
-                                             compatibleWith: traitCollection)
+        field.font = JdFontBridge.scaledFont(
+            size: size.fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         field.textColor = JdToken.Color.foreground.uiColor
-        let symbolFont = JdFontBridge.scaledFont(size: size.fontSize,
-                                                 weight: JdToken.FontWeight.medium,
-                                                 compatibleWith: traitCollection)
+        let symbolFont = JdFontBridge.scaledFont(
+            size: size.fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         let configuration = UIImage.SymbolConfiguration(font: symbolFont)
         decButton.setPreferredSymbolConfiguration(configuration, forImageIn: .normal)
         incButton.setPreferredSymbolConfiguration(configuration, forImageIn: .normal)
@@ -207,7 +211,7 @@ public final class JdNumberInputView: UIView {
     private func applyControls() {
         decButton.isEnabled = isEnabled && JdNumberInputRules.canDecrement(value, min: minValue)
         incButton.isEnabled = isEnabled && JdNumberInputRules.canIncrement(value, max: maxValue)
-        decButton.alpha = decButton.isEnabled ? 1 : JdToken.Opacity.o30 // 웹 :disabled opacity-30
+        decButton.alpha = decButton.isEnabled ? 1 : JdToken.Opacity.o30  // 웹 :disabled opacity-30
         incButton.alpha = incButton.isEnabled ? 1 : JdToken.Opacity.o30
         for view in [decButton, incButton, decSeparator, incSeparator] {
             view.isHidden = hidesControls
@@ -257,8 +261,9 @@ public final class JdNumberInputView: UIView {
 
     private func applyStep(_ direction: Int) {
         guard isEnabled else { return }
-        value = JdNumberInputRules.stepped(value, direction: direction, step: step,
-                                           min: minValue, max: maxValue)
+        value = JdNumberInputRules.stepped(
+            value, direction: direction, step: step,
+            min: minValue, max: maxValue)
         field.text = JdNumberInputView.plain(value)
         onCommit?(value)
     }

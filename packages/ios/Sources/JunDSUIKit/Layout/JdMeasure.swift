@@ -26,6 +26,7 @@ import UIKit
 /// 유효한 답**을 쓴다. 순서가 이 방향인 이유: 내부 제약이 있는 뷰는 첫 경로가 정확하고,
 /// 자체 배치 뷰(우리 랩·열 뷰 자신)는 제약이 없어 첫 경로가 0을 주므로 자연히 두 번째로
 /// 내려간다. 반대 순서면 위의 결함이 그대로 남는다.
+@MainActor
 public enum JdMeasure {
 
     /// "폭 제한 없음"으로 볼 임계값.
@@ -42,21 +43,26 @@ public enum JdMeasure {
 
         // (1) 내부 Auto Layout 제약 — 셀·카드처럼 자식을 제약으로 붙인 컨테이너의 정답.
         //     세로는 fittingSizeLevel로 열어 내용이 요구하는 높이를 그대로 받는다.
-        let target = CGSize(width: bounded ? width : UIView.layoutFittingCompressedSize.width,
-                            height: 0)
+        let target = CGSize(
+            width: bounded ? width : UIView.layoutFittingCompressedSize.width,
+            height: 0)
         let system = view.systemLayoutSizeFitting(
             target,
             withHorizontalFittingPriority: bounded ? .required : .fittingSizeLevel,
             verticalFittingPriority: .fittingSizeLevel
         )
         if system.height > 0 {
-            return clamp(CGSize(width: bounded ? min(system.width, width) : system.width,
-                                height: system.height), width: width, bounded: bounded)
+            return clamp(
+                CGSize(
+                    width: bounded ? min(system.width, width) : system.width,
+                    height: system.height), width: width, bounded: bounded)
         }
 
         // (2) sizeThatFits를 스스로 재정의한 뷰 — UILabel, 그리고 우리 자체 배치 뷰들
-        let fits = view.sizeThatFits(CGSize(width: bounded ? width : .greatestFiniteMagnitude,
-                                            height: .greatestFiniteMagnitude))
+        let fits = view.sizeThatFits(
+            CGSize(
+                width: bounded ? width : .greatestFiniteMagnitude,
+                height: .greatestFiniteMagnitude))
         if fits.height > 0 && fits.width > 0 {
             return clamp(fits, width: width, bounded: bounded)
         }
@@ -86,7 +92,8 @@ public enum JdMeasure {
         // .infinity 를 쓴다 — .greatestFiniteMagnitude 는 유한이라 "무제한"이 아니다(위 주석)
         let natural = size(of: view, width: .infinity)
         guard maxWidth.isFinite, maxWidth > 0, maxWidth < unboundedThreshold,
-              natural.width > maxWidth else { return natural }
+            natural.width > maxWidth
+        else { return natural }
         return size(of: view, width: maxWidth)
     }
 }

@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-price-badge 동형 — 등락률 + 추세 화살표 (DEC-040).
 //
@@ -17,10 +17,12 @@ public struct JdPriceBadge: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(pct: Double,
-                size: JdPriceBadgeSize = .md,
-                showArrow: Bool = true,
-                bold: Bool = true) {
+    public init(
+        pct: Double,
+        size: JdPriceBadgeSize = .md,
+        showArrow: Bool = true,
+        bold: Bool = true
+    ) {
         self.pct = pct
         self.spec = JdPriceBadgeSpec.resolve(pct: pct, size: size, showArrow: showArrow, bold: bold)
         self.trend = JdTrend.resolve(pct, policy: .exact)
@@ -36,19 +38,25 @@ public struct JdPriceBadge: View {
             if spec.showsArrow, let symbol = JdPriceBadgeSpec.symbolName(trend) {
                 Image(systemName: symbol)
                     // 심볼은 폰트 크기에 붙어 자란다 — Dynamic Type을 함께 따라간다
-                    .font(JdSwiftUIFont.scaled(size: spec.iconSize,
-                                               weight: JdToken.FontWeight.semibold,
-                                               category: sizeCategory))
-                    .accessibilityHidden(true) // 추세는 아래 라벨이 말한다
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: spec.iconSize,
+                            weight: JdToken.FontWeight.semibold,
+                            category: sizeCategory)
+                    )
+                    .accessibilityHidden(true)  // 추세는 아래 라벨이 말한다
             }
             Text(formatted)
                 .monospacedDigit()
-                .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                           weight: spec.fontWeight,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.fontSize,
+                        weight: spec.fontWeight,
+                        category: sizeCategory))
         }
         .foregroundColor(spec.color.color)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(JdLivePctBadge.accessibilityText(trend: trend, formatted: formatted)))
+        .accessibilityLabel(
+            Text(JdLivePctBadge.accessibilityText(trend: trend, formatted: formatted)))
     }
 }

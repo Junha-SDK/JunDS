@@ -1,13 +1,17 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 04 §8.2 — 활성 제약을 키로 조회하는 전용 어서션
-func XCTAssertJdConstraint(_ view: UIView,
-                           _ attribute: NSLayoutConstraint.Attribute,
-                           constant: CGFloat,
-                           file: StaticString = #filePath, line: UInt = #line) {
+@MainActor
+func XCTAssertJdConstraint(
+    _ view: UIView,
+    _ attribute: NSLayoutConstraint.Attribute,
+    constant: CGFloat,
+    file: StaticString = #filePath, line: UInt = #line
+) {
     guard let constraint = JdConstraintStore.of(view).installedConstraint(for: attribute) else {
         XCTFail("\(attribute) 제약 없음", file: file, line: line)
         return
@@ -15,6 +19,7 @@ func XCTAssertJdConstraint(_ view: UIView,
     XCTAssertEqual(constraint.constant, constant, accuracy: 0.5, file: file, line: line)
 }
 
+@MainActor
 final class JdLayoutTests: XCTestCase {
 
     private var host: UIView!
@@ -147,6 +152,45 @@ final class JdLayoutTests: XCTestCase {
         XCTAssertEqual(constraint?.priority, .defaultHigh)
     }
 
+    // DEC-013 보정 2: 재레이아웃의 priority 변경이 조용히 무시되던 결함.
+    // diff 경로가 기존 제약을 찾으면 constant만 갱신하고 끝냈기 때문에, 두 번째
+    // layout 호출에서 우선순위만 바꾸면 아무 일도 일어나지 않았다 — 실패는 화면에서만
+    // 보이고 코드에는 흔적이 없었다.
+    func test_relayout_updates_priority_in_place() {
+        child.jd.layout { $0.width.equal(100).priority(.defaultHigh) }
+        child.jd.layout { $0.width.equal(100).priority(.defaultLow) }
+        let constraint = JdConstraintStore.of(child).installedConstraint(for: .width)
+        XCTAssertEqual(constraint?.priority, .defaultLow, "재레이아웃의 priority가 반영되지 않았다")
+        XCTAssertEqual(constraint?.isActive, true)
+    }
+
+    // required와 오가는 변경은 설치된 제약을 그 자리에서 못 바꾼다(UIKit 예외).
+    // 그 경우에도 결과는 같아야 한다 — 폐기 후 재생성으로.
+    func test_relayout_across_required_boundary_recreates_constraint() {
+        child.jd.layout { $0.width.equal(100) }  // 기본 .required
+        child.jd.layout { $0.width.equal(100).priority(.defaultHigh) }
+        let constraint = JdConstraintStore.of(child).installedConstraint(for: .width)
+        XCTAssertEqual(constraint?.priority, .defaultHigh)
+        XCTAssertEqual(constraint?.isActive, true)
+        XCTAssertEqual(JdConstraintStore.of(child).installedCount, 1, "옛 제약이 남아 있다")
+
+        // 반대 방향도 대칭이어야 한다
+        child.jd.layout { $0.width.equal(100) }
+        XCTAssertEqual(
+            JdConstraintStore.of(child).installedConstraint(for: .width)?.priority, .required)
+        XCTAssertEqual(JdConstraintStore.of(child).installedCount, 1)
+    }
+
+    // update는 "상수만 갱신"이 계약이다. descriptor의 priority 기본값(.required)을
+    // 변경으로 오인해 제약을 갈아치우면 안 된다.
+    func test_update_does_not_touch_priority() {
+        child.jd.layout { $0.width.equal(100).priority(.defaultHigh) }
+        child.jd.update { $0.width.equal(150) }
+        let constraint = JdConstraintStore.of(child).installedConstraint(for: .width)
+        XCTAssertEqual(constraint?.constant, 150)
+        XCTAssertEqual(constraint?.priority, .defaultHigh, "update가 priority를 건드렸다")
+    }
+
     // DEC-013: diff 삭제는 동일 파일 발원 제약에 한정 — 다른 파일이 설치한
     // 제약(컴포넌트 자기 제약 등)은 소비자 layout 재호출에도 살아남는다
     func test_diff_scope_does_not_clobber_other_file_constraints() {
@@ -164,6 +208,7 @@ final class JdLayoutTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdButtonViewTests: XCTestCase {
 
     func test_minHeight_follows_spec_on_size_change() {
@@ -199,6 +244,7 @@ final class JdButtonViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdTextFieldViewTests: XCTestCase {
 
     func test_error_state_toggles_row() {

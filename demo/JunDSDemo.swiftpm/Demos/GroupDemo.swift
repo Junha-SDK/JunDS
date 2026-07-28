@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Group 데모 — 웹 <jd-group>(row·wrap·gap sm·align center)의 iOS 번역.
 // SwiftUI = JdFlowLayout(실컴포넌트, 좁은 폭에서 줄바꿈), no-wrap이면 HStack.
@@ -68,9 +68,11 @@ private struct GroupStageUIKit: View {
                     .fixedSize()
             }
             // 각주: UIKit 계통의 wrap 부재는 설계상 폴백이다
-            Text("UIStackView는 wrap 미지원 — JdStackView.horizontal no-wrap 폴백 (04 §10.1). 줄바꿈이 필요하면 SwiftUI JdFlowLayout을 쓴다.")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                "UIStackView는 wrap 미지원 — JdStackView.horizontal no-wrap 폴백 (04 §10.1). 줄바꿈이 필요하면 SwiftUI JdFlowLayout을 쓴다."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
         }
         .padding(JdToken.Space.s6)
     }

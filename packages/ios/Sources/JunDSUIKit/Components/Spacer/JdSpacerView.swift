@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-spacer 동형 — 토큰 간격 스페이서 (DESIGN-2 §A). A8 명명 규칙 Jd<이름>View.
 // 웹은 양쪽 패딩(padding-block/inline)이라 실제 차지 공간이 size의 2배다 — 그 값을 승계한다.

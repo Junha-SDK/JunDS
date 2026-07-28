@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // finance 조립 3종 데모 (DEC-041) — 웹 <jd-live-stacked-cell>·<jd-position-bar>·
 // <jd-live-micro-kpi-row> 동형.
@@ -56,10 +56,11 @@ private struct StackedCellStage: View {
         VStack(spacing: JdToken.Space.s3) {
             // 표 오른쪽 열 상황을 재현 — 숫자 끝이 맞는지 보이게 두 행을 나란히 둔다
             VStack(alignment: .trailing, spacing: JdToken.Space.s2) {
-                JdLiveStackedCell(price: doubleValue(state, "price", 0),
-                                  change: doubleValue(state, "change", 0),
-                                  priceFallback: doubleValue(state, "priceFallback", 0),
-                                  pctFallback: doubleValue(state, "pctFallback", 0))
+                JdLiveStackedCell(
+                    price: doubleValue(state, "price", 0),
+                    change: doubleValue(state, "change", 0),
+                    priceFallback: doubleValue(state, "priceFallback", 0),
+                    pctFallback: doubleValue(state, "pctFallback", 0))
                 JdLiveStackedCell(price: 8_240, change: -2.15)
             }
             .frame(width: 120, alignment: .trailing)
@@ -77,24 +78,33 @@ private struct StackedCellStageUIKit: View {
     @ObservedObject var state: DemoState
 
     private static let quotes: [(String, Double, Double, Double, Double, Double)] = [
-        ("삼성전자",            71_200,  1.24, 0.31, 0.86, 0.62),
-        ("에이치엘비생명과학",     8_240, -2.15, 0.12, 0.74, 0.20),
-        ("SK",                168_500,  0.00, 0.44, 0.91, 0.55),
+        ("삼성전자", 71_200, 1.24, 0.31, 0.86, 0.62),
+        ("에이치엘비생명과학", 8_240, -2.15, 0.12, 0.74, 0.20),
+        ("SK", 168_500, 0.00, 0.44, 0.91, 0.55),
     ]
 
     var body: some View {
-        let table = Self.makeTable(first: (price: doubleValue(state, "price", 0),
-                                          change: doubleValue(state, "change", 0),
-                                          priceFallback: doubleValue(state, "priceFallback", 0),
-                                          pctFallback: doubleValue(state, "pctFallback", 0)))
+        let table = Self.makeTable(
+            first: (
+                price: doubleValue(state, "price", 0),
+                change: doubleValue(state, "change", 0),
+                priceFallback: doubleValue(state, "priceFallback", 0),
+                pctFallback: doubleValue(state, "pctFallback", 0)
+            ))
         let width: CGFloat = 340
-        let height = table.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
+        let height = table.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
+            .height
         return VStack(spacing: JdToken.Space.s2) {
-            UIKitBox { Self.makeTable(first: (price: doubleValue(state, "price", 0),
-                                             change: doubleValue(state, "change", 0),
-                                             priceFallback: doubleValue(state, "priceFallback", 0),
-                                             pctFallback: doubleValue(state, "pctFallback", 0))) }
-                .frame(width: width, height: max(height, 1))
+            UIKitBox {
+                Self.makeTable(
+                    first: (
+                        price: doubleValue(state, "price", 0),
+                        change: doubleValue(state, "change", 0),
+                        priceFallback: doubleValue(state, "priceFallback", 0),
+                        pctFallback: doubleValue(state, "pctFallback", 0)
+                    ))
+            }
+            .frame(width: width, height: max(height, 1))
             Text("JdColumnsView가 전 행의 열 폭을 공유한다 — 종목명 길이가 달라도\n가격 열 끝이 맞는다(가격 열 align: .end)")
                 .font(.caption2)
                 .foregroundColor(JdToken.Color.muted.color)
@@ -108,22 +118,27 @@ private struct StackedCellStageUIKit: View {
     ) -> JdColumnsView {
         JdColumnsView(
             columns: [
-                .fit(max: 150, align: .start),   // 종목명 — 전 행 중 가장 긴 이름에 맞춘다
-                .flex(weight: 1),                // 위치 막대 — 남는 폭
-                .fixed(96, align: .end),         // 가격·등락 — 숫자는 끝을 맞춘다
+                .fit(max: 150, align: .start),  // 종목명 — 전 행 중 가장 긴 이름에 맞춘다
+                .flex(weight: 1),  // 위치 막대 — 남는 폭
+                .fixed(96, align: .end),  // 가격·등락 — 숫자는 끝을 맞춘다
             ],
             gap: .sm,
             rowGap: .sm
         ) {
             // 첫 행은 컨트롤 값을 그대로 받는다(컨트롤을 만지면 이 행만 바뀐다)
-            [nameLabel(quotes[0].0),
-             JdPositionBarView(low: quotes[0].3, high: quotes[0].4, cur: quotes[0].5),
-             JdLiveStackedCellView(price: first.price, change: first.change,
-                                   priceFallback: first.priceFallback, pctFallback: first.pctFallback)]
+            [
+                nameLabel(quotes[0].0),
+                JdPositionBarView(low: quotes[0].3, high: quotes[0].4, cur: quotes[0].5),
+                JdLiveStackedCellView(
+                    price: first.price, change: first.change,
+                    priceFallback: first.priceFallback, pctFallback: first.pctFallback),
+            ]
             for q in quotes.dropFirst() {
-                [nameLabel(q.0),
-                 JdPositionBarView(low: q.3, high: q.4, cur: q.5, tone: q.2 < 0 ? .down : .up),
-                 JdLiveStackedCellView(price: q.1, change: q.2)]
+                [
+                    nameLabel(q.0),
+                    JdPositionBarView(low: q.3, high: q.4, cur: q.5, tone: q.2 < 0 ? .down : .up),
+                    JdLiveStackedCellView(price: q.1, change: q.2),
+                ]
             }
         }
     }
@@ -165,11 +180,13 @@ private struct PositionBarStage: View {
     @ObservedObject var state: DemoState
     var body: some View {
         VStack(spacing: JdToken.Space.s4) {
-            JdPositionBar(low: doubleValue(state, "low", 0),
-                          high: doubleValue(state, "high", 1),
-                          cur: doubleValue(state, "cur", 0.5),
-                          tone: barTone(state))
-                .frame(width: 220)
+            JdPositionBar(
+                low: doubleValue(state, "low", 0),
+                high: doubleValue(state, "high", 1),
+                cur: doubleValue(state, "cur", 0.5),
+                tone: barTone(state)
+            )
+            .frame(width: 220)
             Text("cur를 low보다 작게 넣어도 채움이 음수가 되지 않는다(웹 v2 결함 교정).\n마커는 항상 정중앙 50% 기준선이다.")
                 .font(.caption)
                 .foregroundColor(JdToken.Color.muted.color)
@@ -182,10 +199,11 @@ private struct PositionBarStageUIKit: View {
     @ObservedObject var state: DemoState
     var body: some View {
         UIKitBox {
-            JdPositionBarView(low: doubleValue(state, "low", 0),
-                              high: doubleValue(state, "high", 1),
-                              cur: doubleValue(state, "cur", 0.5),
-                              tone: barTone(state))
+            JdPositionBarView(
+                low: doubleValue(state, "low", 0),
+                high: doubleValue(state, "high", 1),
+                cur: doubleValue(state, "cur", 0.5),
+                tone: barTone(state))
         }
         .frame(width: 220, height: 12)
     }
@@ -230,12 +248,15 @@ private struct MicroKpiRowStage: View {
     @ObservedObject var state: DemoState
     var body: some View {
         VStack(spacing: JdToken.Space.s3) {
-            WidthRuler(width: stageWidth(state),
-                       content: JdMicroKpiRow(items: kpiItems(state)))
-            Text("폭을 줄이면 열 수가 줄고 다음 행으로 넘어간다 — 소비자가 격자를 정의하지 않는다.\npct=0(KOSPI)은 상승색, pct 없음(휴장)은 muted다.")
-                .font(.caption)
-                .foregroundColor(JdToken.Color.muted.color)
-                .multilineTextAlignment(.center)
+            WidthRuler(
+                width: stageWidth(state),
+                content: JdMicroKpiRow(items: kpiItems(state)))
+            Text(
+                "폭을 줄이면 열 수가 줄고 다음 행으로 넘어간다 — 소비자가 격자를 정의하지 않는다.\npct=0(KOSPI)은 상승색, pct 없음(휴장)은 muted다."
+            )
+            .font(.caption)
+            .foregroundColor(JdToken.Color.muted.color)
+            .multilineTextAlignment(.center)
         }
     }
 }
@@ -247,7 +268,8 @@ private struct MicroKpiRowStageUIKit: View {
         let items = kpiItems(state)
         // UIKit은 랩 뷰가 높이를 계산하므로 컨테이너 높이를 그 결과로 잡아 준다
         let probe = JdMicroKpiRowView(items: items)
-        let height = probe.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
+        let height = probe.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
+            .height
         return VStack(spacing: JdToken.Space.s2) {
             UIKitBox { JdMicroKpiRowView(items: items) }
                 .frame(width: width, height: max(height, 1))

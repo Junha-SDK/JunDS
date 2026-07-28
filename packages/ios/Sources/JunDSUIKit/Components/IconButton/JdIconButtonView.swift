@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-icon-button 동형 — 아이콘 전용 버튼. A8 명명 규칙 Jd<이름>View(UIControl 서브클래스).
 // 웹은 네이티브 <button>에 위임하지만 iOS엔 대응 컨테이너가 없어 UIControl이 정본이다
@@ -18,10 +18,12 @@ public final class JdIconButtonView: UIControl {
     private let spec: JdIconButtonSpec
 
     // 라벨 없는 init을 제공하지 않는다 — 아이콘 전용 컨트롤의 컴파일 타임 강제 (04 §7.1)
-    public init(systemImage: String,
-                accessibilityLabel: String,
-                variant: JdIconButtonVariant = .ghost,
-                size: JdIconButtonSize = .md) {
+    public init(
+        systemImage: String,
+        accessibilityLabel: String,
+        variant: JdIconButtonVariant = .ghost,
+        size: JdIconButtonSize = .md
+    ) {
         self.systemImage = systemImage
         self.spec = JdIconButtonSpec.resolve(variant: variant, size: size)
         super.init(frame: .zero)
@@ -85,9 +87,10 @@ public final class JdIconButtonView: UIControl {
 
     private func applyIcon() {
         // SF Symbol은 폰트에 묶여 스케일된다 — 웹 아이콘 크기(변 0.5배)를 스케일 폰트로 싣는다
-        let font = JdFontBridge.scaledFont(size: spec.iconSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: spec.iconSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font)
         iconView.image = UIImage(systemName: systemImage)
         iconView.tintColor = spec.foreground.uiColor
@@ -105,7 +108,7 @@ public final class JdIconButtonView: UIControl {
             layer.borderWidth = 0
             layer.borderColor = nil
         }
-        alpha = isEnabled ? 1 : JdToken.Opacity.o50 // 웹 :disabled opacity-50
+        alpha = isEnabled ? 1 : JdToken.Opacity.o50  // 웹 :disabled opacity-50
     }
 
     // 웹 transition: all var(--jd-duration-fast) 동형 — Reduce Motion 시 즉시 전환 (04 §7.3)

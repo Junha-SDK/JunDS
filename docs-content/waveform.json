@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "Waveform",
   "oneLiner": "시드에서 결정적으로 만드는 막대 파형 — 재생 진행분이 차오르고, onSeek 을 주면 탐색 슬라이더가 된다.",
-  "tags": [
-    "media",
-    "audio",
-    "스크러버"
-  ],
+  "tags": ["media", "audio", "스크러버"],
   "controls": [
     {
       "prop": "bars",

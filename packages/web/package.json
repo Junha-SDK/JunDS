@@ -2491,6 +2491,14 @@
       "types": "./dist/types/components/sidebar/element.d.ts",
       "default": "./dist/components/sidebar/element.js"
     },
+    "./sidebar-layout": {
+      "types": "./dist/types/components/sidebar-layout/index.d.ts",
+      "default": "./dist/components/sidebar-layout/index.js"
+    },
+    "./sidebar-layout/element": {
+      "types": "./dist/types/components/sidebar-layout/element.d.ts",
+      "default": "./dist/components/sidebar-layout/element.js"
+    },
     "./sidebar-link": {
       "types": "./dist/types/components/sidebar-link/index.d.ts",
       "default": "./dist/components/sidebar-link/index.js"
@@ -2610,6 +2618,14 @@
     "./spinner/element": {
       "types": "./dist/types/components/spinner/element.d.ts",
       "default": "./dist/components/spinner/element.js"
+    },
+    "./split": {
+      "types": "./dist/types/components/split/index.d.ts",
+      "default": "./dist/components/split/index.js"
+    },
+    "./split/element": {
+      "types": "./dist/types/components/split/element.d.ts",
+      "default": "./dist/components/split/element.js"
     },
     "./split-pane": {
       "types": "./dist/types/components/split-pane/index.d.ts",
@@ -2762,6 +2778,14 @@
     "./switch/element": {
       "types": "./dist/types/components/switch/element.d.ts",
       "default": "./dist/components/switch/element.js"
+    },
+    "./switcher": {
+      "types": "./dist/types/components/switcher/index.d.ts",
+      "default": "./dist/components/switcher/index.js"
+    },
+    "./switcher/element": {
+      "types": "./dist/types/components/switcher/element.d.ts",
+      "default": "./dist/components/switcher/element.js"
     },
     "./table": {
       "types": "./dist/types/components/table/index.d.ts",

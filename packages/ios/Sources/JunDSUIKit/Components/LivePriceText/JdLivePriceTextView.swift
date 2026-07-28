@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-live-price-text 동형 — 현재가 텍스트 리프. (DEC-040)
 //
@@ -24,10 +24,12 @@ public class JdLivePriceTextView: UILabel {
         didSet { applyContent() }
     }
 
-    public init(price: Double,
-                fallback: Double = 0,
-                decimals: Int = 0,
-                locale: String = "ko-KR") {
+    public init(
+        price: Double,
+        fallback: Double = 0,
+        decimals: Int = 0,
+        locale: String = "ko-KR"
+    ) {
         self.price = price
         self.fallback = fallback
         self.decimals = decimals
@@ -60,9 +62,10 @@ public class JdLivePriceTextView: UILabel {
     // MARK: 내부 — 파생 클래스가 확장한다
 
     func applyStyle() {
-        font = JdFontBridge.scaledDigitFont(size: JdTextSpec.resolve(size: .md).fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        font = JdFontBridge.scaledDigitFont(
+            size: JdTextSpec.resolve(size: .md).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
     }
 
     func applyContent() {

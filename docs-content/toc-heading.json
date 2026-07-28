@@ -4,20 +4,12 @@
   "category": "composites",
   "title": "TocHeading",
   "oneLiner": "렌더되는 순간 스스로 목차에 등록되는 헤딩 — TocProvider 밖에서는 평범한 h2~h6.",
-  "tags": [
-    "navigation",
-    "content",
-    "목차"
-  ],
+  "tags": ["navigation", "content", "목차"],
   "controls": [
     {
       "prop": "level",
       "kind": "segmented",
-      "options": [
-        "2",
-        "3",
-        "4"
-      ],
+      "options": ["2", "3", "4"],
       "default": "2"
     }
   ],

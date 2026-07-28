@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // RangeSlider 데모 — 실컴포넌트 JdRangeSlider(SwiftUI)/JdRangeSliderView(UIKit).
 // 네이티브 컨트롤이 단일 값뿐이라 웹처럼 자체 드로잉이고, 클램프·양자화·최소 간격은
@@ -59,9 +59,11 @@ private struct RangeSliderCoreSwiftUI: View {
         VStack(alignment: .leading, spacing: JdToken.Space.s4) {
             JdRangeSlider(state: $rangeState, showsValues: showsValues)
 
-            Text("lower: \(Int(rangeState.lower)) · upper: \(Int(rangeState.upper)) · step: \(Int(step))")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                "lower: \(Int(rangeState.lower)) · upper: \(Int(rangeState.upper)) · step: \(Int(step))"
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
         }
         .padding(JdToken.Space.s6)
     }
@@ -93,9 +95,11 @@ private struct RangeSliderCoreUIKit: View {
             RangeSliderViewRep(rangeState: $rangeState, showsValues: showsValues)
                 .frame(maxWidth: .infinity)
 
-            Text("lower: \(Int(rangeState.lower)) · upper: \(Int(rangeState.upper)) · step: \(Int(step))")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                "lower: \(Int(rangeState.lower)) · upper: \(Int(rangeState.upper)) · step: \(Int(step))"
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
         }
         .padding(JdToken.Space.s6)
     }

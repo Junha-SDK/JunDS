@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-spinner의 SVG 주기 — `animation: jd-spin 1s linear infinite`.
 // JdToken.Duration 사다리(최대 0.5)에 없는 값이라 파일 상수로 1회만 기입한다(스펙 결손 보고 대상).
@@ -25,9 +25,11 @@ public final class JdSpinnerView: UIView {
     private let indicator = UIActivityIndicatorView(style: .medium)
     private let spec: JdSpinnerSpec
 
-    public init(size: JdDisplaySize = .md,
-                label: String = JdSpinnerSpec.defaultLabel,
-                color: JdDynamicColor = JdToken.Color.primary) {
+    public init(
+        size: JdDisplaySize = .md,
+        label: String = JdSpinnerSpec.defaultLabel,
+        color: JdDynamicColor = JdToken.Color.primary
+    ) {
         self.label = label
         self.spec = JdSpinnerSpec.resolve(size: size)
         super.init(frame: .zero)

@@ -16,9 +16,7 @@ const REPO = path.resolve(PARITY, "../..");
 
 const raw = JSON.parse(readFileSync(path.join(__dirname, ".capture-raw.json"), "utf8"));
 const surface = JSON.parse(readFileSync(path.join(__dirname, ".surface.json"), "utf8"));
-const ledger = JSON.parse(
-  readFileSync(path.join(REPO, "docs-spec/registry/ledger.json"), "utf8"),
-);
+const ledger = JSON.parse(readFileSync(path.join(REPO, "docs-spec/registry/ledger.json"), "utf8"));
 
 const pngSize = (file) => {
   // IHDR: bytes 16..24 = width/height (BE)
@@ -82,19 +80,18 @@ const attemptedIds = new Set(raw.results.map((r) => r.ledgerId));
 const uncaptured = {};
 for (const row of ledger.rows) {
   if (components[row.id]?.category === row.category) continue;
-  const s =
-    surface[`${row.category}/${row.id}`] ??
+  const s = surface[`${row.category}/${row.id}`] ??
     surface[row.id] ?? { kind: "?", file: null, props: {} };
   const reason =
     row.category === "hooks"
       ? "훅 — 시각 표면 없음"
       : s.kind === "프로바이더(래퍼)"
-        ? "프로바이더 — 단독 시각 표면 없음"
-        : s.kind === "비시각 모듈"
-          ? "비시각 모듈"
-          : attemptedIds.has(row.id)
-            ? "스토리가 빈 placeholder — 빈 props 렌더(시각 표면 0)"
-            : "스토리 없음 — v2 storybook 미작성";
+      ? "프로바이더 — 단독 시각 표면 없음"
+      : s.kind === "비시각 모듈"
+      ? "비시각 모듈"
+      : attemptedIds.has(row.id)
+      ? "스토리가 빈 placeholder — 빈 props 렌더(시각 표면 0)"
+      : "스토리 없음 — v2 storybook 미작성";
   uncaptured[uncaptured[row.id] ? `${row.category}/${row.id}` : row.id] = {
     category: row.category,
     tier: row.tier,
@@ -150,9 +147,7 @@ const manifest = {
     totalBytes,
     failures: failures.length,
   },
-  components: Object.fromEntries(
-    Object.entries(components).sort(([a], [b]) => a.localeCompare(b)),
-  ),
+  components: Object.fromEntries(Object.entries(components).sort(([a], [b]) => a.localeCompare(b))),
   uncaptured,
   failures,
 };
@@ -182,16 +177,25 @@ const md = `# v2 시각 패리티 기준 — 커버리지
 
 ## 요약
 
-- ledger ${ledger.rows.length}행 중 **${capturedIds.length}컴포넌트** 캡처 (${((capturedIds.length / ledger.rows.length) * 100).toFixed(1)}%)
+- ledger ${ledger.rows.length}행 중 **${capturedIds.length}컴포넌트** 캡처 (${(
+  (capturedIds.length / ledger.rows.length) *
+  100
+).toFixed(1)}%)
 - 스크린샷 **${totalCaptures}장** · ${mb(totalBytes)}MB (라이트/다크 × variant)
-- 시각 표면이 있는 행(훅·프로바이더·비시각 제외 ${visualRows}행) 기준 **${((capturedIds.length / visualRows) * 100).toFixed(1)}%**
+- 시각 표면이 있는 행(훅·프로바이더·비시각 제외 ${visualRows}행) 기준 **${(
+  (capturedIds.length / visualRows) *
+  100
+).toFixed(1)}%**
 
 ## 카테고리별
 
 | 카테고리 | 캡처/전체 | 비고 |
 |---|---|---|
 ${Object.entries(byCat)
-  .map(([cat, c]) => `| ${cat} | ${c.captured}/${c.total} | ${cat === "hooks" ? "훅 — 시각 표면 없음" : ""} |`)
+  .map(
+    ([cat, c]) =>
+      `| ${cat} | ${c.captured}/${c.total} | ${cat === "hooks" ? "훅 — 시각 표면 없음" : ""} |`,
+  )
   .join("\n")}
 
 ## 미확보 사유
@@ -236,5 +240,7 @@ ${(() => {
 writeFileSync(path.join(PARITY, "COVERAGE.md"), md);
 
 console.log(
-  `[manifest] ${capturedIds.length}/${ledger.rows.length} components, ${totalCaptures} captures, ${mb(totalBytes)}MB, failures ${failures.length}`,
+  `[manifest] ${capturedIds.length}/${
+    ledger.rows.length
+  } components, ${totalCaptures} captures, ${mb(totalBytes)}MB, failures ${failures.length}`,
 );

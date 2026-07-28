@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Heading 데모 — 실컴포넌트 JdHeading(SwiftUI)/JdHeadingView(UIKit).
 // 웹 <jd-heading level/truncate>의 레벨 램프(L1~L6)와 truncate를 시연.
@@ -12,8 +12,9 @@ enum HeadingDemo {
         controls: [
             .slider("level", "level", 1...6, step: 1, initial: 2),
             .toggle("truncate", "truncate"),
-            .text("text", "제목", placeholder: "제목",
-                  initial: "크로스플랫폼 디자인 시스템의 긴 제목 예시입니다"),
+            .text(
+                "text", "제목", placeholder: "제목",
+                initial: "크로스플랫폼 디자인 시스템의 긴 제목 예시입니다"),
         ],
         swiftUI: { state in AnyView(HeadingStageSwiftUI(state: state)) },
         uikit: { state in AnyView(HeadingStageUIKit(state: state)) }

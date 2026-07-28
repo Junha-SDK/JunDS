@@ -7,10 +7,10 @@
 import JunDS   // 이 한 줄로 Core·UIKit·SwiftUI 전부
 ```
 
-| 그룹 | 컴포넌트 |
-|---|---|
-| **오버레이**(시스템 프레젠테이션 위임) | JdModal · JdDrawer · JdBottomSheet · JdActionSheet · JdAlertDialog |
-| **피드백**(자체 구현) | JdAlert · JdBanner · JdCallout · JdNotification · JdEmptyState · JdResult · Toast · JdSnackbar |
+| 그룹                                   | 컴포넌트                                                                                       |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| **오버레이**(시스템 프레젠테이션 위임) | JdModal · JdDrawer · JdBottomSheet · JdActionSheet · JdAlertDialog                             |
+| **피드백**(자체 구현)                  | JdAlert · JdBanner · JdCallout · JdNotification · JdEmptyState · JdResult · Toast · JdSnackbar |
 
 ## 공통 규약
 
@@ -82,16 +82,17 @@ modal.present(from: self)               // self = 현재 UIViewController
 // 닫기: modal.requestClose(.close)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `isPresented`(SwiftUI) | `Binding<Bool>` | — | 표시 상태 바인딩 |
-| `size` | `JdModalSize` | `.md` | `sm`/`md`=medium+large detent, `lg`=large 고정 |
-| `persistent` | `Bool` | `false` | 인터랙티브 닫기 차단 + 그래버 숨김 |
-| `onClose`(SwiftUI)·`onClose`(UIKit) | `(() -> Void)?` | `nil` | 닫힌 뒤 사후 통지 |
-| `onRequestClose`(UIKit만) | `((JdModalCloseReason) -> Bool)?` | `nil` | `false` 반환 시 닫힘 취소(veto) |
-| `content`(SwiftUI) | `@ViewBuilder` | — | 모달 본문 |
+| 파라미터                            | 타입                              | 기본    | 의미                                           |
+| ----------------------------------- | --------------------------------- | ------- | ---------------------------------------------- |
+| `isPresented`(SwiftUI)              | `Binding<Bool>`                   | —       | 표시 상태 바인딩                               |
+| `size`                              | `JdModalSize`                     | `.md`   | `sm`/`md`=medium+large detent, `lg`=large 고정 |
+| `persistent`                        | `Bool`                            | `false` | 인터랙티브 닫기 차단 + 그래버 숨김             |
+| `onClose`(SwiftUI)·`onClose`(UIKit) | `(() -> Void)?`                   | `nil`   | 닫힌 뒤 사후 통지                              |
+| `onRequestClose`(UIKit만)           | `((JdModalCloseReason) -> Bool)?` | `nil`   | `false` 반환 시 닫힘 취소(veto)                |
+| `content`(SwiftUI)                  | `@ViewBuilder`                    | —       | 모달 본문                                      |
 
 특이사항
+
 - SwiftUI엔 per-dismiss veto가 없다(위 공통 규약 참조). 취소가 필요하면 UIKit `onRequestClose`를 쓰거나
   `persistent`로 전면 차단한다.
 - UIKit `persistent`는 `didSet`이라 대입 즉시 그래버 가시성·`isModalInPresentation`이 갱신된다.
@@ -130,17 +131,18 @@ drawer.contentView.addSubview(filterList)
 drawer.present(from: self)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `isPresented`(SwiftUI) | `Binding<Bool>` | — | 표시 상태 |
-| `side` | `JdDrawerSide` | `.right` | `left`·`right`(커스텀 슬라이드) / `bottom`(시트) |
-| `size` | `JdOverlaySize` | `.md` | side별 폭·높이 프리셋(px는 참고치) |
-| `title` | `String?` | `nil` | 있으면 헤더 행(제목 + 닫기 버튼) |
-| `persistent` | `Bool` | `false` | 인터랙티브 닫기 차단 |
-| `onDismissAttempt` | `((JdDismissReason) -> Bool)?` | `nil` | `false` 반환 시 닫힘 취소(veto) |
-| `content`(SwiftUI) | `@ViewBuilder` | — | 서랍 본문 |
+| 파라미터               | 타입                           | 기본     | 의미                                             |
+| ---------------------- | ------------------------------ | -------- | ------------------------------------------------ |
+| `isPresented`(SwiftUI) | `Binding<Bool>`                | —        | 표시 상태                                        |
+| `side`                 | `JdDrawerSide`                 | `.right` | `left`·`right`(커스텀 슬라이드) / `bottom`(시트) |
+| `size`                 | `JdOverlaySize`                | `.md`    | side별 폭·높이 프리셋(px는 참고치)               |
+| `title`                | `String?`                      | `nil`    | 있으면 헤더 행(제목 + 닫기 버튼)                 |
+| `persistent`           | `Bool`                         | `false`  | 인터랙티브 닫기 차단                             |
+| `onDismissAttempt`     | `((JdDismissReason) -> Bool)?` | `nil`    | `false` 반환 시 닫힘 취소(veto)                  |
+| `content`(SwiftUI)     | `@ViewBuilder`                 | —        | 서랍 본문                                        |
 
 특이사항
+
 - 명시적 닫기(헤더 버튼·`requestClose(.close)`)는 `persistent`와 무관하게 게이트만 통과하면 닫힌다. 인터랙티브
   사유(`.backdrop`/`.escape`)는 `persistent`면 차단된다.
 - `left`/`right`는 `modalPresentationStyle = .custom`으로 딤(black·30%)+슬라이드를 직접 소유한다.
@@ -174,16 +176,17 @@ sheet.contentView.addSubview(shareView)
 sheet.present(from: self)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `isPresented`(SwiftUI) | `Binding<Bool>` | — | 표시 상태 |
-| `size` | `JdOverlaySize` | `.md` | detent 높이(`full`=large) |
-| `draggable` | `Bool` | `true` | 그래버 표시 + 끌어 닫기 허용(웹 `Sheet`의 실체) |
-| `persistent` | `Bool` | `false` | 인터랙티브 닫기 차단 |
-| `onDismissAttempt` | `((JdDismissReason) -> Bool)?` | `nil` | `false` 반환 시 닫힘 취소(veto) |
-| `content`(SwiftUI) | `@ViewBuilder` | — | 시트 본문 |
+| 파라미터               | 타입                           | 기본    | 의미                                            |
+| ---------------------- | ------------------------------ | ------- | ----------------------------------------------- |
+| `isPresented`(SwiftUI) | `Binding<Bool>`                | —       | 표시 상태                                       |
+| `size`                 | `JdOverlaySize`                | `.md`   | detent 높이(`full`=large)                       |
+| `draggable`            | `Bool`                         | `true`  | 그래버 표시 + 끌어 닫기 허용(웹 `Sheet`의 실체) |
+| `persistent`           | `Bool`                         | `false` | 인터랙티브 닫기 차단                            |
+| `onDismissAttempt`     | `((JdDismissReason) -> Bool)?` | `nil`   | `false` 반환 시 닫힘 취소(veto)                 |
+| `content`(SwiftUI)     | `@ViewBuilder`                 | —       | 시트 본문                                       |
 
 특이사항
+
 - **웹 `Sheet` 별칭**: 별도 타입 없이 `JdBottomSheet(draggable: true)`가 그 자리다.
 - `persistent || !draggable`이면 `isModalInPresentation`으로 스와이프 닫기를 막는다.
 
@@ -225,16 +228,17 @@ let sheet = JdActionSheetController(title: "게시물", message: "작업을 고�
 sheet.present(from: self, sourceView: moreButton)   // iPad popover 앵커(없으면 크래시)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `isPresented`(SwiftUI) | `Binding<Bool>` | — | 표시 상태 |
-| `title` | `String?` | `nil` | 시트 제목(nil이면 숨김) |
-| `message` | `String?` | `nil` | 부제 |
-| `actions` | `[JdActionItem]` | — | 선택지(`id`·`label`·`isDestructive`) |
-| `cancelLabel`(UIKit만) | `String` | `"취소"` | 취소 버튼 라벨 |
-| `onSelect` | `(JdActionItem) -> Void` | — | 항목 탭 콜백 |
+| 파라미터               | 타입                     | 기본     | 의미                                 |
+| ---------------------- | ------------------------ | -------- | ------------------------------------ |
+| `isPresented`(SwiftUI) | `Binding<Bool>`          | —        | 표시 상태                            |
+| `title`                | `String?`                | `nil`    | 시트 제목(nil이면 숨김)              |
+| `message`              | `String?`                | `nil`    | 부제                                 |
+| `actions`              | `[JdActionItem]`         | —        | 선택지(`id`·`label`·`isDestructive`) |
+| `cancelLabel`(UIKit만) | `String`                 | `"취소"` | 취소 버튼 라벨                       |
+| `onSelect`             | `(JdActionItem) -> Void` | —        | 항목 탭 콜백                         |
 
 특이사항
+
 - SwiftUI엔 `cancelLabel`이 없다 — `confirmationDialog`가 취소를 자동 제공하기 때문(웹 판정 승계).
 - `JdActionItem(id:label:isDestructive:)` — `isDestructive: true`면 빨간(.destructive) 항목.
 - UIKit `present(from:animated:sourceView:)`: iPad에서 액션시트는 popover라 `sourceView`가 없으면 `presenter.view`를
@@ -273,18 +277,19 @@ let dialog = JdAlertDialogController(title: "삭제할까요?", message: "되돌
 dialog.present(from: self)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `isPresented`(SwiftUI) | `Binding<Bool>` | — | 표시 상태 |
-| `title` | `String` | — | 제목(필수) |
-| `message` | `String?` | `nil` | 본문 |
-| `confirmLabel` | `String` | `"확인"` | 확인 버튼 라벨 |
-| `cancelLabel` | `String?` | `"취소"` | `nil`이면 확인 단일 버튼 |
-| `isDestructive` | `Bool` | `false` | 확인 버튼을 .destructive(빨강)로 |
-| `onConfirm` | `() -> Void` | — | 확인 콜백 |
-| `onCancel` | `(() -> Void)?` | `nil` | 취소 콜백 |
+| 파라미터               | 타입            | 기본     | 의미                             |
+| ---------------------- | --------------- | -------- | -------------------------------- |
+| `isPresented`(SwiftUI) | `Binding<Bool>` | —        | 표시 상태                        |
+| `title`                | `String`        | —        | 제목(필수)                       |
+| `message`              | `String?`       | `nil`    | 본문                             |
+| `confirmLabel`         | `String`        | `"확인"` | 확인 버튼 라벨                   |
+| `cancelLabel`          | `String?`       | `"취소"` | `nil`이면 확인 단일 버튼         |
+| `isDestructive`        | `Bool`          | `false`  | 확인 버튼을 .destructive(빨강)로 |
+| `onConfirm`            | `() -> Void`    | —        | 확인 콜백                        |
+| `onCancel`             | `(() -> Void)?` | `nil`    | 취소 콜백                        |
 
 특이사항
+
 - **웹 `ConfirmDialog` 별칭**: 별도 타입 없이 이 표면(제목·본문·확인/취소·danger)으로 표현한다.
 - UIKit은 `isDestructive`면 `preferredAction`을 취소 쪽에 두지 않고 비운다 — 파괴적 확인을 기본 강조하지 않는
   웹 danger 패턴을 따른다.
@@ -311,16 +316,17 @@ let alert = JdAlertView("저장됨", message: "변경 사항이 반영되었습�
 container.addSubview(alert)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `title`(1번째, 라벨 없음) | `String` | — | 제목 |
-| `content`(SwiftUI) | `@ViewBuilder` | `EmptyView` | 본문 뷰 |
-| `message`(UIKit) | `String?` | `nil` | 본문 문자열 |
-| `variant` | `JdFeedbackVariant` | `.info` | info/success/warning/danger |
-| `isDismissible` | `Bool` | `false` | 우측 닫기 버튼 |
-| `onDismiss` | `(() -> Void)?` | `nil` | 닫기 콜백 |
+| 파라미터                  | 타입                | 기본        | 의미                        |
+| ------------------------- | ------------------- | ----------- | --------------------------- |
+| `title`(1번째, 라벨 없음) | `String`            | —           | 제목                        |
+| `content`(SwiftUI)        | `@ViewBuilder`      | `EmptyView` | 본문 뷰                     |
+| `message`(UIKit)          | `String?`           | `nil`       | 본문 문자열                 |
+| `variant`                 | `JdFeedbackVariant` | `.info`     | info/success/warning/danger |
+| `isDismissible`           | `Bool`              | `false`     | 우측 닫기 버튼              |
+| `onDismiss`               | `(() -> Void)?`     | `nil`       | 닫기 콜백                   |
 
 특이사항
+
 - ⚠️ **본문 표면이 계층별로 다르다**: SwiftUI = `content` ViewBuilder, UIKit = `message` String.
 - 피드백 중 유일하게 **`danger`+`warning` 둘 다** 라이브 리전 낭독(onAppear/didMoveToWindow). 우선순위는
   `danger`=assertive, `warning`=polite.
@@ -344,16 +350,17 @@ let banner = JdBannerView("새 버전이 있습니다", variant: .info,
 container.addSubview(banner)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `message`(1번째, 라벨 없음) | `String` | — | 메시지 |
-| `variant` | `JdFeedbackVariant` | `.info` | 배경 색 |
-| `actionLabel` | `String?` | `nil` | 우측 액션 버튼 라벨 |
-| `onAction` | `(() -> Void)?` | `nil` | 액션 콜백(`actionLabel`과 함께여야 표시) |
-| `isDismissible` | `Bool` | `false` | 닫기 버튼 |
-| `onDismiss` | `(() -> Void)?` | `nil` | 닫기 콜백 |
+| 파라미터                    | 타입                | 기본    | 의미                                     |
+| --------------------------- | ------------------- | ------- | ---------------------------------------- |
+| `message`(1번째, 라벨 없음) | `String`            | —       | 메시지                                   |
+| `variant`                   | `JdFeedbackVariant` | `.info` | 배경 색                                  |
+| `actionLabel`               | `String?`           | `nil`   | 우측 액션 버튼 라벨                      |
+| `onAction`                  | `(() -> Void)?`     | `nil`   | 액션 콜백(`actionLabel`과 함께여야 표시) |
+| `isDismissible`             | `Bool`              | `false` | 닫기 버튼                                |
+| `onDismiss`                 | `(() -> Void)?`     | `nil`   | 닫기 콜백                                |
 
 특이사항
+
 - SwiftUI·UIKit 시그니처가 동일하다.
 - 흰 글자는 전용 온-액센트 토큰이 없어 시스템 상수(`Color.white`/`UIColor.white`)를 쓴다.
 
@@ -377,16 +384,17 @@ container.addSubview(callout)
 // callout.toggleExpansion()  // 프로그램 토글
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `title`(1번째, 라벨 없음) | `String` | — | 제목 |
-| `content`(SwiftUI) | `@ViewBuilder` | — | 본문 뷰 |
-| `message`(UIKit) | `String?` | `nil` | 본문 문자열 |
-| `variant` | `JdCalloutVariant` | `.note` | note(📝)/tip(💡)/info(ℹ️)/warning(⚠️)/danger(🚨) |
-| `isCollapsible` | `Bool` | `false` | 접기 가능 |
-| `initiallyExpanded` | `Bool` | `true` | 초기 펼침 상태(`isCollapsible`일 때 의미) |
+| 파라미터                  | 타입               | 기본    | 의미                                             |
+| ------------------------- | ------------------ | ------- | ------------------------------------------------ |
+| `title`(1번째, 라벨 없음) | `String`           | —       | 제목                                             |
+| `content`(SwiftUI)        | `@ViewBuilder`     | —       | 본문 뷰                                          |
+| `message`(UIKit)          | `String?`          | `nil`   | 본문 문자열                                      |
+| `variant`                 | `JdCalloutVariant` | `.note` | note(📝)/tip(💡)/info(ℹ️)/warning(⚠️)/danger(🚨) |
+| `isCollapsible`           | `Bool`             | `false` | 접기 가능                                        |
+| `initiallyExpanded`       | `Bool`             | `true`  | 초기 펼침 상태(`isCollapsible`일 때 의미)        |
 
 특이사항
+
 - ⚠️ **본문 표면이 계층별로 다르다**: SwiftUI = `content` ViewBuilder, UIKit = `message` String.
 - 이모지는 장식이라 AT에서 숨긴다 — 제목이 유일한 표면이다.
 
@@ -412,19 +420,20 @@ let note = JdNotificationView(title: "결제 완료", description: "영수증을
 container.addSubview(note)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `title` | `String?` | `nil` | 제목 |
-| `description` | `String?` | `nil` | 설명 |
-| `variant` | `JdFeedbackVariant` | `.info` | 아이콘·테두리·틴트 색 |
-| `systemImage` | `String?` | `nil` | SF Symbol 이름(장식) |
-| `extra`(SwiftUI) | `@ViewBuilder` | `EmptyView` | 하단 추가 콘텐츠 슬롯 |
-| `actionLabel`(UIKit) | `String?` | `nil` | 액션 버튼 라벨 |
-| `onAction`(UIKit) | `(() -> Void)?` | `nil` | 액션 콜백 |
-| `isDismissible` | `Bool` | `false` | 닫기 버튼 |
-| `onDismiss` | `(() -> Void)?` | `nil` | 닫기 콜백 |
+| 파라미터             | 타입                | 기본        | 의미                  |
+| -------------------- | ------------------- | ----------- | --------------------- |
+| `title`              | `String?`           | `nil`       | 제목                  |
+| `description`        | `String?`           | `nil`       | 설명                  |
+| `variant`            | `JdFeedbackVariant` | `.info`     | 아이콘·테두리·틴트 색 |
+| `systemImage`        | `String?`           | `nil`       | SF Symbol 이름(장식)  |
+| `extra`(SwiftUI)     | `@ViewBuilder`      | `EmptyView` | 하단 추가 콘텐츠 슬롯 |
+| `actionLabel`(UIKit) | `String?`           | `nil`       | 액션 버튼 라벨        |
+| `onAction`(UIKit)    | `(() -> Void)?`     | `nil`       | 액션 콜백             |
+| `isDismissible`      | `Bool`              | `false`     | 닫기 버튼             |
+| `onDismiss`          | `(() -> Void)?`     | `nil`       | 닫기 콜백             |
 
 특이사항
+
 - ⚠️ **액션 표면이 계층별로 다르다**: SwiftUI = 자유 `extra` ViewBuilder, UIKit = `actionLabel`+`onAction`.
 - 아이콘은 장식이라 AT에서 숨긴다 — 제목/설명이 표면이다.
 
@@ -448,16 +457,17 @@ let empty = JdEmptyStateView(title: "메시지가 없습니다", description: "�
 container.addSubview(empty)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `title` | `String` | — | 제목(필수) |
-| `description` | `String?` | `nil` | 설명 |
-| `systemImage` | `String` | `"tray"` | 아이콘 칩 SF Symbol |
-| `action`(SwiftUI) | `@ViewBuilder` | `EmptyView` | 액션 뷰 슬롯 |
-| `actionLabel`(UIKit) | `String?` | `nil` | 액션 버튼 라벨 |
-| `onAction`(UIKit) | `(() -> Void)?` | `nil` | 액션 콜백 |
+| 파라미터             | 타입            | 기본        | 의미                |
+| -------------------- | --------------- | ----------- | ------------------- |
+| `title`              | `String`        | —           | 제목(필수)          |
+| `description`        | `String?`       | `nil`       | 설명                |
+| `systemImage`        | `String`        | `"tray"`    | 아이콘 칩 SF Symbol |
+| `action`(SwiftUI)    | `@ViewBuilder`  | `EmptyView` | 액션 뷰 슬롯        |
+| `actionLabel`(UIKit) | `String?`       | `nil`       | 액션 버튼 라벨      |
+| `onAction`(UIKit)    | `(() -> Void)?` | `nil`       | 액션 콜백           |
 
 특이사항
+
 - ⚠️ **액션 표면이 계층별로 다르다**: SwiftUI = `action` ViewBuilder, UIKit = `actionLabel`+`onAction`.
 - 제목·설명은 하나의 접근성 요소로 합쳐지고, 액션 버튼만 독립 포커스를 갖는다.
 
@@ -481,20 +491,21 @@ let result = JdResultView(status: .notFound, title: "페이지를 찾을 수 없
 container.addSubview(result)
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `status` | `JdResultStatus` | — | 심볼·색 결정 |
-| `title` | `String` | — | 제목(필수) |
-| `description` | `String?` | `nil` | 설명 |
-| `action`(SwiftUI) | `@ViewBuilder` | `EmptyView` | 액션 뷰 슬롯 |
-| `actionLabel`(UIKit) | `String?` | `nil` | 액션 버튼 라벨 |
-| `onAction`(UIKit) | `(() -> Void)?` | `nil` | 액션 콜백 |
+| 파라미터             | 타입             | 기본        | 의미           |
+| -------------------- | ---------------- | ----------- | -------------- |
+| `status`             | `JdResultStatus` | —           | 심볼·색 결정   |
+| `title`              | `String`         | —           | 제목(필수)     |
+| `description`        | `String?`        | `nil`       | 설명           |
+| `action`(SwiftUI)    | `@ViewBuilder`   | `EmptyView` | 액션 뷰 슬롯   |
+| `actionLabel`(UIKit) | `String?`        | `nil`       | 액션 버튼 라벨 |
+| `onAction`(UIKit)    | `(() -> Void)?`  | `nil`       | 액션 콜백      |
 
 `JdResultStatus` 6종(심볼): `success`(checkmark.circle.fill) · `error`(xmark.circle.fill) ·
 `warning`(exclamationmark.triangle.fill) · `info`(info.circle.fill) · `notFound`(rawValue `"404"`, questionmark.circle) ·
 `forbidden`(rawValue `"403"`, lock.circle).
 
 특이사항
+
 - ⚠️ **액션 표면이 계층별로 다르다**: SwiftUI = `action` ViewBuilder, UIKit = `actionLabel`+`onAction`.
 - 심볼은 장식이라 AT에서 숨긴다 — 상태는 제목/설명이 말한다.
 
@@ -530,17 +541,18 @@ host.show(JdToast(title: "업로드 완료", message: "3개 파일", variant: .s
 
 `JdToast` 값 타입: `JdToast(id: UUID = UUID(), title: String? = nil, message: String? = nil, variant: JdFeedbackVariant = .info, duration: TimeInterval = 4)`. **`duration: 0` = 수동 닫기 전용**(웹 duration 0 동형).
 
-| API | SwiftUI | UIKit |
-|---|---|---|
-| 표시 | `JdToastCenter.shared.show(JdToast) -> JdToast.ID` | `JdToastHostView.show(JdToast) -> JdToast.ID` |
-| 닫기 | `center.dismiss(id)` / `center.clear()` | `host.dismiss(id)` / `host.clear()` |
-| 정지 | `center.setPaused(Bool)` | `host.setPaused(Bool)` |
-| 호스트 | `.jdToastHost(_ center: = .shared, position: = .topRight)` | `JdToastHostView(position: = .topRight, maxVisible: = 4)` |
-| 큐 상한 | `JdToastCenter(maxVisible: = 4)` | `init`의 `maxVisible` |
+| API     | SwiftUI                                                    | UIKit                                                     |
+| ------- | ---------------------------------------------------------- | --------------------------------------------------------- |
+| 표시    | `JdToastCenter.shared.show(JdToast) -> JdToast.ID`         | `JdToastHostView.show(JdToast) -> JdToast.ID`             |
+| 닫기    | `center.dismiss(id)` / `center.clear()`                    | `host.dismiss(id)` / `host.clear()`                       |
+| 정지    | `center.setPaused(Bool)`                                   | `host.setPaused(Bool)`                                    |
+| 호스트  | `.jdToastHost(_ center: = .shared, position: = .topRight)` | `JdToastHostView(position: = .topRight, maxVisible: = 4)` |
+| 큐 상한 | `JdToastCenter(maxVisible: = 4)`                           | `init`의 `maxVisible`                                     |
 
 `JdToastPosition` 6종: `topRight`·`topLeft`·`bottomRight`·`bottomLeft`·`top`·`bottom`(rawValue는 `"top-right"` 등).
 
 특이사항
+
 - SwiftUI `JdToastCenter`와 UIKit `JdToastHostView`는 **서로 참조하지 않는다**(DEC-010 — 계층 상호 import 금지).
   각자 Core `JdToastQueue`를 소유한다. 한 앱에서 한 계층만 고르면 된다.
 - hover·드래그 중 자동 닫힘이 정지된다(WCAG 2.2.1). 정지 해제 시 남은 토스트의 타이머를 처음부터 다시 건다.
@@ -577,18 +589,19 @@ snack.present(in: view)      // view.safeArea 기준 위치별 정렬
 // 수동 닫기: snack.dismiss()
 ```
 
-| 파라미터 | 타입 | 기본 | 의미 |
-|---|---|---|---|
-| `isPresented`(SwiftUI만) | `Binding<Bool>` | — | 표시 상태 |
-| `message` | `String` | — | 메시지(필수) |
-| `variant` | `JdFeedbackVariant` | `.info` | `.info`=중립(surfaceOverlay), 그 외=색 |
-| `position` | `JdToastPosition` | `.bottom` | 정렬 위치 |
-| `duration` | `TimeInterval` | `4` | 자동 닫힘 초(0이면 자동 닫힘 없음) |
-| `actionLabel` | `String?` | `nil` | 액션 버튼 라벨 |
-| `onAction` | `(() -> Void)?` | `nil` | 액션 콜백(탭 시 바도 닫힘) |
-| `onDismiss`(UIKit만) | `(() -> Void)?` | `nil` | 컨테이너에서 제거된 뒤 통지 |
+| 파라미터                 | 타입                | 기본      | 의미                                   |
+| ------------------------ | ------------------- | --------- | -------------------------------------- |
+| `isPresented`(SwiftUI만) | `Binding<Bool>`     | —         | 표시 상태                              |
+| `message`                | `String`            | —         | 메시지(필수)                           |
+| `variant`                | `JdFeedbackVariant` | `.info`   | `.info`=중립(surfaceOverlay), 그 외=색 |
+| `position`               | `JdToastPosition`   | `.bottom` | 정렬 위치                              |
+| `duration`               | `TimeInterval`      | `4`       | 자동 닫힘 초(0이면 자동 닫힘 없음)     |
+| `actionLabel`            | `String?`           | `nil`     | 액션 버튼 라벨                         |
+| `onAction`               | `(() -> Void)?`     | `nil`     | 액션 콜백(탭 시 바도 닫힘)             |
+| `onDismiss`(UIKit만)     | `(() -> Void)?`     | `nil`     | 컨테이너에서 제거된 뒤 통지            |
 
 특이사항
+
 - UIKit `message`·`variant`·`position`·`actionLabel`은 `didSet`이라 대입 즉시 재스타일/재배치된다.
 - 흰 글자는 전용 토큰이 없어 `.white`를 쓴다(웹 `color:#fff` 승계).
 - 낭독: `danger`=assertive, 나머지 polite. `onAction` 탭은 콜백 실행 후 바를 닫는다.

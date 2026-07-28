@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "CommentThread",
   "oneLiner": "댓글 스레드 — 중첩 답글.",
-  "tags": [
-    "social",
-    "댓글",
-    "스레드"
-  ],
+  "tags": ["social", "댓글", "스레드"],
   "controls": [],
   "snippets": {
     "web": null,

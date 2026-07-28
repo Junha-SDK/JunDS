@@ -4,11 +4,7 @@
   "category": "primitives",
   "title": "Hashtag",
   "oneLiner": "해시태그 칩.",
-  "tags": [
-    "social",
-    "chip",
-    "태그"
-  ],
+  "tags": ["social", "chip", "태그"],
   "controls": [],
   "snippets": {
     "web": null,

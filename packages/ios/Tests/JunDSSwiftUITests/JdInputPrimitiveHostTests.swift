@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // SwiftUI 입력 계열 호스팅 스모크 — 04 §8.2 "UIHostingController sizeThatFits > 0".
 // 값 규칙(클램프 타이밍·마스킹·강도·핀 정리)은 Core 단위 테스트와 UIKit 뷰 테스트가
@@ -15,8 +15,10 @@ final class JdInputPrimitiveHostTests: XCTestCase {
 
     func test_jdNumberInput_hosts_with_and_without_controls() {
         // 텍스트 필드는 가로로 유연해 폭 비교가 성립하지 않는다 — 조립 성공만 본다
-        for view in [JdNumberInput(value: .constant(3), min: 0, max: 10),
-                     JdNumberInput(value: .constant(3), hidesControls: true)] {
+        for view in [
+            JdNumberInput(value: .constant(3), min: 0, max: 10),
+            JdNumberInput(value: .constant(3), hidesControls: true),
+        ] {
             let size = hostedSize(view)
             XCTAssertGreaterThan(size.width, 0)
             XCTAssertGreaterThan(size.height, 0)
@@ -31,8 +33,10 @@ final class JdInputPrimitiveHostTests: XCTestCase {
     }
 
     func test_jdNumberInput_size_ramp_grows_height() {
-        let small = CGSize(width: 0, height: naturalHeight(JdNumberInput(value: .constant(1), size: .sm)))
-        let large = CGSize(width: 0, height: naturalHeight(JdNumberInput(value: .constant(1), size: .lg)))
+        let small = CGSize(
+            width: 0, height: naturalHeight(JdNumberInput(value: .constant(1), size: .sm)))
+        let large = CGSize(
+            width: 0, height: naturalHeight(JdNumberInput(value: .constant(1), size: .lg)))
         // JdNumberInputSize 램프(32/36/44) — 컨트롤 램프(32/40/48)가 아니다
         XCTAssertGreaterThan(large.height, small.height)
     }
@@ -44,18 +48,22 @@ final class JdInputPrimitiveHostTests: XCTestCase {
     }
 
     func test_jdPhoneInput_hosts_and_sizes() {
-        let size = hostedSize(JdPhoneInput(value: .constant("01012345678"),
-                                           country: .constant(.kr)))
+        let size = hostedSize(
+            JdPhoneInput(
+                value: .constant("01012345678"),
+                country: .constant(.kr)))
         XCTAssertGreaterThan(size.width, 0)
         XCTAssertGreaterThan(size.height, 0)
     }
 
     func test_jdPasswordInput_strength_and_rules_add_height() {
         let bare = hostedSize(JdPasswordInput(text: .constant("Abcdef1!"), placeholder: "비밀번호"))
-        let full = hostedSize(JdPasswordInput(text: .constant("Abcdef1!"),
-                                              placeholder: "비밀번호",
-                                              showsStrength: true,
-                                              showsRules: true))
+        let full = hostedSize(
+            JdPasswordInput(
+                text: .constant("Abcdef1!"),
+                placeholder: "비밀번호",
+                showsStrength: true,
+                showsRules: true))
         XCTAssertGreaterThan(bare.height, 0)
         // 게이지 행 + 규칙 4행이 아래로 붙는다
         XCTAssertGreaterThan(full.height, bare.height)

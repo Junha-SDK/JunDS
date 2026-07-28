@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-toggle · jd-switch 동형 — UISwitch + 라벨(gap 8, 웹 --jd-space-2) (DESIGN-2 §B1).
 // 04 §10.1 "시스템 컨트롤 스킨 우선": JdToggleSpec의 트랙/썸 기하는 참고치일 뿐이고
@@ -39,9 +39,11 @@ public final class JdToggleView: UIView {
     private let contentStack = UIStackView()
     private var spec: JdToggleSpec
 
-    public init(label: String? = nil,
-                isOn: Bool = false,
-                size: JdToggleSize = .md) {
+    public init(
+        label: String? = nil,
+        isOn: Bool = false,
+        size: JdToggleSize = .md
+    ) {
         self.label = label
         self.size = size
         self.spec = JdToggleSpec.resolve(size: size)
@@ -56,7 +58,8 @@ public final class JdToggleView: UIView {
         labelView.numberOfLines = 0
         // 웹은 <label> 래핑이라 텍스트 클릭 토글이 공짜 — iOS는 탭 제스처로 같은 계약을 만든다
         labelView.isUserInteractionEnabled = true
-        labelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(labelTapped)))
+        labelView.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(labelTapped)))
 
         // 웹 DOM 순서와 동일: 트랙 → 텍스트
         contentStack.axis = .horizontal
@@ -112,9 +115,10 @@ public final class JdToggleView: UIView {
     }
 
     private func applyStyle() {
-        labelView.font = JdFontBridge.scaledFont(size: spec.labelFontSize,
-                                                 weight: JdToken.FontWeight.normal,
-                                                 compatibleWith: traitCollection)
+        labelView.font = JdFontBridge.scaledFont(
+            size: spec.labelFontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         labelView.textColor = JdToken.Color.foreground.uiColor
         switchControl.onTintColor = JdToken.Color.primary.uiColor
         applyEnabled()

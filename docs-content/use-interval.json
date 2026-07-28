@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useInterval",
   "oneLiner": "안전한 setInterval 래퍼.",
-  "tags": [
-    "hook",
-    "timing",
-    "interval"
-  ],
+  "tags": ["hook", "timing", "interval"],
   "controls": [],
   "snippets": {
     "web": null,

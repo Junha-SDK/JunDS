@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-currency-input 동형 — 통화 포맷 금액 입력 (DESIGN-3 §A).
 //
@@ -50,13 +50,15 @@ public final class JdCurrencyInputView: UIView {
     private let field = JdCurrencyField()
     private let spec: JdTextFieldSpec
 
-    public init(value: Double? = nil,
-                currency: String = "KRW",
-                locale: String = "ko-KR",
-                size: JdControlSize = .md,
-                isError: Bool = false,
-                placeholder: String = "",
-                accessibilityLabel: String? = nil) {
+    public init(
+        value: Double? = nil,
+        currency: String = "KRW",
+        locale: String = "ko-KR",
+        size: JdControlSize = .md,
+        isError: Bool = false,
+        placeholder: String = "",
+        accessibilityLabel: String? = nil
+    ) {
         self.value = value
         self.currency = currency
         self.locale = locale
@@ -110,7 +112,8 @@ public final class JdCurrencyInputView: UIView {
     /// 포맷 표기 — 낭독 값도 이것을 쓴다(편집 중이라도 "얼마인지"가 들려야 한다)
     private var formattedText: String {
         guard let value else { return "" }
-        return JdNumberFormat.string(value: value, style: .currency, currency: currency, locale: locale)
+        return JdNumberFormat.string(
+            value: value, style: .currency, currency: currency, locale: locale)
     }
 
     private func applyDisplay() {
@@ -126,9 +129,10 @@ public final class JdCurrencyInputView: UIView {
     }
 
     private func applyStyle() {
-        field.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                             weight: JdToken.FontWeight.normal,
-                                             compatibleWith: traitCollection)
+        field.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         field.textColor = JdToken.Color.foreground.uiColor
         field.backgroundColor = JdToken.Color.card.uiColor
         field.layer.cornerRadius = spec.radius
@@ -159,13 +163,13 @@ public final class JdCurrencyInputView: UIView {
 
     @objc private func editingBegan() {
         isEditing = true
-        field.text = JdCurrencyInputView.plain(value) // 원시값으로 전환 (웹 focus 동형)
+        field.text = JdCurrencyInputView.plain(value)  // 원시값으로 전환 (웹 focus 동형)
         applyBorder()
     }
 
     @objc private func editingEnded() {
         isEditing = false
-        applyDisplay() // 통화 표기로 확정 (웹 blur 동형)
+        applyDisplay()  // 통화 표기로 확정 (웹 blur 동형)
         applyBorder()
         onCommit?(value)
     }

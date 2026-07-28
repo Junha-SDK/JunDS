@@ -4,11 +4,7 @@
   "category": "layout",
   "title": "LayoutDivider",
   "oneLiner": "레이아웃 계층 구분선 — 신규 태그 없음: 단일 정본 <jd-divider>가 표면 전량 커버(DEC-018-2).",
-  "tags": [
-    "layout",
-    "separator",
-    "구분선"
-  ],
+  "tags": ["layout", "separator", "구분선"],
   "controls": [],
   "snippets": {
     "web": {

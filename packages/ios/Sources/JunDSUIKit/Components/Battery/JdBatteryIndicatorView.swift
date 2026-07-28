@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-battery-indicator 동형 — 배터리형 레벨 표시. A8 명명 규칙 Jd<이름>View.
 // 웹은 div 3개(body/fill/cap)뿐이라 role·aria가 전무하다 — 값이 **폭으로만** 전달된다.
@@ -39,11 +39,13 @@ public final class JdBatteryIndicatorView: UIView {
     private let contentStack: JdStackView
     private var spec: JdBatterySpec
 
-    public init(value: Double,
-                size: JdDisplaySize = .md,
-                label: String? = nil,
-                autoColor: Bool = false,
-                color: JdBatteryColor = .primary) {
+    public init(
+        value: Double,
+        size: JdDisplaySize = .md,
+        label: String? = nil,
+        autoColor: Bool = false,
+        color: JdBatteryColor = .primary
+    ) {
         self.value = value
         self.size = size
         self.label = label
@@ -51,9 +53,10 @@ public final class JdBatteryIndicatorView: UIView {
         self.color = color
         self.spec = JdBatterySpec.resolve(size: size)
         // 웹 gap: var(--jd-space-1-5) — 스펙에 gap 필드가 없어 같은 값의 토큰을 직접 읽는다
-        self.contentStack = JdStackView(axis: .horizontal,
-                                        gap: .custom(JdToken.Space.s1_5),
-                                        alignment: .center)
+        self.contentStack = JdStackView(
+            axis: .horizontal,
+            gap: .custom(JdToken.Space.s1_5),
+            alignment: .center)
         super.init(frame: .zero)
 
         textLabel.adjustsFontForContentSizeCategory = true
@@ -62,7 +65,7 @@ public final class JdBatteryIndicatorView: UIView {
         percentLabel.adjustsFontForContentSizeCategory = true
         percentLabel.textAlignment = .center
 
-        bodyView.clipsToBounds = true // 웹 overflow: hidden
+        bodyView.clipsToBounds = true  // 웹 overflow: hidden
         bodyView.addSubview(fillView)
         bodyView.addSubview(percentLabel)
 
@@ -139,25 +142,28 @@ public final class JdBatteryIndicatorView: UIView {
     }
 
     private func applyStyle() {
-        textLabel.font = JdFontBridge.scaledFont(size: spec.labelFontSize,
-                                                 weight: JdToken.FontWeight.medium,
-                                                 compatibleWith: traitCollection)
+        textLabel.font = JdFontBridge.scaledFont(
+            size: spec.labelFontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         // 웹 라벨색 #4b5563/#9ca3af는 스펙 부재분 — 시맨틱 등가인 muted로 번역
         textLabel.textColor = JdToken.Color.muted.uiColor
 
         bodyView.layer.cornerRadius = spec.radius
         bodyView.layer.cornerCurve = .continuous
         bodyView.layer.borderWidth = spec.borderWidth
-        bodyView.layer.borderColor = JdBatterySpec.outlineColor.uiColor
+        bodyView.layer.borderColor =
+            JdBatterySpec.outlineColor.uiColor
             .resolvedColor(with: traitCollection).cgColor
         capView.backgroundColor = JdBatterySpec.outlineColor.uiColor
 
         // 웹은 lg에서만 % 텍스트를 노출한다 — 임의 채움색 위 판독성은 흰 글자+다크 헤일로 (DEC-027-7).
         // 스펙에 % 전경색·헤일로 필드가 없다 — 시스템 흰색 + 검정 헤일로(notes 보고분).
         percentLabel.isHidden = !spec.showsPercentText
-        percentLabel.font = JdFontBridge.scaledFont(size: spec.percentFontSize,
-                                                    weight: JdToken.FontWeight.bold,
-                                                    compatibleWith: traitCollection)
+        percentLabel.font = JdFontBridge.scaledFont(
+            size: spec.percentFontSize,
+            weight: JdToken.FontWeight.bold,
+            compatibleWith: traitCollection)
         percentLabel.textColor = .white
         percentLabel.layer.shadowColor = UIColor.black.cgColor
         percentLabel.layer.shadowOpacity = Float(JdToken.Opacity.o95)
@@ -171,7 +177,8 @@ public final class JdBatteryIndicatorView: UIView {
         let text = label ?? ""
         textLabel.text = text
         textLabel.isHidden = text.isEmpty
-        accessibilityLabel = text.isEmpty
+        accessibilityLabel =
+            text.isEmpty
             ? JdBatteryIndicatorView.defaultAccessibilityLabel
             : text
         invalidateIntrinsicContentSize()
@@ -189,7 +196,7 @@ public final class JdBatteryIndicatorView: UIView {
         // 폭으로만 전달되던 값을 퍼센트로 노출한다(웹 결함 보정).
         // VoiceOver는 "%"를 기호로 읽어 넘기는 경우가 있어 단어로 발음시킨다.
         accessibilityValue = "\(Int(clamped.rounded())) 퍼센트"
-        applyFillColor() // autoColor면 값에 따라 색도 함께 바뀐다
+        applyFillColor()  // autoColor면 값에 따라 색도 함께 바뀐다
 
         fillView.jd.update {
             $0.width.equal(fillWidth)
@@ -214,7 +221,8 @@ public final class JdBatteryIndicatorView: UIView {
     private func applyCapCorners() {
         capView.layer.cornerRadius = spec.radius
         capView.layer.cornerCurve = .continuous
-        capView.layer.maskedCorners = effectiveUserInterfaceLayoutDirection == .rightToLeft
+        capView.layer.maskedCorners =
+            effectiveUserInterfaceLayoutDirection == .rightToLeft
             ? [.layerMinXMinYCorner, .layerMinXMaxYCorner]
             : [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
     }

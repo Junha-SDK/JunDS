@@ -4,11 +4,7 @@
   "category": "patterns",
   "title": "DsSidebarProvider",
   "oneLiner": "사이드바 상태(접힘·활성) 컨텍스트 제공자.",
-  "tags": [
-    "navigation",
-    "sidebar",
-    "provider"
-  ],
+  "tags": ["navigation", "sidebar", "provider"],
   "controls": [],
   "snippets": {
     "web": null,

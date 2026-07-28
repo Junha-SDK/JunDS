@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-banner의 UIKit 번역 — 폭 꽉 찬 알림 바 (DESIGN-4 §B). A8 명명 규칙 Jd<이름>View.
 // 배경 = variant.color, 흰 글자. variant.color(info 등)는 밝아 흰 글자 대비가 약하므로
@@ -17,12 +17,14 @@ public final class JdBannerView: UIView {
     private(set) var dismissButton: JdFeedbackActionButton?
     private let bodyStack = UIStackView()
 
-    public init(_ message: String,
-                variant: JdFeedbackVariant = .info,
-                actionLabel: String? = nil,
-                onAction: (() -> Void)? = nil,
-                isDismissible: Bool = false,
-                onDismiss: (() -> Void)? = nil) {
+    public init(
+        _ message: String,
+        variant: JdFeedbackVariant = .info,
+        actionLabel: String? = nil,
+        onAction: (() -> Void)? = nil,
+        isDismissible: Bool = false,
+        onDismiss: (() -> Void)? = nil
+    ) {
         self.variant = variant
         self.onAction = onAction
         self.onDismiss = onDismiss
@@ -55,7 +57,9 @@ public final class JdBannerView: UIView {
         }
 
         if isDismissible {
-            let button = JdFeedbackDismissButton.make(tint: .white) { [weak self] in self?.onDismiss?() }
+            let button = JdFeedbackDismissButton.make(tint: .white) { [weak self] in
+                self?.onDismiss?()
+            }
             dismissButton = button
             bodyStack.addArrangedSubview(button)
         }
@@ -80,21 +84,26 @@ public final class JdBannerView: UIView {
     private func applyStyle() {
         backgroundColor = JdBannerPalette.background(variant)
 
-        messageLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                    weight: JdToken.FontWeight.medium,
-                                                    compatibleWith: traitCollection)
+        messageLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         messageLabel.textColor = .white
 
         if let actionButton {
-            actionButton.titleLabel?.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                                    weight: JdToken.FontWeight.semibold,
-                                                                    compatibleWith: traitCollection)
+            actionButton.titleLabel?.font = JdFontBridge.scaledFont(
+                size: JdToken.FontSize.md,
+                weight: JdToken.FontWeight.semibold,
+                compatibleWith: traitCollection)
         }
         dismissButton?.setPreferredSymbolConfiguration(
-            JdFeedbackDismissButton.symbolConfig(compatibleWith: traitCollection), forImageIn: .normal)
+            JdFeedbackDismissButton.symbolConfig(compatibleWith: traitCollection),
+            forImageIn: .normal)
     }
 
-    private static func makeActionButton(_ title: String, onTap: @escaping () -> Void) -> JdFeedbackActionButton {
+    private static func makeActionButton(
+        _ title: String, onTap: @escaping () -> Void
+    ) -> JdFeedbackActionButton {
         let button = JdFeedbackActionButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -103,7 +112,8 @@ public final class JdBannerView: UIView {
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         button.onTapForward = onTap
-        button.addTarget(button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
+        button.addTarget(
+            button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
         return button
     }
 }
@@ -119,14 +129,21 @@ enum JdBannerPalette {
     }
 
     static func mix(_ base: UIColor, _ overlay: UIColor, ratio: CGFloat) -> UIColor {
-        var r1: CGFloat = 0, g1: CGFloat = 0, b1: CGFloat = 0, a1: CGFloat = 0
-        var r2: CGFloat = 0, g2: CGFloat = 0, b2: CGFloat = 0, a2: CGFloat = 0
+        var r1: CGFloat = 0
+        var g1: CGFloat = 0
+        var b1: CGFloat = 0
+        var a1: CGFloat = 0
+        var r2: CGFloat = 0
+        var g2: CGFloat = 0
+        var b2: CGFloat = 0
+        var a2: CGFloat = 0
         base.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
         overlay.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
         let t = ratio
-        return UIColor(red: r1 * (1 - t) + r2 * t,
-                       green: g1 * (1 - t) + g2 * t,
-                       blue: b1 * (1 - t) + b2 * t,
-                       alpha: a1 * (1 - t) + a2 * t)
+        return UIColor(
+            red: r1 * (1 - t) + r2 * t,
+            green: g1 * (1 - t) + g2 * t,
+            blue: b1 * (1 - t) + b2 * t,
+            alpha: a1 * (1 - t) + a2 * t)
     }
 }

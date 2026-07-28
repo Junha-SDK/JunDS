@@ -43,7 +43,9 @@ const stories: SocialFeedStory[] = [
   { id: "4", name: "수민", state: "unread" },
 ];
 
-async function fetchPostsPage(cursor: string | number | null | undefined): Promise<{ items: Post[]; nextCursor: string | null }> {
+async function fetchPostsPage(
+  cursor: string | number | null | undefined,
+): Promise<{ items: Post[]; nextCursor: string | null }> {
   const url = `/api/posts?cursor=${cursor ?? ""}`;
   const r = await fetch(url);
   return r.json();
@@ -77,11 +79,11 @@ export default function FeedPage() {
           <PostCard
             key={p.id}
             author={p.author}
-            content={
-              <RichBody body={p.body} />
-            }
+            content={<RichBody body={p.body} />}
             createdAt={p.createdAt}
-            media={p.imageUrl ? <img src={p.imageUrl} alt="" className="w-full" /> : undefined}
+            media={
+              p.imageUrl ? <img src={p.imageUrl} alt="" className="w-full" /> : undefined
+            }
             likes={p.likes + (likedSet.has(p.id) ? 1 : 0)}
             comments={p.comments}
             liked={liked}
@@ -101,8 +103,12 @@ function RichBody({ body }: { body: string }) {
   return (
     <>
       {parts.map((part, i) => {
-        if (part.startsWith("@")) return <MentionChip key={i} handle={part.slice(1)} href={`/u/${part.slice(1)}`} />;
-        if (part.startsWith("#")) return <Hashtag key={i} tag={part.slice(1)} href={`/t/${part.slice(1)}`} />;
+        if (part.startsWith("@"))
+          return (
+            <MentionChip key={i} handle={part.slice(1)} href={`/u/${part.slice(1)}`} />
+          );
+        if (part.startsWith("#"))
+          return <Hashtag key={i} tag={part.slice(1)} href={`/t/${part.slice(1)}`} />;
         return <span key={i}>{part}</span>;
       })}
     </>

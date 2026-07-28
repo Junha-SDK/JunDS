@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // Toast/Snackbar SwiftUI 계층 — JdToastCenter 큐 전이·자동닫힘·정지 + 호스팅 스모크 + position 정렬.
 // (JdToastCenter는 @MainActor라 테스트 클래스도 @MainActor.)
@@ -111,7 +111,8 @@ final class JdToastHostSmokeTests: XCTestCase {
         for (position, axes) in expected {
             XCTAssertEqual(position.isTop, axes.top, "isTop 불일치: \(position.rawValue)")
             XCTAssertEqual(position.isLeading, axes.leading, "isLeading 불일치: \(position.rawValue)")
-            XCTAssertEqual(position.isCentered, axes.centered, "isCentered 불일치: \(position.rawValue)")
+            XCTAssertEqual(
+                position.isCentered, axes.centered, "isCentered 불일치: \(position.rawValue)")
         }
     }
 }
@@ -128,13 +129,14 @@ final class JdSnackbarHostTests: XCTestCase {
     func test_jdSnackbar_hosts_when_presented() {
         for position in JdToastPosition.allCases {
             let base = Color.clear.frame(width: 390, height: 844)
-            let bar = JdSnackbar(isPresented: .constant(true),
-                                 message: "저장됨",
-                                 variant: .success,
-                                 position: position,
-                                 duration: 0,
-                                 actionLabel: "실행 취소",
-                                 onAction: {})
+            let bar = JdSnackbar(
+                isPresented: .constant(true),
+                message: "저장됨",
+                variant: .success,
+                position: position,
+                duration: 0,
+                actionLabel: "실행 취소",
+                onAction: {})
             let size = fit(base.overlay(bar))
             XCTAssertGreaterThan(size.width, 0, "호스팅 실패: \(position.rawValue)")
         }
@@ -154,9 +156,11 @@ final class JdSnackbarHostTests: XCTestCase {
 private extension XCTestCase {
     // 메인 런루프를 돌리며 조건이 참이 될 때까지 폴링한다(짧은 duration 자동 닫힘용)
     @MainActor
-    func expectEventually(_ description: String,
-                          timeout: TimeInterval = 3,
-                          _ condition: @escaping () -> Bool) {
+    func expectEventually(
+        _ description: String,
+        timeout: TimeInterval = 3,
+        _ condition: @escaping () -> Bool
+    ) {
         let expectation = expectation(description: description)
         func poll() {
             if condition() {

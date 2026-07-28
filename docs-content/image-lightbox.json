@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "ImageLightbox",
   "oneLiner": "이미지를 클릭해 확대 보기를 띄우는 라이트박스.",
-  "tags": [
-    "media",
-    "overlay"
-  ],
+  "tags": ["media", "overlay"],
   "controls": [],
   "snippets": {
     "web": null,

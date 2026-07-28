@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-range-slider 동형 — 두 손잡이 범위 슬라이더 (DESIGN-2 §B1).
 // 네이티브 컨트롤이 단일 값뿐이라 웹처럼 자체 드로잉 + 자체 트래킹이다(위임 예외).
@@ -89,7 +89,7 @@ public final class JdRangeSliderView: UIControl {
 
         rootStack.axis = .vertical
         rootStack.alignment = .fill
-        rootStack.spacing = JdToken.Space.s1 // 웹 값 행 margin-bottom
+        rootStack.spacing = JdToken.Space.s1  // 웹 값 행 margin-bottom
         rootStack.addArrangedSubview(valuesStack)
         rootStack.addArrangedSubview(trackContainer)
         addSubview(rootStack)
@@ -116,7 +116,7 @@ public final class JdRangeSliderView: UIControl {
 
     public override var isEnabled: Bool {
         didSet {
-            alpha = isEnabled ? 1 : JdToken.Opacity.o50 // 웹 [disabled] opacity-50
+            alpha = isEnabled ? 1 : JdToken.Opacity.o50  // 웹 [disabled] opacity-50
             lowerThumb.accessibilityTraits = isEnabled ? .adjustable : [.adjustable, .notEnabled]
             upperThumb.accessibilityTraits = isEnabled ? .adjustable : [.adjustable, .notEnabled]
         }
@@ -186,7 +186,7 @@ public final class JdRangeSliderView: UIControl {
 
     private func commit(_ next: JdRangeState) {
         guard next != rangeState else { return }
-        rangeState = next // didSet → applyState
+        rangeState = next  // didSet → applyState
         sendActions(for: .valueChanged)
         onChange?(next)
     }
@@ -204,9 +204,10 @@ public final class JdRangeSliderView: UIControl {
     // MARK: - 그리기
 
     private func applyStyle() {
-        let font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .xs).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         lowerValueLabel.font = font
         upperValueLabel.font = font
         lowerThumb.applyStyle(traits: traitCollection)
@@ -230,15 +231,19 @@ public final class JdRangeSliderView: UIControl {
         let lowerX = width * CGFloat(rangeState.lowerFraction)
         let upperX = width * CGFloat(rangeState.upperFraction)
 
-        rail.frame = CGRect(x: 0, y: centerY - Self.trackHeight / 2,
-                            width: width, height: Self.trackHeight)
-        fill.frame = CGRect(x: lowerX, y: centerY - Self.trackHeight / 2,
-                            width: max(0, upperX - lowerX), height: Self.trackHeight)
+        rail.frame = CGRect(
+            x: 0, y: centerY - Self.trackHeight / 2,
+            width: width, height: Self.trackHeight)
+        fill.frame = CGRect(
+            x: lowerX, y: centerY - Self.trackHeight / 2,
+            width: max(0, upperX - lowerX), height: Self.trackHeight)
         // 웹 transform: translateX(-50%) 동형 — 손잡이 중심이 fraction 위치
-        lowerThumb.frame = CGRect(x: lowerX - Self.thumbSide / 2, y: centerY - Self.thumbSide / 2,
-                                  width: Self.thumbSide, height: Self.thumbSide)
-        upperThumb.frame = CGRect(x: upperX - Self.thumbSide / 2, y: centerY - Self.thumbSide / 2,
-                                  width: Self.thumbSide, height: Self.thumbSide)
+        lowerThumb.frame = CGRect(
+            x: lowerX - Self.thumbSide / 2, y: centerY - Self.thumbSide / 2,
+            width: Self.thumbSide, height: Self.thumbSide)
+        upperThumb.frame = CGRect(
+            x: upperX - Self.thumbSide / 2, y: centerY - Self.thumbSide / 2,
+            width: Self.thumbSide, height: Self.thumbSide)
     }
 
     private func display(_ value: Double) -> String {
@@ -272,7 +277,7 @@ private final class JdRangeThumbView: UIView {
 
     init(label: String) {
         super.init(frame: .zero)
-        isUserInteractionEnabled = false // 트래킹은 부모 UIControl이 전담
+        isUserInteractionEnabled = false  // 트래킹은 부모 UIControl이 전담
         isAccessibilityElement = true
         accessibilityTraits = .adjustable
         accessibilityLabel = label

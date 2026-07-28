@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "NotificationCenter",
   "oneLiner": "알림 센터 (벨 아이콘 + 드롭다운)",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

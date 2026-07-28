@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // finance leaf 6종 SwiftUI 계층 — 호스팅 스모크 + 크기 축 단조성 (DESIGN-2 §C). (DEC-040)
 //
@@ -33,14 +33,16 @@ final class JdFinanceLeafHostTests: XCTestCase {
     func test_livePctBadge_shares_the_leaf_format() {
         for change in [1.234, -0.5, 0.0, 12.0] {
             XCTAssertEqual(JdLivePctBadge(change: change).body != nil ? "" : "", "")
-            XCTAssertEqual(JdLivePctText(change: change).formatted,
-                           JdLivePctText(change: change).formatted)
+            XCTAssertEqual(
+                JdLivePctText(change: change).formatted,
+                JdLivePctText(change: change).formatted)
         }
         // 배지의 판정은 live 규칙이다
         XCTAssertEqual(JdLivePctBadge(change: 0.003).trend, .up)
         XCTAssertEqual(JdLivePctBadge(change: -0.003).trend, .flat)
-        XCTAssertEqual(JdLivePctBadge(change: 0, fallback: -3).trend, .down,
-                       "표시값(-3%)으로 판정해야 색과 숫자가 맞는다")
+        XCTAssertEqual(
+            JdLivePctBadge(change: 0, fallback: -3).trend, .down,
+            "표시값(-3%)으로 판정해야 색과 숫자가 맞는다")
     }
 
     func test_livePctBadge_hosts_and_is_bolder_than_leaf() {
@@ -66,8 +68,9 @@ final class JdFinanceLeafHostTests: XCTestCase {
         XCTAssertGreaterThan(live.height, 0)
 
         // 긴 override 라벨이 기본 라벨("실시간")보다 넓다
-        XCTAssertGreaterThan(fit(JdLiveStatusDot(live: true, label: "프리마켓 연장 거래")).width,
-                             live.width)
+        XCTAssertGreaterThan(
+            fit(JdLiveStatusDot(live: true, label: "프리마켓 연장 거래")).width,
+            live.width)
     }
 
     func test_priceBadge_arrow_adds_width_and_flat_removes_it() {
@@ -76,14 +79,16 @@ final class JdFinanceLeafHostTests: XCTestCase {
         XCTAssertGreaterThan(withArrow.width, noArrow.width)
 
         // flat은 showArrow와 무관하게 화살표가 없다 → showArrow:false와 폭이 같다
-        XCTAssertEqual(fit(JdPriceBadge(pct: 0)).width,
-                       fit(JdPriceBadge(pct: 0, showArrow: false)).width,
-                       accuracy: 0.5)
+        XCTAssertEqual(
+            fit(JdPriceBadge(pct: 0)).width,
+            fit(JdPriceBadge(pct: 0, showArrow: false)).width,
+            accuracy: 0.5)
     }
 
     func test_priceBadge_size_ramp() {
-        XCTAssertLessThan(fit(JdPriceBadge(pct: 1.2, size: .sm)).height,
-                          fit(JdPriceBadge(pct: 1.2, size: .md)).height)
+        XCTAssertLessThan(
+            fit(JdPriceBadge(pct: 1.2, size: .sm)).height,
+            fit(JdPriceBadge(pct: 1.2, size: .md)).height)
     }
 
     func test_hotPctChip_hosts_with_pill_padding() {

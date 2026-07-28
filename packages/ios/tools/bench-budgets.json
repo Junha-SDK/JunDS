@@ -39,5 +39,20 @@
     "maxAvgSeconds": 0.05,
     "perInstanceDivisor": 100,
     "note": "회귀 감지선 — diff 경로는 제약 생성 0건(키 일치 → 재사용)이므로 재호출당 <0.5ms. 신규 설치(위 batch)의 절반 상한으로 diff 이점이 사라지는 회귀를 잡는다."
+  },
+  "JdBenchLayoutComparisonTests.test_bench_compare_dsl_100rows": {
+    "maxAvgSeconds": 0.05,
+    "perInstanceDivisor": 100,
+    "note": "비교 벤치(DEC-056) — JunDS DSL로 100행 설치 + 1회 레이아웃 패스. 이 항목의 값어치는 절대값이 아니라 rawAnchor 대비 비율에 있다(기기·빌드 설정마다 절대값이 흔들린다). 비율 자체는 JdLayoutOverheadTests가 CI에서 지킨다."
+  },
+  "JdBenchLayoutComparisonTests.test_bench_compare_rawAnchor_100rows": {
+    "maxAvgSeconds": 0.05,
+    "perInstanceDivisor": 100,
+    "note": "비교 벤치(DEC-056) — 원시 NSLayoutAnchor로 같은 배치. Auto Layout의 바닥값이며 DSL 오버헤드의 분모다."
+  },
+  "JdBenchLayoutComparisonTests.test_bench_compare_frame_100rows": {
+    "maxAvgSeconds": 0.02,
+    "perInstanceDivisor": 100,
+    "note": "비교 벤치(DEC-056) — 프레임 직접 배치(Auto Layout 미사용). PinLayout·FlexLayout 계열이 택한 길의 하한이다. 우리가 이길 수 없는 축이며, 그래서 '프레임 기반 도구보다 빠르다'고 주장하지 않는다."
   }
 }

@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useCodeCopy",
   "oneLiner": "이미 커밋된 DOM 의 코드 블록마다 복사 버튼을 주입 — 컴포넌트로 감쌀 수 없는 본문용.",
-  "tags": [
-    "hook",
-    "클립보드",
-    "코드"
-  ],
+  "tags": ["hook", "클립보드", "코드"],
   "controls": [],
   "snippets": {
     "web": null,

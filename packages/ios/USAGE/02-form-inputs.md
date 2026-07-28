@@ -23,13 +23,13 @@ import JunDS   // 이 한 줄로 Core + UIKit + SwiftUI 전부 (Exports.swift가
 
 sm/md/lg라는 리터럴은 같지만 **어느 열거형을 받는지가 갈린다** — 잘못 넘기면 컴파일 에러다.
 
-| 크기 열거형 | 값 | 쓰는 컴포넌트 |
-|---|---|---|
-| `JdToggleSize` | sm · md · lg | Toggle · Checkbox · RadioGroup · Slider |
-| `JdControlSize` | sm · md · lg | TextField · CurrencyInput · PhoneInput · PasswordInput |
-| `JdNumberInputSize` | sm · md · lg (높이 32 · 36 · 44) | NumberInput |
-| `JdIconButtonSize` | xs · sm · md · lg (변 24 · 28 · 32 · 40) | IconButton |
-| — (크기 축 없음) | — | Textarea · RangeSlider · Label |
+| 크기 열거형         | 값                                       | 쓰는 컴포넌트                                          |
+| ------------------- | ---------------------------------------- | ------------------------------------------------------ |
+| `JdToggleSize`      | sm · md · lg                             | Toggle · Checkbox · RadioGroup · Slider                |
+| `JdControlSize`     | sm · md · lg                             | TextField · CurrencyInput · PhoneInput · PasswordInput |
+| `JdNumberInputSize` | sm · md · lg (높이 32 · 36 · 44)         | NumberInput                                            |
+| `JdIconButtonSize`  | xs · sm · md · lg (변 24 · 28 · 32 · 40) | IconButton                                             |
+| — (크기 축 없음)    | —                                        | Textarea · RangeSlider · Label                         |
 
 Checkbox·RadioGroup·Slider가 `JdControlSize`가 아니라 `JdToggleSize`를 받는 것은 Core가 이 셋의
 sm/md/lg 스펙(`JdChoiceSpec`·`JdSliderSpec`)을 토글 축에 얹어 풀기 때문이다 — 표면 리터럴은 같다.
@@ -67,11 +67,11 @@ toggle.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `label` (첫 인자) | `String?` | `nil` | 옆 텍스트. 빈/`nil`이면 스위치만(라벨 숨김) |
-| `isOn` | `Binding<Bool>` (SwiftUI) / `Bool` (UIKit) | UIKit `false` | 켬/끔 상태 |
-| `size` | `JdToggleSize` | `.md` | SwiftUI는 `ControlSize`로 번역, UIKit은 라벨 폰트에만 반영 |
+| 파라미터          | 타입                                       | 기본값        | 의미                                                       |
+| ----------------- | ------------------------------------------ | ------------- | ---------------------------------------------------------- |
+| `label` (첫 인자) | `String?`                                  | `nil`         | 옆 텍스트. 빈/`nil`이면 스위치만(라벨 숨김)                |
+| `isOn`            | `Binding<Bool>` (SwiftUI) / `Bool` (UIKit) | UIKit `false` | 켬/끔 상태                                                 |
+| `size`            | `JdToggleSize`                             | `.md`         | SwiftUI는 `ControlSize`로 번역, UIKit은 라벨 폰트에만 반영 |
 
 - UIKit 프로퍼티: `label` · `isOn` · `size` · `isEnabled` · `onChange: ((Bool) -> Void)?`
 - **시스템 컨트롤 스킨 우선**(04 §10.1): 트랙/썸 기하는 시스템(UISwitch/Toggle)이 그린다 —
@@ -106,12 +106,12 @@ box.onChange = { state in
 box.jd.layout { $0.edges.equalToSuperview() }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `label` (첫 인자) | `String?` | `nil` | 옆 텍스트(행 전체가 히트 영역) |
-| `state` | `Binding<JdCheckboxState>` (SwiftUI) / `JdCheckboxState` (UIKit) | UIKit `.off` | 3상태 값 |
-| `size` | `JdToggleSize` | `.md` | 박스·라벨 스펙 |
-| `indeterminateAllowed` | `Bool` | `false` | true면 off → on → indeterminate → off 순환 |
+| 파라미터               | 타입                                                             | 기본값       | 의미                                       |
+| ---------------------- | ---------------------------------------------------------------- | ------------ | ------------------------------------------ |
+| `label` (첫 인자)      | `String?`                                                        | `nil`        | 옆 텍스트(행 전체가 히트 영역)             |
+| `state`                | `Binding<JdCheckboxState>` (SwiftUI) / `JdCheckboxState` (UIKit) | UIKit `.off` | 3상태 값                                   |
+| `size`                 | `JdToggleSize`                                                   | `.md`        | 박스·라벨 스펙                             |
+| `indeterminateAllowed` | `Bool`                                                           | `false`      | true면 off → on → indeterminate → off 순환 |
 
 - UIKit 프로퍼티: `label` · `isSelectedState` · `size` · `indeterminateAllowed` · `isEnabled`
   (UIControl 상속) · `onChange: ((JdCheckboxState) -> Void)?`
@@ -153,13 +153,13 @@ group.onChange = { value in viewModel.plan = value }   // 선택된 옵션 value
 group.jd.layout { $0.edges.equalToSuperview() }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `options` (첫 인자) | `[JdRadioOption]` | UIKit `[]` | `value`·`label`·`isDisabled`로 구성 |
-| `selection` / `selectedValue` | `Binding<String?>` (SwiftUI) / `String?` (UIKit) | `nil` | 선택된 옵션의 value |
-| `axis` | `JdAxis` | `.vertical` | 배치 방향 |
-| `size` | `JdToggleSize` | `.md` | 심볼·라벨 스펙 |
-| `isEnabled` (SwiftUI init 인자) | `Bool` | `true` | 그룹 전체 활성 |
+| 파라미터                        | 타입                                             | 기본값      | 의미                                |
+| ------------------------------- | ------------------------------------------------ | ----------- | ----------------------------------- |
+| `options` (첫 인자)             | `[JdRadioOption]`                                | UIKit `[]`  | `value`·`label`·`isDisabled`로 구성 |
+| `selection` / `selectedValue`   | `Binding<String?>` (SwiftUI) / `String?` (UIKit) | `nil`       | 선택된 옵션의 value                 |
+| `axis`                          | `JdAxis`                                         | `.vertical` | 배치 방향                           |
+| `size`                          | `JdToggleSize`                                   | `.md`       | 심볼·라벨 스펙                      |
+| `isEnabled` (SwiftUI init 인자) | `Bool`                                           | `true`      | 그룹 전체 활성                      |
 
 - UIKit 프로퍼티: `options` · `selectedValue` · `axis` · `size` · `isEnabled` ·
   `onChange: ((String) -> Void)?`
@@ -206,16 +206,16 @@ slider.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `value` | `Binding<Double>` (SwiftUI) / `Double` (UIKit) | UIKit `0` | 현재 값(Core가 양자화) |
-| `in bounds` | `ClosedRange<Double>` | `0...100` | 최소·최대 |
-| `step` | `Double` | `1` | 양자화 간격 |
-| `color` | `JdSliderColor` | `.primary` | 채움 트랙 액센트(primary·success·warning·danger) |
-| `size` | `JdToggleSize` | `.md` | 값 글꼴 스펙 |
-| `showsValue` | `Bool` | `false` | 상단 헤더 행 노출 |
-| `marks` | `[JdSliderMark]` | `[]` | 트랙 아래 틱 + 라벨(장식) |
-| `format` | `((Double) -> String)?` | `nil` | 현재값·낭독 표기(min/max 라벨은 원값) |
+| 파라미터     | 타입                                           | 기본값     | 의미                                             |
+| ------------ | ---------------------------------------------- | ---------- | ------------------------------------------------ |
+| `value`      | `Binding<Double>` (SwiftUI) / `Double` (UIKit) | UIKit `0`  | 현재 값(Core가 양자화)                           |
+| `in bounds`  | `ClosedRange<Double>`                          | `0...100`  | 최소·최대                                        |
+| `step`       | `Double`                                       | `1`        | 양자화 간격                                      |
+| `color`      | `JdSliderColor`                                | `.primary` | 채움 트랙 액센트(primary·success·warning·danger) |
+| `size`       | `JdToggleSize`                                 | `.md`      | 값 글꼴 스펙                                     |
+| `showsValue` | `Bool`                                         | `false`    | 상단 헤더 행 노출                                |
+| `marks`      | `[JdSliderMark]`                               | `[]`       | 트랙 아래 틱 + 라벨(장식)                        |
+| `format`     | `((Double) -> String)?`                        | `nil`      | 현재값·낭독 표기(min/max 라벨은 원값)            |
 
 - UIKit 프로퍼티: 위 인자 + `format` · `isEnabled` · `onValueChange` · `onCommit`
   (둘 다 `((Double) -> Void)?`). SwiftUI는 `format`을 init 인자로 받는다.
@@ -257,11 +257,11 @@ slider.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `state` | `Binding<JdRangeState>` (SwiftUI) / `JdRangeState` (UIKit) | UIKit `JdRangeState()` | 범위 상태(bounds·step·lower·upper) |
-| `showsValues` | `Bool` | `false` | 상단 값 행 노출 |
-| `format` | `((Double) -> String)?` | `nil` | 값 행·낭독 표기 |
+| 파라미터      | 타입                                                       | 기본값                 | 의미                               |
+| ------------- | ---------------------------------------------------------- | ---------------------- | ---------------------------------- |
+| `state`       | `Binding<JdRangeState>` (SwiftUI) / `JdRangeState` (UIKit) | UIKit `JdRangeState()` | 범위 상태(bounds·step·lower·upper) |
+| `showsValues` | `Bool`                                                     | `false`                | 상단 값 행 노출                    |
+| `format`      | `((Double) -> String)?`                                    | `nil`                  | 값 행·낭독 표기                    |
 
 - UIKit 프로퍼티: `rangeState` · `showsValues` · `format` · `isEnabled` ·
   `onChange: ((JdRangeState) -> Void)?`. SwiftUI는 `format`을 init 인자로 받는다.
@@ -273,7 +273,7 @@ slider.jd.layout {
 
 ## JdLabel
 
-폼 필드 라벨. `isRequired`면 "*"를 그리고, 웹이 CSS로만 그려 AT가 못 읽던 결함을 iOS는
+폼 필드 라벨. `isRequired`면 "\*"를 그리고, 웹이 CSS로만 그려 AT가 못 읽던 결함을 iOS는
 접근성 라벨에 "필수"로 합류시켜 보정한다.
 
 ```swift
@@ -291,10 +291,10 @@ label.jd.layout { $0.leading.top.equalToSuperview() }
 // 이후 텍스트 교체도 표식·접근성 계약 유지: label.text = "이메일 주소"
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `text` (첫 인자) | `String` | — | 라벨 문구 |
-| `isRequired` | `Bool` | `false` | "*" 표식 + 접근성 라벨에 "필수" 합류 |
+| 파라미터         | 타입     | 기본값  | 의미                                  |
+| ---------------- | -------- | ------- | ------------------------------------- |
+| `text` (첫 인자) | `String` | —       | 라벨 문구                             |
+| `isRequired`     | `Bool`   | `false` | "\*" 표식 + 접근성 라벨에 "필수" 합류 |
 
 - UIKit 프로퍼티: `isRequired` · `text`(오버라이드 — UILabel API로 바꿔도 계약 유지).
 - 표식 앞 여백은 웹 `margin-inline-start 2px` 동형(UIKit은 마지막 글자 커닝, 이모지도 안 쪼갬).
@@ -333,14 +333,14 @@ field.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `label` (첫 인자) | `String?` | `nil` | 상단 라벨(빈/nil이면 숨김) |
-| `placeholder` | `String` (SwiftUI) / `String?` (UIKit) | `""`/`nil` | 안내 문구 |
-| `text` | `Binding<String>` (SwiftUI) | — | SwiftUI 전용 init 인자 |
-| `size` | `JdControlSize` | `.md` | 높이 32/40/48 |
-| `error` | `String?` | `nil` | 메시지 = 상태. SwiftUI는 init 인자, UIKit은 프로퍼티 |
-| `onCommit` | `(() -> Void)?` | `nil` | SwiftUI 전용 init 인자(제출/포커스 종료) |
+| 파라미터          | 타입                                   | 기본값     | 의미                                                 |
+| ----------------- | -------------------------------------- | ---------- | ---------------------------------------------------- |
+| `label` (첫 인자) | `String?`                              | `nil`      | 상단 라벨(빈/nil이면 숨김)                           |
+| `placeholder`     | `String` (SwiftUI) / `String?` (UIKit) | `""`/`nil` | 안내 문구                                            |
+| `text`            | `Binding<String>` (SwiftUI)            | —          | SwiftUI 전용 init 인자                               |
+| `size`            | `JdControlSize`                        | `.md`      | 높이 32/40/48                                        |
+| `error`           | `String?`                              | `nil`      | 메시지 = 상태. SwiftUI는 init 인자, UIKit은 프로퍼티 |
+| `onCommit`        | `(() -> Void)?`                        | `nil`      | SwiftUI 전용 init 인자(제출/포커스 종료)             |
 
 - UIKit 프로퍼티: `label` · `placeholder` · `error` · `size` · `text` · `isEnabled` ·
   `onTextChange: ((String) -> Void)?` · `onCommit: ((String) -> Void)?`. `becomeFirstResponder()`로 포커스.
@@ -381,15 +381,15 @@ area.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `text` | `Binding<String>` (SwiftUI) | — | SwiftUI 전용 init 인자 |
-| `placeholder` | `String` | `""` | 안내 문구 |
-| `rows` | `Int` | `4` | 초기 표시 행 수(최소 높이 계산) |
-| `maxLength` | `Int` | `0` | 0이면 무제한. 사용자 입력만 자름(프로그램 대입은 제한 안 함) |
-| `isError` | `Bool` | `false` | 테두리 danger + 낭독 "오류" |
-| `showsCount` | `Bool` | `false` | `maxLength > 0`일 때만 카운터 배지 |
-| `autoResize` | `Bool` | `false` | **UIKit 전용** — 스크롤 대신 높이 성장 |
+| 파라미터      | 타입                        | 기본값  | 의미                                                         |
+| ------------- | --------------------------- | ------- | ------------------------------------------------------------ |
+| `text`        | `Binding<String>` (SwiftUI) | —       | SwiftUI 전용 init 인자                                       |
+| `placeholder` | `String`                    | `""`    | 안내 문구                                                    |
+| `rows`        | `Int`                       | `4`     | 초기 표시 행 수(최소 높이 계산)                              |
+| `maxLength`   | `Int`                       | `0`     | 0이면 무제한. 사용자 입력만 자름(프로그램 대입은 제한 안 함) |
+| `isError`     | `Bool`                      | `false` | 테두리 danger + 낭독 "오류"                                  |
+| `showsCount`  | `Bool`                      | `false` | `maxLength > 0`일 때만 카운터 배지                           |
+| `autoResize`  | `Bool`                      | `false` | **UIKit 전용** — 스크롤 대신 높이 성장                       |
 
 - UIKit 프로퍼티: `text` · `placeholder` · `isError` · `showsCount` · `autoResize` · `maxLength` ·
   `isEnabled` · `onTextChange` · `onCommit`.
@@ -427,17 +427,17 @@ input.onCommit = { v in save(v) }            // 커밋·스텝(클램프 후)
 input.jd.layout { $0.leading.top.equalToSuperview() }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `value` | `Binding<Double?>` (SwiftUI) / `Double?` (UIKit) | UIKit `nil` | 값(빈 값 = nil) |
-| `min` | `Double?` | `nil` | 하한(nil = 무제한). UIKit 프로퍼티는 `minValue` |
-| `max` | `Double?` | `nil` | 상한(nil = 무제한). UIKit 프로퍼티는 `maxValue` |
-| `step` | `Double` | `1` | 증감 폭 |
-| `size` | `JdNumberInputSize` | `.md` | 높이 32/36/44 |
-| `isError` | `Bool` | `false` | 테두리 danger |
-| `hidesControls` | `Bool` | `false` | −/+ 버튼 숨김(순수 숫자 필드) |
-| `placeholder` | `String` | `""` | 안내 문구 |
-| `accessibilityLabel` | `String?` | `nil` | 필드 낭독 라벨 |
+| 파라미터             | 타입                                             | 기본값      | 의미                                            |
+| -------------------- | ------------------------------------------------ | ----------- | ----------------------------------------------- |
+| `value`              | `Binding<Double?>` (SwiftUI) / `Double?` (UIKit) | UIKit `nil` | 값(빈 값 = nil)                                 |
+| `min`                | `Double?`                                        | `nil`       | 하한(nil = 무제한). UIKit 프로퍼티는 `minValue` |
+| `max`                | `Double?`                                        | `nil`       | 상한(nil = 무제한). UIKit 프로퍼티는 `maxValue` |
+| `step`               | `Double`                                         | `1`         | 증감 폭                                         |
+| `size`               | `JdNumberInputSize`                              | `.md`       | 높이 32/36/44                                   |
+| `isError`            | `Bool`                                           | `false`     | 테두리 danger                                   |
+| `hidesControls`      | `Bool`                                           | `false`     | −/+ 버튼 숨김(순수 숫자 필드)                   |
+| `placeholder`        | `String`                                         | `""`        | 안내 문구                                       |
+| `accessibilityLabel` | `String?`                                        | `nil`       | 필드 낭독 라벨                                  |
 
 - UIKit 프로퍼티: `value` · `minValue` · `maxValue` · `step` · `isError` · `hidesControls` ·
   `placeholder` · `isEnabled` · `onValueChange: ((Double?) -> Void)?` · `onCommit: ((Double?) -> Void)?`.
@@ -474,15 +474,15 @@ field.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `value` | `Binding<Double?>` (SwiftUI) / `Double?` (UIKit) | UIKit `nil` | 금액(빈 값 = nil) |
-| `currency` | `String` | `"KRW"` | ISO 통화 코드(소수 자릿수 결정) |
-| `locale` | `String` | `"ko-KR"` | 구분자·기호 로케일(결정성 위해 상수) |
-| `size` | `JdControlSize` | `.md` | 높이 32/40/48 |
-| `isError` | `Bool` | `false` | 테두리 danger |
-| `placeholder` | `String` | `""` | 안내 문구 |
-| `accessibilityLabel` | `String?` | `nil` | 필드 낭독 라벨 |
+| 파라미터             | 타입                                             | 기본값      | 의미                                 |
+| -------------------- | ------------------------------------------------ | ----------- | ------------------------------------ |
+| `value`              | `Binding<Double?>` (SwiftUI) / `Double?` (UIKit) | UIKit `nil` | 금액(빈 값 = nil)                    |
+| `currency`           | `String`                                         | `"KRW"`     | ISO 통화 코드(소수 자릿수 결정)      |
+| `locale`             | `String`                                         | `"ko-KR"`   | 구분자·기호 로케일(결정성 위해 상수) |
+| `size`               | `JdControlSize`                                  | `.md`       | 높이 32/40/48                        |
+| `isError`            | `Bool`                                           | `false`     | 테두리 danger                        |
+| `placeholder`        | `String`                                         | `""`        | 안내 문구                            |
+| `accessibilityLabel` | `String?`                                        | `nil`       | 필드 낭독 라벨                       |
 
 - UIKit 프로퍼티: `value` · `currency` · `locale` · `isError` · `placeholder` · `isEnabled` ·
   `onValueChange: ((Double?) -> Void)?` · `onCommit: ((Double?) -> Void)?`.
@@ -521,13 +521,13 @@ field.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `value` | `Binding<String>` (SwiftUI) / `String` (UIKit) | UIKit `""` | 숫자만 보관(대입 시에도 숫자만 남김) |
-| `country` | `Binding<JdPhoneCountry>` (SwiftUI) / `JdPhoneCountry` (UIKit) | UIKit `.kr` | 국가(dialCode·그룹 규칙) |
-| `size` | `JdControlSize` | `.md` | 높이 32/40/48 |
-| `isError` | `Bool` | `false` | 테두리 danger |
-| `accessibilityLabel` | `String?` | `nil` | 필드 낭독 라벨(기본 "전화번호") |
+| 파라미터             | 타입                                                           | 기본값      | 의미                                 |
+| -------------------- | -------------------------------------------------------------- | ----------- | ------------------------------------ |
+| `value`              | `Binding<String>` (SwiftUI) / `String` (UIKit)                 | UIKit `""`  | 숫자만 보관(대입 시에도 숫자만 남김) |
+| `country`            | `Binding<JdPhoneCountry>` (SwiftUI) / `JdPhoneCountry` (UIKit) | UIKit `.kr` | 국가(dialCode·그룹 규칙)             |
+| `size`               | `JdControlSize`                                                | `.md`       | 높이 32/40/48                        |
+| `isError`            | `Bool`                                                         | `false`     | 테두리 danger                        |
+| `accessibilityLabel` | `String?`                                                      | `nil`       | 필드 낭독 라벨(기본 "전화번호")      |
 
 - UIKit 프로퍼티: `value` · `country` · `isError` · `isEnabled` · `fullNumber`(읽기 전용) ·
   `onValueChange: ((String) -> Void)?` · `onCommit: ((String) -> Void)?` ·
@@ -569,15 +569,15 @@ field.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `text` | `Binding<String>` (SwiftUI) / `String` (UIKit) | UIKit `""` | 비밀번호 값 |
-| `placeholder` | `String` | `""` | 안내 문구 |
-| `size` | `JdControlSize` | `.md` | 높이 32/40/48 |
-| `isError` | `Bool` | `false` | 테두리 danger + 낭독 "오류" |
-| `showsStrength` | `Bool` | `false` | 강도 막대 + 라벨(빈 값엔 숨김) |
-| `showsRules` | `Bool` | `false` | 규칙 체크리스트 |
-| `accessibilityLabel` | `String?` | `nil` | 필드 낭독 라벨 |
+| 파라미터             | 타입                                           | 기본값     | 의미                           |
+| -------------------- | ---------------------------------------------- | ---------- | ------------------------------ |
+| `text`               | `Binding<String>` (SwiftUI) / `String` (UIKit) | UIKit `""` | 비밀번호 값                    |
+| `placeholder`        | `String`                                       | `""`       | 안내 문구                      |
+| `size`               | `JdControlSize`                                | `.md`      | 높이 32/40/48                  |
+| `isError`            | `Bool`                                         | `false`    | 테두리 danger + 낭독 "오류"    |
+| `showsStrength`      | `Bool`                                         | `false`    | 강도 막대 + 라벨(빈 값엔 숨김) |
+| `showsRules`         | `Bool`                                         | `false`    | 규칙 체크리스트                |
+| `accessibilityLabel` | `String?`                                      | `nil`      | 필드 낭독 라벨                 |
 
 - UIKit 프로퍼티: `text` · `placeholder` · `isError` · `showsStrength` · `showsRules` · `isEnabled` ·
   `strength: JdPasswordStrength`(읽기 전용) · `onTextChange` · `onCommit`.
@@ -616,15 +616,15 @@ pin.onComplete = { completed in verify(completed) }   // length 채워지면 발
 pin.jd.layout { $0.center.equalToSuperview() }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `value` | `Binding<String>` (SwiftUI) / `String` (UIKit) | UIKit `""` | 입력된 코드 |
-| `length` | `Int` | `6` | 칸 수 |
-| `masked` | `Bool` | `false` | true면 "●"로 가림 |
-| `alphanumeric` | `Bool` | `false` | true면 영숫자, false면 숫자만(+ OTP 자동완성) |
-| `isError` | `Bool` | `false` | 테두리 danger |
-| `accessibilityLabel` | `String?` | `nil` | 낭독 라벨(기본 "인증 번호 입력") |
-| `onComplete` | `((String) -> Void)?` | `nil` | **SwiftUI만 init 인자**, UIKit은 프로퍼티 |
+| 파라미터             | 타입                                           | 기본값     | 의미                                          |
+| -------------------- | ---------------------------------------------- | ---------- | --------------------------------------------- |
+| `value`              | `Binding<String>` (SwiftUI) / `String` (UIKit) | UIKit `""` | 입력된 코드                                   |
+| `length`             | `Int`                                          | `6`        | 칸 수                                         |
+| `masked`             | `Bool`                                         | `false`    | true면 "●"로 가림                             |
+| `alphanumeric`       | `Bool`                                         | `false`    | true면 영숫자, false면 숫자만(+ OTP 자동완성) |
+| `isError`            | `Bool`                                         | `false`    | 테두리 danger                                 |
+| `accessibilityLabel` | `String?`                                      | `nil`      | 낭독 라벨(기본 "인증 번호 입력")              |
+| `onComplete`         | `((String) -> Void)?`                          | `nil`      | **SwiftUI만 init 인자**, UIKit은 프로퍼티     |
 
 - UIKit 프로퍼티: `value` · `length` · `masked` · `alphanumeric` · `isError` · `isEnabled` ·
   `onValueChange: ((String) -> Void)?` · `onComplete: ((String) -> Void)?`.
@@ -663,13 +663,13 @@ button.onTap = { toggleLike() }
 button.jd.layout { $0.top.trailing.equalToSuperview().inset(JdToken.Space.s2) }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `systemImage` | `String` | — | SF Symbol 이름 |
-| `accessibilityLabel` | `String` | — | **필수**(라벨 없는 init 없음) |
-| `variant` | `JdIconButtonVariant` | `.ghost` | ghost · outline · filled |
-| `size` | `JdIconButtonSize` | `.md` | 변 24/28/32/40(xs/sm/md/lg) |
-| `action` | `@escaping () -> Void` | — | **SwiftUI만 init 인자** |
+| 파라미터             | 타입                   | 기본값   | 의미                          |
+| -------------------- | ---------------------- | -------- | ----------------------------- |
+| `systemImage`        | `String`               | —        | SF Symbol 이름                |
+| `accessibilityLabel` | `String`               | —        | **필수**(라벨 없는 init 없음) |
+| `variant`            | `JdIconButtonVariant`  | `.ghost` | ghost · outline · filled      |
+| `size`               | `JdIconButtonSize`     | `.md`    | 변 24/28/32/40(xs/sm/md/lg)   |
+| `action`             | `@escaping () -> Void` | —        | **SwiftUI만 init 인자**       |
 
 - UIKit: 탭은 `onTap: (() -> Void)?` 프로퍼티, 활성은 `isEnabled`(UIControl 상속).
 - **히트 타깃 각주**: 네 크기 모두 HIG 최소 44pt에 미달한다(3플랫폼 패리티로 웹 크기 승계).

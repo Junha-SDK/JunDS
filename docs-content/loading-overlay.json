@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "LoadingOverlay",
   "oneLiner": "로딩 중 자식 영역 위에 덮이는 오버레이.",
-  "tags": [
-    "feedback",
-    "overlay"
-  ],
+  "tags": ["feedback", "overlay"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -45,9 +45,7 @@ describe("골격·입양 (DEC-008-(1))", () => {
   test("fullWidth → 호스트 full-width attribute (css 훅)", async () => {
     const { container } = render(<Button fullWidth>저장</Button>);
     await flushCE();
-    expect(
-      container.querySelector("jd-button")!.hasAttribute("full-width"),
-    ).toBe(true);
+    expect(container.querySelector("jd-button")!.hasAttribute("full-width")).toBe(true);
   });
 });
 
@@ -85,10 +83,7 @@ describe("loading — 스피너 합의 규약", () => {
 
   test("loading 중 leftIcon은 스피너로 대체, rightIcon은 숨김 (v2 동일)", async () => {
     const { container, rerender } = render(
-      <Button
-        leftIcon={<i data-testid="l" />}
-        rightIcon={<i data-testid="r" />}
-      >
+      <Button leftIcon={<i data-testid="l" />} rightIcon={<i data-testid="r" />}>
         다음
       </Button>,
     );
@@ -97,11 +92,7 @@ describe("loading — 스피너 합의 규약", () => {
     expect(screen.getByTestId("r")).toBeInTheDocument();
 
     rerender(
-      <Button
-        loading
-        leftIcon={<i data-testid="l" />}
-        rightIcon={<i data-testid="r" />}
-      >
+      <Button loading leftIcon={<i data-testid="l" />} rightIcon={<i data-testid="r" />}>
         다음
       </Button>,
     );
@@ -137,17 +128,13 @@ describe("네이티브 위임 (§1.6-1) — v2 이벤트·폼 의미론", () => 
   test("type 기본값은 안전한 button — 폼에서 의도치 않은 제출을 만들지 않는다", async () => {
     const { container } = render(<Button>제출</Button>);
     await flushCE(); // CE update()가 host.type을 내부 button에 다시 쓴 뒤에도
-    expect(
-      container.querySelector<HTMLButtonElement>("button.jd-button")!.type,
-    ).toBe("button");
+    expect(container.querySelector<HTMLButtonElement>("button.jd-button")!.type).toBe("button");
   });
 
   test("type='button' 명시도 유지된다", async () => {
     const { container } = render(<Button type="button">동작</Button>);
     await flushCE();
-    expect(
-      container.querySelector<HTMLButtonElement>("button.jd-button")!.type,
-    ).toBe("button");
+    expect(container.querySelector<HTMLButtonElement>("button.jd-button")!.type).toBe("button");
   });
 
   test("className·data-*·ref는 v2와 동일하게 내부 <button>에 붙는다", async () => {
@@ -169,13 +156,7 @@ describe("asChild — Slot 폴백 (CE 입양 불가 경로)", () => {
   test("자식 엘리먼트로 위임하면서 variant/size 스타일 훅과 클래스를 손실 없이 병합한다", async () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const { container } = render(
-      <Button
-        asChild
-        variant="danger"
-        size="lg"
-        fullWidth
-        leftIcon={<i data-testid="plus" />}
-      >
+      <Button asChild variant="danger" size="lg" fullWidth leftIcon={<i data-testid="plus" />}>
         <a href="/new">새로 만들기</a>
       </Button>,
     );

@@ -4,10 +4,7 @@
   "category": "patterns",
   "title": "DsCalendar",
   "oneLiner": "월간/주간 캘린더",
-  "tags": [
-    "data-display",
-    "form"
-  ],
+  "tags": ["data-display", "form"],
   "controls": [],
   "snippets": {
     "web": null,

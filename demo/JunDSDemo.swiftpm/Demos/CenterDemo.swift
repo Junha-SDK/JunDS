@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Center 데모 — 레시피형 (04 §10.1). 웹 <jd-center>는 Box 파생(양축 중앙)이지만
 // SwiftUI는 ZStack 기본 정렬이 이미 양축 중앙이라 신규 타입이 필요 없다.
@@ -11,15 +11,15 @@ enum CenterDemo {
         controls: [],
         swiftUI: { state in AnyView(CenterStage(state: state)) },
         recipe: """
-        // Center = ZStack 관용구 (04 §10.1 — 신규 컴포넌트 없음)
-        ZStack {
-            content // ZStack 기본 정렬 = 양축 중앙 — 웹 jd-center 동형
-        }
-        .frame(maxWidth: .infinity, minHeight: JdToken.Space.s24)
+            // Center = ZStack 관용구 (04 §10.1 — 신규 컴포넌트 없음)
+            ZStack {
+                content // ZStack 기본 정렬 = 양축 중앙 — 웹 jd-center 동형
+            }
+            .frame(maxWidth: .infinity, minHeight: JdToken.Space.s24)
 
-        // UIKit: 중앙 제약이 관용구 — 레이아웃 DSL로 1문
-        content.jd.layout { $0.center.equalToSuperview() }
-        """
+            // UIKit: 중앙 제약이 관용구 — 레이아웃 DSL로 1문
+            content.jd.layout { $0.center.equalToSuperview() }
+            """
     )
 }
 

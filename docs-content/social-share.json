@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "SocialShare",
   "oneLiner": "소셜 공유 버튼 묶음.",
-  "tags": [
-    "social",
-    "공유"
-  ],
+  "tags": ["social", "공유"],
   "controls": [],
   "snippets": {
     "web": null,

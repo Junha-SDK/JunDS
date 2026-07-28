@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "MasonryGrid",
   "oneLiner": "핀터레스트 스타일의 메이슨리(masonry) 그리드 레이아웃.",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

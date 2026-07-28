@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "ComparisonGrid",
   "oneLiner": "비교 지표 그리드",
-  "tags": [
-    "data"
-  ],
+  "tags": ["data"],
   "controls": [],
   "snippets": {
     "web": null,

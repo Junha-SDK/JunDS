@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useReadingProgress",
   "oneLiner": "본문 읽기 진행률 계산.",
-  "tags": [
-    "hook",
-    "스크롤",
-    "진행률"
-  ],
+  "tags": ["hook", "스크롤", "진행률"],
   "controls": [],
   "snippets": {
     "web": null,

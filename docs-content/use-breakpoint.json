@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useBreakpoint",
   "oneLiner": "현재 브레이크포인트 감지.",
-  "tags": [
-    "hook",
-    "반응형",
-    "breakpoint"
-  ],
+  "tags": ["hook", "반응형", "breakpoint"],
   "controls": [],
   "snippets": {
     "web": null,

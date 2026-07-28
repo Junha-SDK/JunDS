@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Spinner 데모 — 실컴포넌트 JdSpinner(SwiftUI)/JdSpinnerView(UIKit). 웹 <jd-spinner> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(size) — 3플랫폼 동일 (04 §3).
@@ -13,7 +13,7 @@ enum SpinnerDemo {
     static let demo = ComponentDemo(
         id: "Spinner",
         controls: [
-            .options("size", "size", JdDisplaySize.allCases.map(\.rawValue), initial: "md"),
+            .options("size", "size", JdDisplaySize.allCases.map(\.rawValue), initial: "md")
         ],
         swiftUI: { state in AnyView(SpinnerStageSwiftUI(state: state)) },
         uikit: { state in AnyView(SpinnerStageUIKit(state: state)) }

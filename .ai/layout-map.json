@@ -1,0 +1,209 @@
+{
+  "$schema": "레이아웃 의도 → 3플랫폼 API 대응표. 생성: scripts/gen-layout-map.mjs",
+  "$note": "의도(intent)로 찾는다. CSS 속성명이나 UIStackView 용어가 아니라 '무엇을 하고 싶은가'가 키다.",
+  "vocabulary": {
+    "breakpoint": {
+      "names": [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl"
+      ],
+      "source": "tokens/breakpoint.json",
+      "web": "--jd-breakpoint-*, threshold=\"md\", p=\"4 md:6\"",
+      "ios": "JdBreakpoint.md, jdShow(above: .md)",
+      "note": "웹은 뷰포트, iOS는 컨테이너 폭을 기준으로 해석한다 (04 §10)."
+    },
+    "gap": {
+      "names": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl",
+        "4xl"
+      ],
+      "source": "tokens/space.json",
+      "web": "gap=\"md\", p=\"md\"",
+      "ios": "JdGap.md"
+    },
+    "align": {
+      "names": [
+        "start",
+        "center",
+        "end",
+        "stretch",
+        "baseline"
+      ],
+      "source": "웹 ALIGN_MAP ↔ JdAlign",
+      "web": "align=\"center\"",
+      "ios": "JdAlign.center",
+      "note": "UIKit의 .fill이 stretch다 — 그 이름 차이를 JdAlign이 흡수한다."
+    },
+    "container": {
+      "names": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "full"
+      ],
+      "source": "tokens/container.json",
+      "web": "jd-container[size=\"lg\"]",
+      "ios": "JdContainerSize.lg.maxWidth",
+      "note": "full은 상한 없음이라 토큰에 숫자가 없다."
+    }
+  },
+  "layouts": [
+    {
+      "intent": "세로로 쌓기",
+      "when": "가장 흔한 기본 배치. 순서대로 위에서 아래로.",
+      "web": "jd-vstack",
+      "uikit": "JdVStack",
+      "swiftui": "VStack",
+      "note": "SwiftUI는 표준 VStack을 그대로 쓴다 — 같은 일을 하는 타입을 새로 만들지 않는다."
+    },
+    {
+      "intent": "가로로 늘어놓기",
+      "when": "아이콘 + 라벨처럼 한 줄에 나란히.",
+      "web": "jd-hstack",
+      "uikit": "JdHStack",
+      "swiftui": "HStack"
+    },
+    {
+      "intent": "넘치면 다음 줄로",
+      "when": "태그·칩처럼 개수가 정해지지 않은 묶음.",
+      "web": "jd-wrap",
+      "uikit": "JdWrapView",
+      "swiftui": "JdFlowLayout"
+    },
+    {
+      "intent": "양끝으로 밀기",
+      "when": "제목은 왼쪽, 버튼은 오른쪽. 헤더·툴바.",
+      "web": "jd-split",
+      "uikit": "JdSplitView",
+      "swiftui": "JdSplit"
+    },
+    {
+      "intent": "좁으면 세로로 접기",
+      "when": "넓으면 나란히, 좁으면 위아래. 브레이크포인트를 고르지 않아도 된다.",
+      "web": "jd-switcher",
+      "uikit": "JdSwitcherView",
+      "swiftui": "JdSwitcher",
+      "note": "셋 다 화면이 아니라 **자기가 놓인 자리**의 폭을 본다 — 사이드바 안에 중첩해도 맞다."
+    },
+    {
+      "intent": "사이드바 + 본문",
+      "when": "목차 옆에 본문. 본문이 좁아지면 자동으로 쌓인다.",
+      "web": "jd-sidebar-layout",
+      "uikit": "JdSidebarLayoutView",
+      "swiftui": "JdSidebarLayout",
+      "note": "꺾이는 폭을 적지 않는다 — 본문 최소 폭에서 따라 나온다."
+    },
+    {
+      "intent": "가운데 정렬",
+      "when": "빈 상태·로딩처럼 한 덩어리를 가운데.",
+      "web": "jd-center",
+      "uikit": "jdCenter(in:)",
+      "swiftui": "frame(maxWidth:maxHeight:alignment:)",
+      "note": "UIKit은 컨테이너가 아니라 배치 한 줄이다 — 래퍼 뷰를 한 겹 더 만들지 않는다."
+    },
+    {
+      "intent": "격자",
+      "when": "카드 목록처럼 열이 정해진 배치.",
+      "web": [
+        "jd-grid",
+        "jd-grid-layout",
+        "jd-simple-grid"
+      ],
+      "uikit": "JdColumnsView",
+      "swiftui": "LazyVGrid",
+      "note": "셋은 같은 구현의 별칭 파생이다 — jd-simple-grid는 min-child-width 표면만 다르다."
+    },
+    {
+      "intent": "방향 가변 스택",
+      "when": "가로/세로를 값으로 정해야 할 때. 방향이 고정이면 vstack/hstack이 읽기 쉽다.",
+      "web": "jd-stack",
+      "uikit": "JdStackView",
+      "swiftui": "VStack / HStack"
+    },
+    {
+      "intent": "스타일 상자",
+      "when": "여백·배경·모서리만 주는 원형 컨테이너.",
+      "web": [
+        "jd-box",
+        "jd-flex"
+      ],
+      "uikit": null,
+      "swiftui": null,
+      "note": "iOS는 컴포넌트가 아니라 **토큰 모디파이어 체인**이 Box다 (04 §10.1)."
+    },
+    {
+      "intent": "묶음 (줄바꿈 허용)",
+      "when": "버튼 몇 개를 한 덩어리로. jd-wrap과 같은 구현이다.",
+      "web": "jd-group",
+      "uikit": "JdWrapView",
+      "swiftui": "JdFlowLayout"
+    },
+    {
+      "intent": "종횡비 고정",
+      "when": "썸네일·미디어 영역을 16:9로.",
+      "web": "jd-aspect-ratio-box",
+      "uikit": "jdAspect(_:)",
+      "swiftui": "aspectRatio(_:contentMode:)"
+    },
+    {
+      "intent": "덮개",
+      "when": "콘텐츠 위에 딤·로딩을 겹친다.",
+      "web": "jd-overlay",
+      "uikit": null,
+      "swiftui": "overlay(_:)",
+      "note": "UIKit은 jdFill(parent)로 위에 얹는 것이 그 자리다 — 전용 타입을 두지 않았다."
+    },
+    {
+      "intent": "큰 목록·격자 (스크롤)",
+      "when": "셀이 많아 재사용이 필요한 목록·격자. 정적 배치용 격자와는 다른 물건이다.",
+      "web": null,
+      "uikit": "JdCollectionLayout",
+      "swiftui": "LazyVGrid / List",
+      "note": "UICollectionViewCompositionalLayout과 경쟁하지 않고 **얹는다** — JdGap·JdBreakpoint로 NSCollectionLayoutSection을 만든다. adaptiveGrid는 최소 셀 폭만 주면 열 수가 컨테이너 폭에서 따라 나온다(웹 auto-fill 동형). 웹은 CSS grid가 같은 일을 이미 하므로 전용 태그가 없다."
+    },
+    {
+      "intent": "본문 폭 제한",
+      "when": "넓은 화면에서 글줄이 너무 길어지지 않게.",
+      "web": "jd-container",
+      "uikit": "JdContainerSize",
+      "swiftui": "JdContainerSize",
+      "note": "iOS는 컴포넌트가 아니라 값이다 — frame(maxWidth:)에 넣어 쓴다 (04 §10.1)."
+    },
+    {
+      "intent": "특정 폭에서만 보이기",
+      "when": "좁은 화면에서 부가 정보를 숨긴다.",
+      "web": "jd-show",
+      "uikit": null,
+      "swiftui": "jdShow(above:below:)",
+      "note": "UIKit 대응은 없다 — isHidden을 직접 다루거나 JdSwitcherView로 배치를 바꾸는 편이 낫다."
+    },
+    {
+      "intent": "남는 공간 밀어내기",
+      "when": "한쪽으로 몰아붙이는 신축 여백.",
+      "web": "jd-spacer",
+      "uikit": "JdFlexSpacerView",
+      "swiftui": "Spacer",
+      "note": "웹 jd-spacer는 **고정** 간격, JdFlexSpacerView는 **신축**이다 — 이름이 같아 보이지만 다르다."
+    }
+  ],
+  "notLayoutIntents": {
+    "card": "표면(테두리·그림자·패딩) 컴포넌트 — 배치는 안에 든 스택이 한다",
+    "spotlight-card": "card의 시각 변형",
+    "button-group": "버튼 묶음의 시각 규칙(붙은 모서리) — 배치는 group과 동형",
+    "bento-grid": "격자 위에 세운 패턴 — 의도는 '격자'에 이미 있다",
+    "photo-grid": "격자 위에 세운 패턴",
+    "page": "화면 골격 패턴 — 배치 프리미티브가 아니다"
+  }
+}

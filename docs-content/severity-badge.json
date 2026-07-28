@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "SeverityBadge",
   "oneLiner": "심각도 뱃지",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": {

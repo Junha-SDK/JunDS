@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "RangeSlider",
   "oneLiner": "두 핸들로 최소/최대 범위를 지정하는 슬라이더.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": {

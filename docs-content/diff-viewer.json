@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "DiffViewer",
   "oneLiner": "두 텍스트 간 차이를 강조 표시하는 diff 뷰어.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

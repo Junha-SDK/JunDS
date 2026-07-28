@@ -1,6 +1,6 @@
+import JunDSCore
 import SwiftUI
 import UIKit
-import JunDSCore
 
 // 웹 jd-battery-indicator 동형 — 배터리형 레벨 표시 (DESIGN-2 §B2).
 // 웹은 div 3개(body/fill/cap)뿐이라 role·aria가 전무하다 — 값이 **폭으로만** 전달된다.
@@ -21,11 +21,13 @@ public struct JdBatteryIndicator: View {
     // 웹은 label이 없어도 요소가 존재한다 — AT에 이름이 필요해 iOS가 신설한 기본 이름
     static let defaultAccessibilityLabel = "배터리"
 
-    public init(value: Double,
-                size: JdDisplaySize = .md,
-                label: String? = nil,
-                autoColor: Bool = false,
-                color: JdBatteryColor = .primary) {
+    public init(
+        value: Double,
+        size: JdDisplaySize = .md,
+        label: String? = nil,
+        autoColor: Bool = false,
+        color: JdBatteryColor = .primary
+    ) {
         self.clamped = JdBatterySpec.clamp(value)
         self.label = label
         self.spec = JdBatterySpec.resolve(size: size)
@@ -38,9 +40,12 @@ public struct JdBatteryIndicator: View {
         HStack(spacing: JdToken.Space.s1_5) {
             if let label, !label.isEmpty {
                 Text(label)
-                    .font(JdSwiftUIFont.scaled(size: spec.labelFontSize,
-                                               weight: JdToken.FontWeight.medium,
-                                               category: sizeCategory))
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: spec.labelFontSize,
+                            weight: JdToken.FontWeight.medium,
+                            category: sizeCategory)
+                    )
                     // 웹 라벨색 #4b5563/#9ca3af는 스펙 부재분 — 시맨틱 등가인 muted로 번역
                     .foregroundColor(JdToken.Color.muted.color)
                     .lineLimit(1)
@@ -49,8 +54,11 @@ public struct JdBatteryIndicator: View {
             cap
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(label.flatMap { $0.isEmpty ? nil : $0 }
-            ?? JdBatteryIndicator.defaultAccessibilityLabel))
+        .accessibilityLabel(
+            Text(
+                label.flatMap { $0.isEmpty ? nil : $0 }
+                    ?? JdBatteryIndicator.defaultAccessibilityLabel)
+        )
         // 폭으로만 전달되던 값을 퍼센트로 노출한다(웹 결함 보정)
         .accessibilityValue(Text(spokenValue))
     }
@@ -67,8 +75,11 @@ public struct JdBatteryIndicator: View {
             .fill(fill.color)
             .frame(width: fillWidth, height: innerHeight)
             .frame(width: innerWidth, height: innerHeight, alignment: .leading)
-            .clipShape(RoundedRectangle(cornerRadius: max(spec.radius - spec.borderWidth, 0),
-                                        style: .continuous))
+            .clipShape(
+                RoundedRectangle(
+                    cornerRadius: max(spec.radius - spec.borderWidth, 0),
+                    style: .continuous)
+            )
             .padding(spec.borderWidth)
             .overlay(
                 RoundedRectangle(cornerRadius: spec.radius, style: .continuous)
@@ -83,23 +94,30 @@ public struct JdBatteryIndicator: View {
     private var percentText: some View {
         if spec.showsPercentText {
             Text(percentDisplay)
-                .font(JdSwiftUIFont.scaled(size: spec.percentFontSize,
-                                           weight: JdToken.FontWeight.bold,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.percentFontSize,
+                        weight: JdToken.FontWeight.bold,
+                        category: sizeCategory)
+                )
                 // 스펙에 % 전경색·헤일로 필드가 없다 — 시스템 흰색 + 검정 헤일로(notes 보고분).
                 // blur 2는 웹 text-shadow 2px에 대응하는 토큰 값을 빌려 쓴다.
                 .foregroundColor(.white)
-                .shadow(color: .black.opacity(JdToken.Opacity.o95),
-                        radius: JdToken.Space.s0_5)
-                .accessibilityHidden(true) // 값은 accessibilityValue가 이미 말한다
+                .shadow(
+                    color: .black.opacity(JdToken.Opacity.o95),
+                    radius: JdToken.Space.s0_5
+                )
+                .accessibilityHidden(true)  // 값은 accessibilityValue가 이미 말한다
         }
     }
 
     private var cap: some View {
-        JdBatteryCapShape(radius: spec.radius,
-                          roundsRightCorners: layoutDirection != .rightToLeft)
-            .fill(JdBatterySpec.outlineColor.color)
-            .frame(width: spec.capWidth, height: spec.capHeight)
+        JdBatteryCapShape(
+            radius: spec.radius,
+            roundsRightCorners: layoutDirection != .rightToLeft
+        )
+        .fill(JdBatterySpec.outlineColor.color)
+        .frame(width: spec.capWidth, height: spec.capHeight)
     }
 
     // 웹 transition: all var(--jd-duration-slower) var(--jd-easing-ease-out)
@@ -125,12 +143,14 @@ struct JdBatteryCapShape: Shape {
     let roundsRightCorners: Bool
 
     func path(in rect: CGRect) -> Path {
-        let corners: UIRectCorner = roundsRightCorners
+        let corners: UIRectCorner =
+            roundsRightCorners
             ? [.topRight, .bottomRight]
             : [.topLeft, .bottomLeft]
-        let bezier = UIBezierPath(roundedRect: rect,
-                                  byRoundingCorners: corners,
-                                  cornerRadii: CGSize(width: radius, height: radius))
+        let bezier = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius))
         return Path(bezier.cgPath)
     }
 }

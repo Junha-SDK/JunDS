@@ -34,7 +34,15 @@ test("컨테이너는 골격을 만들지 않는다 — children 그대로 (호�
 });
 
 test("전 컨테이너가 정의된다 (jd- 접두 태그)", () => {
-  for (const tag of ["jd-box", "jd-center", "jd-flex", "jd-grid-layout", "jd-group", "jd-hstack", "jd-vstack"]) {
+  for (const tag of [
+    "jd-box",
+    "jd-center",
+    "jd-flex",
+    "jd-grid-layout",
+    "jd-group",
+    "jd-hstack",
+    "jd-vstack",
+  ]) {
     expect(customElements.get(tag), tag).toBeDefined();
   }
 });

@@ -1,11 +1,13 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-bottom-sheet의 iOS 번역: UISheetPresentationController detent 위임 (04 §10.1).
 // draggable=true(웹 Sheet 별칭의 실체)면 그래버 표시 + 인터랙티브 닫기 허용.
 // persistent || !draggable → isModalInPresentation으로 인터랙티브 닫기 차단.
 // onDismissAttempt(cancelable veto)는 UIAdaptivePresentationControllerDelegate 게이트.
-public final class JdBottomSheetController: UIViewController, UIAdaptivePresentationControllerDelegate {
+public final class JdBottomSheetController: UIViewController,
+    UIAdaptivePresentationControllerDelegate
+{
 
     public let contentView = UIView()
 
@@ -96,13 +98,16 @@ public final class JdBottomSheetController: UIViewController, UIAdaptivePresenta
 
     // MARK: UIAdaptivePresentationControllerDelegate — 스와이프 다운 = 웹 백드롭 경로
 
-    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+    public func presentationControllerShouldDismiss(
+        _ presentationController: UIPresentationController
+    ) -> Bool {
         if persistent || !draggable { return false }
         if let handler = onDismissAttempt { return handler(.backdrop) }
         return true
     }
 
-    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController)
+    {
         onClose?()
     }
 }

@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Checkbox 데모 — 실컴포넌트 JdCheckbox(SwiftUI)/JdCheckboxView(UIKit).
 // iOS엔 체크박스 관용구가 없어 SF Symbols 자체 드로잉이다(04 §10.1 primitives).

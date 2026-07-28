@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveMarketStats",
   "oneLiner": "실시간 시장 통계 요약.",
-  "tags": [
-    "finance",
-    "live",
-    "통계"
-  ],
+  "tags": ["finance", "live", "통계"],
   "controls": [],
   "snippets": {
     "web": null,

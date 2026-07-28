@@ -4,9 +4,64 @@
 
 ---
 
+## 2026-07-28 — v2가 늘어난 자리의 처분
+
+### DEC-051. v2에 새로 생긴 변수 37종의 처분 — 승격 5 · 미승격 32
+
+DEC-045(MySelf 흡수)가 v2 동결본에 변수를 더했다. 패리티 테스트는 v2 `:root`의 키 집합이
+`legacy-map`과 **완전히 같을 것**을 단언하므로 그 순간부터 빨간불이었다(clean HEAD 기준 2건 실패).
+빨간불 자체가 설계대로다 — "v2가 늘었는데 아무도 판단하지 않았다"를 잡으라고 둔 그물이다.
+그물을 느슨하게(부분집합 단언으로) 푸는 대신 **세 갈래로 판단을 적었다**.
+
+#### 1. `--cat-*` 32종 — 승격하지 않는다
+
+영화·일상·만화·회고·책·뮤지컬·애니·중립 × accent/soft/border/text. 이건 디자인 시스템의
+기초 어휘가 아니라 **한 제품의 콘텐츠 분류**다. DEC-045 §2가 "사이트 종속성은 이식하지
+않는다"로 이미 같은 선을 그었고, 값 자체도 어두운 배경 기준 단일 모드라 v3 색 스키마의
+`{light, dark}` 쌍을 만들 수 없다(밝은 테마에서 앱이 덮어쓰라고 v2 주석이 적어 둔 값이다).
+색으로 **정보를 구분하는** 자리는 DEC-044의 hue 앵커 + 톤 레시피가 이미 담당한다.
+
+미승격도 기록이 필요하다 — `legacy-map.mjs`의 `legacyUnmappedV2Vars`에 32개를 명시했고,
+패리티 테스트는 여전히 **전량 분류**를 요구한다(승격 32 + 미승격 32 = v2 :root 64). 목록에
+없는 변수가 나타나면 그대로 실패한다.
+
+#### 2. `--font-*` 5종 — 승격하고, 값은 v2로 되돌린다
+
+`type.fontFamily`는 v3에 이미 있었다. 문제는 값이었다: 02-tokens §2가 적어 둔 3종 축약
+스택은 라이브러리 정본(`ds/tokens/fontFamily.ts`)이 아니라 **문서앱 globals.css**에서 뽑은
+것이라 `"Pretendard Variable"`(호스트가 실제로 로드하는 배포명)·`"Noto Sans KR"`·emoji
+폴백이 빠져 있었고, `display`·`hand`는 아예 없었다. 한글 웹폰트가 없는 환경에서 조용히
+다른 글꼴로 떨어지는 값이다 — 시각 판단이 아니라 결함이라 승인 이탈로 남기지 않고
+v2 체인 5종을 정본으로 올렸다.
+
+`fontFamily.ts`가 02-tokens §1.2 인벤토리 표에서 통째로 빠져 있었던 것이 근본 원인이다.
+패리티 밖에 있으면 정본이 조용히 갈라진다 — 표에 행을 추가하고 패리티 단언도 붙였다.
+
+#### 3. `fontSize 2xs` · `letterSpacing wider` — 승격한다 (전제가 틀렸다)
+
+DEC-045 스타일 프롭 정리는 `fontSize="2xs"`를 "v2 styleProps에만 있던 이름, 호출부 0건"으로
+보고 버렸다. **틀린 전제였다.** 2xs는 `typography.ts`의 스텝이고 `--text-2xs` 유틸리티가
+짝으로 등록돼 있으며 `DocPager`·`NowPlayingBar`가 쓰고 있다. 토큰으로 승격하고 스타일 프롭
+어휘로 되돌렸다.
+
+`letterSpacing wider`는 더 조용한 쪽이었다: 토큰에는 0.08em, `style-props.ts`에는 이식 당시
+박아 둔 리터럴 0.05em. 같은 이름이 클래스와 프롭에서 **다른 자간**을 그리는 상태 —
+DEC-045가 없앤 바로 그 결함이라 var 참조로 통일했다.
+
+#### 4. 게이트
+
+`tokens:test` 18/18(신규 3: 전량 분류 · 폰트 5종 값 · fontFamily 리터럴 패리티) ·
+web 391/391 · 루트 748/748 · 생성기 산출물 4종 재생성(웹 CSS +6변수, Swift `FontSize.xs2`·
+`LetterSpacing.wider`, react `fontFamily` 5종).
+
+결정자: 기본값 채택(패리티 원칙 — v2 리터럴이 정본, 승격 여부는 "디자인 시스템 어휘인가"로 가름).
+
+---
+
 ## 2026-07-27 — 차트 지오메트리 + Sparkline (finance iOS 13/86)
 
 ### DEC-049. 차트 8종의 병목은 그리기가 아니라 좌표 계산이다
+
 사람 지시: "나머지 안 되어 있는 거 해 달라, finance iOS도 다." 남은 73종 중 가장 큰
 덩어리가 차트 계열(Area·Candle·Donut·MultiLine·QuarterBar·RealCandle·MarketIndex·
 InvestorFlow 8종)이고, 그것들이 **전부 같은 계산**을 한다: 값 배열 → 정규화 → 화면 좌표.
@@ -16,6 +71,7 @@ InvestorFlow 8종)이고, 그것들이 **전부 같은 계산**을 한다: 값 �
 구현하면 두 계층의 그림이 서로 어긋난다.
 
 여기 담긴 규칙 셋은 8종이 공유한다:
+
 1. **평평한 데이터**(min == max)는 0으로 나누지 않고 눕힌다 — 웹 `range = max - min || 1`.
 2. **비수치는 대입 시점에 거른다.** 좌표 하나가 NaN이면 path 전체가 **에러 없이** 사라진다
    (웹 v2가 실제로 그랬다). 그리기 직전에 거르면 이미 인덱스가 밀려 x축이 어긋나므로
@@ -24,6 +80,7 @@ InvestorFlow 8종)이고, 그것들이 **전부 같은 계산**을 한다: 값 �
    `strokeWidth`가 커지면 inset도 따라 커진다.
 
 #### Sparkline — 첫 소비자
+
 SwiftUI는 `Canvas`, UIKit은 `draw(_:)`로 **한 번의 패스**에 선·면적·기준선·점을 담는다.
 도형 4개를 뷰 트리에 쌓거나 CAShapeLayer 4장을 정렬하지 않는다 — 스파크라인은 작고 자주
 바뀌는 물건이라 그 비용이 그대로 드러난다.
@@ -36,13 +93,16 @@ SwiftUI는 `Canvas`, UIKit은 `draw(_:)`로 **한 번의 패스**에 선·면적
 라벨이 있으면 정보(`.isImage` + 라벨), 없으면 장식(접근성 숨김) — 웹 v2엔 이 구분이 없었다.
 
 #### 게이트
+
 iOS 빌드 성공 · XCTest **783/783**(Core 308 + SwiftUI 115 + UIKit 360, 이번 신규 13) ·
 딥링크 `junds://component/Sparkline` 시각 확인(상승 초록 선 + 그라디언트 면적 + 헤일로 점).
 
 #### 남은 finance 73종 — 정직한 상태
+
 한 번에 끝낼 수 있는 분량이 아니다. 직전 2종 배치가 한 사이클을 다 썼고 실제 결함을
 하나 냈다(DEC-047). 각 종은 Core 스펙 + SwiftUI + UIKit + 테스트 + 데모 + USAGE + 원장을
 요구한다. 순서는 유지한다:
+
 1. 표시 소형 4종 — MarketHeaderBadge · SegmentedPill(Tabs 선행 필요) · AppIcon(73 글리프
    → SF Symbols 매핑표) · Logo
 2. 미니 그래픽 잔여 — MiniCandle (이번 지오메트리 재사용)
@@ -50,6 +110,7 @@ iOS 빌드 성공 · XCTest **783/783**(Core 308 + SwiftUI 115 + UIKit 360, 이�
    (캔들·Sankey는 Swift Charts 표현력 밖이고, 8종이 같은 렌더 경로를 쓰는 편이 낫다)
 4. 셸·내비 5종 — 시스템 위임 판단 필요
 5. 큰 조합체 — `JdTickStore`(04 §4 패턴) 분리가 선행 조건
+
 - 결정자: 병목부터 해소, 남은 범위를 명시하고 계속 (2026-07-27).
 
 ---
@@ -57,18 +118,22 @@ iOS 빌드 성공 · XCTest **783/783**(Core 308 + SwiftUI 115 + UIKit 360, 이�
 ## 2026-07-27 — 측정 전용 테스트 스위트 + LivePrice (iOS 141/468)
 
 ### DEC-048. 결함이 컴포넌트를 만들다가 우연히 드러나는 구조를 끊는다
+
 측정 결함이 **두 번 연속** 같은 방식으로 났다 — DEC-046(내부 제약 컨테이너가 0높이) ·
 DEC-047(흐름에서 칩이 컨테이너 폭을 요구). 둘 다 새 컴포넌트를 만들다가 우연히 드러났고,
 원인도 같다: 테스트 픽스처가 `sizeThatFits`를 재정의해 첫 경로에서 답이 나왔고 나머지
 경로를 밟지 않았다.
 
 #### 1. `JdMeasureTests` 신설 — 픽스처를 쓰지 않는다
+
 진짜 UIKit 뷰 **세 종류**로 세 경로를 각각 강제한다:
+
 - `ConstraintCard` — 내부 제약으로만 크기가 정해지는 컨테이너(재정의 없음)
 - `SelfLayingView` — `sizeThatFits`로만 크기를 말하는 뷰(우리 랩·열 뷰가 이 부류)
 - `UILabel` — 내용 리프(intrinsicContentSize)
 
 지금까지 밟은 함정을 **전제까지 함께** 단언한다:
+
 - `UIView` 기본 `sizeThatFits`가 `.zero`를 준다는 것 · 컨테이너에 고유 크기가 없다는 것
   → 전제가 깨지면(UIKit 동작 변경) `JdMeasure`의 존재 이유가 바뀌므로 그때 알아야 한다.
 - **`.greatestFiniteMagnitude`가 유한하다**는 것 · 그것과 `.infinity`가 같은 결과를 줘야
@@ -78,7 +143,9 @@ DEC-047(흐름에서 칩이 컨테이너 폭을 요구). 둘 다 새 컴포넌�
 - 측정이 **순수**하다는 것(두 번 재도 같고 프레임을 건드리지 않는다).
 
 #### 2. LivePrice — 모션이 붙는 첫 finance 리프
+
 `JdLivePriceText` 파생. 웹과 같이 (a) 크기 (b) 값 변화 플래시 둘만 얹는다.
+
 - **최초 표시에서는 켜지 않는다.** 화면에 처음 뜨는 순간의 플래시는 "값이 바뀌었다"는
   거짓 신호다. SwiftUI는 `onChange`가 변화에만 반응해 구조적으로 지켜지고, UIKit은
   `previousValue == nil` 게이트로 같은 일을 한다(웹 `#started` 게이트 동형).
@@ -87,7 +154,9 @@ DEC-047(흐름에서 칩이 컨테이너 폭을 요구). 둘 다 새 컴포넌�
 - Reduce Motion이면 플래시가 붙지 않는다(JdMotion 경유).
 
 #### 3. 게이트
+
 iOS 빌드 성공 · XCTest **770/770**(Core 295 + SwiftUI 115 + UIKit 360, 이번 신규 17).
+
 - 결정자: 재발 방지 우선 + 배치 계속, 근거 기록 후 기본값 채택 (2026-07-27).
 
 ---
@@ -95,11 +164,13 @@ iOS 빌드 성공 · XCTest **770/770**(Core 295 + SwiftUI 115 + UIKit 360, 이�
 ## 2026-07-27 — finance 칩·톤 2종 + 흐름 측정 결함 (iOS 140/460)
 
 ### DEC-047. 분류 어휘를 세우고, 흐름 배치의 두 번째 측정 결함을 잡았다
+
 DEC-040이 "상승/하락"이라는 **방향** 어휘를 세웠다면 이번은 **분류** 어휘다 — 공시 톤과
 테마 카테고리 회전 팔레트. 둘 다 웹에서 각 컴포넌트가 `--bm-cat-*` 폴백 체인을 재선언하고
 있어 단일 소스가 없었다(DEC-040과 같은 상황).
 
 #### 1. 틴트 대비 규칙을 스펙이 소유한다
+
 12~14% 틴트 배경 위에 **원색 글자는 대비가 안 나온다**(웹 실측: amber 계열 ~1.9:1).
 글자는 색상(hue)을 유지한 채 foreground 쪽으로 섞어 올린다 — `JdFinanceTheme.onTint(_:)`.
 이 계산을 컴포넌트마다 다시 쓰면 반드시 어긋나므로 스펙이 소유한다.
@@ -107,8 +178,10 @@ DEC-040이 "상승/하락"이라는 **방향** 어휘를 세웠다면 이번은 
 플랫폼에서 다른 색이 된다 — 테스트가 순서·중복·감김을 함께 단언한다.
 
 #### 2. 흐름 배치가 칩을 한 줄에 하나씩 놓고 있었다
+
 `JdThemeTagList`를 만들자마자 테스트가 잡았다: 폭 900에서도 칩 8개가 8줄로 깔렸다.
 두 겹의 원인이 있었다.
+
 - `JdMeasure.size(of:width:)`는 폭을 `.required`로 강제한다. 격자(열 폭 고정)에서는
   맞지만 흐름에서는 칩마다 컨테이너 폭을 요구하게 된다 → `flowSize(of:maxWidth:)` 분리.
   자연 폭으로 먼저 재고, 그것이 컨테이너보다 넓을 때만 강제해 다시 잰다.
@@ -121,15 +194,18 @@ DEC-046과 같은 교훈이 반복됐다 — 측정은 **진짜 플랫폼 뷰**�
 Auto Layout 칩이 처음 들어온 순간 결함이 드러났다.
 
 #### 3. 게이트
+
 iOS 빌드 성공 · XCTest **753/753**(Core 295 + SwiftUI 115 + UIKit 343, 이번 신규 16) ·
 쇼룸 재빌드 + 딥링크 `junds://component/ThemeTagList` 시각 확인(8칩 2줄 흐름, 5색 회전이
 6번째에서 1번째 색으로 복귀, `#` 프리픽스 옅음).
 
 #### 4. 사고 기록 — 셸 작업 디렉터리가 남아 파일이 엉뚱한 곳에 생성됐다
+
 직전 호출의 `cd packages/web/src/components`가 남은 상태에서 `mkdir -p packages/ios/...`를
 실행해 **웹 소스 트리 안에** iOS 파일 4개가 생성됐다(`packages/web/src/components/packages/ios/…`).
 빌드는 통과했고(SPM이 그 경로를 안 봄) 테스트가 "타입을 못 찾음"으로 잡았다. 이동 후
 오염 디렉터리를 제거했다. 절대 경로를 쓰거나 매 호출 `cd`를 다시 하는 것이 예방책이다.
+
 - 결정자: 배치 계속 진행, 근거 기록 후 기본값 채택 (2026-07-27).
 
 ---
@@ -137,6 +213,7 @@ iOS 빌드 성공 · XCTest **753/753**(Core 295 + SwiftUI 115 + UIKit 343, 이�
 ## 2026-07-27 — MySelf 흡수 2차: 재료와 화면을 가른다 (원장 460 → 468)
 
 ### DEC-046. 화면은 남기고, 화면이 쓰던 재료만 뽑는다
+
 1차에서 훅·토큰·작은 컴포넌트를 옮기고 나니 남은 것은 300~1400줄짜리 화면들이었다
 (`DailyArchive` 535 · `DocsArtIndex` 883 · `BookDetail` 1410 · `DetailOverlay` 369).
 이것들을 통째로 옮길지가 2차의 첫 판단이었다.
@@ -152,6 +229,7 @@ iOS 빌드 성공 · XCTest **753/753**(Core 295 + SwiftUI 115 + UIKit 343, 이�
 순위 목록은 어떤 집계에도 쓰인다. 반면 "데일리 아카이브"는 데일리 데이터에만 쓰인다.
 
 ### DEC-047. NowPlayingFull 은 Modal 위에 조립한다
+
 MySelf 는 `DetailSheet`(122줄)라는 자체 오버레이 셸을 갖고 있었다 — 포커스 트랩·ESC·
 스크롤 잠금·포커스 복원 일습을 직접 구현한 것이다. 그대로 옮기면 JunDS `Modal` 과
 같은 일을 하는 코드가 둘이 된다.
@@ -161,10 +239,12 @@ a11y 기계장치는 `Modal` 이 계속 소유한다. 오버레이 접근성 버
 유지되는 게 화면 하나의 스타일 자유도보다 중요하다.
 
 ### DEC-048. useUrlFilters — 기본값은 주소에 싣지 않는다
+
 `useDailyFilters`(254줄)는 react-router `useSearchParams` 에 묶여 있었다. History API
 만 쓰도록 바꿔 라우터 비종속으로 만들었다.
 
 핵심 규칙 두 가지를 그대로 가져왔다:
+
 - **기본값과 같은 필터는 URL 에서 생략한다.** 아무것도 안 건드린 목록의 주소가 깨끗하게
   남고, 공유된 링크에는 실제로 바꾼 조건만 담긴다.
 - **replace 가 기본이다.** 필터를 몇 번 만지면 뒤로 가기가 그 횟수만큼 눌러야 이전
@@ -172,6 +252,7 @@ a11y 기계장치는 `Modal` 이 계속 소유한다. 오버레이 접근성 버
 - 로컬 전용 필터(`transient`)는 URL 에 쓰지 않는다 — 작성 상태 같은 게 배포 주소에 샌다.
 
 ### DEC-049. ReadingTime 의 읽기 속도는 튜닝값이지 상수가 아니다
+
 JunDS 와 MySelf 의 읽기 시간 계산이 서로 달랐다 — JunDS 는 라틴 230wpm / CJK 170cpm,
 MySelf 는 170wpm / 280cpm. 한국어 3000자 글에서 17.6분 대 10.7분으로 갈린다.
 
@@ -181,12 +262,14 @@ MySelf 는 170wpm / 280cpm. 한국어 3000자 글에서 17.6분 대 10.7분으�
 그대로 재현할 수 있다.
 
 ### DEC-050. jsdom 이 잡아 준 실제 결함
+
 `Lyrics` 의 자동 스크롤이 테스트에서 `box.scrollTo is not a function` 으로 터졌다.
 jsdom 이 `Element.scrollTo` 를 구현하지 않아서다. 테스트만 통과시키려 목을 세우는 대신
 **`scrollTop` 직접 지정으로 떨어지는 폴백**을 넣었다 — 구형 브라우저에서도 같은 문제이고,
 부드럽게 흐르지 않는 것보다 현재 연이 화면 밖에 남는 게 훨씬 나쁘다.
 
 ### 결과
+
 신규 8종(composites 7 · hooks 1) + `ReadingTime` superset 화.
 원장 460→**468** (composites 194→201 · hooks 61→62). UI 합계 313→**320**.
 `docs-content` 468건 검증 통과 · 795 tests / 340 files 통과 · a11y 위반 0.
@@ -198,12 +281,14 @@ jsdom 이 `Element.scrollTo` 를 구현하지 않아서다. 테스트만 통과�
 ## 2026-07-27 — MySelf 디자인 시스템 흡수: 원장 445 → 460
 
 ### DEC-045. 개인 사이트의 디자인 시스템을 JunDS로 끌어올린다
+
 `MySelf`(junome.info)는 `core/ui`·`core/hooks`·`styles/tokens.css`로 작은 자체 디자인
 시스템을 갖고 있었다. 앞으로 MySelf를 포함한 모든 화면을 JunDS 위에 세우려면 **MySelf가
 가진 자산이 먼저 JunDS 안에 있어야 한다**. 이번 패스의 목표는 교체가 아니라 흡수다 —
 "MySelf를 통째로 JunDS로 갈아 끼워도 후퇴가 없는 상태"를 만든다.
 
 #### 1. 신규 15종 — composites 9 · hooks 6
+
 composites: Waveform · AlbumArt · NowPlayingBar · DocPager · ProjectCard ·
 ScreenshotGrid · SeoHead · TocHeading · GlobalImageLightbox
 hooks: useCodeCopy · useJsonLd · useRevealOnScroll · useDominantColor ·
@@ -213,12 +298,14 @@ useAudioPlayer · useSeo
 `00-inventory.md` §1이 1:1이므로 둘을 함께 올렸다(어긋나면 원장 생성이 exit 1).
 
 #### 2. 사이트 종속성은 이식하지 않는다
+
 junome 도메인·OG 이미지·문서 레지스트리처럼 MySelf 고유의 값은 prop이나 provider로
 주입받게 바꿨다(`SeoProvider`, `DocPager.renderLink`). 그래서 라우트→제목 매핑
 (`SeoResolver`)과 `LeftNav`의 문서 그룹 정렬 규칙은 MySelf에 남는다 — 이것들은
 디자인 시스템이 아니라 그 사이트의 정보 구조다.
 
 #### 3. 겹치는 것은 JunDS를 superset으로, 단 새 동작은 전부 opt-in
+
 `useFocusMode`(엣지 peek·좁은 화면 비활성) · `TableOfContents`(지연 콘텐츠 재수집) ·
 `ImageWithFallback`(재시도·백그라운드 소생) · `TreeNav`(프리페치·확장 제어) ·
 `Toast`(전체화면 포털·title·show/close/clear) · `Callout`·`SpoilerBlock`·`MarkdownViewer`.
@@ -228,6 +315,7 @@ junome 도메인·OG 이미지·문서 레지스트리처럼 MySelf 고유의 �
 이것이다 — 읽기 레이아웃에는 옳지만, 포커스 모드를 다른 용도로 쓰는 화면에는 아니다.
 
 #### 4. 흡수 과정에서 드러난 기존 결함 2건
+
 - **`Toast.confirm()`이 엉뚱한 토스트를 닫았다.** 버튼 클로저가 클릭 시점에
   `nextId - 1`을 읽어서, 그 사이 다른 토스트가 뜨면 그것을 닫았다. id를 미리 확보해
   클로저에 담도록 고쳤다.
@@ -237,12 +325,14 @@ junome 도메인·OG 이미지·문서 레지스트리처럼 MySelf 고유의 �
   **이번 패스에서 기본 동작이 바뀐 유일한 항목이다.**
 
 #### 5. 금칙처리는 HTML이 된 뒤에 건다
+
 MySelf의 `remarkKinsoku`는 mdast 텍스트 노드에만 걸어서 안전했다. JunDS의
 `MarkdownViewer`는 문자열 렌더러라 같은 방식을 쓸 수 없다. 원문에 먼저 걸면 삽입한
 word joiner가 `](` 사이에 끼어 링크 문법이 깨진다. 그래서 `applyKinsokuToHtml`은 태그와
 `<code>` 바깥의 텍스트만 처리한다 — URL이 깨지지 않고, 복사한 코드도 그대로 실행된다.
 
 #### 6. 검증
+
 748 tests / 332 files 통과 · a11y 위반 0(감사 중 `Waveform`·`AlbumArt`의 role 누락을
 잡아 수정) · `build:lib` dist 반영 확인 · `docs-content` 460건 검증 통과.
 상세 대응표는 `requirements/myself-migration.md`.
@@ -254,19 +344,22 @@ word joiner가 `](` 사이에 끼어 링크 문법이 깨진다. 그래서 `appl
 ## 2026-07-27 — 시각 증명에서 잡은 측정 결함 + 자기충족적 테스트 교정
 
 ### DEC-046. 테스트 737개가 통과하는데 화면은 비어 있었다
+
 > 번호 정정(2026-07-27): 처음 DEC-044로 적었으나, 동시 진행 중인 웹 트랙이 `fd944ea`에서
 > 044를 먼저 스테이킹했다(그쪽도 041 충돌로 옮겨 온 번호였다). 045로 옮기려던 사이 그쪽이
 > 045까지 가져가 046이 됐다. 같은 번호가 두 결정을 가리키면 코드 주석의 근거 추적이 끊긴다
 > — 동시 트랙에서는 **번호를 잡는 즉시 커밋**하는 것이 유일한 예방책이다.
-DEC-042·043을 끝내고 시뮬레이터로 확인하러 갔다(딥링크 `ad2d337`가 착륙해 445행을
-스크롤하지 않고 상세로 바로 들어갈 수 있게 됐다). `junds://component/LiveMicroKpiRow`의
-**UIKit 탭이 비어 있었다** — KPI 카드가 0높이로 접혀 테두리 선 두 줄만 남았다.
-SwiftUI 탭은 정상이었다.
+> DEC-042·043을 끝내고 시뮬레이터로 확인하러 갔다(딥링크 `ad2d337`가 착륙해 445행을
+> 스크롤하지 않고 상세로 바로 들어갈 수 있게 됐다). `junds://component/LiveMicroKpiRow`의
+> **UIKit 탭이 비어 있었다** — KPI 카드가 0높이로 접혀 테두리 선 두 줄만 남았다.
+> SwiftUI 탭은 정상이었다.
 
 #### 1. 원인 — UIKit 측정 API 두 개가 모두 답하지 못하는 뷰가 있다
+
 `JdWrapView`·`JdColumnsView`는 자식을 frame으로 놓으므로 "이 폭에서 얼마나 높은가"를
 스스로 물어야 한다. DEC-042는 `sizeThatFits` → `intrinsicContentSize` 순으로 물었다.
 그런데:
+
 - **`UIView.sizeThatFits`의 기본 구현은 `bounds.size`를 돌려준다.** 아직 배치되지 않은
   뷰는 `.zero`다. 스스로 재정의한 뷰(UILabel, 자체 배치 뷰)만 의미 있는 값을 준다.
 - `intrinsicContentSize`는 내용 리프의 것이다. **내부 제약으로 크기가 정해지는 컨테이너**는
@@ -276,6 +369,7 @@ SwiftUI 탭은 정상이었다.
 정답은 `systemLayoutSizeFitting(_:withHorizontalFittingPriority:verticalFittingPriority:)`다.
 
 #### 2. 왜 737개가 통과했나 — 픽스처가 답을 대신 주고 있었다
+
 테스트의 `Box` 픽스처가 `sizeThatFits`를 **재정의**했다. 그래서 첫 경로에서 답이 나와
 나머지 경로를 **한 번도 밟지 않았다**. 통과는 구현이 옳다는 증거가 아니라 픽스처가
 구현의 결함을 가려 준 결과였다 — 자기충족적 테스트다.
@@ -283,6 +377,7 @@ SwiftUI 탭은 정상이었다.
 플랫폼 뷰로 테스트해야 한다.
 
 #### 3. 고친 것
+
 - **`JdMeasure` 신설** — 측정 규칙을 한 곳에. `systemLayoutSizeFitting` → `sizeThatFits`
   → `intrinsicContentSize` 순으로 묻고 처음 유효한 답을 쓴다. 순서가 이 방향인 이유:
   내부 제약이 있는 뷰는 첫 경로가 정확하고, 자체 배치 뷰(우리 랩·열 뷰 자신)는 제약이
@@ -293,6 +388,7 @@ SwiftUI 탭은 정상이었다.
   전제가 깨지면(UIKit 동작이 바뀌면) 그것도 알 수 있다. 세 경로가 각각 쓰이는지도 확인.
 
 #### 4. 시각 증명 — 이번엔 눈으로 확인했다
+
 - `LiveMicroKpiRow` UIKit 탭이 SwiftUI 탭과 동일하게 2×2 격자로 렌더(수정 전/후 대조).
 - `LiveStackedCell` UIKit 스테이지를 **열 정렬 표**로 바꿔(셀의 실제 서식지) 확인:
   종목명 열(`.fit`)이 가장 긴 "에이치엘비생명과학"에 맞고 나머지가 같은 왼쪽 선에 정렬 ·
@@ -301,8 +397,10 @@ SwiftUI 탭은 정상이었다.
   DEC-042 §5·DEC-043 §6에 "남은 것"으로 적어 둔 시각 증명이 이것으로 닫힌다.
 
 #### 5. 게이트
+
 iOS 빌드 성공 · XCTest **737/737**(Core 295 + SwiftUI 115 + UIKit 327, 이번 신규 5) ·
 쇼룸 실기동 + 딥링크 진입 스크린샷 대조.
+
 - 결정자: 시각 검증에서 발견한 결함 수정, 근거 기록 후 기본값 채택 (2026-07-27).
 
 ---
@@ -310,6 +408,7 @@ iOS 빌드 성공 · XCTest **737/737**(Core 295 + SwiftUI 115 + UIKit 327, 이�
 ## 2026-07-27 — 배치 API 가독성 패스: 축을 이름에, 정렬을 웹 어휘로, 열을 한 값으로
 
 ### DEC-043. 가독성은 취향이 아니라 기본값·이름·값 묶음의 문제다
+
 사람 지적: "코드적으로도 더 layout하기 좋고 코드로 보기에도 이쁘게. 지금은 가독성이 좀
 별로. UIKit 쪽에서는 SnapKit이 예쁜데 이게 최선인지 모르겠다."
 
@@ -320,6 +419,7 @@ SnapKit이 **비워 둔** 층이 둘 — 트리 만들기와 행 간 열 정렬 
 층"임을 명시했다.
 
 #### 1. 축을 인자에서 이름으로
+
 `JdStackView(.horizontal, gap: .sm, align: .center) { … }`는 축이 인자에 묻혀 읽는 눈이 한 번
 멈춘다. SwiftUI가 `HStack { }`으로 읽히는 이유는 축이 **이름에** 있기 때문이다.
 `JdVStack`/`JdHStack` 대문자 자유 함수를 더했다(JdStackView가 final이라 서브클래스 불가).
@@ -327,6 +427,7 @@ SnapKit이 **비워 둔** 층이 둘 — 트리 만들기와 행 간 열 정렬 
 그래서 흔한 경우 인자를 **하나도 적지 않는다**. `JdFlexSpacerView()` → `JdFlex()`.
 
 #### 2. 정렬을 웹 어휘로 (`JdAlign`·`JdJustify` 신설)
+
 배치 표면이 `UIStackView.Alignment`를 그대로 노출하고 있었다. 그러면 (a) 플랫폼 타입이
 소비자 코드로 새고 (b) 같은 개념을 웹은 `stretch`, iOS는 `.fill`로 불러 3플랫폼 문서가
 갈라진다. `JdGap`이 원시 CGFloat를 막은 것과 **같은 이유**로 정렬에도 이름 층을 준다.
@@ -335,6 +436,7 @@ SnapKit이 **비워 둔** 층이 둘 — 트리 만들기와 행 간 열 정렬 
 `JdFlex()`로 미는 것이 정답이고, 그 비대칭을 매핑 주석에 적어 숨기지 않았다.
 
 #### 3. 열 정의를 한 값으로 — 이건 가독성이 아니라 **결함 수정**이었다
+
 DEC-042의 `JdColumnsView(columns: [...], alignments: [...])`는 두 배열을 **인덱스로 짝**
 맞춘다. 하나만 밀리면 컴파일도 되고 크래시도 없이 **조용히 틀린 표**를 그린다. `JdColumn`을
 구조체로 바꿔 `width`와 `align`을 한 값에 담았다(`.fixed(96, align: .end)`) — 그 실수가
@@ -342,10 +444,12 @@ DEC-042의 `JdColumnsView(columns: [...], alignments: [...])`는 두 배열을 *
 자신의 규칙("spacing 표면은 JdGap만 받아 원시 CGFloat 하드코딩을 차단한다")을 어기고 있었다.
 
 #### 4. `JdEdge` — insets를 손으로 적지 않게
+
 `NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)`이 호출부에서 가장
 긴 줄이었다. `JdEdge.all(.md)` · `symmetric(v:h:)` · `only(top:)`로 토큰 이름만 남긴다.
 
 #### 5. 게이트
+
 XCTest **732/732**(Core 295 + SwiftUI 115 + UIKit 322, 이번 신규 6). 새로 단언한 것:
 축 이름 생성자가 **웹 기본값을 갖는다**(안 그러면 소비자가 매번 인자를 적어야 해 호출부가
 길어진다) · `JdAlign` 5종 매핑과 값 개수(웹과 동일 집합 유지) · `JdColumn`이 폭+정렬을 한
@@ -354,9 +458,11 @@ XCTest **732/732**(Core 295 + SwiftUI 115 + UIKit 322, 이번 신규 6). 새로 
 쓰고 있으면 그 API가 죽지 않는다.
 
 #### 6. 남은 것
+
 DEC-042 §5 그대로: 복잡한 화면 한 장의 **시뮬레이터 시각 증명**이 아직 없다. 쇼룸이 원장
 445행 기반이라 "레이아웃 킷"은 등록할 행이 없어 별도 진입점이 필요하다. 이번 가독성 패스로
 그 데모 코드 자체가 짧아졌으므로 다음 배치에서 그것부터 만든다.
+
 - 결정자: 사람 지적에 따른 표면 재설계, 근거 기록 후 기본값 채택 (2026-07-27).
 
 ---
@@ -364,12 +470,14 @@ DEC-042 §5 그대로: 복잡한 화면 한 장의 **시뮬레이터 시각 증�
 ## 2026-07-27 — UIKit 배치를 선언형으로 + 열 정렬 격자 (레이아웃 층 재설계)
 
 ### DEC-042. DEC-041은 부분해였다 — 사람이 반려했고, 그 판단이 맞다
+
 DEC-041에서 랩 컨테이너 하나(`JdWrapView`)와 finance 조립 3종을 냈다. 사람 반려:
 "이게 가장 이상적인 layout 코드가 맞나. 정말 layout 쉽도록, **사용자 입장에서**, 진짜
 어렵고 복잡한 것도 한 치의 문제 없이." 옳은 지적이다 — DEC-041은 컴포넌트 3종의 내부
 배치를 해결했을 뿐, **소비자가 화면을 짜는 일**은 그대로였다.
 
 #### 1. 실측한 마찰 — 어려운 건 배치가 아니라 배치를 적는 일이었다
+
 `jd.layout`(400줄 앵커 DSL)은 **제약만** 만든다. 그래서 뷰마다 (1) 생성 (2) `addSubview`
 (3) 제약 세 단계를 손으로 반복해야 하고, 순서를 어기면 `JdLayout.swift:504·509·514`의
 `preconditionFailure("addSubview 이후에 layout을 호출하라")`로 **앱이 죽는다**.
@@ -381,6 +489,7 @@ DEC-041에서 랩 컨테이너 하나(`JdWrapView`)와 finance 조립 3종을 �
 `UICollectionViewCompositionalLayout`(소비자 작성)으로 안내하고 있었다.
 
 #### 2. 신설한 것 — 넷뿐이다
+
 - **`JdViewBuilder`(결과 빌더) + `JdStackView` 선언형 init**: 트리와 제약을 한 표현식으로.
   빌더가 자식을 스택에 넣으므로 **`addSubview` 함정이 문법적으로 사라진다.** `if`/`if let`/
   `for`/옵셔널이 블록 안에서 동작해 조건부 화면도 한 표현식이다. `padding:`은 layoutMargins로
@@ -400,11 +509,13 @@ DEC-004가 전제한 하한)/`ViewThatFits`가 이미 같은 일을 한다. RECI
 넣어 **개념 어휘는 3플랫폼 공통, 표현만 플랫폼 관용구**임을 못 박았다.
 
 #### 3. `jd.layout`을 없애지 않은 이유
+
 앵커 DSL은 "이 뷰를 저 뷰의 오른쪽에" 같은 비계층 관계에 여전히 필요하다. 대신 가장 흔한
 경우(`edges.equalToSuperview`)를 **`jdFill(parent)`로 대체**했다 — 부모를 인자로 받아 스스로
 붙이므로 순서를 틀릴 수 없다. 위험한 API를 지우는 대신 **안전한 길을 더 짧게** 만들었다.
 
 #### 4. 게이트 — 쉬운 케이스가 아니라 어긋나기 쉬운 케이스를 봤다
+
 XCTest **726/726**(Core 295 + SwiftUI 115 + UIKit 316, 이번 신규 19). 단언한 것:
 행 간 `fit` 열 폭 공유 · 고정/신축 폭 분배 · 가중치 0 균등 분배(0 나눗셈 방지) · 열별 정렬 ·
 폭 부족 시 `fit`만 축소(고정 열 불변) · `fit(max:)` 상한 · **마지막 행이 덜 찬 표** ·
@@ -417,6 +528,7 @@ XCTest **726/726**(Core 295 + SwiftUI 115 + UIKit 316, 이번 신규 19). 단언
 `buildBlock()` 추가 — 소비자가 타입을 적어 넣지 않아도 된다).
 
 #### 5. 남은 것
+
 - 복잡한 화면 **한 장을 시뮬레이터로 찍은 시각 증명**이 아직 없다. 쇼룸이 원장 445행 기반
   카탈로그라 "레이아웃 킷"은 등록할 행이 없고, 딥링크도 없어 상세 도달 비용이 크다.
   종목 표 + KPI 격자 + 반응형을 한 화면에 넣은 데모 스크린을 별도 진입점으로 만드는 것이 다음.
@@ -429,11 +541,13 @@ XCTest **726/726**(Core 295 + SwiftUI 115 + UIKit 316, 이번 신규 19). 단언
 ## 2026-07-27 — 배치를 컴포넌트가 소유한다: UIKit 랩 컨테이너 + finance 조립 3종 (iOS 138/445)
 
 ### DEC-041. "복잡한 레이아웃이라도 쉽게"의 답은 레이아웃 DSL이 아니라 소유권 이전이다
+
 사람 지시: 다음 배치를 "가장 쉽고, 레이아웃 배치가 쉽고, 복잡한 레이아웃이라도 쉽게 할 수
 있도록". 새 레이아웃 프레임워크를 만드는 대신 **컴포넌트가 자기 배치를 소유**하게 했다 —
 소비자가 격자를 정의하지 않는 것이 곧 "쉬움"이기 때문이다.
 
 #### 1. 실측한 비대칭 — UIKit엔 줄바꿈 컨테이너가 없었다
+
 `UIStackView`는 줄바꿈을 못 한다. 그래서 RECIPES는 `Wrap`을 "SwiftUI는 JdFlowLayout,
 UIKit은 JdStackView.horizontal **no-wrap 폴백**"으로, `GridLayout`을 "UIKit →
 UICollectionViewCompositionalLayout(소비자 작성)"으로 안내하고 있었다. 즉 **웹에서 한 줄이던
@@ -441,12 +555,15 @@ UICollectionViewCompositionalLayout(소비자 작성)"으로 안내하고 있었
 배치를 컴포넌트가 스스로 소유하려면 이 공백을 먼저 메워야 한다.
 
 #### 2. `JdWrapView` 신설 (UIKit Layout)
+
 `JdFlowLayout`(SwiftUI)의 UIKit 대응. 두 모드:
+
 - 고유 폭 흐름(칩·태그) — 좌→우, 넘치면 다음 행, 행 안 세로 중앙(웹 `align-items: center`).
 - 균등 분할 격자(`equalWidths`) — `minItemWidth`·`maxPerLine`이 열 수를 정하고 행 높이를
   가장 큰 셀로 맞춘다(열이 들쭉날쭉해지지 않게).
 
 설계 판단 2건:
+
 - **frame 배치**(Auto Layout 제약 아님): 아이템 수가 바뀔 때 제약을 세우고 허무는 비용과
   충돌 로그가 랩 배치에서는 순손실이다. 대신 `sizeThatFits`/`intrinsicContentSize`를
   정확히 보고해 부모 Auto Layout에는 정상 참여한다 — 테스트가 **보고 높이 == 배치 하단**을
@@ -455,6 +572,7 @@ UICollectionViewCompositionalLayout(소비자 작성)"으로 안내하고 있었
   규모(칩 묶음·KPI 4~8칸)를 전제한다 — RECIPES에 그 경계를 명시했다.
 
 #### 3. 조립 3종 — 배치를 소유하는 finance 컴포넌트
+
 - **LiveStackedCell**: 가격+등락률 2단 우측정렬. 리프를 조립하지 **않는다** — 이 셀은 색
   통로가 하나이고, 리프를 얹으면 배지는 색을 정하고 텍스트는 안 정해 통로가 둘로 갈린다.
 - **PositionBar**: 좌표를 Core(`JdPositionBarGeometry`)가 클램프까지 마쳐 준다. 마커(12pt)가
@@ -466,45 +584,55 @@ UICollectionViewCompositionalLayout(소비자 작성)"으로 안내하고 있었
   폭이 연속적이고 분할 화면·회전까지 있어 최소 폭이 더 잘 맞는다.
 
 #### 4. 세 번째 추세 규칙: `.gainOrEven`
+
 웹 `jd-live-stacked-cell`은 `up = c >= 0`이다 — **flat이 없다.** 두 값이 한 색으로 묶여
 있어서 0%에 회색을 주면 그 행 전체가 죽은 것처럼 보인다. `jd-live-micro-kpi-row`도
 `(pct ?? 0) >= 0`으로 같다. DEC-040의 두 규칙에 세 번째로 추가했고, 테스트가 **세 규칙이
 0에서 모두 갈린다**는 것을 단언한다(하나로 합쳐지면 즉시 실패).
 
 #### 5. 웹 결함 교정 확인
+
 `cur < low`일 때 웹 v2가 음수 width를 내던 결함이 Core 클램프로 막혀 있는지 테스트로 고정.
 비유한(NaN·무한)은 100이 아니라 **0**이다 — 최대로 접으면 데이터 결손이 "구간 끝 도달"로
 잘못 보인다(웹 v3 동형, 처음엔 테스트를 100으로 잘못 썼다가 웹 소스 확인 후 교정).
 
 #### 6. 게이트
+
 iOS 빌드 성공 · XCTest **707/707**(Core 295 + SwiftUI 115 + UIKit 297, 이번 신규 39) ·
 쇼룸 재빌드 + 실기동(iOS 135 → 138) · 데모 3종 배선 4중 일치 검증(고아 0건).
 RECIPES `Wrap`/`GridLayout` 항목의 "no-wrap 폴백" 안내를 갱신했다 — 문서가 실제 능력보다
 낮게 안내하고 있으면 소비자가 컬렉션 뷰를 계속 짠다.
 
 #### 7. 남은 finance 77종
+
 DEC-040 §8 순서 유지. 이번에 ①의 대표 3종을 끝냈으므로 다음은 ①의 잔여
 (MarketHeaderBadge · DisclosureToneBadge · LivePrice · AppIcon · Logo) → ② 미니 그래픽.
 `JdWrapView`가 생겨서 ThemeTagList·SegmentedPill 같은 칩 묶음 계열도 바로 만들어진다.
+
 - 결정자: 사람 지시("복잡한 Layout이라도 쉽게")를 배치 소유권으로 해석, 근거 기록 후
   기본값 채택 (2026-07-27).
 
 ---
+
 ## 2026-07-27 — 웹 시각 결함 전수 교정: 톤 레시피 + 토큰 층 구멍 3종
 
 ### DEC-044. 다크에서 뒤집히는 것들은 취향이 아니라 토큰 층의 구멍이었다
+
 사람 지시: "프론트 컴포넌트를 더 좋게 — UI도 더 이쁘고 범용성도 갖게. 그리고 STAGE에서
 깨져 있는 것들을 해결해 달라. 웹 바닐라·React 전부." DEC-039가 파운데이션과 컨트롤
 1차를 올렸지만, 문서 STAGE(다크 무대)에서 아직 깨지는 것들이 남아 있었다.
 
 #### 1. 실측 — 388종 전수 마운트 후 계측
-문서 스테이지와 동일한 조건(`data-jd-theme="dark"` 서브트리)에서 <jd-*> 388종을
+
+문서 스테이지와 동일한 조건(`data-jd-theme="dark"` 서브트리)에서 <jd-\*> 388종을
 전부 마운트해 모든 자손의 computed 배경·글자를 훑었다.
+
 - **밝은 슬래브 14종**(면적 900px² 이상·불투명도 0.5 초과의 고휘도 배경).
 - 정적 스캔으로는 **밝은 배경 하드코딩 35건 / 어두운 글자 하드코딩 57건**,
   그리고 커스텀 프로퍼티 안에 숨은 틴트 17건이 더 있었다.
 
 #### 2. 토큰 층 구멍 3종 — 컴포넌트가 아니라 여기가 원인이었다
+
 - **별칭 토큰이 서브트리 다크에서 라이트로 굳는다.** `controlTrack: {color.neutral.200}`
   같은 스칼라 별칭은 CSS로 `var(--jd-color-neutral-200)` 한 줄이 되어 `:root`에만
   방출됐다. 커스텀 프로퍼티의 var() 치환은 **선언한 요소**에서 일어나므로, 다크를
@@ -520,10 +648,12 @@ DEC-040 §8 순서 유지. 이번에 ①의 대표 3종을 끝냈으므로 다�
   않았다 — 패리티가 지켜 온 것이 동작이 아니라 결함이었다. 실재 토큰으로 결선.
 
 #### 3. 톤 레시피 — 색이 아니라 혼합비가 모드를 갖는다
+
 정보 구분용 색 표면(tag[color]·badge[variant]·avatar 팔레트·severity·security-badge …)이
 Tailwind 50/700 리터럴 쌍을 40여 개 흩뿌리고 있었다. 컴포넌트당 변종 수 × 모드 2를
 손으로 적는 구조라 다크가 늘 빠졌다. base.css에 단일 공식을 두고, 컴포넌트는 변종마다
 `--jd-tone: <앵커>` 한 줄만 둔다.
+
 - **앵커 12색**(`color.hue.*`, 모드 무관)으로 40여 개 리터럴을 대체. 600~700단에 두는
   이유는 라이트에서 옅은 틴트 위 글자가 AA를 넘어야 하기 때문(500단은 amber·orange 미달).
 - **승강(lift)** — 그 어두운 앵커를 다크에서 그대로 쓰면 틴트가 검은 진흙이 된다(실측).
@@ -536,6 +666,7 @@ Tailwind 50/700 리터럴 쌍을 40여 개 흩뿌리고 있었다. 컴포넌트�
   따른다. 브랜드 색 주입에 컴포넌트별 오버라이드가 필요 없다.
 
 #### 4. "항상 어두운 크롬"에 짝이 되는 잉크 신설
+
 코드 블록·다이어그램 캔버스·히어로 오버레이·책등은 라이트에서도 어둡다(surface 3단).
 그 위의 글자는 모드를 따라가면 안 되는데 짝 토큰이 없어 각 컴포넌트가 #fff·#cbd5e1·
 #9ca3af를 제각기 박아 넣고 있었다 → `onSurface`/`onSurfaceMuted` 신설.
@@ -544,11 +675,13 @@ Tailwind 50/700 리터럴 쌍을 40여 개 흩뿌리고 있었다. 컴포넌트�
 book-rating) — 전부 surface 계열로 이전.
 
 #### 5. 결과
+
 밝은 슬래브 **14 → 5**(남은 5는 전부 의도: 사진 위 흰 그립 2 · 카카오 브랜드 옐로 1 ·
 foreground 반전 채움 2). 하드코딩 밝은 배경 **35 → 7**, 어두운 글자 **57 → 11**(남은 것은
 그래디언트/미디어/브랜드 위의 의도적 리터럴). neutral 고단 오용 **8 → 0**.
 
 #### 6. 게이트
+
 tokens:test 15/15 · web vitest 348/351(실패 3건은 착수 전부터 있던 storage 테스트,
 이 변경과 무관) · web tsc 0 · web 빌드 성공 · 라이트/다크 실렌더 대조.
 패리티 이탈은 `GRADIENT_UNDEFINED_REF_FIX`(그래디언트 3종)와 status/priority 라이트값
@@ -556,25 +689,29 @@ tokens:test 15/15 · web vitest 348/351(실패 3건은 착수 전부터 있던 s
 
 ---
 
-
 ## 2026-07-27 — iOS finance 착수: 공통 어휘 + 리프 6종 (원장 iOS 135/445 · finance 6/86)
 
 ### DEC-040. 86종을 나열하기 전에 어휘를 먼저 세운다
+
 사람 지시: "iOS 컴포넌트 추가 — 없는 것, 특히 finance 기준으로 먼저." finance는 원장
 86행 전부 `ios: todo`(웹은 86/86 done)였다.
 
 #### 1. 왜 어휘부터인가 — 실측 근거
+
 웹 finance CSS를 세어 보니 **33개 파일이 `--jd-fin-*` 팔레트를 각자 재선언**하고 있다
 (`--jd-fin-up: var(--bm-up, var(--jd-color-success))` …). 단일 소스가 없고, 추세 판정
 규칙도 컴포넌트마다 손으로 다시 쓰여 있다. 그 상태를 iOS로 그대로 옮기면 86종이 같은
 판정을 86번 구현한다. 그래서 Core가 세 가지를 소유하고 렌더는 결과만 그린다(04 §4.2):
+
 - `JdTrend` · `JdTrendPolicy` — 추세 판정
 - `JdFinanceTheme` — 도메인 색 단일 소스 + 앱 override
 - `JdFinanceFormat` — 부호·소수·퍼센트·가격 포맷(로케일 고정 계약은 JdNumberFormat 상속)
 - `JdFinanceSpecMix` — 웹 `color-mix(in srgb, …)`의 Swift 대응(그라디언트·워시)
 
 #### 2. 판정 규칙이 **두 개**라는 사실을 타입으로 올렸다
+
 웹에 실제로 두 규칙이 공존한다. 하나로 합치면 표면이 달라지므로 정책을 열거형으로 만들었다.
+
 - `.live`(웹 jd-live-pct-badge): `up(> 0)`이 flat보다 **우선**. `+0.003`은 상승이고 flat은
   `[-0.005, 0]` 구간뿐이다 — 실시간 틱이 잘게 흔들릴 때 "거의 0"을 회색으로 눌러 준다.
 - `.exact`(웹 jd-price-badge): flat은 **정확히 0**. 확정된 등락률엔 임계값을 두지 않는다.
@@ -583,12 +720,14 @@ tokens:test 15/15 · web vitest 348/351(실패 3건은 착수 전부터 있던 s
 두 규칙이 하나로 합쳐지면 즉시 실패한다.
 
 #### 3. 색 기본값은 웹을 따르고, 관례 전환은 앱에 남겼다
+
 상승=success(초록)·하락=danger(빨강)이 기본이다. 한국 시장 관례(적상승·청하락)를 기본으로
 삼지 **않은** 이유: 웹 v2/v3가 이미 초록 상승으로 출고돼 있어 3플랫폼 표면이 갈라진다.
 대신 `JdFinanceTheme.up/down/flat/live`를 앱이 시작 시 1회 덮어쓸 수 있게 했고, override가
 스펙까지 실제로 흐르는지 테스트가 검증한다(죽은 노브 차단).
 
 #### 4. 리프 6종 완성 — 3플랫폼 표면 동형
+
 LivePctText(골격 정본·색 없음) · LivePctBadge(골격 재사용 + 색, live 판정) ·
 LivePriceText(폴백·em dash) · LiveStatusDot(확장-소멸 링) · PriceBadge(화살표, exact 판정) ·
 HotPctChip(늘 상승 표기 알약). 각 SwiftUI + UIKit 양 계층.
@@ -598,12 +737,14 @@ HotPctChip(늘 상승 표기 알약). 각 SwiftUI + UIKit 양 계층.
 어느 쪽이든 포맷은 Core 한 곳에만 있다.
 
 #### 5. 웹 대비 보정 3건 (전부 접근성 — 웹엔 없다)
+
 1. 추세 배지가 "상승/하락/보합"을 말한다 — 색이 유일한 신호이면 색각 이상 사용자에게 정보가
    사라진다.
 2. em dash 가격을 "가격 정보 없음"으로 낭독한다 — VoiceOver는 "대시"라고 읽는다.
 3. HotPctChip의 `↑`를 "급등"으로 낭독한다 — 화살표 문자는 안 읽히거나 "위쪽 화살표"가 된다.
 
 #### 6. 신설 인프라
+
 - `JdFontBridge.scaledDigitFont` — 웹 `font-variant-numeric: tabular-nums`의 정확한 대응.
   기존 `scaledMonoFont`는 글자까지 등폭이라 한글 라벨이 타자기처럼 보인다. finance 86종이
   전부 숫자를 그리므로 브리지에 둔다.
@@ -611,6 +752,7 @@ HotPctChip(늘 상승 표기 알약). 각 SwiftUI + UIKit 양 계층.
   두어 나머지 80종이 참조할 지점을 만들었다.
 
 #### 7. 게이트
+
 iOS 빌드 성공 · XCTest **668/668**(Core 277 + SwiftUI 106 + UIKit 285, 신규 47) ·
 쇼룸 재빌드 + 시뮬레이터 실기동(카탈로그 iOS 129 → 135). 쇼룸 데모는 `byId` 조회라 id가
 원장과 어긋나면 **조용히 안 보이므로**, 6종의 (데모 정의 · 원장 행 · 레지스트리 등록 ·
@@ -620,6 +762,7 @@ ios=done) 4중 일치와 전 데모 98종의 원장 id 존재를 스크립트로
 반영)로 대신했다.
 
 #### 8. 남은 finance 80종 — 다음 배치 순서
+
 1. **표시 전용 소형**(LiveStackedCell · PositionBar · MarketHeaderBadge ·
    DisclosureToneBadge · LivePrice · AppIcon · Logo) — 이번 어휘로 바로 만들어진다.
 2. **미니 그래픽**(Sparkline · MiniCandle) — Core 지오메트리 + Canvas/CALayer 분할(04 §4.2).
@@ -628,6 +771,7 @@ ios=done) 4중 일치와 전 데모 98종의 원장 id 존재를 스크립트로
 4. **셸·내비**(PageShell · TopBar · Sidebar · BottomNav · AppHeader) — 시스템 위임 판단 필요.
 5. **큰 조합체**(LiveStockTable · MarketHeatmap · PortfolioCouncil · TradeJournal …) —
    `JdTickStore`(04 §4 패턴 · 00-inventory 리스크 #4) 분리가 선행 조건.
+
 - 결정자: 사람 지시에 따른 배치 착수, 어휘 설계 근거 기록 후 기본값 채택 (2026-07-27).
 
 ---
@@ -635,6 +779,7 @@ ios=done) 4중 일치와 전 데모 98종의 원장 id 존재를 스크립트로
 ## 2026-07-27 — 시각 품질: **v2 패리티 → v3 고유 시각 언어로 승격** (파운데이션 + 컨트롤 1차)
 
 ### DEC-039. "v2와 똑같이"가 목표선을 낮추고 있었다
+
 사람 보고: "라이브러리 UI가 iOS도 웹도 이쁘지 않다 · 써야 할 이유가 느껴지지 않는다 ·
 사소한 디테일이 부족하다." v3는 지금까지 **v2 시각을 정확히 재현**하는 것을 정답으로
 삼아 왔고(패리티 테스트가 그 집행자였다), 그래서 v2의 한계가 그대로 상한이 됐다.
@@ -642,7 +787,9 @@ ios=done) 4중 일치와 전 데모 98종의 원장 id 존재를 스크립트로
 전부 여기 기록되고, 패리티 테스트는 **기록된 이탈만** 통과시킨다(§승인 이탈 표).
 
 #### 1. 실측 진단 — 취향 이전에 결함이 있었다
+
 데모 9페이지를 실제 렌더해 계측한 결과:
+
 - **하드코딩 Tailwind 회색 64건 / 32파일**. `#e5e7eb`(슬라이더 트랙)·`#d1d5db`(스위치
   트랙)·`#9ca3af`·`#f3f4f6`·`#374151` 등이 모드 인식이 없어 **다크에서 밝은 슬래브로
   뒤집혔다**. 소스 주석에 "G2 gray 어휘 재심의"로 남아 있던 미결 항목이 그대로 출고된 것.
@@ -661,6 +808,7 @@ ios=done) 4중 일치와 전 데모 98종의 원장 id 존재를 스크립트로
 - 플레이스홀더 `muted-light 60%` = 라이트에서 2.1:1, 사실상 안 보임.
 
 #### 2. 파운데이션 — 445종을 한 번에 올리는 층
+
 - **neutral 램프 11단 신설(정본)**: "숫자가 클수록 대비가 높다"를 두 모드에서 동일하게
   지키도록 **다크에서 반전**한다. 그래서 컴포넌트는 모드 분기 없이 토큰 하나만 쓰면
   되고, 회색 하드코딩이 다크에서 뒤집히는 결함이 구조적으로 불가능해진다. 색조는
@@ -681,6 +829,7 @@ ios=done) 4중 일치와 전 데모 98종의 원장 id 존재를 스크립트로
   표식) — 색·투명도에 쓰면 깜빡임으로 읽힌다.
 
 #### 3. 승인 이탈 표 (패리티 테스트가 집행)
+
 - `shadow.xs~2xl`: v2 1겹 → v3 2겹. 테스트는 **v2 동결본 값을 전제로 검증**한 뒤
   "2겹 계약"을 단언한다. v2가 움직이면 여기서 먼저 실패한다.
 - `motion.duration/easing`: v2 키는 값까지 불변(부분집합 단언), v3 추가분 5종만 초과 허용.
@@ -688,6 +837,7 @@ ios=done) 4중 일치와 전 데모 98종의 원장 id 존재를 스크립트로
   브랜드 색(primary 보라)은 건드리지 않았다 — 정체성 변경은 별도 승인 사안.
 
 #### 4. 컨트롤 1차 (웹) — 사람이 라이브러리를 판단하는 표면
+
 button(loading≠disabled 분리, 실색 호버로 filter:brightness 폐기, 프레스 인셋) ·
 icon-button(프레스 scale, filled 하이라이트) · text-field/textarea(불투명면·호버 상태·
 caret·selection·disabled를 opacity 대신 실색) · **checkbox/radio 자체 드로잉**
@@ -697,6 +847,7 @@ brightness 호버 폐기) · slider/range-slider(썸 링 확장, tabular-nums로
 흔들림 제거).
 
 #### 5. iOS — 플랫폼 관례를 이기지 않는 선에서 느낌만 채운다
+
 - `jdElevation` 신설: **겹을 아는 단일 렌더러**. 기존 5+3곳이 `Shadow.lg.light.first`로
   첫 장만 꺼내 쓰고 있었고, 2겹 전환 후 그 관용구는 라이트에서 주변광을 버리고
   다크에서는 링을 그림자로 오해해 아무것도 그리지 않는다 — 전량 이전했다.
@@ -710,6 +861,7 @@ brightness 호버 폐기) · slider/range-slider(썸 링 확장, tabular-nums로
   neutral-300으로.
 
 #### 6. 게이트
+
 tokens:test 15/15 · web vitest 351/351 · web tsc 0 · web-a11y PASS(9페이지, critical/serious 0) ·
 iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · 시뮬레이터 실기동
 확인(JdButton 엘리베이션 렌더). 웹 라이트/다크 실렌더 대조로 다크 슬래브 결함 해소 확인.
@@ -723,6 +875,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 기준선만 움직였다.
 
 #### 7. 남은 것 (이 결정의 범위 밖 — 후속 배치)
+
 - **틴트 칩 팔레트**: tag·badge·severity-badge·avatar가 Tailwind 파스텔 bg + 진한 글자
   쌍을 하드코딩(#dbeafe/#1d4ed8 등 20+종). 다크에서 라이트 잔재로 남고 색조도 산만하다 →
   모드 인식 `tone` 토큰 그룹으로 승격 필요.
@@ -738,6 +891,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — 웹 잔여 대량 이식 2차 완료: **web 445/445 전 카테고리 완주**
 
 ### DEC-038. 라운드2 153종 + 중앙 검증으로 웹 트랙 종료
+
 1. **라운드2 전 배치 성공(32배치 64에이전트, 실패 0)**: 1차에서 세션 한도로 남은
    composites 25 · patterns 43 · finance 85를 계열별 재배치해 완주. **web 445/445** —
    core·layout·primitives·hooks·composites·patterns·finance 전부 done.
@@ -760,6 +914,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
    jd-diff-viewer는 happy-dom이 `tbody.rows`·`tr.cells`를 미구현한 환경 갭(실 Chrome
    에러 0 확인)이라 스모크만 제외. 테스트 타임아웃은 389종 배럴 로드가 5초를 넘겨
    30초로 상향(라이브러리 규모 반영, 컴포넌트 결함 아님).
+
 - 게이트: tsc 0 · 감사 0 · vitest 351/351(스모크 포함) · e2e 51/51 · web-a11y PASS
   (9페이지) · size-gate PASS(평균 2.40KB · p95 5.71KB) · gen-exports 390종 배럴.
 - **원장: web 445/445 완주.** iOS 트랙은 병행 진행 중(별도 커밋).
@@ -770,6 +925,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — iOS composites 오버레이·피드백 14 + hooks 46 (원장 iOS 129/445)
 
 ### DEC-037. 시스템 위임/자체 구현 분할 + hooks 판정 대량
+
 1. **오버레이 6종은 시스템 프레젠테이션 위임, 피드백 8종은 자체 구현**: 04 §10.1의 "오버레이는
    전부 시스템 위임" 원칙대로 Modal/Drawer/BottomSheet/ActionSheet/AlertDialog는 `.sheet`·
    `presentationDetents`·`.confirmationDialog`·`.alert`(UIKit은 UISheetPresentationController·
@@ -801,6 +957,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 7. **온-액센트(흰) 전경 토큰 부재 + scrim 토큰 부재**: Banner·Snackbar·토스트 카드의 흰
    글자는 시스템 `.white`(JdBadge count 선례), 좌우 Drawer 딤은 `.black` + `JdToken.Opacity.o30`.
    둘 다 Core 토큰 신설 권고(색은 리터럴 최소화 규칙의 유일한 예외로 남았다).
+
 - **스펙 보강 후보(G2)**: `JdToken.Color.scrim`·온-액센트 전경 토큰, Snackbar의 중립 default가
   JdFeedbackVariant에 없어 `.info`를 surfaceOverlay로 접은 것(명시 info-blue 스낵바 불가),
   토스트/스낵바 폭 토큰(현재 JdOverlaySize.drawerWidth 재사용).
@@ -812,6 +969,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — 웹 잔여 대량 이식 1차: composites·finance 145종 (원장 web 292/445)
 
 ### DEC-035. 오케스트레이션 팬아웃으로 잔여 298종 착수, 1차 145종 확정
+
 1. **팬아웃 구조**: 잔여 298종을 계열별 52배치로 나눠 배치마다 구현→자가검증
    2단계 에이전트로 돌렸다. 같은 관용구를 쓰는 것끼리 묶어(오버레이/선택입력/
    날짜·시간/차트/미디어/시리즈…) 한 에이전트가 파생을 판단하게 했다. 세션 한도로
@@ -838,6 +996,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 6. **base.css FOUC 규칙은 공유 파일 동시 편집이지만 additive**: 여러 에이전트가
    각자 컴포넌트의 `:not(:defined)` 업그레이드 전 display를 append했다. 서로 겹치지
    않고 기존 패턴과 동형이라 유지 — 빌드·테스트 통과로 검증.
+
 - 게이트: tsc 0 · vitest 351/351(신규 스모크 포함) · size-gate PASS(평균 2.03KB ·
   p95 4.30KB) · gen-exports 237종 배럴.
 - **원장: web 292/445** (composites 160/185 · finance 1/86 · 나머지 카테고리 완주 유지).
@@ -849,6 +1008,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — iOS primitives 잔여 27종 (원장 iOS 73/445)
 
 ### DEC-034. "새 컴포넌트가 답이 아닌" 판정 + Core 결함 4건 교정
+
 1. **판정 분포 — 실구현 17 · 레시피/시스템 API 8 · 별칭 2**: 정찰이 내린 "컴포넌트를 만들지
    말라"는 결론을 그대로 채택했다. VisuallyHidden(접근성 모디파이어) · AnnouncerProvider
    (`UIAccessibility` 래퍼) · NumberFormatter(Foundation 포맷) · ScrollArea(ScrollView) ·
@@ -886,6 +1046,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 10. **하네스 함정 추가 실측**: `UIHostingController.sizeThatFits`에 **유한 높이**를 제안하면
     제안값을 그대로 돌려줘 크기 램프가 관측되지 않는다(400 == 400). 자연 높이가 필요하면
     `.greatestFiniteMagnitude`를 제안해야 한다. 기존 `sendActions` 무동작 함정과 같은 계열.
+
 - **스펙 보강 후보(G2)**: JdCodeSpec·JdMarkSpec 부재(형광펜 5색을 JdTagSpec 팔레트로 근사,
   yellow→orange·pink→red), JdLinkVariant의 default·primary 동색 문제, 핀/강도 전용 스펙,
   Motion 프리셋 지속시간(웹 280/300/400ms가 Duration 램프 밖이라 전부 slow로 통일),
@@ -898,6 +1059,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — G2-B13 composites 오버레이·피드백 (14행, Sheet·ConfirmDialog 별칭 포함)
 
 ### DEC-033. 오버레이 축 통합 판단 5건
+
 1. **오버레이 5종이 jd-modal 하나를 상속한다**: v2는 Modal·Drawer·BottomSheet·Sheet·
    ActionSheet가 **각자** ESC 리스너·body 스크롤 락·백드롭을 다시 구현했고, 그래서
    미묘하게 달랐다 — Drawer만 dismissible, ActionSheet는 ESC가 아예 없고, 넷 다
@@ -914,6 +1076,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
    중에 사라지는 것은 접근성 지침이 직접 지적하는 문제인데 v2에는 정지 경로가 없었다.
 5. **collapsible Callout은 details/summary 위임**: v2는 useState + div로 만들어
    aria-expanded가 없었다 — 네이티브는 열림 상태를 AT에 보고하고 키보드도 공짜다.
+
 - **또 색 대비**(세 번째 실측): jd-banner의 흰 글자가 semantic 원색 배경 위에서
   info 3.9 · warning 3.6 · success 4.0으로 AA 미달이었다(v2 `bg-warning text-white`
   승계). 이번엔 글자가 아니라 **배경**을 조정한다 — foreground를 20% 섞어 색상은
@@ -931,6 +1094,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — G2-B8~B12 Behavior 46종 (hooks 55행) — **hooks 55/55 완주**
 
 ### DEC-032. 훅 → Behavior 이식 판단 7건
+
 (번호 주: DEC-031이 병행 트랙과 **중복 부여**됐다 — iOS "대기열 31종"과 웹 B7이 같은
 번호를 갖는다. 양쪽 다 커밋된 뒤에 발견해 여기서는 032로 이어가고, 재번호는 사람 판단
 사항으로 남긴다.)
@@ -957,7 +1121,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
    (c) usePanelResize도 pointer + setPointerCapture로 바꿔 커서가 핸들을 벗어나도
    드래그가 끊기지 않는다.
 6. **결합을 명시 표면으로 되돌렸다**: v2 useScrollSpy는 `window.dispatchEvent(
-   new Event("scrollspy:manual"))`이라는 **전역 이벤트 이름**으로 앱과 몰래 계약하고
+new Event("scrollspy:manual"))`이라는 **전역 이벤트 이름**으로 앱과 몰래 계약하고
    있었다 — 라이브러리가 문서화되지 않은 전역 채널을 여는 것은 유지보수 부채다.
    v3는 `suspend(ms)` 메서드로 바꿨다. useInfiniteFeed도 훅이 들고 있던 페이지네이션
    상태(items·cursor·hasMore)를 떼어내고 "바닥에 닿았다 + 중복 호출 가드"만 남겼다 —
@@ -965,7 +1129,8 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 7. **createForm은 폼 자체를 정본으로 삼는다**: v2 useForm은 값·터치·에러를 전부 React
    state로 복제하고 필드마다 onChange/onBlur를 나눠줬다. 바닐라에서는 **폼 요소가 이미
    값을 갖고 있다** — Behavior는 규칙 판정과 에러 표시만 얹는다(§1.6-1 네이티브 위임의
-   폼판). 에러는 jd-* 컴포넌트의 `error` 프로퍼티로, 없으면 aria-invalid로 나간다.
+   폼판). 에러는 jd-\* 컴포넌트의 `error` 프로퍼티로, 없으면 aria-invalid로 나간다.
+
 - 사이즈: behaviors는 `core/index.ts`에 합류시키지 **않았다**. 게이트의 코어 정의(W1
   8KB)는 "베이스클래스+define+styles+uid+style-props+포커스트랩"이며, 46종을 코어 배럴에
   넣으면 그 정의가 무의미해진다. 코어 5.25KB 그대로 통과.
@@ -981,6 +1146,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — iOS 대기열 31종 일괄 이식 (layout 12 + primitives 19)
 
 ### DEC-031. 대기열 배치 판단 10건 + 실측 버그 4건
+
 (번호 주: 029·030을 병행 트랙이 선점 — 031로 부여. ledger notes의 "DEC-029" 표기는
 이 항목을 가리킨다 — 커밋 선점 규칙에 따라 본문 번호가 정본.)
 
@@ -1021,6 +1187,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 10. **Avatar 이니셜 웹 패리티 교정**: 웹은 `name.trim()` 후 split이라 공백만 있는 이름은 빈
     이니셜("?" 폴백)이 되고, 3어절은 **앞 두 어절**(첫+끝이 아님)이다. Core를 웹과 일치시키고
     잘못된 기대값을 쓰던 테스트를 정정했다.
+
 - **스펙 보강 후보(G2)**: JdBadgeSpec의 countForeground·dotColor·fontWeight,
   JdIconButtonSpec·JdSliderSpec·JdTextareaSpec의 disabledOpacity 비대칭,
   JdAvatarSpec의 fallbackBackground·statusRingColor, JdStatusDotSpec.pulsePeriod(2s가 Duration
@@ -1037,6 +1204,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — G2-B7 primitives 인프라·소셜 (10행) — **primitives 51/51 완주**
 
 ### DEC-031. B7 인프라·소셜 판단 6건
+
 1. **재부모화(disconnect→connect) 생존 규율 — 이번 배치 최대 발견**: 조상 CE가 자기
    children을 골격 안으로 옮기면(jd-section이 그렇게 한다) 자손 호스트는
    **disconnect → connect를 한 번 겪는다**. JdElement 계약상 재연결에서는 render()도
@@ -1048,7 +1216,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
    파괴된 Behavior 참조를 버린다. **자기 서브트리 밖에 부수효과를 남기거나 Behavior를
    own하는 컴포넌트는 전부 이 규율의 대상**이다(B5·B6 전량 점검 — 리스너를
    connected/disconnected 쌍으로 붙이는 것들은 이미 안전).
-   *열린 선택지*: core에서 재연결 시 update()를 부르게 하면 전 컴포넌트가 자동 치유된다
+   _열린 선택지_: core에서 재연결 시 update()를 부르게 하면 전 컴포넌트가 자동 치유된다
    (§3.3 멱등 계약 덕에 안전). 공유 파일이라 이번 배치에서는 손대지 않고 기록만 남긴다.
 2. **ErrorBoundary는 능력 범위를 좁혀서 이식했다**: React 경계는 *렌더 예외*를 가로채지만
    바닐라에는 그 훅이 없다 — 자손이 던진 예외는 조상으로 오지 않고 window로 간다.
@@ -1076,6 +1244,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
    foreground 65% 혼합). FollowButton 언팔로우 라벨도 같은 결함이지만 **호버 상태라
    정지 감사에 잡히지 않는다** — 선제 적용했다. 교훈: 상태로만 드러나는 표면은 게이트가
    못 보므로 데모에 상태를 노출시키거나 손으로 계산해야 한다(B5 강도 게이지와 동형).
+
 - 검증: vitest 298/298(신규 25) · e2e 51/51(신규 8, 실키보드 Tab 감금·재부모화 생존·
   CSS 호버 라벨) · size-gate PASS(평균 1.10KB) · web-a11y PASS(8페이지 critical/serious 0)
   · demo/infra-social.html 실측 — 포털 이동·live region 2종·Tab 5회 전부 감금 유지·
@@ -1089,6 +1258,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — G2-B6 primitives 텍스트·미디어 구현 중 발견 (9행 + AspectRatio 별칭)
 
 ### DEC-030. B6 텍스트·미디어 판단 7건
+
 1. **CE 안의 SVG는 네임스페이스가 다르다(실측 발견)**: `<jd-icon><path d="…"/></jd-icon>`의
    `<path>`는 HTML 파서가 만든 **HTML 네임스페이스** 요소다. `<svg>`로 append하면 노드는
    들어가지만 **아무것도 그려지지 않는다** — 헤드리스 실측 스크린샷의 빈 영역으로 발견했다.
@@ -1120,6 +1290,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
    원색 유지). 라이트에선 어두워지고 다크에선 밝아져 한 선언이 양 테마를 함께 만족한다.
    같은 결함이 B5 jd-password-input 강도 라벨·규칙 텍스트에도 있어 **소급 교정**했다 —
    빈 값일 땐 게이지가 렌더되지 않아 감사에서 통째로 빠져 있었다(데모에 초기값 2종 추가).
+
 - **게이트 자체 보강**: web-a11y 감사가 `jd-motion` 진입 모션 중간(opacity 0)을 찍어
   색대비 실패로 잡았다 — 감사 대상은 정지 상태여야 한다. `document.getAnimations()`의
   유한 애니메이션 완료를 기다리도록 수정(무한 반복 제외 + 2초 상한). 타이밍 의존
@@ -1135,6 +1306,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — G2-B5 primitives 특수 입력 구현 중 발견 (10행)
 
 ### DEC-029. B5 특수 입력 판단 8건
+
 1. **"값 없음"은 NaN 센티널**: NumberInput·CurrencyInput·FileUpload(maxSize)의 v2
    `number | undefined`를 표현할 수단이 attribute에는 없다(복합 값 금지, WEB-03).
    Number 프롭의 `default: NaN`을 미지정 센티널로 고정 — attribute 부재 → NaN →
@@ -1168,10 +1340,11 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
    타이머가 setState를 때렸다. v3는 try/catch → `jd-error`, 타이머는 disconnected에서 해제.
    e2e가 이를 직접 고정한다(setContent는 about:blank라 clipboard 부재 — 그 환경이 곧 시험대).
 8. **CurrencyInput 소수 자릿수는 Intl 통화 기본값**: v2 `currency === "KRW" ? 0 : 2`
-   하드코딩은 0자리 통화(JPY·VND·CLP)를 ￥800.00으로 틀리게 찍었다. Intl 기본값은
+   하드코딩은 0자리 통화(JPY·VND·CLP)를 ￥ 800.00으로 틀리게 찍었다. Intl 기본값은
    KRW 0 · USD 2로 **v2가 맞게 다루던 두 축과 동일**하므로 패리티 손실 없이 오류만 사라진다.
    표기 전환(₩1,500,000 ↔ 1500000)은 update()의 "같은 수면 두기" 가드에 걸리므로
    focus/blur 핸들러가 직접 기록한다 — 값은 같고 표기만 달라지는 유일한 경우.
+
 - 검증: vitest 248/248(신규 39) · e2e 45/45(신규 11, 실브라우저 전용 계약: 탭스톱·
   화살표 순회·실드롭·스크롤 노출) · size-gate PASS(평균 1.18KB · p95 2.33KB, 신규 10종
   1.19~3.25KB) · web-a11y PASS(6페이지 critical/serious 0) · demo/special-input.html
@@ -1184,6 +1357,7 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — iOS 확장 지령 1차: 네이티브 쇼룸 + B-core 12종 + 성능 체계
 
 ### DEC-028. 쇼룸 개편·core 이식·벤치 체계 판단 9건
+
 1. **쇼룸은 원장 파생 (손 관리 금지)**: `demo/tools/gen-catalog.mjs`(의존성 0 node)가
    ledger.json 445행 → `Generated/ShowroomCatalog.swift`를 방출한다. 카테고리 7종 인덱스·
    검색·상태 배지(iOS done/예정/n·a·웹 done)·진행률이 전부 원장 값이며, **미구현 컴포넌트도
@@ -1220,11 +1394,12 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
    intrinsic 가로폭은 한 줄 전체라 Representable에서 **가로 압축 저항을 낮춰야** 줄바꿈이
    실제로 일어난다(실측 — 낮추기 전 헤딩이 화면 밖으로 넘쳤다).
 9. **벤치 체계 신설 + 기준선 확보**: `packages/ios/tools/{run-bench.mjs,bench-gate.mjs,
-   bench-budgets.json}`(의존성 0) + XCTest measure 8종. 게이트는 절대 예산(05-perf I1)과
+bench-budgets.json}`(의존성 0) + XCTest measure 8종. 게이트는 절대 예산(05-perf I1)과
    기준선 ±10%를 함께 본다. **2026-07-24 시뮬레이터 참고치**(iPhone 17/iOS 26.2, 디버그 빌드):
    JdButtonView init **0.27ms/개**, JdTextFieldView init **0.83ms/개** — 둘 다 I1(S·M <1ms) 이내,
    레이아웃 DSL 100뷰×4제약 2ms·diff 재호출 0.01ms/회. **실기기 확정은 Xcode 복구 후**
    (시뮬레이터 수치엔 label로 딱지를 박아 결과 JSON에 남긴다).
+
 - 검증: 시뮬레이터 빌드 에러 0 · **XCTest 76/76**(31→76) · 쇼룸 15종 데모 실기동
   (카탈로그·상세·다크·AX5·UIKit 탭·예정 화면) · 벤치 게이트 PASS 8건.
 - 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
@@ -1234,11 +1409,13 @@ iOS 빌드 성공 · XCTest **621/621**(Core 257 + SwiftUI 97 + UIKit 267) · �
 ## 2026-07-24 — web-a11y 게이트 실측 위반 수정 (critical/serious 7건 → 0)
 
 ### DEC-027. danger 토큰 승인 이탈(첫 사례) + 컴포넌트·데모 a11y 보정 7건
+
 (번호 주: 025·026은 B4·MCP 트랙이 선점 — 027로 비켜 부여.)
 web-a11y 게이트(.github/scripts/web-a11y-audit.mjs, axe-core·실브라우저)가 데모 5페이지에서
 critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusable)를 실측 —
 전부 수정(display.html은 작업 중 B4 착륙으로 표면 합류). jsdom 기반이던 v2 audit은 색
 대비를 계산하지 못해 v2 값이 그대로 통과해 왔다.
+
 1. **danger 토큰 라이트 보정 — 시각 패리티 원칙의 첫 승인 이탈**: v2 `#dc3f3f`는 라이트에서
    흰 글자 4.35:1, `--jd-color-background` 위 텍스트 3.97:1, danger-light 위 3.96:1로 전부
    WCAG AA(4.5) 미달. `{ light: "#c93636", dark: "#dc3f3f" }` 모드 리프로 분리 — 라이트는
@@ -1267,7 +1444,7 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
 6. **jd-badge success/warning/danger 텍스트 (B4 표면)**: 원색 텍스트가 10% 틴트 위에서
    3.0~4.1:1 미달(danger는 보정값으로도 4.09 — 틴트가 흰 배경보다 어두워 기준이 더 높다).
    틴트·점·링은 비텍스트라 원색 유지, **텍스트만** badge-local `color-mix(토큰 80/75/90%,
-   #000)` 파생(각 4.79/4.85/4.83). 다크는 v2 원색 복원(어두운 틴트 위엔 원색이 우세) —
+#000)` 파생(각 4.79/4.85/4.83). 다크는 v2 원색 복원(어두운 틴트 위엔 원색이 우세) —
    컴포넌트 국소 파생으로 토큰 어휘 선점을 피했고, `-text` 토큰 승격 여부는 G2 어휘
    재심의 인풋(primary/info는 원색이 5.0+로 통과, 미변경).
 7. **jd-battery-indicator % 텍스트 (B4 표면)**: v2 `mix-blend-difference`는 axe가 평가
@@ -1278,6 +1455,7 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
    `muted`(4.9:1). form.html의 이름 없는 error 텍스트영역(critical)은 placeholder 부여 —
    첫 텍스트영역과 동일한 이름 폴백 메커니즘. (jd-label for → 호스트 id 연결이 네이티브로
    성립하지 않는 갭은 본 트랙 범위 밖 — B3 후속.)
+
 - 검증: `npm run tokens:test` 15/15 · web vitest 209/209(+gen-exports drift 0) ·
   web e2e 24/24 · tsc 0err · `npm run build -w @junds/web` 후
   `node .github/scripts/web-a11y-audit.mjs` **5페이지 critical/serious 0** (advisory
@@ -1289,7 +1467,9 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
 ## 2026-07-24 — MCP 구현 완료 (도구 5종 + 콘텐츠 정본 통일)
 
 ### DEC-026. MCP 구현 판단 4건 — 콘텐츠 정본은 콘텐츠 트랙 채택
+
 (번호 주: 022~025는 react·B3·e2e·B4 트랙이 선점 — 026 부여. 본 트랙 게이트 승인분은 DEC-016.)
+
 1. **docs-content 정본 통일**: DEC-016-2가 계획한 `docs-spec/registry/docs-content/`는
    구현 중 콘텐츠 트랙이 선착시킨 루트 `docs-content/` 445건(DEC-021, d88592b)으로
    대체 — 같은 목적의 저장소 이원화 금지. 초판 28건은 미커밋 상태에서 회수. Q2 승인의
@@ -1299,12 +1479,13 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
    tag 필드의 원천. 조인 키는 (ledgerId, category) — 원장 중복 id(AreaChart) 대응.
 3. **게이트 역할 분담**: 스키마·전단사·실물 대조는 정본 검증기(build-index.mjs)에 위임
    (로직 중복 저작 금지). MCP 보완 게이트 1건만 신설 — 정본 게이트는 ¬done ⇒ null
-   방향만 강제하므로 역방향 "web done* ⇒ web 스니펫 저작"을 content-gate.test가 강제
+   방향만 강제하므로 역방향 "web done\* ⇒ web 스니펫 저작"을 content-gate.test가 강제
    (DEC-016-2 계승). 실효 확인: 도입 즉시 B3 폼 코어 9종의 미저작을 실검출, 실물
    (element.ts props·demo/form.html) 근거로 충전해 그린 (web 스니펫 28→37).
 4. **get_usage 템플릿 토큰 치환**: web 스니펫의 `{prop}`(06 §2.3)은 controls 기본값을
    주입해 반환 — "복사해 바로 동작"이 MCP 계약. react 플랫폼은 정본의 v2 참고 스니펫
    (Example 169 이관분)을 "v2 참고" note와 함께 반환.
+
 - 검증: nvm22 vitest 47/47(단위·정합 게이트·토큰 패리티 전수 대조·InMemory 왕복·
   스냅샷 동일성) + build-index 445건 통과 + stdio JSON-RPC 실왕복(initialize→tools/call).
 - 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
@@ -1314,6 +1495,7 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
 ## 2026-07-24 — G2-B4 primitives 표시 구현 중 발견 (10행 — Divider 별칭 포함)
 
 ### DEC-025. B4 표시 프리미티브 판단 5건
+
 1. **Tailwind 팔레트 리터럴 승계 확대**: v2 표시 컴포넌트들은 토큰 밖 Tailwind 팔레트
    (blue/emerald/amber/red/orange/purple/teal/violet/rose/cyan 50·100·500·700, gray 계)를
    직접 썼다 — 패리티 원칙대로 hex 리터럴 승계(Badge info·Tag 7색·Avatar 팔레트 8종·
@@ -1330,6 +1512,7 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
    card-hover로 근사 번역 — 정확 대응 토큰 부재 기록.
 5. **BatteryIndicator 다크 보더**: v2 dark: 클래스는 [data-jd-theme="dark"]/[data-theme=
    "dark"] 자손 셀렉터로 번역(gray-400→500). lg만 % 텍스트(mix-blend-difference) 유지.
+
 - 검증: vitest 209/209 · size-gate PASS · demo/display.html puppeteer 실측 —
   count 99+·jd-remove 태그 제거·이니셜/팔레트 결정성·배터리 임계 자동색·kbd 결합
   전부 재현, 콘솔 에러 0.
@@ -1340,17 +1523,19 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
 ## 2026-07-24 — e2e B2 확장 + 실브라우저가 잡은 DEC-014-9 위반 2건 수정
 
 ### DEC-024. B2 표면 e2e 8케이스 + box-sizing 정합 수정
+
 1. **e2e 확장(layout.spec.ts)**: show/hide 실 미디어쿼리(양방향), container 기하
    (max-width 상한·중앙 정렬·오버플로 가드), app-shell 상호작용(Ctrl+B 레일 접기+
    jd-sidebar-toggle, 모바일 드로어+백드롭+스크롤 락, matchMedia 데스크톱 복귀 자동 닫힘,
    defaultPrevented 존중) — 총 24케이스 그린.
 2. **실브라우저가 실증한 DEC-014-9 위반 2건 수정**: (a) jd-container —
    width:100%+padding-inline에 box-sizing 미선언으로 총폭 1072px(v2 preflight
-   border-box에선 1024px)·부모 +48px 오버플로. (b) .jd-app-shell__sidebar —
+   border-box에선 1024px)·부모 +48px 오버플로. (b) .jd-app-shell\_\_sidebar —
    width+border-right로 레일 총폭 261px(지정 260). 각 규칙에 `box-sizing: border-box`
    자기 선언 추가 — v2 시각 패리티(총폭=지정폭) 복원.
 3. **container 사이즈 기준선 +5.9% 갱신**(559→592B gzip): 수정 선언의 의도된 증가.
    app-shell은 3% 내(+1.4%). 교훈: css 템플릿 내 주석은 배포 바이트 — 짧게.
+
 - 결정자: e2e 실측 후 수정, 기본값 채택 (2026-07-24).
 
 ---
@@ -1358,10 +1543,11 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
 ## 2026-07-24 — G2-B3 primitives 폼 코어 구현 중 발견 (신규 9행)
 
 ### DEC-023. B3 폼 코어 판단 6건
+
 1. **Slider는 네이티브 range 위임으로 재작성**: v2는 마우스·키보드를 수제 구현했으나
    §1.6-1 원칙대로 input[type=range] 위임 — 키보드(화살표/Home/End)·aria·터치·폼 참여가
    브라우저 기본. 시각 패리티(채움 트랙)는 appearance:none + 그라디언트 %
-   (--_jd-slider-pct, update() 공급) + ::-moz-range-progress로 재현. v2와 달리
+   (--\_jd-slider-pct, update() 공급) + ::-moz-range-progress로 재현. v2와 달리
    드래그 중 트랙 어디를 눌러도 네이티브 시킹이 동작(상위집합).
 2. **RangeSlider는 수제 유지(위임 예외)**: 네이티브 range는 단일 값 — v2의 포인터 캡처
    구현을 이식(썸 2개 role=slider + 키보드 + step 간격 클램프). v2 value:[a,b] 튜플은
@@ -1375,13 +1561,14 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
    불필요(브라우저가 mixed를 AT에 전달). 사용자 조작 시 mixed 해제(네이티브 정합).
    Textarea error는 v2 그대로 boolean(TextField의 메시지 문자열과 표면 상이 — v2 실태 승계).
 5. **Switch = Toggle 파생(단일 구현)**: 로직 전량 공유, baseClass/시트/기본 aria 라벨만
-   재정의(jd-switch__* 골격). v2 Switch의 i18n 기본 라벨 t("ariaSwitch")는 상수 "스위치"로
+   재정의(jd-switch\_\_\* 골격). v2 Switch의 i18n 기본 라벨 t("ariaSwitch")는 상수 "스위치"로
    — i18n Behavior 합류 시 재연결. Toggle/Switch/Checkbox의 라벨 클릭 토글은 label 래핑의
    네이티브 연결(첫 labelable 자손)로 공짜.
 6. **gen-exports 첫 실전 배치**: B3 9종 추가에 수기 배선 0곳 — 생성기 재실행만으로
    exports 75엔트리·ALL_COMPONENTS 37종 갱신, drift 게이트가 npm test 선두에서 검증
    (DEC-018-1 설계 검증 완료). gray-300/200 리터럴(#d1d5db·#e5e7eb — 토글 트랙·슬라이더
    레일 미채움)은 v2 Tailwind gray 승계 — G2 gray 어휘 재심의 목록에 추가.
+
 - 검증: vitest 194/194 · size-gate PASS(평균 0.97KB·p95 2.22KB) · demo/form.html
   puppeteer 실측 — 토글 aria 반전·autoResize 성장·카운터·라디오 선택 이벤트·슬라이더
   채움 %·듀얼 썸 aria 전부 재현, 콘솔 에러 0.
@@ -1392,6 +1579,7 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
 ## 2026-07-24 — 릴리스·CI 준비 트랙 (v3 레인 11게이트 + 드라이런 + 스코프 조사)
 
 ### DEC-22. 릴리스 체인 준비 — 판단·실측 7건
+
 1. **CI 2파일 분리**: v2 강등은 ci.yml `on.paths` 추가만(14잡 무변경 존속), v3 레인은
    `.github/workflows/junds-v3.yml` 신설 — 11게이트 + install 캐시 워머. GitHub 네이티브
    paths 필터는 워크플로 단위가 유일해 파일 분리가 정공(잡별 필터는 서드파티 액션 의존이라
@@ -1402,9 +1590,9 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
    실구현(DEC-019)이 합류해 실게이트로 자동 전환됨을 확인(계약 테스트 77/77). web-a11y는
    `.github/scripts/web-a11y-audit.mjs` 신설: 데모 디렉터리 스캔 + axe-core 주입,
    critical/serious 실패, 빈 감사·CE 미업그레이드 페이지도 실패(false pass 차단).
-   web-test Playwright는 스펙 존재를 키로 자동 활성(1순위 packages/web/e2e/*.spec.ts
-   + 자체 config, 2순위 루트 e2e/v3-*) — config만 있고 스펙 0건인 HEAD에서
-   "No tests found" 오탐을 피하는 설계.
+   web-test Playwright는 스펙 존재를 키로 자동 활성(1순위 packages/web/e2e/\*.spec.ts
+   - 자체 config, 2순위 루트 e2e/v3-\*) — config만 있고 스펙 0건인 HEAD에서
+     "No tests found" 오탐을 피하는 설계.
 3. **로컬 성립 증명**: act 부재 → HEAD(38514fe) 분리 워크트리에서 iOS 제외 9게이트 명령
    전부 1회 실행: 8게이트 PASS, web-a11y만 실위반(serious contrast 4건/3페이지)으로 RED —
    게이트가 정상 동작한 결과. iOS 2게이트는 로컬 검증 불가(DEC-015-2 서명 파손 재확인:
@@ -1424,12 +1612,13 @@ critical 1(label)·serious 6(color-contrast 5그룹 + scrollable-region-focusabl
 6. **스코프 조사(읽기 전용, 예약 시도 없음)**: npm user·org 'junds' 모두 미존재
    ("Scope not found" 실측) — @junds 가용. 대상 7이름(@junds/web·react·finance-data·ui,
    junds, junds-web, create-junds) 전부 404 미공개. 예비 후보: @jjunhaa(가용 확인),
-   무스코프 junds-*(junds-web 404 확인). org 생성은 사람 몫 — 선점 지연 리스크를
+   무스코프 junds-\*(junds-web 404 확인). org 생성은 사람 몫 — 선점 지연 리스크를
    체크리스트 §0에 명기.
 7. **release/CHECKLIST.md 신설**: push→CI 그린→pre enter→version→publish(private 자동
    스킵)→SPM 태그 vX.Y.Z(01 §5 공통 앵커, prerelease는 exact: 소비 안내)→CDN 스모크까지
    사람 실행 정본. create-junds는 조사만(수정 없음) — 템플릿 의존 @junds/ui@^2.2.0이
    npm 미공개라 공개 사용 불가 실측, v3 대응 4건을 §7에 기입.
+
 - 결정자: 릴리스 준비 트랙, 근거 기록 후 기본값 채택 (2026-07-24).
 
 ---
@@ -1487,19 +1676,20 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    외, DEC-012-5). FormField: 자식 Input/TextField로 폴드(합성), required 폴드는 별표와
    함께 네이티브 required도 켜짐(v2는 별표만 — 의미 가산, 문서화). Modal: 전 프롭 O·
    dismissible→persistent 역번역 O, Header/Footer는 구조·a11y 동형이나
-   jd-modal__header/footer css가 코어에 미존재(웹 트랙 후속).
+   jd-modal\_\_header/footer css가 코어에 미존재(웹 트랙 후속).
 8. **소유 밖 발견 3건(해당 트랙 이관 제안).** (a) 루트(v2 @junds/ui) package.json
    exports의 "types" 조건이 "import"/"require" 뒤라 사문(死文) — esbuild 경고 51건,
    어댑터 빌드는 logOverride로 억제. (b) packages/web exports에 types 조건 부재 —
    어댑터 d.ts가 참조하는 JdButton류 타입이 소비자 측에서 미해결(웹 package.json에
-   types 조건 추가 필요). (c) 루트 eslint globalIgnores "dist/**"가 루트 상대라
-   packages/*/dist 미제외(dist는 gitignore라 CI 무관, 로컬 노이즈만).
+   types 조건 추가 필요). (c) 루트 eslint globalIgnores "dist/\*_"가 루트 상대라
+   packages/_/dist 미제외(dist는 gitignore라 CI 무관, 로컬 노이즈만).
 9. **검증 범위·빌드 판단.** react 19.2.4로 실측(peer는 >=18 — 18은 attribute 경로 설계
    대응이며 실행 매트릭스는 후속 제안). 어댑터 typecheck는 ../web/dist/types(.d.ts)를
    paths로 참조(소스 .ts 참조 시 웹 소스가 프로그램에 편입돼 dist/types 2단 재방출
    — 실측) → 웹 빌드 선행 전제(루트 v3:build 워크스페이스 순서가 보장). 테스트는 vite
    alias로 웹 소스 직결(빌드 신선도 무의존). devDeps는 루트 호이스팅 사용(자체 0) —
    peerDependencies 신설로 package-lock 재동기화 1회 필요(루트 파일이라 본 트랙 미커밋).
+
 - 결정자: G1 어댑터 파일럿 실측, 근거 기록 후 기본값 채택 (2026-07-24).
 
 ---
@@ -1507,7 +1697,9 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-24 — 문서 콘텐츠 1차 물결 (docs-content/ 신설 — 골격 445 + done 28 충전)
 
 ### DEC-021. 문서 콘텐츠 데이터 계약·판단 7건
+
 (번호 주: 020은 병행 트랙 2건(웹 e2e·아이콘)이 이중 선점한 상태 — 본 트랙은 021로 비켜 부여.)
+
 1. **파일 = 정본, 상태 비보존**: `docs-content/<id>.json` 445건(컴포넌트당 1파일)이 수기
    정본이다. 시딩은 1회(ledger + COMPONENTS.md + 실물 소스 파생)로 끝났고 재생성기는 두지
    않는다 — 이후 갱신은 파일 직접 편집. web/ios **상태는 파일에 저장하지 않는다**(ledger가
@@ -1518,8 +1710,8 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    접두(finance AreaChart→`finance-area-chart`). 조인 키는 (ledgerId, category) —
    category는 중복 저장이지만 검증기가 ledger 불일치를 빌드 실패로 잡아 드리프트를 차단.
 3. **스니펫 게이트(검증 강제)**: 플랫폼 스니펫은 ledger가 done*일 때만 비-null(미구현
-   스니펫 = 추측 = 실패). 실물 대조 — web `<jd-*>` 태그·`@junds/web/*` 서브패스는
-   packages/web(element.ts tag 선언·package.json exports), iOS `Jd*`/`jd*` 식별자는
+   스니펫 = 추측 = 실패). 실물 대조 — web `<jd-*>` 태그·`@junds/web/_`서브패스는
+packages/web(element.ts tag 선언·package.json exports), iOS`Jd_`/`jd\*` 식별자는
    packages/ios/Sources 선언, react import 명은 ds/ 배럴 export와 대조한다.
 4. **컨트롤 연동 템플릿 토큰은 web 한정**: `{prop}` 토큰(06 §2.3 치환 계약)은 web 스니펫의
    비-boolean 컨트롤만 쓴다. iOS 스니펫은 정적 — 표면 축이 웹과 다른데(DEC-013-4: variant
@@ -1532,13 +1724,14 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    junds-usage.data.ts의 갭 저작 키(~42)는 본 트랙 접근 범위 밖 — 문서 트랙 sync 시
    react:null 골격에 병합할 것.
 6. **CoreProvider(web done(내부화)) 문서**: CE가 없으므로 web 스니펫은 CSS 토큰 오버라이드
-   + `data-jd-theme` 소비자 표면(DEC-014-6)으로 저작. LayoutDivider(별칭, 신규 태그 없음)도
-   동형 — `<jd-divider>` 사용법으로 저작.
+   - `data-jd-theme` 소비자 표면(DEC-014-6)으로 저작. LayoutDivider(별칭, 신규 태그 없음)도
+     동형 — `<jd-divider>` 사용법으로 저작.
 7. **검증 실측**: build-index 통과(445건) + 웹 스니펫 28종 전부를 dist 실빌드에 복붙한
    스모크 페이지 브라우저 실측 — 콘솔 에러 0, 28 태그 전원 업그레이드, 구조 단언
    (label↔input 연결·role=dialog·separator·랜드마크 4종·auto-fill 칼럼·jd-sidebar-toggle)
    통과. 검증기 자체도 변이 테스트 5종(미지 태그·미구현 스니펫·유령 파일·오탈자 식별자·
    가짜 import)으로 오검출이 아니라 실검출임을 확인.
+
 - 결정자: 문서 콘텐츠 트랙, 근거 기록 후 기본값 채택 (2026-07-24).
 
 ---
@@ -1546,6 +1739,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-24 — Playwright 실브라우저 상호작용 스위트 신설 (03 §9 의무 구간)
 
 ### DEC-020. 웹 e2e 스위트 판단 3건
+
 1. **자체 config (03 §9.1 "루트 playwright.config.ts에 프로젝트 추가" 이탈)**:
    루트 config의 webServer는 v2 문서앱(next dev :6100)을 전역 부팅한다 — 프로젝트 선택과
    무관하게 기동되므로 CE 스위트(서버 불요, dist 주입 setContent)에 비용·포트 충돌만 낳는다.
@@ -1560,6 +1754,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    blockification으로 지정 inline-flex가 computed "flex" — 내부 골격의 display 판정은
    호스트로 한다. (b) `.jd-button`의 `transition: all` 탓에 소비자 오버라이드 직후 계산값은
    전이 중간값 — 수렴 판정(toHaveCSS 자동 재시도)으로 단언한다.
+
 - 커버리지 16케이스: focus-trap 실 Tab 순환·복귀, ESC/백드롭/persistent/jd-request-close
   취소, 스크롤 락, 네이티브 폼 참여(FormData·라벨·submit·disabled/aria-busy), :defined
   FOUC, adoptedStyleSheets 실적용·@layer 소비자 승리, style-props 반응형 실 미디어쿼리,
@@ -1571,6 +1766,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-24 — G2-B2 layout 배치 구현 중 발견 (layout 12행 + gen-exports)
 
 ### DEC-018. B2 layout 배치 판단 7건 + 검수 P1-1 해소
+
 1. **gen-exports 생성기 도입 (검수 P1-1 해소)**: `packages/web/scripts/gen-exports.mjs`가
    src/components/ 스캔으로 package.json exports(57엔트리)와 components.generated.ts
    (클래스 재수출 + ALL_COMPONENTS 28종)를 생성 — define.ts ALL 수기 배열·index.ts 수기
@@ -1596,6 +1792,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 7. **grid-layout 사이즈 기준선 +39.7% 갱신**: R12 단일 구현 확장(auto 컬럼 3프롭)의 의도된
    증가(0.43→0.60KB gzip, 예산 12KB 대비 5%). 검수 P2-2(radius 16px 번역 불일치)는 G2
    radius 어휘 재심의 인풋으로 재확인 — B2는 신규 radius 리터럴을 만들지 않았다.
+
 - 검증: vitest 165/165(gen-exports drift 게이트 포함) · size-gate PASS ·
   데모(demo/layout.html) puppeteer 실측 — 데스크톱 Ctrl+B 접기(230→64px)·모바일 드로어+
   스크롤락·Show/Hide 반전·auto-fit 컬럼 전부 재현, 콘솔 에러 0.
@@ -1606,7 +1803,9 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-24 — finance-data 분리 슬라이스 (@junds/finance-data)
 
 ### DEC-019. finance-data 분리 — 판단 6건
+
 (번호 주: 016~018은 병행 트랙(MCP·시각 패리티·B2 layout)이 선점 — 019로 부여. 018 중복은 본 트랙 블록을 019로 갱신해 해소.)
+
 1. **이관 표면 확정**: yahoo·kis·ecos·fred·rss·tickers + newsSummary(rss 파이프라인의
    순수 후처리 — 01 §3.3 목록엔 없으나 데이터 계층으로 판정) + livePrices·liveIndices의
    **스토어 계층**(React 훅은 v2 잔류) + stream(신설 — SSE 와이어 계약 타입·파서 정본화,
@@ -1629,6 +1828,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    (01 §3.3 전환기 정책 — 본 슬라이스는 ds 무수정). ② 루트 package-lock.json에
    yahoo-finance2 dep 반영 — 웹 트랙 미커밋 package.json과 얽혀 npm install 하우스키핑
    1회로 이연(root에 3.14.0이 이미 호이스트 설치돼 테스트/빌드 무영향, npm ci만 동기화 후 가능).
+
 - 검증: nvm22 — vitest 77/77(네트워크·EventSource·node:fs 전면 모킹, 실 API 0회),
   typecheck 클린, dist 3종 빌드 + CJS/ESM 스모크 로드 통과.
 - 결정자: 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-24).
@@ -1638,6 +1838,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-24 — v2 시각 패리티 기준(baseline) 캡처 트랙
 
 ### DEC-017. 시각 패리티 기준 자산 — 재빌드 캡처 확정 + 커버리지 실측
+
 1. **기존 storybook-static(2026-04-29 빌드)은 기준 사용 불가**: 루트 package.json의
    `"sideEffects": false` 가 스토리북 프로덕션(webpack) 빌드에서 preview.ts 의
    `import "../app/globals.css"` 를 트리셰이킹으로 제거 → 토큰·유틸리티 CSS 전무한
@@ -1664,6 +1865,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 6. **용량 기준**: 요소 클립 전략으로 총 3.0MB(한도 80MB 의 4%) — 무손실 PNG 유지,
    대표 variant 축소 불필요. Avatar/Image 스토리는 외부 URL(i.pravatar.cc) 의존이라
    해시 변동 가능(manifest 참조).
+
 - 실측: 104컴포넌트 496장(라이트/다크), ledger 445행 대비 23.4%(시각 386행 기준
   26.9%) — 커버리지 상세·재현 절차는 docs-spec/parity/{COVERAGE.md,manifest.json}.
 - 결정자: 실측 근거 기록 후 기본값 채택 (2026-07-24).
@@ -1673,6 +1875,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-24 — G1 iOS 슬라이스 빌드 검증 완료 (Xcode 손상 우회)
 
 ### DEC-015. iOS 빌드·테스트 검증 완료 + 툴체인 손상 실측·우회 확정
+
 1. **검증 결과**: DEC-013-1의 미검증 슬라이스 전수 통과 — 4타겟(Core/UIKit/SwiftUI/우산)
    iOS 16 시뮬레이터 타깃 빌드 성공(에러 0, 수정 필요 코드 0건), **XCTest 31/31 통과**
    (iPhone 17 / iOS 26.2 시뮬레이터에서 실행 — JdLayoutTests 12·Core 스펙/옵션/모션 9·
@@ -1686,7 +1889,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    **복구는 Xcode 재설치뿐**(서명 자체가 깨져 -runFirstLaunch·GUI 실행으로 불가) — 사용자 몫.
 3. **검증 우회 경로 확정** (Xcode 복구 전 표준 루프, demo/README.md에 명령 기록):
    CLT(Swift 6.2.3, 서명 정상) `swift build --triple arm64-apple-ios16.0-simulator
-   --sdk <Xcode iPhoneSimulator.sdk 직접 경로>` (xcrun SDK 조회 우회, 최신 SDK는 stdlib
+--sdk <Xcode iPhoneSimulator.sdk 직접 경로>` (xcrun SDK 조회 우회, 최신 SDK는 stdlib
    swiftmodule 내장이라 CLT로 iOS 크로스 빌드 가능). 테스트는 `--build-tests` +
    플랫폼 XCTest 검색 경로(-F/-I/-L) 후 `simctl spawn <기기> …/Agents/xctest` +
    `SIMCTL_CHILD_DYLD_*`로 시뮬레이터 실행. 데모앱은 모듈 .o 직접 링크 + Info.plist
@@ -1700,6 +1903,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    전역 가변 + UIAccessibility.isReduceMotionEnabled(MainActor 격리)의 nonisolated 참조,
    JdConstraintStore associated object 키 전역. 04 §7.3의 함수 포인터 주입 설계 유지하되
    Swift 6 이행 시 @MainActor 승격 재심의 — G2 이후.
+
 - 결정자: 실측 검증, 근거 기록 후 기본값 채택 (2026-07-24).
 
 ---
@@ -1707,7 +1911,9 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-24 — MCP 트랙 게이트 (사람 승인)
 
 ### DEC-016. v3 MCP 방향 3건 승인 + 저작 게이트 신설
+
 (번호 주: 015는 iOS 검증 트랙이 선점 — 016으로 부여. 017 중복 2건은 해당 트랙들 몫.)
+
 1. **도구 표면**: 소비자 조회 5종(search_components/get_component/get_usage/get_tokens/get_status)
    확정. v2 기여자 도구(scaffold·map_refresh·extract_props·locate 파일랭킹·requirements 계열)
    미계승 — v2 서버(mcp/)는 .mcp.json `junds` 항목으로 동결 병행 존치.
@@ -1721,7 +1927,8 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    소유권 밖 공유 파일 2건 최소 수정 승인 — 루트 package.json workspaces에 packages/mcp
    추가, .mcp.json에 `junds-v3` 병기(v2 `junds` 무수정).
 4. 스펙 오기 정정: 초기 저작 대상 실측 **16건**(core 13 = CE 12 + CoreProvider 내부화,
-   + 파일럿 Button/Input/Modal) — 08 §3.2 초판의 "15건"은 CoreProvider 누락 오기.
+   - 파일럿 Button/Input/Modal) — 08 §3.2 초판의 "15건"은 CoreProvider 누락 오기.
+
 - 결정자: 사람 승인 (2026-07-24 게이트, 3문 3답 — 전부 권장안 채택).
 
 ---
@@ -1729,10 +1936,11 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-23 — G2-B1 구현 중 발견 (core 12행 + style-props)
 
 ### DEC-014. B1 core 배치가 드러낸 판단 8건
+
 1. **style-props 어휘는 v2 리터럴 패리티 우선**: v2 styleProps와 tokens/가 **이름-값
    충돌**하는 축(radius: v2 md=8px vs --jd-radius-md=6px, fontSize: v2 md=1rem vs
    --jd-text-md=0.875rem, shadow·zIndex 별개 어휘)은 v2 리터럴을 유지하고, 값 일치가
-   확인된 축(spacing 대부분·color·lineHeight 등)만 --jd-* var 참조로 번역한다.
+   확인된 축(spacing 대부분·color·lineHeight 등)만 --jd-\* var 참조로 번역한다.
    패리티 원칙(값 임의 변경 금지) 준수 — 어휘 통합은 G2 재심의.
 2. **반응형은 attribute 마이크로문법** `p="4 md:6"` (JSON-in-attribute 금지 WEB-03).
    v2는 base를 인라인으로 방출해 미디어 규칙이 항상 패배하는 실측 버그 —
@@ -1750,8 +1958,8 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    계승하고, B2 LayoutDivider·B4 primitives Divider는 이 클래스의 별칭으로 처리 예정
    (무여백 기본 등 표면 차는 react 어댑터 프롭 매핑으로 해소).
 6. **CoreProvider는 토큰 시스템 흡수(내부화)** — B0 미결의 처분 확정. v2 JunDSProvider의
-   theme/colorMode 노브는 CSS 토큰 오버라이드(:root { --jd-* }) + data-jd-theme 속성으로,
-   radius/density 런타임 노브(--jds-radius-*)는 DEC-008-(4)에서 기폐기. CE 구현 없음,
+   theme/colorMode 노브는 CSS 토큰 오버라이드(:root { --jd-_ }) + data-jd-theme 속성으로,
+   radius/density 런타임 노브(--jds-radius-_)는 DEC-008-(4)에서 기폐기. CE 구현 없음,
    v2 호환 표면은 react 어댑터 몫. ledger web:done(내부화)·tests:n/a.
 7. **size-gate W1 계측 엔트리 변경**: src/index.ts(공개 배럴) → src/core/index.ts(코어
    전용 배럴). 공개 배럴은 컴포넌트 클래스를 재수출해 배치가 늘수록 W1이 무한 비대 —
@@ -1765,6 +1973,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    width:100%+padding으로 부모를 넘치는 실측 — 호스트에 width/height와 padding·border를
    병용하는 컴포넌트는 자기 규칙에 `box-sizing: border-box`를 직접 선언한다
    (전역 리셋 주입 금지 — 소비자 CSS 불간섭 원칙).
+
 - 결정자: G2-B1 구현·검증 중 발견, 근거 기록 후 기본값 채택 (2026-07-23).
 
 ---
@@ -1772,6 +1981,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-24 — 아이콘 파이프라인 구축 (icons/ 자체 셋 77종 + 생성기)
 
 ### DEC-020. 아이콘 트랙 구현 결정 7건
+
 1. **위치는 신설 최상위 `icons/`**: 03 §7.2는 `packages/web/icons/`를 스케치했으나
    트랙 소유권 분리(웹 트랙과 병행 작업)로 원본 SVG+생성기+dist를 최상위에 둔다.
    웹 패키지 배선(`@junds/web/icons/*` exports 매핑·`<jd-icon>` 레지스트리)은 웹 트랙 몫이며,
@@ -1793,6 +2003,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 7. **검수 절차**: preview.html(검색·크기·그리드 오버레이·테마) + 헤드리스 스크린샷으로
    77종 전수 눈검수. hammer는 2회 재설계(말렛 T형 기각 → 45° 수직 헤드+사선 손잡이),
    maximize/minimize 저크기 착시는 128px 대조로 기하 정상 판정.
+
 - 결정자: 트랙 지시(03 §7.2·자체 제작 원칙) 아래 세부 기본값 채택 (2026-07-24).
 
 ---
@@ -1800,6 +2011,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-23 — G1 iOS 슬라이스 구현 중 발견 (Package.swift + 파일럿 3종 + 실기기 데모앱)
 
 ### DEC-013. iOS 슬라이스 판단·스펙 보정 7건
+
 1. **iOS 슬라이스는 빌드 미검증 — Xcode 복구 후 최우선 컴파일·수정**: 작업 머신의
    swift 툴체인이 산출물 없이 즉사(DEC-011-6과 동일 증상, 사용자 Xcode 복구 대기).
    본 슬라이스의 모든 Swift 산출물(Package.swift·JunDSCore/UIKit/SwiftUI·테스트 3종·
@@ -1833,6 +2045,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    본 슬라이스 스코프 밖(04 §4 정본 패턴은 Toast 구현 시). 화이트/클리어/고스트 눌림색
    3건은 토큰 부재로 JdButtonSpec.swift 파일 내 상수로 보충(JdToken.swift 미수정) —
    토큰 승격 여부 G2 재심의.
+
 - 결정자: G1 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-23).
 
 ---
@@ -1840,6 +2053,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-23 — G1 웹 파일럿 구현 중 발견 (jd-button/jd-text-field/jd-modal + focus-trap + 벤치)
 
 ### DEC-012. G1 컴포넌트 슬라이스가 드러낸 스펙 보정·판단 7건
+
 1. **최초 render 지연 실행 (03 §1.2 스케치 보정)**: connectedCallback 동기 render는
    스트리밍 파서 업그레이드(번들 선로드 + 파서 생성 요소)에서 children 미도착 상태로
    실행돼, children을 골격으로 이동하는 컴포넌트가 빈 골격을 이중 구축한다
@@ -1854,9 +2068,9 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    두고, 호스트 속성 셀렉터는 비기본값만 담당**한다 — §4.3 정본 스케치와 동형.
 3. **jd-modal은 `<dialog>` 미채택**: (a) 03 §5.3·§8이 포커스 감금·닫기 경로를 공용
    Behavior로 강제 일원화(WEB-10)하는데 showModal()의 top layer·inert·ESC 내장 동작과
-   이중화된다. (b) top layer는 --jd-z-* 토큰 체계(z-index)를 무시하고 ::backdrop은
+   이중화된다. (b) top layer는 --jd-z-\* 토큰 체계(z-index)를 무시하고 ::backdrop은
    @layer 오버라이드 계약(§4.4) 밖이다. (c) happy-dom 단위층 검증 가능성.
-   div 기반(.jd-modal__backdrop + .jd-modal__panel[role=dialog][aria-modal]) +
+   div 기반(.jd-modal**backdrop + .jd-modal**panel[role=dialog][aria-modal]) +
    createFocusTrap + 스크롤 락으로 구현, 메서드명 showModal()은 네이티브 표면과 호환 유지.
 4. **v2 Modal `dismissible`(기본 true) → `persistent`(기본 false)로 반전**: Boolean
    attribute는 존재 여부가 값(§1.3)이라 기본 true 프로퍼티를 선언적으로 표현할 수 없다.
@@ -1876,6 +2090,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    core/behaviors import를 external로 분리(코어는 W1로 계상 — 05 §1의 코어 정의에
    포커스트랩 포함). ESM 배포는 splitting 단일 빌드로 클래스 identity를 보존
    ("."과 "./button" 혼용 시 중복 정의 경고 방지).
+
 - 결정자: G1 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-23).
 
 ---
@@ -1883,12 +2098,13 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-23 — G1 B0 구현 중 발견 (파일럿 첫 슬라이스: 토큰 파이프라인 + packages/web 스캐폴드)
 
 ### DEC-011. B0 구현이 드러낸 스펙 보정 6건
+
 1. **v2 gradients.ts의 미정의 변수 참조 (실측 드리프트)**: `primarySoft`의 `var(--primary-soft)`,
    `surfaceTop/Bottom`의 `var(--surface)`는 v2 CSS(tokens.css·globals.css) 어디에도 정의된 적 없음
    — 해당 그라디언트는 v2에서 이미 깨져 있었다. 패리티 원칙(값 임의 변경 금지)에 따라
    gradient.json에 문자열 그대로 보존하고, 정의된 변수(--primary/--primary-hover/--primary-glow)만
    `{color.*}` 별칭 치환. 토큰 신설·삭제 여부는 G2에서 재심의.
-2. **토큰 테스트 러너: node --test → vitest** (02 §6 이탈): v2 TS 리터럴(ds/tokens/*.ts)의
+2. **토큰 테스트 러너: node --test → vitest** (02 §6 이탈): v2 TS 리터럴(ds/tokens/\*.ts)의
    동적 import 비교에 TS 변환이 필요한데 `node --test`는 로더 없이 .ts를 못 돌린다.
    vitest는 기존 devDependency — `tokens:test` = `vitest run --config tokens/vitest.config.mjs`
    (node 환경, 루트 vitest.config.ts와 분리). B0 지시서도 vitest를 명시.
@@ -1896,13 +2112,14 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
    DEC-008-(3)로 승격된 다크 그림자를 표현할 수 없어 `Shadow.Dynamic(light:dark:)` 쌍으로 방출.
 4. **JdElement SSR 평가 버그**: `extends HTMLElement`는 Node 모듈 평가 시점에 throw —
    03 §3.1-1("import가 Node에서 그냥 평가") 위반. typeof 탐지(허용 규칙)로 스텁 베이스 대체,
-   packages/web/__tests__/ssr.test.ts(환경 node)가 회귀 방지.
+   packages/web/**tests**/ssr.test.ts(환경 node)가 회귀 방지.
 5. **루트 스크립트 부분 추가** (01 §4 이탈): ios:build/ios:test/bench는 대상
    (Package.swift·benchmarks/)이 아직 없어 미추가 — 해당 슬라이스에서 추가.
    v3:build/v3:test는 `--workspaces --if-present`로 자리표시자(react/finance-data) 무해 통과.
 6. **swiftc 구문 검증 생략**: 작업 머신의 swift 툴체인이 즉사(exit 137, `swift --version`조차) —
    JdToken.swift 구문 검증은 CI `ios-build`(macos 러너) 몫으로 이월. 값 정합성은
    패리티 테스트의 0xRRGGBBAA 재파싱이 커버.
+
 - 결정자: G1 구현 중 발견, 근거 기록 후 기본값 채택 (2026-07-23).
 
 ---
@@ -1910,6 +2127,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-23 — G0 승인 게이트 결과 (사람 승인)
 
 ### DEC-009. G0 전체 승인 + 게이트 결정 3건
+
 - G0 스펙 세트(00~07) 승인, G1 파일럿 진입 확정. DEC-008 기본값 6건 일괄 승인.
 - 문서 화면 시각 컨셉: **C 쇼룸/전시** 채택(A 에디토리얼·B 정밀 카탈로그 기각).
   좌측 인덱스 레일 + 다크 대형 스테이지. 최종 디자인은 GF에서 정교화.
@@ -1919,6 +2137,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 - 결정자: 사람 승인 (2026-07-23 게이트).
 
 ### DEC-010. iOS 계층 의존 — 04 스펙의 "SwiftUI→UIKit 의존" 기각 (사람 결정)
+
 - 04-ios-arch가 제안한 JunDSSwiftUI→JunDSUIKit 의존(L급 24종 UIViewRepresentable 랩)을
   사람이 명시 거부. **JunDSSwiftUI와 JunDSUIKit은 완전 독립(상호 미의존, JunDSCore만 공유).**
 - 귀결: L급 24종은 로직·상태머신·계산·측정을 JunDSCore로 최대한 끌어내리고,
@@ -1932,6 +2151,7 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 ## 2026-07-23 — 프로젝트 발족 (G0 진입)
 
 ### DEC-001. 전제 정정: JunDS는 이미 실제 제품 레포다
+
 - 마스터 프롬프트의 전제("JunDS는 MySelf 문서 데모로만 존재")는 사실과 다름.
 - 실체: 이 레포(Junha-SDK/JunDS) = `@junds/ui` v2.2.0, React 라이브러리.
   npm 미공개(private), 로컬 tarball 배포. iOS 코드는 0건(미존재 확정).
@@ -1940,48 +2160,55 @@ RTL/happy-dom 단위 + renderToString SSR + "SSR→CE 업그레이드→hydrateR
 - 결정자: 실측(에이전트 감사) + 사람에게 보고 완료.
 
 ### DEC-002. 거점: 기존 JunDS 레포를 v3 모노레포로 진화
+
 - packages/web(바닐라 코어) · packages/ios(SPM, Package.swift는 레포 루트) ·
   packages/react(기존 v2 → 어댑터) · packages/finance-data(데이터 연동 분리).
 - 근거: 히스토리·CI·changesets·COMPONENTS.md 자산과 이름 연속성 유지.
 - 결정자: 사람 승인 (2026-07-23).
 
 ### DEC-003. 전환 범위: UI 전량 + finance UI/데이터 분리
+
 - UI 304개 + hooks 55개(→Behavior) 전부 바닐라+iOS 전환. 최종 목표는 전량.
 - finance UI 컴포넌트(86)는 코어 포함, yahoo-finance2/KIS 데이터 연동은
   @junds/finance-data로 분리 → 코어 런타임 의존성 0 달성.
 - 결정자: 사람 승인 (2026-07-23).
 
 ### DEC-004. 최소 지원: iOS 16 + 에버그린 브라우저(Safari 16.4+)
+
 - 근거: SwiftUI NavigationStack·Layout 프로토콜 가용, 웹 @layer·:has 등
   신형 CSS 전제 가능. 2026년 기준 점유율 충분.
 - 결정자: 사람 승인 (2026-07-23).
 
 ### DEC-005. 커밋 정책: 배치마다 로컬 커밋, 푸시·태그·배포는 요청 시에만
+
 - 결정자: 사람 승인 (2026-07-23).
 
 ### DEC-006. 마스터 프롬프트 §4 기본값(D1~D8) 채택 현황
+
 - D1 웹: Custom Elements v1, light DOM + @layer junds + jd- 접두 — 채택.
 - D2 hooks → Behavior(createXxx(el, opts): {update?, destroy}) — 채택.
   전 매핑표는 00-inventory.md §4.
 - D3 iOS: 단일 제품 JunDS, 내부 Core/UIKit/SwiftUI 3계층, 서드파티 0 — 채택.
 - D4 레이아웃 DSL: 플렉스 엔진 자작 금지, NSLayoutConstraint 체이닝 래퍼 — 채택.
-- D5 토큰: tokens/*.json 단일 소스 → CSS vars + Swift 동시 생성 — 채택.
+- D5 토큰: tokens/\*.json 단일 소스 → CSS vars + Swift 동시 생성 — 채택.
   주의: 기존 ds/tokens(TS 소스)가 이미 존재 → 02-tokens 스펙에서 이관 경로 정의.
 - D6 성능: 측정 없는 네이티브 가속 금지, Worker → WASM/FFI 순 — 채택.
 - D7 문서: MySelf /docs/junds 단일 페이지 + ?c= 내부 라우팅, SSG 개별 페이지 금지 — 채택.
 - D8 레포 구조: DEC-002로 갱신(신규 레포 → 기존 레포 진화). 나머지 구조 원칙 유지.
 
 ### DEC-008. G0 스펙 세부 쟁점 6건 — 권장안을 기본값으로 채택
+
 - 게이트에서 사람이 거부하지 않는 한 아래 기본값으로 진행 (방향급 쟁점 2건은 별도 승인 대기: 문서 컨셉 택1, SwiftUI→UIKit 의존).
 - (1) React 어댑터 골격 소유권: 어댑터가 내부 골격을 React로 렌더하고 CE가 입양(03 권장안). react 어댑터 스펙 착수 시점에 1회 재검토.
 - (2) 이벤트 v2 호환: jd-open/jd-close 등 이벤트 2개를 어댑터가 onOpenChange 단일 콜백으로 합성 허용.
 - (3) 다크 그림자: 문서앱 globals.css의 다크 그림자 값을 shadow.json dark로 승격(02 §7-1 권장안).
-- (4) radius 정본: radius.ts(4/6/8/12px) 단일화, 브랜드 런타임 노브 --jds-radius-* 폐기(02 §7-2 권장안).
+- (4) radius 정본: radius.ts(4/6/8/12px) 단일화, 브랜드 런타임 노브 --jds-radius-\* 폐기(02 §7-2 권장안).
 - (5) runtime PageDoc Renderer: 롤아웃 범위 외 별도 트랙 유지(ledger 미포함, 07 결정 유지).
 - (6) finance 소형 배지(LivePctBadge·LiveStatusDot 등 표시 전용): bench를 n/a로 강등(ledger 상태 필드에서 개별 처리).
 - 결정자: 기본값 채택(각 스펙의 권장안), 2026-07-23.
 
 ### DEC-007. 기존 미커밋 변경 5건은 보존
+
 - LICENSE, BottomSheet.tsx, finance 3건, package.json에 선행 미커밋 변경 존재.
 - v3 작업은 이를 건드리지 않으며, 커밋 시 별도 스테이징으로 분리한다.
 - 결정자: 기본값 채택(안전 원칙).

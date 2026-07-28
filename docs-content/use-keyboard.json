@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useKeyboard",
   "oneLiner": "키보드 단축키 바인딩.",
-  "tags": [
-    "hook",
-    "keyboard",
-    "단축키"
-  ],
+  "tags": ["hook", "keyboard", "단축키"],
   "controls": [],
   "snippets": {
     "web": null,

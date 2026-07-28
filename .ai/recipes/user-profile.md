@@ -34,7 +34,11 @@ interface User {
   location?: string;
   joinedAt?: string;
   verified?: boolean;
-  stats: { followers: number | string; following: number | string; posts: number | string };
+  stats: {
+    followers: number | string;
+    following: number | string;
+    posts: number | string;
+  };
 }
 
 export default function UserProfile({ user, isMine }: { user: User; isMine?: boolean }) {
@@ -52,8 +56,16 @@ export default function UserProfile({ user, isMine }: { user: User; isMine?: boo
         joinedAt={user.joinedAt}
         verified={user.verified}
         stats={[
-          { label: "팔로워", value: user.stats.followers, href: `/u/${user.handle}/followers` },
-          { label: "팔로잉", value: user.stats.following, href: `/u/${user.handle}/following` },
+          {
+            label: "팔로워",
+            value: user.stats.followers,
+            href: `/u/${user.handle}/followers`,
+          },
+          {
+            label: "팔로잉",
+            value: user.stats.following,
+            href: `/u/${user.handle}/following`,
+          },
           { label: "게시물", value: user.stats.posts },
         ]}
         actions={
@@ -74,7 +86,17 @@ export default function UserProfile({ user, isMine }: { user: User; isMine?: boo
             label: "게시물",
             content: (
               <ul className="divide-y divide-border">
-                <li className="py-3"><PostCard author={{ name: user.name, handle: user.handle }} content="첫 게시물" createdAt={new Date()} likes={42} comments={8} liked onLike={() => {}} /></li>
+                <li className="py-3">
+                  <PostCard
+                    author={{ name: user.name, handle: user.handle }}
+                    content="첫 게시물"
+                    createdAt={new Date()}
+                    likes={42}
+                    comments={8}
+                    liked
+                    onLike={() => {}}
+                  />
+                </li>
               </ul>
             ),
           },
@@ -84,8 +106,18 @@ export default function UserProfile({ user, isMine }: { user: User; isMine?: boo
             content: (
               <PhotoAlbum
                 photos={[
-                  { id: "p1", src: "https://picsum.photos/seed/u1/400/500", alt: "1", tag: "여행" },
-                  { id: "p2", src: "https://picsum.photos/seed/u2/400/300", alt: "2", tag: "음식" },
+                  {
+                    id: "p1",
+                    src: "https://picsum.photos/seed/u1/400/500",
+                    alt: "1",
+                    tag: "여행",
+                  },
+                  {
+                    id: "p2",
+                    src: "https://picsum.photos/seed/u2/400/300",
+                    alt: "2",
+                    tag: "음식",
+                  },
                 ]}
                 layout="masonry"
                 columns={3}
@@ -95,7 +127,11 @@ export default function UserProfile({ user, isMine }: { user: User; isMine?: boo
           {
             key: "likes",
             label: "좋아요",
-            content: <p className="text-sm text-muted py-8 text-center">좋아요한 게시물이 여기에 표시됩니다</p>,
+            content: (
+              <p className="text-sm text-muted py-8 text-center">
+                좋아요한 게시물이 여기에 표시됩니다
+              </p>
+            ),
           },
         ]}
       />

@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // SwiftUI 계층은 호스팅 스모크로 계약을 지킨다 — 표면 파라미터 전부를 한 번씩 통과시키고
 // 크기 축·조건부 요소의 단조성만 확인한다 (DESIGN-2 §C / DESIGN-3 §E).
@@ -40,7 +40,7 @@ final class JdTextRunHostTests: XCTestCase {
 
         let filled = measure(JdMark("형광펜"))
         let underlined = measure(JdMark("형광펜", underline: true))
-        XCTAssertGreaterThan(filled.width, underlined.width) // 웹 padding-inline 동형
+        XCTAssertGreaterThan(filled.width, underlined.width)  // 웹 padding-inline 동형
     }
 
     // 3. Highlight — 매치 유무와 무관하게 원문 폭을 유지한다(구간만 칠한다)
@@ -58,8 +58,10 @@ final class JdTextRunHostTests: XCTestCase {
         let url = URL(string: "https://junds.dev")
         for variant in JdLinkVariant.allCases {
             for isExternal in [false, true] {
-                let measured = measure(JdLink("문서", destination: url,
-                                              variant: variant, isExternal: isExternal))
+                let measured = measure(
+                    JdLink(
+                        "문서", destination: url,
+                        variant: variant, isExternal: isExternal))
                 XCTAssertGreaterThan(measured.width, 0, "\(variant)/\(isExternal)")
             }
         }
@@ -82,7 +84,7 @@ final class JdTextRunHostTests: XCTestCase {
 
         let plain = measure(JdMentionLabel(handle: "junha"))
         let verified = measure(JdMentionLabel(handle: "junha", isVerified: true))
-        XCTAssertGreaterThan(verified.width, plain.width) // 인증 심볼 + gap
+        XCTAssertGreaterThan(verified.width, plain.width)  // 인증 심볼 + gap
     }
 
     // 6. Hashtag — 카운트/인기 표식/링크 목적지
@@ -94,7 +96,7 @@ final class JdTextRunHostTests: XCTestCase {
         let plain = measure(JdHashtagLabel(tag: "swift"))
         let counted = measure(JdHashtagLabel(tag: "swift", count: 1500))
         let trending = measure(JdHashtagLabel(tag: "swift", isTrending: true))
-        XCTAssertGreaterThan(counted.width, plain.width)   // "(1.5천)"
+        XCTAssertGreaterThan(counted.width, plain.width)  // "(1.5천)"
         XCTAssertGreaterThan(trending.width, plain.width)  // 🔥 대응 심볼
     }
 

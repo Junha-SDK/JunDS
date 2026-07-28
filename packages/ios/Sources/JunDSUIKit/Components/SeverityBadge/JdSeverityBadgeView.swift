@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-severity-badge 동형 — 심각도 알약 뱃지. A8 명명 규칙 Jd<이름>View.
 // 웹은 CSS 전용 렌더(JS 상태 0)라 심각도가 **색으로만** 전달된다(role·aria 전무) —
@@ -28,24 +28,27 @@ public final class JdSeverityBadgeView: UIView {
     private let contentStack: JdStackView
     private var spec: JdSeverityBadgeSpec
 
-    public init(_ text: String,
-                severity: JdSeverity = .neutral,
-                size: JdDisplaySize = .md,
-                showsDot: Bool = false) {
+    public init(
+        _ text: String,
+        severity: JdSeverity = .neutral,
+        size: JdDisplaySize = .md,
+        showsDot: Bool = false
+    ) {
         self.text = text
         self.severity = severity
         self.size = size
         self.showsDot = showsDot
         self.spec = JdSeverityBadgeSpec.resolve(severity: severity, size: size)
         // 웹 gap: var(--jd-space-1-5) — named JdGap에 없는 값이라 custom + 스펙 참조
-        self.contentStack = JdStackView(axis: .horizontal,
-                                        gap: .custom(spec.gap),
-                                        alignment: .center)
+        self.contentStack = JdStackView(
+            axis: .horizontal,
+            gap: .custom(spec.gap),
+            alignment: .center)
         super.init(frame: .zero)
 
         dot.isUserInteractionEnabled = false
         textLabel.adjustsFontForContentSizeCategory = true
-        textLabel.numberOfLines = 1 // 웹 white-space: nowrap
+        textLabel.numberOfLines = 1  // 웹 white-space: nowrap
 
         contentStack.addArrangedSubview(dot)
         contentStack.addArrangedSubview(textLabel)
@@ -91,8 +94,9 @@ public final class JdSeverityBadgeView: UIView {
     // MARK: 내부
 
     private var contentInsets: NSDirectionalEdgeInsets {
-        NSDirectionalEdgeInsets(top: spec.vPadding, leading: spec.hPadding,
-                                bottom: spec.vPadding, trailing: spec.hPadding)
+        NSDirectionalEdgeInsets(
+            top: spec.vPadding, leading: spec.hPadding,
+            bottom: spec.vPadding, trailing: spec.hPadding)
     }
 
     private func resolveAndApply() {
@@ -115,9 +119,10 @@ public final class JdSeverityBadgeView: UIView {
         dot.layer.cornerRadius = spec.dotSize / 2
         dot.layer.cornerCurve = .continuous
         // 스펙에 fontWeight 필드가 없어 웹 --jd-weight-medium에 대응하는 토큰을 직접 읽는다
-        textLabel.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                                 weight: JdToken.FontWeight.medium,
-                                                 compatibleWith: traitCollection)
+        textLabel.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         textLabel.textColor = spec.foreground.uiColor
     }
 

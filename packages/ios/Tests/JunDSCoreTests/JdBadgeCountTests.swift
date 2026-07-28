@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // 순수 함수는 전수 검증 (04 §4.2 규칙 1·3 — 판정은 Core, 렌더는 그리기만).
 final class JdBadgeCountTextTests: XCTestCase {
@@ -46,7 +46,7 @@ final class JdBadgeSpecResolveTests: XCTestCase {
                 XCTAssertGreaterThan(spec.vPadding, 0, "\(variant)/\(size)")
                 XCTAssertGreaterThan(spec.fontSize, 0, "\(variant)/\(size)")
                 XCTAssertGreaterThan(spec.radius, 0, "\(variant)/\(size)")
-                XCTAssertEqual(spec.dotSize, 6, "\(variant)/\(size)") // 웹 6px 고정
+                XCTAssertEqual(spec.dotSize, 6, "\(variant)/\(size)")  // 웹 6px 고정
             }
         }
         XCTAssertEqual(JdBadgeVariant.allCases.count, 7)

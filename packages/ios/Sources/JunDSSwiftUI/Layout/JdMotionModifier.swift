@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-motion 동형 — 등장 애니메이션 (DESIGN-3 §D).
 // 웹이 CSS animation + @media (prefers-reduced-motion)으로 하는 일을 SwiftUI에서는
@@ -31,7 +31,8 @@ struct JdMotionModifier: ViewModifier {
     func body(content: Content) -> some View {
         // 감속 선호면 onAppear를 기다리지 않고 처음부터 최종 상태다
         let settled = isPresented || reduceMotion
-        return content
+        return
+            content
             .opacity(settled ? JdToken.Opacity.o100 : JdToken.Opacity.o0)
             .scaleEffect(settled ? 1 : scaleStart)
             .offset(y: settled ? 0 : offsetStart)
@@ -44,8 +45,8 @@ struct JdMotionModifier: ViewModifier {
     private var offsetStart: CGFloat {
         switch preset {
         case .fadeIn, .scaleIn: return 0
-        case .slideUp: return JdMotionModifier.travel      // 아래에서 올라온다(웹 translateY(24px))
-        case .slideDown: return -JdMotionModifier.travel   // 위에서 내려온다
+        case .slideUp: return JdMotionModifier.travel  // 아래에서 올라온다(웹 translateY(24px))
+        case .slideDown: return -JdMotionModifier.travel  // 위에서 내려온다
         }
     }
 
@@ -61,7 +62,8 @@ struct JdMotionModifier: ViewModifier {
         let duration = JdMotion.duration(JdToken.Duration.slow)
         guard duration > 0 else { return nil }
         let easing = easingCurve
-        return Animation
+        return
+            Animation
             .timingCurve(easing.0, easing.1, easing.2, easing.3, duration: duration)
             .delay(delay)
     }

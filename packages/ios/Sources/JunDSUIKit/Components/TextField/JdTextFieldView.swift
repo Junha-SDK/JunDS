@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 public final class JdTextFieldView: UIView {
 
@@ -46,9 +46,11 @@ public final class JdTextFieldView: UIView {
     private let rootStack = UIStackView()
     private var spec: JdTextFieldSpec
 
-    public init(label: String? = nil,
-                placeholder: String? = nil,
-                size: JdControlSize = .md) {
+    public init(
+        label: String? = nil,
+        placeholder: String? = nil,
+        size: JdControlSize = .md
+    ) {
         self.label = label
         self.placeholder = placeholder
         self.size = size
@@ -147,14 +149,18 @@ public final class JdTextFieldView: UIView {
     }
 
     private func applyStyle() {
-        labelView.font = JdFontBridge.scaledFont(size: spec.labelFontSize, weight: spec.labelFontWeight, compatibleWith: traitCollection)
+        labelView.font = JdFontBridge.scaledFont(
+            size: spec.labelFontSize, weight: spec.labelFontWeight, compatibleWith: traitCollection)
         labelView.textColor = JdToken.Color.foreground.uiColor
-        field.font = JdFontBridge.scaledFont(size: spec.fontSize, weight: JdToken.FontWeight.normal, compatibleWith: traitCollection)
+        field.font = JdFontBridge.scaledFont(
+            size: spec.fontSize, weight: JdToken.FontWeight.normal, compatibleWith: traitCollection)
         field.textColor = JdToken.Color.foreground.uiColor
         field.backgroundColor = JdToken.Color.card.uiColor
         field.layer.cornerRadius = spec.radius
         field.hInset = spec.hPadding
-        errorLabel.font = JdFontBridge.scaledFont(size: spec.errorFontSize, weight: JdToken.FontWeight.normal, compatibleWith: traitCollection)
+        errorLabel.font = JdFontBridge.scaledFont(
+            size: spec.errorFontSize, weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         applyBorder()
     }
 

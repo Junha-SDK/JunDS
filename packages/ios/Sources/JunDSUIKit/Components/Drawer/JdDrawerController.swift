@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-drawer의 iOS 번역 (04 §10.1):
 //  • bottom → UISheetPresentationController detent(sheetHeight 기반).
@@ -7,14 +7,15 @@ import JunDSCore
 // title 있으면 헤더 행(제목 + 닫기 버튼, JdIconButtonView 재사용).
 // persistent → 인터랙티브 닫기 차단. cancelable veto는 onDismissAttempt.
 public final class JdDrawerController: UIViewController,
-                                       UIAdaptivePresentationControllerDelegate,
-                                       UIViewControllerTransitioningDelegate {
+    UIAdaptivePresentationControllerDelegate,
+    UIViewControllerTransitioningDelegate
+{
 
     public let contentView = UIView()
 
     private let side: JdDrawerSide
     private let size: JdOverlaySize
-    private let drawerTitle: String?      // UIViewController.title 충돌 회피(선례: zoneDescription)
+    private let drawerTitle: String?  // UIViewController.title 충돌 회피(선례: zoneDescription)
 
     public var persistent: Bool {
         didSet {
@@ -31,10 +32,12 @@ public final class JdDrawerController: UIViewController,
     private(set) var titleLabel: UILabel?
     private(set) var closeButton: JdIconButtonView?
 
-    public init(side: JdDrawerSide = .right,
-                size: JdOverlaySize = .md,
-                title: String? = nil,
-                persistent: Bool = false) {
+    public init(
+        side: JdDrawerSide = .right,
+        size: JdOverlaySize = .md,
+        title: String? = nil,
+        persistent: Bool = false
+    ) {
         self.side = side
         self.size = size
         self.drawerTitle = title
@@ -106,9 +109,10 @@ public final class JdDrawerController: UIViewController,
     // MARK: 헤더
 
     private var headerFont: UIFont {
-        JdFontBridge.scaledFont(size: JdToken.FontSize.lg,
-                                weight: JdToken.FontWeight.semibold,
-                                compatibleWith: traitCollection)
+        JdFontBridge.scaledFont(
+            size: JdToken.FontSize.lg,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
     }
 
     private func makeHeader(_ text: String) -> UIView {
@@ -127,10 +131,11 @@ public final class JdDrawerController: UIViewController,
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
-        let close = JdIconButtonView(systemImage: "xmark",
-                                     accessibilityLabel: "닫기",
-                                     variant: .ghost,
-                                     size: .md)
+        let close = JdIconButtonView(
+            systemImage: "xmark",
+            accessibilityLabel: "닫기",
+            variant: .ghost,
+            size: .md)
         close.setContentHuggingPriority(.required, for: .horizontal)
         close.setContentCompressionResistancePriority(.required, for: .horizontal)
         close.onTap = { [weak self] in self?.requestClose(.close) }
@@ -159,35 +164,45 @@ public final class JdDrawerController: UIViewController,
 
     // MARK: UIAdaptivePresentationControllerDelegate (bottom 시트 스와이프)
 
-    public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+    public func presentationControllerShouldDismiss(
+        _ presentationController: UIPresentationController
+    ) -> Bool {
         if persistent { return false }
         if let handler = onDismissAttempt { return handler(.backdrop) }
         return true
     }
 
-    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController)
+    {
         onClose?()
     }
 
     // MARK: UIViewControllerTransitioningDelegate (left/right 커스텀)
 
-    public func presentationController(forPresented presented: UIViewController,
-                                       presenting: UIViewController?,
-                                       source: UIViewController) -> UIPresentationController? {
-        JdDrawerPresentationController(presentedViewController: presented,
-                                       presenting: presenting,
-                                       side: side,
-                                       size: size,
-                                       onBackdropTap: { [weak self] in self?.requestClose(.backdrop) })
+    public func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController
+    ) -> UIPresentationController? {
+        JdDrawerPresentationController(
+            presentedViewController: presented,
+            presenting: presenting,
+            side: side,
+            size: size,
+            onBackdropTap: { [weak self] in self?.requestClose(.backdrop) })
     }
 
-    public func animationController(forPresented presented: UIViewController,
-                                    presenting: UIViewController,
-                                    source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController,
+        source: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning? {
         JdDrawerSlideAnimator(side: side, isPresenting: true)
     }
 
-    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(
+        forDismissed dismissed: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning? {
         JdDrawerSlideAnimator(side: side, isPresenting: false)
     }
 }
@@ -201,16 +216,19 @@ final class JdDrawerPresentationController: UIPresentationController {
     private let onBackdropTap: () -> Void
     private let dimmingView = UIView()
 
-    init(presentedViewController: UIViewController,
-         presenting presentingViewController: UIViewController?,
-         side: JdDrawerSide,
-         size: JdOverlaySize,
-         onBackdropTap: @escaping () -> Void) {
+    init(
+        presentedViewController: UIViewController,
+        presenting presentingViewController: UIViewController?,
+        side: JdDrawerSide,
+        size: JdOverlaySize,
+        onBackdropTap: @escaping () -> Void
+    ) {
         self.side = side
         self.size = size
         self.onBackdropTap = onBackdropTap
-        super.init(presentedViewController: presentedViewController,
-                   presenting: presentingViewController)
+        super.init(
+            presentedViewController: presentedViewController,
+            presenting: presentingViewController)
     }
 
     override var frameOfPresentedViewInContainerView: CGRect {
@@ -223,7 +241,7 @@ final class JdDrawerPresentationController: UIPresentationController {
         case .right:
             return CGRect(x: bounds.width - width, y: 0, width: width, height: bounds.height)
         case .bottom:
-            return bounds // 커스텀 경로 미사용(bottom은 시트)
+            return bounds  // 커스텀 경로 미사용(bottom은 시트)
         }
     }
 
@@ -277,7 +295,9 @@ final class JdDrawerSlideAnimator: NSObject, UIViewControllerAnimatedTransitioni
         self.isPresenting = isPresenting
     }
 
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    func transitionDuration(
+        using transitionContext: UIViewControllerContextTransitioning?
+    ) -> TimeInterval {
         JdMotion.duration(JdToken.Duration.normal)
     }
 
@@ -287,12 +307,14 @@ final class JdDrawerSlideAnimator: NSObject, UIViewControllerAnimatedTransitioni
 
         if isPresenting {
             guard let toVC = ctx.viewController(forKey: .to),
-                  let toView = ctx.view(forKey: .to) else {
+                let toView = ctx.view(forKey: .to)
+            else {
                 ctx.completeTransition(false)
                 return
             }
             let finalFrame = ctx.finalFrame(for: toVC)
-            toView.frame = finalFrame.offsetBy(dx: offscreenDX(for: finalFrame, container: container), dy: 0)
+            toView.frame = finalFrame.offsetBy(
+                dx: offscreenDX(for: finalFrame, container: container), dy: 0)
             container.addSubview(toView)
             let settle = { toView.frame = finalFrame }
             run(settle, duration: duration, ctx: ctx)
@@ -302,21 +324,28 @@ final class JdDrawerSlideAnimator: NSObject, UIViewControllerAnimatedTransitioni
                 return
             }
             let startFrame = fromView.frame
-            let slideOut = { fromView.frame = startFrame.offsetBy(dx: self.offscreenDX(for: startFrame, container: container), dy: 0) }
+            let slideOut = {
+                fromView.frame = startFrame.offsetBy(
+                    dx: self.offscreenDX(for: startFrame, container: container), dy: 0)
+            }
             run(slideOut, duration: duration, ctx: ctx)
         }
     }
 
-    private func run(_ animations: @escaping () -> Void,
-                     duration: TimeInterval,
-                     ctx: UIViewControllerContextTransitioning) {
+    private func run(
+        _ animations: @escaping () -> Void,
+        duration: TimeInterval,
+        ctx: UIViewControllerContextTransitioning
+    ) {
         guard duration > 0 else {
             animations()
             ctx.completeTransition(!ctx.transitionWasCancelled)
             return
         }
-        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut,
-                       animations: animations) { _ in
+        UIView.animate(
+            withDuration: duration, delay: 0, options: .curveEaseOut,
+            animations: animations
+        ) { _ in
             ctx.completeTransition(!ctx.transitionWasCancelled)
         }
     }

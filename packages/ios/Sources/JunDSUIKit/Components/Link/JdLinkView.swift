@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-link 동형 — 앵커 프리미티브. A8 명명 규칙 Jd<이름>View(UIControl 서브클래스).
 // 실제 열기는 시스템이 한다(UIApplication.open). 소비자가 onTap을 주면 라우터 등이
@@ -34,11 +34,13 @@ public final class JdLinkView: UIControl {
     private let stack = UIStackView()
     private let variant: JdLinkVariant
 
-    public init(_ text: String,
-                destination: URL?,
-                variant: JdLinkVariant = .default,
-                underline: Bool = true,
-                isExternal: Bool = false) {
+    public init(
+        _ text: String,
+        destination: URL?,
+        variant: JdLinkVariant = .default,
+        underline: Bool = true,
+        isExternal: Bool = false
+    ) {
         self.text = text
         self.destination = destination
         self.variant = variant
@@ -49,11 +51,11 @@ public final class JdLinkView: UIControl {
         contentLabel.adjustsFontForContentSizeCategory = true
         contentLabel.numberOfLines = 0
         iconView.contentMode = .center
-        iconView.isAccessibilityElement = false // 장식 — 의미는 라벨이 싣는다 (04 §7.1)
+        iconView.isAccessibilityElement = false  // 장식 — 의미는 라벨이 싣는다 (04 §7.1)
 
         stack.axis = .horizontal
         stack.alignment = .firstBaseline
-        stack.spacing = JdToken.Space.s1 // 웹 gap: var(--jd-space-1)
+        stack.spacing = JdToken.Space.s1  // 웹 gap: var(--jd-space-1)
         stack.isUserInteractionEnabled = false
         stack.addArrangedSubview(contentLabel)
         stack.addArrangedSubview(iconView)
@@ -84,9 +86,10 @@ public final class JdLinkView: UIControl {
 
     private func applyContent() {
         // UILabel은 상속 서체가 없어 본문 기본(JdTextView 기본과 같은 md)을 쓴다
-        let font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .md).fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .md).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         let tint = JdLinkStyle.foreground(variant).uiColor
         var attributes: [NSAttributedString.Key: Any] = [
             .font: font,
@@ -98,9 +101,10 @@ public final class JdLinkView: UIControl {
         }
         contentLabel.attributedText = NSAttributedString(string: text, attributes: attributes)
 
-        let symbolFont = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                                 weight: JdToken.FontWeight.medium,
-                                                 compatibleWith: traitCollection)
+        let symbolFont = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .xs).fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: symbolFont)
         // 웹 외부 링크 SVG(↗) 대응
         iconView.image = isExternal ? UIImage(systemName: "arrow.up.right") : nil
@@ -113,10 +117,10 @@ public final class JdLinkView: UIControl {
 
     @objc private func didTap() {
         if let onTap {
-            onTap() // 소비자 가로채기 우선(라우터 등)
+            onTap()  // 소비자 가로채기 우선(라우터 등)
             return
         }
-        guard let destination else { return } // 웹: href 없는 <a>는 비활성
+        guard let destination else { return }  // 웹: href 없는 <a>는 비활성
         UIApplication.shared.open(destination)
     }
 }

@@ -13,9 +13,7 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const reactDir = join(here, "..");
 const packagePath = join(reactDir, "package.json");
-const manifest = JSON.parse(
-  readFileSync(join(here, "adapters.generated.json"), "utf8"),
-);
+const manifest = JSON.parse(readFileSync(join(here, "adapters.generated.json"), "utf8"));
 const pkg = JSON.parse(readFileSync(packagePath, "utf8"));
 
 const exportsMap = {

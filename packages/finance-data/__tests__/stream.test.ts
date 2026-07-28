@@ -9,7 +9,13 @@ import {
 describe("parseStreamTickEvent", () => {
   it("정상 tick 통과 (venue 옵셔널)", () => {
     const t = parseStreamTickEvent(
-      JSON.stringify({ symbol: "삼성전자", code: "005930", price: 71200, change: 1200, changePct: 1.71 }),
+      JSON.stringify({
+        symbol: "삼성전자",
+        code: "005930",
+        price: 71200,
+        change: 1200,
+        changePct: 1.71,
+      }),
     );
     expect(t).not.toBeNull();
     expect(t!.symbol).toBe("삼성전자");

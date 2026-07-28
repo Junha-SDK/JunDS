@@ -69,8 +69,12 @@ export default function SaveBar() {
 
   return (
     <div className="flex gap-2">
-      <Button variant="primary" onClick={handleSave}>저장</Button>
-      <Button variant="danger" onClick={handleDelete}>삭제</Button>
+      <Button variant="primary" onClick={handleSave}>
+        저장
+      </Button>
+      <Button variant="danger" onClick={handleDelete}>
+        삭제
+      </Button>
     </div>
   );
 }
@@ -81,12 +85,26 @@ export default function SaveBar() {
 ```tsx
 "use client";
 import { useState } from "react";
-import { NotificationCenter, type NotificationItem } from "@/ds/patterns/NotificationCenter";
+import {
+  NotificationCenter,
+  type NotificationItem,
+} from "@/ds/patterns/NotificationCenter";
 
 export default function HeaderBell() {
   const [items, setItems] = useState<NotificationItem[]>([
-    { id: "1", title: "새 댓글", description: "이도윤님이 댓글을 남겼습니다.", time: "방금" },
-    { id: "2", title: "결제 완료", description: "Pro 구독이 갱신되었습니다.", time: "1시간 전", read: true },
+    {
+      id: "1",
+      title: "새 댓글",
+      description: "이도윤님이 댓글을 남겼습니다.",
+      time: "방금",
+    },
+    {
+      id: "2",
+      title: "결제 완료",
+      description: "Pro 구독이 갱신되었습니다.",
+      time: "1시간 전",
+      read: true,
+    },
     { id: "3", title: "신규 가입", description: "user@acme.com", time: "어제" },
   ]);
 

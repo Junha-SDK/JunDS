@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "Modal",
   "oneLiner": "오버레이 다이얼로그 — 포커스 감금·스크롤 락·닫기 요청 이벤트. iOS는 시스템 시트로 번역.",
-  "tags": [
-    "overlay",
-    "dialog",
-    "모달"
-  ],
+  "tags": ["overlay", "dialog", "모달"],
   "controls": [
     {
       "prop": "open",
@@ -18,13 +14,7 @@
     {
       "prop": "size",
       "kind": "select",
-      "options": [
-        "sm",
-        "md",
-        "lg",
-        "xl",
-        "full"
-      ],
+      "options": ["sm", "md", "lg", "xl", "full"],
       "default": "md"
     },
     {

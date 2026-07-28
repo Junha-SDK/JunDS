@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-back-top 동형 — 버튼만 컴포넌트다 (DESIGN-3 §B).
 // 스크롤 자체는 시스템(UIScrollView.setContentOffset)이 하고, 가시성 판정은 소비자가
@@ -73,9 +73,10 @@ public final class JdBackTopButtonView: UIControl {
 
     private func applyStyle() {
         // SF Symbol은 폰트에 묶여 스케일된다 (04 §7.2)
-        let font = JdFontBridge.scaledFont(size: spec.iconSize,
-                                           weight: JdToken.FontWeight.semibold,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: spec.iconSize,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font)
         iconView.image = UIImage(systemName: "arrow.up")
         iconView.tintColor = JdToken.Color.foreground.uiColor
@@ -83,7 +84,8 @@ public final class JdBackTopButtonView: UIControl {
         backgroundColor = (isHighlighted ? spec.pressedBackground : JdToken.Color.card).uiColor
         layer.cornerCurve = .continuous
         layer.borderWidth = JdToken.Border.thin
-        layer.borderColor = JdToken.Color.border.uiColor.resolvedColor(with: traitCollection).cgColor
+        layer.borderColor =
+            JdToken.Color.border.uiColor.resolvedColor(with: traitCollection).cgColor
         alpha = isEnabled ? 1 : CGFloat(JdToken.Opacity.o50)
         applyShadow()
         setNeedsLayout()
@@ -100,7 +102,7 @@ public final class JdBackTopButtonView: UIControl {
         layer.shadowColor = ink.uiColor.resolvedColor(with: traitCollection).cgColor
         layer.shadowOpacity = 1
         layer.shadowOffset = CGSize(width: geometry.x, height: geometry.y)
-        layer.shadowRadius = geometry.blur / 2 // CSS blur = 2 × 렌더 반경
+        layer.shadowRadius = geometry.blur / 2  // CSS blur = 2 × 렌더 반경
     }
 
     @objc private func didTap() {

@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-kbd 동형 — 단축키 표기 칩. A8 명명 규칙 Jd<이름>View(UILabel 서브클래스).
 // keys의 공백 제거는 Core가 한다("⌘ K" → "⌘K"). JdKbdSpec은 치수만 주므로 색은 웹 CSS
@@ -41,8 +41,9 @@ public final class JdKbdView: UILabel {
     // 웹 padding 2/6 동형 — UILabel은 인셋 개념이 없어 intrinsic에 직접 더한다
     public override var intrinsicContentSize: CGSize {
         let base = super.intrinsicContentSize
-        return CGSize(width: base.width + spec.hPadding * 2,
-                      height: base.height + spec.vPadding * 2)
+        return CGSize(
+            width: base.width + spec.hPadding * 2,
+            height: base.height + spec.vPadding * 2)
     }
 
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -53,11 +54,13 @@ public final class JdKbdView: UILabel {
     }
 
     private func applyStyle() {
-        font = JdFontBridge.scaledMonoFont(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           compatibleWith: traitCollection)
+        font = JdFontBridge.scaledMonoFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         textColor = JdToken.Color.muted.uiColor
-        layer.borderColor = JdToken.Color.border.uiColor
+        layer.borderColor =
+            JdToken.Color.border.uiColor
             .resolvedColor(with: traitCollection).cgColor
     }
 }

@@ -71,7 +71,7 @@ describe("폭 CSS 변수·본문 패딩", () => {
   test("sidebar-width/collapsed-width attribute 반영", async () => {
     const el = await mount(
       `<jd-app-shell sidebar-width="300" collapsed-width="80" sidebar-collapsed>` +
-      `<nav slot="sidebar">s</nav><p>b</p></jd-app-shell>`,
+        `<nav slot="sidebar">s</nav><p>b</p></jd-app-shell>`,
     );
     expect(el.style.getPropertyValue("--_jd-shell-rail")).toBe("80px");
     expect(el.style.getPropertyValue("--_jd-shell-drawer")).toBe("300px");
@@ -79,8 +79,9 @@ describe("폭 CSS 변수·본문 패딩", () => {
 
   test("content-padding → 본문 인라인", async () => {
     const el = await mount(`<jd-app-shell content-padding="6"><p>b</p></jd-app-shell>`);
-    expect(el.querySelector<HTMLElement>(".jd-app-shell__content")!.style.getPropertyValue("padding"))
-      .toBe("var(--jd-space-6)");
+    expect(
+      el.querySelector<HTMLElement>(".jd-app-shell__content")!.style.getPropertyValue("padding"),
+    ).toBe("var(--jd-space-6)");
   });
 });
 
@@ -89,7 +90,9 @@ describe("Ctrl/Cmd+B 토글", () => {
     const el = await mount();
     const spy = vi.fn();
     el.addEventListener("jd-sidebar-toggle", spy);
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: "b", ctrlKey: true, cancelable: true }));
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "b", ctrlKey: true, cancelable: true }),
+    );
     await tick();
     expect(el.sidebarCollapsed).toBe(true);
     expect(spy).toHaveBeenCalledTimes(1);
@@ -110,7 +113,9 @@ describe("Ctrl/Cmd+B 토글", () => {
     el.setAttribute("data-mobile", "");
     const spy = vi.fn();
     el.addEventListener("jd-sidebar-toggle", spy);
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: "b", ctrlKey: true, cancelable: true }));
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "b", ctrlKey: true, cancelable: true }),
+    );
     await tick();
     expect(el.mobileOpen).toBe(true);
     expect(spy).not.toHaveBeenCalled();
@@ -152,6 +157,8 @@ describe("모바일 드로어·스크롤 락", () => {
 
   test("메뉴 버튼 a11y 이름", async () => {
     const el = await mount();
-    expect(el.querySelector(".jd-app-shell__menu")!.getAttribute("aria-label")).toBe("사이드바 열기");
+    expect(el.querySelector(".jd-app-shell__menu")!.getAttribute("aria-label")).toBe(
+      "사이드바 열기",
+    );
   });
 });

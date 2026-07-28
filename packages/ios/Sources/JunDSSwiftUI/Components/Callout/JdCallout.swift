@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-callout의 SwiftUI 번역 — 문서 강조 블록 (DESIGN-4 §B).
 // 이모지·색은 Core JdCalloutVariant가 단일 소스. collapsible은 시스템 DisclosureGroup에 위임한다
@@ -13,11 +13,13 @@ public struct JdCallout<Content: View>: View {
     @State private var isExpanded: Bool
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ title: String,
-                variant: JdCalloutVariant = .note,
-                isCollapsible: Bool = false,
-                initiallyExpanded: Bool = true,
-                @ViewBuilder content: @escaping () -> Content) {
+    public init(
+        _ title: String,
+        variant: JdCalloutVariant = .note,
+        isCollapsible: Bool = false,
+        initiallyExpanded: Bool = true,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
         self.title = title
         self.variant = variant
         self.isCollapsible = isCollapsible
@@ -28,7 +30,7 @@ public struct JdCallout<Content: View>: View {
     private var header: some View {
         HStack(spacing: JdToken.Space.s2) {
             Text(variant.emoji)
-                .accessibilityHidden(true) // 이모지는 장식 — 제목이 유일한 표면
+                .accessibilityHidden(true)  // 이모지는 장식 — 제목이 유일한 표면
             Text(title)
                 .jdFont(size: JdToken.FontSize.md, weight: JdToken.FontWeight.semibold)
                 .foregroundColor(JdToken.Color.foreground.color)
@@ -62,7 +64,7 @@ public struct JdCallout<Content: View>: View {
             } label: {
                 header
             }
-            .tint(JdToken.Color.muted.color) // 셰브런 색
+            .tint(JdToken.Color.muted.color)  // 셰브런 색
         } else {
             VStack(alignment: .leading, spacing: JdToken.Space.s2) {
                 header

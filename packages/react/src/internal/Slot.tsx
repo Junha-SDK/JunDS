@@ -33,20 +33,15 @@ interface SlottableComponent {
  * Slot children 중 사용자 제공 엘리먼트가 렌더될 위치 표식.
  * 주변 형제들은 그 엘리먼트의 children이 된다.
  */
-export const Slottable = (({ children }) => (
-  <>{children}</>
-)) as SlottableComponent;
+export const Slottable = (({ children }) => <>{children}</>) as SlottableComponent;
 Slottable.$$junds$slottable$ = SLOTTABLE_TYPE;
 Slottable.displayName = "Slottable";
 
-function isSlottable(
-  node: unknown,
-): node is ReactElement<{ children?: ReactNode }> {
+function isSlottable(node: unknown): node is ReactElement<{ children?: ReactNode }> {
   return (
     isValidElement(node) &&
     typeof node.type === "function" &&
-    (node.type as Partial<SlottableComponent>).$$junds$slottable$ ===
-      SLOTTABLE_TYPE
+    (node.type as Partial<SlottableComponent>).$$junds$slottable$ === SLOTTABLE_TYPE
   );
 }
 
@@ -84,9 +79,7 @@ export const Slot = forwardRef<HTMLElement, SlotProps>(function Slot(
   }
 
   if (arr.length !== 1 || !isValidElement(arr[0])) {
-    warnDev(
-      "[junds/Slot] expected a single React element child or a <Slottable>.",
-    );
+    warnDev("[junds/Slot] expected a single React element child or a <Slottable>.");
     return null;
   }
   const child = arr[0] as ReactElement<AnyChildProps>;
@@ -95,11 +88,7 @@ export const Slot = forwardRef<HTMLElement, SlotProps>(function Slot(
 
 function warnDev(message: string): void {
   try {
-    if (
-      typeof process !== "undefined" &&
-      process.env?.NODE_ENV === "production"
-    )
-      return;
+    if (typeof process !== "undefined" && process.env?.NODE_ENV === "production") return;
   } catch {
     /* process 부재 환경 — 개발로 간주 */
   }
@@ -127,10 +116,7 @@ function mergeIntoChild(
   };
   // 비-button asChild의 disabled 접근성은 자식 프롭보다 우선해야 한다.
   // 그렇지 않으면 자식의 tabIndex={0}/aria-disabled={false}가 클릭 차단과 불일치한다.
-  if (
-    slotProps["aria-disabled"] === true ||
-    slotProps["aria-disabled"] === "true"
-  ) {
+  if (slotProps["aria-disabled"] === true || slotProps["aria-disabled"] === "true") {
     merged["aria-disabled"] = slotProps["aria-disabled"];
     merged.tabIndex = slotProps.tabIndex ?? -1;
   }
@@ -179,7 +165,5 @@ function mergeEventHandlers(
 }
 
 function isEventKey(key: string): boolean {
-  return (
-    key.length > 2 && key.startsWith("on") && key[2] === key[2]!.toUpperCase()
-  );
+  return key.length > 2 && key.startsWith("on") && key[2] === key[2]!.toUpperCase();
 }

@@ -39,9 +39,27 @@ interface User {
 }
 
 const ALL_USERS: User[] = [
-  { id: "1", name: "김지원", email: "ji@acme.com", status: "active", joinedAt: "2025-09-01" },
-  { id: "2", name: "박서연", email: "seo@acme.com", status: "invited", joinedAt: "2025-10-12" },
-  { id: "3", name: "이도윤", email: "do@acme.com", status: "disabled", joinedAt: "2024-12-30" },
+  {
+    id: "1",
+    name: "김지원",
+    email: "ji@acme.com",
+    status: "active",
+    joinedAt: "2025-09-01",
+  },
+  {
+    id: "2",
+    name: "박서연",
+    email: "seo@acme.com",
+    status: "invited",
+    joinedAt: "2025-10-12",
+  },
+  {
+    id: "3",
+    name: "이도윤",
+    email: "do@acme.com",
+    status: "disabled",
+    joinedAt: "2024-12-30",
+  },
 ];
 
 export default function UsersPage() {
@@ -51,7 +69,8 @@ export default function UsersPage() {
   const filtered = useMemo(() => {
     return ALL_USERS.filter((u) => {
       if (status !== "all" && u.status !== status) return false;
-      if (search && !`${u.name} ${u.email}`.toLowerCase().includes(search.toLowerCase())) return false;
+      if (search && !`${u.name} ${u.email}`.toLowerCase().includes(search.toLowerCase()))
+        return false;
       return true;
     });
   }, [search, status]);
@@ -63,12 +82,22 @@ export default function UsersPage() {
       key: "status",
       header: "상태",
       render: (u) => (
-        <Tag color={u.status === "active" ? "green" : u.status === "invited" ? "orange" : "gray"}>
+        <Tag
+          color={
+            u.status === "active" ? "green" : u.status === "invited" ? "orange" : "gray"
+          }
+        >
           {u.status}
         </Tag>
       ),
     },
-    { key: "joinedAt", header: "가입일", render: (u) => u.joinedAt, sortable: true, align: "right" },
+    {
+      key: "joinedAt",
+      header: "가입일",
+      render: (u) => u.joinedAt,
+      sortable: true,
+      align: "right",
+    },
   ];
 
   return (
@@ -90,8 +119,15 @@ export default function UsersPage() {
             size="sm"
           />
         }
-        actions={<Button variant="primary" size="sm">사용자 초대</Button>}
-        onReset={() => { setSearch(""); setStatus("all"); }}
+        actions={
+          <Button variant="primary" size="sm">
+            사용자 초대
+          </Button>
+        }
+        onReset={() => {
+          setSearch("");
+          setStatus("all");
+        }}
         activeCount={(search ? 1 : 0) + (status !== "all" ? 1 : 0)}
       />
 

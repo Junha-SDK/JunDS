@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // finance 조립 3종 SwiftUI 계층 — 호스팅 + 배치 반응 (DESIGN-2 §C). (DEC-041)
 final class JdFinanceLayoutHostTests: XCTestCase {
@@ -28,8 +28,11 @@ final class JdFinanceLayoutHostTests: XCTestCase {
     }
 
     func test_stacked_cell_falls_back_per_value() {
-        XCTAssertEqual(JdLiveStackedCell(price: 0, change: 0,
-                                        priceFallback: 68_000, pctFallback: -2.5).lines.price, "68,000")
+        XCTAssertEqual(
+            JdLiveStackedCell(
+                price: 0, change: 0,
+                priceFallback: 68_000, pctFallback: -2.5
+            ).lines.price, "68,000")
         XCTAssertEqual(JdLiveStackedCell(price: 0, change: 0).lines.price, JdFinanceFormat.emDash)
     }
 
@@ -45,8 +48,9 @@ final class JdFinanceLayoutHostTests: XCTestCase {
 
     func test_position_bar_hosts_at_extremes_without_crashing() {
         for (l, h, c) in [(0.0, 1.0, 0.0), (0.0, 1.0, 1.0), (0.9, 0.2, 0.5), (-1.0, 5.0, 2.0)] {
-            XCTAssertGreaterThan(fit(JdPositionBar(low: l, high: h, cur: c)).height, 0,
-                                 "low=\(l) high=\(h) cur=\(c)")
+            XCTAssertGreaterThan(
+                fit(JdPositionBar(low: l, high: h, cur: c)).height, 0,
+                "low=\(l) high=\(h) cur=\(c)")
         }
     }
 
@@ -89,10 +93,15 @@ final class JdFinanceLayoutHostTests: XCTestCase {
 
     // 단위·보조 문구가 길어지면 높이는 그대로고 폭도 칸을 지킨다(줄바꿈 없음)
     func test_kpi_cell_height_is_stable_across_content() {
-        let short = fit(JdMicroKpiCell(item: .init(label: "L", value: "1", pct: 1)), width: 200).height
-        let long = fit(JdMicroKpiCell(item: .init(label: "USD/KRW", value: "1,320",
-                                                 pct: -0.4, unit: "원", hint: "순매수")),
-                       width: 200).height
+        let short = fit(JdMicroKpiCell(item: .init(label: "L", value: "1", pct: 1)), width: 200)
+            .height
+        let long = fit(
+            JdMicroKpiCell(
+                item: .init(
+                    label: "USD/KRW", value: "1,320",
+                    pct: -0.4, unit: "원", hint: "순매수")),
+            width: 200
+        ).height
         XCTAssertEqual(short, long, accuracy: 0.5, "셀 높이가 내용에 따라 흔들리면 행이 어긋난다")
     }
 }

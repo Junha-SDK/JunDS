@@ -48,7 +48,8 @@ const CLIENT_HOOKS = [
 
 const HOOK_RE = new RegExp(`\\b(?:${CLIENT_HOOKS.join("|")})\\s*\\(`);
 const USE_CLIENT_RE = /^\s*["']use client["'];?\s*$/m;
-const TOP_BROWSER_GLOBAL_RE = /^[^\n]*\b(?:window|document|navigator|localStorage|sessionStorage)\b[^\n]*$/m;
+const TOP_BROWSER_GLOBAL_RE =
+  /^[^\n]*\b(?:window|document|navigator|localStorage|sessionStorage)\b[^\n]*$/m;
 const NEXT_NAVIGATION_RE = /from\s+["']next\/navigation["']/;
 
 function* walk(dir) {
@@ -56,7 +57,11 @@ function* walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, entry.name);
     if (entry.isDirectory()) yield* walk(p);
-    else if (entry.isFile() && /\.(tsx|ts)$/.test(entry.name) && !/\.test\.|\.stories\./.test(entry.name)) {
+    else if (
+      entry.isFile() &&
+      /\.(tsx|ts)$/.test(entry.name) &&
+      !/\.test\.|\.stories\./.test(entry.name)
+    ) {
       yield p;
     }
   }
@@ -80,7 +85,10 @@ function topLevelBrowserGlobalLine(src) {
       if (!trimmed.includes("*/")) inBlockComment = true;
       continue;
     }
-    if (line.length === trimmed.length && /\b(?:window|document|navigator|localStorage|sessionStorage)\b/.test(line)) {
+    if (
+      line.length === trimmed.length &&
+      /\b(?:window|document|navigator|localStorage|sessionStorage)\b/.test(line)
+    ) {
       // Allow `import` / `type` / `interface` / `declare` references — those
       // don't actually evaluate the global.
       if (/^(?:import|export|type|interface|declare)\b/.test(trimmed)) continue;

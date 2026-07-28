@@ -32,44 +32,44 @@
 - [x] 이식물 어디에도 junome 도메인·OG 이미지·문서 레지스트리 같은 사이트 고유 값이 남아 있지 않다.
 - [x] superset 화 과정에서 기존 JunDS 사용처의 기본 동작이 바뀌지 않는다 (새 동작은 전부 opt-in).
 - [x] 새 컴포넌트마다 쇼케이스 페이지와 테스트가 있다.
-- [ ] MySelf 의 각 화면을 실제로 JunDS 컴포넌트로 교체한다. *(다음 단계)*
+- [ ] MySelf 의 각 화면을 실제로 JunDS 컴포넌트로 교체한다. _(다음 단계)_
 
 ## 이식 결과
 
 ### 새로 추가 (MySelf 에만 있던 것)
 
-| MySelf | JunDS | 비고 |
-| --- | --- | --- |
-| `core/hooks/useCodeCopy` | `ds/hooks/useCodeCopy` | 코드 블록 셀렉터·라벨·클래스를 옵션화. 버튼 CSS 는 `ds/styles/tokens.css` 에 포함 |
-| `features/portfolio/hooks/useJsonLd` | `ds/hooks/useJsonLd` | 같은 key 재주입 시 기존 스크립트 교체 |
-| `features/portfolio/hooks/useRevealOnScroll` | `ds/hooks/useRevealOnScroll` | 셀렉터·클래스·`once` 옵션화, 기본 모션 CSS 동봉 |
-| `features/portfolio/hooks/useAlbumColors` | `ds/hooks/useDominantColor` | 앨범 한정 이름을 일반화, `crossOrigin` 옵션 추가 |
-| `features/portfolio/hooks/useAudioPlayer` | `ds/hooks/useAudioPlayer` | `volume` / `repeat` / `stop` 추가. `formatTime` → `formatAudioTime` |
-| `core/seo/SeoHead` | `ds/composites/SeoHead` + `ds/hooks/useSeo` + `ds/providers/SeoProvider` | junome 고정 기본값을 `SeoProvider` 로 분리 |
-| `core/heading/{HeadingProvider,H2,H3}` | `ds/providers/TocProvider` + `ds/composites/TableOfContents/TocHeading` | `HeadingsReady` → `TocReady` |
-| `music/Waveform` | `ds/composites/Waveform` | 실제 진폭을 넘길 `peaks` 추가 |
-| `music/AlbumArt` | `ds/composites/AlbumArt` | `size` / `radius` 추가 |
-| `music/NowPlayingBar` | `ds/composites/NowPlayingBar` | `fixed` / `actions` 추가 |
-| `docs/DocsPager` | `ds/composites/DocPager` | 레지스트리 의존 제거, `renderLink` 로 라우터 주입 |
-| `portfolio/{ProjectCard,CaseStudyCard}` | `ds/composites/ProjectCard` | 두 개를 `variant="row" \| "feature"` 로 통합 |
-| `docs/ScreenshotGrid` | `ds/composites/ScreenshotGrid` | `columns` / `onSelect` 추가 |
-| `docs/ImageLightbox` (전역 위임형) | `ds/composites/ImageLightbox/GlobalImageLightbox` | 기존 `ImageLightbox`(개별 래핑형)와 공존 |
-| `book/Markdown` 의 금칙처리 | `ds/utils/kinsoku` | `applyKinsoku` / `applyKinsokuToHtml` / `remarkKinsoku` |
-| `styles/tokens.css` 폰트 스택 | `ds/tokens/fontFamily` + CSS 변수 | sans / serif / display / hand / mono |
-| `styles/tokens.css` 카테고리 액센트 | `ds/tokens/categoryColors` + CSS 변수 | `getCategoryColor` / `categoryColorVars` 헬퍼 포함 |
+| MySelf                                       | JunDS                                                                    | 비고                                                                              |
+| -------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| `core/hooks/useCodeCopy`                     | `ds/hooks/useCodeCopy`                                                   | 코드 블록 셀렉터·라벨·클래스를 옵션화. 버튼 CSS 는 `ds/styles/tokens.css` 에 포함 |
+| `features/portfolio/hooks/useJsonLd`         | `ds/hooks/useJsonLd`                                                     | 같은 key 재주입 시 기존 스크립트 교체                                             |
+| `features/portfolio/hooks/useRevealOnScroll` | `ds/hooks/useRevealOnScroll`                                             | 셀렉터·클래스·`once` 옵션화, 기본 모션 CSS 동봉                                   |
+| `features/portfolio/hooks/useAlbumColors`    | `ds/hooks/useDominantColor`                                              | 앨범 한정 이름을 일반화, `crossOrigin` 옵션 추가                                  |
+| `features/portfolio/hooks/useAudioPlayer`    | `ds/hooks/useAudioPlayer`                                                | `volume` / `repeat` / `stop` 추가. `formatTime` → `formatAudioTime`               |
+| `core/seo/SeoHead`                           | `ds/composites/SeoHead` + `ds/hooks/useSeo` + `ds/providers/SeoProvider` | junome 고정 기본값을 `SeoProvider` 로 분리                                        |
+| `core/heading/{HeadingProvider,H2,H3}`       | `ds/providers/TocProvider` + `ds/composites/TableOfContents/TocHeading`  | `HeadingsReady` → `TocReady`                                                      |
+| `music/Waveform`                             | `ds/composites/Waveform`                                                 | 실제 진폭을 넘길 `peaks` 추가                                                     |
+| `music/AlbumArt`                             | `ds/composites/AlbumArt`                                                 | `size` / `radius` 추가                                                            |
+| `music/NowPlayingBar`                        | `ds/composites/NowPlayingBar`                                            | `fixed` / `actions` 추가                                                          |
+| `docs/DocsPager`                             | `ds/composites/DocPager`                                                 | 레지스트리 의존 제거, `renderLink` 로 라우터 주입                                 |
+| `portfolio/{ProjectCard,CaseStudyCard}`      | `ds/composites/ProjectCard`                                              | 두 개를 `variant="row" \| "feature"` 로 통합                                      |
+| `docs/ScreenshotGrid`                        | `ds/composites/ScreenshotGrid`                                           | `columns` / `onSelect` 추가                                                       |
+| `docs/ImageLightbox` (전역 위임형)           | `ds/composites/ImageLightbox/GlobalImageLightbox`                        | 기존 `ImageLightbox`(개별 래핑형)와 공존                                          |
+| `book/Markdown` 의 금칙처리                  | `ds/utils/kinsoku`                                                       | `applyKinsoku` / `applyKinsokuToHtml` / `remarkKinsoku`                           |
+| `styles/tokens.css` 폰트 스택                | `ds/tokens/fontFamily` + CSS 변수                                        | sans / serif / display / hand / mono                                              |
+| `styles/tokens.css` 카테고리 액센트          | `ds/tokens/categoryColors` + CSS 변수                                    | `getCategoryColor` / `categoryColorVars` 헬퍼 포함                                |
 
 ### JunDS 를 superset 으로 끌어올린 것
 
-| 컴포넌트 | 흡수한 MySelf 의 강점 |
-| --- | --- |
-| `useFocusMode` | 좌우 엣지 peek(`peek`), 좁은 화면 자동 비활성(`disableBelow`), `focusMode`/`toggleFocusMode` 별칭. 기존 동작을 깨지 않도록 두 기능 모두 기본 off |
-| `TableOfContents` | MutationObserver 기반 지연 콘텐츠 재수집(`observe`), 제외 셀렉터(`exclude`), 중복 제목 id 충돌 방지, 클릭 시 `scrollspy:manual` 발신, `scrollOffset`, `emptyFallback` |
-| `ImageWithFallback` | 지수 백오프 재시도(`retry`), 폴백 후 백그라운드 소생(`revive`) — online/visibilitychange 즉시 재시도 포함. 커스텀 폴백 노드(`fallback`) |
-| `Callout` | `success` variant, `warn` → `warning` 별칭 |
-| `SpoilerBlock` | 안내 문구(`notice`), `onReveal` 콜백, `youth` → `caution` 별칭 |
-| `TreeNav` | 호버 프리페치(`onItemPrefetch`), 확장 상태 제어(`expandedKeys`/`onExpandedChange`), 활성 항목 조상 자동 펼침(`autoExpandActive`), 하위 개수 자동 표시(`showCount`), 전체 펼치기/접기 |
-| `Toast` | `top-left`/`bottom-left`, `title`, `onClose`, `show()`/`close(id)`/`clear()`, 전체화면 대응 포털 루트 |
-| `MarkdownViewer` | 금칙처리(`kinsoku`), 행갈이 보존(`breaks`) |
+| 컴포넌트            | 흡수한 MySelf 의 강점                                                                                                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `useFocusMode`      | 좌우 엣지 peek(`peek`), 좁은 화면 자동 비활성(`disableBelow`), `focusMode`/`toggleFocusMode` 별칭. 기존 동작을 깨지 않도록 두 기능 모두 기본 off                                     |
+| `TableOfContents`   | MutationObserver 기반 지연 콘텐츠 재수집(`observe`), 제외 셀렉터(`exclude`), 중복 제목 id 충돌 방지, 클릭 시 `scrollspy:manual` 발신, `scrollOffset`, `emptyFallback`                |
+| `ImageWithFallback` | 지수 백오프 재시도(`retry`), 폴백 후 백그라운드 소생(`revive`) — online/visibilitychange 즉시 재시도 포함. 커스텀 폴백 노드(`fallback`)                                              |
+| `Callout`           | `success` variant, `warn` → `warning` 별칭                                                                                                                                           |
+| `SpoilerBlock`      | 안내 문구(`notice`), `onReveal` 콜백, `youth` → `caution` 별칭                                                                                                                       |
+| `TreeNav`           | 호버 프리페치(`onItemPrefetch`), 확장 상태 제어(`expandedKeys`/`onExpandedChange`), 활성 항목 조상 자동 펼침(`autoExpandActive`), 하위 개수 자동 표시(`showCount`), 전체 펼치기/접기 |
+| `Toast`             | `top-left`/`bottom-left`, `title`, `onClose`, `show()`/`close(id)`/`clear()`, 전체화면 대응 포털 루트                                                                                |
+| `MarkdownViewer`    | 금칙처리(`kinsoku`), 행갈이 보존(`breaks`)                                                                                                                                           |
 
 ### 이미 JunDS 가 우위라 조치하지 않은 것
 

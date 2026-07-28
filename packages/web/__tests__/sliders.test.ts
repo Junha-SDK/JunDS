@@ -95,8 +95,7 @@ describe("jd-range-slider", () => {
   });
 
   test("키보드 화살표 — step 증감 + 반대편 간격 클램프 + jd-change", async () => {
-    document.body.innerHTML =
-      `<jd-range-slider min-value="40" max-value="45" step="5"></jd-range-slider>`;
+    document.body.innerHTML = `<jd-range-slider min-value="40" max-value="45" step="5"></jd-range-slider>`;
     await tick();
     const el = document.querySelector<JdRangeSlider>("jd-range-slider")!;
     const [minThumb] = el.querySelectorAll<HTMLElement>(".jd-range-slider__thumb");
@@ -113,8 +112,7 @@ describe("jd-range-slider", () => {
   });
 
   test("show-values → 양끝 값 라벨", async () => {
-    document.body.innerHTML =
-      `<jd-range-slider show-values min-value="10" max-value="90"></jd-range-slider>`;
+    document.body.innerHTML = `<jd-range-slider show-values min-value="10" max-value="90"></jd-range-slider>`;
     await tick();
     const values = document.querySelector<HTMLElement>(".jd-range-slider__values")!;
     expect(values.hidden).toBe(false);

@@ -20,10 +20,10 @@
 
 ### 1.1 URL 스킴
 
-| URL | 뷰 | 히스토리 |
-|---|---|---|
-| `/docs/junds` | 카탈로그 | 기준 엔트리 |
-| `/docs/junds?c=button` | Button 상세 | `pushState` |
+| URL                            | 뷰                  | 히스토리                            |
+| ------------------------------ | ------------------- | ----------------------------------- |
+| `/docs/junds`                  | 카탈로그            | 기준 엔트리                         |
+| `/docs/junds?c=button`         | Button 상세         | `pushState`                         |
 | `/docs/junds?cat=input&q=date` | 카탈로그(필터 적용) | `replaceState` (히스토리 오염 금지) |
 
 - `c` 값 = ledger `id`(kebab-case, 예: `button`, `otp-input`, `use-debounce`). 유일한 pushState 트리거.
@@ -45,13 +45,16 @@
 MySelf 빌드는 `vite build` 후 headless Chrome 프리렌더(`scripts/prerender.ts`) + 하이드레이션 검증(`check-hydration.ts`)이다. 이 페이지의 정적/클라이언트 경계:
 
 **정적(프리렌더 HTML에 포함)** — `/docs/junds` 무쿼리 1회만 프리렌더:
+
 - 페이지 셸(마스트헤드·인트로 산문·검색 입력 껍데기·카테고리 섹션 헤더 7개).
 - **468개 카드 셸 전부**: 이름·카테고리·태그·지원 배지 텍스트 + 프리뷰 자리의 정적 플레이스홀더(스켈레톤 div). SEO·FCP·검색엔진의 컴포넌트명 색인이 여기서 나온다. 예산: 프리렌더 HTML ≤ 250KB(카드당 ~0.4KB).
 
 **클라이언트 전용(하이드레이션 이후에만 존재)**:
+
 - 검색/필터 동작, 미니 라이브 프리뷰 마운트(IO), 상세 뷰 전체(스테이지·컨트롤·코드 탭·표), 코드 하이라이트, 복사.
 
 **하이드레이션 결정성 규칙**(현행 함정 계승):
+
 - React 초기 렌더 = 프리렌더 HTML과 문자 단위 동일. render 단계에서 `window`/`location`/`Date.now`/난수 접근 금지.
 - `?c=` 딥링크는 초기 렌더에 반영하지 않는다. 하이드레이션 직후 `useLayoutEffect`에서 `location.search`를 읽어 상세로 전환 — 페인트 전에 스위치되므로 카탈로그 플래시는 발생하지 않고, 전환 전까지 정적 카탈로그가 로딩 스켈레톤 역할을 한다.
 - IntersectionObserver 생성·관찰은 전부 effect에서. 프리렌더 Chrome에서는 effect가 돌아도 플레이스홀더→프리뷰 교체가 스냅샷에 섞이지 않도록, 미니 프리뷰 마운트는 `requestIdleCallback` 1틱 뒤로 미룬다(프리렌더 스냅샷은 idle 이전에 캡처됨을 check-hydration으로 검증).
@@ -69,20 +72,29 @@ MySelf 빌드는 `vite build` 후 headless Chrome 프리렌더(`scripts/prerende
 
 ```ts
 // junds-catalog.data.ts — AUTO-GENERATED from JunDS docs-spec/registry/ledger.json
-export type Cat = "layout" | "primitive" | "input" | "composite" | "pattern" | "finance" | "hook";
+export type Cat =
+  | "layout"
+  | "primitive"
+  | "input"
+  | "composite"
+  | "pattern"
+  | "finance"
+  | "hook";
 export type Support = "done" | "wip" | "planned" | "na"; // na = 해당 플랫폼에 개념 없음(Portal 등)
 export interface CatalogEntry {
-  id: string;        // "otp-input" — ?c= 값
-  name: string;      // "OTPInput"
-  category: Cat;     // ledger.category → 7분류 매핑(아래)
-  tier: string;      // ledger.tier (Primitive/Composite/…)
-  desc: string;      // 한 줄 한국어
-  tags: string[];    // 검색·필터용 (예: ["form","auth","숫자입력"])
-  web: Support;      // 웹 바닐라 전환 상태 배지
-  ios: Support;      // iOS 전환 상태 배지
-  featured?: true;   // 카탈로그 상단 대형 카드 후보(수동 큐레이션, ledger의 docs 필드)
+  id: string; // "otp-input" — ?c= 값
+  name: string; // "OTPInput"
+  category: Cat; // ledger.category → 7분류 매핑(아래)
+  tier: string; // ledger.tier (Primitive/Composite/…)
+  desc: string; // 한 줄 한국어
+  tags: string[]; // 검색·필터용 (예: ["form","auth","숫자입력"])
+  web: Support; // 웹 바닐라 전환 상태 배지
+  ios: Support; // iOS 전환 상태 배지
+  featured?: true; // 카탈로그 상단 대형 카드 후보(수동 큐레이션, ledger의 docs 필드)
 }
-export const CATALOG: CatalogEntry[] = [ /* 468 entries */ ];
+export const CATALOG: CatalogEntry[] = [
+  /* 468 entries */
+];
 ```
 
 - **카테고리 7종 매핑**: ledger의 라이브러리 배럴 기준 카테고리를 화면 7분류로 접는다 — `core`+`layout`→`layout`, `primitives` 중 폼 컨트롤(Input·Checkbox·Slider·OTPInput 등 상호작용 입력)→`input`, 나머지 primitives→`primitive`, `composites`→`composite`, `patterns`→`pattern`, `finance`→`finance`, `hooks`→`hook`. 매핑 표는 생성기 안에 상수로 두고, 미매핑 항목은 생성기가 **빌드 실패**로 알린다(조용한 누락 금지).
@@ -93,15 +105,18 @@ export const CATALOG: CatalogEntry[] = [ /* 468 entries */ ];
 현행 `JunUsage {tier, desc, imp, code}`(React 단일)를 플랫폼 스니펫 맵으로 확장한다:
 
 ```ts
-export interface Snippet { imp: string; code: string; }  // imp = import/설치 줄
+export interface Snippet {
+  imp: string;
+  code: string;
+} // imp = import/설치 줄
 export interface JunUsageV3 {
   tier: string;
   desc: string;
   snippets: {
-    web?: Snippet;      // 바닐라: <jd-button variant="primary">…</jd-button> + createXxx()
-    swiftui?: Snippet;  // import JunDS → JDButton(variant: .primary) { … }
-    uikit?: Snippet;    // let b = JDButton(); b.variant = .primary
-    react?: Snippet;    // 기존 211키 자산 그대로 이관(v2 어댑터 문서용, 탭 미노출·이관기 보존)
+    web?: Snippet; // 바닐라: <jd-button variant="primary">…</jd-button> + createXxx()
+    swiftui?: Snippet; // import JunDS → JDButton(variant: .primary) { … }
+    uikit?: Snippet; // let b = JDButton(); b.variant = .primary
+    react?: Snippet; // 기존 211키 자산 그대로 이관(v2 어댑터 문서용, 탭 미노출·이관기 보존)
   };
 }
 ```
@@ -114,29 +129,31 @@ export interface JunUsageV3 {
 
 ```ts
 export interface ControlDef {
-  prop: string;                       // "variant"
+  prop: string; // "variant"
   kind: "segmented" | "select" | "boolean" | "number" | "text";
-  options?: string[];                 // segmented/select
-  min?: number; max?: number; step?: number; // number
+  options?: string[]; // segmented/select
+  min?: number;
+  max?: number;
+  step?: number; // number
   default: string | number | boolean;
 }
 export interface DetailSpec {
   id: string;
-  controls: ControlDef[];                                  // 선언적 — 컨트롤 UI는 이 스키마로 자동 생성
-  render: (props: Record<string, unknown>) => ReactNode;   // 대형 스테이지 (props 반영 라이브 데모)
-  mini: () => ReactNode;                                   // 카드 미니 프리뷰 (props 없음, 자율 동작)
-  tokens?: { token: string; usage: string }[];             // 토큰 표 (--jd-accent 등)
-  a11y?: { item: string; note: string }[];                 // 접근성 표 (role, 키보드, 포커스)
+  controls: ControlDef[]; // 선언적 — 컨트롤 UI는 이 스키마로 자동 생성
+  render: (props: Record<string, unknown>) => ReactNode; // 대형 스테이지 (props 반영 라이브 데모)
+  mini: () => ReactNode; // 카드 미니 프리뷰 (props 없음, 자율 동작)
+  tokens?: { token: string; usage: string }[]; // 토큰 표 (--jd-accent 등)
+  a11y?: { item: string; note: string }[]; // 접근성 표 (role, 키보드, 포커스)
 }
 // 카테고리별 코드 스플릿 — 카탈로그 번들에 상세 코드가 섞이지 않는다.
 export const DETAIL_LOADERS: Record<Cat, () => Promise<Record<string, DetailSpec>>> = {
-  layout:    () => import("./detail/layout"),
+  layout: () => import("./detail/layout"),
   primitive: () => import("./detail/primitive"),
-  input:     () => import("./detail/input"),
+  input: () => import("./detail/input"),
   composite: () => import("./detail/composite"),
-  pattern:   () => import("./detail/pattern"),
-  finance:   () => import("./detail/finance"),
-  hook:      () => import("./detail/hook"),
+  pattern: () => import("./detail/pattern"),
+  finance: () => import("./detail/finance"),
+  hook: () => import("./detail/hook"),
 };
 ```
 
@@ -222,13 +239,13 @@ hook(62개)은 시각 스테이지가 없는 항목이 많다. `DetailSpec.rende
 
 현행 자산: `JunDSLive.tsx` + `extra/*.tsx`의 데모 함수 188개(내부 상태 포함 완결 데모), `data-names` 토큰(복합 이름 "Badge · Tag · StatusDot" → 분해 토큰), `junds-usage.data.ts` 211키, `junds-live.css`의 `jd-*` 컴포넌트 재현 스타일 전량.
 
-| 단계 | 작업 | 산출 |
-|---|---|---|
-| M1 | ledger → `junds-catalog.data.ts` 생성기 + 카탈로그 뷰(전 카드 플레이스홀더) + `?c=` 라우팅/히스토리 | 468 카드 카탈로그 + 빈 상세 프레임 |
-| M2 | Specimen 데모 함수 188개를 `DetailSpec.render`/`mini`로 기계적 추출. 복합 Specimen은 분해된 id마다 같은 데모를 공유 등록(예: `badge`·`tag`·`status-dot` 3개 id → BadgeTagDemo 1개) | 상세 스테이지 188개분 + 미니 프리뷰 가동 |
-| M3 | `controls` 스키마 저작 — 우선순위: input > primitive > composite 상위 빈도순(전 항목 일괄 저작 금지, 카드 사용량 기준 점진) | props 컨트롤 |
-| M4 | USAGE 211키 → `JunUsageV3.snippets.react`로 기계 이관 + v3 진행에 맞춰 web/swiftui/uikit 스니펫 충전 | 코드 탭 3종 |
-| M5 | 현행 세로 나열 갤러리 본문 제거, `junds-live.css`에서 미사용 규칙 정리 | 구화면 폐기 |
+| 단계 | 작업                                                                                                                                                                               | 산출                                     |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| M1   | ledger → `junds-catalog.data.ts` 생성기 + 카탈로그 뷰(전 카드 플레이스홀더) + `?c=` 라우팅/히스토리                                                                                | 468 카드 카탈로그 + 빈 상세 프레임       |
+| M2   | Specimen 데모 함수 188개를 `DetailSpec.render`/`mini`로 기계적 추출. 복합 Specimen은 분해된 id마다 같은 데모를 공유 등록(예: `badge`·`tag`·`status-dot` 3개 id → BadgeTagDemo 1개) | 상세 스테이지 188개분 + 미니 프리뷰 가동 |
+| M3   | `controls` 스키마 저작 — 우선순위: input > primitive > composite 상위 빈도순(전 항목 일괄 저작 금지, 카드 사용량 기준 점진)                                                        | props 컨트롤                             |
+| M4   | USAGE 211키 → `JunUsageV3.snippets.react`로 기계 이관 + v3 진행에 맞춰 web/swiftui/uikit 스니펫 충전                                                                               | 코드 탭 3종                              |
+| M5   | 현행 세로 나열 갤러리 본문 제거, `junds-live.css`에서 미사용 규칙 정리                                                                                                             | 구화면 폐기                              |
 
 - `jd-*` CSS 재현 스타일은 **그대로 이관**한다(미니 프리뷰·스테이지 모두 이 재현 데모를 렌더). v3 바닐라 패키지가 실제 배포되면, 스테이지를 재현 데모 → 실물 `<jd-*>` Custom Element 마운트로 교체하는 것이 최종형(문서가 곧 실물 증명) — 단 이는 v3 웹 패키지 릴리스 이후의 후속 게이트.
 - 갤러리 부재 컴포넌트(00-inventory 기준 카탈로그에는 있으나 데모 없는 ~257개): M2 이후에도 플레이스홀더 카드로 존재한다. "전 항목이 카탈로그에 보이고, 데모는 점진 충전"이 원칙 — 목록 누락보다 빈 스테이지가 낫다.
@@ -239,15 +256,15 @@ hook(62개)은 시각 스테이지가 없는 항목이 많다. `DetailSpec.rende
 
 단일 페이지에 메타 468 + 라이브 프리뷰라는 조건에서:
 
-| 항목 | 예산 | 수단 |
-|---|---|---|
-| 프리렌더 HTML | ≤ 250KB | 카드 셸 최소 마크업(노드 ≤ 10/카드) |
-| 카탈로그 JS(상세 제외) | ≤ 90KB gz | 상세는 `DETAIL_LOADERS` 카테고리별 dynamic import |
-| 상세 청크 | 카테고리당 ≤ 60KB gz | composite는 필요시 2분할 |
-| 동시 마운트 미니 프리뷰 | ≤ 24 | IO 마운트/언마운트 + LRU(§3.3) |
-| 검색 응답 | < 16ms/입력 | 사전 연결 haystack 선형 스캔(468건이면 충분), debounce 80ms |
-| 상세 전환 | < 200ms 체감 | 클릭 즉시 프레임 전환 + 스테이지 자리 스켈레톤, 청크 로드 후 채움. hover 시 해당 카테고리 청크 프리로드 |
-| 레이아웃 시프트 | CLS 0 | 카드 프리뷰 영역 고정 높이, 배지·태그 줄바꿈 금지(ellipsis) |
+| 항목                    | 예산                 | 수단                                                                                                    |
+| ----------------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
+| 프리렌더 HTML           | ≤ 250KB              | 카드 셸 최소 마크업(노드 ≤ 10/카드)                                                                     |
+| 카탈로그 JS(상세 제외)  | ≤ 90KB gz            | 상세는 `DETAIL_LOADERS` 카테고리별 dynamic import                                                       |
+| 상세 청크               | 카테고리당 ≤ 60KB gz | composite는 필요시 2분할                                                                                |
+| 동시 마운트 미니 프리뷰 | ≤ 24                 | IO 마운트/언마운트 + LRU(§3.3)                                                                          |
+| 검색 응답               | < 16ms/입력          | 사전 연결 haystack 선형 스캔(468건이면 충분), debounce 80ms                                             |
+| 상세 전환               | < 200ms 체감         | 클릭 즉시 프레임 전환 + 스테이지 자리 스켈레톤, 청크 로드 후 채움. hover 시 해당 카테고리 청크 프리로드 |
+| 레이아웃 시프트         | CLS 0                | 카드 프리뷰 영역 고정 높이, 배지·태그 줄바꿈 금지(ellipsis)                                             |
 
 - 애니메이션이 있는 미니 프리뷰(스피너·차트 틱)는 `IntersectionObserver` 이탈 즉시 정지(언마운트가 곧 정지). `document.hidden` 시 자율 타이머 일시정지.
 - 468개 `<a>` 카드 + 섹션 헤더의 정적 DOM은 ~5k 노드 — 가상 스크롤 도입하지 않는다(프리렌더 SEO와 상충, 468건은 정적 DOM으로 충분).

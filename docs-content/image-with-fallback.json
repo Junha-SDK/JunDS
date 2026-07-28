@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ImageWithFallback",
   "oneLiner": "로드 실패 시 폴백을 보여주는 이미지.",
-  "tags": [
-    "media",
-    "이미지",
-    "폴백"
-  ],
+  "tags": ["media", "이미지", "폴백"],
   "controls": [],
   "snippets": {
     "web": null,

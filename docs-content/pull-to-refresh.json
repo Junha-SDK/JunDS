@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "PullToRefresh",
   "oneLiner": "아래로 당겨서 새로고침하는 인터랙션 래퍼.",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

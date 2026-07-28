@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Table",
   "oneLiner": "컬럼 정의 + 데이터 행으로 구성된 기본 테이블.",
-  "tags": [
-    "data"
-  ],
+  "tags": ["data"],
   "controls": [],
   "snippets": {
     "web": null,

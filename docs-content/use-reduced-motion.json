@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useReducedMotion",
   "oneLiner": "prefers-reduced-motion 감지.",
-  "tags": [
-    "hook",
-    "a11y",
-    "모션"
-  ],
+  "tags": ["hook", "a11y", "모션"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -25,11 +25,9 @@ beforeAll(async () => {
 
 describe("docs-content 게이트", () => {
   it("정본 검증기(build-index.mjs) 통과", () => {
-    const res = spawnSync(
-      process.execPath,
-      [join(root, "docs-content", "build-index.mjs")],
-      { encoding: "utf8" },
-    );
+    const res = spawnSync(process.execPath, [join(root, "docs-content", "build-index.mjs")], {
+      encoding: "utf8",
+    });
     expect(res.status, res.stderr || res.stdout).toBe(0);
   });
 

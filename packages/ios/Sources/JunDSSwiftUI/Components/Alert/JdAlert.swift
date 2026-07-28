@@ -1,6 +1,6 @@
+import JunDSCore
 import SwiftUI
 import UIKit
-import JunDSCore
 
 // 웹 jd-alert의 SwiftUI 번역 — 좌측 강조선 + 5% 틴트의 인라인 피드백 (DESIGN-4 §B).
 // iOS 시스템 대응(.alert)은 모달 다이얼로그라 다르다 → 인라인 블록은 자체 구현이 정본.
@@ -15,11 +15,13 @@ public struct JdAlert<Content: View>: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ title: String,
-                variant: JdFeedbackVariant = .info,
-                isDismissible: Bool = false,
-                onDismiss: (() -> Void)? = nil,
-                @ViewBuilder content: @escaping () -> Content = { EmptyView() }) {
+    public init(
+        _ title: String,
+        variant: JdFeedbackVariant = .info,
+        isDismissible: Bool = false,
+        onDismiss: (() -> Void)? = nil,
+        @ViewBuilder content: @escaping () -> Content = { EmptyView() }
+    ) {
         self.title = title
         self.variant = variant
         self.isDismissible = isDismissible

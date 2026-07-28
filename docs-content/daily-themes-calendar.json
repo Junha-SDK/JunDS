@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "DailyThemesCalendar",
   "oneLiner": "일별 주도 테마 캘린더.",
-  "tags": [
-    "finance",
-    "테마",
-    "달력"
-  ],
+  "tags": ["finance", "테마", "달력"],
   "controls": [],
   "snippets": {
     "web": null,

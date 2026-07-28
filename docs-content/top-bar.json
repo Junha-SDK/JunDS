@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "TopBar",
   "oneLiner": "금융 앱 상단 바.",
-  "tags": [
-    "finance",
-    "shell",
-    "헤더"
-  ],
+  "tags": ["finance", "shell", "헤더"],
   "controls": [],
   "snippets": {
     "web": null,

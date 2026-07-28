@@ -16,7 +16,7 @@ final class FpsMonitor: ObservableObject {
     func start() {
         guard link == nil else { return }
         let link = CADisplayLink(target: self, selector: #selector(tick(_:)))
-        link.add(to: .main, forMode: .common) // 스크롤 트래킹 중에도 계측
+        link.add(to: .main, forMode: .common)  // 스크롤 트래킹 중에도 계측
         self.link = link
     }
 

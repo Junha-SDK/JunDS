@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "AreaChart",
   "oneLiner": "단일 시리즈 영역 차트 — 기준선·툴팁.",
-  "tags": [
-    "finance",
-    "chart",
-    "영역"
-  ],
+  "tags": ["finance", "chart", "영역"],
   "controls": [],
   "snippets": {
     "web": null,

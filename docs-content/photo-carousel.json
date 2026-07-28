@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PhotoCarousel",
   "oneLiner": "사진 캐러셀 슬라이더.",
-  "tags": [
-    "photo",
-    "사진",
-    "캐러셀"
-  ],
+  "tags": ["photo", "사진", "캐러셀"],
   "controls": [],
   "snippets": {
     "web": null,

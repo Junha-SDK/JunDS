@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-live-stacked-cell 동형 — 현재가 + 등락률 2단 우측정렬 셀. (DEC-041)
 //
@@ -22,13 +22,15 @@ public final class JdLiveStackedCellView: UIView {
     private let contentStack: JdStackView
     private var spec: JdLiveStackedCellSpec
 
-    public init(price: Double,
-                change: Double,
-                priceFallback: Double = 0,
-                pctFallback: Double = 0,
-                priceDecimals: Int = 0,
-                pctDecimals: Int = 2,
-                locale: String = "ko-KR") {
+    public init(
+        price: Double,
+        change: Double,
+        priceFallback: Double = 0,
+        pctFallback: Double = 0,
+        priceDecimals: Int = 0,
+        pctDecimals: Int = 2,
+        locale: String = "ko-KR"
+    ) {
         self.price = price
         self.change = change
         self.priceFallback = priceFallback
@@ -64,13 +66,14 @@ public final class JdLiveStackedCellView: UIView {
 
     /// 두 줄의 확정 문자열 — 소비자·테스트 공용
     public var lines: (price: String, pct: String) {
-        JdLiveStackedCellSpec.lines(price: price,
-                                    change: change,
-                                    priceFallback: priceFallback,
-                                    pctFallback: pctFallback,
-                                    priceDecimals: priceDecimals,
-                                    pctDecimals: pctDecimals,
-                                    locale: locale)
+        JdLiveStackedCellSpec.lines(
+            price: price,
+            change: change,
+            priceFallback: priceFallback,
+            pctFallback: pctFallback,
+            priceDecimals: priceDecimals,
+            pctDecimals: pctDecimals,
+            locale: locale)
     }
 
     /// 두 줄이 따로 읽히면 가격과 등락률의 관계가 사라진다
@@ -98,12 +101,14 @@ public final class JdLiveStackedCellView: UIView {
         let color = spec.color.uiColor
         priceLabel.textColor = color
         pctLabel.textColor = color
-        priceLabel.font = JdFontBridge.scaledDigitFont(size: spec.priceFontSize,
-                                                      weight: spec.priceFontWeight,
-                                                      compatibleWith: traitCollection)
-        pctLabel.font = JdFontBridge.scaledDigitFont(size: spec.pctFontSize,
-                                                    weight: spec.pctFontWeight,
-                                                    compatibleWith: traitCollection)
+        priceLabel.font = JdFontBridge.scaledDigitFont(
+            size: spec.priceFontSize,
+            weight: spec.priceFontWeight,
+            compatibleWith: traitCollection)
+        pctLabel.font = JdFontBridge.scaledDigitFont(
+            size: spec.pctFontSize,
+            weight: spec.pctFontWeight,
+            compatibleWith: traitCollection)
     }
 
     private func applyContent() {

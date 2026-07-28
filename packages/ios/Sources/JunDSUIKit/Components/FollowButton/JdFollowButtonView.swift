@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-follow-button 동형 — 두 변형 캡슐 버튼 (DESIGN-3 §B).
 // 미팔로우 = primary 채움 / 팔로잉 = secondary 외곽선. 두 변형 모두 JdButtonSpec 재사용이고
@@ -29,10 +29,12 @@ public final class JdFollowButtonView: UIControl {
     private let titleLabel = UILabel()
     private var spec: JdButtonSpec
 
-    public init(isFollowing: Bool = false,
-                size: JdControlSize = .md,
-                followLabel: String = "팔로우",
-                followingLabel: String = "팔로잉") {
+    public init(
+        isFollowing: Bool = false,
+        size: JdControlSize = .md,
+        followLabel: String = "팔로우",
+        followingLabel: String = "팔로잉"
+    ) {
         self.isFollowing = isFollowing
         self.size = size
         self.followLabel = followLabel
@@ -70,8 +72,9 @@ public final class JdFollowButtonView: UIControl {
 
     public override var intrinsicContentSize: CGSize {
         let content = titleLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        return CGSize(width: content.width + spec.hPadding * 2,
-                      height: max(spec.minHeight, content.height + JdToken.Space.s1 * 2))
+        return CGSize(
+            width: content.width + spec.hPadding * 2,
+            height: max(spec.minHeight, content.height + JdToken.Space.s1 * 2))
     }
 
     public override var isHighlighted: Bool {
@@ -124,9 +127,10 @@ public final class JdFollowButtonView: UIControl {
     }
 
     private func applyStyle() {
-        titleLabel.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                                  weight: spec.fontWeight,
-                                                  compatibleWith: traitCollection)
+        titleLabel.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: spec.fontWeight,
+            compatibleWith: traitCollection)
         titleLabel.textColor = spec.foreground.uiColor
         backgroundColor = (isHighlighted ? spec.pressedBackground : spec.background).uiColor
         layer.cornerCurve = .continuous

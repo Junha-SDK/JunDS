@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useThrottle",
   "oneLiner": "호출 빈도를 제한하는 스로틀.",
-  "tags": [
-    "hook",
-    "timing",
-    "throttle"
-  ],
+  "tags": ["hook", "timing", "throttle"],
   "controls": [],
   "snippets": {
     "web": null,

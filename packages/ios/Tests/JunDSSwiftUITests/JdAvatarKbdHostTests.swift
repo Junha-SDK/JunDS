@@ -1,12 +1,14 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // SwiftUI: UIHostingController 호스팅 스모크(sizeThatFits > 0) + 크기 축 단조성 (DESIGN-2 §C).
 final class JdAvatarKbdHostTests: XCTestCase {
 
-    private func fittingSize<V: View>(_ view: V,
-                                      in bounds: CGSize = CGSize(width: 320, height: 320)) -> CGSize {
+    private func fittingSize<V: View>(
+        _ view: V,
+        in bounds: CGSize = CGSize(width: 320, height: 320)
+    ) -> CGSize {
         UIHostingController(rootView: view).sizeThatFits(in: bounds)
     }
 
@@ -51,7 +53,8 @@ final class JdAvatarKbdHostTests: XCTestCase {
         // variant/pressed 조합 전수 호스팅 — 눌림은 오프셋만 바꾸므로 크기는 유지된다
         for variant in JdKeyCapVariant.allCases {
             for pressed in [false, true] {
-                let cell = fittingSize(JdKeyCap("A", variant: variant, size: .lg, isPressed: pressed))
+                let cell = fittingSize(
+                    JdKeyCap("A", variant: variant, size: .lg, isPressed: pressed))
                 XCTAssertGreaterThan(cell.width, 0)
                 XCTAssertGreaterThan(cell.height, 0)
             }

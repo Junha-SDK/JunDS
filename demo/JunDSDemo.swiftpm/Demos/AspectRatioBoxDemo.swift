@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // AspectRatioBox 데모 — 레시피형 (04 §10.1). 웹 <jd-aspect-ratio-box ratio>는
 // CSS aspect-ratio + overflow:hidden이고, iOS 관용구는 .aspectRatio(_:contentMode:) + .clipped().
@@ -10,18 +10,18 @@ enum AspectRatioBoxDemo {
     static let demo = ComponentDemo(
         id: "AspectRatioBox",
         controls: [
-            .options("ratio", "ratio", ["16/9", "4/3", "1/1"], initial: "16/9"),
+            .options("ratio", "ratio", ["16/9", "4/3", "1/1"], initial: "16/9")
         ],
         swiftUI: { state in AnyView(AspectRatioBoxStage(state: state)) },
         recipe: """
-        // AspectRatioBox = .aspectRatio 관용구 (04 §10.1 — 신규 컴포넌트 없음)
-        content
-            .aspectRatio(16.0 / 9.0, contentMode: .fill)   // 웹 기본 16/9
-            .clipped()                                      // 웹 overflow: hidden
+            // AspectRatioBox = .aspectRatio 관용구 (04 §10.1 — 신규 컴포넌트 없음)
+            content
+                .aspectRatio(16.0 / 9.0, contentMode: .fill)   // 웹 기본 16/9
+                .clipped()                                      // 웹 overflow: hidden
 
-        // 내용물을 자르지 않고 비율 상자 자체를 보이려면 contentMode: .fit
-        // UIKit: child.jd.layout { $0.width.equal(to: child.jd.height).multiplier(16.0 / 9.0) }
-        """
+            // 내용물을 자르지 않고 비율 상자 자체를 보이려면 contentMode: .fit
+            // UIKit: child.jd.layout { $0.width.equal(to: child.jd.height).multiplier(16.0 / 9.0) }
+            """
     )
 
     // 비율 차이가 보이도록 무대를 고정한다 — 토큰 파생(80×3 × 80×2)
@@ -51,16 +51,20 @@ private struct AspectRatioBoxStage: View {
                 .aspectRatio(ratio, contentMode: .fit)
                 .overlay(JdText("ratio=\(option)", size: .sm, dimmed: true))
                 // 회색 무대 안에서 상자만 비율대로 줄었다 늘었다 한다
-                .frame(width: AspectRatioBoxDemo.stageWidth,
-                       height: AspectRatioBoxDemo.stageHeight)
+                .frame(
+                    width: AspectRatioBoxDemo.stageWidth,
+                    height: AspectRatioBoxDemo.stageHeight
+                )
                 .background(JdToken.Color.borderLight.color)
                 .cornerRadius(JdToken.Radius.lg)
                 .clipped()
 
-            Text("무대 \(Int(AspectRatioBoxDemo.stageWidth))×\(Int(AspectRatioBoxDemo.stageHeight)) 안에서 "
-                 + ".fit이 비율을 지키며 들어간다 — .fill이면 무대를 덮고 넘치는 쪽이 잘린다(웹 overflow:hidden).")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                "무대 \(Int(AspectRatioBoxDemo.stageWidth))×\(Int(AspectRatioBoxDemo.stageHeight)) 안에서 "
+                    + ".fit이 비율을 지키며 들어간다 — .fill이면 무대를 덮고 넘치는 쪽이 잘린다(웹 overflow:hidden)."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
         }
         .frame(maxWidth: .infinity)
         .padding(JdToken.Space.s6)

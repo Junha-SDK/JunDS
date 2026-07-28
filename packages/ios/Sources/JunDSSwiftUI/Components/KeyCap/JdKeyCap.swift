@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-key-cap 동형 — 키 한 개 모양 칩. 치수·색·눌림 오프셋은 전부 JdKeyCapSpec.
 // 눌림 = 아래로 1pt 이동 + 그림자 제거(웹 translateY(1px) + box-shadow:none).
@@ -12,10 +12,12 @@ public struct JdKeyCap: View {
     @Environment(\.sizeCategory) private var sizeCategory
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    public init(_ key: String,
-                variant: JdKeyCapVariant = .default,
-                size: JdDisplaySize = .md,
-                isPressed: Bool = false) {
+    public init(
+        _ key: String,
+        variant: JdKeyCapVariant = .default,
+        size: JdDisplaySize = .md,
+        isPressed: Bool = false
+    ) {
         self.key = key
         self.spec = JdKeyCapSpec.resolve(variant: variant, size: size)
         self.isPressed = isPressed
@@ -24,9 +26,12 @@ public struct JdKeyCap: View {
     public var body: some View {
         let shape = RoundedRectangle(cornerRadius: spec.radius, style: .continuous)
         return Text(key)
-            .font(JdSwiftUIFont.scaledMono(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaledMono(
+                    size: spec.fontSize,
+                    weight: JdToken.FontWeight.medium,
+                    category: sizeCategory)
+            )
             .foregroundColor(spec.foreground.color)
             .padding(.horizontal, spec.hPadding)
             // 고정 height 금지 — XXXL에서 자란다 (04 §7.2). 웹의 height는 하한으로 번역.
@@ -38,8 +43,9 @@ public struct JdKeyCap: View {
             // offset과 그림자 제거가 함께 가야 '키가 들어갔다'로 읽힌다.
             .jdElevation(keyElevation, in: shape)
             .offset(y: isPressed ? JdKeyCapSpec.pressedOffset : 0)
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
-                       value: isPressed)
+            .animation(
+                reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
+                value: isPressed)
     }
 
     // 웹 .jd-key-cap의 미세 바닥 그림자 — 토큰 사다리의 xs를 승계한다.

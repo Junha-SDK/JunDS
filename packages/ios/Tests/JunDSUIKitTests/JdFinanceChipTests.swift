@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // finance 칩·톤 어휘 (DEC-047).
@@ -8,6 +9,7 @@ import JunDSCore
 // 핵심 계약은 대비다: 12~14% 틴트 배경 위에 **원색 글자는 대비가 안 나온다**(웹 실측
 // amber ~1.9:1). 글자는 색상을 유지한 채 foreground 쪽으로 섞어 올린다. 이 계산이
 // 컴포넌트로 새면 반드시 어긋나므로 스펙이 소유하는지 확인한다.
+@MainActor
 final class JdFinanceChipTests: XCTestCase {
 
     override func tearDown() {
@@ -23,11 +25,14 @@ final class JdFinanceChipTests: XCTestCase {
     func test_category_palette_wraps_and_is_stable() {
         let count = JdFinanceTheme.categoryPalette.count
         XCTAssertEqual(count, 5, "웹 ACCENT_SLOTS와 같아야 한다")
-        XCTAssertEqual(JdFinanceTheme.categoryColor(0).light, JdFinanceTheme.categoryColor(count).light)
-        XCTAssertEqual(JdFinanceTheme.categoryColor(0).light, JdFinanceTheme.categoryColor(2 * count).light)
+        XCTAssertEqual(
+            JdFinanceTheme.categoryColor(0).light, JdFinanceTheme.categoryColor(count).light)
+        XCTAssertEqual(
+            JdFinanceTheme.categoryColor(0).light, JdFinanceTheme.categoryColor(2 * count).light)
         // 음수도 안전하게 감긴다
-        XCTAssertEqual(JdFinanceTheme.categoryColor(-1).light,
-                       JdFinanceTheme.categoryColor(count - 1).light)
+        XCTAssertEqual(
+            JdFinanceTheme.categoryColor(-1).light,
+            JdFinanceTheme.categoryColor(count - 1).light)
     }
 
     func test_palette_colors_are_distinct() {
@@ -80,14 +85,16 @@ final class JdFinanceChipTests: XCTestCase {
     // compact이 세부를 숨겨도 낭독은 전부 — 웹 v2엔 접근 이름이 아예 없었다
     func test_compact_hides_detail_but_keeps_full_accessibility() {
         let full = JdDisclosureToneBadgeView(tone: .positive, category: .earnings, confidence: 0.87)
-        let compact = JdDisclosureToneBadgeView(tone: .positive, category: .earnings,
-                                                confidence: 0.87, compact: true)
+        let compact = JdDisclosureToneBadgeView(
+            tone: .positive, category: .earnings,
+            confidence: 0.87, compact: true)
         XCTAssertFalse(full.categoryLabel.isHidden)
         XCTAssertTrue(compact.categoryLabel.isHidden)
         XCTAssertTrue(compact.confidenceLabel.isHidden)
         XCTAssertEqual(compact.accessibilityLabel, "호재 · 실적 · 신뢰도 87%")
-        XCTAssertEqual(full.accessibilityLabel, compact.accessibilityLabel,
-                       "compact이 낭독까지 줄이면 정보가 사라진다")
+        XCTAssertEqual(
+            full.accessibilityLabel, compact.accessibilityLabel,
+            "compact이 낭독까지 줄이면 정보가 사라진다")
     }
 
     func test_confidence_zero_hides_only_that_label() {
@@ -107,8 +114,9 @@ final class JdFinanceChipTests: XCTestCase {
 
     // compact은 높이가 낮다 — 표 행에 들어가는 것이 존재 이유다
     func test_compact_is_shorter() {
-        XCTAssertLessThan(JdDisclosureToneBadgeSpec.resolve(tone: .positive, compact: true).height,
-                          JdDisclosureToneBadgeSpec.resolve(tone: .positive).height)
+        XCTAssertLessThan(
+            JdDisclosureToneBadgeSpec.resolve(tone: .positive, compact: true).height,
+            JdDisclosureToneBadgeSpec.resolve(tone: .positive).height)
     }
 
     // MARK: - ThemeTagList
@@ -150,14 +158,18 @@ final class JdFinanceChipTests: XCTestCase {
         // 칩은 내용 폭이어야 한다 — 컨테이너 폭을 요구하면 한 줄에 하나씩 놓인다
         let chip = list.wrap.arrangedViews[0]
         let natural = JdMeasure.flowSize(of: chip, maxWidth: 900)
-        XCTAssertLessThan(natural.width, 200,
-                          "칩 자연 폭이 \(natural.width) — 컨테이너 폭으로 강제되고 있다")
+        XCTAssertLessThan(
+            natural.width, 200,
+            "칩 자연 폭이 \(natural.width) — 컨테이너 폭으로 강제되고 있다")
 
-        let wide = list.sizeThatFits(CGSize(width: 900, height: CGFloat.greatestFiniteMagnitude)).height
-        let narrow = list.sizeThatFits(CGSize(width: 160, height: CGFloat.greatestFiniteMagnitude)).height
+        let wide = list.sizeThatFits(CGSize(width: 900, height: CGFloat.greatestFiniteMagnitude))
+            .height
+        let narrow = list.sizeThatFits(CGSize(width: 160, height: CGFloat.greatestFiniteMagnitude))
+            .height
         XCTAssertGreaterThan(wide, 0)
-        XCTAssertGreaterThan(narrow, wide,
-                             "좁아졌는데 높이가 늘지 않았다(wide \(wide) / narrow \(narrow)) — 줄바꿈이 안 된다")
+        XCTAssertGreaterThan(
+            narrow, wide,
+            "좁아졌는데 높이가 늘지 않았다(wide \(wide) / narrow \(narrow)) — 줄바꿈이 안 된다")
     }
 
     func test_empty_theme_list_is_safe() {
@@ -172,8 +184,9 @@ final class JdFinanceChipTests: XCTestCase {
     func test_live_price_does_not_flash_on_first_display() {
         XCTAssertNil(JdLivePriceSpec.flashTrend(previous: nil, current: 71_200))
         let view = JdLivePriceView(price: 71_200)
-        XCTAssertNil(view.backgroundColor?.cgColor.alpha == 0 ? nil : view.backgroundColor,
-                     "최초 표시에서 배경이 칠해졌다")
+        XCTAssertNil(
+            view.backgroundColor?.cgColor.alpha == 0 ? nil : view.backgroundColor,
+            "최초 표시에서 배경이 칠해졌다")
     }
 
     func test_live_price_flash_direction() {
@@ -186,12 +199,14 @@ final class JdFinanceChipTests: XCTestCase {
     // 색은 방향과 무관하게 늘 상승색 — 방향은 플래시 배경이 말한다(웹 라이브 티커 관습)
     func test_live_price_text_color_is_always_up() {
         for size in JdLivePriceSize.allCases {
-            XCTAssertEqual(JdLivePriceSpec.resolve(size: size).textColor.light,
-                           JdFinanceTheme.up.light, "\(size)")
+            XCTAssertEqual(
+                JdLivePriceSpec.resolve(size: size).textColor.light,
+                JdFinanceTheme.up.light, "\(size)")
         }
-        XCTAssertNotEqual(JdLivePriceSpec.flashColor(.up).light,
-                          JdLivePriceSpec.flashColor(.down).light,
-                          "플래시가 방향을 구분하지 않으면 색 정보가 아예 없다")
+        XCTAssertNotEqual(
+            JdLivePriceSpec.flashColor(.up).light,
+            JdLivePriceSpec.flashColor(.down).light,
+            "플래시가 방향을 구분하지 않으면 색 정보가 아예 없다")
     }
 
     func test_live_price_size_ramp() {

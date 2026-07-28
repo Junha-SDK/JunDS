@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "InfiniteList",
   "oneLiner": "무한 스크롤 리스트 (IntersectionObserver)",
-  "tags": [
-    "data"
-  ],
+  "tags": ["data"],
   "controls": [],
   "snippets": {
     "web": null,

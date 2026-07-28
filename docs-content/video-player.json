@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "VideoPlayer",
   "oneLiner": "컨트롤이 포함된 비디오 플레이어.",
-  "tags": [
-    "media"
-  ],
+  "tags": ["media"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // BookmarkButton 데모 — 실컴포넌트 JdBookmarkButton(SwiftUI)/JdBookmarkButtonView(UIKit).
 // 웹 <jd-bookmark-button> 동형: 심볼 토글 하나가 전부고, 기하는 JdIconButtonSpec(ghost) 재사용이라
@@ -43,11 +43,13 @@ private struct BookmarkButtonStageSwiftUI: View {
                 .font(.footnote)
                 .foregroundColor(.secondary)
 
-            Text("VoiceOver 라벨은 상태가 아니라 다음 동작이다(북마크 ↔ 북마크 해제). "
-                 + "켜짐은 라벨이 아니라 selected 트레이트로 실린다 — 웹 aria-pressed 동형.")
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            Text(
+                "VoiceOver 라벨은 상태가 아니라 다음 동작이다(북마크 ↔ 북마크 해제). "
+                    + "켜짐은 라벨이 아니라 selected 트레이트로 실린다 — 웹 aria-pressed 동형."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
         }
         .padding(JdToken.Space.s6)
     }
@@ -73,11 +75,13 @@ private struct BookmarkButtonStageUIKit: View {
                 .font(.footnote)
                 .foregroundColor(.secondary)
 
-            Text("접근성 검사를 열면 label·selected 트레이트가 실제로 실려 있는 것을 볼 수 있다 "
-                 + "(SwiftUI 스테이지는 VoiceOver가 꺼져 있으면 트리를 만들지 않는다).")
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            Text(
+                "접근성 검사를 열면 label·selected 트레이트가 실제로 실려 있는 것을 볼 수 있다 "
+                    + "(SwiftUI 스테이지는 VoiceOver가 꺼져 있으면 트리를 만들지 않는다)."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
         }
         .padding(JdToken.Space.s6)
     }

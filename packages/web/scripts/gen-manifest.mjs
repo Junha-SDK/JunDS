@@ -42,8 +42,7 @@ const typeText = (p) => {
   if (p.options?.length) return p.options.map((o) => JSON.stringify(o)).join(" | ");
   return p.kind;
 };
-const defaultText = (p) =>
-  p.default === undefined ? undefined : JSON.stringify(p.default);
+const defaultText = (p) => (p.default === undefined ? undefined : JSON.stringify(p.default));
 
 /* ── 1. custom-elements.json ─────────────────────────────────────────── */
 const modules = surface.map((c) => {
@@ -120,19 +119,17 @@ const vscode = {
         ...(p.options?.length ? { values: p.options.map((v) => ({ name: v })) } : {}),
         ...(p.kind === "boolean" ? { valueSet: "v" } : {}),
       })),
-    references: [
-      { name: "JunDS 문서", url: `https://junha.dev/docs/projects/junds?c=${c.dir}` },
-    ],
+    references: [{ name: "JunDS 문서", url: `https://junha.dev/docs/projects/junds?c=${c.dir}` }],
   })),
 };
 
 /* ── 3. HTMLElementTagNameMap 증강 ───────────────────────────────────── */
-const imports = [...new Set(surface.map((c) => c.dir))]
-  .sort()
-  .map((dir) => {
-    const classes = surface.filter((c) => c.dir === dir).map((c) => c.className);
-    return `import type { ${[...new Set(classes)].join(", ")} } from "./components/${dir}/element.js";`;
-  });
+const imports = [...new Set(surface.map((c) => c.dir))].sort().map((dir) => {
+  const classes = surface.filter((c) => c.dir === dir).map((c) => c.className);
+  return `import type { ${[...new Set(classes)].join(
+    ", ",
+  )} } from "./components/${dir}/element.js";`;
+});
 const entries = surface.map((c) => `    ${JSON.stringify(c.tag)}: ${c.className};`);
 
 const tsSource = [

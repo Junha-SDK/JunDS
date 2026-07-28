@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-live-micro-kpi-row 동형 — 보조 KPI 소형 셀 묶음. (DEC-041)
 //
@@ -23,14 +23,17 @@ public final class JdMicroKpiRowView: UIView {
     // 테스트 표면 (@testable) — 공개 API는 아니다 (04 §8.2)
     let wrap: JdWrapView
 
-    public init(items: [JdMicroKpiItem],
-                minCellWidth: CGFloat = 132,
-                spacing: CGFloat = JdToken.Space.s2) {
+    public init(
+        items: [JdMicroKpiItem],
+        minCellWidth: CGFloat = 132,
+        spacing: CGFloat = JdToken.Space.s2
+    ) {
         self.items = items
         self.minCellWidth = minCellWidth
-        self.wrap = JdWrapView(itemSpacing: spacing,
-                               equalWidths: true,
-                               minItemWidth: minCellWidth)
+        self.wrap = JdWrapView(
+            itemSpacing: spacing,
+            equalWidths: true,
+            minItemWidth: minCellWidth)
         super.init(frame: .zero)
 
         addSubview(wrap)
@@ -149,18 +152,22 @@ public final class JdMicroKpiCellView: UIView {
         unitLabel.textColor = spec.valueColor.uiColor
         subLabel.textColor = spec.subColor.uiColor
 
-        labelLabel.font = JdFontBridge.scaledFont(size: spec.labelFontSize,
-                                                 weight: spec.labelFontWeight,
-                                                 compatibleWith: traitCollection)
-        valueLabel.font = JdFontBridge.scaledDigitFont(size: spec.valueFontSize,
-                                                      weight: spec.valueFontWeight,
-                                                      compatibleWith: traitCollection)
-        unitLabel.font = JdFontBridge.scaledFont(size: spec.unitFontSize,
-                                                weight: JdToken.FontWeight.semibold,
-                                                compatibleWith: traitCollection)
-        subLabel.font = JdFontBridge.scaledDigitFont(size: spec.subFontSize,
-                                                    weight: spec.subFontWeight,
-                                                    compatibleWith: traitCollection)
+        labelLabel.font = JdFontBridge.scaledFont(
+            size: spec.labelFontSize,
+            weight: spec.labelFontWeight,
+            compatibleWith: traitCollection)
+        valueLabel.font = JdFontBridge.scaledDigitFont(
+            size: spec.valueFontSize,
+            weight: spec.valueFontWeight,
+            compatibleWith: traitCollection)
+        unitLabel.font = JdFontBridge.scaledFont(
+            size: spec.unitFontSize,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
+        subLabel.font = JdFontBridge.scaledDigitFont(
+            size: spec.subFontSize,
+            weight: spec.subFontWeight,
+            compatibleWith: traitCollection)
     }
 
     private func applyContent() {

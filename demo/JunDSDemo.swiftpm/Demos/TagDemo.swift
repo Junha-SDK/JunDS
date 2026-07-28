@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Tag 데모 — 실컴포넌트 JdTag(SwiftUI)/JdTagView(UIKit). 웹 <jd-tag> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(color/closable) — 3플랫폼 동일 (04 §3).

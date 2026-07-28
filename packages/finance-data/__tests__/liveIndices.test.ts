@@ -23,7 +23,11 @@ describe("subscribeIndex", () => {
     expect(FakeEventSource.instances).toHaveLength(1);
     expect(FakeEventSource.instances[0]!.url).toContain("/api/kis/stream?indices=KOSPI");
     FakeEventSource.instances[0]!.emit("index", {
-      name: "KOSPI", value: 7402.77, change: -12.3, changePct: -0.17, receivedAt: 42,
+      name: "KOSPI",
+      value: 7402.77,
+      change: -12.3,
+      changePct: -0.17,
+      receivedAt: 42,
     });
     expect(seen).toEqual([
       { name: "KOSPI", value: 7402.77, change: -12.3, changePct: -0.17, receivedAt: 42 },
@@ -43,7 +47,11 @@ describe("subscribeIndex", () => {
     const { subscribeIndex, currentIndexTick } = await importIndices();
     subscribeIndex("KOSPI", () => {});
     FakeEventSource.instances[0]!.emit("index", {
-      name: "KOSPI", value: 100, change: 1, changePct: 1, receivedAt: 1,
+      name: "KOSPI",
+      value: 100,
+      change: 1,
+      changePct: 1,
+      receivedAt: 1,
     });
     const seen: unknown[] = [];
     subscribeIndex("KOSPI", (t) => seen.push(t));

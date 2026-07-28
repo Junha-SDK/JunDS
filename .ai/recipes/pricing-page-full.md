@@ -95,11 +95,36 @@ export default function PricingPage() {
         searchable
         showCategoryFilter
         items={[
-          { id: "1", category: "결제", question: "환불 정책이 어떻게 되나요?", answer: "구독 후 14일 이내 100% 환불됩니다." },
-          { id: "2", category: "결제", question: "VAT는 포함되나요?", answer: "결제 시 거주 국가 기준으로 자동 산정됩니다." },
-          { id: "3", category: "기능", question: "오픈소스인가요?", answer: "core는 MIT, patterns 일부는 상업 라이선스입니다." },
-          { id: "4", category: "기능", question: "다른 디자인 시스템과 함께 쓸 수 있나요?", answer: "네 — kind 별 entry로 부분 도입이 가능합니다." },
-          { id: "5", category: "지원", question: "지원 응답 시간은?", answer: "Team 24h, Enterprise 4h SLA." },
+          {
+            id: "1",
+            category: "결제",
+            question: "환불 정책이 어떻게 되나요?",
+            answer: "구독 후 14일 이내 100% 환불됩니다.",
+          },
+          {
+            id: "2",
+            category: "결제",
+            question: "VAT는 포함되나요?",
+            answer: "결제 시 거주 국가 기준으로 자동 산정됩니다.",
+          },
+          {
+            id: "3",
+            category: "기능",
+            question: "오픈소스인가요?",
+            answer: "core는 MIT, patterns 일부는 상업 라이선스입니다.",
+          },
+          {
+            id: "4",
+            category: "기능",
+            question: "다른 디자인 시스템과 함께 쓸 수 있나요?",
+            answer: "네 — kind 별 entry로 부분 도입이 가능합니다.",
+          },
+          {
+            id: "5",
+            category: "지원",
+            question: "지원 응답 시간은?",
+            answer: "Team 24h, Enterprise 4h SLA.",
+          },
         ]}
       />
 

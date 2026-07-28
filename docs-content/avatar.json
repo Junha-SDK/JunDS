@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "Avatar",
   "oneLiner": "아바타 컴포넌트",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": {

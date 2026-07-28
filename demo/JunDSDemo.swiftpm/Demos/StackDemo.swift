@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Stack 데모 — 레시피형 (04 §10.1). 웹 <jd-stack>은 core <jd-vstack>과 같은 기본값
 // (column · gap md · stretch)에 direction만 더한 표면이라 iOS는 신규 타입을 만들지 않는다.
@@ -17,19 +17,19 @@ enum StackDemo {
         swiftUI: { state in AnyView(StackStageSwiftUI(state: state)) },
         uikit: { state in AnyView(StackStageUIKit(state: state)) },
         recipe: """
-        // Stack = jd-vstack 기본값(column·gap md·stretch) + direction (04 §10.1 — 신규 컴포넌트 없음)
-        // SwiftUI — direction=column(기본)
-        VStack(spacing: JdGap.md.value) {
-            rowA.frame(maxWidth: .infinity)   // 웹 stretch는 자식 쪽에서 (SwiftUI 기본 교차축은 center)
-            rowB.frame(maxWidth: .infinity)
-        }
-        // direction=row
-        HStack(spacing: JdGap.md.value) { rowA; rowB }
+            // Stack = jd-vstack 기본값(column·gap md·stretch) + direction (04 §10.1 — 신규 컴포넌트 없음)
+            // SwiftUI — direction=column(기본)
+            VStack(spacing: JdGap.md.value) {
+                rowA.frame(maxWidth: .infinity)   // 웹 stretch는 자식 쪽에서 (SwiftUI 기본 교차축은 center)
+                rowB.frame(maxWidth: .infinity)
+            }
+            // direction=row
+            HStack(spacing: JdGap.md.value) { rowA; rowB }
 
-        // UIKit — 축만 바꾼 같은 래퍼(.fill이 곧 stretch)
-        JdStackView(axis: .vertical,   gap: .md, alignment: .fill, arranged: [rowA, rowB])
-        JdStackView(axis: .horizontal, gap: .md, alignment: .fill, arranged: [rowA, rowB])
-        """
+            // UIKit — 축만 바꾼 같은 래퍼(.fill이 곧 stretch)
+            JdStackView(axis: .vertical,   gap: .md, alignment: .fill, arranged: [rowA, rowB])
+            JdStackView(axis: .horizontal, gap: .md, alignment: .fill, arranged: [rowA, rowB])
+            """
     )
 
     // 블록 3개 — 방향 전환과 gap 변화가 동시에 보이게
@@ -119,10 +119,12 @@ private func stackBlockView(_ label: String) -> UIView {
     container.addSubview(text)
     text.jd.layout {
         $0.edges.equalToSuperview()
-            .inset(NSDirectionalEdgeInsets(top: JdToken.Space.s2,
-                                           leading: JdToken.Space.s3,
-                                           bottom: JdToken.Space.s2,
-                                           trailing: JdToken.Space.s3))
+            .inset(
+                NSDirectionalEdgeInsets(
+                    top: JdToken.Space.s2,
+                    leading: JdToken.Space.s3,
+                    bottom: JdToken.Space.s2,
+                    trailing: JdToken.Space.s3))
     }
     return container
 }

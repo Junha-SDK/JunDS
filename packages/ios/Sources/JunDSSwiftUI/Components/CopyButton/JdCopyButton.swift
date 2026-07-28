@@ -1,6 +1,6 @@
+import JunDSCore
 import SwiftUI
 import UIKit
-import JunDSCore
 
 // 웹 jd-copy-button 동형 — 복사는 시스템 API(UIPasteboard)가 하고 컴포넌트는 버튼만 얇게
 // 얹는다 (DESIGN-3 §B, 04 §10 번역 원칙: 시스템이 이미 하는 일을 새 타입으로 감싸지 않는다).
@@ -21,11 +21,13 @@ public struct JdCopyButton: View {
     /// DESIGN-3 §B에 명시된 2초를 그대로 상수로 둔다 — 토큰 신설은 하지 않는다.
     private static let copiedDuration: TimeInterval = 2
 
-    public init(_ text: String,
-                label: String = "복사",
-                copiedLabel: String = "복사됨",
-                variant: JdButtonVariant = .secondary,
-                size: JdControlSize = .md) {
+    public init(
+        _ text: String,
+        label: String = "복사",
+        copiedLabel: String = "복사됨",
+        variant: JdButtonVariant = .secondary,
+        size: JdControlSize = .md
+    ) {
         self.text = text
         self.label = label
         self.copiedLabel = copiedLabel

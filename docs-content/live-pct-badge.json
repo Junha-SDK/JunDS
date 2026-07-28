@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LivePctBadge",
   "oneLiner": "실시간 등락률 배지.",
-  "tags": [
-    "finance",
-    "live",
-    "배지"
-  ],
+  "tags": ["finance", "live", "배지"],
   "controls": [],
   "snippets": {
     "web": null,

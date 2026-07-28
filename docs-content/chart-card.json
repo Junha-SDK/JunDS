@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "ChartCard",
   "oneLiner": "SVG 차트 카드",
-  "tags": [
-    "chart"
-  ],
+  "tags": ["chart"],
   "controls": [],
   "snippets": {
     "web": null,

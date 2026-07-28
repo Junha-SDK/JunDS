@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // StarRating 데모 — 실컴포넌트 JdStarRating(SwiftUI)/JdStarRatingView(UIKit).
 // iOS에 시스템 대응이 없는 진짜 신규 컴포넌트다(DESIGN-3 §B).
@@ -90,21 +90,25 @@ private struct StarRatingStageUIKit: View {
 // 각주 1 — 현재 값. 표기는 Core(JdNumberFormat)가 단일 소스다.
 @MainActor
 private func starValueFootnote(value: Double, max: Int) -> some View {
-    Text("value \(JdNumberFormat.string(value: value, style: .decimal)) / \(max)"
-         + " — 같은 별을 다시 탭하면 반값(0.5)으로 내려간다.")
-        .font(.footnote)
-        .foregroundColor(.secondary)
-        .multilineTextAlignment(.center)
+    Text(
+        "value \(JdNumberFormat.string(value: value, style: .decimal)) / \(max)"
+            + " — 같은 별을 다시 탭하면 반값(0.5)으로 내려간다."
+    )
+    .font(.footnote)
+    .foregroundColor(.secondary)
+    .multilineTextAlignment(.center)
 }
 
 // 각주 2 — 이 컴포넌트의 본체.
 private var starAccessibilityFootnote: some View {
-    Text("별 하나하나가 아니라 컨트롤 전체가 접근성 요소(.adjustable)다 — VoiceOver 위/아래 "
-         + "스와이프로 0.5씩 조절된다. 위의 '접근성 검사'를 UIKit 스테이지에서 열면 별 개수와 무관하게 "
-         + "요소가 하나(adjustable)만 잡히는 것을 확인할 수 있다.")
-        .font(.footnote)
-        .foregroundColor(.secondary)
-        .multilineTextAlignment(.center)
+    Text(
+        "별 하나하나가 아니라 컨트롤 전체가 접근성 요소(.adjustable)다 — VoiceOver 위/아래 "
+            + "스와이프로 0.5씩 조절된다. 위의 '접근성 검사'를 UIKit 스테이지에서 열면 별 개수와 무관하게 "
+            + "요소가 하나(adjustable)만 잡히는 것을 확인할 수 있다."
+    )
+    .font(.footnote)
+    .foregroundColor(.secondary)
+    .multilineTextAlignment(.center)
 }
 
 // 데모 전용 UIKit 랩 — 소비자 관할 (DEC-010 각주).

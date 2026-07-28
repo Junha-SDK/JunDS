@@ -21,10 +21,7 @@ export function on<K extends keyof WindowEventMap>(
 }
 
 /** 바깥 클릭 감지 (v2 useClickOutside — mousedown/touchstart 두 경로 동형) */
-export function createClickOutside(
-  el: Element,
-  onOutside: (e: Event) => void,
-): Behavior {
+export function createClickOutside(el: Element, onOutside: (e: Event) => void): Behavior {
   const listener = (e: Event): void => {
     const t = e.target as Node | null;
     if (!t || el.contains(t)) return;
@@ -137,7 +134,11 @@ export function createHotkeys(map: HotkeyMap, opts: HotkeyOptions = {}): Behavio
 }
 
 /** 요소 스코프 키 핸들러 (v2 useKeyboard) — 같은 조합 엔진의 요소 한정 표면 */
-export function createKeyHandler(el: EventTarget, map: HotkeyMap, opts: HotkeyOptions = {}): Behavior<HotkeyMap> {
+export function createKeyHandler(
+  el: EventTarget,
+  map: HotkeyMap,
+  opts: HotkeyOptions = {},
+): Behavior<HotkeyMap> {
   return createHotkeys(map, { ...opts, target: el });
 }
 

@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 /// 엘리베이션 렌더러 (DEC-039).
 ///
@@ -32,7 +32,8 @@ public struct JdElevation<S: InsettableShape>: ViewModifier {
         let drops = layers.filter { !($0.blur == 0 && $0.spread > 0) }
 
         // 그림자는 겹칠수록 짙어지므로 **토큰 순서대로** 겹쳐야 의도한 깊이가 나온다.
-        return drops
+        return
+            drops
             .reduce(AnyView(content.overlay(ringOverlay(rings)))) { view, layer in
                 AnyView(
                     view.shadow(
@@ -55,12 +56,16 @@ public struct JdElevation<S: InsettableShape>: ViewModifier {
 
 public extension View {
     /// 토큰 엘리베이션을 겹 단위로 적용한다. `shape`는 헤어라인 링을 그릴 윤곽이다.
-    func jdElevation<S: InsettableShape>(_ dynamic: JdToken.Shadow.Dynamic, in shape: S) -> some View {
+    func jdElevation<S: InsettableShape>(
+        _ dynamic: JdToken.Shadow.Dynamic, in shape: S
+    ) -> some View {
         modifier(JdElevation(dynamic, in: shape))
     }
 
     /// 사각 컨테이너용 축약 — 반경만 주면 continuous 라운드 사각으로 링을 그린다.
     func jdElevation(_ dynamic: JdToken.Shadow.Dynamic, cornerRadius: CGFloat) -> some View {
-        modifier(JdElevation(dynamic, in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)))
+        modifier(
+            JdElevation(
+                dynamic, in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)))
     }
 }

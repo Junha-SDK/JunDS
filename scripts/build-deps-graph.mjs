@@ -40,7 +40,8 @@ const KIND_BY_SEGMENT = {
 // Spec regex (allow type-only and side-effect-style is not parsed; only named bindings).
 const IMPORT_RE = /import\s+(?:type\s+)?{[^}]*}\s+from\s+["']([^"']+)["']/g;
 // Also catch default + namespace imports because they are common in tsx files.
-const DEFAULT_IMPORT_RE = /import\s+(?:type\s+)?(?:[A-Za-z_$][\w$]*\s*,\s*)?(?:[A-Za-z_$][\w$]*|\*\s+as\s+[A-Za-z_$][\w$]*)\s+from\s+["']([^"']+)["']/g;
+const DEFAULT_IMPORT_RE =
+  /import\s+(?:type\s+)?(?:[A-Za-z_$][\w$]*\s*,\s*)?(?:[A-Za-z_$][\w$]*|\*\s+as\s+[A-Za-z_$][\w$]*)\s+from\s+["']([^"']+)["']/g;
 
 async function listEntries() {
   const lists = await Promise.all(
@@ -53,7 +54,11 @@ async function listEntries() {
         .map((d) => ({ name: d.name, kind, file: join(root, d.name, `${d.name}.tsx`) }))
         .filter((e) => !e.file.includes(".stories.") && !e.file.includes(".test."));
       const stats = await Promise.all(
-        candidates.map((c) => stat(c.file).then(() => c).catch(() => null)),
+        candidates.map((c) =>
+          stat(c.file)
+            .then(() => c)
+            .catch(() => null),
+        ),
       );
       return stats.filter(Boolean);
     }),

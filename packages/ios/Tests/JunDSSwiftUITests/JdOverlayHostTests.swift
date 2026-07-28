@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // 오버레이 SwiftUI 계층은 present 자체를 단위 테스트하기 어렵다(DESIGN-4 §D) — 각 뷰의 호스팅
 // 스모크(조립·크기 축 통과)와 onDismissAttempt 게이트(false면 바인딩 유지)만 고정한다.
@@ -20,12 +20,18 @@ final class JdOverlayHostTests: XCTestCase {
     }
 
     func test_bottomSheet_persistent_and_nondraggable_host() {
-        XCTAssertTrue(hosts(JdBottomSheet(isPresented: .constant(false),
-                                          draggable: false, persistent: true) { Text("x") }))
+        XCTAssertTrue(
+            hosts(
+                JdBottomSheet(
+                    isPresented: .constant(false),
+                    draggable: false, persistent: true
+                ) { Text("x") }))
     }
 
     func test_drawer_bottom_hosts() {
-        let view = JdDrawer(isPresented: .constant(false), side: .bottom, title: "메뉴") { Text("본문") }
+        let view = JdDrawer(isPresented: .constant(false), side: .bottom, title: "메뉴") {
+            Text("본문")
+        }
         XCTAssertTrue(hosts(view))
     }
 
@@ -44,14 +50,17 @@ final class JdOverlayHostTests: XCTestCase {
             JdActionItem(id: "a", label: "공유"),
             JdActionItem(id: "b", label: "삭제", isDestructive: true),
         ]
-        let view = JdActionSheet(isPresented: .constant(false), title: "옵션",
-                                 actions: actions) { _ in }
+        let view = JdActionSheet(
+            isPresented: .constant(false), title: "옵션",
+            actions: actions
+        ) { _ in }
         XCTAssertTrue(hosts(view))
     }
 
     func test_alertDialog_hosts() {
-        let view = JdAlertDialog(isPresented: .constant(false), title: "삭제할까요?",
-                                 message: "되돌릴 수 없습니다", isDestructive: true, onConfirm: {})
+        let view = JdAlertDialog(
+            isPresented: .constant(false), title: "삭제할까요?",
+            message: "되돌릴 수 없습니다", isDestructive: true, onConfirm: {})
         XCTAssertTrue(hosts(view))
     }
 
@@ -94,10 +103,12 @@ final class JdOverlayHostTests: XCTestCase {
         var seen: JdDismissReason?
         let binding = Binding(get: { box.value }, set: { box.value = $0 })
 
-        JdOverlayDismissGate.apply(binding, reason: .escape, onDismissAttempt: { reason in
-            seen = reason
-            return false
-        })
+        JdOverlayDismissGate.apply(
+            binding, reason: .escape,
+            onDismissAttempt: { reason in
+                seen = reason
+                return false
+            })
         XCTAssertEqual(seen, .escape)
     }
 }

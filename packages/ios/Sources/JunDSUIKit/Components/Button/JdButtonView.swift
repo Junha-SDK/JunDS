@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 public final class JdButtonView: UIControl {
 
@@ -31,9 +31,11 @@ public final class JdButtonView: UIControl {
     private let contentStack = UIStackView()
     private var spec: JdButtonSpec
 
-    public init(title: String,
-                variant: JdButtonVariant = .primary,
-                size: JdControlSize = .md) {
+    public init(
+        title: String,
+        variant: JdButtonVariant = .primary,
+        size: JdControlSize = .md
+    ) {
         self.title = title
         self.variant = variant
         self.size = size
@@ -116,7 +118,8 @@ public final class JdButtonView: UIControl {
     }
 
     private func applyStyle() {
-        titleLabel.font = JdFontBridge.scaledFont(size: spec.fontSize, weight: spec.fontWeight, compatibleWith: traitCollection)
+        titleLabel.font = JdFontBridge.scaledFont(
+            size: spec.fontSize, weight: spec.fontWeight, compatibleWith: traitCollection)
         titleLabel.textColor = spec.foreground.uiColor
         spinner.color = spec.foreground.uiColor
         let bg = isHighlighted ? spec.pressedBackground : spec.background

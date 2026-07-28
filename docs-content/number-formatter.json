@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "NumberFormatter",
   "oneLiner": "로케일 기반 숫자/통화/퍼센트 포맷 텍스트.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -1,6 +1,7 @@
 # JunDS iOS — 대기열 31종 API 계약 (layout 12 + primitives 19), 2026-07-24
 
 **Core 계층은 이미 작성돼 있고 그것이 값의 정본이다.** 구현 전 반드시 읽을 것:
+
 - `packages/ios/Sources/JunDSCore/JdPrimitiveOptions.swift` — 전 옵션 열거형(rawValue = 웹 attribute)
 - `packages/ios/Sources/JunDSCore/Specs/JdControlSpecs.swift` — 폼 컨트롤 스펙 + `JdRangeState`
 - `packages/ios/Sources/JunDSCore/Specs/JdDisplaySpecs.swift` — 표시 계열 스펙
@@ -19,18 +20,18 @@ UIKit 뷰는 `adjustsFontForContentSizeCategory = true` + `traitCollectionDidCha
 
 ## A. layout 12 — 실구현 3 + 별칭/레시피 9
 
-| 웹 | iOS 처리 | 산출물 |
-|---|---|---|
-| Stack | 레시피 (VStack/HStack + `JdStackView`) | RECIPES.md 항목 + 데모 |
-| Grid · SimpleGrid | 레시피 (LazyVGrid, adaptive) | RECIPES.md + 데모 |
-| Wrap | **별칭** — `JdFlowLayout`(기구현) | 데모만 |
-| LayoutDivider | **별칭** — `JdDivider`(기구현) | 데모만 |
-| Container | 레시피 (`JdContainerSize.maxWidth` + 패딩) | RECIPES.md + 데모 |
-| Overlay | 레시피 (`.overlay` + 재질 블러) | RECIPES.md + 데모 |
-| AspectRatioBox | 레시피 (`.aspectRatio(_:contentMode:)`) | RECIPES.md + 데모 |
-| **Spacer** | 실구현 — 고정 크기(웹은 양쪽 패딩이라 **총 2×size**) | `JdSpacer` / `JdSpacerView` |
-| **Show · Hide** | 실구현 — 컨테이너 폭 기준 모디파이어 | `.jdShow(above:below:)` / `.jdHide(above:below:)` |
-| **AppShell** | 실구현 — 사이드바 레일 + 콘텐츠 (+compact 드로어) | `JdAppShell`(SwiftUI) / `JdAppShellController`(UIKit) |
+| 웹                | iOS 처리                                             | 산출물                                                |
+| ----------------- | ---------------------------------------------------- | ----------------------------------------------------- |
+| Stack             | 레시피 (VStack/HStack + `JdStackView`)               | RECIPES.md 항목 + 데모                                |
+| Grid · SimpleGrid | 레시피 (LazyVGrid, adaptive)                         | RECIPES.md + 데모                                     |
+| Wrap              | **별칭** — `JdFlowLayout`(기구현)                    | 데모만                                                |
+| LayoutDivider     | **별칭** — `JdDivider`(기구현)                       | 데모만                                                |
+| Container         | 레시피 (`JdContainerSize.maxWidth` + 패딩)           | RECIPES.md + 데모                                     |
+| Overlay           | 레시피 (`.overlay` + 재질 블러)                      | RECIPES.md + 데모                                     |
+| AspectRatioBox    | 레시피 (`.aspectRatio(_:contentMode:)`)              | RECIPES.md + 데모                                     |
+| **Spacer**        | 실구현 — 고정 크기(웹은 양쪽 패딩이라 **총 2×size**) | `JdSpacer` / `JdSpacerView`                           |
+| **Show · Hide**   | 실구현 — 컨테이너 폭 기준 모디파이어                 | `.jdShow(above:below:)` / `.jdHide(above:below:)`     |
+| **AppShell**      | 실구현 — 사이드바 레일 + 콘텐츠 (+compact 드로어)    | `JdAppShell`(SwiftUI) / `JdAppShellController`(UIKit) |
 
 ```swift
 // JunDSSwiftUI/Components/Spacer/JdSpacer.swift

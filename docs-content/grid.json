@@ -4,10 +4,7 @@
   "category": "layout",
   "title": "Grid",
   "oneLiner": "그리드 레이아웃 — GridLayout 별칭 파생(R12 단일 구현). auto-fit·auto-fill 자동 칼럼 지원.",
-  "tags": [
-    "layout",
-    "grid"
-  ],
+  "tags": ["layout", "grid"],
   "controls": [
     {
       "prop": "cols",

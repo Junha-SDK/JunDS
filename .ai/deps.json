@@ -28,9 +28,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "AvatarStack"
-      ]
+      "importedBy": ["AvatarStack"]
     },
     "BackTop": {
       "kind": "primitive",
@@ -52,10 +50,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "Kanban",
-        "NotificationCenter"
-      ]
+      "importedBy": ["Kanban", "NotificationCenter"]
     },
     "BatteryIndicator": {
       "kind": "primitive",
@@ -77,9 +72,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "BookReader"
-      ]
+      "importedBy": ["BookReader"]
     },
     "Button": {
       "kind": "primitive",
@@ -94,14 +87,7 @@
           "name": "Slot"
         }
       ],
-      "importedBy": [
-        "Calendar",
-        "ConfirmDialog",
-        "FilterBar",
-        "FormBuilder",
-        "LoginForm",
-        "SecurityChecklist"
-      ]
+      "importedBy": ["Calendar", "ConfirmDialog", "FilterBar", "FormBuilder", "LoginForm", "SecurityChecklist"]
     },
     "Checkbox": {
       "kind": "primitive",
@@ -112,10 +98,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "DataTable",
-        "LoginForm"
-      ]
+      "importedBy": ["DataTable", "LoginForm"]
     },
     "Code": {
       "kind": "primitive",
@@ -159,9 +142,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "LoginForm"
-      ]
+      "importedBy": ["LoginForm"]
     },
     "ErrorBoundary": {
       "kind": "primitive",
@@ -249,10 +230,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "Calendar",
-        "RichTextEditor"
-      ]
+      "importedBy": ["Calendar", "RichTextEditor"]
     },
     "Image": {
       "kind": "primitive",
@@ -274,11 +252,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "FilterBar",
-        "FormBuilder",
-        "LoginForm"
-      ]
+      "importedBy": ["FilterBar", "FormBuilder", "LoginForm"]
     },
     "Kbd": {
       "kind": "primitive",
@@ -289,9 +263,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "CommandPalette"
-      ]
+      "importedBy": ["CommandPalette"]
     },
     "KeyCap": {
       "kind": "primitive",
@@ -313,11 +285,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "FormBuilder",
-        "FormField",
-        "LoginForm"
-      ]
+      "importedBy": ["FormBuilder", "FormField", "LoginForm"]
     },
     "LikeButton": {
       "kind": "primitive",
@@ -415,9 +383,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "LoginForm"
-      ]
+      "importedBy": ["LoginForm"]
     },
     "PhoneInput": {
       "kind": "primitive",
@@ -529,12 +495,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "AutoComplete",
-        "Combobox",
-        "InfiniteList",
-        "SocialFeed"
-      ]
+      "importedBy": ["AutoComplete", "Combobox", "InfiniteList", "SocialFeed"]
     },
     "StarRating": {
       "kind": "primitive",
@@ -578,9 +539,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "MultiSelect"
-      ]
+      "importedBy": ["MultiSelect"]
     },
     "Textarea": {
       "kind": "primitive",
@@ -591,9 +550,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "FormBuilder"
-      ]
+      "importedBy": ["FormBuilder"]
     },
     "Toggle": {
       "kind": "primitive",
@@ -680,9 +637,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "LoginForm"
-      ]
+      "importedBy": ["LoginForm"]
     },
     "AlertDialog": {
       "kind": "composite",
@@ -1012,9 +967,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "BookReader"
-      ]
+      "importedBy": ["BookReader"]
     },
     "ChatBubble": {
       "kind": "composite",
@@ -1447,12 +1400,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "DataTable",
-        "EmailInbox",
-        "PhotoAlbum",
-        "SocialFeed"
-      ]
+      "importedBy": ["DataTable", "EmailInbox", "PhotoAlbum", "SocialFeed"]
     },
     "ExifPanel": {
       "kind": "composite",
@@ -1945,9 +1893,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "DataTable"
-      ]
+      "importedBy": ["DataTable"]
     },
     "PasswordStrength": {
       "kind": "composite",
@@ -1969,9 +1915,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "PhotoAlbum"
-      ]
+      "importedBy": ["PhotoAlbum"]
     },
     "PhotoCarousel": {
       "kind": "composite",
@@ -2004,9 +1948,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "PhotoAlbum"
-      ]
+      "importedBy": ["PhotoAlbum"]
     },
     "PhotoLightbox": {
       "kind": "composite",
@@ -2017,9 +1959,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "PhotoAlbum"
-      ]
+      "importedBy": ["PhotoAlbum"]
     },
     "PhotoUploader": {
       "kind": "composite",
@@ -2100,9 +2040,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "PricingPage"
-      ]
+      "importedBy": ["PricingPage"]
     },
     "ProductCard": {
       "kind": "composite",
@@ -2256,9 +2194,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "BookReader"
-      ]
+      "importedBy": ["BookReader"]
     },
     "ReadingStats": {
       "kind": "composite",
@@ -2346,9 +2282,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "BookReader"
-      ]
+      "importedBy": ["BookReader"]
     },
     "ScrollSpy": {
       "kind": "composite",
@@ -2426,9 +2360,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "FormBuilder"
-      ]
+      "importedBy": ["FormBuilder"]
     },
     "SeoHead": {
       "kind": "composite",
@@ -2574,9 +2506,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "StatsGrid"
-      ]
+      "importedBy": ["StatsGrid"]
     },
     "Stepper": {
       "kind": "composite",
@@ -2609,9 +2539,7 @@
           "name": "cn"
         }
       ],
-      "importedBy": [
-        "SocialFeed"
-      ]
+      "importedBy": ["SocialFeed"]
     },
     "SwipeAction": {
       "kind": "composite",

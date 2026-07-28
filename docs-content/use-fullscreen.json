@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useFullscreen",
   "oneLiner": "요소 전체화면 진입·해제.",
-  "tags": [
-    "hook",
-    "media",
-    "전체화면"
-  ],
+  "tags": ["hook", "media", "전체화면"],
   "controls": [],
   "snippets": {
     "web": null,

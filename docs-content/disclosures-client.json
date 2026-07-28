@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "DisclosuresClient",
   "oneLiner": "공시 목록 클라이언트 뷰.",
-  "tags": [
-    "finance",
-    "공시",
-    "리스트"
-  ],
+  "tags": ["finance", "공시", "리스트"],
   "controls": [],
   "snippets": {
     "web": null,

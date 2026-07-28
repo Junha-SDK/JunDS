@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "AppHeader",
   "oneLiner": "금융 앱 상단 헤더 — 검색·내비게이션.",
-  "tags": [
-    "finance",
-    "shell",
-    "헤더"
-  ],
+  "tags": ["finance", "shell", "헤더"],
   "controls": [],
   "snippets": {
     "web": null,

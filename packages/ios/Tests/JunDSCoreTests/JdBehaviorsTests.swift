@@ -1,6 +1,6 @@
-import XCTest
 import CoreGraphics
 import JunDSCore
+import XCTest
 
 // JdBehaviors.swift의 순수 계산·판정 hooks 전수 검증(04 §4.2 규칙 1·3 — 렌더 계층은
 // 이 판정을 다시 구현하지 않는다). 타이밍(JdDebouncer/JdThrottler)은 별도 파일에서
@@ -21,7 +21,7 @@ final class JdCountUpTests: XCTestCase {
 
     // t=1은 분기로 정확히 1을 돌려준다(pow(2,-10)≈0.00098로 근사되지 않음)
     func test_easeOutExpo_exact_one_at_completion() {
-        XCTAssertEqual(JdCountUp.easeOutExpo(1), 1)   // accuracy 없이 정확 일치
+        XCTAssertEqual(JdCountUp.easeOutExpo(1), 1)  // accuracy 없이 정확 일치
     }
 
     // 범위 밖 입력은 clamp: t<0 → 0, t>1 → 1
@@ -141,17 +141,17 @@ final class JdFormTests: XCTestCase {
     // minLength 경계: count < n 만 위반(원시 count 기준, trim 아님)
     func test_minLength_boundary() {
         XCTAssertEqual(JdForm.firstViolation("ab", rules: [.minLength(3)]), .minLength(3))
-        XCTAssertNil(JdForm.firstViolation("abc", rules: [.minLength(3)]))     // 정확히 n
+        XCTAssertNil(JdForm.firstViolation("abc", rules: [.minLength(3)]))  // 정확히 n
         XCTAssertNil(JdForm.firstViolation("abcd", rules: [.minLength(3)]))
-        XCTAssertNil(JdForm.firstViolation("", rules: [.minLength(0)]))        // 0은 항상 통과
+        XCTAssertNil(JdForm.firstViolation("", rules: [.minLength(0)]))  // 0은 항상 통과
     }
 
     // maxLength 경계: count > n 만 위반
     func test_maxLength_boundary() {
-        XCTAssertNil(JdForm.firstViolation("abc", rules: [.maxLength(3)]))     // 정확히 n
+        XCTAssertNil(JdForm.firstViolation("abc", rules: [.maxLength(3)]))  // 정확히 n
         XCTAssertNil(JdForm.firstViolation("ab", rules: [.maxLength(3)]))
         XCTAssertEqual(JdForm.firstViolation("abcd", rules: [.maxLength(3)]), .maxLength(3))
-        XCTAssertNil(JdForm.firstViolation("", rules: [.maxLength(0)]))        // 빈 값은 0 이하
+        XCTAssertNil(JdForm.firstViolation("", rules: [.maxLength(0)]))  // 빈 값은 0 이하
     }
 
     // email: 유효/무효, 빈 값은 email 단독으로는 통과(웹 동형 — required가 빈 값을 잡음)
@@ -159,9 +159,9 @@ final class JdFormTests: XCTestCase {
         XCTAssertNil(JdForm.firstViolation("a@b.com", rules: [.email]))
         XCTAssertNil(JdForm.firstViolation("user.name+tag@sub.example.co", rules: [.email]))
         XCTAssertEqual(JdForm.firstViolation("invalid", rules: [.email]), .email)
-        XCTAssertEqual(JdForm.firstViolation("a@b", rules: [.email]), .email)          // TLD 없음
-        XCTAssertEqual(JdForm.firstViolation("a@b.c", rules: [.email]), .email)        // TLD 1자
-        XCTAssertNil(JdForm.firstViolation("", rules: [.email]))                       // 빈 값 통과
+        XCTAssertEqual(JdForm.firstViolation("a@b", rules: [.email]), .email)  // TLD 없음
+        XCTAssertEqual(JdForm.firstViolation("a@b.c", rules: [.email]), .email)  // TLD 1자
+        XCTAssertNil(JdForm.firstViolation("", rules: [.email]))  // 빈 값 통과
     }
 
     // email + required 조합: 빈 값이면 required가(순서상 먼저면) 먼저 잡힌다
@@ -181,7 +181,7 @@ final class JdFormTests: XCTestCase {
         let digitsOnly = JdFieldRule.pattern("^[0-9]+$")
         XCTAssertNil(JdForm.firstViolation("123", rules: [digitsOnly]))
         XCTAssertEqual(JdForm.firstViolation("12a", rules: [digitsOnly]), digitsOnly)
-        XCTAssertEqual(JdForm.firstViolation("", rules: [digitsOnly]), digitsOnly)   // + 는 1자 이상
+        XCTAssertEqual(JdForm.firstViolation("", rules: [digitsOnly]), digitsOnly)  // + 는 1자 이상
     }
 
     // 잘못된 정규식은 통과로 처리(크래시 없음 — guard의 방어)
@@ -196,7 +196,8 @@ final class JdFormTests: XCTestCase {
         // 순서를 바꾸면 minLength가 먼저
         XCTAssertEqual(JdForm.firstViolation("ab", rules: [.minLength(5), .email]), .minLength(5))
         // required가 맨 앞이면 빈 값은 항상 required
-        XCTAssertEqual(JdForm.firstViolation("", rules: [.required, .minLength(5), .email]), .required)
+        XCTAssertEqual(
+            JdForm.firstViolation("", rules: [.required, .minLength(5), .email]), .required)
     }
 
     // custom은 Core에선 항상 통과(소비자 판정 위임)
@@ -213,7 +214,7 @@ final class JdFormTests: XCTestCase {
         XCTAssertTrue(JdForm.isValid("a@b.com", rules: [.required, .email]))
         XCTAssertFalse(JdForm.isValid("", rules: [.required]))
         XCTAssertFalse(JdForm.isValid("ab", rules: [.minLength(3)]))
-        XCTAssertTrue(JdForm.isValid("anything", rules: []))     // 규칙 없음 → 유효
+        XCTAssertTrue(JdForm.isValid("anything", rules: []))  // 규칙 없음 → 유효
     }
 
     // message(label:) 문구 — 렌더 계층이 그대로 노출
@@ -234,25 +235,41 @@ final class JdScrollProgressTests: XCTestCase {
     // reading: 정상 구간에서 offset/scrollable 을 0…1로 clamp
     func test_reading_normal_range() {
         // content 2000, viewport 1000 → scrollable 1000
-        XCTAssertEqual(JdScrollProgress.reading(offset: 0, contentHeight: 2000, viewportHeight: 1000), 0, accuracy: 1e-12)
-        XCTAssertEqual(JdScrollProgress.reading(offset: 500, contentHeight: 2000, viewportHeight: 1000), 0.5, accuracy: 1e-12)
-        XCTAssertEqual(JdScrollProgress.reading(offset: 1000, contentHeight: 2000, viewportHeight: 1000), 1, accuracy: 1e-12)
+        XCTAssertEqual(
+            JdScrollProgress.reading(offset: 0, contentHeight: 2000, viewportHeight: 1000), 0,
+            accuracy: 1e-12)
+        XCTAssertEqual(
+            JdScrollProgress.reading(offset: 500, contentHeight: 2000, viewportHeight: 1000), 0.5,
+            accuracy: 1e-12)
+        XCTAssertEqual(
+            JdScrollProgress.reading(offset: 1000, contentHeight: 2000, viewportHeight: 1000), 1,
+            accuracy: 1e-12)
     }
 
     // 오버스크롤 clamp: 음수 offset → 0, 초과 → 1
     func test_reading_clamps_overscroll() {
-        XCTAssertEqual(JdScrollProgress.reading(offset: -200, contentHeight: 2000, viewportHeight: 1000), 0, accuracy: 1e-12)
-        XCTAssertEqual(JdScrollProgress.reading(offset: 5000, contentHeight: 2000, viewportHeight: 1000), 1, accuracy: 1e-12)
+        XCTAssertEqual(
+            JdScrollProgress.reading(offset: -200, contentHeight: 2000, viewportHeight: 1000), 0,
+            accuracy: 1e-12)
+        XCTAssertEqual(
+            JdScrollProgress.reading(offset: 5000, contentHeight: 2000, viewportHeight: 1000), 1,
+            accuracy: 1e-12)
     }
 
     // scrollable <= 0 (내용이 뷰포트에 다 들어감): 내용 있으면 1, 없으면 0
     func test_reading_non_scrollable() {
         // content == viewport → scrollable 0, 내용 있음 → 1
-        XCTAssertEqual(JdScrollProgress.reading(offset: 0, contentHeight: 1000, viewportHeight: 1000), 1, accuracy: 1e-12)
+        XCTAssertEqual(
+            JdScrollProgress.reading(offset: 0, contentHeight: 1000, viewportHeight: 1000), 1,
+            accuracy: 1e-12)
         // content < viewport → 1
-        XCTAssertEqual(JdScrollProgress.reading(offset: 0, contentHeight: 400, viewportHeight: 1000), 1, accuracy: 1e-12)
+        XCTAssertEqual(
+            JdScrollProgress.reading(offset: 0, contentHeight: 400, viewportHeight: 1000), 1,
+            accuracy: 1e-12)
         // content 0 → 0
-        XCTAssertEqual(JdScrollProgress.reading(offset: 0, contentHeight: 0, viewportHeight: 1000), 0, accuracy: 1e-12)
+        XCTAssertEqual(
+            JdScrollProgress.reading(offset: 0, contentHeight: 0, viewportHeight: 1000), 0,
+            accuracy: 1e-12)
     }
 
     // activeSection: 빈 배열 → nil
@@ -265,11 +282,14 @@ final class JdScrollProgressTests: XCTestCase {
         let sections: [CGFloat] = [0, 100, 200, 300]
         XCTAssertEqual(JdScrollProgress.activeSection(offset: 0, sectionOffsets: sections), 0)
         XCTAssertEqual(JdScrollProgress.activeSection(offset: 50, sectionOffsets: sections), 0)
-        XCTAssertEqual(JdScrollProgress.activeSection(offset: 100, sectionOffsets: sections), 1)   // 경계 포함(<=)
+        // 경계 포함(<=)
+        XCTAssertEqual(JdScrollProgress.activeSection(offset: 100, sectionOffsets: sections), 1)
         XCTAssertEqual(JdScrollProgress.activeSection(offset: 150, sectionOffsets: sections), 1)
         XCTAssertEqual(JdScrollProgress.activeSection(offset: 250, sectionOffsets: sections), 2)
-        XCTAssertEqual(JdScrollProgress.activeSection(offset: 300, sectionOffsets: sections), 3)   // 마지막 경계
-        XCTAssertEqual(JdScrollProgress.activeSection(offset: 9999, sectionOffsets: sections), 3)  // 끝 지남
+        // 마지막 경계
+        XCTAssertEqual(JdScrollProgress.activeSection(offset: 300, sectionOffsets: sections), 3)
+        // 끝 지남
+        XCTAssertEqual(JdScrollProgress.activeSection(offset: 9999, sectionOffsets: sections), 3)
     }
 
     // 첫 섹션에도 못 미치면 첫 섹션(0)으로 clamp
@@ -277,7 +297,8 @@ final class JdScrollProgressTests: XCTestCase {
         let sections: [CGFloat] = [50, 150, 250]
         XCTAssertEqual(JdScrollProgress.activeSection(offset: 0, sectionOffsets: sections), 0)
         XCTAssertEqual(JdScrollProgress.activeSection(offset: 49, sectionOffsets: sections), 0)
-        XCTAssertEqual(JdScrollProgress.activeSection(offset: 50, sectionOffsets: sections), 0)   // 첫 경계
+        // 첫 경계
+        XCTAssertEqual(JdScrollProgress.activeSection(offset: 50, sectionOffsets: sections), 0)
         XCTAssertEqual(JdScrollProgress.activeSection(offset: 51, sectionOffsets: sections), 0)
     }
 
@@ -285,11 +306,14 @@ final class JdScrollProgressTests: XCTestCase {
     func test_activeSection_topInset_advances_cursor() {
         let sections: [CGFloat] = [0, 100, 200]
         // offset 80 + inset 20 = cursor 100 → index 1
-        XCTAssertEqual(JdScrollProgress.activeSection(offset: 80, sectionOffsets: sections, topInset: 20), 1)
+        XCTAssertEqual(
+            JdScrollProgress.activeSection(offset: 80, sectionOffsets: sections, topInset: 20), 1)
         // 같은 offset이라도 inset 0이면 아직 index 0
-        XCTAssertEqual(JdScrollProgress.activeSection(offset: 80, sectionOffsets: sections, topInset: 0), 0)
+        XCTAssertEqual(
+            JdScrollProgress.activeSection(offset: 80, sectionOffsets: sections, topInset: 0), 0)
         // inset이 커서를 200까지 밀면 index 2
-        XCTAssertEqual(JdScrollProgress.activeSection(offset: 120, sectionOffsets: sections, topInset: 80), 2)
+        XCTAssertEqual(
+            JdScrollProgress.activeSection(offset: 120, sectionOffsets: sections, topInset: 80), 2)
     }
 
     // 단일 섹션은 항상 0
@@ -307,20 +331,23 @@ final class JdPreloadTests: XCTestCase {
 
     // concurrency 1 → 낱개 배치
     func test_concurrency_one() {
-        XCTAssertEqual(JdPreload.batches(six, concurrency: 1),
-                       [["a"], ["b"], ["c"], ["d"], ["e"], ["f"]])
+        XCTAssertEqual(
+            JdPreload.batches(six, concurrency: 1),
+            [["a"], ["b"], ["c"], ["d"], ["e"], ["f"]])
     }
 
     // concurrency 3 → 균등 분할(6/3 나눗셈 경계)
     func test_concurrency_three_even_division() {
-        XCTAssertEqual(JdPreload.batches(six, concurrency: 3),
-                       [["a", "b", "c"], ["d", "e", "f"]])
+        XCTAssertEqual(
+            JdPreload.batches(six, concurrency: 3),
+            [["a", "b", "c"], ["d", "e", "f"]])
     }
 
     // 나눗셈이 떨어지지 않으면 마지막 배치가 짧다(7/3)
     func test_concurrency_three_uneven_remainder() {
-        XCTAssertEqual(JdPreload.batches(six + ["g"], concurrency: 3),
-                       [["a", "b", "c"], ["d", "e", "f"], ["g"]])
+        XCTAssertEqual(
+            JdPreload.batches(six + ["g"], concurrency: 3),
+            [["a", "b", "c"], ["d", "e", "f"], ["g"]])
     }
 
     // concurrency가 원소 수를 초과 → 단일 배치
@@ -413,23 +440,33 @@ final class JdBreakpointValueTests: XCTestCase {
     func test_picks_largest_reached_breakpoint() {
         let overrides: [(JdBreakpoint, String)] = [(.md, "medium"), (.lg, "large")]
         // md(768) 미만 → base
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 500, base: "base", overrides: overrides), "base")
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 767, base: "base", overrides: overrides), "base")
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 500, base: "base", overrides: overrides), "base")
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 767, base: "base", overrides: overrides), "base")
         // md 경계(768) 포함(>=)
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 768, base: "base", overrides: overrides), "medium")
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 1000, base: "base", overrides: overrides), "medium")
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 768, base: "base", overrides: overrides), "medium")
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 1000, base: "base", overrides: overrides), "medium")
         // lg 경계(1024) → large
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 1024, base: "base", overrides: overrides), "large")
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 2000, base: "base", overrides: overrides), "large")
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 1024, base: "base", overrides: overrides), "large")
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 2000, base: "base", overrides: overrides), "large")
     }
 
     // 입력 오버라이드 순서가 뒤섞여도 내부 정렬로 결과 동일
     func test_override_input_order_does_not_matter() {
         let scrambled: [(JdBreakpoint, String)] = [(.lg, "L"), (.sm, "S"), (.md, "M")]
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 639, base: "base", overrides: scrambled), "base")
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 640, base: "base", overrides: scrambled), "S")   // sm
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 800, base: "base", overrides: scrambled), "M")   // md
-        XCTAssertEqual(JdBreakpointValue.resolve(width: 1024, base: "base", overrides: scrambled), "L")  // lg
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 639, base: "base", overrides: scrambled), "base")
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 640, base: "base", overrides: scrambled), "S")  // sm
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 800, base: "base", overrides: scrambled), "M")  // md
+        XCTAssertEqual(
+            JdBreakpointValue.resolve(width: 1024, base: "base", overrides: scrambled), "L")  // lg
     }
 
     // Int 등 다른 타입에도 제네릭하게 동작

@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-follow-button 동형 — 두 변형 캡슐 버튼 (DESIGN-3 §B).
 // 미팔로우 = primary 채움 / 팔로잉 = secondary 외곽선. 두 변형 모두 JdButtonSpec을
@@ -12,11 +12,13 @@ public struct JdFollowButton: View {
     private let followLabel: String
     private let followingLabel: String
 
-    public init(isFollowing: Binding<Bool>,
-                size: JdControlSize = .md,
-                isEnabled: Bool = true,
-                followLabel: String = "팔로우",
-                followingLabel: String = "팔로잉") {
+    public init(
+        isFollowing: Binding<Bool>,
+        size: JdControlSize = .md,
+        isEnabled: Bool = true,
+        followLabel: String = "팔로우",
+        followingLabel: String = "팔로잉"
+    ) {
         self._isFollowing = isFollowing
         self.size = size
         self.isControlEnabled = isEnabled
@@ -60,19 +62,23 @@ struct JdFollowButtonStyle: ButtonStyle {
         let shape = Capsule(style: .continuous)
         let background = configuration.isPressed ? spec.pressedBackground : spec.background
         return configuration.label
-            .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                       weight: spec.fontWeight,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.fontSize,
+                    weight: spec.fontWeight,
+                    category: sizeCategory)
+            )
             .padding(.horizontal, spec.hPadding)
-            .frame(minHeight: spec.minHeight) // 고정 height 금지 (04 §7.2)
+            .frame(minHeight: spec.minHeight)  // 고정 height 금지 (04 §7.2)
             .foregroundColor(spec.foreground.color)
             .background(background.color)
             .clipShape(shape)
             .overlay(borderOverlay(shape))
             .contentShape(shape)
             .opacity(isEnabled ? 1 : spec.disabledOpacity)
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
-                       value: configuration.isPressed)
+            .animation(
+                reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
+                value: configuration.isPressed)
     }
 
     @ViewBuilder

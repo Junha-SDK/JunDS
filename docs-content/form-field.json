@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "FormField",
   "oneLiner": "임의의 네이티브 입력에 Label·Error·Hint를 자동 연결하는 폼 필드 래퍼.",
-  "tags": [
-    "form"
-  ],
+  "tags": ["form"],
   "controls": [],
   "snippets": {
     "web": {

@@ -59,11 +59,27 @@ export default function MarketingLanding() {
         subtitle="설치 5분, 실 효과는 한 분기."
         columns={3}
         features={[
-          { icon: "⚡", title: "0-config", description: "Tailwind v4 + RSC 준비된 토큰." },
-          { icon: "🎨", title: "노코드 런타임", description: "스키마 → 화면 자동 렌더링." },
+          {
+            icon: "⚡",
+            title: "0-config",
+            description: "Tailwind v4 + RSC 준비된 토큰.",
+          },
+          {
+            icon: "🎨",
+            title: "노코드 런타임",
+            description: "스키마 → 화면 자동 렌더링.",
+          },
           { icon: "♿", title: "a11y 0 critical", description: "axe-core CI 게이트." },
-          { icon: "🌐", title: "i18n 빌트인", description: "I18nProvider 한 줄로 다국어." },
-          { icon: "📦", title: "tree-shaken", description: "kind별 entry로 필요한 만큼만." },
+          {
+            icon: "🌐",
+            title: "i18n 빌트인",
+            description: "I18nProvider 한 줄로 다국어.",
+          },
+          {
+            icon: "📦",
+            title: "tree-shaken",
+            description: "kind별 entry로 필요한 만큼만.",
+          },
           { icon: "📈", title: "사이즈 게이트", description: "PR마다 KB 회귀 차단." },
         ]}
       />
@@ -76,7 +92,10 @@ export default function MarketingLanding() {
         requireConsent
         consentLabel="개인정보 수집 및 마케팅 활용에 동의합니다"
         onSubmit={async (email) => {
-          await fetch("/api/newsletter", { method: "POST", body: JSON.stringify({ email }) });
+          await fetch("/api/newsletter", {
+            method: "POST",
+            body: JSON.stringify({ email }),
+          });
         }}
       />
 

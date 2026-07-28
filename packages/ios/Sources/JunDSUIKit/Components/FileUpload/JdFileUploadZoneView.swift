@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-file-upload 동형 — **피커는 만들지 않는다** (DESIGN-3 §B).
 // 실제 선택은 소비자가 시스템 UIDocumentPickerViewController를 onTap에 붙여서 한다.
@@ -30,9 +30,11 @@ public final class JdFileUploadZoneView: UIControl {
     private let fileStack = UIStackView()
     private let rootStack = UIStackView()
 
-    public init(description: String = "파일을 선택하세요",
-                isError: Bool = false,
-                fileNames: [String] = []) {
+    public init(
+        description: String = "파일을 선택하세요",
+        isError: Bool = false,
+        fileNames: [String] = []
+    ) {
         self.zoneDescription = description
         self.isError = isError
         self.fileNames = fileNames
@@ -145,21 +147,24 @@ public final class JdFileUploadZoneView: UIControl {
     }
 
     private func applyStyle() {
-        let iconFont = JdFontBridge.scaledFont(size: JdIconSize.xl.side,
-                                               weight: JdToken.FontWeight.normal,
-                                               compatibleWith: traitCollection)
+        let iconFont = JdFontBridge.scaledFont(
+            size: JdIconSize.xl.side,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: iconFont)
         iconView.image = UIImage(systemName: "arrow.up.doc")
         iconView.tintColor = JdToken.Color.muted.uiColor
 
-        descriptionLabel.font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .sm).fontSize,
-                                                        weight: JdToken.FontWeight.normal,
-                                                        compatibleWith: traitCollection)
+        descriptionLabel.font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .sm).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         descriptionLabel.textColor = JdToken.Color.muted.uiColor
 
-        let rowFont = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                              weight: JdToken.FontWeight.normal,
-                                              compatibleWith: traitCollection)
+        let rowFont = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .xs).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         let rowSymbol = UIImage.SymbolConfiguration(font: rowFont)
         for row in fileStack.arrangedSubviews {
             guard let stack = row as? UIStackView else { continue }
@@ -174,8 +179,10 @@ public final class JdFileUploadZoneView: UIControl {
             }
         }
 
-        zoneView.backgroundColor = (isHighlighted ? JdToken.Color.cardHover : JdToken.Color.card).uiColor
-        zoneView.strokeColor = (isError ? JdToken.Color.danger : JdToken.Color.border)
+        zoneView.backgroundColor =
+            (isHighlighted ? JdToken.Color.cardHover : JdToken.Color.card).uiColor
+        zoneView.strokeColor =
+            (isError ? JdToken.Color.danger : JdToken.Color.border)
             .uiColor.resolvedColor(with: traitCollection).cgColor
         alpha = isEnabled ? 1 : CGFloat(JdToken.Opacity.o50)
     }
@@ -200,8 +207,10 @@ private final class JdDashedZoneView: UIView {
         super.init(frame: frame)
         border.fillColor = UIColor.clear.cgColor
         border.lineWidth = JdToken.Border.thin
-        border.lineDashPattern = [NSNumber(value: Double(JdToken.Space.s1)),
-                                  NSNumber(value: Double(JdToken.Space.s1))]
+        border.lineDashPattern = [
+            NSNumber(value: Double(JdToken.Space.s1)),
+            NSNumber(value: Double(JdToken.Space.s1)),
+        ]
         layer.addSublayer(border)
         layer.cornerCurve = .continuous
         layer.cornerRadius = JdToken.Radius.xl

@@ -42,8 +42,15 @@ interface BookData {
 export default function BookReaderPage({ book }: { book: BookData }) {
   const [active, setActive] = useState("ch-3");
   const [bookmarked, setBookmarked] = useState(true);
-  const [annotations, setAnnotations] = useState<{ id: string; quote: string; note?: string; page: number }[]>([
-    { id: "a1", quote: "그가 보지 않은 모든 것이 노이즈였다.", note: "이 부분 인용", page: 89 },
+  const [annotations, setAnnotations] = useState<
+    { id: string; quote: string; note?: string; page: number }[]
+  >([
+    {
+      id: "a1",
+      quote: "그가 보지 않은 모든 것이 노이즈였다.",
+      note: "이 부분 인용",
+      page: 89,
+    },
   ]);
 
   const { activeHeadingId } = useReadingProgress();
@@ -69,7 +76,10 @@ export default function BookReaderPage({ book }: { book: BookData }) {
 
       <h2 id="opening">시작</h2>
       <p>나를 이슈마엘이라 불러라. 정확히 몇 해 전인지는 그리 중요하지 않다…</p>
-      <p>여기 본문이 길게 이어진다. <code>useReadingProgress</code>가 화면에 보이는 헤딩을 자동으로 추적해 사이드바 TOC와 연동할 수 있다.</p>
+      <p>
+        여기 본문이 길게 이어진다. <code>useReadingProgress</code>가 화면에 보이는 헤딩을
+        자동으로 추적해 사이드바 TOC와 연동할 수 있다.
+      </p>
 
       <h2 id="middle">본론</h2>
       <p>중간 본문…</p>

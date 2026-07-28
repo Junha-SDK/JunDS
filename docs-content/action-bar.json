@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "ActionBar",
   "oneLiner": "플로팅 액션 바 (벌크 액션)",
-  "tags": [
-    "navigation"
-  ],
+  "tags": ["navigation"],
   "controls": [],
   "snippets": {
     "web": null,

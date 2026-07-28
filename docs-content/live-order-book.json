@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveOrderBook",
   "oneLiner": "실시간 호가창.",
-  "tags": [
-    "finance",
-    "live",
-    "호가"
-  ],
+  "tags": ["finance", "live", "호가"],
   "controls": [],
   "snippets": {
     "web": null,

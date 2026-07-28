@@ -43,7 +43,7 @@ function usage() {
     "  Name  PascalCase (component), useCamelCase (hook), kebab-case (requirement, recipe)",
     "",
     "Options (component scaffold):",
-    "  --keywords \"kw1,kw2\"   Korean search keywords",
+    '  --keywords "kw1,kw2"   Korean search keywords',
     "",
     "Options (recipe scaffold):",
     "  --target <path>         Output directory (default: cwd)",
@@ -318,7 +318,10 @@ function patchRequirementsReadme(src, slug) {
   const newRow = `| [\`${slug}\`](./${slug}.md) | draft | TODO: one-line summary |`;
 
   if (src.includes(placeholder)) {
-    return src.replace(new RegExp(`^.*${placeholder.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}.*$`, "m"), newRow);
+    return src.replace(
+      new RegExp(`^.*${placeholder.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}.*$`, "m"),
+      newRow,
+    );
   }
 
   // Find the table header line and its separator, then collect rows until a blank line.
@@ -434,7 +437,9 @@ async function scaffoldComponent(kind, name, keywords) {
   }
   console.log("  modified:");
   console.log(`    ~ ${path.relative(repoRoot, kindBarrel)}`);
-  console.log(`    ~ ${path.relative(repoRoot, searchDict)}${kwArr.length ? " (nav + keywords)" : " (nav)"}`);
+  console.log(
+    `    ~ ${path.relative(repoRoot, searchDict)}${kwArr.length ? " (nav + keywords)" : " (nav)"}`,
+  );
   console.log("");
   console.log('  Run "npm run map" to refresh .ai/MAP.md');
 }
@@ -574,9 +579,7 @@ async function scaffoldRecipe(slug, opts) {
   }
   const recipeMd = path.join(repoRoot, ".ai", "recipes", `${slug}.md`);
   if (!(await pathExists(recipeMd))) {
-    die(
-      `recipe not found: .ai/recipes/${slug}.md\n  Available: see .ai/recipes/README.md`,
-    );
+    die(`recipe not found: .ai/recipes/${slug}.md\n  Available: see .ai/recipes/README.md`);
   }
 
   const md = await readFile(recipeMd, "utf8");
@@ -586,9 +589,7 @@ async function scaffoldRecipe(slug, opts) {
   }
 
   const targetRaw = opts.target ?? ".";
-  const targetAbs = path.isAbsolute(targetRaw)
-    ? targetRaw
-    : path.resolve(process.cwd(), targetRaw);
+  const targetAbs = path.isAbsolute(targetRaw) ? targetRaw : path.resolve(process.cwd(), targetRaw);
   await ensureDir(targetAbs);
 
   const filename = opts.filename || "page.tsx";
@@ -596,7 +597,10 @@ async function scaffoldRecipe(slug, opts) {
 
   if ((await pathExists(outFile)) && !opts.force) {
     die(
-      `refusing to overwrite ${path.relative(process.cwd(), outFile)}\n  Pass --force to overwrite.`,
+      `refusing to overwrite ${path.relative(
+        process.cwd(),
+        outFile,
+      )}\n  Pass --force to overwrite.`,
     );
   }
 
@@ -607,9 +611,7 @@ async function scaffoldRecipe(slug, opts) {
   console.log(`    + ${path.relative(process.cwd(), outFile)}`);
   console.log("");
   console.log("  Next steps:");
-  console.log(
-    "    1. Review the file — recipe imports use this repo's @/ds/* paths.",
-  );
+  console.log("    1. Review the file — recipe imports use this repo's @/ds/* paths.");
   console.log("    2. Adjust route placement / data sources as needed.");
   console.log(`    3. Read .ai/recipes/${slug}.md for variations and tips.`);
 }

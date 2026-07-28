@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ScrollProgress",
   "oneLiner": "페이지 스크롤 진행률 바.",
-  "tags": [
-    "feedback",
-    "scroll",
-    "진행률"
-  ],
+  "tags": ["feedback", "scroll", "진행률"],
   "controls": [],
   "snippets": {
     "web": null,

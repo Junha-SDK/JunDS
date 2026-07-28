@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PhotoFilters",
   "oneLiner": "사진 필터 프리셋 선택.",
-  "tags": [
-    "photo",
-    "사진",
-    "필터"
-  ],
+  "tags": ["photo", "사진", "필터"],
   "controls": [],
   "snippets": {
     "web": null,

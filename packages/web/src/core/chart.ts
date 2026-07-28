@@ -153,9 +153,7 @@ export function groupDigits(value: number): string {
  * (§1.3의 명시 예외: 복합 데이터는 attribute 금지, `<jd-chart>`류는 슬롯 허용).
  */
 export function readChartJson(host: Element): unknown {
-  const script = host.querySelector<HTMLScriptElement>(
-    ':scope > script[type="application/json"]',
-  );
+  const script = host.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
   if (!script) return null;
   let parsed: unknown = null;
   try {

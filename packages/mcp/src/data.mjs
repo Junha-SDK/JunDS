@@ -26,8 +26,18 @@ const LEDGER_REL = join("docs-spec", "registry", "ledger.json");
  * 테스트(tokens.css 변수 전수 대조)가 잡는다.
  */
 export const TOKEN_GROUPS = [
-  "color", "space", "radius", "type", "motion", "shadow",
-  "zindex", "opacity", "border", "breakpoint", "gradient", "theme-presets",
+  "color",
+  "space",
+  "radius",
+  "type",
+  "motion",
+  "shadow",
+  "zindex",
+  "opacity",
+  "border",
+  "breakpoint",
+  "gradient",
+  "theme-presets",
 ];
 
 /** env 우선, 아니면 startDir부터 상향 탐색. 실패 시 null. */
@@ -51,12 +61,20 @@ export function findRepoRoot({ env = process.env, startDir = HERE } = {}) {
 
 /** 생성기 buildSwift의 JdToken enum 구조 미러 (JdToken.swift 실측·02-tokens §4.2) */
 const SWIFT_ENUM = {
-  color: "Color", space: "Space", radius: "Radius", shadow: "Shadow",
-  zindex: "Z", opacity: "Opacity", border: "Border", breakpoint: "Breakpoint",
+  color: "Color",
+  space: "Space",
+  radius: "Radius",
+  shadow: "Shadow",
+  zindex: "Z",
+  opacity: "Opacity",
+  border: "Border",
+  breakpoint: "Breakpoint",
 };
 const SWIFT_TYPE_SUB = {
-  fontSize: "FontSize", fontWeight: "FontWeight",
-  lineHeight: "LineHeight", letterSpacing: "LetterSpacing",
+  fontSize: "FontSize",
+  fontWeight: "FontWeight",
+  lineHeight: "LineHeight",
+  letterSpacing: "LetterSpacing",
 };
 const SWIFT_MOTION_SUB = { duration: "Duration", easing: "Easing" };
 /** 생성기 SWIFT_KEYWORDS 미러 */
@@ -77,9 +95,7 @@ function swiftAccessor(category, path, swiftKeyFn) {
   }
   if (!group || segs.length === 0) return null;
   const keys = segs.map((s) => swiftKeyFn(s, category));
-  let name = keys
-    .map((s, i) => (i === 0 ? s : s.charAt(0).toUpperCase() + s.slice(1)))
-    .join("");
+  let name = keys.map((s, i) => (i === 0 ? s : s.charAt(0).toUpperCase() + s.slice(1))).join("");
   if (SWIFT_KEYWORDS.has(name)) name = "`" + name + "`";
   return `JdToken.${group}.${name}`;
 }
@@ -111,9 +127,7 @@ export async function loadLive(repoRoot) {
     }
   }
 
-  const gen = await import(
-    pathToFileURL(join(repoRoot, "tokens", "build", "generate.mjs")).href
-  );
+  const gen = await import(pathToFileURL(join(repoRoot, "tokens", "build", "generate.mjs")).href);
   const raw = gen.loadTokens();
   const tokens = [];
   for (const group of TOKEN_GROUPS) {
@@ -126,8 +140,11 @@ export async function loadLive(repoRoot) {
         for (const [key, value] of Object.entries(preset)) {
           if (key.startsWith("$")) continue;
           tokens.push({
-            group, path: `theme-presets.${name}.${key}`,
-            cssVar: null, value: String(value), swift: null,
+            group,
+            path: `theme-presets.${name}.${key}`,
+            cssVar: null,
+            value: String(value),
+            swift: null,
           });
         }
       }
@@ -154,7 +171,10 @@ export async function loadLive(repoRoot) {
   return {
     mode: "live",
     generatedAt: ledger.generatedAt ?? null,
-    ledger, content, tokens, sizeBaseline,
+    ledger,
+    content,
+    tokens,
+    sizeBaseline,
   };
 }
 

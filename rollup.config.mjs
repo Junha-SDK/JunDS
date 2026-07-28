@@ -77,7 +77,8 @@ const onwarn = (warning, warn) => {
   if (
     warning.code === "SOURCEMAP_ERROR" &&
     /Can't resolve original location/.test(warning.message ?? "")
-  ) return;
+  )
+    return;
   warn(warning);
 };
 
@@ -146,11 +147,7 @@ function entryConfigs({ input, esmOut, cjsOut, dtsOut, extractCss = false }) {
         inlineDynamicImports: true,
       },
       external,
-      plugins: [
-        ...sharedJsPlugins(),
-        postcss({ extract: false }),
-        terser(terserOptions),
-      ],
+      plugins: [...sharedJsPlugins(), postcss({ extract: false }), terser(terserOptions)],
     },
     {
       input,
@@ -225,7 +222,10 @@ const FINANCE_LIB_CLIENT_MODULES = new Set([
 
 const financeLibBanner = (chunk) => {
   const id = chunk.facadeModuleId ?? "";
-  const base = id.split("/").pop()?.replace(/\.tsx?$/, "");
+  const base = id
+    .split("/")
+    .pop()
+    ?.replace(/\.tsx?$/, "");
   return base && FINANCE_LIB_CLIENT_MODULES.has(base) ? '"use client";' : "";
 };
 

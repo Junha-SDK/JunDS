@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-empty-state의 SwiftUI 번역 — 중앙 배치 빈 상태 (DESIGN-4 §B).
 // ContentUnavailableView는 iOS17+라 iOS16 하한에서 자체 구현이 정본. 아이콘 칩(cardHover 배경,
@@ -15,10 +15,12 @@ public struct JdEmptyState<Action: View>: View {
     // 원형 아이콘 칩 지름 — 웹 고정 px의 토큰 번역(하드코딩 금지)
     private var chipDiameter: CGFloat { JdToken.Space.s16 }
 
-    public init(title: String,
-                description: String? = nil,
-                systemImage: String = "tray",
-                @ViewBuilder action: @escaping () -> Action = { EmptyView() }) {
+    public init(
+        title: String,
+        description: String? = nil,
+        systemImage: String = "tray",
+        @ViewBuilder action: @escaping () -> Action = { EmptyView() }
+    ) {
         self.title = title
         self.description = description
         self.systemImage = systemImage
@@ -33,7 +35,7 @@ public struct JdEmptyState<Action: View>: View {
                 .frame(width: chipDiameter, height: chipDiameter)
                 .background(JdToken.Color.cardHover.color)
                 .clipShape(Circle())
-                .accessibilityHidden(true) // 아이콘은 장식
+                .accessibilityHidden(true)  // 아이콘은 장식
 
             VStack(spacing: JdToken.Space.s2) {
                 Text(title)

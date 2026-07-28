@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "Toggle",
   "oneLiner": "토글 스위치",
-  "tags": [
-    "form",
-    "control"
-  ],
+  "tags": ["form", "control"],
   "controls": [],
   "snippets": {
     "web": {

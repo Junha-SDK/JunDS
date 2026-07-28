@@ -53,16 +53,18 @@ export abstract class JdElement extends HTMLElement {
   static props: Record<string, PropDef> = {};
   static tag: string; // "jd-button" — defineElement가 사용
 
-  static get observedAttributes(): string[] { /* props에서 파생(kebab 변환) */ }
+  static get observedAttributes(): string[] {
+    /* props에서 파생(kebab 변환) */
+  }
 
-  #ready = false;              // render() 1회 완료 여부
+  #ready = false; // render() 1회 완료 여부
   #updateQueued = false;
   #behaviors = new Set<{ destroy(): void }>();
 
   connectedCallback() {
     if (!this.#ready) {
-      this.#upgradeProps();    // 업그레이드 전 대입된 프로퍼티 회수
-      this.render();           // 최초 1회, 멱등·입양 규칙(§3.3) 준수
+      this.#upgradeProps(); // 업그레이드 전 대입된 프로퍼티 회수
+      this.render(); // 최초 1회, 멱등·입양 규칙(§3.3) 준수
       this.#ready = true;
     }
     this.connected?.();
@@ -82,18 +84,29 @@ export abstract class JdElement extends HTMLElement {
   requestUpdate() {
     if (this.#updateQueued) return;
     this.#updateQueued = true;
-    queueMicrotask(() => { this.#updateQueued = false; this.update(); });
+    queueMicrotask(() => {
+      this.#updateQueued = false;
+      this.update();
+    });
   }
 
   /** CustomEvent 발행 규약(§1.5)의 단일 진입점 */
   emit<T>(name: `jd-${string}`, detail?: T, opts?: { cancelable?: boolean }): boolean {
-    return this.dispatchEvent(new CustomEvent(name, {
-      detail, bubbles: true, composed: false, cancelable: opts?.cancelable ?? false,
-    }));
+    return this.dispatchEvent(
+      new CustomEvent(name, {
+        detail,
+        bubbles: true,
+        composed: false,
+        cancelable: opts?.cancelable ?? false,
+      }),
+    );
   }
 
   /** Behavior 소유 등록 — disconnected 시 자동 destroy */
-  protected own<B extends { destroy(): void }>(b: B): B { this.#behaviors.add(b); return b; }
+  protected own<B extends { destroy(): void }>(b: B): B {
+    this.#behaviors.add(b);
+    return b;
+  }
 
   /** 최초 연결 시 1회. DOM 골격 구성(멱등·입양) + 스타일 채택 */
   protected abstract render(): void;
@@ -108,15 +121,15 @@ export abstract class JdElement extends HTMLElement {
 
 ### 1.3 attribute ↔ property 반영 규칙 (규범)
 
-| 규칙 | 내용 |
-|---|---|
-| 이름 | attribute는 kebab-case, property는 camelCase. `fullWidth` ↔ `full-width`. 자동 변환, `attribute` 옵션으로 재정의 |
-| Boolean | attribute **존재 여부**가 값. `set → toggleAttribute`. `loading=""`도 true |
-| Number | `Number(attr)`, NaN이면 default로 폴백 |
-| String | 그대로. enum성 문자열(variant 등)은 **reflect: true 기본** — 호스트 속성 셀렉터(`jd-button[variant="danger"]`)가 스타일 훅이기 때문 |
-| 복합 데이터(배열·객체·함수) | **attribute 미지원, property 전용**(`attribute: false`). JSON-in-attribute 금지 |
-| 우선순위 | 마지막 쓰기 승리. 업그레이드 시점엔 attribute가 초기값, 이후 property 대입이 덮음 |
-| 업그레이드 전 프로퍼티 | `#upgradeProps()`: 업그레이드 전에 인스턴스에 직접 대입된 own property를 delete 후 setter로 재대입 (표준 CE 함정 대응) |
+| 규칙                        | 내용                                                                                                                                |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| 이름                        | attribute는 kebab-case, property는 camelCase. `fullWidth` ↔ `full-width`. 자동 변환, `attribute` 옵션으로 재정의                    |
+| Boolean                     | attribute **존재 여부**가 값. `set → toggleAttribute`. `loading=""`도 true                                                          |
+| Number                      | `Number(attr)`, NaN이면 default로 폴백                                                                                              |
+| String                      | 그대로. enum성 문자열(variant 등)은 **reflect: true 기본** — 호스트 속성 셀렉터(`jd-button[variant="danger"]`)가 스타일 훅이기 때문 |
+| 복합 데이터(배열·객체·함수) | **attribute 미지원, property 전용**(`attribute: false`). JSON-in-attribute 금지                                                     |
+| 우선순위                    | 마지막 쓰기 승리. 업그레이드 시점엔 attribute가 초기값, 이후 property 대입이 덮음                                                   |
+| 업그레이드 전 프로퍼티      | `#upgradeProps()`: 업그레이드 전에 인스턴스에 직접 대입된 own property를 delete 후 setter로 재대입 (표준 CE 함정 대응)              |
 
 **JSON-in-attribute 금지 근거**: 직렬화 비용, escaping 사고, SSR diff 노이즈. 데이터는 property로, 선언적 초기화가 꼭 필요한 곳(예: `<jd-chart>`)은 자식 `<script type="application/json">` 슬롯 패턴을 개별 스펙에서 허용한다.
 
@@ -158,10 +171,18 @@ export abstract class JdFormElement extends JdElement {
   protected internals = this.attachInternals();
 
   /** 서브클래스는 값 변경 시 반드시 호출 */
-  protected setFormValue(v: string | FormData | null) { this.internals.setFormValue(v); }
-  formDisabledCallback(disabled: boolean) { this.requestUpdate(); }
-  formResetCallback() { /* 서브클래스: 초기값 복원 */ }
-  get form() { return this.internals.form; }
+  protected setFormValue(v: string | FormData | null) {
+    this.internals.setFormValue(v);
+  }
+  formDisabledCallback(disabled: boolean) {
+    this.requestUpdate();
+  }
+  formResetCallback() {
+    /* 서브클래스: 초기값 복원 */
+  }
+  get form() {
+    return this.internals.form;
+  }
 }
 ```
 
@@ -176,12 +197,14 @@ export abstract class JdFormElement extends JdElement {
 ```ts
 // core/define.ts
 export function defineElement(tag: string, ctor: CustomElementConstructor): void {
-  if (typeof customElements === "undefined") return;        // SSR/Node no-op
+  if (typeof customElements === "undefined") return; // SSR/Node no-op
   const existing = customElements.get(tag);
   if (existing) {
     if (existing !== ctor) {
-      console.warn(`[junds] <${tag}> 태그가 이미 다른 클래스로 정의되어 있어 건너뜁니다. `
-        + `JunDS 중복 번들(버전 충돌) 가능성을 확인하세요.`);
+      console.warn(
+        `[junds] <${tag}> 태그가 이미 다른 클래스로 정의되어 있어 건너뜁니다. ` +
+          `JunDS 중복 번들(버전 충돌) 가능성을 확인하세요.`,
+      );
     }
     return; // 선등록 승리 — 예외를 던지지 않는다
   }
@@ -194,8 +217,8 @@ export function defineElement(tag: string, ctor: CustomElementConstructor): void
 
 ```ts
 import { defineJunds } from "@junds/web/define";
-defineJunds();                       // 390종 전량
-defineJunds([JdButton, JdModal]);    // 부분
+defineJunds(); // 390종 전량
+defineJunds([JdButton, JdModal]); // 부분
 defineJunds([JdButton], { prefix: "x" }); // <x-button> — 멀티 버전 공존 탈출구
 ```
 
@@ -207,7 +230,7 @@ defineJunds([JdButton], { prefix: "x" }); // <x-button> — 멀티 버전 공존
 
 ### 3.1 모듈 평가 규칙 (규범 — 전 파일 적용)
 
-1. **모듈 톱레벨에서 `window`/`document`/`navigator`/`customElements`의 *사용* 금지.** `typeof window !== "undefined"` 탐지만 허용. → `import "@junds/web/button"`이 Node·SSR 번들에서 그냥 평가된다(정의는 no-op).
+1. **모듈 톱레벨에서 `window`/`document`/`navigator`/`customElements`의 _사용_ 금지.** `typeof window !== "undefined"` 탐지만 허용. → `import "@junds/web/button"`이 Node·SSR 번들에서 그냥 평가된다(정의는 no-op).
 2. **`constructor`에서 DOM 읽기/쓰기·attribute 접근 금지** (CE 스펙 요구이기도 함). 모든 DOM 작업은 `connectedCallback` 이후.
 3. **`render()`/`update()`는 결정적**: `Math.random()`·`Date.now()` 직접 사용 금지, 네트워크/스토리지 접근 금지. 랜덤·시간이 필요한 표현(Confetti, Clock)은 `connected()` 이후 rAF/타이머에서 시작한다.
 4. **`CSSStyleSheet` 생성은 지연**: css 모듈은 팩토리를 export하고 시트는 첫 `adoptStyles()` 호출 때 만든다(§4.2). Node에는 생성자가 없다.
@@ -221,8 +244,13 @@ defineJunds([JdButton], { prefix: "x" }); // <x-button> — 멀티 버전 공존
 ```css
 @layer junds.base {
   /* 업그레이드 전 기본 박스 — 태그별 display만 선지정 */
-  jd-button:not(:defined) { display: inline-flex; }
-  jd-modal:not(:defined), jd-drawer:not(:defined) { display: none; }
+  jd-button:not(:defined) {
+    display: inline-flex;
+  }
+  jd-modal:not(:defined),
+  jd-drawer:not(:defined) {
+    display: none;
+  }
 }
 ```
 
@@ -273,8 +301,12 @@ export function css(strings: TemplateStringsArray, ...vals: string[]): JdStyles 
   let sheet: CSSStyleSheet | undefined;
   return {
     text, // 정적 CSS 추출 빌드(§6)가 이 텍스트를 수집
-    sheet() {  // 지연 생성 — SSR 안전(§3.1-4)
-      if (!sheet) { sheet = new CSSStyleSheet(); sheet.replaceSync(text); }
+    sheet() {
+      // 지연 생성 — SSR 안전(§3.1-4)
+      if (!sheet) {
+        sheet = new CSSStyleSheet();
+        sheet.replaceSync(text);
+      }
       return sheet;
     },
   };
@@ -284,7 +316,7 @@ const adopted = new WeakMap<Document, Set<JdStyles>>();
 export function adoptStyles(styles: JdStyles, doc: Document = document): void {
   let set = adopted.get(doc);
   if (!set) adopted.set(doc, (set = new Set()));
-  if (set.has(styles)) return;                      // 문서당 1회
+  if (set.has(styles)) return; // 문서당 1회
   set.add(styles);
   doc.adoptedStyleSheets = [...doc.adoptedStyleSheets, styles.sheet()];
 }
@@ -304,25 +336,50 @@ export function adoptStyles(styles: JdStyles, doc: Document = document): void {
 // components/button/button.css.ts
 import { css } from "../../core/styles.js";
 export default css`
-@layer junds.components {
-  jd-button { display: inline-flex; }
-  jd-button[full-width] { display: flex; width: 100%; }
+  @layer junds.components {
+    jd-button {
+      display: inline-flex;
+    }
+    jd-button[full-width] {
+      display: flex;
+      width: 100%;
+    }
 
-  .jd-button {
-    display: inline-flex; align-items: center; justify-content: center;
-    gap: var(--jd-space-2); height: var(--jd-size-control-md);
-    padding-inline: var(--jd-space-5); border-radius: var(--jd-radius-full);
-    font: var(--jd-font-label-md); color: var(--jd-color-on-accent);
-    background: var(--jd-color-accent);
-    transition: filter .2s var(--jd-ease-out), scale .2s var(--jd-ease-out);
+    .jd-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--jd-space-2);
+      height: var(--jd-size-control-md);
+      padding-inline: var(--jd-space-5);
+      border-radius: var(--jd-radius-full);
+      font: var(--jd-font-label-md);
+      color: var(--jd-color-on-accent);
+      background: var(--jd-color-accent);
+      transition: filter 0.2s var(--jd-ease-out), scale 0.2s var(--jd-ease-out);
+    }
+    .jd-button:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .jd-button:focus-visible {
+      outline: 2px solid var(--jd-color-focus);
+      outline-offset: 2px;
+    }
+
+    jd-button[variant="danger"] > .jd-button {
+      background: var(--jd-color-danger);
+    }
+    jd-button[variant="ghost"] > .jd-button {
+      background: transparent;
+      color: var(--jd-color-text);
+    }
+    jd-button[size="sm"] > .jd-button {
+      height: var(--jd-size-control-sm);
+      font: var(--jd-font-label-sm);
+    }
   }
-  .jd-button:disabled { opacity: .4; pointer-events: none; }
-  .jd-button:focus-visible { outline: 2px solid var(--jd-color-focus); outline-offset: 2px; }
-
-  jd-button[variant="danger"] > .jd-button { background: var(--jd-color-danger); }
-  jd-button[variant="ghost"]  > .jd-button { background: transparent; color: var(--jd-color-text); }
-  jd-button[size="sm"] > .jd-button { height: var(--jd-size-control-sm); font: var(--jd-font-label-sm); }
-}`;
+`;
 ```
 
 - variant/size 분기는 **호스트 속성 셀렉터 → 자식 조합자**로 처리한다(reflect가 스타일 훅). update()에서 클래스 토글로 중복 관리하지 않는다 — DOM 조작 최소화.
@@ -333,14 +390,23 @@ export default css`
 
 ```css
 /* (a) 토큰 오버라이드 — 전역 리브랜딩. 레이어 불필요 */
-:root { --jd-color-accent: oklch(60% .19 255); --jd-radius-full: 10px; }
+:root {
+  --jd-color-accent: oklch(60% 0.19 255);
+  --jd-radius-full: 10px;
+}
 
 /* (b) 국소 오버라이드 — 레이어 밖 규칙은 특이도 무관하게 junds 레이어를 이긴다 */
-.checkout jd-button[variant="primary"] > .jd-button { box-shadow: none; }
+.checkout jd-button[variant="primary"] > .jd-button {
+  box-shadow: none;
+}
 
 /* (c) 소비자가 자기 CSS도 레이어로 관리하는 경우 — junds보다 뒤에 선언하면 승리 */
 @layer junds, app;
-@layer app { jd-button > .jd-button { letter-spacing: .01em; } }
+@layer app {
+  jd-button > .jd-button {
+    letter-spacing: 0.01em;
+  }
+}
 ```
 
 라이브러리는 `!important`를 쓰지 않는다(규범). 오버라이드 서열이 항상 "소비자 > junds"로 유지되는 것이 이 전략의 계약이다.
@@ -355,11 +421,13 @@ DEC-006 D2 확정 시그니처:
 
 ```ts
 export interface Behavior<Opts = void> {
-  update?(next: Partial<Opts>): void;  // 옵션 변경 반영 (재생성 없이)
-  destroy(): void;                     // 멱등 — 2회 호출 무해
+  update?(next: Partial<Opts>): void; // 옵션 변경 반영 (재생성 없이)
+  destroy(): void; // 멱등 — 2회 호출 무해
 }
-export type BehaviorFactory<E extends Element, Opts, Extra = {}> =
-  (el: E, opts?: Opts) => Behavior<Opts> & Extra;
+export type BehaviorFactory<E extends Element, Opts, Extra = {}> = (
+  el: E,
+  opts?: Opts,
+) => Behavior<Opts> & Extra;
 ```
 
 - **즉시 활성**: `createXxx()` 호출 즉시 리스너/옵저버가 붙는다. 지연 시작이 필요한 것만 `{ activate, deactivate }`를 Extra로 노출(focus trap 등).
@@ -398,7 +466,7 @@ spy.subscribe((id) => history.replaceState(null, "", `#${id}`));
 
 1. **컴포넌트별 ESM** — `@junds/web/button` (자동 define) / `@junds/web/button/element` (클래스만).
 2. **단일 파일 CDN** — `dist/cdn/junds.js`(ESM, 전량 define) + `dist/cdn/junds.global.js`(IIFE, `window.JunDS` 네임스페이스). `<script>` 한 줄 소비용.
-3. **정적 CSS** — `dist/junds.css`(전체) + `dist/css/button.css`(컴포넌트별). §4.2의 `css` 태그 `text`를 빌드타임 수집해 생성한다. adoptedStyleSheets 경로와 내용이 동일하며, JS 이전 렌더 구간·프리렌더 스냅샷·非JS 문서용.
+3. **정적 CSS** — `dist/junds.css`(전체) + `dist/css/button.css`(컴포넌트별). §4.2의 `css` 태그 `text`를 빌드타임 수집해 생성한다. adoptedStyleSheets 경로와 내용이 동일하며, JS 이전 렌더 구간·프리렌더 스냅샷·非 JS 문서용.
 
 ### 6.2 exports 맵 (스크립트 생성)
 
@@ -406,18 +474,23 @@ spy.subscribe((id) => history.replaceState(null, "", `#${id}`));
 {
   "name": "@junds/web",
   "type": "module",
-  "sideEffects": ["./dist/define.js", "./dist/components/*/index.js", "./dist/cdn/*", "./dist/**/*.css"],
+  "sideEffects": [
+    "./dist/define.js",
+    "./dist/components/*/index.js",
+    "./dist/cdn/*",
+    "./dist/**/*.css"
+  ],
   "exports": {
-    ".":            "./dist/index.js",              // 클래스·유틸·Behavior 전부 re-export (부작용 0)
-    "./define":     "./dist/define.js",             // defineJunds + 전량 자동 define (부작용)
-    "./button":           "./dist/components/button/index.js",
-    "./button/element":   "./dist/components/button/element.js",
+    ".": "./dist/index.js", // 클래스·유틸·Behavior 전부 re-export (부작용 0)
+    "./define": "./dist/define.js", // defineJunds + 전량 자동 define (부작용)
+    "./button": "./dist/components/button/index.js",
+    "./button/element": "./dist/components/button/element.js",
     // …컴포넌트 388종 동형 — scripts/gen-exports.mjs 가 components/ 디렉터리에서 생성
-    "./behaviors":   "./dist/behaviors/index.js",
+    "./behaviors": "./dist/behaviors/index.js",
     "./behaviors/*": "./dist/behaviors/*.js",
-    "./icons/*":     "./dist/icons/*.js",
-    "./junds.css":   "./dist/junds.css",
-    "./css/*":       "./dist/css/*"
+    "./icons/*": "./dist/icons/*.js",
+    "./junds.css": "./dist/junds.css",
+    "./css/*": "./dist/css/*"
   }
 }
 ```
@@ -442,16 +515,23 @@ finance UI 86종도 동일 규약의 컴포넌트다(`<jd-live-ticker>` 등, `@j
 ```ts
 // core/cx.ts — 전체 구현 (규범)
 export type ClassValue =
-  | string | number | null | undefined | false
-  | ClassValue[] | Record<string, unknown>;
+  | string
+  | number
+  | null
+  | undefined
+  | false
+  | ClassValue[]
+  | Record<string, unknown>;
 
 export function cx(...args: ClassValue[]): string {
   let out = "";
   for (const a of args) {
     if (!a) continue;
     if (typeof a === "string" || typeof a === "number") out += (out && " ") + a;
-    else if (Array.isArray(a)) { const s = cx(...a); if (s) out += (out && " ") + s; }
-    else for (const k in a) if (a[k]) out += (out && " ") + k;
+    else if (Array.isArray(a)) {
+      const s = cx(...a);
+      if (s) out += (out && " ") + s;
+    } else for (const k in a) if (a[k]) out += (out && " ") + k;
   }
   return out;
 }
@@ -493,19 +573,27 @@ svgo 규칙: `fill`/`stroke`는 `currentColor` 강제, width/height 제거(뷰�
 ```ts
 // runtime/parse.ts — 패턴 규범
 export class JdParseError extends Error {
-  constructor(public path: string[], msg: string) { super(`${path.join(".")}: ${msg}`); }
+  constructor(public path: string[], msg: string) {
+    super(`${path.join(".")}: ${msg}`);
+  }
 }
 
 export function parseActionNode(x: unknown, path: string[]): ActionNode {
   const o = expectObject(x, path);
   switch (expectString(o.kind, [...path, "kind"])) {
-    case "noop":     return { kind: "noop" };
-    case "navigate": return { kind: "navigate", to: expectNonEmpty(o.to, [...path, "to"]) };
-    case "setState": return { kind: "setState",
-      path: expectNonEmpty(o.path, [...path, "path"]),
-      value: parsePropValue(o.value, [...path, "value"]) };
+    case "noop":
+      return { kind: "noop" };
+    case "navigate":
+      return { kind: "navigate", to: expectNonEmpty(o.to, [...path, "to"]) };
+    case "setState":
+      return {
+        kind: "setState",
+        path: expectNonEmpty(o.path, [...path, "path"]),
+        value: parsePropValue(o.value, [...path, "value"]),
+      };
     // …variant별 1 case. 미지 kind는 JdParseError
-    default: throw new JdParseError([...path, "kind"], `알 수 없는 action kind`);
+    default:
+      throw new JdParseError([...path, "kind"], `알 수 없는 action kind`);
   }
 }
 ```
@@ -518,13 +606,13 @@ TS 타입(`ActionNode` 등)은 현행 schema.ts의 수기 타입을 그대로 �
 
 **결정**: 포커스·키보드·ARIA 상태 관리는 `a11y/` 계층의 공용 Behavior 5종으로 강제 일원화한다. 컴포넌트가 개별 재구현하는 것을 리뷰 규칙으로 금지한다.
 
-| Behavior | 시그니처 | 담당 |
-|---|---|---|
-| `createFocusTrap(container, opts)` | `{ activate, deactivate, destroy }` | Tab 순환 감금, initialFocus, 복귀 포커스. Modal/Drawer/CommandPalette/Tour |
-| `createRovingTabindex(container, opts)` | `{ update, destroy }` — opts: `{ selector, orientation: "horizontal"\|"vertical"\|"grid", wrap }` | 화살표 내비 + `tabindex 0/-1` 관리. Tabs/Menubar/RadioGroup/SegmentedControl/TreeView/DataGrid |
-| `createDismissable(el, onDismiss, opts)` | `{ destroy }` | Esc + 클릭아웃 + (opt) 스크롤 dismiss 통합. Popover/Dropdown/Tooltip/ContextMenu |
-| `createListNavigation(input, listbox, opts)` | `{ destroy }` | `aria-activedescendant` 방식 콤보박스 내비. AutoComplete/Combobox/MultiSelect/Mention |
-| `announce(message, opts)` | 문서 싱글턴 유틸 | `aria-live` 리전(`polite`/`assertive`)을 body에 1회 생성 후 재사용. v2 AnnouncerProvider 대체 |
+| Behavior                                     | 시그니처                                                                                          | 담당                                                                                           |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `createFocusTrap(container, opts)`           | `{ activate, deactivate, destroy }`                                                               | Tab 순환 감금, initialFocus, 복귀 포커스. Modal/Drawer/CommandPalette/Tour                     |
+| `createRovingTabindex(container, opts)`      | `{ update, destroy }` — opts: `{ selector, orientation: "horizontal"\|"vertical"\|"grid", wrap }` | 화살표 내비 + `tabindex 0/-1` 관리. Tabs/Menubar/RadioGroup/SegmentedControl/TreeView/DataGrid |
+| `createDismissable(el, onDismiss, opts)`     | `{ destroy }`                                                                                     | Esc + 클릭아웃 + (opt) 스크롤 dismiss 통합. Popover/Dropdown/Tooltip/ContextMenu               |
+| `createListNavigation(input, listbox, opts)` | `{ destroy }`                                                                                     | `aria-activedescendant` 방식 콤보박스 내비. AutoComplete/Combobox/MultiSelect/Mention          |
+| `announce(message, opts)`                    | 문서 싱글턴 유틸                                                                                  | `aria-live` 리전(`polite`/`assertive`)을 body에 1회 생성 후 재사용. v2 AnnouncerProvider 대체  |
 
 - **light DOM 이점의 명문화**: `aria-labelledby`/`aria-controls`/`aria-activedescendant`의 id 참조가 컴포넌트 경계를 넘어 자유롭다(shadow 경계 없음). id는 `jd-uid()` 유틸(문서 단위 증분 카운터 — `Math.random` 금지 §3.1)로 발급한다.
 - **ARIA 패턴 준거**: 각 인터랙티브 컴포넌트 스펙은 WAI-ARIA APG 패턴명을 명시하고(예: Tabs → "Tabs Pattern": `role=tablist/tab/tabpanel` + roving), 어떤 공용 Behavior 조합으로 충족하는지 적는다. role·aria 속성 부여는 render()/update()의 의무이고, 키보드·포커스 동작은 위 Behavior의 의무다.
@@ -537,11 +625,11 @@ TS 타입(`ActionNode` 등)은 현행 schema.ts의 수기 타입을 그대로 �
 
 ### 9.1 결정
 
-| 층 | 도구 | 대상 |
-|---|---|---|
-| 단위 | **vitest + happy-dom** | 반영 규칙, 이벤트 발행, render 멱등성/입양, Behavior 수명주기, 파서·유틸 |
-| 상호작용 | **Playwright** (기존 루트 `playwright.config.ts`에 프로젝트 추가) | 포커스 트랩, roving, 키보드 내비, 폼 제출, `:defined` FOUC, adoptedStyleSheets 실적용 |
-| a11y 감사 | **vitest + axe-core** — 기존 `vitest.a11y.config.ts` 패턴 재활용 | 컴포넌트별 렌더 결과 axe 스캔 |
+| 층        | 도구                                                              | 대상                                                                                  |
+| --------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| 단위      | **vitest + happy-dom**                                            | 반영 규칙, 이벤트 발행, render 멱등성/입양, Behavior 수명주기, 파서·유틸              |
+| 상호작용  | **Playwright** (기존 루트 `playwright.config.ts`에 프로젝트 추가) | 포커스 트랩, roving, 키보드 내비, 폼 제출, `:defined` FOUC, adoptedStyleSheets 실적용 |
+| a11y 감사 | **vitest + axe-core** — 기존 `vitest.a11y.config.ts` 패턴 재활용  | 컴포넌트별 렌더 결과 axe 스캔                                                         |
 
 **근거**: happy-dom은 Custom Elements v1·`attachInternals`를 지원하고 jsdom보다 빠르다(기존 v2 설정의 jsdom은 React 테스트 유산 — web 패키지는 happy-dom으로 간다). 단, adoptedStyleSheets의 실제 계산 스타일·포커스 순서는 DOM 시뮬레이터가 보증하지 못하므로 상호작용층은 실브라우저(Playwright) 의무.
 
@@ -556,7 +644,7 @@ export default defineConfig({
   test: {
     environment: "happy-dom",
     globals: true,
-    setupFiles: ["./__tests__/setup.ts"],   // 전 컴포넌트 defineJunds() 1회
+    setupFiles: ["./__tests__/setup.ts"], // 전 컴포넌트 defineJunds() 1회
     include: ["__tests__/a11y/**/*.test.ts"],
     css: false,
   },
@@ -602,16 +690,20 @@ const SPINNER_SVG =
 export class JdButton extends JdElement {
   static tag = "jd-button";
   static props = {
-    variant:   { type: String,  default: "primary", reflect: true }, // §1.3 enum → reflect
-    size:      { type: String,  default: "md",      reflect: true },
-    type:      { type: String,  default: "button" },
-    loading:   { type: Boolean, reflect: true },
-    disabled:  { type: Boolean, reflect: true },
-    fullWidth: { type: Boolean, reflect: true },                     // attr: full-width
+    variant: { type: String, default: "primary", reflect: true }, // §1.3 enum → reflect
+    size: { type: String, default: "md", reflect: true },
+    type: { type: String, default: "button" },
+    loading: { type: Boolean, reflect: true },
+    disabled: { type: Boolean, reflect: true },
+    fullWidth: { type: Boolean, reflect: true }, // attr: full-width
   };
 
-  declare variant: string; declare size: string; declare type: string;
-  declare loading: boolean; declare disabled: boolean; declare fullWidth: boolean;
+  declare variant: string;
+  declare size: string;
+  declare type: string;
+  declare loading: boolean;
+  declare disabled: boolean;
+  declare fullWidth: boolean;
 
   #btn!: HTMLButtonElement;
 
@@ -626,7 +718,7 @@ export class JdButton extends JdElement {
   #build(): HTMLButtonElement {
     const b = document.createElement("button");
     b.className = "jd-button";
-    b.append(...this.childNodes);   // 사용자가 쓴 children을 내부 button으로 이동
+    b.append(...this.childNodes); // 사용자가 쓴 children을 내부 button으로 이동
     this.append(b);
     return b;
   }
@@ -634,7 +726,7 @@ export class JdButton extends JdElement {
   protected update() {
     const b = this.#btn;
     b.type = this.type as "button" | "submit" | "reset";
-    b.disabled = this.disabled || this.loading;   // 네이티브 위임(§1.6-1)
+    b.disabled = this.disabled || this.loading; // 네이티브 위임(§1.6-1)
     b.toggleAttribute("aria-busy", this.loading);
     let spin = b.querySelector(":scope > .jd-button__spinner");
     if (this.loading && !spin) b.insertAdjacentHTML("afterbegin", SPINNER_SVG);
@@ -652,14 +744,14 @@ export class JdButton extends JdElement {
 import { JdButton } from "./element.js";
 import { defineElement } from "../../core/define.js";
 export { JdButton };
-defineElement(JdButton.tag, JdButton);   // §2 — SSR no-op·충돌 가드 내장
+defineElement(JdButton.tag, JdButton); // §2 — SSR no-op·충돌 가드 내장
 ```
 
 ### 10.3 소비자 사용 3종
 
 ```html
 <!-- (1) HTML만 — CDN IIFE. 빌드 도구 0 -->
-<link rel="stylesheet" href="https://cdn.example.com/junds@3/junds.css">
+<link rel="stylesheet" href="https://cdn.example.com/junds@3/junds.css" />
 <script src="https://cdn.example.com/junds@3/junds.global.js" defer></script>
 
 <form action="/save" method="post">
@@ -683,8 +775,10 @@ btn.addEventListener("click", onSave);
 <script type="module">
   import { JdButton, defineJunds } from "https://cdn.example.com/junds@3/junds.js";
   defineJunds([JdButton]);
-  document.body.insertAdjacentHTML("beforeend",
-    `<jd-button variant="danger">삭제</jd-button>`);
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `<jd-button variant="danger">삭제</jd-button>`,
+  );
 </script>
 ```
 
@@ -699,8 +793,8 @@ btn.addEventListener("click", onSave);
 const Button = wrapElement(JdButton, {
   tag: "jd-button",
   props: ["variant", "size", "loading", "disabled", "fullWidth", "type"],
-  events: {},                          // 예: Modal이면 { onOpenChange: "jd-close" } 식 매핑
-  compose: composeButtonChildren,      // leftIcon/rightIcon/asChild 등 React 전용 프롭 처리
+  events: {}, // 예: Modal이면 { onOpenChange: "jd-close" } 식 매핑
+  compose: composeButtonChildren, // leftIcon/rightIcon/asChild 등 React 전용 프롭 처리
 });
 ```
 
@@ -724,16 +818,16 @@ const Button = wrapElement(JdButton, {
 
 ## 부록 A. 결정 대장 (이 문서 신설분)
 
-| ID | 결정 | 근거 요약 |
-|---|---|---|
-| WEB-01 | 단일 베이스 JdElement + 선언적 props 맵, 외부 베이스/개별 수제 금지 | 반영·배칭·수명 관리의 390회 중복 제거, 의존성 0 |
-| WEB-02 | VDOM 없음 — render() 1회 골격 + update() 명령형 반영 | diff 엔진 자작 무익, 노드 수 소수 |
-| WEB-03 | JSON-in-attribute 금지, 복합 데이터는 property 전용 | 직렬화 비용·escaping·SSR diff 노이즈 |
-| WEB-04 | 이벤트: 과거형 cancelable 금지 / 요청형 `jd-request-*`만 cancelable | 취소 의미론 명확화 |
-| WEB-05 | 폼: 네이티브 위임 기본, ElementInternals는 네이티브 등가물 부재 시만 | light DOM의 최대 실리 — 폼·a11y·IME 공짜 |
-| WEB-06 | 등록: import 자동 define + defineJunds 병행, 선등록 승리+경고 | CE 레지스트리 재정의 throw 회피, MFE 안전 |
-| WEB-07 | 모듈 톱레벨 DOM 금지 4규칙 + render 멱등·입양 | SSR/Node import 안전 + 프리렌더 스냅샷 안정 |
-| WEB-08 | adoptedStyleSheets 문서 1회 + `@layer junds.tokens/base/components` + 정적 CSS 병행 빌드 | 파싱 1회·CSP·소비자 무조건 승리 오버라이드 |
-| WEB-09 | cx 자체 15줄(twMerge 무대체 폐기), 아이콘 빌드타임 생성+명시 등록, valibot 제거(수기 파서) | §7 각 절 |
-| WEB-10 | a11y 공용 Behavior 5종 강제, 개별 재구현 금지 | 패턴 일관성·감사 가능성 |
-| WEB-11 | vitest+happy-dom / Playwright / axe 3층, a11y 별도 config 패턴 계승 | happy-dom CE·internals 지원+속도, 실브라우저 의무 구간 분리 |
+| ID     | 결정                                                                                       | 근거 요약                                                   |
+| ------ | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| WEB-01 | 단일 베이스 JdElement + 선언적 props 맵, 외부 베이스/개별 수제 금지                        | 반영·배칭·수명 관리의 390회 중복 제거, 의존성 0             |
+| WEB-02 | VDOM 없음 — render() 1회 골격 + update() 명령형 반영                                       | diff 엔진 자작 무익, 노드 수 소수                           |
+| WEB-03 | JSON-in-attribute 금지, 복합 데이터는 property 전용                                        | 직렬화 비용·escaping·SSR diff 노이즈                        |
+| WEB-04 | 이벤트: 과거형 cancelable 금지 / 요청형 `jd-request-*`만 cancelable                        | 취소 의미론 명확화                                          |
+| WEB-05 | 폼: 네이티브 위임 기본, ElementInternals는 네이티브 등가물 부재 시만                       | light DOM의 최대 실리 — 폼·a11y·IME 공짜                    |
+| WEB-06 | 등록: import 자동 define + defineJunds 병행, 선등록 승리+경고                              | CE 레지스트리 재정의 throw 회피, MFE 안전                   |
+| WEB-07 | 모듈 톱레벨 DOM 금지 4규칙 + render 멱등·입양                                              | SSR/Node import 안전 + 프리렌더 스냅샷 안정                 |
+| WEB-08 | adoptedStyleSheets 문서 1회 + `@layer junds.tokens/base/components` + 정적 CSS 병행 빌드   | 파싱 1회·CSP·소비자 무조건 승리 오버라이드                  |
+| WEB-09 | cx 자체 15줄(twMerge 무대체 폐기), 아이콘 빌드타임 생성+명시 등록, valibot 제거(수기 파서) | §7 각 절                                                    |
+| WEB-10 | a11y 공용 Behavior 5종 강제, 개별 재구현 금지                                              | 패턴 일관성·감사 가능성                                     |
+| WEB-11 | vitest+happy-dom / Playwright / axe 3층, a11y 별도 config 패턴 계승                        | happy-dom CE·internals 지원+속도, 실브라우저 의무 구간 분리 |

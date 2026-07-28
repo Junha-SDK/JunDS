@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // JdMeasure 전용 스위트 (DEC-048).
@@ -13,6 +14,7 @@ import JunDSCore
 //
 // 그래서 여기서는 픽스처를 쓰지 않는다. **진짜 UIKit 뷰 세 종류**로 세 경로를 각각
 // 강제하고, 지금까지 밟은 함정을 전제까지 함께 단언한다.
+@MainActor
 final class JdMeasureTests: XCTestCase {
 
     // MARK: - 경로별 대표 뷰 (재정의 없음 — 그게 요점이다)
@@ -58,8 +60,9 @@ final class JdMeasureTests: XCTestCase {
     // 이 전제가 깨지면(UIKit 동작 변경) JdMeasure의 존재 이유가 바뀐다 — 그때 알아야 한다
     func test_premise_uikit_defaults_do_not_answer_for_constraint_containers() {
         let card = ConstraintCard("USD/KRW")
-        XCTAssertEqual(card.sizeThatFits(CGSize(width: 132, height: 999)), .zero,
-                       "UIView 기본 sizeThatFits는 bounds(=0)를 돌려준다")
+        XCTAssertEqual(
+            card.sizeThatFits(CGSize(width: 132, height: 999)), .zero,
+            "UIView 기본 sizeThatFits는 bounds(=0)를 돌려준다")
         XCTAssertEqual(card.intrinsicContentSize.width, UIView.noIntrinsicMetric)
         XCTAssertEqual(card.intrinsicContentSize.height, UIView.noIntrinsicMetric)
     }
@@ -98,13 +101,15 @@ final class JdMeasureTests: XCTestCase {
     // MARK: - 함정 ①: .greatestFiniteMagnitude 는 유한하다 (DEC-047)
 
     func test_greatestFiniteMagnitude_is_treated_as_unbounded() {
-        XCTAssertTrue(CGFloat.greatestFiniteMagnitude.isFinite,
-                      "전제: isFinite 만으로는 '무제한'을 판정할 수 없다")
+        XCTAssertTrue(
+            CGFloat.greatestFiniteMagnitude.isFinite,
+            "전제: isFinite 만으로는 '무제한'을 판정할 수 없다")
         let card = ConstraintCard("아주아주긴텍스트라벨입니다")
         let huge = JdMeasure.size(of: card, width: .greatestFiniteMagnitude)
         let infinite = JdMeasure.size(of: card, width: .infinity)
-        XCTAssertEqual(huge.width, infinite.width, accuracy: 0.5,
-                       "greatestFiniteMagnitude 를 '폭 1.8e308으로 강제'로 읽고 있다")
+        XCTAssertEqual(
+            huge.width, infinite.width, accuracy: 0.5,
+            "greatestFiniteMagnitude 를 '폭 1.8e308으로 강제'로 읽고 있다")
         XCTAssertLessThan(huge.width, JdMeasure.unboundedThreshold)
     }
 
@@ -113,8 +118,9 @@ final class JdMeasureTests: XCTestCase {
     // 격자는 폭을 강제한다 — 그래서 열이 맞는다
     func test_grid_measurement_forces_the_given_width() {
         let card = ConstraintCard("짧음")
-        XCTAssertEqual(JdMeasure.size(of: card, width: 300).width, 300, accuracy: 0.5,
-                       "격자 측정이 폭을 강제하지 않으면 열이 어긋난다")
+        XCTAssertEqual(
+            JdMeasure.size(of: card, width: 300).width, 300, accuracy: 0.5,
+            "격자 측정이 폭을 강제하지 않으면 열이 어긋난다")
     }
 
     // 흐름은 자연 폭을 쓴다 — 강제하면 아이템마다 컨테이너 폭을 요구해 한 줄에 하나가 된다

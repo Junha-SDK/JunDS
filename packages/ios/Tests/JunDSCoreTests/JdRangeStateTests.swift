@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // JdRangeState는 RangeSlider의 유일한 판정 지점이다 — 렌더 계층(SwiftUI/UIKit)은
 // fraction만 읽고 드래그 좌표를 value(atFraction:)로 되돌린다(04 §4.2 규칙 3).
@@ -43,20 +43,23 @@ final class JdRangeStateTests: XCTestCase {
         state.setUpper(34)
         XCTAssertEqual(state.upper, 30, accuracy: epsilon)  // round(3.4) × 10
         state.setLower(4)
-        XCTAssertEqual(state.lower, 0, accuracy: epsilon)   // round(0.4) × 10
+        XCTAssertEqual(state.lower, 0, accuracy: epsilon)  // round(0.4) × 10
     }
 
     // step ≤ 0은 나눗셈이 무너지므로 Core가 1로 방어한다
     func test_non_positive_step_falls_back_to_one() {
-        XCTAssertEqual(JdRangeState(bounds: 0...100, step: 0, lower: 10, upper: 20).step, 1, accuracy: epsilon)
-        XCTAssertEqual(JdRangeState(bounds: 0...100, step: -5, lower: 10, upper: 20).step, 1, accuracy: epsilon)
+        XCTAssertEqual(
+            JdRangeState(bounds: 0...100, step: 0, lower: 10, upper: 20).step, 1, accuracy: epsilon)
+        XCTAssertEqual(
+            JdRangeState(bounds: 0...100, step: -5, lower: 10, upper: 20).step, 1, accuracy: epsilon
+        )
     }
 
     // MARK: - 최소 간격(step) 유지
 
     func test_setLower_keeps_one_step_below_upper() {
         var state = JdRangeState(bounds: 0...100, step: 10, lower: 40, upper: 60)
-        state.setLower(100) // upper를 밀어내지 못하고 자기가 멈춘다
+        state.setLower(100)  // upper를 밀어내지 못하고 자기가 멈춘다
         XCTAssertEqual(state.lower, 50, accuracy: epsilon)
         XCTAssertEqual(state.upper, 60, accuracy: epsilon)
         XCTAssertGreaterThanOrEqual(state.upper - state.lower, state.step - epsilon)
@@ -96,14 +99,16 @@ final class JdRangeStateTests: XCTestCase {
     func test_fraction_value_round_trip_on_step_grid() {
         let state = JdRangeState(bounds: 0...100, step: 5, lower: 0, upper: 100)
         for value in stride(from: 0.0, through: 100.0, by: 5.0) {
-            XCTAssertEqual(state.value(atFraction: state.fraction(of: value)), value, accuracy: epsilon)
+            XCTAssertEqual(
+                state.value(atFraction: state.fraction(of: value)), value, accuracy: epsilon)
         }
     }
 
     func test_fraction_value_round_trip_on_shifted_bounds() {
         let state = JdRangeState(bounds: 20...60, step: 5, lower: 20, upper: 60)
         for value in stride(from: 20.0, through: 60.0, by: 5.0) {
-            XCTAssertEqual(state.value(atFraction: state.fraction(of: value)), value, accuracy: epsilon)
+            XCTAssertEqual(
+                state.value(atFraction: state.fraction(of: value)), value, accuracy: epsilon)
         }
     }
 
@@ -138,7 +143,7 @@ final class JdRangeStateTests: XCTestCase {
 
     func test_equatable_matches_on_all_axes() {
         let a = JdRangeState(bounds: 0...100, step: 10, lower: 20, upper: 80)
-        let b = JdRangeState(bounds: 0...100, step: 10, lower: 24, upper: 76) // 같은 격자로 양자화
+        let b = JdRangeState(bounds: 0...100, step: 10, lower: 24, upper: 76)  // 같은 격자로 양자화
         XCTAssertEqual(a, b)
         var c = a
         c.setLower(40)

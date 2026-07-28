@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ProgressBar",
   "oneLiner": "가로 진행 막대.",
-  "tags": [
-    "feedback",
-    "progress",
-    "진행률"
-  ],
+  "tags": ["feedback", "progress", "진행률"],
   "controls": [],
   "snippets": {
     "web": null,

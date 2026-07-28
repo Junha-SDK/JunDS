@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-price-badge 동형 — 등락률 + 추세 화살표. (DEC-040)
 //
@@ -34,22 +34,25 @@ public final class JdPriceBadgeView: UIView {
     private let contentStack: JdStackView
     private var spec: JdPriceBadgeSpec
 
-    public init(pct: Double,
-                size: JdPriceBadgeSize = .md,
-                showArrow: Bool = true,
-                bold: Bool = true) {
+    public init(
+        pct: Double,
+        size: JdPriceBadgeSize = .md,
+        showArrow: Bool = true,
+        bold: Bool = true
+    ) {
         self.pct = pct
         self.size = size
         self.showArrow = showArrow
         self.bold = bold
         self.spec = JdPriceBadgeSpec.resolve(pct: pct, size: size, showArrow: showArrow, bold: bold)
-        self.contentStack = JdStackView(axis: .horizontal,
-                                        gap: .custom(spec.gap),
-                                        alignment: .center)
+        self.contentStack = JdStackView(
+            axis: .horizontal,
+            gap: .custom(spec.gap),
+            alignment: .center)
         super.init(frame: .zero)
 
         arrow.contentMode = .scaleAspectFit
-        arrow.isAccessibilityElement = false // 추세는 아래 라벨이 말한다
+        arrow.isAccessibilityElement = false  // 추세는 아래 라벨이 말한다
         valueLabel.adjustsFontForContentSizeCategory = true
         valueLabel.numberOfLines = 1
 
@@ -98,14 +101,16 @@ public final class JdPriceBadgeView: UIView {
     private func applyStyle() {
         let color = spec.color.uiColor
         valueLabel.textColor = color
-        valueLabel.font = JdFontBridge.scaledDigitFont(size: spec.fontSize,
-                                                      weight: spec.fontWeight,
-                                                      compatibleWith: traitCollection)
+        valueLabel.font = JdFontBridge.scaledDigitFont(
+            size: spec.fontSize,
+            weight: spec.fontWeight,
+            compatibleWith: traitCollection)
         arrow.tintColor = color
         // 심볼도 폰트 스케일을 따라가야 Dynamic Type에서 글자와 같이 자란다
-        let symbolFont = JdFontBridge.scaledFont(size: spec.iconSize,
-                                                weight: JdToken.FontWeight.semibold,
-                                                compatibleWith: traitCollection)
+        let symbolFont = JdFontBridge.scaledFont(
+            size: spec.iconSize,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         arrow.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: symbolFont)
     }
 
@@ -118,6 +123,7 @@ public final class JdPriceBadgeView: UIView {
             arrow.image = nil
             arrow.isHidden = true
         }
-        accessibilityLabel = JdLivePctBadgeView.accessibilityText(trend: trend, formatted: formatted)
+        accessibilityLabel = JdLivePctBadgeView.accessibilityText(
+            trend: trend, formatted: formatted)
     }
 }

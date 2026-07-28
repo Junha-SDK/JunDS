@@ -1,5 +1,5 @@
-import Foundation
 import CoreGraphics
+import Foundation
 
 // 표시 계열 스펙 — 순수 함수 (04 §9).
 // ⚠️ 이 계열은 웹 CSS가 토큰이 아닌 **v2 리터럴 팔레트**를 쓰는 곳이 많다(tag 7색·battery
@@ -20,20 +20,23 @@ public struct JdBadgeSpec: Sendable {
 
     /// 웹 크기: sm 2/8·10pt·r6 · md 4/10·12pt·r8 · lg 4/12·14pt·r8. 도트 6px.
     public static func resolve(variant: JdBadgeVariant, size: JdDisplaySize) -> JdBadgeSpec {
-        let hPadding: CGFloat, vPadding: CGFloat, fontSize: CGFloat, radius: CGFloat
+        let hPadding: CGFloat
+        let vPadding: CGFloat
+        let fontSize: CGFloat
+        let radius: CGFloat
         switch size {
         case .sm:
             hPadding = JdToken.Space.s2; vPadding = JdToken.Space.s0_5
-            fontSize = JdTextSpec.resolve(size: .xs2).fontSize   // 10
-            radius = JdToken.Radius.md                           // 6
+            fontSize = JdTextSpec.resolve(size: .xs2).fontSize  // 10
+            radius = JdToken.Radius.md  // 6
         case .md:
             hPadding = JdToken.Space.s2_5; vPadding = JdToken.Space.s1
-            fontSize = JdTextSpec.resolve(size: .xs).fontSize    // 12
-            radius = JdToken.Radius.lg                           // 8
+            fontSize = JdTextSpec.resolve(size: .xs).fontSize  // 12
+            radius = JdToken.Radius.lg  // 8
         case .lg:
             hPadding = JdToken.Space.s3; vPadding = JdToken.Space.s1
-            fontSize = JdTextSpec.resolve(size: .sm).fontSize    // 14
-            radius = JdToken.Radius.lg                           // 8
+            fontSize = JdTextSpec.resolve(size: .sm).fontSize  // 14
+            radius = JdToken.Radius.lg  // 8
         }
 
         // 웹은 bg를 10% 워시 + 진한 텍스트로 만든다 — 라이트/다크 각각 알파 승계
@@ -66,9 +69,10 @@ public struct JdBadgeSpec: Sendable {
             border = JdToken.Color.border
         }
 
-        return JdBadgeSpec(hPadding: hPadding, vPadding: vPadding, fontSize: fontSize,
-                           radius: radius, dotSize: 6,
-                           background: background, foreground: foreground, border: border)
+        return JdBadgeSpec(
+            hPadding: hPadding, vPadding: vPadding, fontSize: fontSize,
+            radius: radius, dotSize: 6,
+            background: background, foreground: foreground, border: border)
     }
 
     /// 웹 count 모드: 원형 18px 최소·10pt·danger 고정, maxCount 초과 시 "N+"
@@ -96,15 +100,16 @@ public struct JdTagSpec: Sendable {
     /// 웹: padding 2/8, radius 6, 12pt medium, gap 4, 닫기 아이콘 12
     public static func resolve(color: JdTagColor) -> JdTagSpec {
         let palette = JdTagSpec.palette(color)
-        return JdTagSpec(hPadding: JdToken.Space.s2,
-                         vPadding: JdToken.Space.s0_5,
-                         fontSize: JdTextSpec.resolve(size: .xs).fontSize,
-                         fontWeight: JdToken.FontWeight.medium,
-                         radius: JdToken.Radius.md,
-                         gap: JdToken.Space.s1,
-                         closeIconSize: 12,
-                         background: palette.bg,
-                         foreground: palette.fg)
+        return JdTagSpec(
+            hPadding: JdToken.Space.s2,
+            vPadding: JdToken.Space.s0_5,
+            fontSize: JdTextSpec.resolve(size: .xs).fontSize,
+            fontWeight: JdToken.FontWeight.medium,
+            radius: JdToken.Radius.md,
+            gap: JdToken.Space.s1,
+            closeIconSize: 12,
+            background: palette.bg,
+            foreground: palette.fg)
     }
 
     /// primary만 토큰 기반(테마 반응), 나머지 7종은 v2 리터럴 — 패리티 승계.
@@ -113,28 +118,42 @@ public struct JdTagSpec: Sendable {
     private static func palette(_ color: JdTagColor) -> (bg: JdDynamicColor, fg: JdDynamicColor) {
         switch color {
         case .gray:
-            return (JdDynamicColor(light: 0xF3F4_F6FF, dark: 0x9CA3_AF26),
-                    JdDynamicColor(light: 0x3741_51FF, dark: 0xD1D5_DBFF))
+            return (
+                JdDynamicColor(light: 0xF3F4_F6FF, dark: 0x9CA3_AF26),
+                JdDynamicColor(light: 0x3741_51FF, dark: 0xD1D5_DBFF)
+            )
         case .primary:
             return (JdToken.Color.primaryLight, JdToken.Color.primary)
         case .blue:
-            return (JdDynamicColor(light: 0xEFF6_FFFF, dark: 0x3B82_F626),
-                    JdDynamicColor(light: 0x1D4E_D8FF, dark: 0x93C5_FDFF))
+            return (
+                JdDynamicColor(light: 0xEFF6_FFFF, dark: 0x3B82_F626),
+                JdDynamicColor(light: 0x1D4E_D8FF, dark: 0x93C5_FDFF)
+            )
         case .green:
-            return (JdDynamicColor(light: 0xECFD_F5FF, dark: 0x10B9_8126),
-                    JdDynamicColor(light: 0x0477_57FF, dark: 0x6EE7_B7FF))
+            return (
+                JdDynamicColor(light: 0xECFD_F5FF, dark: 0x10B9_8126),
+                JdDynamicColor(light: 0x0477_57FF, dark: 0x6EE7_B7FF)
+            )
         case .red:
-            return (JdDynamicColor(light: 0xFEF2_F2FF, dark: 0xEF44_4426),
-                    JdDynamicColor(light: 0xB91C_1CFF, dark: 0xFCA5_A5FF))
+            return (
+                JdDynamicColor(light: 0xFEF2_F2FF, dark: 0xEF44_4426),
+                JdDynamicColor(light: 0xB91C_1CFF, dark: 0xFCA5_A5FF)
+            )
         case .orange:
-            return (JdDynamicColor(light: 0xFFF7_EDFF, dark: 0xF59E_0B26),
-                    JdDynamicColor(light: 0xC241_0CFF, dark: 0xFDBA_74FF))
+            return (
+                JdDynamicColor(light: 0xFFF7_EDFF, dark: 0xF59E_0B26),
+                JdDynamicColor(light: 0xC241_0CFF, dark: 0xFDBA_74FF)
+            )
         case .purple:
-            return (JdDynamicColor(light: 0xFAF5_FFFF, dark: 0xA855_F726),
-                    JdDynamicColor(light: 0x7E22_CEFF, dark: 0xD8B4_FEFF))
+            return (
+                JdDynamicColor(light: 0xFAF5_FFFF, dark: 0xA855_F726),
+                JdDynamicColor(light: 0x7E22_CEFF, dark: 0xD8B4_FEFF)
+            )
         case .teal:
-            return (JdDynamicColor(light: 0xF0FD_FAFF, dark: 0x14B8_A626),
-                    JdDynamicColor(light: 0x0F76_6EFF, dark: 0x5EEA_D4FF))
+            return (
+                JdDynamicColor(light: 0xF0FD_FAFF, dark: 0x14B8_A626),
+                JdDynamicColor(light: 0x0F76_6EFF, dark: 0x5EEA_D4FF)
+            )
         }
     }
 }
@@ -150,11 +169,21 @@ public struct JdAvatarSpec: Sendable {
     /// 웹: xs 24/10 · sm 32/12 · md 36/14 · lg 44/16 · xl 56/18 (도트 6/8/10/12/14)
     public static func resolve(size: JdAvatarSize) -> JdAvatarSpec {
         switch size {
-        case .xs: return JdAvatarSpec(side: 24, initialsFontSize: 10, statusDotSize: 6, statusRingWidth: 1)
-        case .sm: return JdAvatarSpec(side: 32, initialsFontSize: 12, statusDotSize: 8, statusRingWidth: 1.5)
-        case .md: return JdAvatarSpec(side: 36, initialsFontSize: 14, statusDotSize: 10, statusRingWidth: 1.5)
-        case .lg: return JdAvatarSpec(side: 44, initialsFontSize: 16, statusDotSize: 12, statusRingWidth: 2)
-        case .xl: return JdAvatarSpec(side: 56, initialsFontSize: 18, statusDotSize: 14, statusRingWidth: 2)
+        case .xs:
+            return JdAvatarSpec(
+                side: 24, initialsFontSize: 10, statusDotSize: 6, statusRingWidth: 1)
+        case .sm:
+            return JdAvatarSpec(
+                side: 32, initialsFontSize: 12, statusDotSize: 8, statusRingWidth: 1.5)
+        case .md:
+            return JdAvatarSpec(
+                side: 36, initialsFontSize: 14, statusDotSize: 10, statusRingWidth: 1.5)
+        case .lg:
+            return JdAvatarSpec(
+                side: 44, initialsFontSize: 16, statusDotSize: 12, statusRingWidth: 2)
+        case .xl:
+            return JdAvatarSpec(
+                side: 56, initialsFontSize: 18, statusDotSize: 14, statusRingWidth: 2)
         }
     }
 
@@ -225,11 +254,12 @@ public struct JdStatusDotSpec: Sendable {
         case .danger: color = JdToken.Color.danger
         case .info: color = JdToken.Color.primary
         }
-        return JdStatusDotSpec(dotSize: dotSize,
-                               gap: JdToken.Space.s1_5,
-                               labelFontSize: JdTextSpec.resolve(size: .xs).fontSize,
-                               color: color,
-                               pulses: status == .pulse)
+        return JdStatusDotSpec(
+            dotSize: dotSize,
+            gap: JdToken.Space.s1_5,
+            labelFontSize: JdTextSpec.resolve(size: .xs).fontSize,
+            color: color,
+            pulses: status == .pulse)
     }
 }
 
@@ -248,17 +278,21 @@ public struct JdSeverityBadgeSpec: Sendable {
     /// 웹: md 4/10·12pt · sm 2/8·10pt, 알약(radius full), 도트 8px, gap 6.
     /// 웹은 라이트 리터럴 고정이라 다크에서 대비가 깨진다 — iOS는 알파 워시로 다크를 보정한다.
     public static func resolve(severity: JdSeverity, size: JdDisplaySize) -> JdSeverityBadgeSpec {
-        let hPadding: CGFloat, vPadding: CGFloat, fontSize: CGFloat
+        let hPadding: CGFloat
+        let vPadding: CGFloat
+        let fontSize: CGFloat
         switch size {
         case .sm:
             hPadding = JdToken.Space.s2; vPadding = JdToken.Space.s0_5
-            fontSize = JdTextSpec.resolve(size: .xs2).fontSize   // 10
+            fontSize = JdTextSpec.resolve(size: .xs2).fontSize  // 10
         case .md, .lg:
             hPadding = JdToken.Space.s2_5; vPadding = JdToken.Space.s1
-            fontSize = JdTextSpec.resolve(size: .xs).fontSize    // 12
+            fontSize = JdTextSpec.resolve(size: .xs).fontSize  // 12
         }
 
-        let bg: JdDynamicColor, fg: JdDynamicColor, dot: JdDynamicColor
+        let bg: JdDynamicColor
+        let fg: JdDynamicColor
+        let dot: JdDynamicColor
         switch severity {
         case .ok:
             bg = JdDynamicColor(light: 0xECFD_F5FF, dark: 0x10B9_8126)
@@ -282,9 +316,10 @@ public struct JdSeverityBadgeSpec: Sendable {
             dot = JdDynamicColor(light: 0x9CA3_AFFF, dark: 0x9CA3_AFFF)
         }
 
-        return JdSeverityBadgeSpec(hPadding: hPadding, vPadding: vPadding, fontSize: fontSize,
-                                   gap: JdToken.Space.s1_5, dotSize: 8,
-                                   background: bg, foreground: fg, dotColor: dot)
+        return JdSeverityBadgeSpec(
+            hPadding: hPadding, vPadding: vPadding, fontSize: fontSize,
+            gap: JdToken.Space.s1_5, dotSize: 8,
+            background: bg, foreground: fg, dotColor: dot)
     }
 }
 
@@ -306,20 +341,23 @@ public struct JdBatterySpec: Sendable {
     public static func resolve(size: JdDisplaySize) -> JdBatterySpec {
         switch size {
         case .sm:
-            return JdBatterySpec(bodyWidth: 40, bodyHeight: 16, capWidth: 4, capHeight: 8,
-                                 borderWidth: JdToken.Border.medium, radius: JdToken.Radius.sm,
-                                 showsPercentText: false, percentFontSize: 10,
-                                 labelFontSize: JdTextSpec.resolve(size: .xs).fontSize)
+            return JdBatterySpec(
+                bodyWidth: 40, bodyHeight: 16, capWidth: 4, capHeight: 8,
+                borderWidth: JdToken.Border.medium, radius: JdToken.Radius.sm,
+                showsPercentText: false, percentFontSize: 10,
+                labelFontSize: JdTextSpec.resolve(size: .xs).fontSize)
         case .md:
-            return JdBatterySpec(bodyWidth: 56, bodyHeight: 24, capWidth: 6, capHeight: 12,
-                                 borderWidth: JdToken.Border.medium, radius: JdToken.Radius.sm,
-                                 showsPercentText: false, percentFontSize: 10,
-                                 labelFontSize: JdTextSpec.resolve(size: .xs).fontSize)
+            return JdBatterySpec(
+                bodyWidth: 56, bodyHeight: 24, capWidth: 6, capHeight: 12,
+                borderWidth: JdToken.Border.medium, radius: JdToken.Radius.sm,
+                showsPercentText: false, percentFontSize: 10,
+                labelFontSize: JdTextSpec.resolve(size: .xs).fontSize)
         case .lg:
-            return JdBatterySpec(bodyWidth: 80, bodyHeight: 32, capWidth: 8, capHeight: 16,
-                                 borderWidth: JdToken.Border.medium, radius: JdToken.Radius.sm,
-                                 showsPercentText: true, percentFontSize: 10,
-                                 labelFontSize: JdTextSpec.resolve(size: .xs).fontSize)
+            return JdBatterySpec(
+                bodyWidth: 80, bodyHeight: 32, capWidth: 8, capHeight: 16,
+                borderWidth: JdToken.Border.medium, radius: JdToken.Radius.sm,
+                showsPercentText: true, percentFontSize: 10,
+                labelFontSize: JdTextSpec.resolve(size: .xs).fontSize)
         }
     }
 
@@ -360,8 +398,9 @@ public struct JdKbdSpec: Sendable {
 
     /// 웹: padding 2/6, radius 4, 11pt mono medium, gap 2
     public static func resolve() -> JdKbdSpec {
-        JdKbdSpec(hPadding: JdToken.Space.s1_5, vPadding: JdToken.Space.s0_5,
-                  fontSize: 11, radius: JdToken.Radius.sm, gap: JdToken.Space.s0_5)
+        JdKbdSpec(
+            hPadding: JdToken.Space.s1_5, vPadding: JdToken.Space.s0_5,
+            fontSize: 11, radius: JdToken.Radius.sm, gap: JdToken.Space.s0_5)
     }
 
     /// 웹은 공백을 전부 제거한다("⌘ K" → "⌘K")
@@ -383,14 +422,19 @@ public struct JdKeyCapSpec: Sendable {
 
     /// 웹: sm 20/20/4/10 · md 24/24/6/12 · lg 32/32/8/14, radius 6
     public static func resolve(variant: JdKeyCapVariant, size: JdDisplaySize) -> JdKeyCapSpec {
-        let height: CGFloat, minWidth: CGFloat, hPadding: CGFloat, fontSize: CGFloat
+        let height: CGFloat
+        let minWidth: CGFloat
+        let hPadding: CGFloat
+        let fontSize: CGFloat
         switch size {
         case .sm: height = 20; minWidth = 20; hPadding = JdToken.Space.s1; fontSize = 10
         case .md: height = 24; minWidth = 24; hPadding = JdToken.Space.s1_5; fontSize = 12
         case .lg: height = 32; minWidth = 32; hPadding = JdToken.Space.s2; fontSize = 14
         }
 
-        let background: JdDynamicColor, foreground: JdDynamicColor, border: JdDynamicColor
+        let background: JdDynamicColor
+        let foreground: JdDynamicColor
+        let border: JdDynamicColor
         var shadow = false
         switch variant {
         case .default:
@@ -408,10 +452,11 @@ public struct JdKeyCapSpec: Sendable {
             border = JdToken.Color.borderLight
         }
 
-        return JdKeyCapSpec(height: height, minWidth: minWidth, hPadding: hPadding,
-                            fontSize: fontSize, radius: JdToken.Radius.md,
-                            background: background, foreground: foreground,
-                            border: border, hasKeyShadow: shadow)
+        return JdKeyCapSpec(
+            height: height, minWidth: minWidth, hPadding: hPadding,
+            fontSize: fontSize, radius: JdToken.Radius.md,
+            background: background, foreground: foreground,
+            border: border, hasKeyShadow: shadow)
     }
 
     /// 눌림 시 아래로 1pt 이동(웹 translateY(1px))

@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // StatusDot 데모 — 실컴포넌트 JdStatusDot(SwiftUI)/JdStatusDotView(UIKit). 웹 <jd-status-dot> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(status/label/size) — 3플랫폼 동일 (04 §3).
@@ -99,7 +99,9 @@ private struct StatusDotViewRep: UIViewRepresentable {
     }
 
     // 내부 스택 제약으로만 크기가 나오는 뷰라 압축 적합 크기를 직접 알려 준다
-    func sizeThatFits(_ proposal: ProposedViewSize, uiView: JdStatusDotView, context: Context) -> CGSize? {
+    func sizeThatFits(
+        _ proposal: ProposedViewSize, uiView: JdStatusDotView, context: Context
+    ) -> CGSize? {
         uiView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
 }

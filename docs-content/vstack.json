@@ -4,11 +4,7 @@
   "category": "core",
   "title": "VStack",
   "oneLiner": "세로 스택 — column·gap md 기본. Box 파생.",
-  "tags": [
-    "layout",
-    "stack",
-    "세로"
-  ],
+  "tags": ["layout", "stack", "세로"],
   "controls": [
     {
       "prop": "gap",
@@ -18,13 +14,7 @@
     {
       "prop": "align",
       "kind": "select",
-      "options": [
-        "start",
-        "center",
-        "end",
-        "stretch",
-        "baseline"
-      ],
+      "options": ["start", "center", "end", "stretch", "baseline"],
       "default": "stretch"
     }
   ],

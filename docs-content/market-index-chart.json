@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "MarketIndexChart",
   "oneLiner": "시장 지수 차트.",
-  "tags": [
-    "finance",
-    "chart",
-    "지수"
-  ],
+  "tags": ["finance", "chart", "지수"],
   "controls": [],
   "snippets": {
     "web": null,

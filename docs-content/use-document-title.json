@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useDocumentTitle",
   "oneLiner": "문서 제목 설정.",
-  "tags": [
-    "hook",
-    "document",
-    "제목"
-  ],
+  "tags": ["hook", "document", "제목"],
   "controls": [],
   "snippets": {
     "web": null,

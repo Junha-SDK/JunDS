@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-icon-button 동형 — 아이콘 전용 버튼 (DESIGN-2 §B1).
 // 아이콘 children은 iOS에서 SF Symbols 이름(systemImage)으로 번역한다 — 서드파티 0 규칙 아래
@@ -16,11 +16,13 @@ public struct JdIconButton: View {
     private let action: () -> Void
 
     // 라벨 없는 init을 제공하지 않는다 — 아이콘 전용 컨트롤의 컴파일 타임 강제 (04 §7.1)
-    public init(systemImage: String,
-                accessibilityLabel: String,
-                variant: JdIconButtonVariant = .ghost,
-                size: JdIconButtonSize = .md,
-                action: @escaping () -> Void) {
+    public init(
+        systemImage: String,
+        accessibilityLabel: String,
+        variant: JdIconButtonVariant = .ghost,
+        size: JdIconButtonSize = .md,
+        action: @escaping () -> Void
+    ) {
         self.systemImage = systemImage
         self.label = accessibilityLabel
         self.spec = JdIconButtonSpec.resolve(variant: variant, size: size)
@@ -50,20 +52,24 @@ struct JdIconButtonPressStyle: ButtonStyle {
         let background = configuration.isPressed ? spec.pressedBackground : spec.background
         return configuration.label
             // SF Symbol은 폰트 크기로 스케일된다 — 웹 아이콘 크기(변 0.5배)를 폰트에 싣는다
-            .font(JdSwiftUIFont.scaled(size: spec.iconSize,
-                                       weight: JdToken.FontWeight.medium,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.iconSize,
+                    weight: JdToken.FontWeight.medium,
+                    category: sizeCategory)
+            )
             .foregroundColor(spec.foreground.color)
-            .frame(minWidth: spec.side, minHeight: spec.side) // 고정 크기 금지 (04 §7.2)
+            .frame(minWidth: spec.side, minHeight: spec.side)  // 고정 크기 금지 (04 §7.2)
             .background(background.color)
             .clipShape(shape)
             .overlay(borderOverlay(shape))
-            .contentShape(shape) // 투명 배경(ghost)에서도 모서리까지 탭 수용
+            .contentShape(shape)  // 투명 배경(ghost)에서도 모서리까지 탭 수용
             // 24~40pt 컨트롤이라 standard(0.97)로는 변화가 안 보인다 → compact (DEC-039)
             .jdPressScale(configuration.isPressed && !reduceMotion, depth: .compact)
-            .opacity(isEnabled ? 1 : JdToken.Opacity.o50) // 웹 :disabled opacity-50
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
-                       value: configuration.isPressed)
+            .opacity(isEnabled ? 1 : JdToken.Opacity.o50)  // 웹 :disabled opacity-50
+            .animation(
+                reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
+                value: configuration.isPressed)
     }
 
     @ViewBuilder

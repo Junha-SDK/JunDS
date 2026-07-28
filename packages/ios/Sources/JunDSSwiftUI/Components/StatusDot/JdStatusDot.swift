@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-status-dot 동형 — 상태 점 + 선택 라벨 (DESIGN-2 §B2).
 // 웹은 점을 ::before로 그리고 라벨만 span이라 role·aria가 전무하다 — **라벨이 없으면 AT에
@@ -21,22 +21,27 @@ public struct JdStatusDot: View {
 
     @State private var pulsePhase = false
 
-    public init(_ status: JdStatusKind = .neutral,
-                label: String? = nil,
-                size: JdDisplaySize = .md) {
+    public init(
+        _ status: JdStatusKind = .neutral,
+        label: String? = nil,
+        size: JdDisplaySize = .md
+    ) {
         self.status = status
         self.label = label
         self.spec = JdStatusDotSpec.resolve(status: status, size: size)
     }
 
     public var body: some View {
-        HStack(spacing: spec.gap) { // 웹 gap: var(--jd-space-1-5)
+        HStack(spacing: spec.gap) {  // 웹 gap: var(--jd-space-1-5)
             dot
             if let label, !label.isEmpty {
                 Text(label)
-                    .font(JdSwiftUIFont.scaled(size: spec.labelFontSize,
-                                               weight: JdToken.FontWeight.normal,
-                                               category: sizeCategory))
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: spec.labelFontSize,
+                            weight: JdToken.FontWeight.normal,
+                            category: sizeCategory)
+                    )
                     .foregroundColor(JdToken.Color.foreground.color)
                     .lineLimit(1)
             }
@@ -70,9 +75,12 @@ public struct JdStatusDot: View {
     private var pulseAnimation: Animation? {
         guard pulses else { return nil }
         let easing = JdToken.Easing.easeInOut
-        return Animation
-            .timingCurve(easing.0, easing.1, easing.2, easing.3,
-                         duration: JdStatusDot.pulsePeriod / 2)
+        return
+            Animation
+            .timingCurve(
+                easing.0, easing.1, easing.2, easing.3,
+                duration: JdStatusDot.pulsePeriod / 2
+            )
             .repeatForever(autoreverses: true)
     }
 

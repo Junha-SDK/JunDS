@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "FloatingActionButton",
   "oneLiner": "플로팅 액션 버튼 (FAB)",
-  "tags": [
-    "form",
-    "control"
-  ],
+  "tags": ["form", "control"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -1,5 +1,5 @@
-import Foundation
 import CoreGraphics
+import Foundation
 
 // composites 오버레이·피드백 14종의 Core 옵션·상태·색 매핑.
 // 04 §10.1: 오버레이는 전부 시스템 프레젠테이션 위임(sheet/alert/confirmationDialog),
@@ -11,10 +11,10 @@ import CoreGraphics
 /// 웹 jd-request-close의 reason. rawValue는 웹 detail 문자열과 일치(DEC-012 — 플랫폼 의미론 일치).
 /// escape/backdrop/close는 기존 JdModalCloseReason과 겹치나, action은 액션 시트/얼럿 전용이라 확장.
 public enum JdDismissReason: String, CaseIterable, Sendable {
-    case escape       // iOS: 시스템 스와이프/취소 제스처
-    case backdrop     // iOS: 시트 바깥 탭
-    case close        // 명시적 닫기 버튼/메서드
-    case action       // 액션 시트/얼럿의 선택지 탭
+    case escape  // iOS: 시스템 스와이프/취소 제스처
+    case backdrop  // iOS: 시트 바깥 탭
+    case close  // 명시적 닫기 버튼/메서드
+    case action  // 액션 시트/얼럿의 선택지 탭
 }
 
 /// 웹 jd-drawer의 side
@@ -41,10 +41,10 @@ public enum JdOverlaySize: String, CaseIterable, Sendable {
     /// 웹 바텀 드로어/시트 높이(px)
     public var sheetHeight: CGFloat {
         switch self {
-        case .sm: return 192   // 12rem
-        case .md: return 288   // 18rem
-        case .lg: return 384   // 24rem
-        case .xl: return 480   // 30rem
+        case .sm: return 192  // 12rem
+        case .md: return 288  // 18rem
+        case .lg: return 384  // 24rem
+        case .xl: return 480  // 30rem
         case .full: return .infinity
         }
     }
@@ -52,10 +52,10 @@ public enum JdOverlaySize: String, CaseIterable, Sendable {
     /// 웹 모달 패널 최대폭(px)
     public var modalMaxWidth: CGFloat {
         switch self {
-        case .sm: return 448   // 28rem
-        case .md: return 512   // 32rem
-        case .lg: return 672   // 42rem
-        case .xl: return 896   // 56rem
+        case .sm: return 448  // 28rem
+        case .md: return 512  // 32rem
+        case .lg: return 672  // 42rem
+        case .xl: return 896  // 56rem
         case .full: return .infinity
         }
     }
@@ -153,8 +153,10 @@ public struct JdToast: Identifiable, Equatable, Sendable {
     /// 0 = 수동 닫기 전용(웹 duration 0 동형)
     public var duration: TimeInterval
 
-    public init(id: UUID = UUID(), title: String? = nil, message: String? = nil,
-                variant: JdFeedbackVariant = .info, duration: TimeInterval = 4) {
+    public init(
+        id: UUID = UUID(), title: String? = nil, message: String? = nil,
+        variant: JdFeedbackVariant = .info, duration: TimeInterval = 4
+    ) {
         self.id = id
         self.title = title
         self.message = message

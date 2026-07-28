@@ -1,8 +1,10 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
+@MainActor
 final class JdSpacerViewTests: XCTestCase {
 
     // 웹 패리티의 핵심: padding 양측 → 차지 공간은 **2×size**
@@ -57,6 +59,7 @@ final class JdSpacerViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdAppShellControllerTests: XCTestCase {
 
     private var previousReduceMotion: (() -> Bool)!
@@ -73,8 +76,14 @@ final class JdAppShellControllerTests: XCTestCase {
         super.tearDown()
     }
 
-    private func makeShell(width: CGFloat, height: CGFloat = 768)
-        -> (shell: JdAppShellController, sidebar: UIViewController, content: UIViewController, window: UIWindow) {
+    private func makeShell(
+        width: CGFloat, height: CGFloat = 768
+    )
+        -> (
+            shell: JdAppShellController, sidebar: UIViewController, content: UIViewController,
+            window: UIWindow
+        )
+    {
         let sidebar = UIViewController()
         let content = UIViewController()
         let shell = JdAppShellController(sidebar: sidebar, content: content)
@@ -118,7 +127,7 @@ final class JdAppShellControllerTests: XCTestCase {
         let (shell, _, _, window) = makeShell(width: 1024)
         shell.isCollapsed = true
         flush(window)
-        XCTAssertEqual(shell.sidebarContainer.frame.width, JdToken.Space.s16) // 64
+        XCTAssertEqual(shell.sidebarContainer.frame.width, JdToken.Space.s16)  // 64
         XCTAssertEqual(shell.contentContainer.frame.minX, JdToken.Space.s16)
 
         shell.isCollapsed = false
@@ -130,7 +139,7 @@ final class JdAppShellControllerTests: XCTestCase {
     func test_custom_widths_are_applied() {
         let (shell, _, _, window) = makeShell(width: 1024)
         shell.sidebarWidth = 300
-        shell.collapsedWidth = JdToken.Space.s12 // 48
+        shell.collapsedWidth = JdToken.Space.s12  // 48
         flush(window)
         XCTAssertEqual(shell.sidebarContainer.frame.width, 300)
         shell.isCollapsed = true

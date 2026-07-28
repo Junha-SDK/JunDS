@@ -4,11 +4,7 @@
   "category": "patterns",
   "title": "ForumThread",
   "oneLiner": "포럼 글타래 화면.",
-  "tags": [
-    "social",
-    "포럼",
-    "템플릿"
-  ],
+  "tags": ["social", "포럼", "템플릿"],
   "controls": [],
   "snippets": {
     "web": null,

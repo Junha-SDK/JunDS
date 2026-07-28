@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useAudioPlayer",
   "oneLiner": "재생 목록 하나를 굴리는 오디오 엔진 — 화면은 호출부가 그린다.",
-  "tags": [
-    "hook",
-    "audio",
-    "미디어"
-  ],
+  "tags": ["hook", "audio", "미디어"],
   "controls": [],
   "snippets": {
     "web": null,

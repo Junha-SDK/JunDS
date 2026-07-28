@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "usePanelResize",
   "oneLiner": "드래그로 패널 크기 조절.",
-  "tags": [
-    "hook",
-    "interaction",
-    "리사이즈"
-  ],
+  "tags": ["hook", "interaction", "리사이즈"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "FormBuilder",
   "oneLiner": "선언적 폼 빌더 — 필드 배열로 폼 자동 생성",
-  "tags": [
-    "form"
-  ],
+  "tags": ["form"],
   "controls": [],
   "snippets": {
     "web": null,

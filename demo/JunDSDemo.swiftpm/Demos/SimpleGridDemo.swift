@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // SimpleGrid 데모 — 레시피형 (04 §10.1). 웹 <jd-simple-grid>는 <jd-grid-layout>·<jd-grid>와
 // 단일 구현 + 별칭(R12)이고, 그 중 min-child-width 표면만 노출하는 얼굴이다.
@@ -15,15 +15,15 @@ enum SimpleGridDemo {
         ],
         swiftUI: { state in AnyView(SimpleGridStage(state: state)) },
         recipe: """
-        // SimpleGrid = LazyVGrid adaptive 관용구 (04 §10.1 — 신규 컴포넌트 없음, R12 별칭)
-        // 웹 grid-template-columns: repeat(auto-fill, minmax(min-child-width, 1fr)) 동형
-        LazyVGrid(
-            columns: [GridItem(.adaptive(minimum: 120), spacing: JdGap.md.value)],
-            spacing: JdGap.md.value
-        ) { cells }
+            // SimpleGrid = LazyVGrid adaptive 관용구 (04 §10.1 — 신규 컴포넌트 없음, R12 별칭)
+            // 웹 grid-template-columns: repeat(auto-fill, minmax(min-child-width, 1fr)) 동형
+            LazyVGrid(
+                columns: [GridItem(.adaptive(minimum: 120), spacing: JdGap.md.value)],
+                spacing: JdGap.md.value
+            ) { cells }
 
-        // 열 수를 직접 정하고 싶으면 Grid/GridLayout 쪽 cols 레시피(.flexible() N개)를 쓴다.
-        """
+            // 열 수를 직접 정하고 싶으면 Grid/GridLayout 쪽 cols 레시피(.flexible() N개)를 쓴다.
+            """
     )
 
     static let cellCount = 9
@@ -53,16 +53,21 @@ private struct SimpleGridStage: View {
             ) {
                 ForEach(0..<SimpleGridDemo.cellCount, id: \.self) { index in
                     RoundedRectangle(cornerRadius: JdToken.Radius.md)
-                        .fill((index.isMultiple(of: 2) ? JdToken.Color.primaryLight : JdToken.Color.successLight).color)
+                        .fill(
+                            (index.isMultiple(of: 2)
+                                ? JdToken.Color.primaryLight : JdToken.Color.successLight).color
+                        )
                         .frame(height: JdToken.Space.s12)
                         .overlay(JdText("\(index + 1)", size: .xs, dimmed: true))
                 }
             }
 
-            Text("min-child-width=\(Int(minChildWidth))pt — 열 수는 폭이 정한다. "
-                 + "값을 키우면 열이 줄고, 줄이면 늘어난다(웹 auto-fill 동형).")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                "min-child-width=\(Int(minChildWidth))pt — 열 수는 폭이 정한다. "
+                    + "값을 키우면 열이 줄고, 줄이면 늘어난다(웹 auto-fill 동형)."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
         }
         .padding(JdToken.Space.s6)
     }

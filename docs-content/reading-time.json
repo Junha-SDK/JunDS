@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "ReadingTime",
   "oneLiner": "읽기 시간 추정 컴포넌트",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

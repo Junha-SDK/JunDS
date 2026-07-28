@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Callout 데모 — **자체 문서 강조 블록**(이모지 + 좌측 강조선 5종). 자체 구현(04 §10.1).
 // variant 5종은 Core JdCalloutVariant(note/tip/info/warning/danger — 이모지·색 단일 소스).
@@ -9,7 +9,8 @@ enum CalloutDemo {
     static let demo = ComponentDemo(
         id: "Callout",
         controls: [
-            .options("variant", "variant", JdCalloutVariant.allCases.map(\.rawValue), initial: "note"),
+            .options(
+                "variant", "variant", JdCalloutVariant.allCases.map(\.rawValue), initial: "note"),
             .toggle("collapsible", "collapsible"),
         ],
         swiftUI: { state in AnyView(CalloutStage(state: state)) }
@@ -37,10 +38,14 @@ private struct CalloutStage: View {
 
     var body: some View {
         VStack(spacing: JdToken.Space.s4) {
-            JdCallout(calloutTitle(state),
-                      variant: calloutVariant(state),
-                      isCollapsible: state.bool("collapsible")) {
-                Text("이모지(\(calloutVariant(state).emoji))와 좌측 강조선 색은 variant(=\(calloutVariant(state).rawValue))가 정한다. collapsible을 켜면 제목을 눌러 접고 편다.")
+            JdCallout(
+                calloutTitle(state),
+                variant: calloutVariant(state),
+                isCollapsible: state.bool("collapsible")
+            ) {
+                Text(
+                    "이모지(\(calloutVariant(state).emoji))와 좌측 강조선 색은 variant(=\(calloutVariant(state).rawValue))가 정한다. collapsible을 켜면 제목을 눌러 접고 편다."
+                )
             }
         }
         .frame(maxWidth: .infinity)

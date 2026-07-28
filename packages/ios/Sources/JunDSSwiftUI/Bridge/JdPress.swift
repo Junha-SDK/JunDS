@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 /// 프레스 응답 (DEC-039).
 ///

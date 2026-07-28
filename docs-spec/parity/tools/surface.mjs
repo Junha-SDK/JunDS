@@ -13,9 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(__dirname, "../../..");
 const DS = path.join(REPO, "ds");
 
-const ledger = JSON.parse(
-  readFileSync(path.join(REPO, "docs-spec/registry/ledger.json"), "utf8"),
-);
+const ledger = JSON.parse(readFileSync(path.join(REPO, "docs-spec/registry/ledger.json"), "utf8"));
 
 // 카테고리 디렉토리 내 파일 인덱스(1회 스캔)
 const filesByCat = {};
@@ -53,10 +51,17 @@ const findFile = (cat, id) => {
   const idx = path.join(DS, cat, "index.ts");
   if (existsSync(idx)) {
     const m = readFileSync(idx, "utf8").match(
-      new RegExp(`export\\s*\\{[^}]*\\b(\\w+)\\s+as\\s+${id}\\b[^}]*\\}\\s*from\\s*"\\.\\/([^"]+)"`),
+      new RegExp(
+        `export\\s*\\{[^}]*\\b(\\w+)\\s+as\\s+${id}\\b[^}]*\\}\\s*from\\s*"\\.\\/([^"]+)"`,
+      ),
     );
     if (m) {
-      const target = [`${m[2]}.tsx`, `${m[2]}.ts`, path.join(m[2], "index.tsx"), path.join(m[2], "index.ts")]
+      const target = [
+        `${m[2]}.tsx`,
+        `${m[2]}.ts`,
+        path.join(m[2], "index.tsx"),
+        path.join(m[2], "index.ts"),
+      ]
         .map((n) => path.join(DS, cat, n))
         .find(existsSync);
       if (target) return target;
@@ -111,10 +116,10 @@ for (const row of ledger.rows) {
   const kind = isHook
     ? "훅(비시각)"
     : isProvider
-      ? "프로바이더(래퍼)"
-      : hasJsx
-        ? "시각 컴포넌트"
-        : "비시각 모듈";
+    ? "프로바이더(래퍼)"
+    : hasJsx
+    ? "시각 컴포넌트"
+    : "비시각 모듈";
   // ledger 중복 id(예: AreaChart — composites·finance 양쪽) → 카테고리 접두 키
   const key = out[row.id] ? `${row.category}/${row.id}` : row.id;
   out[key] = { file: path.relative(REPO, file), kind, props: extractStyleKeys(src, extract(src)) };

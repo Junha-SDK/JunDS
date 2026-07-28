@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "NavigationMenu",
   "oneLiner": "네비게이션 메뉴",
-  "tags": [
-    "navigation"
-  ],
+  "tags": ["navigation"],
   "controls": [],
   "snippets": {
     "web": null,

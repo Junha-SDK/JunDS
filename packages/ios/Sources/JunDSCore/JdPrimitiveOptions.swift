@@ -90,19 +90,28 @@ public enum JdSpacerAxis: String, CaseIterable, Sendable {
     case vertical, horizontal
 }
 
+/// 웹 jd-sidebar-layout의 side — 사이드바를 어느 쪽에 둘지.
+/// UIKit·SwiftUI 두 계통이 같은 값을 쓰므로 Core에 한 번만 선언한다
+/// (양쪽에 각각 두면 우산 타겟에서 같은 이름이 둘이 된다).
+public enum JdSidebarSide: String, CaseIterable, Sendable {
+    case start, end
+}
+
 /// 웹 jd-container의 size 프리셋 (max-width)
 public enum JdContainerSize: String, CaseIterable, Sendable {
     case xs, sm, md, lg, xl, xl2 = "2xl", full
 
-    /// 웹 프리셋 px — full은 상한 없음(nil)
+    /// 상한 — 값의 정본은 tokens/container.json이고 여기서는 생성된 JdToken.Container를
+    /// 옮기기만 한다. 숫자를 손으로 적으면 웹과 iOS가 각자 표를 들게 된다.
+    /// full은 상한 없음이라 토큰에 없다(nil).
     public var maxWidth: CGFloat? {
         switch self {
-        case .xs: return 512
-        case .sm: return 640
-        case .md: return 768
-        case .lg: return 1024
-        case .xl: return 1280
-        case .xl2: return 1536
+        case .xs: return JdToken.Container.xs
+        case .sm: return JdToken.Container.sm
+        case .md: return JdToken.Container.md
+        case .lg: return JdToken.Container.lg
+        case .xl: return JdToken.Container.xl
+        case .xl2: return JdToken.Container.xl2
         case .full: return nil
         }
     }
@@ -116,17 +125,18 @@ public enum JdBreakpoint: String, CaseIterable, Sendable {
 
     public var width: CGFloat {
         switch self {
-        case .sm: return JdToken.Breakpoint.sm      // 640
-        case .md: return JdToken.Breakpoint.md      // 768
-        case .lg: return JdToken.Breakpoint.lg      // 1024
-        case .xl: return JdToken.Breakpoint.xl      // 1280
-        case .xl2: return JdToken.Breakpoint.xl2    // 1536
+        case .sm: return JdToken.Breakpoint.sm  // 640
+        case .md: return JdToken.Breakpoint.md  // 768
+        case .lg: return JdToken.Breakpoint.lg  // 1024
+        case .xl: return JdToken.Breakpoint.xl  // 1280
+        case .xl2: return JdToken.Breakpoint.xl2  // 1536
         }
     }
 
     /// 웹 jd-show의 가시성 판정 — above(>=), below(<)의 AND 결합 (v2 의미론 그대로).
     /// 순수 함수라 단위 테스트로 전수 검증한다 (04 §4.2 규칙 1·3).
-    public static func isVisible(width: CGFloat, above: JdBreakpoint?, below: JdBreakpoint?) -> Bool {
+    public static func isVisible(width: CGFloat, above: JdBreakpoint?, below: JdBreakpoint?) -> Bool
+    {
         if let above, width < above.width { return false }
         if let below, width >= below.width { return false }
         return true

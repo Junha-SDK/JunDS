@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-spinner의 SVG 주기 — `animation: jd-spin 1s linear infinite`.
 // JdToken.Duration 사다리(최대 0.5)에 없는 값이라 파일 상수로 1회만 기입한다(스펙 결손 보고 대상).
@@ -18,9 +18,11 @@ public struct JdSpinner: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var isSpinning = false
 
-    public init(size: JdDisplaySize = .md,
-                label: String = JdSpinnerSpec.defaultLabel,
-                color: JdDynamicColor = JdToken.Color.primary) {
+    public init(
+        size: JdDisplaySize = .md,
+        label: String = JdSpinnerSpec.defaultLabel,
+        color: JdDynamicColor = JdToken.Color.primary
+    ) {
         self.spec = JdSpinnerSpec.resolve(size: size)
         self.label = label
         self.color = color
@@ -30,14 +32,17 @@ public struct JdSpinner: View {
         ZStack {
             // 트랙: 웹 <circle opacity=".25">
             Circle()
-                .strokeBorder(color.color.opacity(JdToken.Opacity.o25),
-                              lineWidth: spec.lineWidth)
+                .strokeBorder(
+                    color.color.opacity(JdToken.Opacity.o25),
+                    lineWidth: spec.lineWidth)
             // 호: 웹 <path opacity=".75"> — 원주의 1/4
             Circle()
                 .inset(by: spec.lineWidth / 2)
                 .trim(from: 0, to: jdSpinnerArcFraction)
-                .stroke(color.color.opacity(JdToken.Opacity.o75),
-                        style: StrokeStyle(lineWidth: spec.lineWidth, lineCap: .round))
+                .stroke(
+                    color.color.opacity(JdToken.Opacity.o75),
+                    style: StrokeStyle(lineWidth: spec.lineWidth, lineCap: .round)
+                )
                 .rotationEffect(.degrees(isSpinning ? 360 : 0))
         }
         .frame(width: spec.side, height: spec.side)

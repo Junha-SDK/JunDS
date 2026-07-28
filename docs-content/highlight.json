@@ -4,11 +4,7 @@
   "category": "primitives",
   "title": "Highlight",
   "oneLiner": "텍스트 부분 강조 — 검색어 하이라이트.",
-  "tags": [
-    "typography",
-    "강조",
-    "검색"
-  ],
+  "tags": ["typography", "강조", "검색"],
   "controls": [],
   "snippets": {
     "web": null,

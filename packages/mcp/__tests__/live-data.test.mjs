@@ -33,13 +33,8 @@ describe("loadLive", () => {
   });
 
   it("토큰 cssVar ↔ tokens.css 선언 전수 일치", () => {
-    const css = readFileSync(
-      join(root, "packages", "web", "src", "styles", "tokens.css"),
-      "utf8",
-    );
-    const declared = new Set(
-      [...css.matchAll(/^\s*(--jd-[a-z0-9-]+)\s*:/gm)].map((m) => m[1]),
-    );
+    const css = readFileSync(join(root, "packages", "web", "src", "styles", "tokens.css"), "utf8");
+    const declared = new Set([...css.matchAll(/^\s*(--jd-[a-z0-9-]+)\s*:/gm)].map((m) => m[1]));
     const mine = new Set(data.tokens.filter((t) => t.cssVar).map((t) => t.cssVar));
     const notInCss = [...mine].filter((v) => !declared.has(v));
     const notInMine = [...declared].filter((v) => !mine.has(v));
@@ -63,8 +58,7 @@ describe("loadLive", () => {
   });
 
   it("파일럿 3종 사이즈 매핑 — 스니펫 파생 tag(kebab)가 size-baseline에 해소", () => {
-    const byId = (id) =>
-      Object.values(data.content).find((c) => c.ledgerId === id);
+    const byId = (id) => Object.values(data.content).find((c) => c.ledgerId === id);
     for (const id of ["Button", "Input", "Modal"]) {
       const c = byId(id);
       expect(c?.tag, `${id}의 파생 tag`).toBeTruthy();

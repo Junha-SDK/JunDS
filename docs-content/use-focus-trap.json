@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useFocusTrap",
   "oneLiner": "컨테이너 안 포커스 감금 — 모달용. v3 웹은 createFocusTrap Behavior로 구현 완료.",
-  "tags": [
-    "hook",
-    "a11y",
-    "포커스"
-  ],
+  "tags": ["hook", "a11y", "포커스"],
   "controls": [],
   "snippets": {
     "web": null,

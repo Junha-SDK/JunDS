@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ReadingStats",
   "oneLiner": "독서 통계 요약 블록.",
-  "tags": [
-    "book",
-    "독서",
-    "통계"
-  ],
+  "tags": ["book", "독서", "통계"],
   "controls": [],
   "snippets": {
     "web": null,

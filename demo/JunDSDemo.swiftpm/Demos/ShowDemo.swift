@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Show 데모 — 실컴포넌트 **모디파이어** `.jdShow(above:below:)` (JunDSSwiftUI/Layout).
 // 웹 <jd-show>는 뷰포트 미디어 쿼리지만 iOS는 **컨테이너 폭** 기준이다(04 §10) — 그래서
@@ -47,21 +47,26 @@ private struct ShowStage: View {
                 VStack(alignment: .leading, spacing: JdToken.Space.s1) {
                     JdText("컨테이너 폭 \(Int(width))pt", size: .sm)
                     JdText(showRuleText(above: above, below: below), size: .xs, dimmed: true)
-                    JdText("JdBreakpoint.isVisible → \(visible ? "표시" : "숨김")", size: .xs, mono: true)
+                    JdText(
+                        "JdBreakpoint.isVisible → \(visible ? "표시" : "숨김")", size: .xs, mono: true)
                 }
 
                 ShowTargetBlock()
                     .jdShow(above: above, below: below)
 
-                Text("숨김은 뷰를 계층에서 제거한다(웹 display:none 등가) — 위 블록이 사라지면 "
-                     + "자리도 함께 사라진다. 첫 측정 전에는 '보임'이 기본값이라 깜빡이지 않는다.")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
+                Text(
+                    "숨김은 뷰를 계층에서 제거한다(웹 display:none 등가) — 위 블록이 사라지면 "
+                        + "자리도 함께 사라진다. 첫 측정 전에는 '보임'이 기본값이라 깜빡이지 않는다."
+                )
+                .font(.footnote)
+                .foregroundColor(.secondary)
 
-                Text("UIKit에는 대응 표면이 없다 — 폭을 아는 지점에서 JdBreakpoint.isVisible을 직접 부르고 "
-                     + "isHidden을 토글하는 것이 iOS 관용구다.")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
+                Text(
+                    "UIKit에는 대응 표면이 없다 — 폭을 아는 지점에서 JdBreakpoint.isVisible을 직접 부르고 "
+                        + "isHidden을 토글하는 것이 iOS 관용구다."
+                )
+                .font(.footnote)
+                .foregroundColor(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }

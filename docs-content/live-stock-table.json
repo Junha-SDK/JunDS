@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveStockTable",
   "oneLiner": "실시간 종목 테이블.",
-  "tags": [
-    "finance",
-    "live",
-    "테이블"
-  ],
+  "tags": ["finance", "live", "테이블"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,22 +4,12 @@
   "category": "layout",
   "title": "Hide",
   "oneLiner": "브레이크포인트 조건 숨김 — Show 역방향 규칙, 동일 CSS 전용.",
-  "tags": [
-    "layout",
-    "반응형",
-    "조건부"
-  ],
+  "tags": ["layout", "반응형", "조건부"],
   "controls": [
     {
       "prop": "above",
       "kind": "select",
-      "options": [
-        "sm",
-        "md",
-        "lg",
-        "xl",
-        "2xl"
-      ],
+      "options": ["sm", "md", "lg", "xl", "2xl"],
       "default": "md"
     }
   ],

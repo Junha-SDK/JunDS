@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "Newsletter",
   "oneLiner": "뉴스레터 구독 입력 블록.",
-  "tags": [
-    "marketing",
-    "구독",
-    "폼"
-  ],
+  "tags": ["marketing", "구독", "폼"],
   "controls": [],
   "snippets": {
     "web": null,

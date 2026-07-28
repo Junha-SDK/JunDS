@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-password-input 동형 — 표시 토글 + 강도 게이지 + 규칙 체크리스트 (DESIGN-3 §A).
 //
@@ -20,13 +20,15 @@ public struct JdPasswordInput: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(text: Binding<String>,
-                placeholder: String = "",
-                size: JdControlSize = .md,
-                isError: Bool = false,
-                showsStrength: Bool = false,
-                showsRules: Bool = false,
-                accessibilityLabel: String? = nil) {
+    public init(
+        text: Binding<String>,
+        placeholder: String = "",
+        size: JdControlSize = .md,
+        isError: Bool = false,
+        showsStrength: Bool = false,
+        showsRules: Bool = false,
+        accessibilityLabel: String? = nil
+    ) {
         self._text = text
         self.placeholder = placeholder
         self.spec = JdTextFieldSpec.resolve(size: size)
@@ -56,9 +58,12 @@ public struct JdPasswordInput: View {
         let shape = RoundedRectangle(cornerRadius: spec.radius, style: .continuous)
         return HStack(spacing: JdToken.Space.s2) {
             secureOrPlainField
-                .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.fontSize,
+                        weight: JdToken.FontWeight.normal,
+                        category: sizeCategory)
+                )
                 .foregroundColor(JdToken.Color.foreground.color)
                 .textContentType(.password)
                 .autocorrectionDisabled(true)
@@ -91,9 +96,12 @@ public struct JdPasswordInput: View {
             isRevealed.toggle()
         } label: {
             Image(systemName: isRevealed ? "eye.slash" : "eye")
-                .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.fontSize,
+                        weight: JdToken.FontWeight.medium,
+                        category: sizeCategory)
+                )
                 .foregroundColor(JdToken.Color.muted.color)
                 .contentShape(Rectangle())
         }
@@ -118,9 +126,12 @@ public struct JdPasswordInput: View {
                     .frame(height: JdToken.Space.s1)
             }
             Text(current.label)
-                .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.xs,
-                                           weight: JdToken.FontWeight.semibold,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: JdToken.FontSize.xs,
+                        weight: JdToken.FontWeight.semibold,
+                        category: sizeCategory)
+                )
                 .foregroundColor(tone.foreground.color)
                 .padding(.leading, JdToken.Space.s1_5)
         }
@@ -139,13 +150,18 @@ public struct JdPasswordInput: View {
                 let passed = current.isSatisfied(rule)
                 HStack(spacing: JdToken.Space.s1_5) {
                     Image(systemName: passed ? "checkmark.circle.fill" : "circle")
-                        .foregroundColor(passed ? JdToken.Color.success.color : JdToken.Color.mutedLight.color)
+                        .foregroundColor(
+                            passed ? JdToken.Color.success.color : JdToken.Color.mutedLight.color)
                     Text(rule.label)
-                        .foregroundColor(passed ? JdToken.Color.success.color : JdToken.Color.muted.color)
+                        .foregroundColor(
+                            passed ? JdToken.Color.success.color : JdToken.Color.muted.color)
                 }
-                .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.xs,
-                                           weight: JdToken.FontWeight.normal,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: JdToken.FontSize.xs,
+                        weight: JdToken.FontWeight.normal,
+                        category: sizeCategory)
+                )
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(Text(rule.label))
                 .accessibilityValue(Text(passed ? "충족" : "미충족"))

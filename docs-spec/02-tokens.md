@@ -1,9 +1,8 @@
 # 02-tokens — JunDS v3 토큰 파이프라인 (G0)
 
-작성일: 2026-07-23 · 전제: 00-inventory.md, DECISIONS.md D5 (tokens/*.json 단일 소스 → CSS 변수 + Swift 상수 동시 생성)
-대원칙: **시각 패리티** — 기존 값을 그대로 추출한다. 값의 임의 변경 금지. 이름만 `--jd-*` 규칙으로 재편한다.
-(예외 통로: 접근성 게이트 등으로 값 보정이 불가피하면 DECISIONS 항목 + 패리티 테스트의
-`SANCTIONED_DEVIATIONS` 등재를 통해서만 이탈한다 — 현행 1건: danger 라이트 #c93636, DEC-027.)
+작성일: 2026-07-23 · 전제: 00-inventory.md, DECISIONS.md D5 (tokens/_.json 단일 소스 → CSS 변수 + Swift 상수 동시 생성)
+대원칙: **시각 패리티** — 기존 값을 그대로 추출한다. 값의 임의 변경 금지. 이름만 `--jd-_`규칙으로 재편한다.
+(예외 통로: 접근성 게이트 등으로 값 보정이 불가피하면 DECISIONS 항목 + 패리티 테스트의`SANCTIONED_DEVIATIONS` 등재를 통해서만 이탈한다 — 현행 1건: danger 라이트 #c93636, DEC-027.)
 
 ---
 
@@ -14,43 +13,47 @@
 `ds/tokens/colors.ts`는 값이 아니라 **CSS 변수 참조 문자열**(`"var(--primary)"`)을 export한다. 실제 색 값의 정본은 CSS 두 곳:
 
 - `ds/styles/tokens.css` — 라이브러리 배포본(`@junds/ui/styles.css`). `:root` 라이트 27변수 + `[data-theme="dark"]` 오버라이드 17변수(+`--dm-surface` 3종, `color-scheme: dark`).
+  DEC-045(MySelf 흡수)에서 `--font-*` 5종(→ v3 `type.fontFamily`로 승격)과 `--cat-*` 32종(콘텐츠
+  분류 — 승격하지 않음)이 추가됐다. 셋의 처분은 `tokens/build/legacy-map.mjs`에 코드로 있다(DEC-051).
 - `app/globals.css` — 문서앱용 복제본. 변수 값은 동일하나 다크 유틸 오버라이드(`.shadow-*` 진하게, 배지 배경 투명도 등)가 **여기에만** 존재.
 
 ### 1.2 파일별 요약
 
-| 파일 | 내용 | 값 형태 | v3 판정 |
-|---|---|---|---|
-| colors.ts | 시맨틱 8그룹(primary/accent/success/warning/danger/info/neutral/sidebar) + priorityColors(4단계)·statusColors(5종) | var() 참조 / 하드코딩 hex | color.json으로 — 값은 CSS에서 추출 |
-| spacing.ts | 4px 베이스 18스텝 (0, px, 0.5~24) rem | 리터럴 | space.json 그대로 |
-| radius.ts | none~2xl,full 7스텝 (4/6/8/12/16px) | 리터럴 | radius.json — 단 §7 쟁점2 |
-| typography.ts | fontSize 9(xs 12px~5xl 36px, **md=14px**), fontWeight 4, lineHeight 6, letterSpacing 4 | 리터럴 | type.json 그대로 |
-| shadows.ts | none~2xl 7단계 + glow/danger(포커스 링) | 리터럴(라이트 기준) | shadow.json — 다크 값은 §7 쟁점1 |
-| animation.ts | duration 5(0~500ms), easing 6, **animationClass 12(Tailwind 클래스명)** | 리터럴 | motion.json — animationClass는 토큰 아님(§4.4) |
-| zindex.ts | hide(-1)~tooltip(80), max 9999 | 숫자 | zindex.json 그대로 |
-| opacity.ts | 0~100 16스텝 | 리터럴 | opacity.json 그대로 |
-| borderWidth.ts | none~heavy 5스텝 | 리터럴 | border.json 그대로 |
-| breakpoints.ts | sm 640~2xl 1536 + mediaQueries | 숫자 | breakpoint.json 그대로 |
-| gradients.ts | 브랜드 2 + 시맨틱 4 + 장식 8 + shimmer | var() 혼합 리터럴 | gradient.json (참조는 `{color.*}` 별칭으로) |
-| themes.ts | 프리셋 18종 — `generateTheme(primary hex)` 파생 알고리즘(darken 0.15/lighten/glow 0.18) + applyTheme/restoreTheme(DOM+localStorage) | 파생 함수 | 프리셋 hex만 theme-presets.json으로, 알고리즘은 런타임 유틸(§4.5) |
-| brands.ts | 5브랜드 = theme+radius 4종+density 3종+font 3종 묶음, applyBrand | 파생 함수 | 동일 — 스케일 표만 JSON화 |
-| index.ts | 배럴 | — | react 어댑터 호환 표면의 기준 |
+| 파일              | 내용                                                                                                                                | 값 형태                   | v3 판정                                                                                                      |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| colors.ts         | 시맨틱 8그룹(primary/accent/success/warning/danger/info/neutral/sidebar) + priorityColors(4단계)·statusColors(5종)                  | var() 참조 / 하드코딩 hex | color.json으로 — 값은 CSS에서 추출                                                                           |
+| spacing.ts        | 4px 베이스 18스텝 (0, px, 0.5~24) rem                                                                                               | 리터럴                    | space.json 그대로                                                                                            |
+| radius.ts         | none~2xl,full 7스텝 (4/6/8/12/16px)                                                                                                 | 리터럴                    | radius.json — 단 §7 쟁점2                                                                                    |
+| typography.ts     | fontSize 10(**2xs 11px**~5xl 36px, **md=14px**), fontWeight 4, lineHeight 6, letterSpacing 5(**wider 0.08em**)                      | 리터럴                    | type.json 그대로 (2xs·wider는 DEC-045에서 추가 → DEC-051에서 승격)                                           |
+| fontFamily.ts     | sans/serif/display/hand/mono 5스택(시스템 폰트까지 내려가는 완전 폴백 체인)                                                         | 리터럴                    | type.json `fontFamily` — **값까지 그대로**. 축약 스택 금지(폴백 한 칸이 빠지면 그 환경에서 조용히 다른 글꼴) |
+| categoryColors.ts | 콘텐츠 분류 8종 × accent/soft/border/text (어두운 배경 기준 단일 모드)                                                              | 리터럴                    | **승격 안 함** — 앱의 정보 구조. 색으로 정보를 구분하는 자리는 hue 앵커(DEC-044) 담당                        |
+| shadows.ts        | none~2xl 7단계 + glow/danger(포커스 링)                                                                                             | 리터럴(라이트 기준)       | shadow.json — 다크 값은 §7 쟁점1                                                                             |
+| animation.ts      | duration 5(0~500ms), easing 6, **animationClass 12(Tailwind 클래스명)**                                                             | 리터럴                    | motion.json — animationClass는 토큰 아님(§4.4)                                                               |
+| zindex.ts         | hide(-1)~tooltip(80), max 9999                                                                                                      | 숫자                      | zindex.json 그대로                                                                                           |
+| opacity.ts        | 0~100 16스텝                                                                                                                        | 리터럴                    | opacity.json 그대로                                                                                          |
+| borderWidth.ts    | none~heavy 5스텝                                                                                                                    | 리터럴                    | border.json 그대로                                                                                           |
+| breakpoints.ts    | sm 640~2xl 1536 + mediaQueries                                                                                                      | 숫자                      | breakpoint.json 그대로                                                                                       |
+| gradients.ts      | 브랜드 2 + 시맨틱 4 + 장식 8 + shimmer                                                                                              | var() 혼합 리터럴         | gradient.json (참조는 `{color.*}` 별칭으로)                                                                  |
+| themes.ts         | 프리셋 18종 — `generateTheme(primary hex)` 파생 알고리즘(darken 0.15/lighten/glow 0.18) + applyTheme/restoreTheme(DOM+localStorage) | 파생 함수                 | 프리셋 hex만 theme-presets.json으로, 알고리즘은 런타임 유틸(§4.5)                                            |
+| brands.ts         | 5브랜드 = theme+radius 4종+density 3종+font 3종 묶음, applyBrand                                                                    | 파생 함수                 | 동일 — 스케일 표만 JSON화                                                                                    |
+| index.ts          | 배럴                                                                                                                                | —                         | react 어댑터 호환 표면의 기준                                                                                |
 
 ### 1.3 드리프트 실측 (v3에서 정본 확정 필요)
 
-| 항목 | 소스 A | 소스 B | **v3 정본 결정** |
-|---|---|---|---|
-| zIndex | zindex.ts: dropdown 10 … tooltip 80 | scripts/export-tokens.mjs: 1000~1700 | **zindex.ts** — 컴포넌트가 실제 import하는 쪽. export-tokens.mjs는 수기 사본으로 이미 부패(폐기 대상) |
-| fontSize md | typography.ts: 0.875rem(14px) | export-tokens.mjs: 16px | **typography.ts** |
-| radius sm/md/lg/xl | radius.ts: 4/6/8/12px | tokens.css `--jds-radius-*`: 4/8/12/16px | §7 쟁점2 |
-| shadow | shadows.ts(정교한 2중 그림자) | export-tokens.mjs(구식 값) | **shadows.ts** |
-| primary-hover | tokens.css `#4a3db0` | export-tokens.mjs `#4a3db5`, themes.ts darken 파생 `#4d41a9` | **tokens.css** — 실제 렌더 값 |
-| accent | tokens.css `#7c5ce7` | export-tokens.mjs `#7c6cd9` | **tokens.css** |
+| 항목               | 소스 A                              | 소스 B                                                       | **v3 정본 결정**                                                                                      |
+| ------------------ | ----------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| zIndex             | zindex.ts: dropdown 10 … tooltip 80 | scripts/export-tokens.mjs: 1000~1700                         | **zindex.ts** — 컴포넌트가 실제 import하는 쪽. export-tokens.mjs는 수기 사본으로 이미 부패(폐기 대상) |
+| fontSize md        | typography.ts: 0.875rem(14px)       | export-tokens.mjs: 16px                                      | **typography.ts**                                                                                     |
+| radius sm/md/lg/xl | radius.ts: 4/6/8/12px               | tokens.css `--jds-radius-*`: 4/8/12/16px                     | §7 쟁점2                                                                                              |
+| shadow             | shadows.ts(정교한 2중 그림자)       | export-tokens.mjs(구식 값)                                   | **shadows.ts**                                                                                        |
+| primary-hover      | tokens.css `#4a3db0`                | export-tokens.mjs `#4a3db5`, themes.ts darken 파생 `#4d41a9` | **tokens.css** — 실제 렌더 값                                                                         |
+| accent             | tokens.css `#7c5ce7`                | export-tokens.mjs `#7c6cd9`                                  | **tokens.css**                                                                                        |
 
 결론: `scripts/export-tokens.mjs`는 v3 파이프라인의 반례(수기 이중 관리)다. v3 생성기가 이 스크립트를 **대체**한다(Figma용 DTCG export는 생성기의 부가 타깃으로 흡수 가능, G1 범위 외).
 
 ---
 
-## 2. tokens/*.json 스키마
+## 2. tokens/\*.json 스키마
 
 **결정: DTCG(`$value`/`$type`) 미채택, 자체 미니 스키마.** 생성기를 의존성 0으로 자작하므로 표준 포맷의 이점(도구 호환)보다 단순함이 크다. 필요 시 DTCG는 export 변환 한 줄이면 된다.
 
@@ -64,42 +67,48 @@
 ```jsonc
 // tokens/color.json — 값 전량 ds/styles/tokens.css에서 추출 (임의 변경 0)
 {
-  "background":   { "light": "#f5f4f8",  "dark": "#0c0a14" },
-  "foreground":   { "light": "#1a1726",  "dark": "#e4e2ee" },
-  "card":         { "light": "#ffffff",  "dark": "#161329" },
-  "cardHover":    { "light": "#f9f8fc",  "dark": "#1c1932" },
-  "border":       { "light": "#e2dfe8",  "dark": "#2a2744" },
-  "borderLight":  { "light": "#efedf4",  "dark": "#22203a" },
-  "primary":      "#5b4cc7",                         // 다크 오버라이드 없음 → 스칼라
+  "background": { "light": "#f5f4f8", "dark": "#0c0a14" },
+  "foreground": { "light": "#1a1726", "dark": "#e4e2ee" },
+  "card": { "light": "#ffffff", "dark": "#161329" },
+  "cardHover": { "light": "#f9f8fc", "dark": "#1c1932" },
+  "border": { "light": "#e2dfe8", "dark": "#2a2744" },
+  "borderLight": { "light": "#efedf4", "dark": "#22203a" },
+  "primary": "#5b4cc7", // 다크 오버라이드 없음 → 스칼라
   "primaryHover": "#4a3db0",
-  "primaryLight": { "light": "#eceafc",  "dark": "rgba(91, 76, 199, 0.15)" },
-  "primaryGlow":  "rgba(91, 76, 199, 0.18)",
-  "accent":       "#7c5ce7",
-  "accentLight":  { "light": "#efebff",  "dark": "rgba(124, 92, 231, 0.12)" },
-  "danger":       { "light": "#c93636",  "dark": "#dc3f3f" }, // DEC-027: v2 #dc3f3f는 라이트 AA 미달 → 라이트만 보정
-  "dangerHover":  "#b92f2f",
-  "dangerLight":  { "light": "#fff1f1",  "dark": "rgba(220, 63, 63, 0.15)" },
-  "muted":        { "light": "#6b6880",  "dark": "#a09cb5" },
-  "mutedLight":   { "light": "#9895a8",  "dark": "#706d88" },
-  "success":      "#2f8f57",
-  "successLight": { "light": "#eaf6ee",  "dark": "rgba(47, 143, 87, 0.15)" },
-  "warning":      "#b7791f",
-  "warningLight": { "light": "#fff7e6",  "dark": "rgba(183, 121, 31, 0.15)" },
-  "info":         "#3b82f6",
-  "infoLight":    { "light": "#eff6ff",  "dark": "rgba(59, 130, 246, 0.15)" },
-  "sidebarBg":    "#1a1726",
+  "primaryLight": { "light": "#eceafc", "dark": "rgba(91, 76, 199, 0.15)" },
+  "primaryGlow": "rgba(91, 76, 199, 0.18)",
+  "accent": "#7c5ce7",
+  "accentLight": { "light": "#efebff", "dark": "rgba(124, 92, 231, 0.12)" },
+  "danger": { "light": "#c93636", "dark": "#dc3f3f" }, // DEC-027: v2 #dc3f3f는 라이트 AA 미달 → 라이트만 보정
+  "dangerHover": "#b92f2f",
+  "dangerLight": { "light": "#fff1f1", "dark": "rgba(220, 63, 63, 0.15)" },
+  "muted": { "light": "#6b6880", "dark": "#a09cb5" },
+  "mutedLight": { "light": "#9895a8", "dark": "#706d88" },
+  "success": "#2f8f57",
+  "successLight": { "light": "#eaf6ee", "dark": "rgba(47, 143, 87, 0.15)" },
+  "warning": "#b7791f",
+  "warningLight": { "light": "#fff7e6", "dark": "rgba(183, 121, 31, 0.15)" },
+  "info": "#3b82f6",
+  "infoLight": { "light": "#eff6ff", "dark": "rgba(59, 130, 246, 0.15)" },
+  "sidebarBg": "#1a1726",
   "sidebarHover": "#272338",
-  "sidebarText":  "#a09cb0",
-  "sidebarActive":"#9580fa",
-  "surface":      { "light": "#161329",  "dark": "#161329", "$alias-note": "v2 --dm-surface — 다크 전용이었으나 스키마상 양모드 기록" },
-  "status": {                                        // statusColors 승계 (v2와 동일하게 모드 무관)
-    "todo":     { "bg": "#f3f4f6", "text": "#6b7280" },
-    "progress": { "bg": "#dbeafe", "text": "#2563eb" },
-    "review":   { "bg": "#fef3c7", "text": "#d97706" },
-    "done":     { "bg": "#d1fae5", "text": "#059669" },
-    "hold":     { "bg": "#fee2e2", "text": "#dc2626" }
+  "sidebarText": "#a09cb0",
+  "sidebarActive": "#9580fa",
+  "surface": {
+    "light": "#161329",
+    "dark": "#161329",
+    "$alias-note": "v2 --dm-surface — 다크 전용이었으나 스키마상 양모드 기록"
   },
-  "priority": {                                      // priorityColors 승계
+  "status": {
+    // statusColors 승계 (v2와 동일하게 모드 무관)
+    "todo": { "bg": "#f3f4f6", "text": "#6b7280" },
+    "progress": { "bg": "#dbeafe", "text": "#2563eb" },
+    "review": { "bg": "#fef3c7", "text": "#d97706" },
+    "done": { "bg": "#d1fae5", "text": "#059669" },
+    "hold": { "bg": "#fee2e2", "text": "#dc2626" }
+  },
+  "priority": {
+    // priorityColors 승계
     "p0": { "bg": "#fef2f2", "text": "#dc2626", "border": "#fca5a5" },
     "p1": { "bg": "#fff7ed", "text": "#ea580c", "border": "#fdba74" },
     "p2": { "bg": "#fefce8", "text": "#ca8a04", "border": "#fde047" },
@@ -110,37 +119,89 @@
 
 ```jsonc
 // tokens/space.json — spacing.ts 그대로
-{ "0": "0", "px": "1px", "0.5": "0.125rem", "1": "0.25rem", "1.5": "0.375rem",
-  "2": "0.5rem", "2.5": "0.625rem", "3": "0.75rem", "3.5": "0.875rem", "4": "1rem",
-  "5": "1.25rem", "6": "1.5rem", "8": "2rem", "10": "2.5rem", "12": "3rem",
-  "16": "4rem", "20": "5rem", "24": "6rem" }
+{
+  "0": "0",
+  "px": "1px",
+  "0.5": "0.125rem",
+  "1": "0.25rem",
+  "1.5": "0.375rem",
+  "2": "0.5rem",
+  "2.5": "0.625rem",
+  "3": "0.75rem",
+  "3.5": "0.875rem",
+  "4": "1rem",
+  "5": "1.25rem",
+  "6": "1.5rem",
+  "8": "2rem",
+  "10": "2.5rem",
+  "12": "3rem",
+  "16": "4rem",
+  "20": "5rem",
+  "24": "6rem"
+}
 ```
 
 ```jsonc
-// tokens/type.json — typography.ts + 폰트 패밀리(globals.css·brands.ts에서 추출)
+// tokens/type.json — typography.ts + fontFamily.ts (둘 다 v2 리터럴 그대로)
+// 초판은 폰트 스택을 문서앱 globals.css에서 뽑아 3종 축약본을 적었다 — 라이브러리 정본은
+// fontFamily.ts 5종이며 DEC-051에서 값까지 그것으로 되돌렸다.
 {
   "fontFamily": {
-    "sans":  "'Pretendard', 'Inter', -apple-system, 'Segoe UI', sans-serif",
-    "serif": "'Noto Serif KR', 'Source Serif Pro', Georgia, serif",
-    "mono":  "'JetBrains Mono', 'Geist Mono', ui-monospace, monospace"
+    "sans": "\"Pretendard Variable\", Pretendard, \"Inter\", \"Noto Sans KR\", ui-sans-serif, -apple-system, … , \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+    "serif": "\"Noto Serif KR\", \"Nanum Myeongjo\", Georgia, \"Times New Roman\", serif",
+    "display": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+    "hand": "\"Caveat\", \"Bradley Hand\", \"Segoe Script\", cursive",
+    "mono": "ui-monospace, \"SF Mono\", \"JetBrains Mono\", \"Fira Code\", Menlo, Consolas, \"Liberation Mono\", monospace"
   },
-  "fontSize":  { "xs": "0.75rem", "sm": "0.8125rem", "md": "0.875rem", "lg": "1rem",
-                 "xl": "1.125rem", "2xl": "1.25rem", "3xl": "1.5rem",
-                 "4xl": "1.875rem", "5xl": "2.25rem" },
+  "fontSize": {
+    "2xs": "0.6875rem",
+    "xs": "0.75rem",
+    "sm": "0.8125rem",
+    "md": "0.875rem",
+    "lg": "1rem",
+    "xl": "1.125rem",
+    "2xl": "1.25rem",
+    "3xl": "1.5rem",
+    "4xl": "1.875rem",
+    "5xl": "2.25rem"
+  },
   "fontWeight": { "normal": "400", "medium": "500", "semibold": "600", "bold": "700" },
-  "lineHeight": { "none": "1", "tight": "1.25", "snug": "1.375", "normal": "1.5",
-                  "relaxed": "1.625", "loose": "2" },
-  "letterSpacing": { "tighter": "-0.05em", "tight": "-0.025em", "normal": "0em", "wide": "0.025em" }
+  "lineHeight": {
+    "none": "1",
+    "tight": "1.25",
+    "snug": "1.375",
+    "normal": "1.5",
+    "relaxed": "1.625",
+    "loose": "2"
+  },
+  "letterSpacing": {
+    "tighter": "-0.05em",
+    "tight": "-0.025em",
+    "normal": "0em",
+    "wide": "0.025em",
+    "wider": "0.08em"
+  }
 }
 ```
 
 ```jsonc
 // tokens/motion.json — animation.ts의 duration/easing만 (클래스명은 §4.4)
 {
-  "duration": { "instant": "0ms", "fast": "100ms", "normal": "200ms", "slow": "300ms", "slower": "500ms" },
-  "easing": { "default": "cubic-bezier(0.16, 1, 0.3, 1)", "linear": "linear",
-              "easeIn": "cubic-bezier(0.4, 0, 1, 1)", "easeOut": "cubic-bezier(0, 0, 0.2, 1)",
-              "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)", "spring": "cubic-bezier(0.16, 1, 0.3, 1)" }
+  "duration": {
+    "instant": "0ms",
+    "fast": "100ms",
+    "normal": "200ms",
+    "slow": "300ms",
+    "slower": "500ms"
+  },
+  "easing": {
+    "default": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "linear": "linear",
+    "easeIn": "cubic-bezier(0.4, 0, 1, 1)",
+    "easeOut": "cubic-bezier(0, 0, 0.2, 1)",
+    "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "spring": "cubic-bezier(0.16, 1, 0.3, 1)"
+  }
 }
 ```
 
@@ -154,7 +215,7 @@
   "lg": "0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04)",
   "xl": "0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04)",
   "2xl": "0 25px 50px -12px rgba(0,0,0,0.15)",
-  "focusRing": "0 0 0 3px {color.primaryGlow}",      // 구명 glow — 역할 명시로만 개명
+  "focusRing": "0 0 0 3px {color.primaryGlow}", // 구명 glow — 역할 명시로만 개명
   "focusRingDanger": "0 0 0 3px rgba(220,63,63,0.15)" // 구명 danger
 }
 ```
@@ -165,16 +226,16 @@ radius/zindex/opacity/border/breakpoint/gradient는 §1.2 판정대로 1:1 이�
 
 CSS 변수: `--jd-<카테고리>-<이름>` (kebab-case). Swift: `JdToken.<카테고리>.<이름>` (camelCase).
 
-| 카테고리 | CSS 예 | Swift 예 |
-|---|---|---|
-| color | `--jd-color-primary`, `--jd-color-card-hover` | `JdToken.Color.primary`, `.cardHover` |
-| space | `--jd-space-4`, 소수는 `.`→`-`: `--jd-space-0-5` | `JdToken.Space.s4`, `.s0_5` (CGFloat, rem×16) |
-| radius | `--jd-radius-md` | `JdToken.Radius.md` |
-| type | `--jd-font-sans`, `--jd-text-md`, `--jd-weight-bold`, `--jd-leading-tight`, `--jd-tracking-wide` | `JdToken.FontSize.md` 등 |
-| motion | `--jd-duration-fast`, `--jd-easing-default` | `JdToken.Duration.fast`(TimeInterval), `.Easing.default`(제어점 4튜플) |
-| shadow | `--jd-shadow-md` | `JdToken.Shadow.md` (color/offset/blur 구조체 — CSS 다중 그림자는 배열) |
-| zindex | `--jd-z-modal` | `JdToken.Z.modal` (웹 전용 성격 — Swift에도 상수는 내보내되 사용은 선택) |
-| opacity / border / breakpoint | `--jd-opacity-50`, `--jd-border-thin`, `--jd-breakpoint-md` | `.Opacity.o50`, `.Border.thin`, `.Breakpoint.md` |
+| 카테고리                      | CSS 예                                                                                           | Swift 예                                                                 |
+| ----------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| color                         | `--jd-color-primary`, `--jd-color-card-hover`                                                    | `JdToken.Color.primary`, `.cardHover`                                    |
+| space                         | `--jd-space-4`, 소수는 `.`→`-`: `--jd-space-0-5`                                                 | `JdToken.Space.s4`, `.s0_5` (CGFloat, rem×16)                            |
+| radius                        | `--jd-radius-md`                                                                                 | `JdToken.Radius.md`                                                      |
+| type                          | `--jd-font-sans`, `--jd-text-md`, `--jd-weight-bold`, `--jd-leading-tight`, `--jd-tracking-wide` | `JdToken.FontSize.md` 등                                                 |
+| motion                        | `--jd-duration-fast`, `--jd-easing-default`                                                      | `JdToken.Duration.fast`(TimeInterval), `.Easing.default`(제어점 4튜플)   |
+| shadow                        | `--jd-shadow-md`                                                                                 | `JdToken.Shadow.md` (color/offset/blur 구조체 — CSS 다중 그림자는 배열)  |
+| zindex                        | `--jd-z-modal`                                                                                   | `JdToken.Z.modal` (웹 전용 성격 — Swift에도 상수는 내보내되 사용은 선택) |
+| opacity / border / breakpoint | `--jd-opacity-50`, `--jd-border-thin`, `--jd-breakpoint-md`                                      | `.Opacity.o50`, `.Border.thin`, `.Breakpoint.md`                         |
 
 v2 → v3 색 변수 대응은 기계적: `--primary → --jd-color-primary`, `--card-hover → --jd-color-card-hover`, `--sidebar-bg → --jd-color-sidebar-bg`, `--dm-surface → --jd-color-surface`(다크 전용이던 것을 정식 토큰화). 예외 개명은 shadow의 `glow→focus-ring`, `danger→focus-ring-danger` 2건뿐이며, 전량 매핑 표는 생성기 소스 `tokens/build/legacy-map.mjs`에 코드로 존재해야 한다(패리티 테스트가 이 표를 사용, §6).
 
@@ -201,7 +262,7 @@ v2 → v3 색 변수 대응은 기계적: `--primary → --jd-color-primary`, `-
     --jd-text-md: 0.875rem;
     --jd-duration-fast: 100ms;
     --jd-easing-default: cubic-bezier(0.16, 1, 0.3, 1);
-    --jd-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --jd-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
     --jd-shadow-focus-ring: 0 0 0 3px var(--jd-color-primary-glow); /* {color.*} 참조 → var() */
     --jd-z-modal: 50;
   }
@@ -291,12 +352,12 @@ export const colors = {
     light: "var(--jd-color-primary-light)",
     glow: "var(--jd-color-primary-glow)",
   },
-  neutral: { background: "var(--jd-color-background)", /* … */ },
+  neutral: { background: "var(--jd-color-background)" /* … */ },
   // …
 } as const;
-export const spacing = { 0: "0", px: "1px", 0.5: "0.125rem", /* … */ } as const;
-export const fontSize = { xs: "0.75rem", /* … */ } as const;
-export const zIndex = { hide: -1, base: 0, dropdown: 10, /* … */ } as const;
+export const spacing = { 0: "0", px: "1px", 0.5: "0.125rem" /* … */ } as const;
+export const fontSize = { xs: "0.75rem" /* … */ } as const;
+export const zIndex = { hide: -1, base: 0, dropdown: 10 /* … */ } as const;
 // duration, easing, radius, shadows, opacity, borderWidth, breakpoints, mediaQueries 동일 요령
 ```
 

@@ -1,9 +1,11 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // UIKit 뷰: init 후 기본 상태·프로퍼티 didSet 반영·접근성 표면 (DESIGN-2 §C).
+@MainActor
 final class JdAvatarViewTests: XCTestCase {
 
     private let lightTraits = UITraitCollection(userInterfaceStyle: .light)
@@ -25,8 +27,9 @@ final class JdAvatarViewTests: XCTestCase {
         XCTAssertFalse(view.initialsLabel.isHidden)
         XCTAssertTrue(view.imageView.isHidden)
         XCTAssertEqual(view.initialsLabel.text, "AL")
-        XCTAssertEqual(resolved(view.initialsLabel.textColor),
-                       resolved(JdAvatarSpec.fallbackColor(for: "Ada Lovelace").uiColor))
+        XCTAssertEqual(
+            resolved(view.initialsLabel.textColor),
+            resolved(JdAvatarSpec.fallbackColor(for: "Ada Lovelace").uiColor))
     }
 
     // 이름이 비었거나 공백뿐이면 웹과 동일하게 "?" — Core initials의 공백 반환을 렌더가 흡수한다
@@ -44,27 +47,30 @@ final class JdAvatarViewTests: XCTestCase {
         XCTAssertNotNil(view.imageView.image)
         XCTAssertFalse(view.imageView.isHidden)
         XCTAssertTrue(view.initialsLabel.isHidden)
-        XCTAssertNil(view.backgroundColor) // 사진이 원을 채우므로 폴백 배경은 걷는다
+        XCTAssertNil(view.backgroundColor)  // 사진이 원을 채우므로 폴백 배경은 걷는다
 
         view.image = nil
         XCTAssertTrue(view.imageView.isHidden)
         XCTAssertFalse(view.initialsLabel.isHidden)
         XCTAssertEqual(view.initialsLabel.text, "홍길")
-        XCTAssertEqual(resolved(view.backgroundColor),
-                       resolved(JdToken.Color.borderLight.uiColor))
+        XCTAssertEqual(
+            resolved(view.backgroundColor),
+            resolved(JdToken.Color.borderLight.uiColor))
     }
 
     // 상태 도트: nil이면 아예 없다(웹 dot.remove() 동형), 있으면 색 + accessibilityValue
     func test_status_dot_appears_and_reports_value() {
         let view = JdAvatarView(name: "Ada", status: .online)
         XCTAssertFalse(view.statusDot.isHidden)
-        XCTAssertEqual(resolved(view.statusDot.backgroundColor),
-                       resolved(JdAvatarSpec.statusColor(.online).uiColor))
+        XCTAssertEqual(
+            resolved(view.statusDot.backgroundColor),
+            resolved(JdAvatarSpec.statusColor(.online).uiColor))
         XCTAssertEqual(view.accessibilityValue, "온라인")
 
         view.status = .busy
-        XCTAssertEqual(resolved(view.statusDot.backgroundColor),
-                       resolved(JdAvatarSpec.statusColor(.busy).uiColor))
+        XCTAssertEqual(
+            resolved(view.statusDot.backgroundColor),
+            resolved(JdAvatarSpec.statusColor(.busy).uiColor))
         XCTAssertEqual(view.accessibilityValue, "다른 용무 중")
 
         view.status = nil
@@ -87,9 +93,11 @@ final class JdAvatarViewTests: XCTestCase {
     func test_intrinsic_size_follows_spec_ramp() {
         let xs = JdAvatarView(name: "A", size: .xs)
         let xl = JdAvatarView(name: "A", size: .xl)
-        XCTAssertEqual(xs.intrinsicContentSize,
-                       CGSize(width: JdAvatarSpec.resolve(size: .xs).side,
-                              height: JdAvatarSpec.resolve(size: .xs).side))
+        XCTAssertEqual(
+            xs.intrinsicContentSize,
+            CGSize(
+                width: JdAvatarSpec.resolve(size: .xs).side,
+                height: JdAvatarSpec.resolve(size: .xs).side))
         XCTAssertGreaterThan(xl.intrinsicContentSize.width, xs.intrinsicContentSize.width)
         XCTAssertGreaterThan(xl.initialsLabel.font.pointSize, xs.initialsLabel.font.pointSize)
     }
@@ -101,6 +109,7 @@ final class JdAvatarViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdSpinnerViewTests: XCTestCase {
 
     override func tearDown() {
@@ -136,12 +145,14 @@ final class JdSpinnerViewTests: XCTestCase {
     func test_intrinsic_size_follows_spec() {
         for size in JdDisplaySize.allCases {
             let spec = JdSpinnerSpec.resolve(size: size)
-            XCTAssertEqual(JdSpinnerView(size: size).intrinsicContentSize,
-                           CGSize(width: spec.side, height: spec.side))
+            XCTAssertEqual(
+                JdSpinnerView(size: size).intrinsicContentSize,
+                CGSize(width: spec.side, height: spec.side))
         }
     }
 }
 
+@MainActor
 final class JdKbdViewTests: XCTestCase {
 
     // 웹 keys attribute 동형 — 공백 제거는 Core가 하고 뷰는 결과만 그린다
@@ -160,24 +171,29 @@ final class JdKbdViewTests: XCTestCase {
         let bare = UILabel()
         bare.font = view.font
         bare.text = view.text
-        XCTAssertEqual(view.intrinsicContentSize.width,
-                       bare.intrinsicContentSize.width + spec.hPadding * 2,
-                       accuracy: 0.5)
-        XCTAssertEqual(view.intrinsicContentSize.height,
-                       bare.intrinsicContentSize.height + spec.vPadding * 2,
-                       accuracy: 0.5)
+        XCTAssertEqual(
+            view.intrinsicContentSize.width,
+            bare.intrinsicContentSize.width + spec.hPadding * 2,
+            accuracy: 0.5)
+        XCTAssertEqual(
+            view.intrinsicContentSize.height,
+            bare.intrinsicContentSize.height + spec.vPadding * 2,
+            accuracy: 0.5)
     }
 
     // 웹 font-family mono + muted 글자색
     func test_style_uses_mono_font_and_muted_color() {
         let view = JdKbdView("⌘K")
         XCTAssertTrue(view.font.fontDescriptor.symbolicTraits.contains(.traitMonoSpace))
-        XCTAssertEqual(view.textColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)),
-                       JdToken.Color.muted.uiColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)))
+        XCTAssertEqual(
+            view.textColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)),
+            JdToken.Color.muted.uiColor.resolvedColor(
+                with: UITraitCollection(userInterfaceStyle: .light)))
         XCTAssertTrue(view.adjustsFontForContentSizeCategory)
     }
 }
 
+@MainActor
 final class JdKeyCapViewTests: XCTestCase {
 
     override func tearDown() {
@@ -232,8 +248,9 @@ final class JdKeyCapViewTests: XCTestCase {
             XCTAssertGreaterThanOrEqual(view.intrinsicContentSize.height, spec.height)
         }
         let wide = JdKeyCapView("Shift", size: .sm)
-        XCTAssertGreaterThan(wide.intrinsicContentSize.width,
-                             JdKeyCapSpec.resolve(variant: .default, size: .sm).minWidth)
+        XCTAssertGreaterThan(
+            wide.intrinsicContentSize.width,
+            JdKeyCapSpec.resolve(variant: .default, size: .sm).minWidth)
     }
 
     // variant별 색은 전부 스펙에서 온다
@@ -242,10 +259,12 @@ final class JdKeyCapViewTests: XCTestCase {
         for variant in JdKeyCapVariant.allCases {
             let spec = JdKeyCapSpec.resolve(variant: variant, size: .md)
             let view = JdKeyCapView("⌘", variant: variant)
-            XCTAssertEqual(view.backgroundColor?.resolvedColor(with: light),
-                           spec.background.uiColor.resolvedColor(with: light))
-            XCTAssertEqual(view.textColor.resolvedColor(with: light),
-                           spec.foreground.uiColor.resolvedColor(with: light))
+            XCTAssertEqual(
+                view.backgroundColor?.resolvedColor(with: light),
+                spec.background.uiColor.resolvedColor(with: light))
+            XCTAssertEqual(
+                view.textColor.resolvedColor(with: light),
+                spec.foreground.uiColor.resolvedColor(with: light))
         }
     }
 }

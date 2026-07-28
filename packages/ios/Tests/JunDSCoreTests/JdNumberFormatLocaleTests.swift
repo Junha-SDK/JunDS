@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // JdNumberFormat의 **로케일 고정 계약** (DESIGN-3 §E).
 //
@@ -56,7 +56,8 @@ final class JdNumberFormatLocaleTests: XCTestCase {
 
     // 환경 무관 — 기기 지역 설정이 무엇이든 아래 상수가 나와야 한다
     func test_output_is_pinned_to_constants_regardless_of_device_locale() {
-        let hint = "기기 로케일(\(Locale.current.identifier))이 결과에 새고 있다 — Core가 Locale.current를 읽으면 안 된다"
+        let hint =
+            "기기 로케일(\(Locale.current.identifier))이 결과에 새고 있다 — Core가 Locale.current를 읽으면 안 된다"
         XCTAssertEqual(JdNumberFormat.string(value: 1_234_567.891), "1,234,567.891", hint)
         XCTAssertEqual(JdNumberFormat.string(value: 12_000, style: .currency), "₩12,000", hint)
         XCTAssertEqual(JdNumberFormat.string(value: 0.15, style: .percent), "15%", hint)
@@ -68,70 +69,92 @@ final class JdNumberFormatLocaleTests: XCTestCase {
 
     // 기본값은 상수 "ko-KR"다 — 생략과 명시가 같은 결과여야 한다
     func test_default_locale_is_the_constant_ko_kr() {
-        XCTAssertEqual(JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD"),
-                       JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "ko-KR"))
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234.5, decimals: 2),
-                       JdNumberFormat.string(value: 1_234.5, locale: "ko-KR", decimals: 2))
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY"),
-                       JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY", locale: "ko-KR"))
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD"),
+            JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "ko-KR"))
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234.5, decimals: 2),
+            JdNumberFormat.string(value: 1_234.5, locale: "ko-KR", decimals: 2))
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY"),
+            JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY", locale: "ko-KR"))
     }
 
     // locale을 바꾸면 통화 기호 표기가 실제로 달라진다(인자가 살아 있다는 증거)
     func test_locale_argument_changes_currency_symbol_presentation() {
-        XCTAssertEqual(JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "ko-KR"),
-                       "US$12.50")
-        XCTAssertEqual(JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "en-US"),
-                       "$12.50")
-        XCTAssertNotEqual(JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "ko-KR"),
-                          JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "en-US"))
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "ko-KR"),
+            "US$12.50")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "en-US"),
+            "$12.50")
+        XCTAssertNotEqual(
+            JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "ko-KR"),
+            JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", locale: "en-US"))
 
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY", locale: "ko-KR"),
-                       "JP¥1,234")
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY", locale: "en-US"),
-                       "¥1,234")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY", locale: "ko-KR"),
+            "JP¥1,234")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY", locale: "en-US"),
+            "¥1,234")
     }
 
     // 구분자·소수점도 locale을 따른다 — ko/en은 동률이라 de-DE로 확인한다
     func test_locale_argument_changes_grouping_and_decimal_separators() {
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234_567.891, locale: "en-US"), "1,234,567.891")
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234_567.891, locale: "de-DE"), "1.234.567,891")
-        XCTAssertNotEqual(JdNumberFormat.string(value: 1_234_567.891, locale: "de-DE"),
-                          JdNumberFormat.string(value: 1_234_567.891, locale: "ko-KR"))
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234_567.891, locale: "en-US"), "1,234,567.891")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234_567.891, locale: "de-DE"), "1.234.567,891")
+        XCTAssertNotEqual(
+            JdNumberFormat.string(value: 1_234_567.891, locale: "de-DE"),
+            JdNumberFormat.string(value: 1_234_567.891, locale: "ko-KR"))
     }
 
     // 반대로 **달라지지 않는** 축도 고정한다 — 차이가 없어야 정상인 곳에서 차이가 생기면 회귀다
     func test_axes_that_must_stay_identical_across_ko_and_en() {
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234_567.891, locale: "ko-KR"),
-                       JdNumberFormat.string(value: 1_234_567.891, locale: "en-US"))
-        XCTAssertEqual(JdNumberFormat.string(value: 0.15, style: .percent, locale: "ko-KR"),
-                       JdNumberFormat.string(value: 0.15, style: .percent, locale: "en-US"))
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234_567.891, locale: "ko-KR"),
+            JdNumberFormat.string(value: 1_234_567.891, locale: "en-US"))
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 0.15, style: .percent, locale: "ko-KR"),
+            JdNumberFormat.string(value: 0.15, style: .percent, locale: "en-US"))
         // KRW 기호는 두 로케일에서 같다 — USD와 달리 축약 기호가 없다
-        XCTAssertEqual(JdNumberFormat.string(value: 12_000, style: .currency, locale: "en-US"), "₩12,000")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12_000, style: .currency, locale: "en-US"), "₩12,000")
     }
 
     // compact 단위 접미사는 **로케일과 무관하게 한국어**다(Core 주석의 명시 계약).
     // 다국어가 필요해지면 여기가 먼저 깨지도록 남긴다.
     func test_compact_unit_suffix_is_korean_regardless_of_locale() {
-        XCTAssertEqual(JdNumberFormat.string(value: 15_000, style: .compact, locale: "en-US"), "1.5만")
-        XCTAssertEqual(JdNumberFormat.string(value: 15_000, style: .compact, locale: "de-DE"), "1,5만")
-        XCTAssertEqual(JdNumberFormat.string(value: 1_500, style: .compact, locale: "en-US"), "1.5천")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 15_000, style: .compact, locale: "en-US"), "1.5만")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 15_000, style: .compact, locale: "de-DE"), "1,5만")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_500, style: .compact, locale: "en-US"), "1.5천")
     }
 
     // compactCount는 locale 인자 자체가 없다 — 언제나 ko-KR 표기
     func test_compactCount_has_no_locale_axis() {
-        XCTAssertEqual(JdNumberFormat.compactCount(15_000),
-                       JdNumberFormat.string(value: 15_000, style: .compact, locale: "ko-KR"))
+        XCTAssertEqual(
+            JdNumberFormat.compactCount(15_000),
+            JdNumberFormat.string(value: 15_000, style: .compact, locale: "ko-KR"))
         XCTAssertEqual(JdNumberFormat.compactCount(1_234_567), "123.5만")
     }
 
     // prefix/suffix는 포맷 대상이 아니라 그대로 이어 붙는 문자열이다(로케일 변환 없음)
     func test_prefix_and_suffix_are_untouched_by_locale() {
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234.5, locale: "de-DE", decimals: 1,
-                                             prefix: "약 ", suffix: " 원"),
-                       "약 1.234,5 원")
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234.5, locale: "en-US", decimals: 1,
-                                             prefix: "약 ", suffix: " 원"),
-                       "약 1,234.5 원")
+        XCTAssertEqual(
+            JdNumberFormat.string(
+                value: 1_234.5, locale: "de-DE", decimals: 1,
+                prefix: "약 ", suffix: " 원"),
+            "약 1.234,5 원")
+        XCTAssertEqual(
+            JdNumberFormat.string(
+                value: 1_234.5, locale: "en-US", decimals: 1,
+                prefix: "약 ", suffix: " 원"),
+            "약 1,234.5 원")
     }
 
     // 알 수 없는 로케일 식별자를 줘도 크래시 없이 결정적 문자열을 낸다(소비자 오타 방어)
@@ -139,7 +162,8 @@ final class JdNumberFormatLocaleTests: XCTestCase {
         let first = JdNumberFormat.string(value: 1_234.5, locale: "zz-ZZ", decimals: 1)
         XCTAssertFalse(first.isEmpty)
         for _ in 0..<10 {
-            XCTAssertEqual(JdNumberFormat.string(value: 1_234.5, locale: "zz-ZZ", decimals: 1), first)
+            XCTAssertEqual(
+                JdNumberFormat.string(value: 1_234.5, locale: "zz-ZZ", decimals: 1), first)
         }
     }
 }

@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useGeolocation",
   "oneLiner": "위치 정보 구독.",
-  "tags": [
-    "hook",
-    "sensor",
-    "위치"
-  ],
+  "tags": ["hook", "sensor", "위치"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -68,11 +68,14 @@ export default function CreateProjectModal() {
     }
   };
 
-  const showError = (key: keyof ProjectFormValues) => touched[key] ? errors[key] : undefined;
+  const showError = (key: keyof ProjectFormValues) =>
+    touched[key] ? errors[key] : undefined;
 
   return (
     <>
-      <Button variant="primary" onClick={() => setOpen(true)}>새 프로젝트</Button>
+      <Button variant="primary" onClick={() => setOpen(true)}>
+        새 프로젝트
+      </Button>
 
       <Modal open={open} onClose={() => setOpen(false)} size="md" dismissible>
         <Modal.Header onClose={() => setOpen(false)}>새 프로젝트 만들기</Modal.Header>
@@ -86,7 +89,12 @@ export default function CreateProjectModal() {
             onBlur={handleBlur}
             onSubmit={handleSubmit}
           >
-            <FormField label="프로젝트 이름" required error={showError("name")} htmlFor="name">
+            <FormField
+              label="프로젝트 이름"
+              required
+              error={showError("name")}
+              htmlFor="name"
+            >
               <Input
                 id="name"
                 placeholder="예: 디자인 시스템"
@@ -97,7 +105,13 @@ export default function CreateProjectModal() {
               />
             </FormField>
 
-            <FormField label="슬러그" required error={showError("slug")} hint="URL에 사용됩니다." htmlFor="slug">
+            <FormField
+              label="슬러그"
+              required
+              error={showError("slug")}
+              hint="URL에 사용됩니다."
+              htmlFor="slug"
+            >
               <Input
                 id="slug"
                 placeholder="my-project"
@@ -111,8 +125,12 @@ export default function CreateProjectModal() {
         </div>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setOpen(false)}>취소</Button>
-          <Button variant="primary" onClick={handleSubmit}>만들기</Button>
+          <Button variant="secondary" onClick={() => setOpen(false)}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            만들기
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

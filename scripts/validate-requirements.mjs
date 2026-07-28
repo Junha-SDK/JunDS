@@ -21,17 +21,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const REQ_DIR = path.join(ROOT, "requirements");
 
-const REQUIRED_HEADER_FIELDS = [
-  "Slug:",
-  "Status:",
-  "Owner:",
-  "Last updated:",
-];
+const REQUIRED_HEADER_FIELDS = ["Slug:", "Status:", "Owner:", "Last updated:"];
 
-const REQUIRED_SECTIONS = [
-  "## Goal",
-  "## Changelog",
-];
+const REQUIRED_SECTIONS = ["## Goal", "## Changelog"];
 
 const RECOMMENDED_SECTIONS = [
   "## Scope",
@@ -90,7 +82,9 @@ function validateSections(file, content) {
   for (const section of RECOMMENDED_SECTIONS) {
     const re = new RegExp(`^${section.replace(/\//g, "\\/")}(\\b|\\s|$)`, "m");
     if (!re.test(content)) {
-      console.warn(`  warn: ${path.relative(process.cwd(), file)} — recommended section missing: ${section}`);
+      console.warn(
+        `  warn: ${path.relative(process.cwd(), file)} — recommended section missing: ${section}`,
+      );
     }
   }
 }
@@ -178,9 +172,7 @@ function validateIndex(reqFiles) {
     }
   }
 
-  const fileSlugs = new Set(
-    reqFiles.map((f) => path.basename(f, ".md")),
-  );
+  const fileSlugs = new Set(reqFiles.map((f) => path.basename(f, ".md")));
 
   for (const slug of fileSlugs) {
     if (!tableSlugs.has(slug)) {
@@ -210,9 +202,7 @@ function main() {
   validateIndex(reqFiles);
 
   if (errors.length === 0) {
-    console.log(
-      `PASS  validate-requirements — ${reqFiles.length} requirement file(s) clean.`,
-    );
+    console.log(`PASS  validate-requirements — ${reqFiles.length} requirement file(s) clean.`);
     process.exit(0);
   }
 

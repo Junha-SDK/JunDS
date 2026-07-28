@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-alert의 UIKit 번역 — 좌측 강조선 + 5% 틴트의 인라인 피드백 (DESIGN-4 §B).
 // A8 명명 규칙 Jd<이름>View. UIView 서브클래스(컨트롤 아님) — 닫기 버튼만 내부 UIControl.
@@ -19,11 +19,13 @@ public final class JdAlertView: UIView {
     private var dismissButton: UIButton?
     private var didAnnounce = false
 
-    public init(_ title: String,
-                message: String? = nil,
-                variant: JdFeedbackVariant = .info,
-                isDismissible: Bool = false,
-                onDismiss: (() -> Void)? = nil) {
+    public init(
+        _ title: String,
+        message: String? = nil,
+        variant: JdFeedbackVariant = .info,
+        isDismissible: Bool = false,
+        onDismiss: (() -> Void)? = nil
+    ) {
         self.title = title
         self.variant = variant
         self.onDismiss = onDismiss
@@ -62,7 +64,7 @@ public final class JdAlertView: UIView {
             $0.leading.equalToSuperview()
             $0.top.equalToSuperview()
             $0.bottom.equalToSuperview()
-            $0.width.equal(JdToken.Border.thick) // 3pt 강조선
+            $0.width.equal(JdToken.Border.thick)  // 3pt 강조선
         }
         bodyStack.jd.layout {
             $0.leading.equal(to: accentBar.jd.trailing, offset: JdToken.Space.s4)
@@ -111,18 +113,21 @@ public final class JdAlertView: UIView {
         accentBar.backgroundColor = variant.color.uiColor
         backgroundColor = JdFeedbackTint.tint(variant.color)
 
-        titleLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.lg,
-                                                  weight: JdToken.FontWeight.semibold,
-                                                  compatibleWith: traitCollection)
+        titleLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.lg,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         titleLabel.textColor = JdToken.Color.foreground.uiColor
 
-        messageLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                    weight: JdToken.FontWeight.normal,
-                                                    compatibleWith: traitCollection)
+        messageLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         messageLabel.textColor = JdToken.Color.muted.uiColor
 
         dismissButton?.setPreferredSymbolConfiguration(
-            JdFeedbackDismissButton.symbolConfig(compatibleWith: traitCollection), forImageIn: .normal)
+            JdFeedbackDismissButton.symbolConfig(compatibleWith: traitCollection),
+            forImageIn: .normal)
     }
 }
 
@@ -145,14 +150,20 @@ final class JdFeedbackActionButton: UIButton {
 }
 
 enum JdFeedbackDismissButton {
-    static func symbolConfig(compatibleWith traits: UITraitCollection?) -> UIImage.SymbolConfiguration {
-        UIImage.SymbolConfiguration(font: JdFontBridge.scaledFont(size: JdToken.FontSize.sm,
-                                                                  weight: JdToken.FontWeight.medium,
-                                                                  compatibleWith: traits))
+    static func symbolConfig(
+        compatibleWith traits: UITraitCollection?
+    ) -> UIImage.SymbolConfiguration {
+        UIImage.SymbolConfiguration(
+            font: JdFontBridge.scaledFont(
+                size: JdToken.FontSize.sm,
+                weight: JdToken.FontWeight.medium,
+                compatibleWith: traits))
     }
 
-    static func make(tint: UIColor = JdToken.Color.muted.uiColor,
-                     onTap: @escaping () -> Void) -> JdFeedbackActionButton {
+    static func make(
+        tint: UIColor = JdToken.Color.muted.uiColor,
+        onTap: @escaping () -> Void
+    ) -> JdFeedbackActionButton {
         let button = JdFeedbackActionButton(type: .system)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = tint
@@ -160,7 +171,8 @@ enum JdFeedbackDismissButton {
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
         button.onTapForward = onTap
-        button.addTarget(button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
+        button.addTarget(
+            button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
         return button
     }
 }

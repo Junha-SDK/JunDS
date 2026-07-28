@@ -1,5 +1,5 @@
-import Foundation
 import CoreGraphics
+import Foundation
 
 // 웹 variant 문자열과 rawValue 일치 (04 §9). outline/link/xs는 G1 iOS 표면 제외 — DEC-013.
 public enum JdButtonVariant: String, CaseIterable, Sendable {

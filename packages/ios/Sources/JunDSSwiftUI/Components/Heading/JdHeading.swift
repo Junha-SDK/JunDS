@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-heading 동형 — 레벨 램프는 JdHeadingSpec이 단일 소스 (DESIGN §2.1/2.2).
 // uppercase 레벨(L6)은 표시만 대문자화 — VoiceOver는 원문으로 읽는다(웹 text-transform 동형).
@@ -21,13 +21,16 @@ public struct JdHeading: View {
 
     public var body: some View {
         Text(spec.uppercase ? text.uppercased() : text)
-            .font(JdSwiftUIFont.scaled(size: spec.fontSize, weight: spec.fontWeight, category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.fontSize, weight: spec.fontWeight, category: sizeCategory)
+            )
             .foregroundColor(JdToken.Color.foreground.color)
-            .lineLimit(truncate ? 1 : nil) // truncate → 단일행 ellipsis (웹 동형)
+            .lineLimit(truncate ? 1 : nil)  // truncate → 단일행 ellipsis (웹 동형)
             .truncationMode(.tail)
             .accessibilityAddTraits(.isHeader)
             .accessibilityHeading(headingLevel)
-            .accessibilityLabel(Text(text)) // 대문자 변환 전 원문으로 읽기
+            .accessibilityLabel(Text(text))  // 대문자 변환 전 원문으로 읽기
     }
 
     // 웹 h1~h6 → SwiftUI 헤딩 레벨 매핑 (04 §7.1 — VoiceOver 로터 탐색용)

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "MetricCard",
   "oneLiner": "지표 카드 컴포넌트",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

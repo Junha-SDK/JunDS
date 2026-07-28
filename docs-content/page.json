@@ -4,23 +4,12 @@
   "category": "core",
   "title": "Page",
   "oneLiner": "페이지 셸 컴파운드(jd-page·jd-page-header·jd-page-body) — 중앙 정렬·max-width 프리셋·브레드크럼/액션 슬롯.",
-  "tags": [
-    "layout",
-    "page",
-    "shell"
-  ],
+  "tags": ["layout", "page", "shell"],
   "controls": [
     {
       "prop": "maxWidth",
       "kind": "select",
-      "options": [
-        "sm",
-        "md",
-        "lg",
-        "xl",
-        "2xl",
-        "full"
-      ],
+      "options": ["sm", "md", "lg", "xl", "2xl", "full"],
       "default": "xl"
     }
   ],

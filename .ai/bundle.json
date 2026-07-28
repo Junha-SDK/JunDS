@@ -1,13 +1,7 @@
 {
   "generatedAt": "2026-07-27T04:07:50.405Z",
   "mode": "esbuild",
-  "external": [
-    "react",
-    "react-dom",
-    "react/jsx-runtime",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "external": ["react", "react-dom", "react/jsx-runtime", "clsx", "tailwind-merge"],
   "components": [
     {
       "name": "DataTable",

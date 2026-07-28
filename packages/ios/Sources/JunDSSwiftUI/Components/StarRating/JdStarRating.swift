@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-star-rating 동형 — iOS에 시스템 대응이 없는 진짜 신규 컴포넌트 (DESIGN-3 §B).
 //
@@ -22,11 +22,13 @@ public struct JdStarRating: View {
     /// Core의 fill 판정이 0.5 단위이므로 조절 단위도 0.5다(웹 반별 토글과 같은 격자).
     private static let step: Double = 0.5
 
-    public init(value: Binding<Double>,
-                max: Int = 5,
-                size: JdIconSize = .md,
-                isReadOnly: Bool = false,
-                accessibilityLabel: String = "별점") {
+    public init(
+        value: Binding<Double>,
+        max: Int = 5,
+        size: JdIconSize = .md,
+        isReadOnly: Bool = false,
+        accessibilityLabel: String = "별점"
+    ) {
         self._value = value
         self.starCount = max
         self.side = size.side
@@ -70,9 +72,12 @@ public struct JdStarRating: View {
         // 상태 판정은 Core — 임계값(0.5/1.0)을 여기서 다시 쓰지 않는다
         let fill = JunDSCore.JdStarRating.fill(index: index, value: value)
         return Image(systemName: Self.symbol(fill))
-            .font(JdSwiftUIFont.scaled(size: side,
-                                       weight: JdToken.FontWeight.medium,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: side,
+                    weight: JdToken.FontWeight.medium,
+                    category: sizeCategory)
+            )
             .foregroundColor(Self.tint(fill).color)
             .contentShape(Rectangle())
             .onTapGesture {

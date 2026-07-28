@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // Core 순수 함수는 전수 검증한다 (04 §4.2 규칙 1·3, DESIGN-2 §C).
 final class JdAvatarSpecInitialsTests: XCTestCase {
@@ -63,8 +63,11 @@ final class JdAvatarSpecColorTests: XCTestCase {
     func test_fallbackColor_is_always_from_palette() {
         for name in ["Ada Lovelace", "홍길동", "z", "", "   ", "Grace Hopper", "李"] {
             let color = JdAvatarSpec.fallbackColor(for: name)
-            XCTAssertTrue(JdAvatarSpec.fallbackPalette.contains { $0.light == color.light && $0.dark == color.dark },
-                          "팔레트 밖 색이 나왔다: \(name)")
+            XCTAssertTrue(
+                JdAvatarSpec.fallbackPalette.contains {
+                    $0.light == color.light && $0.dark == color.dark
+                },
+                "팔레트 밖 색이 나왔다: \(name)")
         }
     }
 
@@ -147,10 +150,10 @@ final class JdKbdSpecTests: XCTestCase {
 
     func test_spec_values_match_web() {
         let spec = JdKbdSpec.resolve()
-        XCTAssertEqual(spec.hPadding, JdToken.Space.s1_5)   // 6
-        XCTAssertEqual(spec.vPadding, JdToken.Space.s0_5)   // 2
+        XCTAssertEqual(spec.hPadding, JdToken.Space.s1_5)  // 6
+        XCTAssertEqual(spec.vPadding, JdToken.Space.s0_5)  // 2
         XCTAssertEqual(spec.fontSize, 11)
-        XCTAssertEqual(spec.radius, JdToken.Radius.sm)      // 4
+        XCTAssertEqual(spec.radius, JdToken.Radius.sm)  // 4
     }
 }
 

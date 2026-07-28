@@ -39,14 +39,18 @@ export default function AppShellWithCommandK() {
       description: "메인 대시보드를 엽니다",
       group: "이동",
       keywords: ["home", "dash"],
-      action: () => { window.location.href = "/dashboard"; },
+      action: () => {
+        window.location.href = "/dashboard";
+      },
     },
     {
       id: "go-settings",
       label: "설정 열기",
       group: "이동",
       keywords: ["preferences", "config"],
-      action: () => { window.location.href = "/settings"; },
+      action: () => {
+        window.location.href = "/settings";
+      },
     },
     {
       id: "create-project",
@@ -54,14 +58,18 @@ export default function AppShellWithCommandK() {
       description: "프로젝트 생성 모달을 엽니다",
       group: "동작",
       keywords: ["new", "add"],
-      action: () => { /* setProjectModalOpen(true) */ },
+      action: () => {
+        /* setProjectModalOpen(true) */
+      },
     },
     {
       id: "toggle-theme",
       label: "다크 모드 토글",
       group: "환경",
       keywords: ["theme", "dark"],
-      action: () => { document.documentElement.classList.toggle("dark"); },
+      action: () => {
+        document.documentElement.classList.toggle("dark");
+      },
     },
   ];
 
@@ -73,7 +81,10 @@ export default function AppShellWithCommandK() {
           id="cmdk-trigger"
           variant="ghost"
           size="sm"
-          onClick={() => { setOpen(true); setHighlightHint(false); }}
+          onClick={() => {
+            setOpen(true);
+            setHighlightHint(false);
+          }}
           rightIcon={<Kbd keys={["⌘", "K"]} />}
         >
           명령어 검색

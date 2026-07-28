@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // LayoutDivider 데모 — **별칭**이다. 웹의 layout <jd-layout-divider>는 core <jd-divider>와
 // 표면이 완전히 같아 단일 구현 + 별칭으로 처리된다: **B1 jd-divider가 표면 전량 커버(R12)**.
@@ -12,13 +12,16 @@ enum LayoutDividerDemo {
     static let demo = ComponentDemo(
         id: "LayoutDivider",
         controls: [
-            .options("orientation", "orientation", JdOrientation.allCases.map(\.rawValue), initial: "horizontal"),
+            .options(
+                "orientation", "orientation", JdOrientation.allCases.map(\.rawValue),
+                initial: "horizontal")
         ],
         swiftUI: { state in AnyView(LayoutDividerStageSwiftUI(state: state)) },
         uikit: { state in AnyView(LayoutDividerStageUIKit(state: state)) }
     )
 
-    static let aliasNote = "layout 표면은 별칭이다 — B1의 jd-divider가 표면 전량을 커버한다(R12). "
+    static let aliasNote =
+        "layout 표면은 별칭이다 — B1의 jd-divider가 표면 전량을 커버한다(R12). "
         + "iOS 산출물도 JdDivider / JdDividerView 하나뿐이고 신규 타입은 없다."
 }
 

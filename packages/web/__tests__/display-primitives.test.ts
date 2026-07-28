@@ -26,8 +26,15 @@ beforeEach(() => {
 
 test("B4 전 태그 정의", () => {
   for (const tag of [
-    "jd-badge", "jd-tag", "jd-avatar", "jd-spinner", "jd-kbd", "jd-key-cap",
-    "jd-status-dot", "jd-battery-indicator", "jd-severity-badge",
+    "jd-badge",
+    "jd-tag",
+    "jd-avatar",
+    "jd-spinner",
+    "jd-kbd",
+    "jd-key-cap",
+    "jd-status-dot",
+    "jd-battery-indicator",
+    "jd-severity-badge",
   ]) {
     expect(customElements.get(tag), tag).toBeDefined();
   }
@@ -85,7 +92,9 @@ describe("jd-avatar", () => {
     // 같은 이름 = 같은 팔레트 (결정적)
     document.body.innerHTML += `<jd-avatar id="b" name="김 준하"></jd-avatar>`;
     await tick();
-    expect(document.querySelector("#b .jd-avatar__fallback")!.getAttribute("data-palette")).toBe(palette);
+    expect(document.querySelector("#b .jd-avatar__fallback")!.getAttribute("data-palette")).toBe(
+      palette,
+    );
 
     el.src = "/photo.jpg";
     await tick();

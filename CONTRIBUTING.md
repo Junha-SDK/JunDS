@@ -50,17 +50,17 @@ After scaffolding:
 
 `.github/workflows/ci.yml` runs on every push and PR:
 
-| Job | Command | Purpose |
-| --- | --- | --- |
-| `lint` | `npx eslint .` | ESLint + jsx-a11y |
-| `typecheck` | `npm run typecheck:lib`, `:app`, `:test` | strict TS, three projects |
-| `test` | `npm test` | vitest (363+ tests) |
-| `build-lib` | `npm run build:lib` | rollup → `dist/` |
-| `bundle-check` | `npm run analyze` | bundle size sanity |
-| `a11y` | `npm run audit:a11y` | axe-core audit |
-| `validate-requirements` | `npm run validate:requirements` | `requirements/` integrity |
-| `type-contracts` | `npm run test:types` | `expect-type` contract tests |
-| `ai-artifacts-fresh` | regen + diff check | ensure `.ai/MAP.md` and `.ai/props.json` are committed in sync with source |
+| Job                     | Command                                  | Purpose                                                                    |
+| ----------------------- | ---------------------------------------- | -------------------------------------------------------------------------- |
+| `lint`                  | `npx eslint .`                           | ESLint + jsx-a11y                                                          |
+| `typecheck`             | `npm run typecheck:lib`, `:app`, `:test` | strict TS, three projects                                                  |
+| `test`                  | `npm test`                               | vitest (363+ tests)                                                        |
+| `build-lib`             | `npm run build:lib`                      | rollup → `dist/`                                                           |
+| `bundle-check`          | `npm run analyze`                        | bundle size sanity                                                         |
+| `a11y`                  | `npm run audit:a11y`                     | axe-core audit                                                             |
+| `validate-requirements` | `npm run validate:requirements`          | `requirements/` integrity                                                  |
+| `type-contracts`        | `npm run test:types`                     | `expect-type` contract tests                                               |
+| `ai-artifacts-fresh`    | regen + diff check                       | ensure `.ai/MAP.md` and `.ai/props.json` are committed in sync with source |
 
 Run them locally with the equivalent `npm run` command before pushing.
 

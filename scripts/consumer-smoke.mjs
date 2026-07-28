@@ -9,12 +9,7 @@
  *   npm run consumer:smoke
  *   node scripts/consumer-smoke.mjs --react=19
  */
-import {
-  mkdirSync,
-  mkdtempSync,
-  rmSync,
-  writeFileSync,
-} from "node:fs";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -22,9 +17,7 @@ import { spawnSync } from "node:child_process";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const npm = process.platform === "win32" ? "npm.cmd" : "npm";
-const requested = process.argv
-  .find((arg) => arg.startsWith("--react="))
-  ?.slice("--react=".length);
+const requested = process.argv.find((arg) => arg.startsWith("--react="))?.slice("--react=".length);
 const reactMajors = (requested ?? "18,19")
   .split(",")
   .map((value) => value.trim())
@@ -46,9 +39,7 @@ function run(command, args, cwd, env = {}) {
   });
   if (result.status !== 0) {
     const detail = [result.stdout, result.stderr].filter(Boolean).join("\n");
-    throw new Error(
-      `${command} ${args.join(" ")} 실패 (${cwd})\n${detail.slice(-12_000)}`,
-    );
+    throw new Error(`${command} ${args.join(" ")} 실패 (${cwd})\n${detail.slice(-12_000)}`);
   }
   return result.stdout.trim();
 }
@@ -62,10 +53,7 @@ function packageVersion(name) {
   const path = join(root, "node_modules", name, "package.json");
   return run(
     process.execPath,
-    [
-      "-e",
-      `process.stdout.write(require(${JSON.stringify(path)}).version)`,
-    ],
+    ["-e", `process.stdout.write(require(${JSON.stringify(path)}).version)`],
     root,
   );
 }
@@ -112,28 +100,20 @@ try {
   const webTarName = basename(
     run(
       npm,
-      [
-        "pack",
-        "--silent",
-        "--pack-destination",
-        artifacts,
-        join(root, "packages/web"),
-      ],
+      ["pack", "--silent", "--pack-destination", artifacts, join(root, "packages/web")],
       root,
-    ).split("\n").at(-1),
+    )
+      .split("\n")
+      .at(-1),
   );
   const reactTarName = basename(
     run(
       npm,
-      [
-        "pack",
-        "--silent",
-        "--pack-destination",
-        artifacts,
-        join(root, "packages/react"),
-      ],
+      ["pack", "--silent", "--pack-destination", artifacts, join(root, "packages/react")],
       root,
-    ).split("\n").at(-1),
+    )
+      .split("\n")
+      .at(-1),
   );
   const webTar = `file:${join(artifacts, webTarName)}`;
   const reactTar = `file:${join(artifacts, reactTarName)}`;

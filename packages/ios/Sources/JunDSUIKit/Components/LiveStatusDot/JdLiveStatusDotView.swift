@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-live-status-dot 동형 — 장 세션 라이브 여부 표시. (DEC-040)
 //
@@ -32,9 +32,10 @@ public final class JdLiveStatusDotView: UIView {
         self.live = live
         self.label = label
         self.spec = JdLiveStatusDotSpec.resolve(live: live)
-        self.contentStack = JdStackView(axis: .horizontal,
-                                        gap: .custom(spec.gap),
-                                        alignment: .center)
+        self.contentStack = JdStackView(
+            axis: .horizontal,
+            gap: .custom(spec.gap),
+            alignment: .center)
         super.init(frame: .zero)
 
         dot.isUserInteractionEnabled = false
@@ -98,13 +99,15 @@ public final class JdLiveStatusDotView: UIView {
         dot.backgroundColor = color
         ring.backgroundColor = JdFinanceSpecMix.wash(spec.color, alpha: 0.45).uiColor
         textLabel.textColor = color
-        textLabel.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                                 weight: JdToken.FontWeight.bold,
-                                                 compatibleWith: traitCollection)
+        textLabel.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.bold,
+            compatibleWith: traitCollection)
     }
 
     private func applyContent() {
-        let resolved = (label?.isEmpty == false)
+        let resolved =
+            (label?.isEmpty == false)
             ? label!
             : JdLiveStatusDotSpec.defaultLabel(live: live)
         textLabel.text = resolved
@@ -134,10 +137,11 @@ public final class JdLiveStatusDotView: UIView {
         group.duration = duration
         group.repeatCount = .infinity
         let easing = JdToken.Easing.easeOut
-        group.timingFunction = CAMediaTimingFunction(controlPoints: Float(easing.0),
-                                                     Float(easing.1),
-                                                     Float(easing.2),
-                                                     Float(easing.3))
+        group.timingFunction = CAMediaTimingFunction(
+            controlPoints: Float(easing.0),
+            Float(easing.1),
+            Float(easing.2),
+            Float(easing.3))
         ring.layer.add(group, forKey: Self.pulseKey)
     }
 }

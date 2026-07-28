@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "BookCard",
   "oneLiner": "책 표지 + 제목 + 저자 정보를 담은 책 형태의 카드.",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

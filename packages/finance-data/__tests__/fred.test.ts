@@ -15,15 +15,17 @@ afterEach(() => {
 describe("fetchFredSeries", () => {
   it("결측('.')과 빈 값 필터, desc 순서 유지", async () => {
     const fetchMock = stubFetchByUrl([
-      ["api.stlouisfed.org", () =>
-        jsonResponse({
-          observations: [
-            { date: "2026-06-01", value: "321.5" },
-            { date: "2026-05-01", value: "." },   // 결측 → 제외
-            { date: "2026-04-01", value: "" },    // 빈 값 → 제외
-            { date: "2026-03-01", value: "319.8" },
-          ],
-        }),
+      [
+        "api.stlouisfed.org",
+        () =>
+          jsonResponse({
+            observations: [
+              { date: "2026-06-01", value: "321.5" },
+              { date: "2026-05-01", value: "." }, // 결측 → 제외
+              { date: "2026-04-01", value: "" }, // 빈 값 → 제외
+              { date: "2026-03-01", value: "319.8" },
+            ],
+          }),
       ],
     ]);
     const s = await fetchFredSeries({ seriesId: "CPIAUCSL" });
@@ -41,11 +43,14 @@ describe("fetchFredSeries", () => {
 
   it("5xx는 1회 재시도 후 성공 수용", async () => {
     let calls = 0;
-    vi.stubGlobal("fetch", vi.fn(async () => {
-      calls++;
-      if (calls === 1) return jsonResponse({}, 502);
-      return jsonResponse({ observations: [{ date: "2026-06-01", value: "1.0" }] });
-    }));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        calls++;
+        if (calls === 1) return jsonResponse({}, 502);
+        return jsonResponse({ observations: [{ date: "2026-06-01", value: "1.0" }] });
+      }),
+    );
     const s = await fetchFredSeries({ seriesId: "DGS10" });
     expect(calls).toBe(2);
     expect(s!.points).toHaveLength(1);
@@ -69,8 +74,9 @@ describe("fetchFredSeries", () => {
 describe("fetchFredLatest", () => {
   it("최신 1점만 (limit=1 요청)", async () => {
     const fetchMock = stubFetchByUrl([
-      ["api.stlouisfed.org", () =>
-        jsonResponse({ observations: [{ date: "2026-06-01", value: "4.25" }] }),
+      [
+        "api.stlouisfed.org",
+        () => jsonResponse({ observations: [{ date: "2026-06-01", value: "4.25" }] }),
       ],
     ]);
     const latest = await fetchFredLatest("DFF");
@@ -94,13 +100,15 @@ describe("fetchFredYoY", () => {
 
   it("13개월치 미만이면 null", async () => {
     stubFetchByUrl([
-      ["api.stlouisfed.org", () =>
-        jsonResponse({
-          observations: Array.from({ length: 5 }, (_, i) => ({
-            date: `2026-0${i + 1}-01`,
-            value: "1",
-          })),
-        }),
+      [
+        "api.stlouisfed.org",
+        () =>
+          jsonResponse({
+            observations: Array.from({ length: 5 }, (_, i) => ({
+              date: `2026-0${i + 1}-01`,
+              value: "1",
+            })),
+          }),
       ],
     ]);
     expect(await fetchFredYoY("CPIAUCSL")).toBeNull();

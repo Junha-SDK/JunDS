@@ -1,13 +1,14 @@
+import JunDSCore
 import SwiftUI
 import UIKit
-import JunDSCore
 
 // 시스템 UIKit 직접 사용은 허용 — 금지는 자체 타겟 간 의존뿐 (DEC-010, 04 §4.2).
 // Font.system(size:)는 Dynamic Type에 스케일되지 않으므로 UIFontMetrics 경유가 정본 (04 §6).
 // category 인자: 환경의 sizeCategory를 명시 전달해야 트레이트 오버라이드(컨테이너 단위
 // Dynamic Type 시뮬레이션 포함)가 반영된다 — 미전달 시 프로세스 전역 설정만 따르는 버그.
 enum JdSwiftUIFont {
-    static func scaled(size: CGFloat, weight: CGFloat, category: ContentSizeCategory? = nil) -> Font {
+    static func scaled(size: CGFloat, weight: CGFloat, category: ContentSizeCategory? = nil) -> Font
+    {
         let uiWeight: UIFont.Weight
         if weight >= 700 {
             uiWeight = .bold
@@ -33,7 +34,8 @@ enum JdSwiftUIFont {
         let base = UIFont.systemFont(ofSize: size, weight: uiWeight)
         let metrics = UIFontMetrics(forTextStyle: style)
         if let category {
-            let traits = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory(category))
+            let traits = UITraitCollection(
+                preferredContentSizeCategory: UIContentSizeCategory(category))
             return Font(metrics.scaledFont(for: base, compatibleWith: traits))
         }
         return Font(metrics.scaledFont(for: base))
@@ -41,11 +43,14 @@ enum JdSwiftUIFont {
 
     // 모노스페이스 변형 — 베이스만 monospacedSystemFont로 바꾸고 스케일·category 규칙은
     // scaled와 동일 (DESIGN §2.3). 매핑 헬퍼는 추가 전용 — 기존 scaled 본문은 불변.
-    static func scaledMono(size: CGFloat, weight: CGFloat, category: ContentSizeCategory? = nil) -> Font {
+    static func scaledMono(
+        size: CGFloat, weight: CGFloat, category: ContentSizeCategory? = nil
+    ) -> Font {
         let base = UIFont.monospacedSystemFont(ofSize: size, weight: monoUIWeight(weight))
         let metrics = UIFontMetrics(forTextStyle: monoTextStyle(size))
         if let category {
-            let traits = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory(category))
+            let traits = UITraitCollection(
+                preferredContentSizeCategory: UIContentSizeCategory(category))
             return Font(metrics.scaledFont(for: base, compatibleWith: traits))
         }
         return Font(metrics.scaledFont(for: base))

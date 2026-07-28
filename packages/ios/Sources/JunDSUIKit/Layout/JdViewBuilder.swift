@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // MARK: - 선언형 배치 (DEC-042)
 //
@@ -76,14 +76,17 @@ public extension JdStackView {
     /// ```
     ///
     /// `insets`는 layoutMargins로 들어간다 — 패딩을 위해 래퍼 뷰를 한 겹 더 만들지 않는다.
-    convenience init(_ axis: NSLayoutConstraint.Axis,
-                     gap: JdGap = .md,
-                     align: UIStackView.Alignment = .fill,
-                     distribute: UIStackView.Distribution = .fill,
-                     insets: NSDirectionalEdgeInsets = .zero,
-                     @JdViewBuilder content: () -> [UIView]) {
-        self.init(axis: axis, gap: gap, alignment: align, distribution: distribute,
-                  arranged: content())
+    convenience init(
+        _ axis: NSLayoutConstraint.Axis,
+        gap: JdGap = .md,
+        align: UIStackView.Alignment = .fill,
+        distribute: UIStackView.Distribution = .fill,
+        insets: NSDirectionalEdgeInsets = .zero,
+        @JdViewBuilder content: () -> [UIView]
+    ) {
+        self.init(
+            axis: axis, gap: gap, alignment: align, distribution: distribute,
+            arranged: content())
         if insets != .zero {
             directionalLayoutMargins = insets
             isLayoutMarginsRelativeArrangement = true
@@ -91,16 +94,20 @@ public extension JdStackView {
     }
 
     /// 모든 변에 같은 패딩 — 가장 흔한 경우의 축약
-    convenience init(_ axis: NSLayoutConstraint.Axis,
-                     gap: JdGap = .md,
-                     align: UIStackView.Alignment = .fill,
-                     distribute: UIStackView.Distribution = .fill,
-                     padding: JdGap,
-                     @JdViewBuilder content: () -> [UIView]) {
-        self.init(axis, gap: gap, align: align, distribute: distribute,
-                  insets: NSDirectionalEdgeInsets(top: padding.value, leading: padding.value,
-                                                  bottom: padding.value, trailing: padding.value),
-                  content: content)
+    convenience init(
+        _ axis: NSLayoutConstraint.Axis,
+        gap: JdGap = .md,
+        align: UIStackView.Alignment = .fill,
+        distribute: UIStackView.Distribution = .fill,
+        padding: JdGap,
+        @JdViewBuilder content: () -> [UIView]
+    ) {
+        self.init(
+            axis, gap: gap, align: align, distribute: distribute,
+            insets: NSDirectionalEdgeInsets(
+                top: padding.value, leading: padding.value,
+                bottom: padding.value, trailing: padding.value),
+            content: content)
     }
 }
 
@@ -188,16 +195,19 @@ public extension UIView {
     /// 이 뷰를 패딩 상자로 감싼다 — 원본이 아니라 **감싼 상자**를 돌려준다.
     /// 스택 아이템에 개별 여백이 필요할 때 쓴다(스택 자체의 insets로 안 되는 경우).
     func jdPadded(_ insets: NSDirectionalEdgeInsets) -> UIView {
-        let box = JdStackView(axis: .vertical, gap: .custom(0), alignment: .fill,
-                              arranged: [self])
+        let box = JdStackView(
+            axis: .vertical, gap: .custom(0), alignment: .fill,
+            arranged: [self])
         box.directionalLayoutMargins = insets
         box.isLayoutMarginsRelativeArrangement = true
         return box
     }
 
     func jdPadded(_ gap: JdGap) -> UIView {
-        jdPadded(NSDirectionalEdgeInsets(top: gap.value, leading: gap.value,
-                                         bottom: gap.value, trailing: gap.value))
+        jdPadded(
+            NSDirectionalEdgeInsets(
+                top: gap.value, leading: gap.value,
+                bottom: gap.value, trailing: gap.value))
     }
 
     /// 부모를 꽉 채운다 — `addSubview` + 네 변 제약을 한 줄로.
@@ -236,8 +246,12 @@ public extension UIView {
 
 // MARK: - 폭에 따른 축 전환 (반응형)
 
-/// 폭이 임계값보다 좁아지면 축을 세로로 뒤집는 스택 — 웹의
-/// `flex-direction: row` → `@media (max-width) { column }` 대응.
+/// 폭이 임계값보다 좁아지면 축을 세로로 뒤집는 스택.
+///
+/// ⚠️ **직접 쓰지 마라 — `JdSwitcherView`가 정본이다** (DEC-052).
+/// 이 타입은 그 구현체로 남는다. 이름이 배치 개념이 아니라 구현(스택)을 가리키고,
+/// 임계값을 원시 CGFloat로 받아 `JdBreakpoint` 어휘 밖으로 새기 때문이다.
+/// 웹 `<jd-switcher>` · SwiftUI `JdSwitcher`와 이름이 이어지는 쪽이 `JdSwitcherView`다.
 ///
 /// 왜 별 타입인가: `UIStackView.axis`를 `layoutSubviews`에서 바꾸는 일은 잘못하면
 /// 레이아웃 루프를 만든다(축 변경 → 재레이아웃 → 축 변경 …). 그 판정을 한 곳에 가두고
@@ -260,11 +274,13 @@ public final class JdAdaptiveStackView: UIView {
     /// 현재 좁은 상태인가 — 소비자가 부수적 스타일을 맞출 때 읽는다
     public private(set) var isCompact = false
 
-    public init(breakpoint: CGFloat = JdToken.Breakpoint.sm,
-                wideAxis: NSLayoutConstraint.Axis = .horizontal,
-                gap: JdGap = .md,
-                align: UIStackView.Alignment = .fill,
-                @JdViewBuilder content: () -> [UIView]) {
+    public init(
+        breakpoint: CGFloat = JdToken.Breakpoint.sm,
+        wideAxis: NSLayoutConstraint.Axis = .horizontal,
+        gap: JdGap = .md,
+        align: UIStackView.Alignment = .fill,
+        @JdViewBuilder content: () -> [UIView]
+    ) {
         self.breakpoint = breakpoint
         self.wideAxis = wideAxis
         self.stack = JdStackView(axis: wideAxis, gap: gap, alignment: align, arranged: content())
@@ -300,30 +316,39 @@ public final class JdAdaptiveStackView: UIView {
 // (Swift 표준 관용구 — 타입처럼 읽히고 자동완성에서도 타입 옆에 뜬다).
 
 /// 세로 스택 — 웹 `jd-vstack`(gap md · stretch) 기본값
-public func JdVStack(gap: JdGap = .md,
-                     align: JdAlign = .stretch,
-                     justify: JdJustify = .start,
-                     padding: JdGap? = nil,
-                     @JdViewBuilder content: () -> [UIView]) -> JdStackView {
-    JdStackView(.vertical, gap: gap, align: align.uiStackAlignment,
-                distribute: justify.uiStackDistribution,
-                insets: padding.map(JdEdge.all) ?? .zero,
-                content: content)
+@MainActor
+public func JdVStack(
+    gap: JdGap = .md,
+    align: JdAlign = .stretch,
+    justify: JdJustify = .start,
+    padding: JdGap? = nil,
+    @JdViewBuilder content: () -> [UIView]
+) -> JdStackView {
+    JdStackView(
+        .vertical, gap: gap, align: align.uiStackAlignment,
+        distribute: justify.uiStackDistribution,
+        insets: padding.map(JdEdge.all) ?? .zero,
+        content: content)
 }
 
 /// 가로 스택 — 웹 `jd-hstack`(gap sm · center) 기본값
-public func JdHStack(gap: JdGap = .sm,
-                     align: JdAlign = .center,
-                     justify: JdJustify = .start,
-                     padding: JdGap? = nil,
-                     @JdViewBuilder content: () -> [UIView]) -> JdStackView {
-    JdStackView(.horizontal, gap: gap, align: align.uiStackAlignment,
-                distribute: justify.uiStackDistribution,
-                insets: padding.map(JdEdge.all) ?? .zero,
-                content: content)
+@MainActor
+public func JdHStack(
+    gap: JdGap = .sm,
+    align: JdAlign = .center,
+    justify: JdJustify = .start,
+    padding: JdGap? = nil,
+    @JdViewBuilder content: () -> [UIView]
+) -> JdStackView {
+    JdStackView(
+        .horizontal, gap: gap, align: align.uiStackAlignment,
+        distribute: justify.uiStackDistribution,
+        insets: padding.map(JdEdge.all) ?? .zero,
+        content: content)
 }
 
 /// 남는 공간을 먹어 형제를 밀어내는 신축 여백 — SwiftUI `Spacer()` 자리
+@MainActor
 public func JdFlex(min: CGFloat = 0) -> JdFlexSpacerView {
     JdFlexSpacerView(minLength: min)
 }
@@ -331,15 +356,19 @@ public func JdFlex(min: CGFloat = 0) -> JdFlexSpacerView {
 /// 여백 조립 — `NSDirectionalEdgeInsets`를 손으로 적지 않게 한다
 public enum JdEdge {
     public static func all(_ gap: JdGap) -> NSDirectionalEdgeInsets {
-        NSDirectionalEdgeInsets(top: gap.value, leading: gap.value,
-                                bottom: gap.value, trailing: gap.value)
+        NSDirectionalEdgeInsets(
+            top: gap.value, leading: gap.value,
+            bottom: gap.value, trailing: gap.value)
     }
     public static func symmetric(v: JdGap = .none, h: JdGap = .none) -> NSDirectionalEdgeInsets {
         NSDirectionalEdgeInsets(top: v.value, leading: h.value, bottom: v.value, trailing: h.value)
     }
-    public static func only(top: JdGap = .none, leading: JdGap = .none,
-                            bottom: JdGap = .none, trailing: JdGap = .none) -> NSDirectionalEdgeInsets {
-        NSDirectionalEdgeInsets(top: top.value, leading: leading.value,
-                                bottom: bottom.value, trailing: trailing.value)
+    public static func only(
+        top: JdGap = .none, leading: JdGap = .none,
+        bottom: JdGap = .none, trailing: JdGap = .none
+    ) -> NSDirectionalEdgeInsets {
+        NSDirectionalEdgeInsets(
+            top: top.value, leading: leading.value,
+            bottom: bottom.value, trailing: trailing.value)
     }
 }

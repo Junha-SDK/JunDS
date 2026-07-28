@@ -26,12 +26,14 @@ async function walk(dir) {
     for (const item of items) {
       const full = join(dir, item.name);
       if (item.isDirectory()) {
-        entries.push(...await walk(full));
+        entries.push(...(await walk(full)));
       } else {
         entries.push({ path: relative(DIST, full), size: await getSize(full) });
       }
     }
-  } catch { /* dist doesn't exist yet */ }
+  } catch {
+    /* dist doesn't exist yet */
+  }
   return entries;
 }
 

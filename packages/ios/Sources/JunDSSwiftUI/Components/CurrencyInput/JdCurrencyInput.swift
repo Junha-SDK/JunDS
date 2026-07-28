@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-currency-input 동형 — 통화 포맷 금액 입력 (DESIGN-3 §A).
 //
@@ -23,13 +23,15 @@ public struct JdCurrencyInput: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(value: Binding<Double?>,
-                currency: String = "KRW",
-                locale: String = "ko-KR",
-                size: JdControlSize = .md,
-                isError: Bool = false,
-                placeholder: String = "",
-                accessibilityLabel: String? = nil) {
+    public init(
+        value: Binding<Double?>,
+        currency: String = "KRW",
+        locale: String = "ko-KR",
+        size: JdControlSize = .md,
+        isError: Bool = false,
+        placeholder: String = "",
+        accessibilityLabel: String? = nil
+    ) {
         self._value = value
         self.currency = currency
         self.locale = locale
@@ -37,9 +39,11 @@ public struct JdCurrencyInput: View {
         self.isError = isError
         self.placeholder = placeholder
         self.label = accessibilityLabel
-        self._draft = State(initialValue: JdCurrencyInput.formatted(value.wrappedValue,
-                                                                    currency: currency,
-                                                                    locale: locale))
+        self._draft = State(
+            initialValue: JdCurrencyInput.formatted(
+                value.wrappedValue,
+                currency: currency,
+                locale: locale))
     }
 
     public var body: some View {
@@ -48,9 +52,12 @@ public struct JdCurrencyInput: View {
             .focused($isFocused)
             // 통화 기호·구분자를 담아야 하므로 숫자 전용 필드가 아니다 (웹 type=text 동형)
             .keyboardType(.decimalPad)
-            .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                       weight: JdToken.FontWeight.normal,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.fontSize,
+                    weight: JdToken.FontWeight.normal,
+                    category: sizeCategory)
+            )
             .foregroundColor(JdToken.Color.foreground.color)
             .padding(.horizontal, spec.hPadding)
             .frame(minHeight: spec.minHeight)
@@ -64,7 +71,8 @@ public struct JdCurrencyInput: View {
             }
             .onChange(of: isFocused) { focused in
                 // 포커스 진입은 원시값으로, 이탈은 통화 표기로 (웹 focus/blur 동형)
-                draft = focused
+                draft =
+                    focused
                     ? JdCurrencyInput.plain(value)
                     : JdCurrencyInput.formatted(value, currency: currency, locale: locale)
             }
@@ -75,7 +83,8 @@ public struct JdCurrencyInput: View {
             }
             .accessibilityLabel(Text(label ?? placeholder))
             // 낭독은 항상 포맷 표기 — 편집 중이라도 "얼마인지"가 들려야 한다
-            .accessibilityValue(Text(JdCurrencyInput.formatted(value, currency: currency, locale: locale)))
+            .accessibilityValue(
+                Text(JdCurrencyInput.formatted(value, currency: currency, locale: locale)))
     }
 
     private var borderColor: Color {
@@ -96,7 +105,8 @@ public struct JdCurrencyInput: View {
 
     static func formatted(_ value: Double?, currency: String, locale: String) -> String {
         guard let value else { return "" }
-        return JdNumberFormat.string(value: value, style: .currency, currency: currency, locale: locale)
+        return JdNumberFormat.string(
+            value: value, style: .currency, currency: currency, locale: locale)
     }
 
     /// 편집 중 표기 — 웹 String(value) 동형(구분자 없는 원시 숫자)

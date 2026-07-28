@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "AvatarStack",
   "oneLiner": "아바타 스택 (겹쳐진 그룹)",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

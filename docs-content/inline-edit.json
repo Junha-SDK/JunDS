@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "InlineEdit",
   "oneLiner": "클릭으로 인라인 편집 모드로 전환되는 텍스트.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -6,23 +6,23 @@
 판정(04 §10.1): **오버레이 6종은 시스템 프레젠테이션 위임**, **피드백 8종은 자체 구현**(iOS 시스템
 대응 없음), **별칭 2종**. 시스템이 하는 일을 자체 컨테이너로 다시 만들지 않는다.
 
-| 웹 | iOS 판정 | 산출물 |
-|---|---|---|
-| Modal | 기구현(G1) — `.sheet`/`JdModalViewController` | 이미 done. 데모만 재확인 |
-| Drawer | 시스템 위임 — side별 `.sheet`(bottom=detent)/전환 | `JdDrawer`(SwiftUI)/`JdDrawerController`(UIKit) |
-| BottomSheet | 시스템 위임 — `presentationDetents` | `JdBottomSheet`/`JdBottomSheetController` |
-| Sheet | **별칭** — BottomSheet draggable(신규 타입 없음) | 데모만 |
-| ActionSheet | 시스템 위임 — `.confirmationDialog`/`UIAlertController(.actionSheet)` | `JdActionSheet`/`JdActionSheetController` |
-| AlertDialog | 시스템 위임 — `.alert`/`UIAlertController(.alert)` | `JdAlertDialog`/`JdAlertDialogController` |
-| ConfirmDialog | **별칭** — AlertDialog(제목·설명·확인/취소·danger) | 데모만 |
-| Alert | **자체** 인라인 — 좌측 강조선 + variant 4종 | `JdAlert`/`JdAlertView` |
-| Banner | **자체** 인라인 — 폭 꽉 찬 알림 바 | `JdBanner`/`JdBannerView` |
-| Callout | **자체** 문서 블록 — 이모지 + 강조선 5종, collapsible | `JdCallout`/`JdCalloutView` |
-| Toast | **자체** — 큐 스택(Core JdToastQueue), 자동 닫힘·hover 정지 | `JdToastCenter` + `JdToastHost` |
-| Snackbar | **자체** — 단일 바, 위치 4종, 자동 닫힘 | `JdSnackbar`/`JdSnackbarView` |
-| Notification | **자체** 인라인 카드 — 아이콘+제목+설명+액션+닫기 | `JdNotification`/`JdNotificationView` |
-| EmptyState | **자체** — `ContentUnavailableView`류 중앙 배치 | `JdEmptyState`/`JdEmptyStateView` |
-| Result | **자체** — EmptyState 파생, status별 64pt 심볼 | `JdResult`/`JdResultView` |
+| 웹            | iOS 판정                                                              | 산출물                                          |
+| ------------- | --------------------------------------------------------------------- | ----------------------------------------------- |
+| Modal         | 기구현(G1) — `.sheet`/`JdModalViewController`                         | 이미 done. 데모만 재확인                        |
+| Drawer        | 시스템 위임 — side별 `.sheet`(bottom=detent)/전환                     | `JdDrawer`(SwiftUI)/`JdDrawerController`(UIKit) |
+| BottomSheet   | 시스템 위임 — `presentationDetents`                                   | `JdBottomSheet`/`JdBottomSheetController`       |
+| Sheet         | **별칭** — BottomSheet draggable(신규 타입 없음)                      | 데모만                                          |
+| ActionSheet   | 시스템 위임 — `.confirmationDialog`/`UIAlertController(.actionSheet)` | `JdActionSheet`/`JdActionSheetController`       |
+| AlertDialog   | 시스템 위임 — `.alert`/`UIAlertController(.alert)`                    | `JdAlertDialog`/`JdAlertDialogController`       |
+| ConfirmDialog | **별칭** — AlertDialog(제목·설명·확인/취소·danger)                    | 데모만                                          |
+| Alert         | **자체** 인라인 — 좌측 강조선 + variant 4종                           | `JdAlert`/`JdAlertView`                         |
+| Banner        | **자체** 인라인 — 폭 꽉 찬 알림 바                                    | `JdBanner`/`JdBannerView`                       |
+| Callout       | **자체** 문서 블록 — 이모지 + 강조선 5종, collapsible                 | `JdCallout`/`JdCalloutView`                     |
+| Toast         | **자체** — 큐 스택(Core JdToastQueue), 자동 닫힘·hover 정지           | `JdToastCenter` + `JdToastHost`                 |
+| Snackbar      | **자체** — 단일 바, 위치 4종, 자동 닫힘                               | `JdSnackbar`/`JdSnackbarView`                   |
+| Notification  | **자체** 인라인 카드 — 아이콘+제목+설명+액션+닫기                     | `JdNotification`/`JdNotificationView`           |
+| EmptyState    | **자체** — `ContentUnavailableView`류 중앙 배치                       | `JdEmptyState`/`JdEmptyStateView`               |
+| Result        | **자체** — EmptyState 파생, status별 64pt 심볼                        | `JdResult`/`JdResultView`                       |
 
 공통 규칙(이전 배치 동일): 서드파티 0 · 계층 상호 import 금지(DEC-010) · 색·치수는 Core
 스펙/JdToken/JdGap만 · Dynamic Type 경유 · SF Symbols · 애니메이션 `JdMotion.duration` ·

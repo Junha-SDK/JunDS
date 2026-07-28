@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-key-cap 동형 — 키 한 개 모양 칩. A8 명명 규칙 Jd<이름>View(UILabel 서브클래스).
 // 치수·색·눌림 오프셋은 전부 JdKeyCapSpec. 눌림 = 아래로 1pt 이동 + 그림자 제거
@@ -19,10 +19,12 @@ public final class JdKeyCapView: UILabel {
 
     private let spec: JdKeyCapSpec
 
-    public init(_ key: String,
-                variant: JdKeyCapVariant = .default,
-                size: JdDisplaySize = .md,
-                isPressed: Bool = false) {
+    public init(
+        _ key: String,
+        variant: JdKeyCapVariant = .default,
+        size: JdDisplaySize = .md,
+        isPressed: Bool = false
+    ) {
         self.variant = variant
         self.keyCapSize = size
         self.isPressed = isPressed
@@ -51,8 +53,9 @@ public final class JdKeyCapView: UILabel {
     // 웹 height/min-width 동형 — 단 고정이 아니라 하한이다(XXXL에서 자란다, 04 §7.2)
     public override var intrinsicContentSize: CGSize {
         let base = super.intrinsicContentSize
-        return CGSize(width: max(spec.minWidth, base.width + spec.hPadding * 2),
-                      height: max(spec.height, base.height))
+        return CGSize(
+            width: max(spec.minWidth, base.width + spec.hPadding * 2),
+            height: max(spec.height, base.height))
     }
 
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -66,16 +69,19 @@ public final class JdKeyCapView: UILabel {
     // MARK: 내부
 
     private func applyStyle() {
-        font = JdFontBridge.scaledMonoFont(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           compatibleWith: traitCollection)
+        font = JdFontBridge.scaledMonoFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         textColor = spec.foreground.uiColor
-        layer.borderColor = spec.border.uiColor
+        layer.borderColor =
+            spec.border.uiColor
             .resolvedColor(with: traitCollection).cgColor
     }
 
     private func applyPressed(animated: Bool) {
-        let target: CGAffineTransform = isPressed
+        let target: CGAffineTransform =
+            isPressed
             ? CGAffineTransform(translationX: 0, y: JdKeyCapSpec.pressedOffset)
             : .identity
         let apply = { [weak self] in
@@ -95,7 +101,8 @@ public final class JdKeyCapView: UILabel {
     private func applyShadow() {
         // CALayer는 그림자 한 장뿐 → blur가 가장 큰 겹(주변광)을 고른다 (DEC-039)
         guard spec.hasKeyShadow, !isPressed,
-              let (ink, geometry) = JdToken.Shadow.xs.dominant else {
+            let (ink, geometry) = JdToken.Shadow.xs.dominant
+        else {
             layer.shadowOpacity = 0
             return
         }
@@ -103,6 +110,6 @@ public final class JdKeyCapView: UILabel {
         // 알파는 색이 이미 들고 있다 — opacity는 1로 두고 토큰 값을 그대로 살린다
         layer.shadowOpacity = 1
         layer.shadowOffset = CGSize(width: geometry.x, height: geometry.y)
-        layer.shadowRadius = geometry.blur / 2 // CSS blur = 2 × 렌더 반경
+        layer.shadowRadius = geometry.blur / 2  // CSS blur = 2 × 렌더 반경
     }
 }

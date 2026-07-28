@@ -1,10 +1,12 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 이 3종은 웹에 role·aria가 전무하다 — iOS 보정분(라벨/값)이 실제로 표면에 뜨는지가 핵심이다.
 
+@MainActor
 final class JdStatusDotViewTests: XCTestCase {
 
     // 웹은 라벨 없으면 AT에 아무것도 노출하지 않는다 — iOS는 상태명으로 보정한다
@@ -12,8 +14,9 @@ final class JdStatusDotViewTests: XCTestCase {
         for status in JdStatusKind.allCases {
             let view = JdStatusDotView(status)
             XCTAssertTrue(view.isAccessibilityElement)
-            XCTAssertEqual(view.accessibilityLabel, JdStatusDotView.statusName(status),
-                           "상태명 미노출: \(status.rawValue)")
+            XCTAssertEqual(
+                view.accessibilityLabel, JdStatusDotView.statusName(status),
+                "상태명 미노출: \(status.rawValue)")
             XCTAssertFalse(view.accessibilityLabel?.isEmpty ?? true)
         }
     }
@@ -41,12 +44,14 @@ final class JdStatusDotViewTests: XCTestCase {
     func test_status_names_are_distinct() {
         var seen = Set<String>()
         for status in JdStatusKind.allCases {
-            XCTAssertTrue(seen.insert(JdStatusDotView.statusName(status)).inserted,
-                          "상태명 중복: \(status.rawValue)")
+            XCTAssertTrue(
+                seen.insert(JdStatusDotView.statusName(status)).inserted,
+                "상태명 중복: \(status.rawValue)")
         }
     }
 }
 
+@MainActor
 final class JdSeverityBadgeViewTests: XCTestCase {
 
     // 웹 [dot] 속성 동형 — 점은 스택에서 접혔다 펴진다(장식이라 접근성 표면은 불변)
@@ -88,6 +93,7 @@ final class JdSeverityBadgeViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdBatteryIndicatorViewTests: XCTestCase {
 
     // 폭으로만 전달되던 값을 퍼센트로 노출한다(웹 결함 보정)
@@ -115,15 +121,17 @@ final class JdBatteryIndicatorViewTests: XCTestCase {
     // 라벨이 없어도 이름이 필요하다 — 웹엔 없는 기본 이름을 iOS가 채운다
     func test_label_defaults_and_overrides_accessibility_name() {
         let unlabeled = JdBatteryIndicatorView(value: 50)
-        XCTAssertEqual(unlabeled.accessibilityLabel,
-                       JdBatteryIndicatorView.defaultAccessibilityLabel)
+        XCTAssertEqual(
+            unlabeled.accessibilityLabel,
+            JdBatteryIndicatorView.defaultAccessibilityLabel)
 
         unlabeled.label = "노트북"
         XCTAssertEqual(unlabeled.accessibilityLabel, "노트북")
 
         unlabeled.label = ""
-        XCTAssertEqual(unlabeled.accessibilityLabel,
-                       JdBatteryIndicatorView.defaultAccessibilityLabel)
+        XCTAssertEqual(
+            unlabeled.accessibilityLabel,
+            JdBatteryIndicatorView.defaultAccessibilityLabel)
     }
 
     // autoColor는 값이 바뀔 때마다 Core 임계로 재판정된다

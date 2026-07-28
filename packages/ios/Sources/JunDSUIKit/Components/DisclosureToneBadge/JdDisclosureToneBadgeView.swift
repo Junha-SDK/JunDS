@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-disclosure-tone-badge 동형 — DART 공시 톤 라벨. (DEC-047)
 public final class JdDisclosureToneBadgeView: UIView {
@@ -17,10 +17,12 @@ public final class JdDisclosureToneBadgeView: UIView {
     private let stack: JdStackView
     private var spec: JdDisclosureToneBadgeSpec
 
-    public init(tone: JdDisclosureTone,
-                category: JdDisclosureCategory = .other,
-                confidence: Double = 0,
-                compact: Bool = false) {
+    public init(
+        tone: JdDisclosureTone,
+        category: JdDisclosureCategory = .other,
+        confidence: Double = 0,
+        compact: Bool = false
+    ) {
         self.tone = tone
         self.category = category
         self.confidence = confidence
@@ -52,8 +54,9 @@ public final class JdDisclosureToneBadgeView: UIView {
     /// 고정 height 금지 — Dynamic Type에서 자란다 (04 §7.2). 스펙 높이는 하한이다.
     public override var intrinsicContentSize: CGSize {
         let content = stack.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        return CGSize(width: content.width + spec.hPadding * 2,
-                      height: max(spec.height, content.height))
+        return CGSize(
+            width: content.width + spec.hPadding * 2,
+            height: max(spec.height, content.height))
     }
 
     public override var isAccessibilityElement: Bool {
@@ -91,15 +94,18 @@ public final class JdDisclosureToneBadgeView: UIView {
         categoryLabel.textColor = fg.withAlphaComponent(CGFloat(spec.categoryOpacity))
         confidenceLabel.textColor = fg.withAlphaComponent(CGFloat(spec.confidenceOpacity))
 
-        toneLabel.font = JdFontBridge.scaledFont(size: spec.toneFontSize,
-                                                weight: JdToken.FontWeight.bold,
-                                                compatibleWith: traitCollection)
-        categoryLabel.font = JdFontBridge.scaledFont(size: spec.categoryFontSize,
-                                                    weight: JdToken.FontWeight.bold,
-                                                    compatibleWith: traitCollection)
-        confidenceLabel.font = JdFontBridge.scaledDigitFont(size: spec.confidenceFontSize,
-                                                           weight: JdToken.FontWeight.bold,
-                                                           compatibleWith: traitCollection)
+        toneLabel.font = JdFontBridge.scaledFont(
+            size: spec.toneFontSize,
+            weight: JdToken.FontWeight.bold,
+            compatibleWith: traitCollection)
+        categoryLabel.font = JdFontBridge.scaledFont(
+            size: spec.categoryFontSize,
+            weight: JdToken.FontWeight.bold,
+            compatibleWith: traitCollection)
+        confidenceLabel.font = JdFontBridge.scaledDigitFont(
+            size: spec.confidenceFontSize,
+            weight: JdToken.FontWeight.bold,
+            compatibleWith: traitCollection)
     }
 
     private func applyContent() {

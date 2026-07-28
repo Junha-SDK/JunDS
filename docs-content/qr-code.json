@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "QRCode",
   "oneLiner": "주어진 값으로 QR 코드를 그립니다.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

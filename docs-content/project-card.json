@@ -4,19 +4,12 @@
   "category": "composites",
   "title": "ProjectCard",
   "oneLiner": "프로젝트 한 줄 카드 — 아이콘·제목·설명·뱃지·연도·화살표. 행 전체가 링크가 된다.",
-  "tags": [
-    "content",
-    "navigation",
-    "포트폴리오"
-  ],
+  "tags": ["content", "navigation", "포트폴리오"],
   "controls": [
     {
       "prop": "variant",
       "kind": "segmented",
-      "options": [
-        "row",
-        "feature"
-      ],
+      "options": ["row", "feature"],
       "default": "row"
     },
     {

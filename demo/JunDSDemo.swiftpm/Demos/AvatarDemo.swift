@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Avatar 데모 — 실컴포넌트 JdAvatar(SwiftUI)/JdAvatarView(UIKit). 웹 <jd-avatar> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(name/size/status) — 3플랫폼 동일 (04 §3).

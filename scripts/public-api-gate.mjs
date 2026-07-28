@@ -7,21 +7,13 @@
  *
  * 전제: @junds/web / @junds/react build 완료.
  */
-import {
-  existsSync,
-  readFileSync,
-  readdirSync,
-  writeFileSync,
-} from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const baselinePath = join(
-  root,
-  "docs-spec/registry/public-api-baseline.json",
-);
+const baselinePath = join(root, "docs-spec/registry/public-api-baseline.json");
 const update = process.argv.includes("--update-baseline");
 
 function json(path) {
@@ -31,9 +23,7 @@ function json(path) {
 function declarationHashes(packageDir) {
   const typesDir = join(packageDir, "dist/types");
   if (!existsSync(typesDir)) {
-    throw new Error(
-      `${relative(root, typesDir)} 없음 — 패키지를 먼저 build 하세요.`,
-    );
+    throw new Error(`${relative(root, typesDir)} 없음 — 패키지를 먼저 build 하세요.`);
   }
   const out = {};
   const visit = (dir) => {
@@ -45,22 +35,16 @@ function declarationHashes(packageDir) {
       }
       if (!entry.name.endsWith(".d.ts")) continue;
       const key = relative(typesDir, path).replaceAll("\\", "/");
-      const normalized = readFileSync(path, "utf8")
-        .replaceAll("\r\n", "\n")
-        .trimEnd();
+      const normalized = readFileSync(path, "utf8").replaceAll("\r\n", "\n").trimEnd();
       out[key] = createHash("sha256").update(normalized).digest("hex");
     }
   };
   visit(typesDir);
-  return Object.fromEntries(
-    Object.entries(out).sort(([a], [b]) => a.localeCompare(b)),
-  );
+  return Object.fromEntries(Object.entries(out).sort(([a], [b]) => a.localeCompare(b)));
 }
 
 function canonicalExports(exportsMap) {
-  return Object.fromEntries(
-    Object.entries(exportsMap).sort(([a], [b]) => a.localeCompare(b)),
-  );
+  return Object.fromEntries(Object.entries(exportsMap).sort(([a], [b]) => a.localeCompare(b)));
 }
 
 const webDir = join(root, "packages/web");
@@ -114,15 +98,9 @@ function changedKeys(before, after) {
 const previous = JSON.parse(baseline);
 const changes = {
   webExports: changedKeys(previous.web?.exports, current.web.exports),
-  webDeclarations: changedKeys(
-    previous.web?.declarations,
-    current.web.declarations,
-  ),
+  webDeclarations: changedKeys(previous.web?.declarations, current.web.declarations),
   reactExports: changedKeys(previous.react?.exports, current.react.exports),
-  reactDeclarations: changedKeys(
-    previous.react?.declarations,
-    current.react.declarations,
-  ),
+  reactDeclarations: changedKeys(previous.react?.declarations, current.react.declarations),
   generatedSurface:
     JSON.stringify(previous.react?.generatedSurface) ===
     JSON.stringify(current.react.generatedSurface)
@@ -140,7 +118,9 @@ for (const [kind, files] of Object.entries(changes)) {
   if (files.length === 0) continue;
   const shown = files.slice(0, 12);
   console.error(
-    `  ${kind}: ${shown.join(", ")}${files.length > shown.length ? ` 외 ${files.length - shown.length}건` : ""}`,
+    `  ${kind}: ${shown.join(", ")}${
+      files.length > shown.length ? ` 외 ${files.length - shown.length}건` : ""
+    }`,
   );
 }
 console.error("의도한 변경이면 `npm run api:update`로 기준선을 함께 갱신하세요.");

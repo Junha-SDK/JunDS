@@ -9,13 +9,13 @@ v3는 전환 중인 시스템이므로 **진행 상태가 응답의 1급 시민*
 
 ## 도구 5종 (전부 읽기 전용)
 
-| 도구 | 입력 | 응답 요지 |
-|---|---|---|
-| `search_components` | `query?` `category?` `platform?` `status?` | 원장+콘텐츠 랭킹 검색. platform 단독 = 그 플랫폼에서 지금 쓸 수 있는 것(done). 상한 50 + `truncated` 명시 |
-| `get_component` | `id` | 원장 행(웹/iOS/docs/tests/bench 상태)+notes+태그·controls·사용 토큰 표·a11y·저작된 스니펫 플랫폼·gzip 사이즈. 미발견 시 `suggestions` |
-| `get_usage` | `id` `platform`(web·swiftui·uikit·react) | `{imp, code}` 스니펫. 미전환·미저작이면 **에러가 아니라** `{available:false, status, alternatives}` 구조화 응답 |
-| `get_tokens` | `group?` `name?` | `{path, cssVar(--jd-*), value, swift(JdToken.*)}`. 무인자는 그룹 요약만. name은 정확 일치 우선 → 부분 일치 |
-| `get_status` | `category?` | 원장 집계 대시보드 — 카테고리×플랫폼 done/wip/todo/na |
+| 도구                | 입력                                       | 응답 요지                                                                                                                             |
+| ------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `search_components` | `query?` `category?` `platform?` `status?` | 원장+콘텐츠 랭킹 검색. platform 단독 = 그 플랫폼에서 지금 쓸 수 있는 것(done). 상한 50 + `truncated` 명시                             |
+| `get_component`     | `id`                                       | 원장 행(웹/iOS/docs/tests/bench 상태)+notes+태그·controls·사용 토큰 표·a11y·저작된 스니펫 플랫폼·gzip 사이즈. 미발견 시 `suggestions` |
+| `get_usage`         | `id` `platform`(web·swiftui·uikit·react)   | `{imp, code}` 스니펫. 미전환·미저작이면 **에러가 아니라** `{available:false, status, alternatives}` 구조화 응답                       |
+| `get_tokens`        | `group?` `name?`                           | `{path, cssVar(--jd-*), value, swift(JdToken.*)}`. 무인자는 그룹 요약만. name은 정확 일치 우선 → 부분 일치                            |
+| `get_status`        | `category?`                                | 원장 집계 대시보드 — 카테고리×플랫폼 done/wip/todo/na                                                                                 |
 
 id 매칭은 전 도구 공통 대소문자 무시 + kebab↔Pascal 접기(`otp-input` ≡ `OTPInput`).
 모든 응답에 `mode`(live/snapshot)와 `generatedAt`(원장 기준일)이 실린다.
@@ -25,7 +25,11 @@ id 매칭은 전 도구 공통 대소문자 무시 + kebab↔Pascal 접기(`otp-
 **이 레포 안 (기여자·에이전트)** — 루트 `.mcp.json`에 등록돼 있다:
 
 ```jsonc
-{ "mcpServers": { "junds-v3": { "command": "node", "args": ["packages/mcp/src/server.mjs"] } } }
+{
+  "mcpServers": {
+    "junds-v3": { "command": "node", "args": ["packages/mcp/src/server.mjs"] }
+  }
+}
 ```
 
 **소비자 프로젝트 (퍼블리시 후)**:
@@ -83,11 +87,11 @@ npm run test -w @junds/mcp   # nvm 22 — 단위(픽스처)·정합 게이트·�
 1. 이 레포를 연 Claude Code 세션 재시작(또는 MCP 재연결) → `junds-v3` 서버 인식 확인.
 2. 아래 3콜을 순서대로 — 기대 응답:
 
-| 호출 | 기대 |
-|---|---|
-| `search_components {query:"button"}` | `ok:true`, results 선두가 `Button`(web done·ios done), `mode:"live"` |
-| `get_usage {id:"Button", platform:"swiftui"}` | `imp:"import JunDS"`, code에 `JdButton("저장", variant: .primary)` |
-| `get_status {}` | `total` = 원장 counts.total(445+), `overall.web.done` ≥ 28 |
+| 호출                                          | 기대                                                                 |
+| --------------------------------------------- | -------------------------------------------------------------------- |
+| `search_components {query:"button"}`          | `ok:true`, results 선두가 `Button`(web done·ios done), `mode:"live"` |
+| `get_usage {id:"Button", platform:"swiftui"}` | `imp:"import JunDS"`, code에 `JdButton("저장", variant: .primary)`   |
+| `get_status {}`                               | `total` = 원장 counts.total(445+), `overall.web.done` ≥ 28           |
 
 3. 음성 경로 1콜: `get_usage {id:"OTPInput", platform:"web"}` →
    `available:false, status:"todo"` (에러 아님 — 구조화 응답이 계약이다).

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Breadcrumb",
   "oneLiner": "브레드크럼 네비게이션",
-  "tags": [
-    "navigation"
-  ],
+  "tags": ["navigation"],
   "controls": [],
   "snippets": {
     "web": null,

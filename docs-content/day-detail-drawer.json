@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "DayDetailDrawer",
   "oneLiner": "특정 일자 상세 드로어.",
-  "tags": [
-    "finance",
-    "상세",
-    "드로어"
-  ],
+  "tags": ["finance", "상세", "드로어"],
   "controls": [],
   "snippets": {
     "web": null,

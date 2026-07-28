@@ -11,7 +11,8 @@ import path from "node:path";
 const BM = "/Users/junha/develop/ButterMoney";
 const ROOTS = [path.join(BM, "app")];
 
-const IMPORT_RE = /(\bimport\s+(?:type\s+)?(?:[^'"]*?)from\s+|\bexport\s+(?:type\s+)?(?:\*|\{[^}]*\})\s+from\s+|\brequire\s*\(\s*|\bimport\s*\(\s*)(['"])([^'"]+)(\2)/g;
+const IMPORT_RE =
+  /(\bimport\s+(?:type\s+)?(?:[^'"]*?)from\s+|\bexport\s+(?:type\s+)?(?:\*|\{[^}]*\})\s+from\s+|\brequire\s*\(\s*|\bimport\s*\(\s*)(['"])([^'"]+)(\2)/g;
 
 function rewriteSpec(spec) {
   if (spec.startsWith("@/components/") || spec === "@/components") return "@junds/ui/finance";

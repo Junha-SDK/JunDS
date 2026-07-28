@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "TreemapChart",
   "oneLiner": "계층 데이터를 사각형 면적으로 표현하는 트리맵.",
-  "tags": [
-    "chart"
-  ],
+  "tags": ["chart"],
   "controls": [],
   "snippets": {
     "web": null,

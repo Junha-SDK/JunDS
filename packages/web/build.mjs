@@ -10,14 +10,7 @@
  *  - dist/types/ (tsc emitDeclarationOnly)
  */
 import { build } from "esbuild";
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  readdirSync,
-  rmSync,
-  writeFileSync,
-} from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
@@ -53,11 +46,7 @@ const componentNames = existsSync(componentsDir)
   : [];
 
 // 1) npm 소비용 ESM — 단일 빌드 + splitting (엔트리 간 공유 청크로 클래스 identity 보존)
-const esmEntries = [
-  p("src/index.ts"),
-  p("src/define.ts"),
-  p("src/core/content.ts"),
-];
+const esmEntries = [p("src/index.ts"), p("src/define.ts"), p("src/core/content.ts")];
 for (const name of componentNames) {
   esmEntries.push(p("src/components", name, "index.ts"), p("src/components", name, "element.ts"));
 }
@@ -114,10 +103,7 @@ for (const name of componentNames) {
   // 한 폴더가 여러 태그를 소유하는 경우(page → jd-page-header 등)에도 소비자가
   // 태그 이름 그대로 `@junds/web/css/page-header.css`를 가져올 수 있어야 한다.
   // JS 서브패스 별칭과 같은 규칙으로 동일 CSS를 별칭 파일에 방출한다.
-  const elementSource = readFileSync(
-    p("src/components", name, "element.ts"),
-    "utf8",
-  );
+  const elementSource = readFileSync(p("src/components", name, "element.ts"), "utf8");
   const tagConstants = new Map();
   for (const match of elementSource.matchAll(
     /\bconst\s+([A-Za-z_$][\w$]*)\s*=\s*(?:"([^"]+)"|'([^']+)')/g,
@@ -174,10 +160,7 @@ function pruneStaleDeclarations(dir) {
       continue;
     }
     if (!entry.name.endsWith(".d.ts")) continue;
-    const source = p(
-      "src",
-      relative(typesDir, path).replace(/\.d\.ts$/, ".ts"),
-    );
+    const source = p("src", relative(typesDir, path).replace(/\.d\.ts$/, ".ts"));
     if (!existsSync(source)) rmSync(path);
   }
 }

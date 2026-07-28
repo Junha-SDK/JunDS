@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-text 동형 — 본문 텍스트. A8 명명 규칙 Jd<이름>View(UILabel 서브클래스 — UITextView 아님 주의).
 // lineHeightMultiple(1.625)은 JdTextSpec에 보존하되 1차 구현은 UILabel 기본 행간
@@ -23,11 +23,13 @@ public final class JdTextView: UILabel {
 
     private let weight: CGFloat
 
-    public init(_ text: String,
-                size: JdTextSize = .md,
-                weight: CGFloat = JdToken.FontWeight.normal,
-                dimmed: Bool = false,
-                mono: Bool = false) {
+    public init(
+        _ text: String,
+        size: JdTextSize = .md,
+        weight: CGFloat = JdToken.FontWeight.normal,
+        dimmed: Bool = false,
+        mono: Bool = false
+    ) {
         self.textSize = size
         self.weight = weight
         self.dimmed = dimmed
@@ -35,7 +37,7 @@ public final class JdTextView: UILabel {
         super.init(frame: .zero)
 
         self.text = text
-        numberOfLines = 0 // 웹 p 동형 — 기본 다행
+        numberOfLines = 0  // 웹 p 동형 — 기본 다행
         adjustsFontForContentSizeCategory = true
         applyStyle()
     }
@@ -52,9 +54,12 @@ public final class JdTextView: UILabel {
 
     private func applyStyle() {
         let spec = JdTextSpec.resolve(size: textSize)
-        font = mono
-            ? JdFontBridge.scaledMonoFont(size: spec.fontSize, weight: weight, compatibleWith: traitCollection)
-            : JdFontBridge.scaledFont(size: spec.fontSize, weight: weight, compatibleWith: traitCollection)
+        font =
+            mono
+            ? JdFontBridge.scaledMonoFont(
+                size: spec.fontSize, weight: weight, compatibleWith: traitCollection)
+            : JdFontBridge.scaledFont(
+                size: spec.fontSize, weight: weight, compatibleWith: traitCollection)
         textColor = (dimmed ? JdToken.Color.muted : JdToken.Color.foreground).uiColor
     }
 }

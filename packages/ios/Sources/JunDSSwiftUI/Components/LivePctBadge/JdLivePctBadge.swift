@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-live-pct-badge 동형 — 등락률 텍스트 + 추세 색 (DEC-040).
 //
@@ -16,16 +16,19 @@ public struct JdLivePctBadge: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(change: Double,
-                fallback: Double = 0,
-                decimals: Int = 2,
-                showSign: Bool = true,
-                withPercent: Bool = true) {
-        self.text = JdLivePctText(change: change,
-                                  fallback: fallback,
-                                  decimals: decimals,
-                                  showSign: showSign,
-                                  withPercent: withPercent)
+    public init(
+        change: Double,
+        fallback: Double = 0,
+        decimals: Int = 2,
+        showSign: Bool = true,
+        withPercent: Bool = true
+    ) {
+        self.text = JdLivePctText(
+            change: change,
+            fallback: fallback,
+            decimals: decimals,
+            showSign: showSign,
+            withPercent: withPercent)
     }
 
     /// 화면의 숫자로 판정한다 — 원시 change가 아니라 fallback이 반영된 표시값이다
@@ -37,14 +40,20 @@ public struct JdLivePctBadge: View {
         Text(text.formatted)
             .monospacedDigit()
             // 웹: 12px bold
-            .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                       weight: JdToken.FontWeight.bold,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: JdTextSpec.resolve(size: .xs).fontSize,
+                    weight: JdToken.FontWeight.bold,
+                    category: sizeCategory)
+            )
             .foregroundColor(JdFinanceTheme.color(trend).color)
             // 색이 유일한 추세 신호이면 색각 이상 사용자에게 정보가 사라진다 — 부호가 이미
             // 문자열에 있으므로(+/-) 값 자체는 낭독되지만, 추세를 말로도 붙인다 (04 §7.1)
-            .accessibilityLabel(Text(JdLivePctBadge.accessibilityText(trend: trend,
-                                                                     formatted: text.formatted)))
+            .accessibilityLabel(
+                Text(
+                    JdLivePctBadge.accessibilityText(
+                        trend: trend,
+                        formatted: text.formatted)))
     }
 
     /// 추세명 사전 — UIKit 계층에 동형 사본이 있다(DEC-010으로 계층 간 공유 불가).

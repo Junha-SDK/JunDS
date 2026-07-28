@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PageHeader",
   "oneLiner": "페이지 상단 제목·설명·액션 헤더 블록.",
-  "tags": [
-    "layout",
-    "header",
-    "페이지"
-  ],
+  "tags": ["layout", "header", "페이지"],
   "controls": [],
   "snippets": {
     "web": null,

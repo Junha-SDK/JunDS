@@ -43,8 +43,7 @@ interface PropMeta {
   def: PropDef;
 }
 
-const camelToKebab = (s: string): string =>
-  s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+const camelToKebab = (s: string): string => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 
 /** 클래스 단위 접근자 설치 캐시 + attribute → prop 역인덱스 */
 const finalized = new WeakSet<object>();
@@ -74,9 +73,7 @@ function coerce(def: PropDef, raw: string | null): unknown {
  * 스텁 경로에서는 인스턴스화가 일어나지 않는다(defineElement가 SSR no-op).
  */
 const BaseElement: typeof HTMLElement =
-  typeof HTMLElement !== "undefined"
-    ? HTMLElement
-    : (class {} as unknown as typeof HTMLElement);
+  typeof HTMLElement !== "undefined" ? HTMLElement : (class {} as unknown as typeof HTMLElement);
 
 export abstract class JdElement extends BaseElement {
   /** 서브클래스가 선언. 키는 camelCase 프로퍼티명 */
@@ -97,22 +94,17 @@ export abstract class JdElement extends BaseElement {
     const index = new Map<string, PropMeta>();
     attrIndex.set(this, index);
     for (const [name, def] of Object.entries(this.props)) {
-      const attr =
-        def.attribute === false ? null : def.attribute || camelToKebab(name);
+      const attr = def.attribute === false ? null : def.attribute || camelToKebab(name);
       const meta: PropMeta = { name, attr, def };
       if (attr !== null) index.set(attr, meta);
       Object.defineProperty(this.prototype, name, {
         configurable: true,
         enumerable: true,
         get(this: JdElement) {
-          return this.#values.has(name)
-            ? this.#values.get(name)
-            : typeDefault(def);
+          return this.#values.has(name) ? this.#values.get(name) : typeDefault(def);
         },
         set(this: JdElement, v: unknown) {
-          const previous = this.#values.has(name)
-            ? this.#values.get(name)
-            : typeDefault(def);
+          const previous = this.#values.has(name) ? this.#values.get(name) : typeDefault(def);
           this.#values.set(name, v);
           if (def.reflect && attr !== null) this.#reflect(meta, v);
           if (Object.is(previous, v)) return;
@@ -175,11 +167,7 @@ export abstract class JdElement extends BaseElement {
     this.disconnected?.();
   }
 
-  attributeChangedCallback(
-    name: string,
-    oldV: string | null,
-    newV: string | null,
-  ): void {
+  attributeChangedCallback(name: string, oldV: string | null, newV: string | null): void {
     if (oldV === newV || this.#reflecting) return;
     const meta = attrIndex.get(this.constructor as object)?.get(name);
     if (!meta) return;
@@ -208,11 +196,7 @@ export abstract class JdElement extends BaseElement {
   }
 
   /** CustomEvent 발행 규약(§1.5)의 단일 진입점 */
-  emit<T>(
-    name: `jd-${string}`,
-    detail?: T,
-    opts?: { cancelable?: boolean },
-  ): boolean {
+  emit<T>(name: `jd-${string}`, detail?: T, opts?: { cancelable?: boolean }): boolean {
     return this.dispatchEvent(
       new CustomEvent(name, {
         detail,
@@ -231,9 +215,7 @@ export abstract class JdElement extends BaseElement {
 
   /** 표준 CE 함정 대응: 업그레이드 전 인스턴스 own property를 setter로 재대입 */
   #upgradeProps(): void {
-    for (const name of Object.keys(
-      (this.constructor as typeof JdElement).props,
-    )) {
+    for (const name of Object.keys((this.constructor as typeof JdElement).props)) {
       if (Object.prototype.hasOwnProperty.call(this, name)) {
         const v = (this as Record<string, unknown>)[name];
         delete (this as Record<string, unknown>)[name];
@@ -245,8 +227,7 @@ export abstract class JdElement extends BaseElement {
   #reflect(meta: PropMeta, v: unknown): void {
     this.#reflecting = true;
     try {
-      if (meta.def.type === Boolean)
-        this.toggleAttribute(meta.attr!, Boolean(v));
+      if (meta.def.type === Boolean) this.toggleAttribute(meta.attr!, Boolean(v));
       else if (v === null || v === undefined) this.removeAttribute(meta.attr!);
       else this.setAttribute(meta.attr!, String(v));
     } finally {

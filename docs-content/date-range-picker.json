@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "DateRangePicker",
   "oneLiner": "날짜 범위 선택기",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

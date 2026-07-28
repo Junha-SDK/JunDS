@@ -35,9 +35,7 @@ function getConfig(): KisConfig {
   const cano = process.env.KIS_CANO ?? "";
   const acntPrdtCd = process.env.KIS_ACNT_PRDT_CD ?? "01";
   if (!baseUrl || !appKey || !appSecret) {
-    throw new Error(
-      "KIS env missing: KIS_BASE_URL, KIS_APP_KEY, KIS_APP_SECRET 모두 설정 필요",
-    );
+    throw new Error("KIS env missing: KIS_BASE_URL, KIS_APP_KEY, KIS_APP_SECRET 모두 설정 필요");
   }
   return { baseUrl, appKey, appSecret, cano, acntPrdtCd };
 }
@@ -63,7 +61,7 @@ import { join } from "node:path";
 if (typeof window !== "undefined") {
   throw new Error(
     "[@junds/finance-data/kis] 이 모듈은 server-only입니다. " +
-    "route handler / Server Action / 백엔드에서만 import하세요.",
+      "route handler / Server Action / 백엔드에서만 import하세요.",
   );
 }
 
@@ -224,19 +222,19 @@ export function kisCodeFor(input: string): string | null {
  * ```
  */
 export interface KisQuote {
-  symbol: string;       // 종목명 (입력값 그대로)
-  code: string;         // 6자리 종목코드
+  symbol: string; // 종목명 (입력값 그대로)
+  code: string; // 6자리 종목코드
   market: "KOSPI" | "KOSDAQ" | "UNKNOWN";
-  price: number;        // 현재가
-  change: number;       // 전일대비 (원)
-  changePct: number;    // 전일대비 (%)
-  open: number;         // 시가
-  high: number;         // 고가
-  low: number;          // 저가
-  prevClose: number;    // 전일종가
-  volume: number;       // 누적거래량
-  amount: number;       // 누적거래대금 (원)
-  marketCap: number;    // 시가총액 (원)
+  price: number; // 현재가
+  change: number; // 전일대비 (원)
+  changePct: number; // 전일대비 (%)
+  open: number; // 시가
+  high: number; // 고가
+  low: number; // 저가
+  prevClose: number; // 전일종가
+  volume: number; // 누적거래량
+  amount: number; // 누적거래대금 (원)
+  marketCap: number; // 시가총액 (원)
   per: number | null;
   pbr: number | null;
   eps: number | null;
@@ -245,7 +243,7 @@ export interface KisQuote {
   low52: number | null;
   /** 외국인 보유율 (%) — KIS 응답의 hts_frgn_ehrt */
   foreignOwnership: number | null;
-  asOf: string;         // ISO timestamp
+  asOf: string; // ISO timestamp
 }
 
 /**
@@ -365,7 +363,7 @@ export type ChartPeriod = "D" | "W" | "M" | "Y";
  * ```
  */
 export interface KisCandle {
-  date: string;     // YYYY-MM-DD
+  date: string; // YYYY-MM-DD
   open: number;
   high: number;
   low: number;
@@ -392,10 +390,11 @@ export async function fetchChart(
   // 기본: 최근 100영업일 (KIS는 최대 100건 반환)
   const today = new Date();
   const fmt = (d: Date) =>
-    `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
-  const start =
-    fromDate ??
-    fmt(new Date(today.getTime() - 365 * 24 * 60 * 60_000)); // 1년 전
+    `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(
+      2,
+      "0",
+    )}`;
+  const start = fromDate ?? fmt(new Date(today.getTime() - 365 * 24 * 60 * 60_000)); // 1년 전
   const end = toDate ?? fmt(today);
 
   const url = new URL(
@@ -600,9 +599,7 @@ export async function fetchInvestorFlow(): Promise<KisInvestorFlow> {
   const cfg = getConfig();
   const token = await getAccessToken();
 
-  const url = new URL(
-    `${cfg.baseUrl}/uapi/domestic-stock/v1/quotations/foreign-institution-total`,
-  );
+  const url = new URL(`${cfg.baseUrl}/uapi/domestic-stock/v1/quotations/foreign-institution-total`);
   url.searchParams.set("FID_COND_MRKT_DIV_CODE", "V"); // V: 코스피·코스닥 통합
   url.searchParams.set("FID_COND_SCR_DIV_CODE", "16449");
   url.searchParams.set("FID_INPUT_ISCD", "0000"); // 0000: 전체
@@ -652,8 +649,7 @@ export async function fetchInvestorFlow(): Promise<KisInvestorFlow> {
     institutionSum += num(row, ["orgn_ntby_tr_pbmn", "orgn_ntby_qty"]);
   }
   // KIS는 백만원 단위로 응답 → 억원 환산 (÷100)
-  const norm = (v: number) =>
-    Math.abs(v) > 100_000 ? Math.round(v / 100) : Math.round(v);
+  const norm = (v: number) => (Math.abs(v) > 100_000 ? Math.round(v / 100) : Math.round(v));
   return {
     foreign: norm(foreignSum),
     institution: norm(institutionSum),
@@ -748,9 +744,8 @@ export async function fetchIndex(code: IndexCode): Promise<KisIndex> {
   // 일부 응답은 prdy_ctrt 가 0으로 비어 오는 케이스가 있어 직접 계산으로 보완
   const prdyCtrt = num("prdy_ctrt");
   // 인덱스 전일종가는 응답 키가 누락되는 경우가 있어 value-change 로 역산
-  const prevClose = num("prdy_nmix") || (value - change);
-  const changePct =
-    prdyCtrt !== 0 ? prdyCtrt : prevClose > 0 ? (change / prevClose) * 100 : 0;
+  const prevClose = num("prdy_nmix") || value - change;
+  const changePct = prdyCtrt !== 0 ? prdyCtrt : prevClose > 0 ? (change / prevClose) * 100 : 0;
   return {
     code,
     value,

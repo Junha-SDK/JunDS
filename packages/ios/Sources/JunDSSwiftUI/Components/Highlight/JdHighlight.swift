@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-highlight 동형 — 검색어 강조 (DESIGN-3 §C).
 //

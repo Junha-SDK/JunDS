@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "PortfolioDayDetailModal",
   "oneLiner": "포트폴리오 일자별 상세 모달.",
-  "tags": [
-    "finance",
-    "포트폴리오",
-    "모달"
-  ],
+  "tags": ["finance", "포트폴리오", "모달"],
   "controls": [],
   "snippets": {
     "web": null,

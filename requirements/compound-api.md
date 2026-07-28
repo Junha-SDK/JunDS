@@ -91,7 +91,7 @@ JunDS의 모든 복합 컴포넌트가 **레고 블록처럼 조립** 가능하�
   이미 박았지만, asChild로 RSC 자식을 넘기는 케이스의 동작은 아직 검증 전.
 - **codemod.** 137개 일괄 변환 비용 vs 수동 PR 관리 비용. 현재 결정은 "수동",
   근거는 root 시그니처 다양성. 자동 변환 가능한 부분집합(`Object.assign(Root,
-  flatObj)` only)을 도려낸 부분 codemod는 검토 가치 있음.
+flatObj)` only)을 도려낸 부분 codemod는 검토 가치 있음.
 - **`asChild` prop 이름.** Radix와 일치하지만 일부 사용자에게 의미가
   불명확하다는 피드백. `as` prop과의 차이(런타임 vs polymorphism)를 문서에
   명시해야 한다.

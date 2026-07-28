@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // VStack 데모 — 웹 <jd-vstack>(column·gap md·align stretch)의 iOS 번역.
 // SwiftUI = VStack 관용구(레시피형, 웹 stretch 기본 주의 — .frame(maxWidth:.infinity)),
@@ -16,15 +16,15 @@ enum VStackDemo {
         swiftUI: { state in AnyView(VStackStageSwiftUI(state: state)) },
         uikit: { state in AnyView(VStackStageUIKit(state: state)) },
         recipe: """
-        // 웹 jd-vstack 기본: column · gap md(16) · align stretch
-        // ⚠️ SwiftUI VStack 기본 교차축은 center — 웹 stretch를 원하면 자식에
-        //    .frame(maxWidth: .infinity) 를 준다 (04 §10.1)
-        VStack(spacing: JdGap.md.value) {
-            rowA.frame(maxWidth: .infinity)
-            rowB.frame(maxWidth: .infinity)
-        }
-        // UIKit은 JdStackView.vertical(gap: .md, rows) — alignment .fill이 곧 stretch
-        """
+            // 웹 jd-vstack 기본: column · gap md(16) · align stretch
+            // ⚠️ SwiftUI VStack 기본 교차축은 center — 웹 stretch를 원하면 자식에
+            //    .frame(maxWidth: .infinity) 를 준다 (04 §10.1)
+            VStack(spacing: JdGap.md.value) {
+                rowA.frame(maxWidth: .infinity)
+                rowB.frame(maxWidth: .infinity)
+            }
+            // UIKit은 JdStackView.vertical(gap: .md, rows) — alignment .fill이 곧 stretch
+            """
     )
 }
 
@@ -68,9 +68,11 @@ private struct VStackStageUIKit: View {
     @ObservedObject var state: DemoState
 
     var body: some View {
-        VStackRep(gap: vstackGap(state.string("gap")),
-                  alignment: state.bool("stretch") ? .fill : .center)
-            .padding(JdToken.Space.s6)
+        VStackRep(
+            gap: vstackGap(state.string("gap")),
+            alignment: state.bool("stretch") ? .fill : .center
+        )
+        .padding(JdToken.Space.s6)
     }
 }
 

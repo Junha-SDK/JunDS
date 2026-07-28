@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveStackedCell",
   "oneLiner": "가격+등락률 겹침 실시간 셀.",
-  "tags": [
-    "finance",
-    "live",
-    "셀"
-  ],
+  "tags": ["finance", "live", "셀"],
   "controls": [],
   "snippets": {
     "web": null,

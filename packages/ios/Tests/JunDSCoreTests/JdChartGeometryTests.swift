@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // 차트 지오메트리 계약 (DEC-049).
 //
@@ -102,14 +102,17 @@ final class JdChartGeometryTests: XCTestCase {
 
     func test_sparkline_color_follows_direction_when_unspecified() {
         JdFinanceTheme.resetToDefaults()
-        XCTAssertEqual(JdSparklineSpec.resolve(values: [1, 5]).lineColor.light,
-                       JdFinanceTheme.color(.up).light)
-        XCTAssertEqual(JdSparklineSpec.resolve(values: [5, 1]).lineColor.light,
-                       JdFinanceTheme.color(.down).light)
+        XCTAssertEqual(
+            JdSparklineSpec.resolve(values: [1, 5]).lineColor.light,
+            JdFinanceTheme.color(.up).light)
+        XCTAssertEqual(
+            JdSparklineSpec.resolve(values: [5, 1]).lineColor.light,
+            JdFinanceTheme.color(.down).light)
         // 명시 색이 있으면 그쪽이 이긴다
         let custom = JdDynamicColor(light: 0x1234_56FF, dark: 0x1234_56FF)
-        XCTAssertEqual(JdSparklineSpec.resolve(values: [5, 1], color: custom).lineColor.light,
-                       custom.light)
+        XCTAssertEqual(
+            JdSparklineSpec.resolve(values: [5, 1], color: custom).lineColor.light,
+            custom.light)
     }
 
     // 획이 굵어지면 여백도 따라 커진다 — 안 그러면 두꺼운 선이 상자 밖으로 잘린다

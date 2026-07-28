@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "BackTop",
   "oneLiner": "상단으로 이동 버튼",
-  "tags": [
-    "navigation"
-  ],
+  "tags": ["navigation"],
   "controls": [],
   "snippets": {
     "web": null,

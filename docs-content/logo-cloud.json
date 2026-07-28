@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "LogoCloud",
   "oneLiner": "파트너·고객 로고 나열 블록.",
-  "tags": [
-    "marketing",
-    "로고"
-  ],
+  "tags": ["marketing", "로고"],
   "controls": [],
   "snippets": {
     "web": null,

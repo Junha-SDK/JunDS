@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "LoginForm",
   "oneLiner": "보안 로그인/회원가입 폼",
-  "tags": [
-    "form"
-  ],
+  "tags": ["form"],
   "controls": [],
   "snippets": {
     "web": null,

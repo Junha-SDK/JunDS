@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Flex 데모 — 레시피형 (04 §10.1). 웹 <jd-flex direction/align/gap>의 iOS 번역은
 // HStack/VStack 관용구 + JdGap — direction이 곧 스택 종류 선택이다.
@@ -15,13 +15,13 @@ enum FlexDemo {
         ],
         swiftUI: { state in AnyView(FlexStage(state: state)) },
         recipe: """
-        // Flex = 방향에 따라 HStack/VStack 관용구 (04 §10.1 — 신규 컴포넌트 없음)
-        // direction row  → HStack(alignment: .top/.center/.bottom, spacing: JdGap.md.value)
-        // direction column → VStack(alignment: .leading/.center/.trailing, spacing: JdGap.md.value)
-        HStack(alignment: .center, spacing: JdGap.md.value) {
-            chipA; chipB; chipC
-        }
-        """
+            // Flex = 방향에 따라 HStack/VStack 관용구 (04 §10.1 — 신규 컴포넌트 없음)
+            // direction row  → HStack(alignment: .top/.center/.bottom, spacing: JdGap.md.value)
+            // direction column → VStack(alignment: .leading/.center/.trailing, spacing: JdGap.md.value)
+            HStack(alignment: .center, spacing: JdGap.md.value) {
+                chipA; chipB; chipC
+            }
+            """
     )
 }
 

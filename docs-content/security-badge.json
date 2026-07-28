@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "SecurityBadge",
   "oneLiner": "보안 레벨 뱃지",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

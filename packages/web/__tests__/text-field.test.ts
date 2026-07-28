@@ -6,8 +6,7 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import "../src/components/text-field/index.js";
 import { JdTextField } from "../src/components/text-field/element.js";
 
-const tick = () =>
-  new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
+const tick = () => new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
 
 async function mount(html: string): Promise<JdTextField> {
   document.body.innerHTML = html;
@@ -24,17 +23,13 @@ beforeEach(() => {
 describe("jd-text-field 골격·반영", () => {
   test("label + input + error 골격, label[for] ↔ input[id] 연결 (light DOM §8)", async () => {
     const el = await mount(`<jd-text-field label="이름"></jd-text-field>`);
-    const label = el.querySelector<HTMLLabelElement>(
-      "label.jd-text-field__label",
-    )!;
+    const label = el.querySelector<HTMLLabelElement>("label.jd-text-field__label")!;
     const input = inputOf(el);
     expect(label.textContent).toBe("이름");
     expect(label.hidden).toBe(false);
     expect(input.id).not.toBe("");
     expect(label.htmlFor).toBe(input.id);
-    expect(
-      input.parentElement?.classList.contains("jd-text-field__control"),
-    ).toBe(true);
+    expect(input.parentElement?.classList.contains("jd-text-field__control")).toBe(true);
   });
 
   test("slot=start/end 콘텐츠를 안정된 control 골격으로 이동한다", async () => {
@@ -44,12 +39,8 @@ describe("jd-text-field 골격·반영", () => {
         `<button slot="end" id="clear" type="button">지우기</button>` +
         `</jd-text-field>`,
     );
-    expect(
-      el.querySelector(".jd-text-field__slot--start > #currency")?.textContent,
-    ).toBe("₩");
-    expect(
-      el.querySelector(".jd-text-field__slot--end > #clear"),
-    ).not.toBeNull();
+    expect(el.querySelector(".jd-text-field__slot--start > #currency")?.textContent).toBe("₩");
+    expect(el.querySelector(".jd-text-field__slot--end > #clear")).not.toBeNull();
     expect(el.querySelectorAll(".jd-text-field__control").length).toBe(1);
   });
 
@@ -99,13 +90,9 @@ describe("jd-text-field 골격·반영", () => {
 
 describe("jd-text-field 에러 표면·ARIA", () => {
   test("error 메시지 → aria-invalid + aria-describedby + 메시지 행", async () => {
-    const el = await mount(
-      `<jd-text-field error="이름을 입력해주세요"></jd-text-field>`,
-    );
+    const el = await mount(`<jd-text-field error="이름을 입력해주세요"></jd-text-field>`);
     const input = inputOf(el);
-    const err = el.querySelector<HTMLParagraphElement>(
-      "p.jd-text-field__error",
-    )!;
+    const err = el.querySelector<HTMLParagraphElement>("p.jd-text-field__error")!;
     expect(err.hidden).toBe(false);
     expect(err.textContent).toContain("이름을 입력해주세요");
     expect(input.getAttribute("aria-invalid")).toBe("true");
@@ -117,9 +104,7 @@ describe("jd-text-field 에러 표면·ARIA", () => {
     el.error = "";
     await tick();
     const input = inputOf(el);
-    expect(
-      el.querySelector<HTMLParagraphElement>("p.jd-text-field__error")!.hidden,
-    ).toBe(true);
+    expect(el.querySelector<HTMLParagraphElement>("p.jd-text-field__error")!.hidden).toBe(true);
     expect(input.hasAttribute("aria-invalid")).toBe(false);
     expect(input.hasAttribute("aria-describedby")).toBe(false);
   });
@@ -130,9 +115,7 @@ describe("jd-text-field 에러 표면·ARIA", () => {
     expect(el.invalid).toBe(true);
     expect(el.hasAttribute("invalid")).toBe(true);
     expect(input.getAttribute("aria-invalid")).toBe("true");
-    expect(
-      el.querySelector<HTMLParagraphElement>(".jd-text-field__error")!.hidden,
-    ).toBe(true);
+    expect(el.querySelector<HTMLParagraphElement>(".jd-text-field__error")!.hidden).toBe(true);
   });
 
   test("기존 aria-describedby를 error와 병합하고 error 해제 후에도 보존한다", async () => {

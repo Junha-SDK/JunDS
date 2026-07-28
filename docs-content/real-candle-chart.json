@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "RealCandleChart",
   "oneLiner": "실데이터 캔들 차트 — KIS 시세 연동.",
-  "tags": [
-    "finance",
-    "chart",
-    "캔들"
-  ],
+  "tags": ["finance", "chart", "캔들"],
   "controls": [],
   "snippets": {
     "web": null,

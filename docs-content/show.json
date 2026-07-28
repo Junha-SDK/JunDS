@@ -4,22 +4,12 @@
   "category": "layout",
   "title": "Show",
   "oneLiner": "브레이크포인트 조건 표시 — CSS 전용(display:contents + 미디어 규칙), JS 상태 0으로 SSR 상시 안전.",
-  "tags": [
-    "layout",
-    "반응형",
-    "조건부"
-  ],
+  "tags": ["layout", "반응형", "조건부"],
   "controls": [
     {
       "prop": "above",
       "kind": "select",
-      "options": [
-        "sm",
-        "md",
-        "lg",
-        "xl",
-        "2xl"
-      ],
+      "options": ["sm", "md", "lg", "xl", "2xl"],
       "default": "md"
     }
   ],

@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "OTPInput",
   "oneLiner": "6자리 일회용 비밀번호(OTP) 입력기.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

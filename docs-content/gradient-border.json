@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "GradientBorder",
   "oneLiner": "그라디언트 테두리 효과를 가진 래퍼.",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

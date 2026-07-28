@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-phone-input 동형 — 국가 코드 + 전화번호 (DESIGN-3 §A).
 //
@@ -17,11 +17,13 @@ public struct JdPhoneInput: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(value: Binding<String>,
-                country: Binding<JdPhoneCountry>,
-                size: JdControlSize = .md,
-                isError: Bool = false,
-                accessibilityLabel: String? = nil) {
+    public init(
+        value: Binding<String>,
+        country: Binding<JdPhoneCountry>,
+        size: JdControlSize = .md,
+        isError: Bool = false,
+        accessibilityLabel: String? = nil
+    ) {
         self._value = value
         self._country = country
         self.spec = JdTextFieldSpec.resolve(size: size)
@@ -36,9 +38,12 @@ public struct JdPhoneInput: View {
             TextField("", text: masked)
                 .focused($isFocused)
                 .keyboardType(.phonePad)
-                .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.fontSize,
+                        weight: JdToken.FontWeight.normal,
+                        category: sizeCategory)
+                )
                 .foregroundColor(JdToken.Color.foreground.color)
                 .accessibilityLabel(Text(label ?? "전화번호"))
                 // 낭독 값은 국제 표기 — 국가번호가 빠진 채 읽히지 않게 한다
@@ -72,7 +77,8 @@ public struct JdPhoneInput: View {
     /// 표시는 마스킹, 저장은 숫자 — 규칙의 단일 소스는 Core다.
     /// (숫자 추출은 Core에 대응 함수가 없어 여기 최소로 둔다 — 웹 replace(/\D/g,"") 동형)
     private var masked: Binding<String> {
-        Binding(get: { JdPhoneMask.format(value, country: country) },
-                set: { newValue in value = newValue.filter(\.isNumber) })
+        Binding(
+            get: { JdPhoneMask.format(value, country: country) },
+            set: { newValue in value = newValue.filter(\.isNumber) })
     }
 }

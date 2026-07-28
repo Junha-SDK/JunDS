@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "ThemeDrillDown",
   "oneLiner": "테마 상세 드릴다운 뷰.",
-  "tags": [
-    "finance",
-    "테마",
-    "상세"
-  ],
+  "tags": ["finance", "테마", "상세"],
   "controls": [],
   "snippets": {
     "web": null,

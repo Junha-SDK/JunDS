@@ -4,10 +4,7 @@
   "category": "finance",
   "title": "AppIcon",
   "oneLiner": "금융 앱 아이콘 세트 렌더러(lucide 매핑).",
-  "tags": [
-    "finance",
-    "icon"
-  ],
+  "tags": ["finance", "icon"],
   "controls": [],
   "snippets": {
     "web": null,

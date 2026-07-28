@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "ContextMenu",
   "oneLiner": "우클릭 컨텍스트 메뉴",
-  "tags": [
-    "overlay",
-    "navigation"
-  ],
+  "tags": ["overlay", "navigation"],
   "controls": [],
   "snippets": {
     "web": null,

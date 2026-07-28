@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // HStack 데모 — 웹 <jd-hstack>(row·gap sm·align center)의 iOS 번역.
 // SwiftUI = HStack 관용구(레시피형), UIKit = JdStackView.horizontal(실컴포넌트).
@@ -16,13 +16,13 @@ enum HStackDemo {
         swiftUI: { state in AnyView(HStackStageSwiftUI(state: state)) },
         uikit: { state in AnyView(HStackStageUIKit(state: state)) },
         recipe: """
-        // 웹 jd-hstack 기본: row · gap sm(8) · align center
-        // SwiftUI는 신규 컴포넌트 없이 HStack 관용구 + JdGap (04 §10.1)
-        HStack(alignment: .center, spacing: JdGap.sm.value) {
-            chipA; chipB; chipC
-        }
-        // UIKit은 JdStackView.horizontal(gap: .sm, [chipA, chipB, chipC])
-        """
+            // 웹 jd-hstack 기본: row · gap sm(8) · align center
+            // SwiftUI는 신규 컴포넌트 없이 HStack 관용구 + JdGap (04 §10.1)
+            HStack(alignment: .center, spacing: JdGap.sm.value) {
+                chipA; chipB; chipC
+            }
+            // UIKit은 JdStackView.horizontal(gap: .sm, [chipA, chipB, chipC])
+            """
     )
 }
 
@@ -67,8 +67,10 @@ private struct HStackStageSwiftUI: View {
     @ObservedObject var state: DemoState
 
     var body: some View {
-        HStack(alignment: hstackVerticalAlign(state.string("alignment")),
-               spacing: hstackGap(state.string("gap")).value) {
+        HStack(
+            alignment: hstackVerticalAlign(state.string("alignment")),
+            spacing: hstackGap(state.string("gap")).value
+        ) {
             HStackChip(color: JdToken.Color.primary, height: JdToken.Space.s8)
             HStackChip(color: JdToken.Color.accent, height: JdToken.Space.s16)
             HStackChip(color: JdToken.Color.info, height: JdToken.Space.s12)
@@ -82,10 +84,12 @@ private struct HStackStageUIKit: View {
     @ObservedObject var state: DemoState
 
     var body: some View {
-        HStackRep(gap: hstackGap(state.string("gap")),
-                  alignment: hstackUIKitAlign(state.string("alignment")))
-            .frame(maxWidth: .infinity)
-            .padding(JdToken.Space.s6)
+        HStackRep(
+            gap: hstackGap(state.string("gap")),
+            alignment: hstackUIKitAlign(state.string("alignment"))
+        )
+        .frame(maxWidth: .infinity)
+        .padding(JdToken.Space.s6)
     }
 }
 

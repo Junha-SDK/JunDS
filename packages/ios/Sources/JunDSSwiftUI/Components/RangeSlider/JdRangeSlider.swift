@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-range-slider 동형 — 두 손잡이 범위 슬라이더 (DESIGN-2 §B1).
 // 네이티브 컨트롤이 단일 값뿐이라 웹처럼 자체 드로잉한다(위임 예외).
@@ -22,9 +22,11 @@ public struct JdRangeSlider: View {
     private static let thumbSide = JdToken.Space.s5
     private static let trackHeight = JdSliderSpec.resolve(size: .md).trackHeight
 
-    public init(state: Binding<JdRangeState>,
-                showsValues: Bool = false,
-                format: ((Double) -> String)? = nil) {
+    public init(
+        state: Binding<JdRangeState>,
+        showsValues: Bool = false,
+        format: ((Double) -> String)? = nil
+    ) {
         self._state = state
         self.showsValues = showsValues
         self.format = format
@@ -38,7 +40,7 @@ public struct JdRangeSlider: View {
             }
             track
         }
-        .opacity(isEnabled ? 1 : JdToken.Opacity.o50) // 웹 [disabled] opacity-50
+        .opacity(isEnabled ? 1 : JdToken.Opacity.o50)  // 웹 [disabled] opacity-50
     }
 
     // MARK: - 값 행 (웹 show-values 동형)
@@ -49,9 +51,12 @@ public struct JdRangeSlider: View {
             Spacer(minLength: JdToken.Space.s2)
             Text(display(state.upper))
         }
-        .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                   weight: JdToken.FontWeight.normal,
-                                   category: sizeCategory))
+        .font(
+            JdSwiftUIFont.scaled(
+                size: JdTextSpec.resolve(size: .xs).fontSize,
+                weight: JdToken.FontWeight.normal,
+                category: sizeCategory)
+        )
         .foregroundColor(JdToken.Color.muted.color)
         // 두 손잡이가 각자 값을 낭독하므로 시각 중복 — 장식 처리 (04 §7.1)
         .accessibilityHidden(true)

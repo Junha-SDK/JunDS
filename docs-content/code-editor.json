@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "CodeEditor",
   "oneLiner": "신택스 하이라이팅이 적용된 코드 편집기.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

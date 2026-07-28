@@ -4,11 +4,7 @@
   "category": "layout",
   "title": "SimpleGrid",
   "oneLiner": "균등 칼럼 반응형 그리드 — min-child-width로 repeat(auto-fill, minmax(N, 1fr)). GridLayout 별칭 파생.",
-  "tags": [
-    "layout",
-    "grid",
-    "반응형"
-  ],
+  "tags": ["layout", "grid", "반응형"],
   "controls": [
     {
       "prop": "minChildWidth",

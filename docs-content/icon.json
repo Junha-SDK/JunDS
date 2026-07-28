@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "Icon",
   "oneLiner": "아이콘 렌더러.",
-  "tags": [
-    "media",
-    "icon"
-  ],
+  "tags": ["media", "icon"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "ThemeCard",
   "oneLiner": "테마 카드 — 등락·구성 종목.",
-  "tags": [
-    "finance",
-    "테마",
-    "카드"
-  ],
+  "tags": ["finance", "테마", "카드"],
   "controls": [],
   "snippets": {
     "web": null,

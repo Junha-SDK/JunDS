@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-severity-badge 동형 — 심각도 알약 뱃지 (DESIGN-2 §B2).
 // 웹은 CSS 전용 렌더(JS 상태 0)라 심각도가 **색으로만** 전달된다(role·aria 전무) —
@@ -13,10 +13,12 @@ public struct JdSeverityBadge: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ text: String,
-                severity: JdSeverity = .neutral,
-                size: JdDisplaySize = .md,
-                showsDot: Bool = false) {
+    public init(
+        _ text: String,
+        severity: JdSeverity = .neutral,
+        size: JdDisplaySize = .md,
+        showsDot: Bool = false
+    ) {
         self.text = text
         self.severity = severity
         self.showsDot = showsDot
@@ -24,20 +26,23 @@ public struct JdSeverityBadge: View {
     }
 
     public var body: some View {
-        HStack(spacing: spec.gap) { // 웹 gap: var(--jd-space-1-5)
+        HStack(spacing: spec.gap) {  // 웹 gap: var(--jd-space-1-5)
             if showsDot {
                 Circle()
                     .fill(spec.dotColor.color)
                     .frame(width: spec.dotSize, height: spec.dotSize)
-                    .accessibilityHidden(true) // 장식 — 심각도는 값으로 이미 말한다 (04 §7.1)
+                    .accessibilityHidden(true)  // 장식 — 심각도는 값으로 이미 말한다 (04 §7.1)
             }
             Text(text)
-                .lineLimit(1) // 웹 white-space: nowrap
+                .lineLimit(1)  // 웹 white-space: nowrap
         }
         // 스펙에 fontWeight 필드가 없어 웹 --jd-weight-medium에 대응하는 토큰을 직접 읽는다
-        .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                   weight: JdToken.FontWeight.medium,
-                                   category: sizeCategory))
+        .font(
+            JdSwiftUIFont.scaled(
+                size: spec.fontSize,
+                weight: JdToken.FontWeight.medium,
+                category: sizeCategory)
+        )
         .foregroundColor(spec.foreground.color)
         .padding(.horizontal, spec.hPadding)
         .padding(.vertical, spec.vPadding)

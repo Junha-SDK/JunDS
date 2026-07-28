@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-bookmark-button 동형 — 심볼 토글 버튼 (DESIGN-3 §B).
 // JdLikeButton과 **같은 골격**이고 심볼·켜짐 색만 다르다 → 눌림 스타일은 이 파일에 1회만
@@ -11,9 +11,11 @@ public struct JdBookmarkButton: View {
     // UIControl 계열의 isEnabled와 혼동을 피하려 저장 이름을 분리한다(표면 인자명은 계약대로)
     private let isControlEnabled: Bool
 
-    public init(isBookmarked: Binding<Bool>,
-                size: JdIconButtonSize = .md,
-                isEnabled: Bool = true) {
+    public init(
+        isBookmarked: Binding<Bool>,
+        size: JdIconButtonSize = .md,
+        isEnabled: Bool = true
+    ) {
         self._isBookmarked = isBookmarked
         self.spec = JdIconButtonSpec.resolve(variant: .ghost, size: size)
         self.isControlEnabled = isEnabled
@@ -56,16 +58,20 @@ struct JdSocialButtonStyle: ButtonStyle {
         let background = configuration.isPressed ? spec.pressedBackground : spec.background
         return configuration.label
             // SF Symbol은 폰트 크기로 스케일된다 (04 §7.2)
-            .font(JdSwiftUIFont.scaled(size: spec.iconSize,
-                                       weight: JdToken.FontWeight.medium,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.iconSize,
+                    weight: JdToken.FontWeight.medium,
+                    category: sizeCategory)
+            )
             .foregroundColor(tint.color)
-            .frame(minWidth: spec.side, minHeight: spec.side) // 고정 크기 금지 (04 §7.2)
+            .frame(minWidth: spec.side, minHeight: spec.side)  // 고정 크기 금지 (04 §7.2)
             .background(background.color)
             .clipShape(shape)
-            .contentShape(shape) // 투명 배경에서도 모서리까지 탭 수용
+            .contentShape(shape)  // 투명 배경에서도 모서리까지 탭 수용
             .opacity(isEnabled ? 1 : JdToken.Opacity.o50)
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
-                       value: configuration.isPressed)
+            .animation(
+                reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
+                value: configuration.isPressed)
     }
 }

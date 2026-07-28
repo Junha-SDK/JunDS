@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Kbd 데모 — 실컴포넌트 JdKbd(SwiftUI)/JdKbdView(UIKit). 웹 <jd-kbd> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(keys) — 3플랫폼 동일 (04 §3).
@@ -13,7 +13,7 @@ enum KbdDemo {
     static let demo = ComponentDemo(
         id: "Kbd",
         controls: [
-            .text("keys", "keys", placeholder: "예: ⌘ K", initial: "⌘ K"),
+            .text("keys", "keys", placeholder: "예: ⌘ K", initial: "⌘ K")
         ],
         swiftUI: { state in AnyView(KbdStageSwiftUI(state: state)) },
         uikit: { state in AnyView(KbdStageUIKit(state: state)) }

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Confetti",
   "oneLiner": "축하/완료 시점에 화면을 가득 채우는 색종이 효과.",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

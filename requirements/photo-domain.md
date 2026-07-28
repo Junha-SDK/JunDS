@@ -14,6 +14,7 @@
 ## Scope
 
 **In scope**
+
 - 카드/그리드: `PhotoCard`, `PhotoGrid` (uniform/masonry/mosaic)
 - 풀스크린 뷰: `PhotoLightbox` (키보드 화살표/Esc), `PhotoCarousel`
 - 비교: `ImageCompare` (before/after 슬라이더)
@@ -26,6 +27,7 @@
 - 훅: `useImagePreload` (다음 사진 사전 로드)
 
 **Out of scope**
+
 - 서버 사이드 이미지 처리/리사이즈 — `next/image` 또는 사용자 CDN 위임.
 - 영상 재생 — 별도 도메인 (이후 `VideoCard` 컴포넌트로 분리).
 - 색 보정/크롭 등 실 편집 — `PhotoFilters`는 프리뷰 전용, 실 편집은 호출자
@@ -35,17 +37,17 @@
 ## User stories / acceptance criteria
 
 - [x] **As a 사용자** I can 그리드 사진을 클릭하면 풀스크린 라이트박스로 열려
-  좌우 화살표/Esc로 탐색할 수 있다 (`PhotoAlbum` → `PhotoLightbox`).
+      좌우 화살표/Esc로 탐색할 수 있다 (`PhotoAlbum` → `PhotoLightbox`).
 - [x] **As a 작가** I can `ImageCompare`의 분할 슬라이더를 키보드 좌우/Home/End
-  로 조작할 수 있다 (10단계 점프).
+      로 조작할 수 있다 (10단계 점프).
 - [x] **As a 사용자** I can `PhotoUploader`에 5장 이상 드롭하면 `maxCount`까지만
-  수용하고 초과 메시지를 본다.
+      수용하고 초과 메시지를 본다.
 - [x] **As a 작가** I can `ImageZoom`을 휠로 줌 인/아웃, 드래그로 패닝, 더블클릭
-  으로 즉시 1x 복귀할 수 있다.
+      으로 즉시 1x 복귀할 수 있다.
 - [x] **As a 사용자** I can `ImageWithFallback`이 로딩 중에는 스켈레톤을 보여
-  주고 실패 시 fallback 이미지 또는 "🖼 이미지 없음" 텍스트로 깨끗하게 폴백한다.
+      주고 실패 시 fallback 이미지 또는 "🖼 이미지 없음" 텍스트로 깨끗하게 폴백한다.
 - [x] **As a 사용자** I can `useImagePreload`로 라이트박스 다음 사진을 즉시 보여
-  주고 깜빡임 없이 전환한다.
+      주고 깜빡임 없이 전환한다.
 
 ## Design / behavior notes
 
@@ -66,7 +68,7 @@
   - `ImageCompare` 슬라이더: `role="slider"`, 분할% `aria-valuenow`
   - `ImageZoom`: `<figure>` 사용, 인터랙티브 컨트롤 중첩 회피 (이번 라운드 수정)
   - `PhotoUploader`: dropzone은 진짜 `<button>`, 숨김 input은 `aria-label="파일
-    선택"` + `tabIndex={-1}` (이번 라운드 수정)
+선택"` + `tabIndex={-1}` (이번 라운드 수정)
 - **z-index**: `PhotoLightbox` `z-50` (Modal과 동일). 동시 표시 가정 안 함 —
   Modal 안에 lightbox를 띄우면 위 z 가 wins.
 

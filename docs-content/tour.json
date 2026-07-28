@@ -4,10 +4,7 @@
   "category": "patterns",
   "title": "Tour",
   "oneLiner": "가이드 투어 오버레이",
-  "tags": [
-    "overlay",
-    "navigation"
-  ],
+  "tags": ["overlay", "navigation"],
   "controls": [],
   "snippets": {
     "web": null,

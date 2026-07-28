@@ -32,11 +32,7 @@ function ensureStorage(name: "localStorage" | "sessionStorage"): void {
   // Node 25의 accessor 자체를 읽으면 `--localstorage-file` 경고가 발생한다.
   // descriptor의 value만 검사해 getter를 실행하지 않는다.
   const descriptor = Object.getOwnPropertyDescriptor(globalThis, name);
-  if (
-    descriptor &&
-    "value" in descriptor &&
-    typeof descriptor.value?.clear === "function"
-  ) {
+  if (descriptor && "value" in descriptor && typeof descriptor.value?.clear === "function") {
     return;
   }
   const storage = memoryStorage();

@@ -63,13 +63,15 @@ export default function EmailApp() {
       <EmailInbox
         folders={folders.map((f) => ({
           ...f,
-          unreadCount: f.id === folder
-            ? inbox.data?.filter((m) => m.unread).length
-            : undefined,
+          unreadCount:
+            f.id === folder ? inbox.data?.filter((m) => m.unread).length : undefined,
         }))}
         messages={inbox.data ?? []}
         activeFolderId={folder}
-        onFolderChange={(id) => { setFolder(id); setActive(null); }}
+        onFolderChange={(id) => {
+          setFolder(id);
+          setActive(null);
+        }}
         activeMessageId={active}
         onMessageSelect={(m) => setActive(m.id)}
         onToggleStar={(id) => star.mutate(id)}
@@ -90,12 +92,28 @@ export default function EmailApp() {
             }}
             className="space-y-3"
           >
-            <Input name="to" type="email" placeholder="받는 사람" required aria-label="받는 사람" />
+            <Input
+              name="to"
+              type="email"
+              placeholder="받는 사람"
+              required
+              aria-label="받는 사람"
+            />
             <Input name="subject" placeholder="제목" required aria-label="제목" />
-            <Textarea name="body" rows={8} placeholder="본문" required aria-label="본문" />
+            <Textarea
+              name="body"
+              rows={8}
+              placeholder="본문"
+              required
+              aria-label="본문"
+            />
             <div className="flex justify-end gap-2">
-              <Button type="button" variant="ghost" onClick={() => setComposeOpen(false)}>취소</Button>
-              <Button type="submit" loading={send.loading}>보내기</Button>
+              <Button type="button" variant="ghost" onClick={() => setComposeOpen(false)}>
+                취소
+              </Button>
+              <Button type="submit" loading={send.loading}>
+                보내기
+              </Button>
             </div>
           </form>
         </Modal>

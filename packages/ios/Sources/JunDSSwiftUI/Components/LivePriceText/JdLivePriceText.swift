@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-live-price-text 동형 — 현재가 텍스트 리프 (DEC-040).
 //
@@ -18,10 +18,12 @@ public struct JdLivePriceText: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(price: Double,
-                fallback: Double = 0,
-                decimals: Int = 0,
-                locale: String = "ko-KR") {
+    public init(
+        price: Double,
+        fallback: Double = 0,
+        decimals: Int = 0,
+        locale: String = "ko-KR"
+    ) {
         self.price = price
         self.fallback = fallback
         self.decimals = decimals
@@ -40,9 +42,12 @@ public struct JdLivePriceText: View {
     public var body: some View {
         Text(formatted)
             .monospacedDigit()
-            .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .md).fontSize,
-                                       weight: JdToken.FontWeight.normal,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: JdTextSpec.resolve(size: .md).fontSize,
+                    weight: JdToken.FontWeight.normal,
+                    category: sizeCategory)
+            )
             // em dash는 "가격 없음"이라는 뜻이지만 VoiceOver는 "대시"라고 읽는다 —
             // 웹엔 없는 보정이다(04 §7.1: 상태는 말로).
             .accessibilityLabel(Text(resolvedValue > 0 ? formatted : "가격 정보 없음"))

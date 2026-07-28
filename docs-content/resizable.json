@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Resizable",
   "oneLiner": "리사이저블",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

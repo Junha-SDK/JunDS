@@ -34,8 +34,24 @@ interface AlbumPhoto {
 }
 
 const initialPhotos: AlbumPhoto[] = [
-  { id: "1", src: "/photos/1.jpg", alt: "동해 일출", title: "동해", tag: "여행", likes: 42, comments: 3 },
-  { id: "2", src: "/photos/2.jpg", alt: "라테", title: "카페", tag: "일상", likes: 18, comments: 1 },
+  {
+    id: "1",
+    src: "/photos/1.jpg",
+    alt: "동해 일출",
+    title: "동해",
+    tag: "여행",
+    likes: 42,
+    comments: 3,
+  },
+  {
+    id: "2",
+    src: "/photos/2.jpg",
+    alt: "라테",
+    title: "카페",
+    tag: "일상",
+    likes: 18,
+    comments: 1,
+  },
 ];
 
 export default function AlbumPage() {
@@ -77,12 +93,7 @@ export default function AlbumPage() {
         </button>
       )}
 
-      <PhotoAlbum
-        title="내 앨범"
-        photos={photos}
-        layout="masonry"
-        columns={4}
-      />
+      <PhotoAlbum title="내 앨범" photos={photos} layout="masonry" columns={4} />
     </main>
   );
 }

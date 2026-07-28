@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "VisuallyHidden",
   "oneLiner": "시각적으로 숨기고 스크린리더에는 노출하는 래퍼.",
-  "tags": [
-    "a11y",
-    "숨김"
-  ],
+  "tags": ["a11y", "숨김"],
   "controls": [],
   "snippets": {
     "web": null,

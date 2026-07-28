@@ -49,9 +49,7 @@ function fmtKB(bytes) {
 
 function main() {
   if (!existsSync(REPORT)) {
-    console.error(
-      `[check-bundle-budget] Missing ${REPORT}. Run 'npm run bundle:report' first.`,
-    );
+    console.error(`[check-bundle-budget] Missing ${REPORT}. Run 'npm run bundle:report' first.`);
     process.exit(1);
   }
 
@@ -70,9 +68,7 @@ function main() {
   }
 
   if (warnings.length > 0) {
-    console.warn(
-      `\n[check-bundle-budget] ${warnings.length} component(s) within 15% of budget:`,
-    );
+    console.warn(`\n[check-bundle-budget] ${warnings.length} component(s) within 15% of budget:`);
     for (const w of warnings) {
       console.warn(
         `  ⚠️  ${w.name.padEnd(28)} ${w.kind.padEnd(10)} ` +
@@ -82,9 +78,7 @@ function main() {
   }
 
   if (violations.length > 0) {
-    console.error(
-      `\n[check-bundle-budget] ${violations.length} component(s) OVER budget:`,
-    );
+    console.error(`\n[check-bundle-budget] ${violations.length} component(s) OVER budget:`);
     for (const v of violations) {
       const over = v.gzipBytes - v.budget;
       console.error(

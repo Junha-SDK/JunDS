@@ -34,7 +34,8 @@ async function* walk(dir) {
 async function buildSymbolIndex() {
   const files = (await fs.readdir(JUNDS_LIB)).filter((f) => /\.ts$/.test(f) && f !== "index.ts");
   const index = new Map();
-  const VALUE = /^export\s+(?:async\s+)?(?:function|const|let|var|class|enum)\s+([\p{ID_Start}_$][\p{ID_Continue}$]*)/gmu;
+  const VALUE =
+    /^export\s+(?:async\s+)?(?:function|const|let|var|class|enum)\s+([\p{ID_Start}_$][\p{ID_Continue}$]*)/gmu;
   const TYPE = /^export\s+(?:type|interface)\s+([\p{ID_Start}_$][\p{ID_Continue}$]*)/gmu;
   const LIST = /^(export(?:\s+type)?)\s+\{([^}]+)\}\s*(?:from\s+['"][^'"]+['"])?\s*;?/gm;
   for (const f of files) {
@@ -59,7 +60,8 @@ async function buildSymbolIndex() {
   return index;
 }
 
-const IMPORT_FROM_FINANCE = /import\s+(type\s+)?\{([^}]*)\}\s*from\s+["']@junds\/ui\/finance["'];?/g;
+const IMPORT_FROM_FINANCE =
+  /import\s+(type\s+)?\{([^}]*)\}\s*from\s+["']@junds\/ui\/finance["'];?/g;
 
 function parseImportList(body, fileLevelType) {
   return body
@@ -97,12 +99,18 @@ function rewriteServerFile(src, symbolIndex) {
     }
     const lines = [];
     for (const [mod, { values, types }] of [...groups.entries()].sort()) {
-      if (values.length) lines.push(`import { ${values.join(", ")} } from "@junds/ui/finance/lib/${mod}";`);
-      if (types.length) lines.push(`import type { ${types.join(", ")} } from "@junds/ui/finance/lib/${mod}";`);
+      if (values.length)
+        lines.push(`import { ${values.join(", ")} } from "@junds/ui/finance/lib/${mod}";`);
+      if (types.length)
+        lines.push(`import type { ${types.join(", ")} } from "@junds/ui/finance/lib/${mod}";`);
     }
     if (unmapped.length) {
-      const v = unmapped.filter((i) => !i.isType).map((i) => i.local === i.imported ? i.imported : `${i.imported} as ${i.local}`);
-      const t = unmapped.filter((i) => i.isType).map((i) => i.local === i.imported ? i.imported : `${i.imported} as ${i.local}`);
+      const v = unmapped
+        .filter((i) => !i.isType)
+        .map((i) => (i.local === i.imported ? i.imported : `${i.imported} as ${i.local}`));
+      const t = unmapped
+        .filter((i) => i.isType)
+        .map((i) => (i.local === i.imported ? i.imported : `${i.imported} as ${i.local}`));
       if (v.length) lines.push(`import { ${v.join(", ")} } from "@junds/ui/finance";`);
       if (t.length) lines.push(`import type { ${t.join(", ")} } from "@junds/ui/finance";`);
     }
@@ -121,7 +129,11 @@ async function main() {
   let touched = 0;
   for (const file of targets) {
     let src;
-    try { src = await fs.readFile(file, "utf8"); } catch { continue; }
+    try {
+      src = await fs.readFile(file, "utf8");
+    } catch {
+      continue;
+    }
     const { src: next, changed } = rewriteServerFile(src, symbolIndex);
     if (changed && next !== src) {
       await fs.writeFile(file, next, "utf8");
@@ -132,4 +144,7 @@ async function main() {
   console.log(`Done. ${touched} server file(s) updated.`);
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

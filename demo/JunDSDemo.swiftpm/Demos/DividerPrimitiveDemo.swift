@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Divider(primitives) 데모 — **별칭**이다.
 // R12 단일 정본 — core CoreDivider와 같은 구현(JdDivider / JdDividerView)을 가리킨다.
@@ -13,7 +13,9 @@ enum DividerPrimitiveDemo {
     static let demo = ComponentDemo(
         id: "Divider",
         controls: [
-            .options("orientation", "orientation", JdOrientation.allCases.map(\.rawValue), initial: "horizontal"),
+            .options(
+                "orientation", "orientation", JdOrientation.allCases.map(\.rawValue),
+                initial: "horizontal"),
             .text("label", "label", placeholder: "라벨 (빈 값 = 없음)", initial: "또는"),
         ],
         swiftUI: { state in AnyView(DividerPrimitiveStageSwiftUI(state: state)) },
@@ -71,14 +73,18 @@ private struct DividerPrimitiveStageUIKit: View {
         VStack(spacing: JdToken.Space.s4) {
             if orientation == .horizontal {
                 JdText("위 문단", size: .sm, dimmed: true)
-                DividerPrimitiveViewRep(orientation: .horizontal, label: dividerPrimitiveLabel(state))
-                    .frame(maxWidth: .infinity)
+                DividerPrimitiveViewRep(
+                    orientation: .horizontal, label: dividerPrimitiveLabel(state)
+                )
+                .frame(maxWidth: .infinity)
                 JdText("아래 문단", size: .sm, dimmed: true)
             } else {
                 HStack(spacing: JdToken.Space.s4) {
                     JdText("왼쪽", size: .sm, dimmed: true)
-                    DividerPrimitiveViewRep(orientation: .vertical, label: dividerPrimitiveLabel(state))
-                        .frame(height: JdToken.Space.s16)
+                    DividerPrimitiveViewRep(
+                        orientation: .vertical, label: dividerPrimitiveLabel(state)
+                    )
+                    .frame(height: JdToken.Space.s16)
                     JdText("오른쪽", size: .sm, dimmed: true)
                 }
             }

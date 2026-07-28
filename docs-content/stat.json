@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "Stat",
   "oneLiner": "수치 1건 표시 블록 — 라벨·값·증감.",
-  "tags": [
-    "display",
-    "수치",
-    "통계"
-  ],
+  "tags": ["display", "수치", "통계"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "VirtualScroll",
   "oneLiner": "대량 리스트를 가상화로 렌더링하는 스크롤러.",
-  "tags": [
-    "data"
-  ],
+  "tags": ["data"],
   "controls": [],
   "snippets": {
     "web": null,

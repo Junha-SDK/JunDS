@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // CopyButton 데모 — 실컴포넌트 JdCopyButton(SwiftUI)/JdCopyButtonView(UIKit).
 // 웹 <jd-copy-button> 동형이지만 **복사 자체는 시스템 API(UIPasteboard)**가 한다 —
@@ -12,7 +12,9 @@ enum CopyButtonDemo {
         id: "CopyButton",
         controls: [
             .text("text", "text", placeholder: "복사할 원문", initial: "npm i @junds/ui"),
-            .options("variant", "variant", JdButtonVariant.allCases.map(\.rawValue), initial: "secondary"),
+            .options(
+                "variant", "variant", JdButtonVariant.allCases.map(\.rawValue), initial: "secondary"
+            ),
             .options("size", "size", JdControlSize.allCases.map(\.rawValue), initial: "md"),
         ],
         swiftUI: { state in AnyView(CopyButtonStageSwiftUI(state: state)) },
@@ -87,11 +89,13 @@ private struct CopyButtonStageUIKit: View {
 
 // 각주 — 복사 후 2초 라벨 전환(웹 동형)과 AT 보정.
 private var copyFootnote: some View {
-    Text("탭하면 라벨이 '복사됨'으로 바뀌고 2초 뒤 자동 복귀한다(웹 동형 · 연타하면 이전 복귀 예약은 취소). "
-         + "iOS는 포커스가 버튼에 있어도 라벨 변경을 자동 낭독하지 않아 JdAnnouncer가 성공을 따로 알린다.")
-        .font(.footnote)
-        .foregroundColor(.secondary)
-        .multilineTextAlignment(.center)
+    Text(
+        "탭하면 라벨이 '복사됨'으로 바뀌고 2초 뒤 자동 복귀한다(웹 동형 · 연타하면 이전 복귀 예약은 취소). "
+            + "iOS는 포커스가 버튼에 있어도 라벨 변경을 자동 낭독하지 않아 JdAnnouncer가 성공을 따로 알린다."
+    )
+    .font(.footnote)
+    .foregroundColor(.secondary)
+    .multilineTextAlignment(.center)
 }
 
 // 데모 전용 UIKit 랩 — 소비자 관할 (DEC-010 각주).

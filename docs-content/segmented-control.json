@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "SegmentedControl",
   "oneLiner": "세그먼티드 컨트롤 — iOS 스타일 버튼 그룹 탭 선택기",
-  "tags": [
-    "form",
-    "control"
-  ],
+  "tags": ["form", "control"],
   "controls": [],
   "snippets": {
     "web": null,

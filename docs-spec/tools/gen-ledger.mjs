@@ -50,8 +50,13 @@ const CATEGORIES = [
 // 2026-07-27 myself-migration 1차: hooks 55→61 (+6), composites 185→194 (+9).
 // 2026-07-27 myself-migration 2차: hooks 61→62 (+1), composites 194→201 (+7).
 const EXPECTED = {
-  core: 13, layout: 12, primitives: 51, hooks: 62,
-  composites: 201, patterns: 43, finance: 86,
+  core: 13,
+  layout: 12,
+  primitives: 51,
+  hooks: 62,
+  composites: 201,
+  patterns: 43,
+  finance: 86,
 };
 
 // iOS n/a — 웹 전용 개념 (00-inventory §3 primitives 표)
@@ -60,24 +65,66 @@ const IOS_NA = new Set(["ErrorBoundary", "Portal", "FocusGuard"]);
 // 00-inventory §3 바닐라 난이도 L (bench: "todo" 대상) — UI 42개
 const BENCH_L_UI = new Set([
   // composites (29)
-  "AudioPlayer", "Carousel", "CodeEditor", "ColorPicker", "DataGrid",
-  "DateRangePicker", "DiffViewer", "EmojiPicker", "FunnelChart", "GaugeChart",
-  "Globe", "Heatmap", "ImageCropper", "MarkdownViewer", "MiniChart", "QRCode",
-  "SignaturePad", "Table", "Transfer", "TreemapChart", "VideoPlayer",
-  "VirtualScroll", "LineChart", "BarChart", "PieChart", "AreaChart",
-  "RadarChart", "ScatterPlot", "SankeyDiagram",
+  "AudioPlayer",
+  "Carousel",
+  "CodeEditor",
+  "ColorPicker",
+  "DataGrid",
+  "DateRangePicker",
+  "DiffViewer",
+  "EmojiPicker",
+  "FunnelChart",
+  "GaugeChart",
+  "Globe",
+  "Heatmap",
+  "ImageCropper",
+  "MarkdownViewer",
+  "MiniChart",
+  "QRCode",
+  "SignaturePad",
+  "Table",
+  "Transfer",
+  "TreemapChart",
+  "VideoPlayer",
+  "VirtualScroll",
+  "LineChart",
+  "BarChart",
+  "PieChart",
+  "AreaChart",
+  "RadarChart",
+  "ScatterPlot",
+  "SankeyDiagram",
   // patterns (13)
-  "DataTable", "CommandPalette", "DsCalendar", "Kanban", "FormBuilder",
-  "InfiniteList", "VirtualList", "SortableList", "RichTextEditor",
-  "FlowDiagram", "GanttChart", "BookReader", "EmailInbox",
+  "DataTable",
+  "CommandPalette",
+  "DsCalendar",
+  "Kanban",
+  "FormBuilder",
+  "InfiniteList",
+  "VirtualList",
+  "SortableList",
+  "RichTextEditor",
+  "FlowDiagram",
+  "GanttChart",
+  "BookReader",
+  "EmailInbox",
 ]);
 
 // finance L — 00-inventory §3 finance 그룹표: Live* 실시간 계열(15) + 차트(12) = L
 const FINANCE_L_RE = /^Live/;
 const FINANCE_L_CHARTS = new Set([
-  "CandleChart", "RealCandleChart", "MarketHeatmap", "PortfolioHeatmap",
-  "InvestorFlowChart", "DonutChart", "Sparkline", "AreaChart", "MiniCandle",
-  "MultiLineChart", "QuarterBarChart", "MarketIndexChart",
+  "CandleChart",
+  "RealCandleChart",
+  "MarketHeatmap",
+  "PortfolioHeatmap",
+  "InvestorFlowChart",
+  "DonutChart",
+  "Sparkline",
+  "AreaChart",
+  "MiniCandle",
+  "MultiLineChart",
+  "QuarterBarChart",
+  "MarketIndexChart",
 ]);
 
 // ── 배럴 파서 ────────────────────────────────────────────────────────────────

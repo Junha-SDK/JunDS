@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "DocPager",
   "oneLiner": "문서 하단의 이전/다음 내비게이션 — 한쪽만 있어도 '다음'이 항상 오른쪽에 온다.",
-  "tags": [
-    "navigation",
-    "content",
-    "문서"
-  ],
+  "tags": ["navigation", "content", "문서"],
   "controls": [],
   "snippets": {
     "web": null,

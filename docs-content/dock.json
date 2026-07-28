@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Dock",
   "oneLiner": "macOS 스타일의 마우스 오버 시 확대되는 독.",
-  "tags": [
-    "navigation"
-  ],
+  "tags": ["navigation"],
   "controls": [],
   "snippets": {
     "web": null,

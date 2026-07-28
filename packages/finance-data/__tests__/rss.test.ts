@@ -71,7 +71,12 @@ describe("fetchRss", () => {
   it("HTTP 실패/네트워크 예외는 빈 배열 (graceful)", async () => {
     stubFetchByUrl([["feed.test", () => textResponse("err", 500)]]);
     expect(await fetchRss(SPEC)).toEqual([]);
-    vi.stubGlobal("fetch", vi.fn(async () => { throw new Error("down"); }));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new Error("down");
+      }),
+    );
     expect(await fetchRss(SPEC)).toEqual([]);
   });
 });

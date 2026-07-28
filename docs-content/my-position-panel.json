@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "MyPositionPanel",
   "oneLiner": "내 보유 포지션 패널 — 종목 기준.",
-  "tags": [
-    "finance",
-    "포트폴리오",
-    "패널"
-  ],
+  "tags": ["finance", "포트폴리오", "패널"],
   "controls": [],
   "snippets": {
     "web": null,

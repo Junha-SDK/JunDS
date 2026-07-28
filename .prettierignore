@@ -1,0 +1,18 @@
+node_modules
+dist
+coverage
+.next
+# 생성물 — 생성기가 형식을 소유한다. 포매터가 만지면 tokens-fresh·gen-* 게이트와 싸운다.
+packages/web/src/styles/tokens.css
+packages/web/src/core/tokens.generated.ts
+packages/web/src/components.generated.ts
+packages/web/src/elements.generated.ts
+packages/web/custom-elements.json
+packages/web/vscode.html-custom-data.json
+packages/react/src/tokens.generated.ts
+.ai/layout-map.json
+
+# 리스트 항목 안에 코드펜스가 들어간 마크다운 — prettier가 **비멱등**이다.
+# 실행할 때마다 펜스 백틱을 하나씩 늘려(``` → ```` → `````) 문서를 망가뜨린다(실측).
+# 형식보다 내용이 중요한 문서라 포매터 대상에서 뺀다.
+release/CHECKLIST.md

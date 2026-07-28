@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // MentionChip 데모 — 실컴포넌트 JdMentionLabel(SwiftUI)/JdMentionLabelView(UIKit).
 // 웹 <jd-mention-chip> 동형. 컨트롤 키·값은 웹 attribute 리터럴(handle/label/verified).
@@ -37,11 +37,13 @@ private func mentionLabel(_ state: DemoState) -> String {
 // 폴백 판정도 데모가 Core에 물어본다 — 규칙을 여기서 다시 쓰지 않는다
 @MainActor
 private func mentionDisplayNote(_ state: DemoState) -> String {
-    let display = JdMentionChip.displayText(handle: mentionHandle(state), label: mentionLabel(state))
+    let display = JdMentionChip.displayText(
+        handle: mentionHandle(state), label: mentionLabel(state))
     return "JdMentionChip.displayText → \"\(display)\" (label이 비면 @handle 폴백)"
 }
 
-private let mentionNote = "verified는 웹의 텍스트 \"✓\"를 SF Symbol로 옮긴 것이고, 의미는 낭독 라벨이 "
+private let mentionNote =
+    "verified는 웹의 텍스트 \"✓\"를 SF Symbol로 옮긴 것이고, 의미는 낭독 라벨이 "
     + "\"인증됨\"으로 싣는다(심볼 자체는 AT에서 감춘다). 링크 열기는 소비자 몫이다 — SwiftUI는 "
     + "destination, UIKit은 onTap 자리다."
 
@@ -52,9 +54,10 @@ private struct MentionStageSwiftUI: View {
         VStack(spacing: JdToken.Space.s4) {
             // 텍스트 런이라 문단 안에서 어떻게 앉는지가 실제 쓰임이다
             HStack(spacing: JdToken.Space.s2) {
-                JdMentionLabel(handle: mentionHandle(state),
-                               label: mentionLabel(state),
-                               isVerified: state.bool("verified"))
+                JdMentionLabel(
+                    handle: mentionHandle(state),
+                    label: mentionLabel(state),
+                    isVerified: state.bool("verified"))
                 JdText("님이 답글을 남겼다", size: .md, dimmed: true)
             }
 
@@ -76,10 +79,12 @@ private struct MentionStageUIKit: View {
     var body: some View {
         VStack(spacing: JdToken.Space.s4) {
             HStack(spacing: JdToken.Space.s2) {
-                MentionViewRep(handle: mentionHandle(state),
-                               label: mentionLabel(state),
-                               isVerified: state.bool("verified"))
-                    .fixedSize()
+                MentionViewRep(
+                    handle: mentionHandle(state),
+                    label: mentionLabel(state),
+                    isVerified: state.bool("verified")
+                )
+                .fixedSize()
                 JdText("님이 답글을 남겼다", size: .md, dimmed: true)
             }
 

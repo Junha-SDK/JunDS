@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "Form",
   "oneLiner": "값/오류/터치 상태를 한곳에서 관리하는 폼 컨테이너.",
-  "tags": [
-    "form"
-  ],
+  "tags": ["form"],
   "controls": [],
   "snippets": {
     "web": null,

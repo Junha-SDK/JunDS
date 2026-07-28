@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-live-price 동형 — 현재가 + 값 변화 플래시. (DEC-048)
 //
@@ -21,12 +21,14 @@ public struct JdLivePrice: View {
 
     @State private var flash: JdTrend?
 
-    public init(price: Double,
-                fallback: Double = 0,
-                size: JdLivePriceSize = .md,
-                decimals: Int = 0,
-                locale: String = "ko-KR",
-                showsFlash: Bool = true) {
+    public init(
+        price: Double,
+        fallback: Double = 0,
+        size: JdLivePriceSize = .md,
+        decimals: Int = 0,
+        locale: String = "ko-KR",
+        showsFlash: Bool = true
+    ) {
         self.price = price
         self.fallback = fallback
         self.decimals = decimals
@@ -44,9 +46,12 @@ public struct JdLivePrice: View {
     public var body: some View {
         Text(formatted)
             .monospacedDigit()
-            .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                       weight: spec.fontWeight,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.fontSize,
+                    weight: spec.fontWeight,
+                    category: sizeCategory)
+            )
             .foregroundColor(spec.textColor.color)
             .padding(.horizontal, flash != nil ? spec.flashPadding.h : 0)
             .padding(.vertical, flash != nil ? spec.flashPadding.v : 0)
@@ -55,7 +60,8 @@ public struct JdLivePrice: View {
             .animation(flashAnimation, value: flash)
             .onChange(of: price) { [old = price] new in
                 guard showsFlash, !reduceMotion,
-                      let trend = JdLivePriceSpec.flashTrend(previous: old, current: new) else { return }
+                    let trend = JdLivePriceSpec.flashTrend(previous: old, current: new)
+                else { return }
                 flash = trend
                 // 0.6초 뒤 스스로 꺼진다 — 소비자가 끄는 책임을 지지 않는다
                 DispatchQueue.main.asyncAfter(deadline: .now() + JdLivePriceSpec.flashDuration) {

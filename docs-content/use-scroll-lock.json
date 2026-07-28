@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useScrollLock",
   "oneLiner": "body 스크롤 잠금.",
-  "tags": [
-    "hook",
-    "스크롤",
-    "잠금"
-  ],
+  "tags": ["hook", "스크롤", "잠금"],
   "controls": [],
   "snippets": {
     "web": null,

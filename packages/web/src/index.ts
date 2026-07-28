@@ -17,21 +17,9 @@ export { defineElement } from "./core/define.js";
 export { css, adoptStyles } from "./core/styles.js";
 export type { JdStyles } from "./core/styles.js";
 export { jdUid } from "./core/uid.js";
-export {
-  applyStyleProps,
-  resolveColor,
-  resolveSpace,
-} from "./core/style-props.js";
-export type {
-  ApplyOptions,
-  JdStyleProps,
-  StylePropKey,
-} from "./core/style-props.js";
-export type {
-  JdButtonSize,
-  JdButtonType,
-  JdButtonVariant,
-} from "./components/button/element.js";
+export { applyStyleProps, resolveColor, resolveSpace } from "./core/style-props.js";
+export type { ApplyOptions, JdStyleProps, StylePropKey } from "./core/style-props.js";
+export type { JdButtonSize, JdButtonType, JdButtonVariant } from "./components/button/element.js";
 export type { JdTextFieldSize } from "./components/text-field/element.js";
 export type { JdModalSize } from "./components/modal/element.js";
 

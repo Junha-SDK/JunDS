@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "StatCard",
   "oneLiner": "통계 카드",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

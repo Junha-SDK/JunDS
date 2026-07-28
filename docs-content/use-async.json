@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useAsync",
   "oneLiner": "비동기 작업 상태(loading·error·data) 관리.",
-  "tags": [
-    "hook",
-    "비동기",
-    "상태"
-  ],
+  "tags": ["hook", "비동기", "상태"],
   "controls": [],
   "snippets": {
     "web": null,

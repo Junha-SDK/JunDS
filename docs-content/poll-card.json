@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PollCard",
   "oneLiner": "투표 카드 — 선택지·결과 막대.",
-  "tags": [
-    "social",
-    "투표",
-    "카드"
-  ],
+  "tags": ["social", "투표", "카드"],
   "controls": [],
   "snippets": {
     "web": null,

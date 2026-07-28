@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-avatar 동형 — 이미지 또는 이니셜 폴백 + 우하단 상태 도트 (DESIGN-2 §B2).
 // 치수·색은 전부 JdAvatarSpec/JdToken에서 온다 (04 §4.2 규칙 2).
@@ -33,10 +33,12 @@ public final class JdAvatarView: UIView {
 
     private let spec: JdAvatarSpec
 
-    public init(name: String = "",
-                image: UIImage? = nil,
-                size: JdAvatarSize = .md,
-                status: JdAvatarStatus? = nil) {
+    public init(
+        name: String = "",
+        image: UIImage? = nil,
+        size: JdAvatarSize = .md,
+        status: JdAvatarStatus? = nil
+    ) {
         self.name = name
         self.image = image
         self.avatarSize = size
@@ -113,9 +115,10 @@ public final class JdAvatarView: UIView {
         backgroundColor = hasImage ? nil : JdToken.Color.borderLight.uiColor
         initialsLabel.text = initials
         initialsLabel.textColor = JdAvatarSpec.fallbackColor(for: name).uiColor
-        initialsLabel.font = JdFontBridge.scaledFont(size: spec.initialsFontSize,
-                                                     weight: JdToken.FontWeight.semibold,
-                                                     compatibleWith: traitCollection)
+        initialsLabel.font = JdFontBridge.scaledFont(
+            size: spec.initialsFontSize,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
 
         accessibilityLabel = name.isEmpty ? "아바타" : name
     }
@@ -136,7 +139,8 @@ public final class JdAvatarView: UIView {
         statusDot.isHidden = false
         statusDot.backgroundColor = JdAvatarSpec.statusColor(status).uiColor
         // 웹의 화이트 링 동형 — iOS는 아바타가 놓이는 표면 토큰으로 대체해 다크에서도 성립
-        statusDot.layer.borderColor = JdToken.Color.card.uiColor
+        statusDot.layer.borderColor =
+            JdToken.Color.card.uiColor
             .resolvedColor(with: traitCollection).cgColor
         accessibilityValue = JdAvatarView.statusText(status)
     }

@@ -90,7 +90,7 @@
 ## Open questions
 
 - (resolved 2026-04-30) Sub-path exports 도입 — `@junds/ui/{primitives,
-  composites, patterns, layout, core, hooks, tokens, providers, auth, utils}`
+composites, patterns, layout, core, hooks, tokens, providers, auth, utils}`
   공개. 루트 단일 entry 와 병행.
 
 ## Changelog
@@ -98,5 +98,5 @@
 - 2026-07-27 — CSS side-effect 보존 및 기본 폼 컴포넌트의 안전한 동작 명문화.
 - 2026-04-29 — created.
 - 2026-04-30 — sub-path exports 활성화 (10개 카테고리 별도 entry). rollup
-  config 가 카테고리별로 ESM + CJS + d.ts 를 dist/&lt;category&gt;/index.* 로
+  config 가 카테고리별로 ESM + CJS + d.ts 를 dist/&lt;category&gt;/index.\* 로
   생성. PricingTable 의 `PricingPlan` 타입 export 누락 수정.

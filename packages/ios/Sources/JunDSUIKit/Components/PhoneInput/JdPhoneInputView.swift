@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-phone-input 동형 — 국가 코드 + 전화번호 (DESIGN-3 §A).
 //
@@ -51,11 +51,13 @@ public final class JdPhoneInputView: UIView {
     private let rootStack = UIStackView()
     private let spec: JdTextFieldSpec
 
-    public init(value: String = "",
-                country: JdPhoneCountry = .kr,
-                size: JdControlSize = .md,
-                isError: Bool = false,
-                accessibilityLabel: String? = nil) {
+    public init(
+        value: String = "",
+        country: JdPhoneCountry = .kr,
+        size: JdControlSize = .md,
+        isError: Bool = false,
+        accessibilityLabel: String? = nil
+    ) {
         self.value = value.filter(\.isNumber)
         self.country = country
         self.spec = JdTextFieldSpec.resolve(size: size)
@@ -80,8 +82,9 @@ public final class JdPhoneInputView: UIView {
         rootStack.alignment = .center
         rootStack.spacing = JdToken.Space.s2
         rootStack.isLayoutMarginsRelativeArrangement = true
-        rootStack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: spec.hPadding,
-                                                                     bottom: 0, trailing: spec.hPadding)
+        rootStack.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: 0, leading: spec.hPadding,
+            bottom: 0, trailing: spec.hPadding)
         rootStack.addArrangedSubview(countryButton)
         rootStack.addArrangedSubview(field)
         addSubview(rootStack)
@@ -128,8 +131,10 @@ public final class JdPhoneInputView: UIView {
     private func applyCountry() {
         countryButton.setTitle(country.dialCode, for: .normal)
         let actions = JdPhoneCountry.allCases.map { item in
-            UIAction(title: item.dialCode,
-                     state: item == country ? .on : .off) { [weak self] _ in
+            UIAction(
+                title: item.dialCode,
+                state: item == country ? .on : .off
+            ) { [weak self] _ in
                 guard let self, self.country != item else { return }
                 self.country = item
                 self.onCountryChange?(item)
@@ -147,14 +152,16 @@ public final class JdPhoneInputView: UIView {
     }
 
     private func applyStyle() {
-        field.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                             weight: JdToken.FontWeight.normal,
-                                             compatibleWith: traitCollection)
+        field.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         field.textColor = JdToken.Color.foreground.uiColor
         countryButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        countryButton.titleLabel?.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                                                 weight: JdToken.FontWeight.medium,
-                                                                 compatibleWith: traitCollection)
+        countryButton.titleLabel?.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         countryButton.setTitleColor(JdToken.Color.muted.uiColor, for: .normal)
         backgroundColor = JdToken.Color.card.uiColor
         layer.cornerRadius = spec.radius

@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Mark 데모 — 실컴포넌트 JdMark(SwiftUI)/JdMarkView(UIKit). 웹 <jd-mark> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(color/underline) — 3플랫폼 동일 (04 §3).
@@ -20,7 +20,8 @@ enum MarkDemo {
     )
 }
 
-private let markNote = "Core에 JdMarkSpec이 없어 팔레트는 JdTagSpec을 재사용한다 — yellow→orange, "
+private let markNote =
+    "Core에 JdMarkSpec이 없어 팔레트는 JdTagSpec을 재사용한다 — yellow→orange, "
     + "pink→red는 인접 색상 근사다(리터럴 신설 금지). SwiftUI는 둘러싼 문단 서체를 상속하고, "
     + "UIKit UILabel은 상속 서체가 없어 본문 기본(md)을 쓴다."
 
@@ -42,9 +43,10 @@ private struct MarkStageSwiftUI: View {
             // 텍스트 런이라 문단 안에서 어떻게 앉는지가 실제 쓰임이다
             HStack(spacing: JdToken.Space.s2) {
                 JdText("이 문장에서", size: .md)
-                JdMark(markText(state),
-                       color: markColor(state),
-                       underline: state.bool("underline"))
+                JdMark(
+                    markText(state),
+                    color: markColor(state),
+                    underline: state.bool("underline"))
                 JdText("가 강조된다", size: .md)
             }
 
@@ -64,10 +66,12 @@ private struct MarkStageUIKit: View {
         VStack(spacing: JdToken.Space.s4) {
             HStack(spacing: JdToken.Space.s2) {
                 JdText("이 문장에서", size: .md)
-                MarkViewRep(text: markText(state),
-                            color: markColor(state),
-                            underline: state.bool("underline"))
-                    .fixedSize()
+                MarkViewRep(
+                    text: markText(state),
+                    color: markColor(state),
+                    underline: state.bool("underline")
+                )
+                .fixedSize()
                 JdText("가 강조된다", size: .md)
             }
 

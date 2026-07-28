@@ -1,10 +1,14 @@
 {
+  "$fontFamily": "정본은 v2 ds/tokens/fontFamily.ts (5종). 02-tokens §2가 적어 둔 3종 축약 스택은 문서앱 app/globals.css에서 뽑은 것이라 라이브러리가 실제로 쓰는 폴백 체인보다 짧았다 — 'Pretendard Variable'(호스트가 로드하는 실제 배포명)·'Noto Sans KR'·emoji가 빠져 한글/이모지가 시스템 기본으로 떨어졌다. DEC-051에서 v2 체인을 그대로 승격하고 display·hand를 추가해 5종 전량 패리티로 맞춘다.",
   "fontFamily": {
-    "sans":  "'Pretendard', 'Inter', -apple-system, 'Segoe UI', sans-serif",
-    "serif": "'Noto Serif KR', 'Source Serif Pro', Georgia, serif",
-    "mono":  "'JetBrains Mono', 'Geist Mono', ui-monospace, monospace"
+    "sans": "\"Pretendard Variable\", Pretendard, \"Inter\", \"Noto Sans KR\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+    "serif": "\"Noto Serif KR\", \"Nanum Myeongjo\", Georgia, \"Times New Roman\", serif",
+    "display": "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+    "hand": "\"Caveat\", \"Bradley Hand\", \"Segoe Script\", cursive",
+    "mono": "ui-monospace, \"SF Mono\", \"JetBrains Mono\", \"Fira Code\", Menlo, Consolas, \"Liberation Mono\", monospace"
   },
   "fontSize": {
+    "2xs": "0.6875rem",
     "xs": "0.75rem",
     "sm": "0.8125rem",
     "md": "0.875rem",
@@ -13,7 +17,8 @@
     "2xl": "1.25rem",
     "3xl": "1.5rem",
     "4xl": "1.875rem",
-    "5xl": "2.25rem"
+    "5xl": "2.25rem",
+    "$2xs": "11px — 메타 라벨/캡션. v2 typography.ts의 스텝이고 DocPager·NowPlayingBar가 text-2xs로 실사용 중이다 (DEC-051)."
   },
   "fontWeight": { "normal": "400", "medium": "500", "semibold": "600", "bold": "700" },
   "lineHeight": {
@@ -28,6 +33,8 @@
     "tighter": "-0.05em",
     "tight": "-0.025em",
     "normal": "0em",
-    "wide": "0.025em"
+    "wide": "0.025em",
+    "wider": "0.08em",
+    "$wider": "대문자 eyebrow 라벨용. v2 typography.ts 스텝 (DEC-051)."
   }
 }

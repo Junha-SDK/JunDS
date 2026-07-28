@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "SwipeAction",
   "oneLiner": "좌/우로 스와이프 시 액션이 노출되는 행 래퍼.",
-  "tags": [
-    "form",
-    "control"
-  ],
+  "tags": ["form", "control"],
   "controls": [],
   "snippets": {
     "web": null,

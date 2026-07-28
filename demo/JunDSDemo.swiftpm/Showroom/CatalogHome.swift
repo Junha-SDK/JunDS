@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // JunDS Showroom 카탈로그 — 원장(ledger.json) 동기화가 정체성.
 // 445행 전부 노출: 만든 것은 만질 수 있게, 못 만든 것은 "예정"으로 — 진행률이 보이는 것이 가치다.
@@ -122,11 +122,13 @@ struct CatalogHome: View {
 
     private var footer: some View {
         Section {
-            Text("ledger generatedAt \(ShowroomCatalog.ledgerGeneratedAt) · 총 \(ShowroomCatalog.all.count)행")
-                .font(.caption2)
-                .foregroundColor(.secondary)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .listRowBackground(Color.clear)
+            Text(
+                "ledger generatedAt \(ShowroomCatalog.ledgerGeneratedAt) · 총 \(ShowroomCatalog.all.count)행"
+            )
+            .font(.caption2)
+            .foregroundColor(.secondary)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .listRowBackground(Color.clear)
         }
     }
 }

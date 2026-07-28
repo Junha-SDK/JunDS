@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "Blockquote",
   "oneLiner": "인용 블록 표기.",
-  "tags": [
-    "typography",
-    "인용"
-  ],
+  "tags": ["typography", "인용"],
   "controls": [],
   "snippets": {
     "web": null,

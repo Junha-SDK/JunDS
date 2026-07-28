@@ -29,7 +29,13 @@ interface UserStory {
   slides: { src: string; caption?: string }[];
 }
 
-export function StoryBar({ users, onMarkRead }: { users: UserStory[]; onMarkRead?: (userId: string) => void }) {
+export function StoryBar({
+  users,
+  onMarkRead,
+}: {
+  users: UserStory[];
+  onMarkRead?: (userId: string) => void;
+}) {
   const [activeUserIdx, setActiveUserIdx] = useState<number | null>(null);
   const [slideIdx, setSlideIdx] = useState(0);
 
@@ -87,7 +93,12 @@ export function StoryBar({ users, onMarkRead }: { users: UserStory[]; onMarkRead
       <ul className="flex items-center gap-3 overflow-x-auto py-3 px-2 border-b border-border">
         {users.map((u, i) => (
           <li key={u.id}>
-            <StoryCircle name={u.name} avatar={u.avatar} state={u.state} onClick={() => open(i)} />
+            <StoryCircle
+              name={u.name}
+              avatar={u.avatar}
+              state={u.state}
+              onClick={() => open(i)}
+            />
           </li>
         ))}
       </ul>

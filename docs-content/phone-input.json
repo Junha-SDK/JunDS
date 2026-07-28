@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "PhoneInput",
   "oneLiner": "국가 코드 선택이 포함된 전화번호 입력기.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

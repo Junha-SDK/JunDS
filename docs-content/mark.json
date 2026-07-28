@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "Mark",
   "oneLiner": "형광펜 강조 표기.",
-  "tags": [
-    "typography",
-    "강조"
-  ],
+  "tags": ["typography", "강조"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "Slider",
   "oneLiner": "슬라이더/레인지",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": {

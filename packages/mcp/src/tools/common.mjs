@@ -1,14 +1,19 @@
 /** 도구 공통 유틸 — id 접기·상태 정규화·미발견 제안·응답 메타. */
 
 /** 대소문자 무시 + kebab↔Pascal 접기: "otp-input" ≡ "OTPInput" (08-mcp §4) */
-export const fold = (s) => String(s).toLowerCase().replace(/[-_\s]/g, "");
+export const fold = (s) =>
+  String(s)
+    .toLowerCase()
+    .replace(/[-_\s]/g, "");
 
 /**
  * ledger 상태 문자열 정규화 — 자유 서술 변형("done(내부화)", "pass(1.2ms)",
  * "n/a") 전부 흡수. 필터·집계 전용이고, 응답에는 원문을 그대로 싣는다.
  */
 export function normStatus(s) {
-  const v = String(s ?? "").trim().toLowerCase();
+  const v = String(s ?? "")
+    .trim()
+    .toLowerCase();
   if (v.startsWith("done") || v.startsWith("pass")) return "done";
   if (v.startsWith("wip")) return "wip";
   if (v.startsWith("n/a") || v === "na" || v === "-") return "na";
@@ -42,8 +47,7 @@ export function suggest(data, id, n = 5) {
     .filter((r) => {
       const rf = fold(r.id);
       return (
-        rf.includes(f) || f.includes(rf) ||
-        (f.length >= 3 && rf.slice(0, 3) === f.slice(0, 3))
+        rf.includes(f) || f.includes(rf) || (f.length >= 3 && rf.slice(0, 3) === f.slice(0, 3))
       );
     })
     .slice(0, n)

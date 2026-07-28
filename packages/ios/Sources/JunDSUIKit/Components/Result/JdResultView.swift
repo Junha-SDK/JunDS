@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-result의 UIKit 번역 — EmptyState 파생, 결과 화면 (DESIGN-4 §B). A8 명명 규칙 Jd<이름>View.
 // status별 심볼·색은 Core JdResultStatus가 단일 소스. 웹의 정보 없는 일러스트 대신 64pt 시맨틱
@@ -10,9 +10,9 @@ public final class JdResultView: UIView {
     private let onAction: (() -> Void)?
 
     // 테스트 표면 (@testable) — 공개 API는 아니다 (04 §8.2)
-    let textElement = UIStackView()   // 제목·설명을 합친 단일 접근성 요소
+    let textElement = UIStackView()  // 제목·설명을 합친 단일 접근성 요소
     let iconView = UIImageView()
-    var symbolName: String { status.systemImage } // Core 심볼 매핑을 그대로 노출
+    var symbolName: String { status.systemImage }  // Core 심볼 매핑을 그대로 노출
     private(set) var actionButton: JdFeedbackActionButton?
 
     private let titleLabel = UILabel()
@@ -22,17 +22,19 @@ public final class JdResultView: UIView {
     // 대형 심볼 크기 — 웹 고정 px의 토큰 번역(하드코딩 금지)
     private let symbolSize = JdToken.Space.s16
 
-    public init(status: JdResultStatus,
-                title: String,
-                description: String? = nil,
-                actionLabel: String? = nil,
-                onAction: (() -> Void)? = nil) {
+    public init(
+        status: JdResultStatus,
+        title: String,
+        description: String? = nil,
+        actionLabel: String? = nil,
+        onAction: (() -> Void)? = nil
+    ) {
         self.status = status
         self.onAction = onAction
         super.init(frame: .zero)
 
         iconView.contentMode = .center
-        iconView.isAccessibilityElement = false // 상태는 제목/설명이 말한다 — 심볼은 장식
+        iconView.isAccessibilityElement = false  // 상태는 제목/설명이 말한다 — 심볼은 장식
         iconView.setContentHuggingPriority(.required, for: .vertical)
 
         titleLabel.adjustsFontForContentSizeCategory = true
@@ -52,7 +54,8 @@ public final class JdResultView: UIView {
         textElement.addArrangedSubview(titleLabel)
         textElement.addArrangedSubview(descriptionLabel)
         textElement.isAccessibilityElement = true
-        textElement.accessibilityLabel = [title, description].compactMap { $0 }.joined(separator: ", ")
+        textElement.accessibilityLabel = [title, description].compactMap { $0 }.joined(
+            separator: ", ")
 
         let iconContainer = UIView()
         iconContainer.addSubview(iconView)
@@ -108,34 +111,41 @@ public final class JdResultView: UIView {
     private func applyStyle() {
         iconView.tintColor = status.color.uiColor
         iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(
-            font: JdFontBridge.scaledFont(size: symbolSize,
-                                          weight: JdToken.FontWeight.normal,
-                                          compatibleWith: traitCollection))
+            font: JdFontBridge.scaledFont(
+                size: symbolSize,
+                weight: JdToken.FontWeight.normal,
+                compatibleWith: traitCollection))
         iconView.image = UIImage(systemName: status.systemImage)
 
-        titleLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.xl,
-                                                  weight: JdToken.FontWeight.semibold,
-                                                  compatibleWith: traitCollection)
+        titleLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.xl,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         titleLabel.textColor = JdToken.Color.foreground.uiColor
 
-        descriptionLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                        weight: JdToken.FontWeight.normal,
-                                                        compatibleWith: traitCollection)
+        descriptionLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         descriptionLabel.textColor = JdToken.Color.muted.uiColor
 
-        actionButton?.titleLabel?.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                                 weight: JdToken.FontWeight.semibold,
-                                                                 compatibleWith: traitCollection)
+        actionButton?.titleLabel?.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
     }
 
-    private static func makeActionButton(_ title: String, onTap: @escaping () -> Void) -> JdFeedbackActionButton {
+    private static func makeActionButton(
+        _ title: String, onTap: @escaping () -> Void
+    ) -> JdFeedbackActionButton {
         let button = JdFeedbackActionButton(type: .system)
         button.setTitle(title, for: .normal)
         button.tintColor = JdToken.Color.primary.uiColor
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.accessibilityLabel = title
         button.onTapForward = onTap
-        button.addTarget(button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
+        button.addTarget(
+            button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
         return button
     }
 }

@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-drawer의 SwiftUI 번역 (04 §10.1):
 //  • bottom → 시스템 시트 + detent(sheetHeight 기반) — BottomSheet과 동일 기제.
@@ -14,9 +14,11 @@ import JunDSCore
 /// 순수 함수라 단위 테스트로 게이트 의미론을 고정한다(프레젠테이션은 쇼룸 실기동).
 public enum JdOverlayDismissGate {
     @MainActor
-    public static func apply(_ isPresented: Binding<Bool>,
-                             reason: JdDismissReason,
-                             onDismissAttempt: ((JdDismissReason) -> Bool)?) {
+    public static func apply(
+        _ isPresented: Binding<Bool>,
+        reason: JdDismissReason,
+        onDismissAttempt: ((JdDismissReason) -> Bool)?
+    ) {
         if let onDismissAttempt, onDismissAttempt(reason) == false { return }
         isPresented.wrappedValue = false
     }
@@ -34,13 +36,15 @@ public struct JdDrawer<Content: View>: View {
     private let onDismissAttempt: ((JdDismissReason) -> Bool)?
     private let content: () -> Content
 
-    public init(isPresented: Binding<Bool>,
-                side: JdDrawerSide = .right,
-                size: JdOverlaySize = .md,
-                title: String? = nil,
-                persistent: Bool = false,
-                onDismissAttempt: ((JdDismissReason) -> Bool)? = nil,
-                @ViewBuilder content: @escaping () -> Content) {
+    public init(
+        isPresented: Binding<Bool>,
+        side: JdDrawerSide = .right,
+        size: JdOverlaySize = .md,
+        title: String? = nil,
+        persistent: Bool = false,
+        onDismissAttempt: ((JdDismissReason) -> Bool)? = nil,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
         self._isPresented = isPresented
         self.side = side
         self.size = size
@@ -57,8 +61,9 @@ public struct JdDrawer<Content: View>: View {
                 if newValue {
                     isPresented = true
                 } else {
-                    JdOverlayDismissGate.apply($isPresented, reason: .backdrop,
-                                               onDismissAttempt: onDismissAttempt)
+                    JdOverlayDismissGate.apply(
+                        $isPresented, reason: .backdrop,
+                        onDismissAttempt: onDismissAttempt)
                 }
             }
         )
@@ -69,13 +74,15 @@ public struct JdDrawer<Content: View>: View {
         case .bottom:
             Color.clear
                 .sheet(isPresented: gatedBinding) {
-                    JdDrawerSheetChrome(size: size, title: drawerTitle, persistent: persistent,
-                                        onClose: closeFromHeader, content: content)
+                    JdDrawerSheetChrome(
+                        size: size, title: drawerTitle, persistent: persistent,
+                        onClose: closeFromHeader, content: content)
                 }
         case .left, .right:
-            JdDrawerSideOverlay(isPresented: $isPresented, side: side, size: size,
-                                title: drawerTitle, persistent: persistent,
-                                onDismissAttempt: onDismissAttempt, content: content)
+            JdDrawerSideOverlay(
+                isPresented: $isPresented, side: side, size: size,
+                title: drawerTitle, persistent: persistent,
+                onDismissAttempt: onDismissAttempt, content: content)
         }
     }
 
@@ -168,14 +175,17 @@ struct JdDrawerSideOverlay<Content: View>: View {
         }
         .padding(JdToken.Space.s5)
         .frame(width: width, alignment: .topLeading)
-        .frame(maxWidth: size == .full ? .infinity : nil, maxHeight: .infinity, alignment: .topLeading)
+        .frame(
+            maxWidth: size == .full ? .infinity : nil, maxHeight: .infinity, alignment: .topLeading
+        )
         .background(JdToken.Color.card.color)
         .ignoresSafeArea(edges: .vertical)
     }
 
     private func requestBackdropDismiss() {
         if persistent { return }
-        JdOverlayDismissGate.apply($isPresented, reason: .backdrop, onDismissAttempt: onDismissAttempt)
+        JdOverlayDismissGate.apply(
+            $isPresented, reason: .backdrop, onDismissAttempt: onDismissAttempt)
     }
 
     private func requestClose() {

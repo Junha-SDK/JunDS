@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "StarButton",
   "oneLiner": "관심종목 별 토글 버튼.",
-  "tags": [
-    "finance",
-    "관심종목",
-    "토글"
-  ],
+  "tags": ["finance", "관심종목", "토글"],
   "controls": [],
   "snippets": {
     "web": null,

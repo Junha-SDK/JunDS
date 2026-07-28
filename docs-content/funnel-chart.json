@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "FunnelChart",
   "oneLiner": "단계별 전환율을 시각화하는 퍼널 차트.",
-  "tags": [
-    "chart"
-  ],
+  "tags": ["chart"],
   "controls": [],
   "snippets": {
     "web": null,

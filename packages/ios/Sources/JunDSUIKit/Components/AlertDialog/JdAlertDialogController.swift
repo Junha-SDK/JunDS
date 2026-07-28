@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-alert-dialog(+ ConfirmDialog 별칭)의 iOS 번역: UIAlertController(.alert) 위임 (04 §10.1).
 // 확인/취소 2버튼. isDestructive면 확인 버튼이 .destructive(빨강). cancelLabel nil이면 확인 단일.
@@ -14,13 +14,15 @@ public final class JdAlertDialogController {
     private let onConfirm: () -> Void
     private let onCancel: (() -> Void)?
 
-    public init(title: String,
-                message: String? = nil,
-                confirmLabel: String = "확인",
-                cancelLabel: String? = "취소",
-                isDestructive: Bool = false,
-                onConfirm: @escaping () -> Void,
-                onCancel: (() -> Void)? = nil) {
+    public init(
+        title: String,
+        message: String? = nil,
+        confirmLabel: String = "확인",
+        cancelLabel: String? = "취소",
+        isDestructive: Bool = false,
+        onConfirm: @escaping () -> Void,
+        onCancel: (() -> Void)? = nil
+    ) {
         self.alertTitle = title
         self.message = message
         self.confirmLabel = confirmLabel
@@ -34,9 +36,10 @@ public final class JdAlertDialogController {
     func makeAlertController() -> UIAlertController {
         let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
         if let cancelLabel {
-            alert.addAction(UIAlertAction(title: cancelLabel, style: .cancel) { [weak self] _ in
-                self?.cancel()
-            })
+            alert.addAction(
+                UIAlertAction(title: cancelLabel, style: .cancel) { [weak self] _ in
+                    self?.cancel()
+                })
         }
         let confirmStyle: UIAlertAction.Style = isDestructive ? .destructive : .default
         let confirm = UIAlertAction(title: confirmLabel, style: confirmStyle) { [weak self] _ in

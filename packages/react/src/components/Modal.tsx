@@ -72,28 +72,19 @@ export interface ModalProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export interface ModalHeaderProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "children"
-> {
+export interface ModalHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /** 헤더 내용 — <h3>로 렌더되고 aria-labelledby로 연결된다(v2 동일) */
   children: ReactNode;
   /** 전달하면 우측에 닫기(×) 버튼 표시(v2 동일) */
   onClose?: () => void;
 }
 
-export interface ModalBodyProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "children"
-> {
+export interface ModalBodyProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   /** 다이얼로그의 설명으로 aria-describedby에 자동 연결되는 본문 */
   children: ReactNode;
 }
 
-export interface ModalFooterProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "children"
-> {
+export interface ModalFooterProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   children: ReactNode;
 }
 
@@ -118,9 +109,7 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
     const hasHeader = childArray.some(
       (child) => isValidElement(child) && child.type === ModalHeader,
     );
-    const hasBody = childArray.some(
-      (child) => isValidElement(child) && child.type === ModalBody,
-    );
+    const hasBody = childArray.some((child) => isValidElement(child) && child.type === ModalBody);
 
     // v2 Portal의 mounted 게이트 동형 — SSR은 null, 클라이언트 마운트 후 포털
     const [mounted, setMounted] = useState(false);
@@ -176,9 +165,7 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
           aria-describedby={hasBody ? descId : undefined}
           className={cx("jd-modal__panel", className)}
         >
-          <ModalIdContext.Provider value={{ titleId, descId }}>
-            {children}
-          </ModalIdContext.Provider>
+          <ModalIdContext.Provider value={{ titleId, descId }}>{children}</ModalIdContext.Provider>
         </div>
       </jd-modal>,
       document.body,
@@ -188,12 +175,7 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
 
 ModalBase.displayName = "Modal";
 
-function ModalHeader({
-  children,
-  onClose,
-  className,
-  ...props
-}: ModalHeaderProps) {
+function ModalHeader({ children, onClose, className, ...props }: ModalHeaderProps) {
   const ids = useContext(ModalIdContext);
   return (
     <div className={cx("jd-modal__header", className)} {...props}>
@@ -201,19 +183,8 @@ function ModalHeader({
         {children}
       </h3>
       {onClose ? (
-        <button
-          type="button"
-          className="jd-modal__close"
-          aria-label="닫기"
-          onClick={onClose}
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            aria-hidden="true"
-          >
+        <button type="button" className="jd-modal__close" aria-label="닫기" onClick={onClose}>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
             <path
               d="M4.5 4.5l9 9M13.5 4.5l-9 9"
               stroke="currentColor"
@@ -230,11 +201,7 @@ function ModalHeader({
 function ModalBody({ children, className, id, ...props }: ModalBodyProps) {
   const ids = useContext(ModalIdContext);
   return (
-    <div
-      id={ids?.descId ?? id}
-      className={cx("jd-modal__body", className)}
-      {...props}
-    >
+    <div id={ids?.descId ?? id} className={cx("jd-modal__body", className)} {...props}>
       {children}
     </div>
   );

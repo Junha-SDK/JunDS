@@ -20,9 +20,7 @@ function idRefs(value: string | readonly string[] | null | undefined): string[] 
   const values = Array.isArray(value) ? value : [value];
   return [
     ...new Set(
-      values.flatMap((item) =>
-        typeof item === "string" ? item.split(/\s+/).filter(Boolean) : [],
-      ),
+      values.flatMap((item) => (typeof item === "string" ? item.split(/\s+/).filter(Boolean) : [])),
     ),
   ];
 }
@@ -40,9 +38,7 @@ export function syncAriaIdRefs(
 ): void {
   let ownership = idRefOwnership.get(target);
   const previous = ownership?.get(attribute) ?? new Set<string>();
-  const consumer = idRefs(target.getAttribute(attribute)).filter(
-    (id) => !previous.has(id),
-  );
+  const consumer = idRefs(target.getAttribute(attribute)).filter((id) => !previous.has(id));
   const nextOwned = idRefs(ownedIds);
   const value = [...new Set([...consumer, ...nextOwned])].join(" ");
 

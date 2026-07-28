@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-live-status-dot 동형 — 장 세션 라이브 여부 표시 (DEC-040).
 //
@@ -36,9 +36,12 @@ public struct JdLiveStatusDot: View {
         HStack(spacing: spec.gap) {
             dot
             Text(resolvedLabel)
-                .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.bold,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.fontSize,
+                        weight: JdToken.FontWeight.bold,
+                        category: sizeCategory)
+                )
                 .foregroundColor(spec.color.color)
                 .lineLimit(1)
         }
@@ -82,9 +85,12 @@ public struct JdLiveStatusDot: View {
     private var ringAnimation: Animation? {
         guard pulses else { return nil }
         let easing = JdToken.Easing.easeOut
-        return Animation
-            .timingCurve(easing.0, easing.1, easing.2, easing.3,
-                         duration: JdLiveStatusDotSpec.pulsePeriod)
+        return
+            Animation
+            .timingCurve(
+                easing.0, easing.1, easing.2, easing.3,
+                duration: JdLiveStatusDotSpec.pulsePeriod
+            )
             .repeatForever(autoreverses: false)
     }
 }

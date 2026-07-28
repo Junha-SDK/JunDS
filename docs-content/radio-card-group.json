@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "RadioCardGroup",
   "oneLiner": "카드형 라디오 그룹 — 단일 선택.",
-  "tags": [
-    "form",
-    "선택",
-    "카드"
-  ],
+  "tags": ["form", "선택", "카드"],
   "controls": [],
   "snippets": {
     "web": null,

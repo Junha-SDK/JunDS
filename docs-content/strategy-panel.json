@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "StrategyPanel",
   "oneLiner": "종목 전략 패널 — 구간·신호.",
-  "tags": [
-    "finance",
-    "전략",
-    "패널"
-  ],
+  "tags": ["finance", "전략", "패널"],
   "controls": [],
   "snippets": {
     "web": null,

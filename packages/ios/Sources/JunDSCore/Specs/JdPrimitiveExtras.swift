@@ -1,5 +1,5 @@
-import Foundation
 import CoreGraphics
+import Foundation
 // UIKit은 파일 맨 아래 JdAnnouncer(UIAccessibility 래퍼) 하나 때문에 필요하다.
 // Core의 UIKit 의존은 이미 생성물 JdToken.swift가 만든 기존 현실이다(DEC-013-2) — 04 A2와의
 // 정합 재심의는 토큰 생성기 개정 시점으로 이월돼 있고, 여기서 제약 집합이 새로 늘지는 않는다.
@@ -25,13 +25,15 @@ public enum JdNumberFormat {
     ///   v2가 `KRW ? 0 : 2`로 하드코딩해 JPY·VND를 틀리게 그리던 것을 웹 v3가 고쳤고, iOS도 따른다.
     /// - locale 기본값은 상수 "ko-KR"다(환경 의존 금지 — 웹의 프리렌더 결정성 규칙과 같은 이유로
     ///   iOS에서도 테스트 결정성을 위해 상수를 유지한다).
-    public static func string(value: Double,
-                              style: JdNumberFormatStyle = .decimal,
-                              currency: String = "KRW",
-                              locale: String = "ko-KR",
-                              decimals: Int? = nil,
-                              prefix: String = "",
-                              suffix: String = "") -> String {
+    public static func string(
+        value: Double,
+        style: JdNumberFormatStyle = .decimal,
+        currency: String = "KRW",
+        locale: String = "ko-KR",
+        decimals: Int? = nil,
+        prefix: String = "",
+        suffix: String = ""
+    ) -> String {
         let loc = Locale(identifier: locale)
         let formatter = NumberFormatter()
         formatter.locale = loc
@@ -96,7 +98,7 @@ public enum JdNumberFormat {
         let formatter = NumberFormatter()
         formatter.locale = locale
         formatter.numberStyle = .decimal
-        formatter.roundingMode = .halfUp // 웹 Intl과 동일(Foundation 기본 halfEven이 아님)
+        formatter.roundingMode = .halfUp  // 웹 Intl과 동일(Foundation 기본 halfEven이 아님)
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = ladder[index].unit.isEmpty ? 0 : maxFractionDigits
         let text = formatter.string(from: NSNumber(value: scaled)) ?? "\(scaled)"
@@ -143,8 +145,10 @@ public enum JdNumberInputRules {
     }
 
     /// 스텝 버튼: 값이 비어 있으면 0에서 출발한다(웹 동형)
-    public static func stepped(_ value: Double?, direction: Int, step: Double,
-                               min lower: Double?, max upper: Double?) -> Double {
+    public static func stepped(
+        _ value: Double?, direction: Int, step: Double,
+        min lower: Double?, max upper: Double?
+    ) -> Double {
         let base = value ?? 0
         return clamp(base + Double(direction) * step, min: lower, max: upper)
     }
@@ -230,7 +234,7 @@ public enum JdPhoneMask {
             parts.append(String(remaining.prefix(take)))
             remaining.removeFirst(take)
         }
-        if !remaining.isEmpty { parts.append(String(remaining)) } // 초과분은 마지막 그룹에 붙인다
+        if !remaining.isEmpty { parts.append(String(remaining)) }  // 초과분은 마지막 그룹에 붙인다
         return parts.joined(separator: "-")
     }
 
@@ -248,11 +252,11 @@ public enum JdPhoneMask {
 
 /// 웹 jd-password-input의 규칙 **5종**(소문자 포함이 빠지면 패리티가 깨진다 — 실측 교정)
 public enum JdPasswordRule: String, CaseIterable, Sendable {
-    case length      // 8자 이상
-    case uppercase   // 대문자 포함
-    case lowercase   // 소문자 포함
-    case number      // 숫자 포함
-    case symbol      // 특수문자 포함
+    case length  // 8자 이상
+    case uppercase  // 대문자 포함
+    case lowercase  // 소문자 포함
+    case number  // 숫자 포함
+    case symbol  // 특수문자 포함
 
     public var label: String {
         switch self {
@@ -347,9 +351,13 @@ public enum JdHighlight {
         var result: [JdHighlightSegment] = []
         var cursor = text.startIndex
         while cursor < text.endIndex,
-              let found = text.range(of: query, options: .caseInsensitive, range: cursor..<text.endIndex) {
+            let found = text.range(
+                of: query, options: .caseInsensitive, range: cursor..<text.endIndex)
+        {
             if found.lowerBound > cursor {
-                result.append(JdHighlightSegment(text: String(text[cursor..<found.lowerBound]), isMatch: false))
+                result.append(
+                    JdHighlightSegment(
+                        text: String(text[cursor..<found.lowerBound]), isMatch: false))
             }
             result.append(JdHighlightSegment(text: String(text[found]), isMatch: true))
             cursor = found.upperBound
@@ -467,7 +475,8 @@ public enum JdAnnouncePriority: String, CaseIterable, Sendable {
 public enum JdAnnouncer {
     public static func announce(_ message: String, priority: JdAnnouncePriority = .polite) {
         guard !message.isEmpty else { return }
-        let notification: UIAccessibility.Notification = priority == .assertive ? .screenChanged : .announcement
+        let notification: UIAccessibility.Notification =
+            priority == .assertive ? .screenChanged : .announcement
         UIAccessibility.post(notification: notification, argument: message)
     }
 }

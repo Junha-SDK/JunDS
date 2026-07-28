@@ -64,6 +64,7 @@ emit 하고, 런타임 모드에서는 그 훅들을 비활성화한다. 두 모
 ### A3 — 컴포넌트 레지스트리 일원화
 
 현재 두 곳에 컴포넌트 정보가 흩어져 있다:
+
 - `app/design-system/lab/_lib/registry.ts` — 빌더용 `ComponentDef`
 - `.ai/props.json` — 자동 추출 prop 시그니처
 
@@ -75,11 +76,11 @@ Phase 0 에서 이 둘을 **하나의 `ComponentManifest`** 로 통합한다 (�
 `PageDoc` 은 외부 입력(파일/네트워크)으로도 들어오므로 런타임 스키마 검증이
 필수다. 후보:
 
-| 라이브러리 | gzip | 장점 | 단점 |
-| --- | --- | --- | --- |
-| `zod` | ~12 KB | 타입 추론 강력, 생태계 풍부 | 가장 큼 |
-| `valibot` | ~3 KB | tree-shakable, 모듈러 | 생태계 작음 |
-| 자체 구현 | 0 KB | 의존성 0 | 유지비 증가 |
+| 라이브러리 | gzip   | 장점                        | 단점        |
+| ---------- | ------ | --------------------------- | ----------- |
+| `zod`      | ~12 KB | 타입 추론 강력, 생태계 풍부 | 가장 큼     |
+| `valibot`  | ~3 KB  | tree-shakable, 모듈러       | 생태계 작음 |
+| 자체 구현  | 0 KB   | 의존성 0                    | 유지비 증가 |
 
 **결정 (이 문서):** `valibot` 채택. `@junds/ui` 가 sideEffects:false 라이브러리라
 번들 크기에 민감하고, 사용 면적은 PageDoc 검증 한 곳뿐이라 zod 의 풀 기능이
@@ -105,7 +106,7 @@ required/optional 을 명시하고, 필수 필드(예: `id`, `componentId`) 와
   object 와 호환. `Renderer` 는 `$kind: "responsive"` 태그가 없는 plain
   object 도 받아들이는 어댑터를 둔다.
 - round-trip 보장: 어떤 빌더 상태든 `serialize → JSON.stringify → JSON.parse →
-  parsePageDoc → deserialize` 후 시각적으로 동일해야 한다. 시각 동치는
+parsePageDoc → deserialize` 후 시각적으로 동일해야 한다. 시각 동치는
   Playwright 스냅샷으로 검증.
 - `schemaVersion` 은 마이그레이션 hook 의 자리. Phase 0 은 항상 1, 입력을
   그대로 반환하는 `migrate(doc)` 만 노출.
@@ -173,12 +174,7 @@ import { z } from "zod";
 // ── Primitive value types ────────────────────────────────────────────
 
 /** A literal prop value supplied directly. */
-export const literalValue = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  z.null(),
-]);
+export const literalValue = z.union([z.string(), z.number(), z.boolean(), z.null()]);
 
 /**
  * A bound prop value — resolved at render time from data sources / state.
@@ -363,11 +359,9 @@ export type ProjectDoc = z.infer<typeof projectDoc>;
 
 // ── Public parse helpers ─────────────────────────────────────────────
 
-export const parsePageDoc = (input: unknown): PageDoc =>
-  pageDoc.parse(input);
+export const parsePageDoc = (input: unknown): PageDoc => pageDoc.parse(input);
 
-export const parseProjectDoc = (input: unknown): ProjectDoc =>
-  projectDoc.parse(input);
+export const parseProjectDoc = (input: unknown): ProjectDoc => projectDoc.parse(input);
 ```
 
 ### Round-trip invariant

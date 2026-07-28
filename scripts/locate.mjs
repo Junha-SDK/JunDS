@@ -8,13 +8,7 @@ import { fileURLToPath } from "node:url";
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptDir, "..");
 
-const DEFAULT_IGNORED_DIRS = new Set([
-  ".git",
-  ".next",
-  "coverage",
-  "dist",
-  "node_modules",
-]);
+const DEFAULT_IGNORED_DIRS = new Set([".git", ".next", "coverage", "dist", "node_modules"]);
 
 const args = parseArgs(process.argv.slice(2));
 
@@ -44,9 +38,7 @@ const rankedResults = allFiles
 
 const topScore = rankedResults[0]?.score ?? 0;
 const minimumScore = Math.max(60, Math.round(topScore * 0.18));
-const results = rankedResults
-  .filter((entry) => entry.score >= minimumScore)
-  .slice(0, args.max);
+const results = rankedResults.filter((entry) => entry.score >= minimumScore).slice(0, args.max);
 
 if (args.json) {
   console.log(
@@ -257,18 +249,28 @@ function scorePath(relativePath, query) {
     score += 70;
   }
 
-  if (
-    kind === "hook" &&
-    queryTokens.length > 0 &&
-    queryTokens.some((token) => token === "use")
-  ) {
+  if (kind === "hook" && queryTokens.length > 0 && queryTokens.some((token) => token === "use")) {
     score += 12;
   }
 
   if (
     kind === "token" &&
     queryTokens.some((token) =>
-      ["color", "colors", "spacing", "radius", "shadow", "shadows", "theme", "themes", "zindex", "typography", "animation", "breakpoint", "breakpoints"].includes(token),
+      [
+        "color",
+        "colors",
+        "spacing",
+        "radius",
+        "shadow",
+        "shadows",
+        "theme",
+        "themes",
+        "zindex",
+        "typography",
+        "animation",
+        "breakpoint",
+        "breakpoints",
+      ].includes(token),
     )
   ) {
     score += 12;

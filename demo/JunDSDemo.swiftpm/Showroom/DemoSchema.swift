@@ -12,18 +12,20 @@ enum DemoValue: Equatable {
 
 struct DemoControlSpec: Identifiable {
     enum Kind {
-        case options([String])                       // 열거 픽커 (variant/size 등)
-        case toggle                                  // Bool 토글
+        case options([String])  // 열거 픽커 (variant/size 등)
+        case toggle  // Bool 토글
         case slider(ClosedRange<Double>, step: Double)
-        case text(placeholder: String)               // 자유 문자열
+        case text(placeholder: String)  // 자유 문자열
     }
 
-    let id: String        // DemoState 키
+    let id: String  // DemoState 키
     let label: String
     let kind: Kind
     let initial: DemoValue
 
-    static func options(_ key: String, _ label: String, _ options: [String], initial: String) -> DemoControlSpec {
+    static func options(
+        _ key: String, _ label: String, _ options: [String], initial: String
+    ) -> DemoControlSpec {
         DemoControlSpec(id: key, label: label, kind: .options(options), initial: .string(initial))
     }
 
@@ -31,12 +33,19 @@ struct DemoControlSpec: Identifiable {
         DemoControlSpec(id: key, label: label, kind: .toggle, initial: .bool(initial))
     }
 
-    static func slider(_ key: String, _ label: String, _ range: ClosedRange<Double>, step: Double = 1, initial: Double) -> DemoControlSpec {
-        DemoControlSpec(id: key, label: label, kind: .slider(range, step: step), initial: .number(initial))
+    static func slider(
+        _ key: String, _ label: String, _ range: ClosedRange<Double>, step: Double = 1,
+        initial: Double
+    ) -> DemoControlSpec {
+        DemoControlSpec(
+            id: key, label: label, kind: .slider(range, step: step), initial: .number(initial))
     }
 
-    static func text(_ key: String, _ label: String, placeholder: String = "", initial: String = "") -> DemoControlSpec {
-        DemoControlSpec(id: key, label: label, kind: .text(placeholder: placeholder), initial: .string(initial))
+    static func text(
+        _ key: String, _ label: String, placeholder: String = "", initial: String = ""
+    ) -> DemoControlSpec {
+        DemoControlSpec(
+            id: key, label: label, kind: .text(placeholder: placeholder), initial: .string(initial))
     }
 }
 
@@ -89,12 +98,12 @@ final class DemoState: ObservableObject {
 }
 
 struct ComponentDemo {
-    let id: String                                        // ledger id (예: "Button")
+    let id: String  // ledger id (예: "Button")
     let controls: [DemoControlSpec]
     let swiftUIStage: (DemoState) -> AnyView
-    let uikitStage: ((DemoState) -> AnyView)?             // nil → UIKit 탭 숨김
-    let stress: ((DemoState) -> AnyView)?                 // L급 대량 데이터 씬 (nil → 탭 숨김)
-    let recipe: String?                                   // 레시피 스니펫 (04 §10.1 레시피형 컴포넌트)
+    let uikitStage: ((DemoState) -> AnyView)?  // nil → UIKit 탭 숨김
+    let stress: ((DemoState) -> AnyView)?  // L급 대량 데이터 씬 (nil → 탭 숨김)
+    let recipe: String?  // 레시피 스니펫 (04 §10.1 레시피형 컴포넌트)
 
     init(
         id: String,

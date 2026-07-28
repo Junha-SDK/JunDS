@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-kbd 동형 — 단축키 표기 칩. keys의 공백은 Core가 제거한다("⌘ K" → "⌘K").
 // JdKbdSpec은 치수만 준다 — 색은 웹 CSS 매핑대로 토큰에서 읽는다
@@ -20,15 +20,20 @@ public struct JdKbd: View {
     public var body: some View {
         let shape = RoundedRectangle(cornerRadius: spec.radius, style: .continuous)
         return Text(keys)
-            .font(JdSwiftUIFont.scaledMono(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaledMono(
+                    size: spec.fontSize,
+                    weight: JdToken.FontWeight.medium,
+                    category: sizeCategory)
+            )
             .foregroundColor(JdToken.Color.muted.color)
             .padding(.horizontal, spec.hPadding)
             .padding(.vertical, spec.vPadding)
             .background(JdToken.Color.cardHover.color)
             .clipShape(shape)
-            .overlay(shape.strokeBorder(JdToken.Color.border.color,
-                                        lineWidth: JdToken.Border.thin))
+            .overlay(
+                shape.strokeBorder(
+                    JdToken.Color.border.color,
+                    lineWidth: JdToken.Border.thin))
     }
 }

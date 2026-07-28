@@ -17,16 +17,24 @@ UIKit에서 화면을 짜는 일이 왜 번거로웠는지부터. `jd.layout`은
 
 지금은 트리와 제약을 **한 표현식**으로 적는다. 아래 넷이 전부다.
 
-| 하고 싶은 것 | 쓰는 것 |
-|---|---|
-| 중첩 스택 | `JdVStack(gap:, align:, padding:) { … }` · `JdHStack { … }` |
-| 한쪽으로 밀기 | `JdFlex()` |
-| 크기·여백 지정 | `.jdSize(44)` · `.jdWidth(96)` · `.jdMinWidth(80)` · `.jdPadded(.md)` |
-| 여백 값 조립 | `JdEdge.all(.md)` · `JdEdge.symmetric(v: .sm, h: .md)` · `JdEdge.only(top: .lg)` |
-| 부모에 얹기 | `child.jdFill(parent)` · `child.jdFillSafeArea(parent)` |
-| **행 간 열 정렬**(표) | `JdColumnsView(columns:) { … }` |
-| 폭에 따른 축 전환 | `JdAdaptiveStackView(breakpoint:) { … }` |
-| 줄바꿈 흐름 | `JdWrapView(itemSpacing:) { … }` (아래 Wrap 항목) |
+| 하고 싶은 것          | 쓰는 것                                                                             |
+| --------------------- | ----------------------------------------------------------------------------------- |
+| 중첩 스택             | `JdVStack(gap:, align:, padding:) { … }` · `JdHStack { … }`                         |
+| 한쪽으로 밀기         | `JdFlex()`                                                                          |
+| 크기·여백 지정        | `.jdSize(44)` · `.jdWidth(96)` · `.jdMinWidth(80)` · `.jdPadded(.md)`               |
+| 여백 값 조립          | `JdEdge.all(.md)` · `JdEdge.symmetric(v: .sm, h: .md)` · `JdEdge.only(top: .lg)`    |
+| 부모에 얹기           | `child.jdFill(parent, padding: .md)` · `child.jdFillSafeArea(parent, padding: .md)` |
+| 여백·간격은 토큰으로  | `.inset(.md)` · `.offset(.sm)` — 제약에서도 원시 숫자를 안 쓴다                     |
+| 가로/세로 양변        | `$0.horizontal` · `$0.vertical` (= leading+trailing / top+bottom)                   |
+| **행 간 열 정렬**(표) | `JdColumnsView(columns:) { … }`                                                     |
+| 폭에 따른 축 전환     | `JdSwitcherView(threshold: .sm) { … }`                                              |
+| 양끝 배치             | `JdSplitView { … }`                                                                 |
+| 사이드바 + 본문       | `JdSidebarLayoutView(sideWidth:contentMin:) { … }`                                  |
+| 가운데 놓기           | `child.jdCenter(in: parent)`                                                        |
+| 일부 변만 붙이기      | `child.jdPin(to: parent, edges: [.top, .leading], padding: .md)`                    |
+| 형제 기준 배치        | `child.jdBelow(header, gap: .md)` · `.jdAfter(icon, gap: .sm)`                      |
+| 종횡비                | `.jdAspect(16.0/9.0)`                                                               |
+| 줄바꿈 흐름           | `JdWrapView(itemSpacing:) { … }` (아래 Wrap 항목)                                   |
 
 정렬·분배는 **웹 어휘**를 쓴다(`JdAlign` = `start·center·end·stretch·baseline`,
 `JdJustify` = `start·center·end·between·around·evenly`). `UIStackView.Alignment`가 소비자
@@ -103,17 +111,18 @@ table.setRows(newRows)   // 목록 갱신은 이 한 줄
 
 열 규칙 세 가지:
 
-| 규칙 | 뜻 |
-|---|---|
-| `.fixed(96, align:)` | 고정 폭. 소비자 의도라 폭이 모자라도 **줄이지 않는다** |
-| `.fit(max:, align:)` | 전 행 중 가장 넓은 내용에 맞춘다. 상한을 넘지 않고, 전체가 넘칠 때 **여기서** 줄인다 |
-| `.flex(weight:, align:)` | 남는 폭을 가중치로 나눈다. 가중치가 전부 0이면 균등 분배(0으로 나누지 않는다) |
+| 규칙                     | 뜻                                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| `.fixed(96, align:)`     | 고정 폭. 소비자 의도라 폭이 모자라도 **줄이지 않는다**                               |
+| `.fit(max:, align:)`     | 전 행 중 가장 넓은 내용에 맞춘다. 상한을 넘지 않고, 전체가 넘칠 때 **여기서** 줄인다 |
+| `.flex(weight:, align:)` | 남는 폭을 가중치로 나눈다. 가중치가 전부 0이면 균등 분배(0으로 나누지 않는다)        |
 
 **왜 정렬이 폭과 한 값인가**: 처음엔 `columns:`와 `alignments:` 두 배열이었다. 인덱스로 짝을
 맞추는 API는 하나만 밀려도 **조용히 틀린 표**를 그린다 — 컴파일도 되고 크래시도 없다.
 한 값으로 합치면 그 실수가 문법적으로 불가능해진다.
 
 보장하는 것(테스트로 고정):
+
 - `fit` 열 폭은 **전 행이 공유**한다 — 1행만 짧아도 열이 어긋나지 않는다.
 - 마지막 행이 덜 차도 깨지지 않는다(빈 칸으로 남는다).
 - 폭이 부족하면 `fit`을 비율로 줄여 **내용이 컨테이너를 넘지 않는다**.
@@ -124,15 +133,22 @@ table.setRows(newRows)   // 목록 갱신은 이 한 줄
 ### 반응형 — 폭에 따라 축을 뒤집는다
 
 ```swift
-JdAdaptiveStackView(breakpoint: JdToken.Breakpoint.sm, wideAxis: .horizontal, gap: .md) {
-    leftPane
-    rightPane
-}
-// stack.isCompact 를 읽어 부수적 스타일(정렬·폰트)을 함께 맞출 수 있다
+JdSwitcherView { leftPane; rightPane }              // 임계값을 고르지 않아도 된다
+JdSwitcherView(threshold: .md) { a; b; c }          // 조정이 필요할 때만
+// .isCompact 를 읽어 부수적 스타일(정렬·폰트)을 함께 맞출 수 있다
 ```
+
+임계값은 **브레이크포인트 이름**으로 고른다 — 웹 `<jd-switcher threshold="md">` ·
+SwiftUI `JdSwitcher(threshold: .md)` · `jdShow(above: .md)`와 같은 어휘다.
+
+기준은 화면이 아니라 **자기가 놓인 자리의 폭**이다. 그래서 같은 묶음을 사이드바 안으로
+옮겨도 맞게 접힌다 — 뷰포트 미디어 쿼리였다면 화면은 넓은데 자리는 좁아 찌그러졌을 자리다.
 
 폭 0(부모가 아직 폭을 주지 않은 첫 프레임)에서는 좁다고 판정하지 않는다 — 초기 1프레임
 깜빡임을 막는다. 축은 **값이 실제로 바뀔 때만** 쓴다(레이아웃 루프 방지).
+
+> 구현체인 `JdAdaptiveStackView`를 직접 쓰지 마라. 이름이 배치 개념이 아니라 구현(스택)을
+> 가리키고, 임계값을 원시 CGFloat로 받아 `JdBreakpoint` 어휘 밖으로 샌다.
 
 ### SnapKit과 무엇이 같고 무엇이 다른가
 
@@ -142,30 +158,38 @@ DSL은 SnapKit과 같은 급이고, 새로 만들 이유가 없었다.
 
 SnapKit이 **하지 않는** 일이 둘 있고 그게 여기서 더한 부분이다:
 
-| | SnapKit | JunDS |
-|---|---|---|
-| 제약 관계 적기 | `snp.makeConstraints { }` | `jd.layout { }` (동급) |
-| **트리 만들기** | 없음 — `addSubview`는 손으로 | `JdVStack { }` 빌더가 함께 한다 |
-| **`addSubview` 잊음** | 런타임에 제약이 안 붙거나 크래시 | 문법적으로 불가능(빌더가 넣는다) |
-| **행 간 열 정렬** | 없음 — 열마다 제약을 손으로 엮어야 | `JdColumnsView`가 폭을 공유 |
-| 토큰 강제 | 없음(원시 CGFloat) | `JdGap`·`JdAlign`만 받는다 |
+|                       | SnapKit                            | JunDS                            |
+| --------------------- | ---------------------------------- | -------------------------------- |
+| 제약 관계 적기        | `snp.makeConstraints { }`          | `jd.layout { }` (동급)           |
+| **트리 만들기**       | 없음 — `addSubview`는 손으로       | `JdVStack { }` 빌더가 함께 한다  |
+| **`addSubview` 잊음** | 런타임에 제약이 안 붙거나 크래시   | 문법적으로 불가능(빌더가 넣는다) |
+| **행 간 열 정렬**     | 없음 — 열마다 제약을 손으로 엮어야 | `JdColumnsView`가 폭을 공유      |
+| 토큰 강제             | 없음(원시 CGFloat)                 | `JdGap`·`JdAlign`만 받는다       |
 
 정리하면 **SnapKit 대신**이 아니라 **SnapKit이 비워 둔 층**이다. 제약이 필요한 비계층
 관계("이 뷰를 저 뷰 오른쪽에")는 여전히 `jd.layout`을 쓴다.
 
 ### SwiftUI는 무엇을 쓰나
 
-SwiftUI엔 이미 다 있어서 **새 타입을 만들지 않았다**(04 §10 번역 원칙):
+SwiftUI에 이미 있는 것은 **새로 만들지 않았다**(04 §10 번역 원칙). 없는 것만 더했다:
 
-| UIKit | SwiftUI |
-|---|---|
-| `JdHStack { … }` / `JdVStack { … }` | `HStack { … }` / `VStack { … }` |
-| `JdFlex()` | `Spacer()` |
-| `JdColumnsView(columns:)` | `Grid { GridRow { … } }` (iOS 16 — DEC-004가 전제한 하한) |
-| `JdAdaptiveStackView` | `ViewThatFits { HStack { … }; VStack { … } }` |
-| `JdWrapView` | `JdFlowLayout` (실컴포넌트) |
+| UIKit                               | SwiftUI                                                   |
+| ----------------------------------- | --------------------------------------------------------- |
+| `JdHStack { … }` / `JdVStack { … }` | `HStack { … }` / `VStack { … }`                           |
+| `JdFlex()`                          | `Spacer()`                                                |
+| `JdColumnsView(columns:)`           | `Grid { GridRow { … } }` (iOS 16 — DEC-004가 전제한 하한) |
+| `JdSwitcherView`                    | `JdSwitcher { … }`                                        |
+| `JdSplitView`                       | `JdSplit { … }`                                           |
+| `JdSidebarLayoutView`               | `JdSidebarLayout { … }`                                   |
+| `JdWrapView`                        | `JdFlowLayout` (실컴포넌트)                               |
 
 즉 **개념 어휘는 3플랫폼 공통**이고, 표현만 각 플랫폼의 관용구를 따른다.
+대응표의 기계 판독본은 `.ai/layout-map.json`이고, 적힌 심볼이 실제로 존재하는지는
+`npm run layout-map:check`가 검증한다.
+
+Switcher를 `ViewThatFits { HStack { … }; VStack { … } }`로 쓰지 않는 이유: 그러면 **자식을
+두 번 적어야** 하고, 한쪽만 고치는 순간 두 배치가 갈라진다. 그 어긋남은 좁은 화면에서만
+보여서 늦게 발견된다. `JdSwitcher`는 iOS 16 `Layout` 프로토콜이라 자식을 한 번만 받는다.
 
 ---
 
@@ -546,18 +570,18 @@ URLSession.shared.dataTask(with: url) { data, _, _ in
 
 ## Core 유틸 (JdBehaviors.swift — 실체 있음)
 
-| hook | Core | 비고 |
-|---|---|---|
-| useDebounce | `JdDebouncer(delay:)` | 명령형 호출부용. 선언형은 Combine `.debounce` |
-| useThrottle | `JdThrottler(interval:)` | 선행 즉시 + 후행 1회(웹 알고리즘) |
-| useCountUp | `JdCountUp.easeOutExpo/value` | 이징은 순수 함수, 구동은 `TimelineView`/`CADisplayLink` |
-| useForm | `JdForm.firstViolation/isValid` + `JdFieldRule` | 검증 규칙 판정. 폼 상태는 `@State`/Observable |
-| useHotkeys · useKeyboardShortcut | `JdHotkey.normalize` | 정규화만 Core, 실제 처리는 `UIKeyCommand`/`.onKeyPress` |
-| useReadingProgress | `JdScrollProgress.reading` | 오프셋→진행률. 구동은 스크롤 델리게이트 |
-| useScrollSpy | `JdScrollProgress.activeSection` | 오프셋→활성 섹션 인덱스 |
-| useImagePreload | `JdPreload.batches` | 동시성 배치 계획. 로딩은 `URLSession` |
-| useInfiniteFeed | `JdInfiniteFeedGate` | 중복 로드 가드. 목록 상태는 데이터 계층 |
-| useBreakpointValue | `JdBreakpointValue.resolve` | 폭→값 해석 |
+| hook                             | Core                                            | 비고                                                    |
+| -------------------------------- | ----------------------------------------------- | ------------------------------------------------------- |
+| useDebounce                      | `JdDebouncer(delay:)`                           | 명령형 호출부용. 선언형은 Combine `.debounce`           |
+| useThrottle                      | `JdThrottler(interval:)`                        | 선행 즉시 + 후행 1회(웹 알고리즘)                       |
+| useCountUp                       | `JdCountUp.easeOutExpo/value`                   | 이징은 순수 함수, 구동은 `TimelineView`/`CADisplayLink` |
+| useForm                          | `JdForm.firstViolation/isValid` + `JdFieldRule` | 검증 규칙 판정. 폼 상태는 `@State`/Observable           |
+| useHotkeys · useKeyboardShortcut | `JdHotkey.normalize`                            | 정규화만 Core, 실제 처리는 `UIKeyCommand`/`.onKeyPress` |
+| useReadingProgress               | `JdScrollProgress.reading`                      | 오프셋→진행률. 구동은 스크롤 델리게이트                 |
+| useScrollSpy                     | `JdScrollProgress.activeSection`                | 오프셋→활성 섹션 인덱스                                 |
+| useImagePreload                  | `JdPreload.batches`                             | 동시성 배치 계획. 로딩은 `URLSession`                   |
+| useInfiniteFeed                  | `JdInfiniteFeedGate`                            | 중복 로드 가드. 목록 상태는 데이터 계층                 |
+| useBreakpointValue               | `JdBreakpointValue.resolve`                     | 폭→값 해석                                              |
 
 ```swift
 // useDebounce — 검색어를 300ms 지연
@@ -579,34 +603,34 @@ if let violation = JdForm.firstViolation(email, rules: rules) {
 
 ## 시스템 API / 환경값 레시피 (라이브러리 타입 없음)
 
-| hook | iOS 대응 |
-|---|---|
-| useMediaQuery · useBreakpoint | `@Environment(\.horizontalSizeClass)` / `UITraitCollection.horizontalSizeClass` |
-| usePrefersColorScheme | `@Environment(\.colorScheme)` |
-| useReducedMotion | `@Environment(\.accessibilityReduceMotion)` / `UIAccessibility.isReduceMotionEnabled` (Core `JdMotion`) |
-| useWindowSize · useElementSize · useResizeObserver | `GeometryReader` / `viewDidLayoutSubviews` |
-| useWindowScroll · useScrollSpy(구동) | `ScrollView` + `.onScrollGeometryChange`(iOS 18) 또는 `scrollViewDidScroll` |
-| useNetworkStatus | `NWPathMonitor` (Network 프레임워크) |
-| useLocalStorage · useSessionStorage | `@AppStorage` / `UserDefaults` (세션은 인메모리 캐시) |
-| useCookie | `HTTPCookieStorage.shared` |
-| useClipboard · useCopyToClipboard | `UIPasteboard.general` (복사 컴포넌트는 `JdCopyButton`) |
-| useInterval · useTimeout | `Timer` / `Task.sleep` / `DispatchQueue.asyncAfter` |
-| useAnimationFrame | `CADisplayLink` / `TimelineView(.animation)` |
-| useLongPress | `.onLongPressGesture` / `UILongPressGestureRecognizer` |
-| useHover | `.onHover` / `UIHoverGestureRecognizer` (iPad 포인터) |
-| useKeyboard | `.onKeyPress` / `UIKeyCommand` |
-| useEventListener | `NotificationCenter` / target-action |
-| useIntersectionObserver | `.onAppear` / `UICollectionView willDisplay` |
-| useGeolocation | `CLLocationManager` |
-| useFullscreen | `.fullScreenCover` / `present(_:animated:)` |
-| useDocumentTitle | `navigationItem.title` / `.navigationTitle` |
-| useIdle | 사용자 이벤트 타임스탬프 + `Timer` (커스텀) |
-| usePanelResize | `DragGesture` / 팬 제스처 + `setNeedsLayout` |
-| useFocusMode | 커스텀 몰입 상태(+`UserDefaults` 저장) |
-| useNetworkStatus | `NWPathMonitor` |
-| useResource | actor 기반 캐시 레이어(서드파티 0 — SWR류 미도입) |
-| useMutation | `Task` + `async/await`, 결과는 `Result` |
-| useScrollLock | `scrollView.isScrollEnabled = false` (시트가 시스템 스크롤락을 이미 처리) |
+| hook                                               | iOS 대응                                                                                                |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| useMediaQuery · useBreakpoint                      | `@Environment(\.horizontalSizeClass)` / `UITraitCollection.horizontalSizeClass`                         |
+| usePrefersColorScheme                              | `@Environment(\.colorScheme)`                                                                           |
+| useReducedMotion                                   | `@Environment(\.accessibilityReduceMotion)` / `UIAccessibility.isReduceMotionEnabled` (Core `JdMotion`) |
+| useWindowSize · useElementSize · useResizeObserver | `GeometryReader` / `viewDidLayoutSubviews`                                                              |
+| useWindowScroll · useScrollSpy(구동)               | `ScrollView` + `.onScrollGeometryChange`(iOS 18) 또는 `scrollViewDidScroll`                             |
+| useNetworkStatus                                   | `NWPathMonitor` (Network 프레임워크)                                                                    |
+| useLocalStorage · useSessionStorage                | `@AppStorage` / `UserDefaults` (세션은 인메모리 캐시)                                                   |
+| useCookie                                          | `HTTPCookieStorage.shared`                                                                              |
+| useClipboard · useCopyToClipboard                  | `UIPasteboard.general` (복사 컴포넌트는 `JdCopyButton`)                                                 |
+| useInterval · useTimeout                           | `Timer` / `Task.sleep` / `DispatchQueue.asyncAfter`                                                     |
+| useAnimationFrame                                  | `CADisplayLink` / `TimelineView(.animation)`                                                            |
+| useLongPress                                       | `.onLongPressGesture` / `UILongPressGestureRecognizer`                                                  |
+| useHover                                           | `.onHover` / `UIHoverGestureRecognizer` (iPad 포인터)                                                   |
+| useKeyboard                                        | `.onKeyPress` / `UIKeyCommand`                                                                          |
+| useEventListener                                   | `NotificationCenter` / target-action                                                                    |
+| useIntersectionObserver                            | `.onAppear` / `UICollectionView willDisplay`                                                            |
+| useGeolocation                                     | `CLLocationManager`                                                                                     |
+| useFullscreen                                      | `.fullScreenCover` / `present(_:animated:)`                                                             |
+| useDocumentTitle                                   | `navigationItem.title` / `.navigationTitle`                                                             |
+| useIdle                                            | 사용자 이벤트 타임스탬프 + `Timer` (커스텀)                                                             |
+| usePanelResize                                     | `DragGesture` / 팬 제스처 + `setNeedsLayout`                                                            |
+| useFocusMode                                       | 커스텀 몰입 상태(+`UserDefaults` 저장)                                                                  |
+| useNetworkStatus                                   | `NWPathMonitor`                                                                                         |
+| useResource                                        | actor 기반 캐시 레이어(서드파티 0 — SWR류 미도입)                                                       |
+| useMutation                                        | `Task` + `async/await`, 결과는 `Result`                                                                 |
+| useScrollLock                                      | `scrollView.isScrollEnabled = false` (시트가 시스템 스크롤락을 이미 처리)                               |
 
 ```swift
 // useMediaQuery / useBreakpoint — 폭이 아니라 사이즈 클래스가 판단 근거(04 §10)
@@ -622,12 +646,12 @@ withAnimation(JdMotion.duration(0.3) == 0 ? nil : .easeOut) { … }
 
 ## N/a (iOS에 개념 없음)
 
-| hook | 이유 |
-|---|---|
-| useClickOutside | 시트·팝오버·메뉴가 바깥 탭을 시스템 dismiss로 처리 |
-| useFocusTrap | `accessibilityViewIsModal` + 시스템 프레젠테이션이 포커스 격리 |
-| useFocusVisible | iOS엔 포커스 링 개념이 없다(키보드 포커스는 시스템 소관) |
-| useFavicon | 웹 전용 |
+| hook                                                                                                                                          | 이유                                                                                |
+| --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| useClickOutside                                                                                                                               | 시트·팝오버·메뉴가 바깥 탭을 시스템 dismiss로 처리                                  |
+| useFocusTrap                                                                                                                                  | `accessibilityViewIsModal` + 시스템 프레젠테이션이 포커스 격리                      |
+| useFocusVisible                                                                                                                               | iOS엔 포커스 링 개념이 없다(키보드 포커스는 시스템 소관)                            |
+| useFavicon                                                                                                                                    | 웹 전용                                                                             |
 | useMounted · usePrevious · useSteps · useToggle · useDisclosure · useAsync · useOptimisticState · useIsomorphicLayoutEffect · useUpdateEffect | React 렌더 수명/상태 훅 — SwiftUI `@State`/Observable로 자연 내부화, 별도 타입 불요 |
 
 이 판정들은 ledger의 `ios` 칼럼에 그대로 반영된다(Core 유틸·레시피 = done, 웹/React 전용 = n/a).

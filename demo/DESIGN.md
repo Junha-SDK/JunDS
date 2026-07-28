@@ -170,6 +170,6 @@ packages/ios/RECIPES.md에 전체 레시피를 적는다. Group은 JdFlowLayout(
 ## 3. 검증 규약 (배치 에이전트)
 
 - 빌드: `/Library/Developer/CommandLineTools/usr/bin/swift build --triple arm64-apple-ios16.0-simulator --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk --scratch-path <자기 전용 경로>` — 공용 .build 금지(동시 빌드 충돌).
-- 데모 파일 typecheck: swiftc -typecheck -parse-as-library + `-I <자기 scratch>/arm64-apple-ios-simulator/debug/Modules` (파일 목록 명시 — Showroom/* + Generated/* + UIKitRepresentables + 자기 데모).
+- 데모 파일 typecheck: swiftc -typecheck -parse-as-library + `-I <자기 scratch>/arm64-apple-ios-simulator/debug/Modules` (파일 목록 명시 — Showroom/_ + Generated/_ + UIKitRepresentables + 자기 데모).
 - 테스트 실행은 통합자가 일괄 수행. 에이전트는 컴파일 통과까지.
 - 색·치수 하드코딩 금지 — JdToken/JdGap/스펙 상수만. 예외는 DECISIONS 기록감.

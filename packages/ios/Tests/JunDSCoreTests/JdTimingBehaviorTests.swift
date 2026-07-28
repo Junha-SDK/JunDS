@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // JdDebouncer / JdThrottler 는 @MainActor 타이밍 타입이라 async 테스트로 검증한다.
 // - Debouncer: 짧은 실측 delay(즉시 미발화 + delay 후 1회 + 마지막 호출 우선 + cancel).
@@ -48,8 +48,8 @@ final class JdDebouncerTests: XCTestCase {
     func test_last_action_wins() async {
         let counter = JdTimingCounter()
         let debouncer = JdDebouncer(delay: 0.05)
-        debouncer.call { counter.count += 1 }        // 취소될 액션
-        debouncer.call { counter.count += 100 }      // 실제 실행될 액션
+        debouncer.call { counter.count += 1 }  // 취소될 액션
+        debouncer.call { counter.count += 100 }  // 실제 실행될 액션
         try? await Task.sleep(nanoseconds: 200_000_000)
         XCTAssertEqual(counter.count, 100, "마지막 호출의 클로저가 실행")
     }
@@ -94,12 +94,12 @@ final class JdThrottlerTests: XCTestCase {
         let clock = JdTimingClock()
         let counter = JdTimingCounter()
         let throttler = JdThrottler(interval: 0.1, now: { clock.date })
-        throttler.call { counter.count += 1 }               // 선행 즉시(count 1)
+        throttler.call { counter.count += 1 }  // 선행 즉시(count 1)
         XCTAssertEqual(counter.count, 1)
-        clock.seconds = 0.09                                 // 아직 간격 안(remaining ~0.01)
-        throttler.call { counter.count += 1 }                // 예약만
+        clock.seconds = 0.09  // 아직 간격 안(remaining ~0.01)
+        throttler.call { counter.count += 1 }  // 예약만
         XCTAssertEqual(counter.count, 1, "간격 내 후행은 즉시 발화 안 함")
-        try? await Task.sleep(nanoseconds: 200_000_000)      // 0.2s — 예약 발화 대기
+        try? await Task.sleep(nanoseconds: 200_000_000)  // 0.2s — 예약 발화 대기
         XCTAssertEqual(counter.count, 2, "예약된 후행이 발화")
     }
 
@@ -108,9 +108,9 @@ final class JdThrottlerTests: XCTestCase {
         let clock = JdTimingClock()
         let counter = JdTimingCounter()
         let throttler = JdThrottler(interval: 0.1, now: { clock.date })
-        throttler.call { counter.count += 1 }   // count 1, lastFire 0
-        clock.seconds = 0.2                       // 간격 초과
-        throttler.call { counter.count += 1 }     // else 분기 → 즉시
+        throttler.call { counter.count += 1 }  // count 1, lastFire 0
+        clock.seconds = 0.2  // 간격 초과
+        throttler.call { counter.count += 1 }  // else 분기 → 즉시
         XCTAssertEqual(counter.count, 2)
     }
 
@@ -119,8 +119,8 @@ final class JdThrottlerTests: XCTestCase {
         let clock = JdTimingClock()
         let counter = JdTimingCounter()
         let throttler = JdThrottler(interval: 0.1, now: { clock.date })
-        throttler.call { counter.count += 1 }   // count 1, lastFire 0
-        clock.seconds = 0.1                       // 경과 == interval → 0.1 < 0.1 false
+        throttler.call { counter.count += 1 }  // count 1, lastFire 0
+        clock.seconds = 0.1  // 경과 == interval → 0.1 < 0.1 false
         throttler.call { counter.count += 1 }
         XCTAssertEqual(counter.count, 2, "경계(==interval)는 즉시 발화")
     }
@@ -130,11 +130,11 @@ final class JdThrottlerTests: XCTestCase {
         let clock = JdTimingClock()
         let counter = JdTimingCounter()
         let throttler = JdThrottler(interval: 0.1, now: { clock.date })
-        throttler.call { counter.count += 1 }   // 선행(count 1)
+        throttler.call { counter.count += 1 }  // 선행(count 1)
         clock.seconds = 0.03
-        throttler.call { counter.count += 1 }   // 예약(remaining 0.07)
+        throttler.call { counter.count += 1 }  // 예약(remaining 0.07)
         clock.seconds = 0.06
-        throttler.call { counter.count += 1 }   // 이전 예약 취소·재예약(remaining 0.04)
+        throttler.call { counter.count += 1 }  // 이전 예약 취소·재예약(remaining 0.04)
         XCTAssertEqual(counter.count, 1)
         try? await Task.sleep(nanoseconds: 300_000_000)  // 0.3s
         XCTAssertEqual(counter.count, 2, "여러 후행도 단 1회만 발화")
@@ -145,10 +145,10 @@ final class JdThrottlerTests: XCTestCase {
         let clock = JdTimingClock()
         let counter = JdTimingCounter()
         let throttler = JdThrottler(interval: 0.1, now: { clock.date })
-        throttler.call { counter.count += 1 }   // 선행(count 1)
+        throttler.call { counter.count += 1 }  // 선행(count 1)
         clock.seconds = 0.05
-        throttler.call { counter.count += 1 }   // 예약
-        throttler.cancel()                        // 예약 취소
+        throttler.call { counter.count += 1 }  // 예약
+        throttler.cancel()  // 예약 취소
         try? await Task.sleep(nanoseconds: 200_000_000)
         XCTAssertEqual(counter.count, 1, "cancel 후 예약된 후행은 발화하지 않는다")
     }

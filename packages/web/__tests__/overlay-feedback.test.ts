@@ -191,7 +191,9 @@ describe("피드백 표면", () => {
     const result = document.querySelector("jd-result")!;
     // Result는 EmptyState 파생 — 같은 클래스 골격을 쓴다
     expect(result.querySelector(".jd-empty-state__title")!.textContent).toBe("완료");
-    expect(result.querySelector(".jd-empty-state__icon svg")!.getAttribute("viewBox")).toBe("0 0 64 64");
+    expect(result.querySelector(".jd-empty-state__icon svg")!.getAttribute("viewBox")).toBe(
+      "0 0 64 64",
+    );
   });
 
   test("jd-notification: 제목·설명·닫기", async () => {

@@ -15,6 +15,7 @@ react-reader)를 가져오지 않고도 BookReader 패턴 한 줄로 표준 리�
 ## Scope
 
 **In scope**
+
 - 표지 시각: `BookCover` (이미지/그라디언트 폴백, tilt/spine 효과)
 - 책장: `BookShelf` (균등 그리드 + wood/minimal/card 변형)
 - 평점: `BookRating` (별 + 분포 막대)
@@ -27,6 +28,7 @@ react-reader)를 가져오지 않고도 BookReader 패턴 한 줄로 표준 리�
 - 훅: `useReadingProgress` (스크롤 % + 활성 헤딩 추적)
 
 **Out of scope**
+
 - 실제 EPUB/PDF 파서 — 사용자 측에서 본문을 ReactNode로 주입한다.
 - 음성 합성/오디오북 재생 — 별도 도메인.
 - 결제/구독 처리 — `pricing-page` 레시피 사용.
@@ -35,17 +37,17 @@ react-reader)를 가져오지 않고도 BookReader 패턴 한 줄로 표준 리�
 ## User stories / acceptance criteria
 
 - [x] **As a 독자** I can 책 목차에서 챕터를 클릭해 본문이 바뀌는 동안 진행률
-  바가 자동으로 갱신된다.
+      바가 자동으로 갱신된다.
 - [x] **As a 독자** I can 본문을 스크롤할 때 활성 챕터(또는 헤딩)가 사이드바에
-  자동 강조된다 (`useReadingProgress.activeHeadingId`).
+      자동 강조된다 (`useReadingProgress.activeHeadingId`).
 - [x] **As a 독자** I can 메모를 색상별로 분류해 한 카드씩 검토하고 삭제할 수
-  있다.
+      있다.
 - [x] **As a 작가/스튜디오** I can 책 표지를 이미지 없이 그라디언트 + 제목만
-  으로도 보여줄 수 있다 (`BookCover hue="from-X to-Y"`).
+      으로도 보여줄 수 있다 (`BookCover hue="from-X to-Y"`).
 - [x] **As a 사용자** I can 잠금된 챕터(구독/유료)에 대해 클릭이 비활성화되고
-  자물쇠 아이콘이 보인다.
+      자물쇠 아이콘이 보인다.
 - [x] **As a 독자** I can 북마크 버튼을 키보드로 토글할 수 있고 스크린리더가
-  현재 상태(`aria-pressed`)를 읽어준다.
+      현재 상태(`aria-pressed`)를 읽어준다.
 
 ## Design / behavior notes
 

@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "Hint",
   "oneLiner": "입력 아래 도움말 힌트 문구.",
-  "tags": [
-    "form",
-    "도움말"
-  ],
+  "tags": ["form", "도움말"],
   "controls": [],
   "snippets": {
     "web": null,

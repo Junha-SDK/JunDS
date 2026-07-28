@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-label 동형 — 폼 라벨 (DESIGN-2 §B1). A8 명명 규칙 Jd<이름>View(UILabel 서브클래스).
 // required 표식은 웹이 CSS ::after로 그려 AT에 아무것도 알리지 않는다(순수 시각 표식) —
@@ -51,9 +51,10 @@ public final class JdLabelView: UILabel {
 
     private func applyStyle() {
         let spec = JdLabelSpec.resolve()
-        let scaled = JdFontBridge.scaledFont(size: spec.fontSize,
-                                             weight: spec.fontWeight,
-                                             compatibleWith: traitCollection)
+        let scaled = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: spec.fontWeight,
+            compatibleWith: traitCollection)
         font = scaled
         textColor = JdToken.Color.foreground.uiColor
 
@@ -65,16 +66,19 @@ public final class JdLabelView: UILabel {
             // 표식 앞 여백(웹 margin-inline-start 2px)은 마지막 글자의 커닝으로 만든다.
             // 문자 단위 범위라 서로게이트 페어(이모지)를 쪼개지 않는다.
             if let last = rawText.indices.last {
-                body.addAttribute(.kern,
-                                  value: spec.markerSpacing,
-                                  range: NSRange(last..<rawText.endIndex, in: rawText))
+                body.addAttribute(
+                    .kern,
+                    value: spec.markerSpacing,
+                    range: NSRange(last..<rawText.endIndex, in: rawText))
             }
-            body.append(NSAttributedString(
-                string: Self.requiredMarker,
-                attributes: [.font: scaled, .foregroundColor: JdToken.Color.danger.uiColor]
-            ))
+            body.append(
+                NSAttributedString(
+                    string: Self.requiredMarker,
+                    attributes: [.font: scaled, .foregroundColor: JdToken.Color.danger.uiColor]
+                ))
             attributedText = body
-            accessibilityLabel = rawText.isEmpty
+            accessibilityLabel =
+                rawText.isEmpty
                 ? Self.requiredWord
                 : "\(rawText) \(Self.requiredWord)"
         } else {

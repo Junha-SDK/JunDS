@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-textarea 동형 — UITextView 래핑 (DESIGN-2 §B1).
 // 웹 error는 메시지 없는 boolean이다(jd-text-field의 메시지 문자열과 표면이 다름 — v2 실태).
@@ -51,7 +51,7 @@ public final class JdTextareaView: UIView, UITextViewDelegate {
     public var isEnabled: Bool = true {
         didSet {
             textView.isEditable = isEnabled
-            alpha = isEnabled ? 1 : JdToken.Opacity.o40 // 웹 :disabled opacity-40
+            alpha = isEnabled ? 1 : JdToken.Opacity.o40  // 웹 :disabled opacity-40
         }
     }
 
@@ -65,12 +65,14 @@ public final class JdTextareaView: UIView, UITextViewDelegate {
     private let rows: Int
     private var lastLayoutWidth: CGFloat = 0
 
-    public init(placeholder: String = "",
-                rows: Int = 4,
-                maxLength: Int = 0,
-                isError: Bool = false,
-                showsCount: Bool = false,
-                autoResize: Bool = false) {
+    public init(
+        placeholder: String = "",
+        rows: Int = 4,
+        maxLength: Int = 0,
+        isError: Bool = false,
+        showsCount: Bool = false,
+        autoResize: Bool = false
+    ) {
         self.placeholder = placeholder
         self.rows = rows
         self.maxLength = maxLength
@@ -81,8 +83,9 @@ public final class JdTextareaView: UIView, UITextViewDelegate {
         super.init(frame: .zero)
 
         // lineFragmentPadding을 0으로 두면 본문·플레이스홀더가 같은 자리에서 시작한다
-        textView.textContainerInset = UIEdgeInsets(top: spec.vPadding, left: spec.hPadding,
-                                                   bottom: spec.vPadding, right: spec.hPadding)
+        textView.textContainerInset = UIEdgeInsets(
+            top: spec.vPadding, left: spec.hPadding,
+            bottom: spec.vPadding, right: spec.hPadding)
         textView.textContainer.lineFragmentPadding = 0
         textView.backgroundColor = .clear
         textView.adjustsFontForContentSizeCategory = true
@@ -132,8 +135,11 @@ public final class JdTextareaView: UIView, UITextViewDelegate {
         guard autoResize, bounds.width > 0 else {
             return CGSize(width: UIView.noIntrinsicMetric, height: minHeight)
         }
-        let fitted = textView.sizeThatFits(CGSize(width: bounds.width,
-                                                  height: .greatestFiniteMagnitude)).height
+        let fitted = textView.sizeThatFits(
+            CGSize(
+                width: bounds.width,
+                height: .greatestFiniteMagnitude)
+        ).height
         return CGSize(width: UIView.noIntrinsicMetric, height: max(minHeight, ceil(fitted)))
     }
 
@@ -166,7 +172,8 @@ public final class JdTextareaView: UIView, UITextViewDelegate {
     public func textViewDidChange(_ textView: UITextView) {
         // 조합 중(마크드 텍스트)에는 자르지 않는다 — IME 안전
         if maxLength > 0, textView.markedTextRange == nil,
-           let current = textView.text, current.count > maxLength {
+            let current = textView.text, current.count > maxLength
+        {
             textView.text = String(current.prefix(maxLength))
         }
         applyPlaceholder()
@@ -193,16 +200,18 @@ public final class JdTextareaView: UIView, UITextViewDelegate {
     }
 
     private func applyStyle() {
-        let font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         textView.font = font
         textView.textColor = JdToken.Color.foreground.uiColor
         placeholderLabel.font = font
         placeholderLabel.textColor = JdToken.Color.mutedLight.uiColor
-        countLabel.font = JdFontBridge.scaledFont(size: spec.countFontSize,
-                                                  weight: JdToken.FontWeight.normal,
-                                                  compatibleWith: traitCollection)
+        countLabel.font = JdFontBridge.scaledFont(
+            size: spec.countFontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         // muted-light는 AA 미달 → muted (웹 DEC-027 동형)
         countLabel.textColor = JdToken.Color.muted.uiColor
         backgroundColor = JdToken.Color.card.uiColor

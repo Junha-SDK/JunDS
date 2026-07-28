@@ -17,8 +17,12 @@ describe("COMPONENTS.md Example — 원문 무수정", () => {
   test("Button: <Button variant=primary size=md>저장</Button> / <Button variant=danger loading>", async () => {
     const { container } = render(
       <>
-        <Button variant="primary" size="md">저장</Button>
-        <Button variant="danger" loading>삭제 중...</Button>
+        <Button variant="primary" size="md">
+          저장
+        </Button>
+        <Button variant="danger" loading>
+          삭제 중...
+        </Button>
       </>,
     );
     await flushCE();
@@ -34,10 +38,7 @@ describe("COMPONENTS.md Example — 원문 무수정", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     render(<Input error placeholder="필수 입력" />);
     await flushCE();
-    expect(screen.getByRole("textbox")).toHaveAttribute(
-      "placeholder",
-      "필수 입력",
-    );
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "필수 입력");
     warn.mockRestore();
   });
 
@@ -69,8 +70,12 @@ describe("v2 JSDoc Example — Modal compound 원문", () => {
           <Modal.Header onClose={close}>삭제 확인</Modal.Header>
           <div className="p-5">정말 삭제하시겠습니까?</div>
           <Modal.Footer>
-            <Button variant="secondary" onClick={close}>취소</Button>
-            <Button variant="danger" onClick={handleDelete}>삭제</Button>
+            <Button variant="secondary" onClick={close}>
+              취소
+            </Button>
+            <Button variant="danger" onClick={handleDelete}>
+              삭제
+            </Button>
           </Modal.Footer>
         </Modal>
       );

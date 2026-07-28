@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Result 데모 — **자체**(EmptyState 파생, status별 64pt 대형 심볼). 자체 구현(04 §10.1).
 // status 6종은 Core JdResultStatus(success/error/warning/info/404/403 — 심볼·색 단일 소스).
@@ -9,7 +9,8 @@ enum ResultDemo {
     static let demo = ComponentDemo(
         id: "Result",
         controls: [
-            .options("status", "status", JdResultStatus.allCases.map(\.rawValue), initial: "success"),
+            .options(
+                "status", "status", JdResultStatus.allCases.map(\.rawValue), initial: "success")
         ],
         swiftUI: { state in AnyView(ResultStage(state: state)) }
     )
@@ -38,9 +39,11 @@ private struct ResultStage: View {
 
     var body: some View {
         VStack(spacing: JdToken.Space.s4) {
-            JdResult(status: resultStatus(state),
-                     title: resultTitle(state),
-                     description: "status(=\(resultStatus(state).rawValue))가 64pt 심볼과 색을 정한다.") {
+            JdResult(
+                status: resultStatus(state),
+                title: resultTitle(state),
+                description: "status(=\(resultStatus(state).rawValue))가 64pt 심볼과 색을 정한다."
+            ) {
                 JdButton("돌아가기", variant: .secondary, size: .sm) { actionCount += 1 }
             }
 

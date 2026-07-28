@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-hashtag 동형 — `#tag` 링크 칩 (DESIGN-3 §C).
 //
@@ -17,10 +17,12 @@ public struct JdHashtagLabel: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(tag: String,
-                count: Int? = nil,
-                isTrending: Bool = false,
-                destination: URL? = nil) {
+    public init(
+        tag: String,
+        count: Int? = nil,
+        isTrending: Bool = false,
+        destination: URL? = nil
+    ) {
         self.tag = tag
         self.count = count
         self.isTrending = isTrending
@@ -58,9 +60,9 @@ public struct JdHashtagLabel: View {
     // MARK: 내부
 
     private var run: some View {
-        HStack(spacing: JdToken.Space.s1) { // 웹 gap: var(--jd-space-1)
+        HStack(spacing: JdToken.Space.s1) {  // 웹 gap: var(--jd-space-1)
             Text(displayText)
-                .fontWeight(.medium) // 웹 font-weight: var(--jd-weight-medium)
+                .fontWeight(.medium)  // 웹 font-weight: var(--jd-weight-medium)
                 .foregroundColor(JdToken.Color.primary.color)
             if isTrending {
                 // 웹은 🔥 이모지 — SF Symbol로 옮기고 색은 토큰(warning)에서 읽는다
@@ -72,15 +74,16 @@ public struct JdHashtagLabel: View {
             if let countText {
                 Text(countText)
                     .font(markFont)
-                    .foregroundColor(JdToken.Color.muted.color) // 웹 .jd-hashtag__count
+                    .foregroundColor(JdToken.Color.muted.color)  // 웹 .jd-hashtag__count
                     .accessibilityHidden(true)
             }
         }
     }
 
     private var markFont: Font {
-        JdSwiftUIFont.scaled(size: JdMentionStyle.markFontSize,
-                             weight: JdToken.FontWeight.normal,
-                             category: sizeCategory)
+        JdSwiftUIFont.scaled(
+            size: JdMentionStyle.markFontSize,
+            weight: JdToken.FontWeight.normal,
+            category: sizeCategory)
     }
 }

@@ -147,7 +147,10 @@ for (const dir of readdirSync(componentsDir, { withFileTypes: true })) {
     methodBody(
       src,
       new RegExp(
-        `(?:^|\\n)\\s*(?:static\\s+)?(?:private\\s+)?(?:get\\s+|set\\s+|async\\s+)?${name.replace("#", "\\#")}\\s*\\(`,
+        `(?:^|\\n)\\s*(?:static\\s+)?(?:private\\s+)?(?:get\\s+|set\\s+|async\\s+)?${name.replace(
+          "#",
+          "\\#",
+        )}\\s*\\(`,
       ),
     );
   const expand = (acc, members, depth) => {
@@ -178,6 +181,8 @@ if (json) {
   for (const f of findings) console.log(`  ${f.component.padEnd(28)} ${f.props.join(", ")}`);
 }
 if (process.argv.includes("--check") && findings.length) {
-  console.error("\n✗ 갱신 경로가 없는 프롭이 있다 — update() 에서도 읽거나 ALLOW 에 이유와 함께 등재할 것");
+  console.error(
+    "\n✗ 갱신 경로가 없는 프롭이 있다 — update() 에서도 읽거나 ALLOW 에 이유와 함께 등재할 것",
+  );
   process.exit(1);
 }

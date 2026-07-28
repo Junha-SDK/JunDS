@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "NowPlayingBar",
   "oneLiner": "하단 재생 바 — 커버·곡 정보·파형 스크러버·이전/재생/다음. useAudioPlayer 상태를 그대로 받는다.",
-  "tags": [
-    "media",
-    "audio",
-    "플레이어"
-  ],
+  "tags": ["media", "audio", "플레이어"],
   "controls": [
     {
       "prop": "fixed",

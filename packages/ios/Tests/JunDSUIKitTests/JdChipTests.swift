@@ -1,8 +1,10 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
+@MainActor
 final class JdIconButtonViewTests: XCTestCase {
 
     private func makeView(size: JdIconButtonSize) -> JdIconButtonView {
@@ -52,13 +54,16 @@ final class JdIconButtonViewTests: XCTestCase {
         let ghost = JdIconButtonView(systemImage: "gear", accessibilityLabel: "설정", variant: .ghost)
         XCTAssertEqual(ghost.layer.borderWidth, 0)
 
-        let outline = JdIconButtonView(systemImage: "gear", accessibilityLabel: "설정", variant: .outline)
+        let outline = JdIconButtonView(
+            systemImage: "gear", accessibilityLabel: "설정", variant: .outline)
         XCTAssertEqual(outline.layer.borderWidth, JdToken.Border.thin)
 
-        let filled = JdIconButtonView(systemImage: "gear", accessibilityLabel: "설정", variant: .filled)
+        let filled = JdIconButtonView(
+            systemImage: "gear", accessibilityLabel: "설정", variant: .filled)
         let light = UITraitCollection(userInterfaceStyle: .light)
-        XCTAssertEqual(filled.backgroundColor?.resolvedColor(with: light),
-                       JdToken.Color.primary.uiColor.resolvedColor(with: light))
+        XCTAssertEqual(
+            filled.backgroundColor?.resolvedColor(with: light),
+            JdToken.Color.primary.uiColor.resolvedColor(with: light))
     }
 
     // 웹 :disabled opacity-50 동형
@@ -70,6 +75,7 @@ final class JdIconButtonViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdBadgeViewTests: XCTestCase {
 
     private func laidOut(_ view: JdBadgeView) -> JdBadgeView {
@@ -101,8 +107,9 @@ final class JdBadgeViewTests: XCTestCase {
         let view = JdBadgeView(count: 1)
         let light = UITraitCollection(userInterfaceStyle: .light)
         XCTAssertTrue(view.dotView.isHidden)
-        XCTAssertEqual(view.backgroundColor?.resolvedColor(with: light),
-                       JdToken.Color.danger.uiColor.resolvedColor(with: light))
+        XCTAssertEqual(
+            view.backgroundColor?.resolvedColor(with: light),
+            JdToken.Color.danger.uiColor.resolvedColor(with: light))
     }
 
     // 웹 dot attribute 동형 — 표시 여부가 프로퍼티를 따라간다(장식이라 접근성 트리 제외)
@@ -118,12 +125,14 @@ final class JdBadgeViewTests: XCTestCase {
     func test_variant_and_size_change_reapply_spec() {
         let view = JdBadgeView("라벨")
         let light = UITraitCollection(userInterfaceStyle: .light)
-        XCTAssertEqual(view.layer.cornerRadius, JdBadgeSpec.resolve(variant: .default, size: .md).radius)
+        XCTAssertEqual(
+            view.layer.cornerRadius, JdBadgeSpec.resolve(variant: .default, size: .md).radius)
 
         view.variant = .outline
         XCTAssertEqual(view.layer.borderWidth, JdToken.Border.thin)
-        XCTAssertEqual(view.contentLabel.textColor.resolvedColor(with: light),
-                       JdToken.Color.foreground.uiColor.resolvedColor(with: light))
+        XCTAssertEqual(
+            view.contentLabel.textColor.resolvedColor(with: light),
+            JdToken.Color.foreground.uiColor.resolvedColor(with: light))
 
         let mdHeight = view.intrinsicContentSize.height
         view.size = .sm
@@ -131,6 +140,7 @@ final class JdBadgeViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdTagViewTests: XCTestCase {
 
     func test_onRemove_fires_from_close_button() {
@@ -171,9 +181,11 @@ final class JdTagViewTests: XCTestCase {
         let view = JdTagView("태그")
         let light = UITraitCollection(userInterfaceStyle: .light)
         view.color = .primary
-        XCTAssertEqual(view.backgroundColor?.resolvedColor(with: light),
-                       JdToken.Color.primaryLight.uiColor.resolvedColor(with: light))
-        XCTAssertEqual(view.contentLabel.textColor.resolvedColor(with: light),
-                       JdToken.Color.primary.uiColor.resolvedColor(with: light))
+        XCTAssertEqual(
+            view.backgroundColor?.resolvedColor(with: light),
+            JdToken.Color.primaryLight.uiColor.resolvedColor(with: light))
+        XCTAssertEqual(
+            view.contentLabel.textColor.resolvedColor(with: light),
+            JdToken.Color.primary.uiColor.resolvedColor(with: light))
     }
 }

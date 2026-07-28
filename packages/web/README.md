@@ -51,9 +51,7 @@ import "@junds/web/junds.css"; // 토큰 + 베이스 + 컴포넌트 스타일 (@
 
 <span id="save-shortcut">단축키 ⌘S</span>
 <jd-tooltip content="변경 내용을 저장합니다">
-  <button slot="trigger" type="button" aria-describedby="save-shortcut">
-    저장
-  </button>
+  <button slot="trigger" type="button" aria-describedby="save-shortcut">저장</button>
 </jd-tooltip>
 ```
 
@@ -73,11 +71,7 @@ import "@junds/web/junds.css"; // 토큰 + 베이스 + 컴포넌트 스타일 (@
 ### Modal
 
 ```html
-<jd-modal
-  id="confirm"
-  aria-labelledby="confirm-title"
-  aria-describedby="confirm-body"
->
+<jd-modal id="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-body">
   <header class="jd-modal__header">
     <h2 id="confirm-title" class="jd-modal__title">삭제 확인</h2>
   </header>
@@ -168,9 +162,7 @@ import { unsafeHtml } from "@junds/web/content";
 const TRUSTED_HOME_SVG =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12 12 3l9 9"/></svg>';
 
-tabs.items = [
-  { value: "home", label: "홈", icon: unsafeHtml(TRUSTED_HOME_SVG) },
-];
+tabs.items = [{ value: "home", label: "홈", icon: unsafeHtml(TRUSTED_HOME_SVG) }];
 ```
 
 `unsafeHtml()`은 문자열을 정제하지 않습니다. 사용자 입력·API 응답에는 사용하지 마세요.

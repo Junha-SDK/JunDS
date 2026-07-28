@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "KeyCap",
   "oneLiner": "키보드 키 캡 모양 장식 표기.",
-  "tags": [
-    "typography",
-    "keyboard"
-  ],
+  "tags": ["typography", "keyboard"],
   "controls": [],
   "snippets": {
     "web": {

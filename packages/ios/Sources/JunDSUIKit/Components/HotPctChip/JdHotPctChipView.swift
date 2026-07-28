@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-hot-pct-chip 동형 — "급등" 강조 알약. (DEC-040)
 //
@@ -67,9 +67,10 @@ public final class JdHotPctChipView: UIView {
 
     private func applyStyle() {
         valueLabel.textColor = spec.foreground.uiColor
-        valueLabel.font = JdFontBridge.scaledDigitFont(size: spec.fontSize,
-                                                      weight: spec.fontWeight,
-                                                      compatibleWith: traitCollection)
+        valueLabel.font = JdFontBridge.scaledDigitFont(
+            size: spec.fontSize,
+            weight: spec.fontWeight,
+            compatibleWith: traitCollection)
         gradient.colors = [
             spec.gradientTop.uiColor.resolvedColor(with: traitCollection).cgColor,
             spec.gradientBottom.uiColor.resolvedColor(with: traitCollection).cgColor,
@@ -79,10 +80,13 @@ public final class JdHotPctChipView: UIView {
     private func applyContent() {
         valueLabel.text = JdHotPctChipSpec.text(pct)
         // "↑"는 VoiceOver가 읽지 않거나 "위쪽 화살표"로 읽는다 — 뜻을 말로 준다
-        accessibilityLabel = "급등 " + JdFinanceFormat.percentText(pct,
-                                                                  decimals: 2,
-                                                                  showSign: false,
-                                                                  withPercent: true)
+        accessibilityLabel =
+            "급등 "
+            + JdFinanceFormat.percentText(
+                pct,
+                decimals: 2,
+                showSign: false,
+                withPercent: true)
     }
 
     public override var isAccessibilityElement: Bool {

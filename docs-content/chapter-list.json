@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ChapterList",
   "oneLiner": "책 목차 챕터 리스트.",
-  "tags": [
-    "book",
-    "독서",
-    "목차"
-  ],
+  "tags": ["book", "독서", "목차"],
   "controls": [],
   "snippets": {
     "web": null,

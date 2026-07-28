@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-theme-tag-list 동형 — 해시태그 칩 줄. (DEC-047)
 //
@@ -19,9 +19,11 @@ public final class JdThemeTagListView: UIView {
     // 테스트 표면 (@testable) — 공개 API는 아니다 (04 §8.2)
     let wrap: JdWrapView
 
-    public init(themes: [String],
-                spacing: CGFloat = JdToken.Space.s1_5,
-                onSelect: ((String) -> Void)? = nil) {
+    public init(
+        themes: [String],
+        spacing: CGFloat = JdToken.Space.s1_5,
+        onSelect: ((String) -> Void)? = nil
+    ) {
         self.themes = themes
         self.onSelect = onSelect
         self.wrap = JdWrapView(itemSpacing: spacing)
@@ -48,13 +50,14 @@ public final class JdThemeTagListView: UIView {
     }
 
     private func rebuild() {
-        wrap.setItems(themes.enumerated().map { index, theme in
-            let chip = JdThemeChipView(theme: theme, index: index)
-            if let onSelect {
-                chip.onTap = { onSelect(theme) }
-            }
-            return chip
-        })
+        wrap.setItems(
+            themes.enumerated().map { index, theme in
+                let chip = JdThemeChipView(theme: theme, index: index)
+                if let onSelect {
+                    chip.onTap = { onSelect(theme) }
+                }
+                return chip
+            })
         invalidateIntrinsicContentSize()
         setNeedsLayout()
     }
@@ -115,9 +118,10 @@ public final class JdThemeChipView: UIView {
     }
 
     private func applyStyle() {
-        label.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                             weight: spec.fontWeight,
-                                             compatibleWith: traitCollection)
+        label.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: spec.fontWeight,
+            compatibleWith: traitCollection)
         label.textColor = spec.foreground.uiColor
     }
 
@@ -125,8 +129,10 @@ public final class JdThemeChipView: UIView {
         // "#"는 장식이라 옅게 — attributed로 앞머리만 알파를 낮춘다
         let text = NSMutableAttributedString(
             string: "#",
-            attributes: [.foregroundColor: spec.foreground.uiColor
-                .withAlphaComponent(CGFloat(spec.prefixOpacity))]
+            attributes: [
+                .foregroundColor: spec.foreground.uiColor
+                    .withAlphaComponent(CGFloat(spec.prefixOpacity))
+            ]
         )
         text.append(NSAttributedString(string: theme))
         label.attributedText = text

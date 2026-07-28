@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "HoldingFormModal",
   "oneLiner": "보유 종목 입력·수정 모달.",
-  "tags": [
-    "finance",
-    "포트폴리오",
-    "폼"
-  ],
+  "tags": ["finance", "포트폴리오", "폼"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,11 +4,7 @@
   "category": "layout",
   "title": "Wrap",
   "oneLiner": "줄바꿈 flex 묶음 — Group 별칭 파생(표면 동형: wrap·gap sm·align center).",
-  "tags": [
-    "layout",
-    "flex",
-    "줄바꿈"
-  ],
+  "tags": ["layout", "flex", "줄바꿈"],
   "controls": [
     {
       "prop": "gap",

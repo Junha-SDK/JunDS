@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-snackbar의 SwiftUI 번역 (DESIGN-4 §C) — 스택이 아닌 단일 바. 위치 4종.
 // 배경: 웹은 기본(default)이 surface-overlay이고 시맨틱 variant에만 색을 입힌다. Core
@@ -22,13 +22,15 @@ public struct JdSnackbar: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(isPresented: Binding<Bool>,
-                message: String,
-                variant: JdFeedbackVariant = .info,
-                position: JdToastPosition = .bottom,
-                duration: TimeInterval = 4,
-                actionLabel: String? = nil,
-                onAction: (() -> Void)? = nil) {
+    public init(
+        isPresented: Binding<Bool>,
+        message: String,
+        variant: JdFeedbackVariant = .info,
+        position: JdToastPosition = .bottom,
+        duration: TimeInterval = 4,
+        actionLabel: String? = nil,
+        onAction: (() -> Void)? = nil
+    ) {
         self._isPresented = isPresented
         self.message = message
         self.variant = variant
@@ -63,10 +65,13 @@ public struct JdSnackbar: View {
     private var bar: some View {
         HStack(alignment: .center, spacing: JdGap.md.value) {
             Text(message)
-                .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.md,
-                                           weight: JdToken.FontWeight.medium,
-                                           category: sizeCategory))
-                .foregroundColor(.white) // 웹 color:#fff — 전용 토큰 없음(notes 보고분)
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: JdToken.FontSize.md,
+                        weight: JdToken.FontWeight.medium,
+                        category: sizeCategory)
+                )
+                .foregroundColor(.white)  // 웹 color:#fff — 전용 토큰 없음(notes 보고분)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -76,9 +81,12 @@ public struct JdSnackbar: View {
                     isPresented = false
                 } label: {
                     Text(actionLabel)
-                        .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.md,
-                                                   weight: JdToken.FontWeight.semibold,
-                                                   category: sizeCategory))
+                        .font(
+                            JdSwiftUIFont.scaled(
+                                size: JdToken.FontSize.md,
+                                weight: JdToken.FontWeight.semibold,
+                                category: sizeCategory)
+                        )
                         .foregroundColor(.white)
                 }
             }
@@ -125,7 +133,7 @@ public struct JdSnackbar: View {
 
     private var backgroundColor: JdDynamicColor {
         switch variant {
-        case .info: return JdToken.Color.surfaceOverlay // 웹 default 중립 바
+        case .info: return JdToken.Color.surfaceOverlay  // 웹 default 중립 바
         case .success, .warning, .danger: return variant.color
         }
     }

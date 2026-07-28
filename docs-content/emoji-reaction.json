@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "EmojiReaction",
   "oneLiner": "이모지 반응 선택·카운트 표시.",
-  "tags": [
-    "social",
-    "이모지",
-    "반응"
-  ],
+  "tags": ["social", "이모지", "반응"],
   "controls": [],
   "snippets": {
     "web": null,

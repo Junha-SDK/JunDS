@@ -6,20 +6,15 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import "../src/components/modal/index.js";
 import { JdModal } from "../src/components/modal/element.js";
 
-const tick = () =>
-  new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
+const tick = () => new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
 
-async function mount(
-  inner = `<button id="ok">확인</button>`,
-): Promise<JdModal> {
+async function mount(inner = `<button id="ok">확인</button>`): Promise<JdModal> {
   document.body.innerHTML = `<jd-modal>${inner}</jd-modal>`;
   await tick(); // 최초 render 지연 실행
   return document.querySelector<JdModal>("jd-modal")!;
 }
 const esc = () =>
-  document.dispatchEvent(
-    new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
-  );
+  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
 
 beforeEach(() => {
   document.body.innerHTML = "";
@@ -30,9 +25,7 @@ beforeEach(() => {
 describe("jd-modal 골격·ARIA", () => {
   test("backdrop + panel(role=dialog, aria-modal) 골격, children은 패널로 이동", async () => {
     const el = await mount(`<p>내용</p>`);
-    const panel = el.querySelector<HTMLDivElement>(
-      ":scope > .jd-modal__panel",
-    )!;
+    const panel = el.querySelector<HTMLDivElement>(":scope > .jd-modal__panel")!;
     expect(el.querySelector(":scope > .jd-modal__backdrop")).not.toBeNull();
     expect(panel.getAttribute("role")).toBe("dialog");
     expect(panel.getAttribute("aria-modal")).toBe("true");
@@ -48,9 +41,7 @@ describe("jd-modal 골격·ARIA", () => {
   });
 
   test("호스트의 aria-label/labelledby/describedby를 내부 dialog panel로 전달한다", async () => {
-    const el = await mount(
-      `<h2 id="title">제목</h2><p id="description">설명</p>`,
-    );
+    const el = await mount(`<h2 id="title">제목</h2><p id="description">설명</p>`);
     el.setAttribute("aria-labelledby", "title");
     el.setAttribute("aria-describedby", "description");
     await el.updateComplete;
@@ -209,8 +200,7 @@ describe("jd-modal 스크롤 락", () => {
 describe("jd-modal 포커스 트랩 연동", () => {
   test("열림 시 패널 내 첫 focusable로 포커스, 닫힘 시 이전 포커스 복귀", async () => {
     document.body.innerHTML =
-      `<button id="opener">열기</button>` +
-      `<jd-modal><button id="inner">확인</button></jd-modal>`;
+      `<button id="opener">열기</button>` + `<jd-modal><button id="inner">확인</button></jd-modal>`;
     await tick();
     const opener = document.querySelector<HTMLButtonElement>("#opener")!;
     const el = document.querySelector<JdModal>("jd-modal")!;

@@ -55,33 +55,53 @@ const result = {
   date: new Date().toISOString(),
   cycles,
   reps: { total: runs.length, warmupDiscarded: 1 },
-  open: { mean: agg("modal-open", "mean"), median: agg("modal-open", "median"), p95: agg("modal-open", "p95") },
-  close: { mean: agg("modal-close", "mean"), median: agg("modal-close", "median"), p95: agg("modal-close", "p95") },
+  open: {
+    mean: agg("modal-open", "mean"),
+    median: agg("modal-open", "median"),
+    p95: agg("modal-open", "p95"),
+  },
+  close: {
+    mean: agg("modal-close", "mean"),
+    median: agg("modal-close", "median"),
+    p95: agg("modal-close", "p95"),
+  },
   longtasks: median(measured.map((r) => r.longtasks.count)),
   leak: measured[measured.length - 1].leak,
 };
 
-const fmt = (o) => Object.entries(o).map(([k, v]) => `${k}=${typeof v === "number" ? v.toFixed(2) : v}`).join(" ");
+const fmt = (o) =>
+  Object.entries(o)
+    .map(([k, v]) => `${k}=${typeof v === "number" ? v.toFixed(2) : v}`)
+    .join(" ");
 console.log(`\n[bench] ${result.scenario}`);
 console.log(`[bench] open : ${fmt(result.open)} ms`);
 console.log(`[bench] close: ${fmt(result.close)} ms`);
 console.log(`[bench] longtasks(중앙값): ${result.longtasks}건`);
-console.log(`[bench] leak: nodeDelta=${result.leak.nodeDelta} overflowRestored=${result.leak.bodyOverflowRestored}`);
+console.log(
+  `[bench] leak: nodeDelta=${result.leak.nodeDelta} overflowRestored=${result.leak.bodyOverflowRestored}`,
+);
 
 // 판정
 const failures = [];
-if (result.open.p95 >= BUDGET_INTERACTION_P95_MS) failures.push(`open p95 ${result.open.p95.toFixed(2)}ms ≥ ${BUDGET_INTERACTION_P95_MS}ms`);
-if (result.close.p95 >= BUDGET_INTERACTION_P95_MS) failures.push(`close p95 ${result.close.p95.toFixed(2)}ms ≥ ${BUDGET_INTERACTION_P95_MS}ms`);
+if (result.open.p95 >= BUDGET_INTERACTION_P95_MS)
+  failures.push(`open p95 ${result.open.p95.toFixed(2)}ms ≥ ${BUDGET_INTERACTION_P95_MS}ms`);
+if (result.close.p95 >= BUDGET_INTERACTION_P95_MS)
+  failures.push(`close p95 ${result.close.p95.toFixed(2)}ms ≥ ${BUDGET_INTERACTION_P95_MS}ms`);
 if (result.longtasks > 0) failures.push(`longtask ${result.longtasks}건 (허용 0)`);
 if (result.leak.nodeDelta !== 0) failures.push(`노드 누수 ${result.leak.nodeDelta}`);
 if (!result.leak.bodyOverflowRestored) failures.push("스크롤 락 미해제");
 
 const dir = join(here, "results");
 mkdirSync(dir, { recursive: true });
-writeFileSync(join(dir, "modal-s3.json"), JSON.stringify({ ...result, pass: failures.length === 0, failures }, null, 2));
+writeFileSync(
+  join(dir, "modal-s3.json"),
+  JSON.stringify({ ...result, pass: failures.length === 0, failures }, null, 2),
+);
 
 if (failures.length) {
   console.error(`\n[bench] FAIL (W3): ${failures.join(" · ")}`);
   process.exit(1);
 }
-console.log(`\n[bench] PASS (W3): 상호작용 p95 < ${BUDGET_INTERACTION_P95_MS}ms · 롱태스크 0 · 누수 0`);
+console.log(
+  `\n[bench] PASS (W3): 상호작용 p95 < ${BUDGET_INTERACTION_P95_MS}ms · 롱태스크 0 · 누수 0`,
+);

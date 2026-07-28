@@ -4,11 +4,7 @@
   "category": "patterns",
   "title": "FAQ",
   "oneLiner": "자주 묻는 질문 아코디언 섹션.",
-  "tags": [
-    "template",
-    "faq",
-    "아코디언"
-  ],
+  "tags": ["template", "faq", "아코디언"],
   "controls": [],
   "snippets": {
     "web": null,

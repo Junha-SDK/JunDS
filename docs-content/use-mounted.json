@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useMounted",
   "oneLiner": "마운트 여부 플래그 — React 렌더 수명 전용.",
-  "tags": [
-    "hook",
-    "react",
-    "수명"
-  ],
+  "tags": ["hook", "react", "수명"],
   "controls": [],
   "snippets": {
     "web": null,

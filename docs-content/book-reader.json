@@ -4,11 +4,7 @@
   "category": "patterns",
   "title": "BookReader",
   "oneLiner": "전자책 리더 화면 — 페이지 이동·설정.",
-  "tags": [
-    "book",
-    "독서",
-    "리더"
-  ],
+  "tags": ["book", "독서", "리더"],
   "controls": [],
   "snippets": {
     "web": null,

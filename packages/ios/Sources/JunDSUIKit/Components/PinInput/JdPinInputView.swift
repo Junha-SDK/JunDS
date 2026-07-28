@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-pin-input 동형 — 자릿수 분할 코드 입력 (DESIGN-3 §A).
 // **OTPInput은 별도 타입이 아니라 이 컴포넌트의 설정 변형이다**(alphanumeric=false +
@@ -44,7 +44,7 @@ public final class JdPinInputView: UIView {
     public var isEnabled: Bool = true {
         didSet {
             field.isEnabled = isEnabled
-            alpha = isEnabled ? 1 : JdToken.Opacity.o50 // 웹 :disabled opacity-50
+            alpha = isEnabled ? 1 : JdToken.Opacity.o50  // 웹 :disabled opacity-50
         }
     }
 
@@ -52,7 +52,7 @@ public final class JdPinInputView: UIView {
     public var onComplete: ((String) -> Void)?
 
     /// 웹 v2 PinInput 칸: 40×48. 토큰 조합으로만 표기한다(전용 스펙 부재분)
-    private static let cellWidth = JdToken.Space.s10   // 40
+    private static let cellWidth = JdToken.Space.s10  // 40
     private static let cellHeight = JdToken.Space.s12  // 48
 
     /// 편집 중 여부 — isFirstResponder 대신 편집 이벤트로 추적한다(창 없는 환경에서도
@@ -64,12 +64,14 @@ public final class JdPinInputView: UIView {
     /// 글자·캐럿을 감춘 채 칸 위를 덮는 단일 필드 — 어느 칸을 눌러도 키보드가 올라온다
     private let field = UITextField()
 
-    public init(value: String = "",
-                length: Int = 6,
-                masked: Bool = false,
-                alphanumeric: Bool = false,
-                isError: Bool = false,
-                accessibilityLabel: String? = nil) {
+    public init(
+        value: String = "",
+        length: Int = 6,
+        masked: Bool = false,
+        alphanumeric: Bool = false,
+        isError: Bool = false,
+        accessibilityLabel: String? = nil
+    ) {
         self.length = length
         self.masked = masked
         self.alphanumeric = alphanumeric
@@ -80,7 +82,7 @@ public final class JdPinInputView: UIView {
         cellStack.axis = .horizontal
         cellStack.alignment = .center
         cellStack.spacing = JdToken.Space.s2
-        cellStack.isUserInteractionEnabled = false // 터치는 덮개 필드가 전부 받는다
+        cellStack.isUserInteractionEnabled = false  // 터치는 덮개 필드가 전부 받는다
         addSubview(cellStack)
 
         field.text = self.value
@@ -88,7 +90,7 @@ public final class JdPinInputView: UIView {
         field.tintColor = .clear
         field.backgroundColor = .clear
         field.keyboardType = alphanumeric ? .asciiCapable : .numberPad
-        field.textContentType = .oneTimeCode // OTP 변형의 자동완성 (설정 변형 — 별도 타입 아님)
+        field.textContentType = .oneTimeCode  // OTP 변형의 자동완성 (설정 변형 — 별도 타입 아님)
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.accessibilityLabel = accessibilityLabel ?? "인증 번호 입력"
@@ -154,9 +156,10 @@ public final class JdPinInputView: UIView {
     }
 
     private func applyCells() {
-        let font = JdFontBridge.scaledFont(size: JdToken.FontSize.lg,
-                                           weight: JdToken.FontWeight.bold,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.lg,
+            weight: JdToken.FontWeight.bold,
+            compatibleWith: traitCollection)
         // 다음 입력이 들어갈 칸 — 인덱스 판정은 Core
         let active = JdPinRules.focusIndex(value, length: length)
         for (index, cell) in cells.enumerated() {
@@ -181,7 +184,7 @@ public final class JdPinInputView: UIView {
     @objc private func editingChanged() {
         let next = JdPinRules.sanitize(field.text ?? "", length: length, alphanumeric: alphanumeric)
         let changed = next != value
-        value = next // didSet → 필드 되쓰기 + 칸 갱신
+        value = next  // didSet → 필드 되쓰기 + 칸 갱신
         guard changed else { return }
         onValueChange?(next)
         if JdPinRules.isComplete(next, length: length) {

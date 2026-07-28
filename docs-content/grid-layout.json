@@ -4,11 +4,7 @@
   "category": "core",
   "title": "GridLayout",
   "oneLiner": "grid 컨테이너 — cols·gap 프롭 + auto-fit/auto-fill/min-child-width 자동 칼럼(R12 단일 구현).",
-  "tags": [
-    "layout",
-    "grid",
-    "container"
-  ],
+  "tags": ["layout", "grid", "container"],
   "controls": [
     {
       "prop": "cols",

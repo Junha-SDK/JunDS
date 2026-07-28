@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "Divider",
   "oneLiner": "구분선",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": {

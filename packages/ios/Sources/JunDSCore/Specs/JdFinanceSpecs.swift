@@ -122,10 +122,12 @@ public enum JdFinanceFormat {
 
     /// 등락률 문자열 — 웹 `${sign}${v.toFixed(d)}${%}`.
     /// 로케일을 타지 않는다(toFixed 동형) — 기기 지역 설정과 무관하게 같은 문자열이다.
-    public static func percentText(_ value: Double,
-                                   decimals: Int = 2,
-                                   showSign: Bool = true,
-                                   withPercent: Bool = true) -> String {
+    public static func percentText(
+        _ value: Double,
+        decimals: Int = 2,
+        showSign: Bool = true,
+        withPercent: Bool = true
+    ) -> String {
         let v = value.isFinite ? value : 0
         let d = safeFixedDecimals(decimals)
         let sign = (showSign && v > 0) ? "+" : ""
@@ -134,13 +136,16 @@ public enum JdFinanceFormat {
 
     /// 가격 문자열 — 0 이하면 em dash, 그 외는 로케일 천단위 포맷.
     /// 포맷은 Core의 JdNumberFormat에 위임한다(규칙 중복 금지 — locale 고정 계약 상속).
-    public static func priceText(_ value: Double,
-                                 decimals: Int = 0,
-                                 locale: String = "ko-KR") -> String {
+    public static func priceText(
+        _ value: Double,
+        decimals: Int = 0,
+        locale: String = "ko-KR"
+    ) -> String {
         guard value > 0 else { return emDash }
-        return JdNumberFormat.string(value: value,
-                                     locale: locale,
-                                     decimals: min(20, max(0, decimals)))
+        return JdNumberFormat.string(
+            value: value,
+            locale: locale,
+            decimals: min(20, max(0, decimals)))
     }
 }
 
@@ -161,11 +166,12 @@ public struct JdLiveStatusDotSpec: Sendable {
 
     /// 웹: 점 8px · gap 4(space-1) · 11px bold, 라이브면 success 계열 / 아니면 muted
     public static func resolve(live: Bool) -> JdLiveStatusDotSpec {
-        JdLiveStatusDotSpec(dotSize: 8,
-                            gap: JdToken.Space.s1,
-                            fontSize: 11,
-                            color: live ? JdFinanceTheme.live : JdToken.Color.muted,
-                            pulses: live)
+        JdLiveStatusDotSpec(
+            dotSize: 8,
+            gap: JdToken.Space.s1,
+            fontSize: 11,
+            color: live ? JdFinanceTheme.live : JdToken.Color.muted,
+            pulses: live)
     }
 
     /// 라벨 기본값 — 웹 `live ? "실시간" : "장마감"`. 앱이 세부 세션명으로 덮어쓸 수 있다.
@@ -190,19 +196,22 @@ public struct JdPriceBadgeSpec: Sendable {
     /// flat이면 화살표가 없다(웹 `showArrow && trend !== "flat"`)
     public var showsArrow: Bool
 
-    public static func resolve(pct: Double,
-                              size: JdPriceBadgeSize = .md,
-                              showArrow: Bool = true,
-                              bold: Bool = true) -> JdPriceBadgeSpec {
+    public static func resolve(
+        pct: Double,
+        size: JdPriceBadgeSize = .md,
+        showArrow: Bool = true,
+        bold: Bool = true
+    ) -> JdPriceBadgeSpec {
         let trend = JdTrend.resolve(pct, policy: .exact)
         let fontSize: CGFloat = size == .sm ? 12 : 14
-        return JdPriceBadgeSpec(fontSize: fontSize,
-                                // 웹 아이콘은 폰트 크기에 붙어 자란다 — 변 = 폰트 크기
-                                iconSize: fontSize,
-                                gap: JdToken.Space.s1,
-                                fontWeight: bold ? JdToken.FontWeight.bold : JdToken.FontWeight.medium,
-                                color: JdFinanceTheme.color(trend),
-                                showsArrow: showArrow && trend != .flat)
+        return JdPriceBadgeSpec(
+            fontSize: fontSize,
+            // 웹 아이콘은 폰트 크기에 붙어 자란다 — 변 = 폰트 크기
+            iconSize: fontSize,
+            gap: JdToken.Space.s1,
+            fontWeight: bold ? JdToken.FontWeight.bold : JdToken.FontWeight.medium,
+            color: JdFinanceTheme.color(trend),
+            showsArrow: showArrow && trend != .flat)
     }
 
     /// SF Symbols 대응 — 웹은 lucide TrendingUp/Down 폴리라인이다.
@@ -231,14 +240,15 @@ public struct JdHotPctChipSpec: Sendable {
     /// 웹: padding 4/10 · 12px/800 · 알약 · 흰 글자 · linear-gradient(180deg, up → up 80%+fg)
     public static func resolve() -> JdHotPctChipSpec {
         let up = JdFinanceTheme.up
-        return JdHotPctChipSpec(hPadding: 10,
-                                vPadding: 4,
-                                fontSize: 12,
-                                // 웹 800 — FontWeight 램프(최대 bold 700) 밖이라 리터럴이다
-                                fontWeight: 800,
-                                gradientTop: up,
-                                gradientBottom: JdFinanceSpecMix.mix(up, with: JdToken.Color.foreground, ratio: 0.2),
-                                foreground: JdDynamicColor(light: 0xFFFF_FFFF, dark: 0xFFFF_FFFF))
+        return JdHotPctChipSpec(
+            hPadding: 10,
+            vPadding: 4,
+            fontSize: 12,
+            // 웹 800 — FontWeight 램프(최대 bold 700) 밖이라 리터럴이다
+            fontWeight: 800,
+            gradientTop: up,
+            gradientBottom: JdFinanceSpecMix.mix(up, with: JdToken.Color.foreground, ratio: 0.2),
+            foreground: JdDynamicColor(light: 0xFFFF_FFFF, dark: 0xFFFF_FFFF))
     }
 
     /// 웹 표시 문자열 — 늘 상승 표기다(`↑ n%`), 부호·색 분기가 없다.
@@ -253,11 +263,14 @@ public struct JdHotPctChipSpec: Sendable {
 /// 웹 CSS `color-mix(in srgb, A X%, B)`의 Swift 대응. finance 스펙이 그라디언트·소프트
 /// 배경을 만들 때 쓴다. sRGB 성분 선형 보간이라 CSS srgb 보간과 같은 결과다.
 public enum JdFinanceSpecMix {
-    public static func mix(_ base: JdDynamicColor,
-                          with other: JdDynamicColor,
-                          ratio: Double) -> JdDynamicColor {
-        JdDynamicColor(light: blend(base.light, other.light, ratio),
-                       dark: blend(base.dark, other.dark, ratio))
+    public static func mix(
+        _ base: JdDynamicColor,
+        with other: JdDynamicColor,
+        ratio: Double
+    ) -> JdDynamicColor {
+        JdDynamicColor(
+            light: blend(base.light, other.light, ratio),
+            dark: blend(base.dark, other.dark, ratio))
     }
 
     /// 알파를 곱해 옅은 워시를 만든다 — 웹 `color-mix(… X%, transparent)` 대응

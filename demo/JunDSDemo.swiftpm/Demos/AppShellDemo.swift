@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // AppShell 데모 — 실컴포넌트 JdAppShell(SwiftUI) / JdAppShellController(UIKit).
 // 웹 jd-app-shell 동형: regular 폭 = 레일 + 본문, compact 폭(< md 768) = 드로어 오버레이 + 딤.
@@ -26,7 +26,8 @@ enum AppShellDemo {
 
     static let menu = ["대시보드", "가계부", "리포트", "설정"]
 
-    static let note = "compact 판정은 컨테이너 폭 < 768(JdBreakpoint.md) — iPhone 세로 무대는 항상 compact다. "
+    static let note =
+        "compact 판정은 컨테이너 폭 < 768(JdBreakpoint.md) — iPhone 세로 무대는 항상 compact다. "
         + "그래서 여기선 compactOpen이 드로어를 열고, collapsed는 regular 폭(iPad·분할 화면)에서 레일 폭을 바꾼다."
 }
 
@@ -107,20 +108,24 @@ private struct AppShellStageUIKit: View {
 
     var body: some View {
         VStack(spacing: JdToken.Space.s3) {
-            AppShellRep(collapsed: state.bool("collapsed"),
-                        compactOpen: state.bool("compactOpen"))
-                .frame(minHeight: AppShellDemo.stageHeight)
-                .cornerRadius(JdToken.Radius.lg)
-                .overlay(
-                    RoundedRectangle(cornerRadius: JdToken.Radius.lg)
-                        .stroke(JdToken.Color.border.color, lineWidth: JdToken.Border.thin)
-                )
+            AppShellRep(
+                collapsed: state.bool("collapsed"),
+                compactOpen: state.bool("compactOpen")
+            )
+            .frame(minHeight: AppShellDemo.stageHeight)
+            .cornerRadius(JdToken.Radius.lg)
+            .overlay(
+                RoundedRectangle(cornerRadius: JdToken.Radius.lg)
+                    .stroke(JdToken.Color.border.color, lineWidth: JdToken.Border.thin)
+            )
 
             // UIKit 컨트롤러는 header/footer 슬롯이 없다(사이드바 + 본문 2열) — 표면 차이를 명시
-            Text("JdAppShellController는 sidebar + content 2열 표면이다(헤더·푸터는 소비자 본문 몫). "
-                 + AppShellDemo.note)
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                "JdAppShellController는 sidebar + content 2열 표면이다(헤더·푸터는 소비자 본문 몫). "
+                    + AppShellDemo.note
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
         }
         .padding(JdToken.Space.s6)
     }
@@ -132,8 +137,9 @@ private struct AppShellRep: UIViewControllerRepresentable {
     var compactOpen: Bool
 
     func makeUIViewController(context: Context) -> JdAppShellController {
-        let controller = JdAppShellController(sidebar: appShellSidebarController(),
-                                              content: appShellContentController())
+        let controller = JdAppShellController(
+            sidebar: appShellSidebarController(),
+            content: appShellContentController())
         controller.isCollapsed = collapsed
         controller.isCompactOpen = compactOpen
         return controller
@@ -148,11 +154,12 @@ private struct AppShellRep: UIViewControllerRepresentable {
 private func appShellSidebarController() -> UIViewController {
     let controller = UIViewController()
     var rows: [UIView] = [JdTextView("메뉴", size: .xs, dimmed: true)]
-    rows.append(contentsOf: AppShellDemo.menu.map { item -> UIView in
-        let label = JdTextView(item, size: .sm)
-        label.numberOfLines = 1
-        return label
-    })
+    rows.append(
+        contentsOf: AppShellDemo.menu.map { item -> UIView in
+            let label = JdTextView(item, size: .sm)
+            label.numberOfLines = 1
+            return label
+        })
     let stack = JdStackView.vertical(gap: .sm, rows)
     controller.view.addSubview(stack)
     stack.jd.layout {
@@ -170,10 +177,12 @@ private func appShellContentController() -> UIViewController {
     block.layer.cornerRadius = JdToken.Radius.md
     block.jd.layout { $0.height.equal(JdToken.Space.s16) }
 
-    let stack = JdStackView.vertical(gap: .sm, [
-        JdTextView("본문 영역 — 소비자 콘텐츠가 들어간다", size: .sm),
-        block,
-    ])
+    let stack = JdStackView.vertical(
+        gap: .sm,
+        [
+            JdTextView("본문 영역 — 소비자 콘텐츠가 들어간다", size: .sm),
+            block,
+        ])
     controller.view.addSubview(stack)
     stack.jd.layout {
         $0.top.leading.trailing.equalToSuperview().inset(JdToken.Space.s4)

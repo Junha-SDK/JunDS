@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PieChart",
   "oneLiner": "파이 차트.",
-  "tags": [
-    "chart",
-    "차트",
-    "원형"
-  ],
+  "tags": ["chart", "차트", "원형"],
   "controls": [],
   "snippets": {
     "web": null,

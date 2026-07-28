@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-callout의 UIKit 번역 — 문서 강조 블록 (DESIGN-4 §B). A8 명명 규칙 Jd<이름>View.
 // 이모지·색은 Core JdCalloutVariant가 단일 소스. collapsible이면 헤더 탭으로 본문을 접는다
@@ -22,11 +22,13 @@ public final class JdCalloutView: UIView {
     private let headerRow = UIStackView()
     private let bodyStack = UIStackView()
 
-    public init(_ title: String,
-                message: String? = nil,
-                variant: JdCalloutVariant = .note,
-                isCollapsible: Bool = false,
-                initiallyExpanded: Bool = true) {
+    public init(
+        _ title: String,
+        message: String? = nil,
+        variant: JdCalloutVariant = .note,
+        isCollapsible: Bool = false,
+        initiallyExpanded: Bool = true
+    ) {
         self.variant = variant
         self.isCollapsible = isCollapsible
         self.isExpanded = isCollapsible ? initiallyExpanded : true
@@ -36,7 +38,7 @@ public final class JdCalloutView: UIView {
 
         emojiLabel.adjustsFontForContentSizeCategory = true
         emojiLabel.text = variant.emoji
-        emojiLabel.isAccessibilityElement = false // 이모지는 장식 — 제목이 표면
+        emojiLabel.isAccessibilityElement = false  // 이모지는 장식 — 제목이 표면
         emojiLabel.setContentHuggingPriority(.required, for: .horizontal)
 
         titleLabel.adjustsFontForContentSizeCategory = true
@@ -80,7 +82,7 @@ public final class JdCalloutView: UIView {
             $0.leading.equalToSuperview()
             $0.top.equalToSuperview()
             $0.bottom.equalToSuperview()
-            $0.width.equal(JdToken.Border.thick) // 3pt 강조선
+            $0.width.equal(JdToken.Border.thick)  // 3pt 강조선
         }
         bodyStack.jd.layout {
             $0.leading.equal(to: accentBar.jd.trailing, offset: JdToken.Space.s4)
@@ -94,7 +96,8 @@ public final class JdCalloutView: UIView {
             let button = JdFeedbackActionButton(type: .system)
             button.accessibilityLabel = title
             button.onTapForward = { [weak self] in self?.toggleExpansion() }
-            button.addTarget(button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
+            button.addTarget(
+                button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
             addSubview(button)
             button.jd.layout {
                 $0.top.equal(to: headerRow.jd.top)
@@ -138,17 +141,20 @@ public final class JdCalloutView: UIView {
         accentBar.backgroundColor = variant.color.uiColor
         backgroundColor = JdFeedbackTint.tint(variant.color)
 
-        emojiLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                  weight: JdToken.FontWeight.normal,
-                                                  compatibleWith: traitCollection)
-        titleLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                  weight: JdToken.FontWeight.semibold,
-                                                  compatibleWith: traitCollection)
+        emojiLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
+        titleLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         titleLabel.textColor = JdToken.Color.foreground.uiColor
 
-        messageLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                    weight: JdToken.FontWeight.normal,
-                                                    compatibleWith: traitCollection)
+        messageLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         messageLabel.textColor = JdToken.Color.foreground.uiColor
 
         chevronView.tintColor = JdToken.Color.muted.uiColor
@@ -157,9 +163,11 @@ public final class JdCalloutView: UIView {
 
     private func applyChevron() {
         guard isCollapsible else { return }
-        let config = UIImage.SymbolConfiguration(font: JdFontBridge.scaledFont(size: JdToken.FontSize.sm,
-                                                                               weight: JdToken.FontWeight.medium,
-                                                                               compatibleWith: traitCollection))
+        let config = UIImage.SymbolConfiguration(
+            font: JdFontBridge.scaledFont(
+                size: JdToken.FontSize.sm,
+                weight: JdToken.FontWeight.medium,
+                compatibleWith: traitCollection))
         chevronView.preferredSymbolConfiguration = config
         chevronView.image = UIImage(systemName: isExpanded ? "chevron.down" : "chevron.right")
     }

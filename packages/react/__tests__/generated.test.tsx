@@ -11,12 +11,7 @@
 import { describe, expect, test, vi } from "vitest";
 import { createRef } from "react";
 import { render } from "@testing-library/react";
-import {
-  Alert,
-  Accordion,
-  AnimatedCounter,
-  NumberInput,
-} from "../src/index.js";
+import { Alert, Accordion, AnimatedCounter, NumberInput } from "../src/index.js";
 import type { JdAccordion } from "@junds/web/accordion/element";
 import { flushCE } from "./test-utils.js";
 
@@ -98,9 +93,7 @@ describe("복합 데이터 → 프로퍼티", () => {
 
   test("프롭을 제거하면 undefined가 아니라 대입 전 CE 기본값으로 복원한다", async () => {
     const items = [{ key: "a", title: "가", content: "내용" }];
-    const { container, rerender } = render(
-      <Accordion items={items} openKeys={["a"]} />,
-    );
+    const { container, rerender } = render(<Accordion items={items} openKeys={["a"]} />);
     const host = container.querySelector("jd-accordion")! as JdAccordion;
     await flushCE();
     expect(host.items).toEqual(items);
@@ -114,9 +107,7 @@ describe("복합 데이터 → 프로퍼티", () => {
 
   test("데이터 프롭 집합이 달라져도 effect 의존성 배열 크기 경고가 없다", async () => {
     const error = vi.spyOn(console, "error").mockImplementation(() => {});
-    const { rerender } = render(
-      <Accordion items={[{ key: "a", title: "가" }]} />,
-    );
+    const { rerender } = render(<Accordion items={[{ key: "a", title: "가" }]} />);
     rerender(<Accordion items={[]} openKeys={["a"]} />);
     rerender(<Accordion openKeys={[]} />);
     await flushCE();

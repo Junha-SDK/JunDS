@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Link 데모 — 실컴포넌트 JdLink(SwiftUI)/JdLinkView(UIKit). 웹 <jd-link> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(variant/underline/external) — 3플랫폼 동일 (04 §3).
@@ -12,7 +12,8 @@ enum LinkDemo {
     static let demo = ComponentDemo(
         id: "Link",
         controls: [
-            .options("variant", "variant", JdLinkVariant.allCases.map(\.rawValue), initial: "default"),
+            .options(
+                "variant", "variant", JdLinkVariant.allCases.map(\.rawValue), initial: "default"),
             .toggle("underline", "underline", initial: true),
             .toggle("external", "external (isExternal)"),
             .text("text", "text", placeholder: "링크 문구", initial: "문서 보기"),
@@ -25,7 +26,8 @@ enum LinkDemo {
     static let destination = URL(string: "https://example.com/docs")
 }
 
-private let linkNote = "default와 primary는 같은 색으로 결의된다 — Core 어휘(default/primary/muted)와 "
+private let linkNote =
+    "default와 primary는 같은 색으로 결의된다 — Core 어휘(default/primary/muted)와 "
     + "웹 어휘(default/subtle/muted/danger)가 어긋나 있고, 패리티 기준인 웹 .jd-link{color:primary}를 "
     + "지켰기 때문이다(어휘 재심의는 Core 몫). external은 ↗ 심볼을 붙이고 낭독 라벨에 "
     + "\"새 창에서 열림\"을 합류시킨다 — 웹이 아이콘으로만 알리던 것의 보정이다(04 §7.1)."
@@ -45,11 +47,12 @@ private struct LinkStageSwiftUI: View {
 
     var body: some View {
         VStack(spacing: JdToken.Space.s4) {
-            JdLink(linkText(state),
-                   destination: LinkDemo.destination,
-                   variant: linkVariant(state),
-                   underline: state.bool("underline"),
-                   isExternal: state.bool("external"))
+            JdLink(
+                linkText(state),
+                destination: LinkDemo.destination,
+                variant: linkVariant(state),
+                underline: state.bool("underline"),
+                isExternal: state.bool("external"))
 
             Text(linkNote)
         }
@@ -66,14 +69,16 @@ private struct LinkStageUIKit: View {
     var body: some View {
         let variant = linkVariant(state)
         return VStack(spacing: JdToken.Space.s4) {
-            LinkViewRep(text: linkText(state),
-                        destination: LinkDemo.destination,
-                        variant: variant,
-                        underline: state.bool("underline"),
-                        isExternal: state.bool("external"))
-                .fixedSize()
-                // variant는 init 전용 표면(private let) — 값이 바뀌면 뷰를 재생성한다
-                .id(variant.rawValue)
+            LinkViewRep(
+                text: linkText(state),
+                destination: LinkDemo.destination,
+                variant: variant,
+                underline: state.bool("underline"),
+                isExternal: state.bool("external")
+            )
+            .fixedSize()
+            // variant는 init 전용 표면(private let) — 값이 바뀌면 뷰를 재생성한다
+            .id(variant.rawValue)
 
             Text(linkNote)
         }
@@ -93,11 +98,12 @@ private struct LinkViewRep: UIViewRepresentable {
     var isExternal: Bool
 
     func makeUIView(context: Context) -> JdLinkView {
-        JdLinkView(text,
-                   destination: destination,
-                   variant: variant,
-                   underline: underline,
-                   isExternal: isExternal)
+        JdLinkView(
+            text,
+            destination: destination,
+            variant: variant,
+            underline: underline,
+            isExternal: isExternal)
     }
 
     func updateUIView(_ view: JdLinkView, context: Context) {
@@ -108,7 +114,8 @@ private struct LinkViewRep: UIViewRepresentable {
     }
 
     // 내부 스택 제약으로만 크기가 나오는 뷰라 압축 적합 크기를 직접 알려 준다
-    func sizeThatFits(_ proposal: ProposedViewSize, uiView: JdLinkView, context: Context) -> CGSize? {
+    func sizeThatFits(_ proposal: ProposedViewSize, uiView: JdLinkView, context: Context) -> CGSize?
+    {
         uiView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
 }

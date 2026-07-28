@@ -33,10 +33,21 @@ let okCount = 0;
 let warnCount = 0;
 let failCount = 0;
 
-function ok(msg) { console.log(`  ${colors.ok} ${msg}`); okCount++; }
-function warn(msg) { console.log(`  ${colors.warn} ${msg}`); warnCount++; }
-function fail(msg) { console.log(`  ${colors.fail} ${msg}`); failCount++; }
-function header(title) { console.log(`\n\x1b[1m${title}\x1b[0m`); }
+function ok(msg) {
+  console.log(`  ${colors.ok} ${msg}`);
+  okCount++;
+}
+function warn(msg) {
+  console.log(`  ${colors.warn} ${msg}`);
+  warnCount++;
+}
+function fail(msg) {
+  console.log(`  ${colors.fail} ${msg}`);
+  failCount++;
+}
+function header(title) {
+  console.log(`\n\x1b[1m${title}\x1b[0m`);
+}
 
 // 1. node version
 header("1. Node 환경");
@@ -55,7 +66,13 @@ const globals = fs.readFileSync(path.join(ROOT, "app", "globals.css"), "utf8");
 const requiredVars = ["--color-primary", "--color-foreground", "--color-surface", "--color-border"];
 for (const v of requiredVars) {
   if (globals.includes(v)) ok(`globals.css 에 ${v}`);
-  else fail(`globals.css 에 ${v} 누락 — bg-${v.replace("--color-", "")}/text-${v.replace("--color-", "")} 클래스가 작동 안 함`);
+  else
+    fail(
+      `globals.css 에 ${v} 누락 — bg-${v.replace("--color-", "")}/text-${v.replace(
+        "--color-",
+        "",
+      )} 클래스가 작동 안 함`,
+    );
 }
 
 // 3. peer deps
@@ -123,7 +140,9 @@ if (fs.existsSync(a11yPath)) {
 // 종료
 console.log();
 const total = okCount + warnCount + failCount;
-console.log(`\x1b[1m요약:\x1b[0m ${colors.ok} ${okCount}  ${colors.warn} ${warnCount}  ${colors.fail} ${failCount}  (총 ${total})`);
+console.log(
+  `\x1b[1m요약:\x1b[0m ${colors.ok} ${okCount}  ${colors.warn} ${warnCount}  ${colors.fail} ${failCount}  (총 ${total})`,
+);
 if (failCount > 0) process.exit(1);
 if (warnCount > 0) process.exit(0);
 process.exit(0);

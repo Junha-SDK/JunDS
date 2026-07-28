@@ -96,11 +96,7 @@ describe("골격·포털·ARIA", () => {
     await flushCE();
     const host = baseElement.querySelector("jd-modal")!;
     expect(host.getAttribute("size")).toBe("lg");
-    expect(
-      host
-        .querySelector(".jd-modal__panel")!
-        .classList.contains("custom-panel"),
-    ).toBe(true);
+    expect(host.querySelector(".jd-modal__panel")!.classList.contains("custom-panel")).toBe(true);
   });
 
   test("ref는 v2처럼 패널(콘텐츠 영역) div", async () => {
@@ -144,9 +140,7 @@ describe("제어형 역번역 — 닫힘 결정은 부모", () => {
 
   test("dismissible=false → persistent 반전: 백드롭 무시, ESC는 항상 동작 (v2 동일)", async () => {
     const onClose = vi.fn();
-    const { baseElement } = render(
-      <Harness dismissible={false} onClose={onClose} />,
-    );
+    const { baseElement } = render(<Harness dismissible={false} onClose={onClose} />);
     await flushCE();
     const host = baseElement.querySelector("jd-modal")!;
     expect(host.hasAttribute("persistent")).toBe(true);

@@ -9,16 +9,16 @@
 
 ## 1. 결정 요약
 
-| # | 결정 | 근거 |
-|---|---|---|
-| A1 | 단일 제품 `JunDS`, 내부 4타겟(3계층 + 우산) | 소비자 표면은 `import JunDS` 하나. `@_exported`는 우산 타겟이 필요하므로 계층 3 + 우산 1 |
-| A2 | JunDSCore는 UIKit/SwiftUI import 금지 (Foundation + CoreGraphics까지만) | 순수 로직을 호스트 macOS에서 시뮬레이터 없이 테스트, 향후 macOS/watchOS 확장 여지 |
-| A3 | JunDSSwiftUI와 JunDSUIKit은 **완전 독립 2계통**(상호 미의존) — 공유는 JunDSCore뿐 | **DEC-010 (사람 결정)**: 최초안의 SwiftUI→UIKit 의존(L급 Representable 랩)을 게이트에서 명시 기각. L급 24종은 로직·상태머신·계산·측정을 Core로 최대한 내리고 렌더 표면만 각 계층이 관용적으로 구현 — **이중 구현 비용은 사람이 인지하고 감수한 결정**. 분할 기준은 §4.2 |
-| A4 | 상태 공유는 ObservableObject (@Observable 금지) | @Observable(Observation)은 iOS 17+. 최소 지원이 16이므로 선택지가 없음. v4에서 최소 버전 상향 시 일괄 이행 |
-| A5 | 레이아웃 DSL은 NSLayoutConstraint 체이닝 래퍼 `view.jd.layout {}` | DEC-006 D4. 플렉스 엔진 자작 금지 — 오토레이아웃 엔진을 대체하지 않고 표기만 대체 |
-| A6 | `layout {}` 재호출은 **diff** (SnapKit make의 중복 누적 문제 제거) | SnapKit 최다 실수 유형(make 재호출로 제약 중복)을 구조적으로 봉쇄 |
-| A7 | 스냅샷 테스트: 자체 최소 유틸 **도입** (약 60줄), 단 게이트는 M2부터 | 서드파티 0 원칙. 픽셀 비교는 취약하므로 CI 시뮬레이터 1종·OS 고정으로 변동 요인 제거 |
-| A8 | 명명: SwiftUI `JdButton`(View 구조체) / UIKit `JdButtonView`(UIView 서브클래스) / 옵션 열거형은 Core 1회 정의 | 웹 `jd-` 접두(D1)와 대칭. 접미사 `View`로 프레임워크 구분이 호출부에서 즉시 판독됨 |
+| #   | 결정                                                                                                          | 근거                                                                                                                                                                                                                                                                    |
+| --- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A1  | 단일 제품 `JunDS`, 내부 4타겟(3계층 + 우산)                                                                   | 소비자 표면은 `import JunDS` 하나. `@_exported`는 우산 타겟이 필요하므로 계층 3 + 우산 1                                                                                                                                                                                |
+| A2  | JunDSCore는 UIKit/SwiftUI import 금지 (Foundation + CoreGraphics까지만)                                       | 순수 로직을 호스트 macOS에서 시뮬레이터 없이 테스트, 향후 macOS/watchOS 확장 여지                                                                                                                                                                                       |
+| A3  | JunDSSwiftUI와 JunDSUIKit은 **완전 독립 2계통**(상호 미의존) — 공유는 JunDSCore뿐                             | **DEC-010 (사람 결정)**: 최초안의 SwiftUI→UIKit 의존(L급 Representable 랩)을 게이트에서 명시 기각. L급 24종은 로직·상태머신·계산·측정을 Core로 최대한 내리고 렌더 표면만 각 계층이 관용적으로 구현 — **이중 구현 비용은 사람이 인지하고 감수한 결정**. 분할 기준은 §4.2 |
+| A4  | 상태 공유는 ObservableObject (@Observable 금지)                                                               | @Observable(Observation)은 iOS 17+. 최소 지원이 16이므로 선택지가 없음. v4에서 최소 버전 상향 시 일괄 이행                                                                                                                                                              |
+| A5  | 레이아웃 DSL은 NSLayoutConstraint 체이닝 래퍼 `view.jd.layout {}`                                             | DEC-006 D4. 플렉스 엔진 자작 금지 — 오토레이아웃 엔진을 대체하지 않고 표기만 대체                                                                                                                                                                                       |
+| A6  | `layout {}` 재호출은 **diff** (SnapKit make의 중복 누적 문제 제거)                                            | SnapKit 최다 실수 유형(make 재호출로 제약 중복)을 구조적으로 봉쇄                                                                                                                                                                                                       |
+| A7  | 스냅샷 테스트: 자체 최소 유틸 **도입** (약 60줄), 단 게이트는 M2부터                                          | 서드파티 0 원칙. 픽셀 비교는 취약하므로 CI 시뮬레이터 1종·OS 고정으로 변동 요인 제거                                                                                                                                                                                    |
+| A8  | 명명: SwiftUI `JdButton`(View 구조체) / UIKit `JdButtonView`(UIView 서브클래스) / 옵션 열거형은 Core 1회 정의 | 웹 `jd-` 접두(D1)와 대칭. 접미사 `View`로 프레임워크 구분이 호출부에서 즉시 판독됨                                                                                                                                                                                      |
 
 ---
 
@@ -124,6 +124,7 @@ let package = Package(
 ```
 
 **결정과 근거**
+
 - **tools-version 5.9** (Xcode 15.0+): iOS 16 타겟에 충분하고, 2026년 시점에서 소비자 툴체인 하한을 가장 넓게 잡는다. 매크로가 필요해지는 시점(현재 없음)에 5.10+로 올린다.
 - **`@_exported` 채택**: 밑줄 API지만 Apple 자체 프레임워크(예: Foundation의 재수출)와 대형 SDK들이 수년째 쓰는 사실상 안정 표면이다. 대안(소비자가 `import JunDSCore` 3줄)은 "제품 1개 = import 1개" 목표를 깬다. 우산 타겟 1파일에만 격리했으므로, 만약 파손되면 그 1파일만 고치면 된다.
 - **내부 타겟 직접 import는 미지원 공표**: `import JunDSCore`가 기술적으로는 가능하나(제품에 포함된 타겟), 문서·릴리스 노트에서 지원 표면은 `import JunDS` 하나임을 못박는다. 계층 재편 자유도를 지키기 위함이다.
@@ -135,18 +136,19 @@ let package = Package(
 
 ## 3. 명명 규약
 
-| 대상 | 규약 | 예 |
-|---|---|---|
-| SwiftUI 컴포넌트 | `Jd<이름>` — View 구조체 | `JdButton`, `JdToggle`, `JdBottomSheet` |
-| UIKit 컴포넌트 | `Jd<이름>View` — UIView/UIControl 서브클래스 | `JdButtonView`, `JdToggleView` |
-| UIKit 컨트롤러급 | `Jd<이름>Controller` | `JdBottomSheetController` (UISheetPresentationController 래핑) |
-| 옵션 열거형 | `Jd<이름><축>` — **JunDSCore에 1회 정의**, 양 프레임워크 공유 | `JdButtonVariant`, `JdToastVariant` |
-| 공용 축 | 컴포넌트 무관 축은 공용 타입 | `JdControlSize`(sm/md/lg), `JdTone`(info/success/warning/danger) |
-| 상태머신/센터 | `Jd<이름>Center` / `Jd<이름>State` — Core | `JdToastCenter`, `JdWizardState` |
-| 레이아웃 DSL | `jd` 네임스페이스 + `Jd` 접두 타입 | `view.jd.layout {}`, `JdLayoutProxy` |
-| 모디파이어/스타일 | `jd` 소문자 프리픽스 메서드 | `.jdToastHost()`, `.jdFont(.body)` |
+| 대상              | 규약                                                          | 예                                                               |
+| ----------------- | ------------------------------------------------------------- | ---------------------------------------------------------------- |
+| SwiftUI 컴포넌트  | `Jd<이름>` — View 구조체                                      | `JdButton`, `JdToggle`, `JdBottomSheet`                          |
+| UIKit 컴포넌트    | `Jd<이름>View` — UIView/UIControl 서브클래스                  | `JdButtonView`, `JdToggleView`                                   |
+| UIKit 컨트롤러급  | `Jd<이름>Controller`                                          | `JdBottomSheetController` (UISheetPresentationController 래핑)   |
+| 옵션 열거형       | `Jd<이름><축>` — **JunDSCore에 1회 정의**, 양 프레임워크 공유 | `JdButtonVariant`, `JdToastVariant`                              |
+| 공용 축           | 컴포넌트 무관 축은 공용 타입                                  | `JdControlSize`(sm/md/lg), `JdTone`(info/success/warning/danger) |
+| 상태머신/센터     | `Jd<이름>Center` / `Jd<이름>State` — Core                     | `JdToastCenter`, `JdWizardState`                                 |
+| 레이아웃 DSL      | `jd` 네임스페이스 + `Jd` 접두 타입                            | `view.jd.layout {}`, `JdLayoutProxy`                             |
+| 모디파이어/스타일 | `jd` 소문자 프리픽스 메서드                                   | `.jdToastHost()`, `.jdFont(.body)`                               |
 
 규칙:
+
 1. **옵션 열거형은 Core에만 있다.** SwiftUI와 UIKit이 같은 `JdButtonVariant`를 받으므로 양쪽 API 시그니처가 자동으로 동기화된다. 웹 쪽 variant 문자열(`"primary"` 등)과 rawValue를 일치시켜 토큰 생성기·문서·테스트 픽스처가 3플랫폼에서 같은 리터럴을 쓴다.
 2. 공용 축을 우선 쓴다. 컴포넌트별 `JdBadgeSize` 같은 파생은 그 컴포넌트에만 있는 축일 때만 허용한다(인벤토리 320개 × 축 2~3개의 열거형 폭발 방지).
 3. `left/right` 대신 `leading/trailing`. DSL에도 left/right 앵커를 **제공하지 않는다**(§5.6) — RTL 무결성을 컴파일 타임에 강제.
@@ -158,11 +160,11 @@ let package = Package(
 
 원칙: **로직은 Core의 순수 타입으로 정확히 1회 구현**하고, 프레임워크 계층은 "구독 브리지"만 쓴다.
 
-| 계층 | 브리지 | 근거 |
-|---|---|---|
-| JunDSCore | 콜백 구독(`observe → JdCancellable`) + 값 타입 상태 | Combine조차 안 씀 — Core를 순수 Swift로 유지, 테스트에 스케줄러 주입 |
-| JunDSSwiftUI | `ObservableObject` + `@Published` 미러 | A4: iOS 16이라 @Observable 불가. ObservableObject는 16에서 완전 동작 |
-| JunDSUIKit | 클로저 콜백 기본, 델리게이트 프로토콜은 다이벤트 컴포넌트만 | 단일 이벤트는 클로저가 호출부 소음이 적음. 이벤트 4개↑(예: 시트 라이프사이클)만 델리게이트 |
+| 계층         | 브리지                                                      | 근거                                                                                       |
+| ------------ | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| JunDSCore    | 콜백 구독(`observe → JdCancellable`) + 값 타입 상태         | Combine조차 안 씀 — Core를 순수 Swift로 유지, 테스트에 스케줄러 주입                       |
+| JunDSSwiftUI | `ObservableObject` + `@Published` 미러                      | A4: iOS 16이라 @Observable 불가. ObservableObject는 16에서 완전 동작                       |
+| JunDSUIKit   | 클로저 콜백 기본, 델리게이트 프로토콜은 다이벤트 컴포넌트만 | 단일 이벤트는 클로저가 호출부 소음이 적음. 이벤트 4개↑(예: 시트 라이프사이클)만 델리게이트 |
 
 UI 상태 센터는 `@MainActor` 고정이다. UI 갱신 외 소비자가 없고, 스레드 규약을 타입에 박는 편이 문서보다 강하다. 시간 의존성은 전부 주입한다(테스트 가상 시계).
 
@@ -402,16 +404,18 @@ public final class JdToastHostView: UIView {
 ```
 
 **패턴 규칙 정리**
+
 1. Core 상태머신은 `visible`을 유일 진실로 갖고, 모든 변이는 `notify()`로 끝난다. 구독은 등록 즉시 1회 방출(늦게 붙은 호스트도 현재 상태를 그린다).
 2. SwiftUI 미러 클래스는 `@Published` 프로퍼티 **복사**만 한다 — 로직 금지.
 3. UIKit 호스트는 구독 → 전체 재렌더. 토스트 3개 수준에서 diff 최적화는 과설계다(D6: 측정 없는 최적화 금지).
-4. 같은 패턴 적용 대상: `JdNotificationCenter`(NotificationCenter 컴포넌트), `JdWizardState`(FormWizard/Stepper), `JdTourState`(Tour/Onboarding), `JdCommandPaletteState`, finance `JdTickStore`(Live* 계열 — 00-inventory 리스크 #4의 "상태 계층 분리"가 바로 이것).
+4. 같은 패턴 적용 대상: `JdNotificationCenter`(NotificationCenter 컴포넌트), `JdWizardState`(FormWizard/Stepper), `JdTourState`(Tour/Onboarding), `JdCommandPaletteState`, finance `JdTickStore`(Live\* 계열 — 00-inventory 리스크 #4의 "상태 계층 분리"가 바로 이것).
 
 ### 4.2 Core 이전 극대화 — L급 24종의 분할 기준 (DEC-010)
 
 DEC-010으로 JunDSSwiftUI와 JunDSUIKit은 완전 독립이다. L급 24종의 렌더 표면은 양 계층이 각자 구현하며, **이중 구현 비용은 사람이 인지하고 감수한 결정**이다. 그 비용을 통제하는 유일한 지렛대가 이 절이다: 이중화되는 것은 "그리기"뿐이어야 하고, 어렵고 틀리기 쉬운 것(로직·상태머신·계산·측정)은 전부 Core에 1회만 존재해야 한다.
 
 **판정 규칙 4개** (설계 리뷰 게이트로 사용):
+
 1. **시그니처에 프레임워크 타입이 없으면 Core다.** 입력(데이터 배열·포인터 좌표·가시 영역 CGRect·컨테이너 크기)과 출력(배치 지오메트리·정렬 결과·상태 전이·패스 좌표 목록)이 값 타입으로 표현 가능한 코드는 무조건 Core로 내린다.
 2. **계층 파일에 허용되는 동사는 3개뿐**: 이벤트 수집 → Core 호출 → 결과 그리기. 계층 파일에 분기/계산 로직이 자라면 Core 이전 누락 신호다 — 코드 리뷰에서 반려한다.
 3. **측정은 Core의 순수 함수다.** 레이아웃 계산, 가상화 윈도우 계산(가시 rect → 아이템 범위), 차트 스케일/리샘플, 히트테스트 판정은 Core가 하고, 프레임워크는 크기·오프셋 숫자만 공급한다. Core 단위 테스트가 곧 양 계층의 정합성 테스트가 된다.
@@ -421,18 +425,18 @@ DEC-010으로 JunDSSwiftUI와 JunDSUIKit은 완전 독립이다. L급 24종의 �
 
 **L급 분할 기준표** (24종 전수를 대표 그룹 10행으로 — 개별 컴포넌트 스펙은 이 행을 정본으로 상속):
 
-| L급 그룹 | JunDSCore (1회 구현) | JunDSUIKit 렌더 | JunDSSwiftUI 렌더 |
-|---|---|---|---|
-| DataGrid / DataTable / Table | 가상화 윈도우 계산(`JdVirtualWindow`: 가시 rect→행 범위), 정렬 비교기, 선택·밀도 상태머신, 컬럼 폭 해석 | UICollectionView diffable + 컴포지셔널 레이아웃 | `Table`/LazyVStack + `onGeometryChange`로 가시 영역을 Core에 보고 |
-| RichTextEditor | `JdRichDoc` 문서 모델, 커맨드(볼드/리스트/링크)·셀렉션 상태머신, 직렬화(HTML/MD) | UITextView(TextKit 2) 바인딩 | 자체 최소 UITextView Representable(시스템 UIKit 직접 — JunDSUIKit 미참조) |
-| CodeEditor / MarkdownViewer / DiffViewer | 토크나이저, 하이라이트 스팬 계산, 라인/워드 diff 알고리즘 | UITextView + NSAttributedString 적용 | AttributedString + Text/ScrollView |
-| CommandPalette | 퍼지 매칭 스코어러, 결과 랭킹, 키보드 내비 상태머신(§4 패턴) | UICollectionView 리스트 + UIKeyCommand | `List` + `.searchable`/`.onKeyPress` |
-| Kanban / SortableList / Transfer | DnD 상태머신(소스/타깃/드롭 판정·재정렬 diff), 키보드 DnD 접근성 시퀀스 | UIDrag/UIDropInteraction + DropDelegate | `.onDrag`/`.onDrop` + DropDelegate |
-| DsCalendar / DateRangePicker / GanttChart | 날짜 연산, 월 그리드 생성, 이벤트 겹침 배치 계산, 범위 선택 상태머신 | UICollectionView 월 그리드 | LazyVGrid |
-| 커스텀 차트 (캔들/Sankey/Treemap/Flow) | 스케일·리샘플·지오메트리 계산(정규화 좌표의 패스 목록 출력) | CALayer/CAShapeLayer 드로잉 | `Canvas` 드로잉 |
-| ColorPicker / SignaturePad | HSV↔RGB 변환, 포인터 지오메트리, 스트로크 스무딩(패스 리샘플) | 커스텀 UIControl + CAShapeLayer | `Canvas` + DragGesture |
-| EmojiPicker | 카탈로그·검색 인덱스·최근 사용 상태 | UICollectionView 그리드 | LazyVGrid |
-| BookReader / EmailInbox | 페이지네이션 계산·읽음 상태머신 / 스레드 그룹핑·3단 내비 상태 | UIPageViewController / UISplitViewController | `TabView(.page)` / NavigationSplitView |
+| L급 그룹                                  | JunDSCore (1회 구현)                                                                                    | JunDSUIKit 렌더                                 | JunDSSwiftUI 렌더                                                         |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------- |
+| DataGrid / DataTable / Table              | 가상화 윈도우 계산(`JdVirtualWindow`: 가시 rect→행 범위), 정렬 비교기, 선택·밀도 상태머신, 컬럼 폭 해석 | UICollectionView diffable + 컴포지셔널 레이아웃 | `Table`/LazyVStack + `onGeometryChange`로 가시 영역을 Core에 보고         |
+| RichTextEditor                            | `JdRichDoc` 문서 모델, 커맨드(볼드/리스트/링크)·셀렉션 상태머신, 직렬화(HTML/MD)                        | UITextView(TextKit 2) 바인딩                    | 자체 최소 UITextView Representable(시스템 UIKit 직접 — JunDSUIKit 미참조) |
+| CodeEditor / MarkdownViewer / DiffViewer  | 토크나이저, 하이라이트 스팬 계산, 라인/워드 diff 알고리즘                                               | UITextView + NSAttributedString 적용            | AttributedString + Text/ScrollView                                        |
+| CommandPalette                            | 퍼지 매칭 스코어러, 결과 랭킹, 키보드 내비 상태머신(§4 패턴)                                            | UICollectionView 리스트 + UIKeyCommand          | `List` + `.searchable`/`.onKeyPress`                                      |
+| Kanban / SortableList / Transfer          | DnD 상태머신(소스/타깃/드롭 판정·재정렬 diff), 키보드 DnD 접근성 시퀀스                                 | UIDrag/UIDropInteraction + DropDelegate         | `.onDrag`/`.onDrop` + DropDelegate                                        |
+| DsCalendar / DateRangePicker / GanttChart | 날짜 연산, 월 그리드 생성, 이벤트 겹침 배치 계산, 범위 선택 상태머신                                    | UICollectionView 월 그리드                      | LazyVGrid                                                                 |
+| 커스텀 차트 (캔들/Sankey/Treemap/Flow)    | 스케일·리샘플·지오메트리 계산(정규화 좌표의 패스 목록 출력)                                             | CALayer/CAShapeLayer 드로잉                     | `Canvas` 드로잉                                                           |
+| ColorPicker / SignaturePad                | HSV↔RGB 변환, 포인터 지오메트리, 스트로크 스무딩(패스 리샘플)                                           | 커스텀 UIControl + CAShapeLayer                 | `Canvas` + DragGesture                                                    |
+| EmojiPicker                               | 카탈로그·검색 인덱스·최근 사용 상태                                                                     | UICollectionView 그리드                         | LazyVGrid                                                                 |
+| BookReader / EmailInbox                   | 페이지네이션 계산·읽음 상태머신 / 스레드 그룹핑·3단 내비 상태                                           | UIPageViewController / UISplitViewController    | `TabView(.page)` / NavigationSplitView                                    |
 
 ---
 
@@ -473,53 +477,54 @@ card.jd.deactivate()
 
 **앵커** (`JdLayoutProxy`의 프로퍼티, `.`으로 체이닝해 다축 동시 지정):
 
-| 앵커 | 전개 | 비고 |
-|---|---|---|
-| `top` `bottom` `leading` `trailing` | 해당 1축 | `left/right` 미제공 (§5.6) |
-| `centerX` `centerY` | 해당 1축 | |
-| `width` `height` | 치수 | 상수 관계(`equal(48)`) 허용되는 유일한 축 |
-| `edges` | top+leading+bottom+trailing | `inset`은 4변 부호 자동 처리 |
-| `size` | width+height | `equal(CGSize)` 오버로드 제공 |
-| `center` | centerX+centerY | |
-| 체이닝 | `$0.leading.trailing` 처럼 임의 조합 | SnapKit 동형 |
+| 앵커                                | 전개                                 | 비고                                      |
+| ----------------------------------- | ------------------------------------ | ----------------------------------------- |
+| `top` `bottom` `leading` `trailing` | 해당 1축                             | `left/right` 미제공 (§5.6)                |
+| `centerX` `centerY`                 | 해당 1축                             |                                           |
+| `width` `height`                    | 치수                                 | 상수 관계(`equal(48)`) 허용되는 유일한 축 |
+| `edges`                             | top+leading+bottom+trailing          | `inset`은 4변 부호 자동 처리              |
+| `size`                              | width+height                         | `equal(CGSize)` 오버로드 제공             |
+| `center`                            | centerX+centerY                      |                                           |
+| 체이닝                              | `$0.leading.trailing` 처럼 임의 조합 | SnapKit 동형                              |
 
 **참조** (`equal(to:)`의 우변 — `other.jd.<앵커>`):
 
-| 참조 | 의미 |
-|---|---|
-| `other.jd.top` … `other.jd.height` | 다른 뷰의 앵커 |
-| `other.jd.safeArea` / `other.jd.safeArea.top` … | `safeAreaLayoutGuide` 전체 또는 1축 |
-| `other.jd.margins` / `other.jd.margins.leading` … | `layoutMarginsGuide` |
+| 참조                                              | 의미                                |
+| ------------------------------------------------- | ----------------------------------- |
+| `other.jd.top` … `other.jd.height`                | 다른 뷰의 앵커                      |
+| `other.jd.safeArea` / `other.jd.safeArea.top` …   | `safeAreaLayoutGuide` 전체 또는 1축 |
+| `other.jd.margins` / `other.jd.margins.leading` … | `layoutMarginsGuide`                |
 
 **관계** (빌더의 종결 메서드 — 각각 아래 오버로드 3형):
 
-| 관계 | 오버로드 |
-|---|---|
-| `equal` | `equal(to: JdAnchorRef, offset: CGFloat = 0)` / `equal(_ constant: CGFloat)`(width·height 전용) / `equalToSuperview()` |
-| `greaterThanOrEqual` | 동형 3종 |
-| `lessThanOrEqual` | 동형 3종 |
-| 슈가 | `equalToSafeArea()` `equalToMargins()` (+ GTE/LTE 변형) — superview의 해당 가이드 기준 |
+| 관계                 | 오버로드                                                                                                               |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `equal`              | `equal(to: JdAnchorRef, offset: CGFloat = 0)` / `equal(_ constant: CGFloat)`(width·height 전용) / `equalToSuperview()` |
+| `greaterThanOrEqual` | 동형 3종                                                                                                               |
+| `lessThanOrEqual`    | 동형 3종                                                                                                               |
+| 슈가                 | `equalToSafeArea()` `equalToMargins()` (+ GTE/LTE 변형) — superview의 해당 가이드 기준                                 |
 
 **후위 수정자** (관계 메서드가 반환하는 `JdConstraintEditor`에 체이닝):
 
-| 수정자 | 의미 |
-|---|---|
-| `.offset(CGFloat)` | constant 그대로 설정 |
-| `.inset(CGFloat)` | trailing/bottom은 부호 반전, edges는 4변 일괄. `.inset(NSDirectionalEdgeInsets)` 오버로드 |
-| `.multiplier(CGFloat)` | 곱 계수. **활성화 전에만 유효** — update에서 변경 시 remake 필요 (NSLayoutConstraint 자체 제약) |
-| `.priority(UILayoutPriority)` / `.priority(Float)` | 우선순위 |
-| `.identifier(String)` | 수동 식별자 (자동 부여를 덮어씀) |
+| 수정자                                             | 의미                                                                                            |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `.offset(CGFloat)`                                 | constant 그대로 설정                                                                            |
+| `.inset(CGFloat)`                                  | trailing/bottom은 부호 반전, edges는 4변 일괄. `.inset(NSDirectionalEdgeInsets)` 오버로드       |
+| `.multiplier(CGFloat)`                             | 곱 계수. **활성화 전에만 유효** — update에서 변경 시 remake 필요 (NSLayoutConstraint 자체 제약) |
+| `.priority(UILayoutPriority)` / `.priority(Float)` | 우선순위                                                                                        |
+| `.identifier(String)`                              | 수동 식별자 (자동 부여를 덮어씀)                                                                |
 
 ### 5.3 라이프사이클 — layout / update / remake / deactivate
 
-| 메서드 | 의미 | SnapKit 대응 |
-|---|---|---|
-| `layout {}` | 최초: 수집 후 일괄 activate. **재호출: diff** — 동일 키 제약은 constant만 갱신, 사라진 제약은 deactivate, 새 제약은 activate | `makeConstraints` (단, SnapKit은 재호출 시 중복 누적 — 우리는 diff) |
-| `update {}` | 기존 제약의 **constant만** 갱신. 키가 없는 제약을 만나면 DEBUG에서 `assertionFailure` | `updateConstraints` |
-| `remake {}` | 이 DSL이 이 뷰에 설치한 제약 전부 deactivate 후 새로 설치 | `remakeConstraints` |
-| `deactivate()` | 이 DSL이 설치한 제약 전부 해제 (다른 경로로 설치된 제약은 불간섭) | `removeConstraints` |
+| 메서드         | 의미                                                                                                                         | SnapKit 대응                                                        |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `layout {}`    | 최초: 수집 후 일괄 activate. **재호출: diff** — 동일 키 제약은 constant만 갱신, 사라진 제약은 deactivate, 새 제약은 activate | `makeConstraints` (단, SnapKit은 재호출 시 중복 누적 — 우리는 diff) |
+| `update {}`    | 기존 제약의 **constant만** 갱신. 키가 없는 제약을 만나면 DEBUG에서 `assertionFailure`                                        | `updateConstraints`                                                 |
+| `remake {}`    | 이 DSL이 이 뷰에 설치한 제약 전부 deactivate 후 새로 설치                                                                    | `remakeConstraints`                                                 |
+| `deactivate()` | 이 DSL이 설치한 제약 전부 해제 (다른 경로로 설치된 제약은 불간섭)                                                            | `removeConstraints`                                                 |
 
 자동 처리 2건:
+
 - **`translatesAutoresizingMaskIntoConstraints = false`**: `layout/update/remake` 진입 시 대상 뷰에 자동 설정. 참조되는 상대 뷰는 건드리지 않는다(시스템 뷰를 참조할 수 있으므로).
 - **제약 identifier 자동 부여**: `"jd @ViewController.swift:42 UILabel.top→UIView.bottom"` 형식(`#fileID`/`#line` 캡처). "Unable to simultaneously satisfy constraints" 로그에서 **어느 파일 몇 번째 줄의 어떤 제약인지** 즉시 판독된다. SnapKit 대비 가장 체감 큰 개선점.
 
@@ -692,29 +697,30 @@ final class JdConstraintStore {
 ```
 
 동작 세부 결정:
+
 - **constant 갱신은 기존 제약 객체를 유지**한 채 `constant`만 바꾼다 → `UIView.animate` 블록 안 `layoutIfNeeded()`로 제약 애니메이션이 SnapKit과 동일하게 동작.
 - **multiplier 변경은 diff에서 "다른 제약"** 이다(키에 포함) — NSLayoutConstraint의 multiplier가 불변이므로 자동으로 deactivate+재생성 경로를 탄다. update에서는 금지(assertion).
 - `size.equal(CGSize)` / `edges.inset(NSDirectionalEdgeInsets)` 등 편의 오버로드는 위 골격의 얇은 슈가로만 추가한다. **골격 타입 6개(DSL/GuideRef/Proxy/Builder/Editor/Store) 외 신규 타입 추가 금지** — SnapKit이 15년간 표면이 안 무너진 이유가 타입 수 절제다.
 
 ### 5.5 SnapKit → JdLayout 마이그레이션 표
 
-| SnapKit | JunDS | 비고 |
-|---|---|---|
-| `v.snp.makeConstraints { make in … }` | `v.jd.layout { … }` | 재호출 시 누적이 아니라 diff |
-| `make.top.equalToSuperview().offset(8)` | `$0.top.equalToSuperview().offset(8)` | 동형 |
-| `make.leading.trailing.equalToSuperview().inset(16)` | `$0.leading.trailing.equalToSuperview().inset(16)` | 동형 (부호 반전 동일) |
-| `make.edges.equalToSuperview()` | `$0.edges.equalToSuperview()` | 동형 |
-| `make.edges.equalToSuperview().inset(UIEdgeInsets(…))` | `$0.edges.equalToSuperview().inset(NSDirectionalEdgeInsets(…))` | directional로 통일 |
-| `make.width.equalTo(48)` | `$0.width.equal(48)` | `equalTo`→`equal` (상수) |
-| `make.size.equalTo(CGSize(width: 44, height: 44))` | `$0.size.equal(CGSize(width: 44, height: 44))` | |
-| `make.top.equalTo(other.snp.bottom).offset(8)` | `$0.top.equal(to: other.jd.bottom, offset: 8)` | offset을 인자로도, 후위로도 허용 |
-| `make.height.equalTo(other).multipliedBy(0.5)` | `$0.height.equal(to: other.jd.height).multiplier(0.5)` | 상대 앵커를 항상 명시 (SnapKit의 "같은 attribute 암시" 제거) |
-| `make.top.equalTo(view.safeAreaLayoutGuide)` | `$0.top.equalToSafeArea()` 또는 `$0.top.equal(to: view.jd.safeArea.top)` | |
-| `make.leading.greaterThanOrEqualToSuperview()` | `$0.leading.greaterThanOrEqualToSuperview()` | 동형 |
-| `.priority(.high)` / `.priority(750)` | `.priority(.defaultHigh)` / `.priority(750)` | UIKit 표준 명칭 사용 |
-| `v.snp.updateConstraints { … }` | `v.jd.update { … }` | constant 외 변경은 assertion |
-| `v.snp.remakeConstraints { … }` | `v.jd.remake { … }` | |
-| `make.left.equalTo(…)` | 컴파일 에러 | `leading`으로 강제 (§5.6) |
+| SnapKit                                                | JunDS                                                                    | 비고                                                         |
+| ------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| `v.snp.makeConstraints { make in … }`                  | `v.jd.layout { … }`                                                      | 재호출 시 누적이 아니라 diff                                 |
+| `make.top.equalToSuperview().offset(8)`                | `$0.top.equalToSuperview().offset(8)`                                    | 동형                                                         |
+| `make.leading.trailing.equalToSuperview().inset(16)`   | `$0.leading.trailing.equalToSuperview().inset(16)`                       | 동형 (부호 반전 동일)                                        |
+| `make.edges.equalToSuperview()`                        | `$0.edges.equalToSuperview()`                                            | 동형                                                         |
+| `make.edges.equalToSuperview().inset(UIEdgeInsets(…))` | `$0.edges.equalToSuperview().inset(NSDirectionalEdgeInsets(…))`          | directional로 통일                                           |
+| `make.width.equalTo(48)`                               | `$0.width.equal(48)`                                                     | `equalTo`→`equal` (상수)                                     |
+| `make.size.equalTo(CGSize(width: 44, height: 44))`     | `$0.size.equal(CGSize(width: 44, height: 44))`                           |                                                              |
+| `make.top.equalTo(other.snp.bottom).offset(8)`         | `$0.top.equal(to: other.jd.bottom, offset: 8)`                           | offset을 인자로도, 후위로도 허용                             |
+| `make.height.equalTo(other).multipliedBy(0.5)`         | `$0.height.equal(to: other.jd.height).multiplier(0.5)`                   | 상대 앵커를 항상 명시 (SnapKit의 "같은 attribute 암시" 제거) |
+| `make.top.equalTo(view.safeAreaLayoutGuide)`           | `$0.top.equalToSafeArea()` 또는 `$0.top.equal(to: view.jd.safeArea.top)` |                                                              |
+| `make.leading.greaterThanOrEqualToSuperview()`         | `$0.leading.greaterThanOrEqualToSuperview()`                             | 동형                                                         |
+| `.priority(.high)` / `.priority(750)`                  | `.priority(.defaultHigh)` / `.priority(750)`                             | UIKit 표준 명칭 사용                                         |
+| `v.snp.updateConstraints { … }`                        | `v.jd.update { … }`                                                      | constant 외 변경은 assertion                                 |
+| `v.snp.remakeConstraints { … }`                        | `v.jd.remake { … }`                                                      |                                                              |
+| `make.left.equalTo(…)`                                 | 컴파일 에러                                                              | `leading`으로 강제 (§5.6)                                    |
 
 ### 5.6 비목표 (명시적 제외)
 
@@ -805,6 +811,7 @@ struct JdFontModifier: ViewModifier {
 ```
 
 정책 요약:
+
 1. **색은 어느 계층에서도 정적 생성 금지.** `UIColor { trait in }` / `Color(uiColor:)` 경유만 허용 — 다크모드 전환이 재렌더 없이 반영된다.
 2. **spacing/radius는 CGFloat 그대로.** 래퍼 타입 없음(레이아웃 DSL·SwiftUI padding에 마찰 없이 투입).
 3. **타이포는 항상 role 동반.** 고정 pt 폰트를 만들 방법을 API에서 제거한다 — Dynamic Type이 기본값이 아니라 유일값. 예외(차트 눈금 등 스케일 부적합)는 `JdTextStyle.fixed(…)` 팩토리로만 열고 사용처를 grep 가능하게 한다.
@@ -816,14 +823,14 @@ struct JdFontModifier: ViewModifier {
 
 ### 7.1 VoiceOver 라벨 규약
 
-| 규칙 | 내용 |
-|---|---|
-| 텍스트 있는 컨트롤 | 표시 텍스트가 자동으로 `accessibilityLabel`. 별도 지정 불필요 |
-| 아이콘 전용 컨트롤 | **초기화 인자에서 라벨 강제** — `JdIconButton(icon: .close, accessibilityLabel: "닫기", …)`. 라벨 없는 init을 제공하지 않아 컴파일 타임 강제 |
-| 상태 | 문자열 조합 금지, traits로: 선택 `.selected`, 비활성 UIKit `isEnabled`/SwiftUI 자동. 커스텀 상태(예: 북마크됨)는 `accessibilityValue` |
-| 복합 카드 | 카드 1개 = 요소 1개(`shouldGroupAccessibilityChildren` / `.accessibilityElement(children: .combine)`). 내부 액션은 `accessibilityCustomActions`로 노출 |
-| 라이브 알림 | Toast/Notification/OfflineIndicator 계열은 `UIAccessibility.post(.announcement)` (웹 aria-live의 등가 — 00-inventory AnnouncerProvider 항목과 일치) |
-| 모달 | 시트/다이얼로그는 시스템 프레젠테이션을 쓰므로 포커스 격리가 공짜. 커스텀 오버레이(Tour, Spotlight)만 `accessibilityViewIsModal = true` 수동 지정 |
+| 규칙               | 내용                                                                                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 텍스트 있는 컨트롤 | 표시 텍스트가 자동으로 `accessibilityLabel`. 별도 지정 불필요                                                                                          |
+| 아이콘 전용 컨트롤 | **초기화 인자에서 라벨 강제** — `JdIconButton(icon: .close, accessibilityLabel: "닫기", …)`. 라벨 없는 init을 제공하지 않아 컴파일 타임 강제           |
+| 상태               | 문자열 조합 금지, traits로: 선택 `.selected`, 비활성 UIKit `isEnabled`/SwiftUI 자동. 커스텀 상태(예: 북마크됨)는 `accessibilityValue`                  |
+| 복합 카드          | 카드 1개 = 요소 1개(`shouldGroupAccessibilityChildren` / `.accessibilityElement(children: .combine)`). 내부 액션은 `accessibilityCustomActions`로 노출 |
+| 라이브 알림        | Toast/Notification/OfflineIndicator 계열은 `UIAccessibility.post(.announcement)` (웹 aria-live의 등가 — 00-inventory AnnouncerProvider 항목과 일치)    |
+| 모달               | 시트/다이얼로그는 시스템 프레젠테이션을 쓰므로 포커스 격리가 공짜. 커스텀 오버레이(Tour, Spotlight)만 `accessibilityViewIsModal = true` 수동 지정      |
 
 ### 7.2 Dynamic Type
 
@@ -853,11 +860,11 @@ public enum JdMotion {
 
 ### 8.1 계층별
 
-| 계층 | 방식 | 실행 환경 |
-|---|---|---|
-| JunDSCore | XCTest 순수 단위 — 상태머신에 가상 스케줄러 주입 (ToastCenter: show→promote→auto dismiss→pending 승격 시나리오) | macOS 호스트 `swift test` (빠른 루프) |
-| JunDSUIKit | 레이아웃 assert + DSL 자체 테스트 + 스냅샷 | 시뮬레이터 `xcodebuild test` |
-| JunDSSwiftUI | 호스팅(UIHostingController) 후 레이아웃/스냅샷. ViewInspector류 서드파티 금지 — 로직은 어차피 Core에 있으므로 뷰 내부 검사 수요가 작다 | 시뮬레이터 |
+| 계층         | 방식                                                                                                                                   | 실행 환경                             |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| JunDSCore    | XCTest 순수 단위 — 상태머신에 가상 스케줄러 주입 (ToastCenter: show→promote→auto dismiss→pending 승격 시나리오)                        | macOS 호스트 `swift test` (빠른 루프) |
+| JunDSUIKit   | 레이아웃 assert + DSL 자체 테스트 + 스냅샷                                                                                             | 시뮬레이터 `xcodebuild test`          |
+| JunDSSwiftUI | 호스팅(UIHostingController) 후 레이아웃/스냅샷. ViewInspector류 서드파티 금지 — 로직은 어차피 Core에 있으므로 뷰 내부 검사 수요가 작다 | 시뮬레이터                            |
 
 ### 8.2 레이아웃 assert
 
@@ -1107,28 +1114,28 @@ JdToastCenter.shared.show("저장되었습니다", variant: .success)
 
 ### 10.1 카테고리별 번역 원칙
 
-| 카테고리 (개수) | 전략 |
-|---|---|
-| core + layout (25) | SwiftUI: 신규 컴포넌트를 만들지 않는다 — VStack/HStack/Grid/Spacer가 이미 관용구이므로 **토큰 스페이싱 확장만** 제공(`VStack(spacing: JdToken.space.md)` 패턴 문서화). UIKit: `JdStackView`(UIStackView + 토큰 스페이싱 프리셋) 1개로 Stack/HStack/VStack/Group을 흡수. 웹의 Divider 삼중복(00-inventory 횡단 리스크 2)은 iOS에서 `JdDivider` 하나로 선제 단일화 |
-| primitives (51) | 시스템 컨트롤 스킨 우선: Toggle/Switch→UISwitch·Toggle, Slider→UISlider, Checkbox/RadioGroup은 iOS 관용구가 없으므로 자체 드로잉(M). ScrollArea→UIScrollView 그 자체(별도 컴포넌트 없음, S로 강등된 이유) |
-| composites — 오버레이 (Modal/Drawer/BottomSheet/ActionSheet/AlertDialog/Sheet) | 전부 **시스템 프레젠테이션** 위임: UISheetPresentationController(detent)·`.sheet`·`.confirmationDialog`·UIAlertController. Jd 계층은 detent 프리셋+토큰 스킨만. focus trap/scroll lock/포털 등 웹의 M 비용이 통째로 소멸 |
-| composites — 선택 (Select/Dropdown/Combobox/ContextMenu/Menubar/MultiSelect) | **UIMenu/Menu/Picker로 번역** — 커스텀 드롭다운 패널을 그리지 않는다. MultiSelect·Combobox(검색형)만 시트 기반 자체 UI |
-| composites — 차트 (Line/Bar/Pie/Area/Radar/Scatter/Funnel/Gauge/Heatmap/MiniChart…) | **Swift Charts**(iOS 16 가용 — DEC-004의 실질 근거 중 하나) 위에 토큰 테마 적용. Sankey/Treemap/캔들(finance)은 Swift Charts 표현력 밖 → Core 순수 지오메트리 계산 + 렌더는 UIKit=CALayer / SwiftUI=Canvas 각자(§4.2 분할표, L 유지) |
-| composites — 리스트/스크롤 (VirtualScroll/InfiniteList/PullToRefresh/SwipeAction/DataGrid) | 컴포넌트가 아니라 **데이터소스 헬퍼**로 번역: UICollectionView diffable + 컴포지셔널 레이아웃 프리셋, `.refreshable`/UIRefreshControl, UISwipeActionsConfiguration. 가상화를 자작하지 않는다(웹 L → iOS M 강등의 본체) |
-| composites — 미디어 (AudioPlayer/VideoPlayer/ImageLightbox/QRCode) | AVKit/AVFoundation 위임 + 토큰 스킨. QRCode는 CoreImage `CIQRCodeGenerator`(웹 L → iOS S) |
-| composites — 피드백 (Toast/Notification/Snackbar/Alert/Banner/Skeleton) | 시스템 부재 영역 — §4 ToastCenter 패턴으로 자체 구현. Skeleton은 Reduce Motion 시 셔머 정지(§7.3) |
-| patterns (43) | 페이지 템플릿(AuthLayout/SettingsLayout/PricingPage 등)은 **컴포넌트가 아니라 조립 레시피 문서**로 격하 — NavigationStack/Form 관용구 예제 코드 제공. 상태형 패턴(FormWizard/Tour/CommandPalette/Kanban)만 Core 상태머신 + 양 프레임워크가 각자 뷰로 정식 구현(§4.2) |
-| finance (86) | `JdTickStore`(Core, §4 패턴) 분리 선행 → Live* 계열은 스토어 구독 뷰로. 데이터 연동은 @junds/finance-data 대응 Swift 패키지 스코프 밖(DEC-003) |
+| 카테고리 (개수)                                                                            | 전략                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| core + layout (25)                                                                         | SwiftUI: 신규 컴포넌트를 만들지 않는다 — VStack/HStack/Grid/Spacer가 이미 관용구이므로 **토큰 스페이싱 확장만** 제공(`VStack(spacing: JdToken.space.md)` 패턴 문서화). UIKit: `JdStackView`(UIStackView + 토큰 스페이싱 프리셋) 1개로 Stack/HStack/VStack/Group을 흡수. 웹의 Divider 삼중복(00-inventory 횡단 리스크 2)은 iOS에서 `JdDivider` 하나로 선제 단일화 |
+| primitives (51)                                                                            | 시스템 컨트롤 스킨 우선: Toggle/Switch→UISwitch·Toggle, Slider→UISlider, Checkbox/RadioGroup은 iOS 관용구가 없으므로 자체 드로잉(M). ScrollArea→UIScrollView 그 자체(별도 컴포넌트 없음, S로 강등된 이유)                                                                                                                                                        |
+| composites — 오버레이 (Modal/Drawer/BottomSheet/ActionSheet/AlertDialog/Sheet)             | 전부 **시스템 프레젠테이션** 위임: UISheetPresentationController(detent)·`.sheet`·`.confirmationDialog`·UIAlertController. Jd 계층은 detent 프리셋+토큰 스킨만. focus trap/scroll lock/포털 등 웹의 M 비용이 통째로 소멸                                                                                                                                         |
+| composites — 선택 (Select/Dropdown/Combobox/ContextMenu/Menubar/MultiSelect)               | **UIMenu/Menu/Picker로 번역** — 커스텀 드롭다운 패널을 그리지 않는다. MultiSelect·Combobox(검색형)만 시트 기반 자체 UI                                                                                                                                                                                                                                           |
+| composites — 차트 (Line/Bar/Pie/Area/Radar/Scatter/Funnel/Gauge/Heatmap/MiniChart…)        | **Swift Charts**(iOS 16 가용 — DEC-004의 실질 근거 중 하나) 위에 토큰 테마 적용. Sankey/Treemap/캔들(finance)은 Swift Charts 표현력 밖 → Core 순수 지오메트리 계산 + 렌더는 UIKit=CALayer / SwiftUI=Canvas 각자(§4.2 분할표, L 유지)                                                                                                                             |
+| composites — 리스트/스크롤 (VirtualScroll/InfiniteList/PullToRefresh/SwipeAction/DataGrid) | 컴포넌트가 아니라 **데이터소스 헬퍼**로 번역: UICollectionView diffable + 컴포지셔널 레이아웃 프리셋, `.refreshable`/UIRefreshControl, UISwipeActionsConfiguration. 가상화를 자작하지 않는다(웹 L → iOS M 강등의 본체)                                                                                                                                           |
+| composites — 미디어 (AudioPlayer/VideoPlayer/ImageLightbox/QRCode)                         | AVKit/AVFoundation 위임 + 토큰 스킨. QRCode는 CoreImage `CIQRCodeGenerator`(웹 L → iOS S)                                                                                                                                                                                                                                                                        |
+| composites — 피드백 (Toast/Notification/Snackbar/Alert/Banner/Skeleton)                    | 시스템 부재 영역 — §4 ToastCenter 패턴으로 자체 구현. Skeleton은 Reduce Motion 시 셔머 정지(§7.3)                                                                                                                                                                                                                                                                |
+| patterns (43)                                                                              | 페이지 템플릿(AuthLayout/SettingsLayout/PricingPage 등)은 **컴포넌트가 아니라 조립 레시피 문서**로 격하 — NavigationStack/Form 관용구 예제 코드 제공. 상태형 패턴(FormWizard/Tour/CommandPalette/Kanban)만 Core 상태머신 + 양 프레임워크가 각자 뷰로 정식 구현(§4.2)                                                                                             |
+| finance (86)                                                                               | `JdTickStore`(Core, §4 패턴) 분리 선행 → Live\* 계열은 스토어 구독 뷰로. 데이터 연동은 @junds/finance-data 대응 Swift 패키지 스코프 밖(DEC-003)                                                                                                                                                                                                                  |
 
 주 (DEC-010): 위 전략 전반에서 두 계층은 서로를 참조하지 않는다 — L급의 "UIKit 1회 구현 후 SwiftUI가 Representable로 랩" 경로는 폐기됐고, 각 계층이 §4.2 분할표의 Core 타입 위에 자기 관용구로 렌더를 각자 구현한다. 소비자 앱이 스스로 UIViewRepresentable로 감싸는 것은 무관하다.
 
 ### 10.2 N/a 3개와 개념 대체
 
-| 웹 | iOS 판정 | 대체 |
-|---|---|---|
-| Portal | N/a | 개념 불요 — 프레젠테이션/오버레이가 시스템 소관 |
-| ErrorBoundary | N/a | React 렌더 모델 전용. 오류 UI는 `JdResult`/`JdEmptyState`로 표현 |
-| FocusGuard | N/a | `accessibilityViewIsModal` + 시스템 프레젠테이션이 처리 |
+| 웹            | iOS 판정 | 대체                                                             |
+| ------------- | -------- | ---------------------------------------------------------------- |
+| Portal        | N/a      | 개념 불요 — 프레젠테이션/오버레이가 시스템 소관                  |
+| ErrorBoundary | N/a      | React 렌더 모델 전용. 오류 UI는 `JdResult`/`JdEmptyState`로 표현 |
+| FocusGuard    | N/a      | `accessibilityViewIsModal` + 시스템 프레젠테이션이 처리          |
 
 추가 개념 번역: VisuallyHidden→`accessibilityLabel`(뷰 없음), AnnouncerProvider→`UIAccessibility.post(.announcement)`(§7.1), hover 계열(HoverCard/Tooltip)→iPad 포인터·롱프레스 폴백으로 번역하되 정보 은닉 금지(터치에서 접근 불가한 정보를 hover에만 두지 않는다), focus ring→개념 없음(키보드 포커스는 시스템 처리).
 

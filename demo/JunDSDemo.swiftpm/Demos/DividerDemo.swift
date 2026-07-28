@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // CoreDivider 데모 — 실컴포넌트 JdDivider(SwiftUI)/JdDividerView(UIKit).
 // 웹 <jd-divider> 단일 정본(R12·DEC-014-5) — orientation·label 표면을 그대로 시연.
@@ -10,7 +10,9 @@ enum DividerDemo {
     static let demo = ComponentDemo(
         id: "CoreDivider",
         controls: [
-            .options("orientation", "orientation", JdOrientation.allCases.map(\.rawValue), initial: "horizontal"),
+            .options(
+                "orientation", "orientation", JdOrientation.allCases.map(\.rawValue),
+                initial: "horizontal"),
             .text("label", "label", placeholder: "라벨 (빈 값 = 없음)", initial: ""),
         ],
         swiftUI: { state in AnyView(DividerStageSwiftUI(state: state)) },

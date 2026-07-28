@@ -39,7 +39,11 @@ export const pascal = (tag) =>
 
 /** "jd-open-change" → "onJdOpenChange" */
 export const handlerName = (evt) =>
-  "on" + evt.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join("");
+  "on" +
+  evt
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join("");
 
 const KIND = new Map([
   [String, "string"],
@@ -57,7 +61,12 @@ function headerDoc(src) {
   if (!m) return undefined;
   const body = m[1]
     .split("\n")
-    .map((l) => l.replace(/^\s*\*ID?\s?/, "").replace(/^\s*\*\s?/, "").trim())
+    .map((l) =>
+      l
+        .replace(/^\s*\*ID?\s?/, "")
+        .replace(/^\s*\*\s?/, "")
+        .trim(),
+    )
     .filter(Boolean)
     .join(" ");
   // "<jd-alert> — 인라인 알림 배너 (v2 …)." 에서 설명부만
@@ -69,7 +78,9 @@ function headerDoc(src) {
 /** props 블록 안에서 `/** … *​/` 바로 뒤 `name:` 을 짝지어 프롭 설명을 뽑는다 */
 function propDocs(src) {
   const out = {};
-  const start = /static\s+(?:override\s+)?props\s*(?::[^=]+?)?=\s*(?:defineProps\s*\(\s*)?\{/.exec(src);
+  const start = /static\s+(?:override\s+)?props\s*(?::[^=]+?)?=\s*(?:defineProps\s*\(\s*)?\{/.exec(
+    src,
+  );
   if (!start) return out;
   let depth = 0;
   let i = src.indexOf("{", start.index);
@@ -82,7 +93,9 @@ function propDocs(src) {
     }
   }
   const block = src.slice(from, i + 1);
-  for (const m of block.matchAll(/\/\*\*([\s\S]*?)\*\/\s*(?:\/\/[^\n]*\n\s*)*([A-Za-z_$][\w$]*)\s*:/g)) {
+  for (const m of block.matchAll(
+    /\/\*\*([\s\S]*?)\*\/\s*(?:\/\/[^\n]*\n\s*)*([A-Za-z_$][\w$]*)\s*:/g,
+  )) {
     const text = m[1]
       .split("\n")
       .map((l) => l.replace(/^\s*\*\s?/, "").trim())
@@ -142,8 +155,7 @@ export async function collectSurface() {
     logLevel: "silent",
   });
   const { ALL_COMPONENTS } = await import(
-    "data:text/javascript;base64," +
-      Buffer.from(bundle.outputFiles[0].text).toString("base64")
+    "data:text/javascript;base64," + Buffer.from(bundle.outputFiles[0].text).toString("base64")
   );
 
   const sourceByDir = new Map();
@@ -174,7 +186,12 @@ export async function collectSurface() {
       /* 기본값은 셀렉터가 없는 경우가 많다 — 그게 기본 스타일이라서다.
          목록에 없으면 편집기가 "되돌아갈 값"을 제안하지 못하므로 맨 앞에 넣는다. */
       let values = kind === "string" ? options[name] : undefined;
-      if (values && typeof def.default === "string" && def.default && !values.includes(def.default)) {
+      if (
+        values &&
+        typeof def.default === "string" &&
+        def.default &&
+        !values.includes(def.default)
+      ) {
         values = [def.default, ...values];
       }
       props.push({

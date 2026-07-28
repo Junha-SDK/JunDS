@@ -4,11 +4,7 @@
   "category": "core",
   "title": "HStack",
   "oneLiner": "가로 스택 — row·gap sm·align center 기본. Box 파생.",
-  "tags": [
-    "layout",
-    "stack",
-    "가로"
-  ],
+  "tags": ["layout", "stack", "가로"],
   "controls": [
     {
       "prop": "gap",
@@ -18,14 +14,7 @@
     {
       "prop": "justify",
       "kind": "select",
-      "options": [
-        "start",
-        "center",
-        "end",
-        "between",
-        "around",
-        "evenly"
-      ],
+      "options": ["start", "center", "end", "between", "around", "evenly"],
       "default": "start"
     }
   ],

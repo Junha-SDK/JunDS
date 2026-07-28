@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // useReadingProgress 데모 — **Core 유틸 실동작**(뷰 없음). 스크롤 오프셋·콘텐츠 높이·뷰포트 높이를
 // Core `JdScrollProgress.reading`에 넘겨 0…1 진행률을 얻는다. 데모는 진행률 산식을 재구현하지 않는다 —
@@ -9,7 +9,7 @@ enum ReadingProgressDemo {
     static let demo = ComponentDemo(
         id: "useReadingProgress",
         controls: [
-            .slider("paragraphs", "문단 수", 6...30, step: 2, initial: 14),
+            .slider("paragraphs", "문단 수", 6...30, step: 2, initial: 14)
         ],
         swiftUI: { state in AnyView(ReadingProgressStage(state: state)) }
     )
@@ -47,8 +47,9 @@ private struct ReadingProgressStage: View {
             }
             .frame(height: JdToken.Space.s1_5)
 
-            JdText("\(Int((progress * 100).rounded()))%",
-                   size: .sm, weight: JdToken.FontWeight.semibold, mono: true)
+            JdText(
+                "\(Int((progress * 100).rounded()))%",
+                size: .sm, weight: JdToken.FontWeight.semibold, mono: true)
 
             // 뷰포트 높이는 바깥 GeometryReader가, 오프셋·콘텐츠 높이는 안쪽 프리퍼런스가 준다
             GeometryReader { outer in

@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useBreakpointValue",
   "oneLiner": "브레이크포인트별 값 매핑 해석.",
-  "tags": [
-    "hook",
-    "반응형",
-    "breakpoint"
-  ],
+  "tags": ["hook", "반응형", "breakpoint"],
   "controls": [],
   "snippets": {
     "web": null,

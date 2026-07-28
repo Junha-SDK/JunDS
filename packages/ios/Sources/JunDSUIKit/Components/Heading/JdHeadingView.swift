@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-heading 동형 — 레벨 램프는 JdHeadingSpec이 단일 소스 (DESIGN §2.1/2.3).
 // uppercase 레벨(L6)은 표시만 대문자화 — 원문은 별도 보존해 레벨 변경 시 복원하고,
@@ -47,8 +47,9 @@ public final class JdHeadingView: UILabel {
     private func applyStyle() {
         let spec = JdHeadingSpec.resolve(level: level)
         super.text = spec.uppercase ? rawText.uppercased() : rawText
-        font = JdFontBridge.scaledFont(size: spec.fontSize, weight: spec.fontWeight, compatibleWith: traitCollection)
+        font = JdFontBridge.scaledFont(
+            size: spec.fontSize, weight: spec.fontWeight, compatibleWith: traitCollection)
         textColor = JdToken.Color.foreground.uiColor
-        accessibilityLabel = rawText // 대문자 변환 전 원문으로 읽기
+        accessibilityLabel = rawText  // 대문자 변환 전 원문으로 읽기
     }
 }

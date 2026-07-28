@@ -4,10 +4,7 @@
   "category": "patterns",
   "title": "CommandPalette",
   "oneLiner": "커맨드 팔레트 (⌘K)",
-  "tags": [
-    "overlay",
-    "navigation"
-  ],
+  "tags": ["overlay", "navigation"],
   "controls": [],
   "snippets": {
     "web": null,

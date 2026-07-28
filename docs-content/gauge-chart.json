@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "GaugeChart",
   "oneLiner": "반원형 게이지로 단일 값을 시각화합니다.",
-  "tags": [
-    "chart"
-  ],
+  "tags": ["chart"],
   "controls": [],
   "snippets": {
     "web": null,

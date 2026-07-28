@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Affix",
   "oneLiner": "스크롤 시 지정 위치에 고정되는 컨테이너.",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

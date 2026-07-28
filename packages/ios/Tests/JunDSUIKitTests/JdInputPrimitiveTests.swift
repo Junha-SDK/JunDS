@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 입력 계열 6종의 값 규칙·표시·접근성 표면 (04 §8.2 · DESIGN-3 §E).
@@ -40,6 +41,7 @@ private func jdEndEditing(_ field: UITextField) {
 
 // MARK: - NumberInput
 
+@MainActor
 final class JdNumberInputViewTests: XCTestCase {
 
     private func stepButton(_ view: JdNumberInputView, direction: Int) throws -> UIButton {
@@ -55,8 +57,8 @@ final class JdNumberInputViewTests: XCTestCase {
         jdBeginEditing(field)
 
         jdType("5", into: field)
-        XCTAssertEqual(view.value, 5)      // 중간 상태가 살아 있다
-        XCTAssertEqual(field.text, "5")    // 되쓰기로 덮이지도 않는다
+        XCTAssertEqual(view.value, 5)  // 중간 상태가 살아 있다
+        XCTAssertEqual(field.text, "5")  // 되쓰기로 덮이지도 않는다
 
         jdType("50", into: field)
         XCTAssertEqual(view.value, 50)
@@ -110,7 +112,7 @@ final class JdNumberInputViewTests: XCTestCase {
         let dec = try stepButton(view, direction: -1)
         let inc = try stepButton(view, direction: 1)
 
-        XCTAssertFalse(dec.isEnabled) // 하한
+        XCTAssertFalse(dec.isEnabled)  // 하한
         XCTAssertTrue(inc.isEnabled)
 
         inc.jdSendActions(for: .touchUpInside)
@@ -120,7 +122,7 @@ final class JdNumberInputViewTests: XCTestCase {
 
         inc.jdSendActions(for: .touchUpInside)
         XCTAssertEqual(view.value, 2)
-        XCTAssertFalse(inc.isEnabled) // 상한
+        XCTAssertFalse(inc.isEnabled)  // 상한
     }
 
     // 스텝은 커밋이다 — 값이 비어 있으면 0에서 출발한다(Core stepped 계약)
@@ -162,14 +164,16 @@ final class JdNumberInputViewTests: XCTestCase {
 
 // MARK: - CurrencyInput
 
+@MainActor
 final class JdCurrencyInputViewTests: XCTestCase {
 
     // 포맷은 전부 Core — 같은 인자면 같은 문자열이어야 한다
     func test_display_uses_core_currency_format() throws {
         let view = JdCurrencyInputView(value: 1500)
         let field = try jdField(view)
-        XCTAssertEqual(field.text,
-                       JdNumberFormat.string(value: 1500, style: .currency, currency: "KRW", locale: "ko-KR"))
+        XCTAssertEqual(
+            field.text,
+            JdNumberFormat.string(value: 1500, style: .currency, currency: "KRW", locale: "ko-KR"))
     }
 
     // 입력 중에는 포맷하지 않고 숫자만 걷어 값으로 옮긴다
@@ -183,7 +187,7 @@ final class JdCurrencyInputViewTests: XCTestCase {
         jdType("₩1,500", into: field)
 
         XCTAssertEqual(view.value, 1500)
-        XCTAssertEqual(field.text, "₩1,500") // 입력 중 되쓰기 없음
+        XCTAssertEqual(field.text, "₩1,500")  // 입력 중 되쓰기 없음
         XCTAssertEqual(changed.count, 1)
     }
 
@@ -198,8 +202,9 @@ final class JdCurrencyInputViewTests: XCTestCase {
         jdType("1500", into: field)
         jdEndEditing(field)
 
-        XCTAssertEqual(field.text,
-                       JdNumberFormat.string(value: 1500, style: .currency, currency: "KRW", locale: "ko-KR"))
+        XCTAssertEqual(
+            field.text,
+            JdNumberFormat.string(value: 1500, style: .currency, currency: "KRW", locale: "ko-KR"))
         XCTAssertEqual(committed.count, 1)
     }
 
@@ -208,13 +213,15 @@ final class JdCurrencyInputViewTests: XCTestCase {
         let view = JdCurrencyInputView(value: 12)
         view.currency = "USD"
         view.locale = "en-US"
-        XCTAssertEqual(try jdField(view).text,
-                       JdNumberFormat.string(value: 12, style: .currency, currency: "USD", locale: "en-US"))
+        XCTAssertEqual(
+            try jdField(view).text,
+            JdNumberFormat.string(value: 12, style: .currency, currency: "USD", locale: "en-US"))
     }
 }
 
 // MARK: - PhoneInput
 
+@MainActor
 final class JdPhoneInputViewTests: XCTestCase {
 
     // 마스킹은 전부 JdPhoneMask.format — 값은 숫자만 남는다
@@ -257,6 +264,7 @@ final class JdPhoneInputViewTests: XCTestCase {
 
 // MARK: - PasswordInput
 
+@MainActor
 final class JdPasswordInputViewTests: XCTestCase {
 
     private func strengthText(_ view: JdPasswordInputView) -> String? {
@@ -283,8 +291,9 @@ final class JdPasswordInputViewTests: XCTestCase {
     func test_strength_row_hidden_when_empty() throws {
         let view = JdPasswordInputView(showsStrength: true)
         let field = try jdField(view)
-        let row = try XCTUnwrap(jdDescendants(view, of: UIStackView.self)
-            .first { $0.accessibilityLabel == "비밀번호 강도" })
+        let row = try XCTUnwrap(
+            jdDescendants(view, of: UIStackView.self)
+                .first { $0.accessibilityLabel == "비밀번호 강도" })
 
         XCTAssertTrue(row.isHidden)
         jdType("a", into: field)
@@ -297,14 +306,17 @@ final class JdPasswordInputViewTests: XCTestCase {
     func test_rules_list_mirrors_core_rules() throws {
         let view = JdPasswordInputView(showsRules: true)
         let field = try jdField(view)
-        jdType("abcdefgh", into: field) // 8자 소문자 — length·lowercase 두 규칙 충족
+        jdType("abcdefgh", into: field)  // 8자 소문자 — length·lowercase 두 규칙 충족
 
         let expectedSatisfied: Set<JdPasswordRule> = [.length, .lowercase]
         for rule in JdPasswordRule.allCases {
-            let row = jdDescendants(view, of: UIStackView.self).first { $0.accessibilityLabel == rule.label }
+            let row = jdDescendants(view, of: UIStackView.self).first {
+                $0.accessibilityLabel == rule.label
+            }
             XCTAssertNotNil(row, "규칙 행 누락: \(rule.label)")
-            XCTAssertEqual(row?.accessibilityValue,
-                           expectedSatisfied.contains(rule) ? "충족" : "미충족", rule.label)
+            XCTAssertEqual(
+                row?.accessibilityValue,
+                expectedSatisfied.contains(rule) ? "충족" : "미충족", rule.label)
         }
     }
 
@@ -325,6 +337,7 @@ final class JdPasswordInputViewTests: XCTestCase {
 
 // MARK: - PinInput
 
+@MainActor
 final class JdPinInputViewTests: XCTestCase {
 
     private func cells(_ view: JdPinInputView) -> [UILabel] {
@@ -338,7 +351,7 @@ final class JdPinInputViewTests: XCTestCase {
 
         jdType("12ab3456", into: field)
 
-        XCTAssertEqual(view.value, "1234") // 숫자만 + 4자리로 자름
+        XCTAssertEqual(view.value, "1234")  // 숫자만 + 4자리로 자름
         XCTAssertEqual(field.text, "1234")
         XCTAssertEqual(cells(view).count, 4)
         XCTAssertEqual(cells(view).map { $0.text ?? "" }, ["1", "2", "3", "4"])
@@ -365,7 +378,7 @@ final class JdPinInputViewTests: XCTestCase {
         var completed: [String] = []
         view.onComplete = { completed.append($0) }
 
-        jdType("123-456", into: field) // 구분자 섞인 코드도 받아들인다
+        jdType("123-456", into: field)  // 구분자 섞인 코드도 받아들인다
 
         XCTAssertEqual(view.value, "123456")
         XCTAssertEqual(completed, ["123456"])

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Accordion",
   "oneLiner": "아코디언",
-  "tags": [
-    "disclosure"
-  ],
+  "tags": ["disclosure"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,20 +4,12 @@
   "category": "composites",
   "title": "ScreenshotGrid",
   "oneLiner": "문서용 스크린샷 격자 — 로드에 실패한 이미지는 조용히 빠지고, 전부 실패하면 사라진다.",
-  "tags": [
-    "content",
-    "media",
-    "문서"
-  ],
+  "tags": ["content", "media", "문서"],
   "controls": [
     {
       "prop": "columns",
       "kind": "segmented",
-      "options": [
-        "2",
-        "3",
-        "4"
-      ],
+      "options": ["2", "3", "4"],
       "default": "3"
     }
   ],

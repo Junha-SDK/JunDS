@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PhotoCard",
   "oneLiner": "사진 카드 — 캡션·메타 표시.",
-  "tags": [
-    "photo",
-    "사진",
-    "카드"
-  ],
+  "tags": ["photo", "사진", "카드"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // KeyCap 데모 — 실컴포넌트 JdKeyCap(SwiftUI)/JdKeyCapView(UIKit). 웹 <jd-key-cap> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(variant/size/pressed) — 3플랫폼 동일 (04 §3).
@@ -14,7 +14,8 @@ enum KeyCapDemo {
         id: "KeyCap",
         controls: [
             .text("key", "key", placeholder: "키 한 글자", initial: "K"),
-            .options("variant", "variant", JdKeyCapVariant.allCases.map(\.rawValue), initial: "default"),
+            .options(
+                "variant", "variant", JdKeyCapVariant.allCases.map(\.rawValue), initial: "default"),
             .options("size", "size", JdDisplaySize.allCases.map(\.rawValue), initial: "md"),
             .toggle("pressed", "pressed (isPressed)"),
         ],

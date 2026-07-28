@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // FollowButton 데모 — 실컴포넌트 JdFollowButton(SwiftUI)/JdFollowButtonView(UIKit).
 // 웹 <jd-follow-button> 동형: 미팔로우 = primary 채움 / 팔로잉 = secondary 외곽선.
@@ -75,11 +75,13 @@ private struct FollowButtonStageUIKit: View {
 
 // 각주 — 라벨 교체가 곧 상태 표기이고, 눌림 상태는 selected 트레이트로 함께 실린다.
 private var followFootnote: some View {
-    Text("라벨 교체(팔로우 ↔ 팔로잉)가 곧 상태 표기다. 켜짐은 selected 트레이트로도 실려 "
-         + "VoiceOver가 상태를 읽는다 — 웹 aria-pressed 동형.")
-        .font(.footnote)
-        .foregroundColor(.secondary)
-        .multilineTextAlignment(.center)
+    Text(
+        "라벨 교체(팔로우 ↔ 팔로잉)가 곧 상태 표기다. 켜짐은 selected 트레이트로도 실려 "
+            + "VoiceOver가 상태를 읽는다 — 웹 aria-pressed 동형."
+    )
+    .font(.footnote)
+    .foregroundColor(.secondary)
+    .multilineTextAlignment(.center)
 }
 
 // 데모 전용 UIKit 랩 — 소비자 관할 (DEC-010 각주).
