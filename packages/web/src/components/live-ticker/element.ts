@@ -116,7 +116,8 @@ export class JdLiveTicker extends JdElement {
     try {
       const parsed: unknown = JSON.parse(script.textContent || "[]");
       // 슬롯은 초기값 — 이미 대입된 stocks 프로퍼티를 덮지 않는다(§1.3 마지막 쓰기 승리)
-      if (Array.isArray(parsed) && this.#stocks.length === 0) this.#stocks = this.#normalize(parsed);
+      if (Array.isArray(parsed) && this.#stocks.length === 0)
+        this.#stocks = this.#normalize(parsed);
     } catch {
       console.warn("[junds] <jd-live-ticker> JSON 슬롯 파싱 실패 — 무시합니다.");
     }
@@ -173,7 +174,8 @@ export class JdLiveTicker extends JdElement {
 
   protected override update(): void {
     (this.#dot as unknown as { live: boolean }).live = this.live;
-    (this.#dot as unknown as { label: string }).label = this.label || (this.live ? "LIVE" : "장마감");
+    (this.#dot as unknown as { label: string }).label =
+      this.label || (this.live ? "LIVE" : "장마감");
     const n = this.#stocks.length;
     this.#caption.textContent = this.live
       ? `${this.source} · ${n}종목`

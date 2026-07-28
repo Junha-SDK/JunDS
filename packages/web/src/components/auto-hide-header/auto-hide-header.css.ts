@@ -9,26 +9,36 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-auto-hide-header {
-    display: block; box-sizing: border-box; width: 100%;
-    position: sticky; inset-block-start: 0;
-    z-index: var(--jd-z-header);
-    transition: transform var(--jd-duration-slow) var(--jd-easing-ease-in-out);
-    /* will-change를 상시로 둔다. transform이 걸린 요소는 position:fixed 자손의
+  @layer junds.components {
+    jd-auto-hide-header {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      position: sticky;
+      inset-block-start: 0;
+      z-index: var(--jd-z-header);
+      transition: transform var(--jd-duration-slow) var(--jd-easing-ease-in-out);
+      /* will-change를 상시로 둔다. transform이 걸린 요소는 position:fixed 자손의
        컨테이닝 블록이 되는데(레포 선례: .container transform → 하단 고정물 밀림),
        [collapsed]일 때만 transform이 생기면 헤더 안의 fixed 드롭다운이 **접힘 여부에
        따라 다른 기준으로 배치된다**. 상시 승격으로 그 분기를 없앤다. */
-    will-change: transform;
-  }
-  jd-auto-hide-header[collapsed] { transform: translateY(-100%); }
+      will-change: transform;
+    }
+    jd-auto-hide-header[collapsed] {
+      transform: translateY(-100%);
+    }
 
-  .jd-auto-hide-header__bar {
-    display: block; box-sizing: border-box; width: 100%;
-    height: var(--jd-auto-hide-header-height, 64px);
-  }
+    .jd-auto-hide-header__bar {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      height: var(--jd-auto-hide-header-height, 64px);
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    jd-auto-hide-header { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      jd-auto-hide-header {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

@@ -155,7 +155,9 @@ export class JdCollectionView extends JdElement {
     if (!existing) this.#buildSkeleton();
     this.#bar = this.querySelector<HTMLElement>(":scope > .jd-collection-view__bar")!;
     this.#searchBox = this.#bar.querySelector<HTMLElement>(".jd-collection-view__search")!;
-    this.#searchInput = this.#bar.querySelector<HTMLInputElement>(".jd-collection-view__search-input")!;
+    this.#searchInput = this.#bar.querySelector<HTMLInputElement>(
+      ".jd-collection-view__search-input",
+    )!;
     this.#views = this.#bar.querySelector<HTMLElement>(".jd-collection-view__views")!;
     this.#gridBtn = this.#views.querySelector<HTMLButtonElement>('[data-view="grid"]')!;
     this.#listBtn = this.#views.querySelector<HTMLButtonElement>('[data-view="list"]')!;
@@ -166,7 +168,9 @@ export class JdCollectionView extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent);
@@ -195,7 +199,10 @@ export class JdCollectionView extends JdElement {
     const views = document.createElement("div");
     views.className = "jd-collection-view__views";
     views.setAttribute("role", "group");
-    views.append(this.#buildViewButton("grid", GRID_ICON_SVG), this.#buildViewButton("list", LIST_ICON_SVG));
+    views.append(
+      this.#buildViewButton("grid", GRID_ICON_SVG),
+      this.#buildViewButton("list", LIST_ICON_SVG),
+    );
     bar.append(search, views);
 
     const filters = document.createElement("div");
@@ -327,7 +334,9 @@ export class JdCollectionView extends JdElement {
       this.#filters.append(this.#buildChip("", this.allLabel));
       for (const c of categories) this.#filters.append(this.#buildChip(c, c));
     }
-    for (const chip of this.#filters.querySelectorAll<HTMLButtonElement>(".jd-collection-view__chip")) {
+    for (const chip of this.#filters.querySelectorAll<HTMLButtonElement>(
+      ".jd-collection-view__chip",
+    )) {
       const active = (chip.dataset.category ?? "") === this.category;
       chip.setAttribute("aria-pressed", String(active));
       chip.toggleAttribute("data-active", active);
@@ -351,7 +360,8 @@ export class JdCollectionView extends JdElement {
   #buildItem(item: JdCollectionItem): HTMLLIElement {
     const li = document.createElement("li");
     li.className = "jd-collection-view__item";
-    const activatable = !item.disabled && (this.interactive || Boolean(item.href) || Boolean(item.onClick));
+    const activatable =
+      !item.disabled && (this.interactive || Boolean(item.href) || Boolean(item.onClick));
 
     let card: HTMLElement;
     if (item.href && !item.disabled) {

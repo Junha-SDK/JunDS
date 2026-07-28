@@ -79,7 +79,9 @@ export class JdCookieConsent extends JdElement {
   protected render(): void {
     adoptStyles(cookieConsentStyles);
     // 선언적 JSON 슬롯(결정적 DOM 읽기 — 스토리지 아님)
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (script) {
       try {
         const parsed = JSON.parse(script.textContent || "[]") as JdCookieCategory[];
@@ -98,7 +100,9 @@ export class JdCookieConsent extends JdElement {
       this.#messageText = inner.querySelector<HTMLSpanElement>(".jd-cookie-consent__message-text")!;
       this.#policy = inner.querySelector<HTMLAnchorElement>(".jd-cookie-consent__policy")!;
       this.#panel = inner.querySelector<HTMLDivElement>(".jd-cookie-consent__panel")!;
-      this.#btnCustomize = inner.querySelector<HTMLButtonElement>(".jd-cookie-consent__btn-customize")!;
+      this.#btnCustomize = inner.querySelector<HTMLButtonElement>(
+        ".jd-cookie-consent__btn-customize",
+      )!;
       this.#btnReject = inner.querySelector<HTMLButtonElement>(".jd-cookie-consent__btn-reject")!;
       this.#btnPrimary = inner.querySelector<HTMLButtonElement>(".jd-cookie-consent__btn-primary")!;
     } else {
@@ -225,7 +229,9 @@ export class JdCookieConsent extends JdElement {
 
   /** 체크 상태를 현재 #selected로 동기화(재빌드 없이) */
   #syncPanelState(): void {
-    for (const row of this.#panel.querySelectorAll<HTMLLabelElement>(":scope > .jd-cookie-consent__cat")) {
+    for (const row of this.#panel.querySelectorAll<HTMLLabelElement>(
+      ":scope > .jd-cookie-consent__cat",
+    )) {
       const id = row.dataset.id!;
       const cb = row.querySelector<HTMLInputElement>("input")!;
       cb.checked = this.#selected[id] ?? false;

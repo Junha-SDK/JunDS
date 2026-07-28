@@ -14,7 +14,7 @@ const SPINNER_SVG =
 export class JdSpinner extends JdElement {
   static override tag = "jd-spinner";
   static override props = {
-    size: { type: String, default: "md", reflect: true },       // xs | sm | md | lg
+    size: { type: String, default: "md", reflect: true }, // xs | sm | md | lg
     color: { type: String, default: "primary", reflect: true }, // primary | white | muted
     label: { type: String, default: "로딩 중" },
   };

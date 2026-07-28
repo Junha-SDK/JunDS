@@ -27,8 +27,8 @@ export interface JdDailyThemeEntry {
   isHoliday?: boolean;
   holidayName?: string;
   kospiClose: number;
-  "거래대금변동": number;
-  "코스피변동": number;
+  거래대금변동: number;
+  코스피변동: number;
   portfolio: number;
   themes: string[];
   leaders?: JdThemeLeader[];
@@ -99,7 +99,9 @@ export class JdDailyThemesCalendar extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdDailyThemeEntry[][];
@@ -123,7 +125,8 @@ export class JdDailyThemesCalendar extends JdElement {
       header.append(cell);
     }
     const summaryHead = document.createElement("span");
-    summaryHead.className = "jd-daily-themes-calendar__weekday jd-daily-themes-calendar__summary-head";
+    summaryHead.className =
+      "jd-daily-themes-calendar__weekday jd-daily-themes-calendar__summary-head";
     summaryHead.textContent = "주간 요약";
     header.append(summaryHead);
     this.#grid.append(header);
@@ -222,11 +225,17 @@ export class JdDailyThemesCalendar extends JdElement {
     const data = document.createElement("div");
     data.className = "jd-daily-themes-calendar__data";
     data.append(
-      this.#dataRow(ICON_LINE, "코스피",
-        entry.kospiClose.toLocaleString("ko-KR", { maximumFractionDigits: 2 })),
+      this.#dataRow(
+        ICON_LINE,
+        "코스피",
+        entry.kospiClose.toLocaleString("ko-KR", { maximumFractionDigits: 2 }),
+      ),
     );
     const evalRow = this.#dataRow(ICON_WALLET, "평가", fmtMoney(entry.portfolio));
-    if (entry.portfolio >= 70_000_000) evalRow.querySelector(".jd-daily-themes-calendar__data-value")!.setAttribute("data-tone", "up");
+    if (entry.portfolio >= 70_000_000)
+      evalRow
+        .querySelector(".jd-daily-themes-calendar__data-value")!
+        .setAttribute("data-tone", "up");
     data.append(evalRow);
     content.append(data);
 
@@ -285,7 +294,10 @@ export class JdDailyThemesCalendar extends JdElement {
     row.className = "jd-daily-themes-calendar__data-row";
     const left = document.createElement("span");
     left.className = "jd-daily-themes-calendar__data-label";
-    left.append(iconSvg(icon, 10, "jd-daily-themes-calendar__data-icon"), document.createTextNode(label));
+    left.append(
+      iconSvg(icon, 10, "jd-daily-themes-calendar__data-icon"),
+      document.createTextNode(label),
+    );
     const val = document.createElement("span");
     val.className = "jd-daily-themes-calendar__data-value";
     val.textContent = value;
@@ -298,9 +310,9 @@ export class JdDailyThemesCalendar extends JdElement {
     chip.type = "button";
     chip.className = "jd-daily-themes-calendar__theme-chip";
     chip.textContent = theme;
-    chip.style.color = colorVar;
-    chip.style.background = `color-mix(in srgb, ${colorVar} 10%, transparent)`;
-    chip.style.borderColor = `color-mix(in srgb, ${colorVar} 20%, transparent)`;
+    // 색 하나만 인라인으로 꽂고 면·글자·테두리는 CSS가 뽑는다. v2처럼 세 속성을 인라인으로
+    // 쓰면 인라인이 시트를 이겨 hover/active를 CSS로 줄 방법이 없다(상태가 죽는다).
+    chip.style.setProperty("--jd-dtc-cat", colorVar);
     chip.addEventListener("click", (e) => {
       e.stopPropagation();
       this.emit("jd-theme-select", { theme });
@@ -332,8 +344,13 @@ export class JdDailyThemesCalendar extends JdElement {
 
     // 주도 테마
     const themeCount = new Map<string, number>();
-    trading.forEach((d) => d.themes.forEach((t) => themeCount.set(t, (themeCount.get(t) ?? 0) + 1)));
-    const dominant = [...themeCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).map(([t]) => t);
+    trading.forEach((d) =>
+      d.themes.forEach((t) => themeCount.set(t, (themeCount.get(t) ?? 0) + 1)),
+    );
+    const dominant = [...themeCount.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 2)
+      .map(([t]) => t);
     if (dominant.length) {
       const block = document.createElement("div");
       block.className = "jd-daily-themes-calendar__summary-block";
@@ -356,8 +373,13 @@ export class JdDailyThemesCalendar extends JdElement {
 
     // 왕관 종목
     const leaderSet = new Map<string, number>();
-    trading.forEach((d) => d.leaders?.forEach((l) => leaderSet.set(l.name, (leaderSet.get(l.name) ?? 0) + 1)));
-    const topLeaders = [...leaderSet.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).map(([n]) => n);
+    trading.forEach((d) =>
+      d.leaders?.forEach((l) => leaderSet.set(l.name, (leaderSet.get(l.name) ?? 0) + 1)),
+    );
+    const topLeaders = [...leaderSet.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 2)
+      .map(([n]) => n);
     if (topLeaders.length) {
       const block = document.createElement("div");
       block.className = "jd-daily-themes-calendar__summary-block";

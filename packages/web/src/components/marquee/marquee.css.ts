@@ -15,44 +15,54 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-marquee {
-    display: block;
-    overflow: hidden;
-  }
+  @layer junds.components {
+    jd-marquee {
+      display: block;
+      overflow: hidden;
+    }
 
-  .jd-marquee__track {
-    display: flex;
-    width: max-content;
-    gap: var(--jd-marquee-gap, 48px);
-    will-change: transform;
-    animation: jd-marquee-scroll var(--jd-marquee-duration, 30s) linear infinite;
-  }
+    .jd-marquee__track {
+      display: flex;
+      width: max-content;
+      gap: var(--jd-marquee-gap, 48px);
+      will-change: transform;
+      animation: jd-marquee-scroll var(--jd-marquee-duration, 30s) linear infinite;
+    }
 
-  .jd-marquee__group {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    gap: var(--jd-marquee-gap, 48px);
-  }
+    .jd-marquee__group {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      gap: var(--jd-marquee-gap, 48px);
+    }
 
-  jd-marquee[direction="right"] > .jd-marquee__track { animation-direction: reverse; }
+    jd-marquee[direction="right"] > .jd-marquee__track {
+      animation-direction: reverse;
+    }
 
-  /* v2는 마우스 호버만 알았다 — 키보드 포커스가 안으로 들어와도 멈춘다 */
-  jd-marquee:not([no-pause]):hover > .jd-marquee__track,
-  jd-marquee:not([no-pause]):focus-within > .jd-marquee__track,
-  jd-marquee[paused] > .jd-marquee__track { animation-play-state: paused; }
+    /* v2는 마우스 호버만 알았다 — 키보드 포커스가 안으로 들어와도 멈춘다 */
+    jd-marquee:not([no-pause]):hover > .jd-marquee__track,
+    jd-marquee:not([no-pause]):focus-within > .jd-marquee__track,
+    jd-marquee[paused] > .jd-marquee__track {
+      animation-play-state: paused;
+    }
 
-  @keyframes jd-marquee-scroll {
-    from { transform: translateX(0); }
-    to {
-      transform: translateX(
-        calc((-100% - var(--jd-marquee-gap, 48px)) / var(--jd-marquee-copies, 2))
-      );
+    @keyframes jd-marquee-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(
+          calc((-100% - var(--jd-marquee-gap, 48px)) / var(--jd-marquee-copies, 2))
+        );
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .jd-marquee__track {
+        animation: none;
+        will-change: auto;
+      }
     }
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .jd-marquee__track { animation: none; will-change: auto; }
-  }
-}`;
+`;

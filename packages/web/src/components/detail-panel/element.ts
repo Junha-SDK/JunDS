@@ -31,10 +31,7 @@
  * 그 밖에 `max-width: 100vw`를 걸어 420px 패널이 모바일 뷰포트를 넘지 않게 했다.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createKeyHandler } from "../../behaviors/input.js";
@@ -192,9 +189,7 @@ export class JdDetailPanel extends JdElement {
     this.#statusEl = header.querySelector(".jd-detail-panel__status")!;
     this.#tablist = this.querySelector(":scope > .jd-detail-panel__tabs")!;
     this.#body = this.querySelector(":scope > .jd-detail-panel__body")!;
-    header
-      .querySelector(".jd-detail-panel__close")
-      ?.addEventListener("click", this.#onCloseClick);
+    header.querySelector(".jd-detail-panel__close")?.addEventListener("click", this.#onCloseClick);
   }
 
   #build(): void {
@@ -346,9 +341,9 @@ export class JdDetailPanel extends JdElement {
     const n = this.#tabs.length;
     if (n === 0) return;
     const btns = this.#buttons();
-    const focused = (this.ownerDocument.activeElement as Element | null)?.closest<HTMLButtonElement>(
-      "button.jd-detail-panel__tab",
-    );
+    const focused = (
+      this.ownerDocument.activeElement as Element | null
+    )?.closest<HTMLButtonElement>("button.jd-detail-panel__tab");
     const from = focused ? btns.indexOf(focused) : this.#activeIndex();
     this.#selectAt((((from + delta) % n) + n) % n);
   }

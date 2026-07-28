@@ -51,8 +51,7 @@ function normalizeFrame(v: FrameInput): JdMarketIndexFrame {
   };
 }
 
-const px = (v: number, fallback: number): number =>
-  Number.isFinite(v) && v > 0 ? v : fallback;
+const px = (v: number, fallback: number): number => (Number.isFinite(v) && v > 0 ? v : fallback);
 
 export class JdMarketIndexChart extends JdElement {
   static override tag = "jd-market-index-chart";
@@ -82,7 +81,8 @@ export class JdMarketIndexChart extends JdElement {
     return this.#timeframes;
   }
   set timeframes(v: string[]) {
-    this.#timeframes = Array.isArray(v) && v.length > 0 ? v.map((s) => String(s)) : [...DEFAULT_TFS];
+    this.#timeframes =
+      Array.isArray(v) && v.length > 0 ? v.map((s) => String(s)) : [...DEFAULT_TFS];
     this.requestUpdate();
   }
 
@@ -123,7 +123,9 @@ export class JdMarketIndexChart extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent || "null");

@@ -171,11 +171,14 @@ export class JdOnboarding extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 */
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as unknown;
-      if (Array.isArray(parsed)) this.#steps = (parsed as JdOnboardingStep[]).map((s) => ({ ...s }));
+      if (Array.isArray(parsed))
+        this.#steps = (parsed as JdOnboardingStep[]).map((s) => ({ ...s }));
     } catch {
       console.warn("[junds] <jd-onboarding> JSON 슬롯 파싱 실패 — 무시합니다.");
     }

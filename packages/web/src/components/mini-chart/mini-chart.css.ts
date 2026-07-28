@@ -16,23 +16,40 @@ import { css } from "../../core/styles.js";
  * 경계에서 절반이 잘렸다. 지오메트리를 건드리지 않고 잘림만 없앤다.
  */
 export default css`
-@layer junds.base {
-  jd-mini-chart:not(:defined) { display: inline-block; }
-}
-@layer junds.components {
-  jd-mini-chart {
-    display: inline-block;
-    line-height: 0; /* svg 아래 baseline 여백 제거 */
-    color: var(--jd-mini-chart-color, var(--jd-color-primary));
+  @layer junds.base {
+    jd-mini-chart:not(:defined) {
+      display: inline-block;
+    }
   }
+  @layer junds.components {
+    jd-mini-chart {
+      display: inline-block;
+      line-height: 0; /* svg 아래 baseline 여백 제거 */
+      color: var(--jd-mini-chart-color, var(--jd-color-primary));
+    }
 
-  .jd-mini-chart__svg { display: block; overflow: visible; }
+    .jd-mini-chart__svg {
+      display: block;
+      overflow: visible;
+    }
 
-  .jd-mini-chart__area { fill: currentColor; opacity: var(--jd-opacity-10); }
-  .jd-mini-chart__line {
-    fill: none; stroke: currentColor; stroke-width: 1.5;
-    stroke-linecap: round; stroke-linejoin: round;
+    .jd-mini-chart__area {
+      fill: currentColor;
+      opacity: var(--jd-opacity-10);
+    }
+    .jd-mini-chart__line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .jd-mini-chart__head {
+      fill: currentColor;
+    }
+    .jd-mini-chart__bar {
+      fill: currentColor;
+      opacity: var(--jd-opacity-80);
+    }
   }
-  .jd-mini-chart__head { fill: currentColor; }
-  .jd-mini-chart__bar { fill: currentColor; opacity: var(--jd-opacity-80); }
-}`;
+`;

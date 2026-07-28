@@ -26,7 +26,10 @@ const DEFAULT_VALUE = "* * * * *";
 
 /** 표현식 → 5칸. 형식이 어긋나면 v2처럼 전량 와일드카드 */
 export function cronParts(value: string): string[] {
-  const parts = String(value ?? "").trim().split(/\s+/).filter(Boolean);
+  const parts = String(value ?? "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
   return parts.length === 5 ? parts : [WILDCARD, WILDCARD, WILDCARD, WILDCARD, WILDCARD];
 }
 
@@ -106,9 +109,7 @@ export class JdCronExpression extends JdElement {
 
   /** 기존 골격 입양(§3.3). 구조가 어긋나면 false */
   #collect(): boolean {
-    const inputs = Array.from(
-      this.querySelectorAll<HTMLInputElement>("input.jd-cron__input"),
-    );
+    const inputs = Array.from(this.querySelectorAll<HTMLInputElement>("input.jd-cron__input"));
     const valueEl = this.querySelector<HTMLElement>(".jd-cron__value");
     const descEl = this.querySelector<HTMLElement>(".jd-cron__desc");
     if (inputs.length !== FIELD_LABELS.length || !valueEl || !descEl) return false;

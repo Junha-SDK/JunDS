@@ -1,48 +1,59 @@
 /**
  * jd-mark CSS — v2 primitives/Mark(6색 × 배경형/밑줄형 + 다크 반전)의 토큰 번역.
- * 형광펜 색은 의미축(primary/success/…)이 없어 v2 Tailwind 팔레트 리터럴 승계
- * (DEC-025-1). 색당 3변수(--_jd-mark-bg/fg/line)로 압축해 규칙 수를 6분의 1로 줄였다.
- * 다크 셀렉터는 B4 BatteryIndicator와 동일 규약([data-jd-theme] + 전환기 [data-theme]).
+ *
+ * 형광펜 6색은 의미축(primary/success/…)이 아니라 **계열색**이라 `--jd-color-hue-*`에서
+ * 고른다(§8). v2 Tailwind 리터럴 승계본은 색당 3변수(bg/fg/line) × 라이트·다크 2벌 =
+ * 30개 리터럴이었고, 그 30개는 팔레트 밖 형광색이라 브랜드 전환·다크 보정이 이 컴포넌트만
+ * 비껴갔다.
+ *
+ * 이제 색당 앵커 하나(--_jd-mark-hue)만 두고 면·글자·밑줄은 톤 레시피(DEC-044)가
+ * 파생한다 — 모드가 갖는 것은 색이 아니라 혼합비라 다크 셀렉터 6벌이 통째로 사라진다.
+ * `--jd-tone`을 호스트가 아니라 `<mark>`에 싣는 것은 jd-highlight 선례 — 마크 안에 든
+ * 톤 컴포넌트가 형광펜 색을 물려받지 않게 하는 경계다.
  */
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-mark {
-    display: inline;
-    /* yellow 기본 — 200/70 · 900 · 400 */
-    --_jd-mark-bg: rgb(254 240 138 / 0.7);
-    --_jd-mark-fg: #713f12;
-    --_jd-mark-line: #facc15;
-  }
-  jd-mark[color="blue"] { --_jd-mark-bg: rgb(191 219 254 / 0.7); --_jd-mark-fg: #1e3a8a; --_jd-mark-line: #60a5fa; }
-  jd-mark[color="green"] { --_jd-mark-bg: rgb(187 247 208 / 0.7); --_jd-mark-fg: #14532d; --_jd-mark-line: #4ade80; }
-  jd-mark[color="pink"] { --_jd-mark-bg: rgb(251 207 232 / 0.7); --_jd-mark-fg: #831843; --_jd-mark-line: #f472b6; }
-  jd-mark[color="purple"] { --_jd-mark-bg: rgb(233 213 255 / 0.7); --_jd-mark-fg: #581c87; --_jd-mark-line: #c084fc; }
-  jd-mark[color="orange"] { --_jd-mark-bg: rgb(254 215 170 / 0.7); --_jd-mark-fg: #7c2d12; --_jd-mark-line: #fb923c; }
+  @layer junds.components {
+    jd-mark {
+      display: inline;
+      --_jd-mark-hue: var(--jd-color-hue-amber); /* yellow 기본 */
+    }
+    jd-mark[color="blue"] {
+      --_jd-mark-hue: var(--jd-color-hue-blue);
+    }
+    jd-mark[color="green"] {
+      --_jd-mark-hue: var(--jd-color-hue-green);
+    }
+    jd-mark[color="pink"] {
+      --_jd-mark-hue: var(--jd-color-hue-pink);
+    }
+    jd-mark[color="purple"] {
+      --_jd-mark-hue: var(--jd-color-hue-purple);
+    }
+    jd-mark[color="orange"] {
+      --_jd-mark-hue: var(--jd-color-hue-orange);
+    }
 
-  /* 다크: v2 dark:bg-*-500/30 + dark:text-*-100 */
-  [data-jd-theme="dark"] jd-mark,
-  [data-theme="dark"] jd-mark { --_jd-mark-bg: rgb(234 179 8 / 0.3); --_jd-mark-fg: #fef9c3; }
-  [data-jd-theme="dark"] jd-mark[color="blue"],
-  [data-theme="dark"] jd-mark[color="blue"] { --_jd-mark-bg: rgb(59 130 246 / 0.3); --_jd-mark-fg: #dbeafe; }
-  [data-jd-theme="dark"] jd-mark[color="green"],
-  [data-theme="dark"] jd-mark[color="green"] { --_jd-mark-bg: rgb(34 197 94 / 0.3); --_jd-mark-fg: #dcfce7; }
-  [data-jd-theme="dark"] jd-mark[color="pink"],
-  [data-theme="dark"] jd-mark[color="pink"] { --_jd-mark-bg: rgb(236 72 153 / 0.3); --_jd-mark-fg: #fce7f3; }
-  [data-jd-theme="dark"] jd-mark[color="purple"],
-  [data-theme="dark"] jd-mark[color="purple"] { --_jd-mark-bg: rgb(168 85 247 / 0.3); --_jd-mark-fg: #f3e8ff; }
-  [data-jd-theme="dark"] jd-mark[color="orange"],
-  [data-theme="dark"] jd-mark[color="orange"] { --_jd-mark-bg: rgb(249 115 22 / 0.3); --_jd-mark-fg: #ffedd5; }
-
-  .jd-mark {
-    padding-inline: var(--jd-space-0-5);
-    border-radius: var(--jd-radius-sm);
-    background: var(--_jd-mark-bg); color: var(--_jd-mark-fg);
+    .jd-mark {
+      --jd-tone: var(--_jd-mark-hue);
+      --jd-tone-face: color-mix(in srgb, var(--jd-tone) var(--jd-tone-lift), #ffffff);
+      padding-inline: var(--jd-space-0-5);
+      border-radius: var(--jd-radius-sm);
+      /* 형광펜은 옅게 칠한 면 — bg-strong-mix가 v2 200/70·500/30 두 값을 한 공식으로 덮는다 */
+      background: color-mix(in srgb, var(--jd-tone-face) var(--jd-tone-bg-strong-mix), transparent);
+      color: color-mix(in srgb, var(--jd-tone) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward));
+    }
+    /* 밑줄형은 글자색을 물려받으므로 선 자체가 색을 말한다 — 면(face)에서 뽑아
+     라이트에서는 짙게, 다크에서는 들어 올려진 값으로 자동 대응한다. */
+    jd-mark[underline] .jd-mark {
+      padding-inline: 0;
+      background: transparent;
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: var(--jd-border-medium);
+      text-underline-offset: 2px;
+      text-decoration-color: color-mix(in srgb, var(--jd-tone-face) 76%, transparent);
+    }
   }
-  jd-mark[underline] .jd-mark {
-    padding-inline: 0; background: transparent; color: inherit;
-    text-decoration: underline; text-decoration-thickness: 2px;
-    text-underline-offset: 2px; text-decoration-color: var(--_jd-mark-line);
-  }
-}`;
+`;

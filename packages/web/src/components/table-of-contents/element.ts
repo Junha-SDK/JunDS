@@ -23,10 +23,7 @@
  * 배치에서는 최초 수집이 헤딩 파싱 전에 일어난다 — 파싱 중이면 완료 후 한 번 더 줍는다.
  */
 import { adoptStyles } from "../../core/styles.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
 import { jdUid } from "../../core/uid.js";
 import { on } from "../../behaviors/input.js";
 import { JdScrollSpy, type JdScrollSpySection } from "../scroll-spy/element.js";
@@ -109,7 +106,9 @@ export class JdTableOfContents extends JdScrollSpy {
 
     const taken = new Set<string>();
     const rows: JdScrollSpySection[] = [];
-    const heads = Array.from(scope.querySelectorAll<HTMLElement>(this.selector || DEFAULT_SELECTOR));
+    const heads = Array.from(
+      scope.querySelectorAll<HTMLElement>(this.selector || DEFAULT_SELECTOR),
+    );
     heads.forEach((h, i) => {
       const text = (h.textContent ?? "").trim();
       if (!h.id && !text) return; // 앵커도 이름도 없는 노드는 목차에 올릴 수 없다

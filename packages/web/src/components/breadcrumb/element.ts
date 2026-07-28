@@ -13,11 +13,7 @@
  *     항목마다 통과했다. v3는 `aria-hidden="true"` + 텍스트 구분자 옵션(`separator`).
  */
 import { JdElement } from "../../core/element.js";
-import {
-  isContentEmpty,
-  setContent,
-  type JdContent,
-} from "../../core/content.js";
+import { isContentEmpty, setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import breadcrumbStyles from "./breadcrumb.css.js";
 
@@ -86,7 +82,9 @@ export class JdBreadcrumb extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdBreadcrumbItem[];

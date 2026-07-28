@@ -5,104 +5,148 @@
  * `gap-0.5 px-2 py-1.5 border-b bg-gray-50/80`, 버튼 `w-7 h-7 rounded-md text-xs
  * font-semibold text-muted hover:bg-gray-200`, 편집영역 `px-3 py-2 text-sm`,
  * 플레이스홀더 `text-muted-light`.
+ *
+ * ⚠️ 툴바의 v2 `bg-gray-50/80`은 "본문보다 한 톤 들어간 크롬"이지 어두운 크롬이 아니다.
+ * --jd-color-surface(#161329)는 라이트에서도 어두운 면이라 그대로 쓰면 흰 에디터 위에
+ * 검은 툴바가 얹히고, 그 위 모드추종 잉크(muted)가 라이트에서 사라진다(§4).
+ * 에디터는 앱의 본문 입력면이라 card 계열이 맞다 — muted를 소량 섞어 한 톤만 낮춘다.
+ * 플레이스홀더도 muted-light(라이트 2.7:1)에서 muted로 올렸다(§9).
  */
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.base {
-  jd-rich-text-editor:not(:defined) { display: none; }
-}
-@layer junds.components {
-  jd-rich-text-editor {
-    display: block;
-    border: var(--jd-border-thin) solid var(--jd-color-border);
-    border-radius: var(--jd-radius-xl);
-    overflow: hidden;
-    background: var(--jd-color-card);
-    color: var(--jd-color-foreground);
-    font-family: var(--jd-font-sans);
-    transition:
-      border-color var(--jd-duration-fast) var(--jd-easing-ease-out),
-      box-shadow var(--jd-duration-fast) var(--jd-easing-ease-out);
+  @layer junds.base {
+    jd-rich-text-editor:not(:defined) {
+      display: none;
+    }
   }
-  jd-rich-text-editor[data-focused] {
-    border-color: var(--jd-color-primary);
-    box-shadow: 0 0 0 3px var(--jd-color-primary-glow);
-  }
-  jd-rich-text-editor[data-disabled] {
-    opacity: var(--jd-opacity-50);
-    pointer-events: none;
-  }
+  @layer junds.components {
+    jd-rich-text-editor {
+      display: block;
+      border: var(--jd-border-thin) solid var(--jd-color-border);
+      border-radius: var(--jd-radius-xl);
+      overflow: hidden;
+      background: var(--jd-color-card);
+      color: var(--jd-color-foreground);
+      font-family: var(--jd-font-sans);
+      transition: border-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+        box-shadow var(--jd-duration-fast) var(--jd-easing-ease-out);
+    }
+    jd-rich-text-editor[data-focused] {
+      border-color: var(--jd-color-primary);
+      box-shadow: var(--jd-shadow-focus-ring);
+    }
+    jd-rich-text-editor[data-disabled] {
+      opacity: var(--jd-opacity-50);
+      pointer-events: none;
+    }
 
-  .jd-rte__toolbar {
-    display: flex;
-    align-items: center;
-    gap: var(--jd-space-0-5);
-    padding: var(--jd-space-1-5) var(--jd-space-2);
-    border-bottom: var(--jd-border-thin) solid var(--jd-color-border-light);
-    background: var(--jd-color-surface);
-  }
+    .jd-rte__toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--jd-space-0-5);
+      padding: var(--jd-space-1-5) var(--jd-space-2);
+      border-bottom: var(--jd-border-thin) solid var(--jd-color-border-light);
+      background: color-mix(in srgb, var(--jd-color-muted) 8%, var(--jd-color-card));
+      /* 호스트가 overflow:hidden 이라 좁은 폭에서는 넘친 버튼이 잘려 사라진다 —
+         줄을 늘려 받는다(§6) */
+      flex-wrap: wrap;
+    }
 
-  .jd-rte__tool {
-    width: 1.75rem;
-    height: 1.75rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 0;
-    border-radius: var(--jd-radius-md);
-    background: transparent;
-    color: var(--jd-color-muted);
-    font-size: var(--jd-text-xs);
-    font-weight: var(--jd-weight-semibold);
-    cursor: pointer;
-    transition:
-      background var(--jd-duration-fast) var(--jd-easing-ease-out),
-      color var(--jd-duration-fast) var(--jd-easing-ease-out);
-  }
-  .jd-rte__tool:hover {
-    background: color-mix(in srgb, var(--jd-color-muted) 18%, transparent);
-    color: var(--jd-color-foreground);
-  }
-  .jd-rte__tool:focus-visible {
-    outline: none;
-    box-shadow: var(--jd-shadow-focus-ring);
-  }
-  /* 활성 서식 — aria-pressed로 표시 */
-  .jd-rte__tool[aria-pressed="true"] {
-    background: var(--jd-color-primary-light);
-    color: var(--jd-color-primary);
-  }
-  .jd-rte__tool:disabled { cursor: not-allowed; opacity: var(--jd-opacity-50); }
+    .jd-rte__tool {
+      width: 1.75rem;
+      height: 1.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: var(--jd-radius-md);
+      background: transparent;
+      color: var(--jd-color-muted);
+      font-size: var(--jd-text-xs);
+      font-weight: var(--jd-weight-semibold);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color var(--jd-duration-snap) var(--jd-easing-ease-out),
+        color var(--jd-duration-snap) var(--jd-easing-ease-out),
+        box-shadow var(--jd-duration-snap) var(--jd-easing-ease-out),
+        scale var(--jd-duration-press) var(--jd-easing-ease-out);
+    }
+    .jd-rte__tool:hover {
+      background: color-mix(in srgb, var(--jd-color-muted) 18%, transparent);
+      color: var(--jd-color-foreground);
+    }
+    .jd-rte__tool:active {
+      scale: 0.97;
+      background: color-mix(in srgb, var(--jd-color-muted) 26%, transparent);
+      box-shadow: inset 0 1px 2px var(--jd-color-shade);
+    }
+    /* 툴바가 좁아 바깥 아웃라인이 이웃 버튼과 겹친다 — 링을 그림자로 준다(§1) */
+    .jd-rte__tool:focus-visible {
+      outline: none;
+      box-shadow: var(--jd-shadow-focus-ring);
+    }
+    /* 활성 서식 — aria-pressed로 표시 */
+    .jd-rte__tool[aria-pressed="true"] {
+      background: var(--jd-color-primary-light);
+      color: var(--jd-color-primary-ink);
+    }
+    .jd-rte__tool:disabled {
+      cursor: not-allowed;
+      opacity: var(--jd-opacity-50);
+    }
 
-  /* 버튼 글리프에 서식 미리보기(v2 font-extrabold/italic/underline/line-through) */
-  .jd-rte__tool[data-style="bold"] { font-weight: var(--jd-weight-bold); }
-  .jd-rte__tool[data-style="italic"] { font-style: italic; }
-  .jd-rte__tool[data-style="underline"] { text-decoration: underline; }
-  .jd-rte__tool[data-style="strike"] { text-decoration: line-through; }
+    /* 버튼 글리프에 서식 미리보기(v2 font-extrabold/italic/underline/line-through) */
+    .jd-rte__tool[data-style="bold"] {
+      font-weight: var(--jd-weight-bold);
+    }
+    .jd-rte__tool[data-style="italic"] {
+      font-style: italic;
+    }
+    .jd-rte__tool[data-style="underline"] {
+      text-decoration: underline;
+    }
+    .jd-rte__tool[data-style="strike"] {
+      text-decoration: line-through;
+    }
 
-  .jd-rte__editor {
-    position: relative;
-    padding: var(--jd-space-2) var(--jd-space-3);
-    font-size: var(--jd-text-sm);
-    color: var(--jd-color-foreground);
-    outline: none;
-    line-height: var(--jd-leading-relaxed);
-    overflow-wrap: break-word;
-  }
-  /* 플레이스홀더 — 비었고 포커스 없을 때만(v2 조건 동일) */
-  jd-rich-text-editor[data-empty]:not([data-focused]) .jd-rte__editor::before {
-    content: attr(data-placeholder);
-    color: var(--jd-color-muted-light);
-    pointer-events: none;
-  }
+    /* outline: none 의 대체 표시는 호스트의 [data-focused] 링이다 — 편집영역 자체에
+       아웃라인을 그리면 컨테이너 안쪽에서 두 겹으로 보인다(§1) */
+    .jd-rte__editor {
+      position: relative;
+      padding: var(--jd-space-2) var(--jd-space-3);
+      font-size: var(--jd-text-sm);
+      color: var(--jd-color-foreground);
+      outline: none;
+      line-height: var(--jd-leading-relaxed);
+      overflow-wrap: break-word;
+    }
+    /* 플레이스홀더 — 비었고 포커스 없을 때만(v2 조건 동일) */
+    jd-rich-text-editor[data-empty]:not([data-focused]) .jd-rte__editor::before {
+      content: attr(data-placeholder);
+      color: var(--jd-color-muted);
+      pointer-events: none;
+    }
 
-  /* 편집 영역 내부 블록 여백 정리 — prose-sm 근사 */
-  .jd-rte__editor :where(h2) {
-    font-size: var(--jd-text-lg);
-    font-weight: var(--jd-weight-semibold);
-    margin: var(--jd-space-2) 0 var(--jd-space-1);
+    /* 편집 영역 내부 블록 여백 정리 — prose-sm 근사 */
+    .jd-rte__editor :where(h2) {
+      font-size: var(--jd-text-lg);
+      font-weight: var(--jd-weight-semibold);
+      margin: var(--jd-space-2) 0 var(--jd-space-1);
+    }
+    .jd-rte__editor :where(ul, ol) {
+      padding-left: var(--jd-space-5);
+      margin: var(--jd-space-1) 0;
+    }
+    .jd-rte__editor :where(p) {
+      margin: 0 0 var(--jd-space-1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      jd-rich-text-editor,
+      .jd-rte__tool {
+        transition: none;
+      }
+    }
   }
-  .jd-rte__editor :where(ul, ol) { padding-left: var(--jd-space-5); margin: var(--jd-space-1) 0; }
-  .jd-rte__editor :where(p) { margin: 0 0 var(--jd-space-1); }
-}`;
+`;

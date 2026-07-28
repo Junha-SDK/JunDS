@@ -14,7 +14,7 @@ export class JdContainer extends JdBox {
   static override props = {
     ...STYLE_PROPS,
     size: { type: String, default: "lg", reflect: true }, // max-width 프리셋 CSS 훅
-    noCenter: { type: Boolean, reflect: true },           // attr: no-center
+    noCenter: { type: Boolean, reflect: true }, // attr: no-center
   };
 
   declare size: string;

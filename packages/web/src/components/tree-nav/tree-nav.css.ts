@@ -6,14 +6,21 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-tree-nav { display: block; inline-size: 100%; padding-block: 0; }
+  @layer junds.components {
+    jd-tree-nav {
+      display: block;
+      inline-size: 100%;
+      padding-block: 0;
+    }
 
-  jd-tree-nav .jd-tree-view__row { color: var(--jd-color-muted); }
+    jd-tree-nav .jd-tree-view__row {
+      color: var(--jd-color-muted);
+    }
 
-  jd-tree-nav .jd-tree-view__item[aria-selected="true"] > .jd-tree-view__row {
-    background: color-mix(in srgb, var(--jd-color-muted) 12%, transparent);
-    color: var(--jd-color-foreground);
-    font-weight: var(--jd-weight-medium);
+    jd-tree-nav .jd-tree-view__item[aria-selected="true"] > .jd-tree-view__row {
+      background: color-mix(in srgb, var(--jd-color-muted) 12%, transparent);
+      color: var(--jd-color-foreground);
+      font-weight: var(--jd-weight-medium);
+    }
   }
-}`;
+`;

@@ -121,7 +121,11 @@ export class JdFzoneCard extends JdElement {
 
     info.append(
       row("현재가", (this.#price = valueSpan("jd-fzone-card__price"))),
-      row("", (this.#cap = document.createElement("span")), (this.#pct = valueSpan("jd-fzone-card__pct"))),
+      row(
+        "",
+        (this.#cap = document.createElement("span")),
+        (this.#pct = valueSpan("jd-fzone-card__pct")),
+      ),
       row("", (this.#amount = document.createElement("span"))),
     );
     this.#cap.className = "jd-fzone-card__meta";

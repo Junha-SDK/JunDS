@@ -41,9 +41,7 @@ function writeRecent(key: string, items: string[]): void {
   if (typeof window === "undefined") return;
   try {
     window.localStorage.setItem(key, JSON.stringify(items));
-    window.dispatchEvent(
-      new CustomEvent<RecentChangeDetail>(RECENT_EVENT, { detail: { key } }),
-    );
+    window.dispatchEvent(new CustomEvent<RecentChangeDetail>(RECENT_EVENT, { detail: { key } }));
   } catch {
     // 용량 초과·사생활 모드 — 조용히 무시(v2 동형)
   }

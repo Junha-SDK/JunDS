@@ -164,7 +164,9 @@ export class JdComponentShowcase extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdShowcaseItem[];
@@ -311,8 +313,7 @@ export class JdComponentShowcase extends JdElement {
       if (cat && item.category !== cat) return false;
       if (!q) return true;
       return (
-        item.label.toLowerCase().includes(q) ||
-        (item.description ?? "").toLowerCase().includes(q)
+        item.label.toLowerCase().includes(q) || (item.description ?? "").toLowerCase().includes(q)
       );
     });
   }

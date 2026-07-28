@@ -109,7 +109,9 @@ export class JdPricingPage extends JdElement {
     this.#readJson();
 
     // 저작 푸터 CTA 수거
-    const footerNodes = Array.from(this.children).filter((c) => c.getAttribute("slot") === "footer");
+    const footerNodes = Array.from(this.children).filter(
+      (c) => c.getAttribute("slot") === "footer",
+    );
 
     const head = document.createElement("div");
     head.className = "jd-pricing-page__head";
@@ -177,7 +179,8 @@ export class JdPricingPage extends JdElement {
         faqs?: JdPricingFaq[];
         toggleLabels?: JdPricingToggleLabels;
       };
-      if (Array.isArray(j.monthlyPlans) && this.#monthly.length === 0) this.#monthly = j.monthlyPlans;
+      if (Array.isArray(j.monthlyPlans) && this.#monthly.length === 0)
+        this.#monthly = j.monthlyPlans;
       if (Array.isArray(j.yearlyPlans) && this.#yearlyPlans.length === 0)
         this.#yearlyPlans = j.yearlyPlans;
       if (Array.isArray(j.faqs) && this.#faqs.length === 0) this.#faqs = j.faqs;

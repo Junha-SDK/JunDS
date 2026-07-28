@@ -351,8 +351,7 @@ export class JdHoldingFormModal extends JdModal {
   #refresh(): void {
     this.#titleEl.textContent =
       this.heading || (this.#initial ? "보유 종목 수정" : "보유 종목 추가");
-    this.#submitBtn.textContent =
-      this.submitLabel || (this.#initial ? "저장" : "추가");
+    this.#submitBtn.textContent = this.submitLabel || (this.#initial ? "저장" : "추가");
 
     // 제안 목록
     const suggestions = this.#showSuggest && !this.#locked ? this.#search() : [];

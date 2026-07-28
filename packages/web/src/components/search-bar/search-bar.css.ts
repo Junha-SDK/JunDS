@@ -10,21 +10,37 @@ import { css } from "../../core/styles.js";
  * 번역(DEC-025-4 선례).
  */
 export default css`
-@layer junds.components {
-  jd-search-bar { display: block; width: 100%; }
+  @layer junds.components {
+    jd-search-bar {
+      display: block;
+      width: 100%;
+    }
 
-  jd-search-bar .jd-search-input__box { height: 2.5rem; } /* v2 md h-10 */
-  jd-search-bar .jd-search-input__icon > svg { width: 16px; height: 16px; }
-  jd-search-bar[disabled] .jd-search-input__box {
-    opacity: var(--jd-opacity-50); cursor: not-allowed;
-  }
+    jd-search-bar .jd-search-input__box {
+      height: 2.5rem;
+    } /* v2 md h-10 */
+    jd-search-bar .jd-search-input__icon > svg {
+      width: 16px;
+      height: 16px;
+    }
+    jd-search-bar[disabled] .jd-search-input__box {
+      opacity: var(--jd-opacity-50);
+      cursor: not-allowed;
+    }
 
-  jd-search-bar[size="sm"] .jd-search-input__box {
-    height: 2rem; padding-inline: var(--jd-space-2-5);
+    jd-search-bar[size="sm"] .jd-search-input__box {
+      height: 2rem;
+      padding-inline: var(--jd-space-2-5);
+    }
+    jd-search-bar[size="sm"] .jd-search-input__input {
+      font-size: var(--jd-text-xs);
+    }
+    jd-search-bar[size="lg"] .jd-search-input__box {
+      height: 3rem;
+      padding-inline: var(--jd-space-4);
+    }
+    jd-search-bar[size="lg"] .jd-search-input__input {
+      font-size: var(--jd-text-lg);
+    }
   }
-  jd-search-bar[size="sm"] .jd-search-input__input { font-size: var(--jd-text-xs); }
-  jd-search-bar[size="lg"] .jd-search-input__box {
-    height: 3rem; padding-inline: var(--jd-space-4);
-  }
-  jd-search-bar[size="lg"] .jd-search-input__input { font-size: var(--jd-text-lg); }
-}`;
+`;

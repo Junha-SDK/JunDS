@@ -15,62 +15,83 @@ import { css } from "../../core/styles.js";
  *   할인율은 xl을 제외하면 현재가와 같은 크기.
  */
 export default css`
-@layer junds.base {
-  jd-price-display:not(:defined) { display: inline-flex; }
-}
-@layer junds.components {
-  jd-price-display {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--jd-space-1-5);
-    font-family: var(--jd-font-sans);
-    color: var(--jd-color-foreground);
+  @layer junds.base {
+    jd-price-display:not(:defined) {
+      display: inline-flex;
+    }
   }
-  jd-price-display[layout="stacked"] {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--jd-space-0-5);
-  }
+  @layer junds.components {
+    jd-price-display {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--jd-space-1-5);
+      font-family: var(--jd-font-sans);
+      color: var(--jd-color-foreground);
+    }
+    jd-price-display[layout="stacked"] {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--jd-space-0-5);
+    }
 
-  .jd-price-display__current {
-    display: inline-flex;
-    align-items: baseline;
-    font-weight: var(--jd-weight-bold);
-    font-variant-numeric: tabular-nums;
-    color: var(--jd-color-foreground);
-  }
-  .jd-price-display__suffix {
-    margin-inline-start: var(--jd-space-0-5);
-    font-size: var(--jd-text-xs);
-    font-weight: var(--jd-weight-normal);
-    color: var(--jd-color-muted);
-  }
-  .jd-price-display__discount {
-    font-weight: var(--jd-weight-bold);
-    font-variant-numeric: tabular-nums;
-    color: var(--jd-color-danger);
-  }
-  .jd-price-display__original {
-    color: var(--jd-color-muted);
-    text-decoration: line-through;
-    font-variant-numeric: tabular-nums;
-  }
+    .jd-price-display__current {
+      display: inline-flex;
+      align-items: baseline;
+      font-weight: var(--jd-weight-bold);
+      font-variant-numeric: tabular-nums;
+      color: var(--jd-color-foreground);
+    }
+    .jd-price-display__suffix {
+      margin-inline-start: var(--jd-space-0-5);
+      font-size: var(--jd-text-xs);
+      font-weight: var(--jd-weight-normal);
+      color: var(--jd-color-muted);
+    }
+    .jd-price-display__discount {
+      font-weight: var(--jd-weight-bold);
+      font-variant-numeric: tabular-nums;
+      color: var(--jd-color-danger);
+    }
+    .jd-price-display__original {
+      color: var(--jd-color-muted);
+      text-decoration: line-through;
+      font-variant-numeric: tabular-nums;
+    }
 
-  /* size md (기본) */
-  .jd-price-display__current,
-  .jd-price-display__discount { font-size: var(--jd-text-lg); }
-  .jd-price-display__original { font-size: var(--jd-text-xs); }
+    /* size md (기본) */
+    .jd-price-display__current,
+    .jd-price-display__discount {
+      font-size: var(--jd-text-lg);
+    }
+    .jd-price-display__original {
+      font-size: var(--jd-text-xs);
+    }
 
-  jd-price-display[size="sm"] .jd-price-display__current,
-  jd-price-display[size="sm"] .jd-price-display__discount { font-size: var(--jd-text-md); }
-  jd-price-display[size="sm"] .jd-price-display__original { font-size: var(--jd-text-xs); }
+    jd-price-display[size="sm"] .jd-price-display__current,
+    jd-price-display[size="sm"] .jd-price-display__discount {
+      font-size: var(--jd-text-md);
+    }
+    jd-price-display[size="sm"] .jd-price-display__original {
+      font-size: var(--jd-text-xs);
+    }
 
-  jd-price-display[size="lg"] .jd-price-display__current,
-  jd-price-display[size="lg"] .jd-price-display__discount { font-size: var(--jd-text-2xl); }
-  jd-price-display[size="lg"] .jd-price-display__original { font-size: var(--jd-text-md); }
+    jd-price-display[size="lg"] .jd-price-display__current,
+    jd-price-display[size="lg"] .jd-price-display__discount {
+      font-size: var(--jd-text-2xl);
+    }
+    jd-price-display[size="lg"] .jd-price-display__original {
+      font-size: var(--jd-text-md);
+    }
 
-  jd-price-display[size="xl"] .jd-price-display__current { font-size: var(--jd-text-4xl); }
-  jd-price-display[size="xl"] .jd-price-display__discount { font-size: var(--jd-text-3xl); }
-  jd-price-display[size="xl"] .jd-price-display__original { font-size: var(--jd-text-lg); }
-}`;
+    jd-price-display[size="xl"] .jd-price-display__current {
+      font-size: var(--jd-text-4xl);
+    }
+    jd-price-display[size="xl"] .jd-price-display__discount {
+      font-size: var(--jd-text-3xl);
+    }
+    jd-price-display[size="xl"] .jd-price-display__original {
+      font-size: var(--jd-text-lg);
+    }
+  }
+`;

@@ -8,13 +8,15 @@ import { css } from "../../core/styles.js";
 import { GRID_PICKER_CSS } from "../../core/grid-picker.styles.js";
 
 export default css`
-@layer junds.components {
-${GRID_PICKER_CSS}
+  @layer junds.components {
+    ${GRID_PICKER_CSS}
 
-  jd-year-picker > .jd-grid-picker__grid > .jd-grid-picker__cell {
-    padding-inline: var(--jd-space-1); font-variant-numeric: tabular-nums;
+    jd-year-picker > .jd-grid-picker__grid > .jd-grid-picker__cell {
+      padding-inline: var(--jd-space-1);
+      font-variant-numeric: tabular-nums;
+    }
+    jd-year-picker > .jd-grid-picker__header > .jd-grid-picker__label {
+      font-variant-numeric: tabular-nums;
+    }
   }
-  jd-year-picker > .jd-grid-picker__header > .jd-grid-picker__label {
-    font-variant-numeric: tabular-nums;
-  }
-}`;
+`;

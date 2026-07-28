@@ -22,11 +22,7 @@ import formArrayStyles from "./form-array.css.js";
 
 type Item = unknown;
 type Helpers = { remove: () => void; update: (val: Item) => void };
-type RenderItem = (
-  item: Item,
-  index: number,
-  helpers: Helpers,
-) => JdContent | null | undefined;
+type RenderItem = (item: Item, index: number, helpers: Helpers) => JdContent | null | undefined;
 
 const ADD_SVG =
   `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">` +
@@ -104,7 +100,9 @@ export class JdFormArray extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent);
@@ -251,9 +249,7 @@ export class JdFormArray extends JdElement {
   /** <template> 폴백: clone → item 시드 → input마다 재수집 */
   #bindTemplate(control: HTMLElement, item: Item, index: number): void {
     const frag = this.#template!.content.cloneNode(true) as DocumentFragment;
-    const fields = Array.from(
-      frag.querySelectorAll<HTMLInputElement>("[data-field], [name]"),
-    );
+    const fields = Array.from(frag.querySelectorAll<HTMLInputElement>("[data-field], [name]"));
     const isObject = item !== null && typeof item === "object";
     const fieldName = (el: HTMLInputElement): string => el.dataset.field || el.name || "";
 

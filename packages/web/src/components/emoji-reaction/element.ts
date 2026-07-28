@@ -63,14 +63,16 @@ export class JdEmojiReaction extends JdElement {
     this.#readJson();
     this.setAttribute("role", "group");
 
-    this.#add = this.querySelector<HTMLButtonElement>(":scope > .jd-emoji-reaction__add") ?? (() => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "jd-emoji-reaction__add";
-      b.textContent = "＋";
-      this.append(b);
-      return b;
-    })();
+    this.#add =
+      this.querySelector<HTMLButtonElement>(":scope > .jd-emoji-reaction__add") ??
+      (() => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "jd-emoji-reaction__add";
+        b.textContent = "＋";
+        this.append(b);
+        return b;
+      })();
     // 입양(§3.3): 기존 칩을 회수해 재사용
     this.#items = Array.from(
       this.querySelectorAll<HTMLButtonElement>(":scope > .jd-emoji-reaction__item"),
@@ -79,7 +81,9 @@ export class JdEmojiReaction extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdEmojiReactionItem[];

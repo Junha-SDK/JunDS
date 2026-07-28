@@ -158,7 +158,9 @@ export class JdPasswordStrength extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 (WEB-03 예외 패턴) */
   #consumeJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdPasswordRuleSpec[];
@@ -197,8 +199,7 @@ export class JdPasswordStrength extends JdElement {
     if (!this.htmlFor) return;
     const root = this.getRootNode() as Document | ShadowRoot;
     const host = root.getElementById?.(this.htmlFor) ?? null;
-    const input =
-      host instanceof HTMLInputElement ? host : (host?.querySelector?.("input") ?? null);
+    const input = host instanceof HTMLInputElement ? host : host?.querySelector?.("input") ?? null;
     if (!input) return;
     this.password = input.value;
     this.#detach = on(input, "input", () => {
@@ -267,7 +268,8 @@ export class JdPasswordStrength extends JdElement {
     const text = LEVEL_LABEL[level]!;
 
     this.dataset.level = String(level);
-    for (let i = 0; i < this.#bars.length; i++) this.#bars[i]!.toggleAttribute("data-on", level >= i + 1);
+    for (let i = 0; i < this.#bars.length; i++)
+      this.#bars[i]!.toggleAttribute("data-on", level >= i + 1);
     this.#meter.setAttribute("aria-valuenow", String(level));
     this.#meter.setAttribute("aria-valuetext", text);
     this.#label.textContent = text;

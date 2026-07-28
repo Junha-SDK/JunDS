@@ -185,7 +185,9 @@ export class JdMention extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 */
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as unknown;
@@ -269,9 +271,7 @@ export class JdMention extends JdElement {
     const q = this.#query.toLowerCase();
     if (!q) return this.#users.slice();
     return this.#users.filter(
-      (u) =>
-        u.label.toLowerCase().includes(q) ||
-        Boolean(u.description?.toLowerCase().includes(q)),
+      (u) => u.label.toLowerCase().includes(q) || Boolean(u.description?.toLowerCase().includes(q)),
     );
   }
 
@@ -477,7 +477,9 @@ export class JdMention extends JdElement {
 
     this.#popup.hidden = !open;
     ta.setAttribute("aria-controls", this.#listId);
-    const row = open ? (this.#list.children[this.#activeIndex] as HTMLElement | undefined) : undefined;
+    const row = open
+      ? (this.#list.children[this.#activeIndex] as HTMLElement | undefined)
+      : undefined;
     if (row) ta.setAttribute("aria-activedescendant", row.id);
     else ta.removeAttribute("aria-activedescendant");
 

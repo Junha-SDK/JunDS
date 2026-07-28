@@ -202,9 +202,7 @@ export class JdInvestorRanking extends JdElement {
     for (const col of COLUMNS) {
       const list = this.#lists.get(col.key);
       if (!list) continue;
-      const rows = [...this.#stocks]
-        .sort((a, b) => b.net[col.key] - a.net[col.key])
-        .slice(0, top);
+      const rows = [...this.#stocks].sort((a, b) => b.net[col.key] - a.net[col.key]).slice(0, top);
       this.#paintColumn(list, col, rows);
     }
   }

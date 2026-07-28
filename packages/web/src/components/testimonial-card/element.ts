@@ -15,7 +15,9 @@ import testimonialCardStyles from "./testimonial-card.css.js";
 
 const STAR = (filled: boolean): string =>
   `<svg class="jd-testimonial-card__star" width="14" height="14" viewBox="0 0 16 16" ` +
-  `fill="${filled ? "#f59e0b" : "transparent"}" stroke="#f59e0b" stroke-width="1.5" aria-hidden="true">` +
+  `fill="${
+    filled ? "#f59e0b" : "transparent"
+  }" stroke="#f59e0b" stroke-width="1.5" aria-hidden="true">` +
   `<path d="M8 1l2.2 4.5 5 .7-3.6 3.5.85 5L8 12.3 3.55 14.7l.85-5L.8 6.2l5-.7z" stroke-linejoin="round"/></svg>`;
 
 export class JdTestimonialCard extends JdElement {

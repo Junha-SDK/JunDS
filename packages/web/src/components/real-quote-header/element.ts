@@ -206,7 +206,9 @@ export class JdRealQuoteHeader extends JdElement {
     this.#headingEl = this.querySelector(".jd-real-quote-header__heading")!;
     this.#sourceEl = this.querySelector(".jd-real-quote-header__source")!;
     this.#delayEl = this.querySelector(".jd-real-quote-header__delay")!;
-    const kvCells = this.querySelectorAll(".jd-real-quote-header__kv .jd-real-quote-header__kv-value");
+    const kvCells = this.querySelectorAll(
+      ".jd-real-quote-header__kv .jd-real-quote-header__kv-value",
+    );
     KV_KEYS.forEach((key, i) => {
       const value = kvCells[i] as HTMLElement;
       this.#kv[key] = {

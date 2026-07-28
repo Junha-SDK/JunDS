@@ -18,15 +18,8 @@
  *  - 아이콘 컨테이너는 aria-hidden(장식), 제목은 <h3>, 링크는 네이티브 <a>.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
-import {
-  isContentEmpty,
-  setContent,
-  type JdContent,
-} from "../../core/content.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
+import { isContentEmpty, setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import featureGridStyles from "./feature-grid.css.js";

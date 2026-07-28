@@ -55,8 +55,14 @@ const TRANSACTION_TAX = 0.0018;
 const DEFAULT_BROKERAGE: JdBrokerageInfo = { name: "키움증권 (영웅문)", commission: 0.00015 };
 
 const STOCK_POOL = [
-  "보성파워텍", "씨아이에스", "대원전선", "한국항공우주",
-  "SK이노베이션", "두산에너빌리티", "리노공업", "에코프로비엠",
+  "보성파워텍",
+  "씨아이에스",
+  "대원전선",
+  "한국항공우주",
+  "SK이노베이션",
+  "두산에너빌리티",
+  "리노공업",
+  "에코프로비엠",
 ] as const;
 
 const CLOSE_SVG =
@@ -105,9 +111,8 @@ export class JdPortfolioDayDetailModal extends JdModal {
     return this.#brokerage;
   }
   set brokerage(v: JdBrokerageInfo) {
-    this.#brokerage = v && typeof v === "object" && Number.isFinite(v.commission)
-      ? v
-      : DEFAULT_BROKERAGE;
+    this.#brokerage =
+      v && typeof v === "object" && Number.isFinite(v.commission) ? v : DEFAULT_BROKERAGE;
     this.requestUpdate();
   }
 
@@ -243,7 +248,16 @@ export class JdPortfolioDayDetailModal extends JdModal {
     this.#content = panel.querySelector(".jd-pddm__content")!;
     this.#tbody = panel.querySelector(".jd-pddm__table tbody")!;
     const stats = panel.querySelectorAll<HTMLElement>(".jd-pddm__stat");
-    const keys = ["realizedPL", "realizedPct", "turnover", "netPL", "sell", "buy", "commission", "tax"];
+    const keys = [
+      "realizedPL",
+      "realizedPct",
+      "turnover",
+      "netPL",
+      "sell",
+      "buy",
+      "commission",
+      "tax",
+    ];
     stats.forEach((s, i) => {
       this.#tiles[keys[i]!] = {
         label: s.querySelector<HTMLElement>(".jd-pddm__stat-label")!,

@@ -8,26 +8,32 @@ import { css } from "../../core/styles.js";
  * 높이·overflow-y는 element.ts가 인라인으로 공급한다.
  */
 export default css`
-@layer junds.components {
-  /* 카운터가 절대배치라 호스트가 컨테이닝 블록이어야 한다 */
-  jd-textarea-autosize { display: block; position: relative; }
+  @layer junds.components {
+    /* 카운터가 절대배치라 호스트가 컨테이닝 블록이어야 한다 */
+    jd-textarea-autosize {
+      display: block;
+      position: relative;
+    }
 
-  jd-textarea-autosize > .jd-textarea__input {
-    min-height: 0; resize: none;
-    border-radius: var(--jd-radius-md);
-    padding: var(--jd-space-2) var(--jd-space-3);
-  }
+    jd-textarea-autosize > .jd-textarea__input {
+      min-height: 0;
+      resize: none;
+      border-radius: var(--jd-radius-md);
+      padding: var(--jd-space-2) var(--jd-space-3);
+    }
 
-  jd-textarea-autosize[error] > .jd-textarea__input {
-    border-color: var(--jd-color-danger);
-  }
-  jd-textarea-autosize[error] > .jd-textarea__input:focus {
-    border-color: var(--jd-color-danger);
-    box-shadow: var(--jd-shadow-focus-ring-danger), var(--jd-shadow-xs);
-  }
+    jd-textarea-autosize[error] > .jd-textarea__input {
+      border-color: var(--jd-color-danger);
+    }
+    jd-textarea-autosize[error] > .jd-textarea__input:focus {
+      border-color: var(--jd-color-danger);
+      box-shadow: var(--jd-shadow-focus-ring-danger), var(--jd-shadow-xs);
+    }
 
-  jd-textarea-autosize > .jd-textarea__count {
-    bottom: var(--jd-space-1); right: var(--jd-space-2);
-    font-variant-numeric: tabular-nums;
+    jd-textarea-autosize > .jd-textarea__count {
+      bottom: var(--jd-space-1);
+      right: var(--jd-space-2);
+      font-variant-numeric: tabular-nums;
+    }
   }
-}`;
+`;

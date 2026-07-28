@@ -9,35 +9,42 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-table-of-contents {
-    display: block; box-sizing: border-box;
-    font-family: var(--jd-font-sans); font-size: var(--jd-text-md);
-  }
-  jd-table-of-contents[data-empty] { display: none; }
+  @layer junds.components {
+    jd-table-of-contents {
+      display: block;
+      box-sizing: border-box;
+      font-family: var(--jd-font-sans);
+      font-size: var(--jd-text-md);
+    }
+    jd-table-of-contents[data-empty] {
+      display: none;
+    }
 
-  .jd-table-of-contents__heading {
-    margin: 0 0 var(--jd-space-2);
-    font-size: var(--jd-text-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--jd-tracking-wide);
-    color: var(--jd-color-muted);
-  }
-  .jd-table-of-contents__heading[hidden] { display: none; }
+    .jd-table-of-contents__heading {
+      margin: 0 0 var(--jd-space-2);
+      font-size: var(--jd-text-xs);
+      text-transform: uppercase;
+      letter-spacing: var(--jd-tracking-wide);
+      color: var(--jd-color-muted);
+    }
+    .jd-table-of-contents__heading[hidden] {
+      display: none;
+    }
 
-  jd-table-of-contents .jd-scroll-spy__item {
-    padding-block: var(--jd-space-0-5);
-    padding-inline: var(--jd-space-2) 0;
-    border-radius: 0;
+    jd-table-of-contents .jd-scroll-spy__item {
+      padding-block: var(--jd-space-0-5);
+      padding-inline: var(--jd-space-2) 0;
+      border-radius: 0;
+    }
+    jd-table-of-contents .jd-scroll-spy__item:hover {
+      background: transparent;
+      border-inline-start-color: var(--jd-color-border);
+    }
+    jd-table-of-contents .jd-scroll-spy__item[aria-current] {
+      background: transparent;
+    }
+    jd-table-of-contents .jd-scroll-spy__item:focus-visible {
+      border-radius: var(--jd-radius-sm);
+    }
   }
-  jd-table-of-contents .jd-scroll-spy__item:hover {
-    background: transparent;
-    border-inline-start-color: var(--jd-color-border);
-  }
-  jd-table-of-contents .jd-scroll-spy__item[aria-current] {
-    background: transparent;
-  }
-  jd-table-of-contents .jd-scroll-spy__item:focus-visible {
-    border-radius: var(--jd-radius-sm);
-  }
-}`;
+`;

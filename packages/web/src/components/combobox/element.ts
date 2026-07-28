@@ -153,13 +153,19 @@ export class JdCombobox extends JdElement {
   }
 
   protected readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdComboboxOption[];
       if (Array.isArray(parsed)) this.optionList = this.normalizeOptions(parsed);
     } catch {
-      console.warn(`[junds] <${(this.constructor as typeof JdCombobox).tag}> JSON 슬롯 파싱 실패 — 무시합니다.`);
+      console.warn(
+        `[junds] <${
+          (this.constructor as typeof JdCombobox).tag
+        }> JSON 슬롯 파싱 실패 — 무시합니다.`,
+      );
     }
     script.remove();
   }
@@ -206,7 +212,10 @@ export class JdCombobox extends JdElement {
   /* ── 수명주기 ─────────────────────────────────────────────────────── */
 
   protected override connected(): void {
-    this.searchEmit = debounce((q: string) => this.emit("jd-search", { query: q }), this.searchDelay);
+    this.searchEmit = debounce(
+      (q: string) => this.emit("jd-search", { query: q }),
+      this.searchDelay,
+    );
     this.own(
       createClickOutside(this, () => {
         if (this.open) this.setOpen(false);
@@ -407,7 +416,9 @@ export class JdCombobox extends JdElement {
     this.inputEl.setAttribute("aria-autocomplete", "list");
     this.inputEl.setAttribute("aria-controls", this.listId);
     this.inputEl.setAttribute("aria-expanded", String(this.open));
-    const row = this.open ? (this.listEl.children[this.activeIndex] as HTMLElement | undefined) : undefined;
+    const row = this.open
+      ? (this.listEl.children[this.activeIndex] as HTMLElement | undefined)
+      : undefined;
     if (row) this.inputEl.setAttribute("aria-activedescendant", row.id);
     else this.inputEl.removeAttribute("aria-activedescendant");
 
@@ -452,7 +463,9 @@ export class JdCombobox extends JdElement {
     const key = JSON.stringify(this.items.map((o) => [o.value, o.create === true]));
     if (key !== this.renderedKey || this.listEl.childElementCount !== this.items.length) {
       this.listEl.textContent = "";
-      this.items.forEach((opt, i) => this.listEl.append(this.buildRow(opt, `${this.listId}-opt-${i}`)));
+      this.items.forEach((opt, i) =>
+        this.listEl.append(this.buildRow(opt, `${this.listId}-opt-${i}`)),
+      );
       this.renderedKey = key;
     }
     this.items.forEach((opt, i) => this.syncRow(this.listEl.children[i] as HTMLElement, opt, i));

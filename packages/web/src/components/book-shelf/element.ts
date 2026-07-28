@@ -9,10 +9,7 @@
  * 있으면 role="group" + aria-labelledby로 선반을 이름 있는 묶음으로 만든다.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import bookShelfStyles from "./book-shelf.css.js";

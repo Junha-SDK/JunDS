@@ -143,8 +143,7 @@ export class JdSearchInput extends JdElement {
     this.#clear.hidden = this.loading || this.disabled || !this.value;
     this.#clear.setAttribute("aria-label", this.clearLabel);
     // 공백만 있는 슬롯은 접힌 것으로 본다(HTML 들여쓰기가 gap을 만들지 않도록)
-    this.#end.hidden =
-      !this.#end.firstElementChild && (this.#end.textContent ?? "").trim() === "";
+    this.#end.hidden = !this.#end.firstElementChild && (this.#end.textContent ?? "").trim() === "";
   }
 
   /** 값을 비우고 즉시 재검색 — 지우기 버튼과 같은 경로 */

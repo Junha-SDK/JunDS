@@ -14,10 +14,7 @@
  *   (타이머·랜덤 없음 — 프리렌더 결정성 유지).
  */
 import { JdElement } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import formFieldStyles from "./form-field.css.js";
@@ -28,8 +25,7 @@ const ERROR_ICON_SVG =
   `<path d="M6 3.5v3M6 8h.01" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`;
 
 /** 라벨·설명을 붙일 "필드의 컨트롤" 후보 (버튼류는 제외 — 값을 갖는 것만) */
-const CONTROL_SELECTOR =
-  'input:not([type="hidden"]), textarea, select, [contenteditable="true"]';
+const CONTROL_SELECTOR = 'input:not([type="hidden"]), textarea, select, [contenteditable="true"]';
 
 export class JdFormField extends JdElement {
   static override tag = "jd-form-field";
@@ -129,11 +125,7 @@ export class JdFormField extends JdElement {
     else this.#label.removeAttribute("for");
 
     const hasError = Boolean(this.error);
-    const describedBy = hasError
-      ? this.#error.id
-      : this.hint
-        ? this.#hint.id
-        : null;
+    const describedBy = hasError ? this.#error.id : this.hint ? this.#hint.id : null;
     syncAriaIdRefs(control, "aria-describedby", describedBy);
     syncOwnedAttribute(control, "aria-invalid", hasError ? "true" : null);
     // required는 별표(시각) + aria-required(의미)까지만 — 네이티브 required는

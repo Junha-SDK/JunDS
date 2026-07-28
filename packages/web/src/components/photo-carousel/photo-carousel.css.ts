@@ -17,86 +17,108 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.base {
-  jd-photo-carousel:not(:defined) { display: block; }
-}
-@layer junds.components {
-  jd-photo-carousel {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    background: #000;
-    border-radius: var(--jd-radius-xl);
-    font-family: var(--jd-font-sans);
+  @layer junds.base {
+    jd-photo-carousel:not(:defined) {
+      display: block;
+    }
   }
-  /* v2는 photos가 비면 아무것도 렌더하지 않았다 */
-  jd-photo-carousel[data-empty] { display: none; }
+  @layer junds.components {
+    jd-photo-carousel {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      border-radius: var(--jd-radius-xl);
+      font-family: var(--jd-font-sans);
+    }
+    /* v2는 photos가 비면 아무것도 렌더하지 않았다 */
+    jd-photo-carousel[data-empty] {
+      display: none;
+    }
 
-  jd-photo-carousel > .jd-carousel__track {
-    aspect-ratio: var(--jd-photo-carousel-ratio, 16 / 9);
-  }
-  jd-photo-carousel .jd-carousel__track:focus-visible {
-    outline: var(--jd-border-medium) solid var(--jd-color-primary);
-    outline-offset: -2px;
-  }
+    jd-photo-carousel > .jd-carousel__track {
+      aspect-ratio: var(--jd-photo-carousel-ratio, 16 / 9);
+    }
+    jd-photo-carousel .jd-carousel__track:focus-visible {
+      outline: var(--jd-border-medium) solid var(--jd-color-primary);
+      outline-offset: -2px;
+    }
 
-  .jd-photo-carousel__figure {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-  .jd-photo-carousel__img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .jd-photo-carousel__caption {
-    position: absolute;
-    inset-block-end: 0;
-    inset-inline: 0;
-    margin: 0;
-    padding: var(--jd-space-4);
-    color: #fff;
-    font-size: var(--jd-text-md);
-    line-height: var(--jd-leading-normal);
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-  }
-  .jd-photo-carousel__caption[hidden] { display: none; }
+    .jd-photo-carousel__figure {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+    .jd-photo-carousel__img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .jd-photo-carousel__caption {
+      position: absolute;
+      inset-block-end: 0;
+      inset-inline: 0;
+      margin: 0;
+      padding: var(--jd-space-4);
+      color: #fff;
+      font-size: var(--jd-text-md);
+      line-height: var(--jd-leading-normal);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    }
+    .jd-photo-carousel__caption[hidden] {
+      display: none;
+    }
 
-  /* ── 컨트롤 스킨 ─────────────────────────────────────────── */
-  jd-photo-carousel .jd-carousel__arrow {
-    width: 2.25rem;
-    height: 2.25rem;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.2);
-    border: 0;
-    box-shadow: none;
-    backdrop-filter: blur(4px);
-    opacity: var(--jd-opacity-100);
-  }
-  jd-photo-carousel .jd-carousel__arrow:hover { background: rgba(255, 255, 255, 0.3); }
-  jd-photo-carousel .jd-carousel__arrow:focus-visible { outline-color: #fff; }
-  jd-photo-carousel .jd-carousel__arrow > svg { width: 1.125rem; height: 1.125rem; }
-  jd-photo-carousel .jd-carousel__arrow[data-dir="prev"] { inset-inline-start: var(--jd-space-3); }
-  jd-photo-carousel .jd-carousel__arrow[data-dir="next"] { inset-inline-end: var(--jd-space-3); }
+    /* ── 컨트롤 스킨 ─────────────────────────────────────────── */
+    jd-photo-carousel .jd-carousel__arrow {
+      width: 2.25rem;
+      height: 2.25rem;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+      border: 0;
+      box-shadow: none;
+      backdrop-filter: blur(4px);
+      opacity: var(--jd-opacity-100);
+    }
+    jd-photo-carousel .jd-carousel__arrow:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    jd-photo-carousel .jd-carousel__arrow:focus-visible {
+      outline-color: #fff;
+    }
+    jd-photo-carousel .jd-carousel__arrow > svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+    jd-photo-carousel .jd-carousel__arrow[data-dir="prev"] {
+      inset-inline-start: var(--jd-space-3);
+    }
+    jd-photo-carousel .jd-carousel__arrow[data-dir="next"] {
+      inset-inline-end: var(--jd-space-3);
+    }
 
-  jd-photo-carousel .jd-carousel__dots {
-    position: absolute;
-    inset-inline: 0;
-    inset-block-end: var(--jd-space-3);
-    margin-block-start: 0;
+    jd-photo-carousel .jd-carousel__dots {
+      position: absolute;
+      inset-inline: 0;
+      inset-block-end: var(--jd-space-3);
+      margin-block-start: 0;
+    }
+    jd-photo-carousel .jd-carousel__dot {
+      width: 0.375rem; /* v2 w-1.5 */
+      height: 0.375rem;
+      background: rgba(255, 255, 255, 0.5);
+    }
+    jd-photo-carousel .jd-carousel__dot:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+    jd-photo-carousel .jd-carousel__dot[data-active] {
+      width: 1.25rem; /* v2 w-5 */
+      background: #fff;
+    }
+    jd-photo-carousel .jd-carousel__dot:focus-visible {
+      outline-color: #fff;
+    }
   }
-  jd-photo-carousel .jd-carousel__dot {
-    width: 0.375rem; /* v2 w-1.5 */
-    height: 0.375rem;
-    background: rgba(255, 255, 255, 0.5);
-  }
-  jd-photo-carousel .jd-carousel__dot:hover { background: rgba(255, 255, 255, 0.8); }
-  jd-photo-carousel .jd-carousel__dot[data-active] {
-    width: 1.25rem; /* v2 w-5 */
-    background: #fff;
-  }
-  jd-photo-carousel .jd-carousel__dot:focus-visible { outline-color: #fff; }
-}`;
+`;

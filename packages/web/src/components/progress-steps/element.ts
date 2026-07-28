@@ -83,7 +83,9 @@ export class JdProgressSteps extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 (jd-radio-group 선례) */
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as unknown;
@@ -168,8 +170,8 @@ export class JdProgressSteps extends JdElement {
         status === "done"
           ? this.completedLabel
           : status === "current"
-            ? this.currentLabel
-            : this.upcomingLabel;
+          ? this.currentLabel
+          : this.upcomingLabel;
 
       // 마지막 단계 뒤에는 선이 없다
       row.querySelector<HTMLElement>(".jd-progress-steps__line")!.hidden = i === count - 1;

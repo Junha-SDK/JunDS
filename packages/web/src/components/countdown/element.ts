@@ -159,9 +159,7 @@ export class JdCountdown extends JdElement {
   }
 
   #recompute(): void {
-    this.#parts = Number.isNaN(this.#target)
-      ? ZERO
-      : splitDuration(this.#target - Date.now());
+    this.#parts = Number.isNaN(this.#target) ? ZERO : splitDuration(this.#target - Date.now());
   }
 
   /**

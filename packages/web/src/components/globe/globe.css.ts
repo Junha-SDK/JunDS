@@ -16,68 +16,83 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-globe {
-    display: block;
-    position: relative;
-    width: var(--jd-globe-size, 300px);
-    height: var(--jd-globe-size, 300px);
-    perspective: calc(var(--jd-globe-size, 300px) * 2);
-  }
+  @layer junds.components {
+    jd-globe {
+      display: block;
+      position: relative;
+      width: var(--jd-globe-size, 300px);
+      height: var(--jd-globe-size, 300px);
+      perspective: calc(var(--jd-globe-size, 300px) * 2);
+    }
 
-  .jd-globe__glow {
-    position: absolute; inset: 0;
-    border-radius: var(--jd-radius-full);
-    background: var(--jd-globe-color, var(--jd-color-primary));
-    opacity: var(--jd-opacity-20);
-    filter: blur(24px);
-  }
+    .jd-globe__glow {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--jd-radius-full);
+      background: var(--jd-globe-color, var(--jd-color-primary));
+      opacity: var(--jd-opacity-20);
+      filter: blur(24px);
+    }
 
-  .jd-globe__outline {
-    position: absolute; inset: 0;
-    border-radius: var(--jd-radius-full);
-    border: var(--jd-border-medium) solid var(--jd-globe-color, var(--jd-color-primary));
-    opacity: var(--jd-opacity-20);
-  }
+    .jd-globe__outline {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--jd-radius-full);
+      border: var(--jd-border-medium) solid var(--jd-globe-color, var(--jd-color-primary));
+      opacity: var(--jd-opacity-20);
+    }
 
-  .jd-globe__sphere {
-    position: absolute; inset: 0;
-    transform-style: preserve-3d;
-    animation: jd-globe-spin var(--jd-globe-duration, 20s) linear infinite;
-  }
+    .jd-globe__sphere {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      animation: jd-globe-spin var(--jd-globe-duration, 20s) linear infinite;
+    }
 
-  .jd-globe__dot {
-    position: absolute;
-    left: 50%; top: 50%;
-    width: 3px; height: 3px;
-    border-radius: var(--jd-radius-full);
-    background: var(--jd-globe-dot-color, var(--jd-color-primary-light));
-    opacity: var(--jd-globe-dim, 1);
-    transform: translate(-50%, -50%)
-      translate3d(var(--jd-globe-x, 0px), var(--jd-globe-y, 0px), var(--jd-globe-z, 0px));
-  }
+    .jd-globe__dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 3px;
+      height: 3px;
+      border-radius: var(--jd-radius-full);
+      background: var(--jd-globe-dot-color, var(--jd-color-primary-light));
+      opacity: var(--jd-globe-dim, 1);
+      transform: translate(-50%, -50%)
+        translate3d(var(--jd-globe-x, 0px), var(--jd-globe-y, 0px), var(--jd-globe-z, 0px));
+    }
 
-  .jd-globe__equator {
-    position: absolute;
-    left: 50%; top: 50%;
-    width: var(--jd-globe-size, 300px);
-    height: var(--jd-globe-size, 300px);
-    border-radius: var(--jd-radius-full);
-    border: var(--jd-border-thin) solid var(--jd-globe-color, var(--jd-color-primary));
-    opacity: var(--jd-opacity-10);
-    transform: translate(-50%, -50%) rotateX(75deg);
-  }
+    .jd-globe__equator {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--jd-globe-size, 300px);
+      height: var(--jd-globe-size, 300px);
+      border-radius: var(--jd-radius-full);
+      border: var(--jd-border-thin) solid var(--jd-globe-color, var(--jd-color-primary));
+      opacity: var(--jd-opacity-10);
+      transform: translate(-50%, -50%) rotateX(75deg);
+    }
 
-  /* 화면 밖(data-offscreen)·명시적 정지·감속 선호 — 셋 다 합성 비용을 끊는다 */
-  jd-globe[paused] > .jd-globe__sphere,
-  jd-globe[data-offscreen] > .jd-globe__sphere { animation-play-state: paused; }
+    /* 화면 밖(data-offscreen)·명시적 정지·감속 선호 — 셋 다 합성 비용을 끊는다 */
+    jd-globe[paused] > .jd-globe__sphere,
+    jd-globe[data-offscreen] > .jd-globe__sphere {
+      animation-play-state: paused;
+    }
 
-  @keyframes jd-globe-spin {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-  }
+    @keyframes jd-globe-spin {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(360deg);
+      }
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-globe__sphere { animation: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-globe__sphere {
+        animation: none;
+      }
+    }
   }
-}`;
+`;

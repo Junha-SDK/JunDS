@@ -46,10 +46,9 @@ export default css`
       color: var(--jd-color-foreground);
       background: var(--jd-color-control-surface);
       border: var(--jd-border-thin) solid var(--jd-color-border);
-      caret-color: var(--jd-color-primary);
+      caret-color: var(--jd-color-primary-ink);
       /* all 금지 — height/padding까지 트랜지션 대상이 되어 size 전환·리플로우가 흐른다 */
-      transition:
-        border-color var(--jd-duration-snap) var(--jd-easing-ease-out),
+      transition: border-color var(--jd-duration-snap) var(--jd-easing-ease-out),
         background-color var(--jd-duration-snap) var(--jd-easing-ease-out),
         box-shadow var(--jd-duration-snap) var(--jd-easing-ease-out);
       /* size 기본 md — 디폴트는 attribute 미반영(§1.3)이라 base가 담당. v2: 40px */
@@ -80,12 +79,10 @@ export default css`
     .jd-text-field__slot--end {
       inset-inline-end: var(--jd-space-3-5);
     }
-    .jd-text-field__control:has(> .jd-text-field__slot--start:not(:empty))
-      > .jd-text-field__input {
+    .jd-text-field__control:has(> .jd-text-field__slot--start:not(:empty)) > .jd-text-field__input {
       padding-inline-start: 2.75rem;
     }
-    .jd-text-field__control:has(> .jd-text-field__slot--end:not(:empty))
-      > .jd-text-field__input {
+    .jd-text-field__control:has(> .jd-text-field__slot--end:not(:empty)) > .jd-text-field__input {
       padding-inline-end: 2.75rem;
     }
     .jd-text-field__input::placeholder {
@@ -129,14 +126,10 @@ export default css`
     jd-text-field[size="sm"] > .jd-text-field__control > .jd-text-field__slot {
       font-size: var(--jd-text-xs);
     }
-    jd-text-field[size="sm"]
-      > .jd-text-field__control
-      > .jd-text-field__slot--start {
+    jd-text-field[size="sm"] > .jd-text-field__control > .jd-text-field__slot--start {
       inset-inline-start: var(--jd-space-3);
     }
-    jd-text-field[size="sm"]
-      > .jd-text-field__control
-      > .jd-text-field__slot--end {
+    jd-text-field[size="sm"] > .jd-text-field__control > .jd-text-field__slot--end {
       inset-inline-end: var(--jd-space-3);
     }
     jd-text-field[size="lg"] > .jd-text-field__control > .jd-text-field__input {
@@ -148,30 +141,20 @@ export default css`
     jd-text-field[size="lg"] > .jd-text-field__control > .jd-text-field__slot {
       font-size: var(--jd-text-lg);
     }
-    jd-text-field[size="lg"]
-      > .jd-text-field__control
-      > .jd-text-field__slot--start {
+    jd-text-field[size="lg"] > .jd-text-field__control > .jd-text-field__slot--start {
       inset-inline-start: var(--jd-space-4);
     }
-    jd-text-field[size="lg"]
-      > .jd-text-field__control
-      > .jd-text-field__slot--end {
+    jd-text-field[size="lg"] > .jd-text-field__control > .jd-text-field__slot--end {
       inset-inline-end: var(--jd-space-4);
     }
 
     /* invalid는 메시지 유무와 독립. error 문자열도 하위 호환으로 같은 시각 훅이다. */
     jd-text-field[invalid] > .jd-text-field__control > .jd-text-field__input,
-    jd-text-field[error]:not([error=""])
-      > .jd-text-field__control
-      > .jd-text-field__input {
+    jd-text-field[error]:not([error=""]) > .jd-text-field__control > .jd-text-field__input {
       border-color: var(--jd-color-danger);
     }
-    jd-text-field[invalid]
-      > .jd-text-field__control
-      > .jd-text-field__input:focus,
-    jd-text-field[error]:not([error=""])
-      > .jd-text-field__control
-      > .jd-text-field__input:focus {
+    jd-text-field[invalid] > .jd-text-field__control > .jd-text-field__input:focus,
+    jd-text-field[error]:not([error=""]) > .jd-text-field__control > .jd-text-field__input:focus {
       border-color: var(--jd-color-danger);
       outline: var(--jd-focus-ring-danger);
       outline-offset: var(--jd-focus-ring-offset);

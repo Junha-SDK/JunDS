@@ -193,12 +193,13 @@ export class JdRealCandleChart extends JdElement {
     this.#badgeText.textContent = yahoo
       ? "Yahoo Finance · 실시간"
       : this.loading
-        ? "데이터 불러오는 중…"
-        : "샘플 데이터";
+      ? "데이터 불러오는 중…"
+      : "샘플 데이터";
 
     // 봉 수 — Yahoo일 때만
     this.#countEl.hidden = !yahoo;
-    if (yahoo) this.#countEl.textContent = `${this.#candles.length}봉 · ${this.range} ${this.interval}`;
+    if (yahoo)
+      this.#countEl.textContent = `${this.#candles.length}봉 · ${this.range} ${this.interval}`;
 
     // 신선도 배지 — 인트라데이 + asOf 있을 때만. label은 타이머가 채운다.
     const fresh = this.#freshnessVisible();
@@ -208,7 +209,9 @@ export class JdRealCandleChart extends JdElement {
     // Yahoo 링크
     this.#yahooLink.hidden = !yahoo;
     if (yahoo) {
-      this.#yahooLink.href = `https://finance.yahoo.com/quote/${encodeURIComponent(this.symbol ?? "")}`;
+      this.#yahooLink.href = `https://finance.yahoo.com/quote/${encodeURIComponent(
+        this.symbol ?? "",
+      )}`;
     }
   }
 }

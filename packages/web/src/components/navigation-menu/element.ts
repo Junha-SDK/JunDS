@@ -16,11 +16,7 @@
  *  4. **목록이 목록이 아니었다.** div 나열 → `<ul>/<li>` + 랜드마크(role=navigation).
  */
 import { JdElement } from "../../core/element.js";
-import {
-  isContentEmpty,
-  setContent,
-  type JdContent,
-} from "../../core/content.js";
+import { isContentEmpty, setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createClickOutside, createKeyHandler } from "../../behaviors/input.js";
@@ -134,7 +130,9 @@ export class JdNavigationMenu extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdNavMenuItem[];
@@ -201,7 +199,8 @@ export class JdNavigationMenu extends JdElement {
       link.dataset.key = child.key;
       link.tabIndex = -1; // 패널은 열렸을 때만 탭 순서에 들어간다
       fillIcon(link.querySelector<HTMLElement>(".jd-navigation-menu__child-icon")!, child.icon);
-      link.querySelector<HTMLElement>(".jd-navigation-menu__child-label")!.textContent = child.label;
+      link.querySelector<HTMLElement>(".jd-navigation-menu__child-label")!.textContent =
+        child.label;
       const desc = link.querySelector<HTMLElement>(".jd-navigation-menu__child-description")!;
       desc.textContent = child.description ?? "";
       desc.hidden = !child.description;
@@ -269,7 +268,9 @@ export class JdNavigationMenu extends JdElement {
       if (!row.hasAttribute("data-has-children")) continue;
       const open = row.dataset.key === this.#openKey;
       row.toggleAttribute("data-open", open);
-      row.querySelector(".jd-navigation-menu__trigger")?.setAttribute("aria-expanded", String(open));
+      row
+        .querySelector(".jd-navigation-menu__trigger")
+        ?.setAttribute("aria-expanded", String(open));
       const panel = row.querySelector<HTMLElement>(".jd-navigation-menu__panel");
       if (!panel) continue;
       panel.hidden = !open;

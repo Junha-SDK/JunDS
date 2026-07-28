@@ -102,10 +102,14 @@ export class JdCtaSection extends JdElement {
   #effective(kind: "primary" | "secondary"): Cta | null {
     if (kind === "primary") {
       if (this.#primaryCta) return this.#primaryCta;
-      return this.primaryLabel ? { label: this.primaryLabel, href: this.primaryHref || undefined } : null;
+      return this.primaryLabel
+        ? { label: this.primaryLabel, href: this.primaryHref || undefined }
+        : null;
     }
     if (this.#secondaryCta) return this.#secondaryCta;
-    return this.secondaryLabel ? { label: this.secondaryLabel, href: this.secondaryHref || undefined } : null;
+    return this.secondaryLabel
+      ? { label: this.secondaryLabel, href: this.secondaryHref || undefined }
+      : null;
   }
 
   protected override update(): void {

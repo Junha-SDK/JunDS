@@ -6,9 +6,10 @@ import { css } from "../../core/styles.js";
  * 않게 tabular-nums만 얹는다(jd-stat 값과 같은 판단).
  */
 export default css`
-@layer junds.components {
-  jd-live-price-text {
-    display: inline;
-    font-variant-numeric: tabular-nums;
+  @layer junds.components {
+    jd-live-price-text {
+      display: inline;
+      font-variant-numeric: tabular-nums;
+    }
   }
-}`;
+`;

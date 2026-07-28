@@ -171,7 +171,9 @@ export class JdCalendarMonth extends JdElement {
 
   #readJson(): void {
     if (this.#events.length > 0) return;
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]");
@@ -222,7 +224,10 @@ export class JdCalendarMonth extends JdElement {
       return;
     }
     this.#titleEl.textContent = `${month.getFullYear()}년 ${month.getMonth() + 1}월`;
-    this.#grid.setAttribute("aria-label", `${month.getFullYear()}년 ${month.getMonth() + 1}월 달력`);
+    this.#grid.setAttribute(
+      "aria-label",
+      `${month.getFullYear()}년 ${month.getMonth() + 1}월 달력`,
+    );
 
     const cells = buildMonthCells(month, this.weekStartsOn);
     const byDay = this.#eventsByDay();
@@ -236,7 +241,8 @@ export class JdCalendarMonth extends JdElement {
     let activeId = "";
     cells.forEach((date, i) => {
       const cell = this.#grid.children[i] as HTMLElement;
-      const isCur = date.getMonth() === month.getMonth() && date.getFullYear() === month.getFullYear();
+      const isCur =
+        date.getMonth() === month.getMonth() && date.getFullYear() === month.getFullYear();
       const isToday = isSameDay(date, this.#today);
       const isSelected = isSameDay(date, this.#selected);
       const isFocus = isSameDay(date, this.#focus);
@@ -349,14 +355,30 @@ export class JdCalendarMonth extends JdElement {
     if (!this.#focus || !this.#month) return;
     let next: Date | null = null;
     switch (e.key) {
-      case "ArrowLeft": next = addDays(this.#focus, -1); break;
-      case "ArrowRight": next = addDays(this.#focus, 1); break;
-      case "ArrowUp": next = addDays(this.#focus, -7); break;
-      case "ArrowDown": next = addDays(this.#focus, 7); break;
-      case "Home": next = startOfMonth(this.#focus); break;
-      case "End": next = endOfMonth(this.#focus); break;
-      case "PageUp": next = addMonths(this.#focus, -1); break;
-      case "PageDown": next = addMonths(this.#focus, 1); break;
+      case "ArrowLeft":
+        next = addDays(this.#focus, -1);
+        break;
+      case "ArrowRight":
+        next = addDays(this.#focus, 1);
+        break;
+      case "ArrowUp":
+        next = addDays(this.#focus, -7);
+        break;
+      case "ArrowDown":
+        next = addDays(this.#focus, 7);
+        break;
+      case "Home":
+        next = startOfMonth(this.#focus);
+        break;
+      case "End":
+        next = endOfMonth(this.#focus);
+        break;
+      case "PageUp":
+        next = addMonths(this.#focus, -1);
+        break;
+      case "PageDown":
+        next = addMonths(this.#focus, 1);
+        break;
       case "Enter":
       case " ":
         e.preventDefault();
@@ -367,7 +389,10 @@ export class JdCalendarMonth extends JdElement {
     }
     e.preventDefault();
     this.#focus = next;
-    if (next.getMonth() !== this.#month.getMonth() || next.getFullYear() !== this.#month.getFullYear()) {
+    if (
+      next.getMonth() !== this.#month.getMonth() ||
+      next.getFullYear() !== this.#month.getFullYear()
+    ) {
       this.#setMonth(startOfMonth(next));
     } else {
       this.requestUpdate();

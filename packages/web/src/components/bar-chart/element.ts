@@ -16,6 +16,7 @@
 import { JdCategoryChart, coord, seriesColor, svgNode, tickText } from "../../core/chart.js";
 import type { JdChartTick } from "../../core/chart.js";
 import { adoptStyles } from "../../core/styles.js";
+import { jdUid } from "../../core/uid.js";
 import barChartStyles from "./bar-chart.css.js";
 
 /** v2 격자 비율 [0, .25, .5, .75, 1] */
@@ -40,8 +41,14 @@ export class JdBarChart extends JdCategoryChart {
   declare showValues: boolean;
   declare legend: boolean;
 
+  /** 시리즈별 그라데이션 id 접두사 — 인스턴스마다 유일해야 한다(#seriesGradient 주석) */
+  #gradBase = "";
+
   protected override render(): void {
     adoptStyles(barChartStyles);
+    // 페인트 서버 id는 문서 전역이다 — 같은 페이지에 막대 차트가 둘이면 뒤엣것의
+    // url(#…)이 앞엣것의 그라데이션에 붙는다(candle-chart와 같은 함정).
+    if (!this.#gradBase) this.#gradBase = jdUid("jd-bar-grad");
     super.render();
   }
 
@@ -140,6 +147,8 @@ export class JdBarChart extends JdCategoryChart {
 
     this.series.forEach((s, si) => {
       const g = this.seriesGroup(seriesColor(si, s.color));
+      g.append(this.#seriesGradient(si));
+      g.style.setProperty("--jd-bar-fill", `url(#${this.#gradBase}-${si})`);
       for (let gi = 0; gi < count; gi += 1) {
         const value = s.data[gi] ?? 0;
         // 음수는 SVG 치수로 쓸 수 없다(rect가 통째로 사라진다) — 0으로 clamp
@@ -190,5 +199,32 @@ export class JdBarChart extends JdCategoryChart {
 
     this.syncLegend(this.legendItemsFromSeries());
     this.syncSeriesTable();
+  }
+
+  /**
+   * 시리즈 그룹 **안**에 두는 세로 그라데이션 — 채움만 있는 막대는 색종이로 읽힌다
+   * (VISUAL-BAR §2). SVG의 fill은 CSS 그라디언트를 받지 못하고 페인트 서버는 문서
+   * 안에 있어야 해서, 이 한 조각만 DOM으로 만든다.
+   *
+   * 그룹 밖에 두면 안 된다: 페인트 서버는 **참조하는 요소가 아니라 자기 자리에서**
+   * 상속을 받으므로, 밖에 있으면 stop-color가 그 시리즈의 --jd-series-color를 못 본다.
+   * 색 자체는 여전히 CSS만 안다 — .jd-chart__bar-stop-* 규칙이 계열색에서 파생시킨다.
+   */
+  #seriesGradient(index: number): SVGDefsElement {
+    const defs = svgNode("defs");
+    const grad = svgNode("linearGradient");
+    grad.setAttribute("id", `${this.#gradBase}-${index}`);
+    // 기본 objectBoundingBox — 막대마다 제 높이에 맞춰 위에서 빛이 떨어진다
+    grad.setAttribute("x1", "0");
+    grad.setAttribute("y1", "0");
+    grad.setAttribute("x2", "0");
+    grad.setAttribute("y2", "1");
+    const top = svgNode("stop", "jd-chart__bar-stop-top");
+    top.setAttribute("offset", "0%");
+    const bottom = svgNode("stop", "jd-chart__bar-stop-bottom");
+    bottom.setAttribute("offset", "100%");
+    grad.append(top, bottom);
+    defs.append(grad);
+    return defs;
   }
 }

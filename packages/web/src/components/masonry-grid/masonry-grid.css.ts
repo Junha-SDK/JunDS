@@ -22,31 +22,40 @@ import { css } from "../../core/styles.js";
  * 자식을 직접 `> *`로 스타일한다 — DOM 래핑 0, 사용자 마크업·폼 참여 보존, 입양 안정.
  */
 export default css`
-@layer junds.base {
-  jd-masonry-grid:not(:defined) { display: block; }
-}
-@layer junds.components {
-  /* 기본 = columns 3 · base 1컬럼 */
-  jd-masonry-grid {
-    display: block;
-    column-count: 1;
-    column-gap: var(--jd-masonry-gap, var(--jd-space-4));
+  @layer junds.base {
+    jd-masonry-grid:not(:defined) {
+      display: block;
+    }
   }
-  jd-masonry-grid > * {
-    break-inside: avoid;
-    margin-block-end: var(--jd-masonry-gap, var(--jd-space-4));
-  }
+  @layer junds.components {
+    /* 기본 = columns 3 · base 1컬럼 */
+    jd-masonry-grid {
+      display: block;
+      column-count: 1;
+      column-gap: var(--jd-masonry-gap, var(--jd-space-4));
+    }
+    jd-masonry-grid > * {
+      break-inside: avoid;
+      margin-block-end: var(--jd-masonry-gap, var(--jd-space-4));
+    }
 
-  /* sm(640)+ : 2·3·4 전부 최소 2컬럼 (bare가 모두 커버) */
-  @media (min-width: 640px) {
-    jd-masonry-grid { column-count: 2; }
+    /* sm(640)+ : 2·3·4 전부 최소 2컬럼 (bare가 모두 커버) */
+    @media (min-width: 640px) {
+      jd-masonry-grid {
+        column-count: 2;
+      }
+    }
+    /* lg(1024)+ : 기본(3)·3·4는 3컬럼 · 2는 2 유지 */
+    @media (min-width: 1024px) {
+      jd-masonry-grid:not([columns="2"]) {
+        column-count: 3;
+      }
+    }
+    /* xl(1280)+ : 4만 4컬럼 */
+    @media (min-width: 1280px) {
+      jd-masonry-grid[columns="4"] {
+        column-count: 4;
+      }
+    }
   }
-  /* lg(1024)+ : 기본(3)·3·4는 3컬럼 · 2는 2 유지 */
-  @media (min-width: 1024px) {
-    jd-masonry-grid:not([columns="2"]) { column-count: 3; }
-  }
-  /* xl(1280)+ : 4만 4컬럼 */
-  @media (min-width: 1280px) {
-    jd-masonry-grid[columns="4"] { column-count: 4; }
-  }
-}`;
+`;

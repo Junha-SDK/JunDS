@@ -135,8 +135,12 @@ export class JdTable extends JdElement {
     const existing = this.querySelector<HTMLElement>(":scope > .jd-table__scroll");
     this.scrollEl = existing ?? this.buildSkeleton();
     this.tableEl = this.scrollEl.querySelector<HTMLTableElement>("table.jd-table")!;
-    this.captionEl = this.tableEl.querySelector<HTMLTableCaptionElement>("caption.jd-table__caption")!;
-    this.headRow = this.tableEl.querySelector<HTMLTableRowElement>("thead > tr.jd-table__head-row")!;
+    this.captionEl = this.tableEl.querySelector<HTMLTableCaptionElement>(
+      "caption.jd-table__caption",
+    )!;
+    this.headRow = this.tableEl.querySelector<HTMLTableRowElement>(
+      "thead > tr.jd-table__head-row",
+    )!;
     this.bodyEl = this.tableEl.querySelector<HTMLTableSectionElement>("tbody.jd-table__body")!;
     this.update();
   }
@@ -151,7 +155,9 @@ export class JdTable extends JdElement {
   }
 
   protected readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent);
@@ -285,7 +291,11 @@ export class JdTable extends JdElement {
     for (const col of this.columnList) tr.append(this.buildBodyCell(col, row, index));
   }
 
-  protected buildBodyCell(col: JdTableColumn, row: JdTableRow, index: number): HTMLTableCellElement {
+  protected buildBodyCell(
+    col: JdTableColumn,
+    row: JdTableRow,
+    index: number,
+  ): HTMLTableCellElement {
     const td = document.createElement("td");
     td.className = "jd-table__td";
     this.applyCellShape(td, col);

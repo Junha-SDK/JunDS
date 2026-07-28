@@ -3,8 +3,9 @@
  *
  * SVG는 **createElementNS**로 만든다(§6-1 네임스페이스 함정 — `createElement("rect")`는
  * HTML 미지 요소가 되어 조용히 안 그려진다). 배치는 v2와 같은 squarified treemap
- * (Bruls/Huijing/van Wijk)이고, 색은 v2 heatmapColor(한국 관례: 상승=적, 하락=청)를
- * 순수 함수로 승계한다. 그룹 모드는 그룹 합으로 상위 배치 후 각 칸을 헤더+내부 배치.
+ * (Bruls/Huijing/van Wijk)이고, 색은 heatmapColor 순수 함수가 정한다 — 세기만 여기서
+ * 계산하고 상승/하락 색은 --jd-finance-* 훅이 정한다(아래 주석). 그룹 모드는 그룹 합으로
+ * 상위 배치 후 각 칸을 헤더+내부 배치.
  *
  * 데이터는 property + JSON 슬롯(§1.3 — 배열/객체 attribute 금지).
  *
@@ -48,13 +49,27 @@ interface PlacedCell extends JdHeatmapCell {
   rect: Rect;
 }
 
-/** 한국 관례 색: 상승=적, 하락=청 (v2 heatmapColor, 순수 함수) */
+/**
+ * 칸 색(순수 함수). 등락률의 **세기**만 여기서 정하고, 어느 쪽이 무슨 색인지는
+ * --jd-finance-* 훅이 정한다 — v2가 박아 둔 hsl(358…)/hsl(218…)은 (1) 앱이 관례를
+ * 뒤집어도 이 히트맵만 옛 색으로 남고 (2) 채도 76~92%의 순색이라 칸이 수십 개 깔리면
+ * 눈이 아팠다. 훅 색을 캔버스 쪽으로 눅여 세기를 만들면 두 문제가 한 번에 사라진다(§8).
+ */
 function heatmapColor(pct: number, scale: number): string {
   const clamped = Math.max(-scale, Math.min(scale, pct));
   const t = Math.min(1, Math.abs(clamped) / scale);
-  if (Math.abs(clamped) < 0.1) return "hsl(220, 10%, 52%)";
-  if (clamped > 0) return `hsl(358, ${76 + 16 * t}%, ${58 - 14 * t}%)`;
-  return `hsl(218, ${74 + 18 * t}%, ${58 - 16 * t}%)`;
+  // 세기를 카드색 쪽으로 눅이면 약한 칸이 라이트에서 파스텔이 되어 흰 라벨이 녹는다.
+  // 캔버스 토큰(surface)은 두 모드에서 모두 어두우므로(§4) 그쪽으로 눅여야 라벨이 산다.
+  if (Math.abs(clamped) < 0.1) {
+    return "color-mix(in srgb, var(--jd-color-muted) 30%, var(--jd-color-surface))";
+  }
+  const hook =
+    clamped > 0
+      ? "var(--jd-finance-up, var(--jd-color-success))"
+      : "var(--jd-finance-down, var(--jd-color-danger))";
+  // 22%(거의 변동 없음) → 100%(스케일 끝)
+  const strength = (22 + 78 * t).toFixed(1);
+  return `color-mix(in srgb, ${hook} ${strength}%, var(--jd-color-surface))`;
 }
 
 /** §3.1-3: 로케일 비의존 3자리 그룹핑(정수) */
@@ -131,8 +146,7 @@ function squarify(items: JdHeatmapCell[], rect: Rect): PlacedCell[] {
   return placed;
 }
 
-const px = (v: number, fallback: number): number =>
-  Number.isFinite(v) && v > 0 ? v : fallback;
+const px = (v: number, fallback: number): number => (Number.isFinite(v) && v > 0 ? v : fallback);
 
 export class JdMarketHeatmap extends JdElement {
   static override tag = "jd-market-heatmap";
@@ -202,7 +216,9 @@ export class JdMarketHeatmap extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent || "null");
@@ -358,17 +374,35 @@ export class JdMarketHeatmap extends JdElement {
 
     if (showName) {
       g.append(
-        this.#cellText(cx, round2(cy - (showSubtext ? baseFont * 0.55 : 0)), baseFont, 800, labelText),
+        this.#cellText(
+          cx,
+          round2(cy - (showSubtext ? baseFont * 0.55 : 0)),
+          baseFont,
+          800,
+          labelText,
+        ),
       );
     } else if (showLabel) {
       g.append(this.#cellText(cx, round2(cy), Math.max(7.5, baseFont * 0.85), 800, labelText));
     }
     if (showSubtext) {
-      const t = this.#cellText(cx, round2(cy + baseFont * 0.7), baseFont * 0.6, 700, `${sign}${change.toFixed(2)}%`);
+      const t = this.#cellText(
+        cx,
+        round2(cy + baseFont * 0.7),
+        baseFont * 0.6,
+        700,
+        `${sign}${change.toFixed(2)}%`,
+      );
       g.append(t);
     }
     if (showPrice && price) {
-      const t = this.#cellText(cx, round2(cy + baseFont * 1.55), baseFont * 0.5, 500, groupInt(price));
+      const t = this.#cellText(
+        cx,
+        round2(cy + baseFont * 1.55),
+        baseFont * 0.5,
+        500,
+        groupInt(price),
+      );
       t.classList.add("jd-mh__cell-price");
       g.append(t);
     }
@@ -395,7 +429,9 @@ export class JdMarketHeatmap extends JdElement {
         const sign = c.change > 0 ? "+" : "";
         const priceText = c.price ? ` (${groupInt(c.price)})` : "";
         const groupText = c.group ? `${c.group} · ` : "";
-        li.textContent = `${groupText}${c.ticker ?? c.name}: ${sign}${c.change.toFixed(2)}%${priceText}`;
+        li.textContent = `${groupText}${c.ticker ?? c.name}: ${sign}${c.change.toFixed(
+          2,
+        )}%${priceText}`;
         return li;
       }),
     );

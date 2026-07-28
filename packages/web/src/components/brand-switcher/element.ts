@@ -90,7 +90,9 @@ export class JdBrandSwitcher extends JdElement {
   protected render(): void {
     adoptStyles(brandSwitcherStyles);
     // 선언적 초기화 슬롯(jd-radio-group 선례) — 1회 소비
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (script) {
       try {
         this.#presets = normalize(JSON.parse(script.textContent || "[]"));
@@ -196,7 +198,10 @@ export class JdBrandSwitcher extends JdElement {
         swatch.className = `${CLS}__swatch`;
         swatch.setAttribute("aria-hidden", "true");
         swatch.style.setProperty("--jd-bs-primary", p.primary || "var(--jd-color-primary)");
-        swatch.style.setProperty("--jd-bs-accent", p.accent || p.primary || "var(--jd-color-accent)");
+        swatch.style.setProperty(
+          "--jd-bs-accent",
+          p.accent || p.primary || "var(--jd-color-accent)",
+        );
 
         const label = doc.createElement("span");
         label.className = `${CLS}__label`;

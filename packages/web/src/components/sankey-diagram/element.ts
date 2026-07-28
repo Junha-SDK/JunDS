@@ -186,7 +186,9 @@ export class JdSankeyDiagram extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비. `{ nodes, links }` */
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent || "{}");
@@ -273,10 +275,7 @@ export class JdSankeyDiagram extends JdElement {
     const cols: Placed[][] = Array.from({ length: colCount }, () => []);
     for (const p of placed) cols[p.column]?.push(p);
 
-    const maxColTotal = Math.max(
-      1,
-      ...cols.map((c) => c.reduce((s, p) => s + p.total, 0)),
-    );
+    const maxColTotal = Math.max(1, ...cols.map((c) => c.reduce((s, p) => s + p.total, 0)));
     const maxColLen = Math.max(1, ...cols.map((c) => c.length));
     // 교정 4 — 좁은 캔버스에서 음수 스케일 방지
     const scale = Math.max(0, (h - (maxColLen - 1) * nodeGap) / maxColTotal);
@@ -311,7 +310,9 @@ export class JdSankeyDiagram extends JdElement {
       targetOffsets.set(l.target, to + linkH);
       const mid = (sx + tx) / 2;
       links.push({
-        d: `M${num(sx)},${num(sy)} C${num(mid)},${num(sy)} ${num(mid)},${num(ty)} ${num(tx)},${num(ty)}`,
+        d: `M${num(sx)},${num(sy)} C${num(mid)},${num(sy)} ${num(mid)},${num(ty)} ${num(tx)},${num(
+          ty,
+        )}`,
         width: linkH,
         color: s.node.color || PALETTE[i % PALETTE.length] || "var(--jd-color-primary)",
         source: l.source,

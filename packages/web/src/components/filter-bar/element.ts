@@ -140,7 +140,10 @@ export class JdFilterBar extends JdElement {
     this.#resetText.textContent = this.resetLabel;
     this.#badge.textContent = count > 0 ? String(count) : "";
     this.#badge.hidden = count <= 0;
-    this.#reset.setAttribute("aria-label", `${this.resetLabel}${count > 0 ? ` (필터 ${count}개)` : ""}`);
+    this.#reset.setAttribute(
+      "aria-label",
+      `${this.resetLabel}${count > 0 ? ` (필터 ${count}개)` : ""}`,
+    );
 
     this.#actions.hidden = this.#actions.childElementCount === 0;
   }

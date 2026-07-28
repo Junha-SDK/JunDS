@@ -9,32 +9,39 @@ import { css } from "../../core/styles.js";
  * (command-palette.css가 jd-modal 태그 규칙을 재선언한 것과 동형).
  */
 export default css`
-@layer junds.components {
-  jd-command-palette-host { display: none; }
-  jd-command-palette-host[open] {
-    display: flex; position: fixed; inset: 0; z-index: var(--jd-z-modal);
-    align-items: flex-start; justify-content: center;
-    padding: 20vh var(--jd-space-4) var(--jd-space-4);
-  }
-
-  jd-command-palette-host > .jd-modal__backdrop {
-    background: rgba(0, 0, 0, .4);
-    backdrop-filter: none;
-  }
-
-  jd-command-palette-host > .jd-modal__panel {
-    max-width: min(32rem, calc(100vw - 2rem));
-    max-height: calc(100vh - 24vh);
-    overflow: hidden;
-    box-shadow: var(--jd-shadow-2xl);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    jd-command-palette-host[open] > .jd-modal__backdrop {
-      animation: jd-cmdk-fade var(--jd-duration-normal) var(--jd-easing-ease-out);
+  @layer junds.components {
+    jd-command-palette-host {
+      display: none;
     }
-    jd-command-palette-host[open] > .jd-modal__panel {
-      animation: jd-cmdk-pop var(--jd-duration-normal) var(--jd-easing-default);
+    jd-command-palette-host[open] {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: var(--jd-z-modal);
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20vh var(--jd-space-4) var(--jd-space-4);
+    }
+
+    jd-command-palette-host > .jd-modal__backdrop {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: none;
+    }
+
+    jd-command-palette-host > .jd-modal__panel {
+      max-width: min(32rem, calc(100vw - 2rem));
+      max-height: calc(100vh - 24vh);
+      overflow: hidden;
+      box-shadow: var(--jd-shadow-2xl);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      jd-command-palette-host[open] > .jd-modal__backdrop {
+        animation: jd-cmdk-fade var(--jd-duration-normal) var(--jd-easing-ease-out);
+      }
+      jd-command-palette-host[open] > .jd-modal__panel {
+        animation: jd-cmdk-pop var(--jd-duration-normal) var(--jd-easing-default);
+      }
     }
   }
-}`;
+`;

@@ -88,7 +88,9 @@ export class JdPhotoUploader extends JdElement {
 
   protected render(): void {
     adoptStyles(photoUploaderStyles);
-    const existing = this.querySelector<HTMLButtonElement>(":scope > button.jd-photo-uploader__zone");
+    const existing = this.querySelector<HTMLButtonElement>(
+      ":scope > button.jd-photo-uploader__zone",
+    );
     if (existing) {
       this.#zone = existing;
       this.#desc = this.querySelector(".jd-photo-uploader__desc")!;
@@ -191,7 +193,9 @@ export class JdPhotoUploader extends JdElement {
   };
 
   #onGridClick = (e: Event): void => {
-    const btn = (e.target as Element | null)?.closest<HTMLButtonElement>(".jd-photo-uploader__remove");
+    const btn = (e.target as Element | null)?.closest<HTMLButtonElement>(
+      ".jd-photo-uploader__remove",
+    );
     const id = btn?.dataset.id;
     if (id) this.removePhoto(id);
   };

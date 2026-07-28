@@ -172,7 +172,8 @@ export class JdScrollProgress extends JdElement {
     this.setAttribute("aria-label", this.label);
     // 대상이 바뀌었으면 리스너를 옮긴다 (연결 전에는 connected()가 처리)
     if (this.#teardown.length > 0) {
-      if (this.#source() !== this.#wired || this.#resolveTarget() !== this.#wiredBox) this.#wireUp();
+      if (this.#source() !== this.#wired || this.#resolveTarget() !== this.#wiredBox)
+        this.#wireUp();
     }
   }
 }

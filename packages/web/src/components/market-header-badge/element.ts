@@ -137,7 +137,9 @@ export class JdMarketHeaderBadge extends JdElement {
     const valueText = groupDigits(this.value);
     this.#name.textContent = this.label;
     this.#value.textContent = valueText;
-    this.#tag.textContent = `${up ? "+" : ""}${fixed(this.change)} (${up ? "+" : ""}${fixed(this.changePct)}%)`;
+    this.#tag.textContent = `${up ? "+" : ""}${fixed(this.change)} (${up ? "+" : ""}${fixed(
+      this.changePct,
+    )}%)`;
     this.#tag.dataset.dir = dir;
     this.#root.dataset.dir = dir;
     this.setAttribute("data-dir", dir);

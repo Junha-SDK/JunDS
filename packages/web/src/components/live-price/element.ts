@@ -90,7 +90,9 @@ export class JdLivePrice extends JdLivePriceText {
     // createTimeout은 생성 즉시 카운트다운을 건다 — 첫 플래시는 생성이 곧 예약이고,
     // 이후 플래시는 restart()로 창을 다시 연다.
     if (!this.#flashTimer) {
-      this.#flashTimer = this.own(createTimeout(() => this.removeAttribute("data-flash"), FLASH_MS));
+      this.#flashTimer = this.own(
+        createTimeout(() => this.removeAttribute("data-flash"), FLASH_MS),
+      );
     } else {
       this.#flashTimer.restart();
     }

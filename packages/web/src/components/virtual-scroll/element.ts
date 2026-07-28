@@ -96,7 +96,9 @@ export class JdVirtualScroll extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent);
@@ -137,7 +139,11 @@ export class JdVirtualScroll extends JdElement {
     const count = this.#items.length;
 
     const size = this.height.trim();
-    if (size) this.style.setProperty("--_jd-virtual-scroll-height", /^\d+(\.\d+)?$/.test(size) ? `${size}px` : size);
+    if (size)
+      this.style.setProperty(
+        "--_jd-virtual-scroll-height",
+        /^\d+(\.\d+)?$/.test(size) ? `${size}px` : size,
+      );
     else this.style.removeProperty("--_jd-virtual-scroll-height");
 
     this.#sizer.style.height = `${count * h}px`;

@@ -10,31 +10,44 @@ import { css } from "../../core/styles.js";
  * 이길 수 있지만, 그러려면 모든 규칙에 stroke를 다시 써야 한다).
  */
 export default css`
-@layer junds.components {
-  jd-progress-ring {
-    position: relative; display: inline-flex;
-    align-items: center; justify-content: center;
-    font-family: var(--jd-font-sans);
-  }
+  @layer junds.components {
+    jd-progress-ring {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--jd-font-sans);
+    }
 
-  .jd-progress-ring__svg {
-    display: block; transform: rotate(-90deg); /* 12시에서 시작 */
-  }
-  .jd-progress-ring__track { stroke: var(--jd-progress-ring-track, var(--jd-color-border)); }
-  .jd-progress-ring__fill {
-    stroke: var(--jd-progress-ring-color, var(--jd-color-primary));
-    stroke-linecap: round;
-    transition: stroke-dashoffset var(--jd-duration-slower) var(--jd-easing-default);
-  }
+    .jd-progress-ring__svg {
+      display: block;
+      transform: rotate(-90deg); /* 12시에서 시작 */
+    }
+    .jd-progress-ring__track {
+      stroke: var(--jd-progress-ring-track, var(--jd-color-border));
+    }
+    .jd-progress-ring__fill {
+      stroke: var(--jd-progress-ring-color, var(--jd-color-primary));
+      stroke-linecap: round;
+      transition: stroke-dashoffset var(--jd-duration-slower) var(--jd-easing-default);
+    }
 
-  .jd-progress-ring__center {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: var(--jd-text-md); font-weight: var(--jd-weight-bold);
-    font-variant-numeric: tabular-nums; color: var(--jd-color-foreground);
-  }
+    .jd-progress-ring__center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--jd-text-md);
+      font-weight: var(--jd-weight-bold);
+      font-variant-numeric: tabular-nums;
+      color: var(--jd-color-foreground);
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-progress-ring__fill { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-progress-ring__fill {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

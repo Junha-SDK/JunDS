@@ -41,9 +41,7 @@ export default css`
       border: var(--jd-border-thin) solid
         color-mix(in srgb, var(--jd-color-border) 76%, transparent);
       border-radius: var(--jd-radius-2xl);
-      box-shadow:
-        0 32px 80px rgba(0, 0, 0, 0.22),
-        0 12px 28px rgba(0, 0, 0, 0.1),
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.22), 0 12px 28px rgba(0, 0, 0, 0.1),
         inset 0 1px 0 var(--jd-color-highlight);
       /* size 기본 md(32rem) — 디폴트는 attribute 미반영(§1.3)이라 base가 담당 */
       max-width: min(32rem, calc(100vw - 2rem));
@@ -79,8 +77,7 @@ export default css`
       background: transparent;
       color: var(--jd-color-muted);
       cursor: pointer;
-      transition:
-        color var(--jd-duration-snap) var(--jd-easing-ease-out),
+      transition: color var(--jd-duration-snap) var(--jd-easing-ease-out),
         background-color var(--jd-duration-snap) var(--jd-easing-ease-out),
         scale var(--jd-duration-press) var(--jd-easing-ease-out);
     }
@@ -109,11 +106,7 @@ export default css`
       gap: var(--jd-space-2);
       padding: var(--jd-space-4) var(--jd-space-5);
       border-top: var(--jd-border-thin) solid var(--jd-color-border-light);
-      background: color-mix(
-        in srgb,
-        var(--jd-color-card-hover) 50%,
-        transparent
-      );
+      background: color-mix(in srgb, var(--jd-color-card-hover) 50%, transparent);
     }
 
     /* size — v2: sm 28rem / lg 42rem / xl 56rem / full 뷰포트 (md는 base) */
@@ -152,12 +145,10 @@ export default css`
 
     @media (prefers-reduced-motion: no-preference) {
       jd-modal[open] > .jd-modal__backdrop {
-        animation: jd-modal-fade var(--jd-duration-normal)
-          var(--jd-easing-ease-out);
+        animation: jd-modal-fade var(--jd-duration-normal) var(--jd-easing-ease-out);
       }
       jd-modal[open] > .jd-modal__panel {
-        animation: jd-modal-pop var(--jd-duration-normal)
-          var(--jd-easing-default);
+        animation: jd-modal-pop var(--jd-duration-normal) var(--jd-easing-default);
       }
     }
     @media (prefers-reduced-motion: reduce) {

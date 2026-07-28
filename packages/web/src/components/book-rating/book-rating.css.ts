@@ -7,48 +7,97 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-book-rating { display: flex; flex-direction: column; gap: var(--jd-space-2); }
+  @layer junds.components {
+    jd-book-rating {
+      display: flex;
+      flex-direction: column;
+      gap: var(--jd-space-2);
+    }
 
-  .jd-book-rating__summary { display: flex; align-items: center; gap: var(--jd-space-2); }
+    .jd-book-rating__summary {
+      display: flex;
+      align-items: center;
+      gap: var(--jd-space-2);
+    }
 
-  .jd-book-rating__value {
-    font-size: var(--jd-text-2xl); font-weight: var(--jd-weight-bold);
-    color: var(--jd-color-foreground); font-variant-numeric: tabular-nums;
-  }
+    .jd-book-rating__value {
+      font-size: var(--jd-text-2xl);
+      font-weight: var(--jd-weight-bold);
+      color: var(--jd-color-foreground);
+      font-variant-numeric: tabular-nums;
+    }
 
-  .jd-book-rating__stars { display: inline-flex; align-items: center; }
-  .jd-book-rating__star {
-    position: relative; display: inline-block; width: 1rem; height: 1rem;
-  }
-  .jd-book-rating__star-base,
-  .jd-book-rating__star-fill { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .jd-book-rating__star-base > path { fill: var(--jd-color-neutral-300); }  /* v2 gray-300 — 빈 별 */
-  .jd-book-rating__star-fill > path { fill: #fbbf24; }  /* v2 amber-400 — 채움 */
+    .jd-book-rating__stars {
+      display: inline-flex;
+      align-items: center;
+    }
+    .jd-book-rating__star {
+      position: relative;
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+    }
+    .jd-book-rating__star-base,
+    .jd-book-rating__star-fill {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .jd-book-rating__star-base > path {
+      fill: var(--jd-color-neutral-300);
+    } /* v2 gray-300 — 빈 별 */
+    .jd-book-rating__star-fill > path {
+      fill: #fbbf24;
+    } /* v2 amber-400 — 채움 */
 
-  .jd-book-rating__reviews { font-size: var(--jd-text-xs); color: var(--jd-color-muted); }
-  .jd-book-rating__reviews[hidden] { display: none; }
+    .jd-book-rating__reviews {
+      font-size: var(--jd-text-xs);
+      color: var(--jd-color-muted);
+    }
+    .jd-book-rating__reviews[hidden] {
+      display: none;
+    }
 
-  /* 점수 분포 */
-  .jd-book-rating__dist {
-    display: flex; flex-direction: column; gap: var(--jd-space-0-5);
-    margin-top: var(--jd-space-1);
-  }
-  .jd-book-rating__dist[hidden] { display: none; }
-  .jd-book-rating__row {
-    display: grid; grid-template-columns: 20px 1fr 42px; align-items: center;
-    gap: var(--jd-space-2); font-size: 11px; color: var(--jd-color-muted);
-  }
-  .jd-book-rating__score { text-align: right; font-variant-numeric: tabular-nums; }
-  .jd-book-rating__track {
-    height: var(--jd-space-1-5); border-radius: var(--jd-radius-full);
-    background: var(--jd-color-neutral-200); overflow: hidden;      /* v2 gray-200 */
-  }
-  .jd-book-rating__bar {
-    height: 100%; border-radius: var(--jd-radius-full); background: var(--jd-color-hue-amber);
-  }
-  .jd-book-rating__count { text-align: right; font-variant-numeric: tabular-nums; }
+    /* 점수 분포 */
+    .jd-book-rating__dist {
+      display: flex;
+      flex-direction: column;
+      gap: var(--jd-space-0-5);
+      margin-top: var(--jd-space-1);
+    }
+    .jd-book-rating__dist[hidden] {
+      display: none;
+    }
+    .jd-book-rating__row {
+      display: grid;
+      grid-template-columns: 20px 1fr 42px;
+      align-items: center;
+      gap: var(--jd-space-2);
+      font-size: 11px;
+      color: var(--jd-color-muted);
+    }
+    .jd-book-rating__score {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .jd-book-rating__track {
+      height: var(--jd-space-1-5);
+      border-radius: var(--jd-radius-full);
+      background: var(--jd-color-neutral-200);
+      overflow: hidden; /* v2 gray-200 */
+    }
+    .jd-book-rating__bar {
+      height: 100%;
+      border-radius: var(--jd-radius-full);
+      background: var(--jd-color-hue-amber);
+    }
+    .jd-book-rating__count {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
 
-  /* neutral 램프가 다크에서 반전하므로(DEC-039) 빈 별·트랙은 분기 없이 neutral-200
+    /* neutral 램프가 다크에서 반전하므로(DEC-039) 빈 별·트랙은 분기 없이 neutral-200
      하나로 두 모드가 맞는다 — 옛 분기는 다크에서 near-white 트랙을 그리고 있었다. */
-}`;
+  }
+`;

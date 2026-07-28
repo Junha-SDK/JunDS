@@ -62,12 +62,11 @@ export class JdTopBar extends JdElement {
 
   #build(): void {
     const pick = (name: string): Node[] =>
-      [...this.childNodes].filter(
-        (n) => n instanceof Element && n.getAttribute("slot") === name,
-      );
+      [...this.childNodes].filter((n) => n instanceof Element && n.getAttribute("slot") === name);
     // 무슬롯(또는 slot="brand")은 브랜드
     const brandNodes = [...this.childNodes].filter(
-      (n) => !(n instanceof Element) || !["search", "actions"].includes(n.getAttribute("slot") ?? ""),
+      (n) =>
+        !(n instanceof Element) || !["search", "actions"].includes(n.getAttribute("slot") ?? ""),
     );
     const searchNodes = pick("search");
     const actionNodes = pick("actions");

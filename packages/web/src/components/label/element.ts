@@ -11,7 +11,7 @@ export class JdLabel extends JdElement {
   static override tag = "jd-label";
   static override props = {
     htmlFor: { type: String, attribute: "for" }, // 네이티브 표기 계승
-    required: { type: Boolean, reflect: true },  // CSS ::after 훅
+    required: { type: Boolean, reflect: true }, // CSS ::after 훅
   };
 
   declare htmlFor: string;

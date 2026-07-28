@@ -5,8 +5,10 @@
  * 실시간 계산·정렬했다. 그 계산(도메인)은 앱에 남기고, DS 컴포넌트는 계산된 `sectors`
  * 배열(또는 JSON 슬롯)을 받아 **가중 등락률 내림차순 순위표**로 그린다.
  *
- * 강도 막대 색은 v2 heatmapColor(한국장 red=상승·blue=하락, 강도에 따라 채도/명도 심화)를
- * 순수 함수로 그대로 이식한다(값→색 매핑은 표시 로직). 종목/섹터 링크는 href가 있으면 <a>,
+ * 강도 막대 색은 v2가 heatmapColor로 한국장 적/청 hsl을 **JS에서 직접** 칠했다. 그러면
+ * 앱이 --jd-finance-*를 한 번 덮어써도 이 막대만 비껴가 옆의 등락률 글자와 색 체계가
+ * 갈린다(DECISIONS: 색 기본값은 웹, 관례 전환은 앱). 그래서 JS에는 **강도(0~1)만** 남기고
+ * (--jd-lss-t) 색상은 CSS가 방향 훅에서 뽑는다. 종목/섹터 링크는 href가 있으면 <a>,
  * 없으면 jd-select 이벤트 위임(v2 next/link 하드 의존 제거, portfolio-council 동형).
  */
 import { JdElement } from "../../core/element.js";
@@ -26,13 +28,10 @@ export interface JdSectorStrengthItem {
 
 const SCALE = 6;
 
-/** v2 heatmapColor 이식 — 한국장 red/blue, 강도 t로 채도·명도 심화 */
-function heatmapColor(pct: number, scale = SCALE): string {
-  const clamped = Math.max(-scale, Math.min(scale, pct));
-  const t = Math.min(1, Math.abs(clamped) / scale);
-  if (Math.abs(clamped) < 0.1) return "hsl(220, 10%, 52%)";
-  if (clamped > 0) return `hsl(358, ${76 + 16 * t}%, ${58 - 14 * t}%)`;
-  return `hsl(218, ${74 + 18 * t}%, ${58 - 16 * t}%)`;
+/** v2 heatmapColor에서 색상은 걷어내고 강도 t(0~1)만 남긴 것 — 색은 CSS의 몫 */
+function strength(pct: number, scale = SCALE): number {
+  if (!Number.isFinite(pct)) return 0;
+  return Math.min(1, Math.abs(pct) / scale);
 }
 
 export class JdLiveSectorStrength extends JdElement {
@@ -80,7 +79,9 @@ export class JdLiveSectorStrength extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdSectorStrengthItem[];
@@ -127,7 +128,8 @@ export class JdLiveSectorStrength extends JdElement {
     const fill = document.createElement("div");
     fill.className = "jd-live-sector-strength__fill";
     fill.style.width = `${Math.min(100, (Math.abs(s.wAvg) / 5) * 100)}%`;
-    fill.style.background = heatmapColor(s.wAvg);
+    // 색이 아니라 강도만 넘긴다 — 방향색은 li의 data-dir이 고른 --jd-lss-dir에서 나온다
+    fill.style.setProperty("--jd-lss-t", String(strength(s.wAvg)));
     track.append(fill);
 
     const pct = document.createElement("span");

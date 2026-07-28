@@ -10,13 +10,17 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-qr-code { display: inline-block; line-height: 0; }
+  @layer junds.components {
+    jd-qr-code {
+      display: inline-block;
+      line-height: 0;
+    }
 
-  .jd-qr-code__canvas {
-    display: block;
-    max-width: 100%;
-    aspect-ratio: 1 / 1;
-    shape-rendering: crispEdges;
+    .jd-qr-code__canvas {
+      display: block;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+      shape-rendering: crispEdges;
+    }
   }
-}`;
+`;

@@ -7,6 +7,7 @@ import { css } from "../../core/styles.js";
 import { GRID_PICKER_CSS } from "../../core/grid-picker.styles.js";
 
 export default css`
-@layer junds.components {
-${GRID_PICKER_CSS}
-}`;
+  @layer junds.components {
+    ${GRID_PICKER_CSS}
+  }
+`;

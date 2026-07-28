@@ -67,7 +67,9 @@ export class JdDisclosureToneBadge extends JdElement {
   protected render(): void {
     adoptStyles(disclosureToneBadgeStyles);
     // 입양(§3.3): 이미 골격이 있으면 재사용
-    const existing = this.querySelector<HTMLSpanElement>(":scope > .jd-disclosure-tone-badge__tone");
+    const existing = this.querySelector<HTMLSpanElement>(
+      ":scope > .jd-disclosure-tone-badge__tone",
+    );
     if (existing) {
       this.#tone = existing;
       this.#cat = this.querySelector<HTMLSpanElement>(":scope > .jd-disclosure-tone-badge__cat")!;

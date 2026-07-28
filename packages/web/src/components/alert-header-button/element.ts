@@ -67,9 +67,6 @@ export class JdAlertHeaderButton extends JdElement {
     const has = n > 0;
     this.#badge.hidden = !has;
     if (has) this.#badge.textContent = n > 99 ? "99+" : String(n);
-    this.#link.setAttribute(
-      "aria-label",
-      has ? `${this.label}, 새 알림 ${n}건` : this.label,
-    );
+    this.#link.setAttribute("aria-label", has ? `${this.label}, 새 알림 ${n}건` : this.label);
   }
 }

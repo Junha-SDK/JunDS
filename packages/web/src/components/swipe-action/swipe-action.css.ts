@@ -14,53 +14,82 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-swipe-action {
-    display: block; position: relative; overflow: hidden;
-    font-family: var(--jd-font-sans);
-  }
+  @layer junds.components {
+    jd-swipe-action {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      font-family: var(--jd-font-sans);
+    }
 
-  .jd-swipe-action__panel {
-    position: absolute; inset-block: 0;
-    display: flex; align-items: stretch;
-  }
-  .jd-swipe-action__panel[hidden] { display: none; }
-  .jd-swipe-action__panel[data-side="left"] { inset-inline-start: 0; }
-  .jd-swipe-action__panel[data-side="right"] { inset-inline-end: 0; }
+    .jd-swipe-action__panel {
+      position: absolute;
+      inset-block: 0;
+      display: flex;
+      align-items: stretch;
+    }
+    .jd-swipe-action__panel[hidden] {
+      display: none;
+    }
+    .jd-swipe-action__panel[data-side="left"] {
+      inset-inline-start: 0;
+    }
+    .jd-swipe-action__panel[data-side="right"] {
+      inset-inline-end: 0;
+    }
 
-  .jd-swipe-action__button {
-    display: flex; align-items: center; justify-content: center;
-    width: var(--_jd-swipe-button-width, 5rem);
-    padding-inline: var(--jd-space-4);
-    font-family: inherit; font-size: var(--jd-text-xs); font-weight: var(--jd-weight-medium);
-    color: #fff;
-    background: var(--jd-color-muted);
-    border: 0; cursor: pointer;
-  }
-  .jd-swipe-action__button[data-variant="danger"] { background: var(--jd-color-danger); }
-  .jd-swipe-action__button[data-variant="primary"] { background: var(--jd-color-primary); }
-  .jd-swipe-action__button[data-variant="success"] { background: var(--jd-color-success); }
-  .jd-swipe-action__button[data-variant="warning"] { background: var(--jd-color-warning); }
-  .jd-swipe-action__button:disabled { opacity: var(--jd-opacity-50); cursor: not-allowed; }
-  .jd-swipe-action__button:focus-visible {
-    outline: var(--jd-border-medium) solid var(--jd-color-foreground);
-    outline-offset: -3px;
-  }
+    .jd-swipe-action__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--_jd-swipe-button-width, 5rem);
+      padding-inline: var(--jd-space-4);
+      font-family: inherit;
+      font-size: var(--jd-text-xs);
+      font-weight: var(--jd-weight-medium);
+      color: #fff;
+      background: var(--jd-color-muted);
+      border: 0;
+      cursor: pointer;
+    }
+    .jd-swipe-action__button[data-variant="danger"] {
+      background: var(--jd-color-danger);
+    }
+    .jd-swipe-action__button[data-variant="primary"] {
+      background: var(--jd-color-primary);
+    }
+    .jd-swipe-action__button[data-variant="success"] {
+      background: var(--jd-color-success);
+    }
+    .jd-swipe-action__button[data-variant="warning"] {
+      background: var(--jd-color-warning);
+    }
+    .jd-swipe-action__button:disabled {
+      opacity: var(--jd-opacity-50);
+      cursor: not-allowed;
+    }
+    .jd-swipe-action__button:focus-visible {
+      outline: var(--jd-border-medium) solid var(--jd-color-foreground);
+      outline-offset: -3px;
+    }
 
-  .jd-swipe-action__content {
-    position: relative;
-    background: var(--jd-color-card);
-    transform: translateX(var(--_jd-swipe-offset, 0px));
-    transition: transform var(--jd-duration-slow) var(--jd-easing-ease-out);
-    /* 세로 스크롤은 브라우저에, 가로 제스처는 우리에게 */
-    touch-action: pan-y;
-  }
-  .jd-swipe-action__content[data-dragging] {
-    transition-duration: 0s; /* v2: 드래그 중에는 손가락을 그대로 따라간다 */
-    user-select: none;
-  }
+    .jd-swipe-action__content {
+      position: relative;
+      background: var(--jd-color-card);
+      transform: translateX(var(--_jd-swipe-offset, 0px));
+      transition: transform var(--jd-duration-slow) var(--jd-easing-ease-out);
+      /* 세로 스크롤은 브라우저에, 가로 제스처는 우리에게 */
+      touch-action: pan-y;
+    }
+    .jd-swipe-action__content[data-dragging] {
+      transition-duration: 0s; /* v2: 드래그 중에는 손가락을 그대로 따라간다 */
+      user-select: none;
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-swipe-action__content { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-swipe-action__content {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

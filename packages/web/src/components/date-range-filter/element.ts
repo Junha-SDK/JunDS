@@ -240,7 +240,10 @@ export class JdDateRangeFilter extends JdElement {
     }
     if (typeof preset.days === "number" && preset.days > 0) {
       // v2: 최근 7일 = 오늘 포함 6일 전부터
-      return { start: formatISODate(addDays(today, -(preset.days - 1))), end: formatISODate(today) };
+      return {
+        start: formatISODate(addDays(today, -(preset.days - 1))),
+        end: formatISODate(today),
+      };
     }
     return null;
   }

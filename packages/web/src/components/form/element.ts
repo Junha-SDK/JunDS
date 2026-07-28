@@ -108,7 +108,11 @@ export class JdForm extends JdElement {
     if (!name) return null;
     const input = el as HTMLInputElement;
     const value =
-      input.type === "checkbox" ? input.checked : input.type === "radio" ? input.value : input.value;
+      input.type === "checkbox"
+        ? input.checked
+        : input.type === "radio"
+        ? input.value
+        : input.value;
     return { name, value };
   }
 

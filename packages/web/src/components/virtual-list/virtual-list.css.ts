@@ -7,13 +7,14 @@ import { css } from "../../core/styles.js";
  * update()가 세우는 `--_jd-virtual-scroll-height`도 같은 변수를 쓴다 — 파생이 값을 그대로 물려받는다.
  */
 export default css`
-@layer junds.components {
-  jd-virtual-list {
-    display: block;
-    overflow: auto;
-    height: var(--_jd-virtual-scroll-height, auto);
-    overscroll-behavior: contain;
-    font-family: var(--jd-font-sans);
-    color: var(--jd-color-foreground);
+  @layer junds.components {
+    jd-virtual-list {
+      display: block;
+      overflow: auto;
+      height: var(--_jd-virtual-scroll-height, auto);
+      overscroll-behavior: contain;
+      font-family: var(--jd-font-sans);
+      color: var(--jd-color-foreground);
+    }
   }
-}`;
+`;

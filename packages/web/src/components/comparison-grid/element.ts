@@ -91,9 +91,7 @@ export class JdComparisonGrid extends JdElement {
   }
 
   #items(): HTMLElement[] {
-    return Array.from(
-      this.querySelectorAll<HTMLElement>(":scope > .jd-comparison-grid__card"),
-    );
+    return Array.from(this.querySelectorAll<HTMLElement>(":scope > .jd-comparison-grid__card"));
   }
 
   /** 입양(§3.3): 개수가 같으면 만들지 않고 내용만 맞춘다 */

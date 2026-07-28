@@ -130,7 +130,9 @@ export class JdLineChart extends JdCategoryChart<JdLineSeries> {
     const first = points[0]!;
     const last = points[points.length - 1]!;
     if (!base || base.length === 0) {
-      return `${top} L${coord(last.x)},${coord(this.baseY)} L${coord(first.x)},${coord(this.baseY)} Z`;
+      return `${top} L${coord(last.x)},${coord(this.baseY)} L${coord(first.x)},${coord(
+        this.baseY,
+      )} Z`;
     }
     const lastBase = base[base.length - 1]!;
     const reversed = linePath([...base].reverse(), this.smooth).replace(/^M/, "L");

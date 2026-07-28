@@ -54,7 +54,9 @@ function toDate(raw: ForumPost["createdAt"]): Date | null {
 
 /** 결정적 초기 표기 — now에 의존하지 않는다(§3.1-3). */
 function absoluteDate(dt: Date): string {
-  return new Intl.DateTimeFormat("ko", { year: "2-digit", month: "short", day: "numeric" }).format(dt);
+  return new Intl.DateTimeFormat("ko", { year: "2-digit", month: "short", day: "numeric" }).format(
+    dt,
+  );
 }
 
 /** v2 relativeTime 재현("전" 접미, 30일↑는 절대). connected() 이후에만 호출. */
@@ -144,7 +146,9 @@ export class JdForumThread extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "{}") as ThreadConfig;
@@ -241,9 +245,7 @@ export class JdForumThread extends JdElement {
     votes.setAttribute("role", "group");
     votes.setAttribute("aria-label", "투표");
     const score = post.upvotes ?? 0;
-    votes.append(
-      this.#voteButton("up", post.id, post.myVote === 1, "추천"),
-    );
+    votes.append(this.#voteButton("up", post.id, post.myVote === 1, "추천"));
     const scoreEl = document.createElement("span");
     scoreEl.className = `${CLS}__score`;
     scoreEl.textContent = String(score);

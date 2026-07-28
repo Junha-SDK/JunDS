@@ -131,7 +131,12 @@ export class JdLiveOrderBook extends JdElement {
         current?: unknown;
       } | null;
       // 슬롯은 초기값 — 이미 대입된 asks/bids 프로퍼티를 덮지 않는다(§1.3)
-      if (parsed && typeof parsed === "object" && this.#asks.length === 0 && this.#bids.length === 0) {
+      if (
+        parsed &&
+        typeof parsed === "object" &&
+        this.#asks.length === 0 &&
+        this.#bids.length === 0
+      ) {
         this.#asks = this.#normalize(parsed.asks);
         this.#bids = this.#normalize(parsed.bids);
         if (typeof parsed.current === "number") this.current = parsed.current;
@@ -181,7 +186,9 @@ export class JdLiveOrderBook extends JdElement {
     cur.className = "jd-lob__current";
     const curCell = document.createElement("td");
     curCell.colSpan = 3;
-    curCell.textContent = `현재가 ${this.current > 0 ? groupDigits(Math.round(this.current)) : EM_DASH}`;
+    curCell.textContent = `현재가 ${
+      this.current > 0 ? groupDigits(Math.round(this.current)) : EM_DASH
+    }`;
     cur.append(curCell);
     this.#body.append(cur);
     // 매수: 가까운 호가(위) → 먼 호가(아래)
@@ -221,14 +228,22 @@ export class JdLiveOrderBook extends JdElement {
   #askRow(level: JdOrderLevel, ratio: number): HTMLTableRowElement {
     const tr = document.createElement("tr");
     tr.className = "jd-lob__row";
-    tr.append(this.#qtyCell("ask", level.qty, ratio), this.#priceCell("ask", level.price), this.#spacer());
+    tr.append(
+      this.#qtyCell("ask", level.qty, ratio),
+      this.#priceCell("ask", level.price),
+      this.#spacer(),
+    );
     return tr;
   }
 
   #bidRow(level: JdOrderLevel, ratio: number): HTMLTableRowElement {
     const tr = document.createElement("tr");
     tr.className = "jd-lob__row";
-    tr.append(this.#spacer(), this.#priceCell("bid", level.price), this.#qtyCell("bid", level.qty, ratio));
+    tr.append(
+      this.#spacer(),
+      this.#priceCell("bid", level.price),
+      this.#qtyCell("bid", level.qty, ratio),
+    );
     return tr;
   }
 

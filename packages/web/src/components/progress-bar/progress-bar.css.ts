@@ -14,64 +14,94 @@ import { css } from "../../core/styles.js";
  * 유일한 정의자가 되게 두는 것이 이 관용구의 핵심이다.
  */
 export default css`
-@layer junds.components {
-  jd-progress-bar {
-    display: block; width: 100%; box-sizing: border-box;
-    font-family: var(--jd-font-sans);
-  }
+  @layer junds.components {
+    jd-progress-bar {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      font-family: var(--jd-font-sans);
+    }
 
-  .jd-progress-bar__header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-block-end: var(--jd-space-1);
-    font-size: var(--jd-text-xs);
-  }
-  /* 저작 display가 UA의 [hidden] 규칙을 이긴다 — 명시 규칙 필수(레포 관용구) */
-  .jd-progress-bar__header[hidden] { display: none; }
-  .jd-progress-bar__label {
-    font-weight: var(--jd-weight-medium); color: var(--jd-color-foreground);
-  }
-  .jd-progress-bar__label[hidden] { display: none; }
-  .jd-progress-bar__value {
-    color: var(--jd-color-muted); font-variant-numeric: tabular-nums;
-  }
-  .jd-progress-bar__value[hidden] { display: none; }
+    .jd-progress-bar__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-block-end: var(--jd-space-1);
+      font-size: var(--jd-text-xs);
+    }
+    /* 저작 display가 UA의 [hidden] 규칙을 이긴다 — 명시 규칙 필수(레포 관용구) */
+    .jd-progress-bar__header[hidden] {
+      display: none;
+    }
+    .jd-progress-bar__label {
+      font-weight: var(--jd-weight-medium);
+      color: var(--jd-color-foreground);
+    }
+    .jd-progress-bar__label[hidden] {
+      display: none;
+    }
+    .jd-progress-bar__value {
+      color: var(--jd-color-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .jd-progress-bar__value[hidden] {
+      display: none;
+    }
 
-  .jd-progress-bar__track {
-    width: 100%; overflow: hidden;
-    height: var(--jd-progress-bar-height, 0.625rem); /* md */
-    background: var(--jd-progress-bar-track, var(--jd-color-neutral-100));
-    border-radius: var(--jd-radius-full);
-  }
-  jd-progress-bar[size="sm"] .jd-progress-bar__track {
-    height: var(--jd-progress-bar-height, 0.375rem);
-  }
-  jd-progress-bar[size="lg"] .jd-progress-bar__track {
-    height: var(--jd-progress-bar-height, 1rem);
-  }
+    .jd-progress-bar__track {
+      width: 100%;
+      overflow: hidden;
+      height: var(--jd-progress-bar-height, 0.625rem); /* md */
+      /* 트랙은 "컨트롤의 홈"이다 — control-track이 이미 모드별 값을 갖는다.
+       다크에서만 색을 갈아끼우던 규칙은 --jd-progress-bar-track을 호스트에 **정의**해
+       바깥(jd-loading-screen 등)의 합성을 막고 있었다(높이 변수와 같은 함정). */
+      background: var(--jd-progress-bar-track, var(--jd-color-control-track));
+      border-radius: var(--jd-radius-full);
+    }
+    jd-progress-bar[size="sm"] .jd-progress-bar__track {
+      height: var(--jd-progress-bar-height, 0.375rem);
+    }
+    jd-progress-bar[size="lg"] .jd-progress-bar__track {
+      height: var(--jd-progress-bar-height, 1rem);
+    }
 
-  .jd-progress-bar__fill {
-    height: 100%; border-radius: var(--jd-radius-full);
-    background: var(--jd-color-primary);
-    transition: width var(--jd-duration-slower) var(--jd-easing-default);
-  }
-  jd-progress-bar[variant="success"] .jd-progress-bar__fill { background: var(--jd-color-success); }
-  jd-progress-bar[variant="warning"] .jd-progress-bar__fill { background: var(--jd-color-warning); }
-  jd-progress-bar[variant="danger"] .jd-progress-bar__fill { background: var(--jd-color-danger); }
+    /* 진행은 의미가 아니라 강조다 — 기본은 primary, 의미색은 variant가 받는다.
+     인셋 하이라이트로 채움이 트랙 홈 위에 얹힌 면으로 읽히게 한다. */
+    .jd-progress-bar__fill {
+      height: 100%;
+      border-radius: var(--jd-radius-full);
+      background: var(--jd-color-primary);
+      box-shadow: inset 0 1px 0 var(--jd-color-highlight);
+      transition: width var(--jd-duration-slower) var(--jd-easing-default);
+    }
+    jd-progress-bar[variant="success"] .jd-progress-bar__fill {
+      background: var(--jd-color-success);
+    }
+    jd-progress-bar[variant="warning"] .jd-progress-bar__fill {
+      background: var(--jd-color-warning);
+    }
+    jd-progress-bar[variant="danger"] .jd-progress-bar__fill {
+      background: var(--jd-color-danger);
+    }
 
-  /* v2 animate-progress — 마운트 시 0에서 차오른다 */
-  jd-progress-bar[animated] .jd-progress-bar__fill {
-    animation: jd-progress-fill 1s var(--jd-easing-default) forwards;
-  }
+    /* v2 animate-progress — 마운트 시 0에서 차오른다 */
+    jd-progress-bar[animated] .jd-progress-bar__fill {
+      animation: jd-progress-fill 1s var(--jd-easing-default) forwards;
+    }
 
-  [data-jd-theme="dark"] jd-progress-bar,
-  [data-theme="dark"] jd-progress-bar {
-    --jd-progress-bar-track: var(--jd-color-border);
-  }
+    @keyframes jd-progress-fill {
+      from {
+        width: 0;
+      }
+    }
 
-  @keyframes jd-progress-fill { from { width: 0; } }
-
-  @media (prefers-reduced-motion: reduce) {
-    .jd-progress-bar__fill { transition: none; }
-    jd-progress-bar[animated] .jd-progress-bar__fill { animation: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-progress-bar__fill {
+        transition: none;
+      }
+      jd-progress-bar[animated] .jd-progress-bar__fill {
+        animation: none;
+      }
+    }
   }
-}`;
+`;

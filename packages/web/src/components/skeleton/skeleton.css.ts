@@ -15,43 +15,60 @@ import { css } from "../../core/styles.js";
  *    자리표시자가 오히려 본문보다 밝게 빛났다. 토큰 경유 오버라이드로 교정.
  */
 export default css`
-@layer junds.components {
-  /* text 기본 — 줄 컨테이너 */
-  jd-skeleton {
-    display: flex; flex-direction: column; gap: var(--jd-space-2);
-  }
+  @layer junds.components {
+    /* text 기본 — 줄 컨테이너 */
+    jd-skeleton {
+      display: flex;
+      flex-direction: column;
+      gap: var(--jd-space-2);
+    }
 
-  /* 반짝이는 블록 자체 — 프리셋도 .jd-skeleton-block으로 이 규칙을 공유한다.
+    /* 반짝이는 블록 자체 — 프리셋도 .jd-skeleton-block으로 이 규칙을 공유한다.
      span에 높이를 주려면 block이어야 한다(인라인은 height를 무시). */
-  jd-skeleton[variant="circle"],
-  jd-skeleton[variant="rect"],
-  .jd-skeleton__line,
-  .jd-skeleton-block {
-    display: block;
-    background: var(--jd-skeleton-color, var(--jd-color-neutral-200));
-    border-radius: var(--jd-skeleton-radius, var(--jd-radius-sm));
-    animation: jd-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-  jd-skeleton[variant="circle"] { border-radius: var(--jd-skeleton-radius, var(--jd-radius-full)); }
-  jd-skeleton[variant="rect"] { border-radius: var(--jd-skeleton-radius, var(--jd-radius-lg)); }
-
-  .jd-skeleton__line { height: 0.875rem; flex-shrink: 0; } /* v2 h-3.5 */
-
-  [data-jd-theme="dark"] jd-skeleton,
-  [data-theme="dark"] jd-skeleton,
-  [data-jd-theme="dark"] .jd-skeleton-block,
-  [data-theme="dark"] .jd-skeleton-block {
-    --jd-skeleton-color: var(--jd-color-border);
-  }
-
-  @keyframes jd-skeleton-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .5; }
-  }
-  @media (prefers-reduced-motion: reduce) {
     jd-skeleton[variant="circle"],
     jd-skeleton[variant="rect"],
     .jd-skeleton__line,
-    .jd-skeleton-block { animation: none; }
+    .jd-skeleton-block {
+      display: block;
+      background: var(--jd-skeleton-color, var(--jd-color-neutral-200));
+      border-radius: var(--jd-skeleton-radius, var(--jd-radius-sm));
+      animation: jd-skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    jd-skeleton[variant="circle"] {
+      border-radius: var(--jd-skeleton-radius, var(--jd-radius-full));
+    }
+    jd-skeleton[variant="rect"] {
+      border-radius: var(--jd-skeleton-radius, var(--jd-radius-lg));
+    }
+
+    .jd-skeleton__line {
+      height: 0.875rem;
+      flex-shrink: 0;
+    } /* v2 h-3.5 */
+
+    [data-jd-theme="dark"] jd-skeleton,
+    [data-theme="dark"] jd-skeleton,
+    [data-jd-theme="dark"] .jd-skeleton-block,
+    [data-theme="dark"] .jd-skeleton-block {
+      --jd-skeleton-color: var(--jd-color-border);
+    }
+
+    @keyframes jd-skeleton-pulse {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      jd-skeleton[variant="circle"],
+      jd-skeleton[variant="rect"],
+      .jd-skeleton__line,
+      .jd-skeleton-block {
+        animation: none;
+      }
+    }
   }
-}`;
+`;

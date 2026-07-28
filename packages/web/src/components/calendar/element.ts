@@ -275,7 +275,9 @@ export class JdCalendar extends JdElement {
 
   #readJson(): void {
     if (this.#events.length > 0) return;
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]");
@@ -630,10 +632,18 @@ export class JdCalendar extends JdElement {
     if (!this.#focused) return;
     let next: Date | null = null;
     switch (e.key) {
-      case "ArrowLeft": next = addDays(this.#focused, -1); break;
-      case "ArrowRight": next = addDays(this.#focused, 1); break;
-      case "ArrowUp": next = addDays(this.#focused, -7); break;
-      case "ArrowDown": next = addDays(this.#focused, 7); break;
+      case "ArrowLeft":
+        next = addDays(this.#focused, -1);
+        break;
+      case "ArrowRight":
+        next = addDays(this.#focused, 1);
+        break;
+      case "ArrowUp":
+        next = addDays(this.#focused, -7);
+        break;
+      case "ArrowDown":
+        next = addDays(this.#focused, 7);
+        break;
       case "Enter":
       case " ":
         e.preventDefault();

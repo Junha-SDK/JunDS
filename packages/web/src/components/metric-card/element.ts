@@ -94,11 +94,14 @@ export class JdMetricCard extends JdStatCard {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent || "[]");
-      if (Array.isArray(parsed)) this.#points = parsed.filter((n): n is number => Number.isFinite(n));
+      if (Array.isArray(parsed))
+        this.#points = parsed.filter((n): n is number => Number.isFinite(n));
     } catch {
       console.warn("[junds] <jd-metric-card> JSON 슬롯 파싱 실패 — 무시합니다.");
     }

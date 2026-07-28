@@ -103,8 +103,9 @@ export class JdAlert extends JdElement {
     // 사용자 아이콘이 없을 때만 기본 아이콘을 그린다
     if (!this.#icon.firstElementChild || this.#icon.dataset.builtin) {
       this.#icon.dataset.builtin = "1";
-      this.#icon.innerHTML =
-        `<svg width="20" height="20" viewBox="0 0 18 18" fill="none">${ICONS[this.variant] ?? ICONS.info}</svg>`;
+      this.#icon.innerHTML = `<svg width="20" height="20" viewBox="0 0 18 18" fill="none">${
+        ICONS[this.variant] ?? ICONS.info
+      }</svg>`;
     }
     this.#title.textContent = this.title;
     this.#title.hidden = !this.title;

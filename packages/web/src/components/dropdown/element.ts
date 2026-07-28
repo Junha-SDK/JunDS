@@ -146,9 +146,7 @@ export function buildMenuList(
 
 /** `<script type="application/json">` 슬롯 1회 소비 (radio-group·action-sheet 선례) */
 export function readJsonSlot<T>(host: HTMLElement): T[] | null {
-  const script = host.querySelector<HTMLScriptElement>(
-    ':scope > script[type="application/json"]',
-  );
+  const script = host.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
   if (!script) return null;
   let parsed: unknown = null;
   try {

@@ -96,7 +96,7 @@ export class JdCopyBlock extends JdElement {
       const painted = Array.from(
         this.#code.querySelectorAll<HTMLElement>(":scope > .jd-copy-block__line"),
       ).map((el) => el.textContent ?? "");
-      this.#fallback = painted.length ? painted.join("\n") : (this.#code.textContent ?? "");
+      this.#fallback = painted.length ? painted.join("\n") : this.#code.textContent ?? "";
       this.#painted = this.#fallback;
       this.update();
       return;

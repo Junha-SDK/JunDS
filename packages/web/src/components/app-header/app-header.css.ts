@@ -8,30 +8,58 @@ import { css } from "../../core/styles.js";
  * 날짜 muted→--jd-color-muted.
  */
 export default css`
-@layer junds.components {
-  jd-app-header { display: block; }
-  header.jd-app-header {
-    padding: var(--jd-space-3) var(--jd-space-4) var(--jd-space-2);
-    background: color-mix(in srgb, var(--jd-color-background) 90%, transparent);
-    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-  }
-  jd-app-header:not([static]) header.jd-app-header {
-    position: sticky; top: 0; z-index: var(--jd-z-sticky);
-  }
+  @layer junds.components {
+    jd-app-header {
+      display: block;
+    }
+    header.jd-app-header {
+      padding: var(--jd-space-3) var(--jd-space-4) var(--jd-space-2);
+      background: color-mix(in srgb, var(--jd-color-background) 90%, transparent);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+    jd-app-header:not([static]) header.jd-app-header {
+      position: sticky;
+      top: 0;
+      z-index: var(--jd-z-sticky);
+    }
 
-  .jd-app-header__bar {
-    display: flex; align-items: center; justify-content: space-between; gap: var(--jd-space-2);
-  }
-  .jd-app-header__brand { display: inline-flex; align-items: center; gap: var(--jd-space-2); min-width: 0; }
-  .jd-app-header__meta {
-    font-size: var(--jd-text-sm); font-weight: var(--jd-weight-semibold);
-    color: var(--jd-color-muted); font-variant-numeric: tabular-nums; white-space: nowrap;
-  }
-  .jd-app-header__meta[hidden] { display: none; }
-  .jd-app-header__actions { display: inline-flex; align-items: center; gap: var(--jd-space-1); }
+    .jd-app-header__bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--jd-space-2);
+    }
+    .jd-app-header__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--jd-space-2);
+      min-width: 0;
+    }
+    .jd-app-header__meta {
+      font-size: var(--jd-text-sm);
+      font-weight: var(--jd-weight-semibold);
+      color: var(--jd-color-muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .jd-app-header__meta[hidden] {
+      display: none;
+    }
+    .jd-app-header__actions {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--jd-space-1);
+    }
 
-  .jd-app-header__search {
-    margin-top: var(--jd-space-3); display: flex; align-items: center; gap: var(--jd-space-2);
+    .jd-app-header__search {
+      margin-top: var(--jd-space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--jd-space-2);
+    }
+    .jd-app-header__search[hidden] {
+      display: none;
+    }
   }
-  .jd-app-header__search[hidden] { display: none; }
-}`;
+`;

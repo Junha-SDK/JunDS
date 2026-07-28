@@ -6,74 +6,104 @@ import { css } from "../../core/styles.js";
  * v2 gray-100/200 호버는 jd-button ghost의 muted color-mix 관용구로 통일(G2 gray 어휘).
  */
 export default css`
-@layer junds.components {
-  jd-icon-button { display: inline-flex; }
+  @layer junds.components {
+    jd-icon-button {
+      display: inline-flex;
+    }
 
-  .jd-icon-button {
-    display: inline-flex; align-items: center; justify-content: center;
-    border: 0; margin: 0; padding: 0; background: transparent;
-    cursor: pointer; user-select: none;
-    color: var(--jd-color-muted);
-    transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out),
-      border-color var(--jd-duration-fast) var(--jd-easing-ease-out),
-      color var(--jd-duration-fast) var(--jd-easing-ease-out),
-      box-shadow var(--jd-duration-fast) var(--jd-easing-ease-out),
-      opacity var(--jd-duration-fast) var(--jd-easing-ease-out),
-      scale var(--jd-duration-fast) var(--jd-easing-ease-out),
-      transform var(--jd-duration-fast) var(--jd-easing-ease-out);
-    /* size 기본 md — 32px */
-    width: 2rem; height: 2rem; border-radius: var(--jd-radius-lg);
-  }
-  .jd-icon-button:hover {
-    background: color-mix(in srgb, var(--jd-color-muted) 10%, transparent);
-    color: var(--jd-color-foreground);
-  }
-  /* 아이콘 버튼도 jd-button과 같은 프레스 응답 — 같은 제품 안에서 어떤 버튼은
+    .jd-icon-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      user-select: none;
+      color: var(--jd-color-muted);
+      transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+        border-color var(--jd-duration-fast) var(--jd-easing-ease-out),
+        color var(--jd-duration-fast) var(--jd-easing-ease-out),
+        box-shadow var(--jd-duration-fast) var(--jd-easing-ease-out),
+        opacity var(--jd-duration-fast) var(--jd-easing-ease-out),
+        scale var(--jd-duration-fast) var(--jd-easing-ease-out),
+        transform var(--jd-duration-fast) var(--jd-easing-ease-out);
+      /* size 기본 md — 32px */
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--jd-radius-lg);
+    }
+    .jd-icon-button:hover {
+      background: color-mix(in srgb, var(--jd-color-muted) 10%, transparent);
+      color: var(--jd-color-foreground);
+    }
+    /* 아이콘 버튼도 jd-button과 같은 프레스 응답 — 같은 제품 안에서 어떤 버튼은
      눌리고 어떤 버튼은 안 눌리면 '만들다 만' 인상이 된다 (DEC-039) */
-  .jd-icon-button:active {
-    background: color-mix(in srgb, var(--jd-color-muted) 16%, transparent);
-    scale: .92;
-  }
-  .jd-icon-button:disabled { opacity: var(--jd-opacity-50); pointer-events: none; }
-  .jd-icon-button:focus-visible {
-    outline: var(--jd-focus-ring); outline-offset: var(--jd-focus-ring-offset);
-  }
-  /* 아이콘은 광학 중심이 기하 중심과 어긋나기 쉬우므로 축소·정렬을 고정한다 */
-  .jd-icon-button > svg { flex-shrink: 0; display: block; }
+    .jd-icon-button:active {
+      background: color-mix(in srgb, var(--jd-color-muted) 16%, transparent);
+      scale: 0.92;
+    }
+    .jd-icon-button:disabled {
+      opacity: var(--jd-opacity-50);
+      pointer-events: none;
+    }
+    .jd-icon-button:focus-visible {
+      outline: var(--jd-focus-ring);
+      outline-offset: var(--jd-focus-ring-offset);
+    }
+    /* 아이콘은 광학 중심이 기하 중심과 어긋나기 쉬우므로 축소·정렬을 고정한다 */
+    .jd-icon-button > svg {
+      flex-shrink: 0;
+      display: block;
+    }
 
-  jd-icon-button[size="xs"] > .jd-icon-button {
-    width: 1.5rem; height: 1.5rem; border-radius: var(--jd-radius-md);
-  }
-  jd-icon-button[size="sm"] > .jd-icon-button {
-    width: 1.75rem; height: 1.75rem; border-radius: var(--jd-radius-lg);
-  }
-  jd-icon-button[size="lg"] > .jd-icon-button {
-    width: 2.5rem; height: 2.5rem; border-radius: var(--jd-radius-xl);
-  }
+    jd-icon-button[size="xs"] > .jd-icon-button {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: var(--jd-radius-md);
+    }
+    jd-icon-button[size="sm"] > .jd-icon-button {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: var(--jd-radius-lg);
+    }
+    jd-icon-button[size="lg"] > .jd-icon-button {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: var(--jd-radius-xl);
+    }
 
-  jd-icon-button[variant="outline"] > .jd-icon-button {
-    border: var(--jd-border-thin) solid var(--jd-color-border);
-  }
-  jd-icon-button[variant="outline"] > .jd-icon-button:hover {
-    background: var(--jd-color-card-hover);
-  }
+    jd-icon-button[variant="outline"] > .jd-icon-button {
+      border: var(--jd-border-thin) solid var(--jd-color-border);
+    }
+    jd-icon-button[variant="outline"] > .jd-icon-button:hover {
+      background: var(--jd-color-card-hover);
+    }
 
-  jd-icon-button[variant="filled"] > .jd-icon-button {
-    background: var(--jd-color-primary); color: #fff;
-    box-shadow: var(--jd-shadow-xs), inset 0 1px 0 var(--jd-color-highlight);
-  }
-  jd-icon-button[variant="filled"] > .jd-icon-button:hover {
-    background: var(--jd-color-primary-hover); color: #fff;
-    box-shadow: 0 4px 12px var(--jd-color-primary-glow),
-      var(--jd-shadow-xs), inset 0 1px 0 var(--jd-color-highlight);
-  }
-  jd-icon-button[variant="filled"] > .jd-icon-button:active {
-    background: var(--jd-color-primary-hover);
-    box-shadow: inset 0 1px 2px var(--jd-color-shade);
-  }
+    jd-icon-button[variant="filled"] > .jd-icon-button {
+      background: var(--jd-color-primary);
+      color: #fff;
+      box-shadow: var(--jd-shadow-xs), inset 0 1px 0 var(--jd-color-highlight);
+    }
+    jd-icon-button[variant="filled"] > .jd-icon-button:hover {
+      background: var(--jd-color-primary-hover);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--jd-color-primary-glow), var(--jd-shadow-xs),
+        inset 0 1px 0 var(--jd-color-highlight);
+    }
+    jd-icon-button[variant="filled"] > .jd-icon-button:active {
+      background: var(--jd-color-primary-hover);
+      box-shadow: inset 0 1px 2px var(--jd-color-shade);
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-icon-button { transition: none; }
-    .jd-icon-button:active { scale: 1; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-icon-button {
+        transition: none;
+      }
+      .jd-icon-button:active {
+        scale: 1;
+      }
+    }
   }
-}`;
+`;

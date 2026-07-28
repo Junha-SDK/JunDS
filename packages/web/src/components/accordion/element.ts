@@ -21,11 +21,7 @@
  * 필요한 소비자를 위해 아코디언은 `jd-change`({ key, open, openKeys })를 추가 발행한다.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  isContentEmpty,
-  setContent,
-  type JdContent,
-} from "../../core/content.js";
+import { isContentEmpty, setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { on, createKeyHandler } from "../../behaviors/input.js";
 import type { JdDisclosure } from "../disclosure/element.js";
@@ -99,7 +95,9 @@ export class JdAccordion extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 (radio-group·tabs 선례) */
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdAccordionItem[];

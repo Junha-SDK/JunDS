@@ -181,9 +181,8 @@ export class JdBottomNav extends JdElement {
     // 갖고 있으므로 실제 탭만 골라 인덱스를 #tabs와 정렬한다(안 그러면 undefined 접근).
     const anyTabActive = this.#tabs.some((t) => this.#tabActive(t));
     const tabEls =
-      this.#bar?.querySelectorAll<HTMLElement>(
-        ".jd-bottom-nav__tab:not(.jd-bottom-nav__more)",
-      ) ?? [];
+      this.#bar?.querySelectorAll<HTMLElement>(".jd-bottom-nav__tab:not(.jd-bottom-nav__more)") ??
+      [];
     tabEls.forEach((el, i) => {
       const tab = this.#tabs[i];
       if (!tab) return;
@@ -195,7 +194,8 @@ export class JdBottomNav extends JdElement {
       this.#more.toggleAttribute("data-active", !anyTabActive);
       this.#more.setAttribute("aria-expanded", String(Boolean(this.#sheet?.open)));
     }
-    const itemEls = this.#sheetBody?.querySelectorAll<HTMLElement>(".jd-bottom-nav__sheet-item") ?? [];
+    const itemEls =
+      this.#sheetBody?.querySelectorAll<HTMLElement>(".jd-bottom-nav__sheet-item") ?? [];
     let idx = 0;
     for (const section of this.#sections) {
       for (const item of section.items) {

@@ -192,8 +192,7 @@ export class JdDock extends JdElement {
        JdDockItem 이라 else 가지가 타입상 never 가 된다. 그래도 가드를 남기는 이유는
        **업그레이드 타이밍** 때문 — customElements 정의 전에는 같은 태그가 아직
        HTMLElement 이고 label 프로퍼티가 없다. 그 순간에도 attribute 는 읽힌다. */
-    const label =
-      el instanceof JdDockItem ? el.label : ((el as Element).getAttribute("label") ?? "");
+    const label = el instanceof JdDockItem ? el.label : (el as Element).getAttribute("label") ?? "";
     this.emit("jd-select", { index, label });
   };
 

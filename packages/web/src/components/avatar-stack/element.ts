@@ -93,11 +93,14 @@ export class JdAvatarStack extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 (jd-radio-group 선례) */
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as unknown;
-      if (Array.isArray(parsed)) this.#people = parsed.map((e) => toPerson(e as JdAvatarStackEntry));
+      if (Array.isArray(parsed))
+        this.#people = parsed.map((e) => toPerson(e as JdAvatarStackEntry));
     } catch {
       console.warn("[junds] <jd-avatar-stack> JSON 슬롯 파싱 실패 — 무시합니다.");
     }

@@ -53,8 +53,7 @@ export interface JdInvestorCard {
   profile: JdInvestorProfile;
 }
 
-type ComponentKey =
-  | "valuation" | "quality" | "growth" | "moat" | "dividend" | "momentum" | "risk";
+type ComponentKey = "valuation" | "quality" | "growth" | "moat" | "dividend" | "momentum" | "risk";
 
 const COMPONENT_LABELS: readonly { key: ComponentKey; label: string }[] = [
   { key: "valuation", label: "가치" },
@@ -96,12 +95,18 @@ function icon(name: string, size = 14, stroke = "2.4"): SVGSVGElement {
 /** v2 verdictColorFor — 상승=적(danger), 하락=청(info) 관례 */
 function verdictColor(v: JdVerdict): string {
   switch (v) {
-    case "강력매수": return "var(--jd-fin-up)";
-    case "매수": return "color-mix(in srgb, var(--jd-fin-up) 55%, var(--jd-color-muted))";
-    case "관망": return "var(--jd-color-muted)";
-    case "매도": return "color-mix(in srgb, var(--jd-fin-down) 55%, var(--jd-color-muted))";
-    case "강력매도": return "var(--jd-fin-down)";
-    default: return "var(--jd-color-muted)";
+    case "강력매수":
+      return "var(--jd-fin-up)";
+    case "매수":
+      return "color-mix(in srgb, var(--jd-fin-up) 55%, var(--jd-color-muted))";
+    case "관망":
+      return "var(--jd-color-muted)";
+    case "매도":
+      return "color-mix(in srgb, var(--jd-fin-down) 55%, var(--jd-color-muted))";
+    case "강력매도":
+      return "var(--jd-fin-down)";
+    default:
+      return "var(--jd-color-muted)";
   }
 }
 
@@ -249,7 +254,12 @@ export class JdInvestorCouncil extends JdElement {
     const sellers = sorted.filter((c) => c.score <= -0.2).length;
     const score = sorted.reduce((s, c) => s + c.score, 0) / Math.max(1, sorted.length);
     const tone = score >= 0.2 ? "up" : score <= -0.2 ? "down" : "neutral";
-    const label = tone === "up" ? "위원회 매수 우위" : tone === "down" ? "위원회 매도 우위" : "위원회 의견 분분";
+    const label =
+      tone === "up"
+        ? "위원회 매수 우위"
+        : tone === "down"
+        ? "위원회 매도 우위"
+        : "위원회 의견 분분";
 
     this.#consensusEl.textContent = "";
     this.#consensusEl.setAttribute("data-tone", tone);
@@ -301,7 +311,9 @@ export class JdInvestorCouncil extends JdElement {
   }
 
   #markActive(id: string): void {
-    for (const btn of this.#asideList.querySelectorAll<HTMLButtonElement>(".jd-council__investor")) {
+    for (const btn of this.#asideList.querySelectorAll<HTMLButtonElement>(
+      ".jd-council__investor",
+    )) {
       const on = btn.dataset.id === id;
       btn.toggleAttribute("data-active", on);
       btn.setAttribute("aria-pressed", on ? "true" : "false");
@@ -480,7 +492,12 @@ export class JdInvestorCouncil extends JdElement {
     return box;
   }
 
-  #planCell(label: string, value: number | string, tone?: "up" | "down", big?: boolean): HTMLElement {
+  #planCell(
+    label: string,
+    value: number | string,
+    tone?: "up" | "down",
+    big?: boolean,
+  ): HTMLElement {
     const cell = el("div", "jd-council__plan-cell");
     const l = el("div", "jd-council__plan-cell-label");
     l.textContent = label;
@@ -495,7 +512,10 @@ export class JdInvestorCouncil extends JdElement {
   #quotes(p: JdInvestorProfile): HTMLElement {
     const details = el("details", "jd-council__quotes") as HTMLDetailsElement;
     const summary = el("summary", "jd-council__quotes-summary");
-    summary.append(icon("info", 12, "2.2"), document.createTextNode(`${p.korean}이 자주 인용하는 말 / 출처`));
+    summary.append(
+      icon("info", 12, "2.2"),
+      document.createTextNode(`${p.korean}이 자주 인용하는 말 / 출처`),
+    );
     const ul = el("ul", "jd-council__quotes-list");
     for (const q of p.quotes ?? []) {
       const li = el("li", "jd-council__quote");

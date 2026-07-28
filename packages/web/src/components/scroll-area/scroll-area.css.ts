@@ -6,27 +6,44 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-scroll-area {
-    position: relative; display: block;
-    /* max-height와 소비자 padding/border 병용이 기본 사용례 — v2 preflight(border-box)와
+  @layer junds.components {
+    jd-scroll-area {
+      position: relative;
+      display: block;
+      /* max-height와 소비자 padding/border 병용이 기본 사용례 — v2 preflight(border-box)와
        같은 총높이 상한이 되도록 자기 선언한다(DEC-014-9 · DEC-024-2 위반 계열) */
-    box-sizing: border-box;
-    overflow-x: hidden; overflow-y: auto; /* orientation 기본 vertical */
-    scrollbar-width: thin;
-    scrollbar-color: var(--jd-color-border) transparent;
-  }
-  jd-scroll-area[orientation="horizontal"] { overflow-x: auto; overflow-y: hidden; }
-  jd-scroll-area[orientation="both"] { overflow: auto; }
+      box-sizing: border-box;
+      overflow-x: hidden;
+      overflow-y: auto; /* orientation 기본 vertical */
+      scrollbar-width: thin;
+      scrollbar-color: var(--jd-color-border) transparent;
+    }
+    jd-scroll-area[orientation="horizontal"] {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    jd-scroll-area[orientation="both"] {
+      overflow: auto;
+    }
 
-  jd-scroll-area::-webkit-scrollbar { width: var(--jd-space-2); height: var(--jd-space-2); }
-  jd-scroll-area::-webkit-scrollbar-track { background: transparent; }
-  jd-scroll-area::-webkit-scrollbar-thumb {
-    background: var(--jd-color-border); border-radius: var(--jd-radius-full);
-  }
-  jd-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--jd-color-muted-light); }
+    jd-scroll-area::-webkit-scrollbar {
+      width: var(--jd-space-2);
+      height: var(--jd-space-2);
+    }
+    jd-scroll-area::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    jd-scroll-area::-webkit-scrollbar-thumb {
+      background: var(--jd-color-border);
+      border-radius: var(--jd-radius-full);
+    }
+    jd-scroll-area::-webkit-scrollbar-thumb:hover {
+      background: var(--jd-color-muted-light);
+    }
 
-  jd-scroll-area:focus-visible {
-    outline: none; box-shadow: var(--jd-shadow-focus-ring);
+    jd-scroll-area:focus-visible {
+      outline: none;
+      box-shadow: var(--jd-shadow-focus-ring);
+    }
   }
-}`;
+`;

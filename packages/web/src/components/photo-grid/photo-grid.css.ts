@@ -16,60 +16,83 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.base {
-  jd-photo-grid:not(:defined) { display: grid; }
-}
-@layer junds.components {
-  /* ── 기본 = uniform · columns 3 ─────────────────────────────── */
-  jd-photo-grid {
-    display: grid;
-    gap: var(--jd-space-2);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  @layer junds.base {
+    jd-photo-grid:not(:defined) {
+      display: grid;
+    }
   }
-  jd-photo-grid[columns="2"] { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  @layer junds.components {
+    /* ── 기본 = uniform · columns 3 ─────────────────────────────── */
+    jd-photo-grid {
+      display: grid;
+      gap: var(--jd-space-2);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    jd-photo-grid[columns="2"] {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
 
-  @media (min-width: 640px) {
-    jd-photo-grid,
-    jd-photo-grid[columns="3"],
-    jd-photo-grid[columns="4"],
-    jd-photo-grid[columns="5"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    jd-photo-grid[columns="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-  @media (min-width: 1024px) {
-    jd-photo-grid[columns="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    jd-photo-grid[columns="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  }
+    @media (min-width: 640px) {
+      jd-photo-grid,
+      jd-photo-grid[columns="3"],
+      jd-photo-grid[columns="4"],
+      jd-photo-grid[columns="5"] {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      jd-photo-grid[columns="2"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (min-width: 1024px) {
+      jd-photo-grid[columns="4"] {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      jd-photo-grid[columns="5"] {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
 
-  /* ── masonry — 폭만 같고 높이는 자유(multicol) ────────────────── */
-  jd-photo-grid[layout="masonry"] {
-    display: block;
-    column-count: 2;
-  }
-  jd-photo-grid[layout="masonry"][columns="2"] { column-count: 1; }
-  jd-photo-grid[layout="masonry"] > * {
-    break-inside: avoid;
-    margin-block-end: var(--jd-photo-grid-masonry-gap, var(--jd-space-2));
-  }
-  @media (min-width: 640px) {
-    jd-photo-grid[layout="masonry"],
-    jd-photo-grid[layout="masonry"][columns="3"],
-    jd-photo-grid[layout="masonry"][columns="4"],
-    jd-photo-grid[layout="masonry"][columns="5"] { column-count: 3; }
-    jd-photo-grid[layout="masonry"][columns="2"] { column-count: 2; }
-  }
-  @media (min-width: 1024px) {
-    jd-photo-grid[layout="masonry"][columns="4"] { column-count: 4; }
-    jd-photo-grid[layout="masonry"][columns="5"] { column-count: 5; }
-  }
+    /* ── masonry — 폭만 같고 높이는 자유(multicol) ────────────────── */
+    jd-photo-grid[layout="masonry"] {
+      display: block;
+      column-count: 2;
+    }
+    jd-photo-grid[layout="masonry"][columns="2"] {
+      column-count: 1;
+    }
+    jd-photo-grid[layout="masonry"] > * {
+      break-inside: avoid;
+      margin-block-end: var(--jd-photo-grid-masonry-gap, var(--jd-space-2));
+    }
+    @media (min-width: 640px) {
+      jd-photo-grid[layout="masonry"],
+      jd-photo-grid[layout="masonry"][columns="3"],
+      jd-photo-grid[layout="masonry"][columns="4"],
+      jd-photo-grid[layout="masonry"][columns="5"] {
+        column-count: 3;
+      }
+      jd-photo-grid[layout="masonry"][columns="2"] {
+        column-count: 2;
+      }
+    }
+    @media (min-width: 1024px) {
+      jd-photo-grid[layout="masonry"][columns="4"] {
+        column-count: 4;
+      }
+      jd-photo-grid[layout="masonry"][columns="5"] {
+        column-count: 5;
+      }
+    }
 
-  /* ── mosaic — 첫 항목이 2×2, 나머지는 자동 배치 (columns 무시, v2 동형) ── */
-  jd-photo-grid[layout="mosaic"] {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+    /* ── mosaic — 첫 항목이 2×2, 나머지는 자동 배치 (columns 무시, v2 동형) ── */
+    jd-photo-grid[layout="mosaic"] {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+    }
+    jd-photo-grid[layout="mosaic"] > :first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
   }
-  jd-photo-grid[layout="mosaic"] > :first-child {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-}`;
+`;

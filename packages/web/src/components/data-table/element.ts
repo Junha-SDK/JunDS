@@ -132,7 +132,9 @@ export class JdDataTable extends JdDataGrid {
   #recomputeFiltered(): void {
     const q = this.search.trim().toLowerCase();
     const rows = q
-      ? this.#master.filter((row) => this.columnList.some((col) => this.#cellText(col, row).toLowerCase().includes(q)))
+      ? this.#master.filter((row) =>
+          this.columnList.some((col) => this.#cellText(col, row).toLowerCase().includes(q)),
+        )
       : this.#master;
     this.rowData = rows; // 새 배열 참조 → 베이스 정렬 캐시가 참조 비교로 무효화된다
     this.bodyDirty = true;
@@ -380,7 +382,9 @@ export class JdDataTable extends JdDataGrid {
 
     if (this.#densityGroup) {
       this.#densityGroup.hidden = !showDensity;
-      for (const b of this.#densityGroup.querySelectorAll<HTMLButtonElement>(".jd-data-table__density-button")) {
+      for (const b of this.#densityGroup.querySelectorAll<HTMLButtonElement>(
+        ".jd-data-table__density-button",
+      )) {
         const active = b.dataset.density === this.density;
         b.setAttribute("aria-pressed", String(active));
         b.toggleAttribute("data-active", active);

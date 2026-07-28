@@ -104,7 +104,9 @@ export class JdLoginForm extends JdElement {
 
   #build(): void {
     const logoNodes = Array.from(this.children).filter((n) => n.getAttribute("slot") === "logo");
-    const socialNodes = Array.from(this.children).filter((n) => n.getAttribute("slot") === "social");
+    const socialNodes = Array.from(this.children).filter(
+      (n) => n.getAttribute("slot") === "social",
+    );
     const emailId = jdUid("jd-login-email");
 
     const root = document.createElement("div");

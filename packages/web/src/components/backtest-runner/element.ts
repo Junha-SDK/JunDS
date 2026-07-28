@@ -70,7 +70,10 @@ function searchStocks(list: JdStockOption[], query: string, limit: number): JdSt
     if (s.sector?.toLowerCase().includes(q)) score += 10;
     if (score > 0) scored.push({ s, score });
   }
-  return scored.sort((a, b) => b.score - a.score).slice(0, limit).map((x) => x.s);
+  return scored
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((x) => x.s);
 }
 
 const pct = (v: number): string => `${(v * 100).toFixed(2)}%`;
@@ -143,7 +146,9 @@ export class JdBacktestRunner extends JdElement {
   }
 
   #readJsonSlots(): void {
-    const scripts = this.querySelectorAll<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const scripts = this.querySelectorAll<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     scripts.forEach((script) => {
       const slot = script.dataset.slot;
       try {
@@ -225,7 +230,10 @@ export class JdBacktestRunner extends JdElement {
     rHead.className = "jd-backtest-runner__results-head";
     this.#headTitle = document.createElement("div");
     this.#headTitle.className = "jd-backtest-runner__results-title";
-    rHead.append(this.#headTitle, textSpan("5거래일마다 재평가", "jd-backtest-runner__results-note"));
+    rHead.append(
+      this.#headTitle,
+      textSpan("5거래일마다 재평가", "jd-backtest-runner__results-note"),
+    );
     this.#statGrid = document.createElement("div");
     this.#statGrid.className = "jd-backtest-runner__stat-grid";
     this.#chartHolder = document.createElement("div");
@@ -240,9 +248,15 @@ export class JdBacktestRunner extends JdElement {
   #sparkles(): SVGSVGElement {
     const svg = svgEl("svg", {
       class: "jd-backtest-runner__spark-icon",
-      viewBox: "0 0 24 24", width: 14, height: 14, fill: "none",
-      stroke: "currentColor", "stroke-width": "2.4",
-      "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true",
+      viewBox: "0 0 24 24",
+      width: 14,
+      height: 14,
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2.4",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      "aria-hidden": "true",
     });
     svg.innerHTML =
       '<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>';
@@ -364,11 +378,13 @@ export class JdBacktestRunner extends JdElement {
   #buildEquitySvg(r: JdBacktestResult): SVGSVGElement | null {
     const points = r.points ?? [];
     if (points.length === 0) return null;
-    const W = 1100, H = 220;
+    const W = 1100,
+      H = 220;
     const pad = { l: 36, r: 8, t: 12, b: 24 };
     const innerW = W - pad.l - pad.r;
     const innerH = H - pad.t - pad.b;
-    let min = Infinity, max = -Infinity;
+    let min = Infinity,
+      max = -Infinity;
     for (const p of points) {
       min = Math.min(min, p.equity, p.buyHold);
       max = Math.max(max, p.equity, p.buyHold);
@@ -380,44 +396,97 @@ export class JdBacktestRunner extends JdElement {
       points.map((p, i) => `${x(i).toFixed(1)},${y(sel(p)).toFixed(1)}`).join(" ");
 
     const svg = svgEl("svg", {
-      class: "jd-backtest-runner__equity", width: "100%",
-      viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: "none",
-      role: "img", "aria-label": "전략 자산곡선과 매수보유 비교",
+      class: "jd-backtest-runner__equity",
+      width: "100%",
+      viewBox: `0 0 ${W} ${H}`,
+      preserveAspectRatio: "none",
+      role: "img",
+      "aria-label": "전략 자산곡선과 매수보유 비교",
     });
     const y1 = y(1);
     svg.append(
       svgEl("line", {
-        x1: pad.l, x2: W - pad.r, y1, y2: y1, class: "jd-backtest-runner__baseline",
-        "stroke-dasharray": "3 3", "stroke-width": 1, "vector-effect": "non-scaling-stroke",
+        x1: pad.l,
+        x2: W - pad.r,
+        y1,
+        y2: y1,
+        class: "jd-backtest-runner__baseline",
+        "stroke-dasharray": "3 3",
+        "stroke-width": 1,
+        "vector-effect": "non-scaling-stroke",
       }),
     );
     const label = svgEl("text", {
-      x: pad.l - 4, y: y1 + 3, class: "jd-backtest-runner__axis", "font-size": 10, "text-anchor": "end",
+      x: pad.l - 4,
+      y: y1 + 3,
+      class: "jd-backtest-runner__axis",
+      "font-size": 10,
+      "text-anchor": "end",
     });
     label.textContent = "1.00";
     svg.append(label);
     svg.append(
       svgEl("polyline", {
-        points: line((p) => p.buyHold), fill: "none", class: "jd-backtest-runner__line-bh",
-        "stroke-width": 1.5, "stroke-dasharray": "4 3", "vector-effect": "non-scaling-stroke",
+        points: line((p) => p.buyHold),
+        fill: "none",
+        class: "jd-backtest-runner__line-bh",
+        "stroke-width": 1.5,
+        "stroke-dasharray": "4 3",
+        "vector-effect": "non-scaling-stroke",
       }),
     );
     svg.append(
       svgEl("polyline", {
-        points: line((p) => p.equity), fill: "none", class: "jd-backtest-runner__line-eq",
-        "stroke-width": 2.2, "vector-effect": "non-scaling-stroke",
+        points: line((p) => p.equity),
+        fill: "none",
+        class: "jd-backtest-runner__line-eq",
+        "stroke-width": 2.2,
+        "vector-effect": "non-scaling-stroke",
       }),
     );
 
     // 범례
     const g = svgEl("g", { transform: `translate(${pad.l + 6}, ${pad.t + 6})` });
-    g.append(svgEl("rect", { width: 160, height: 34, class: "jd-backtest-runner__legend-box", rx: 6 }));
-    g.append(svgEl("line", { x1: 8, y1: 12, x2: 20, y2: 12, class: "jd-backtest-runner__line-eq", "stroke-width": 2.2 }));
-    const t1 = svgEl("text", { x: 24, y: 15, class: "jd-backtest-runner__legend-eq", "font-size": 10, "font-weight": 700 });
+    g.append(
+      svgEl("rect", { width: 160, height: 34, class: "jd-backtest-runner__legend-box", rx: 6 }),
+    );
+    g.append(
+      svgEl("line", {
+        x1: 8,
+        y1: 12,
+        x2: 20,
+        y2: 12,
+        class: "jd-backtest-runner__line-eq",
+        "stroke-width": 2.2,
+      }),
+    );
+    const t1 = svgEl("text", {
+      x: 24,
+      y: 15,
+      class: "jd-backtest-runner__legend-eq",
+      "font-size": 10,
+      "font-weight": 700,
+    });
     t1.textContent = "전략";
     g.append(t1);
-    g.append(svgEl("line", { x1: 8, y1: 26, x2: 20, y2: 26, class: "jd-backtest-runner__line-bh", "stroke-width": 1.5, "stroke-dasharray": "3 2" }));
-    const t2 = svgEl("text", { x: 24, y: 29, class: "jd-backtest-runner__legend-bh", "font-size": 10, "font-weight": 700 });
+    g.append(
+      svgEl("line", {
+        x1: 8,
+        y1: 26,
+        x2: 20,
+        y2: 26,
+        class: "jd-backtest-runner__line-bh",
+        "stroke-width": 1.5,
+        "stroke-dasharray": "3 2",
+      }),
+    );
+    const t2 = svgEl("text", {
+      x: 24,
+      y: 29,
+      class: "jd-backtest-runner__legend-bh",
+      "font-size": 10,
+      "font-weight": 700,
+    });
     t2.textContent = "매수보유";
     g.append(t2);
     svg.append(g);
@@ -449,7 +518,9 @@ export class JdBacktestRunner extends JdElement {
       this.#headTitle.append(emoji);
     }
     this.#headTitle.append(
-      document.createTextNode(`${meta ? meta.name : this.investor} · ${this.symbol} · ${this.bars}일`),
+      document.createTextNode(
+        `${meta ? meta.name : this.investor} · ${this.symbol} · ${this.bars}일`,
+      ),
     );
   }
 }

@@ -13,8 +13,8 @@ export class JdGridLayout extends JdBox {
   static override styles = gridLayoutStyles;
   static override props = {
     ...STYLE_PROPS,
-    autoFit: { type: Number },       // repeat(auto-fit, minmax(Npx, 1fr))
-    autoFill: { type: Number },      // repeat(auto-fill, minmax(Npx, 1fr))
+    autoFit: { type: Number }, // repeat(auto-fit, minmax(Npx, 1fr))
+    autoFill: { type: Number }, // repeat(auto-fill, minmax(Npx, 1fr))
     minChildWidth: { type: Number }, // SimpleGrid 표면 — auto-fill과 동형
   };
 

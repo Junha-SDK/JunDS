@@ -36,8 +36,7 @@ export default css`
       white-space: nowrap;
       /* all 금지 — height·padding·font-size까지 대상이 되어 size 전환이 흐르고,
        레이아웃 속성 트랜지션은 매 프레임 리플로우를 만든다 (DEC-039) */
-      transition:
-        background-color var(--jd-duration-snap) var(--jd-easing-ease-out),
+      transition: background-color var(--jd-duration-snap) var(--jd-easing-ease-out),
         border-color var(--jd-duration-snap) var(--jd-easing-ease-out),
         color var(--jd-duration-snap) var(--jd-easing-ease-out),
         box-shadow var(--jd-duration-snap) var(--jd-easing-ease-out),
@@ -52,17 +51,13 @@ export default css`
        채움만 있는 버튼은 색종이처럼 읽힌다. */
       background: var(--jd-color-primary);
       color: #fff;
-      box-shadow:
-        var(--jd-shadow-xs),
-        inset 0 1px 0 var(--jd-color-highlight);
+      box-shadow: var(--jd-shadow-xs), inset 0 1px 0 var(--jd-color-highlight);
     }
     /* 호버는 filter: brightness가 아니라 실색 전환 — brightness는 텍스트·스피너까지
      함께 밝혀 흰 글자가 배경에 녹고, GPU 레이어를 새로 만든다. */
     .jd-button:hover {
       background: var(--jd-color-primary-hover);
-      box-shadow:
-        0 4px 12px var(--jd-color-primary-glow),
-        var(--jd-shadow-xs),
+      box-shadow: 0 4px 12px var(--jd-color-primary-glow), var(--jd-shadow-xs),
         inset 0 1px 0 var(--jd-color-highlight);
     }
     .jd-button:active {
@@ -90,9 +85,7 @@ export default css`
       /* :disabled의 pointer-events:none을 되돌려야 progress 커서가 실제로 보인다.
        클릭은 네이티브 disabled가 이미 막고 있으므로 안전하다. */
       pointer-events: auto;
-      box-shadow:
-        var(--jd-shadow-xs),
-        inset 0 1px 0 var(--jd-color-highlight);
+      box-shadow: var(--jd-shadow-xs), inset 0 1px 0 var(--jd-color-highlight);
     }
 
     /* size — v2: xs 28px / sm 32px / lg 44px (md는 base) */
@@ -133,11 +126,7 @@ export default css`
     jd-button[variant="secondary"] > .jd-button:hover,
     .jd-button[data-jd-variant="secondary"]:hover {
       background: var(--jd-color-card-hover);
-      border-color: color-mix(
-        in srgb,
-        var(--jd-color-border) 70%,
-        var(--jd-color-muted-light)
-      );
+      border-color: color-mix(in srgb, var(--jd-color-border) 70%, var(--jd-color-muted-light));
       box-shadow: var(--jd-shadow-sm);
     }
     jd-button[variant="secondary"] > .jd-button:active,
@@ -152,18 +141,14 @@ export default css`
     .jd-button[data-jd-variant="danger"] {
       background: var(--jd-color-danger);
       color: #fff;
-      box-shadow:
-        var(--jd-shadow-xs),
-        inset 0 1px 0 var(--jd-color-highlight);
+      box-shadow: var(--jd-shadow-xs), inset 0 1px 0 var(--jd-color-highlight);
     }
     jd-button[variant="danger"] > .jd-button:hover,
     .jd-button[data-jd-variant="danger"]:hover {
       /* 글로우는 danger 토큰 파생 — DEC-027 라이트 보정(#c93636)에 자동 추종 */
       background: var(--jd-color-danger-hover);
-      box-shadow:
-        0 4px 12px color-mix(in srgb, var(--jd-color-danger) 25%, transparent),
-        var(--jd-shadow-xs),
-        inset 0 1px 0 var(--jd-color-highlight);
+      box-shadow: 0 4px 12px color-mix(in srgb, var(--jd-color-danger) 25%, transparent),
+        var(--jd-shadow-xs), inset 0 1px 0 var(--jd-color-highlight);
     }
     jd-button[variant="danger"] > .jd-button:active,
     .jd-button[data-jd-variant="danger"]:active {
@@ -203,11 +188,7 @@ export default css`
     jd-button[variant="outline"] > .jd-button:hover,
     .jd-button[data-jd-variant="outline"]:hover {
       background: color-mix(in srgb, var(--jd-color-muted) 6%, transparent);
-      border-color: color-mix(
-        in srgb,
-        var(--jd-color-border) 70%,
-        var(--jd-color-muted-light)
-      );
+      border-color: color-mix(in srgb, var(--jd-color-border) 70%, var(--jd-color-muted-light));
     }
     jd-button[variant="outline"] > .jd-button:active,
     .jd-button[data-jd-variant="outline"]:active {
@@ -222,18 +203,14 @@ export default css`
       box-shadow: none;
       height: auto;
       padding: 0;
-      color: var(--jd-color-primary);
+      color: var(--jd-color-primary-ink);
       text-underline-offset: 2px;
-      text-decoration-color: color-mix(
-        in srgb,
-        var(--jd-color-primary) 40%,
-        transparent
-      );
+      text-decoration-color: color-mix(in srgb, var(--jd-color-primary) 40%, transparent);
     }
     jd-button[variant="link"] > .jd-button:hover,
     .jd-button[data-jd-variant="link"]:hover {
       text-decoration-line: underline;
-      text-decoration-color: var(--jd-color-primary);
+      text-decoration-color: var(--jd-color-primary-ink);
     }
     jd-button[variant="link"] > .jd-button:active,
     .jd-button[data-jd-variant="link"]:active {

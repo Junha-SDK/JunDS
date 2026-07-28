@@ -140,8 +140,18 @@ export class JdTimePicker extends JdPickerField {
     const minuteValues: number[] = [];
     for (let m = 0; m < 60; m += this.#step()) minuteValues.push(m);
 
-    this.#fillColumn("hour", hourValues, (v) => pad2(v), (v) => `${v}시`);
-    this.#fillColumn("minute", minuteValues, (v) => pad2(v), (v) => `${v}분`);
+    this.#fillColumn(
+      "hour",
+      hourValues,
+      (v) => pad2(v),
+      (v) => `${v}시`,
+    );
+    this.#fillColumn(
+      "minute",
+      minuteValues,
+      (v) => pad2(v),
+      (v) => `${v}분`,
+    );
     this.#fillColumn(
       "period",
       [0, 1],

@@ -5,7 +5,13 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-icon { display: inline-flex; flex-shrink: 0; }
-  .jd-icon { display: block; }
-}`;
+  @layer junds.components {
+    jd-icon {
+      display: inline-flex;
+      flex-shrink: 0;
+    }
+    .jd-icon {
+      display: block;
+    }
+  }
+`;

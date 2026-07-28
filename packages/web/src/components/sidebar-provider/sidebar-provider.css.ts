@@ -7,6 +7,9 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-sidebar-provider { display: contents; }
-}`;
+  @layer junds.components {
+    jd-sidebar-provider {
+      display: contents;
+    }
+  }
+`;

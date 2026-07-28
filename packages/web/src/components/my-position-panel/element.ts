@@ -43,7 +43,9 @@ function iconSvg(paths: string, size: number, strokeWidth = 2): SVGSVGElement {
 function group(n: number): string {
   if (!Number.isFinite(n)) return "0";
   const neg = n < 0;
-  const [int = "0", frac] = Math.abs(Math.round(n * 100) / 100).toString().split(".");
+  const [int = "0", frac] = Math.abs(Math.round(n * 100) / 100)
+    .toString()
+    .split(".");
   const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return `${neg ? "-" : ""}${grouped}${frac ? `.${frac}` : ""}`;
 }

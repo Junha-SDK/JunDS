@@ -29,10 +29,30 @@ import colorPickerStyles from "./color-picker.css.js";
 
 /** v2 DEFAULT_PRESETS 그대로 */
 const DEFAULT_PRESETS: string[] = [
-  "#000000", "#374151", "#6B7280", "#9CA3AF", "#D1D5DB", "#FFFFFF",
-  "#EF4444", "#F97316", "#F59E0B", "#EAB308", "#84CC16", "#22C55E",
-  "#14B8A6", "#06B6D4", "#3B82F6", "#6366F1", "#8B5CF6", "#A855F7",
-  "#D946EF", "#EC4899", "#F43F5E", "#78716C", "#0EA5E9", "#10B981",
+  "#000000",
+  "#374151",
+  "#6B7280",
+  "#9CA3AF",
+  "#D1D5DB",
+  "#FFFFFF",
+  "#EF4444",
+  "#F97316",
+  "#F59E0B",
+  "#EAB308",
+  "#84CC16",
+  "#22C55E",
+  "#14B8A6",
+  "#06B6D4",
+  "#3B82F6",
+  "#6366F1",
+  "#8B5CF6",
+  "#A855F7",
+  "#D946EF",
+  "#EC4899",
+  "#F43F5E",
+  "#78716C",
+  "#0EA5E9",
+  "#10B981",
 ];
 
 const HEX6 = /^#[0-9A-Fa-f]{6}$/;
@@ -40,8 +60,7 @@ const HEX6 = /^#[0-9A-Fa-f]{6}$/;
 const EDGE = 8;
 const GAP = 4;
 
-const clamp = (v: number, min: number, max: number): number =>
-  Math.max(min, Math.min(max, v));
+const clamp = (v: number, min: number, max: number): number => Math.max(min, Math.min(max, v));
 
 export class JdColorPicker extends JdElement {
   static override tag = "jd-color-picker";
@@ -107,7 +126,9 @@ export class JdColorPicker extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as string[];

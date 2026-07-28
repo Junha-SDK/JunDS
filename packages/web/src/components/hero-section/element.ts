@@ -180,7 +180,9 @@ export class JdHeroSection extends JdElement {
       el.href = cta.href;
     } else {
       (el as HTMLButtonElement).type = "button";
-      el.addEventListener("click", () => this.emit(kind === "primary" ? "jd-primary" : "jd-secondary"));
+      el.addEventListener("click", () =>
+        this.emit(kind === "primary" ? "jd-primary" : "jd-secondary"),
+      );
     }
     return el;
   }

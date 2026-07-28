@@ -53,7 +53,9 @@ export class JdStatCard extends JdStat {
     };
     // preventDefault는 우리가 직접 한다: Behavior 기본값(true)은 매칭 즉시 취소해
     // 카드 안 네이티브 버튼의 Space 활성화까지 막는다.
-    this.own(createKeyHandler(this, { enter: activate, space: activate }, { preventDefault: false }));
+    this.own(
+      createKeyHandler(this, { enter: activate, space: activate }, { preventDefault: false }),
+    );
   }
 
   protected override update(): void {

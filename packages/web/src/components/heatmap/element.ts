@@ -22,9 +22,10 @@
  *     하다. `YYYY-MM-DD`는 UTC로 직접 파싱한다.
  *  4. **음수 값이 셀을 투명하게 만들었다.** `Math.ceil(음수)`가 0 이하 → 배열
  *     인덱스가 음수 → `colorScale[-1]`은 undefined → 색 없는 구멍. 0으로 잘라낸다.
- *  5. **빈 셀 색 `#ebedf0`은 라이트 전용 리터럴**이라 다크에서 흰 격자가 됐다.
- *     0단계만 border-light 토큰으로 번역하고 나머지 4단(GitHub 잔디 초록)은
- *     정체성이므로 리터럴 유지 — 두 테마 모두에서 성립한다.
+ *  5. **색 5단이 GitHub 잔디 초록 리터럴이었다.** 빈 셀 `#ebedf0`은 라이트 전용이라
+ *     다크에서 흰 격자가 됐고, 나머지 4단은 브랜드 팔레트 밖의 초록이라 브랜드를
+ *     바꿔도 잔디만 초록으로 남았다. 5단을 전부 CSS 변수로 돌리고 실제 값은
+ *     heatmap.css.ts가 `--jd-color-primary`에서 뽑는다 — 색을 아는 곳이 한 군데다.
  */
 import { JdElement } from "../../core/element.js";
 import { adoptStyles } from "../../core/styles.js";
@@ -36,13 +37,17 @@ export interface JdHeatmapCell {
   value: number;
 }
 
-/** v2 GitHub 스케일 — 0단계만 토큰(교정 5) */
+/**
+ * 기본 5단(교정 5). 여기서는 **슬롯 이름만** 들고, 실제 색은 heatmap.css.ts가
+ * `--jd-color-primary`에서 뽑는다 — 리터럴을 JS가 들고 있으면 브랜드 전환·다크
+ * 모드가 그 자리에서 끊긴다. 소비자는 `colorScale`로 통째로 갈아끼울 수 있다.
+ */
 const DEFAULT_COLORS: readonly string[] = [
-  "var(--jd-color-border-light)",
-  "#9be9a8",
-  "#40c463",
-  "#30a14e",
-  "#216e39",
+  "var(--jd-heatmap-step-0)",
+  "var(--jd-heatmap-step-1)",
+  "var(--jd-heatmap-step-2)",
+  "var(--jd-heatmap-step-3)",
+  "var(--jd-heatmap-step-4)",
 ];
 
 const ROWS = 7; // 행 = 요일(일~토)
@@ -120,7 +125,9 @@ export class JdHeatmap extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비. 배열이면 data, 객체면 {data, colorScale} */
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent || "[]");

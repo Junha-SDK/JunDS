@@ -96,8 +96,12 @@ export class JdSwipeAction extends JdElement {
 
     const existingContent = this.querySelector<HTMLElement>(":scope > .jd-swipe-action__content");
     this.#panels = {
-      left: this.querySelector<HTMLElement>(':scope > .jd-swipe-action__panel[data-side="left"]') ?? this.#buildPanel("left"),
-      right: this.querySelector<HTMLElement>(':scope > .jd-swipe-action__panel[data-side="right"]') ?? this.#buildPanel("right"),
+      left:
+        this.querySelector<HTMLElement>(':scope > .jd-swipe-action__panel[data-side="left"]') ??
+        this.#buildPanel("left"),
+      right:
+        this.querySelector<HTMLElement>(':scope > .jd-swipe-action__panel[data-side="right"]') ??
+        this.#buildPanel("right"),
     };
     if (existingContent) {
       this.#content = existingContent;
@@ -124,7 +128,9 @@ export class JdSwipeAction extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as Partial<
@@ -275,7 +281,9 @@ export class JdSwipeAction extends JdElement {
   }
 
   #onClick = (e: Event): void => {
-    const btn = (e.target as Element | null)?.closest<HTMLButtonElement>(".jd-swipe-action__button");
+    const btn = (e.target as Element | null)?.closest<HTMLButtonElement>(
+      ".jd-swipe-action__button",
+    );
     if (!btn || !this.contains(btn)) return;
     const side = btn.dataset.side as JdSwipeSide | undefined;
     const index = Number(btn.dataset.index);
@@ -283,7 +291,12 @@ export class JdSwipeAction extends JdElement {
     const action = this.#actions[side][index];
     if (!action || action.disabled) return;
     action.onClick?.();
-    this.emit("jd-select", { side, index, value: action.value ?? action.label, label: action.label });
+    this.emit("jd-select", {
+      side,
+      index,
+      value: action.value ?? action.label,
+      label: action.label,
+    });
     this.close(); // v2 reset() 동형
   };
 

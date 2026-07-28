@@ -25,7 +25,7 @@ export class JdSlider extends JdElement {
     disabled: { type: Boolean, reflect: true },
     showValue: { type: Boolean, reflect: true }, // attr: show-value
     color: { type: String, default: "primary", reflect: true }, // primary|success|warning|danger
-    size: { type: String, default: "md", reflect: true },       // sm | md
+    size: { type: String, default: "md", reflect: true }, // sm | md
     name: { type: String },
   };
 
@@ -61,7 +61,9 @@ export class JdSlider extends JdElement {
 
   protected render(): void {
     adoptStyles(sliderStyles);
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (script) {
       try {
         const parsed = JSON.parse(script.textContent || "[]") as JdSliderMark[];
@@ -156,10 +158,7 @@ export class JdSlider extends JdElement {
     if (this.name) input.name = this.name;
     else input.removeAttribute("name");
     if (Number(input.value) !== this.value) input.value = String(this.value);
-    input.setAttribute(
-      "aria-label",
-      this.getAttribute("aria-label") || "슬라이더",
-    );
+    input.setAttribute("aria-label", this.getAttribute("aria-label") || "슬라이더");
 
     // 채움 % — 트랙 그라디언트가 소비
     const span = this.max - this.min || 1;
