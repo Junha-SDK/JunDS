@@ -7,6 +7,7 @@ import type { JdThemeToggle as ThemeToggleElement } from "@junds/web/theme-toggl
 import { createJdElement, type JdBaseProps } from "../internal/createJdElement.js";
 
 interface ThemeToggleOwnProps {
+  manual?: ThemeToggleElement["manual"];
   storageKey?: ThemeToggleElement["storageKey"];
   onJdChange?: (event: CustomEvent<unknown>) => void;
 }
@@ -14,6 +15,6 @@ interface ThemeToggleOwnProps {
 export type ThemeToggleProps = JdBaseProps<ThemeToggleElement, keyof ThemeToggleOwnProps> & ThemeToggleOwnProps;
 
 export const ThemeToggle = createJdElement<ThemeToggleElement, ThemeToggleProps>(
-  { tag: "jd-theme-toggle", props: { storageKey: "string" }, defaults: { storageKey: "jd-color-mode" }, events: { onJdChange: "jd-change" } },
+  { tag: "jd-theme-toggle", props: { manual: "boolean", storageKey: "string" }, defaults: { manual: false, storageKey: "jd-color-mode" }, events: { onJdChange: "jd-change" } },
   "ThemeToggle",
 );

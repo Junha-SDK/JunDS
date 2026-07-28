@@ -5003,25 +5003,13 @@
           "name": "size",
           "values": [
             {
-              "name": "lg"
-            },
-            {
-              "name": "2xl"
+              "name": "${size}"
             },
             {
               "name": "full"
             },
             {
-              "name": "md"
-            },
-            {
-              "name": "sm"
-            },
-            {
-              "name": "xl"
-            },
-            {
-              "name": "xs"
+              "name": "lg"
             }
           ]
         },
@@ -15254,6 +15242,213 @@
       ]
     },
     {
+      "name": "jd-sidebar-layout",
+      "description": "사이드바 + 본문, 좁아지면 자동으로 쌓임 (DEC-052).",
+      "attributes": [
+        {
+          "name": "align"
+        },
+        {
+          "name": "bg"
+        },
+        {
+          "name": "border"
+        },
+        {
+          "name": "border-color"
+        },
+        {
+          "name": "border-width"
+        },
+        {
+          "name": "bottom"
+        },
+        {
+          "name": "color"
+        },
+        {
+          "name": "cols"
+        },
+        {
+          "name": "col-span"
+        },
+        {
+          "name": "column-gap"
+        },
+        {
+          "name": "content-min",
+          "description": "본문 최소 폭 — 이보다 좁아지면 쌓인다 (CSS 길이/백분율, 기본 60%)"
+        },
+        {
+          "name": "cursor"
+        },
+        {
+          "name": "direction"
+        },
+        {
+          "name": "display"
+        },
+        {
+          "name": "flex"
+        },
+        {
+          "name": "font-size"
+        },
+        {
+          "name": "font-weight"
+        },
+        {
+          "name": "gap"
+        },
+        {
+          "name": "grow"
+        },
+        {
+          "name": "h"
+        },
+        {
+          "name": "justify"
+        },
+        {
+          "name": "left"
+        },
+        {
+          "name": "letter-spacing"
+        },
+        {
+          "name": "line-height"
+        },
+        {
+          "name": "m"
+        },
+        {
+          "name": "max-h"
+        },
+        {
+          "name": "max-w"
+        },
+        {
+          "name": "mb"
+        },
+        {
+          "name": "min-h"
+        },
+        {
+          "name": "min-w"
+        },
+        {
+          "name": "ml"
+        },
+        {
+          "name": "mr"
+        },
+        {
+          "name": "mt"
+        },
+        {
+          "name": "mx"
+        },
+        {
+          "name": "my"
+        },
+        {
+          "name": "opacity"
+        },
+        {
+          "name": "overflow"
+        },
+        {
+          "name": "p"
+        },
+        {
+          "name": "pb"
+        },
+        {
+          "name": "pl"
+        },
+        {
+          "name": "pointer-events"
+        },
+        {
+          "name": "position"
+        },
+        {
+          "name": "pr"
+        },
+        {
+          "name": "pt"
+        },
+        {
+          "name": "px"
+        },
+        {
+          "name": "py"
+        },
+        {
+          "name": "radius"
+        },
+        {
+          "name": "right"
+        },
+        {
+          "name": "row-gap"
+        },
+        {
+          "name": "rows"
+        },
+        {
+          "name": "row-span"
+        },
+        {
+          "name": "shadow"
+        },
+        {
+          "name": "shrink"
+        },
+        {
+          "name": "side",
+          "description": "사이드바를 오른쪽에 둔다 — start(기본) | end"
+        },
+        {
+          "name": "side-width",
+          "description": "사이드바 폭 (CSS 길이, 기본 16rem)"
+        },
+        {
+          "name": "text-align"
+        },
+        {
+          "name": "text-decoration"
+        },
+        {
+          "name": "text-transform"
+        },
+        {
+          "name": "top"
+        },
+        {
+          "name": "transition"
+        },
+        {
+          "name": "user-select"
+        },
+        {
+          "name": "w"
+        },
+        {
+          "name": "wrap"
+        },
+        {
+          "name": "z-index"
+        }
+      ],
+      "references": [
+        {
+          "name": "JunDS 문서",
+          "url": "https://junha.dev/docs/projects/junds?c=sidebar-layout"
+        }
+      ]
+    },
+    {
       "name": "jd-sidebar-link",
       "description": "사이드바 항목 (v2 patterns/Sidebar의 SidebarLink).",
       "attributes": [
@@ -15946,6 +16141,206 @@
         {
           "name": "JunDS 문서",
           "url": "https://junha.dev/docs/projects/junds?c=spinner"
+        }
+      ]
+    },
+    {
+      "name": "jd-split",
+      "description": "두 덩어리를 양끝으로 (DEC-052).",
+      "attributes": [
+        {
+          "name": "align"
+        },
+        {
+          "name": "bg"
+        },
+        {
+          "name": "border"
+        },
+        {
+          "name": "border-color"
+        },
+        {
+          "name": "border-width"
+        },
+        {
+          "name": "bottom"
+        },
+        {
+          "name": "color"
+        },
+        {
+          "name": "cols"
+        },
+        {
+          "name": "col-span"
+        },
+        {
+          "name": "column-gap"
+        },
+        {
+          "name": "cursor"
+        },
+        {
+          "name": "direction"
+        },
+        {
+          "name": "display"
+        },
+        {
+          "name": "flex"
+        },
+        {
+          "name": "font-size"
+        },
+        {
+          "name": "font-weight"
+        },
+        {
+          "name": "gap"
+        },
+        {
+          "name": "grow"
+        },
+        {
+          "name": "h"
+        },
+        {
+          "name": "justify"
+        },
+        {
+          "name": "left"
+        },
+        {
+          "name": "letter-spacing"
+        },
+        {
+          "name": "line-height"
+        },
+        {
+          "name": "m"
+        },
+        {
+          "name": "max-h"
+        },
+        {
+          "name": "max-w"
+        },
+        {
+          "name": "mb"
+        },
+        {
+          "name": "min-h"
+        },
+        {
+          "name": "min-w"
+        },
+        {
+          "name": "ml"
+        },
+        {
+          "name": "mr"
+        },
+        {
+          "name": "mt"
+        },
+        {
+          "name": "mx"
+        },
+        {
+          "name": "my"
+        },
+        {
+          "name": "no-wrap",
+          "description": "좁아져도 줄바꿈하지 않는다 (attr: no-wrap)",
+          "valueSet": "v"
+        },
+        {
+          "name": "opacity"
+        },
+        {
+          "name": "overflow"
+        },
+        {
+          "name": "p"
+        },
+        {
+          "name": "pb"
+        },
+        {
+          "name": "pl"
+        },
+        {
+          "name": "pointer-events"
+        },
+        {
+          "name": "position"
+        },
+        {
+          "name": "pr"
+        },
+        {
+          "name": "pt"
+        },
+        {
+          "name": "px"
+        },
+        {
+          "name": "py"
+        },
+        {
+          "name": "radius"
+        },
+        {
+          "name": "right"
+        },
+        {
+          "name": "row-gap"
+        },
+        {
+          "name": "rows"
+        },
+        {
+          "name": "row-span"
+        },
+        {
+          "name": "shadow"
+        },
+        {
+          "name": "shrink"
+        },
+        {
+          "name": "text-align"
+        },
+        {
+          "name": "text-decoration"
+        },
+        {
+          "name": "text-transform"
+        },
+        {
+          "name": "top"
+        },
+        {
+          "name": "transition"
+        },
+        {
+          "name": "user-select"
+        },
+        {
+          "name": "w"
+        },
+        {
+          "name": "wrap"
+        },
+        {
+          "name": "z-index"
+        }
+      ],
+      "references": [
+        {
+          "name": "JunDS 문서",
+          "url": "https://junha.dev/docs/projects/junds?c=split"
         }
       ]
     },
@@ -16925,6 +17320,222 @@
       ]
     },
     {
+      "name": "jd-switcher",
+      "description": "자리가 좁으면 알아서 세로로 쌓이는 배치 (DEC-052).",
+      "attributes": [
+        {
+          "name": "align"
+        },
+        {
+          "name": "bg"
+        },
+        {
+          "name": "border"
+        },
+        {
+          "name": "border-color"
+        },
+        {
+          "name": "border-width"
+        },
+        {
+          "name": "bottom"
+        },
+        {
+          "name": "color"
+        },
+        {
+          "name": "cols"
+        },
+        {
+          "name": "col-span"
+        },
+        {
+          "name": "column-gap"
+        },
+        {
+          "name": "cursor"
+        },
+        {
+          "name": "direction"
+        },
+        {
+          "name": "display"
+        },
+        {
+          "name": "flex"
+        },
+        {
+          "name": "font-size"
+        },
+        {
+          "name": "font-weight"
+        },
+        {
+          "name": "gap"
+        },
+        {
+          "name": "grow"
+        },
+        {
+          "name": "h"
+        },
+        {
+          "name": "justify"
+        },
+        {
+          "name": "left"
+        },
+        {
+          "name": "letter-spacing"
+        },
+        {
+          "name": "line-height"
+        },
+        {
+          "name": "m"
+        },
+        {
+          "name": "max-h"
+        },
+        {
+          "name": "max-w"
+        },
+        {
+          "name": "mb"
+        },
+        {
+          "name": "min-h"
+        },
+        {
+          "name": "min-w"
+        },
+        {
+          "name": "ml"
+        },
+        {
+          "name": "mr"
+        },
+        {
+          "name": "mt"
+        },
+        {
+          "name": "mx"
+        },
+        {
+          "name": "my"
+        },
+        {
+          "name": "opacity"
+        },
+        {
+          "name": "overflow"
+        },
+        {
+          "name": "p"
+        },
+        {
+          "name": "pb"
+        },
+        {
+          "name": "pl"
+        },
+        {
+          "name": "pointer-events"
+        },
+        {
+          "name": "position"
+        },
+        {
+          "name": "pr"
+        },
+        {
+          "name": "pt"
+        },
+        {
+          "name": "px"
+        },
+        {
+          "name": "py"
+        },
+        {
+          "name": "radius"
+        },
+        {
+          "name": "right"
+        },
+        {
+          "name": "row-gap"
+        },
+        {
+          "name": "rows"
+        },
+        {
+          "name": "row-span"
+        },
+        {
+          "name": "shadow"
+        },
+        {
+          "name": "shrink"
+        },
+        {
+          "name": "text-align"
+        },
+        {
+          "name": "text-decoration"
+        },
+        {
+          "name": "text-transform"
+        },
+        {
+          "name": "threshold",
+          "description": "꺾이는 폭 — sm | md | lg | xl | 2xl (기본 sm)",
+          "values": [
+            {
+              "name": "2xl"
+            },
+            {
+              "name": "lg"
+            },
+            {
+              "name": "md"
+            },
+            {
+              "name": "sm"
+            },
+            {
+              "name": "xl"
+            }
+          ]
+        },
+        {
+          "name": "top"
+        },
+        {
+          "name": "transition"
+        },
+        {
+          "name": "user-select"
+        },
+        {
+          "name": "w"
+        },
+        {
+          "name": "wrap"
+        },
+        {
+          "name": "z-index"
+        }
+      ],
+      "references": [
+        {
+          "name": "JunDS 문서",
+          "url": "https://junha.dev/docs/projects/junds?c=switcher"
+        }
+      ]
+    },
+    {
       "name": "jd-table",
       "description": "컬럼 정의 + 데이터 행으로 구성된 기본 테이블 (v2 composites/Table).",
       "attributes": [
@@ -17713,6 +18324,11 @@
       "name": "jd-theme-toggle",
       "description": "라이트/다크 색 구성 토글 버튼 (v2 finance/ThemeToggle).",
       "attributes": [
+        {
+          "name": "manual",
+          "description": "마운트만으로 문서를 칠하지 않는다 — 버튼은 문서의 **현재** 색 구성을 비추고, 문서를 바꾸는 것은 사용자가 눌렀을 때뿐이다. 이 노브가 필요한 이유: 이 버튼은 앱의 유일한 테마 스위치일 수도 있지만, 컴포넌트 카탈로그에 놓인 385개 표본 중 하나일 수도 있다. 후자에서 자동 적용은 **호스트 페이지를 인질로 잡는다** — MySelf 의 JunDS 카탈로그가 이 카드까지 스크롤하는 순간 문서 루트가 다크로 칠해져 옆 카드 384개가 함께 뒤집혔다(실측).",
+          "valueSet": "v"
+        },
         {
           "name": "storage-key",
           "description": "localStorage 키"

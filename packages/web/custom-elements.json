@@ -22594,7 +22594,7 @@
               "name": "size",
               "privacy": "public",
               "type": {
-                "text": "\"lg\" | \"2xl\" | \"full\" | \"md\" | \"sm\" | \"xl\" | \"xs\""
+                "text": "\"${size}\" | \"full\" | \"lg\""
               },
               "default": "\"lg\"",
               "attribute": "size",
@@ -23057,7 +23057,7 @@
             {
               "name": "size",
               "type": {
-                "text": "\"lg\" | \"2xl\" | \"full\" | \"md\" | \"sm\" | \"xl\" | \"xs\""
+                "text": "\"${size}\" | \"full\" | \"lg\""
               },
               "default": "\"lg\"",
               "fieldName": "size"
@@ -67519,6 +67519,1076 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/components/sidebar-layout/index.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "사이드바 + 본문, 좁아지면 자동으로 쌓임 (DEC-052).",
+          "name": "JdSidebarLayout",
+          "tagName": "jd-sidebar-layout",
+          "customElement": true,
+          "superclass": {
+            "name": "JdElement",
+            "module": "dist/core/element.js"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "align"
+            },
+            {
+              "kind": "field",
+              "name": "bg",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "bg"
+            },
+            {
+              "kind": "field",
+              "name": "border",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border"
+            },
+            {
+              "kind": "field",
+              "name": "borderColor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border-color"
+            },
+            {
+              "kind": "field",
+              "name": "borderWidth",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border-width"
+            },
+            {
+              "kind": "field",
+              "name": "bottom",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "bottom"
+            },
+            {
+              "kind": "field",
+              "name": "color",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "color"
+            },
+            {
+              "kind": "field",
+              "name": "cols",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "cols"
+            },
+            {
+              "kind": "field",
+              "name": "colSpan",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "col-span"
+            },
+            {
+              "kind": "field",
+              "name": "columnGap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "column-gap"
+            },
+            {
+              "kind": "field",
+              "name": "contentMin",
+              "privacy": "public",
+              "description": "본문 최소 폭 — 이보다 좁아지면 쌓인다 (CSS 길이/백분율, 기본 60%)",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "content-min"
+            },
+            {
+              "kind": "field",
+              "name": "cursor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "cursor"
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "direction"
+            },
+            {
+              "kind": "field",
+              "name": "display",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "display"
+            },
+            {
+              "kind": "field",
+              "name": "flex",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "flex"
+            },
+            {
+              "kind": "field",
+              "name": "fontSize",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "font-size"
+            },
+            {
+              "kind": "field",
+              "name": "fontWeight",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "font-weight"
+            },
+            {
+              "kind": "field",
+              "name": "gap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "gap"
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "grow"
+            },
+            {
+              "kind": "field",
+              "name": "h",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "h"
+            },
+            {
+              "kind": "field",
+              "name": "justify",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "justify"
+            },
+            {
+              "kind": "field",
+              "name": "left",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "left"
+            },
+            {
+              "kind": "field",
+              "name": "letterSpacing",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "letter-spacing"
+            },
+            {
+              "kind": "field",
+              "name": "lineHeight",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "line-height"
+            },
+            {
+              "kind": "field",
+              "name": "m",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "m"
+            },
+            {
+              "kind": "field",
+              "name": "maxH",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "max-h"
+            },
+            {
+              "kind": "field",
+              "name": "maxW",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "max-w"
+            },
+            {
+              "kind": "field",
+              "name": "mb",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mb"
+            },
+            {
+              "kind": "field",
+              "name": "minH",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "min-h"
+            },
+            {
+              "kind": "field",
+              "name": "minW",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "min-w"
+            },
+            {
+              "kind": "field",
+              "name": "ml",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "ml"
+            },
+            {
+              "kind": "field",
+              "name": "mr",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mr"
+            },
+            {
+              "kind": "field",
+              "name": "mt",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mt"
+            },
+            {
+              "kind": "field",
+              "name": "mx",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mx"
+            },
+            {
+              "kind": "field",
+              "name": "my",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "my"
+            },
+            {
+              "kind": "field",
+              "name": "opacity",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "opacity"
+            },
+            {
+              "kind": "field",
+              "name": "overflow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "overflow"
+            },
+            {
+              "kind": "field",
+              "name": "p",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "p"
+            },
+            {
+              "kind": "field",
+              "name": "pb",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pb"
+            },
+            {
+              "kind": "field",
+              "name": "pl",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pl"
+            },
+            {
+              "kind": "field",
+              "name": "pointerEvents",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pointer-events"
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "position"
+            },
+            {
+              "kind": "field",
+              "name": "pr",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pr"
+            },
+            {
+              "kind": "field",
+              "name": "pt",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pt"
+            },
+            {
+              "kind": "field",
+              "name": "px",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "px"
+            },
+            {
+              "kind": "field",
+              "name": "py",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "py"
+            },
+            {
+              "kind": "field",
+              "name": "radius",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "radius"
+            },
+            {
+              "kind": "field",
+              "name": "right",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "right"
+            },
+            {
+              "kind": "field",
+              "name": "rowGap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "row-gap"
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "rows"
+            },
+            {
+              "kind": "field",
+              "name": "rowSpan",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "row-span"
+            },
+            {
+              "kind": "field",
+              "name": "shadow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "shadow"
+            },
+            {
+              "kind": "field",
+              "name": "shrink",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "shrink"
+            },
+            {
+              "kind": "field",
+              "name": "side",
+              "privacy": "public",
+              "description": "사이드바를 오른쪽에 둔다 — start(기본) | end",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "side",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "sideWidth",
+              "privacy": "public",
+              "description": "사이드바 폭 (CSS 길이, 기본 16rem)",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "side-width"
+            },
+            {
+              "kind": "field",
+              "name": "textAlign",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-align"
+            },
+            {
+              "kind": "field",
+              "name": "textDecoration",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-decoration"
+            },
+            {
+              "kind": "field",
+              "name": "textTransform",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-transform"
+            },
+            {
+              "kind": "field",
+              "name": "top",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "top"
+            },
+            {
+              "kind": "field",
+              "name": "transition",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "transition"
+            },
+            {
+              "kind": "field",
+              "name": "userSelect",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "user-select"
+            },
+            {
+              "kind": "field",
+              "name": "w",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "w"
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "wrap"
+            },
+            {
+              "kind": "field",
+              "name": "zIndex",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "z-index"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "align"
+            },
+            {
+              "name": "bg",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "bg"
+            },
+            {
+              "name": "border",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "border"
+            },
+            {
+              "name": "border-color",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "borderColor"
+            },
+            {
+              "name": "border-width",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "borderWidth"
+            },
+            {
+              "name": "bottom",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "bottom"
+            },
+            {
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "color"
+            },
+            {
+              "name": "cols",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "cols"
+            },
+            {
+              "name": "col-span",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "colSpan"
+            },
+            {
+              "name": "column-gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "columnGap"
+            },
+            {
+              "name": "content-min",
+              "description": "본문 최소 폭 — 이보다 좁아지면 쌓인다 (CSS 길이/백분율, 기본 60%)",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "contentMin"
+            },
+            {
+              "name": "cursor",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "cursor"
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "direction"
+            },
+            {
+              "name": "display",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "display"
+            },
+            {
+              "name": "flex",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "flex"
+            },
+            {
+              "name": "font-size",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "fontSize"
+            },
+            {
+              "name": "font-weight",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "fontWeight"
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "gap"
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "grow"
+            },
+            {
+              "name": "h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "h"
+            },
+            {
+              "name": "justify",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "justify"
+            },
+            {
+              "name": "left",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "left"
+            },
+            {
+              "name": "letter-spacing",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "letterSpacing"
+            },
+            {
+              "name": "line-height",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "lineHeight"
+            },
+            {
+              "name": "m",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "m"
+            },
+            {
+              "name": "max-h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "maxH"
+            },
+            {
+              "name": "max-w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "maxW"
+            },
+            {
+              "name": "mb",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mb"
+            },
+            {
+              "name": "min-h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "minH"
+            },
+            {
+              "name": "min-w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "minW"
+            },
+            {
+              "name": "ml",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "ml"
+            },
+            {
+              "name": "mr",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mr"
+            },
+            {
+              "name": "mt",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mt"
+            },
+            {
+              "name": "mx",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mx"
+            },
+            {
+              "name": "my",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "my"
+            },
+            {
+              "name": "opacity",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "opacity"
+            },
+            {
+              "name": "overflow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "overflow"
+            },
+            {
+              "name": "p",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "p"
+            },
+            {
+              "name": "pb",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pb"
+            },
+            {
+              "name": "pl",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pl"
+            },
+            {
+              "name": "pointer-events",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pointerEvents"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "position"
+            },
+            {
+              "name": "pr",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pr"
+            },
+            {
+              "name": "pt",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pt"
+            },
+            {
+              "name": "px",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "px"
+            },
+            {
+              "name": "py",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "py"
+            },
+            {
+              "name": "radius",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "radius"
+            },
+            {
+              "name": "right",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "right"
+            },
+            {
+              "name": "row-gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rowGap"
+            },
+            {
+              "name": "rows",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rows"
+            },
+            {
+              "name": "row-span",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rowSpan"
+            },
+            {
+              "name": "shadow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "shadow"
+            },
+            {
+              "name": "shrink",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "shrink"
+            },
+            {
+              "name": "side",
+              "description": "사이드바를 오른쪽에 둔다 — start(기본) | end",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "side"
+            },
+            {
+              "name": "side-width",
+              "description": "사이드바 폭 (CSS 길이, 기본 16rem)",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "sideWidth"
+            },
+            {
+              "name": "text-align",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textAlign"
+            },
+            {
+              "name": "text-decoration",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textDecoration"
+            },
+            {
+              "name": "text-transform",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textTransform"
+            },
+            {
+              "name": "top",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "top"
+            },
+            {
+              "name": "transition",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "transition"
+            },
+            {
+              "name": "user-select",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "userSelect"
+            },
+            {
+              "name": "w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "w"
+            },
+            {
+              "name": "wrap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "wrap"
+            },
+            {
+              "name": "z-index",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "zIndex"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "JdSidebarLayout",
+          "declaration": {
+            "name": "JdSidebarLayout",
+            "module": "dist/components/sidebar-layout/index.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "jd-sidebar-layout",
+          "declaration": {
+            "name": "JdSidebarLayout",
+            "module": "dist/components/sidebar-layout/index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/components/sidebar-link/index.js",
       "declarations": [
         {
@@ -70337,6 +71407,1040 @@
           "declaration": {
             "name": "JdSpinner",
             "module": "dist/components/spinner/index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/components/split/index.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "두 덩어리를 양끝으로 (DEC-052).",
+          "name": "JdSplit",
+          "tagName": "jd-split",
+          "customElement": true,
+          "superclass": {
+            "name": "JdElement",
+            "module": "dist/core/element.js"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "align"
+            },
+            {
+              "kind": "field",
+              "name": "bg",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "bg"
+            },
+            {
+              "kind": "field",
+              "name": "border",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border"
+            },
+            {
+              "kind": "field",
+              "name": "borderColor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border-color"
+            },
+            {
+              "kind": "field",
+              "name": "borderWidth",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border-width"
+            },
+            {
+              "kind": "field",
+              "name": "bottom",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "bottom"
+            },
+            {
+              "kind": "field",
+              "name": "color",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "color"
+            },
+            {
+              "kind": "field",
+              "name": "cols",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "cols"
+            },
+            {
+              "kind": "field",
+              "name": "colSpan",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "col-span"
+            },
+            {
+              "kind": "field",
+              "name": "columnGap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "column-gap"
+            },
+            {
+              "kind": "field",
+              "name": "cursor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "cursor"
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "direction"
+            },
+            {
+              "kind": "field",
+              "name": "display",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "display"
+            },
+            {
+              "kind": "field",
+              "name": "flex",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "flex"
+            },
+            {
+              "kind": "field",
+              "name": "fontSize",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "font-size"
+            },
+            {
+              "kind": "field",
+              "name": "fontWeight",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "font-weight"
+            },
+            {
+              "kind": "field",
+              "name": "gap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "gap"
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "grow"
+            },
+            {
+              "kind": "field",
+              "name": "h",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "h"
+            },
+            {
+              "kind": "field",
+              "name": "justify",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "justify"
+            },
+            {
+              "kind": "field",
+              "name": "left",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "left"
+            },
+            {
+              "kind": "field",
+              "name": "letterSpacing",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "letter-spacing"
+            },
+            {
+              "kind": "field",
+              "name": "lineHeight",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "line-height"
+            },
+            {
+              "kind": "field",
+              "name": "m",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "m"
+            },
+            {
+              "kind": "field",
+              "name": "maxH",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "max-h"
+            },
+            {
+              "kind": "field",
+              "name": "maxW",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "max-w"
+            },
+            {
+              "kind": "field",
+              "name": "mb",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mb"
+            },
+            {
+              "kind": "field",
+              "name": "minH",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "min-h"
+            },
+            {
+              "kind": "field",
+              "name": "minW",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "min-w"
+            },
+            {
+              "kind": "field",
+              "name": "ml",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "ml"
+            },
+            {
+              "kind": "field",
+              "name": "mr",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mr"
+            },
+            {
+              "kind": "field",
+              "name": "mt",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mt"
+            },
+            {
+              "kind": "field",
+              "name": "mx",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mx"
+            },
+            {
+              "kind": "field",
+              "name": "my",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "my"
+            },
+            {
+              "kind": "field",
+              "name": "noWrap",
+              "privacy": "public",
+              "description": "좁아져도 줄바꿈하지 않는다 (attr: no-wrap)",
+              "type": {
+                "text": "boolean"
+              },
+              "attribute": "no-wrap",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "opacity",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "opacity"
+            },
+            {
+              "kind": "field",
+              "name": "overflow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "overflow"
+            },
+            {
+              "kind": "field",
+              "name": "p",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "p"
+            },
+            {
+              "kind": "field",
+              "name": "pb",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pb"
+            },
+            {
+              "kind": "field",
+              "name": "pl",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pl"
+            },
+            {
+              "kind": "field",
+              "name": "pointerEvents",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pointer-events"
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "position"
+            },
+            {
+              "kind": "field",
+              "name": "pr",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pr"
+            },
+            {
+              "kind": "field",
+              "name": "pt",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pt"
+            },
+            {
+              "kind": "field",
+              "name": "px",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "px"
+            },
+            {
+              "kind": "field",
+              "name": "py",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "py"
+            },
+            {
+              "kind": "field",
+              "name": "radius",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "radius"
+            },
+            {
+              "kind": "field",
+              "name": "right",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "right"
+            },
+            {
+              "kind": "field",
+              "name": "rowGap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "row-gap"
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "rows"
+            },
+            {
+              "kind": "field",
+              "name": "rowSpan",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "row-span"
+            },
+            {
+              "kind": "field",
+              "name": "shadow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "shadow"
+            },
+            {
+              "kind": "field",
+              "name": "shrink",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "shrink"
+            },
+            {
+              "kind": "field",
+              "name": "textAlign",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-align"
+            },
+            {
+              "kind": "field",
+              "name": "textDecoration",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-decoration"
+            },
+            {
+              "kind": "field",
+              "name": "textTransform",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-transform"
+            },
+            {
+              "kind": "field",
+              "name": "top",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "top"
+            },
+            {
+              "kind": "field",
+              "name": "transition",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "transition"
+            },
+            {
+              "kind": "field",
+              "name": "userSelect",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "user-select"
+            },
+            {
+              "kind": "field",
+              "name": "w",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "w"
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "wrap"
+            },
+            {
+              "kind": "field",
+              "name": "zIndex",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "z-index"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "align"
+            },
+            {
+              "name": "bg",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "bg"
+            },
+            {
+              "name": "border",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "border"
+            },
+            {
+              "name": "border-color",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "borderColor"
+            },
+            {
+              "name": "border-width",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "borderWidth"
+            },
+            {
+              "name": "bottom",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "bottom"
+            },
+            {
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "color"
+            },
+            {
+              "name": "cols",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "cols"
+            },
+            {
+              "name": "col-span",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "colSpan"
+            },
+            {
+              "name": "column-gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "columnGap"
+            },
+            {
+              "name": "cursor",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "cursor"
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "direction"
+            },
+            {
+              "name": "display",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "display"
+            },
+            {
+              "name": "flex",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "flex"
+            },
+            {
+              "name": "font-size",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "fontSize"
+            },
+            {
+              "name": "font-weight",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "fontWeight"
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "gap"
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "grow"
+            },
+            {
+              "name": "h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "h"
+            },
+            {
+              "name": "justify",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "justify"
+            },
+            {
+              "name": "left",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "left"
+            },
+            {
+              "name": "letter-spacing",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "letterSpacing"
+            },
+            {
+              "name": "line-height",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "lineHeight"
+            },
+            {
+              "name": "m",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "m"
+            },
+            {
+              "name": "max-h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "maxH"
+            },
+            {
+              "name": "max-w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "maxW"
+            },
+            {
+              "name": "mb",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mb"
+            },
+            {
+              "name": "min-h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "minH"
+            },
+            {
+              "name": "min-w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "minW"
+            },
+            {
+              "name": "ml",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "ml"
+            },
+            {
+              "name": "mr",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mr"
+            },
+            {
+              "name": "mt",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mt"
+            },
+            {
+              "name": "mx",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mx"
+            },
+            {
+              "name": "my",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "my"
+            },
+            {
+              "name": "no-wrap",
+              "description": "좁아져도 줄바꿈하지 않는다 (attr: no-wrap)",
+              "type": {
+                "text": "boolean"
+              },
+              "fieldName": "noWrap"
+            },
+            {
+              "name": "opacity",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "opacity"
+            },
+            {
+              "name": "overflow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "overflow"
+            },
+            {
+              "name": "p",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "p"
+            },
+            {
+              "name": "pb",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pb"
+            },
+            {
+              "name": "pl",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pl"
+            },
+            {
+              "name": "pointer-events",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pointerEvents"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "position"
+            },
+            {
+              "name": "pr",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pr"
+            },
+            {
+              "name": "pt",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pt"
+            },
+            {
+              "name": "px",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "px"
+            },
+            {
+              "name": "py",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "py"
+            },
+            {
+              "name": "radius",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "radius"
+            },
+            {
+              "name": "right",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "right"
+            },
+            {
+              "name": "row-gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rowGap"
+            },
+            {
+              "name": "rows",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rows"
+            },
+            {
+              "name": "row-span",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rowSpan"
+            },
+            {
+              "name": "shadow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "shadow"
+            },
+            {
+              "name": "shrink",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "shrink"
+            },
+            {
+              "name": "text-align",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textAlign"
+            },
+            {
+              "name": "text-decoration",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textDecoration"
+            },
+            {
+              "name": "text-transform",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textTransform"
+            },
+            {
+              "name": "top",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "top"
+            },
+            {
+              "name": "transition",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "transition"
+            },
+            {
+              "name": "user-select",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "userSelect"
+            },
+            {
+              "name": "w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "w"
+            },
+            {
+              "name": "wrap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "wrap"
+            },
+            {
+              "name": "z-index",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "zIndex"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "JdSplit",
+          "declaration": {
+            "name": "JdSplit",
+            "module": "dist/components/split/index.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "jd-split",
+          "declaration": {
+            "name": "JdSplit",
+            "module": "dist/components/split/index.js"
           }
         }
       ]
@@ -74759,6 +76863,1040 @@
     },
     {
       "kind": "javascript-module",
+      "path": "dist/components/switcher/index.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "자리가 좁으면 알아서 세로로 쌓이는 배치 (DEC-052).",
+          "name": "JdSwitcher",
+          "tagName": "jd-switcher",
+          "customElement": true,
+          "superclass": {
+            "name": "JdElement",
+            "module": "dist/core/element.js"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "align"
+            },
+            {
+              "kind": "field",
+              "name": "bg",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "bg"
+            },
+            {
+              "kind": "field",
+              "name": "border",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border"
+            },
+            {
+              "kind": "field",
+              "name": "borderColor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border-color"
+            },
+            {
+              "kind": "field",
+              "name": "borderWidth",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "border-width"
+            },
+            {
+              "kind": "field",
+              "name": "bottom",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "bottom"
+            },
+            {
+              "kind": "field",
+              "name": "color",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "color"
+            },
+            {
+              "kind": "field",
+              "name": "cols",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "cols"
+            },
+            {
+              "kind": "field",
+              "name": "colSpan",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "col-span"
+            },
+            {
+              "kind": "field",
+              "name": "columnGap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "column-gap"
+            },
+            {
+              "kind": "field",
+              "name": "cursor",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "cursor"
+            },
+            {
+              "kind": "field",
+              "name": "direction",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "direction"
+            },
+            {
+              "kind": "field",
+              "name": "display",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "display"
+            },
+            {
+              "kind": "field",
+              "name": "flex",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "flex"
+            },
+            {
+              "kind": "field",
+              "name": "fontSize",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "font-size"
+            },
+            {
+              "kind": "field",
+              "name": "fontWeight",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "font-weight"
+            },
+            {
+              "kind": "field",
+              "name": "gap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "gap"
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "grow"
+            },
+            {
+              "kind": "field",
+              "name": "h",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "h"
+            },
+            {
+              "kind": "field",
+              "name": "justify",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "justify"
+            },
+            {
+              "kind": "field",
+              "name": "left",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "left"
+            },
+            {
+              "kind": "field",
+              "name": "letterSpacing",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "letter-spacing"
+            },
+            {
+              "kind": "field",
+              "name": "lineHeight",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "line-height"
+            },
+            {
+              "kind": "field",
+              "name": "m",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "m"
+            },
+            {
+              "kind": "field",
+              "name": "maxH",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "max-h"
+            },
+            {
+              "kind": "field",
+              "name": "maxW",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "max-w"
+            },
+            {
+              "kind": "field",
+              "name": "mb",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mb"
+            },
+            {
+              "kind": "field",
+              "name": "minH",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "min-h"
+            },
+            {
+              "kind": "field",
+              "name": "minW",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "min-w"
+            },
+            {
+              "kind": "field",
+              "name": "ml",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "ml"
+            },
+            {
+              "kind": "field",
+              "name": "mr",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mr"
+            },
+            {
+              "kind": "field",
+              "name": "mt",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mt"
+            },
+            {
+              "kind": "field",
+              "name": "mx",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "mx"
+            },
+            {
+              "kind": "field",
+              "name": "my",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "my"
+            },
+            {
+              "kind": "field",
+              "name": "opacity",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "opacity"
+            },
+            {
+              "kind": "field",
+              "name": "overflow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "overflow"
+            },
+            {
+              "kind": "field",
+              "name": "p",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "p"
+            },
+            {
+              "kind": "field",
+              "name": "pb",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pb"
+            },
+            {
+              "kind": "field",
+              "name": "pl",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pl"
+            },
+            {
+              "kind": "field",
+              "name": "pointerEvents",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pointer-events"
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "position"
+            },
+            {
+              "kind": "field",
+              "name": "pr",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pr"
+            },
+            {
+              "kind": "field",
+              "name": "pt",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "pt"
+            },
+            {
+              "kind": "field",
+              "name": "px",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "px"
+            },
+            {
+              "kind": "field",
+              "name": "py",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "py"
+            },
+            {
+              "kind": "field",
+              "name": "radius",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "radius"
+            },
+            {
+              "kind": "field",
+              "name": "right",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "right"
+            },
+            {
+              "kind": "field",
+              "name": "rowGap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "row-gap"
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "rows"
+            },
+            {
+              "kind": "field",
+              "name": "rowSpan",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "row-span"
+            },
+            {
+              "kind": "field",
+              "name": "shadow",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "shadow"
+            },
+            {
+              "kind": "field",
+              "name": "shrink",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "shrink"
+            },
+            {
+              "kind": "field",
+              "name": "textAlign",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-align"
+            },
+            {
+              "kind": "field",
+              "name": "textDecoration",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-decoration"
+            },
+            {
+              "kind": "field",
+              "name": "textTransform",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "text-transform"
+            },
+            {
+              "kind": "field",
+              "name": "threshold",
+              "privacy": "public",
+              "description": "꺾이는 폭 — sm | md | lg | xl | 2xl (기본 sm)",
+              "type": {
+                "text": "\"2xl\" | \"lg\" | \"md\" | \"sm\" | \"xl\""
+              },
+              "attribute": "threshold",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "top",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "top"
+            },
+            {
+              "kind": "field",
+              "name": "transition",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "transition"
+            },
+            {
+              "kind": "field",
+              "name": "userSelect",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "user-select"
+            },
+            {
+              "kind": "field",
+              "name": "w",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "w"
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "wrap"
+            },
+            {
+              "kind": "field",
+              "name": "zIndex",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "z-index"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "align"
+            },
+            {
+              "name": "bg",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "bg"
+            },
+            {
+              "name": "border",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "border"
+            },
+            {
+              "name": "border-color",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "borderColor"
+            },
+            {
+              "name": "border-width",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "borderWidth"
+            },
+            {
+              "name": "bottom",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "bottom"
+            },
+            {
+              "name": "color",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "color"
+            },
+            {
+              "name": "cols",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "cols"
+            },
+            {
+              "name": "col-span",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "colSpan"
+            },
+            {
+              "name": "column-gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "columnGap"
+            },
+            {
+              "name": "cursor",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "cursor"
+            },
+            {
+              "name": "direction",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "direction"
+            },
+            {
+              "name": "display",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "display"
+            },
+            {
+              "name": "flex",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "flex"
+            },
+            {
+              "name": "font-size",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "fontSize"
+            },
+            {
+              "name": "font-weight",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "fontWeight"
+            },
+            {
+              "name": "gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "gap"
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "grow"
+            },
+            {
+              "name": "h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "h"
+            },
+            {
+              "name": "justify",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "justify"
+            },
+            {
+              "name": "left",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "left"
+            },
+            {
+              "name": "letter-spacing",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "letterSpacing"
+            },
+            {
+              "name": "line-height",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "lineHeight"
+            },
+            {
+              "name": "m",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "m"
+            },
+            {
+              "name": "max-h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "maxH"
+            },
+            {
+              "name": "max-w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "maxW"
+            },
+            {
+              "name": "mb",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mb"
+            },
+            {
+              "name": "min-h",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "minH"
+            },
+            {
+              "name": "min-w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "minW"
+            },
+            {
+              "name": "ml",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "ml"
+            },
+            {
+              "name": "mr",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mr"
+            },
+            {
+              "name": "mt",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mt"
+            },
+            {
+              "name": "mx",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "mx"
+            },
+            {
+              "name": "my",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "my"
+            },
+            {
+              "name": "opacity",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "opacity"
+            },
+            {
+              "name": "overflow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "overflow"
+            },
+            {
+              "name": "p",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "p"
+            },
+            {
+              "name": "pb",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pb"
+            },
+            {
+              "name": "pl",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pl"
+            },
+            {
+              "name": "pointer-events",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pointerEvents"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "position"
+            },
+            {
+              "name": "pr",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pr"
+            },
+            {
+              "name": "pt",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "pt"
+            },
+            {
+              "name": "px",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "px"
+            },
+            {
+              "name": "py",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "py"
+            },
+            {
+              "name": "radius",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "radius"
+            },
+            {
+              "name": "right",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "right"
+            },
+            {
+              "name": "row-gap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rowGap"
+            },
+            {
+              "name": "rows",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rows"
+            },
+            {
+              "name": "row-span",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "rowSpan"
+            },
+            {
+              "name": "shadow",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "shadow"
+            },
+            {
+              "name": "shrink",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "shrink"
+            },
+            {
+              "name": "text-align",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textAlign"
+            },
+            {
+              "name": "text-decoration",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textDecoration"
+            },
+            {
+              "name": "text-transform",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "textTransform"
+            },
+            {
+              "name": "threshold",
+              "description": "꺾이는 폭 — sm | md | lg | xl | 2xl (기본 sm)",
+              "type": {
+                "text": "\"2xl\" | \"lg\" | \"md\" | \"sm\" | \"xl\""
+              },
+              "fieldName": "threshold"
+            },
+            {
+              "name": "top",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "top"
+            },
+            {
+              "name": "transition",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "transition"
+            },
+            {
+              "name": "user-select",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "userSelect"
+            },
+            {
+              "name": "w",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "w"
+            },
+            {
+              "name": "wrap",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "wrap"
+            },
+            {
+              "name": "z-index",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "zIndex"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "JdSwitcher",
+          "declaration": {
+            "name": "JdSwitcher",
+            "module": "dist/components/switcher/index.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "jd-switcher",
+          "declaration": {
+            "name": "JdSwitcher",
+            "module": "dist/components/switcher/index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/components/table/index.js",
       "declarations": [
         {
@@ -78090,6 +81228,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "manual",
+              "privacy": "public",
+              "description": "마운트만으로 문서를 칠하지 않는다 — 버튼은 문서의 **현재** 색 구성을 비추고, 문서를 바꾸는 것은 사용자가 눌렀을 때뿐이다. 이 노브가 필요한 이유: 이 버튼은 앱의 유일한 테마 스위치일 수도 있지만, 컴포넌트 카탈로그에 놓인 385개 표본 중 하나일 수도 있다. 후자에서 자동 적용은 **호스트 페이지를 인질로 잡는다** — MySelf 의 JunDS 카탈로그가 이 카드까지 스크롤하는 순간 문서 루트가 다크로 칠해져 옆 카드 384개가 함께 뒤집혔다(실측).",
+              "type": {
+                "text": "boolean"
+              },
+              "attribute": "manual"
+            },
+            {
+              "kind": "field",
               "name": "storageKey",
               "privacy": "public",
               "description": "localStorage 키",
@@ -78101,6 +81249,14 @@
             }
           ],
           "attributes": [
+            {
+              "name": "manual",
+              "description": "마운트만으로 문서를 칠하지 않는다 — 버튼은 문서의 **현재** 색 구성을 비추고, 문서를 바꾸는 것은 사용자가 눌렀을 때뿐이다. 이 노브가 필요한 이유: 이 버튼은 앱의 유일한 테마 스위치일 수도 있지만, 컴포넌트 카탈로그에 놓인 385개 표본 중 하나일 수도 있다. 후자에서 자동 적용은 **호스트 페이지를 인질로 잡는다** — MySelf 의 JunDS 카탈로그가 이 카드까지 스크롤하는 순간 문서 루트가 다크로 칠해져 옆 카드 384개가 함께 뒤집혔다(실측).",
+              "type": {
+                "text": "boolean"
+              },
+              "fieldName": "manual"
+            },
             {
               "name": "storage-key",
               "description": "localStorage 키",
