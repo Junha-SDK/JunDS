@@ -183,7 +183,8 @@ export class JdLiveTopMovers extends JdElement {
     try {
       const parsed: unknown = JSON.parse(script.textContent || "[]");
       // 슬롯은 초기값 — 이미 대입된 stocks 프로퍼티를 덮지 않는다(§1.3)
-      if (Array.isArray(parsed) && this.#stocks.length === 0) this.#stocks = this.#normalize(parsed);
+      if (Array.isArray(parsed) && this.#stocks.length === 0)
+        this.#stocks = this.#normalize(parsed);
     } catch {
       console.warn("[junds] <jd-live-top-movers> JSON 슬롯 파싱 실패 — 무시합니다.");
     }
@@ -211,7 +212,9 @@ export class JdLiveTopMovers extends JdElement {
       this.label || (this.live ? "LIVE" : "장마감");
 
     const active = this.#activeMarket();
-    this.#title.textContent = `${MARKET_LABEL[active]} ${this.live ? "실시간 순위" : "장 마감 순위"}`;
+    this.#title.textContent = `${MARKET_LABEL[active]} ${
+      this.live ? "실시간 순위" : "장 마감 순위"
+    }`;
     this.setAttribute("aria-label", `${MARKET_LABEL[active]} 등락 순위`);
     this.#source.textContent = this.source || "";
     this.#source.hidden = !this.source;

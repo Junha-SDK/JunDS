@@ -112,9 +112,7 @@ export function JunDSProvider({
 
   if (license.status === "invalid" || license.status === "expired") {
     if (process.env.NODE_ENV === "development") {
-      console.error(
-        `[JunDS] License ${license.status}. Please check your license key.`
-      );
+      console.error(`[JunDS] License ${license.status}. Please check your license key.`);
     }
     return (
       <div
@@ -125,7 +123,9 @@ export function JunDSProvider({
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        <p style={{ fontWeight: 600 }}>JunDS License {license.status === "expired" ? "Expired" : "Invalid"}</p>
+        <p style={{ fontWeight: 600 }}>
+          JunDS License {license.status === "expired" ? "Expired" : "Invalid"}
+        </p>
         <p style={{ fontSize: "14px", color: "#6b7280" }}>
           Please verify your license at junds.dev
         </p>
@@ -133,11 +133,7 @@ export function JunDSProvider({
     );
   }
 
-  return (
-    <JunDSContext.Provider value={{ license }}>
-      {children}
-    </JunDSContext.Provider>
-  );
+  return <JunDSContext.Provider value={{ license }}>{children}</JunDSContext.Provider>;
 }
 
 export function useJunDS(): JunDSContextValue {

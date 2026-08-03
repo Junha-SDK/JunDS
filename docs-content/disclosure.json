@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "Disclosure",
   "oneLiner": "단일 접기·펼치기 영역 — 트리거와 패널 쌍.",
-  "tags": [
-    "interaction",
-    "펼침"
-  ],
+  "tags": ["interaction", "펼침"],
   "controls": [],
   "snippets": {
     "web": null,

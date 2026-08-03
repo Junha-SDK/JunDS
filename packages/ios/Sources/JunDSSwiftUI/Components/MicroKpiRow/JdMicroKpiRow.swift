@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-live-micro-kpi-row 동형 — 보조 KPI 소형 셀 묶음. (DEC-041)
 //
@@ -15,9 +15,11 @@ public struct JdMicroKpiRow: View {
     private let minCellWidth: CGFloat
     private let spacing: CGFloat
 
-    public init(items: [JdMicroKpiItem],
-                minCellWidth: CGFloat = 132,
-                spacing: CGFloat = JdToken.Space.s2) {
+    public init(
+        items: [JdMicroKpiItem],
+        minCellWidth: CGFloat = 132,
+        spacing: CGFloat = JdToken.Space.s2
+    ) {
         self.items = items
         self.minCellWidth = minCellWidth
         self.spacing = spacing
@@ -54,31 +56,42 @@ public struct JdMicroKpiCell: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(item.label)
-                .font(JdSwiftUIFont.scaled(size: spec.labelFontSize,
-                                           weight: spec.labelFontWeight,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.labelFontSize,
+                        weight: spec.labelFontWeight,
+                        category: sizeCategory)
+                )
                 .foregroundColor(spec.labelColor.color)
 
             // 값 + 단위는 한 문단 — 단위가 줄바꿈으로 떨어지면 숫자와 분리돼 읽힌다
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text(item.value)
-                    .font(JdSwiftUIFont.scaled(size: spec.valueFontSize,
-                                               weight: spec.valueFontWeight,
-                                               category: sizeCategory))
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: spec.valueFontSize,
+                            weight: spec.valueFontWeight,
+                            category: sizeCategory)
+                    )
                     .monospacedDigit()
                 if let unit = item.unit, !unit.isEmpty {
                     Text(unit)
-                        .font(JdSwiftUIFont.scaled(size: spec.unitFontSize,
-                                                   weight: JdToken.FontWeight.semibold,
-                                                   category: sizeCategory))
+                        .font(
+                            JdSwiftUIFont.scaled(
+                                size: spec.unitFontSize,
+                                weight: JdToken.FontWeight.semibold,
+                                category: sizeCategory))
                 }
             }
             .foregroundColor(spec.valueColor.color)
 
             Text(JdMicroKpiCellSpec.subText(item: item))
-                .font(JdSwiftUIFont.scaled(size: spec.subFontSize,
-                                           weight: spec.subFontWeight,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.subFontSize,
+                        weight: spec.subFontWeight,
+                        category: sizeCategory)
+                )
                 .monospacedDigit()
                 .foregroundColor(spec.subColor.color)
         }

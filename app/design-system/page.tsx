@@ -28,38 +28,103 @@ const CATEGORIES = [
     count: 44,
     href: "/design-system/primitives/button",
     desc: "토큰 기반 원자 컴포넌트.",
-    items: ["Button", "Input", "Badge", "Avatar", "Switch", "Slider", "Spinner", "Toggle", "Tag", "Kbd"],
+    items: [
+      "Button",
+      "Input",
+      "Badge",
+      "Avatar",
+      "Switch",
+      "Slider",
+      "Spinner",
+      "Toggle",
+      "Tag",
+      "Kbd",
+    ],
   },
   {
     label: "Composites",
     count: 159,
     href: "/design-system/composites/modal",
     desc: "조합된 분자 컴포넌트.",
-    items: ["Modal", "Tabs", "Select", "DataGrid", "Card", "Drawer", "Toast", "LineChart", "BarChart", "Snackbar"],
+    items: [
+      "Modal",
+      "Tabs",
+      "Select",
+      "DataGrid",
+      "Card",
+      "Drawer",
+      "Toast",
+      "LineChart",
+      "BarChart",
+      "Snackbar",
+    ],
   },
   {
     label: "Patterns",
     count: 33,
     href: "/design-system/patterns/data-table",
     desc: "비즈니스 로직 포함 패턴.",
-    items: ["DataTable", "FormWizard", "Calendar", "Kanban", "CommandPalette", "HeroSection", "FAQ", "BlogPost"],
+    items: [
+      "DataTable",
+      "FormWizard",
+      "Calendar",
+      "Kanban",
+      "CommandPalette",
+      "HeroSection",
+      "FAQ",
+      "BlogPost",
+    ],
   },
 ];
 
 const FEATURES = [
-  { kw: "01", t: "토큰 기반 시스템", d: "색·간격·타이포·그림자·반경·z-index까지 모든 값이 토큰. 한 줄로 테마 교체." },
-  { kw: "02", t: "반응형 Props", d: "p={{ base: 2, md: 4 }} 단일 prop으로 브레이크포인트 제어. 미디어쿼리 직접 작성 X." },
-  { kw: "03", t: "접근성 내장", d: "ARIA, 포커스 트랩, 키보드 내비, Reduced Motion. axe-core 자동 감사." },
-  { kw: "04", t: "트리쉐이킹", d: "ESM/CJS 듀얼 빌드, sideEffects: false. 쓰는 만큼만 번들에 포함." },
-  { kw: "05", t: "MCP 통합", d: "AI 에디터에서 prop 시그니처를 직접 조회. Cursor·Claude Code 즉시 연결." },
-  { kw: "06", t: "다크모드 + 18 테마", d: "프리셋 18개 + 커스텀 컬러 + 밀도/반경 토글까지 전역 토큰으로 제어." },
+  {
+    kw: "01",
+    t: "토큰 기반 시스템",
+    d: "색·간격·타이포·그림자·반경·z-index까지 모든 값이 토큰. 한 줄로 테마 교체.",
+  },
+  {
+    kw: "02",
+    t: "반응형 Props",
+    d: "p={{ base: 2, md: 4 }} 단일 prop으로 브레이크포인트 제어. 미디어쿼리 직접 작성 X.",
+  },
+  {
+    kw: "03",
+    t: "접근성 내장",
+    d: "ARIA, 포커스 트랩, 키보드 내비, Reduced Motion. axe-core 자동 감사.",
+  },
+  {
+    kw: "04",
+    t: "트리쉐이킹",
+    d: "ESM/CJS 듀얼 빌드, sideEffects: false. 쓰는 만큼만 번들에 포함.",
+  },
+  {
+    kw: "05",
+    t: "MCP 통합",
+    d: "AI 에디터에서 prop 시그니처를 직접 조회. Cursor·Claude Code 즉시 연결.",
+  },
+  {
+    kw: "06",
+    t: "다크모드 + 18 테마",
+    d: "프리셋 18개 + 커스텀 컬러 + 밀도/반경 토글까지 전역 토큰으로 제어.",
+  },
 ];
 
 const TOOLS = [
-  "locate", "get_component_props", "list_recipes", "read_recipe",
-  "list_requirements", "read_requirement", "list_hooks", "scaffold",
-  "get_a11y", "get_bundle_info", "get_deps_for", "get_screenshot_info",
-  "extract_props", "map_refresh",
+  "locate",
+  "get_component_props",
+  "list_recipes",
+  "read_recipe",
+  "list_requirements",
+  "read_requirement",
+  "list_hooks",
+  "scaffold",
+  "get_a11y",
+  "get_bundle_info",
+  "get_deps_for",
+  "get_screenshot_info",
+  "extract_props",
+  "map_refresh",
 ];
 
 export default function DesignSystemPage() {
@@ -79,7 +144,6 @@ export default function DesignSystemPage() {
 
   return (
     <Box maxW="1040px" mx="auto" px={{ base: 5, md: 8 }}>
-
       {/* ─────────────── Hero ─────────────── */}
       <section className="pt-16 md:pt-24 pb-20 md:pb-28">
         <div className="inline-flex items-center gap-2 mb-8 px-2.5 py-1 rounded-full border border-border bg-surface text-[11px] font-medium text-muted">
@@ -88,7 +152,8 @@ export default function DesignSystemPage() {
         </div>
 
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.04em] leading-[1.02] mb-6 max-w-3xl">
-          Production-ready<br />
+          Production-ready
+          <br />
           <span className="text-muted">design system, </span>
           <span className="gradient-text">batteries included.</span>
         </h1>
@@ -129,11 +194,7 @@ export default function DesignSystemPage() {
       <section className="border-y border-border py-8 mb-24">
         <div className="grid grid-cols-3 md:grid-cols-5 gap-x-6 gap-y-6">
           {STATS.map((s) => (
-            <Link
-              key={s.label}
-              href={s.href}
-              className="group flex flex-col gap-1"
-            >
+            <Link key={s.label} href={s.href} className="group flex flex-col gap-1">
               <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight">
                 {mounted ? <AnimatedCounter value={s.count} duration={1200} /> : s.count}
               </div>
@@ -152,38 +213,102 @@ export default function DesignSystemPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-4 mt-8">
           <CodeWindow title="App.tsx">
             <pre className="text-[13px] font-mono leading-7 text-zinc-300 p-6">
-<span className="text-zinc-500">{"// 단일 import — 트리쉐이킹 안전"}</span>{"\n"}
-<span className="text-pink-400">import</span> <span className="text-zinc-300">{"{ "}</span><span className="text-amber-300">Card</span><span className="text-zinc-300">{", "}</span><span className="text-amber-300">Button</span><span className="text-zinc-300">{", "}</span><span className="text-amber-300">Stat</span><span className="text-zinc-300">{" } "}</span><span className="text-pink-400">from</span> <span className="text-emerald-400">{'"@junds/ui"'}</span>{"\n\n"}
-<span className="text-pink-400">export default function</span> <span className="text-amber-300">RevenueCard</span>() {"{"}{"\n"}
-{"  "}<span className="text-pink-400">return</span> ({"\n"}
-{"    "}<span className="text-zinc-500">{"<"}</span><span className="text-rose-400">Card</span> <span className="text-sky-300">hoverable</span><span className="text-zinc-500">{">"}</span>{"\n"}
-{"      "}<span className="text-zinc-500">{"<"}</span><span className="text-rose-400">Stat</span>{"\n"}
-{"        "}<span className="text-sky-300">label</span><span className="text-zinc-500">=</span><span className="text-emerald-400">{'"이번 달 매출"'}</span>{"\n"}
-{"        "}<span className="text-sky-300">value</span><span className="text-zinc-500">=</span><span className="text-emerald-400">{'"₩12,400,000"'}</span>{"\n"}
-{"        "}<span className="text-sky-300">change</span><span className="text-zinc-500">{"={"}</span><span className="text-orange-300">12.5</span><span className="text-zinc-500">{"} "}</span>{"\n"}
-{"      "}<span className="text-zinc-500">{"/>"}</span>{"\n"}
-{"      "}<span className="text-zinc-500">{"<"}</span><span className="text-rose-400">Button</span> <span className="text-sky-300">variant</span><span className="text-zinc-500">=</span><span className="text-emerald-400">{'"primary"'}</span><span className="text-zinc-500">{">"}</span>자세히<span className="text-zinc-500">{"</"}</span><span className="text-rose-400">Button</span><span className="text-zinc-500">{">"}</span>{"\n"}
-{"    "}<span className="text-zinc-500">{"</"}</span><span className="text-rose-400">Card</span><span className="text-zinc-500">{">"}</span>{"\n"}
-{"  "}){"\n"}
-{"}"}
+              <span className="text-zinc-500">{"// 단일 import — 트리쉐이킹 안전"}</span>
+              {"\n"}
+              <span className="text-pink-400">import</span>{" "}
+              <span className="text-zinc-300">{"{ "}</span>
+              <span className="text-amber-300">Card</span>
+              <span className="text-zinc-300">{", "}</span>
+              <span className="text-amber-300">Button</span>
+              <span className="text-zinc-300">{", "}</span>
+              <span className="text-amber-300">Stat</span>
+              <span className="text-zinc-300">{" } "}</span>
+              <span className="text-pink-400">from</span>{" "}
+              <span className="text-emerald-400">{'"@junds/ui"'}</span>
+              {"\n\n"}
+              <span className="text-pink-400">export default function</span>{" "}
+              <span className="text-amber-300">RevenueCard</span>() {"{"}
+              {"\n"}
+              {"  "}
+              <span className="text-pink-400">return</span> ({"\n"}
+              {"    "}
+              <span className="text-zinc-500">{"<"}</span>
+              <span className="text-rose-400">Card</span>{" "}
+              <span className="text-sky-300">hoverable</span>
+              <span className="text-zinc-500">{">"}</span>
+              {"\n"}
+              {"      "}
+              <span className="text-zinc-500">{"<"}</span>
+              <span className="text-rose-400">Stat</span>
+              {"\n"}
+              {"        "}
+              <span className="text-sky-300">label</span>
+              <span className="text-zinc-500">=</span>
+              <span className="text-emerald-400">{'"이번 달 매출"'}</span>
+              {"\n"}
+              {"        "}
+              <span className="text-sky-300">value</span>
+              <span className="text-zinc-500">=</span>
+              <span className="text-emerald-400">{'"₩12,400,000"'}</span>
+              {"\n"}
+              {"        "}
+              <span className="text-sky-300">change</span>
+              <span className="text-zinc-500">{"={"}</span>
+              <span className="text-orange-300">12.5</span>
+              <span className="text-zinc-500">{"} "}</span>
+              {"\n"}
+              {"      "}
+              <span className="text-zinc-500">{"/>"}</span>
+              {"\n"}
+              {"      "}
+              <span className="text-zinc-500">{"<"}</span>
+              <span className="text-rose-400">Button</span>{" "}
+              <span className="text-sky-300">variant</span>
+              <span className="text-zinc-500">=</span>
+              <span className="text-emerald-400">{'"primary"'}</span>
+              <span className="text-zinc-500">{">"}</span>자세히
+              <span className="text-zinc-500">{"</"}</span>
+              <span className="text-rose-400">Button</span>
+              <span className="text-zinc-500">{">"}</span>
+              {"\n"}
+              {"    "}
+              <span className="text-zinc-500">{"</"}</span>
+              <span className="text-rose-400">Card</span>
+              <span className="text-zinc-500">{">"}</span>
+              {"\n"}
+              {"  "}){"\n"}
+              {"}"}
             </pre>
           </CodeWindow>
 
           <div className="rounded-xl border border-border bg-surface p-6 flex flex-col justify-center min-h-[280px]">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted mb-4">Result</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted mb-4">
+              Result
+            </div>
             <div className="rounded-lg border border-border-light bg-background p-5">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted mb-1">이번 달 매출</div>
-                  <div className="text-2xl font-semibold tabular-nums leading-none">₩12,400,000</div>
+                  <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted mb-1">
+                    이번 달 매출
+                  </div>
+                  <div className="text-2xl font-semibold tabular-nums leading-none">
+                    ₩12,400,000
+                  </div>
                   <div className="text-xs text-success mt-1.5 tabular-nums">↑ 12.5% 전월 대비</div>
                 </div>
                 <ProgressRing value={78} size={48} strokeWidth={3.5}>
                   <span className="text-[11px] font-semibold">78%</span>
                 </ProgressRing>
               </div>
-              <MiniChart data={[30,45,38,52,48,61,55,70,65,78]} type="area" width={300} height={36} />
-              <Button variant="primary" size="sm" fullWidth className="mt-4">자세히 보기</Button>
+              <MiniChart
+                data={[30, 45, 38, 52, 48, 61, 55, 70, 65, 78]}
+                type="area"
+                width={300}
+                height={36}
+              />
+              <Button variant="primary" size="sm" fullWidth className="mt-4">
+                자세히 보기
+              </Button>
             </div>
           </div>
         </div>
@@ -215,7 +340,7 @@ export default function DesignSystemPage() {
                   </span>
                 ))}
               </div>
-              <span className="mt-auto text-xs font-medium text-foreground group-hover:text-primary transition-colors">
+              <span className="mt-auto text-xs font-medium text-foreground group-hover:text-primary-ink transition-colors">
                 탐색하기 →
               </span>
             </Link>
@@ -225,7 +350,11 @@ export default function DesignSystemPage() {
 
       {/* ─────────────── Live demo strip ─────────────── */}
       <section className="mb-32">
-        <SectionHeader eyebrow="Live" title="컴포넌트는 살아있어요" sub="실제로 클릭·입력해보세요." />
+        <SectionHeader
+          eyebrow="Live"
+          title="컴포넌트는 살아있어요"
+          sub="실제로 클릭·입력해보세요."
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-8">
           <DemoCard label="Form">
@@ -234,13 +363,19 @@ export default function DesignSystemPage() {
               <Input placeholder="이메일" size="sm" />
               <div className="flex items-center justify-between text-xs py-1">
                 <span>알림 받기</span>
-                <Switch size="sm" checked={demoSwitch} onChange={() => setDemoSwitch(!demoSwitch)} />
+                <Switch
+                  size="sm"
+                  checked={demoSwitch}
+                  onChange={() => setDemoSwitch(!demoSwitch)}
+                />
               </div>
               <div className="flex items-center justify-between text-xs py-1">
                 <span>평점</span>
                 <StarRating value={demoRating} onChange={setDemoRating} size="sm" />
               </div>
-              <Button variant="primary" size="sm" fullWidth>저장</Button>
+              <Button variant="primary" size="sm" fullWidth>
+                저장
+              </Button>
             </div>
           </DemoCard>
 
@@ -252,13 +387,21 @@ export default function DesignSystemPage() {
                   <div className="text-sm font-semibold truncate">김준하</div>
                   <div className="text-xs text-muted truncate">Frontend Engineer</div>
                 </div>
-                <Badge variant="primary" size="sm">Pro</Badge>
+                <Badge variant="primary" size="sm">
+                  Pro
+                </Badge>
               </div>
-              <Alert variant="success" title="배포 완료" className="text-xs py-2">{""}</Alert>
+              <Alert variant="success" title="배포 완료" className="text-xs py-2">
+                {""}
+              </Alert>
               <ProgressBar value={85} className="h-1.5" />
               <div className="flex gap-2">
-                <Button variant="secondary" size="xs">프로필</Button>
-                <Button variant="ghost" size="xs">설정</Button>
+                <Button variant="secondary" size="xs">
+                  프로필
+                </Button>
+                <Button variant="ghost" size="xs">
+                  설정
+                </Button>
               </div>
             </div>
           </DemoCard>
@@ -270,9 +413,16 @@ export default function DesignSystemPage() {
                   <div className="text-2xl font-semibold tabular-nums leading-none">2,840</div>
                   <div className="text-[11px] text-muted mt-1">활성 사용자</div>
                 </div>
-                <Badge variant="success" size="sm" dot>+8.2%</Badge>
+                <Badge variant="success" size="sm" dot>
+                  +8.2%
+                </Badge>
               </div>
-              <MiniChart data={[12,18,15,22,20,28,25,32,30,38]} type="area" width={250} height={48} />
+              <MiniChart
+                data={[12, 18, 15, 22, 20, 28, 25, 32, 30, 38]}
+                type="area"
+                width={250}
+                height={48}
+              />
               <div className="flex items-center gap-2 text-[11px] text-muted">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                 지난 10일 누적
@@ -308,7 +458,7 @@ export default function DesignSystemPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8 mb-3">
           <CodeWindow title=".mcp.json — 이미 포함됨">
             <pre className="text-[13px] font-mono leading-7 text-zinc-300 p-6">
-{`{
+              {`{
   "mcpServers": {
     "junds": {
       "command": "node",
@@ -326,10 +476,14 @@ export default function DesignSystemPage() {
               </div>
               <div className="text-zinc-500 text-xs mb-1">{"// AI가 호출:"}</div>
               <div className="text-amber-300 text-xs mb-0.5">locate(&quot;결제 카드&quot;)</div>
-              <div className="text-amber-300 text-xs mb-0.5">get_component_props(&quot;Card&quot;)</div>
+              <div className="text-amber-300 text-xs mb-0.5">
+                get_component_props(&quot;Card&quot;)
+              </div>
               <div className="text-amber-300 text-xs mb-3">read_recipe(&quot;modal-form&quot;)</div>
               <div className="text-zinc-500 text-xs mb-1">{"// 결과:"}</div>
-              <div className="text-sky-400 text-xs">{'import { Card, Button } from "@junds/ui"'}</div>
+              <div className="text-sky-400 text-xs">
+                {'import { Card, Button } from "@junds/ui"'}
+              </div>
               <div className="text-zinc-400 text-xs mt-1">{"<Card hoverable> ..."}</div>
             </div>
           </CodeWindow>
@@ -337,7 +491,9 @@ export default function DesignSystemPage() {
 
         <div className="rounded-xl border border-border bg-surface p-5">
           <div className="flex items-baseline justify-between mb-3">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">14 MCP Tools</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted">
+              14 MCP Tools
+            </div>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {TOOLS.map((name) => (
@@ -359,18 +515,38 @@ export default function DesignSystemPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-8">
           <CodeWindow title="1. 설치">
             <pre className="text-[13px] font-mono leading-7 text-zinc-300 p-6">
-<span className="text-zinc-500">$</span> <span className="text-emerald-400">npm install</span> @junds/ui{"\n"}
-<span className="text-zinc-500">$</span> <span className="text-emerald-400">npm install</span> tailwindcss
+              <span className="text-zinc-500">$</span>{" "}
+              <span className="text-emerald-400">npm install</span> @junds/ui{"\n"}
+              <span className="text-zinc-500">$</span>{" "}
+              <span className="text-emerald-400">npm install</span> tailwindcss
             </pre>
           </CodeWindow>
 
           <CodeWindow title="2. 사용">
             <pre className="text-[13px] font-mono leading-7 text-zinc-300 p-6">
-<span className="text-pink-400">import</span> <span className="text-zinc-300">{"{ "}</span><span className="text-amber-300">Button</span><span className="text-zinc-300">{" } "}</span><span className="text-pink-400">from</span> <span className="text-emerald-400">{'"@junds/ui"'}</span>{"\n"}
-<span className="text-pink-400">import</span> <span className="text-emerald-400">{'"@junds/ui/styles.css"'}</span>{"\n\n"}
-<span className="text-pink-400">export default function</span> <span className="text-amber-300">App</span>() {"{"}{"\n"}
-{"  "}<span className="text-pink-400">return</span> <span className="text-zinc-500">{"<"}</span><span className="text-rose-400">Button</span><span className="text-zinc-500">{">"}</span>Hello<span className="text-zinc-500">{"</"}</span><span className="text-rose-400">Button</span><span className="text-zinc-500">{">"}</span>{"\n"}
-{"}"}
+              <span className="text-pink-400">import</span>{" "}
+              <span className="text-zinc-300">{"{ "}</span>
+              <span className="text-amber-300">Button</span>
+              <span className="text-zinc-300">{" } "}</span>
+              <span className="text-pink-400">from</span>{" "}
+              <span className="text-emerald-400">{'"@junds/ui"'}</span>
+              {"\n"}
+              <span className="text-pink-400">import</span>{" "}
+              <span className="text-emerald-400">{'"@junds/ui/styles.css"'}</span>
+              {"\n\n"}
+              <span className="text-pink-400">export default function</span>{" "}
+              <span className="text-amber-300">App</span>() {"{"}
+              {"\n"}
+              {"  "}
+              <span className="text-pink-400">return</span>{" "}
+              <span className="text-zinc-500">{"<"}</span>
+              <span className="text-rose-400">Button</span>
+              <span className="text-zinc-500">{">"}</span>Hello
+              <span className="text-zinc-500">{"</"}</span>
+              <span className="text-rose-400">Button</span>
+              <span className="text-zinc-500">{">"}</span>
+              {"\n"}
+              {"}"}
             </pre>
           </CodeWindow>
         </div>
@@ -424,13 +600,23 @@ function SectionHeader({ eyebrow, title, sub }: { eyebrow: string; title: string
 function DemoCard({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="rounded-xl border border-border bg-surface p-5 transition-colors hover:border-foreground/20">
-      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted mb-4">{label}</div>
+      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted mb-4">
+        {label}
+      </div>
       {children}
     </div>
   );
 }
 
-function CodeWindow({ title, tone, children }: { title: string; tone?: "primary"; children: React.ReactNode }) {
+function CodeWindow({
+  title,
+  tone,
+  children,
+}: {
+  title: string;
+  tone?: "primary";
+  children: React.ReactNode;
+}) {
   return (
     <div className="rounded-xl border border-border bg-zinc-950 overflow-hidden">
       <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">

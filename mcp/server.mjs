@@ -22,10 +22,7 @@ import { z } from "zod";
 
 // ─────────────────────────── paths ───────────────────────────
 
-const repoRoot = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "..",
-);
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const PROPS_JSON_PATH = path.join(repoRoot, ".ai", "props.json");
 const A11Y_JSON_PATH = path.join(repoRoot, ".ai", "a11y.json");
@@ -154,10 +151,7 @@ function successResult(payload) {
     content: [
       {
         type: "text",
-        text:
-          typeof payload === "string"
-            ? payload
-            : JSON.stringify(payload, null, 2),
+        text: typeof payload === "string" ? payload : JSON.stringify(payload, null, 2),
       },
     ],
   };
@@ -289,10 +283,9 @@ async function toolExtractProps() {
 async function toolGetComponentProps({ name }) {
   const raw = await readMaybe(PROPS_JSON_PATH);
   if (raw === null) {
-    return errorResult(
-      ".ai/props.json is missing — run extract_props first",
-      { path: PROPS_JSON_PATH },
-    );
+    return errorResult(".ai/props.json is missing — run extract_props first", {
+      path: PROPS_JSON_PATH,
+    });
   }
 
   let parsed;
@@ -388,10 +381,10 @@ async function toolScaffold({ kind, name, keywords }) {
   if (kind === "requirement") {
     const slugCheck = SLUG_SCHEMA.safeParse(name);
     if (!slugCheck.success) {
-      return errorResult(
-        "requirement names must be kebab-case",
-        { name, issues: slugCheck.error.issues },
-      );
+      return errorResult("requirement names must be kebab-case", {
+        name,
+        issues: slugCheck.error.issues,
+      });
     }
   } else {
     const compCheck = COMPONENT_NAME_SCHEMA.safeParse(name);
@@ -521,7 +514,10 @@ async function toolListHooks() {
   let match;
   while ((match = re.exec(indexSrc)) !== null) {
     for (const segment of match[1].split(",")) {
-      const ident = segment.trim().split(/\s+as\s+/i)[0]?.trim();
+      const ident = segment
+        .trim()
+        .split(/\s+as\s+/i)[0]
+        ?.trim();
       if (ident && /^use[A-Z][A-Za-z0-9]*$/.test(ident)) {
         names.add(ident);
       }
@@ -548,10 +544,9 @@ async function toolGetA11y({ name } = {}) {
   const res = await readJson(A11Y_JSON_PATH);
   if (!res.ok) {
     if (res.missing) {
-      return errorResult(
-        ".ai/a11y.json is missing — run the a11y script first",
-        { path: A11Y_JSON_PATH },
-      );
+      return errorResult(".ai/a11y.json is missing — run the a11y script first", {
+        path: A11Y_JSON_PATH,
+      });
     }
     return errorResult("could not parse .ai/a11y.json", { reason: res.reason });
   }
@@ -597,10 +592,9 @@ async function toolGetBundleInfo({ name } = {}) {
   const res = await readJson(BUNDLE_JSON_PATH);
   if (!res.ok) {
     if (res.missing) {
-      return errorResult(
-        ".ai/bundle.json is missing — run the bundle script first",
-        { path: BUNDLE_JSON_PATH },
-      );
+      return errorResult(".ai/bundle.json is missing — run the bundle script first", {
+        path: BUNDLE_JSON_PATH,
+      });
     }
     return errorResult("could not parse .ai/bundle.json", {
       reason: res.reason,
@@ -656,10 +650,9 @@ async function toolGetDepsFor({ name }) {
   const res = await readJson(DEPS_JSON_PATH);
   if (!res.ok) {
     if (res.missing) {
-      return errorResult(
-        ".ai/deps.json is missing — run the deps script first",
-        { path: DEPS_JSON_PATH },
-      );
+      return errorResult(".ai/deps.json is missing — run the deps script first", {
+        path: DEPS_JSON_PATH,
+      });
     }
     return errorResult("could not parse .ai/deps.json", { reason: res.reason });
   }
@@ -667,9 +660,7 @@ async function toolGetDepsFor({ name }) {
   const graph = res.data?.graph ?? {};
   // Case-insensitive match to be friendly to callers who pascalCase wrong.
   const lower = name.toLowerCase();
-  const matchedKey = Object.keys(graph).find(
-    (key) => key.toLowerCase() === lower,
-  );
+  const matchedKey = Object.keys(graph).find((key) => key.toLowerCase() === lower);
   if (!matchedKey) {
     return errorResult(`component "${name}" not found in deps.json`, {
       total: Object.keys(graph).length,
@@ -693,10 +684,9 @@ async function toolGetScreenshotInfo({ name } = {}) {
   const res = await readJson(SCREENSHOTS_JSON_PATH);
   if (!res.ok) {
     if (res.missing) {
-      return errorResult(
-        ".ai/screenshots.json is missing — run the screenshots script first",
-        { path: SCREENSHOTS_JSON_PATH },
-      );
+      return errorResult(".ai/screenshots.json is missing — run the screenshots script first", {
+        path: SCREENSHOTS_JSON_PATH,
+      });
     }
     return errorResult("could not parse .ai/screenshots.json", {
       reason: res.reason,
@@ -709,8 +699,8 @@ async function toolGetScreenshotInfo({ name } = {}) {
   const components = Array.isArray(data.components)
     ? data.components
     : Array.isArray(data.shots)
-      ? data.shots
-      : [];
+    ? data.shots
+    : [];
 
   if (name) {
     const lower = name.toLowerCase();
@@ -749,7 +739,7 @@ server.registerTool(
       "Rank source files by relevance to a free-form query. Wraps `npm run locate -- <query> [--type <type>] --json`. Use this instead of broad glob/grep when looking for a concept.",
     inputSchema: {
       query: LOCATE_QUERY_SCHEMA.describe(
-        "Free-form search query (e.g. \"button variants\", \"Toast\").",
+        'Free-form search query (e.g. "button variants", "Toast").',
       ),
       type: LOCATE_TYPE_SCHEMA.describe(
         'Optional locate "--type" filter (requirement / primitive / composite / hook / token / test / page / data / config / asset / file).',
@@ -789,7 +779,7 @@ server.registerTool(
       "Look up a single component's prop table from `.ai/props.json` without shelling out. Case-insensitive name match.",
     inputSchema: {
       name: COMPONENT_NAME_SCHEMA.describe(
-        "PascalCase component name, e.g. \"Button\", \"Modal\", \"DataTable\".",
+        'PascalCase component name, e.g. "Button", "Modal", "DataTable".',
       ),
     },
   },
@@ -834,7 +824,7 @@ server.registerTool(
         .min(1)
         .max(80)
         .describe(
-          "PascalCase for components (e.g. \"Modal\"), kebab-case for requirements (e.g. \"theming\").",
+          'PascalCase for components (e.g. "Modal"), kebab-case for requirements (e.g. "theming").',
         ),
       keywords: KEYWORDS_SCHEMA.describe(
         'Optional comma-separated keywords used to seed the showcase search dictionary, e.g. "modal,dialog,overlay".',
@@ -862,9 +852,7 @@ server.registerTool(
     description:
       "Return the full markdown body of `requirements/<slug>.md`, plus parsed title / status / owner.",
     inputSchema: {
-      slug: SLUG_SCHEMA.describe(
-        "Requirement slug, e.g. \"theming\" or \"agent-onboarding\".",
-      ),
+      slug: SLUG_SCHEMA.describe('Requirement slug, e.g. "theming" or "agent-onboarding".'),
     },
   },
   toolReadRequirement,
@@ -919,7 +907,7 @@ server.registerTool(
       "Return one component's `{ kind, imports, importedBy }` entry from `.ai/deps.json`.",
     inputSchema: {
       name: COMPONENT_NAME_SCHEMA.describe(
-        "PascalCase component name, e.g. \"Button\", \"DataTable\".",
+        'PascalCase component name, e.g. "Button", "DataTable".',
       ),
     },
   },

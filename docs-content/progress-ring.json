@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "ProgressRing",
   "oneLiner": "원형 진행률 표시기.",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

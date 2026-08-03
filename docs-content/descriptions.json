@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Descriptions",
   "oneLiner": "디스크립션 — 키-값 쌍 표시 컴포넌트",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

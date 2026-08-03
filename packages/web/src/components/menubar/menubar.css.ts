@@ -18,59 +18,102 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.base {
-  jd-menubar:not(:defined) { display: flex; }
-  jd-menubar:not(:defined) > script { display: none; }
-}
-@layer junds.components {
-  jd-menubar {
-    display: flex; align-items: center;
-    padding: var(--jd-space-0-5) var(--jd-space-1);
-    background: var(--jd-color-card);
-    border: var(--jd-border-thin) solid var(--jd-color-border);
-    border-radius: var(--jd-radius-lg);
-    font-family: var(--jd-font-sans);
-    user-select: none;
-  }
-
-  .jd-menubar__group { position: relative; }
-
-  .jd-menubar__button {
-    padding: var(--jd-space-1-5) var(--jd-space-3);
-    border: 0; background: none; cursor: pointer;
-    font-family: inherit; font-size: var(--jd-text-sm);
-    font-weight: var(--jd-weight-medium);
-    color: var(--jd-color-muted);
-    border-radius: var(--jd-radius-md);
-    transition: background var(--jd-duration-fast) var(--jd-easing-ease-out),
-                color var(--jd-duration-fast) var(--jd-easing-ease-out);
-  }
-  .jd-menubar__button:hover {
-    color: var(--jd-color-foreground); background: var(--jd-color-card-hover);
-  }
-  .jd-menubar__button:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
-  .jd-menubar__group[data-open] > .jd-menubar__button {
-    color: var(--jd-color-foreground); background: var(--jd-color-border-light);
-  }
-
-  .jd-menubar__menu {
-    position: absolute; top: 100%; left: 0;
-    z-index: var(--jd-z-popover);
-    min-width: 12.5rem;
-    margin-block-start: var(--jd-space-1);
-    padding: var(--jd-space-1) 0;
-    background: var(--jd-color-card);
-    color: var(--jd-color-foreground);
-    border: var(--jd-border-thin) solid var(--jd-color-border);
-    border-radius: var(--jd-radius-lg);
-    box-shadow: var(--jd-shadow-lg);
-  }
-  .jd-menubar__menu[hidden] { display: none; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .jd-menubar__group[data-open] > .jd-menubar__menu {
-      animation: jd-menubar-in var(--jd-duration-fast) var(--jd-easing-ease-out);
+  @layer junds.base {
+    jd-menubar:not(:defined) {
+      display: flex;
+    }
+    jd-menubar:not(:defined) > script {
+      display: none;
     }
   }
-  @keyframes jd-menubar-in { from { opacity: 0; scale: 0.98; } }
-}`;
+  @layer junds.components {
+    jd-menubar {
+      display: flex;
+      align-items: center;
+      padding: var(--jd-space-0-5) var(--jd-space-1);
+      background: var(--jd-color-card);
+      border: var(--jd-border-thin) solid var(--jd-color-border);
+      border-radius: var(--jd-radius-lg);
+      font-family: var(--jd-font-sans);
+      user-select: none;
+    }
+
+    .jd-menubar__group {
+      position: relative;
+    }
+
+    .jd-menubar__button {
+      padding: var(--jd-space-1-5) var(--jd-space-3);
+      border: 0;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: var(--jd-text-sm);
+      font-weight: var(--jd-weight-medium);
+      color: var(--jd-color-muted);
+      border-radius: var(--jd-radius-md);
+      /* 메뉴 라벨은 두 줄로 접히면 바 높이가 흔들린다(§5) */
+      white-space: nowrap;
+      transition: background-color var(--jd-duration-snap) var(--jd-easing-ease-out),
+        color var(--jd-duration-snap) var(--jd-easing-ease-out),
+        box-shadow var(--jd-duration-snap) var(--jd-easing-ease-out),
+        scale var(--jd-duration-press) var(--jd-easing-ease-out);
+    }
+    .jd-menubar__button:hover {
+      color: var(--jd-color-foreground);
+      background: var(--jd-color-card-hover);
+    }
+    .jd-menubar__button:active {
+      scale: 0.97;
+      color: var(--jd-color-foreground);
+      background: var(--jd-color-border-light);
+      box-shadow: inset 0 1px 2px var(--jd-color-shade);
+    }
+    /* 바가 얕아 바깥 아웃라인이 이웃 버튼과 겹친다 — 링을 그림자로 준다(§1) */
+    .jd-menubar__button:focus-visible {
+      outline: none;
+      box-shadow: var(--jd-shadow-focus-ring);
+    }
+    .jd-menubar__group[data-open] > .jd-menubar__button {
+      color: var(--jd-color-foreground);
+      background: var(--jd-color-border-light);
+    }
+
+    .jd-menubar__menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: var(--jd-z-popover);
+      min-width: 12.5rem;
+      margin-block-start: var(--jd-space-1);
+      padding: var(--jd-space-1) 0;
+      background: var(--jd-color-card);
+      color: var(--jd-color-foreground);
+      /* 떠 있는 면의 테두리는 눅인다 — 그림자가 이미 경계를 말하므로 실선이 세면 두 번 말한다(§2) */
+      border: var(--jd-border-thin) solid
+        color-mix(in srgb, var(--jd-color-border) 76%, transparent);
+      border-radius: var(--jd-radius-lg);
+      box-shadow: var(--jd-shadow-lg);
+    }
+    .jd-menubar__menu[hidden] {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .jd-menubar__group[data-open] > .jd-menubar__menu {
+        animation: jd-menubar-in var(--jd-duration-fast) var(--jd-easing-ease-out);
+      }
+    }
+    @keyframes jd-menubar-in {
+      from {
+        opacity: 0;
+        scale: 0.98;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-menubar__button {
+        transition: none;
+      }
+    }
+  }
+`;

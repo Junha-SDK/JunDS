@@ -148,13 +148,22 @@ export function LiveOrderBook({ symbol }: { symbol: string }) {
       <table className="w-full text-[12px]">
         <thead>
           <tr style={{ background: "var(--bm-soft-100)" }}>
-            <th className="text-right px-3 py-1.5 font-bold w-1/3" style={{ color: "var(--bm-muted)" }}>
+            <th
+              className="text-right px-3 py-1.5 font-bold w-1/3"
+              style={{ color: "var(--bm-muted)" }}
+            >
               매도 잔량
             </th>
-            <th className="text-center px-2 py-1.5 font-bold w-1/3" style={{ color: "var(--bm-muted)" }}>
+            <th
+              className="text-center px-2 py-1.5 font-bold w-1/3"
+              style={{ color: "var(--bm-muted)" }}
+            >
               호가
             </th>
-            <th className="text-left px-3 py-1.5 font-bold w-1/3" style={{ color: "var(--bm-muted)" }}>
+            <th
+              className="text-left px-3 py-1.5 font-bold w-1/3"
+              style={{ color: "var(--bm-muted)" }}
+            >
               매수 잔량
             </th>
           </tr>
@@ -207,10 +216,7 @@ export function LiveOrderBook({ symbol }: { symbol: string }) {
           {ob.bids.map((b, i) => {
             const pct = b.qty / maxBidQty;
             return (
-              <tr
-                key={`bid-${i}-${b.price}`}
-                style={{ borderTop: "1px solid var(--bm-border)" }}
-              >
+              <tr key={`bid-${i}-${b.price}`} style={{ borderTop: "1px solid var(--bm-border)" }}>
                 <td className="px-3 py-1" />
                 <td
                   className="px-2 py-1 text-center bm-num font-extrabold"
@@ -240,13 +246,22 @@ export function LiveOrderBook({ symbol }: { symbol: string }) {
         </tbody>
         <tfoot>
           <tr style={{ background: "var(--bm-soft-100)", borderTop: "1px solid var(--bm-border)" }}>
-            <td className="px-3 py-1.5 text-right bm-num font-extrabold" style={{ color: "var(--bm-down)" }}>
+            <td
+              className="px-3 py-1.5 text-right bm-num font-extrabold"
+              style={{ color: "var(--bm-down)" }}
+            >
               {ob.totalAskQty.toLocaleString("ko-KR")}
             </td>
-            <td className="px-2 py-1.5 text-center text-[10.5px] font-bold" style={{ color: "var(--bm-muted)" }}>
+            <td
+              className="px-2 py-1.5 text-center text-[10.5px] font-bold"
+              style={{ color: "var(--bm-muted)" }}
+            >
               총 잔량
             </td>
-            <td className="px-3 py-1.5 text-left bm-num font-extrabold" style={{ color: "var(--bm-up)" }}>
+            <td
+              className="px-3 py-1.5 text-left bm-num font-extrabold"
+              style={{ color: "var(--bm-up)" }}
+            >
               {ob.totalBidQty.toLocaleString("ko-KR")}
             </td>
           </tr>

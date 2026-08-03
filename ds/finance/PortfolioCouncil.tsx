@@ -33,7 +33,7 @@ export function PortfolioCouncil() {
   if (!hydrated) {
     return (
       <section className="bm-card-lg p-5">
-        <div className="bm-skeleton h-32 w-full" />
+        <div className="bm-skeleton h-32 w-full motion-reduce:animate-none" />
       </section>
     );
   }
@@ -46,7 +46,9 @@ export function PortfolioCouncil() {
             <AppIcon name="wallet" size={22} strokeWidth={2} color="var(--bm-muted)" />
           </div>
           <div className="bm-empty-title">보유 종목이 없습니다</div>
-          <div className="bm-empty-desc">보유 종목을 등록하면 위원회 의견을 자동으로 매핑해드립니다.</div>
+          <div className="bm-empty-desc">
+            보유 종목을 등록하면 위원회 의견을 자동으로 매핑해드립니다.
+          </div>
         </div>
       </section>
     );
@@ -56,17 +58,14 @@ export function PortfolioCouncil() {
     <section className="bm-card-lg overflow-hidden">
       <div className="bm-section-head">
         <div className="bm-section-title">
-          <AppIcon name="wallet" size={14} strokeWidth={2.4} color="var(--bm-accent-strong)" />
-          내 포지션 × AI 위원회
+          <AppIcon name="wallet" size={14} strokeWidth={2.4} color="var(--bm-accent-strong)" />내
+          포지션 × AI 위원회
         </div>
-        <span
-          className="text-[11px] font-bold"
-          style={{ color: "var(--bm-muted)" }}
-        >
+        <span className="text-[11px] font-bold" style={{ color: "var(--bm-muted)" }}>
           보유 {items.length}종목
         </span>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto overscroll-x-contain">
         <table className="bm-table text-[13px]">
           <thead>
             <tr>
@@ -81,12 +80,7 @@ export function PortfolioCouncil() {
           </thead>
           <tbody>
             {items.map((h) => (
-              <PortfolioCouncilRow
-                key={h.name}
-                name={h.name}
-                qty={h.qty}
-                avgCost={h.avgCost}
-              />
+              <PortfolioCouncilRow key={h.name} name={h.name} qty={h.qty} avgCost={h.avgCost} />
             ))}
           </tbody>
         </table>
@@ -132,14 +126,14 @@ function PortfolioCouncilRow({
     data.verdictTone === "up"
       ? "var(--bm-up)"
       : data.verdictTone === "down"
-        ? "var(--bm-down)"
-        : "var(--bm-muted)";
+      ? "var(--bm-down)"
+      : "var(--bm-muted)";
   const verdictLabel =
     data.verdictTone === "up"
       ? "▲ 다수 매수"
       : data.verdictTone === "down"
-        ? "▼ 다수 매도"
-        : "관망 우세";
+      ? "▼ 다수 매도"
+      : "관망 우세";
 
   // Detect divergence: position is in profit but committee bearish, or losing but bullish
   const divergence =
@@ -147,18 +141,29 @@ function PortfolioCouncilRow({
     (data.pnlPct < -0.1 && data.verdictTone === "up");
 
   return (
-    <tr style={divergence ? { background: "rgba(245, 158, 11, 0.06)" } : undefined}>
+    <tr
+      style={
+        // 앰버를 rgba 로 굳혀 두면 다크 팔레트에서 배경이 뜨고 #b45309 글자는 읽히지 않는다.
+        // 경고 토큰에서 섞어 만들면 두 모드가 알아서 따라온다.
+        divergence
+          ? { background: "color-mix(in srgb, var(--bm-warning) 8%, transparent)" }
+          : undefined
+      }
+    >
       <td>
         <Link
           href={`/stock/${encodeURIComponent(name)}/investor`}
-          className="font-extrabold hover:underline"
+          className="font-extrabold hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
         >
           {name}
         </Link>
         {divergence ? (
           <span
-            className="ml-1.5 text-[10px] font-extrabold px-1.5 py-0.5 rounded"
-            style={{ background: "rgba(245, 158, 11, 0.18)", color: "#b45309" }}
+            className="ml-1.5 text-[10px] font-extrabold px-1.5 py-0.5 rounded-md whitespace-nowrap"
+            style={{
+              background: "color-mix(in srgb, var(--bm-warning) 18%, transparent)",
+              color: "color-mix(in srgb, var(--bm-warning) 55%, var(--bm-text))",
+            }}
             title="포지션 손익과 위원회 의견이 어긋납니다."
           >
             ⚠ 괴리
@@ -180,7 +185,11 @@ function PortfolioCouncilRow({
           {data.cards
             .filter((c) => c.verdict === "매수" || c.verdict === "강력매수")
             .map((c) => (
-              <span key={c.investor} title={INVESTORS[c.investor].name} className="text-[14px] leading-none">
+              <span
+                key={c.investor}
+                title={INVESTORS[c.investor].name}
+                className="text-[14px] leading-none"
+              >
                 {INVESTORS[c.investor].emoji}
               </span>
             ))}

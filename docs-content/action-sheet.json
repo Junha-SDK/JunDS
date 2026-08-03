@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "ActionSheet",
   "oneLiner": "모바일 친화적인 하단 액션 시트. 여러 액션을 리스트로 노출합니다.",
-  "tags": [
-    "overlay"
-  ],
+  "tags": ["overlay"],
   "controls": [],
   "snippets": {
     "web": null,

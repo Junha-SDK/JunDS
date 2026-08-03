@@ -13,7 +13,14 @@ export default function FeatureGridPage() {
     >
       <Section title="Default">
         <Preview>
-          <FeatureGrid title="왜 JunDS?" features={[{icon:"⚡",title:"빠름",description:"가벼운 번들"},{icon:"🎨",title:"테마",description:"다크 모드"},{icon:"♿",title:"접근성",description:"WCAG AA"}]} />
+          <FeatureGrid
+            title="왜 JunDS?"
+            features={[
+              { icon: "⚡", title: "빠름", description: "가벼운 번들" },
+              { icon: "🎨", title: "테마", description: "다크 모드" },
+              { icon: "♿", title: "접근성", description: "WCAG AA" },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

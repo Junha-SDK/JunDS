@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "HoverCard",
   "oneLiner": "호버 카드",
-  "tags": [
-    "overlay"
-  ],
+  "tags": ["overlay"],
   "controls": [],
   "snippets": {
     "web": null,

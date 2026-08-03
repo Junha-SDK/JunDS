@@ -3,8 +3,9 @@
 ## Goal
 
 WhatsApp/Slack 스타일 1:1 또는 그룹 채팅. 좌측 대화 목록 + 우측 활성 스레드
-+ 입력 composer를 한 화면에 묶고, `useResource`로 메시지 캐시 + `useMutation`
-으로 전송 + `useOptimisticState`로 즉시 표시한다.
+
+- 입력 composer를 한 화면에 묶고, `useResource`로 메시지 캐시 + `useMutation`
+  으로 전송 + `useOptimisticState`로 즉시 표시한다.
 
 ## Used components
 
@@ -41,9 +42,8 @@ const me = "me";
 export default function ChatApp() {
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const conversations = useResource<Conversation[]>(
-    ["conversations"],
-    () => fetch("/api/conversations").then((r) => r.json()),
+  const conversations = useResource<Conversation[]>(["conversations"], () =>
+    fetch("/api/conversations").then((r) => r.json()),
   );
 
   const thread = useResource<ChatMessage[]>(
@@ -96,7 +96,9 @@ export default function ChatApp() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] h-[640px] rounded-xl border border-border bg-surface overflow-hidden">
       <aside className="border-r border-border overflow-y-auto" aria-label="대화 목록">
-        {conversations.loading && <div className="p-4 text-sm text-muted">불러오는 중…</div>}
+        {conversations.loading && (
+          <div className="p-4 text-sm text-muted">불러오는 중…</div>
+        )}
         {conversations.data?.map((c) => {
           const active = c.id === activeId;
           return (
@@ -105,10 +107,16 @@ export default function ChatApp() {
               type="button"
               onClick={() => setActiveId(c.id)}
               aria-current={active ? "true" : undefined}
-              className={`w-full p-3 flex items-center gap-3 text-left border-b border-border-light cursor-pointer hover:bg-surface-soft ${active ? "bg-primary/10" : ""}`}
+              className={`w-full p-3 flex items-center gap-3 text-left border-b border-border-light cursor-pointer hover:bg-surface-soft ${
+                active ? "bg-primary/10" : ""
+              }`}
             >
               {c.avatar ? (
-                <img src={c.avatar} alt="" className="w-10 h-10 rounded-full object-cover" />
+                <img
+                  src={c.avatar}
+                  alt=""
+                  className="w-10 h-10 rounded-full object-cover"
+                />
               ) : (
                 <div className="w-10 h-10 rounded-full bg-primary/15 text-primary inline-flex items-center justify-center font-semibold">
                   {c.name.slice(0, 1)}
@@ -118,7 +126,11 @@ export default function ChatApp() {
                 <p className="text-sm font-semibold truncate">{c.name}</p>
                 <p className="text-xs text-muted truncate">{c.lastPreview}</p>
               </div>
-              {c.unread > 0 && <span className="text-[10px] font-bold rounded-full bg-primary text-white px-1.5 py-0.5">{c.unread}</span>}
+              {c.unread > 0 && (
+                <span className="text-[10px] font-bold rounded-full bg-primary text-white px-1.5 py-0.5">
+                  {c.unread}
+                </span>
+              )}
             </button>
           );
         })}
@@ -129,14 +141,31 @@ export default function ChatApp() {
           currentUserId={me}
           messages={messages}
           composer={
-            <form onSubmit={(e) => { e.preventDefault(); send(); }} className="flex items-center gap-2">
-              <Input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="메시지 입력…" aria-label="메시지 입력" />
-              <Button type="submit" disabled={!draft.trim() || sendMutation.loading}>보내기</Button>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                send();
+              }}
+              className="flex items-center gap-2"
+            >
+              <Input
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder="메시지 입력…"
+                aria-label="메시지 입력"
+              />
+              <Button type="submit" disabled={!draft.trim() || sendMutation.loading}>
+                보내기
+              </Button>
             </form>
           }
         />
       ) : (
-        <EmptyState icon="💬" title="대화를 선택하세요" description="좌측에서 대화를 클릭하세요." />
+        <EmptyState
+          icon="💬"
+          title="대화를 선택하세요"
+          description="좌측에서 대화를 클릭하세요."
+        />
       )}
     </div>
   );

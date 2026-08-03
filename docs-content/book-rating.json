@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "BookRating",
   "oneLiner": "책 별점 표시.",
-  "tags": [
-    "book",
-    "독서",
-    "별점"
-  ],
+  "tags": ["book", "독서", "별점"],
   "controls": [],
   "snippets": {
     "web": null,

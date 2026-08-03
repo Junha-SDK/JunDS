@@ -24,7 +24,12 @@ export default function TablePage() {
         { name: "hoverable", type: "boolean", default: "false", description: "호버 효과" },
         { name: "compact", type: "boolean", default: "false", description: "콤팩트 모드" },
         { name: "onRowClick", type: "(row, index) => void", description: "행 클릭 핸들러" },
-        { name: "emptyMessage", type: "string", default: '"데이터가 없습니다"', description: "빈 상태 메시지" },
+        {
+          name: "emptyMessage",
+          type: "string",
+          default: '"데이터가 없습니다"',
+          description: "빈 상태 메시지",
+        },
       ]}
     >
       <Section title="기본 테이블">
@@ -41,9 +46,7 @@ export default function TablePage() {
                 render: (value: string) => (
                   <span
                     className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full ${
-                      value === "활성"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-gray-100 text-gray-500"
+                      value === "활성" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
                     }`}
                   >
                     {value}

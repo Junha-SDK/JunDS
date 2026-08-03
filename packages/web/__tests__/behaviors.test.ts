@@ -5,7 +5,11 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { createWatcher } from "../src/behaviors/subscribe.js";
 import { resolveBreakpointValue, createMediaQueryWatcher } from "../src/behaviors/media.js";
-import { createNetworkWatcher, createSizeObserver, createInViewObserver } from "../src/behaviors/viewport.js";
+import {
+  createNetworkWatcher,
+  createSizeObserver,
+  createInViewObserver,
+} from "../src/behaviors/viewport.js";
 import {
   debounce,
   throttle,
@@ -25,7 +29,13 @@ import {
   createHoverWatcher,
 } from "../src/behaviors/input.js";
 import { createStoredValue, getCookie, setCookie, removeCookie } from "../src/behaviors/storage.js";
-import { lockScroll, setDocumentTitle, setFavicon, copyText, preloadImages } from "../src/behaviors/document.js";
+import {
+  lockScroll,
+  setDocumentTitle,
+  setFavicon,
+  copyText,
+  preloadImages,
+} from "../src/behaviors/document.js";
 import { createForm } from "../src/behaviors/form.js";
 import { createResource, clearResourceCache, runMutation } from "../src/behaviors/data.js";
 
@@ -269,7 +279,12 @@ describe("input", () => {
     const fn = vi.fn();
     const b = createHotkeys({ "ctrl+k": fn });
     const press = (target: EventTarget) => {
-      const e = new KeyboardEvent("keydown", { key: "k", ctrlKey: true, bubbles: true, cancelable: true });
+      const e = new KeyboardEvent("keydown", {
+        key: "k",
+        ctrlKey: true,
+        bubbles: true,
+        cancelable: true,
+      });
       target.dispatchEvent(e);
       return e;
     };
@@ -416,9 +431,15 @@ describe("document 유틸", () => {
   });
 
   test("copyText: 성공/실패를 boolean으로 — 던지지 않는다", async () => {
-    vi.stubGlobal("navigator", { ...navigator, clipboard: { writeText: vi.fn().mockResolvedValue(undefined) } });
+    vi.stubGlobal("navigator", {
+      ...navigator,
+      clipboard: { writeText: vi.fn().mockResolvedValue(undefined) },
+    });
     await expect(copyText("x")).resolves.toBe(true);
-    vi.stubGlobal("navigator", { ...navigator, clipboard: { writeText: vi.fn().mockRejectedValue(new Error("no")) } });
+    vi.stubGlobal("navigator", {
+      ...navigator,
+      clipboard: { writeText: vi.fn().mockRejectedValue(new Error("no")) },
+    });
     await expect(copyText("x")).resolves.toBe(false);
     vi.unstubAllGlobals();
   });
@@ -540,9 +561,12 @@ describe("data", () => {
     expect(onSuccess).toHaveBeenCalledWith(42);
 
     const onError = vi.fn();
-    const bad = await runMutation(async () => {
-      throw new Error("nope");
-    }, { onError, onSettled });
+    const bad = await runMutation(
+      async () => {
+        throw new Error("nope");
+      },
+      { onError, onSettled },
+    );
     expect(bad.ok).toBe(false);
     expect(onError).toHaveBeenCalledOnce();
     expect(onSettled).toHaveBeenCalledTimes(2);

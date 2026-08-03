@@ -26,12 +26,8 @@ async function exists(p) {
 
 async function main() {
   if (!(await exists(inFile))) {
-    console.error(
-      `[coverage-summary] missing ${path.relative(process.cwd(), inFile)}`,
-    );
-    console.error(
-      `  run: npx vitest run --coverage --coverage.reporter=json-summary`,
-    );
+    console.error(`[coverage-summary] missing ${path.relative(process.cwd(), inFile)}`);
+    console.error(`  run: npx vitest run --coverage --coverage.reporter=json-summary`);
     process.exit(1);
   }
 
@@ -71,7 +67,9 @@ async function main() {
   await mkdir(path.dirname(outFile), { recursive: true });
   await writeFile(outFile, JSON.stringify(report, null, 2) + "\n");
   console.log(
-    `[coverage-summary] total lines=${report.total.lines}% functions=${report.total.functions}% → ${path.relative(process.cwd(), outFile)}`,
+    `[coverage-summary] total lines=${report.total.lines}% functions=${
+      report.total.functions
+    }% → ${path.relative(process.cwd(), outFile)}`,
   );
 }
 

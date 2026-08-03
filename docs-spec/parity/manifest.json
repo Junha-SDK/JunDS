@@ -5753,10 +5753,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/core/Divider.tsx",
       "variantSurface": {
-        "orientation": [
-          "horizontal",
-          "vertical"
-        ]
+        "orientation": ["horizontal", "vertical"]
       }
     },
     "CoreProvider": {
@@ -5766,40 +5763,12 @@
       "kind": "프로바이더(래퍼)",
       "file": "ds/core/JunDSProvider.tsx",
       "variantSurface": {
-        "DensityMode": [
-          "compact",
-          "normal",
-          "comfortable"
-        ],
-        "RadiusPreset": [
-          "none",
-          "sm",
-          "md",
-          "lg",
-          "full"
-        ],
-        "SpacingPreset": [
-          "tight",
-          "default",
-          "relaxed"
-        ],
-        "FontScalePreset": [
-          "xs",
-          "sm",
-          "default",
-          "lg",
-          "xl"
-        ],
-        "colorMode": [
-          "light",
-          "dark",
-          "system"
-        ],
-        "mode": [
-          "light",
-          "dark",
-          "system"
-        ]
+        "DensityMode": ["compact", "normal", "comfortable"],
+        "RadiusPreset": ["none", "sm", "md", "lg", "full"],
+        "SpacingPreset": ["tight", "default", "relaxed"],
+        "FontScalePreset": ["xs", "sm", "default", "lg", "xl"],
+        "colorMode": ["light", "dark", "system"],
+        "mode": ["light", "dark", "system"]
       }
     },
     "Flex": {
@@ -5849,14 +5818,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/core/Page.tsx",
       "variantSurface": {
-        "maxWidth": [
-          "sm",
-          "md",
-          "lg",
-          "xl",
-          "2xl",
-          "full"
-        ]
+        "maxWidth": ["sm", "md", "lg", "xl", "2xl", "full"]
       }
     },
     "Section": {
@@ -5874,15 +5836,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/core/Text.tsx",
       "variantSurface": {
-        "as": [
-          "p",
-          "span",
-          "div",
-          "label",
-          "strong",
-          "em",
-          "small"
-        ]
+        "as": ["p", "span", "div", "label", "strong", "em", "small"]
       }
     },
     "VStack": {
@@ -5916,15 +5870,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/layout/Container.tsx",
       "variantSurface": {
-        "size": [
-          "xs",
-          "sm",
-          "md",
-          "lg",
-          "xl",
-          "2xl",
-          "full"
-        ]
+        "size": ["xs", "sm", "md", "lg", "xl", "2xl", "full"]
       }
     },
     "Spacer": {
@@ -5934,10 +5880,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/layout/Spacer.tsx",
       "variantSurface": {
-        "axis": [
-          "vertical",
-          "horizontal"
-        ]
+        "axis": ["vertical", "horizontal"]
       }
     },
     "AppShell": {
@@ -5955,12 +5898,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/layout/Wrap.tsx",
       "variantSurface": {
-        "justify": [
-          "start",
-          "center",
-          "end",
-          "between"
-        ]
+        "justify": ["start", "center", "end", "between"]
       }
     },
     "SimpleGrid": {
@@ -6010,10 +5948,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/layout/Divider.tsx",
       "variantSurface": {
-        "orientation": [
-          "horizontal",
-          "vertical"
-        ]
+        "orientation": ["horizontal", "vertical"]
       }
     },
     "RadioGroup": {
@@ -6023,14 +5958,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/Radio/Radio.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md"
-        ],
-        "direction": [
-          "horizontal",
-          "vertical"
-        ]
+        "size": ["sm", "md"],
+        "direction": ["horizontal", "vertical"]
       }
     },
     "Label": {
@@ -6072,11 +6001,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/ScrollArea/ScrollArea.tsx",
       "variantSurface": {
-        "ScrollOrientation": [
-          "vertical",
-          "horizontal",
-          "both"
-        ]
+        "ScrollOrientation": ["vertical", "horizontal", "both"]
       }
     },
     "BackTop": {
@@ -6102,17 +6027,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/SeverityBadge/SeverityBadge.tsx",
       "variantSurface": {
-        "Severity": [
-          "ok",
-          "warn",
-          "danger",
-          "info",
-          "neutral"
-        ],
-        "size": [
-          "sm",
-          "md"
-        ]
+        "Severity": ["ok", "warn", "danger", "info", "neutral"],
+        "size": ["sm", "md"]
       }
     },
     "AnnouncerProvider": {
@@ -6122,10 +6038,7 @@
       "kind": "프로바이더(래퍼)",
       "file": "ds/primitives/Announcer/Announcer.tsx",
       "variantSurface": {
-        "politeness": [
-          "polite",
-          "assertive"
-        ]
+        "politeness": ["polite", "assertive"]
       }
     },
     "FocusGuard": {
@@ -6143,10 +6056,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/RangeSlider/RangeSlider.tsx",
       "variantSurface": {
-        "handle": [
-          "min",
-          "max"
-        ]
+        "handle": ["min", "max"]
       }
     },
     "Link": {
@@ -6156,17 +6066,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/Link/Link.tsx",
       "variantSurface": {
-        "LinkVariant": [
-          "default",
-          "subtle",
-          "muted",
-          "danger"
-        ],
-        "LinkUnderline": [
-          "always",
-          "hover",
-          "none"
-        ]
+        "LinkVariant": ["default", "subtle", "muted", "danger"],
+        "LinkUnderline": ["always", "hover", "none"]
       }
     },
     "Image": {
@@ -6176,20 +6077,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/Image/Image.tsx",
       "variantSurface": {
-        "ImageFit": [
-          "cover",
-          "contain",
-          "fill",
-          "none",
-          "scale-down"
-        ],
-        "radius": [
-          "none",
-          "sm",
-          "md",
-          "lg",
-          "full"
-        ]
+        "ImageFit": ["cover", "contain", "fill", "none", "scale-down"],
+        "radius": ["none", "sm", "md", "lg", "full"]
       }
     },
     "Code": {
@@ -6199,18 +6088,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/Code/Code.tsx",
       "variantSurface": {
-        "CodeVariant": [
-          "default",
-          "primary",
-          "success",
-          "warning",
-          "danger"
-        ],
-        "CodeSize": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "CodeVariant": ["default", "primary", "success", "warning", "danger"],
+        "CodeSize": ["sm", "md", "lg"]
       }
     },
     "Mark": {
@@ -6220,14 +6099,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/Mark/Mark.tsx",
       "variantSurface": {
-        "MarkColor": [
-          "yellow",
-          "blue",
-          "green",
-          "pink",
-          "purple",
-          "orange"
-        ]
+        "MarkColor": ["yellow", "blue", "green", "pink", "purple", "orange"]
       }
     },
     "Icon": {
@@ -6237,13 +6109,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/Icon/Icon.tsx",
       "variantSurface": {
-        "IconSize": [
-          "xs",
-          "sm",
-          "md",
-          "lg",
-          "xl"
-        ]
+        "IconSize": ["xs", "sm", "md", "lg", "xl"]
       }
     },
     "BookmarkButton": {
@@ -6261,11 +6127,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/LikeButton/LikeButton.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "FollowButton": {
@@ -6275,11 +6137,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/FollowButton/FollowButton.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "MentionChip": {
@@ -6313,11 +6171,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/Highlight/Highlight.tsx",
       "variantSurface": {
-        "variant": [
-          "yellow",
-          "primary",
-          "underline"
-        ]
+        "variant": ["yellow", "primary", "underline"]
       }
     },
     "KeyCap": {
@@ -6327,16 +6181,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/primitives/KeyCap/KeyCap.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ],
-        "variant": [
-          "default",
-          "primary",
-          "muted"
-        ]
+        "size": ["sm", "md", "lg"],
+        "variant": ["default", "primary", "muted"]
       }
     },
     "useBreakpoint": {
@@ -6522,10 +6368,7 @@
       "kind": "훅(비시각)",
       "file": "ds/hooks/usePrefersColorScheme.ts",
       "variantSurface": {
-        "ColorScheme": [
-          "light",
-          "dark"
-        ]
+        "ColorScheme": ["light", "dark"]
       }
     },
     "usePrevious": {
@@ -6655,12 +6498,7 @@
       "kind": "훅(비시각)",
       "file": "ds/hooks/useAsync.ts",
       "variantSurface": {
-        "AsyncStatus": [
-          "idle",
-          "pending",
-          "success",
-          "error"
-        ]
+        "AsyncStatus": ["idle", "pending", "success", "error"]
       }
     },
     "useIsomorphicLayoutEffect": {
@@ -6702,11 +6540,7 @@
       "kind": "훅(비시각)",
       "file": "ds/hooks/useCookie.ts",
       "variantSurface": {
-        "sameSite": [
-          "Strict",
-          "Lax",
-          "None"
-        ]
+        "sameSite": ["Strict", "Lax", "None"]
       }
     },
     "useHover": {
@@ -6820,11 +6654,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/AlertDialog/AlertDialog.tsx",
       "variantSurface": {
-        "variant": [
-          "danger",
-          "warning",
-          "info"
-        ]
+        "variant": ["danger", "warning", "info"]
       }
     },
     "AutoHideHeader": {
@@ -6842,14 +6672,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/AutoPlayDemo/AutoPlayDemo.tsx",
       "variantSurface": {
-        "transition": [
-          "fade",
-          "slide-up",
-          "slide-left",
-          "scale",
-          "crossfade",
-          "none"
-        ]
+        "transition": ["fade", "slide-up", "slide-left", "scale", "crossfade", "none"]
       }
     },
     "AvatarStack": {
@@ -6875,11 +6698,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/BottomSheet/BottomSheet.tsx",
       "variantSurface": {
-        "height": [
-          "auto",
-          "half",
-          "full"
-        ]
+        "height": ["auto", "half", "full"]
       }
     },
     "Collapsible": {
@@ -6897,11 +6716,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/ColorSwatch/ColorSwatch.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "ComparisonGrid": {
@@ -6911,11 +6726,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/ComparisonGrid/ComparisonGrid.tsx",
       "variantSurface": {
-        "direction": [
-          "up",
-          "down",
-          "neutral"
-        ]
+        "direction": ["up", "down", "neutral"]
       }
     },
     "Confetti": {
@@ -6925,11 +6736,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Confetti/Confetti.tsx",
       "variantSurface": {
-        "type": [
-          "square",
-          "circle",
-          "strip"
-        ]
+        "type": ["square", "circle", "strip"]
       }
     },
     "ConfirmDialog": {
@@ -6963,10 +6770,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Descriptions/Descriptions.tsx",
       "variantSurface": {
-        "layout": [
-          "horizontal",
-          "vertical"
-        ]
+        "layout": ["horizontal", "vertical"]
       }
     },
     "Disclosure": {
@@ -6984,10 +6788,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Dropdown/Dropdown.tsx",
       "variantSurface": {
-        "align": [
-          "left",
-          "right"
-        ]
+        "align": ["left", "right"]
       }
     },
     "FilterButtonGroup": {
@@ -7005,17 +6806,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/FloatingActionButton/FloatingActionButton.tsx",
       "variantSurface": {
-        "variant": [
-          "primary",
-          "secondary",
-          "danger"
-        ],
-        "position": [
-          "bottom-right",
-          "bottom-left",
-          "top-right",
-          "top-left"
-        ]
+        "variant": ["primary", "secondary", "danger"],
+        "position": ["bottom-right", "bottom-left", "top-right", "top-left"]
       }
     },
     "FormField": {
@@ -7081,10 +6873,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Marquee/Marquee.tsx",
       "variantSurface": {
-        "direction": [
-          "left",
-          "right"
-        ]
+        "direction": ["left", "right"]
       }
     },
     "MiniChart": {
@@ -7094,11 +6883,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/MiniChart/MiniChart.tsx",
       "variantSurface": {
-        "type": [
-          "line",
-          "bar",
-          "area"
-        ]
+        "type": ["line", "bar", "area"]
       }
     },
     "Popover": {
@@ -7108,15 +6893,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Popover/Popover.tsx",
       "variantSurface": {
-        "align": [
-          "left",
-          "right",
-          "center"
-        ],
-        "side": [
-          "top",
-          "bottom"
-        ]
+        "align": ["left", "right", "center"],
+        "side": ["top", "bottom"]
       }
     },
     "PullToRefresh": {
@@ -7134,10 +6912,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Resizable/Resizable.tsx",
       "variantSurface": {
-        "direction": [
-          "horizontal",
-          "vertical"
-        ]
+        "direction": ["horizontal", "vertical"]
       }
     },
     "Result": {
@@ -7147,14 +6922,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Result/Result.tsx",
       "variantSurface": {
-        "status": [
-          "success",
-          "error",
-          "warning",
-          "info",
-          "404",
-          "403"
-        ]
+        "status": ["success", "error", "warning", "info", "404", "403"]
       }
     },
     "ScrollSpy": {
@@ -7172,18 +6940,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/SecurityBadge/SecurityBadge.tsx",
       "variantSurface": {
-        "SecurityLevel": [
-          "critical",
-          "warning",
-          "safe",
-          "verified",
-          "unverified"
-        ],
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "SecurityLevel": ["critical", "warning", "safe", "verified", "unverified"],
+        "size": ["sm", "md", "lg"]
       }
     },
     "Sheet": {
@@ -7201,13 +6959,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/SkeletonPreset/SkeletonPreset.tsx",
       "variantSurface": {
-        "variant": [
-          "card",
-          "table",
-          "profile",
-          "article",
-          "list"
-        ]
+        "variant": ["card", "table", "profile", "article", "list"]
       }
     },
     "SplitPane": {
@@ -7217,10 +6969,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/SplitPane/SplitPane.tsx",
       "variantSurface": {
-        "direction": [
-          "horizontal",
-          "vertical"
-        ]
+        "direction": ["horizontal", "vertical"]
       }
     },
     "Spotlight": {
@@ -7254,17 +7003,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Timeline/Timeline.tsx",
       "variantSurface": {
-        "color": [
-          "primary",
-          "success",
-          "warning",
-          "danger",
-          "neutral"
-        ],
-        "lineStyle": [
-          "solid",
-          "dashed"
-        ]
+        "color": ["primary", "success", "warning", "danger", "neutral"],
+        "lineStyle": ["solid", "dashed"]
       }
     },
     "TreeNav": {
@@ -7306,11 +7046,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Countdown/Countdown.tsx",
       "variantSurface": {
-        "CountdownFormat": [
-          "full",
-          "compact",
-          "minimal"
-        ]
+        "CountdownFormat": ["full", "compact", "minimal"]
       }
     },
     "Clock": {
@@ -7320,10 +7056,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Clock/Clock.tsx",
       "variantSurface": {
-        "ClockMode": [
-          "digital",
-          "analog"
-        ]
+        "ClockMode": ["digital", "analog"]
       }
     },
     "PageHeader": {
@@ -7341,13 +7074,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/AnnouncementBar/AnnouncementBar.tsx",
       "variantSurface": {
-        "AnnouncementVariant": [
-          "neutral",
-          "primary",
-          "success",
-          "warning",
-          "danger"
-        ]
+        "AnnouncementVariant": ["neutral", "primary", "success", "warning", "danger"]
       }
     },
     "ThinkingIndicator": {
@@ -7357,12 +7084,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/ThinkingIndicator/ThinkingIndicator.tsx",
       "variantSurface": {
-        "ThinkingVariant": [
-          "dots",
-          "pulse",
-          "wave",
-          "typewriter"
-        ]
+        "ThinkingVariant": ["dots", "pulse", "wave", "typewriter"]
       }
     },
     "PricingTable": {
@@ -7380,11 +7102,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/CookieConsent/CookieConsent.tsx",
       "variantSurface": {
-        "position": [
-          "bottom",
-          "bottom-left",
-          "bottom-right"
-        ]
+        "position": ["bottom", "bottom-left", "bottom-right"]
       }
     },
     "MonthPicker": {
@@ -7410,19 +7128,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Snackbar/Snackbar.tsx",
       "variantSurface": {
-        "SnackbarVariant": [
-          "default",
-          "success",
-          "error",
-          "warning",
-          "info"
-        ],
-        "SnackbarPosition": [
-          "bottom",
-          "top",
-          "bottom-left",
-          "bottom-right"
-        ]
+        "SnackbarVariant": ["default", "success", "error", "warning", "info"],
+        "SnackbarPosition": ["bottom", "top", "bottom-left", "bottom-right"]
       }
     },
     "Stat": {
@@ -7432,15 +7139,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Stat/Stat.tsx",
       "variantSurface": {
-        "StatTrend": [
-          "up",
-          "down",
-          "flat"
-        ],
-        "align": [
-          "left",
-          "center"
-        ]
+        "StatTrend": ["up", "down", "flat"],
+        "align": ["left", "center"]
       }
     },
     "Blockquote": {
@@ -7450,12 +7150,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Blockquote/Blockquote.tsx",
       "variantSurface": {
-        "BlockquoteVariant": [
-          "default",
-          "bordered",
-          "filled",
-          "callout"
-        ]
+        "BlockquoteVariant": ["default", "bordered", "filled", "callout"]
       }
     },
     "LoadingButton": {
@@ -7465,17 +7160,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/LoadingButton/LoadingButton.tsx",
       "variantSurface": {
-        "LoadingButtonVariant": [
-          "primary",
-          "secondary",
-          "ghost",
-          "danger"
-        ],
-        "LoadingButtonSize": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "LoadingButtonVariant": ["primary", "secondary", "ghost", "danger"],
+        "LoadingButtonSize": ["sm", "md", "lg"]
       }
     },
     "LoadingScreen": {
@@ -7485,12 +7171,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/LoadingScreen/LoadingScreen.tsx",
       "variantSurface": {
-        "LoadingScreenVariant": [
-          "spinner",
-          "bars",
-          "pulse",
-          "logo"
-        ]
+        "LoadingScreenVariant": ["spinner", "bars", "pulse", "logo"]
       }
     },
     "OfflineIndicator": {
@@ -7500,10 +7181,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/OfflineIndicator/OfflineIndicator.tsx",
       "variantSurface": {
-        "position": [
-          "top",
-          "bottom"
-        ]
+        "position": ["top", "bottom"]
       }
     },
     "Hint": {
@@ -7513,12 +7191,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Hint/Hint.tsx",
       "variantSurface": {
-        "HintVariant": [
-          "info",
-          "tip",
-          "warning",
-          "muted"
-        ]
+        "HintVariant": ["info", "tip", "warning", "muted"]
       }
     },
     "SocialShare": {
@@ -7528,25 +7201,9 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/SocialShare/SocialShare.tsx",
       "variantSurface": {
-        "SocialPlatform": [
-          "twitter",
-          "facebook",
-          "linkedin",
-          "kakao",
-          "telegram",
-          "whatsapp",
-          "email",
-          "copy"
-        ],
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ],
-        "shape": [
-          "circle",
-          "square"
-        ]
+        "SocialPlatform": ["twitter", "facebook", "linkedin", "kakao", "telegram", "whatsapp", "email", "copy"],
+        "size": ["sm", "md", "lg"],
+        "shape": ["circle", "square"]
       }
     },
     "EmojiReaction": {
@@ -7564,18 +7221,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/OnlineStatus/OnlineStatus.tsx",
       "variantSurface": {
-        "OnlineStatusValue": [
-          "online",
-          "away",
-          "busy",
-          "offline"
-        ],
-        "OnlineStatusSize": [
-          "xs",
-          "sm",
-          "md",
-          "lg"
-        ]
+        "OnlineStatusValue": ["online", "away", "busy", "offline"],
+        "OnlineStatusSize": ["xs", "sm", "md", "lg"]
       }
     },
     "RadioCardGroup": {
@@ -7617,10 +7264,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
       "variantSurface": {
-        "position": [
-          "top",
-          "bottom"
-        ]
+        "position": ["top", "bottom"]
       }
     },
     "TableOfContents": {
@@ -7646,14 +7290,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/BarChart/BarChart.tsx",
       "variantSurface": {
-        "BarOrientation": [
-          "vertical",
-          "horizontal"
-        ],
-        "BarMode": [
-          "grouped",
-          "stacked"
-        ]
+        "BarOrientation": ["vertical", "horizontal"],
+        "BarMode": ["grouped", "stacked"]
       }
     },
     "PieChart": {
@@ -7671,11 +7309,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/TestimonialCard/TestimonialCard.tsx",
       "variantSurface": {
-        "TestimonialVariant": [
-          "card",
-          "quote",
-          "minimal"
-        ]
+        "TestimonialVariant": ["card", "quote", "minimal"]
       }
     },
     "LogoCloud": {
@@ -7685,10 +7319,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/LogoCloud/LogoCloud.tsx",
       "variantSurface": {
-        "LogoCloudLayout": [
-          "grid",
-          "marquee"
-        ]
+        "LogoCloudLayout": ["grid", "marquee"]
       }
     },
     "Newsletter": {
@@ -7698,17 +7329,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/Newsletter/Newsletter.tsx",
       "variantSurface": {
-        "NewsletterStatus": [
-          "idle",
-          "submitting",
-          "success",
-          "error"
-        ],
-        "variant": [
-          "inline",
-          "stacked",
-          "card"
-        ]
+        "NewsletterStatus": ["idle", "submitting", "success", "error"],
+        "variant": ["inline", "stacked", "card"]
       }
     },
     "CTASection": {
@@ -7718,12 +7340,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/CTASection/CTASection.tsx",
       "variantSurface": {
-        "CTAVariant": [
-          "default",
-          "gradient",
-          "subtle",
-          "split"
-        ]
+        "CTAVariant": ["default", "gradient", "subtle", "split"]
       }
     },
     "ProductCard": {
@@ -7749,11 +7366,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/QuantitySelector/QuantitySelector.tsx",
       "variantSurface": {
-        "QuantitySize": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "QuantitySize": ["sm", "md", "lg"]
       }
     },
     "PriceDisplay": {
@@ -7763,16 +7376,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/PriceDisplay/PriceDisplay.tsx",
       "variantSurface": {
-        "PriceSize": [
-          "sm",
-          "md",
-          "lg",
-          "xl"
-        ],
-        "PriceLayout": [
-          "inline",
-          "stacked"
-        ]
+        "PriceSize": ["sm", "md", "lg", "xl"],
+        "PriceLayout": ["inline", "stacked"]
       }
     },
     "AreaChart": {
@@ -7814,11 +7419,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/BookShelf/BookShelf.tsx",
       "variantSurface": {
-        "BookShelfVariant": [
-          "wood",
-          "minimal",
-          "card"
-        ]
+        "BookShelfVariant": ["wood", "minimal", "card"]
       }
     },
     "ReadingProgress": {
@@ -7852,17 +7453,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/BookCover/BookCover.tsx",
       "variantSurface": {
-        "BookCoverSize": [
-          "sm",
-          "md",
-          "lg",
-          "xl"
-        ],
-        "BookCoverEffect": [
-          "flat",
-          "tilt",
-          "spine"
-        ]
+        "BookCoverSize": ["sm", "md", "lg", "xl"],
+        "BookCoverEffect": ["flat", "tilt", "spine"]
       }
     },
     "ReadingGoal": {
@@ -7880,13 +7472,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/AnnotationNote/AnnotationNote.tsx",
       "variantSurface": {
-        "AnnotationColor": [
-          "yellow",
-          "green",
-          "blue",
-          "pink",
-          "orange"
-        ]
+        "AnnotationColor": ["yellow", "green", "blue", "pink", "orange"]
       }
     },
     "BookRating": {
@@ -7912,11 +7498,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/PhotoGrid/PhotoGrid.tsx",
       "variantSurface": {
-        "PhotoGridLayout": [
-          "uniform",
-          "masonry",
-          "mosaic"
-        ]
+        "PhotoGridLayout": ["uniform", "masonry", "mosaic"]
       }
     },
     "PhotoLightbox": {
@@ -8014,12 +7596,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/StoryCircle/StoryCircle.tsx",
       "variantSurface": {
-        "StoryRingState": [
-          "unread",
-          "read",
-          "live",
-          "muted"
-        ]
+        "StoryRingState": ["unread", "read", "live", "muted"]
       }
     },
     "ReactionPicker": {
@@ -8029,10 +7606,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/ReactionPicker/ReactionPicker.tsx",
       "variantSurface": {
-        "placement": [
-          "top",
-          "bottom"
-        ]
+        "placement": ["top", "bottom"]
       }
     },
     "PollCard": {
@@ -8050,11 +7624,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/BrandSwitcher/BrandSwitcher.tsx",
       "variantSurface": {
-        "variant": [
-          "chips",
-          "list",
-          "select"
-        ]
+        "variant": ["chips", "list", "select"]
       }
     },
     "SearchBar": {
@@ -8064,11 +7634,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/composites/SearchBar/SearchBar.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "DataTable": {
@@ -8078,24 +7644,10 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/DataTable/DataTable.tsx",
       "variantSurface": {
-        "align": [
-          "left",
-          "center",
-          "right"
-        ],
-        "DensityMode": [
-          "compact",
-          "normal",
-          "comfortable"
-        ],
-        "variant": [
-          "danger",
-          "default"
-        ],
-        "dir": [
-          "asc",
-          "desc"
-        ]
+        "align": ["left", "center", "right"],
+        "DensityMode": ["compact", "normal", "comfortable"],
+        "variant": ["danger", "default"],
+        "dir": ["asc", "desc"]
       }
     },
     "FilterBar": {
@@ -8153,18 +7705,9 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/Calendar/Calendar.tsx",
       "variantSurface": {
-        "selectionMode": [
-          "single",
-          "range"
-        ],
-        "view": [
-          "month",
-          "week"
-        ],
-        "v": [
-          "month",
-          "week"
-        ]
+        "selectionMode": ["single", "range"],
+        "view": ["month", "week"],
+        "v": ["month", "week"]
       }
     },
     "Kanban": {
@@ -8214,22 +7757,9 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/ChartCard/ChartCard.tsx",
       "variantSurface": {
-        "ChartTone": [
-          "default",
-          "success",
-          "warning",
-          "danger",
-          "info"
-        ],
-        "direction": [
-          "up",
-          "down",
-          "neutral"
-        ],
-        "variant": [
-          "card",
-          "plain"
-        ]
+        "ChartTone": ["default", "success", "warning", "danger", "info"],
+        "direction": ["up", "down", "neutral"],
+        "variant": ["card", "plain"]
       }
     },
     "SortableList": {
@@ -8247,12 +7777,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/Tour/Tour.tsx",
       "variantSurface": {
-        "placement": [
-          "top",
-          "bottom",
-          "left",
-          "right"
-        ]
+        "placement": ["top", "bottom", "left", "right"]
       }
     },
     "FlowDiagram": {
@@ -8262,27 +7787,10 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/FlowDiagram/FlowDiagram.tsx",
       "variantSurface": {
-        "variant": [
-          "default",
-          "success",
-          "warning",
-          "danger",
-          "info"
-        ],
-        "connectionStyle": [
-          "bezier",
-          "straight",
-          "step"
-        ],
-        "style": [
-          "bezier",
-          "straight",
-          "step"
-        ],
-        "side": [
-          "input",
-          "output"
-        ]
+        "variant": ["default", "success", "warning", "danger", "info"],
+        "connectionStyle": ["bezier", "straight", "step"],
+        "style": ["bezier", "straight", "step"],
+        "side": ["input", "output"]
       }
     },
     "Starfield": {
@@ -8332,11 +7840,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/AuthLayout/AuthLayout.tsx",
       "variantSurface": {
-        "AuthVariant": [
-          "centered",
-          "split",
-          "branded"
-        ]
+        "AuthVariant": ["centered", "split", "branded"]
       }
     },
     "SettingsLayout": {
@@ -8370,12 +7874,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/HeroSection/HeroSection.tsx",
       "variantSurface": {
-        "HeroVariant": [
-          "centered",
-          "split",
-          "imageBg",
-          "minimal"
-        ]
+        "HeroVariant": ["centered", "split", "imageBg", "minimal"]
       }
     },
     "FeatureGrid": {
@@ -8385,11 +7884,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/FeatureGrid/FeatureGrid.tsx",
       "variantSurface": {
-        "FeatureGridLayout": [
-          "card",
-          "minimal",
-          "iconLeft"
-        ]
+        "FeatureGridLayout": ["card", "minimal", "iconLeft"]
       }
     },
     "FAQ": {
@@ -8439,11 +7934,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/ChatThread/ChatThread.tsx",
       "variantSurface": {
-        "status": [
-          "sending",
-          "sent",
-          "failed"
-        ]
+        "status": ["sending", "sent", "failed"]
       }
     },
     "CalendarMonth": {
@@ -8453,14 +7944,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/CalendarMonth/CalendarMonth.tsx",
       "variantSurface": {
-        "color": [
-          "primary",
-          "success",
-          "warning",
-          "danger",
-          "info",
-          "accent"
-        ]
+        "color": ["primary", "success", "warning", "danger", "info", "accent"]
       }
     },
     "EmailInbox": {
@@ -8486,12 +7970,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/patterns/OnboardingTour/OnboardingTour.tsx",
       "variantSurface": {
-        "placement": [
-          "top",
-          "bottom",
-          "left",
-          "right"
-        ]
+        "placement": ["top", "bottom", "left", "right"]
       }
     },
     "AlertButton": {
@@ -8557,11 +8036,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/BmSwitch.tsx",
       "variantSurface": {
-        "BmSwitchSize": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "BmSwitchSize": ["sm", "md", "lg"]
       }
     },
     "BottomNav": {
@@ -8579,12 +8054,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/CandleChart.tsx",
       "variantSurface": {
-        "ChartType": [
-          "candle",
-          "heikin",
-          "line",
-          "area"
-        ]
+        "ChartType": ["candle", "heikin", "line", "area"]
       }
     },
     "ChartRangePicker": {
@@ -8610,12 +8080,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/ConsensusScreener.tsx",
       "variantSurface": {
-        "SortKey": [
-          "avgScore",
-          "bullCount",
-          "topScore",
-          "change"
-        ]
+        "SortKey": ["avgScore", "bullCount", "topScore", "change"]
       }
     },
     "BacktestRunner": {
@@ -8625,10 +8090,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/BacktestRunner.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down"
-        ]
+        "tone": ["up", "down"]
       }
     },
     "DisclosureToneBadge": {
@@ -8646,11 +8108,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/PortfolioCouncil.tsx",
       "variantSurface": {
-        "verdictTone": [
-          "up",
-          "down",
-          "flat"
-        ]
+        "verdictTone": ["up", "down", "flat"]
       }
     },
     "ThemeNewsSummary": {
@@ -8668,10 +8126,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/TradeJournal.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down"
-        ]
+        "tone": ["up", "down"]
       }
     },
     "DailyThemesCalendar": {
@@ -8689,10 +8144,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/DayDetailDrawer.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down"
-        ]
+        "tone": ["up", "down"]
       }
     },
     "DisclosuresClient": {
@@ -8718,16 +8170,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/FXBoard.tsx",
       "variantSurface": {
-        "Cat": [
-          "fx",
-          "commodity",
-          "crypto"
-        ],
-        "trend": [
-          "up",
-          "down",
-          "flat"
-        ]
+        "Cat": ["fx", "commodity", "crypto"],
+        "trend": ["up", "down", "flat"]
       }
     },
     "FZoneCard": {
@@ -8737,11 +8181,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/FZoneCard.tsx",
       "variantSurface": {
-        "marker": [
-          "high",
-          "mid",
-          "low"
-        ]
+        "marker": ["high", "mid", "low"]
       }
     },
     "FZoneHelpModal": {
@@ -8751,13 +8191,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/FZoneHelpModal.tsx",
       "variantSurface": {
-        "TabKey": [
-          "F존포착",
-          "F존+",
-          "SF존",
-          "골드존",
-          "38스윙"
-        ]
+        "TabKey": ["F존포착", "F존+", "SF존", "골드존", "38스윙"]
       }
     },
     "HoldingFormModal": {
@@ -8775,10 +8209,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/InvestorCouncil.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down"
-        ]
+        "tone": ["up", "down"]
       }
     },
     "InvestorFlowChart": {
@@ -8796,11 +8227,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/InvestorRanking.tsx",
       "variantSurface": {
-        "InvestorKey": [
-          "foreign",
-          "institution",
-          "individual"
-        ]
+        "InvestorKey": ["foreign", "institution", "individual"]
       }
     },
     "KeyValueGridClient": {
@@ -8818,16 +8245,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/LiveInvestorBoard.tsx",
       "variantSurface": {
-        "InvestorKey": [
-          "foreign",
-          "institution",
-          "individual"
-        ],
-        "MarketKey": [
-          "kospi",
-          "kosdaq",
-          "futures"
-        ]
+        "InvestorKey": ["foreign", "institution", "individual"],
+        "MarketKey": ["kospi", "kosdaq", "futures"]
       }
     },
     "LivePctBadge": {
@@ -8837,11 +8256,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/LivePrice.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "LivePrice": {
@@ -8851,11 +8266,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/LivePrice.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "LiveStatusDot": {
@@ -8865,11 +8276,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/LivePrice.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "LivePriceText": {
@@ -8911,11 +8318,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/LiveIndexCard.tsx",
       "variantSurface": {
-        "code": [
-          "KOSPI",
-          "KOSDAQ",
-          "KOSPI200"
-        ]
+        "code": ["KOSPI", "KOSDAQ", "KOSPI200"]
       }
     },
     "LiveMarketStats": {
@@ -8973,18 +8376,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/LiveStockTable.tsx",
       "variantSurface": {
-        "SortKey": [
-          "pctDesc",
-          "pctAsc",
-          "volumeDesc",
-          "priceDesc",
-          "name"
-        ],
-        "market": [
-          "KOSPI",
-          "KOSDAQ",
-          "—"
-        ]
+        "SortKey": ["pctDesc", "pctAsc", "volumeDesc", "priceDesc", "name"],
+        "market": ["KOSPI", "KOSDAQ", "—"]
       }
     },
     "LiveTicker": {
@@ -9002,19 +8395,9 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/LiveTopMovers.tsx",
       "variantSurface": {
-        "market": [
-          "KOSPI",
-          "KOSDAQ"
-        ],
-        "tone": [
-          "up",
-          "down",
-          "neutral"
-        ],
-        "metric": [
-          "pct",
-          "amount"
-        ]
+        "market": ["KOSPI", "KOSDAQ"],
+        "tone": ["up", "down", "neutral"],
+        "metric": ["pct", "amount"]
       }
     },
     "Logo": {
@@ -9024,11 +8407,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/Logo.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "MarketAlertBanner": {
@@ -9062,12 +8441,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/MarketIndexChart.tsx",
       "variantSurface": {
-        "Tf": [
-          "월",
-          "주",
-          "일",
-          "분"
-        ]
+        "Tf": ["월", "주", "일", "분"]
       }
     },
     "ClosePicksCard": {
@@ -9077,10 +8451,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/MarketSignals.tsx",
       "variantSurface": {
-        "kind": [
-          "open",
-          "close"
-        ]
+        "kind": ["open", "close"]
       }
     },
     "LimitHitsCard": {
@@ -9090,10 +8461,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/MarketSignals.tsx",
       "variantSurface": {
-        "kind": [
-          "open",
-          "close"
-        ]
+        "kind": ["open", "close"]
       }
     },
     "OpenPicksCard": {
@@ -9103,10 +8471,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/MarketSignals.tsx",
       "variantSurface": {
-        "kind": [
-          "open",
-          "close"
-        ]
+        "kind": ["open", "close"]
       }
     },
     "MiniCandle": {
@@ -9116,11 +8481,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/MiniCandle.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down",
-          "flat"
-        ]
+        "tone": ["up", "down", "flat"]
       }
     },
     "MultiLineChart": {
@@ -9138,10 +8499,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/MyPositionPanel.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down"
-        ]
+        "tone": ["up", "down"]
       }
     },
     "NewsList": {
@@ -9151,10 +8509,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/NewsList.tsx",
       "variantSurface": {
-        "origin": [
-          "naver",
-          "mock"
-        ]
+        "origin": ["naver", "mock"]
       }
     },
     "PageEmptyState": {
@@ -9164,11 +8519,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/PageEmptyState.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "PageShell": {
@@ -9186,10 +8537,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/PortfolioDayDetailModal.tsx",
       "variantSurface": {
-        "side": [
-          "매도",
-          "매수"
-        ]
+        "side": ["매도", "매수"]
       }
     },
     "PortfolioHeatmap": {
@@ -9199,10 +8547,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/PortfolioHeatmap.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down"
-        ]
+        "tone": ["up", "down"]
       }
     },
     "PositionBar": {
@@ -9212,10 +8557,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/PositionBar.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down"
-        ]
+        "tone": ["up", "down"]
       }
     },
     "HotPctChip": {
@@ -9225,10 +8567,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/PriceBadge.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md"
-        ]
+        "size": ["sm", "md"]
       }
     },
     "PriceBadge": {
@@ -9238,10 +8577,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/PriceBadge.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md"
-        ]
+        "size": ["sm", "md"]
       }
     },
     "QuarterBarChart": {
@@ -9251,10 +8587,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/QuarterBarChart.tsx",
       "variantSurface": {
-        "metric": [
-          "revenue-op",
-          "revenue-net"
-        ]
+        "metric": ["revenue-op", "revenue-net"]
       }
     },
     "RealCandleChart": {
@@ -9264,17 +8597,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/RealCandleChart.tsx",
       "variantSurface": {
-        "source": [
-          "yahoo",
-          "mock"
-        ],
-        "marketStatus": [
-          "장중",
-          "프리장",
-          "애프터장",
-          "장마감",
-          "휴장"
-        ]
+        "source": ["yahoo", "mock"],
+        "marketStatus": ["장중", "프리장", "애프터장", "장마감", "휴장"]
       }
     },
     "RealQuoteHeader": {
@@ -9284,15 +8608,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/RealQuoteHeader.tsx",
       "variantSurface": {
-        "source": [
-          "kis",
-          "yahoo",
-          "mock"
-        ],
-        "tone": [
-          "up",
-          "down"
-        ]
+        "source": ["kis", "yahoo", "mock"],
+        "tone": ["up", "down"]
       }
     },
     "RecentVisitTracker": {
@@ -9318,19 +8635,9 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/SearchBox.tsx",
       "variantSurface": {
-        "exchange": [
-          "KOSPI",
-          "KOSDAQ",
-          "기타"
-        ],
-        "badge": [
-          "KOSPI",
-          "KOSDAQ"
-        ],
-        "source": [
-          "local",
-          "remote"
-        ]
+        "exchange": ["KOSPI", "KOSDAQ", "기타"],
+        "badge": ["KOSPI", "KOSDAQ"],
+        "source": ["local", "remote"]
       }
     },
     "SegmentedPill": {
@@ -9340,11 +8647,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/SegmentedPill.tsx",
       "variantSurface": {
-        "size": [
-          "sm",
-          "md",
-          "lg"
-        ]
+        "size": ["sm", "md", "lg"]
       }
     },
     "Sidebar": {
@@ -9386,15 +8689,8 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/StrategyPanel.tsx",
       "variantSurface": {
-        "icon": [
-          "trendingUp",
-          "trendingDown",
-          "activity"
-        ],
-        "tone": [
-          "buy",
-          "sell"
-        ]
+        "icon": ["trendingUp", "trendingDown", "activity"],
+        "tone": ["buy", "sell"]
       }
     },
     "ThemeCard": {
@@ -9420,10 +8716,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/ThemeDrillDown.tsx",
       "variantSurface": {
-        "tone": [
-          "up",
-          "down"
-        ]
+        "tone": ["up", "down"]
       }
     },
     "ThemeTagList": {
@@ -9449,10 +8742,7 @@
       "kind": "시각 컴포넌트",
       "file": "ds/finance/TopBar.tsx",
       "variantSurface": {
-        "role": [
-          "owner",
-          "guest"
-        ]
+        "role": ["owner", "guest"]
       }
     },
     "WatchlistWidget": {

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Notification",
   "oneLiner": "상단에 잠깐 떠오르는 알림 카드.",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

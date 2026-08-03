@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "ScrollArea",
   "oneLiner": "커스텀 스크롤 영역",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -66,7 +66,16 @@ function timeLabel(d: ChatMessage["createdAt"]) {
  * @tags chat, content
  */
 export const ChatThread = forwardRef<HTMLElement, ChatThreadProps>(function ChatThread(
-  { messages, currentUserId, typingUsers, onMessageClick, onRetry, composer, autoScroll = true, className },
+  {
+    messages,
+    currentUserId,
+    typingUsers,
+    onMessageClick,
+    onRetry,
+    composer,
+    autoScroll = true,
+    className,
+  },
   ref,
 ) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -84,7 +93,16 @@ export const ChatThread = forwardRef<HTMLElement, ChatThreadProps>(function Chat
   }, [autoScroll, lastMsg?.id]);
 
   return (
-    <section ref={ref} className={cn("flex flex-col bg-surface border border-border rounded-xl overflow-hidden", className)} aria-label="채팅">
+    <section
+      ref={ref}
+      className={cn(
+        // 패널이라 radius 계단의 한 칸 위 + 얕은 깊이.
+        "flex flex-col bg-surface border border-border rounded-2xl overflow-hidden",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+        className,
+      )}
+      aria-label="채팅"
+    >
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-3" aria-live="polite">
         {groups.map((g, gi) => {
           const author = g[0];
@@ -94,9 +112,13 @@ export const ChatThread = forwardRef<HTMLElement, ChatThreadProps>(function Chat
               {!mine && (
                 <div className="shrink-0">
                   {author.authorAvatar ? (
-                    <img src={author.authorAvatar} alt="" className="w-8 h-8 rounded-full object-cover" />
+                    <img
+                      src={author.authorAvatar}
+                      alt=""
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-primary/15 text-primary text-xs font-semibold inline-flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-primary/15 text-primary-ink text-xs font-semibold inline-flex items-center justify-center">
                       {author.authorName.slice(0, 1)}
                     </div>
                   )}
@@ -109,12 +131,12 @@ export const ChatThread = forwardRef<HTMLElement, ChatThreadProps>(function Chat
                   return (
                     <div key={m.id} className="flex items-end gap-1.5">
                       {mine && isLastOfGroup && (
-                        <span className="text-[10px] text-muted shrink-0 mb-0.5">
+                        <span className="text-[10px] text-muted shrink-0 mb-0.5 tabular-nums whitespace-nowrap">
                           {m.status === "failed" && (
                             <button
                               type="button"
                               onClick={() => onRetry?.(m)}
-                              className="text-danger hover:underline cursor-pointer"
+                              className="text-danger hover:underline cursor-pointer rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
                               aria-label="재전송"
                             >
                               재전송
@@ -122,7 +144,9 @@ export const ChatThread = forwardRef<HTMLElement, ChatThreadProps>(function Chat
                           )}
                           {m.status === "sending" && <span aria-label="전송 중">…</span>}
                           {(!m.status || m.status === "sent") && (m.readBy?.length ?? 0) > 0 && (
-                            <span aria-label={`${m.readBy!.length}명 읽음`}>읽음 {m.readBy!.length}</span>
+                            <span aria-label={`${m.readBy!.length}명 읽음`}>
+                              읽음 {m.readBy!.length}
+                            </span>
                           )}
                           {isLastOfGroup && <span className="ml-1">{timeLabel(m.createdAt)}</span>}
                         </span>
@@ -132,20 +156,30 @@ export const ChatThread = forwardRef<HTMLElement, ChatThreadProps>(function Chat
                         onClick={() => onMessageClick?.(m)}
                         className={cn(
                           "px-3 py-2 rounded-2xl text-sm break-words text-left whitespace-pre-wrap",
+                          // 말풍선은 버튼이라 늘 포커스를 받는다 — 링이 없으면 키보드로 어디에
+                          // 있는지 알 수 없다.
+                          "transition-shadow duration-200",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
                           mine
-                            ? "bg-primary text-white rounded-br-md"
-                            : "bg-surface-soft text-foreground rounded-bl-md",
+                            ? "bg-primary text-white rounded-br-md shadow-[0_2px_8px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.15)]"
+                            : "bg-surface-soft text-foreground rounded-bl-md shadow-[0_1px_2px_rgba(0,0,0,0.05)] ring-1 ring-border",
                           m.status === "failed" && "opacity-60",
                           onMessageClick ? "cursor-pointer" : "cursor-default",
                         )}
                       >
                         {m.body}
                         {m.attachmentUrl && (
-                          <img src={m.attachmentUrl} alt="" className="mt-2 max-w-full rounded-lg" />
+                          <img
+                            src={m.attachmentUrl}
+                            alt=""
+                            className="mt-2 max-w-full rounded-lg"
+                          />
                         )}
                       </button>
                       {!mine && isLastOfGroup && (
-                        <span className="text-[10px] text-muted shrink-0 mb-0.5">{timeLabel(m.createdAt)}</span>
+                        <span className="text-[10px] text-muted shrink-0 mb-0.5 tabular-nums whitespace-nowrap">
+                          {timeLabel(m.createdAt)}
+                        </span>
                       )}
                     </div>
                   );
@@ -157,19 +191,18 @@ export const ChatThread = forwardRef<HTMLElement, ChatThreadProps>(function Chat
 
         {typingUsers && typingUsers.length > 0 && (
           <div className="flex items-center gap-2 px-1" aria-live="polite">
-            <div className="flex gap-1 px-3 py-2 rounded-2xl bg-surface-soft">
-              <span className="w-1.5 h-1.5 rounded-full bg-muted animate-pulse" />
-              <span className="w-1.5 h-1.5 rounded-full bg-muted animate-pulse [animation-delay:150ms]" />
-              <span className="w-1.5 h-1.5 rounded-full bg-muted animate-pulse [animation-delay:300ms]" />
+            {/* 세 점의 반복 애니메이션은 감속 요청 대상이다 — 멈춰도 "입력 중" 문구가 남는다. */}
+            <div className="flex gap-1 px-3 py-2 rounded-2xl bg-surface-soft ring-1 ring-border">
+              <span className="w-1.5 h-1.5 rounded-full bg-muted animate-pulse motion-reduce:animate-none" />
+              <span className="w-1.5 h-1.5 rounded-full bg-muted animate-pulse [animation-delay:150ms] motion-reduce:animate-none" />
+              <span className="w-1.5 h-1.5 rounded-full bg-muted animate-pulse [animation-delay:300ms] motion-reduce:animate-none" />
             </div>
             <span className="text-xs text-muted">{typingUsers.join(", ")} 입력 중…</span>
           </div>
         )}
       </div>
 
-      {composer && (
-        <div className="border-t border-border bg-surface px-3 py-2">{composer}</div>
-      )}
+      {composer && <div className="border-t border-border bg-surface px-3 py-2">{composer}</div>}
     </section>
   );
 });

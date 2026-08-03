@@ -9,8 +9,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
  * `outline` — 테두리만. secondary와 비슷하지만 더 가벼움
  * `link` — 텍스트 링크처럼 동작. 패딩/높이 없음
  */
-export type ButtonVariant =
-  "primary" | "secondary" | "danger" | "ghost" | "outline" | "link";
+export type ButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "outline" | "link";
 
 /**
  * `xs` — 28px. 테이블 내 인라인 액션, 칩 삭제 등

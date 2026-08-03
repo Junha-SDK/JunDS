@@ -82,7 +82,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
    * 입력 필드를 비활성화합니다.
    *
    * `true`이면 투명도가 낮아지고(`opacity-40`), 커서가 `not-allowed`로 바뀌며,
-   * 배경이 회색(`bg-gray-50`)으로 변합니다. 포커스와 입력이 차단됩니다.
+   * 배경이 한 단계 가라앉습니다(`bg-card-hover`). 포커스와 입력이 차단됩니다.
    *
    * @default false
    *
@@ -166,13 +166,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         aria-invalid={resolvedAriaInvalid}
         className={cn(
-          "w-full border bg-white/80 backdrop-blur-sm transition-all duration-200 ease-out",
+          // bg-white 는 다크에서 흰 판이 남는다 — 모드를 따라가는 bg-card 로 옮긴다.
+          // 변하는 것은 테두리색·글로우·배경 셋뿐이라 transition-all 로 높이까지 물릴 이유가 없다
+          "w-full border bg-card/80 backdrop-blur-sm transition-[border-color,box-shadow,background-color] duration-200 ease-out",
           "placeholder:text-muted-light/60",
-          "focus:outline-none focus:border-primary focus:bg-white focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
-          "disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-gray-50",
+          "focus:outline-none focus:border-primary focus:bg-card focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
+          "disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-card-hover",
           isInvalid
             ? "border-danger focus:border-danger focus:shadow-[0_0_0_3px_rgba(220,63,63,0.12),0_1px_2px_rgba(0,0,0,0.04)]"
-            : "border-border",
+            : "border-border hover:border-muted-light",
           sizeStyles[size],
           leftSlot && "pl-9",
           rightSlot && "pr-9",

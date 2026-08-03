@@ -222,7 +222,11 @@ export class JdDateRangePicker extends JdPickerField {
   #syncViewFromValue(): void {
     const base = parseISODate(this.startDate) ?? parseISODate(this.endDate);
     if (!base) return;
-    if (this.#viewReady && this.#viewYear === base.getFullYear() && this.#viewMonth === base.getMonth()) {
+    if (
+      this.#viewReady &&
+      this.#viewYear === base.getFullYear() &&
+      this.#viewMonth === base.getMonth()
+    ) {
       return;
     }
     this.#viewYear = base.getFullYear();
@@ -443,7 +447,11 @@ export class JdDateRangePicker extends JdPickerField {
         next = new Date(current.getFullYear(), current.getMonth(), current.getDate() - 7);
         break;
       case "Home":
-        next = new Date(current.getFullYear(), current.getMonth(), current.getDate() - current.getDay());
+        next = new Date(
+          current.getFullYear(),
+          current.getMonth(),
+          current.getDate() - current.getDay(),
+        );
         break;
       case "End":
         next = new Date(

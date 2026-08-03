@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // ActionSheet 데모 — 시스템 위임(.confirmationDialog). 선택지 목록은 Core JdActionItem 배열.
 // 액션 3개 중 하나는 destructive(삭제). onSelect가 선택된 항목을 돌려준다. 컨트롤 리터럴은 웹 attribute 일치.
@@ -8,7 +8,7 @@ enum ActionSheetDemo {
     static let demo = ComponentDemo(
         id: "ActionSheet",
         controls: [
-            .toggle("withMessage", "메시지 표시", initial: true),
+            .toggle("withMessage", "메시지 표시", initial: true)
         ],
         swiftUI: { state in AnyView(ActionSheetStage(state: state)) }
     )
@@ -40,11 +40,12 @@ private struct ActionSheetStage: View {
         }
         .padding(JdToken.Space.s6)
         .background(
-            JdActionSheet(isPresented: $isPresented,
-                          title: "항목 작업",
-                          message: message,
-                          actions: actionSheetActions,
-                          onSelect: { item in selected = item.label })
+            JdActionSheet(
+                isPresented: $isPresented,
+                title: "항목 작업",
+                message: message,
+                actions: actionSheetActions,
+                onSelect: { item in selected = item.label })
         )
     }
 }

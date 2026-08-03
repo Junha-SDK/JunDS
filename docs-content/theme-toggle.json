@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "ThemeToggle",
   "oneLiner": "라이트·다크 테마 토글.",
-  "tags": [
-    "finance",
-    "theme",
-    "토글"
-  ],
+  "tags": ["finance", "theme", "토글"],
   "controls": [],
   "snippets": {
     "web": null,

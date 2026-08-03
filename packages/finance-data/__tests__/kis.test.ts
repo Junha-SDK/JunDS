@@ -71,29 +71,31 @@ describe("fetchQuote", () => {
     const { fetchQuote } = await importKis();
     const fetchMock = stubFetchByUrl([
       ["/oauth2/tokenP", () => jsonResponse(TOKEN_BODY)],
-      ["/inquire-price", () =>
-        jsonResponse({
-          rt_cd: "0",
-          output: {
-            stck_prpr: "71200",
-            prdy_vrss: "1200",
-            prdy_ctrt: "1.71",
-            stck_oprc: "70100",
-            stck_hgpr: "71600",
-            stck_lwpr: "69900",
-            stck_sdpr: "70000",
-            acml_vol: "12345678",
-            acml_tr_pbmn: "876543210000",
-            hts_avls: "4250000", // 억원
-            per: "12.3",
-            pbr: "",            // 빈 문자열 → null
-            eps: "5788",
-            bps: "50817",
-            w52_hgpr: "88800",
-            w52_lwpr: "49900",
-            hts_frgn_ehrt: "51.2",
-          },
-        }),
+      [
+        "/inquire-price",
+        () =>
+          jsonResponse({
+            rt_cd: "0",
+            output: {
+              stck_prpr: "71200",
+              prdy_vrss: "1200",
+              prdy_ctrt: "1.71",
+              stck_oprc: "70100",
+              stck_hgpr: "71600",
+              stck_lwpr: "69900",
+              stck_sdpr: "70000",
+              acml_vol: "12345678",
+              acml_tr_pbmn: "876543210000",
+              hts_avls: "4250000", // 억원
+              per: "12.3",
+              pbr: "", // 빈 문자열 → null
+              eps: "5788",
+              bps: "50817",
+              w52_hgpr: "88800",
+              w52_lwpr: "49900",
+              hts_frgn_ehrt: "51.2",
+            },
+          }),
       ],
     ]);
 
@@ -160,17 +162,35 @@ describe("fetchChart", () => {
     const { fetchChart } = await importKis();
     stubFetchByUrl([
       ["/oauth2/tokenP", () => jsonResponse(TOKEN_BODY)],
-      ["/inquire-daily-itemchartprice", () =>
-        jsonResponse({
-          rt_cd: "0",
-          output2: [
-            // KIS 는 최신→과거 순으로 준다
-            { stck_bsop_date: "20260724", stck_oprc: "70100", stck_hgpr: "71600", stck_lwpr: "69900", stck_clpr: "71200", acml_vol: "1000", prdy_ctrt: "1.71" },
-            { stck_bsop_date: "", stck_clpr: "1" }, // 날짜 없음 → 제외
-            { stck_bsop_date: "20260723", stck_clpr: "" }, // 종가 없음 → 제외
-            { stck_bsop_date: "20260722", stck_oprc: "69000", stck_hgpr: "70500", stck_lwpr: "68800", stck_clpr: "70000", acml_vol: "900", prdy_ctrt: "-0.5" },
-          ],
-        }),
+      [
+        "/inquire-daily-itemchartprice",
+        () =>
+          jsonResponse({
+            rt_cd: "0",
+            output2: [
+              // KIS 는 최신→과거 순으로 준다
+              {
+                stck_bsop_date: "20260724",
+                stck_oprc: "70100",
+                stck_hgpr: "71600",
+                stck_lwpr: "69900",
+                stck_clpr: "71200",
+                acml_vol: "1000",
+                prdy_ctrt: "1.71",
+              },
+              { stck_bsop_date: "", stck_clpr: "1" }, // 날짜 없음 → 제외
+              { stck_bsop_date: "20260723", stck_clpr: "" }, // 종가 없음 → 제외
+              {
+                stck_bsop_date: "20260722",
+                stck_oprc: "69000",
+                stck_hgpr: "70500",
+                stck_lwpr: "68800",
+                stck_clpr: "70000",
+                acml_vol: "900",
+                prdy_ctrt: "-0.5",
+              },
+            ],
+          }),
       ],
     ]);
     const candles = await fetchChart("삼성전자", "D");
@@ -189,7 +209,9 @@ describe("fetchChart", () => {
       ["/inquire-daily-itemchartprice", () => jsonResponse({ rt_cd: "0", output2: [] })],
     ]);
     await fetchChart("005930", "M", "20250101", "20260101");
-    const url = String(fetchMock.mock.calls.find(([u]) => String(u).includes("itemchartprice"))![0]);
+    const url = String(
+      fetchMock.mock.calls.find(([u]) => String(u).includes("itemchartprice"))![0],
+    );
     expect(url).toContain("FID_PERIOD_DIV_CODE=M");
     expect(url).toContain("FID_INPUT_DATE_1=20250101");
     expect(url).toContain("FID_INPUT_DATE_2=20260101");
@@ -238,14 +260,16 @@ describe("fetchInvestorFlow", () => {
     const { fetchInvestorFlow } = await importKis();
     stubFetchByUrl([
       ["/oauth2/tokenP", () => jsonResponse(TOKEN_BODY)],
-      ["/foreign-institution-total", () =>
-        jsonResponse({
-          rt_cd: "0",
-          output: [
-            { frgn_ntby_tr_pbmn: "12000000", orgn_ntby_tr_pbmn: "-3000000" },
-            { frgn_ntby_tr_pbmn: "8000000", orgn_ntby_tr_pbmn: "1000000" },
-          ],
-        }),
+      [
+        "/foreign-institution-total",
+        () =>
+          jsonResponse({
+            rt_cd: "0",
+            output: [
+              { frgn_ntby_tr_pbmn: "12000000", orgn_ntby_tr_pbmn: "-3000000" },
+              { frgn_ntby_tr_pbmn: "8000000", orgn_ntby_tr_pbmn: "1000000" },
+            ],
+          }),
       ],
     ]);
     const flow = await fetchInvestorFlow();
@@ -259,11 +283,13 @@ describe("fetchInvestorFlow", () => {
     const { fetchInvestorFlow } = await importKis();
     stubFetchByUrl([
       ["/oauth2/tokenP", () => jsonResponse(TOKEN_BODY)],
-      ["/foreign-institution-total", () =>
-        jsonResponse({
-          rt_cd: "0",
-          output: [{ frgn_ntby_tr_pbmn: "1234.6", orgn_ntby_tr_pbmn: "10" }],
-        }),
+      [
+        "/foreign-institution-total",
+        () =>
+          jsonResponse({
+            rt_cd: "0",
+            output: [{ frgn_ntby_tr_pbmn: "1234.6", orgn_ntby_tr_pbmn: "10" }],
+          }),
       ],
     ]);
     const flow = await fetchInvestorFlow();
@@ -277,19 +303,21 @@ describe("fetchIndex", () => {
     const { fetchIndex } = await importKis();
     const fetchMock = stubFetchByUrl([
       ["/oauth2/tokenP", () => jsonResponse(TOKEN_BODY)],
-      ["/inquire-index-price", () =>
-        jsonResponse({
-          rt_cd: "0",
-          output: {
-            bstp_nmix_prpr: "7402.77",
-            bstp_nmix_prdy_vrss: "-12.3",
-            prdy_ctrt: "-0.17",
-            prdy_nmix: "7415.07",
-            bstp_nmix_oprc: "7410.1",
-            bstp_nmix_hgpr: "7431.9",
-            bstp_nmix_lwpr: "7388.2",
-          },
-        }),
+      [
+        "/inquire-index-price",
+        () =>
+          jsonResponse({
+            rt_cd: "0",
+            output: {
+              bstp_nmix_prpr: "7402.77",
+              bstp_nmix_prdy_vrss: "-12.3",
+              prdy_ctrt: "-0.17",
+              prdy_nmix: "7415.07",
+              bstp_nmix_oprc: "7410.1",
+              bstp_nmix_hgpr: "7431.9",
+              bstp_nmix_lwpr: "7388.2",
+            },
+          }),
       ],
     ]);
     const idx = await fetchIndex("KOSPI");
@@ -305,15 +333,17 @@ describe("fetchIndex", () => {
     const { fetchIndex } = await importKis();
     stubFetchByUrl([
       ["/oauth2/tokenP", () => jsonResponse(TOKEN_BODY)],
-      ["/inquire-index-price", () =>
-        jsonResponse({
-          rt_cd: "0",
-          output: {
-            bstp_nmix_prpr: "1010",
-            bstp_nmix_prdy_vrss: "10",
-            // prdy_ctrt, prdy_nmix 없음
-          },
-        }),
+      [
+        "/inquire-index-price",
+        () =>
+          jsonResponse({
+            rt_cd: "0",
+            output: {
+              bstp_nmix_prpr: "1010",
+              bstp_nmix_prdy_vrss: "10",
+              // prdy_ctrt, prdy_nmix 없음
+            },
+          }),
       ],
     ]);
     const idx = await fetchIndex("KOSDAQ");

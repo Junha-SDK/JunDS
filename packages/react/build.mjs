@@ -13,9 +13,7 @@ import { execFileSync } from "node:child_process";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const p = (...s) => join(here, ...s);
-const manifest = JSON.parse(
-  readFileSync(p("scripts/adapters.generated.json"), "utf8"),
-);
+const manifest = JSON.parse(readFileSync(p("scripts/adapters.generated.json"), "utf8"));
 
 const entryPoints = {
   index: p("src/index.ts"),

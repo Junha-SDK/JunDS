@@ -11,8 +11,16 @@ export default function BoxPage() {
       importPath='import { Box } from "@junds/ui/core"'
       props={[
         { name: "as", type: "ElementType", default: '"div"', description: "렌더링할 HTML 태그" },
-        { name: "p / px / py / pt / pr / pb / pl", type: "SpacingToken", description: "패딩 (토큰)" },
-        { name: "m / mx / my / mt / mr / mb / ml", type: "SpacingToken", description: "마진 (토큰)" },
+        {
+          name: "p / px / py / pt / pr / pb / pl",
+          type: "SpacingToken",
+          description: "패딩 (토큰)",
+        },
+        {
+          name: "m / mx / my / mt / mr / mb / ml",
+          type: "SpacingToken",
+          description: "마진 (토큰)",
+        },
         { name: "gap", type: "SpacingToken", description: "gap (토큰)" },
         { name: "bg", type: "ColorToken", description: "배경색 (토큰)" },
         { name: "color", type: "ColorToken", description: "텍스트색 (토큰)" },

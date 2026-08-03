@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "Kanban",
   "oneLiner": "칸반 보드 (가벼운 버전 — 네이티브 드래그)",
-  "tags": [
-    "data"
-  ],
+  "tags": ["data"],
   "controls": [],
   "snippets": {
     "web": null,

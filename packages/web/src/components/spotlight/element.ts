@@ -178,14 +178,20 @@ export class JdSpotlight extends JdElement {
       return;
     }
     const pad = this.padding;
-    cutout.setAttribute("x", String(rect.left - pad));
-    cutout.setAttribute("y", String(rect.top - pad));
+    // SVG 캔버스의 좌표 원점은 **호스트 상자**다. position: fixed의 컨테이닝 블록은
+    // transform·filter·contain: paint 조상이 있으면 뷰포트가 아니라 그 조상이 되므로
+    // (문서 사이트의 미리보기 무대가 실제로 contain: paint다), 뷰포트 좌표를 그대로
+    // 쓰면 구멍이 캔버스 밖으로 밀려 **회색 판만 남는다**. 원점을 빼서 좌표계를 맞춘다 —
+    // 호스트가 정말 뷰포트에 고정된 보통의 경우엔 원점이 0,0이라 값이 바뀌지 않는다.
+    const origin = this.getBoundingClientRect();
+    cutout.setAttribute("x", String(rect.left - pad - origin.left));
+    cutout.setAttribute("y", String(rect.top - pad - origin.top));
     cutout.setAttribute("width", String(Math.max(0, rect.width + pad * 2)));
     cutout.setAttribute("height", String(Math.max(0, rect.height + pad * 2)));
     if (content) {
       content.hidden = content.childNodes.length === 0;
-      content.style.top = `${rect.bottom + pad + CONTENT_GAP}px`;
-      content.style.left = `${rect.left + rect.width / 2}px`;
+      content.style.top = `${rect.bottom + pad + CONTENT_GAP - origin.top}px`;
+      content.style.left = `${rect.left + rect.width / 2 - origin.left}px`;
     }
   }
 }

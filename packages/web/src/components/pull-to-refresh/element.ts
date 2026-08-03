@@ -192,7 +192,7 @@ export class JdPullToRefresh extends JdElement {
     this.#status.textContent = this.refreshing
       ? this.refreshingLabel
       : this.#pulling > 0
-        ? this.pullLabel
-        : "";
+      ? this.pullLabel
+      : "";
   }
 }

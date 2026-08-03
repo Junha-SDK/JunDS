@@ -13,11 +13,7 @@ vi.mock("@/ds/auth/domain-lock", async (importOriginal) => {
   };
 });
 
-import {
-  JunDSProvider,
-  useJunDS,
-  useLicenseStatus,
-} from "@/ds/auth/JunDSProvider";
+import { JunDSProvider, useJunDS, useLicenseStatus } from "@/ds/auth/JunDSProvider";
 
 const VALID_KEY = "JUNDS-ABCD-1234-EFGH-5678";
 
@@ -40,14 +36,13 @@ function FullReadout() {
 function mockFetchOk(body: unknown) {
   vi.stubGlobal(
     "fetch",
-    vi.fn().mockImplementation(
-      () =>
-        Promise.resolve(
-          new Response(JSON.stringify(body), {
-            status: 200,
-            headers: { "Content-Type": "application/json" },
-          }),
-        ),
+    vi.fn().mockImplementation(() =>
+      Promise.resolve(
+        new Response(JSON.stringify(body), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      ),
     ),
   );
 }
@@ -95,10 +90,7 @@ describe("JunDSProvider — happy path", () => {
     mockFetchPending();
 
     render(
-      <JunDSProvider
-        licenseKey={VALID_KEY}
-        fallback={<span data-testid="fb">loading</span>}
-      >
+      <JunDSProvider licenseKey={VALID_KEY} fallback={<span data-testid="fb">loading</span>}>
         <StatusReadout />
       </JunDSProvider>,
     );

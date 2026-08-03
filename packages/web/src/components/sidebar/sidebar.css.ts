@@ -12,59 +12,85 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-sidebar {
-    display: flex; flex-direction: column; flex-shrink: 0;
-    box-sizing: border-box; position: relative; height: 100%;
-    width: var(--_jd-sb-w, 264px);
-    background: var(--jd-color-sidebar-bg); color: var(--jd-color-sidebar-text);
-    font-family: var(--jd-font-sans);
-    border-inline-end: var(--jd-border-thin) solid rgba(255, 255, 255, 0.05);
-    transition: width var(--jd-duration-slow) var(--jd-easing-default);
-  }
+  @layer junds.components {
+    jd-sidebar {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      position: relative;
+      height: 100%;
+      width: var(--_jd-sb-w, 264px);
+      background: var(--jd-color-sidebar-bg);
+      color: var(--jd-color-sidebar-text);
+      font-family: var(--jd-font-sans);
+      border-inline-end: var(--jd-border-thin) solid rgba(255, 255, 255, 0.05);
+      transition: width var(--jd-duration-slow) var(--jd-easing-default);
+    }
 
-  .jd-sidebar__header {
-    flex-shrink: 0; padding: var(--jd-space-4) var(--jd-space-3);
-    border-block-end: var(--jd-border-thin) solid rgba(255, 255, 255, 0.05);
-  }
-  .jd-sidebar__nav {
-    flex: 1 1 auto; min-height: 0;
-    overflow-y: auto; overflow-x: hidden;
-    padding: var(--jd-space-2);
-  }
-  .jd-sidebar__footer {
-    flex-shrink: 0; padding: var(--jd-space-3);
-    border-block-start: var(--jd-border-thin) solid rgba(255, 255, 255, 0.05);
-  }
+    .jd-sidebar__header {
+      flex-shrink: 0;
+      padding: var(--jd-space-4) var(--jd-space-3);
+      border-block-end: var(--jd-border-thin) solid rgba(255, 255, 255, 0.05);
+    }
+    .jd-sidebar__nav {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: var(--jd-space-2);
+    }
+    .jd-sidebar__footer {
+      flex-shrink: 0;
+      padding: var(--jd-space-3);
+      border-block-start: var(--jd-border-thin) solid rgba(255, 255, 255, 0.05);
+    }
 
-  .jd-sidebar__toggle {
-    position: absolute; inset-block-start: var(--jd-space-6); inset-inline-end: -12px;
-    z-index: 1; display: inline-flex; align-items: center; justify-content: center;
-    width: 24px; height: 24px; padding: 0; cursor: pointer;
-    color: var(--jd-color-muted);
-    background: var(--jd-color-card);
-    border: var(--jd-border-thin) solid var(--jd-color-border);
-    border-radius: var(--jd-radius-full);
-    box-shadow: var(--jd-shadow-sm);
-    transition: background var(--jd-duration-fast) var(--jd-easing-ease-out);
-  }
-  .jd-sidebar__toggle:hover { background: var(--jd-color-card-hover); }
-  .jd-sidebar__toggle:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
-  .jd-sidebar__toggle-icon {
-    transition: transform var(--jd-duration-normal) var(--jd-easing-default);
-  }
+    .jd-sidebar__toggle {
+      position: absolute;
+      inset-block-start: var(--jd-space-6);
+      inset-inline-end: -12px;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      cursor: pointer;
+      color: var(--jd-color-muted);
+      background: var(--jd-color-card);
+      border: var(--jd-border-thin) solid var(--jd-color-border);
+      border-radius: var(--jd-radius-full);
+      box-shadow: var(--jd-shadow-sm);
+      transition: background var(--jd-duration-fast) var(--jd-easing-ease-out);
+    }
+    .jd-sidebar__toggle:hover {
+      background: var(--jd-color-card-hover);
+    }
+    .jd-sidebar__toggle:focus-visible {
+      outline: none;
+      box-shadow: var(--jd-shadow-focus-ring);
+    }
+    .jd-sidebar__toggle-icon {
+      transition: transform var(--jd-duration-normal) var(--jd-easing-default);
+    }
 
-  /* ── 접힘: 프로바이더 소유 + 자립 두 경로 ── */
-  jd-sidebar-provider[collapsed] jd-sidebar,
-  jd-sidebar[collapsed] {
-    width: var(--_jd-sb-cw, 68px);
-  }
-  jd-sidebar-provider[collapsed] .jd-sidebar__toggle-icon,
-  jd-sidebar[collapsed] .jd-sidebar__toggle-icon {
-    transform: rotate(180deg);
-  }
+    /* ── 접힘: 프로바이더 소유 + 자립 두 경로 ── */
+    jd-sidebar-provider[collapsed] jd-sidebar,
+    jd-sidebar[collapsed] {
+      width: var(--_jd-sb-cw, 68px);
+    }
+    jd-sidebar-provider[collapsed] .jd-sidebar__toggle-icon,
+    jd-sidebar[collapsed] .jd-sidebar__toggle-icon {
+      transform: rotate(180deg);
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    jd-sidebar, .jd-sidebar__toggle-icon { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      jd-sidebar,
+      .jd-sidebar__toggle-icon {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

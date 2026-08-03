@@ -4,10 +4,7 @@
   "category": "layout",
   "title": "Overlay",
   "oneLiner": "부모 절대 덮개(inset 0) — 중앙 정렬 기본, blur(backdrop-filter 4px). Box 파생.",
-  "tags": [
-    "layout",
-    "overlay"
-  ],
+  "tags": ["layout", "overlay"],
   "controls": [
     {
       "prop": "blurred",

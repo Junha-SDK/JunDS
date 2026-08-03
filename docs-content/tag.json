@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "Tag",
   "oneLiner": "태그/칩",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": {

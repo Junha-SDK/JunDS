@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-hot-pct-chip 동형 — "급등" 강조 알약 (DEC-040).
 //
@@ -22,23 +22,31 @@ public struct JdHotPctChip: View {
     public var body: some View {
         Text(JdHotPctChipSpec.text(pct))
             .monospacedDigit()
-            .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                       weight: spec.fontWeight,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.fontSize,
+                    weight: spec.fontWeight,
+                    category: sizeCategory)
+            )
             .foregroundColor(spec.foreground.color)
             .padding(.horizontal, spec.hPadding)
             .padding(.vertical, spec.vPadding)
             .background(
-                LinearGradient(colors: [spec.gradientTop.color, spec.gradientBottom.color],
-                               startPoint: .top,
-                               endPoint: .bottom)
+                LinearGradient(
+                    colors: [spec.gradientTop.color, spec.gradientBottom.color],
+                    startPoint: .top,
+                    endPoint: .bottom)
             )
             // 알약 — 고정 반경이 아니라 Capsule이라 Dynamic Type에서 높이가 자라도 유지된다
             .clipShape(Capsule())
             // "↑"는 VoiceOver가 읽지 않거나 "위쪽 화살표"로 읽는다 — 뜻을 말로 준다
-            .accessibilityLabel(Text("급등 " + JdFinanceFormat.percentText(pct,
-                                                                          decimals: 2,
-                                                                          showSign: false,
-                                                                          withPercent: true)))
+            .accessibilityLabel(
+                Text(
+                    "급등 "
+                        + JdFinanceFormat.percentText(
+                            pct,
+                            decimals: 2,
+                            showSign: false,
+                            withPercent: true)))
     }
 }

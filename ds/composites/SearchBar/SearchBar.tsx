@@ -51,19 +51,22 @@ const sizeClass = {
  * @tags form, input
  */
 export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
-  ({
-    value: controlledValue,
-    defaultValue,
-    onChange,
-    onSearch,
-    debounceMs = 250,
-    placeholder = "검색",
-    focusShortcut = "mod+k",
-    endSlot,
-    size = "md",
-    disabled,
-    className,
-  }, ref) => {
+  (
+    {
+      value: controlledValue,
+      defaultValue,
+      onChange,
+      onSearch,
+      debounceMs = 250,
+      placeholder = "검색",
+      focusShortcut = "mod+k",
+      endSlot,
+      size = "md",
+      disabled,
+      className,
+    },
+    ref,
+  ) => {
     const [internal, setInternal] = useState(defaultValue ?? "");
     const isControlled = controlledValue !== undefined;
     const value = isControlled ? controlledValue : internal;
@@ -72,7 +75,8 @@ export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
     // forward ref
     useEffect(() => {
       if (typeof ref === "function") ref(inputRef.current);
-      else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = inputRef.current;
+      else if (ref)
+        (ref as React.MutableRefObject<HTMLInputElement | null>).current = inputRef.current;
     }, [ref]);
 
     const debounced = useDebounce(value, debounceMs);
@@ -81,11 +85,10 @@ export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debounced]);
 
-    useKeyboardShortcut(
-      focusShortcut || "noop+nothing",
-      () => inputRef.current?.focus(),
-      { enabled: !!focusShortcut, allowInInputs: true },
-    );
+    useKeyboardShortcut(focusShortcut || "noop+nothing", () => inputRef.current?.focus(), {
+      enabled: !!focusShortcut,
+      allowInInputs: true,
+    });
 
     const setValue = (v: string) => {
       if (!isControlled) setInternal(v);
@@ -95,7 +98,10 @@ export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
     return (
       <div
         className={cn(
-          "relative flex items-center w-full rounded-lg border border-border bg-surface transition-colors",
+          // 글로우는 box-shadow 라서 transition-colors 로는 전이되지 않는다 — 둘 다 지목한다
+          "relative flex items-center w-full rounded-xl border border-border bg-surface shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]",
+          "transition-[border-color,box-shadow] duration-150",
+          "hover:border-muted-light",
           "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
           disabled && "opacity-50 cursor-not-allowed",
           className,
@@ -126,7 +132,7 @@ export const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
             type="button"
             onClick={() => setValue("")}
             aria-label="지우기"
-            className="px-2 text-muted hover:text-foreground cursor-pointer"
+            className="mx-1 px-1.5 py-0.5 rounded-md text-muted transition-colors hover:text-foreground hover:bg-surface-soft active:bg-border-light cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-1 focus-visible:ring-offset-surface"
           >
             ✕
           </button>

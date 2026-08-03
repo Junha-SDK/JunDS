@@ -53,9 +53,27 @@ interface Actor {
 
 /** v2 액터 3종 — 색과 레인 오프셋은 원본 리터럴을 토큰으로 의미 번역 */
 const ACTORS: readonly Actor[] = [
-  { key: "foreign", label: "외국인", pos: "var(--jd-fin-foreign)", neg: "var(--jd-fin-foreign-neg)", lane: -1.6 },
-  { key: "institution", label: "기관", pos: "var(--jd-fin-institution)", neg: "var(--jd-fin-institution-neg)", lane: -0.5 },
-  { key: "individual", label: "개인", pos: "var(--jd-fin-individual)", neg: "var(--jd-fin-individual-neg)", lane: 0.6 },
+  {
+    key: "foreign",
+    label: "외국인",
+    pos: "var(--jd-fin-foreign)",
+    neg: "var(--jd-fin-foreign-neg)",
+    lane: -1.6,
+  },
+  {
+    key: "institution",
+    label: "기관",
+    pos: "var(--jd-fin-institution)",
+    neg: "var(--jd-fin-institution-neg)",
+    lane: -0.5,
+  },
+  {
+    key: "individual",
+    label: "개인",
+    pos: "var(--jd-fin-individual)",
+    neg: "var(--jd-fin-individual-neg)",
+    lane: 0.6,
+  },
 ];
 
 /** v2 니스 스텝 — 눈금 간격을 1·2·5·10 계열로 반올림 */
@@ -213,7 +231,13 @@ export class JdInvestorFlowChart extends JdChartBase {
     const top = Math.min(y0, y);
     const height = Math.max(1, Math.abs(y - y0));
     const rect = svgNode("rect", "jd-ifc__bar");
-    setAttrs(rect, { x: coord(x), y: coord(top), width: coord(barW), height: coord(height), rx: 1.5 });
+    setAttrs(rect, {
+      x: coord(x),
+      y: coord(top),
+      width: coord(barW),
+      height: coord(height),
+      rx: 1.5,
+    });
     rect.style.setProperty("--_c", v >= 0 ? actor.pos : actor.neg);
     this.#svg.append(rect);
   }
@@ -229,10 +253,7 @@ export class JdInvestorFlowChart extends JdChartBase {
       return;
     }
     const head = ["날짜", ...ACTORS.map((a) => a.label)];
-    const rows = this.#data.map((d) => [
-      d.date || "—",
-      ...ACTORS.map((a) => String(d[a.key])),
-    ]);
+    const rows = this.#data.map((d) => [d.date || "—", ...ACTORS.map((a) => String(d[a.key]))]);
     this.syncTable(head, rows);
   }
 }

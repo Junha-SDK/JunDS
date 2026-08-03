@@ -22,62 +22,66 @@ export interface ThinkingIndicatorProps extends HTMLAttributes<HTMLDivElement> {
  * @since 2.3.0
  * @tags feedback
  */
-export const ThinkingIndicator = forwardRef<HTMLDivElement, ThinkingIndicatorProps>(function ThinkingIndicator(
-  { variant = "dots", label, color, className, ...props },
-  ref,
-) {
-  return (
-    <div
-      ref={ref}
-      role="status"
-      aria-live="polite"
-      aria-label={typeof label === "string" ? label : "응답을 생성 중입니다"}
-      className={cn("inline-flex items-center gap-2 text-sm text-muted", className)}
-      {...props}
-    >
-      {label && <span>{label}</span>}
-      {variant === "dots" && (
-        <span className="inline-flex items-center gap-1">
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className="w-1.5 h-1.5 rounded-full"
-              style={{
-                background: color ?? "currentColor",
-                animation: `junds-think-bounce 1.4s ease-in-out ${i * 0.16}s infinite`,
-              }}
-            />
-          ))}
-        </span>
-      )}
-      {variant === "pulse" && (
-        <span
-          className="w-2 h-2 rounded-full"
-          style={{ background: color ?? "currentColor", animation: "junds-think-pulse 1.4s ease-in-out infinite" }}
-        />
-      )}
-      {variant === "wave" && (
-        <span className="inline-flex items-end gap-0.5 h-3">
-          {[0, 1, 2, 3].map((i) => (
-            <span
-              key={i}
-              className="w-0.5 rounded-full"
-              style={{
-                background: color ?? "currentColor",
-                animation: `junds-think-wave 1s ease-in-out ${i * 0.1}s infinite`,
-                height: "100%",
-              }}
-            />
-          ))}
-        </span>
-      )}
-      {variant === "typewriter" && (
-        <span
-          className="w-0.5 h-3.5 rounded-sm align-middle"
-          style={{ background: color ?? "currentColor", animation: "junds-think-blink 1s steps(2) infinite" }}
-        />
-      )}
-      <style>{`
+export const ThinkingIndicator = forwardRef<HTMLDivElement, ThinkingIndicatorProps>(
+  function ThinkingIndicator({ variant = "dots", label, color, className, ...props }, ref) {
+    return (
+      <div
+        ref={ref}
+        role="status"
+        aria-live="polite"
+        aria-label={typeof label === "string" ? label : "응답을 생성 중입니다"}
+        className={cn("inline-flex items-center gap-2 text-sm text-muted", className)}
+        {...props}
+      >
+        {label && <span>{label}</span>}
+        {variant === "dots" && (
+          <span className="inline-flex items-center gap-1">
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className="w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: color ?? "currentColor",
+                  animation: `junds-think-bounce 1.4s ease-in-out ${i * 0.16}s infinite`,
+                }}
+              />
+            ))}
+          </span>
+        )}
+        {variant === "pulse" && (
+          <span
+            className="w-2 h-2 rounded-full"
+            style={{
+              background: color ?? "currentColor",
+              animation: "junds-think-pulse 1.4s ease-in-out infinite",
+            }}
+          />
+        )}
+        {variant === "wave" && (
+          <span className="inline-flex items-end gap-0.5 h-3">
+            {[0, 1, 2, 3].map((i) => (
+              <span
+                key={i}
+                className="w-0.5 rounded-full"
+                style={{
+                  background: color ?? "currentColor",
+                  animation: `junds-think-wave 1s ease-in-out ${i * 0.1}s infinite`,
+                  height: "100%",
+                }}
+              />
+            ))}
+          </span>
+        )}
+        {variant === "typewriter" && (
+          <span
+            className="w-0.5 h-3.5 rounded-sm align-middle"
+            style={{
+              background: color ?? "currentColor",
+              animation: "junds-think-blink 1s steps(2) infinite",
+            }}
+          />
+        )}
+        <style>{`
         @keyframes junds-think-bounce {
           0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
           40% { transform: translateY(-3px); opacity: 1; }
@@ -95,6 +99,7 @@ export const ThinkingIndicator = forwardRef<HTMLDivElement, ThinkingIndicatorPro
           50% { opacity: 0; }
         }
       `}</style>
-    </div>
-  );
-});
+      </div>
+    );
+  },
+);

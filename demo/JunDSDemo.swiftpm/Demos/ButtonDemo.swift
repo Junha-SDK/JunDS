@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Button 데모 — 스키마 구동 패턴의 정본. 새 데모는 이 파일 구조를 복제한다:
 // 1) ComponentDemo 하나(컨트롤 정의 + 스테이지 클로저) 2) 스테이지 뷰(상태 관찰) 3) 등록은 DemoRegistry.
@@ -9,7 +9,8 @@ enum ButtonDemo {
     static let demo = ComponentDemo(
         id: "Button",
         controls: [
-            .options("variant", "variant", JdButtonVariant.allCases.map(\.rawValue), initial: "primary"),
+            .options(
+                "variant", "variant", JdButtonVariant.allCases.map(\.rawValue), initial: "primary"),
             .options("size", "size", JdControlSize.allCases.map(\.rawValue), initial: "md"),
             .toggle("loading", "loading"),
             .toggle("disabled", "disabled"),

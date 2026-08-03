@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "MiniCandle",
   "oneLiner": "시드 기반 미니 캔들 스파크 — 셀 장식용.",
-  "tags": [
-    "finance",
-    "chart",
-    "미니"
-  ],
+  "tags": ["finance", "chart", "미니"],
   "controls": [],
   "snippets": {
     "web": null,

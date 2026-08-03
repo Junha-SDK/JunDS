@@ -28,7 +28,9 @@ describe("jd-page", () => {
   test("p 스타일 프롭이 인라인으로 기본 패딩을 덮는다", async () => {
     document.body.innerHTML = `<jd-page p="0"></jd-page>`;
     await tick();
-    expect(document.querySelector<HTMLElement>("jd-page")!.style.getPropertyValue("padding")).toBe("0px");
+    expect(document.querySelector<HTMLElement>("jd-page")!.style.getPropertyValue("padding")).toBe(
+      "0px",
+    );
   });
 });
 
@@ -79,8 +81,7 @@ describe("jd-page-header", () => {
 
 describe("jd-section", () => {
   test("children → __body 이동, title/desc 헤더 렌더", async () => {
-    document.body.innerHTML =
-      `<jd-section title="설정" description="계정 옵션"><p id="c">내용</p></jd-section>`;
+    document.body.innerHTML = `<jd-section title="설정" description="계정 옵션"><p id="c">내용</p></jd-section>`;
     await tick();
     const el = document.querySelector<JdSection>("jd-section")!;
     expect(el.querySelector(":scope > .jd-section__body #c")).not.toBeNull();
@@ -113,8 +114,9 @@ describe("jd-section", () => {
     await tick();
     const el = document.querySelector<JdSection>("jd-section")!;
     expect(el.style.getPropertyValue("gap")).toBe("");
-    expect(el.querySelector<HTMLElement>(".jd-section__body")!.style.getPropertyValue("gap"))
-      .toBe("var(--jd-space-6)");
+    expect(el.querySelector<HTMLElement>(".jd-section__body")!.style.getPropertyValue("gap")).toBe(
+      "var(--jd-space-6)",
+    );
   });
 
   test("p는 호스트 패딩, border는 Boolean 반영 (스타일 프롭 border와 분리)", async () => {

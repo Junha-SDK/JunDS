@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-status-dot 동형 — 상태 점 + 선택 라벨. A8 명명 규칙 Jd<이름>View.
 // 웹은 점을 ::before로 그리고 라벨만 span이라 role·aria가 전무하다 — **라벨이 없으면 AT에
@@ -30,22 +30,25 @@ public final class JdStatusDotView: UIView {
     private let contentStack: JdStackView
     private var spec: JdStatusDotSpec
 
-    public init(_ status: JdStatusKind = .neutral,
-                label: String? = nil,
-                size: JdDisplaySize = .md) {
+    public init(
+        _ status: JdStatusKind = .neutral,
+        label: String? = nil,
+        size: JdDisplaySize = .md
+    ) {
         self.status = status
         self.label = label
         self.size = size
         self.spec = JdStatusDotSpec.resolve(status: status, size: size)
         // 웹 gap: var(--jd-space-1-5) — named JdGap에 없는 값이라 custom + 스펙 참조
-        self.contentStack = JdStackView(axis: .horizontal,
-                                        gap: .custom(spec.gap),
-                                        alignment: .center)
+        self.contentStack = JdStackView(
+            axis: .horizontal,
+            gap: .custom(spec.gap),
+            alignment: .center)
         super.init(frame: .zero)
 
         dot.isUserInteractionEnabled = false
         textLabel.adjustsFontForContentSizeCategory = true
-        textLabel.numberOfLines = 1 // 웹 인라인 라벨 동형
+        textLabel.numberOfLines = 1  // 웹 인라인 라벨 동형
 
         contentStack.addArrangedSubview(dot)
         contentStack.addArrangedSubview(textLabel)
@@ -107,9 +110,10 @@ public final class JdStatusDotView: UIView {
         dot.backgroundColor = spec.color.uiColor
         dot.layer.cornerRadius = spec.dotSize / 2
         dot.layer.cornerCurve = .continuous
-        textLabel.font = JdFontBridge.scaledFont(size: spec.labelFontSize,
-                                                 weight: JdToken.FontWeight.normal,
-                                                 compatibleWith: traitCollection)
+        textLabel.font = JdFontBridge.scaledFont(
+            size: spec.labelFontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         textLabel.textColor = JdToken.Color.foreground.uiColor
     }
 
@@ -135,11 +139,12 @@ public final class JdStatusDotView: UIView {
         animation.duration = period / 2
         animation.autoreverses = true
         animation.repeatCount = .infinity
-        let easing = JdToken.Easing.easeInOut // 웹 cubic-bezier(0.4, 0, 0.6, 1)의 토큰 대응분
-        animation.timingFunction = CAMediaTimingFunction(controlPoints: Float(easing.0),
-                                                         Float(easing.1),
-                                                         Float(easing.2),
-                                                         Float(easing.3))
+        let easing = JdToken.Easing.easeInOut  // 웹 cubic-bezier(0.4, 0, 0.6, 1)의 토큰 대응분
+        animation.timingFunction = CAMediaTimingFunction(
+            controlPoints: Float(easing.0),
+            Float(easing.1),
+            Float(easing.2),
+            Float(easing.3))
         dot.layer.add(animation, forKey: JdStatusDotView.pulseKey)
     }
 

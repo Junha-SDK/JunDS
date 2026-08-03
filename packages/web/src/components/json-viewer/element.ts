@@ -51,8 +51,7 @@ function formatLeaf(v: unknown): string {
   return String(v);
 }
 
-const isBranch = (v: unknown): v is Record<string, unknown> =>
-  v !== null && typeof v === "object";
+const isBranch = (v: unknown): v is Record<string, unknown> => v !== null && typeof v === "object";
 
 export class JdJsonViewer extends JdElement {
   static override tag = "jd-json-viewer";
@@ -103,7 +102,9 @@ export class JdJsonViewer extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       this.#data = JSON.parse(script.textContent || "null") as unknown;

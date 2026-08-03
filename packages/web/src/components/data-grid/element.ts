@@ -154,7 +154,11 @@ export class JdDataGrid extends JdTable {
   protected sortedRows(): JdTableRow[] {
     const key = this.sortKey;
     const signature = `${key}|${this.sortDir}`;
-    if (this.#sortedCache && this.#sortSignature === signature && this.#sortSource === this.rowData) {
+    if (
+      this.#sortedCache &&
+      this.#sortSignature === signature &&
+      this.#sortSource === this.rowData
+    ) {
       return this.#sortedCache;
     }
     let out: JdTableRow[];
@@ -191,9 +195,7 @@ export class JdDataGrid extends JdTable {
     const sorted = this.sortedRows();
     const size = this.resolvedPageSize;
     const start = (this.clampPage(this.page) - 1) * size;
-    return sorted
-      .slice(start, start + size)
-      .map((row, i) => ({ row, index: start + i })); // index = 정렬본 좌표
+    return sorted.slice(start, start + size).map((row, i) => ({ row, index: start + i })); // index = 정렬본 좌표
   }
 
   protected override rowAt(index: number): JdTableRow | undefined {
@@ -240,11 +242,7 @@ export class JdDataGrid extends JdTable {
     return th;
   }
 
-  protected override buildRowCells(
-    tr: HTMLTableRowElement,
-    row: JdTableRow,
-    index: number,
-  ): void {
+  protected override buildRowCells(tr: HTMLTableRowElement, row: JdTableRow, index: number): void {
     if (this.selectable) tr.append(this.#buildSelectCell(index));
     super.buildRowCells(tr, row, index);
   }

@@ -86,9 +86,7 @@ export function CodeExporter({ onClose }: { onClose: () => void }) {
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-[#2a2744]">
-          <h3 className="text-sm font-semibold text-white/90">
-            생성된 코드
-          </h3>
+          <h3 className="text-sm font-semibold text-white/90">생성된 코드</h3>
           <div className="flex items-center gap-2">
             {/* Copy */}
             <button
@@ -132,11 +130,7 @@ export function CodeExporter({ onClose }: { onClose: () => void }) {
                 stroke="currentColor"
                 strokeWidth={2}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>

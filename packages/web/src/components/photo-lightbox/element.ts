@@ -99,7 +99,9 @@ export class JdPhotoLightbox extends JdModal {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdLightboxPhoto[];

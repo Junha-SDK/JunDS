@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "RadarChart",
   "oneLiner": "레이더(방사형) 차트.",
-  "tags": [
-    "chart",
-    "차트",
-    "레이더"
-  ],
+  "tags": ["chart", "차트", "레이더"],
   "controls": [],
   "snippets": {
     "web": null,

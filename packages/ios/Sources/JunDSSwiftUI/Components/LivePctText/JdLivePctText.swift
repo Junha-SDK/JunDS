@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-live-pct-text 동형 — 등락률 텍스트 리프 (DEC-040).
 //
@@ -22,11 +22,13 @@ public struct JdLivePctText: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(change: Double,
-                fallback: Double = 0,
-                decimals: Int = 2,
-                showSign: Bool = true,
-                withPercent: Bool = true) {
+    public init(
+        change: Double,
+        fallback: Double = 0,
+        decimals: Int = 2,
+        showSign: Bool = true,
+        withPercent: Bool = true
+    ) {
         self.change = change
         self.fallback = fallback
         self.decimals = decimals
@@ -36,10 +38,11 @@ public struct JdLivePctText: View {
 
     /// 확정 표시 문자열 — 파생(JdLivePctBadge)·소비자 공용. 웹 `get formatted()` 동형.
     public var formatted: String {
-        JdFinanceFormat.percentText(resolvedValue,
-                                    decimals: decimals,
-                                    showSign: showSign,
-                                    withPercent: withPercent)
+        JdFinanceFormat.percentText(
+            resolvedValue,
+            decimals: decimals,
+            showSign: showSign,
+            withPercent: withPercent)
     }
 
     /// 표시값 — 추세 판정도 이 값으로 한다(원시 change가 아니라 **화면의 숫자**로 판정해야
@@ -52,8 +55,10 @@ public struct JdLivePctText: View {
         Text(formatted)
             // 갱신 때 자리수가 바뀌어도 폭이 흔들리지 않게 tabular (웹 tabular-nums 동형)
             .monospacedDigit()
-            .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .md).fontSize,
-                                       weight: JdToken.FontWeight.normal,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: JdTextSpec.resolve(size: .md).fontSize,
+                    weight: JdToken.FontWeight.normal,
+                    category: sizeCategory))
     }
 }

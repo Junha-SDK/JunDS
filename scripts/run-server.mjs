@@ -69,9 +69,7 @@ const url = `http://localhost:${port}`;
 const bar = "─".repeat(40);
 console.log(`\u001b[36m${bar}\u001b[0m`);
 if (shifted) {
-  console.log(
-    `\u001b[33m  port ${desiredPort} busy → falling back to ${port}\u001b[0m`,
-  );
+  console.log(`\u001b[33m  port ${desiredPort} busy → falling back to ${port}\u001b[0m`);
 }
 console.log(`\u001b[1m  ▶ ${url}\u001b[0m`);
 console.log(`\u001b[36m${bar}\u001b[0m`);
@@ -88,11 +86,10 @@ const passthrough = args.filter((_, i) => {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const nextBin = path.resolve(__dirname, "../node_modules/next/dist/bin/next");
 
-const child = spawn(
-  process.execPath,
-  [nextBin, subcommand, "-p", String(port), ...passthrough],
-  { stdio: "inherit", env: { ...process.env, PORT: String(port) } },
-);
+const child = spawn(process.execPath, [nextBin, subcommand, "-p", String(port), ...passthrough], {
+  stdio: "inherit",
+  env: { ...process.env, PORT: String(port) },
+});
 
 child.on("exit", (code, signal) => {
   if (signal) process.kill(process.pid, signal);

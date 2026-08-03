@@ -31,7 +31,9 @@ export function ButtonGroup({ children, separated, fullWidth, className }: Butto
       className={cn(
         "inline-flex",
         fullWidth && "w-full",
-        separated ? "gap-1" : "[&>*]:rounded-none [&>*:first-child]:rounded-l-lg [&>*:last-child]:rounded-r-lg [&>*:not(:last-child)]:border-r-0",
+        separated
+          ? "gap-1"
+          : "[&>*]:rounded-none [&>*:first-child]:rounded-l-lg [&>*:last-child]:rounded-r-lg [&>*:not(:last-child)]:border-r-0",
         className,
       )}
       role="group"

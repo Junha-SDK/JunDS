@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveStatusDot",
   "oneLiner": "실시간 연결 상태 점.",
-  "tags": [
-    "finance",
-    "live",
-    "상태"
-  ],
+  "tags": ["finance", "live", "상태"],
   "controls": [],
   "snippets": {
     "web": null,

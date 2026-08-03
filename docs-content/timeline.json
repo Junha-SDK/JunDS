@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Timeline",
   "oneLiner": "타임라인",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -20,7 +20,12 @@ export default function StatusDotPage() {
       description="상태 표시 점. 다양한 상태를 색상으로 직관적으로 나타냅니다."
       importPath='import { StatusDot } from "@/ds/primitives/StatusDot"'
       props={[
-        { name: "status", type: '"success"|"warning"|"danger"|"info"|"neutral"|"pulse"', default: '"neutral"', description: "상태" },
+        {
+          name: "status",
+          type: '"success"|"warning"|"danger"|"info"|"neutral"|"pulse"',
+          default: '"neutral"',
+          description: "상태",
+        },
         { name: "label", type: "string", description: "라벨 텍스트" },
         { name: "size", type: '"sm"|"md"|"lg"', default: '"md"', description: "크기" },
       ]}

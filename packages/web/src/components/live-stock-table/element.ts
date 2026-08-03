@@ -39,7 +39,11 @@ export interface JdLiveStock {
 
 const MARKET_FILTERS = ["ALL", "KOSPI", "KOSDAQ"] as const;
 type MarketFilter = (typeof MARKET_FILTERS)[number];
-const MARKET_LABEL: Record<MarketFilter, string> = { ALL: "전체", KOSPI: "코스피", KOSDAQ: "코스닥" };
+const MARKET_LABEL: Record<MarketFilter, string> = {
+  ALL: "전체",
+  KOSPI: "코스피",
+  KOSDAQ: "코스닥",
+};
 
 const SORT_OPTIONS: readonly { value: SortKey; label: string }[] = [
   { value: "pctDesc", label: "등락률 ↓" },
@@ -233,7 +237,8 @@ export class JdLiveStockTable extends JdElement {
     try {
       const parsed: unknown = JSON.parse(script.textContent || "[]");
       // 슬롯은 초기값 — 이미 대입된 stocks 프로퍼티를 덮지 않는다(§1.3)
-      if (Array.isArray(parsed) && this.#stocks.length === 0) this.#stocks = this.#normalize(parsed);
+      if (Array.isArray(parsed) && this.#stocks.length === 0)
+        this.#stocks = this.#normalize(parsed);
     } catch {
       console.warn("[junds] <jd-live-stock-table> JSON 슬롯 파싱 실패 — 무시합니다.");
     }
@@ -277,7 +282,9 @@ export class JdLiveStockTable extends JdElement {
   }
 
   #groups(): string[] {
-    return Array.from(new Set(this.#stocks.map((s) => s.group).filter((g): g is string => Boolean(g))));
+    return Array.from(
+      new Set(this.#stocks.map((s) => s.group).filter((g): g is string => Boolean(g))),
+    );
   }
 
   /** 섹터 목록이 바뀌었을 때만 select 옵션을 다시 세운다(선택 유지) */
@@ -310,11 +317,21 @@ export class JdLiveStockTable extends JdElement {
     if (q) out = out.filter((s) => s.name.toLowerCase().includes(q) || s.code.includes(q));
     const sorted = [...out];
     switch (this.#sort) {
-      case "pctDesc": sorted.sort((a, b) => b.pct - a.pct); break;
-      case "pctAsc": sorted.sort((a, b) => a.pct - b.pct); break;
-      case "volumeDesc": sorted.sort((a, b) => b.volume - a.volume); break;
-      case "priceDesc": sorted.sort((a, b) => b.price - a.price); break;
-      case "name": sorted.sort((a, b) => a.name.localeCompare(b.name, "ko-KR")); break;
+      case "pctDesc":
+        sorted.sort((a, b) => b.pct - a.pct);
+        break;
+      case "pctAsc":
+        sorted.sort((a, b) => a.pct - b.pct);
+        break;
+      case "volumeDesc":
+        sorted.sort((a, b) => b.volume - a.volume);
+        break;
+      case "priceDesc":
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case "name":
+        sorted.sort((a, b) => a.name.localeCompare(b.name, "ko-KR"));
+        break;
     }
     return sorted;
   }
@@ -328,11 +345,14 @@ export class JdLiveStockTable extends JdElement {
     }
 
     (this.#dot as unknown as { live: boolean }).live = this.live;
-    (this.#dot as unknown as { label: string }).label = this.label || (this.live ? "LIVE" : "장마감");
+    (this.#dot as unknown as { label: string }).label =
+      this.label || (this.live ? "LIVE" : "장마감");
     this.#count.textContent = `전 종목 (${this.#stocks.length})`;
     this.#scroll.style.maxHeight = `${Math.max(120, this.maxHeight)}px`;
 
-    for (const btn of this.#marketToggle.querySelectorAll<HTMLButtonElement>(".jd-lst__toggle-btn")) {
+    for (const btn of this.#marketToggle.querySelectorAll<HTMLButtonElement>(
+      ".jd-lst__toggle-btn",
+    )) {
       const on = btn.dataset.market === this.#market;
       btn.toggleAttribute("data-active", on);
       btn.setAttribute("aria-pressed", String(on));
@@ -404,7 +424,9 @@ export class JdLiveStockTable extends JdElement {
     price.className = "jd-lst__price";
     price.dataset.trend = trend;
     price.dataset.right = "";
-    price.textContent = `${trend === "up" ? "▲" : trend === "down" ? "▼" : ""}${groupDigits(Math.round(s.price))}`;
+    price.textContent = `${trend === "up" ? "▲" : trend === "down" ? "▼" : ""}${groupDigits(
+      Math.round(s.price),
+    )}`;
 
     const pct = document.createElement("td");
     pct.className = "jd-lst__pct";

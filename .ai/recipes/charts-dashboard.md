@@ -48,8 +48,16 @@ export default function ChartsDashboard() {
             showGrid
             height={240}
             series={[
-              { name: "Web", color: "var(--primary)", values: [120, 132, 145, 168, 159, 102, 88] },
-              { name: "Mobile", color: "var(--success)", values: [90, 102, 120, 135, 142, 95, 80] },
+              {
+                name: "Web",
+                color: "var(--primary)",
+                values: [120, 132, 145, 168, 159, 102, 88],
+              },
+              {
+                name: "Mobile",
+                color: "var(--success)",
+                values: [90, 102, 120, 135, 142, 95, 80],
+              },
             ]}
           />
         </Card>
@@ -92,7 +100,11 @@ export default function ChartsDashboard() {
             showGrid
             height={220}
             series={[
-              { name: "전환율(%)", color: "var(--primary)", values: [3.1, 3.4, 3.0, 3.6, 3.8, 3.5, 3.9] },
+              {
+                name: "전환율(%)",
+                color: "var(--primary)",
+                values: [3.1, 3.4, 3.0, 3.6, 3.8, 3.5, 3.9],
+              },
             ]}
           />
         </Card>

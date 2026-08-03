@@ -55,8 +55,11 @@ function rgbToHex(r: number, g: number, b: number): string {
 }
 
 function rgbToHsl(r: number, g: number, b: number): { h: number; s: number; l: number } {
-  const rn = r / 255, gn = g / 255, bn = b / 255;
-  const max = Math.max(rn, gn, bn), min = Math.min(rn, gn, bn);
+  const rn = r / 255,
+    gn = g / 255,
+    bn = b / 255;
+  const max = Math.max(rn, gn, bn),
+    min = Math.min(rn, gn, bn);
   let h = 0;
   const l = (max + min) / 2;
   const d = max - min;
@@ -64,9 +67,15 @@ function rgbToHsl(r: number, g: number, b: number): { h: number; s: number; l: n
   if (d !== 0) {
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
     switch (max) {
-      case rn: h = ((gn - bn) / d + (gn < bn ? 6 : 0)); break;
-      case gn: h = ((bn - rn) / d + 2); break;
-      case bn: h = ((rn - gn) / d + 4); break;
+      case rn:
+        h = (gn - bn) / d + (gn < bn ? 6 : 0);
+        break;
+      case gn:
+        h = (bn - rn) / d + 2;
+        break;
+      case bn:
+        h = (rn - gn) / d + 4;
+        break;
     }
     h *= 60;
   }
@@ -77,13 +86,28 @@ function hslToRgb(h: number, s: number, l: number): { r: number; g: number; b: n
   const c = (1 - Math.abs(2 * l - 1)) * s;
   const hp = (((h % 360) + 360) % 360) / 60;
   const x = c * (1 - Math.abs((hp % 2) - 1));
-  let r1 = 0, g1 = 0, b1 = 0;
-  if (hp < 1) { r1 = c; g1 = x; }
-  else if (hp < 2) { r1 = x; g1 = c; }
-  else if (hp < 3) { g1 = c; b1 = x; }
-  else if (hp < 4) { g1 = x; b1 = c; }
-  else if (hp < 5) { r1 = x; b1 = c; }
-  else { r1 = c; b1 = x; }
+  let r1 = 0,
+    g1 = 0,
+    b1 = 0;
+  if (hp < 1) {
+    r1 = c;
+    g1 = x;
+  } else if (hp < 2) {
+    r1 = x;
+    g1 = c;
+  } else if (hp < 3) {
+    g1 = c;
+    b1 = x;
+  } else if (hp < 4) {
+    g1 = x;
+    b1 = c;
+  } else if (hp < 5) {
+    r1 = x;
+    b1 = c;
+  } else {
+    r1 = c;
+    b1 = x;
+  }
   const m = l - c / 2;
   return { r: (r1 + m) * 255, g: (g1 + m) * 255, b: (b1 + m) * 255 };
 }
@@ -142,10 +166,7 @@ export function applyAccent(input: string): AccentTokens {
   root.style.setProperty("--bm-accent-strong", tokens.strong);
   root.style.setProperty("--bm-accent-soft", tokens.soft);
   const isDark = root.getAttribute("data-theme") === "dark";
-  root.style.setProperty(
-    "--bm-accent-soft-bg",
-    isDark ? tokens.softBgDark : tokens.softBgLight,
-  );
+  root.style.setProperty("--bm-accent-soft-bg", isDark ? tokens.softBgDark : tokens.softBgLight);
   root.style.setProperty("--bm-accent-gradient", tokens.gradient);
   root.style.setProperty("--bm-focus-ring", tokens.focusRing);
   root.style.setProperty("--bm-accent-soft-bg-light", tokens.softBgLight);

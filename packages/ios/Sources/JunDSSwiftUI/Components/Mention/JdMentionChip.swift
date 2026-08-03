@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-mention-chip 동형 — `@handle` 표시용 링크 칩 (DESIGN-3 §C).
 //
@@ -17,10 +17,12 @@ public struct JdMentionLabel: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(handle: String,
-                label: String = "",
-                isVerified: Bool = false,
-                destination: URL? = nil) {
+    public init(
+        handle: String,
+        label: String = "",
+        isVerified: Bool = false,
+        destination: URL? = nil
+    ) {
         self.handle = handle
         self.label = label
         self.isVerified = isVerified
@@ -52,15 +54,18 @@ public struct JdMentionLabel: View {
     // MARK: 내부
 
     private var run: some View {
-        HStack(spacing: JdToken.Space.s0_5) { // 웹 gap: var(--jd-space-0-5)
+        HStack(spacing: JdToken.Space.s0_5) {  // 웹 gap: var(--jd-space-0-5)
             Text(displayText)
-                .fontWeight(.medium) // 웹 font-weight: var(--jd-weight-medium)
+                .fontWeight(.medium)  // 웹 font-weight: var(--jd-weight-medium)
             if isVerified {
                 // 웹은 텍스트 "✓" + aria-label — iOS는 SF Symbol로 옮기고 의미는 라벨이 싣는다
                 Image(systemName: "checkmark.seal.fill")
-                    .font(JdSwiftUIFont.scaled(size: JdMentionStyle.markFontSize,
-                                               weight: JdToken.FontWeight.medium,
-                                               category: sizeCategory))
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: JdMentionStyle.markFontSize,
+                            weight: JdToken.FontWeight.medium,
+                            category: sizeCategory)
+                    )
                     .accessibilityHidden(true)
             }
         }

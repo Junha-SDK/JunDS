@@ -69,14 +69,12 @@ function parseArgs(argv) {
   return args;
 }
 
-const NPM_NAME_REGEX =
-  /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
+const NPM_NAME_REGEX = /^(?:@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
 
 function validateProjectName(name) {
   if (!name) return "name is required";
   if (name.length > 214) return "name must be ≤ 214 chars";
-  if (name.startsWith(".") || name.startsWith("_"))
-    return "name cannot start with '.' or '_'";
+  if (name.startsWith(".") || name.startsWith("_")) return "name cannot start with '.' or '_'";
   if (!NPM_NAME_REGEX.test(name))
     return "name must be lowercase, may contain a-z 0-9 - _ . ~ and an optional @scope/ prefix";
   return null;

@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-position-bar 동형 — 구간 대비 현재 위치 막대. (DEC-041)
 //
@@ -75,18 +75,21 @@ public final class JdPositionBarView: UIView {
         track.frame = CGRect(x: 0, y: trackY, width: w, height: spec.trackHeight)
         track.layer.cornerRadius = spec.trackHeight / 2
 
-        band.frame = CGRect(x: w * CGFloat(geo.bandStart / 100), y: 0,
-                            width: w * CGFloat(geo.bandWidth / 100), height: spec.trackHeight)
-        fill.frame = CGRect(x: w * CGFloat(geo.fillStart / 100), y: 0,
-                            width: w * CGFloat(geo.fillWidth / 100), height: spec.trackHeight)
+        band.frame = CGRect(
+            x: w * CGFloat(geo.bandStart / 100), y: 0,
+            width: w * CGFloat(geo.bandWidth / 100), height: spec.trackHeight)
+        fill.frame = CGRect(
+            x: w * CGFloat(geo.fillStart / 100), y: 0,
+            width: w * CGFloat(geo.fillWidth / 100), height: spec.trackHeight)
         band.layer.cornerRadius = spec.trackHeight / 2
         fill.layer.cornerRadius = spec.trackHeight / 2
 
         // 웹과 같이 정중앙(50%) 고정 — cur이 아니라 기준선이다
-        marker.frame = CGRect(x: w / 2 - spec.markerWidth / 2,
-                              y: (bounds.height - spec.markerHeight) / 2,
-                              width: spec.markerWidth,
-                              height: spec.markerHeight)
+        marker.frame = CGRect(
+            x: w / 2 - spec.markerWidth / 2,
+            y: (bounds.height - spec.markerHeight) / 2,
+            width: spec.markerWidth,
+            height: spec.markerHeight)
         marker.layer.cornerRadius = spec.markerWidth / 2
     }
 

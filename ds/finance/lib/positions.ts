@@ -126,10 +126,7 @@ export function derivePositionsFromTrades(trades: TradeEntry[]): DerivedPosition
  *
  * Positions with zero remaining qty are dropped from the result.
  */
-export function mergePositions(
-  derived: DerivedPosition[],
-  manual: Holding[],
-): DerivedPosition[] {
+export function mergePositions(derived: DerivedPosition[], manual: Holding[]): DerivedPosition[] {
   const map = new Map<string, DerivedPosition>();
   for (const p of derived) map.set(p.name, p);
   for (const h of manual) {
@@ -199,10 +196,11 @@ export function summarizeRealized(positions: DerivedPosition[]): RealizedSummary
       const totalCost = p.realizedSells.reduce((s, r) => s + r.cost, 0);
       const totalProceeds = p.realizedSells.reduce((s, r) => s + r.qty * r.price, 0);
       const pct = totalCost > 0 ? (totalProfit / totalCost) * 100 : 0;
-      const lastSellAt = p.realizedSells
-        .map((r) => r.at)
-        .sort()
-        .at(-1) ?? "";
+      const lastSellAt =
+        p.realizedSells
+          .map((r) => r.at)
+          .sort()
+          .at(-1) ?? "";
       return {
         name: p.name,
         sells: p.realizedSells,

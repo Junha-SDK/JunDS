@@ -6,10 +6,7 @@
 import { expect, test } from "@playwright/test";
 import { mount, pressTab } from "./helpers.js";
 
-test("jd-focus-guard: 실제 Tab이 영역 밖으로 나가지 못한다", async ({
-  page,
-  browserName,
-}) => {
+test("jd-focus-guard: 실제 Tab이 영역 밖으로 나가지 못한다", async ({ page, browserName }) => {
   await mount(
     page,
     `<button id="out">밖</button>
@@ -33,10 +30,7 @@ test("jd-focus-guard: 실제 Tab이 영역 밖으로 나가지 못한다", async
   ).toBe(true);
 });
 
-test("jd-focus-guard: 기본(비활성)은 포커스를 강탈하지 않는다", async ({
-  page,
-  browserName,
-}) => {
+test("jd-focus-guard: 기본(비활성)은 포커스를 강탈하지 않는다", async ({ page, browserName }) => {
   await mount(
     page,
     `<button id="out">밖</button>
@@ -51,10 +45,7 @@ test("jd-focus-guard: 기본(비활성)은 포커스를 강탈하지 않는다",
   await expect(page.locator("#after")).toBeFocused(); // 감금 없이 다음 컨트롤로 나간다
 });
 
-test("jd-focus-guard: 조상이 재부모화해도 감금이 살아남는다", async ({
-  page,
-  browserName,
-}) => {
+test("jd-focus-guard: 조상이 재부모화해도 감금이 살아남는다", async ({ page, browserName }) => {
   await mount(
     page,
     `<div id="box1"><jd-focus-guard id="g" active>
@@ -62,9 +53,7 @@ test("jd-focus-guard: 조상이 재부모화해도 감금이 살아남는다", a
      </jd-focus-guard></div><div id="box2"></div>`,
   );
   // own()한 Behavior는 disconnect에서 destroy된다 — 재연결에서 다시 만들지 않으면 죽는다
-  await page.evaluate(() =>
-    document.querySelector("#box2")!.append(document.querySelector("#g")!),
-  );
+  await page.evaluate(() => document.querySelector("#box2")!.append(document.querySelector("#g")!));
   await page.locator("#b").focus();
   await pressTab(page, browserName);
   expect(await page.evaluate(() => document.activeElement?.id)).toBe("a"); // 순환 유지
@@ -125,11 +114,13 @@ test("jd-error-boundary: auto가 자손 이미지 로드 실패를 잡아 폴백
 test("jd-follow-button: 팔로잉 호버가 언팔로우 라벨로 바뀐다 (CSS만)", async ({ page }) => {
   await mount(page, `<jd-follow-button following></jd-follow-button>`);
   const shown = () =>
-    page.locator("jd-follow-button").evaluate((el) =>
-      [...el.querySelectorAll("span")]
-        .filter((s) => getComputedStyle(s).display !== "none")
-        .map((s) => s.textContent),
-    );
+    page
+      .locator("jd-follow-button")
+      .evaluate((el) =>
+        [...el.querySelectorAll("span")]
+          .filter((s) => getComputedStyle(s).display !== "none")
+          .map((s) => s.textContent),
+      );
   expect(await shown()).toEqual(["팔로잉"]);
   await page.locator("jd-follow-button button").hover();
   expect(await shown()).toEqual(["언팔로우"]);

@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // JdBreakpoint.isVisible / JdContainerSize.maxWidth는 순수 함수라 전수 검증한다
 // (04 §4.2 규칙 1·3 — 렌더 계층은 이 판정을 다시 구현하지 않는다).
@@ -44,12 +44,15 @@ final class JdBreakpointTests: XCTestCase {
     func test_above_only_boundary_for_every_breakpoint() {
         for breakpoint in JdBreakpoint.allCases {
             let edge = breakpoint.width
-            XCTAssertFalse(JdBreakpoint.isVisible(width: edge - 0.01, above: breakpoint, below: nil),
-                           "\(breakpoint.rawValue): 경계 미만은 숨김")
-            XCTAssertTrue(JdBreakpoint.isVisible(width: edge, above: breakpoint, below: nil),
-                          "\(breakpoint.rawValue): 경계와 같으면 표시(>=)")
-            XCTAssertTrue(JdBreakpoint.isVisible(width: edge + 0.01, above: breakpoint, below: nil),
-                          "\(breakpoint.rawValue): 경계 초과는 표시")
+            XCTAssertFalse(
+                JdBreakpoint.isVisible(width: edge - 0.01, above: breakpoint, below: nil),
+                "\(breakpoint.rawValue): 경계 미만은 숨김")
+            XCTAssertTrue(
+                JdBreakpoint.isVisible(width: edge, above: breakpoint, below: nil),
+                "\(breakpoint.rawValue): 경계와 같으면 표시(>=)")
+            XCTAssertTrue(
+                JdBreakpoint.isVisible(width: edge + 0.01, above: breakpoint, below: nil),
+                "\(breakpoint.rawValue): 경계 초과는 표시")
         }
     }
 
@@ -57,20 +60,24 @@ final class JdBreakpointTests: XCTestCase {
     func test_below_only_boundary_for_every_breakpoint() {
         for breakpoint in JdBreakpoint.allCases {
             let edge = breakpoint.width
-            XCTAssertTrue(JdBreakpoint.isVisible(width: edge - 0.01, above: nil, below: breakpoint),
-                          "\(breakpoint.rawValue): 경계 미만은 표시")
-            XCTAssertFalse(JdBreakpoint.isVisible(width: edge, above: nil, below: breakpoint),
-                           "\(breakpoint.rawValue): 경계와 같으면 숨김(<)")
-            XCTAssertFalse(JdBreakpoint.isVisible(width: edge + 0.01, above: nil, below: breakpoint),
-                           "\(breakpoint.rawValue): 경계 초과는 숨김")
+            XCTAssertTrue(
+                JdBreakpoint.isVisible(width: edge - 0.01, above: nil, below: breakpoint),
+                "\(breakpoint.rawValue): 경계 미만은 표시")
+            XCTAssertFalse(
+                JdBreakpoint.isVisible(width: edge, above: nil, below: breakpoint),
+                "\(breakpoint.rawValue): 경계와 같으면 숨김(<)")
+            XCTAssertFalse(
+                JdBreakpoint.isVisible(width: edge + 0.01, above: nil, below: breakpoint),
+                "\(breakpoint.rawValue): 경계 초과는 숨김")
         }
     }
 
     // 둘 다: AND 결합 — [above, below) 반개구간
     func test_both_bounds_are_half_open_interval() {
-        let above = JdBreakpoint.sm   // 640
-        let below = JdBreakpoint.lg   // 1024
-        XCTAssertFalse(JdBreakpoint.isVisible(width: above.width - 0.01, above: above, below: below))
+        let above = JdBreakpoint.sm  // 640
+        let below = JdBreakpoint.lg  // 1024
+        XCTAssertFalse(
+            JdBreakpoint.isVisible(width: above.width - 0.01, above: above, below: below))
         XCTAssertTrue(JdBreakpoint.isVisible(width: above.width, above: above, below: below))
         XCTAssertTrue(JdBreakpoint.isVisible(width: below.width - 0.01, above: above, below: below))
         XCTAssertFalse(JdBreakpoint.isVisible(width: below.width, above: above, below: below))
@@ -95,9 +102,15 @@ final class JdBreakpointTests: XCTestCase {
     // 같은 브레이크포인트를 above·below로 주면 공집합 (w >= X && w < X)
     func test_same_bound_on_both_sides_is_empty() {
         for breakpoint in JdBreakpoint.allCases {
-            XCTAssertFalse(JdBreakpoint.isVisible(width: breakpoint.width, above: breakpoint, below: breakpoint))
-            XCTAssertFalse(JdBreakpoint.isVisible(width: breakpoint.width - 1, above: breakpoint, below: breakpoint))
-            XCTAssertFalse(JdBreakpoint.isVisible(width: breakpoint.width + 1, above: breakpoint, below: breakpoint))
+            XCTAssertFalse(
+                JdBreakpoint.isVisible(
+                    width: breakpoint.width, above: breakpoint, below: breakpoint))
+            XCTAssertFalse(
+                JdBreakpoint.isVisible(
+                    width: breakpoint.width - 1, above: breakpoint, below: breakpoint))
+            XCTAssertFalse(
+                JdBreakpoint.isVisible(
+                    width: breakpoint.width + 1, above: breakpoint, below: breakpoint))
         }
     }
 

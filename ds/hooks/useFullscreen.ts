@@ -21,7 +21,9 @@ export interface UseFullscreenReturn {
  * const fs = useFullscreen(ref);
  * <button onClick={fs.toggle}>{fs.isFullscreen ? "종료" : "전체화면"}</button>
  */
-export function useFullscreen<T extends HTMLElement>(ref?: RefObject<T | null>): UseFullscreenReturn {
+export function useFullscreen<T extends HTMLElement>(
+  ref?: RefObject<T | null>,
+): UseFullscreenReturn {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const supported = typeof document !== "undefined" && (document.fullscreenEnabled ?? false);
 

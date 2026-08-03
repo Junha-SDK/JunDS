@@ -153,7 +153,9 @@ export class JdSelect extends JdElement {
   }
 
   protected readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdSelectOption[];
@@ -449,7 +451,9 @@ export class JdSelect extends JdElement {
   }
 
   protected applyActiveDescendant(host: HTMLElement): void {
-    const row = this.open ? (this.listEl.children[this.activeIndex] as HTMLElement | undefined) : undefined;
+    const row = this.open
+      ? (this.listEl.children[this.activeIndex] as HTMLElement | undefined)
+      : undefined;
     if (row) host.setAttribute("aria-activedescendant", row.id);
     else host.removeAttribute("aria-activedescendant");
   }
@@ -466,7 +470,9 @@ export class JdSelect extends JdElement {
     const key = JSON.stringify(this.filtered.map((o) => o.value));
     if (key !== this.renderedKey || this.listEl.childElementCount !== this.filtered.length) {
       this.listEl.textContent = "";
-      this.filtered.forEach((opt, i) => this.listEl.append(this.buildRow(opt, `${this.listId}-opt-${i}`)));
+      this.filtered.forEach((opt, i) =>
+        this.listEl.append(this.buildRow(opt, `${this.listId}-opt-${i}`)),
+      );
       this.renderedKey = key;
     }
     this.filtered.forEach((opt, i) => this.syncRow(this.listEl.children[i] as HTMLElement, opt));

@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "FlowDiagram",
   "oneLiner": "노드와 연결선으로 구성된 플로우 다이어그램 에디터.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -34,7 +34,11 @@ export default function SortableListPage() {
       props={[
         { name: "items", type: "T[]", description: "항목 배열 (id 필수)" },
         { name: "onReorder", type: "(items: T[]) => void", description: "순서 변경 콜백" },
-        { name: "renderItem", type: "(item: T, index: number) => ReactNode", description: "항목 렌더 함수" },
+        {
+          name: "renderItem",
+          type: "(item: T, index: number) => ReactNode",
+          description: "항목 렌더 함수",
+        },
         { name: "handle", type: "boolean", description: "드래그 핸들 표시 여부 (기본 true)" },
       ]}
     >
@@ -47,18 +51,24 @@ export default function SortableListPage() {
               <div className="flex items-center gap-3 px-4 py-3 bg-white border border-border rounded-lg">
                 <span className="text-xs font-mono text-muted w-5 text-center">{index + 1}</span>
                 <span className="text-sm font-medium text-foreground flex-1">{item.title}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full ${
-                  item.priority === "높음" ? "bg-red-50 text-red-600" :
-                  item.priority === "보통" ? "bg-yellow-50 text-yellow-600" :
-                  "bg-gray-100 text-gray-500"
-                }`}>
+                <span
+                  className={`text-xs px-2 py-0.5 rounded-full ${
+                    item.priority === "높음"
+                      ? "bg-red-50 text-red-600"
+                      : item.priority === "보통"
+                      ? "bg-yellow-50 text-yellow-600"
+                      : "bg-gray-100 text-gray-500"
+                  }`}
+                >
                   {item.priority}
                 </span>
               </div>
             )}
           />
           <div className="mt-3 p-2 bg-gray-50 rounded-lg">
-            <p className="text-xs text-muted">현재 순서: {items.map((i) => i.title.slice(0, 6) + "…").join(" → ")}</p>
+            <p className="text-xs text-muted">
+              현재 순서: {items.map((i) => i.title.slice(0, 6) + "…").join(" → ")}
+            </p>
           </div>
         </Preview>
       </Section>

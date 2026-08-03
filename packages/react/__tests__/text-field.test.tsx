@@ -16,21 +16,13 @@ describe("골격·입양", () => {
     const input = host.querySelector<HTMLInputElement>(
       ":scope > .jd-text-field__control > input.jd-text-field__input",
     )!;
+    expect(host.querySelector(":scope > label.jd-text-field__label")).not.toBeNull();
+    expect(host.querySelector(":scope > p.jd-text-field__error")).not.toBeNull();
     expect(
-      host.querySelector(":scope > label.jd-text-field__label"),
+      host.querySelector(":scope > .jd-text-field__control > .jd-text-field__slot--start"),
     ).not.toBeNull();
     expect(
-      host.querySelector(":scope > p.jd-text-field__error"),
-    ).not.toBeNull();
-    expect(
-      host.querySelector(
-        ":scope > .jd-text-field__control > .jd-text-field__slot--start",
-      ),
-    ).not.toBeNull();
-    expect(
-      host.querySelector(
-        ":scope > .jd-text-field__control > .jd-text-field__slot--end",
-      ),
+      host.querySelector(":scope > .jd-text-field__control > .jd-text-field__slot--end"),
     ).not.toBeNull();
     expect(input.placeholder).toBe("이름 입력");
     // 라벨·에러 없음 → 접힘
@@ -61,9 +53,7 @@ describe("골격·입양", () => {
   });
 
   test("error — 메시지 행(아이콘+텍스트)·aria-invalid·aria-describedby·호스트 css 훅", async () => {
-    const { container } = render(
-      <TextField label="이름" error="이름을 입력해주세요" />,
-    );
+    const { container } = render(<TextField label="이름" error="이름을 입력해주세요" />);
     await flushCE();
     const host = container.querySelector("jd-text-field")!;
     const input = container.querySelector("input")!;
@@ -82,19 +72,13 @@ describe("골격·입양", () => {
   test("소비자의 aria-describedby를 error id와 중복 없이 병합한다", async () => {
     const { container, rerender } = render(
       <>
-        <TextField
-          id="email"
-          aria-describedby="email-hint"
-          error="확인해주세요"
-        />
+        <TextField id="email" aria-describedby="email-hint" error="확인해주세요" />
         <p id="email-hint">회사 이메일을 입력하세요</p>
       </>,
     );
     await flushCE();
     const input = container.querySelector("input")!;
-    expect(input.getAttribute("aria-describedby")).toBe(
-      "email-hint email-error",
-    );
+    expect(input.getAttribute("aria-describedby")).toBe("email-hint email-error");
     rerender(
       <>
         <TextField id="email" aria-describedby="email-hint" />
@@ -115,9 +99,7 @@ describe("골격·입양", () => {
     rerender(<TextField />);
     await flushCE();
     expect(error.hasAttribute("hidden")).toBe(true);
-    expect(container.querySelector("input")!.hasAttribute("aria-invalid")).toBe(
-      false,
-    );
+    expect(container.querySelector("input")!.hasAttribute("aria-invalid")).toBe(false);
   });
 });
 
@@ -152,9 +134,7 @@ describe("controlled/uncontrolled — CE 자가 상태와의 방어 계약", () 
   });
 
   test("controlled 거부: 부모가 상태를 안 바꾸면 CE가 되덮지 못하고 prop 값이 유지된다 (회귀)", async () => {
-    const { container } = render(
-      <TextField value="고정" onChange={() => {}} />,
-    );
+    const { container } = render(<TextField value="고정" onChange={() => {}} />);
     await flushCE();
     const input = container.querySelector("input")!;
     fireEvent.input(input, { target: { value: "고정타이핑" } });
@@ -175,10 +155,8 @@ describe("controlled/uncontrolled — CE 자가 상태와의 방어 계약", () 
     const input = container.querySelector("input")!;
     const inputSpy = vi.fn();
     const changeSpy = vi.fn();
-    host.addEventListener("jd-input", ((e: CustomEvent) =>
-      inputSpy(e.detail)) as EventListener);
-    host.addEventListener("jd-change", ((e: CustomEvent) =>
-      changeSpy(e.detail)) as EventListener);
+    host.addEventListener("jd-input", ((e: CustomEvent) => inputSpy(e.detail)) as EventListener);
+    host.addEventListener("jd-change", ((e: CustomEvent) => changeSpy(e.detail)) as EventListener);
     fireEvent.input(input, { target: { value: "실시간" } });
     fireEvent.change(input, { target: { value: "확정" } });
     await flushCE();
@@ -199,9 +177,7 @@ describe("controlled/uncontrolled — CE 자가 상태와의 방어 계약", () 
 
 describe("Input (v2 표면)", () => {
   test("size/placeholder/disabled 전파 + 호스트 size 훅", async () => {
-    const { container } = render(
-      <Input size="lg" placeholder="검색..." disabled />,
-    );
+    const { container } = render(<Input size="lg" placeholder="검색..." disabled />);
     await flushCE();
     const host = container.querySelector("jd-text-field")!;
     const input = container.querySelector("input")!;
@@ -214,15 +190,9 @@ describe("Input (v2 표면)", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const { container } = render(<Input error placeholder="필수 입력" />);
     await flushCE();
-    expect(
-      container.querySelector("jd-text-field")!.hasAttribute("error"),
-    ).toBe(false);
-    expect(
-      container.querySelector("jd-text-field")!.hasAttribute("invalid"),
-    ).toBe(true);
-    expect(container.querySelector("input")!.getAttribute("aria-invalid")).toBe(
-      "true",
-    );
+    expect(container.querySelector("jd-text-field")!.hasAttribute("error")).toBe(false);
+    expect(container.querySelector("jd-text-field")!.hasAttribute("invalid")).toBe(true);
+    expect(container.querySelector("input")!.getAttribute("aria-invalid")).toBe("true");
     expect(warn).not.toHaveBeenCalled();
     warn.mockRestore();
   });
@@ -237,17 +207,11 @@ describe("Input (v2 표면)", () => {
       />,
     );
     await flushCE();
+    expect(screen.getByTestId("currency").closest(".jd-text-field__slot--start")).not.toBeNull();
     expect(
-      screen.getByTestId("currency").closest(".jd-text-field__slot--start"),
+      screen.getByRole("button", { name: "지우기" }).closest(".jd-text-field__slot--end"),
     ).not.toBeNull();
-    expect(
-      screen
-        .getByRole("button", { name: "지우기" })
-        .closest(".jd-text-field__slot--end"),
-    ).not.toBeNull();
-    expect(container.querySelectorAll(".jd-text-field__control").length).toBe(
-      1,
-    );
+    expect(container.querySelectorAll(".jd-text-field__control").length).toBe(1);
     expect(warn).not.toHaveBeenCalled();
     warn.mockRestore();
   });
@@ -275,9 +239,9 @@ describe("FormField (v2 표면) — jd-text-field로의 폴드", () => {
     expect(input.required).toBe(true); // v2와 다른 의미 가산(판정표 기재)
     expect(host.getAttribute("error")).toBe("이름을 입력해주세요");
     expect(input.getAttribute("aria-describedby")).toBe("name-error");
-    expect(
-      container.querySelector("p.jd-text-field__error")!.textContent,
-    ).toContain("이름을 입력해주세요");
+    expect(container.querySelector("p.jd-text-field__error")!.textContent).toContain(
+      "이름을 입력해주세요",
+    );
   });
 
   test("hint는 에러 없을 때만 아래에 렌더 (v2 동일)", async () => {
@@ -287,19 +251,11 @@ describe("FormField (v2 표면) — jd-text-field로의 폴드", () => {
       </FormField>,
     );
     await flushCE();
-    expect(container.querySelector(".jd-form-field__hint")!.textContent).toBe(
-      "회사 메일을 쓰세요",
-    );
+    expect(container.querySelector(".jd-form-field__hint")!.textContent).toBe("회사 메일을 쓰세요");
     const hint = container.querySelector<HTMLElement>(".jd-form-field__hint")!;
-    expect(
-      container.querySelector("input")!.getAttribute("aria-describedby"),
-    ).toBe(hint.id);
+    expect(container.querySelector("input")!.getAttribute("aria-describedby")).toBe(hint.id);
     rerender(
-      <FormField
-        label="이메일"
-        hint="회사 메일을 쓰세요"
-        error="형식이 틀렸습니다"
-      >
+      <FormField label="이메일" hint="회사 메일을 쓰세요" error="형식이 틀렸습니다">
         <Input />
       </FormField>,
     );

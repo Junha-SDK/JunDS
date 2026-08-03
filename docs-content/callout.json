@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Callout",
   "oneLiner": "강조성 메시지 박스(정보/경고/팁 등)를 표시합니다.",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

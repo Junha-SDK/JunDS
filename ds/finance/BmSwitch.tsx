@@ -53,7 +53,13 @@ export function BmSwitch({
         aria-label={label}
         disabled={disabled}
         onClick={() => !disabled && onChange(!checked)}
-        className="relative inline-flex shrink-0 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+        className={[
+          "relative inline-flex shrink-0 rounded-full",
+          // 트랙에서 변하는 건 배경과 안쪽 그림자 둘뿐 — `all` 은 width/height 인라인 값까지 대상으로 삼는다.
+          "transition-[background,box-shadow] duration-200 motion-reduce:transition-none",
+          // ring 색이 없으면 currentColor 로 떨어져 트랙 위에서 보이지 않는다.
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-bg)]",
+        ].join(" ")}
         style={{
           width: t.w,
           height: t.h,
@@ -66,14 +72,13 @@ export function BmSwitch({
         }}
       >
         <span
-          className="absolute top-1/2 rounded-full bg-[color:var(--bm-card)] transition-transform duration-200"
+          className="absolute top-1/2 rounded-full bg-[color:var(--bm-card)] transition-transform duration-200 motion-reduce:transition-none"
           style={{
             width: thumb,
             height: thumb,
             left: inset,
             transform: `translateY(-50%) translateX(${checked ? translate : 0}px)`,
-            boxShadow:
-              "0 1px 2px rgba(15,23,42,0.18), 0 2px 4px rgba(15,23,42,0.06)",
+            boxShadow: "0 1px 2px rgba(15,23,42,0.18), 0 2px 4px rgba(15,23,42,0.06)",
           }}
         />
       </button>

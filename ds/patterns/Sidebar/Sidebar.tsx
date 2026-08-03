@@ -77,43 +77,50 @@ export function DsSidebar({
     <aside
       className={cn(
         "h-full flex flex-col bg-sidebar-bg text-sidebar-text shrink-0",
-        "transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        // 접힘/펼침에서 실제로 변하는 건 너비 하나다 — `all` 은 자식 색까지 같이 끌고 온다.
+        "transition-[width] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
         "border-r border-white/5 relative",
         className,
       )}
       style={{ width: collapsed ? collapsedWidth : width }}
     >
-      {header && (
-        <div className="px-3 py-4 border-b border-white/5 shrink-0">
-          {header}
-        </div>
-      )}
+      {header && <div className="px-3 py-4 border-b border-white/5 shrink-0">{header}</div>}
 
-      <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 px-2">
-        {children}
-      </nav>
+      <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 px-2">{children}</nav>
 
-      {footer && (
-        <div className="px-3 py-3 border-t border-white/5 shrink-0">
-          {footer}
-        </div>
-      )}
+      {footer && <div className="px-3 py-3 border-t border-white/5 shrink-0">{footer}</div>}
 
       {/* Toggle */}
       <button
         type="button"
         onClick={toggle}
+        aria-label={collapsed ? "사이드바 펼치기" : "사이드바 접기"}
+        aria-expanded={!collapsed}
         className={cn(
-          "absolute -right-3 top-6 w-6 h-6 rounded-full",
-          "bg-white border border-border shadow-sm flex items-center justify-center",
-          "hover:bg-gray-50 transition-colors z-10 cursor-pointer",
+          "absolute -right-3 top-6 w-6 h-6 rounded-full z-10 cursor-pointer",
+          "bg-card border border-border flex items-center justify-center",
+          "shadow-[0_2px_6px_-2px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.12)]",
+          "transition-colors hover:bg-card-hover active:bg-muted/15",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar-bg",
         )}
       >
         <svg
-          width="12" height="12" viewBox="0 0 12 12" fill="none"
-          className={cn("text-muted transition-transform duration-200", collapsed && "rotate-180")}
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          className={cn(
+            "text-muted transition-transform duration-200 motion-reduce:transition-none",
+            collapsed && "rotate-180",
+          )}
         >
-          <path d="M7.5 2.5l-3 3.5 3 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M7.5 2.5l-3 3.5 3 3.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
     </aside>
@@ -138,17 +145,17 @@ export function SidebarLink({ href, label, icon, active, badge, onClick }: Sideb
       href={href}
       onClick={onClick}
       className={cn(
-        "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-        "hover:bg-sidebar-hover",
-        active
-          ? "bg-sidebar-hover text-white border-l-2 border-sidebar-active"
-          : "text-sidebar-text",
+        // 활성일 때만 좌측 보더가 생기면 글자가 2px 씩 흔들린다 — 자리는 항상 잡아 둔다.
+        "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium border-l-2 border-transparent",
+        "transition-colors hover:bg-sidebar-hover hover:text-white",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-active/60 focus-visible:ring-inset",
+        active ? "bg-sidebar-hover text-white border-sidebar-active" : "text-sidebar-text",
       )}
     >
       {icon && <span className="shrink-0 w-5 h-5 flex items-center justify-center">{icon}</span>}
-      {!collapsed && <span className="flex-1 truncate">{label}</span>}
+      {!collapsed && <span className="flex-1 min-w-0 truncate">{label}</span>}
       {!collapsed && badge !== undefined && badge > 0 && (
-        <span className="bg-danger text-white text-[10px] rounded-full px-1.5 py-0.5 font-semibold">
+        <span className="shrink-0 bg-danger text-white text-[10px] rounded-full px-1.5 py-0.5 font-semibold tabular-nums">
           {badge > 99 ? "99+" : badge}
         </span>
       )}

@@ -10,9 +10,24 @@ export default function ResizablePage() {
       description="리사이저블 패널. 드래그 핸들로 두 패널의 크기를 조절할 수 있습니다. 수평/수직 분할을 지원합니다."
       importPath='import { Resizable } from "@/ds/composites/Resizable"'
       props={[
-        { name: "children", type: "[ReactNode, ReactNode]", required: true, description: "두 개의 패널 (튜플)" },
-        { name: "direction", type: '"horizontal"|"vertical"', default: '"horizontal"', description: "분할 방향" },
-        { name: "defaultSize", type: "number", default: "50", description: "첫 번째 패널 기본 크기 (%)" },
+        {
+          name: "children",
+          type: "[ReactNode, ReactNode]",
+          required: true,
+          description: "두 개의 패널 (튜플)",
+        },
+        {
+          name: "direction",
+          type: '"horizontal"|"vertical"',
+          default: '"horizontal"',
+          description: "분할 방향",
+        },
+        {
+          name: "defaultSize",
+          type: "number",
+          default: "50",
+          description: "첫 번째 패널 기본 크기 (%)",
+        },
         { name: "minSize", type: "number", default: "10", description: "최소 크기 (%)" },
         { name: "maxSize", type: "number", default: "90", description: "최대 크기 (%)" },
       ]}
@@ -59,16 +74,37 @@ export default function ResizablePage() {
           <Resizable direction="horizontal" defaultSize={25} minSize={15} maxSize={50}>
             <div className="h-64 p-3 bg-gray-900 text-gray-300 overflow-auto">
               <p className="text-xs font-mono font-bold text-gray-400 mb-2">탐색기</p>
-              {["src/", "  components/", "    Button.tsx", "    Card.tsx", "  pages/", "    index.tsx", "  utils/", "    cn.ts", "package.json", "tsconfig.json"].map((f) => (
-                <p key={f} className="text-xs font-mono py-0.5 hover:bg-gray-800 px-1 rounded cursor-pointer">
+              {[
+                "src/",
+                "  components/",
+                "    Button.tsx",
+                "    Card.tsx",
+                "  pages/",
+                "    index.tsx",
+                "  utils/",
+                "    cn.ts",
+                "package.json",
+                "tsconfig.json",
+              ].map((f) => (
+                <p
+                  key={f}
+                  className="text-xs font-mono py-0.5 hover:bg-gray-800 px-1 rounded cursor-pointer"
+                >
                   {f}
                 </p>
               ))}
             </div>
             <div className="h-64 p-4 bg-gray-950 text-gray-300 font-mono text-xs overflow-auto">
               <p className="text-gray-500">{"// Button.tsx"}</p>
-              <p><span className="text-purple-400">export function</span> <span className="text-yellow-300">Button</span>() {"{"}</p>
-              <p>  <span className="text-purple-400">return</span> {"<"}button{">"}Click{"<"}/button{">"}</p>
+              <p>
+                <span className="text-purple-400">export function</span>{" "}
+                <span className="text-yellow-300">Button</span>() {"{"}
+              </p>
+              <p>
+                {" "}
+                <span className="text-purple-400">return</span> {"<"}button{">"}Click{"<"}/button
+                {">"}
+              </p>
               <p>{"}"}</p>
             </div>
           </Resizable>

@@ -13,7 +13,16 @@ export default function PostCardPage() {
     >
       <Section title="Default">
         <Preview>
-          <PostCard author={{name:"준하",handle:"junha",verified:true}} content="새 컴포넌트 30종 추가했습니다 🎉" createdAt={new Date()} likes={42} comments={8} liked onLike={()=>{}} onComment={()=>{}} />
+          <PostCard
+            author={{ name: "준하", handle: "junha", verified: true }}
+            content="새 컴포넌트 30종 추가했습니다 🎉"
+            createdAt={new Date()}
+            likes={42}
+            comments={8}
+            liked
+            onLike={() => {}}
+            onComment={() => {}}
+          />
         </Preview>
       </Section>
     </ComponentPage>

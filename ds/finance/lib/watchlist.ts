@@ -131,10 +131,7 @@ export function useWatchlist() {
     setItems(next);
   }, []);
 
-  const has = useCallback(
-    (name: string) => items.includes(name),
-    [items],
-  );
+  const has = useCallback((name: string) => items.includes(name), [items]);
 
   /** 색/노트 부분 갱신 — 다른 필드는 보존. */
   const setEntryMeta = useCallback(

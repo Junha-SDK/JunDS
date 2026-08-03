@@ -256,7 +256,8 @@ export class JdProductCard extends JdElement {
     const curTag = this.#link ? this.#link.tagName.toLowerCase() : null;
     if (wantTag !== curTag) {
       if (this.#link) {
-        if (this.#link.tagName === "BUTTON") this.#link.removeEventListener("click", this.#onSelect);
+        if (this.#link.tagName === "BUTTON")
+          this.#link.removeEventListener("click", this.#onSelect);
         this.#link.remove();
         this.#link = null;
       }

@@ -4,11 +4,7 @@
   "category": "core",
   "title": "Center",
   "oneLiner": "양축 중앙 정렬 컨테이너. Box 파생 — 스타일 프롭 전부 사용 가능.",
-  "tags": [
-    "layout",
-    "container",
-    "정렬"
-  ],
+  "tags": ["layout", "container", "정렬"],
   "controls": [
     {
       "prop": "h",

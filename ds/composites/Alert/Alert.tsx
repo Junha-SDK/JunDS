@@ -60,7 +60,7 @@ export interface AlertProps {
 }
 
 const variantStyles: Record<AlertVariant, string> = {
-  info: "bg-primary/5 border-primary/20 border-l-4 border-l-primary text-primary",
+  info: "bg-primary/5 border-primary/20 border-l-4 border-l-primary text-primary-ink",
   success: "bg-success/5 border-success/20 border-l-4 border-l-success text-success",
   warning: "bg-warning/5 border-warning/20 border-l-4 border-l-warning text-warning",
   danger: "bg-danger/5 border-danger/20 border-l-4 border-l-danger text-danger",
@@ -76,19 +76,35 @@ const defaultIcons: Record<AlertVariant, ReactNode> = {
   success: (
     <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
       <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M5.5 9.5l2 2 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M5.5 9.5l2 2 5-5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   ),
   warning: (
     <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-      <path d="M9 2L1.5 15.5h15L9 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path
+        d="M9 2L1.5 15.5h15L9 2z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
       <path d="M9 7v3.5M9 13h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   ),
   danger: (
     <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
       <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M6.5 6.5l5 5M11.5 6.5l-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M6.5 6.5l5 5M11.5 6.5l-5 5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   ),
 };
@@ -108,30 +124,41 @@ const defaultIcons: Record<AlertVariant, ReactNode> = {
  */
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(
   ({ variant = "info", title, children, icon, onClose, className }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "flex gap-3 p-4 rounded-xl border",
-        variantStyles[variant],
-        className,
-      )}
-      role="alert"
-    >
-      <span className="shrink-0 mt-0.5">{icon || defaultIcons[variant]}</span>
-      <div className="flex-1 min-w-0">
-        {title && <p className="text-sm font-semibold mb-0.5">{title}</p>}
-        <div className="text-sm opacity-90">{children}</div>
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          // 면이 있는 것은 상단 인셋 하이라이트 한 줄로 종이처럼 선다
+          "flex gap-3 p-4 rounded-xl border shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]",
+          variantStyles[variant],
+          className,
+        )}
+        role="alert"
+      >
+        <span className="shrink-0 mt-0.5">{icon || defaultIcons[variant]}</span>
+        <div className="flex-1 min-w-0">
+          {title && <p className="text-sm font-semibold mb-0.5">{title}</p>}
+          <div className="text-sm opacity-90">{children}</div>
+        </div>
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="닫기"
+            className="shrink-0 self-start rounded-md p-0.5 -m-0.5 hover:opacity-70 active:opacity-50 transition-opacity cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path
+                d="M3 3l8 8M11 3l-8 8"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        )}
       </div>
-      {onClose && (
-        <button onClick={onClose} className="shrink-0 hover:opacity-70 transition-opacity cursor-pointer">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button>
-      )}
-    </div>
-  );
-},
+    );
+  },
 );
 Alert.displayName = "Alert";

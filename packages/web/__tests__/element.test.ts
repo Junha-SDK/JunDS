@@ -5,8 +5,7 @@ import { describe, expect, test, vi } from "vitest";
 import { defineProps, JdElement } from "../src/core/element.js";
 import { defineElement } from "../src/core/define.js";
 
-const tick = () =>
-  new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
+const tick = () => new Promise<void>((r) => queueMicrotask(() => queueMicrotask(r)));
 
 class TestEl extends JdElement {
   static tag = "jd-test";
@@ -66,9 +65,7 @@ describe("attribute ↔ property 반영 (§1.3)", () => {
   });
 
   test("업그레이드 시점 attribute가 초기값 — kebab→camel 자동 변환", () => {
-    const el = mount(
-      `<jd-test variant="danger" count="7" full-width></jd-test>`,
-    );
+    const el = mount(`<jd-test variant="danger" count="7" full-width></jd-test>`);
     expect(el.variant).toBe("danger");
     expect(el.count).toBe(7);
     expect(el.fullWidth).toBe(true);
@@ -218,9 +215,7 @@ describe("이벤트 규약 (§1.5)", () => {
   test("요청형만 cancelable — preventDefault 시 emit이 false 반환", () => {
     const el = mount(`<jd-test></jd-test>`);
     el.addEventListener("jd-request-close", (e) => e.preventDefault());
-    expect(el.fire("jd-request-close", undefined, { cancelable: true })).toBe(
-      false,
-    );
+    expect(el.fire("jd-request-close", undefined, { cancelable: true })).toBe(false);
   });
 });
 

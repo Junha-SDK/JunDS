@@ -16,23 +16,27 @@ export interface BatteryIndicatorProps {
   className?: string;
 }
 
+// prop 이름이 이미 의미색이다 — 팔레트 리터럴 대신 같은 이름의 토큰에 붙인다
 const colorMap: Record<NonNullable<BatteryIndicatorProps["color"]>, string> = {
-  success: "bg-green-500",
-  warning: "bg-amber-500",
-  danger: "bg-red-500",
-  primary: "bg-blue-500",
+  success: "bg-success",
+  warning: "bg-warning",
+  danger: "bg-danger",
+  primary: "bg-primary",
 };
 
-const sizeStyles: Record<NonNullable<BatteryIndicatorProps["size"]>, { body: string; cap: string }> = {
+const sizeStyles: Record<
+  NonNullable<BatteryIndicatorProps["size"]>,
+  { body: string; cap: string }
+> = {
   sm: { body: "h-4 w-10", cap: "w-1 h-2" },
   md: { body: "h-6 w-14", cap: "w-1.5 h-3" },
   lg: { body: "h-8 w-20", cap: "w-2 h-4" },
 };
 
 function getAutoColor(value: number): string {
-  if (value > 70) return "bg-green-500";
-  if (value > 30) return "bg-amber-500";
-  return "bg-red-500";
+  if (value > 70) return "bg-success";
+  if (value > 30) return "bg-warning";
+  return "bg-danger";
 }
 
 /**
@@ -62,46 +66,46 @@ export function BatteryIndicator({
   } else if (color) {
     fillColor = colorMap[color];
   } else {
-    fillColor = "bg-blue-500";
+    fillColor = "bg-primary";
   }
 
   return (
-    <div className={cn("inline-flex items-center gap-1.5 hover:scale-105 transition-transform duration-200", className)}>
-      {label && (
-        <span className="text-xs font-medium text-gray-600 dark:text-gray-400">{label}</span>
+    <div
+      className={cn(
+        "inline-flex items-center gap-1.5 hover:scale-105 transition-transform duration-200",
+        "motion-reduce:transition-none motion-reduce:hover:scale-100",
+        className,
       )}
+    >
+      {label && <span className="text-xs font-medium text-muted whitespace-nowrap">{label}</span>}
       <div className="inline-flex items-center">
         {/* 배터리 본체 */}
         <div
           className={cn(
-            "relative rounded-sm border-2 border-gray-400 dark:border-gray-500 overflow-hidden",
+            "relative rounded-sm border-2 border-muted-light overflow-hidden",
             sizeStyle.body,
           )}
         >
-          {/* 충전 레벨 */}
+          {/* 충전 레벨 — width 전이는 프레임마다 리플로우를 낸다. 합성만으로 끝나는 scaleX 로 채운다 */}
           <div
             className={cn(
-              "absolute inset-y-0 left-0 transition-all duration-500 ease-out",
+              "absolute inset-0 origin-left transition-transform duration-500 ease-out",
+              "motion-reduce:transition-none",
               fillColor,
             )}
-            style={{ width: `${clamped}%` }}
+            style={{ transform: `scaleX(${clamped / 100})` }}
           />
 
           {/* 퍼센트 텍스트 (lg 사이즈만) */}
           {size === "lg" && (
-            <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white mix-blend-difference">
+            <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold tabular-nums text-white mix-blend-difference">
               {Math.round(clamped)}%
             </span>
           )}
         </div>
 
         {/* 배터리 캡 */}
-        <div
-          className={cn(
-            "rounded-r-sm bg-gray-400 dark:bg-gray-500",
-            sizeStyle.cap,
-          )}
-        />
+        <div className={cn("rounded-r-sm bg-muted-light", sizeStyle.cap)} />
       </div>
     </div>
   );

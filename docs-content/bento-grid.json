@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "BentoGrid",
   "oneLiner": "크기가 다른 카드를 비대칭 그리드로 배치하는 벤토 레이아웃.",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

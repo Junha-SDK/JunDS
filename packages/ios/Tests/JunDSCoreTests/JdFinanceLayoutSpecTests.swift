@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // finance 조립 스펙 계약 (DEC-041).
 //
@@ -35,10 +35,12 @@ final class JdFinanceLayoutSpecTests: XCTestCase {
     // MARK: - LiveStackedCell
 
     func test_stacked_cell_uses_one_color_for_both_lines() {
-        XCTAssertEqual(JdLiveStackedCellSpec.resolve(change: 0).color.light,
-                       JdFinanceTheme.color(.up).light, "0%도 상승색")
-        XCTAssertEqual(JdLiveStackedCellSpec.resolve(change: -1).color.light,
-                       JdFinanceTheme.color(.down).light)
+        XCTAssertEqual(
+            JdLiveStackedCellSpec.resolve(change: 0).color.light,
+            JdFinanceTheme.color(.up).light, "0%도 상승색")
+        XCTAssertEqual(
+            JdLiveStackedCellSpec.resolve(change: -1).color.light,
+            JdFinanceTheme.color(.down).light)
     }
 
     func test_stacked_cell_lines_use_per_value_fallback_rules() {
@@ -47,8 +49,9 @@ final class JdFinanceLayoutSpecTests: XCTestCase {
         XCTAssertEqual(a.price, "71,200")
         XCTAssertEqual(a.pct, "+1.23%")
 
-        let b = JdLiveStackedCellSpec.lines(price: 0, change: 0,
-                                            priceFallback: 68_000, pctFallback: -2.5)
+        let b = JdLiveStackedCellSpec.lines(
+            price: 0, change: 0,
+            priceFallback: 68_000, pctFallback: -2.5)
         XCTAssertEqual(b.price, "68,000")
         XCTAssertEqual(b.pct, "-2.50%")
 
@@ -58,10 +61,12 @@ final class JdFinanceLayoutSpecTests: XCTestCase {
     }
 
     func test_stacked_cell_speaks_direction() {
-        XCTAssertEqual(JdLiveStackedCellSpec.accessibilityText(price: "71,200", pct: "+1.23%", change: 1.23),
-                       "71,200, 상승 +1.23%")
-        XCTAssertEqual(JdLiveStackedCellSpec.accessibilityText(price: "71,200", pct: "-1.23%", change: -1.23),
-                       "71,200, 하락 -1.23%")
+        XCTAssertEqual(
+            JdLiveStackedCellSpec.accessibilityText(price: "71,200", pct: "+1.23%", change: 1.23),
+            "71,200, 상승 +1.23%")
+        XCTAssertEqual(
+            JdLiveStackedCellSpec.accessibilityText(price: "71,200", pct: "-1.23%", change: -1.23),
+            "71,200, 하락 -1.23%")
     }
 
     func test_stacked_cell_font_ladder_is_v2_literals() {
@@ -104,46 +109,59 @@ final class JdFinanceLayoutSpecTests: XCTestCase {
     }
 
     func test_accessibility_text_trims_trailing_zero() {
-        XCTAssertEqual(JdPositionBarGeometry.accessibilityText(low: 0.2, high: 0.8, cur: 0.5),
-                       "구간 20–80% 중 현재 50%")
-        XCTAssertEqual(JdPositionBarGeometry.accessibilityText(low: 0.205, high: 0.8, cur: 0.5),
-                       "구간 20.5–80% 중 현재 50%")
+        XCTAssertEqual(
+            JdPositionBarGeometry.accessibilityText(low: 0.2, high: 0.8, cur: 0.5),
+            "구간 20–80% 중 현재 50%")
+        XCTAssertEqual(
+            JdPositionBarGeometry.accessibilityText(low: 0.205, high: 0.8, cur: 0.5),
+            "구간 20.5–80% 중 현재 50%")
     }
 
     func test_position_bar_marker_is_taller_than_track() {
         let spec = JdPositionBarSpec.resolve(tone: .up)
-        XCTAssertGreaterThan(spec.markerHeight, spec.trackHeight,
-                             "마커가 트랙보다 작으면 클립 금지 규칙의 근거가 사라진다")
-        XCTAssertEqual(JdPositionBarSpec.resolve(tone: .up).fillColor.light, JdFinanceTheme.up.light)
-        XCTAssertEqual(JdPositionBarSpec.resolve(tone: .down).fillColor.light, JdFinanceTheme.down.light)
+        XCTAssertGreaterThan(
+            spec.markerHeight, spec.trackHeight,
+            "마커가 트랙보다 작으면 클립 금지 규칙의 근거가 사라진다")
+        XCTAssertEqual(
+            JdPositionBarSpec.resolve(tone: .up).fillColor.light, JdFinanceTheme.up.light)
+        XCTAssertEqual(
+            JdPositionBarSpec.resolve(tone: .down).fillColor.light, JdFinanceTheme.down.light)
     }
 
     // 밴드는 채움의 옅은 판이다 — 같은 색이면 구간이 안 보인다
     func test_band_is_a_wash_of_the_fill() {
         let spec = JdPositionBarSpec.resolve(tone: .up)
-        XCTAssertEqual(spec.bandColor.light & 0xFFFF_FF00, spec.fillColor.light & 0xFFFF_FF00,
-                       "밴드와 채움의 색상은 같아야 한다")
-        XCTAssertLessThan(spec.bandColor.light & 0xFF, spec.fillColor.light & 0xFF,
-                          "밴드가 더 투명해야 구간이 채움과 구분된다")
+        XCTAssertEqual(
+            spec.bandColor.light & 0xFFFF_FF00, spec.fillColor.light & 0xFFFF_FF00,
+            "밴드와 채움의 색상은 같아야 한다")
+        XCTAssertLessThan(
+            spec.bandColor.light & 0xFF, spec.fillColor.light & 0xFF,
+            "밴드가 더 투명해야 구간이 채움과 구분된다")
     }
 
     // MARK: - MicroKpi 셀
 
     func test_sub_text_prefers_hint_then_percent() {
-        XCTAssertEqual(JdMicroKpiCellSpec.subText(item: .init(label: "L", value: "1", pct: 1.5)), "+1.50%")
-        XCTAssertEqual(JdMicroKpiCellSpec.subText(item: .init(label: "L", value: "1", pct: 1.5, hint: "순매수")),
-                       "순매수")
-        XCTAssertEqual(JdMicroKpiCellSpec.subText(item: .init(label: "L", value: "1")), "0.00%",
-                       "pct가 없으면 0%로 그린다(웹 `it.pct ?? 0` 동형)")
-        XCTAssertEqual(JdMicroKpiCellSpec.subText(item: .init(label: "L", value: "1", pct: 1.5, hint: "")),
-                       "+1.50%", "빈 hint는 hint가 아니다")
+        XCTAssertEqual(
+            JdMicroKpiCellSpec.subText(item: .init(label: "L", value: "1", pct: 1.5)), "+1.50%")
+        XCTAssertEqual(
+            JdMicroKpiCellSpec.subText(item: .init(label: "L", value: "1", pct: 1.5, hint: "순매수")),
+            "순매수")
+        XCTAssertEqual(
+            JdMicroKpiCellSpec.subText(item: .init(label: "L", value: "1")), "0.00%",
+            "pct가 없으면 0%로 그린다(웹 `it.pct ?? 0` 동형)")
+        XCTAssertEqual(
+            JdMicroKpiCellSpec.subText(item: .init(label: "L", value: "1", pct: 1.5, hint: "")),
+            "+1.50%", "빈 hint는 hint가 아니다")
     }
 
     // hint가 있어도 **색은 pct 부호를 따른다**(웹 계약) — 문구가 색을 가리지 않는다
     func test_sub_color_follows_pct_even_with_hint() {
-        let up = JdMicroKpiCellSpec.resolve(item: .init(label: "L", value: "1", pct: 2, hint: "순매수"))
+        let up = JdMicroKpiCellSpec.resolve(
+            item: .init(label: "L", value: "1", pct: 2, hint: "순매수"))
         XCTAssertEqual(up.subColor.light, JdFinanceTheme.color(.up).light)
-        let down = JdMicroKpiCellSpec.resolve(item: .init(label: "L", value: "1", pct: -2, hint: "순매도"))
+        let down = JdMicroKpiCellSpec.resolve(
+            item: .init(label: "L", value: "1", pct: -2, hint: "순매도"))
         XCTAssertEqual(down.subColor.light, JdFinanceTheme.color(.down).light)
         // pct 자체가 없으면 방향이 없다 → muted
         let none = JdMicroKpiCellSpec.resolve(item: .init(label: "L", value: "1", hint: "휴장"))
@@ -152,8 +170,9 @@ final class JdFinanceLayoutSpecTests: XCTestCase {
 
     // 0%는 gainOrEven이라 상승 쪽이다(StackedCell과 같은 규칙 — 웹 `(pct ?? 0) >= 0`)
     func test_zero_pct_cell_is_up_colored() {
-        XCTAssertEqual(JdMicroKpiCellSpec.resolve(item: .init(label: "L", value: "1", pct: 0)).subColor.light,
-                       JdFinanceTheme.color(.up).light)
+        XCTAssertEqual(
+            JdMicroKpiCellSpec.resolve(item: .init(label: "L", value: "1", pct: 0)).subColor.light,
+            JdFinanceTheme.color(.up).light)
     }
 
     func test_cell_accessibility_joins_label_value_unit_sub() {
@@ -176,7 +195,8 @@ final class JdFinanceLayoutSpecTests: XCTestCase {
         JdFinanceTheme.up = koreanUp
         XCTAssertEqual(JdLiveStackedCellSpec.resolve(change: 1).color.light, koreanUp.light)
         XCTAssertEqual(JdPositionBarSpec.resolve(tone: .up).fillColor.light, koreanUp.light)
-        XCTAssertEqual(JdMicroKpiCellSpec.resolve(item: .init(label: "L", value: "1", pct: 1)).subColor.light,
-                       koreanUp.light)
+        XCTAssertEqual(
+            JdMicroKpiCellSpec.resolve(item: .init(label: "L", value: "1", pct: 1)).subColor.light,
+            koreanUp.light)
     }
 }

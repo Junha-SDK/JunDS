@@ -4,11 +4,7 @@
   "category": "layout",
   "title": "AppShell",
   "oneLiner": "사이드바·헤더·본문·푸터 앱 골격 — 데스크톱 접힘 레일, 모바일 오버레이 드로어, Ctrl/⌘+B 토글.",
-  "tags": [
-    "layout",
-    "shell",
-    "앱"
-  ],
+  "tags": ["layout", "shell", "앱"],
   "controls": [
     {
       "prop": "sidebarCollapsed",

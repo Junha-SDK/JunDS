@@ -58,7 +58,11 @@ export class JdBatteryIndicator extends JdElement {
     this.#fill.style.width = `${clamped}%`;
     // 자동 색 판정(v2 임계) — CSS 훅으로 반영
     const level = this.autoColor
-      ? clamped > 70 ? "success" : clamped > 30 ? "warning" : "danger"
+      ? clamped > 70
+        ? "success"
+        : clamped > 30
+        ? "warning"
+        : "danger"
       : this.color || "primary";
     this.setAttribute("data-fill", level);
     this.#pct.textContent = `${Math.round(clamped)}%`;

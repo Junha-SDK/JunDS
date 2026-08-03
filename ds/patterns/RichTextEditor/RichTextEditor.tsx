@@ -1,7 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
 import { cn } from "../../utils/cn";
-import { IconButton } from "../../primitives/IconButton";
 
 export interface RichTextEditorProps {
   /** HTML 값 */
@@ -18,7 +17,14 @@ export interface RichTextEditorProps {
   className?: string;
 }
 
-type Cmd = "bold" | "italic" | "underline" | "strikeThrough" | "insertUnorderedList" | "insertOrderedList" | "formatBlock";
+type Cmd =
+  | "bold"
+  | "italic"
+  | "underline"
+  | "strikeThrough"
+  | "insertUnorderedList"
+  | "insertOrderedList"
+  | "formatBlock";
 
 const tools: { cmd: Cmd; arg?: string; icon: string; label: string }[] = [
   { cmd: "bold", icon: "B", label: "굵게" },
@@ -62,23 +68,29 @@ export function RichTextEditor({
   const isEmpty = !value || value === "<br>" || value === "<div><br></div>";
 
   return (
-    <div className={cn(
-      "border rounded-xl overflow-hidden transition-all duration-150 bg-white",
-      focused ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
-      disabled && "opacity-50 pointer-events-none",
-      className,
-    )}>
+    <div
+      className={cn(
+        "border rounded-xl overflow-hidden bg-card transition-[border-color,box-shadow] duration-150",
+        focused ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
+        disabled && "opacity-50 pointer-events-none",
+        className,
+      )}
+    >
       {/* Toolbar */}
-      <div className="flex items-center gap-0.5 px-2 py-1.5 border-b border-border-light bg-gray-50/80">
+      <div className="flex items-center gap-0.5 px-2 py-1.5 border-b border-border-light bg-surface-soft">
         {tools.map((t) => (
           <button
             key={t.cmd + (t.arg || "")}
             type="button"
-            onMouseDown={(e) => { e.preventDefault(); exec(t.cmd, t.arg); }}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              exec(t.cmd, t.arg);
+            }}
             title={t.label}
             className={cn(
-              "w-7 h-7 rounded-md flex items-center justify-center text-xs font-semibold text-muted",
-              "hover:bg-gray-200 hover:text-foreground transition-colors cursor-pointer",
+              "w-7 h-7 rounded-lg flex items-center justify-center text-xs font-semibold text-muted",
+              "transition-colors cursor-pointer hover:bg-muted/15 hover:text-foreground active:bg-muted/25",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-1 focus-visible:ring-offset-surface-soft",
               t.cmd === "bold" && "font-extrabold",
               t.cmd === "italic" && "italic",
               t.cmd === "underline" && "underline",

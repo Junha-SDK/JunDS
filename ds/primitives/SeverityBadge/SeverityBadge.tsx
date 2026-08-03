@@ -17,20 +17,22 @@ export interface SeverityBadgeProps {
   className?: string;
 }
 
+// Tailwind 팔레트 직접 사용은 다크에서 배경만 어두워지고 글자는 그대로 남아 대비가 깨진다.
+// 모드를 따라가는 의미 토큰으로 옮긴다 — 심각도는 이미 디자인 시스템의 어휘다.
 const severityStyles: Record<Severity, string> = {
-  ok: "bg-emerald-50 text-emerald-700",
-  warn: "bg-amber-50 text-amber-700",
-  danger: "bg-red-50 text-red-700",
-  info: "bg-blue-50 text-blue-700",
-  neutral: "bg-gray-100 text-gray-600",
+  ok: "bg-success-light text-success",
+  warn: "bg-warning-light text-warning",
+  danger: "bg-danger-light text-danger",
+  info: "bg-info-light text-info",
+  neutral: "bg-muted/12 text-muted",
 };
 
 const dotColors: Record<Severity, string> = {
-  ok: "bg-emerald-500",
-  warn: "bg-amber-500",
-  danger: "bg-red-500",
-  info: "bg-blue-500",
-  neutral: "bg-gray-400",
+  ok: "bg-success",
+  warn: "bg-warning",
+  danger: "bg-danger",
+  info: "bg-info",
+  neutral: "bg-muted",
 };
 
 const sizeStyles: Record<"sm" | "md", string> = {
@@ -58,7 +60,9 @@ export function SeverityBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full font-medium whitespace-nowrap transition-all duration-150",
+        "inline-flex items-center gap-1.5 rounded-full font-medium whitespace-nowrap",
+        // 배지는 색만 바뀐다 — `all` 은 패딩·글자 크기 변형까지 전이 대상으로 삼는다.
+        "transition-colors duration-150",
         severityStyles[severity],
         sizeStyles[size],
         className,

@@ -13,7 +13,11 @@ export default function BarChartPage() {
     >
       <Section title="Default">
         <Preview>
-          <BarChart labels={["A","B","C","D"]} series={[{name:"매출",data:[10,30,20,25]}]} showValues />
+          <BarChart
+            labels={["A", "B", "C", "D"]}
+            series={[{ name: "매출", data: [10, 30, 20, 25] }]}
+            showValues
+          />
         </Preview>
       </Section>
     </ComponentPage>

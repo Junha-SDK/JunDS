@@ -42,10 +42,7 @@ export function isContentEmpty(
  * - `Node`: 노드 자체를 append
  * - `unsafeHtml(markup)`: 명시적으로 HTML 파싱
  */
-export function setContent(
-  target: Element,
-  value: JdContent | null | undefined,
-): void {
+export function setContent(target: Element, value: JdContent | null | undefined): void {
   if (isContentEmpty(value)) {
     target.replaceChildren();
     return;

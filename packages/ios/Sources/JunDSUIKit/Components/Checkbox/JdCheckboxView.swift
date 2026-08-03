@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-checkbox 동형 — iOS 관용구 부재로 SF Symbols 자체 드로잉 (04 §10.1 primitives).
 // UIControl 서브클래스라 isSelected가 이미 점유돼 있어 상태 프로퍼티는 isSelectedState다
@@ -29,10 +29,12 @@ public final class JdCheckboxView: UIControl {
     private let contentStack = UIStackView()
     private var spec: JdChoiceSpec
 
-    public init(label: String? = nil,
-                state: JdCheckboxState = .off,
-                size: JdToggleSize = .md,
-                indeterminateAllowed: Bool = false) {
+    public init(
+        label: String? = nil,
+        state: JdCheckboxState = .off,
+        size: JdToggleSize = .md,
+        indeterminateAllowed: Bool = false
+    ) {
         self.label = label
         self.isSelectedState = state
         self.size = size
@@ -98,20 +100,23 @@ public final class JdCheckboxView: UIControl {
     }
 
     private func applyStyle() {
-        labelView.font = JdFontBridge.scaledFont(size: spec.labelFontSize,
-                                                 weight: JdToken.FontWeight.normal,
-                                                 compatibleWith: traitCollection)
+        labelView.font = JdFontBridge.scaledFont(
+            size: spec.labelFontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         labelView.textColor = JdToken.Color.foreground.uiColor
         applyState()
     }
 
     private func applyState() {
         // 심볼 크기 = 스펙 boxSize. 폰트 설정 경유라 Dynamic Type에 함께 자란다 (04 §7.2)
-        let symbolFont = JdFontBridge.scaledFont(size: spec.boxSize,
-                                                 weight: JdToken.FontWeight.normal,
-                                                 compatibleWith: traitCollection)
-        boxView.image = UIImage(systemName: JdCheckboxView.symbolName(isSelectedState),
-                                withConfiguration: UIImage.SymbolConfiguration(font: symbolFont))
+        let symbolFont = JdFontBridge.scaledFont(
+            size: spec.boxSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
+        boxView.image = UIImage(
+            systemName: JdCheckboxView.symbolName(isSelectedState),
+            withConfiguration: UIImage.SymbolConfiguration(font: symbolFont))
         boxView.tintColor = JdCheckboxView.symbolColor(isSelectedState).uiColor
         // 상태는 문자열 조합이 아니라 트레이트 + 값으로 (04 §7.1)
         if isSelectedState == .on {
@@ -123,7 +128,8 @@ public final class JdCheckboxView: UIControl {
     }
 
     @objc private func didTap() {
-        isSelectedState = JdCheckboxView.next(isSelectedState, indeterminateAllowed: indeterminateAllowed)
+        isSelectedState = JdCheckboxView.next(
+            isSelectedState, indeterminateAllowed: indeterminateAllowed)
         onChange?(isSelectedState)
     }
 
@@ -132,7 +138,9 @@ public final class JdCheckboxView: UIControl {
     // 웹 #onChange 동형: 사용자 조작은 mixed를 해제한다(네이티브 input 동작과 정합).
     // ⚠️ JdCheckbox(SwiftUI)와 문자 단위로 같은 규칙이며 DEC-010으로 공유가 불가해 각 계층에
     //    복제돼 있다. JdCheckboxState의 Core 멤버로 승격할 후보 — DECISIONS 기록감.
-    private static func next(_ state: JdCheckboxState, indeterminateAllowed: Bool) -> JdCheckboxState {
+    private static func next(
+        _ state: JdCheckboxState, indeterminateAllowed: Bool
+    ) -> JdCheckboxState {
         switch state {
         case .off:
             return .on

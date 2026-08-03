@@ -165,12 +165,7 @@ interface StreamTickEvent {
  * 외부에서 단일 종목 tick을 pub/sub에 시드한다. SSE/REST 폴백 등에서 사용.
  * trend는 직전 가격과 비교해 자동 계산.
  */
-export function seedTick(
-  name: string,
-  price: number,
-  changePct: number,
-  venue?: TickVenue,
-): void {
+export function seedTick(name: string, price: number, changePct: number, venue?: TickVenue): void {
   if (!Number.isFinite(price) || price <= 0) return;
   const prev = ticks.get(name);
   // 동일 tick dedup — 가격/등락률/venue 모두 동일하면 subscriber 호출 skip.
@@ -189,13 +184,7 @@ export function seedTick(
   const next: Tick = {
     price,
     change: changePct,
-    trend: prev
-      ? price > prev.price
-        ? "up"
-        : price < prev.price
-          ? "down"
-          : "flat"
-      : "flat",
+    trend: prev ? (price > prev.price ? "up" : price < prev.price ? "down" : "flat") : "flat",
     venue: venue ?? prev?.venue,
   };
   ticks.set(name, next);
@@ -238,9 +227,7 @@ export function useRealPricesSnapshot(
 
     const run = async () => {
       try {
-        const res = await fetch(
-          `/api/kis/quotes?codes=${encodeURIComponent(names.join(","))}`,
-        );
+        const res = await fetch(`/api/kis/quotes?codes=${encodeURIComponent(names.join(","))}`);
         if (res.ok) {
           const data = (await res.json()) as { items?: KisQuoteItem[] };
           if (aborted) return;
@@ -262,9 +249,7 @@ export function useRealPricesSnapshot(
       if (aborted) return;
 
       try {
-        const res = await fetch(
-          `/api/quotes?symbols=${encodeURIComponent(names.join(","))}`,
-        );
+        const res = await fetch(`/api/quotes?symbols=${encodeURIComponent(names.join(","))}`);
         if (!res.ok) throw new Error(`status-${res.status}`);
         const data = (await res.json()) as { items?: BatchQuoteItem[] };
         if (aborted) return;
@@ -348,7 +333,11 @@ function poolApplyConnections(): void {
   poolLastKey = key;
   // close existing streams
   for (const es of poolStreams) {
-    try { es.close(); } catch { /* ignore */ }
+    try {
+      es.close();
+    } catch {
+      /* ignore */
+    }
   }
   poolStreams = [];
   if (codes.length === 0) return;
@@ -356,13 +345,14 @@ function poolApplyConnections(): void {
   for (let i = 0; i < codes.length; i += POOL_CODES_PER_SSE) {
     const chunk = codes.slice(i, i + POOL_CODES_PER_SSE);
     try {
-      const es = new EventSource(
-        `/api/kis/stream?codes=${encodeURIComponent(chunk.join(","))}`,
-        { withCredentials: true },
-      );
+      const es = new EventSource(`/api/kis/stream?codes=${encodeURIComponent(chunk.join(","))}`, {
+        withCredentials: true,
+      });
       es.addEventListener("tick", (ev) => {
         try {
-          const t = JSON.parse((ev as MessageEvent).data) as StreamTickEvent & { venue?: TickVenue };
+          const t = JSON.parse((ev as MessageEvent).data) as StreamTickEvent & {
+            venue?: TickVenue;
+          };
           if (t.symbol && Number.isFinite(t.price)) {
             seedTick(t.symbol, t.price, t.changePct ?? 0, t.venue);
             poolNotify("kis");
@@ -408,7 +398,9 @@ function poolSnapshot(codes: string[]): void {
         }
         if (any) poolNotify("kis");
       }
-    } catch { /* SSE 가 곧 채움 */ }
+    } catch {
+      /* SSE 가 곧 채움 */
+    }
     // Yahoo 폴백 — KIS 시드 안 된 종목만.
     try {
       const res = await fetch(`/api/quotes?symbols=${encodeURIComponent(fresh.join(","))}`);
@@ -422,7 +414,9 @@ function poolSnapshot(codes: string[]): void {
         any = true;
       }
       if (any) poolNotify(poolCurrentSource === "kis" ? "kis" : "yahoo");
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   })();
 }
 
@@ -499,9 +493,7 @@ export function useLivePrices(names: string[]): Record<string, Tick> {
       for (const n of names) obj[n] = ensureSeeded(n);
       return obj;
     });
-    const unsubs = names.map((n) =>
-      subscribe(n, (t) => setMap((prev) => ({ ...prev, [n]: t }))),
-    );
+    const unsubs = names.map((n) => subscribe(n, (t) => setMap((prev) => ({ ...prev, [n]: t }))));
     return () => {
       for (const off of unsubs) off();
     };

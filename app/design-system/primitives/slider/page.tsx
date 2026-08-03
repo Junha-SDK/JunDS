@@ -24,7 +24,12 @@ export default function SliderPage() {
         { name: "step", type: "number", default: "1", description: "증감 단위" },
         { name: "showValue", type: "boolean", default: "false", description: "값 표시 여부" },
         { name: "marks", type: "{ value: number; label?: string }[]", description: "마크 표시" },
-        { name: "color", type: '"primary"|"success"|"warning"|"danger"', default: '"primary"', description: "색상" },
+        {
+          name: "color",
+          type: '"primary"|"success"|"warning"|"danger"',
+          default: '"primary"',
+          description: "색상",
+        },
         { name: "size", type: '"sm"|"md"', default: '"md"', description: "크기" },
         { name: "disabled", type: "boolean", default: "false", description: "비활성화" },
       ]}

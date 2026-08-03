@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Carousel",
   "oneLiner": "캐러셀",
-  "tags": [
-    "media"
-  ],
+  "tags": ["media"],
   "controls": [],
   "snippets": {
     "web": null,

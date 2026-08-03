@@ -30,9 +30,17 @@ function FormDemo() {
   };
 
   return (
-    <Form values={values as unknown as Record<string, unknown>} errors={errors} onChange={handleChange} onSubmit={handleSubmit} className="max-w-sm">
+    <Form
+      values={values as unknown as Record<string, unknown>}
+      errors={errors}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+      className="max-w-sm"
+    >
       <div className="flex flex-col gap-1">
-        <Label htmlFor="form-name" required>이름</Label>
+        <Label htmlFor="form-name" required>
+          이름
+        </Label>
         <Input
           id="form-name"
           value={values.name}
@@ -42,7 +50,9 @@ function FormDemo() {
         {errors.name && <p className="text-xs text-danger">{errors.name}</p>}
       </div>
       <div className="flex flex-col gap-1">
-        <Label htmlFor="form-email" required>이메일</Label>
+        <Label htmlFor="form-email" required>
+          이메일
+        </Label>
         <Input
           id="form-email"
           type="email"
@@ -70,9 +80,17 @@ export default function FormPage() {
         { name: "values", type: "Record<string, unknown>", description: "현재 폼 값 객체." },
         { name: "errors", type: "Record<string, string>", description: "필드별 오류 메시지." },
         { name: "touched", type: "Record<string, boolean>", description: "필드별 터치 상태." },
-        { name: "onChange", type: "(name: string, value: unknown) => void", description: "필드 값 변경 핸들러." },
+        {
+          name: "onChange",
+          type: "(name: string, value: unknown) => void",
+          description: "필드 값 변경 핸들러.",
+        },
         { name: "onBlur", type: "(name: string) => void", description: "필드 blur 핸들러." },
-        { name: "onSubmit", type: "() => void", description: "submit 이벤트 핸들러 (preventDefault 자동 처리)." },
+        {
+          name: "onSubmit",
+          type: "() => void",
+          description: "submit 이벤트 핸들러 (preventDefault 자동 처리).",
+        },
         { name: "children", type: "ReactNode", description: "폼 필드와 버튼." },
         { name: "className", type: "string", description: "form 요소에 적용되는 CSS 클래스." },
       ]}

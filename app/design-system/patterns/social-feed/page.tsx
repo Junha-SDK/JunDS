@@ -21,7 +21,9 @@ export default function SocialFeedPage() {
             ]}
             onStoryClick={() => {}}
           >
-            <div className="text-sm text-muted text-center py-8">PostCard 리스트가 여기에 표시됩니다</div>
+            <div className="text-sm text-muted text-center py-8">
+              PostCard 리스트가 여기에 표시됩니다
+            </div>
           </SocialFeed>
         </Preview>
       </Section>

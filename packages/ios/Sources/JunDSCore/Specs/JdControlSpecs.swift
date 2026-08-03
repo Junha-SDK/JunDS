@@ -1,5 +1,5 @@
-import Foundation
 import CoreGraphics
+import Foundation
 
 // 폼 컨트롤 계열 스펙 — 토큰·v2 리터럴만 읽는 순수 함수 (04 §9).
 // 값 출처는 웹 구현 실측(packages/web/src/components/*)이며, 하드코딩 리터럴은
@@ -18,12 +18,18 @@ public struct JdToggleSpec: Sendable {
     /// (04 §10.1 "시스템 컨트롤 스킨 우선" — 픽셀 동형은 목표가 아니다).
     public static func resolve(size: JdToggleSize) -> JdToggleSpec {
         switch size {
-        case .sm: return JdToggleSpec(trackWidth: 36, trackHeight: 20, thumbSize: 14,
-                                      labelFontSize: JdTextSpec.resolve(size: .sm).fontSize)
-        case .md: return JdToggleSpec(trackWidth: 44, trackHeight: 24, thumbSize: 18,
-                                      labelFontSize: JdTextSpec.resolve(size: .sm).fontSize)
-        case .lg: return JdToggleSpec(trackWidth: 56, trackHeight: 28, thumbSize: 22,
-                                      labelFontSize: JdTextSpec.resolve(size: .sm).fontSize)
+        case .sm:
+            return JdToggleSpec(
+                trackWidth: 36, trackHeight: 20, thumbSize: 14,
+                labelFontSize: JdTextSpec.resolve(size: .sm).fontSize)
+        case .md:
+            return JdToggleSpec(
+                trackWidth: 44, trackHeight: 24, thumbSize: 18,
+                labelFontSize: JdTextSpec.resolve(size: .sm).fontSize)
+        case .lg:
+            return JdToggleSpec(
+                trackWidth: 56, trackHeight: 28, thumbSize: 22,
+                labelFontSize: JdTextSpec.resolve(size: .sm).fontSize)
         }
     }
 }
@@ -40,11 +46,13 @@ public struct JdChoiceSpec: Sendable {
     public static func resolve(size: JdToggleSize) -> JdChoiceSpec {
         switch size {
         case .sm:
-            return JdChoiceSpec(boxSize: 14, gap: JdToken.Space.s2,
-                                labelFontSize: JdTextSpec.resolve(size: .xs).fontSize)
+            return JdChoiceSpec(
+                boxSize: 14, gap: JdToken.Space.s2,
+                labelFontSize: JdTextSpec.resolve(size: .xs).fontSize)
         case .md, .lg:
-            return JdChoiceSpec(boxSize: 16, gap: JdToken.Space.s2,
-                                labelFontSize: JdTextSpec.resolve(size: .sm).fontSize)
+            return JdChoiceSpec(
+                boxSize: 16, gap: JdToken.Space.s2,
+                labelFontSize: JdTextSpec.resolve(size: .sm).fontSize)
         }
     }
 }
@@ -60,11 +68,13 @@ public struct JdSliderSpec: Sendable {
     public static func resolve(size: JdToggleSize) -> JdSliderSpec {
         switch size {
         case .sm:
-            return JdSliderSpec(trackHeight: 4, thumbSize: 14,
-                                valueFontSize: JdTextSpec.resolve(size: .xs).fontSize)
+            return JdSliderSpec(
+                trackHeight: 4, thumbSize: 14,
+                valueFontSize: JdTextSpec.resolve(size: .xs).fontSize)
         case .md, .lg:
-            return JdSliderSpec(trackHeight: 6, thumbSize: 18,
-                                valueFontSize: JdTextSpec.resolve(size: .xs).fontSize)
+            return JdSliderSpec(
+                trackHeight: 6, thumbSize: 18,
+                valueFontSize: JdTextSpec.resolve(size: .xs).fontSize)
         }
     }
 
@@ -92,8 +102,10 @@ public struct JdRangeState: Equatable, Sendable {
     public private(set) var lower: Double
     public private(set) var upper: Double
 
-    public init(bounds: ClosedRange<Double> = 0...100, step: Double = 1,
-                lower: Double = 0, upper: Double = 100) {
+    public init(
+        bounds: ClosedRange<Double> = 0...100, step: Double = 1,
+        lower: Double = 0, upper: Double = 100
+    ) {
         self.bounds = bounds
         self.step = step > 0 ? step : 1
         self.lower = lower
@@ -164,12 +176,13 @@ public struct JdTextareaSpec: Sendable {
 
     /// 웹: min-height 80, font 14, radius 12(xl), padding 10/14, 카운터 12
     public static func resolve() -> JdTextareaSpec {
-        JdTextareaSpec(minHeight: 80,
-                       fontSize: JdTextSpec.resolve(size: .sm).fontSize,     // 14
-                       radius: JdToken.Radius.xl,                            // 12
-                       hPadding: JdToken.Space.s3_5,                         // 14
-                       vPadding: JdToken.Space.s2_5,                         // 10
-                       countFontSize: JdTextSpec.resolve(size: .xs).fontSize) // 12
+        JdTextareaSpec(
+            minHeight: 80,
+            fontSize: JdTextSpec.resolve(size: .sm).fontSize,  // 14
+            radius: JdToken.Radius.xl,  // 12
+            hPadding: JdToken.Space.s3_5,  // 14
+            vPadding: JdToken.Space.s2_5,  // 10
+            countFontSize: JdTextSpec.resolve(size: .xs).fontSize)  // 12
     }
 }
 
@@ -182,9 +195,10 @@ public struct JdLabelSpec: Sendable {
     public var markerSpacing: CGFloat
 
     public static func resolve() -> JdLabelSpec {
-        JdLabelSpec(fontSize: JdTextSpec.resolve(size: .sm).fontSize,  // 14
-                    fontWeight: JdToken.FontWeight.medium,             // 500
-                    markerSpacing: JdToken.Space.s0_5)                 // 2
+        JdLabelSpec(
+            fontSize: JdTextSpec.resolve(size: .sm).fontSize,  // 14
+            fontWeight: JdToken.FontWeight.medium,  // 500
+            markerSpacing: JdToken.Space.s0_5)  // 2
     }
 }
 
@@ -200,14 +214,16 @@ public struct JdIconButtonSpec: Sendable {
     public var border: JdDynamicColor?
 
     /// 웹 크기: xs 24/r6 · sm 28/r8 · md 32/r8 · lg 40/r12
-    public static func resolve(variant: JdIconButtonVariant, size: JdIconButtonSize) -> JdIconButtonSpec {
+    public static func resolve(
+        variant: JdIconButtonVariant, size: JdIconButtonSize
+    ) -> JdIconButtonSpec {
         let side: CGFloat
         let radius: CGFloat
         switch size {
-        case .xs: side = 24; radius = JdToken.Radius.md   // 6
-        case .sm: side = 28; radius = JdToken.Radius.lg   // 8
-        case .md: side = 32; radius = JdToken.Radius.lg   // 8
-        case .lg: side = 40; radius = JdToken.Radius.xl   // 12
+        case .xs: side = 24; radius = JdToken.Radius.md  // 6
+        case .sm: side = 28; radius = JdToken.Radius.lg  // 8
+        case .md: side = 32; radius = JdToken.Radius.lg  // 8
+        case .lg: side = 40; radius = JdToken.Radius.xl  // 12
         }
 
         let clear = JdDynamicColor(light: 0x0000_0000, dark: 0x0000_0000)
@@ -216,23 +232,26 @@ public struct JdIconButtonSpec: Sendable {
 
         switch variant {
         case .ghost:
-            return JdIconButtonSpec(side: side, radius: radius, iconSize: side * 0.5,
-                                    background: clear,
-                                    foreground: JdToken.Color.muted,
-                                    pressedBackground: mutedWash,
-                                    border: nil)
+            return JdIconButtonSpec(
+                side: side, radius: radius, iconSize: side * 0.5,
+                background: clear,
+                foreground: JdToken.Color.muted,
+                pressedBackground: mutedWash,
+                border: nil)
         case .outline:
-            return JdIconButtonSpec(side: side, radius: radius, iconSize: side * 0.5,
-                                    background: clear,
-                                    foreground: JdToken.Color.muted,
-                                    pressedBackground: JdToken.Color.cardHover,
-                                    border: JdToken.Color.border)
+            return JdIconButtonSpec(
+                side: side, radius: radius, iconSize: side * 0.5,
+                background: clear,
+                foreground: JdToken.Color.muted,
+                pressedBackground: JdToken.Color.cardHover,
+                border: JdToken.Color.border)
         case .filled:
-            return JdIconButtonSpec(side: side, radius: radius, iconSize: side * 0.5,
-                                    background: JdToken.Color.primary,
-                                    foreground: JdDynamicColor(light: 0xFFFF_FFFF, dark: 0xFFFF_FFFF),
-                                    pressedBackground: JdToken.Color.primaryHover,
-                                    border: nil)
+            return JdIconButtonSpec(
+                side: side, radius: radius, iconSize: side * 0.5,
+                background: JdToken.Color.primary,
+                foreground: JdDynamicColor(light: 0xFFFF_FFFF, dark: 0xFFFF_FFFF),
+                pressedBackground: JdToken.Color.primaryHover,
+                border: nil)
         }
     }
 }

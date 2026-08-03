@@ -13,7 +13,16 @@ export default function PhotoGridPage() {
     >
       <Section title="Default">
         <Preview>
-          <PhotoGrid layout="masonry" columns={3}>{[1,2,3,4,5,6].map((i) => (<img key={i} src={`https://picsum.photos/seed/g${i}/400/${300 + i * 40}`} alt="" className="rounded-lg w-full" />))}</PhotoGrid>
+          <PhotoGrid layout="masonry" columns={3}>
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <img
+                key={i}
+                src={`https://picsum.photos/seed/g${i}/400/${300 + i * 40}`}
+                alt=""
+                className="rounded-lg w-full"
+              />
+            ))}
+          </PhotoGrid>
         </Preview>
       </Section>
     </ComponentPage>

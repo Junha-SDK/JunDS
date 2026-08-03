@@ -10,10 +10,9 @@ describe("useDebounce", () => {
 
   it("debounces value changes", async () => {
     vi.useFakeTimers();
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 300),
-      { initialProps: { value: "a" } },
-    );
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value, 300), {
+      initialProps: { value: "a" },
+    });
 
     rerender({ value: "b" });
     expect(result.current).toBe("a"); // still old value

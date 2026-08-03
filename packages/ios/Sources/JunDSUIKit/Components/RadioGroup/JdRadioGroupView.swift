@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-radio-group 동형 — 옵션 배열 + 단일 선택. iOS 관용구 부재로 SF Symbols 자체 드로잉
 // (04 §10.1 primitives). 행 하나가 접근성 요소 하나이고 그룹 라벨은 소비자 몫이다 (04 §7.1).
@@ -37,10 +37,12 @@ public final class JdRadioGroupView: UIView {
     private var rows: [JdRadioRowView] = []
     private var spec: JdChoiceSpec
 
-    public init(options: [JdRadioOption] = [],
-                selectedValue: String? = nil,
-                axis: JdAxis = .vertical,
-                size: JdToggleSize = .md) {
+    public init(
+        options: [JdRadioOption] = [],
+        selectedValue: String? = nil,
+        axis: JdAxis = .vertical,
+        size: JdToggleSize = .md
+    ) {
         self.options = options
         self.selectedValue = selectedValue
         self.axis = axis
@@ -186,17 +188,20 @@ private final class JdRadioRowView: UIControl {
 
     func applyStyle() {
         // 심볼 크기 = 스펙 boxSize. 폰트 설정 경유라 Dynamic Type에 함께 자란다 (04 §7.2)
-        let symbolFont = JdFontBridge.scaledFont(size: spec.boxSize,
-                                                 weight: JdToken.FontWeight.normal,
-                                                 compatibleWith: traitCollection)
+        let symbolFont = JdFontBridge.scaledFont(
+            size: spec.boxSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         // DESIGN-2 §B1 지정 심볼 — 선택 largecircle.fill.circle / 미선택 circle
-        markView.image = UIImage(systemName: isChosen ? "largecircle.fill.circle" : "circle",
-                                 withConfiguration: UIImage.SymbolConfiguration(font: symbolFont))
+        markView.image = UIImage(
+            systemName: isChosen ? "largecircle.fill.circle" : "circle",
+            withConfiguration: UIImage.SymbolConfiguration(font: symbolFont))
         markView.tintColor = (isChosen ? JdToken.Color.primary : JdToken.Color.border).uiColor
 
-        labelView.font = JdFontBridge.scaledFont(size: spec.labelFontSize,
-                                                 weight: JdToken.FontWeight.normal,
-                                                 compatibleWith: traitCollection)
+        labelView.font = JdFontBridge.scaledFont(
+            size: spec.labelFontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         labelView.textColor = JdToken.Color.foreground.uiColor
 
         // 웹 행 disabled: opacity 50%

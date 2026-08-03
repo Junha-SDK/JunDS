@@ -49,10 +49,7 @@ const ERROR_ICON_SVG =
 
 export type InputSize = "sm" | "md" | "lg";
 
-export interface TextFieldProps extends Omit<
-  InputHTMLAttributes<HTMLInputElement>,
-  "size"
-> {
+export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   /** 라벨 행 — 비어 있으면 행 자체가 접힌다(hidden) */
   label?: string;
   /** 입력 필드 크기 — v2 Input과 동일 램프 (sm 32px / md 40px / lg 48px) */
@@ -70,11 +67,7 @@ export interface TextFieldProps extends Omit<
 }
 
 function mergeIdRefs(...values: Array<string | undefined>): string | undefined {
-  const ids = [
-    ...new Set(
-      values.flatMap((value) => value?.split(/\s+/).filter(Boolean) ?? []),
-    ),
-  ];
+  const ids = [...new Set(values.flatMap((value) => value?.split(/\s+/).filter(Boolean) ?? []))];
   return ids.length ? ids.join(" ") : undefined;
 }
 
@@ -110,18 +103,10 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const controlled = value !== undefined;
     const hasError = Boolean(error);
     const hasAriaInvalid =
-      ariaInvalid !== undefined &&
-      ariaInvalid !== false &&
-      ariaInvalid !== "false";
+      ariaInvalid !== undefined && ariaInvalid !== false && ariaInvalid !== "false";
     const isInvalid = invalid || hasError || hasAriaInvalid;
-    const describedBy = mergeIdRefs(
-      ariaDescribedBy,
-      hasError ? errorId : undefined,
-    );
-    const errorMessage = mergeIdRefs(
-      ariaErrorMessage,
-      hasError ? errorId : undefined,
-    );
+    const describedBy = mergeIdRefs(ariaDescribedBy, hasError ? errorId : undefined);
+    const errorMessage = mergeIdRefs(ariaErrorMessage, hasError ? errorId : undefined);
 
     // controlled 거부 방어(모듈 주석 3): React의 restoreControlledState(디스패치 종료 후
     // 동기 복원)보다 먼저 host 상태를 prop 값으로 되돌려, 이미 큐된 CE update()가
@@ -141,9 +126,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       valueRef.current = value;
       const host = hostRef.current;
       if (!host) return;
-      host.value = controlled
-        ? String(value ?? "")
-        : (innerRef.current?.value ?? "");
+      host.value = controlled ? String(value ?? "") : innerRef.current?.value ?? "";
     });
 
     // SSR 초기값: CE 최초 update()가 host.value 기본 ""와의 diff로 서버 직렬화 값을
@@ -151,8 +134,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const ssrValue = controlled
       ? String(value ?? "")
       : defaultValue != null
-        ? String(defaultValue)
-        : "";
+      ? String(defaultValue)
+      : "";
     return (
       <jd-text-field
         ref={hostRef}
@@ -178,9 +161,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           dangerouslySetInnerHTML={{ __html: label ? escapeHtml(label) : "" }}
         />
         <div className="jd-text-field__control">
-          <span className="jd-text-field__slot jd-text-field__slot--start">
-            {leftSlot}
-          </span>
+          <span className="jd-text-field__slot jd-text-field__slot--start">{leftSlot}</span>
           {/* type/placeholder는 CE update()가 항상 정규화(기본값 명시)하므로 어댑터도
               항상 명시해 서버 HTML = CE 정규화 결과를 일치시킨다. */}
           <input
@@ -197,9 +178,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             aria-describedby={describedBy}
             aria-errormessage={errorMessage}
           />
-          <span className="jd-text-field__slot jd-text-field__slot--end">
-            {rightSlot}
-          </span>
+          <span className="jd-text-field__slot jd-text-field__slot--end">{rightSlot}</span>
         </div>
         <p
           className="jd-text-field__error"
@@ -218,10 +197,7 @@ TextField.displayName = "TextField";
 
 /* ---------------------------------------------------------------- Input (v2) */
 
-export interface InputProps extends Omit<
-  InputHTMLAttributes<HTMLInputElement>,
-  "size"
-> {
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   /** 입력 필드의 높이 및 텍스트 크기 (v2와 동일: sm/md/lg, 기본 md) */
   size?: InputSize;
   /** 유효성 검증 실패 시 에러 상태 표시 (v2: boolean) */
@@ -312,13 +288,11 @@ export function FormField({
         if (i !== foldIdx || !isValidElement(child)) return child;
         const childProps = child.props as Record<string, unknown>;
         const patch: Record<string, unknown> = {};
-        if (label !== undefined && childProps["label"] === undefined)
-          patch["label"] = label;
+        if (label !== undefined && childProps["label"] === undefined) patch["label"] = label;
         if (required !== undefined && childProps["required"] === undefined)
           patch["required"] = required;
         if (error) patch["error"] = error; // 문자열 메시지가 자식의 boolean error보다 우선
-        if (htmlFor !== undefined && childProps["id"] === undefined)
-          patch["id"] = htmlFor;
+        if (htmlFor !== undefined && childProps["id"] === undefined) patch["id"] = htmlFor;
         if (hint && !error) {
           patch["aria-describedby"] = mergeIdRefs(
             childProps["aria-describedby"] as string | undefined,

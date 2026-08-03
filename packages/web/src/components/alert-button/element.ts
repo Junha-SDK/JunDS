@@ -70,10 +70,7 @@ export class JdAlertButton extends JdElement {
     if (active) this.#count.textContent = String(n);
     this.#btn.toggleAttribute("data-active", active);
     this.#btn.disabled = this.disabled;
-    this.#btn.setAttribute(
-      "aria-label",
-      active ? `가격 알림 ${n}개 등록됨` : "가격 알림 추가",
-    );
+    this.#btn.setAttribute("aria-label", active ? `가격 알림 ${n}개 등록됨` : "가격 알림 추가");
   }
 
   #onClick = (): void => {

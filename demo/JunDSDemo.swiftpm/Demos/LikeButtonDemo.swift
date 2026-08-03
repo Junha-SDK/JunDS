@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // LikeButton 데모 — 실컴포넌트 JdLikeButton(SwiftUI)/JdLikeButtonView(UIKit).
 // 웹 <jd-like-button> 동형: 하트 토글 + 선택적 카운트. BookmarkButton과 같은 골격이고
@@ -93,11 +93,13 @@ private struct LikeButtonStageUIKit: View {
 @ViewBuilder
 private func countFootnote(_ count: Int?) -> some View {
     if let count {
-        Text("count \(count) → \"\(JdNumberFormat.compactCount(count))\" — 자리수 축약은 "
-             + "Core의 JdNumberFormat.compactCount가 단일 소스다(천·만·억 · Foundation의 1K/1M 아님).")
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            .multilineTextAlignment(.center)
+        Text(
+            "count \(count) → \"\(JdNumberFormat.compactCount(count))\" — 자리수 축약은 "
+                + "Core의 JdNumberFormat.compactCount가 단일 소스다(천·만·억 · Foundation의 1K/1M 아님)."
+        )
+        .font(.footnote)
+        .foregroundColor(.secondary)
+        .multilineTextAlignment(.center)
     } else {
         Text("show-count를 끄면 카운트 슬롯 자체가 사라지고 정사각 히트 타깃으로 돌아간다.")
             .font(.footnote)

@@ -93,10 +93,7 @@ export function MultiLineChart({
   const tipNamesMaxLen = Math.max(2, ...transformed.map((s) => s.name.length));
   const tipW = Math.min(180, 60 + tipNamesMaxLen * 6);
   const tipH = (transformed.length + (labels?.[hoverIdx ?? 0] ? 1 : 0)) * tipLineH + 12;
-  const tipX =
-    hoverX != null
-      ? Math.min(width - tipW - 4, Math.max(4, hoverX + 10))
-      : 0;
+  const tipX = hoverX != null ? Math.min(width - tipW - 4, Math.max(4, hoverX + 10)) : 0;
   const tipY = 6;
 
   return (
@@ -112,20 +109,8 @@ export function MultiLineChart({
     >
       {ticks.map((tv) => (
         <g key={tv}>
-          <line
-            x1={padL}
-            x2={width - padR}
-            y1={yOf(tv)}
-            y2={yOf(tv)}
-            stroke="var(--bm-grid)"
-          />
-          <text
-            x={padL - 6}
-            y={yOf(tv) + 3}
-            fontSize={10}
-            fill="var(--bm-axis)"
-            textAnchor="end"
-          >
+          <line x1={padL} x2={width - padR} y1={yOf(tv)} y2={yOf(tv)} stroke="var(--bm-grid)" />
+          <text x={padL - 6} y={yOf(tv) + 3} fontSize={10} fill="var(--bm-axis)" textAnchor="end">
             {tv >= 0 ? "+" : ""}
             {tv.toFixed(0)}
             {unit}
@@ -142,9 +127,7 @@ export function MultiLineChart({
       />
 
       {transformed.map((s) => {
-        const pts = s.data
-          .map((v, i) => `${xOf(i).toFixed(1)},${yOf(v).toFixed(1)}`)
-          .join(" L");
+        const pts = s.data.map((v, i) => `${xOf(i).toFixed(1)},${yOf(v).toFixed(1)}`).join(" L");
         const lastV = s.data[s.data.length - 1];
         return (
           <g key={s.name}>
@@ -196,12 +179,7 @@ export function MultiLineChart({
             );
           })}
           <g transform={`translate(${tipX}, ${tipY})`}>
-            <rect
-              width={tipW}
-              height={tipH}
-              rx={6}
-              fill="rgba(15, 23, 42, 0.92)"
-            />
+            <rect width={tipW} height={tipH} rx={6} fill="rgba(15, 23, 42, 0.92)" />
             {labels?.[hoverIdx] ? (
               <text
                 x={tipPadX}

@@ -11,7 +11,9 @@ export function useTimeout(callback: () => void, delay: number | null) {
   const cbRef = useRef(callback);
   const idRef = useRef<number | null>(null);
 
-  useEffect(() => { cbRef.current = callback; }, [callback]);
+  useEffect(() => {
+    cbRef.current = callback;
+  }, [callback]);
 
   const clear = useCallback(() => {
     if (idRef.current !== null) {

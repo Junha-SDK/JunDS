@@ -100,10 +100,7 @@ const RULES: Rule[] = [
  * Classify a disclosure title (and optional body) into tone/category.
  * Multiple rules may fire; their weighted sum determines confidence.
  */
-export function classifyDisclosure(
-  title: string,
-  body?: string,
-): ClassifiedDisclosure {
+export function classifyDisclosure(title: string, body?: string): ClassifiedDisclosure {
   const haystack = `${title} ${body ?? ""}`;
   const hits: Rule[] = [];
   for (const rule of RULES) {
@@ -125,9 +122,8 @@ export function classifyDisclosure(
   }
   const tone: DisclosureTone =
     toneScore > 0.2 ? "positive" : toneScore < -0.2 ? "negative" : "neutral";
-  const category = (Object.entries(catVotes).sort(
-    (a, b) => b[1] - a[1],
-  )[0]?.[0] ?? "other") as DisclosureCategory;
+  const category = (Object.entries(catVotes).sort((a, b) => b[1] - a[1])[0]?.[0] ??
+    "other") as DisclosureCategory;
   const confidence = Math.min(1, weightSum / 1.5);
   return {
     tone,
@@ -151,10 +147,7 @@ export const CATEGORY_LABELS: Record<DisclosureCategory, string> = {
 };
 
 /** Tone colors aligned with bm tokens. */
-export const TONE_TOKENS: Record<
-  DisclosureTone,
-  { fg: string; bg: string; label: string }
-> = {
+export const TONE_TOKENS: Record<DisclosureTone, { fg: string; bg: string; label: string }> = {
   positive: { fg: "var(--bm-up)", bg: "var(--bm-up-soft)", label: "호재" },
   negative: { fg: "var(--bm-down)", bg: "var(--bm-down-soft)", label: "악재" },
   neutral: {

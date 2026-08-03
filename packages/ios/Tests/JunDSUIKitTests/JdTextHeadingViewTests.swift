@@ -1,8 +1,10 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
+@MainActor
 final class JdTextViewTests: XCTestCase {
 
     private let lightTraits = UITraitCollection(userInterfaceStyle: .light)
@@ -14,14 +16,17 @@ final class JdTextViewTests: XCTestCase {
     // 웹 dimmed attribute 동형 — foreground ↔ muted 전환
     func test_dimmed_switches_between_foreground_and_muted() {
         let view = JdTextView("본문")
-        XCTAssertEqual(resolved(view.textColor),
-                       resolved(JdToken.Color.foreground.uiColor))
+        XCTAssertEqual(
+            resolved(view.textColor),
+            resolved(JdToken.Color.foreground.uiColor))
         view.dimmed = true
-        XCTAssertEqual(resolved(view.textColor),
-                       resolved(JdToken.Color.muted.uiColor))
+        XCTAssertEqual(
+            resolved(view.textColor),
+            resolved(JdToken.Color.muted.uiColor))
         view.dimmed = false
-        XCTAssertEqual(resolved(view.textColor),
-                       resolved(JdToken.Color.foreground.uiColor))
+        XCTAssertEqual(
+            resolved(view.textColor),
+            resolved(JdToken.Color.foreground.uiColor))
     }
 
     // 웹 mono attribute 동형 — 모노스페이스 패밀리 전환(디스크립터 트레이트로 판정)
@@ -34,18 +39,24 @@ final class JdTextViewTests: XCTestCase {
 
     // textSize 변경 → 스케일 폰트 재적용(브리지 출력과 동일값 + 단조 증가)
     func test_textSize_change_reapplies_font_size() {
-        let view = JdTextView("본문") // 기본 md=16
+        let view = JdTextView("본문")  // 기본 md=16
         let mdPoint = view.font.pointSize
-        XCTAssertEqual(mdPoint,
-                       JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .md).fontSize,
-                                               weight: JdToken.FontWeight.normal,
-                                               compatibleWith: view.traitCollection).pointSize)
-        view.textSize = .xl4 // 36
+        XCTAssertEqual(
+            mdPoint,
+            JdFontBridge.scaledFont(
+                size: JdTextSpec.resolve(size: .md).fontSize,
+                weight: JdToken.FontWeight.normal,
+                compatibleWith: view.traitCollection
+            ).pointSize)
+        view.textSize = .xl4  // 36
         XCTAssertGreaterThan(view.font.pointSize, mdPoint)
-        XCTAssertEqual(view.font.pointSize,
-                       JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .xl4).fontSize,
-                                               weight: JdToken.FontWeight.normal,
-                                               compatibleWith: view.traitCollection).pointSize)
+        XCTAssertEqual(
+            view.font.pointSize,
+            JdFontBridge.scaledFont(
+                size: JdTextSpec.resolve(size: .xl4).fontSize,
+                weight: JdToken.FontWeight.normal,
+                compatibleWith: view.traitCollection
+            ).pointSize)
     }
 
     // 웹 p 동형 — 기본 다행 + Dynamic Type 필수 플래그 (04 §7.2)
@@ -56,6 +67,7 @@ final class JdTextViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdHeadingViewTests: XCTestCase {
 
     func test_heading_exposes_header_trait() {

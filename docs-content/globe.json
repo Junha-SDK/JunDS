@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Globe",
   "oneLiner": "회전하는 인터랙티브 3D 지구본.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

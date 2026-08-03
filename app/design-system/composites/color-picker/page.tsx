@@ -16,9 +16,19 @@ export default function ColorPickerPage() {
       importPath='import { ColorPicker } from "@/ds/composites/ColorPicker"'
       props={[
         { name: "value", type: "string", required: true, description: "현재 색상 값 (HEX)" },
-        { name: "onChange", type: "(color: string) => void", required: true, description: "색상 변경 콜백" },
+        {
+          name: "onChange",
+          type: "(color: string) => void",
+          required: true,
+          description: "색상 변경 콜백",
+        },
         { name: "presets", type: "string[]", description: "프리셋 색상 배열" },
-        { name: "showInput", type: "boolean", default: "true", description: "HEX 입력 필드 표시 여부" },
+        {
+          name: "showInput",
+          type: "boolean",
+          default: "true",
+          description: "HEX 입력 필드 표시 여부",
+        },
         { name: "disabled", type: "boolean", default: "false", description: "비활성화 상태" },
       ]}
     >
@@ -46,9 +56,18 @@ export default function ColorPickerPage() {
             value={color3}
             onChange={setColor3}
             presets={[
-              "#FF6B6B", "#FF8E53", "#FFC93C", "#6BCB77",
-              "#4D96FF", "#9B59B6", "#1ABC9C", "#E74C3C",
-              "#3498DB", "#2ECC71", "#F39C12", "#8E44AD",
+              "#FF6B6B",
+              "#FF8E53",
+              "#FFC93C",
+              "#6BCB77",
+              "#4D96FF",
+              "#9B59B6",
+              "#1ABC9C",
+              "#E74C3C",
+              "#3498DB",
+              "#2ECC71",
+              "#F39C12",
+              "#8E44AD",
             ]}
           />
         </Preview>

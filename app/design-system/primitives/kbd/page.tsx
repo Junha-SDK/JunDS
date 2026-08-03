@@ -9,9 +9,7 @@ export default function KbdPage() {
       name="Kbd"
       description="키보드 단축키 표시."
       importPath='import { Kbd } from "@/ds/primitives/Kbd"'
-      props={[
-        { name: "keys", type: "string[]", description: "키 조합" },
-      ]}
+      props={[{ name: "keys", type: "string[]", description: "키 조합" }]}
     >
       <Section title="Examples">
         <Preview>

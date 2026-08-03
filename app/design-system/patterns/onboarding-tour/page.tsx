@@ -13,7 +13,11 @@ export default function OnboardingTourPage() {
     >
       <Section title="Default">
         <Preview>
-          <OnboardingTour open={false} steps={[{id:"1",target:"#x",title:"여기서 작성"}]} onClose={()=>{}} />
+          <OnboardingTour
+            open={false}
+            steps={[{ id: "1", target: "#x", title: "여기서 작성" }]}
+            onClose={() => {}}
+          />
         </Preview>
       </Section>
     </ComponentPage>

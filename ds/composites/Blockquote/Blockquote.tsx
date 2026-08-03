@@ -18,7 +18,7 @@ const variantClass: Record<BlockquoteVariant, string> = {
   default: "border-l-4 border-border pl-4",
   bordered: "border-l-4 border-primary pl-4",
   filled: "bg-surface-soft rounded-md p-4 border-l-4 border-primary",
-  callout: "bg-primary-soft text-primary rounded-md p-4",
+  callout: "bg-primary-light text-primary-ink rounded-md p-4",
 };
 
 /**

@@ -116,7 +116,9 @@ export class JdClosePicksCard extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent || "[]");

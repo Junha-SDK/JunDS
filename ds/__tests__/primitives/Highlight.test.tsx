@@ -8,7 +8,9 @@ describe("Highlight", () => {
     expect(container.firstChild).toBeTruthy();
   });
   it("highlights match", () => {
-    const { getByText } = render(<Highlight text="JunDS 디자인" query="디자인" variant="primary" />);
+    const { getByText } = render(
+      <Highlight text="JunDS 디자인" query="디자인" variant="primary" />,
+    );
     expect(getByText("디자인")).toBeTruthy();
   });
 });

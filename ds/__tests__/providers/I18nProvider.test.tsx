@@ -25,9 +25,7 @@ describe("interpolate", () => {
   });
 
   it("replaces {var} placeholders with param values", () => {
-    expect(interpolate("Hello, {name}!", { name: "Junha" })).toBe(
-      "Hello, Junha!",
-    );
+    expect(interpolate("Hello, {name}!", { name: "Junha" })).toBe("Hello, Junha!");
   });
 
   it("supports number values", () => {

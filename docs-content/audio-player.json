@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "AudioPlayer",
   "oneLiner": "오디오 플레이백 컨트롤(재생/정지/시킹)이 포함된 플레이어.",
-  "tags": [
-    "media"
-  ],
+  "tags": ["media"],
   "controls": [],
   "snippets": {
     "web": null,

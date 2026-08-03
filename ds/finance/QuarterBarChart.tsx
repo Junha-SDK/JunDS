@@ -25,6 +25,7 @@ export function QuarterBarChart({
   const slot = innerW / data.length;
   const barWidth = slot * 0.32;
 
+  // 계열색은 정체성이다 — 매출/이익을 한눈에 가르는 짝이라 테마 토큰으로 바꾸지 않는다
   const aColor = "#5cdcd0";
   const bColor = metric === "revenue-op" ? "#0f766e" : "#a855f7";
   const aKey = "revenue" as const;
@@ -50,24 +51,13 @@ export function QuarterBarChart({
       height={height}
       viewBox={`0 0 ${width} ${height}`}
       className="bm-num"
-      style={{ display: "block", maxWidth: "100%" }}
+      // maxWidth 만 있으면 좁은 칸에서 폭만 줄고 높이는 그대로라 막대가 늘어난다 — height:auto 로 비율을 지킨다
+      style={{ display: "block", maxWidth: "100%", height: "auto" }}
     >
       {ticks.map((tv) => (
         <g key={tv}>
-          <line
-            x1={padL}
-            x2={width - padR}
-            y1={yOf(tv)}
-            y2={yOf(tv)}
-            stroke="var(--bm-grid)"
-          />
-          <text
-            x={padL - 6}
-            y={yOf(tv) + 3}
-            fontSize={10}
-            fill="var(--bm-axis)"
-            textAnchor="end"
-          >
+          <line x1={padL} x2={width - padR} y1={yOf(tv)} y2={yOf(tv)} stroke="var(--bm-grid)" />
+          <text x={padL - 6} y={yOf(tv) + 3} fontSize={10} fill="var(--bm-axis)" textAnchor="end">
             {Math.round(tv).toLocaleString("ko-KR")}
           </text>
         </g>

@@ -32,15 +32,27 @@ export function DsSidebar() {
       <div className="px-3 pb-1">
         <Link
           href="/design-system/showcase"
+          aria-current={pathname === "/design-system/showcase" ? "page" : undefined}
           className={cn(
             "flex items-center gap-2 w-full px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-colors",
+            // 어두운 레일 위 링크 — 키보드 이동 시 현재 위치를 알려 줄 유일한 신호
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-active/70",
+            "focus-visible:ring-offset-2 focus-visible:ring-offset-sidebar-bg",
             pathname === "/design-system/showcase"
               ? "bg-white/10 text-white"
-              : "text-white/40 hover:text-white/70 hover:bg-white/5",
+              : // white/40 은 AA 미달 — DsNav 와 같은 /55 로 맞춘다
+                "text-white/55 hover:text-white hover:bg-white/5",
           )}
         >
           {/* Grid icon */}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
             <rect x="1" y="1" width="5" height="5" rx="1" />
             <rect x="8" y="1" width="5" height="5" rx="1" />
             <rect x="1" y="8" width="5" height="5" rx="1" />

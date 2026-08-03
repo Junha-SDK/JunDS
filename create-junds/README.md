@@ -25,13 +25,13 @@ npm run dev
 
 ## Options
 
-| Flag | Default | Description |
-| --- | --- | --- |
-| `<name>` | — | Project name (also the directory name). Required. |
-| `--target <path>` | `cwd` | Parent directory in which the project folder is created. |
-| `--template <name>` | `default` | Template identifier under `templates/`. |
-| `--force` | `false` | Overwrite a non-empty target directory. |
-| `-h`, `--help` | — | Print usage. |
+| Flag                | Default   | Description                                              |
+| ------------------- | --------- | -------------------------------------------------------- |
+| `<name>`            | —         | Project name (also the directory name). Required.        |
+| `--target <path>`   | `cwd`     | Parent directory in which the project folder is created. |
+| `--template <name>` | `default` | Template identifier under `templates/`.                  |
+| `--force`           | `false`   | Overwrite a non-empty target directory.                  |
+| `-h`, `--help`      | —         | Print usage.                                             |
 
 ## What you get
 
@@ -46,10 +46,10 @@ npm run dev
 Templates live in `templates/<name>/`. Files are copied verbatim with two
 substitutions:
 
-| Token | Replaced with |
-| --- | --- |
-| `{{NAME}}` | The project name passed on the CLI |
-| `{{DIR}}` | The leaf directory name (drops `@scope/` if present) |
+| Token      | Replaced with                                        |
+| ---------- | ---------------------------------------------------- |
+| `{{NAME}}` | The project name passed on the CLI                   |
+| `{{DIR}}`  | The leaf directory name (drops `@scope/` if present) |
 
 Filename rules:
 

@@ -27,13 +27,19 @@ export default function VirtualListPage() {
         { name: "items", type: "T[]", description: "전체 항목 배열" },
         { name: "height", type: "number", description: "리스트 컨테이너 높이 (px)" },
         { name: "itemHeight", type: "number", description: "개별 항목 높이 (px)" },
-        { name: "renderItem", type: "(item: T, index: number) => ReactNode", description: "항목 렌더 함수" },
+        {
+          name: "renderItem",
+          type: "(item: T, index: number) => ReactNode",
+          description: "항목 렌더 함수",
+        },
         { name: "overscan", type: "number", description: "뷰포트 밖 추가 렌더 항목 수 (기본 5)" },
       ]}
     >
       <Section title="10,000개 항목 가상 스크롤">
         <Preview>
-          <p className="text-xs text-muted mb-2">총 {count.toLocaleString()}개 항목 — DOM에는 일부만 렌더됩니다</p>
+          <p className="text-xs text-muted mb-2">
+            총 {count.toLocaleString()}개 항목 — DOM에는 일부만 렌더됩니다
+          </p>
           <VirtualList
             items={items}
             height={400}
@@ -45,12 +51,16 @@ export default function VirtualListPage() {
                 className="flex items-center gap-3 px-4 border-b border-border"
                 style={{ height: 48 }}
               >
-                <span className="text-xs font-mono text-muted w-12 text-right">{(index + 1).toLocaleString()}</span>
+                <span className="text-xs font-mono text-muted w-12 text-right">
+                  {(index + 1).toLocaleString()}
+                </span>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-foreground truncate">{item.name}</p>
                   <p className="text-xs text-muted truncate">{item.email}</p>
                 </div>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-muted">{item.role}</span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-muted">
+                  {item.role}
+                </span>
               </div>
             )}
           />

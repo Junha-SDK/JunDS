@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // ScrollArea 데모 — 레시피형 (04 §10.1, RECIPES.md). 웹 <jd-scroll-area>가 노출하던 두 축
 // (orientation · max-height)은 iOS에서 `ScrollView(_:)` + `.frame(maxHeight:)` 그 자체다.
@@ -12,29 +12,31 @@ enum ScrollAreaDemo {
     static let demo = ComponentDemo(
         id: "ScrollArea",
         controls: [
-            .options("orientation", "orientation", JdOrientation.allCases.map(\.rawValue), initial: "vertical"),
+            .options(
+                "orientation", "orientation", JdOrientation.allCases.map(\.rawValue),
+                initial: "vertical"),
             .slider("maxHeight", "max-height", 120...320, step: 20, initial: 240),
         ],
         swiftUI: { state in AnyView(ScrollAreaStage(state: state)) },
         recipe: """
-        // ScrollArea = ScrollView 그 자체 (04 §10.1 — 신규 컴포넌트 없음)
-        ScrollView(.vertical) {
-            VStack(alignment: .leading, spacing: JdGap.sm.value) { rows }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(JdGap.md.value)
-        }
-        .frame(maxHeight: 240)                       // 웹 max-height
-        .clipShape(RoundedRectangle(cornerRadius: JdToken.Radius.lg, style: .continuous))
+            // ScrollArea = ScrollView 그 자체 (04 §10.1 — 신규 컴포넌트 없음)
+            ScrollView(.vertical) {
+                VStack(alignment: .leading, spacing: JdGap.sm.value) { rows }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(JdGap.md.value)
+            }
+            .frame(maxHeight: 240)                       // 웹 max-height
+            .clipShape(RoundedRectangle(cornerRadius: JdToken.Radius.lg, style: .continuous))
 
-        // orientation="horizontal"
-        ScrollView(.horizontal) { HStack(spacing: JdGap.sm.value) { chips } }
-            .scrollIndicators(.hidden)               // iOS 16+
+            // orientation="horizontal"
+            ScrollView(.horizontal) { HStack(spacing: JdGap.sm.value) { chips } }
+                .scrollIndicators(.hidden)               // iOS 16+
 
-        // UIKit
-        let scroll = UIScrollView()
-        scroll.alwaysBounceVertical = true
-        scroll.showsHorizontalScrollIndicator = false
-        """
+            // UIKit
+            let scroll = UIScrollView()
+            scroll.alwaysBounceVertical = true
+            scroll.showsHorizontalScrollIndicator = false
+            """
     )
 
     static let rows = Array(1...24)
@@ -67,14 +69,16 @@ private struct ScrollAreaStage: View {
                 horizontalArea
             }
 
-            Text(orientation == .vertical
-                 ? "max-height \(Int(maxHeight))pt — 웹의 max-height + overflow:auto가 그대로 "
-                   + ".frame(maxHeight:)다. 인디케이터는 iOS가 알아서 얇게 그리고 사라진다."
-                 : "가로 축은 ScrollView(.horizontal) 하나로 끝난다 — 인디케이터만 "
-                   + ".scrollIndicators(.hidden)로 감췄다(iOS 16+).")
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            Text(
+                orientation == .vertical
+                    ? "max-height \(Int(maxHeight))pt — 웹의 max-height + overflow:auto가 그대로 "
+                        + ".frame(maxHeight:)다. 인디케이터는 iOS가 알아서 얇게 그리고 사라진다."
+                    : "가로 축은 ScrollView(.horizontal) 하나로 끝난다 — 인디케이터만 "
+                        + ".scrollIndicators(.hidden)로 감췄다(iOS 16+)."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
         }
         .padding(JdToken.Space.s4)
     }

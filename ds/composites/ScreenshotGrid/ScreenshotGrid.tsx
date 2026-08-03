@@ -3,8 +3,7 @@
 import { forwardRef, useState, type HTMLAttributes } from "react";
 import { cn } from "../../utils/cn";
 
-export interface ScreenshotGridProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
+export interface ScreenshotGridProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
   /** 이미지 경로 목록. 절대 URL 이 아니면 `basePath` 가 앞에 붙는다 */
   images: string[];
   /** 상대 경로 앞에 붙일 접두사 (예: `"/docs/img/"`) */
@@ -61,7 +60,8 @@ export const ScreenshotGrid = forwardRef<HTMLDivElement, ScreenshotGridProps>(
               alt={alt?.(src, i) ?? ""}
               loading="lazy"
               decoding="async"
-              className="w-full rounded-lg border border-border object-cover"
+              // `block` 이 없으면 인라인 이미지의 baseline 여백이 버튼 안에 4px 틈으로 남는다.
+              className="block w-full rounded-lg border border-border bg-surface-soft object-cover"
               onError={() =>
                 setBroken((prev) => {
                   if (prev.has(src)) return prev;
@@ -79,7 +79,7 @@ export const ScreenshotGrid = forwardRef<HTMLDivElement, ScreenshotGridProps>(
               key={src}
               type="button"
               onClick={() => onSelect(src, i)}
-              className="rounded-lg transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+              className="block cursor-pointer overflow-hidden rounded-lg transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
             >
               {img}
             </button>

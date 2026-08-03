@@ -59,9 +59,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
   },
   ref,
 ) {
-  const [status, setStatus] = useState<"loading" | "loaded" | "error">(
-    src ? "loading" : "error",
-  );
+  const [status, setStatus] = useState<"loading" | "loaded" | "error">(src ? "loading" : "error");
 
   useEffect(() => {
     setStatus(src ? "loading" : "error");
@@ -99,7 +97,8 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
         src={src}
         alt={alt ?? ""}
         className={cn(
-          "w-full h-full transition-opacity",
+          // 로드 완료 시 페이드인 — 감속 요청이면 깜빡임 없이 바로 보인다.
+          "w-full h-full transition-opacity duration-300 motion-reduce:transition-none",
           fitClass[fit],
           status === "loaded" ? "opacity-100" : "opacity-0",
         )}

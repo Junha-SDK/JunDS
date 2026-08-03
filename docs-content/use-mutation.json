@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useMutation",
   "oneLiner": "변경 요청 실행·상태 관리.",
-  "tags": [
-    "hook",
-    "비동기",
-    "변경"
-  ],
+  "tags": ["hook", "비동기", "변경"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Typewriter",
   "oneLiner": "글자를 한 글자씩 쳐 나가는 타이핑 효과.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": {

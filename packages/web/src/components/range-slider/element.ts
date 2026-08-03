@@ -132,12 +132,15 @@ export class JdRangeSlider extends JdElement {
     const isMax = thumb === this.#thumbMax;
     if (!isMin && !isMax) return;
     const d =
-      e.key === "ArrowRight" || e.key === "ArrowUp" ? this.step
-      : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -this.step
-      : 0;
+      e.key === "ArrowRight" || e.key === "ArrowUp"
+        ? this.step
+        : e.key === "ArrowLeft" || e.key === "ArrowDown"
+        ? -this.step
+        : 0;
     if (!d) return;
     e.preventDefault();
-    if (isMin) this.minValue = Math.max(this.min, Math.min(this.minValue + d, this.maxValue - this.step));
+    if (isMin)
+      this.minValue = Math.max(this.min, Math.min(this.minValue + d, this.maxValue - this.step));
     else this.maxValue = Math.min(this.max, Math.max(this.maxValue + d, this.minValue + this.step));
     this.emit("jd-change", { min: this.minValue, max: this.maxValue });
   };

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AppIcon } from "./AppIcon";
 import { fmtSignedPct } from "./lib/format";
 import { HEATMAP_FLAT } from "./lib/heatmapData";
@@ -45,7 +45,12 @@ export function MarketAlertBanner({ symbol, pct }: MarketAlertBannerProps = {}) 
   return (
     <Link
       href={href}
-      className="group block rounded-xl overflow-hidden transition-shadow hover:shadow-md"
+      className={[
+        "group block rounded-xl overflow-hidden transition-shadow",
+        // 한 겹 그림자로는 카드 위에서 떠 보이지 않는다 — 가까운/먼 그림자를 겹친다.
+        "hover:shadow-[0_12px_28px_-14px_rgba(15,23,42,0.28),0_4px_10px_-6px_rgba(15,23,42,0.16)]",
+        "focus-visible:outline-2 focus-visible:outline-[color:var(--bm-accent)] focus-visible:outline-offset-2",
+      ].join(" ")}
       style={{
         background: "var(--bm-card)",
         border: "1px solid var(--bm-border)",
@@ -66,7 +71,7 @@ export function MarketAlertBanner({ symbol, pct }: MarketAlertBannerProps = {}) 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
             <span
-              className="bm-num font-extrabold text-[11.5px] px-1.5 py-0.5 rounded"
+              className="bm-num font-extrabold text-[11.5px] px-1.5 py-0.5 rounded tabular-nums whitespace-nowrap"
               style={{
                 background: "var(--bm-warning-bg)",
                 color: "color-mix(in srgb, var(--bm-warning) 55%, var(--bm-text))",
@@ -86,7 +91,9 @@ export function MarketAlertBanner({ symbol, pct }: MarketAlertBannerProps = {}) 
             style={{ color: "var(--bm-text)" }}
           >
             <span className="font-extrabold">{displaySymbol}</span>
-            <span className="mx-1" style={{ color: "var(--bm-muted)" }}>·</span>
+            <span className="mx-1" style={{ color: "var(--bm-muted)" }}>
+              ·
+            </span>
             {headline}
           </p>
         </div>
@@ -116,7 +123,24 @@ function autoHeadline(pct: number): string {
   return "급락 — 손절선 점검 필요";
 }
 
+/**
+ * 렌더 단계에서 `new Date()` 를 부르면 서버가 그린 시각과 브라우저가 그린 시각이 달라
+ * 하이드레이션이 어긋난다. 마운트 후에 채우고, 분이 바뀌면 따라가게 둔다.
+ */
 function useTime(): string {
-  const d = new Date();
-  return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  const [time, setTime] = useState("--:--");
+
+  useEffect(() => {
+    const tick = () => {
+      const d = new Date();
+      setTime(
+        `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`,
+      );
+    };
+    tick();
+    const id = window.setInterval(tick, 20_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return time;
 }

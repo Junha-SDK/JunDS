@@ -43,9 +43,7 @@ function monthLabel(month: string): string {
 function aggregateMonth(month: string, entries: DailyThemeEntry[]): MonthlyThemeEntry {
   const trading = entries.filter((e) => !e.isHoliday && e.kospiClose > 0);
   const themeCount = new Map<string, number>();
-  trading.forEach((d) =>
-    d.themes.forEach((t) => themeCount.set(t, (themeCount.get(t) ?? 0) + 1)),
-  );
+  trading.forEach((d) => d.themes.forEach((t) => themeCount.set(t, (themeCount.get(t) ?? 0) + 1)));
   const topThemes = [...themeCount.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
@@ -353,7 +351,7 @@ const HISTORICAL: MonthlyThemeEntry[] = [
       { name: "두산퓨얼셀", count: 4, lastClose: 38400, lastPct: 4.0 },
     ],
     bestDay: { date: "2026-03-12", pct: 1.78 },
-    worstDay: { date: "2026-03-28", pct: -1.20 },
+    worstDay: { date: "2026-03-28", pct: -1.2 },
     weekdayHolidays: 1,
     note: "데이터센터 전력 수요 → 송배전 슈퍼사이클 부각.",
   },
@@ -374,9 +372,7 @@ export function ytdReturn(): { kospi: number; portfolio: number } {
   if (ytd.length === 0) return { kospi: 0, portfolio: 0 };
   const first = ytd[0];
   const last = ytd[ytd.length - 1];
-  const kospi = first.kospiOpen
-    ? ((last.kospiClose - first.kospiOpen) / first.kospiOpen) * 100
-    : 0;
+  const kospi = first.kospiOpen ? ((last.kospiClose - first.kospiOpen) / first.kospiOpen) * 100 : 0;
   const portfolio = first.portfolioOpen
     ? ((last.portfolioClose - first.portfolioOpen) / first.portfolioOpen) * 100
     : 0;

@@ -99,7 +99,9 @@ export class JdImageLightbox extends JdModal {
     const figure = this.#panelEl.querySelector<HTMLImageElement>(".jd-image-lightbox__figure");
     if (figure) {
       this.#figure = figure;
-      this.#outBtn = this.#panelEl.querySelector<HTMLButtonElement>(".jd-image-lightbox__zoom-out")!;
+      this.#outBtn = this.#panelEl.querySelector<HTMLButtonElement>(
+        ".jd-image-lightbox__zoom-out",
+      )!;
       this.#inBtn = this.#panelEl.querySelector<HTMLButtonElement>(".jd-image-lightbox__zoom-in")!;
       this.#closeBtn = this.#panelEl.querySelector<HTMLButtonElement>(".jd-image-lightbox__close")!;
       return;

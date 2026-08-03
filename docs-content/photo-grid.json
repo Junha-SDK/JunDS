@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PhotoGrid",
   "oneLiner": "사진 그리드 갤러리.",
-  "tags": [
-    "photo",
-    "사진",
-    "그리드"
-  ],
+  "tags": ["photo", "사진", "그리드"],
   "controls": [],
   "snippets": {
     "web": null,

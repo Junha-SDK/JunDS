@@ -10,17 +10,19 @@ import type { HTMLAttributes } from "react";
  * @since 2.2.0
  * @tags accessibility
  */
-export const VisuallyHidden = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(function VisuallyHidden({ children, ...props }, ref) {
-  return (
-    <span
-      ref={ref}
-      className="absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0"
-      style={{ clip: "rect(0,0,0,0)" }}
-      {...props}
-    >
-      {children}
-    </span>
-  );
-});
+export const VisuallyHidden = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
+  function VisuallyHidden({ children, ...props }, ref) {
+    return (
+      <span
+        ref={ref}
+        className="absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0"
+        style={{ clip: "rect(0,0,0,0)" }}
+        {...props}
+      >
+        {children}
+      </span>
+    );
+  },
+);
 
 VisuallyHidden.displayName = "VisuallyHidden";

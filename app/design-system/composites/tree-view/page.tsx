@@ -37,9 +37,21 @@ export default function TreeViewPage() {
                       label: "app",
                       icon: <span className="text-yellow-500">📁</span>,
                       children: [
-                        { key: "app-layout", label: "layout.tsx", icon: <span className="text-blue-500">📄</span> },
-                        { key: "app-page", label: "page.tsx", icon: <span className="text-blue-500">📄</span> },
-                        { key: "app-globals", label: "globals.css", icon: <span className="text-pink-500">📄</span> },
+                        {
+                          key: "app-layout",
+                          label: "layout.tsx",
+                          icon: <span className="text-blue-500">📄</span>,
+                        },
+                        {
+                          key: "app-page",
+                          label: "page.tsx",
+                          icon: <span className="text-blue-500">📄</span>,
+                        },
+                        {
+                          key: "app-globals",
+                          label: "globals.css",
+                          icon: <span className="text-pink-500">📄</span>,
+                        },
                       ],
                     },
                     {
@@ -47,9 +59,21 @@ export default function TreeViewPage() {
                       label: "components",
                       icon: <span className="text-yellow-500">📁</span>,
                       children: [
-                        { key: "button", label: "Button.tsx", icon: <span className="text-blue-500">📄</span> },
-                        { key: "card", label: "Card.tsx", icon: <span className="text-blue-500">📄</span> },
-                        { key: "modal", label: "Modal.tsx", icon: <span className="text-blue-500">📄</span> },
+                        {
+                          key: "button",
+                          label: "Button.tsx",
+                          icon: <span className="text-blue-500">📄</span>,
+                        },
+                        {
+                          key: "card",
+                          label: "Card.tsx",
+                          icon: <span className="text-blue-500">📄</span>,
+                        },
+                        {
+                          key: "modal",
+                          label: "Modal.tsx",
+                          icon: <span className="text-blue-500">📄</span>,
+                        },
                       ],
                     },
                     {
@@ -57,19 +81,41 @@ export default function TreeViewPage() {
                       label: "utils",
                       icon: <span className="text-yellow-500">📁</span>,
                       children: [
-                        { key: "cn", label: "cn.ts", icon: <span className="text-green-500">📄</span> },
-                        { key: "hooks", label: "hooks.ts", icon: <span className="text-green-500">📄</span> },
+                        {
+                          key: "cn",
+                          label: "cn.ts",
+                          icon: <span className="text-green-500">📄</span>,
+                        },
+                        {
+                          key: "hooks",
+                          label: "hooks.ts",
+                          icon: <span className="text-green-500">📄</span>,
+                        },
                       ],
                     },
                   ],
                 },
-                { key: "package", label: "package.json", icon: <span className="text-red-500">📄</span> },
-                { key: "tsconfig", label: "tsconfig.json", icon: <span className="text-gray-500">📄</span> },
-                { key: "readme", label: "README.md", icon: <span className="text-gray-400">📄</span> },
+                {
+                  key: "package",
+                  label: "package.json",
+                  icon: <span className="text-red-500">📄</span>,
+                },
+                {
+                  key: "tsconfig",
+                  label: "tsconfig.json",
+                  icon: <span className="text-gray-500">📄</span>,
+                },
+                {
+                  key: "readme",
+                  label: "README.md",
+                  icon: <span className="text-gray-400">📄</span>,
+                },
               ]}
             />
             <div className="mt-3 pt-3 border-t border-border">
-              <p className="text-xs text-muted">선택됨: <strong className="text-foreground">{selected}</strong></p>
+              <p className="text-xs text-muted">
+                선택됨: <strong className="text-foreground">{selected}</strong>
+              </p>
             </div>
           </div>
         </Preview>

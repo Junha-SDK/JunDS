@@ -31,7 +31,13 @@ export interface CodeEditorProps {
  * @tags form, input
  */
 export function CodeEditor({
-  value, onChange, language, readOnly, lineNumbers = true, minHeight = 200, className,
+  value,
+  onChange,
+  language,
+  readOnly,
+  lineNumbers = true,
+  minHeight = 200,
+  className,
   "aria-label": ariaLabel,
 }: CodeEditorProps) {
   const t = useT();
@@ -46,22 +52,28 @@ export function CodeEditor({
       const end = ta.selectionEnd;
       const newVal = value.substring(0, start) + "  " + value.substring(end);
       onChange?.(newVal);
-      requestAnimationFrame(() => { ta.selectionStart = ta.selectionEnd = start + 2; });
+      requestAnimationFrame(() => {
+        ta.selectionStart = ta.selectionEnd = start + 2;
+      });
     }
   };
 
   return (
     <div className={cn("rounded-xl border border-border overflow-hidden", className)}>
       {language && (
-        <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-border">
-          <span className="text-xs font-medium text-muted uppercase tracking-wider">{language}</span>
+        <div className="flex items-center justify-between px-4 py-2 bg-surface-soft border-b border-border">
+          <span className="text-xs font-medium text-muted uppercase tracking-wider">
+            {language}
+          </span>
         </div>
       )}
       <div className="relative flex bg-gray-950" style={{ minHeight }}>
         {lineNumbers && (
           <div className="shrink-0 py-3 px-2 text-right select-none border-r border-gray-800">
             {lines.map((_, i) => (
-              <div key={i} className="text-xs text-gray-500 leading-relaxed">{i + 1}</div>
+              <div key={i} className="text-xs tabular-nums text-gray-500 leading-relaxed">
+                {i + 1}
+              </div>
             ))}
           </div>
         )}
@@ -72,10 +84,15 @@ export function CodeEditor({
           onKeyDown={handleKeyDown}
           readOnly={readOnly}
           spellCheck={false}
-          aria-label={ariaLabel ?? (language ? t("ariaCodeEditorOf", { language }) : t("ariaCodeEditor"))}
+          aria-label={
+            ariaLabel ?? (language ? t("ariaCodeEditorOf", { language }) : t("ariaCodeEditor"))
+          }
           className={cn(
-            "flex-1 p-3 text-sm text-gray-100 bg-transparent outline-none resize-none font-mono leading-relaxed",
-            "placeholder:text-gray-500",
+            "flex-1 p-3 text-sm text-gray-100 bg-transparent resize-none font-mono leading-relaxed",
+            // outline 을 끄면 대신할 표시를 같은 자리에서 줘야 한다. 편집기가 어두운
+            // 면을 꽉 채우므로 바깥 링은 잘린다 — inset 으로 건다
+            "outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/60",
+            "placeholder:text-gray-500 caret-primary",
           )}
           style={{ minHeight, tabSize: 2 }}
         />

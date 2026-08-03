@@ -11,6 +11,20 @@ interface FZoneHelpModalProps {
 
 type TabKey = "F존포착" | "F존+" | "SF존" | "골드존" | "38스윙";
 
+/**
+ * 탭·용어를 서로 갈라 보기 위한 계열색. 성공/경고 같은 "의미"가 아니라 "구분"이 목적이라
+ * 의미 토큰으로 옮기지 않는다 — 본문이 "‘NEW’ 핑크 배지" 처럼 색 이름을 그대로 부르는
+ * 곳이 있어 두 모드에서 같은 색으로 고정해야 설명과 화면이 어긋나지 않는다.
+ * 흩어져 있던 hex 를 여기 한 곳으로 모아 두면 나중에 한 번에 조율할 수 있다.
+ */
+const CAT = {
+  orange: "#fb923c",
+  pink: "#ec4899",
+  violet: "#8b5cf6",
+  sky: "#0ea5e9",
+  purple: "#a855f7",
+} as const;
+
 interface TabContent {
   headline: string;
   oneLiner: string;
@@ -36,7 +50,7 @@ const TAB_CONTENT: Record<TabKey, TabContent> = {
     example:
       "예) ‘대원전선 B1 17,940’은 현재가가 17,940원 부근에서 1차 매수 후보 구간에 진입했다는 뜻입니다.",
     color: "var(--bm-up)",
-    colorB: "#fb923c",
+    colorB: CAT.orange,
     emoji: "🎯",
   },
   "F존+": {
@@ -48,8 +62,8 @@ const TAB_CONTENT: Record<TabKey, TabContent> = {
       "프로그램 컬럼이 양수(빨강)면 매수 우위, 음수(파랑)면 매도 우위입니다.",
       "B1·B2 두 줄은 같은 종목의 1차/2차 매수 후보 가격을 동시에 보여줍니다.",
     ],
-    color: "#ec4899",
-    colorB: "#8b5cf6",
+    color: CAT.pink,
+    colorB: CAT.violet,
     emoji: "✨",
   },
   SF존: {
@@ -60,7 +74,7 @@ const TAB_CONTENT: Record<TabKey, TabContent> = {
       "F존포착보다 조건이 까다롭기 때문에 후보 종목 수가 더 적습니다.",
       "신호 강도가 높은 만큼 진입가·손절가를 더 명확히 잡을 수 있습니다.",
     ],
-    color: "#8b5cf6",
+    color: CAT.violet,
     colorB: "var(--bm-down)",
     emoji: "💎",
   },
@@ -85,10 +99,9 @@ const TAB_CONTENT: Record<TabKey, TabContent> = {
       "보통 며칠~2주 내 단기 반등을 노리는 자리이므로, 손절·목표가를 짧게 잡는 것이 일반적입니다.",
       "장기 추세가 무너진 종목에서는 38스윙이 실패할 확률이 높습니다.",
     ],
-    example:
-      "예) ‘10,000원→13,000원’ 상승 후 11,860원 부근까지 눌리면 38% 되돌림 자리입니다.",
+    example: "예) ‘10,000원→13,000원’ 상승 후 11,860원 부근까지 눌리면 38% 되돌림 자리입니다.",
     color: "var(--bm-cat-3)",
-    colorB: "#0ea5e9",
+    colorB: CAT.sky,
     emoji: "⚡",
   },
 };
@@ -102,8 +115,7 @@ interface Term {
 const SHARED_TERMS: Term[] = [
   {
     term: "B1·B2·B3",
-    meaning:
-      "단기 매수 후보 가격(1차→3차). 숫자가 커질수록 더 깊게 조정받았을 때의 분할매수 자리.",
+    meaning: "단기 매수 후보 가격(1차→3차). 숫자가 커질수록 더 깊게 조정받았을 때의 분할매수 자리.",
     color: "var(--bm-up)",
   },
   {
@@ -119,30 +131,24 @@ const SHARED_TERMS: Term[] = [
   {
     term: "저항선",
     meaning: "단기 반등 시 매물벽으로 작용하기 쉬운 위쪽 가격.",
-    color: "#0ea5e9",
+    color: CAT.sky,
   },
   {
     term: "F존임박",
     meaning: "아직 B1을 터치하진 않았지만 곧 진입할 가능성이 높은 상태.",
-    color: "#a855f7",
+    color: CAT.purple,
   },
 ];
 
-export function FZoneHelpModal({
-  open,
-  onClose,
-  initialTab = "F존포착",
-}: FZoneHelpModalProps) {
+export function FZoneHelpModal({ open, onClose, initialTab = "F존포착" }: FZoneHelpModalProps) {
   const tabs: TabKey[] = ["F존포착", "F존+", "SF존", "골드존", "38스윙"];
-  const ordered = [
-    initialTab,
-    ...tabs.filter((t) => t !== initialTab),
-  ] as TabKey[];
+  const ordered = [initialTab, ...tabs.filter((t) => t !== initialTab)] as TabKey[];
 
   return (
     <Modal open={open} onClose={onClose} size="lg">
       <Modal.Header onClose={onClose}>F존 사용법</Modal.Header>
-      <div className="max-h-[78vh] overflow-y-auto">
+      {/* 모달 안쪽 스크롤이 끝까지 가면 뒤 페이지가 따라 굴러간다 — 여기서 끊는다. */}
+      <div className="max-h-[78vh] overflow-y-auto overscroll-contain">
         {/* Hero — gradient intro */}
         <div
           className="px-6 py-5 relative overflow-hidden"
@@ -199,11 +205,7 @@ export function FZoneHelpModal({
 
         <div className="px-5 py-5">
           {/* 카드 읽는 법 */}
-          <Section
-            title="카드 읽는 법"
-            icon="📖"
-            accent="var(--bm-up)"
-          >
+          <Section title="카드 읽는 법" icon="📖" accent="var(--bm-up)">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {[
                 {
@@ -214,17 +216,17 @@ export function FZoneHelpModal({
                 {
                   title: "우측 상단 배지",
                   body: "F존임박 / B1 / B2 — 종목 상태 요약",
-                  color: "#a855f7",
+                  color: CAT.purple,
                 },
                 {
                   title: "가격 정렬 순서",
                   body: "위에서 아래로 가격이 높은 → 낮은 순",
-                  color: "#0ea5e9",
+                  color: CAT.sky,
                 },
                 {
                   title: "하이라이트 라인",
                   body: "현재 상태와 일치하는 줄에 빨간 테두리",
-                  color: "#fb923c",
+                  color: CAT.orange,
                 },
               ].map((c) => (
                 <div
@@ -240,14 +242,9 @@ export function FZoneHelpModal({
                       className="size-1.5 rounded-full shrink-0"
                       style={{ background: c.color }}
                     />
-                    <span className="text-[12.5px] font-extrabold">
-                      {c.title}
-                    </span>
+                    <span className="text-[12.5px] font-extrabold">{c.title}</span>
                   </div>
-                  <p
-                    className="text-[12px] leading-relaxed"
-                    style={{ color: "var(--bm-muted)" }}
-                  >
+                  <p className="text-[12px] leading-relaxed" style={{ color: "var(--bm-muted)" }}>
                     {c.body}
                   </p>
                 </div>
@@ -256,7 +253,7 @@ export function FZoneHelpModal({
           </Section>
 
           {/* 탭별 설명 */}
-          <Section title="탭별 의미" icon="🗂️" accent="#a855f7">
+          <Section title="탭별 의미" icon="🗂️" accent={CAT.purple}>
             <div className="space-y-3">
               {ordered.map((tab, i) => {
                 const content = TAB_CONTENT[tab];
@@ -316,7 +313,8 @@ export function FZoneHelpModal({
                           현재 탭
                         </span>
                       ) : null}
-                      <span className="text-[13px] font-extrabold ml-1 truncate">
+                      {/* flex 자식은 min-w-0 이 없으면 내용 너비 아래로 줄지 않아 truncate 가 죽는다. */}
+                      <span className="text-[13px] font-extrabold ml-1 min-w-0 truncate">
                         {content.headline}
                       </span>
                     </header>
@@ -329,10 +327,7 @@ export function FZoneHelpModal({
                       </p>
                       <ul className="mt-2 space-y-1.5">
                         {content.bullets.map((b) => (
-                          <li
-                            key={b}
-                            className="flex gap-2 text-[12.5px] leading-relaxed"
-                          >
+                          <li key={b} className="flex gap-2 text-[12.5px] leading-relaxed">
                             <span
                               className="shrink-0 mt-[7px] size-1.5 rounded-full"
                               style={{ background: content.color }}
@@ -393,10 +388,7 @@ export function FZoneHelpModal({
                   >
                     {term}
                   </span>
-                  <span
-                    className="text-[12px] leading-snug"
-                    style={{ color: "var(--bm-text)" }}
-                  >
+                  <span className="text-[12px] leading-snug" style={{ color: "var(--bm-text)" }}>
                     {meaning}
                   </span>
                 </div>
@@ -414,7 +406,8 @@ export function FZoneHelpModal({
           >
             <span className="shrink-0">⚠️</span>
             <span>
-              모든 지표는 시스템 계산값이며 매수·매도 권유가 아닙니다. 최종 판단과 책임은 투자자 본인에게 있습니다.
+              모든 지표는 시스템 계산값이며 매수·매도 권유가 아닙니다. 최종 판단과 책임은 투자자
+              본인에게 있습니다.
             </span>
           </div>
         </div>

@@ -19,9 +19,7 @@ export function getComponent(data, input) {
   // size-baseline은 CE 디렉토리명(kebab) 키 — ledger id와 다를 수 있어(Input↔text-field)
   // web 스니펫에서 파생한 tag(jd-*)로 해소한다.
   const sizeKey = c.tag ? c.tag.replace(/^jd-/, "") : null;
-  const gzipBytes = sizeKey
-    ? (data.sizeBaseline?.components?.[sizeKey] ?? null)
-    : null;
+  const gzipBytes = sizeKey ? data.sizeBaseline?.components?.[sizeKey] ?? null : null;
 
   return {
     ok: true,

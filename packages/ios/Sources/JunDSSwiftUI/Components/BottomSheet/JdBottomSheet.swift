@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-bottom-sheet의 SwiftUI 번역: 시스템 시트 위임 + detent (04 §10.1).
 // draggable=true가 웹 Sheet 별칭의 실체(끌어 닫기 허용) — 그래버 표시 + 인터랙티브 닫기 허용.
@@ -14,12 +14,14 @@ public struct JdBottomSheet<Content: View>: View {
     private let onDismissAttempt: ((JdDismissReason) -> Bool)?
     private let content: () -> Content
 
-    public init(isPresented: Binding<Bool>,
-                size: JdOverlaySize = .md,
-                draggable: Bool = true,
-                persistent: Bool = false,
-                onDismissAttempt: ((JdDismissReason) -> Bool)? = nil,
-                @ViewBuilder content: @escaping () -> Content) {
+    public init(
+        isPresented: Binding<Bool>,
+        size: JdOverlaySize = .md,
+        draggable: Bool = true,
+        persistent: Bool = false,
+        onDismissAttempt: ((JdDismissReason) -> Bool)? = nil,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
         self._isPresented = isPresented
         self.size = size
         self.draggable = draggable
@@ -37,8 +39,9 @@ public struct JdBottomSheet<Content: View>: View {
                 if newValue {
                     isPresented = true
                 } else {
-                    JdOverlayDismissGate.apply($isPresented, reason: .backdrop,
-                                               onDismissAttempt: onDismissAttempt)
+                    JdOverlayDismissGate.apply(
+                        $isPresented, reason: .backdrop,
+                        onDismissAttempt: onDismissAttempt)
                 }
             }
         )
@@ -48,8 +51,9 @@ public struct JdBottomSheet<Content: View>: View {
         // 배치 슬롯을 차지하지 않는 앵커 — 시트는 시스템 레이어에 뜬다(웹 오버레이 동형).
         Color.clear
             .sheet(isPresented: gatedBinding) {
-                JdBottomSheetChrome(size: size, draggable: draggable,
-                                    persistent: persistent, content: content)
+                JdBottomSheetChrome(
+                    size: size, draggable: draggable,
+                    persistent: persistent, content: content)
             }
     }
 }

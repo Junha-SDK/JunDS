@@ -37,9 +37,7 @@ const CSS_PATH = arg(
   "--css",
   "/private/tmp/claude-501/-Users-junha-develop-jjunhaa-MySelf/d6d5dffc-74e2-40f5-8ab1-ffbf96defeb3/scratchpad/globals.compiled.css",
 );
-const ONLY = arg("--only", "")
-  .split(",")
-  .filter(Boolean);
+const ONLY = arg("--only", "").split(",").filter(Boolean);
 const LIMIT = Number(arg("--limit", "0"));
 const CONCURRENCY = Number(arg("--concurrency", "6"));
 
@@ -64,9 +62,7 @@ const kebab = (s) =>
 
 // ── 잡 목록 구성 ───────────────────────────────────────────
 const index = JSON.parse(readFileSync(path.join(SB_STATIC, "index.json"), "utf8"));
-const ledger = JSON.parse(
-  readFileSync(path.join(REPO, "docs-spec/registry/ledger.json"), "utf8"),
-);
+const ledger = JSON.parse(readFileSync(path.join(REPO, "docs-spec/registry/ledger.json"), "utf8"));
 const ledgerIds = new Set(ledger.rows.map((r) => r.id));
 
 let stories = Object.values(index.entries).filter((e) => e.type === "story");
@@ -197,7 +193,11 @@ const shoot = async (page, file) => {
   clip.width = Math.min(clip.width, vp.width - clip.x);
   clip.height = Math.min(clip.height, vp.height - clip.y);
   // 극소/과대 클립 보정
-  if (clip.width < 40 || clip.height < 24 || clip.width * clip.height > vp.width * vp.height * 0.85) {
+  if (
+    clip.width < 40 ||
+    clip.height < 24 ||
+    clip.width * clip.height > vp.width * vp.height * 0.85
+  ) {
     clip = { x: 0, y: 0, width: vp.width, height: vp.height };
   }
   clip = {
@@ -291,7 +291,9 @@ const worker = async () => {
     }
     results.push(rec);
     if (results.length % 25 === 0)
-      console.log(`[capture] ${results.length}/${jobs.length} (${Math.round((Date.now() - t0) / 1000)}s)`);
+      console.log(
+        `[capture] ${results.length}/${jobs.length} (${Math.round((Date.now() - t0) / 1000)}s)`,
+      );
   }
   await page.close();
 };
@@ -326,5 +328,11 @@ writeFileSync(
 );
 const shot = results.reduce((n, r) => n + r.captures.length, 0);
 const failed = results.filter((r) => r.failures.length);
-console.log(`[capture] done: ${shot} captures, ${failed.length} stories with failures, ${Math.round((Date.now() - t0) / 1000)}s`);
-if (failed.length) for (const f of failed.slice(0, 15)) console.log("  fail:", f.storyId, f.failures.map((x) => x.reason).join("|"));
+console.log(
+  `[capture] done: ${shot} captures, ${failed.length} stories with failures, ${Math.round(
+    (Date.now() - t0) / 1000,
+  )}s`,
+);
+if (failed.length)
+  for (const f of failed.slice(0, 15))
+    console.log("  fail:", f.storyId, f.failures.map((x) => x.reason).join("|"));

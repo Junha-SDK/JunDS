@@ -26,7 +26,9 @@ export async function checkA11y(element: React.ReactElement) {
   });
 
   // Check for form inputs without labels
-  const inputs = container.querySelectorAll("input:not([type=hidden]):not([type=submit]):not([type=button])");
+  const inputs = container.querySelectorAll(
+    "input:not([type=hidden]):not([type=submit]):not([type=button])",
+  );
   inputs.forEach((input) => {
     const id = input.getAttribute("id");
     const hasLabel = id && container.querySelector(`label[for="${id}"]`);

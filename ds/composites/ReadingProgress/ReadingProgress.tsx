@@ -39,9 +39,14 @@ export const ReadingProgress = forwardRef<HTMLDivElement, ReadingProgressProps>(
             aria-valuemin={0}
             aria-valuemax={100}
             aria-label="독서 진행률"
-            className="relative h-1 flex-1 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden"
+            // `dark:` 는 이 저장소에서 OS 선호도를 따르지만 테마는 [data-theme] 로 바뀐다 —
+            // 둘이 어긋나면 다크 앱에서 트랙만 밝은 회색으로 남는다. border-light 가 모드를 따라간다.
+            className="relative h-1 flex-1 rounded-full bg-border-light overflow-hidden"
           >
-            <div className="absolute inset-y-0 left-0 bg-primary rounded-full transition-[width] duration-300" style={{ width: `${pct}%` }} />
+            <div
+              className="absolute inset-y-0 left-0 bg-primary rounded-full transition-[width] duration-300 motion-reduce:transition-none"
+              style={{ width: `${pct}%` }}
+            />
           </div>
           <span className="tabular-nums shrink-0">{pctRounded}%</span>
         </div>
@@ -64,16 +69,19 @@ export const ReadingProgress = forwardRef<HTMLDivElement, ReadingProgressProps>(
           aria-valuemin={0}
           aria-valuemax={100}
           aria-label="독서 진행률"
-          className="relative h-2 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden"
+          className="relative h-2 rounded-full bg-border-light overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)]"
         >
           <div
-            className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary-hover rounded-full transition-[width] duration-300"
+            className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary-hover rounded-full transition-[width] duration-300 motion-reduce:transition-none"
             style={{ width: `${pct}%` }}
           />
         </div>
-        <div className="flex items-center justify-between text-[11px] text-muted">
-          <span>{pctRounded}% 완료</span>
-          {remainingMinutes !== undefined && <span>약 {remainingMinutes}분 남음</span>}
+        {/* 숫자+단위는 좁은 칸에서 줄바꿈되면 "42" / "분 남음" 으로 찢어진다 */}
+        <div className="flex items-center justify-between gap-2 text-[11px] text-muted">
+          <span className="tabular-nums whitespace-nowrap">{pctRounded}% 완료</span>
+          {remainingMinutes !== undefined && (
+            <span className="tabular-nums whitespace-nowrap">약 {remainingMinutes}분 남음</span>
+          )}
         </div>
       </div>
     );

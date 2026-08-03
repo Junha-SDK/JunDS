@@ -35,7 +35,11 @@ const sizeMap: Record<PriceSize, { current: string; original: string }> = {
 function format(v: number | string, currency?: string, locale = "ko-KR"): string {
   if (typeof v === "string") return v;
   if (currency) {
-    return new Intl.NumberFormat(locale, { style: "currency", currency, maximumFractionDigits: 0 }).format(v);
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(v);
   }
   return new Intl.NumberFormat(locale).format(v);
 }
@@ -49,16 +53,28 @@ function format(v: number | string, currency?: string, locale = "ko-KR"): string
  * @tags ecommerce
  */
 export const PriceDisplay = forwardRef<HTMLDivElement, PriceDisplayProps>(function PriceDisplay(
-  { value, original, currency, locale, suffix, size = "md", showDiscount = true, layout = "inline", className, ...props },
+  {
+    value,
+    original,
+    currency,
+    locale,
+    suffix,
+    size = "md",
+    showDiscount = true,
+    layout = "inline",
+    className,
+    ...props
+  },
   ref,
 ) {
   const sz = sizeMap[size];
   const fmtCurrent = format(value, currency, locale);
   const fmtOriginal = original !== undefined ? format(original, currency, locale) : null;
 
-  const discountPct = (typeof value === "number" && typeof original === "number" && original > 0)
-    ? Math.round(((original - value) / original) * 100)
-    : null;
+  const discountPct =
+    typeof value === "number" && typeof original === "number" && original > 0
+      ? Math.round(((original - value) / original) * 100)
+      : null;
 
   return (
     <div
@@ -71,7 +87,12 @@ export const PriceDisplay = forwardRef<HTMLDivElement, PriceDisplayProps>(functi
       {...props}
     >
       {showDiscount && discountPct !== null && discountPct > 0 && (
-        <span className={cn("font-bold text-danger tabular-nums", sz.current === "text-3xl" ? "text-2xl" : sz.current)}>
+        <span
+          className={cn(
+            "font-bold text-danger tabular-nums",
+            sz.current === "text-3xl" ? "text-2xl" : sz.current,
+          )}
+        >
           {discountPct}%
         </span>
       )}
@@ -80,7 +101,9 @@ export const PriceDisplay = forwardRef<HTMLDivElement, PriceDisplayProps>(functi
         {suffix && <span className="ml-0.5 text-xs font-normal text-muted">{suffix}</span>}
       </span>
       {fmtOriginal && (
-        <span className={cn("text-muted line-through tabular-nums", sz.original)}>{fmtOriginal}</span>
+        <span className={cn("text-muted line-through tabular-nums", sz.original)}>
+          {fmtOriginal}
+        </span>
       )}
     </div>
   );

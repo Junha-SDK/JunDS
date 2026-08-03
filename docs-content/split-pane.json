@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "SplitPane",
   "oneLiner": "좌/우(또는 상/하)로 크기 조절 가능한 분할 패널.",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

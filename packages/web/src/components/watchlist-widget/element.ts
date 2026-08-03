@@ -20,10 +20,7 @@
  *  4. 별 deco span에 role/label을 주지 않고 산문 대신 h2에 aria-labelledby로 영역명을 건다.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import watchlistWidgetStyles from "./watchlist-widget.css.js";
@@ -245,9 +242,7 @@ export class JdWatchlistWidget extends JdElement {
     const wantAnchor = Boolean(this.addHref);
     const isAnchor = this.#add instanceof HTMLAnchorElement;
     if (isAnchor !== wantAnchor) {
-      const next = wantAnchor
-        ? document.createElement("a")
-        : document.createElement("button");
+      const next = wantAnchor ? document.createElement("a") : document.createElement("button");
       next.className = "jd-wlw__add";
       if (next instanceof HTMLButtonElement) {
         next.type = "button";

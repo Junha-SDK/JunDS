@@ -41,12 +41,17 @@ export default function AutoHideHeaderPage() {
                 아래로 스크롤하면 헤더가 숨겨지고, 위로 스크롤하면 다시 나타납니다.
               </p>
               {Array.from({ length: 12 }, (_, i) => (
-                <div key={i} className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-border">
+                <div
+                  key={i}
+                  className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-border"
+                >
                   <div className="flex items-center gap-3 mb-2">
                     <div
                       className="w-8 h-8 rounded-full"
                       style={{
-                        background: `linear-gradient(135deg, hsl(${i * 30}, 70%, 60%), hsl(${i * 30 + 40}, 70%, 50%))`,
+                        background: `linear-gradient(135deg, hsl(${i * 30}, 70%, 60%), hsl(${
+                          i * 30 + 40
+                        }, 70%, 50%))`,
                       }}
                     />
                     <div>
@@ -55,10 +60,9 @@ export default function AutoHideHeaderPage() {
                     </div>
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                    이 영역은 스크롤 테스트를 위한 더미 콘텐츠입니다.
-                    충분한 높이를 확보하여 스크롤 동작을 확인할 수 있습니다.
-                    AutoHideHeader는 sticky 포지셔닝과 transform을 활용하여
-                    부드러운 숨김/표시 애니메이션을 구현합니다.
+                    이 영역은 스크롤 테스트를 위한 더미 콘텐츠입니다. 충분한 높이를 확보하여 스크롤
+                    동작을 확인할 수 있습니다. AutoHideHeader는 sticky 포지셔닝과 transform을
+                    활용하여 부드러운 숨김/표시 애니메이션을 구현합니다.
                   </p>
                 </div>
               ))}

@@ -6,24 +6,28 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-auto-complete {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  jd-auto-complete[error] > .jd-combobox__control { border-color: var(--jd-color-danger); }
-  jd-auto-complete[error] > .jd-combobox__control:focus-within {
-    border-color: var(--jd-color-danger);
-    box-shadow: var(--jd-shadow-focus-ring-danger);
-  }
-  jd-auto-complete[disabled] > .jd-combobox__control {
-    opacity: var(--jd-opacity-50); cursor: not-allowed;
-  }
+  @layer junds.components {
+    jd-auto-complete {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    jd-auto-complete[error] > .jd-combobox__control {
+      border-color: var(--jd-color-danger);
+    }
+    jd-auto-complete[error] > .jd-combobox__control:focus-within {
+      border-color: var(--jd-color-danger);
+      box-shadow: var(--jd-shadow-focus-ring-danger);
+    }
+    jd-auto-complete[disabled] > .jd-combobox__control {
+      opacity: var(--jd-opacity-50);
+      cursor: not-allowed;
+    }
 
-  /* v2 AutoComplete는 활성 행 배경만 있고 hover는 primary/10이었다 */
-  jd-auto-complete .jd-combobox__option:hover {
-    background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
+    /* v2 AutoComplete는 활성 행 배경만 있고 hover는 primary/10이었다 */
+    jd-auto-complete .jd-combobox__option:hover {
+      background: color-mix(in srgb, var(--jd-color-primary) 10%, transparent);
+    }
   }
-}`;
+`;

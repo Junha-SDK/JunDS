@@ -65,37 +65,43 @@ const glowRingMap = {
  * @tags form, input
  */
 export const Slider = forwardRef<HTMLDivElement, SliderProps>(
-  ({
-    value = 0,
-    onChange,
-    min = 0,
-    max = 100,
-    step = 1,
-    disabled,
-    showValue,
-    formatValue,
-    marks,
-    color = "primary",
-    size = "md",
-    className,
-    "aria-label": ariaLabel,
-    "aria-labelledby": ariaLabelledBy,
-  }, ref) => {
+  (
+    {
+      value = 0,
+      onChange,
+      min = 0,
+      max = 100,
+      step = 1,
+      disabled,
+      showValue,
+      formatValue,
+      marks,
+      color = "primary",
+      size = "md",
+      className,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledBy,
+    },
+    ref,
+  ) => {
     const t = useT();
     const trackRef = useRef<HTMLDivElement>(null);
     const [dragging, setDragging] = useState(false);
 
     const pct = ((value - min) / (max - min)) * 100;
 
-    const updateValue = useCallback((clientX: number) => {
-      if (!trackRef.current || disabled) return;
-      const rect = trackRef.current.getBoundingClientRect();
-      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-      let newVal = min + ratio * (max - min);
-      newVal = Math.round(newVal / step) * step;
-      newVal = Math.max(min, Math.min(max, newVal));
-      onChange?.(newVal);
-    }, [min, max, step, disabled, onChange]);
+    const updateValue = useCallback(
+      (clientX: number) => {
+        if (!trackRef.current || disabled) return;
+        const rect = trackRef.current.getBoundingClientRect();
+        const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        let newVal = min + ratio * (max - min);
+        newVal = Math.round(newVal / step) * step;
+        newVal = Math.max(min, Math.min(max, newVal));
+        onChange?.(newVal);
+      },
+      [min, max, step, disabled, onChange],
+    );
 
     const handleMouseDown = (e: React.MouseEvent) => {
       if (disabled) return;
@@ -139,7 +145,10 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
         <div
           ref={trackRef}
           className={cn(
-            "relative w-full rounded-full bg-gray-200 shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)] cursor-pointer select-none",
+            // 포커스를 실제로 받는 건 tabIndex 가 붙은 이 트랙이다 — 링도 여기에 걸어야 뜬다.
+            // bg-gray-200 은 라이트 전용이라 다크에서 트랙이 배경에 묻는다.
+            "group relative w-full rounded-full bg-border shadow-[inset_0_1px_2px_rgba(0,0,0,0.08)] cursor-pointer select-none",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             trackH,
           )}
           onMouseDown={handleMouseDown}
@@ -147,7 +156,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={value}
-          aria-label={ariaLabelledBy ? undefined : (ariaLabel ?? t("ariaSlider"))}
+          aria-label={ariaLabelledBy ? undefined : ariaLabel ?? t("ariaSlider")}
           aria-labelledby={ariaLabelledBy}
           aria-disabled={disabled || undefined}
           tabIndex={disabled ? -1 : 0}
@@ -156,7 +165,9 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
           {/* Fill */}
           <div
             className={cn(
-              "absolute inset-y-0 left-0 rounded-full bg-gradient-to-b from-white/25 to-white/0 transition-all",
+              // 실제로 움직이는 건 width 하나다.
+              "absolute inset-y-0 left-0 rounded-full bg-gradient-to-b from-white/25 to-white/0",
+              "transition-[width] motion-reduce:transition-none",
               colorMap[color],
               !dragging && "duration-150",
             )}
@@ -165,13 +176,16 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
           {/* Thumb */}
           <div
             className={cn(
-              "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full bg-white border-2",
-              "shadow-[0_1px_3px_rgba(0,0,0,0.15),0_1px_1px_rgba(0,0,0,0.08)] transition-all duration-150",
+              "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full bg-card border-2",
+              "shadow-[0_1px_3px_rgba(0,0,0,0.15),0_1px_1px_rgba(0,0,0,0.08)]",
+              // 손잡이가 바꾸는 건 위치·크기·링뿐이다.
+              "transition-[left,transform,box-shadow] duration-150 motion-reduce:transition-none",
               thumbSize,
               thumbColorMap[color],
               glowRingMap[color],
               dragging ? "scale-110 ring-4" : "hover:ring-4",
-              "focus-visible:ring-2 focus-visible:ring-primary/40",
+              // 포커스는 트랙이 받으므로 손잡이는 group 을 통해 반응한다.
+              "group-focus-visible:ring-4",
             )}
             style={{ left: `${pct}%` }}
           />
@@ -180,7 +194,8 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
             const markPct = ((mark.value - min) / (max - min)) * 100;
             return (
               <div key={mark.value} className="absolute top-full" style={{ left: `${markPct}%` }}>
-                <div className="w-0.5 h-1.5 bg-gray-300 rounded-full mx-auto mt-1" />
+                {/* gray-300 은 다크에서 밝은 점으로 튄다 — muted 계열이 모드를 따라간다. */}
+                <div className="w-0.5 h-1.5 bg-muted-light rounded-full mx-auto mt-1" />
                 {mark.label && (
                   <span className="text-[10px] text-muted -translate-x-1/2 block text-center mt-0.5 whitespace-nowrap">
                     {mark.label}

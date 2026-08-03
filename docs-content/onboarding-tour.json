@@ -4,11 +4,7 @@
   "category": "patterns",
   "title": "OnboardingTour",
   "oneLiner": "온보딩 투어 — Tour 변형.",
-  "tags": [
-    "interaction",
-    "온보딩",
-    "투어"
-  ],
+  "tags": ["interaction", "온보딩", "투어"],
   "controls": [],
   "snippets": {
     "web": null,

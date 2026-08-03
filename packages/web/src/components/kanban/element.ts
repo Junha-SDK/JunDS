@@ -130,7 +130,9 @@ export class JdKanban extends JdElement {
 
   #readJson(): void {
     if (this.#columns.length > 0) return;
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       this.#columns = this.#normalize(JSON.parse(script.textContent || "[]"));
@@ -207,7 +209,9 @@ export class JdKanban extends JdElement {
       dot.hidden = true;
     }
     el.querySelector<HTMLElement>(".jd-kanban__column-title")!.textContent = col.title;
-    el.querySelector<HTMLElement>(".jd-kanban__column-count")!.textContent = String(col.items.length);
+    el.querySelector<HTMLElement>(".jd-kanban__column-count")!.textContent = String(
+      col.items.length,
+    );
 
     const list = el.querySelector<HTMLUListElement>(".jd-kanban__list")!;
     list.setAttribute("aria-label", `${col.title} (${col.items.length})`);
@@ -322,7 +326,9 @@ export class JdKanban extends JdElement {
     queueMicrotask(() =>
       this.#board
         .querySelector<HTMLElement>(
-          `.jd-kanban__column[data-column="${cssEscape(target.id)}"] .jd-kanban__card[data-card="${cssEscape(found.id)}"]`,
+          `.jd-kanban__column[data-column="${cssEscape(
+            target.id,
+          )}"] .jd-kanban__card[data-card="${cssEscape(found.id)}"]`,
         )
         ?.focus(),
     );

@@ -1,12 +1,14 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 오버레이 4종은 전부 시스템 프레젠테이션 위임이라 present 자체는 부모 VC 없이 단위 테스트가 어렵다.
 // 그래서 (1) 액션 배열→UIAlertAction 변환·스타일 매핑, (2) 콜백 발화 경로, (3) delegate 게이트
 // (onDismissAttempt)·side별 프레젠테이션 스타일만 정적으로 고정한다 (DESIGN-4 §D).
 
+@MainActor
 final class JdActionSheetControllerTests: XCTestCase {
 
     private let items = [
@@ -28,8 +30,8 @@ final class JdActionSheetControllerTests: XCTestCase {
     func test_destructive_item_maps_to_destructive_style() {
         let controller = JdActionSheetController(actions: items) { _ in }
         let alert = controller.makeAlertController()
-        XCTAssertEqual(alert.actions[0].style, .default)      // 공유
-        XCTAssertEqual(alert.actions[1].style, .default)      // 편집
+        XCTAssertEqual(alert.actions[0].style, .default)  // 공유
+        XCTAssertEqual(alert.actions[1].style, .default)  // 편집
         XCTAssertEqual(alert.actions[2].style, .destructive)  // 삭제
     }
 
@@ -58,13 +60,15 @@ final class JdActionSheetControllerTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdAlertDialogControllerTests: XCTestCase {
 
     func test_confirm_and_cancel_buttons_present() {
-        let controller = JdAlertDialogController(title: "삭제할까요?",
-                                                 confirmLabel: "삭제",
-                                                 cancelLabel: "취소",
-                                                 onConfirm: {})
+        let controller = JdAlertDialogController(
+            title: "삭제할까요?",
+            confirmLabel: "삭제",
+            cancelLabel: "취소",
+            onConfirm: {})
         let alert = controller.makeAlertController()
         XCTAssertEqual(alert.actions.count, 2)
         let titles = alert.actions.map(\.title)
@@ -80,8 +84,9 @@ final class JdAlertDialogControllerTests: XCTestCase {
     }
 
     func test_isDestructive_maps_confirm_to_destructive_style() {
-        let danger = JdAlertDialogController(title: "T", confirmLabel: "삭제",
-                                             isDestructive: true, onConfirm: {})
+        let danger = JdAlertDialogController(
+            title: "T", confirmLabel: "삭제",
+            isDestructive: true, onConfirm: {})
         let alert = danger.makeAlertController()
         let confirm = alert.actions.first { $0.title == "삭제" }
         XCTAssertEqual(confirm?.style, .destructive)
@@ -100,9 +105,10 @@ final class JdAlertDialogControllerTests: XCTestCase {
     func test_confirm_and_cancel_fire_callbacks() {
         var confirmed = false
         var cancelled = false
-        let controller = JdAlertDialogController(title: "T",
-                                                 onConfirm: { confirmed = true },
-                                                 onCancel: { cancelled = true })
+        let controller = JdAlertDialogController(
+            title: "T",
+            onConfirm: { confirmed = true },
+            onCancel: { cancelled = true })
         controller.confirm()
         controller.cancel()
         XCTAssertTrue(confirmed)
@@ -110,13 +116,16 @@ final class JdAlertDialogControllerTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdBottomSheetControllerTests: XCTestCase {
 
     func test_detent_kind_from_size() {
-        XCTAssertEqual(JdBottomSheetController(size: .md).detentKind,
-                       .fixedHeight(JdOverlaySize.md.sheetHeight))
-        XCTAssertEqual(JdBottomSheetController(size: .sm).detentKind,
-                       .fixedHeight(JdOverlaySize.sm.sheetHeight))
+        XCTAssertEqual(
+            JdBottomSheetController(size: .md).detentKind,
+            .fixedHeight(JdOverlaySize.md.sheetHeight))
+        XCTAssertEqual(
+            JdBottomSheetController(size: .sm).detentKind,
+            .fixedHeight(JdOverlaySize.sm.sheetHeight))
         XCTAssertEqual(JdBottomSheetController(size: .full).detentKind, .large)
     }
 
@@ -131,9 +140,12 @@ final class JdBottomSheetControllerTests: XCTestCase {
     }
 
     func test_interactiveDismiss_blocked_when_persistent_or_not_draggable() {
-        XCTAssertFalse(JdBottomSheetController(draggable: true, persistent: false).isModalInPresentation)
-        XCTAssertTrue(JdBottomSheetController(draggable: true, persistent: true).isModalInPresentation)
-        XCTAssertTrue(JdBottomSheetController(draggable: false, persistent: false).isModalInPresentation)
+        XCTAssertFalse(
+            JdBottomSheetController(draggable: true, persistent: false).isModalInPresentation)
+        XCTAssertTrue(
+            JdBottomSheetController(draggable: true, persistent: true).isModalInPresentation)
+        XCTAssertTrue(
+            JdBottomSheetController(draggable: false, persistent: false).isModalInPresentation)
     }
 
     func test_shouldDismiss_gate_blocks_when_onDismissAttempt_false() {
@@ -153,6 +165,7 @@ final class JdBottomSheetControllerTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdDrawerControllerTests: XCTestCase {
 
     func test_side_drives_presentation_style() {
@@ -195,16 +208,18 @@ final class JdDrawerControllerTests: XCTestCase {
 
     func test_presentationController_is_custom_for_side_drawers() {
         let controller = JdDrawerController(side: .left, size: .md)
-        let pc = controller.presentationController(forPresented: controller,
-                                                   presenting: nil,
-                                                   source: controller)
+        let pc = controller.presentationController(
+            forPresented: controller,
+            presenting: nil,
+            source: controller)
         XCTAssertTrue(pc is JdDrawerPresentationController)
     }
 
     func test_slide_animator_duration_routes_through_motion() {
         // JdMotion.duration 경유(Reduce Motion 시 0) — 전역 상태와 무관하게 동일 경로를 검증
         let animator = JdDrawerSlideAnimator(side: .left, isPresenting: true)
-        XCTAssertEqual(animator.transitionDuration(using: nil),
-                       JdMotion.duration(JdToken.Duration.normal), accuracy: 0.0001)
+        XCTAssertEqual(
+            animator.transitionDuration(using: nil),
+            JdMotion.duration(JdToken.Duration.normal), accuracy: 0.0001)
     }
 }

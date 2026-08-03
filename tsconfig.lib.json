@@ -6,11 +6,5 @@
     "tsBuildInfoFile": "tsconfig.lib.tsbuildinfo"
   },
   "include": ["ds/**/*.ts", "ds/**/*.tsx"],
-  "exclude": [
-    "node_modules",
-    "ds/__tests__/**",
-    "**/*.stories.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ]
+  "exclude": ["node_modules", "ds/__tests__/**", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"]
 }

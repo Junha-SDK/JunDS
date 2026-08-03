@@ -11,7 +11,12 @@ export default function SpinnerPage() {
       importPath='import { Spinner } from "@/ds/primitives/Spinner"'
       props={[
         { name: "size", type: '"xs"|"sm"|"md"|"lg"', default: '"md"', description: "크기" },
-        { name: "color", type: '"primary"|"white"|"muted"', default: '"primary"', description: "색상" },
+        {
+          name: "color",
+          type: '"primary"|"white"|"muted"',
+          default: '"primary"',
+          description: "색상",
+        },
       ]}
     >
       <Section title="Sizes & Colors">

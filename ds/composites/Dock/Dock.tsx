@@ -48,12 +48,20 @@ export function Dock({ children, magnification = 1.6, className }: DockProps) {
       onMouseMove={handleMove}
       onMouseLeave={() => setMouseX(null)}
       className={cn(
-        "inline-flex items-end gap-1 px-3 py-2 bg-white/80 backdrop-blur-xl border border-border rounded-2xl shadow-lg",
+        // 유리판은 유지하되 바탕색은 표면 토큰에서 가져온다. bg-white/70 은 다크에서
+        // 흰 판이 되어 도크만 홀로 떠 버렸다. inset 하이라이트는 두 모드 모두에서 광택으로 읽힌다.
+        "inline-flex items-end gap-1 px-3 py-2 bg-card/70 backdrop-blur-xl border border-border-light rounded-2xl",
+        "shadow-[0_12px_32px_-8px_rgba(0,0,0,0.25),0_2px_8px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.35)] ring-1 ring-black/[0.03]",
         className,
       )}
       role="toolbar"
       aria-label="Dock"
-      style={{ "--dock-mouse-x": mouseX !== null ? `${mouseX}px` : "unset", "--dock-mag": magnification } as React.CSSProperties}
+      style={
+        {
+          "--dock-mouse-x": mouseX !== null ? `${mouseX}px` : "unset",
+          "--dock-mag": magnification,
+        } as React.CSSProperties
+      }
     >
       {children}
     </div>
@@ -83,17 +91,24 @@ function DockItem({ children, label, onClick, className }: DockItemProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setScale(1)}
       className={cn(
-        "flex flex-col items-center gap-0.5 transition-transform duration-150 origin-bottom cursor-pointer group",
+        // 라벨이 absolute -top-8 로 붙는데 기준이 될 positioned 조상이 없었다 —
+        // relative 가 없으면 툴팁이 엉뚱한 곳에 뜬다.
+        "relative flex flex-col items-center gap-0.5 origin-bottom cursor-pointer group rounded-xl",
+        "transition-transform duration-150 motion-reduce:transition-none",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         className,
       )}
       style={{ transform: `scale(${scale})` }}
       aria-label={label}
     >
-      <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-b from-gray-100 to-gray-50 border border-border shadow-sm group-hover:shadow-md transition-shadow">
+      <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-b from-card to-border-light border border-black/[0.06] shadow-[0_1px_2px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.35)] group-hover:shadow-[0_4px_12px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.35)] transition-shadow duration-200">
         {children}
       </div>
       {label && scale > 1.2 && (
-        <span className="absolute -top-7 px-2 py-0.5 text-[10px] bg-foreground text-white rounded-md whitespace-nowrap animate-fade-in" aria-hidden="true">
+        <span
+          className="absolute -top-8 px-2 py-1 text-[10px] font-medium bg-foreground text-background rounded-lg shadow-[0_6px_16px_-4px_rgba(0,0,0,0.3),0_2px_4px_-2px_rgba(0,0,0,0.2)] ring-1 ring-white/10 whitespace-nowrap animate-fade-in motion-reduce:animate-none"
+          aria-hidden="true"
+        >
           {label}
         </span>
       )}

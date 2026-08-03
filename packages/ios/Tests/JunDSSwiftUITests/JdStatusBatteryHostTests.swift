@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // SwiftUI 계층은 호스팅 스모크 + 크기 축 단조성으로 확인한다 (DESIGN-2 §C).
 

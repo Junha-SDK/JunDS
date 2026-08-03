@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 버튼 계열 7종(DESIGN-3 §B)의 상태·발화·접근성 표면 (04 §8.2).
@@ -18,6 +19,7 @@ private func jdActionDescendants<T: UIView>(_ root: UIView, of type: T.Type) -> 
 
 // MARK: - BookmarkButton
 
+@MainActor
 final class JdBookmarkButtonViewTests: XCTestCase {
 
     // 웹 aria-pressed + 라벨 교체 동형 — 상태는 트레이트, 동작은 라벨
@@ -68,6 +70,7 @@ final class JdBookmarkButtonViewTests: XCTestCase {
 
 // MARK: - LikeButton
 
+@MainActor
 final class JdLikeButtonViewTests: XCTestCase {
 
     private func countLabel(_ view: JdLikeButtonView) throws -> UILabel {
@@ -110,6 +113,7 @@ final class JdLikeButtonViewTests: XCTestCase {
 
 // MARK: - FollowButton
 
+@MainActor
 final class JdFollowButtonViewTests: XCTestCase {
 
     private func title(_ view: JdFollowButtonView) throws -> String? {
@@ -137,9 +141,10 @@ final class JdFollowButtonViewTests: XCTestCase {
 
     // 라벨 문자열은 주입 가능하다 (웹 attribute 동형)
     func test_custom_labels_are_used() throws {
-        let view = JdFollowButtonView(isFollowing: true,
-                                      followLabel: "구독",
-                                      followingLabel: "구독 중")
+        let view = JdFollowButtonView(
+            isFollowing: true,
+            followLabel: "구독",
+            followingLabel: "구독 중")
         XCTAssertEqual(try title(view), "구독 중")
         view.isFollowing = false
         XCTAssertEqual(try title(view), "구독")
@@ -149,13 +154,14 @@ final class JdFollowButtonViewTests: XCTestCase {
     func test_following_variant_draws_border() {
         let view = JdFollowButtonView(isFollowing: true)
         XCTAssertEqual(view.layer.borderWidth, JdToken.Border.thin)
-        view.isFollowing = false // primary — 테두리 없음
+        view.isFollowing = false  // primary — 테두리 없음
         XCTAssertEqual(view.layer.borderWidth, 0)
     }
 }
 
 // MARK: - StarRating
 
+@MainActor
 final class JdStarRatingViewTests: XCTestCase {
 
     // ⚠️ 이 배치의 승부처: 별 N개가 아니라 **컨트롤 하나**가 adjustable로 노출된다
@@ -217,6 +223,7 @@ final class JdStarRatingViewTests: XCTestCase {
 
 // MARK: - CopyButton
 
+@MainActor
 final class JdCopyButtonViewTests: XCTestCase {
 
     private func title(_ view: JdCopyButtonView) throws -> String? {
@@ -260,6 +267,7 @@ final class JdCopyButtonViewTests: XCTestCase {
 
 // MARK: - BackTop
 
+@MainActor
 final class JdBackTopButtonViewTests: XCTestCase {
 
     // 라벨 기본값은 Core 상수 — 렌더가 문자열을 새로 만들지 않는다
@@ -290,6 +298,7 @@ final class JdBackTopButtonViewTests: XCTestCase {
 
 // MARK: - FileUploadZone
 
+@MainActor
 final class JdFileUploadZoneViewTests: XCTestCase {
 
     func test_tap_fires_onTap_and_description_is_the_label() {

@@ -34,11 +34,16 @@ export default function AnimatedCounterPage() {
             </div>
             <div>
               <p className="text-xs text-muted mb-1">전환율</p>
-              <AnimatedCounter value={87.4} decimals={1} suffix="%" className="text-3xl text-success" />
+              <AnimatedCounter
+                value={87.4}
+                decimals={1}
+                suffix="%"
+                className="text-3xl text-success"
+              />
             </div>
             <div>
               <p className="text-xs text-muted mb-1">매출</p>
-              <AnimatedCounter value={42500} prefix="$" className="text-3xl text-primary" />
+              <AnimatedCounter value={42500} prefix="$" className="text-3xl text-primary-ink" />
             </div>
           </div>
         </Preview>

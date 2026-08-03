@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 final class JdTextSpecTests: XCTestCase {
 
@@ -24,16 +24,18 @@ final class JdTextSpecTests: XCTestCase {
             .xl: 20, .xl2: 24, .xl3: 30, .xl4: 36,
         ]
         for (size, pt) in expected {
-            XCTAssertEqual(JdTextSpec.resolve(size: size).fontSize, pt,
-                           "\(size.rawValue) 사이즈 pt 불일치")
+            XCTAssertEqual(
+                JdTextSpec.resolve(size: size).fontSize, pt,
+                "\(size.rawValue) 사이즈 pt 불일치")
         }
     }
 
     // 웹 기본 line-height relaxed(1.625) — 전 사이즈 공통
     func test_lineHeightMultiple_is_relaxed_for_all_sizes() {
         for size in JdTextSize.allCases {
-            XCTAssertEqual(JdTextSpec.resolve(size: size).lineHeightMultiple,
-                           JdToken.LineHeight.relaxed)
+            XCTAssertEqual(
+                JdTextSpec.resolve(size: size).lineHeightMultiple,
+                JdToken.LineHeight.relaxed)
         }
     }
 

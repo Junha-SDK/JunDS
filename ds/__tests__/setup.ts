@@ -14,7 +14,9 @@ class IntersectionObserverStub {
   observe() {}
   unobserve() {}
   disconnect() {}
-  takeRecords() { return []; }
+  takeRecords() {
+    return [];
+  }
 }
 
 if (typeof globalThis.ResizeObserver === "undefined") {

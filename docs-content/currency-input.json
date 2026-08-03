@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "CurrencyInput",
   "oneLiner": "통화 단위 + 숫자 자동 포맷이 적용된 금액 입력 필드.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -13,7 +13,13 @@ export default function PhotoCarouselPage() {
     >
       <Section title="Default">
         <Preview>
-          <PhotoCarousel photos={[{src:"https://picsum.photos/seed/c1/800/450",alt:"1",caption:"첫 사진"},{src:"https://picsum.photos/seed/c2/800/450",alt:"2",caption:"두 번째"}]} autoPlayMs={4000} />
+          <PhotoCarousel
+            photos={[
+              { src: "https://picsum.photos/seed/c1/800/450", alt: "1", caption: "첫 사진" },
+              { src: "https://picsum.photos/seed/c2/800/450", alt: "2", caption: "두 번째" },
+            ]}
+            autoPlayMs={4000}
+          />
         </Preview>
       </Section>
     </ComponentPage>

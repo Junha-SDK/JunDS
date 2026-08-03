@@ -25,7 +25,14 @@ export interface VideoPlayerProps {
  * @since 2.2.0
  * @tags media
  */
-export function VideoPlayer({ src, poster, autoPlay, muted: initMuted, loop, className }: VideoPlayerProps) {
+export function VideoPlayer({
+  src,
+  poster,
+  autoPlay,
+  muted: initMuted,
+  loop,
+  className,
+}: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(autoPlay ?? false);
   const [progress, setProgress] = useState(0);
@@ -36,8 +43,13 @@ export function VideoPlayer({ src, poster, autoPlay, muted: initMuted, loop, cla
   const togglePlay = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (v.paused) { v.play(); setPlaying(true); }
-    else { v.pause(); setPlaying(false); }
+    if (v.paused) {
+      v.play();
+      setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
   }, []);
 
   const handleTimeUpdate = () => {
@@ -75,26 +87,58 @@ export function VideoPlayer({ src, poster, autoPlay, muted: initMuted, loop, cla
         onClick={togglePlay}
         className="w-full block cursor-pointer"
       />
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+      {/* 컨트롤이 hover 로만 나타나면 키보드 사용자는 보이지 않는 버튼을 누르게 된다 —
+          안쪽에 포커스가 들어오면 함께 드러낸다 */}
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
         <div className="h-1 bg-white/30 rounded-full cursor-pointer mb-2" onClick={handleSeek}>
-          <div className="h-full bg-primary rounded-full" style={{ width: `${progress}%` }} />
+          <div
+            className="h-full bg-primary rounded-full transition-[width] duration-150 motion-reduce:transition-none"
+            style={{ width: `${progress}%` }}
+          />
         </div>
         <div className="flex items-center gap-3">
-          <button type="button" onClick={togglePlay} className="text-white cursor-pointer" aria-label={playing ? "일시정지" : "재생"}>
+          <button
+            type="button"
+            onClick={togglePlay}
+            className="text-white p-1 -m-1 rounded-lg transition-colors hover:bg-white/15 active:bg-white/25 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-1 focus-visible:ring-offset-black"
+            aria-label={playing ? "일시정지" : "재생"}
+          >
             {playing ? (
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1" /><rect x="9" y="2" width="4" height="12" rx="1" /></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <rect x="3" y="2" width="4" height="12" rx="1" />
+                <rect x="9" y="2" width="4" height="12" rx="1" />
+              </svg>
             ) : (
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2l10 6-10 6z" /></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M4 2l10 6-10 6z" />
+              </svg>
             )}
           </button>
-          <span className="text-xs text-white/80 tabular-nums">{fmt(currentTime)} / {fmt(duration)}</span>
-          <button type="button" onClick={() => setMuted(!muted)} className="ml-auto text-white cursor-pointer" aria-label={muted ? "음소거 해제" : "음소거"}>
+          <span className="text-xs text-white/80 tabular-nums">
+            {fmt(currentTime)} / {fmt(duration)}
+          </span>
+          <button
+            type="button"
+            onClick={() => setMuted(!muted)}
+            className="ml-auto text-white p-1 -m-1 rounded-lg transition-colors hover:bg-white/15 active:bg-white/25 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-1 focus-visible:ring-offset-black"
+            aria-label={muted ? "음소거 해제" : "음소거"}
+          >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M2 6h3l4-3v10l-4-3H2V6z" stroke="currentColor" strokeWidth="1.5" />
               {muted ? (
-                <path d="M12 5l-4 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M12 5l-4 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               ) : (
-                <path d="M12 5.5c1 1 1 4 0 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M12 5.5c1 1 1 4 0 5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               )}
             </svg>
           </button>

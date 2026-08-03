@@ -14,6 +14,7 @@ CSS 기반 가벼운 모션 추상. framer-motion 같은 큰 dep 없이 "진입 
 ## Scope
 
 **In scope**
+
 - `<Motion preset="fade-up" delay={100}>` 컴포넌트 (primitive)
 - 8가지 프리셋: fade, fade-up, fade-down, scale, slide-up, slide-down,
   slide-left, slide-right
@@ -24,18 +25,19 @@ CSS 기반 가벼운 모션 추상. framer-motion 같은 큰 dep 없이 "진입 
   즉시 적용 (transition 0ms)
 
 **Out of scope**
+
 - 복잡한 spring/orchestration — framer-motion 사용 권장
 - 스크롤 트리거 애니메이션 — `IntersectionObserver` + 호출자 측에서 결합
 
 ## User stories / acceptance criteria
 
 - [x] **As a 개발자** I can `<Motion preset="fade-up">`로 카드 진입 애니메이션
-  한 줄을 적용할 수 있다.
+      한 줄을 적용할 수 있다.
 - [x] **As a reduced-motion 사용자** I can 모든 `Motion` 컴포넌트가 자동으로
-  애니메이션을 건너뛰고 즉시 표시되는 것을 경험한다.
+      애니메이션을 건너뛰고 즉시 표시되는 것을 경험한다.
 - [x] **As a 개발자** I can `delay={100}` prop으로 staggered 진입을 구현한다.
 - [x] **As a 개발자** I can `useAnimationFrame((dt) => …)` 한 줄로 매 프레임
-  로직을 등록하고 언마운트 시 자동 cleanup된다.
+      로직을 등록하고 언마운트 시 자동 cleanup된다.
 
 ## Design / behavior notes
 

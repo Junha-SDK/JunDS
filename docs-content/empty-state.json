@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "EmptyState",
   "oneLiner": "빈 상태 표시",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

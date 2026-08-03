@@ -18,14 +18,18 @@ export interface CookieOptions {
 
 function readCookie(name: string): string | null {
   if (typeof document === "undefined") return null;
-  const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=([^;]*)`));
+  const match = document.cookie.match(
+    new RegExp(`(?:^|;\\s*)${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=([^;]*)`),
+  );
   return match ? decodeURIComponent(match[1]) : null;
 }
 
 function writeCookie(name: string, value: string, opts: CookieOptions = {}) {
   if (typeof document === "undefined") return;
   let str = `${name}=${encodeURIComponent(value)}`;
-  const expires = opts.expires ?? (opts.days !== undefined ? new Date(Date.now() + opts.days * 86400000) : undefined);
+  const expires =
+    opts.expires ??
+    (opts.days !== undefined ? new Date(Date.now() + opts.days * 86400000) : undefined);
   if (expires) str += `; expires=${expires.toUTCString()}`;
   str += `; path=${opts.path ?? "/"}`;
   if (opts.domain) str += `; domain=${opts.domain}`;
@@ -57,10 +61,13 @@ export function useCookie(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
-  const set = useCallback((v: string, options?: CookieOptions) => {
-    writeCookie(name, v, { ...defaultOptions, ...options });
-    setValue(v);
-  }, [name, defaultOptions]);
+  const set = useCallback(
+    (v: string, options?: CookieOptions) => {
+      writeCookie(name, v, { ...defaultOptions, ...options });
+      setValue(v);
+    },
+    [name, defaultOptions],
+  );
 
   const remove = useCallback(() => {
     eraseCookie(name, defaultOptions);

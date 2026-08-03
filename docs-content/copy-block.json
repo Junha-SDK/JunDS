@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "CopyBlock",
   "oneLiner": "코드 블록 + 복사 버튼이 포함된 코드 미리보기.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

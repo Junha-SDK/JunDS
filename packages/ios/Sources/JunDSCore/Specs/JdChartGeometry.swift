@@ -27,9 +27,11 @@ public enum JdChartGeometry {
     ///   - inset: 위아래로 비워 둘 여백. 획 두께의 절반을 넘겨 선이 잘리지 않게 한다.
     /// - Returns: 값이 비었으면 빈 배열. 한 개면 가로 중앙이 아니라 **왼쪽 끝**에 둔다
     ///   (웹 `stepX = 0` 동형 — 스파크라인은 시간축이라 시작점이 왼쪽이다).
-    public static func points(_ values: [Double],
-                              in size: CGSize,
-                              inset: CGFloat = 1) -> [CGPoint] {
+    public static func points(
+        _ values: [Double],
+        in size: CGSize,
+        inset: CGFloat = 1
+    ) -> [CGPoint] {
         let data = sanitize(values)
         guard !data.isEmpty, size.width > 0, size.height > 0 else { return [] }
 
@@ -43,8 +45,9 @@ public enum JdChartGeometry {
 
         return data.enumerated().map { index, value in
             let ratio = (value - minV) / range
-            return CGPoint(x: CGFloat(index) * stepX,
-                           y: size.height - CGFloat(ratio) * usable - inset)
+            return CGPoint(
+                x: CGFloat(index) * stepX,
+                y: size.height - CGFloat(ratio) * usable - inset)
         }
     }
 
@@ -88,24 +91,28 @@ public struct JdSparklineSpec: Sendable {
     public var dotRadius: CGFloat
 
     /// 웹 기본: 80×24 · 획 1.6
-    public static func resolve(values: [Double] = [],
-                              width: CGFloat = 80,
-                              height: CGFloat = 24,
-                              strokeWidth: CGFloat = 1.6,
-                              color: JdDynamicColor? = nil) -> JdSparklineSpec {
+    public static func resolve(
+        values: [Double] = [],
+        width: CGFloat = 80,
+        height: CGFloat = 24,
+        strokeWidth: CGFloat = 1.6,
+        color: JdDynamicColor? = nil
+    ) -> JdSparklineSpec {
         // 색을 명시하지 않으면 추세가 정한다 — 웹은 늘 success 고정이었지만,
         // 스파크라인은 방향을 보여주는 물건이라 하락을 초록으로 그리면 정보가 거꾸로 간다.
-        let resolved = color
+        let resolved =
+            color
             ?? JdFinanceTheme.color(JdChartGeometry.direction(values) ?? .up)
-        return JdSparklineSpec(width: width,
-                               height: height,
-                               strokeWidth: strokeWidth,
-                               lineColor: resolved,
-                               fillTopAlpha: 0.45,
-                               fillBottomAlpha: 0.02,
-                               baselineAlpha: 0.25,
-                               haloAlpha: 0.20,
-                               dotRadius: 2)
+        return JdSparklineSpec(
+            width: width,
+            height: height,
+            strokeWidth: strokeWidth,
+            lineColor: resolved,
+            fillTopAlpha: 0.45,
+            fillBottomAlpha: 0.02,
+            baselineAlpha: 0.25,
+            haloAlpha: 0.20,
+            dotRadius: 2)
     }
 
     /// 획이 상자에서 잘리지 않을 최소 여백

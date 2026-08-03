@@ -23,7 +23,12 @@ export default function MultiSelectPage() {
       props={[
         { name: "options", type: "MultiSelectOption[]", required: true, description: "옵션 목록" },
         { name: "value", type: "string[]", required: true, description: "선택된 값 배열" },
-        { name: "onChange", type: "(value: string[]) => void", required: true, description: "변경 핸들러" },
+        {
+          name: "onChange",
+          type: "(value: string[]) => void",
+          required: true,
+          description: "변경 핸들러",
+        },
         { name: "searchable", type: "boolean", description: "검색 기능" },
         { name: "maxDisplay", type: "number", default: "3", description: "최대 표시 태그 수" },
       ]}
@@ -31,7 +36,13 @@ export default function MultiSelectPage() {
       <Section title="Interactive Demo">
         <Preview>
           <div className="max-w-md">
-            <MultiSelect options={options} value={v} onChange={setV} searchable placeholder="팀 선택" />
+            <MultiSelect
+              options={options}
+              value={v}
+              onChange={setV}
+              searchable
+              placeholder="팀 선택"
+            />
             <p className="text-xs text-muted mt-2">선택: {v.join(", ")}</p>
           </div>
         </Preview>

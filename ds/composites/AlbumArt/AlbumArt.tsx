@@ -100,10 +100,7 @@ export const AlbumArt = forwardRef<HTMLSpanElement, AlbumArtProps>(function Albu
           }
           aria-hidden="true"
         >
-          <span
-            className="text-white/45 leading-none"
-            style={{ fontSize: "min(38%, 2.5rem)" }}
-          >
+          <span className="text-white/45 leading-none" style={{ fontSize: "min(38%, 2.5rem)" }}>
             {glyph}
           </span>
         </span>

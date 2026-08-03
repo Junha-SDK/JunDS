@@ -66,38 +66,64 @@ interface ToastContextValue {
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
+// 아이콘 색을 hex 로 굳혀 두면 BrandProvider 가 --primary 를 바꿔도 정보 아이콘만 옛 보라색으로
+// 남고, 다크 팔레트가 의미색을 조정해도 따라가지 못한다. 토큰을 그대로 참조한다.
 const icons: Record<ToastType, ReactNode> = {
   success: (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <circle cx="9" cy="9" r="8" stroke="#2f8f57" strokeWidth="1.5" />
-      <path d="M5.5 9.5l2 2 5-5" stroke="#2f8f57" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="9" cy="9" r="8" stroke="var(--success)" strokeWidth="1.5" />
+      <path
+        d="M5.5 9.5l2 2 5-5"
+        stroke="var(--success)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   ),
   error: (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <circle cx="9" cy="9" r="8" stroke="#dc3f3f" strokeWidth="1.5" />
-      <path d="M6.5 6.5l5 5M11.5 6.5l-5 5" stroke="#dc3f3f" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="9" cy="9" r="8" stroke="var(--danger)" strokeWidth="1.5" />
+      <path
+        d="M6.5 6.5l5 5M11.5 6.5l-5 5"
+        stroke="var(--danger)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   ),
   warning: (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <path d="M9 2L1.5 15.5h15L9 2z" stroke="#b7791f" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M9 7v3.5M9 13h.01" stroke="#b7791f" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M9 2L1.5 15.5h15L9 2z"
+        stroke="var(--warning)"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path d="M9 7v3.5M9 13h.01" stroke="var(--warning)" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   ),
   info: (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <circle cx="9" cy="9" r="8" stroke="#5b4cc7" strokeWidth="1.5" />
-      <path d="M9 8v4.5M9 5.5h.01" stroke="#5b4cc7" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="9" cy="9" r="8" stroke="var(--primary)" strokeWidth="1.5" />
+      <path
+        d="M9 8v4.5M9 5.5h.01"
+        stroke="var(--primary)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   ),
 };
 
+// `dark:` 는 이 저장소에서 OS 선호도(prefers-color-scheme)를 따르지만 테마 전환은
+// [data-theme="dark"] 로 한다 — 둘이 어긋나면 앱은 다크인데 토스트만 흰색이 된다.
+// --card 는 테마 속성을 따라가므로 변형 없이 한 줄로 끝난다.
 const typeStyles: Record<ToastType, string> = {
-  success: "border-border/60 border-l-4 border-l-success bg-white dark:bg-gray-900",
-  error: "border-border/60 border-l-4 border-l-danger bg-white dark:bg-gray-900",
-  warning: "border-border/60 border-l-4 border-l-warning bg-white dark:bg-gray-900",
-  info: "border-border/60 border-l-4 border-l-primary bg-white dark:bg-gray-900",
+  success: "border-border/60 border-l-4 border-l-success bg-card",
+  error: "border-border/60 border-l-4 border-l-danger bg-card",
+  warning: "border-border/60 border-l-4 border-l-warning bg-card",
+  info: "border-border/60 border-l-4 border-l-primary bg-card",
 };
 
 const positionStyles: Record<ToastPosition, string> = {
@@ -130,7 +156,11 @@ export interface ToastProviderProps {
  * @since 2.2.0
  * @tags feedback
  */
-export function DsToastProvider({ children, position = "bottom-right", maxToasts = 5 }: ToastProviderProps) {
+export function DsToastProvider({
+  children,
+  position = "bottom-right",
+  maxToasts = 5,
+}: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   // 전체화면(예: 발표 모드, 동영상) 중에는 body 에 붙인 포털이 화면에 나오지
@@ -205,15 +235,21 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
               <div className="flex gap-2 justify-end">
                 {onCancel && (
                   <button
-                    onClick={() => { onCancel(); remove(id); }}
-                    className="px-3 py-1 text-xs rounded-lg border border-border text-muted hover:text-foreground transition-colors cursor-pointer"
+                    onClick={() => {
+                      onCancel();
+                      remove(id);
+                    }}
+                    className="px-3 py-1 text-xs rounded-lg border border-border text-muted hover:text-foreground hover:bg-surface-soft active:scale-[0.97] motion-reduce:active:scale-100 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
                   >
                     취소
                   </button>
                 )}
                 <button
-                  onClick={() => { onConfirm(); remove(id); }}
-                  className="px-3 py-1 text-xs rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors cursor-pointer"
+                  onClick={() => {
+                    onConfirm();
+                    remove(id);
+                  }}
+                  className="px-3 py-1 text-xs rounded-lg bg-primary text-white hover:bg-primary-hover active:scale-[0.97] motion-reduce:active:scale-100 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
                 >
                   확인
                 </button>
@@ -232,10 +268,10 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
     error: (msg, opts) => addToast(msg, "error", opts?.duration ?? 3500, opts),
     warning: (msg, opts) => addToast(msg, "warning", opts?.duration ?? 3500, opts),
     info: (msg, opts) => addToast(msg, "info", opts?.duration ?? 3500, opts),
-    custom: (content, opts) => addToast("", "info", opts?.duration ?? 3500, { content, blocking: opts?.blocking }),
+    custom: (content, opts) =>
+      addToast("", "info", opts?.duration ?? 3500, { content, blocking: opts?.blocking }),
     confirm,
-    show: (opts) =>
-      addToast(opts.message ?? "", opts.type ?? "info", opts.duration ?? 3500, opts),
+    show: (opts) => addToast(opts.message ?? "", opts.type ?? "info", opts.duration ?? 3500, opts),
     close: remove,
     clear,
   };
@@ -247,7 +283,13 @@ export function DsToastProvider({ children, position = "bottom-right", maxToasts
         {toasts.some((t) => t.blocking) && (
           <div className="fixed inset-0 z-69 bg-black/10 pointer-events-auto" />
         )}
-        <div aria-live="polite" className={cn("fixed z-70 flex flex-col gap-2 pointer-events-none", positionStyles[position])}>
+        <div
+          aria-live="polite"
+          className={cn(
+            "fixed z-70 flex flex-col gap-2 pointer-events-none",
+            positionStyles[position],
+          )}
+        >
           {toasts.map((t) => (
             <SingleToast key={t.id} item={t} onRemove={remove} />
           ))}
@@ -278,8 +320,10 @@ function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: numbe
       role="alert"
       aria-atomic="true"
       className={cn(
-        "pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border shadow-[0_8px_30px_rgba(0,0,0,0.12)]",
-        "animate-slide-in-right min-w-[280px] max-w-md",
+        "pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl border",
+        // 떠 있는 알림은 한 겹 그림자로는 유령처럼 보인다 — 근거리/원거리 두 겹 + 얇은 링.
+        "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.28),0_4px_10px_-4px_rgba(0,0,0,0.16)] ring-1 ring-black/[0.04]",
+        "animate-slide-in-right motion-reduce:animate-none min-w-[280px] max-w-md",
         typeStyles[item.type],
       )}
     >
@@ -289,15 +333,16 @@ function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: numbe
         <>
           <span className="shrink-0 self-start mt-0.5">{icons[item.type]}</span>
           <div className="flex-1">
-            {item.title && (
-              <p className="text-sm font-semibold text-foreground">{item.title}</p>
-            )}
+            {item.title && <p className="text-sm font-semibold text-foreground">{item.title}</p>}
             <p className="text-sm text-foreground">{item.message}</p>
           </div>
           {item.action && (
             <button
-              onClick={() => { item.action!.onClick(); onRemove(item.id); }}
-              className="px-2 py-1 text-xs font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors shrink-0 cursor-pointer"
+              onClick={() => {
+                item.action!.onClick();
+                onRemove(item.id);
+              }}
+              className="px-2 py-1 text-xs font-medium rounded-lg bg-primary text-white hover:bg-primary-hover active:scale-[0.97] motion-reduce:active:scale-100 transition-colors shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
             >
               {item.action.label}
             </button>
@@ -307,10 +352,16 @@ function SingleToast({ item, onRemove }: { item: ToastItem; onRemove: (id: numbe
       {!item.blocking && (
         <button
           onClick={() => onRemove(item.id)}
-          className="text-muted hover:text-foreground transition-colors shrink-0 cursor-pointer"
+          aria-label="알림 닫기"
+          className="p-1 -m-1 rounded-lg text-muted hover:text-foreground hover:bg-surface-soft transition-colors shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path
+              d="M3 3l8 8M11 3l-8 8"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       )}

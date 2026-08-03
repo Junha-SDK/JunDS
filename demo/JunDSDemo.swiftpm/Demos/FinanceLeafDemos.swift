@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // finance leaf 6종 데모 (DEC-040) — 웹 <jd-live-pct-text>·<jd-live-pct-badge>·
 // <jd-live-price-text>·<jd-live-status-dot>·<jd-price-badge>·<jd-hot-pct-chip> 동형.
@@ -43,11 +43,12 @@ enum LivePctTextDemo {
 
 @MainActor
 private func pctTextView(_ state: DemoState) -> JdLivePctText {
-    JdLivePctText(change: doubleValue(state, "change", 0),
-                  fallback: doubleValue(state, "fallback", 0),
-                  decimals: Int(doubleValue(state, "decimals", 2)),
-                  showSign: !state.bool("hideSign"),
-                  withPercent: !state.bool("hidePercent"))
+    JdLivePctText(
+        change: doubleValue(state, "change", 0),
+        fallback: doubleValue(state, "fallback", 0),
+        decimals: Int(doubleValue(state, "decimals", 2)),
+        showSign: !state.bool("hideSign"),
+        withPercent: !state.bool("hidePercent"))
 }
 
 private struct LivePctTextStage: View {
@@ -67,11 +68,12 @@ private struct LivePctTextStageUIKit: View {
     @ObservedObject var state: DemoState
     var body: some View {
         UIKitBox {
-            JdLivePctTextView(change: doubleValue(state, "change", 0),
-                              fallback: doubleValue(state, "fallback", 0),
-                              decimals: Int(doubleValue(state, "decimals", 2)),
-                              showSign: !state.bool("hideSign"),
-                              withPercent: !state.bool("hidePercent"))
+            JdLivePctTextView(
+                change: doubleValue(state, "change", 0),
+                fallback: doubleValue(state, "fallback", 0),
+                decimals: Int(doubleValue(state, "decimals", 2)),
+                showSign: !state.bool("hideSign"),
+                withPercent: !state.bool("hidePercent"))
         }
         .fixedSize()
     }
@@ -94,8 +96,9 @@ enum LivePctBadgeDemo {
 
 @MainActor
 private func badgeTrendNote(_ state: DemoState) -> String {
-    let badge = JdLivePctBadge(change: doubleValue(state, "change", 0),
-                               fallback: doubleValue(state, "fallback", 0))
+    let badge = JdLivePctBadge(
+        change: doubleValue(state, "change", 0),
+        fallback: doubleValue(state, "fallback", 0))
     return "live 규칙 판정: \(badge.trend.rawValue) — up(>0)이 flat보다 우선, flat은 [-0.005, 0]뿐"
 }
 
@@ -103,9 +106,10 @@ private struct LivePctBadgeStage: View {
     @ObservedObject var state: DemoState
     var body: some View {
         VStack(spacing: JdToken.Space.s3) {
-            JdLivePctBadge(change: doubleValue(state, "change", 0),
-                           fallback: doubleValue(state, "fallback", 0),
-                           decimals: Int(doubleValue(state, "decimals", 2)))
+            JdLivePctBadge(
+                change: doubleValue(state, "change", 0),
+                fallback: doubleValue(state, "fallback", 0),
+                decimals: Int(doubleValue(state, "decimals", 2)))
             Text(badgeTrendNote(state))
                 .font(.caption)
                 .foregroundColor(JdToken.Color.muted.color)
@@ -118,9 +122,10 @@ private struct LivePctBadgeStageUIKit: View {
     @ObservedObject var state: DemoState
     var body: some View {
         UIKitBox {
-            JdLivePctBadgeView(change: doubleValue(state, "change", 0),
-                               fallback: doubleValue(state, "fallback", 0),
-                               decimals: Int(doubleValue(state, "decimals", 2)))
+            JdLivePctBadgeView(
+                change: doubleValue(state, "change", 0),
+                fallback: doubleValue(state, "fallback", 0),
+                decimals: Int(doubleValue(state, "decimals", 2)))
         }
         .fixedSize()
     }
@@ -146,10 +151,11 @@ private struct LivePriceTextStage: View {
     @ObservedObject var state: DemoState
     var body: some View {
         VStack(spacing: JdToken.Space.s3) {
-            JdLivePriceText(price: doubleValue(state, "price", 0),
-                            fallback: doubleValue(state, "fallback", 0),
-                            decimals: Int(doubleValue(state, "decimals", 0)),
-                            locale: state.string("locale"))
+            JdLivePriceText(
+                price: doubleValue(state, "price", 0),
+                fallback: doubleValue(state, "fallback", 0),
+                decimals: Int(doubleValue(state, "decimals", 0)),
+                locale: state.string("locale"))
             Text("price를 0으로 두고 fallback도 0이면 “—” — 값 없음은 숫자 0과 다르다")
                 .font(.caption)
                 .foregroundColor(JdToken.Color.muted.color)
@@ -162,10 +168,11 @@ private struct LivePriceTextStageUIKit: View {
     @ObservedObject var state: DemoState
     var body: some View {
         UIKitBox {
-            JdLivePriceTextView(price: doubleValue(state, "price", 0),
-                                fallback: doubleValue(state, "fallback", 0),
-                                decimals: Int(doubleValue(state, "decimals", 0)),
-                                locale: state.string("locale"))
+            JdLivePriceTextView(
+                price: doubleValue(state, "price", 0),
+                fallback: doubleValue(state, "fallback", 0),
+                decimals: Int(doubleValue(state, "decimals", 0)),
+                locale: state.string("locale"))
         }
         .fixedSize()
     }
@@ -239,10 +246,11 @@ private struct PriceBadgeStage: View {
     @ObservedObject var state: DemoState
     var body: some View {
         VStack(spacing: JdToken.Space.s3) {
-            JdPriceBadge(pct: doubleValue(state, "pct", 0),
-                         size: priceBadgeSize(state),
-                         showArrow: !state.bool("noArrow"),
-                         bold: !state.bool("noBold"))
+            JdPriceBadge(
+                pct: doubleValue(state, "pct", 0),
+                size: priceBadgeSize(state),
+                showArrow: !state.bool("noArrow"),
+                bold: !state.bool("noBold"))
             Text("exact 규칙 — flat은 정확히 0뿐이다. pct에 -0.003을 넣으면 여기선 하락,\nLivePctBadge에선 보합이다.")
                 .font(.caption)
                 .foregroundColor(JdToken.Color.muted.color)
@@ -255,10 +263,11 @@ private struct PriceBadgeStageUIKit: View {
     @ObservedObject var state: DemoState
     var body: some View {
         UIKitBox {
-            JdPriceBadgeView(pct: doubleValue(state, "pct", 0),
-                             size: priceBadgeSize(state),
-                             showArrow: !state.bool("noArrow"),
-                             bold: !state.bool("noBold"))
+            JdPriceBadgeView(
+                pct: doubleValue(state, "pct", 0),
+                size: priceBadgeSize(state),
+                showArrow: !state.bool("noArrow"),
+                bold: !state.bool("noBold"))
         }
         .fixedSize()
     }
@@ -270,7 +279,7 @@ enum HotPctChipDemo {
     static let demo = ComponentDemo(
         id: "HotPctChip",
         controls: [
-            .text("pct", "pct", placeholder: "등락률(%)", initial: "12.34"),
+            .text("pct", "pct", placeholder: "등락률(%)", initial: "12.34")
         ],
         swiftUI: { state in AnyView(HotPctChipStage(state: state)) },
         uikit: { state in AnyView(HotPctChipStageUIKit(state: state)) }

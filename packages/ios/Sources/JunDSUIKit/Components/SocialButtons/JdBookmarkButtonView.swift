@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-bookmark-button 동형 — 심볼 토글 (DESIGN-3 §B). A8 명명 규칙 Jd<이름>View.
 // 기하(변·모서리·아이콘 크기)는 JdIconButtonSpec(ghost) 재사용이고 색만 상태로 갈아끼운다.
@@ -83,9 +83,10 @@ public final class JdBookmarkButtonView: UIControl {
 
     private func applyState() {
         // SF Symbol은 폰트에 묶여 스케일된다 (04 §7.2)
-        let font = JdFontBridge.scaledFont(size: spec.iconSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: spec.iconSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font)
         iconView.image = UIImage(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
         // 켜짐 = warning 토큰, 꺼짐 = 스펙 기본 전경(muted)

@@ -55,14 +55,14 @@ LLM 에이전트 (Claude Code, 그 외) 가 처음 본 저장소에서 헤매지
   (2) 파일 인벤토리 → (3) 공개 API 레퍼런스. 이 순서를 어기면 컨텍스트가
   비어 있는 상태에서 코드를 만지게 된다.
 - **`requirements/` 모델.** 한 기능 = 한 파일. `_template.md` 복제 + slug 부여
-  + status 표기 + Touched files 명시. 인덱스 (`README.md`) 는 slug 정렬 표.
+  - status 표기 + Touched files 명시. 인덱스 (`README.md`) 는 slug 정렬 표.
 - **`.ai/MAP.md`.** `scripts/build-map.mjs` 가 `requirements/`, `ds/primitives`,
   `ds/composites`, `ds/patterns`, `ds/layout`, `ds/core`, `ds/hooks`,
   `ds/tokens`, `ds/providers`, `ds/utils`, `app/` 등을 스캔해 한 페이지
   체크리스트를 생성. 약 500개 경로가 한 번의 `Read` 로 들어오도록 의도됨.
 - **`npm run locate`.** `scripts/locate.mjs` 가 키워드를 받아 파일명/경로를
   랭킹. `--type` 으로 `requirement | primitive | composite | hook | token |
-  test | page | data | config | asset | file` 중 한 카테고리로 좁힌다.
+test | page | data | config | asset | file` 중 한 카테고리로 좁힌다.
 - **`./start`.** bash 런처. `mode = dev | prod`, `--port N` 옵션. 의존성이
   설치돼 있지 않으면 자동으로 `npm install` 후 `node scripts/run-server.mjs`
   를 호출. 6100 이 점유되어도 다음 가용 포트로 자동 시프트.

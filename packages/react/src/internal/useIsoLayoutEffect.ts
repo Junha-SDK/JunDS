@@ -7,5 +7,4 @@ import { useEffect, useLayoutEffect } from "react";
  * 첫 render가 낡은 상태로 그려지고 jd-open 같은 최초 이벤트를 놓친다.
  * layout effect는 커밋과 같은 태스크라 microtask보다 항상 앞선다.
  */
-export const useIsoLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+export const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;

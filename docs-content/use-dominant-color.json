@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useDominantColor",
   "oneLiner": "이미지에서 대표색 한 쌍(밝은 tint / 어두운 deep)을 뽑는다 — 몰입형 배경용.",
-  "tags": [
-    "hook",
-    "색",
-    "이미지"
-  ],
+  "tags": ["hook", "색", "이미지"],
   "controls": [],
   "snippets": {
     "web": null,

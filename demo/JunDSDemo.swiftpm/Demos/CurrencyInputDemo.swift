@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // CurrencyInput 데모 — 실컴포넌트 JdCurrencyInput(SwiftUI)/JdCurrencyInputView(UIKit).
 //

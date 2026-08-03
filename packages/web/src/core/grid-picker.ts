@@ -166,7 +166,8 @@ export abstract class JdGridPicker extends JdElement {
       cell.tabIndex = -1;
       if (!disabled) {
         if (firstEnabled < 0) firstEnabled = i;
-        if (tabStop < 0 && (i === this.#focusIndex || (this.#focusIndex < 0 && selected))) tabStop = i;
+        if (tabStop < 0 && (i === this.#focusIndex || (this.#focusIndex < 0 && selected)))
+          tabStop = i;
       }
     }
     const stop = tabStop >= 0 ? tabStop : firstEnabled;

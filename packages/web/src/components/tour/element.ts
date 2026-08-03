@@ -161,7 +161,13 @@ export class JdTour extends JdElement {
     defs.append(mask);
     this.#dimRect = doc.createElementNS(SVG_NS, "rect");
     this.#dimRect.setAttribute("class", "jd-tour__dim");
-    setNs(this.#dimRect, { x: "0", y: "0", width: "100%", height: "100%", mask: `url(#${maskId})` });
+    setNs(this.#dimRect, {
+      x: "0",
+      y: "0",
+      width: "100%",
+      height: "100%",
+      mask: `url(#${maskId})`,
+    });
     this.#svg.append(defs, this.#dimRect);
     this.append(this.#svg);
   }
@@ -218,7 +224,9 @@ export class JdTour extends JdElement {
 
   #readJson(): void {
     if (this.#steps.length > 0) return;
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]");

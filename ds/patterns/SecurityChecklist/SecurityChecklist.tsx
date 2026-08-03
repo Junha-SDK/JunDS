@@ -23,38 +23,77 @@ export interface SecurityChecklistProps {
   className?: string;
 }
 
+/** 방패 실루엣 — 상태별로 안쪽 기호만 바뀐다 */
+const SHIELD =
+  "M8 1.5c-.5.3-1.7.8-3.2 1C4.3 4 4 5.5 4 7c0 3.2 1.8 5.5 4 6.5 2.2-1 4-3.3 4-6.5 0-1.5-.3-3-0.8-4.5-1.5-.2-2.7-.7-3.2-1z";
+
+/**
+ * 아이콘 색을 하드코딩된 hex 대신 currentColor 로 흘린다 — 상태색은 CSS 변수를
+ * 따라가야 다크에서도 같은 의미로 읽힌다.
+ */
+function StatusIcon({ tone, mark }: { tone: string; mark: ReactNode }) {
+  return (
+    <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0", tone)}>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path
+          d={SHIELD}
+          stroke="currentColor"
+          strokeWidth="1.2"
+          fill="currentColor"
+          fillOpacity="0.16"
+        />
+        {mark}
+      </svg>
+    </div>
+  );
+}
+
 const statusIcons: Record<string, ReactNode> = {
   secure: (
-    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 1.5c-.5.3-1.7.8-3.2 1C4.3 4 4 5.5 4 7c0 3.2 1.8 5.5 4 6.5 2.2-1 4-3.3 4-6.5 0-1.5-.3-3-0.8-4.5-1.5-.2-2.7-.7-3.2-1z" stroke="#16a34a" strokeWidth="1.2" fill="#dcfce7" />
-        <path d="M6 8l1.5 1.5L10 7" stroke="#16a34a" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
+    <StatusIcon
+      tone="bg-success-light text-success"
+      mark={
+        <path
+          d="M6 8l1.5 1.5L10 7"
+          stroke="currentColor"
+          strokeWidth="1.3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      }
+    />
   ),
   insecure: (
-    <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center shrink-0">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 1.5c-.5.3-1.7.8-3.2 1C4.3 4 4 5.5 4 7c0 3.2 1.8 5.5 4 6.5 2.2-1 4-3.3 4-6.5 0-1.5-.3-3-0.8-4.5-1.5-.2-2.7-.7-3.2-1z" stroke="#dc2626" strokeWidth="1.2" fill="#fef2f2" />
-        <path d="M6.5 6.5l3 3M9.5 6.5l-3 3" stroke="#dc2626" strokeWidth="1.3" strokeLinecap="round" />
-      </svg>
-    </div>
+    <StatusIcon
+      tone="bg-danger-light text-danger"
+      mark={
+        <path
+          d="M6.5 6.5l3 3M9.5 6.5l-3 3"
+          stroke="currentColor"
+          strokeWidth="1.3"
+          strokeLinecap="round"
+        />
+      }
+    />
   ),
   attention: (
-    <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 1.5c-.5.3-1.7.8-3.2 1C4.3 4 4 5.5 4 7c0 3.2 1.8 5.5 4 6.5 2.2-1 4-3.3 4-6.5 0-1.5-.3-3-0.8-4.5-1.5-.2-2.7-.7-3.2-1z" stroke="#d97706" strokeWidth="1.2" fill="#fef3c7" />
-        <path d="M8 5.5v3M8 10.5h.01" stroke="#d97706" strokeWidth="1.3" strokeLinecap="round" />
-      </svg>
-    </div>
+    <StatusIcon
+      tone="bg-warning-light text-warning"
+      mark={
+        <path
+          d="M8 5.5v3M8 10.5h.01"
+          stroke="currentColor"
+          strokeWidth="1.3"
+          strokeLinecap="round"
+        />
+      }
+    />
   ),
   unchecked: (
-    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 1.5c-.5.3-1.7.8-3.2 1C4.3 4 4 5.5 4 7c0 3.2 1.8 5.5 4 6.5 2.2-1 4-3.3 4-6.5 0-1.5-.3-3-0.8-4.5-1.5-.2-2.7-.7-3.2-1z" stroke="#9ca3af" strokeWidth="1.2" fill="#f3f4f6" />
-        <path d="M7 8h2" stroke="#9ca3af" strokeWidth="1.3" strokeLinecap="round" />
-      </svg>
-    </div>
+    <StatusIcon
+      tone="bg-muted/10 text-muted-light"
+      mark={<path d="M7 8h2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />}
+    />
   ),
 };
 
@@ -69,20 +108,36 @@ const statusIcons: Record<string, ReactNode> = {
  * @since 2.2.0
  * @tags data-display
  */
-export function SecurityChecklist({ items, title = "보안 체크리스트", className }: SecurityChecklistProps) {
+export function SecurityChecklist({
+  items,
+  title = "보안 체크리스트",
+  className,
+}: SecurityChecklistProps) {
   const secureCount = items.filter((i) => i.status === "secure").length;
   const totalChecked = items.filter((i) => i.status !== "unchecked").length;
 
   return (
-    <div className={cn("bg-white border border-border rounded-xl overflow-hidden", className)}>
+    <div
+      className={cn(
+        "bg-card border border-border rounded-xl overflow-hidden",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.12)]",
+        className,
+      )}
+    >
       {/* Header */}
       <div className="px-5 py-4 border-b border-border-light">
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-base font-semibold text-foreground">{title}</h3>
-          <span className={cn(
-            "text-xs font-semibold px-2 py-0.5 rounded-full",
-            secureCount === items.length ? "bg-green-100 text-green-700" : secureCount >= items.length * 0.5 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700",
-          )}>
+          <span
+            className={cn(
+              "text-xs font-semibold px-2 py-0.5 rounded-full tabular-nums whitespace-nowrap",
+              secureCount === items.length
+                ? "bg-success-light text-success"
+                : secureCount >= items.length * 0.5
+                ? "bg-warning-light text-warning"
+                : "bg-danger-light text-danger",
+            )}
+          >
             {secureCount}/{items.length} 안전
           </span>
         </div>
@@ -93,9 +148,13 @@ export function SecurityChecklist({ items, title = "보안 체크리스트", cla
               key={item.key}
               className={cn(
                 "h-1.5 flex-1 rounded-full transition-colors",
-                item.status === "secure" ? "bg-green-500" :
-                item.status === "insecure" ? "bg-red-400" :
-                item.status === "attention" ? "bg-amber-400" : "bg-gray-200",
+                item.status === "secure"
+                  ? "bg-success"
+                  : item.status === "insecure"
+                  ? "bg-danger"
+                  : item.status === "attention"
+                  ? "bg-warning"
+                  : "bg-border",
               )}
             />
           ))}
@@ -108,8 +167,8 @@ export function SecurityChecklist({ items, title = "보안 체크리스트", cla
           <div key={item.key} className="flex items-center gap-3 px-5 py-3">
             {item.icon || statusIcons[item.status]}
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-foreground">{item.title}</div>
-              <div className="text-xs text-muted">{item.description}</div>
+              <div className="text-sm font-medium text-foreground truncate">{item.title}</div>
+              <div className="text-xs text-muted truncate">{item.description}</div>
             </div>
             {item.action && (
               <Button

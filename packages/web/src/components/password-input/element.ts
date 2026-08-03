@@ -151,7 +151,9 @@ export class JdPasswordInput extends JdElement {
 
   /** <script type="application/json"> 선언적 규칙 (§1.3 명시 허용 슬롯) */
   #readJsonRules(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     let specs: PasswordRuleSpec[];
     try {
@@ -167,8 +169,8 @@ export class JdPasswordInput extends JdElement {
         s.minLength !== undefined
           ? (v: string) => v.length >= s.minLength!
           : s.pattern !== undefined
-            ? (v: string) => new RegExp(s.pattern!, s.flags).test(v)
-            : () => false,
+          ? (v: string) => new RegExp(s.pattern!, s.flags).test(v)
+          : () => false,
     }));
     script.remove();
   }

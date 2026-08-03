@@ -3,32 +3,32 @@
   "none": "none",
   "xs": {
     "light": "0 1px 1px -0.5px rgba(26,23,38,0.08), 0 1px 3px -1px rgba(26,23,38,0.06)",
-    "dark":  "0 0 0 1px rgba(255,255,255,0.045), 0 1px 2px -1px rgba(0,0,0,0.55)"
+    "dark": "0 0 0 1px rgba(255,255,255,0.045), 0 1px 2px -1px rgba(0,0,0,0.55)"
   },
   "sm": {
     "light": "0 1px 2px -1px rgba(26,23,38,0.10), 0 2px 6px -2px rgba(26,23,38,0.08)",
-    "dark":  "0 0 0 1px rgba(255,255,255,0.05), 0 2px 6px -2px rgba(0,0,0,0.65)"
+    "dark": "0 0 0 1px rgba(255,255,255,0.05), 0 2px 6px -2px rgba(0,0,0,0.65)"
   },
   "md": {
     "light": "0 2px 4px -2px rgba(26,23,38,0.10), 0 6px 14px -4px rgba(26,23,38,0.10)",
-    "dark":  "0 0 0 1px rgba(255,255,255,0.055), 0 6px 14px -4px rgba(0,0,0,0.7)"
+    "dark": "0 0 0 1px rgba(255,255,255,0.055), 0 6px 14px -4px rgba(0,0,0,0.7)"
   },
   "lg": {
     "light": "0 4px 8px -4px rgba(26,23,38,0.10), 0 14px 28px -8px rgba(26,23,38,0.12)",
-    "dark":  "0 0 0 1px rgba(255,255,255,0.06), 0 14px 28px -8px rgba(0,0,0,0.75)"
+    "dark": "0 0 0 1px rgba(255,255,255,0.06), 0 14px 28px -8px rgba(0,0,0,0.75)"
   },
   "xl": {
     "light": "0 8px 14px -8px rgba(26,23,38,0.10), 0 24px 48px -12px rgba(26,23,38,0.16)",
-    "dark":  "0 0 0 1px rgba(255,255,255,0.065), 0 24px 48px -12px rgba(0,0,0,0.8)"
+    "dark": "0 0 0 1px rgba(255,255,255,0.065), 0 24px 48px -12px rgba(0,0,0,0.8)"
   },
   "2xl": {
     "light": "0 12px 20px -12px rgba(26,23,38,0.12), 0 40px 72px -16px rgba(26,23,38,0.22)",
-    "dark":  "0 0 0 1px rgba(255,255,255,0.07), 0 40px 72px -16px rgba(0,0,0,0.85)"
+    "dark": "0 0 0 1px rgba(255,255,255,0.07), 0 40px 72px -16px rgba(0,0,0,0.85)"
   },
   "$knob": "스위치·슬라이더 썸 전용 — 작은 원이 트랙 위에서 떠 보이게 하는 최소 2겹. 일반 md를 쓰면 blur가 썸 지름보다 커서 번져 보인다.",
   "knob": {
     "light": "0 1px 1px rgba(26,23,38,0.16), 0 2px 5px -1px rgba(26,23,38,0.14)",
-    "dark":  "0 1px 1px rgba(0,0,0,0.5), 0 2px 6px -1px rgba(0,0,0,0.6)"
+    "dark": "0 1px 1px rgba(0,0,0,0.5), 0 2px 6px -1px rgba(0,0,0,0.6)"
   },
   "focusRing": "0 0 0 3px {color.primaryGlow}",
   "focusRingDanger": "0 0 0 3px rgba(220,63,63,0.15)"

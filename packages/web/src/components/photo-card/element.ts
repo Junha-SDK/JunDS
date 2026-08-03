@@ -196,8 +196,7 @@ export class JdPhotoCard extends JdElement {
     this.#fillStat(this.#comments, this.commentsLabel, comments);
     this.#stats.hidden = likes === null && comments === null;
 
-    this.#caption.hidden =
-      this.#captionText.hidden && this.#metaText.hidden && this.#stats.hidden;
+    this.#caption.hidden = this.#captionText.hidden && this.#metaText.hidden && this.#stats.hidden;
   }
 
   #fillStat(el: HTMLElement, label: string, value: number | null): void {

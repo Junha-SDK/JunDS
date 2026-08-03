@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Slider 데모 — 실컴포넌트 JdSlider(SwiftUI)/JdSliderView(UIKit).
 // 웹이 네이티브 input[type=range]에 위임했듯 iOS도 시스템 Slider에 위임한다(04 §10.1).

@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useSteps",
   "oneLiner": "다단계 진행 상태 관리.",
-  "tags": [
-    "hook",
-    "상태",
-    "단계"
-  ],
+  "tags": ["hook", "상태", "단계"],
   "controls": [],
   "snippets": {
     "web": null,

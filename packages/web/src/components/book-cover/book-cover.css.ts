@@ -17,83 +17,136 @@ import { css } from "../../core/styles.js";
  * 소비자 재색칠 통로는 `hue`(= --jd-book-cover-hue) 하나다.
  */
 export default css`
-@layer junds.base {
-  jd-book-cover:not(:defined) { display: block; }
-}
-@layer junds.components {
-  jd-book-cover {
-    position: relative;
-    display: block;
-    box-sizing: border-box;
-    width: 8rem; height: 11rem; /* md 기본 — size는 attribute가 고른다 */
-    overflow: hidden;
-    border-radius: var(--jd-radius-md);
-    box-shadow: 0 4px 14px rgba(0,0,0,.18);
-    font-family: var(--jd-font-sans);
-    isolation: isolate;
+  @layer junds.base {
+    jd-book-cover:not(:defined) {
+      display: block;
+    }
   }
-  jd-book-cover[size="sm"] { width: 5rem;  height: 7rem;  }
-  jd-book-cover[size="lg"] { width: 11rem; height: 15rem; }
-  jd-book-cover[size="xl"] { width: 14rem; height: 20rem; }
-  /* 부모 상자를 채운다 — 라운딩·그림자는 부모(jd-book-card)가 정한다 */
-  jd-book-cover[size="fill"] {
-    width: 100%; height: 100%;
-    border-radius: inherit;
-    box-shadow: none;
-  }
+  @layer junds.components {
+    jd-book-cover {
+      position: relative;
+      display: block;
+      box-sizing: border-box;
+      width: 8rem;
+      height: 11rem; /* md 기본 — size는 attribute가 고른다 */
+      overflow: hidden;
+      border-radius: var(--jd-radius-md);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      font-family: var(--jd-font-sans);
+      isolation: isolate;
+    }
+    jd-book-cover[size="sm"] {
+      width: 5rem;
+      height: 7rem;
+    }
+    jd-book-cover[size="lg"] {
+      width: 11rem;
+      height: 15rem;
+    }
+    jd-book-cover[size="xl"] {
+      width: 14rem;
+      height: 20rem;
+    }
+    /* 부모 상자를 채운다 — 라운딩·그림자는 부모(jd-book-card)가 정한다 */
+    jd-book-cover[size="fill"] {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      box-shadow: none;
+    }
 
-  .jd-book-cover__img {
-    position: absolute; inset: 0;
-    display: block; width: 100%; height: 100%;
-    object-fit: cover;
-  }
-  /* 이미지가 없거나 실패했으면 폴백만, 있으면 이미지만 그린다 */
-  jd-book-cover:not([data-image]) .jd-book-cover__img { display: none; }
-  jd-book-cover[data-image] .jd-book-cover__fallback { display: none; }
+    .jd-book-cover__img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* 이미지가 없거나 실패했으면 폴백만, 있으면 이미지만 그린다 */
+    jd-book-cover:not([data-image]) .jd-book-cover__img {
+      display: none;
+    }
+    jd-book-cover[data-image] .jd-book-cover__fallback {
+      display: none;
+    }
 
-  .jd-book-cover__fallback {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    box-sizing: border-box;
-    padding: var(--jd-space-3);
-    color: #fff;
-    background: var(--jd-book-cover-hue, linear-gradient(135deg, var(--jd-color-surface-overlay) 0%, var(--jd-color-surface) 100%)); /* 책등은 항상 어둡다 — 모드 무관 (DEC-044) */
-  }
-  .jd-book-cover__title {
-    font-size: var(--jd-text-xs);
-    font-weight: var(--jd-weight-bold);
-    line-height: var(--jd-leading-tight);
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .jd-book-cover__title[hidden] { display: none; }
-  .jd-book-cover__author {
-    margin-block-start: var(--jd-space-1);
-    font-size: 10px;
-    opacity: var(--jd-opacity-80);
-  }
-  .jd-book-cover__author[hidden] { display: none; }
+    .jd-book-cover__fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      box-sizing: border-box;
+      padding: var(--jd-space-3);
+      /* 면이 항상 어두우므로 잉크도 모드를 따라가면 안 된다 — surface의 짝은
+       on-surface다 (DEC-044). 캡션은 표지 위 보조 정보라 muted 단계를 쓴다. */
+      color: var(--jd-color-on-surface);
+      background: var(
+        --jd-book-cover-hue,
+        linear-gradient(135deg, var(--jd-color-surface-overlay) 0%, var(--jd-color-surface) 100%)
+      ); /* 책등은 항상 어둡다 — 모드 무관 (DEC-044) */
+    }
+    .jd-book-cover__title {
+      font-size: var(--jd-text-xs);
+      font-weight: var(--jd-weight-bold);
+      line-height: var(--jd-leading-tight);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .jd-book-cover__title[hidden] {
+      display: none;
+    }
+    /* v2 text-[10px] → 2xs(11px). 11px 아래로 내려가면 표지 캡션이 읽히지 않는다.
+     흐림은 opacity가 아니라 잉크 단계로 낸다 — opacity는 뒤의 그라디언트까지 비친다. */
+    .jd-book-cover__author {
+      margin-block-start: var(--jd-space-1);
+      font-size: var(--jd-text-2xs);
+      color: var(--jd-color-on-surface-muted);
+    }
+    .jd-book-cover__author[hidden] {
+      display: none;
+    }
 
-  /* 하단 광택 — DOM 0 */
-  jd-book-cover::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(to top, rgba(0,0,0,.1) 0%, transparent 100%);
-  }
+    /* 하단 광택 — DOM 0 */
+    jd-book-cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.1) 0%, transparent 100%);
+    }
 
-  .jd-book-cover__spine { display: none; }
-  jd-book-cover[effect="spine"] .jd-book-cover__spine {
-    display: block;
-    position: absolute; inset-block: 0; inset-inline-start: 0;
-    width: 0.375rem;
-    background: rgba(0,0,0,.15);
-    border-start-start-radius: var(--jd-radius-md);
-    border-end-start-radius: var(--jd-radius-md);
-  }
+    .jd-book-cover__spine {
+      display: none;
+    }
+    jd-book-cover[effect="spine"] .jd-book-cover__spine {
+      display: block;
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: 0;
+      width: 0.375rem;
+      background: rgba(0, 0, 0, 0.15);
+      border-start-start-radius: var(--jd-radius-md);
+      border-end-start-radius: var(--jd-radius-md);
+    }
 
-  jd-book-cover[effect="tilt"] {
-    transition: transform var(--jd-duration-slow) var(--jd-easing-ease-out);
+    jd-book-cover[effect="tilt"] {
+      transition: transform var(--jd-duration-slow) var(--jd-easing-ease-out);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      jd-book-cover[effect="tilt"]:hover {
+        transform: translateY(-0.25rem) rotate(-2deg);
+      }
+    }
+    /* 기울기를 끄는 것만으로는 부족하다 — 전이가 남아 있으면 다른 원인으로 transform이
+     바뀔 때 여전히 움직인다 */
+    @media (prefers-reduced-motion: reduce) {
+      jd-book-cover[effect="tilt"] {
+        transition: none;
+      }
+    }
   }
-  @media (prefers-reduced-motion: no-preference) {
-    jd-book-cover[effect="tilt"]:hover { transform: translateY(-0.25rem) rotate(-2deg); }
-  }
-}`;
+`;

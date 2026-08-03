@@ -5,9 +5,7 @@
 import { expect, test } from "@playwright/test";
 import { mount } from "./helpers.js";
 
-test("jd-text-field: 내부 input이 조상 <form>에 그냥 참여한다 (FormData)", async ({
-  page,
-}) => {
+test("jd-text-field: 내부 input이 조상 <form>에 그냥 참여한다 (FormData)", async ({ page }) => {
   await mount(
     page,
     `<form id="f"><jd-text-field name="email" label="이메일"></jd-text-field></form>`,
@@ -19,9 +17,7 @@ test("jd-text-field: 내부 input이 조상 <form>에 그냥 참여한다 (FormD
   expect(value).toBe("a@b.c");
 });
 
-test("jd-text-field: 라벨 클릭이 input에 포커스를 준다 (id 연결)", async ({
-  page,
-}) => {
+test("jd-text-field: 라벨 클릭이 input에 포커스를 준다 (id 연결)", async ({ page }) => {
   await mount(page, `<jd-text-field label="이름"></jd-text-field>`);
   await page.locator("jd-text-field label").click();
   await expect(page.locator("jd-text-field input")).toBeFocused();
@@ -30,10 +26,7 @@ test("jd-text-field: 라벨 클릭이 input에 포커스를 준다 (id 연결)",
 test("jd-text-field error: aria-invalid + aria-describedby가 보이는 메시지를 가리킨다", async ({
   page,
 }) => {
-  await mount(
-    page,
-    `<jd-text-field label="이름" error="필수 입력"></jd-text-field>`,
-  );
+  await mount(page, `<jd-text-field label="이름" error="필수 입력"></jd-text-field>`);
   const input = page.locator("jd-text-field input");
   await expect(input).toHaveAttribute("aria-invalid", "true");
   const described = await input.evaluate((el) => {
@@ -55,23 +48,16 @@ test("jd-text-field: start/end 슬롯과 메시지 없는 invalid 상태가 실 
   );
   await expect(page.locator(".jd-text-field__slot--start")).toContainText("₩");
   await expect(page.getByRole("button", { name: "지우기" })).toBeVisible();
-  await expect(page.locator("jd-text-field input")).toHaveAttribute(
-    "aria-invalid",
-    "true",
-  );
+  await expect(page.locator("jd-text-field input")).toHaveAttribute("aria-invalid", "true");
   await expect(page.locator(".jd-text-field__error")).toBeHidden();
 
   const padding = await page
     .locator("jd-text-field input")
-    .evaluate((input) =>
-      Number.parseFloat(getComputedStyle(input).paddingInlineStart),
-    );
+    .evaluate((input) => Number.parseFloat(getComputedStyle(input).paddingInlineStart));
   expect(padding).toBeGreaterThanOrEqual(40);
 });
 
-test("jd-button type=submit이 폼을 제출한다 — disabled/loading은 클릭 불가", async ({
-  page,
-}) => {
+test("jd-button type=submit이 폼을 제출한다 — disabled/loading은 클릭 불가", async ({ page }) => {
   await mount(
     page,
     `<form id="f"><jd-text-field name="q"></jd-text-field>
@@ -115,9 +101,7 @@ test("jd-button type=submit이 폼을 제출한다 — disabled/loading은 클�
   await expect(page.locator("#go button")).toHaveAttribute("aria-busy", "true");
 });
 
-test("jd-input 실시간 입력 이벤트 — detail.value 정규화 (§1.5)", async ({
-  page,
-}) => {
+test("jd-input 실시간 입력 이벤트 — detail.value 정규화 (§1.5)", async ({ page }) => {
   await mount(page, `<jd-text-field label="이름"></jd-text-field>`);
   const seen = page.evaluate(
     () =>

@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useJsonLd",
   "oneLiner": "schema.org JSON-LD 를 head 에 주입하고 언마운트 시 제거 — 같은 key 는 교체한다.",
-  "tags": [
-    "hook",
-    "seo",
-    "구조화 데이터"
-  ],
+  "tags": ["hook", "seo", "구조화 데이터"],
   "controls": [],
   "snippets": {
     "web": null,

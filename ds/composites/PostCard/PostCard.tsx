@@ -1,5 +1,5 @@
 "use client";
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { cn } from "../../utils/cn";
 import type { ReactNode } from "react";
 
@@ -39,6 +39,12 @@ export interface PostCardProps {
   className?: string;
 }
 
+function absoluteTime(d?: string | Date) {
+  if (!d) return null;
+  const dt = typeof d === "string" ? new Date(d) : d;
+  return new Intl.DateTimeFormat("ko", { month: "short", day: "numeric" }).format(dt);
+}
+
 function relativeTime(d?: string | Date) {
   if (!d) return null;
   const dt = typeof d === "string" ? new Date(d) : d;
@@ -47,7 +53,20 @@ function relativeTime(d?: string | Date) {
   if (diffMin < 60) return `${Math.floor(diffMin)}분 전`;
   if (diffMin < 60 * 24) return `${Math.floor(diffMin / 60)}시간 전`;
   if (diffMin < 60 * 24 * 7) return `${Math.floor(diffMin / 60 / 24)}일 전`;
-  return new Intl.DateTimeFormat("ko", { month: "short", day: "numeric" }).format(dt);
+  return absoluteTime(dt);
+}
+
+/**
+ * "3분 전" 은 렌더한 순간에만 참이다. 렌더 단계에서 `Date.now()` 를 부르면
+ * 프리렌더 산출물과 하이드레이션 결과가 어긋나 React 가 경고를 뱉는다.
+ * 그래서 첫 렌더는 결정적인 절대 날짜로 그리고, 마운트 뒤에 상대 표기로 바꾼다.
+ */
+function useRelativeTime(d?: string | Date) {
+  const [time, setTime] = useState<string | null>(() => absoluteTime(d));
+  useEffect(() => {
+    setTime(relativeTime(d));
+  }, [d]);
+  return time;
 }
 
 /**
@@ -59,15 +78,46 @@ function relativeTime(d?: string | Date) {
  * @tags sns, content
  */
 export const PostCard = forwardRef<HTMLElement, PostCardProps>(
-  ({ author, content, createdAt, media, likes, comments, shares, onLike, onComment, onShare, liked, onClick, className }, ref) => {
-    const time = relativeTime(createdAt);
+  (
+    {
+      author,
+      content,
+      createdAt,
+      media,
+      likes,
+      comments,
+      shares,
+      onLike,
+      onComment,
+      onShare,
+      liked,
+      onClick,
+      className,
+    },
+    ref,
+  ) => {
+    const time = useRelativeTime(createdAt);
     return (
       <article
         ref={ref}
         onClick={onClick}
+        // 카드 전체가 눌리는데 탭으로 닿지 않으면 키보드 사용자에게는 없는 링크다
+        tabIndex={onClick ? 0 : undefined}
+        role={onClick ? "button" : undefined}
+        onKeyDown={
+          onClick
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onClick();
+                }
+              }
+            : undefined
+        }
         className={cn(
-          "rounded-xl border border-border bg-surface p-4",
-          onClick && "cursor-pointer hover:bg-surface-soft transition-colors",
+          "rounded-xl border border-border bg-surface p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]",
+          onClick &&
+            "cursor-pointer hover:bg-surface-soft hover:border-primary/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           className,
         )}
       >
@@ -75,14 +125,18 @@ export const PostCard = forwardRef<HTMLElement, PostCardProps>(
           {author.avatar ? (
             <img src={author.avatar} alt="" className="w-10 h-10 rounded-full object-cover" />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-primary/15 text-primary flex items-center justify-center font-semibold">
+            <div className="w-10 h-10 rounded-full bg-primary/15 text-primary-ink flex items-center justify-center font-semibold">
               {author.name.slice(0, 1)}
             </div>
           )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1">
               <p className="text-sm font-semibold text-foreground truncate">{author.name}</p>
-              {author.verified && <span aria-label="인증됨" className="text-primary text-xs">✓</span>}
+              {author.verified && (
+                <span aria-label="인증됨" className="text-primary-ink text-xs">
+                  ✓
+                </span>
+              )}
             </div>
             <p className="text-[11px] text-muted">
               {author.handle && <span>@{author.handle}</span>}
@@ -92,28 +146,58 @@ export const PostCard = forwardRef<HTMLElement, PostCardProps>(
           </div>
         </header>
 
-        <div className="mt-3 text-sm text-foreground leading-relaxed whitespace-pre-wrap">{content}</div>
+        <div className="mt-3 text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+          {content}
+        </div>
 
-        {media && <div className="mt-3 rounded-lg overflow-hidden border border-border">{media}</div>}
+        {media && (
+          <div className="mt-3 rounded-lg overflow-hidden border border-border">{media}</div>
+        )}
 
         {(onLike || onComment || onShare) && (
-          <footer className="mt-3 flex items-center gap-1 -mx-2" onClick={(e) => e.stopPropagation()}>
+          <footer
+            className="mt-3 flex items-center gap-1 -mx-2"
+            onClick={(e) => e.stopPropagation()}
+          >
             {onLike && (
-              <button type="button" onClick={onLike} aria-pressed={liked} className={cn("flex items-center gap-1 px-3 py-1.5 rounded-full text-xs transition-colors cursor-pointer hover:bg-surface-soft", liked ? "text-rose-500" : "text-muted")}>
+              <button
+                type="button"
+                onClick={onLike}
+                aria-pressed={liked}
+                className={cn(
+                  "flex items-center gap-1 px-3 py-1.5 rounded-full text-xs transition-colors cursor-pointer hover:bg-surface-soft active:bg-border-light",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+                  liked ? "text-rose-500" : "text-muted",
+                )}
+              >
                 <span aria-hidden="true">{liked ? "❤" : "🤍"}</span>
-                {likes !== undefined && <span className="tabular-nums">{likes.toLocaleString()}</span>}
+                {likes !== undefined && (
+                  <span className="tabular-nums">{likes.toLocaleString()}</span>
+                )}
               </button>
             )}
             {onComment && (
-              <button type="button" onClick={onComment} className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs text-muted hover:bg-surface-soft transition-colors cursor-pointer">
+              <button
+                type="button"
+                onClick={onComment}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs text-muted hover:bg-surface-soft active:bg-border-light transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+              >
                 <span aria-hidden="true">💬</span>
-                {comments !== undefined && <span className="tabular-nums">{comments.toLocaleString()}</span>}
+                {comments !== undefined && (
+                  <span className="tabular-nums">{comments.toLocaleString()}</span>
+                )}
               </button>
             )}
             {onShare && (
-              <button type="button" onClick={onShare} className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs text-muted hover:bg-surface-soft transition-colors cursor-pointer">
+              <button
+                type="button"
+                onClick={onShare}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs text-muted hover:bg-surface-soft active:bg-border-light transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+              >
                 <span aria-hidden="true">↗</span>
-                {shares !== undefined && <span className="tabular-nums">{shares.toLocaleString()}</span>}
+                {shares !== undefined && (
+                  <span className="tabular-nums">{shares.toLocaleString()}</span>
+                )}
               </button>
             )}
           </footer>

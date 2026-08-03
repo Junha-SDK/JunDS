@@ -257,7 +257,12 @@ export class JdDisclosures extends JdElement {
     const major = this.#items.filter((d) => d.category === "주요사항").length;
 
     this.#syncSummary([
-      { icon: "📑", label: "전체 공시", value: this.#items.length, accent: "var(--jd-color-accent)" },
+      {
+        icon: "📑",
+        label: "전체 공시",
+        value: this.#items.length,
+        accent: "var(--jd-color-accent)",
+      },
       { icon: "🆕", label: "최근 30일", value: this.#recentCount, accent: "#0ea5e9" },
       { icon: "⚠️", label: "주요사항", value: major, accent: "var(--jd-color-danger)" },
       {
@@ -284,7 +289,10 @@ export class JdDisclosures extends JdElement {
         const chip = elc("span", "jd-disclosures__card-icon");
         chip.setAttribute("aria-hidden", "true");
         const text = elc("div", "jd-disclosures__card-text");
-        text.append(elc("div", "jd-disclosures__card-label"), elc("div", "jd-disclosures__card-value"));
+        text.append(
+          elc("div", "jd-disclosures__card-label"),
+          elc("div", "jd-disclosures__card-value"),
+        );
         card.append(chip, text);
         this.#summary.append(card);
       }
@@ -310,7 +318,13 @@ export class JdDisclosures extends JdElement {
   }
 
   #syncChips(): void {
-    const defs: { key: JdDisclosureCategory | "all"; label: string; count: number; icon?: string; accent?: string }[] = [
+    const defs: {
+      key: JdDisclosureCategory | "all";
+      label: string;
+      count: number;
+      icon?: string;
+      accent?: string;
+    }[] = [
       { key: "all", label: "전체", count: this.#items.length },
       ...CATEGORIES.map((c) => ({
         key: c,
@@ -332,7 +346,11 @@ export class JdDisclosures extends JdElement {
         });
         const icon = elc("span", "jd-disclosures__chip-icon");
         icon.setAttribute("aria-hidden", "true");
-        btn.append(icon, elc("span", "jd-disclosures__chip-label"), elc("span", "jd-disclosures__chip-count"));
+        btn.append(
+          icon,
+          elc("span", "jd-disclosures__chip-label"),
+          elc("span", "jd-disclosures__chip-count"),
+        );
         this.#chips.append(btn);
       }
     }

@@ -52,7 +52,7 @@ export type ComponentEntry = {
   previewProps?: () => Record<string, unknown>;
 };
 
-const cast = <T,>(c: T) => c as unknown as ComponentType<Record<string, unknown>>;
+const cast = <T>(c: T) => c as unknown as ComponentType<Record<string, unknown>>;
 
 const layoutTags = ["div", "section", "header", "footer", "main", "aside", "nav"] as const;
 
@@ -89,7 +89,12 @@ const componentEntries: ComponentEntry[] = [
   { id: "ProgressBar", Component: cast(ProgressBar), isContainer: false, defaultSlot: "default" },
   { id: "EmptyState", Component: cast(EmptyState), isContainer: false, defaultSlot: "default" },
   { id: "StatCard", Component: cast(StatCard), isContainer: false, defaultSlot: "default" },
-  { id: "SegmentedControl", Component: cast(SegmentedControl), isContainer: false, defaultSlot: "default" },
+  {
+    id: "SegmentedControl",
+    Component: cast(SegmentedControl),
+    isContainer: false,
+    defaultSlot: "default",
+  },
   { id: "Stepper", Component: cast(Stepper), isContainer: false, defaultSlot: "default" },
   { id: "Result", Component: cast(Result), isContainer: false, defaultSlot: "default" },
 ];

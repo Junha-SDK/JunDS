@@ -46,11 +46,10 @@ export class JdAppHeader extends JdElement {
 
   #build(): void {
     const pick = (name: string): Node[] =>
-      [...this.childNodes].filter(
-        (n) => n instanceof Element && n.getAttribute("slot") === name,
-      );
+      [...this.childNodes].filter((n) => n instanceof Element && n.getAttribute("slot") === name);
     const brandNodes = [...this.childNodes].filter(
-      (n) => !(n instanceof Element) || !["actions", "search"].includes(n.getAttribute("slot") ?? ""),
+      (n) =>
+        !(n instanceof Element) || !["actions", "search"].includes(n.getAttribute("slot") ?? ""),
     );
     const actionNodes = pick("actions");
     const searchNodes = pick("search");

@@ -25,7 +25,7 @@ export class JdRadioGroup extends JdElement {
   static override props = {
     name: { type: String },
     value: { type: String, reflect: true },
-    size: { type: String, default: "md", reflect: true },            // sm | md
+    size: { type: String, default: "md", reflect: true }, // sm | md
     direction: { type: String, default: "vertical", reflect: true }, // vertical | horizontal
     disabled: { type: Boolean, reflect: true },
     // options(Array)는 property 전용(§1.3) — finalize 접근자와 겹치지 않도록
@@ -54,7 +54,9 @@ export class JdRadioGroup extends JdElement {
     adoptStyles(radioGroupStyles);
     this.setAttribute("role", "radiogroup");
     // 선언적 초기화 슬롯 — 1회 소비
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (script) {
       try {
         const parsed = JSON.parse(script.textContent || "[]") as JdRadioOption[];

@@ -14,10 +14,7 @@ const SCALE = 6;
  */
 export function LiveSectorStrength() {
   const allNames = useMemo(
-    () =>
-      Array.from(
-        new Set(HEATMAP_GROUPS.flatMap((g) => g.cells.map((c) => c.name))),
-      ),
+    () => Array.from(new Set(HEATMAP_GROUPS.flatMap((g) => g.cells.map((c) => c.name)))),
     [],
   );
   const liveMap = useLivePrices(allNames);
@@ -72,10 +69,7 @@ export function LiveSectorStrength() {
               >
                 {i + 1}
               </span>
-              <Link
-                href="/heatmap"
-                className="font-bold text-[12.5px] truncate flex-1 min-w-0"
-              >
+              <Link href="/heatmap" className="font-bold text-[12.5px] truncate flex-1 min-w-0">
                 {s.name}
               </Link>
               <div

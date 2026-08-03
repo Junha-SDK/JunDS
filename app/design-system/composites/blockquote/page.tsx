@@ -13,7 +13,9 @@ export default function BlockquotePage() {
     >
       <Section title="Default">
         <Preview>
-          <Blockquote variant="bordered" cite="아인슈타인">상상력은 지식보다 중요하다.</Blockquote>
+          <Blockquote variant="bordered" cite="아인슈타인">
+            상상력은 지식보다 중요하다.
+          </Blockquote>
         </Preview>
       </Section>
     </ComponentPage>

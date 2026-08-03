@@ -30,18 +30,24 @@ export default function CalendarPage() {
 
   const events = useResource<CalendarEvent[]>(
     ["events", month.getFullYear(), month.getMonth()],
-    () => fetch(`/api/events?y=${month.getFullYear()}&m=${month.getMonth()}`).then((r) => r.json()),
+    () =>
+      fetch(`/api/events?y=${month.getFullYear()}&m=${month.getMonth()}`).then((r) =>
+        r.json(),
+      ),
   );
 
   const createEvent = useMutation(
     (input: { title: string; start: string }) =>
-      fetch("/api/events", { method: "POST", body: JSON.stringify(input) }).then((r) => r.json()),
+      fetch("/api/events", { method: "POST", body: JSON.stringify(input) }).then((r) =>
+        r.json(),
+      ),
     { invalidates: [["events", month.getFullYear(), month.getMonth()]] },
   );
 
-  const eventsOnSelected = events.data?.filter((e) =>
-    selected && new Date(e.start).toDateString() === selected.toDateString()
-  ) ?? [];
+  const eventsOnSelected =
+    events.data?.filter(
+      (e) => selected && new Date(e.start).toDateString() === selected.toDateString(),
+    ) ?? [];
 
   return (
     <div className="grid lg:grid-cols-[1fr_320px] gap-6 max-w-6xl mx-auto p-6">
@@ -49,7 +55,9 @@ export default function CalendarPage() {
         month={month}
         onMonthChange={setMonth}
         selectedDate={selected}
-        onSelectDate={(d) => { setSelected(d); }}
+        onSelectDate={(d) => {
+          setSelected(d);
+        }}
         events={events.data ?? []}
       />
 
@@ -59,17 +67,21 @@ export default function CalendarPage() {
             {selected?.toLocaleDateString("ko") ?? "날짜 선택"}
           </h3>
           {selected && (
-            <Button size="sm" onClick={() => setComposeFor(selected)}>+ 이벤트</Button>
+            <Button size="sm" onClick={() => setComposeFor(selected)}>
+              + 이벤트
+            </Button>
           )}
         </header>
         <ul className="space-y-2">
           {eventsOnSelected.length === 0 ? (
             <li className="text-xs text-muted">이벤트가 없습니다.</li>
-          ) : eventsOnSelected.map((e) => (
-            <li key={e.id} className="px-3 py-2 rounded-md bg-surface-soft text-sm">
-              {e.title}
-            </li>
-          ))}
+          ) : (
+            eventsOnSelected.map((e) => (
+              <li key={e.id} className="px-3 py-2 rounded-md bg-surface-soft text-sm">
+                {e.title}
+              </li>
+            ))
+          )}
         </ul>
       </aside>
 
@@ -87,11 +99,20 @@ export default function CalendarPage() {
             }}
             className="space-y-3"
           >
-            <Input name="title" placeholder="이벤트 제목" required aria-label="이벤트 제목" />
+            <Input
+              name="title"
+              placeholder="이벤트 제목"
+              required
+              aria-label="이벤트 제목"
+            />
             <p className="text-xs text-muted">{composeFor.toLocaleDateString("ko")}</p>
             <div className="flex justify-end gap-2">
-              <Button type="button" variant="ghost" onClick={() => setComposeFor(null)}>취소</Button>
-              <Button type="submit" loading={createEvent.loading}>추가</Button>
+              <Button type="button" variant="ghost" onClick={() => setComposeFor(null)}>
+                취소
+              </Button>
+              <Button type="submit" loading={createEvent.loading}>
+                추가
+              </Button>
             </div>
           </form>
         </Modal>

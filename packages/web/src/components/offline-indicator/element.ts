@@ -101,10 +101,13 @@ export class JdOfflineIndicator extends JdElement {
   #armFlash(): void {
     this.#stopFlash();
     const ms = Number(this.onlineFlashDuration);
-    this.#flash = createTimeout(() => {
-      this.#flash = null;
-      if (this.online) this.visible = false;
-    }, Number.isFinite(ms) && ms > 0 ? ms : 0);
+    this.#flash = createTimeout(
+      () => {
+        this.#flash = null;
+        if (this.online) this.visible = false;
+      },
+      Number.isFinite(ms) && ms > 0 ? ms : 0,
+    );
   }
 
   protected override update(): void {

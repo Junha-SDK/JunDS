@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "MonthPicker",
   "oneLiner": "월 선택 피커.",
-  "tags": [
-    "form",
-    "date",
-    "선택"
-  ],
+  "tags": ["form", "date", "선택"],
   "controls": [],
   "snippets": {
     "web": null,

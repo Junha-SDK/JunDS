@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Pagination",
   "oneLiner": "페이지네이션",
-  "tags": [
-    "navigation"
-  ],
+  "tags": ["navigation"],
   "controls": [],
   "snippets": {
     "web": null,

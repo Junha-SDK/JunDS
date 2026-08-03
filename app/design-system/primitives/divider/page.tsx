@@ -10,7 +10,12 @@ export default function DividerPage() {
       description="콘텐츠 구분선. 라벨 포함 가능."
       importPath='import { Divider } from "@/ds/primitives/Divider"'
       props={[
-        { name: "orientation", type: '"horizontal"|"vertical"', default: '"horizontal"', description: "방향" },
+        {
+          name: "orientation",
+          type: '"horizontal"|"vertical"',
+          default: '"horizontal"',
+          description: "방향",
+        },
         { name: "label", type: "string", description: "구분선 위 라벨" },
       ]}
     >

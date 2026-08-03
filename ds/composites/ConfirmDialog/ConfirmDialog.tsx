@@ -56,25 +56,39 @@ export function ConfirmDialog({
       <div className="p-5">
         <div className="flex items-start gap-3">
           {danger ? (
-            <div className="w-10 h-10 rounded-full bg-danger-light flex items-center justify-center shrink-0">
+            // 아이콘 배지는 색면 하나로 끝나 평평했다 — 얇은 링으로 면을 세운다.
+            <div className="w-10 h-10 rounded-full bg-danger-light ring-1 ring-danger/20 flex items-center justify-center shrink-0">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M10 2L1.5 17.5h17L10 2z" stroke="var(--danger)" strokeWidth="1.5" strokeLinejoin="round" />
-                <path d="M10 8v4M10 14.5h.01" stroke="var(--danger)" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M10 2L1.5 17.5h17L10 2z"
+                  stroke="var(--danger)"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M10 8v4M10 14.5h.01"
+                  stroke="var(--danger)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </div>
           ) : (
-            <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-full bg-primary-light ring-1 ring-primary/20 flex items-center justify-center shrink-0">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <circle cx="10" cy="10" r="8.5" stroke="var(--primary)" strokeWidth="1.5" />
-                <path d="M10 7v4M10 13.5h.01" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M10 7v4M10 13.5h.01"
+                  stroke="var(--primary)"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </div>
           )}
           <div>
             <h3 className="text-base font-semibold text-foreground mb-1">{title}</h3>
-            {description && (
-              <div className="text-sm text-muted">{description}</div>
-            )}
+            {description && <div className="text-sm text-muted">{description}</div>}
           </div>
         </div>
       </div>
@@ -82,11 +96,7 @@ export function ConfirmDialog({
         <Button variant="secondary" onClick={onClose} disabled={loading}>
           {cancelLabel}
         </Button>
-        <Button
-          variant={danger ? "danger" : "primary"}
-          onClick={onConfirm}
-          loading={loading}
-        >
+        <Button variant={danger ? "danger" : "primary"} onClick={onConfirm} loading={loading}>
           {confirmLabel}
         </Button>
       </div>

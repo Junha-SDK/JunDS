@@ -31,7 +31,11 @@ beforeAll(async () => {
 });
 
 afterAll(() => {
-  try { unlinkSync(SNAP); } catch { /* 없으면 무시 */ }
+  try {
+    unlinkSync(SNAP);
+  } catch {
+    /* 없으면 무시 */
+  }
 });
 
 describe("라이브 ↔ 스냅샷 응답 동일성", () => {

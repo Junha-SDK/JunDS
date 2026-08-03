@@ -16,6 +16,7 @@
 ## Scope
 
 **In scope**
+
 - `ds/tokens/brands.ts` — `BrandPreset` 타입 + 5개 프리셋 + `applyBrand()`/`restoreBrand()`
 - `ds/providers/BrandProvider.tsx` — Context + 마운트 시 자동 복원
 - `ds/composites/BrandSwitcher` — chips/list/select 3가지 변형 UI
@@ -24,6 +25,7 @@
 - `data-brand="<id>"` 속성을 `<html>`에 부여 — CSS에서 `[data-brand="ocean"]` 추가 오버라이드 가능
 
 **Out of scope**
+
 - Figma sync — 별도 스프린트 (token-transformer/Style Dictionary)
 - 사용자가 동적으로 새 브랜드를 등록하는 GUI — `applyBrand({...})`로 코드에서만
 - A/B 테스팅 자동 분기 — 호출자가 결정
@@ -31,13 +33,13 @@
 ## User stories / acceptance criteria
 
 - [x] **As a 개발자** I can `<BrandProvider brand="ocean">`로 자식 트리 전체의
-  primary, radius, density, font가 한꺼번에 바뀌는 것을 본다.
+      primary, radius, density, font가 한꺼번에 바뀌는 것을 본다.
 - [x] **As a 사용자** I can `<BrandSwitcher variant="chips" />`를 클릭하면
-  실시간 전환되고 새로고침 후에도 마지막 선택이 유지된다.
+      실시간 전환되고 새로고침 후에도 마지막 선택이 유지된다.
 - [x] **As a 디자이너** I can `generateTheme(name, label, "#ff6b35")` 한 줄로
-  새 브랜드 색상을 즉시 본다 — 파생색은 자동.
+      새 브랜드 색상을 즉시 본다 — 파생색은 자동.
 - [x] **As a SSR 사용자** I can SSR 렌더에서 `BrandProvider`가 안전하게 noop
-  처리되고 hydration 후 첫 effect에서 적용되는 것을 확인한다.
+      처리되고 hydration 후 첫 effect에서 적용되는 것을 확인한다.
 
 ## Design / behavior notes
 

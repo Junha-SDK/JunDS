@@ -60,7 +60,9 @@ export class JdAlertManager extends JdElement {
   protected render(): void {
     adoptStyles(alertManagerStyles);
     // 선언적 초기화 슬롯(§1.3 예외) — radio-group 선례 동형
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (script) {
       try {
         const parsed = JSON.parse(script.textContent || "[]") as JdAlert[];
@@ -95,7 +97,9 @@ export class JdAlertManager extends JdElement {
   /** 활성 알림이 걸린 종목 이름들 — 소비자가 구독 시드에 쓴다(v2 liveNames). */
   activeNames(): string[] {
     return Array.from(
-      new Set(this.#alerts.filter((a) => a.active !== false && !this.#fired.has(a.id)).map((a) => a.name)),
+      new Set(
+        this.#alerts.filter((a) => a.active !== false && !this.#fired.has(a.id)).map((a) => a.name),
+      ),
     );
   }
 

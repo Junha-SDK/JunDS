@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Watermark",
   "oneLiner": "워터마크 오버레이 컴포넌트",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

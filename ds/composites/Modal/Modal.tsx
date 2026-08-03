@@ -1,5 +1,13 @@
 "use client";
-import { useEffect, useCallback, useRef, useId, createContext, useContext, forwardRef } from "react";
+import {
+  useEffect,
+  useCallback,
+  useRef,
+  useId,
+  createContext,
+  useContext,
+  forwardRef,
+} from "react";
 import { cn } from "../../utils/cn";
 import { createCompound } from "../../utils/createCompound";
 import { Portal } from "../../primitives/Portal";
@@ -76,7 +84,7 @@ export interface ModalProps {
    * 디자인 시스템이 제공하지 않는 커스텀 스타일이 필요할 때 사용합니다.
    *
    * @example
-   * <Modal className="bg-gray-50" open={isOpen} onClose={close}>...</Modal>
+   * <Modal className="bg-card-hover" open={isOpen} onClose={close}>...</Modal>
    */
   className?: string;
 }
@@ -140,113 +148,140 @@ const sizeStyles: Record<ModalSize, string> = {
  */
 const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
   ({ open, onClose, size = "md", dismissible = true, children, className }, ref) => {
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const titleId = useId();
-  const descId = useId();
+    const dialogRef = useRef<HTMLDivElement>(null);
+    const titleId = useId();
+    const descId = useId();
 
-  // 최신 onClose 를 ref 로 안정화 — 부모가 매 렌더마다 새 onClose 화살표를 넘기더라도
-  // ESC 리스너/effect 가 재실행되지 않게(중요: 그 effect 가 focus 도 훔쳤음).
-  const onCloseRef = useRef(onClose);
-  useEffect(() => {
-    onCloseRef.current = onClose;
-  }, [onClose]);
+    // 최신 onClose 를 ref 로 안정화 — 부모가 매 렌더마다 새 onClose 화살표를 넘기더라도
+    // ESC 리스너/effect 가 재실행되지 않게(중요: 그 effect 가 focus 도 훔쳤음).
+    const onCloseRef = useRef(onClose);
+    useEffect(() => {
+      onCloseRef.current = onClose;
+    }, [onClose]);
 
-  // ESC + 스크롤 락 — 열림 트랜지션에만 한 번 setup, dep 은 [open] 만.
-  useEffect(() => {
-    if (!open) return;
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onCloseRef.current();
-    };
-    document.addEventListener("keydown", handleEsc);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "";
-    };
-  }, [open]);
+    // ESC + 스크롤 락 — 열림 트랜지션에만 한 번 setup, dep 은 [open] 만.
+    useEffect(() => {
+      if (!open) return;
+      const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === "Escape") onCloseRef.current();
+      };
+      document.addEventListener("keydown", handleEsc);
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.removeEventListener("keydown", handleEsc);
+        document.body.style.overflow = "";
+      };
+    }, [open]);
 
-  // 첫 focusable 로 포커스 이동 — 열림 트랜지션에만 1회. 사용자가 input 에 타이핑 중일 때
-  // 부모 리렌더로 effect 가 다시 돌지 않도록 dep 은 [open] 만.
-  useEffect(() => {
-    if (!open) return;
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const focusable = dialog.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-    if (focusable.length > 0) focusable[0].focus();
-  }, [open]);
+    // 첫 focusable 로 포커스 이동 — 열림 트랜지션에만 1회. 사용자가 input 에 타이핑 중일 때
+    // 부모 리렌더로 effect 가 다시 돌지 않도록 dep 은 [open] 만.
+    useEffect(() => {
+      if (!open) return;
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusable.length > 0) focusable[0].focus();
+    }, [open]);
 
-  // Focus trap
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key !== "Tab") return;
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    const focusable = dialog.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-    if (focusable.length === 0) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (e.shiftKey) {
-      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
-    } else {
-      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-  }, []);
+    // Focus trap
+    const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }, []);
 
-  if (!open) return null;
+    if (!open) return null;
 
-  return (
-    <Portal>
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-        aria-modal="true"
-        role="dialog"
-        aria-labelledby={titleId}
-        aria-describedby={descId}
-        onKeyDown={handleKeyDown}
-        ref={dialogRef}
-      >
-        {/* Backdrop */}
+    return (
+      <Portal>
         <div
-          className="absolute inset-0 bg-black/30 backdrop-blur-[2px] animate-fade-in"
-          onClick={dismissible ? onClose : undefined}
-        />
-        {/* Content */}
-        <div
-          ref={ref}
-          className={cn(
-            "relative w-full bg-white rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.15),0_10px_20px_rgba(0,0,0,0.06)] animate-fade-in-scale",
-            "overflow-hidden flex flex-col max-h-[90vh]",
-            sizeStyles[size],
-            className,
-          )}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          aria-modal="true"
+          role="dialog"
+          aria-labelledby={titleId}
+          aria-describedby={descId}
+          onKeyDown={handleKeyDown}
+          ref={dialogRef}
         >
-          <ModalIdContext.Provider value={{ titleId, descId }}>
-            {children}
-          </ModalIdContext.Provider>
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/30 backdrop-blur-[2px] animate-fade-in motion-reduce:animate-none"
+            onClick={dismissible ? onClose : undefined}
+          />
+          {/* Content */}
+          <div
+            ref={ref}
+            className={cn(
+              // bg-white 는 라이트 전용이라 다크에서 흰 판이 된다 — 모드를 따라가는 card 로.
+              // 떠 있는 패널이므로 다층 그림자에 얇은 링을 더해 가장자리를 세운다.
+              "relative w-full bg-card rounded-2xl ring-1 ring-border/60",
+              "shadow-[0_25px_60px_rgba(0,0,0,0.15),0_10px_20px_rgba(0,0,0,0.06)]",
+              "animate-fade-in-scale motion-reduce:animate-none",
+              "overflow-hidden flex flex-col max-h-[90vh]",
+              sizeStyles[size],
+              className,
+            )}
+          >
+            <ModalIdContext.Provider value={{ titleId, descId }}>
+              {children}
+            </ModalIdContext.Provider>
+          </div>
         </div>
-      </div>
-    </Portal>
-  );
-},
+      </Portal>
+    );
+  },
 );
 ModalBase.displayName = "Modal";
 
 function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
   const ids = useContext(ModalIdContext);
   return (
-    <div className={cn("flex items-center justify-between px-6 py-4 border-b border-border/40 shrink-0", className)}>
-      <h3 id={ids?.titleId} className="text-base font-semibold text-foreground">{children}</h3>
+    <div
+      className={cn(
+        "flex items-center justify-between px-6 py-4 border-b border-border/40 shrink-0",
+        className,
+      )}
+    >
+      <h3 id={ids?.titleId} className="text-base font-semibold text-foreground">
+        {children}
+      </h3>
       {onClose && (
         <button
           type="button"
           onClick={onClose}
-          className="text-muted hover:text-foreground transition-colors p-1.5 rounded-xl hover:bg-gray-100 cursor-pointer"
+          aria-label="닫기"
+          className={cn(
+            "text-muted hover:text-foreground hover:bg-muted/10 active:bg-muted/20",
+            "transition-colors p-1.5 rounded-xl cursor-pointer",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+          )}
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M4.5 4.5l9 9M13.5 4.5l-9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path
+              d="M4.5 4.5l9 9M13.5 4.5l-9 9"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       )}
@@ -256,7 +291,13 @@ function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
 
 function ModalFooter({ children, className }: ModalFooterProps) {
   return (
-    <div className={cn("flex items-center justify-end gap-2 px-6 py-3.5 border-t border-border/40 bg-gray-50/30 shrink-0", className)}>
+    <div
+      className={cn(
+        // gray-50 은 라이트 전용 — 다크에서도 한 단계 뜬 면으로 남는 card-hover 로 옮긴다.
+        "flex items-center justify-end gap-2 px-6 py-3.5 border-t border-border/40 bg-card-hover/60 shrink-0",
+        className,
+      )}
+    >
       {children}
     </div>
   );

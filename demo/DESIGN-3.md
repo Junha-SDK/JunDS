@@ -7,26 +7,27 @@
 이번 배치의 성격: **"새 컴포넌트가 답이 아닌" 것이 다수다.** 정찰 결과 판정을 그대로 따른다 —
 시스템 API가 이미 하는 일을 새 타입으로 감싸지 않는다(04 §10 번역 원칙). 아래 표가 계약이다.
 
-| 웹 | iOS 판정 | 산출물 |
-|---|---|---|
-| **VisuallyHidden** | 컴포넌트 없음 | RECIPES.md 항목만(`.accessibilityLabel` 등). ⚠️ `.hidden()`/`isHidden`은 AT에서도 사라지므로 금지 |
-| **AnnouncerProvider** | Core 래퍼(기구현) | `JdAnnouncer.announce(_:priority:)` — 뷰 없음. 데모만 |
-| **NumberFormatter** | Core 함수(기구현) | `JdNumberFormat.string(...)` — 뷰 없음. 데모만 |
-| **ScrollArea** | 레시피 | ScrollView 그 자체. RECIPES.md + 데모 |
-| **AspectRatio** | 별칭 | AspectRatioBox 레시피와 동일. 데모만 |
-| **Icon** | 레시피 | SF Symbols + `JdIconSize.side`. RECIPES.md + 데모 |
-| **Image** | 레시피 | `AsyncImage` phase(로딩/에러 폴백). RECIPES.md + 데모 |
-| **Motion** | 모디파이어 | `.jdMotion(_:delay:)` — Reduce Motion 시 즉시 최종 상태 |
-| **Code · Mark · Highlight · Link · MentionChip · Hashtag** | 텍스트 런 | 모디파이어/뷰 소품(아래) |
-| **CopyButton · BackTop · FileUpload** | 시스템 API + 작은 버튼 | 아래 |
-| **BookmarkButton · LikeButton · FollowButton · StarRating** | 실컴포넌트 | 아래 |
-| **NumberInput · CurrencyInput · PhoneInput · PasswordInput · PinInput · OTPInput** | 실컴포넌트 | 아래 |
+| 웹                                                                                 | iOS 판정               | 산출물                                                                                            |
+| ---------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------- |
+| **VisuallyHidden**                                                                 | 컴포넌트 없음          | RECIPES.md 항목만(`.accessibilityLabel` 등). ⚠️ `.hidden()`/`isHidden`은 AT에서도 사라지므로 금지 |
+| **AnnouncerProvider**                                                              | Core 래퍼(기구현)      | `JdAnnouncer.announce(_:priority:)` — 뷰 없음. 데모만                                             |
+| **NumberFormatter**                                                                | Core 함수(기구현)      | `JdNumberFormat.string(...)` — 뷰 없음. 데모만                                                    |
+| **ScrollArea**                                                                     | 레시피                 | ScrollView 그 자체. RECIPES.md + 데모                                                             |
+| **AspectRatio**                                                                    | 별칭                   | AspectRatioBox 레시피와 동일. 데모만                                                              |
+| **Icon**                                                                           | 레시피                 | SF Symbols + `JdIconSize.side`. RECIPES.md + 데모                                                 |
+| **Image**                                                                          | 레시피                 | `AsyncImage` phase(로딩/에러 폴백). RECIPES.md + 데모                                             |
+| **Motion**                                                                         | 모디파이어             | `.jdMotion(_:delay:)` — Reduce Motion 시 즉시 최종 상태                                           |
+| **Code · Mark · Highlight · Link · MentionChip · Hashtag**                         | 텍스트 런              | 모디파이어/뷰 소품(아래)                                                                          |
+| **CopyButton · BackTop · FileUpload**                                              | 시스템 API + 작은 버튼 | 아래                                                                                              |
+| **BookmarkButton · LikeButton · FollowButton · StarRating**                        | 실컴포넌트             | 아래                                                                                              |
+| **NumberInput · CurrencyInput · PhoneInput · PasswordInput · PinInput · OTPInput** | 실컴포넌트             | 아래                                                                                              |
 
 공통 규칙(1·2차 배치와 동일): 서드파티 0 · 계층 상호 import 금지(DEC-010) · 색·치수는
 Core 스펙/JdToken/JdGap만 · Dynamic Type은 `JdFontBridge.scaledFont(…, compatibleWith:)` /
 `JdSwiftUIFont.scaled(…, category:)` 경유 · UIKit은 `adjustsFontForContentSizeCategory = true`
-+ `traitCollectionDidChange` 재적용 · 아이콘은 SF Symbols · 애니메이션은 `JdMotion.duration` 경유.
-**Core에 있는 계산을 렌더에서 재구현 금지**(포맷·마스킹·강도·하이라이트·클램프).
+
+- `traitCollectionDidChange` 재적용 · 아이콘은 SF Symbols · 애니메이션은 `JdMotion.duration` 경유.
+  **Core에 있는 계산을 렌더에서 재구현 금지**(포맷·마스킹·강도·하이라이트·클램프).
 
 ---
 

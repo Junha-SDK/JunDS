@@ -4,11 +4,7 @@
   "category": "core",
   "title": "Heading",
   "oneLiner": "레벨 기반 제목 — 내부에 실제 h1~h6을 렌더해 문서 아웃라인 유지, level 변경 시 태그 교체.",
-  "tags": [
-    "typography",
-    "heading",
-    "제목"
-  ],
+  "tags": ["typography", "heading", "제목"],
   "controls": [
     {
       "prop": "level",

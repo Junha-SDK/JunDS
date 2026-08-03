@@ -1,6 +1,6 @@
+import JunDSCore
 import SwiftUI
 import UIKit
-import JunDSCore
 
 // 웹 jd-banner의 SwiftUI 번역 — 폭 꽉 찬 알림 바 (DESIGN-4 §B).
 // 배경 = variant.color, 흰 글자. variant.color(info 등)는 밝아 흰 글자 대비가 약하므로
@@ -17,12 +17,14 @@ public struct JdBanner: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ message: String,
-                variant: JdFeedbackVariant = .info,
-                actionLabel: String? = nil,
-                onAction: (() -> Void)? = nil,
-                isDismissible: Bool = false,
-                onDismiss: (() -> Void)? = nil) {
+    public init(
+        _ message: String,
+        variant: JdFeedbackVariant = .info,
+        actionLabel: String? = nil,
+        onAction: (() -> Void)? = nil,
+        isDismissible: Bool = false,
+        onDismiss: (() -> Void)? = nil
+    ) {
         self.message = message
         self.variant = variant
         self.actionLabel = actionLabel
@@ -91,14 +93,21 @@ struct JdBannerResolvedColor {
 
 enum JdBannerBlend {
     static func mix(_ base: UIColor, _ overlay: UIColor, ratio: CGFloat) -> UIColor {
-        var r1: CGFloat = 0, g1: CGFloat = 0, b1: CGFloat = 0, a1: CGFloat = 0
-        var r2: CGFloat = 0, g2: CGFloat = 0, b2: CGFloat = 0, a2: CGFloat = 0
+        var r1: CGFloat = 0
+        var g1: CGFloat = 0
+        var b1: CGFloat = 0
+        var a1: CGFloat = 0
+        var r2: CGFloat = 0
+        var g2: CGFloat = 0
+        var b2: CGFloat = 0
+        var a2: CGFloat = 0
         base.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
         overlay.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
         let t = ratio
-        return UIColor(red: r1 * (1 - t) + r2 * t,
-                       green: g1 * (1 - t) + g2 * t,
-                       blue: b1 * (1 - t) + b2 * t,
-                       alpha: a1 * (1 - t) + a2 * t)
+        return UIColor(
+            red: r1 * (1 - t) + r2 * t,
+            green: g1 * (1 - t) + g2 * t,
+            blue: b1 * (1 - t) + b2 * t,
+            alpha: a1 * (1 - t) + a2 * t)
     }
 }

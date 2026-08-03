@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "Label",
   "oneLiner": "폼 라벨",
-  "tags": [
-    "form"
-  ],
+  "tags": ["form"],
   "controls": [],
   "snippets": {
     "web": {

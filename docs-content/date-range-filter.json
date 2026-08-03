@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "DateRangeFilter",
   "oneLiner": "날짜 범위 필터",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

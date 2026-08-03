@@ -177,10 +177,10 @@ export class JdNewsList extends JdElement {
     const state = this.error
       ? "error"
       : this.loading
-        ? "loading"
-        : limited.length === 0
-          ? "empty"
-          : "list";
+      ? "loading"
+      : limited.length === 0
+      ? "empty"
+      : "list";
 
     this.#skeleton.hidden = state !== "loading";
     this.#message.hidden = state !== "error" && state !== "empty";

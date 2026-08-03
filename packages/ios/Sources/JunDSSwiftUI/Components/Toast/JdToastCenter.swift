@@ -1,6 +1,6 @@
-import SwiftUI
 import Combine
 import JunDSCore
+import SwiftUI
 
 // 웹 toast() 싱글턴 + jd-toast 큐의 SwiftUI 번역 (DESIGN-4 §C).
 // Core JdToastQueue(값 타입 상태머신)를 감싸 @Published로 노출하고, 자동 닫힘 타이머만

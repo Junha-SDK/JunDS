@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-avatar 동형 — 이미지 또는 이니셜 폴백 + 우하단 상태 도트 (DESIGN-2 §B2).
 // 치수·색은 전부 JdAvatarSpec/JdToken에서 온다 — 렌더는 스펙이 준 숫자·색만 그린다 (04 §4.2 규칙 2).
@@ -16,10 +16,12 @@ public struct JdAvatar: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(name: String = "",
-                image: Image? = nil,
-                size: JdAvatarSize = .md,
-                status: JdAvatarStatus? = nil) {
+    public init(
+        name: String = "",
+        image: Image? = nil,
+        size: JdAvatarSize = .md,
+        status: JdAvatarStatus? = nil
+    ) {
         self.name = name
         self.image = image
         self.spec = JdAvatarSpec.resolve(size: size)
@@ -61,9 +63,12 @@ public struct JdAvatar: View {
     // 이름별 색 정체성은 JdAvatarSpec.fallbackColor가 결정한다(같은 이름 = 항상 같은 색).
     private var initialsText: some View {
         Text(initials)
-            .font(JdSwiftUIFont.scaled(size: spec.initialsFontSize,
-                                       weight: JdToken.FontWeight.semibold,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.initialsFontSize,
+                    weight: JdToken.FontWeight.semibold,
+                    category: sizeCategory)
+            )
             .foregroundColor(JdAvatarSpec.fallbackColor(for: name).color)
             .lineLimit(1)
             // Dynamic Type 확대 시 원 밖으로 넘치지 않게 — 원 지름은 스펙 고정 치수(장식 도형)
@@ -84,8 +89,9 @@ public struct JdAvatar: View {
             .fill(JdAvatarSpec.statusColor(status).color)
             .frame(width: spec.statusDotSize, height: spec.statusDotSize)
             .overlay(
-                Circle().strokeBorder(JdToken.Color.card.color,
-                                      lineWidth: spec.statusRingWidth)
+                Circle().strokeBorder(
+                    JdToken.Color.card.color,
+                    lineWidth: spec.statusRingWidth)
             )
     }
 

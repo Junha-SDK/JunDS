@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Drawer",
   "oneLiner": "슬라이드 인 패널 (Drawer / Sheet)",
-  "tags": [
-    "overlay"
-  ],
+  "tags": ["overlay"],
   "controls": [],
   "snippets": {
     "web": null,

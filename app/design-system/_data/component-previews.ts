@@ -1,12 +1,12 @@
 export interface ComponentPreview {
-  icon: string;        // emoji
+  icon: string; // emoji
   description: string; // 핵심 기능 한줄 설명 (Korean)
-  color: string;       // Tailwind bg color for the card
+  color: string; // Tailwind bg color for the card
 }
 
 export const componentPreviews: Record<string, ComponentPreview> = {
   // Foundation
-  "개요": { icon: "🏠", description: "디자인 시스템 전체 개요", color: "bg-violet-500/20" },
+  개요: { icon: "🏠", description: "디자인 시스템 전체 개요", color: "bg-violet-500/20" },
   Colors: { icon: "🎨", description: "CSS 변수 기반 시맨틱 컬러", color: "bg-violet-500/20" },
   Typography: { icon: "✏️", description: "글꼴 크기, 두께, 행간", color: "bg-violet-500/20" },
   Spacing: { icon: "📏", description: "4px 단위 간격 체계", color: "bg-violet-500/20" },
@@ -130,5 +130,5 @@ export const componentPreviews: Record<string, ComponentPreview> = {
   Changelog: { icon: "📝", description: "변경 이력 로그", color: "bg-rose-500/20" },
 
   // Lab
-  "실험실": { icon: "🧪", description: "실험적 컴포넌트", color: "bg-cyan-500/20" },
+  실험실: { icon: "🧪", description: "실험적 컴포넌트", color: "bg-cyan-500/20" },
 };

@@ -8,7 +8,8 @@ export interface MonthPickerValue {
   month: number; // 1-12
 }
 
-export interface MonthPickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+export interface MonthPickerProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
   /** 현재 선택값 */
   value?: MonthPickerValue;
   /** 기본값 */
@@ -23,7 +24,20 @@ export interface MonthPickerProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   monthLabels?: string[];
 }
 
-const DEFAULT_LABELS = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+const DEFAULT_LABELS = [
+  "1월",
+  "2월",
+  "3월",
+  "4월",
+  "5월",
+  "6월",
+  "7월",
+  "8월",
+  "9월",
+  "10월",
+  "11월",
+  "12월",
+];
 
 function toYM(s?: string): MonthPickerValue | null {
   if (!s) return null;
@@ -66,7 +80,12 @@ export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function
   return (
     <div
       ref={ref}
-      className={cn("inline-block rounded-lg border border-border bg-surface p-3 select-none", className)}
+      className={cn(
+        // 패널이므로 radius 계단의 한 칸 위 + 얕은 깊이를 준다.
+        "inline-block rounded-2xl border border-border bg-surface p-3 select-none",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.12)]",
+        className,
+      )}
       {...props}
     >
       <div className="flex items-center justify-between mb-3">
@@ -74,7 +93,12 @@ export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function
           type="button"
           onClick={() => setViewYear((y) => y - 1)}
           aria-label="이전 연도"
-          className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-surface-soft cursor-pointer"
+          className={cn(
+            "w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer hover:bg-surface-soft",
+            "transition-[background-color,transform] duration-150 active:scale-[0.94]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+            "motion-reduce:transition-none motion-reduce:active:scale-100",
+          )}
         >
           ‹
         </button>
@@ -83,7 +107,12 @@ export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function
           type="button"
           onClick={() => setViewYear((y) => y + 1)}
           aria-label="다음 연도"
-          className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-surface-soft cursor-pointer"
+          className={cn(
+            "w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer hover:bg-surface-soft",
+            "transition-[background-color,transform] duration-150 active:scale-[0.94]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+            "motion-reduce:transition-none motion-reduce:active:scale-100",
+          )}
         >
           ›
         </button>
@@ -94,8 +123,7 @@ export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function
           const candidate = { year: viewYear, month: m };
           const isSelected = current.year === viewYear && current.month === m;
           const disabled =
-            (minYM && isBefore(candidate, minYM)) ||
-            (maxYM && isBefore(maxYM, candidate));
+            (minYM && isBefore(candidate, minYM)) || (maxYM && isBefore(maxYM, candidate));
 
           return (
             <button
@@ -104,11 +132,14 @@ export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function
               disabled={disabled || undefined}
               onClick={() => setCurrent(candidate)}
               className={cn(
-                "px-2 py-2 text-sm rounded-md transition-colors cursor-pointer",
+                "px-2 py-2 text-sm rounded-lg cursor-pointer tabular-nums",
+                "transition-[background-color,transform] duration-150 active:scale-[0.96]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+                "motion-reduce:transition-none motion-reduce:active:scale-100",
                 isSelected
-                  ? "bg-primary text-white"
+                  ? "bg-primary text-white shadow-[0_2px_8px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.15)]"
                   : "hover:bg-surface-soft text-foreground",
-                disabled && "opacity-30 cursor-not-allowed hover:bg-transparent",
+                disabled && "opacity-30 cursor-not-allowed hover:bg-transparent active:scale-100",
               )}
             >
               {label}

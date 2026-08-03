@@ -49,7 +49,9 @@ export class JdPricingTable extends JdElement {
 
   protected render(): void {
     adoptStyles(pricingTableStyles);
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (script) {
       try {
         const parsed = JSON.parse(script.textContent || "[]") as JdPricingPlan[];
@@ -135,7 +137,9 @@ export class JdPricingTable extends JdElement {
       cta.className = "jd-pricing-table__cta";
       cta.textContent = plan.ctaLabel;
       cta.disabled = Boolean(plan.disabled);
-      cta.addEventListener("click", () => this.emit("jd-cta", { plan: plan.id, label: plan.ctaLabel }));
+      cta.addEventListener("click", () =>
+        this.emit("jd-cta", { plan: plan.id, label: plan.ctaLabel }),
+      );
       card.append(cta);
     }
     return card;

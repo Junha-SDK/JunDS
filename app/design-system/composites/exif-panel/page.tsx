@@ -13,7 +13,16 @@ export default function ExifPanelPage() {
     >
       <Section title="Default">
         <Preview>
-          <ExifPanel data={{camera:"Sony α7 IV",lens:"24-70 GM",focalLength:"50mm",aperture:"f/2.8",shutter:"1/250",iso:200}} />
+          <ExifPanel
+            data={{
+              camera: "Sony α7 IV",
+              lens: "24-70 GM",
+              focalLength: "50mm",
+              aperture: "f/2.8",
+              shutter: "1/250",
+              iso: 200,
+            }}
+          />
         </Preview>
       </Section>
     </ComponentPage>

@@ -19,15 +19,71 @@ interface FXItem {
 
 const SEED: FXItem[] = [
   // Korea-relevant FX (per 1 unit foreign currency in 원)
-  { symbol: "USD/KRW", label: "달러", unit: "원", value: 1382.40, pct: -0.32, decimals: 2, cat: "fx" },
-  { symbol: "JPY/KRW", label: "엔(100)", unit: "원", value: 902.18, pct: 0.21, decimals: 2, cat: "fx" },
-  { symbol: "EUR/KRW", label: "유로", unit: "원", value: 1495.62, pct: -0.12, decimals: 2, cat: "fx" },
-  { symbol: "CNY/KRW", label: "위안", unit: "원", value: 191.07, pct: 0.05, decimals: 2, cat: "fx" },
+  {
+    symbol: "USD/KRW",
+    label: "달러",
+    unit: "원",
+    value: 1382.4,
+    pct: -0.32,
+    decimals: 2,
+    cat: "fx",
+  },
+  {
+    symbol: "JPY/KRW",
+    label: "엔(100)",
+    unit: "원",
+    value: 902.18,
+    pct: 0.21,
+    decimals: 2,
+    cat: "fx",
+  },
+  {
+    symbol: "EUR/KRW",
+    label: "유로",
+    unit: "원",
+    value: 1495.62,
+    pct: -0.12,
+    decimals: 2,
+    cat: "fx",
+  },
+  {
+    symbol: "CNY/KRW",
+    label: "위안",
+    unit: "원",
+    value: 191.07,
+    pct: 0.05,
+    decimals: 2,
+    cat: "fx",
+  },
   // Commodities
-  { symbol: "WTI", label: "WTI 유가", unit: "$/bbl", value: 78.42, pct: 1.18, decimals: 2, cat: "commodity" },
-  { symbol: "GOLD", label: "금", unit: "$/oz", value: 2_654.30, pct: 0.62, decimals: 2, cat: "commodity" },
+  {
+    symbol: "WTI",
+    label: "WTI 유가",
+    unit: "$/bbl",
+    value: 78.42,
+    pct: 1.18,
+    decimals: 2,
+    cat: "commodity",
+  },
+  {
+    symbol: "GOLD",
+    label: "금",
+    unit: "$/oz",
+    value: 2_654.3,
+    pct: 0.62,
+    decimals: 2,
+    cat: "commodity",
+  },
   // Crypto (24h Korean traders watch closely)
-  { symbol: "BTC/USD", label: "비트코인", unit: "$", value: 96_842, pct: 2.14, decimals: 0, cat: "crypto" },
+  {
+    symbol: "BTC/USD",
+    label: "비트코인",
+    unit: "$",
+    value: 96_842,
+    pct: 2.14,
+    decimals: 0,
+    cat: "crypto",
+  },
 ];
 
 function tickAll(prev: FXItem[], jitter: () => number): FXItem[] {
@@ -49,6 +105,8 @@ const CAT_LABEL: Record<Cat, string> = {
 const CAT_COLOR: Record<Cat, string> = {
   fx: "var(--bm-accent-strong)",
   commodity: "var(--bm-warning)",
+  // 분류 구분용 보라. bm 토큰 중 이 자리에 맞는 의미색이 없고, 액센트·경고와 겹치지
+  // 않아야 세 점이 구분된다 — 계열색으로 보고 리터럴을 유지한다.
   crypto: "#a855f7",
 };
 
@@ -96,9 +154,11 @@ export function FXBoard() {
         style={{ borderBottom: "1px solid var(--bm-border)" }}
       >
         <span className="relative flex size-2.5">
+          {/* 인라인 style 의 animation 은 motion-reduce 클래스가 이기지 못한다 —
+              애니메이션만 클래스로 올려 감속 요청이 닿게 한다. */}
           <span
-            className="absolute inline-flex h-full w-full rounded-full opacity-75"
-            style={{ background: "var(--bm-success)", animation: "bm-pulse 1.4s ease-out infinite" }}
+            className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-[bm-pulse_1.4s_ease-out_infinite] motion-reduce:animate-none"
+            style={{ background: "var(--bm-success)" }}
           />
           <span
             className="relative inline-flex rounded-full size-2.5"
@@ -112,30 +172,32 @@ export function FXBoard() {
           LIVE
         </span>
         <span className="text-[12.5px] font-extrabold">환율 · 원자재 · 암호화폐</span>
-        <span
-          className="ml-auto bm-num text-[11px] font-bold"
-          style={{ color: "var(--bm-muted)" }}
-        >
-          {source === "yahoo" ? "Yahoo · 30초 갱신" : source === "loading" ? "연결 중…" : "데이터 없음"}
+        <span className="ml-auto bm-num text-[11px] font-bold" style={{ color: "var(--bm-muted)" }}>
+          {source === "yahoo"
+            ? "Yahoo · 30초 갱신"
+            : source === "loading"
+            ? "연결 중…"
+            : "데이터 없음"}
         </span>
       </div>
+      {/* 7칸을 minmax(0,1fr) 로 나누면 좁은 화면에서 숫자가 글자 단위로 접힌다.
+          칸마다 하한을 주고, 모자라면 보드를 가로로 굴린다. */}
       <div
-        className="grid"
+        className="grid overflow-x-auto overscroll-x-contain"
         style={{
-          gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))`,
+          gridTemplateColumns: `repeat(${items.length}, minmax(116px, 1fr))`,
         }}
       >
         {items.map((it, i) => {
           const ref = prev[i];
-          const trend = ref ? (it.value > ref.value ? "up" : it.value < ref.value ? "down" : "flat") : "flat";
-          return (
-            <FXCell
-              key={it.symbol}
-              item={it}
-              trend={trend}
-              isLast={i === items.length - 1}
-            />
-          );
+          const trend = ref
+            ? it.value > ref.value
+              ? "up"
+              : it.value < ref.value
+              ? "down"
+              : "flat"
+            : "flat";
+          return <FXCell key={it.symbol} item={it} trend={trend} isLast={i === items.length - 1} />;
         })}
       </div>
     </div>
@@ -163,14 +225,17 @@ function FXCell({
     >
       <div className="flex items-center gap-1.5">
         <span
-          className="size-1.5 rounded-full"
+          className="size-1.5 rounded-full shrink-0"
           style={{ background: CAT_COLOR[item.cat] }}
         />
-        <span className="text-[10.5px] font-extrabold" style={{ color: "var(--bm-muted)" }}>
+        <span
+          className="min-w-0 truncate text-[10.5px] font-extrabold"
+          style={{ color: "var(--bm-muted)" }}
+        >
           {item.label}
         </span>
         <span
-          className="text-[8.5px] font-bold ml-auto rounded-full px-1.5 py-[1px]"
+          className="shrink-0 text-[8.5px] font-bold ml-auto rounded-full px-1.5 py-[1px] whitespace-nowrap"
           style={{
             background: `color-mix(in srgb, ${CAT_COLOR[item.cat]} 10%, transparent)`,
             color: CAT_COLOR[item.cat],
@@ -179,9 +244,9 @@ function FXCell({
           {CAT_LABEL[item.cat]}
         </span>
       </div>
-      <div className="flex items-baseline gap-1">
+      <div className="flex items-baseline gap-1 whitespace-nowrap">
         <span
-          className="bm-num font-extrabold text-[14px]"
+          className="bm-num font-extrabold text-[14px] tabular-nums"
           style={{ color: tickColor }}
         >
           {trend === "up" ? "▲" : trend === "down" ? "▼" : ""}

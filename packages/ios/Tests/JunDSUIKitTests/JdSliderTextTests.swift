@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // MARK: - 공용 탐색 도우미
@@ -25,6 +26,7 @@ private func isVisible(_ view: UIView) -> Bool {
     return true
 }
 
+@MainActor
 final class JdSliderViewTests: XCTestCase {
 
     // 값 세터는 Core 양자화를 통과한다 — UISlider와 헤더가 같은 값을 본다
@@ -56,7 +58,7 @@ final class JdSliderViewTests: XCTestCase {
         XCTAssertFalse(isVisible(display))
         view.showsValue = true
         XCTAssertTrue(isVisible(display))
-        XCTAssertNotNil(descendants(view, UILabel.self).first { $0.text == "100" }) // max 라벨
+        XCTAssertNotNil(descendants(view, UILabel.self).first { $0.text == "100" })  // max 라벨
     }
 
     // format은 현재값·접근성 값에만 적용된다(min/max는 원값 — 웹 동형)
@@ -69,9 +71,11 @@ final class JdSliderViewTests: XCTestCase {
 
     // 마크는 장식 — 라벨은 그리되 접근성에서 제외한다
     func test_marks_render_labels_and_stay_out_of_accessibility() {
-        let view = JdSliderView(value: 0, in: 0...100, step: 1,
-                                marks: [JdSliderMark(value: 50, label: "중간")])
-        guard let markLabel = descendants(view, UILabel.self).first(where: { $0.text == "중간" }) else {
+        let view = JdSliderView(
+            value: 0, in: 0...100, step: 1,
+            marks: [JdSliderMark(value: 50, label: "중간")])
+        guard let markLabel = descendants(view, UILabel.self).first(where: { $0.text == "중간" })
+        else {
             return XCTFail("마크 라벨 없음")
         }
         var container: UIView? = markLabel.superview
@@ -91,6 +95,7 @@ final class JdSliderViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdRangeSliderViewTests: XCTestCase {
 
     private func thumbs(of view: UIView) -> [UIView] {
@@ -136,7 +141,7 @@ final class JdRangeSliderViewTests: XCTestCase {
             state: JdRangeState(bounds: 0...100, step: 10, lower: 60, upper: 70)
         )
         let handles = thumbs(of: view)
-        handles.first?.accessibilityIncrement() // lower를 upper 위로 밀어보기
+        handles.first?.accessibilityIncrement()  // lower를 upper 위로 밀어보기
         XCTAssertEqual(view.rangeState.lower, 60, accuracy: 0.0001)
         XCTAssertEqual(view.rangeState.upper, 70, accuracy: 0.0001)
     }
@@ -156,6 +161,7 @@ final class JdRangeSliderViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdLabelViewTests: XCTestCase {
 
     private let lightTraits = UITraitCollection(userInterfaceStyle: .light)
@@ -173,11 +179,14 @@ final class JdLabelViewTests: XCTestCase {
         guard let attributed = view.attributedText, attributed.length > 0 else {
             return XCTFail("attributedText 없음")
         }
-        let color = attributed.attribute(.foregroundColor,
-                                         at: attributed.length - 1,
-                                         effectiveRange: nil) as? UIColor
-        XCTAssertEqual(color?.resolvedColor(with: lightTraits),
-                       JdToken.Color.danger.uiColor.resolvedColor(with: lightTraits))
+        let color =
+            attributed.attribute(
+                .foregroundColor,
+                at: attributed.length - 1,
+                effectiveRange: nil) as? UIColor
+        XCTAssertEqual(
+            color?.resolvedColor(with: lightTraits),
+            JdToken.Color.danger.uiColor.resolvedColor(with: lightTraits))
     }
 
     func test_isRequired_toggle_restores_plain_text() {
@@ -201,13 +210,17 @@ final class JdLabelViewTests: XCTestCase {
         let view = JdLabelView("이름")
         XCTAssertEqual(view.numberOfLines, 0)
         XCTAssertTrue(view.adjustsFontForContentSizeCategory)
-        XCTAssertEqual(view.font.pointSize,
-                       JdFontBridge.scaledFont(size: JdLabelSpec.resolve().fontSize,
-                                               weight: JdLabelSpec.resolve().fontWeight,
-                                               compatibleWith: view.traitCollection).pointSize)
+        XCTAssertEqual(
+            view.font.pointSize,
+            JdFontBridge.scaledFont(
+                size: JdLabelSpec.resolve().fontSize,
+                weight: JdLabelSpec.resolve().fontWeight,
+                compatibleWith: view.traitCollection
+            ).pointSize)
     }
 }
 
+@MainActor
 final class JdTextareaViewTests: XCTestCase {
 
     // 웹 auto-resize 동형 — 내용이 늘면 고유 높이가 자란다
@@ -253,8 +266,10 @@ final class JdTextareaViewTests: XCTestCase {
     // 웹 placeholder 동형 — 빈 값에서만 보인다
     func test_placeholder_visibility_follows_text() {
         let view = JdTextareaView(placeholder: "메모를 입력하세요")
-        guard let placeholder = descendants(view, UILabel.self)
-            .first(where: { $0.text == "메모를 입력하세요" }) else {
+        guard
+            let placeholder = descendants(view, UILabel.self)
+                .first(where: { $0.text == "메모를 입력하세요" })
+        else {
             return XCTFail("플레이스홀더 라벨 없음")
         }
         XCTAssertTrue(isVisible(placeholder))

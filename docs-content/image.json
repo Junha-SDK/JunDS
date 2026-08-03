@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "Image",
   "oneLiner": "로딩·폴백 처리가 붙은 이미지.",
-  "tags": [
-    "media",
-    "image"
-  ],
+  "tags": ["media", "image"],
   "controls": [],
   "snippets": {
     "web": null,

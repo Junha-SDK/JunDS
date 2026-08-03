@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Heatmap",
   "oneLiner": "2차원 데이터를 색 강도로 표현하는 히트맵.",
-  "tags": [
-    "chart"
-  ],
+  "tags": ["chart"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -104,7 +104,13 @@ function TabsInner<T extends string = string>({
 }: TabsProps<T> & { innerRef?: React.Ref<HTMLDivElement> }) {
   if (variant === "segment") {
     return (
-      <div ref={innerRef} className={cn("inline-flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1 gap-0.5", className)} role="tablist">
+      <div
+        ref={innerRef}
+        // 트랙은 회색 팔레트 + dark: 변형 대신 의미 토큰으로 — 이 저장소의 다크는
+        // [data-theme] 로 켜지므로 prefers-color-scheme 기반 dark: 는 어긋날 수 있다
+        className={cn("inline-flex bg-border-light rounded-xl p-1 gap-0.5", className)}
+        role="tablist"
+      >
         {tabs.map((tab) => (
           <button
             key={tab.value}
@@ -114,21 +120,28 @@ function TabsInner<T extends string = string>({
             disabled={tab.disabled}
             onClick={() => onChange(tab.value)}
             className={cn(
-              "inline-flex items-center gap-1.5 font-medium transition-all duration-200 rounded-md cursor-pointer active:scale-95",
+              "inline-flex items-center gap-1.5 font-medium rounded-lg cursor-pointer",
+              // transition-all 은 padding·font-size 까지 끌고 가 매 프레임 리플로우를 만든다
+              "transition-[background-color,color,box-shadow,transform] duration-200",
+              "active:scale-95 motion-reduce:active:scale-100",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               "disabled:opacity-40 disabled:cursor-not-allowed",
               size === "sm" ? "px-2.5 py-1 text-xs" : "px-3 py-1.5 text-sm",
               value === tab.value
-                ? "bg-white dark:bg-gray-700 text-foreground shadow-sm"
+                ? // 선택된 칸은 트랙 위로 떠 있어야 한다 — 얕은 그림자 + 상단 인셋 하이라이트
+                  "bg-card text-foreground ring-1 ring-border shadow-[0_1px_3px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.18)]"
                 : "text-muted hover:text-foreground/80",
             )}
           >
             {tab.icon}
             {tab.label}
             {tab.badge !== undefined && (
-              <span className={cn(
-                "rounded-full px-1.5 text-[10px] font-semibold",
-                value === tab.value ? "bg-primary text-white" : "bg-gray-200 text-muted",
-              )}>
+              <span
+                className={cn(
+                  "rounded-full px-1.5 text-[10px] font-semibold tabular-nums",
+                  value === tab.value ? "bg-primary text-white" : "bg-muted/15 text-muted",
+                )}
+              >
                 {tab.badge}
               </span>
             )}
@@ -150,21 +163,26 @@ function TabsInner<T extends string = string>({
             disabled={tab.disabled}
             onClick={() => onChange(tab.value)}
             className={cn(
-              "inline-flex items-center gap-1.5 font-medium rounded-full transition-all duration-200 cursor-pointer active:scale-95",
+              "inline-flex items-center gap-1.5 font-medium rounded-full cursor-pointer",
+              "transition-[background-color,color,box-shadow,transform] duration-200",
+              "active:scale-95 motion-reduce:active:scale-100",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               "disabled:opacity-40 disabled:cursor-not-allowed",
               size === "sm" ? "px-2.5 py-1 text-xs" : "px-3.5 py-1.5 text-sm",
               value === tab.value
-                ? "bg-primary text-white shadow-md"
-                : "text-muted hover:bg-gray-100 hover:text-foreground/80",
+                ? "bg-primary text-white shadow-[0_2px_8px_-2px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.18)]"
+                : "text-muted hover:bg-muted/10 hover:text-foreground/80",
             )}
           >
             {tab.icon}
             {tab.label}
             {tab.badge !== undefined && (
-              <span className={cn(
-                "rounded-full px-1.5 text-[10px] font-semibold",
-                value === tab.value ? "bg-white/20 text-white" : "bg-gray-200 text-muted",
-              )}>
+              <span
+                className={cn(
+                  "rounded-full px-1.5 text-[10px] font-semibold tabular-nums",
+                  value === tab.value ? "bg-white/20 text-white" : "bg-muted/15 text-muted",
+                )}
+              >
                 {tab.badge}
               </span>
             )}
@@ -176,7 +194,11 @@ function TabsInner<T extends string = string>({
 
   // underline (default)
   return (
-    <div ref={innerRef} className={cn("flex border-b border-border gap-0", className)} role="tablist">
+    <div
+      ref={innerRef}
+      className={cn("flex border-b border-border gap-0", className)}
+      role="tablist"
+    >
       {tabs.map((tab) => (
         <button
           key={tab.value}
@@ -186,21 +208,27 @@ function TabsInner<T extends string = string>({
           disabled={tab.disabled}
           onClick={() => onChange(tab.value)}
           className={cn(
-            "inline-flex items-center gap-1.5 font-medium transition-all duration-200 border-b-[3px] -mb-px cursor-pointer active:scale-95",
+            "inline-flex items-center gap-1.5 font-medium border-b-[3px] -mb-px cursor-pointer",
+            "transition-[border-color,color,transform] duration-200",
+            "active:scale-95 motion-reduce:active:scale-100",
+            // 밑줄 탭은 아래가 잘리므로 링을 안쪽으로 넣는다 — offset 링은 border-b 에 가린다
+            "rounded-t-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
             "disabled:opacity-40 disabled:cursor-not-allowed",
             size === "sm" ? "px-3 py-2 text-xs" : "px-4 py-2.5 text-sm",
             value === tab.value
               ? "border-primary text-foreground"
-              : "border-transparent text-muted hover:text-foreground/80 hover:border-gray-300",
+              : "border-transparent text-muted hover:text-foreground/80 hover:border-border",
           )}
         >
           {tab.icon}
           {tab.label}
           {tab.badge !== undefined && (
-            <span className={cn(
-              "rounded-full px-1.5 text-[10px] font-semibold",
-              value === tab.value ? "bg-primary-light text-primary" : "bg-gray-100 text-muted",
-            )}>
+            <span
+              className={cn(
+                "rounded-full px-1.5 text-[10px] font-semibold tabular-nums",
+                value === tab.value ? "bg-primary-light text-primary-ink" : "bg-muted/10 text-muted",
+              )}
+            >
               {tab.badge}
             </span>
           )}

@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "AlertSheet",
   "oneLiner": "알림 설정 바텀시트.",
-  "tags": [
-    "finance",
-    "알림",
-    "시트"
-  ],
+  "tags": ["finance", "알림", "시트"],
   "controls": [],
   "snippets": {
     "web": null,

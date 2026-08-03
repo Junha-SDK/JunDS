@@ -36,15 +36,16 @@ export function LimitHitsCard() {
         className="px-4 py-2.5 flex items-center justify-between"
         style={{ borderBottom: "1px solid var(--bm-border)" }}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
           <span aria-hidden style={{ fontSize: 14 }}>
             🔥
           </span>
-          <h3 className="font-extrabold text-[13.5px]">
-            상한가 잠금 (오늘)
-          </h3>
+          <h3 className="font-extrabold text-[13.5px] truncate">상한가 잠금 (오늘)</h3>
         </div>
-        <span className="text-[11px] font-bold" style={{ color: "var(--bm-muted)" }}>
+        <span
+          className="text-[11px] font-bold shrink-0 whitespace-nowrap tabular-nums"
+          style={{ color: "var(--bm-muted)" }}
+        >
           {hits.length}종목 · 한 번에 잠금 {lockedClean}
         </span>
       </header>
@@ -61,16 +62,13 @@ export function LimitHitsCard() {
               <div className="flex items-center gap-1.5 flex-wrap">
                 <Link
                   href={`/stock/${encodeURIComponent(hit.name)}`}
-                  className="font-extrabold text-[13.5px] truncate"
+                  className="font-extrabold text-[13.5px] truncate rounded-sm hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
                 >
                   {hit.name}
                 </Link>
                 <LockedTimePill at={hit.lockedAt} clean={hit.lockedFirstAttempt} />
               </div>
-              <div
-                className="text-[11px] mt-0.5 truncate"
-                style={{ color: "var(--bm-muted)" }}
-              >
+              <div className="text-[11px] mt-0.5 truncate" style={{ color: "var(--bm-muted)" }}>
                 {hit.catalyst}
               </div>
             </div>
@@ -145,13 +143,16 @@ function PicksCard({
         className="px-4 py-2.5 flex items-center justify-between"
         style={{ borderBottom: "1px solid var(--bm-border)" }}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
           <span aria-hidden style={{ fontSize: 14 }}>
             {emoji}
           </span>
-          <h3 className="font-extrabold text-[13.5px]">{title}</h3>
+          <h3 className="font-extrabold text-[13.5px] truncate">{title}</h3>
         </div>
-        <span className="text-[11px] font-bold" style={{ color: "var(--bm-muted)" }}>
+        <span
+          className="text-[11px] font-bold shrink-0 whitespace-nowrap tabular-nums"
+          style={{ color: "var(--bm-muted)" }}
+        >
           {rows.length}종목 · 강 {high}
         </span>
       </header>
@@ -168,14 +169,11 @@ function PicksCard({
             <div className="min-w-0 flex-1">
               <Link
                 href={`/stock/${encodeURIComponent(p.name)}`}
-                className="font-extrabold text-[13.5px] block truncate"
+                className="font-extrabold text-[13.5px] block truncate rounded-sm hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
               >
                 {p.name}
               </Link>
-              <div
-                className="text-[11px] mt-0.5 truncate"
-                style={{ color: "var(--bm-muted)" }}
-              >
+              <div className="text-[11px] mt-0.5 truncate" style={{ color: "var(--bm-muted)" }}>
                 {p.reason}
               </div>
             </div>

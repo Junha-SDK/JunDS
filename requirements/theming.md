@@ -32,7 +32,7 @@ JunDS 의 모든 컴포넌트가 같은 색·간격·타이포·반경·모션 �
 ## User stories / acceptance criteria
 
 - [x] As a 호스트 앱 개발자, I can `<ThemeProvider defaultTheme="purple"
-      defaultColorMode="system">` 한 줄로 모든 JunDS 컴포넌트가 같은 팔레트를
+defaultColorMode="system">` 한 줄로 모든 JunDS 컴포넌트가 같은 팔레트를
       공유한다.
 - [x] As a 사용자, OS 가 다크모드면 첫 페인트부터 다크가 적용된다 (system
       모드).
@@ -60,7 +60,7 @@ JunDS 의 모든 컴포넌트가 같은 색·간격·타이포·반경·모션 �
 - **복원.** 첫 마운트 시 `restoreTheme()` 이 localStorage 의 마지막 테마를
   다시 적용. `getCurrentThemeName()` 으로 조회 가능.
 - **컬러 모드.** `colorMode = "system"` 이면 `matchMedia("(prefers-color-scheme:
-  dark)")` 를 구독, "dark"/"light" 면 강제 적용. localStorage 키는
+dark)")` 를 구독, "dark"/"light" 면 강제 적용. localStorage 키는
   `junds-color-mode`.
 - **CSS 브리지.** `app/globals.css` 가 `--jds-font-scale`, `--jds-font-base`,
   `--jds-density-*`, `--jds-radius-*`, `--jds-spacing-mult` 등을 정의하고

@@ -45,8 +45,6 @@ describe("Heading", () => {
 
   it("renders the children", () => {
     render(<Heading level={3}>Welcome</Heading>);
-    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent(
-      "Welcome",
-    );
+    expect(screen.getByRole("heading", { level: 3 })).toHaveTextContent("Welcome");
   });
 });

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "CompareSlider",
   "oneLiner": "두 이미지를 좌/우로 비교하는 슬라이더.",
-  "tags": [
-    "media"
-  ],
+  "tags": ["media"],
   "controls": [],
   "snippets": {
     "web": null,

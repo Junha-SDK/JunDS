@@ -350,7 +350,11 @@ export class JdDayDetailDrawer extends JdDrawer {
       right.append(
         elc("span", "jd-day-detail__leader-close", group(l.close)),
         (() => {
-          const p = elc("span", "jd-day-detail__leader-pct", `${up ? "+" : ""}${l.pct.toFixed(2)}%`);
+          const p = elc(
+            "span",
+            "jd-day-detail__leader-pct",
+            `${up ? "+" : ""}${l.pct.toFixed(2)}%`,
+          );
           p.dataset.dir = up ? "up" : "down";
           return p;
         })(),

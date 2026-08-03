@@ -13,19 +13,19 @@ JunDS v3 금융 데이터 연동 패키지. v2(`@junds/ui`)의 `ds/finance/lib`�
 
 ## 모듈 맵 — v2 경로 → v3 서브패스
 
-| v2 (`@junds/ui/finance/lib/*`) | v3 (`@junds/finance-data/*`) | 런타임 | 비고 |
-|---|---|---|---|
-| `yahoo` | `yahoo` | 서버 권장 | 시그니처 동일. 배럴 제외(서브패스 전용) |
-| `kis` | `kis` | **서버 전용** | 시그니처 동일. node:fs·env 의존, 브라우저 평가 시 throw. 배럴 제외 |
-| `ecos` | `ecos` | 서버 권장 | 시그니처 동일 |
-| `fred` | `fred` | 서버 권장 | 시그니처 동일 |
-| `rss` | `rss` | 서버 권장 | 시그니처 동일 |
-| `newsSummary` | `newsSummary` | 어디서나 | 순수 함수. rss 파이프라인 후처리라 함께 이관 |
-| `tickers` | `tickers` | 어디서나 | 정적 데이터 동일 |
-| `livePrices` (스토어부) | `livePrices` | 클라 (SSR no-op) | `subscribe`/`currentTick`/`seedTick` 시그니처 동일. React 훅은 v2 잔류 |
-| `liveIndices` (스토어부) | `liveIndices` | 클라 (SSR no-op) | v2 내부 함수를 `subscribeIndex`로 공개. `useLiveIndex` 훅은 v2 잔류 |
-| (신설) | `stream` | 어디서나 | SSE 와이어 계약 타입+파서 — v2에 산재하던 것을 정본화 |
-| (신설) | `config` | 어디서나 | 엔드포인트/시드 주입 (v2 하드코딩의 승격) |
+| v2 (`@junds/ui/finance/lib/*`) | v3 (`@junds/finance-data/*`) | 런타임           | 비고                                                                   |
+| ------------------------------ | ---------------------------- | ---------------- | ---------------------------------------------------------------------- |
+| `yahoo`                        | `yahoo`                      | 서버 권장        | 시그니처 동일. 배럴 제외(서브패스 전용)                                |
+| `kis`                          | `kis`                        | **서버 전용**    | 시그니처 동일. node:fs·env 의존, 브라우저 평가 시 throw. 배럴 제외     |
+| `ecos`                         | `ecos`                       | 서버 권장        | 시그니처 동일                                                          |
+| `fred`                         | `fred`                       | 서버 권장        | 시그니처 동일                                                          |
+| `rss`                          | `rss`                        | 서버 권장        | 시그니처 동일                                                          |
+| `newsSummary`                  | `newsSummary`                | 어디서나         | 순수 함수. rss 파이프라인 후처리라 함께 이관                           |
+| `tickers`                      | `tickers`                    | 어디서나         | 정적 데이터 동일                                                       |
+| `livePrices` (스토어부)        | `livePrices`                 | 클라 (SSR no-op) | `subscribe`/`currentTick`/`seedTick` 시그니처 동일. React 훅은 v2 잔류 |
+| `liveIndices` (스토어부)       | `liveIndices`                | 클라 (SSR no-op) | v2 내부 함수를 `subscribeIndex`로 공개. `useLiveIndex` 훅은 v2 잔류    |
+| (신설)                         | `stream`                     | 어디서나         | SSE 와이어 계약 타입+파서 — v2에 산재하던 것을 정본화                  |
+| (신설)                         | `config`                     | 어디서나         | 엔드포인트/시드 주입 (v2 하드코딩의 승격)                              |
 
 훅 셤 예정(전환기, ds 동결 구역 소유권에서 수행): v2 `ds/finance/lib/livePrices.ts`는
 이 패키지의 스토어를 re-export + React 훅만 유지하는 셤으로 축소된다.
@@ -53,22 +53,22 @@ v2가 하드코딩했던 결합 2개를 주입 지점으로 승격했다. 기본
 import { configureFinanceData } from "@junds/finance-data";
 
 configureFinanceData({
-  streamUrl: "/api/kis/stream",          // SSE 브리지
-  kisQuotesUrl: "/api/kis/quotes",       // KIS REST 스냅샷 프록시
-  batchQuotesUrl: "/api/quotes",         // Yahoo 배치 폴백 프록시
-  seedLookup: (name) => demoDb[name],    // 틱 스토어 초기 시드 (v2: mock findStock)
+  streamUrl: "/api/kis/stream", // SSE 브리지
+  kisQuotesUrl: "/api/kis/quotes", // KIS REST 스냅샷 프록시
+  batchQuotesUrl: "/api/quotes", // Yahoo 배치 폴백 프록시
+  seedLookup: (name) => demoDb[name], // 틱 스토어 초기 시드 (v2: mock findStock)
 });
 ```
 
 ## 환경변수 (서버 모듈)
 
-| 변수 | 모듈 | 필수 | 미설정 시 |
-|---|---|---|---|
-| `KIS_BASE_URL` / `KIS_APP_KEY` / `KIS_APP_SECRET` | kis | ✔ | 호출 시 throw (명시 에러) |
-| `KIS_CANO` / `KIS_ACNT_PRDT_CD` | kis | — | ""/"01" |
-| `KIS_REST_MRKT_NXT` / `KIS_REST_MRKT_UNIFIED` | kis | — | "NX"/"UN" |
-| `ECOS_API_KEY` | ecos | — | null 반환 (graceful) |
-| `FRED_API_KEY` | fred | — | null 반환 (graceful) |
+| 변수                                              | 모듈 | 필수 | 미설정 시                 |
+| ------------------------------------------------- | ---- | ---- | ------------------------- |
+| `KIS_BASE_URL` / `KIS_APP_KEY` / `KIS_APP_SECRET` | kis  | ✔    | 호출 시 throw (명시 에러) |
+| `KIS_CANO` / `KIS_ACNT_PRDT_CD`                   | kis  | —    | ""/"01"                   |
+| `KIS_REST_MRKT_NXT` / `KIS_REST_MRKT_UNIFIED`     | kis  | —    | "NX"/"UN"                 |
+| `ECOS_API_KEY`                                    | ecos | —    | null 반환 (graceful)      |
+| `FRED_API_KEY`                                    | fred | —    | null 반환 (graceful)      |
 
 ## 데이터 인터페이스 (웹/iOS 공용 계약)
 
@@ -86,11 +86,11 @@ configureFinanceData({
 앱 서버가 KIS WebSocket을 SSE로 재방송한다. 이벤트 3종 — iOS는 URLSession
 스트리밍으로 동일 페이로드를 소비한다:
 
-| `event:` | 페이로드 | KIS TR | 구독 쿼리 |
-|---|---|---|---|
-| `tick` | `StreamTickEvent` | 체결 | `?codes=이름,이름` (SSE당 ≤50) |
-| `index` | `IndexTick` | H0UPCNT0 | `?indices=KOSPI,KOSDAQ` |
-| `orderbook` | `OrderBookTick` | H0STASP0 | `?orderbook=이름` |
+| `event:`    | 페이로드          | KIS TR   | 구독 쿼리                      |
+| ----------- | ----------------- | -------- | ------------------------------ |
+| `tick`      | `StreamTickEvent` | 체결     | `?codes=이름,이름` (SSE당 ≤50) |
+| `index`     | `IndexTick`       | H0UPCNT0 | `?indices=KOSPI,KOSDAQ`        |
+| `orderbook` | `OrderBookTick`   | H0STASP0 | `?orderbook=이름`              |
 
 malformed 페이로드 방어는 `parseStreamTickEvent`/`parseIndexTickEvent`/
 `parseOrderBookTickEvent`가 정본이다 (Swift 쪽도 같은 판정 규칙 권장:

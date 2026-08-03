@@ -9,10 +9,7 @@
  * - label/에러 연결은 light DOM id 참조(jd-uid, §8) — aria-describedby/for가 경계 없이 동작.
  */
 import { defineProps, JdElement, type PropDefs } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import textFieldStyles from "./text-field.css.js";
@@ -62,9 +59,7 @@ export class JdTextField extends JdElement {
   protected render(): void {
     adoptStyles(textFieldStyles);
     // 입양 규칙(§3.3): 새 5-part 골격과 이전 3형제 골격을 모두 안전하게 정규화한다.
-    const existing = this.querySelector<HTMLInputElement>(
-      "input.jd-text-field__input",
-    );
+    const existing = this.querySelector<HTMLInputElement>("input.jd-text-field__input");
     if (existing) this.#adopt(existing);
     else this.#build();
     this.update();
@@ -78,12 +73,8 @@ export class JdTextField extends JdElement {
 
   #build(): void {
     const id = jdUid("jd-tf");
-    const startNodes = [
-      ...this.querySelectorAll<HTMLElement>(':scope > [slot="start"]'),
-    ];
-    const endNodes = [
-      ...this.querySelectorAll<HTMLElement>(':scope > [slot="end"]'),
-    ];
+    const startNodes = [...this.querySelectorAll<HTMLElement>(':scope > [slot="start"]')];
+    const endNodes = [...this.querySelectorAll<HTMLElement>(':scope > [slot="end"]')];
     this.#label = document.createElement("label");
     this.#label.className = "jd-text-field__label";
     this.#label.htmlFor = id;
@@ -109,9 +100,8 @@ export class JdTextField extends JdElement {
     this.#input = input;
 
     this.#label =
-      this.querySelector<HTMLLabelElement>(
-        ":scope > label.jd-text-field__label",
-      ) ?? document.createElement("label");
+      this.querySelector<HTMLLabelElement>(":scope > label.jd-text-field__label") ??
+      document.createElement("label");
     this.#label.classList.add("jd-text-field__label");
     this.#label.htmlFor = id;
 
@@ -121,20 +111,14 @@ export class JdTextField extends JdElement {
     this.#control.classList.add("jd-text-field__control");
 
     this.#start =
-      this.#control.querySelector<HTMLSpanElement>(
-        ":scope > .jd-text-field__slot--start",
-      ) ?? this.#createSlot("start");
+      this.#control.querySelector<HTMLSpanElement>(":scope > .jd-text-field__slot--start") ??
+      this.#createSlot("start");
     this.#end =
-      this.#control.querySelector<HTMLSpanElement>(
-        ":scope > .jd-text-field__slot--end",
-      ) ?? this.#createSlot("end");
+      this.#control.querySelector<HTMLSpanElement>(":scope > .jd-text-field__slot--end") ??
+      this.#createSlot("end");
 
-    const directStart = [
-      ...this.querySelectorAll<HTMLElement>(':scope > [slot="start"]'),
-    ];
-    const directEnd = [
-      ...this.querySelectorAll<HTMLElement>(':scope > [slot="end"]'),
-    ];
+    const directStart = [...this.querySelectorAll<HTMLElement>(':scope > [slot="start"]')];
+    const directEnd = [...this.querySelectorAll<HTMLElement>(':scope > [slot="end"]')];
     this.#start.append(...directStart);
     this.#end.append(...directEnd);
 
@@ -142,9 +126,8 @@ export class JdTextField extends JdElement {
     this.#control.append(this.#start, input, this.#end);
 
     this.#error =
-      this.querySelector<HTMLParagraphElement>(
-        ":scope > p.jd-text-field__error",
-      ) ?? document.createElement("p");
+      this.querySelector<HTMLParagraphElement>(":scope > p.jd-text-field__error") ??
+      document.createElement("p");
     this.#error.classList.add("jd-text-field__error");
     this.#error.id ||= `${id}-error`;
 
@@ -182,16 +165,8 @@ export class JdTextField extends JdElement {
       this.#error.textContent = "";
     }
     syncOwnedAttribute(input, "aria-invalid", isInvalid ? "true" : null);
-    syncAriaIdRefs(
-      input,
-      "aria-describedby",
-      hasErrorMessage ? this.#error.id : null,
-    );
-    syncAriaIdRefs(
-      input,
-      "aria-errormessage",
-      hasErrorMessage ? this.#error.id : null,
-    );
+    syncAriaIdRefs(input, "aria-describedby", hasErrorMessage ? this.#error.id : null);
+    syncAriaIdRefs(input, "aria-errormessage", hasErrorMessage ? this.#error.id : null);
     this.#error.hidden = !hasErrorMessage;
   }
 

@@ -105,8 +105,8 @@ export interface SelectProps<T extends string = string> {
 }
 
 const sizeStyles = {
-  sm: "h-8 px-2.5 text-xs rounded-md",
-  md: "h-9 px-3 text-sm rounded-lg",
+  sm: "h-8 px-2.5 text-xs rounded-lg",
+  md: "h-9 px-3 text-sm rounded-xl",
   lg: "h-11 px-4 text-base rounded-xl",
 };
 
@@ -146,20 +146,30 @@ function SelectInner<T extends string = string>({
   useClickOutside(ref, () => setOpen(false), open);
 
   const selected = options.find((o) => o.value === value);
-  const filtered = searchable && search
-    ? options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase()))
-    : options;
+  const filtered =
+    searchable && search
+      ? options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase()))
+      : options;
 
-  const handleSelect = useCallback((val: T) => {
-    onChange?.(val);
-    setOpen(false);
-    setSearch("");
-  }, [onChange]);
+  const handleSelect = useCallback(
+    (val: T) => {
+      onChange?.(val);
+      setOpen(false);
+      setSearch("");
+    },
+    [onChange],
+  );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") { setOpen(false); return; }
+    if (e.key === "Escape") {
+      setOpen(false);
+      return;
+    }
     if (e.key === "Enter" || e.key === " ") {
-      if (!open) { setOpen(true); return; }
+      if (!open) {
+        setOpen(true);
+        return;
+      }
       if (highlightIdx >= 0 && filtered[highlightIdx] && !filtered[highlightIdx].disabled) {
         handleSelect(filtered[highlightIdx].value);
       }
@@ -167,7 +177,10 @@ function SelectInner<T extends string = string>({
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      if (!open) { setOpen(true); return; }
+      if (!open) {
+        setOpen(true);
+        return;
+      }
       setHighlightIdx((i) => Math.min(i + 1, filtered.length - 1));
     }
     if (e.key === "ArrowUp") {
@@ -177,38 +190,61 @@ function SelectInner<T extends string = string>({
   };
 
   useEffect(() => {
-    if (!open) { setHighlightIdx(-1); setSearch(""); }
+    if (!open) {
+      setHighlightIdx(-1);
+      setSearch("");
+    }
   }, [open]);
 
   return (
-    <div ref={(node) => {
-      (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
-      if (typeof innerRef === "function") innerRef(node);
-      else if (innerRef) (innerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-    }} className={cn("relative", fullWidth ? "w-full" : "w-fit", className)}>
+    <div
+      ref={(node) => {
+        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        if (typeof innerRef === "function") innerRef(node);
+        else if (innerRef)
+          (innerRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      }}
+      className={cn("relative", fullWidth ? "w-full" : "w-fit", className)}
+    >
       <button
         type="button"
         disabled={disabled}
         onClick={() => !disabled && setOpen(!open)}
         onKeyDown={handleKeyDown}
         className={cn(
-          "flex items-center justify-between gap-2 w-full border bg-card transition-all duration-150",
-          "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "flex items-center justify-between gap-2 w-full border bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+          "transition-[border-color,background-color,box-shadow] duration-200 ease-out",
+          // focus: 는 마우스 클릭에도 글로우를 남긴다. 열림 상태가 이미 같은 테두리를 그리므로
+          // 키보드로 닿았을 때만 표시되는 focus-visible 로 좁힌다.
+          "focus-visible:outline-none focus-visible:border-primary focus-visible:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           "disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
-          error ? "border-danger" : open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
+          error
+            ? "border-danger"
+            : open
+            ? "border-primary shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]"
+            : "border-border hover:border-muted-light/60 hover:bg-card-hover",
           sizeStyles[size],
         )}
       >
-        <span className={cn("truncate", !selected && "text-muted-light")}>
+        <span className={cn("truncate min-w-0", !selected && "text-muted-light")}>
           {selected ? (
             <span className="flex items-center gap-2">
-              {selected.icon}{selected.label}
+              {selected.icon}
+              {selected.label}
             </span>
-          ) : placeholder}
+          ) : (
+            placeholder
+          )}
         </span>
         <svg
-          className={cn("w-4 h-4 text-muted shrink-0 transition-transform duration-200", open && "rotate-180")}
-          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+          className={cn(
+            "w-4 h-4 text-muted shrink-0 transition-transform duration-200 motion-reduce:transition-none",
+            open && "rotate-180",
+          )}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
@@ -218,20 +254,22 @@ function SelectInner<T extends string = string>({
         <ul
           ref={listRef}
           className={cn(
-            "absolute z-50 mt-1 w-full bg-card border border-border rounded-lg shadow-xl",
+            "absolute z-50 mt-1 w-full bg-card border border-border rounded-xl",
+            // 떠 있는 목록이라 다층 그림자 + 얇은 링으로 배경에서 떼어 놓는다.
+            "shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35),0_4px_12px_-6px_rgba(0,0,0,0.2)] ring-1 ring-border/50",
             /* Dropdown max height: 240px (15rem) — fits ~6 options comfortably */
-            "max-h-60 overflow-auto py-1 animate-fade-in-scale",
+            "max-h-60 overflow-auto overscroll-contain p-1 animate-fade-in-scale motion-reduce:animate-none",
           )}
           role="listbox"
         >
           {searchable && (
-            <li className="px-2 py-1.5 sticky top-0 bg-card">
+            <li className="px-1 pb-1.5 sticky top-0 bg-card z-10">
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="검색..."
-                className="w-full px-2 py-1 text-sm border border-border rounded-md focus:outline-none focus:border-primary"
+                className="w-full px-2 py-1 text-sm bg-card border border-border rounded-lg transition-[border-color,box-shadow] duration-200 ease-out focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]"
                 // eslint-disable-next-line jsx-a11y/no-autofocus -- popup search input: focusing on open is the expected pattern (focus already inside the popup)
                 autoFocus
               />
@@ -247,16 +285,24 @@ function SelectInner<T extends string = string>({
               aria-selected={opt.value === value}
               onClick={() => !opt.disabled && handleSelect(opt.value)}
               className={cn(
-                "px-3 py-1.5 text-sm cursor-pointer flex items-center gap-2 transition-colors",
+                "px-2.5 py-1.5 rounded-lg text-sm cursor-pointer flex items-center gap-2 min-w-0 transition-colors",
                 opt.value === value && "bg-primary text-white font-medium",
                 i === highlightIdx && "bg-primary/10",
-                opt.disabled ? "opacity-40 cursor-not-allowed" : "hover:bg-primary/10 hover:text-primary",
+                opt.disabled
+                  ? "opacity-40 cursor-not-allowed"
+                  : "hover:bg-primary/10 hover:text-primary-ink active:bg-primary/20",
               )}
             >
               {opt.icon}
               {opt.label}
               {opt.value === value && (
-                <svg className="w-4 h-4 ml-auto text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg
+                  className="w-4 h-4 ml-auto text-primary-ink"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               )}
@@ -281,7 +327,9 @@ SelectForwarded.displayName = "Select";
  * @since 2.2.0
  * @tags form, input
  */
-export const Select = forwardRef<HTMLDivElement, SelectProps>(SelectForwarded) as <T extends string = string>(
+export const Select = forwardRef<HTMLDivElement, SelectProps>(SelectForwarded) as <
+  T extends string = string,
+>(
   props: SelectProps<T> & { ref?: React.Ref<HTMLDivElement> },
 ) => React.ReactElement | null;
 

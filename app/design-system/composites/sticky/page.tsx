@@ -16,7 +16,10 @@ export default function StickyPage() {
         { name: "className", type: "string", description: "추가 클래스" },
       ]}
     >
-      <Section title="기본 동작" description="컨테이너 안에서 스크롤 해보세요. 헤더가 상단에 붙어 따라옵니다.">
+      <Section
+        title="기본 동작"
+        description="컨테이너 안에서 스크롤 해보세요. 헤더가 상단에 붙어 따라옵니다."
+      >
         <Preview>
           <div className="w-full max-w-md h-64 overflow-auto border border-border rounded-xl bg-white">
             <Sticky top={0}>

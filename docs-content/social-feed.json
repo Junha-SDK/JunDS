@@ -4,11 +4,7 @@
   "category": "patterns",
   "title": "SocialFeed",
   "oneLiner": "소셜 피드 리스트 템플릿.",
-  "tags": [
-    "social",
-    "피드",
-    "템플릿"
-  ],
+  "tags": ["social", "피드", "템플릿"],
   "controls": [],
   "snippets": {
     "web": null,

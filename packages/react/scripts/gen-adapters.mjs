@@ -127,11 +127,7 @@ function eventDetailType(detail, elementType, publicTypes) {
     };
   }
 
-  const inferred = checker.typeToString(
-    checker.getTypeAtLocation(detail),
-    detail,
-    TYPE_FLAGS,
-  );
+  const inferred = checker.typeToString(checker.getTypeAtLocation(detail), detail, TYPE_FLAGS);
   if (!inferred || inferred === "any" || inferred === "never") {
     return { text: "unknown", imports: [] };
   }
@@ -148,7 +144,10 @@ function eventDetailType(detail, elementType, publicTypes) {
 }
 
 for (const sourceFile of program.getSourceFiles()) {
-  if (!sourceFile.fileName.startsWith(componentsDir) || !sourceFile.fileName.endsWith("/element.ts")) {
+  if (
+    !sourceFile.fileName.startsWith(componentsDir) ||
+    !sourceFile.fileName.endsWith("/element.ts")
+  ) {
     continue;
   }
   const dir = sourceFile.fileName.slice(componentsDir.length + 1, -"/element.ts".length);
@@ -186,8 +185,8 @@ for (const sourceFile of program.getSourceFiles()) {
         tag = ts.isStringLiteral(member.initializer)
           ? member.initializer.text
           : tagType.isStringLiteral()
-            ? tagType.value
-            : undefined;
+          ? tagType.value
+          : undefined;
         if (!tag) continue;
         elementByTag.set(tag, {
           sourceDir: dir,
@@ -267,10 +266,10 @@ for (const Klass of ALL_COMPONENTS) {
         def.default !== undefined
           ? def.default
           : def.type === Boolean
-            ? false
-            : def.type === Number
-              ? 0
-              : "";
+          ? false
+          : def.type === Number
+          ? 0
+          : "";
     }
   }
   for (const propName of dataProps(Klass)) {
@@ -316,9 +315,7 @@ function moduleSource(e) {
       .replaceAll("__ELEMENT_TYPE__", elementType);
     return `  ${handlerName(eventName)}?: (event: CustomEvent<${detail}>) => void;`;
   });
-  const specProps = propRows
-    .map(([k, kind]) => `${key(k)}: ${JSON.stringify(kind)}`)
-    .join(", ");
+  const specProps = propRows.map(([k, kind]) => `${key(k)}: ${JSON.stringify(kind)}`).join(", ");
   const specEvents = eventRows
     .map(([eventName]) => `${handlerName(eventName)}: ${JSON.stringify(eventName)}`)
     .join(", ");
@@ -348,7 +345,9 @@ function moduleSource(e) {
     `export type ${e.name}Props = JdBaseProps<${elementType}, keyof ${ownType}> & ${ownType};`,
     "",
     `export const ${e.name} = createJdElement<${elementType}, ${e.name}Props>(`,
-    `  { tag: ${JSON.stringify(e.tag)}, props: { ${specProps} }, defaults: { ${specDefaults} }, events: { ${specEvents} } },`,
+    `  { tag: ${JSON.stringify(
+      e.tag,
+    )}, props: { ${specProps} }, defaults: { ${specDefaults} }, events: { ${specEvents} } },`,
     `  ${JSON.stringify(e.name)},`,
     ");",
     "",
@@ -368,9 +367,7 @@ const barrel = [
   " * 이벤트 핸들러 이름은 `jd-change` → `onJdChange` 규칙이다. React 의 onChange 와",
   " * 겹치지 않도록 `Jd` 를 남긴다 — 겹치면 합성 이벤트와 커스텀 이벤트가 한 이름으로 섞인다.",
   " */",
-  ...entries.map(
-    (e) => `export { ${e.name}, type ${e.name}Props } from "./${e.name}.js";`,
-  ),
+  ...entries.map((e) => `export { ${e.name}, type ${e.name}Props } from "./${e.name}.js";`),
   "",
 ].join("\n");
 

@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "NumberInput",
   "oneLiner": "숫자 입력 (증감 버튼 포함)",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

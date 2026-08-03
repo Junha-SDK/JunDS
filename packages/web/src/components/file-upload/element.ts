@@ -187,7 +187,8 @@ export class JdFileUpload extends JdElement {
       this.#desc!.textContent = this.description;
       const hints: string[] = [];
       if (this.accept) hints.push(this.accept.replace(/,/g, ", "));
-      if (!Number.isNaN(this.maxSize)) hints.push(`최대 ${(this.maxSize / 1024 / 1024).toFixed(0)}MB`);
+      if (!Number.isNaN(this.maxSize))
+        hints.push(`최대 ${(this.maxSize / 1024 / 1024).toFixed(0)}MB`);
       this.#hint!.textContent = hints.join(" · ");
       this.#hint!.hidden = hints.length === 0;
     }

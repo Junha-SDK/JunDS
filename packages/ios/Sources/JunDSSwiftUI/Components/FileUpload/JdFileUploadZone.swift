@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-file-upload 동형 — **피커는 만들지 않는다** (DESIGN-3 §B).
 // 실제 선택은 소비자가 시스템 .fileImporter를 onTap에 붙여서 한다. 이 컴포넌트가 책임지는 것은
@@ -15,11 +15,13 @@ public struct JdFileUploadZone: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(description: String = "파일을 선택하세요",
-                isError: Bool = false,
-                isEnabled: Bool = true,
-                fileNames: [String] = [],
-                onTap: @escaping () -> Void) {
+    public init(
+        description: String = "파일을 선택하세요",
+        isError: Bool = false,
+        isEnabled: Bool = true,
+        fileNames: [String] = [],
+        onTap: @escaping () -> Void
+    ) {
         self.zoneDescription = description
         self.isError = isError
         self.isControlEnabled = isEnabled
@@ -32,13 +34,18 @@ public struct JdFileUploadZone: View {
             Button(action: onTap) {
                 VStack(spacing: JdToken.Space.s2) {
                     Image(systemName: "arrow.up.doc")
-                        .font(JdSwiftUIFont.scaled(size: JdIconSize.xl.side,
-                                                   weight: JdToken.FontWeight.normal,
-                                                   category: sizeCategory))
+                        .font(
+                            JdSwiftUIFont.scaled(
+                                size: JdIconSize.xl.side,
+                                weight: JdToken.FontWeight.normal,
+                                category: sizeCategory))
                     Text(zoneDescription)
-                        .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .sm).fontSize,
-                                                   weight: JdToken.FontWeight.normal,
-                                                   category: sizeCategory))
+                        .font(
+                            JdSwiftUIFont.scaled(
+                                size: JdTextSpec.resolve(size: .sm).fontSize,
+                                weight: JdToken.FontWeight.normal,
+                                category: sizeCategory)
+                        )
                         .multilineTextAlignment(.center)
                 }
                 .frame(maxWidth: .infinity)
@@ -65,9 +72,12 @@ public struct JdFileUploadZone: View {
                     Text(name)
                         .lineLimit(1)
                 }
-                .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: JdTextSpec.resolve(size: .xs).fontSize,
+                        weight: JdToken.FontWeight.normal,
+                        category: sizeCategory)
+                )
                 .foregroundColor(JdToken.Color.muted.color)
             }
         }
@@ -91,13 +101,15 @@ struct JdFileUploadZoneStyle: ButtonStyle {
             .overlay(
                 shape.strokeBorder(
                     (isError ? JdToken.Color.danger : JdToken.Color.border).color,
-                    style: StrokeStyle(lineWidth: JdToken.Border.thin,
-                                       dash: [JdToken.Space.s1, JdToken.Space.s1])
+                    style: StrokeStyle(
+                        lineWidth: JdToken.Border.thin,
+                        dash: [JdToken.Space.s1, JdToken.Space.s1])
                 )
             )
             .contentShape(shape)
             .opacity(isEnabled ? 1 : JdToken.Opacity.o50)
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
-                       value: configuration.isPressed)
+            .animation(
+                reduceMotion ? nil : .easeOut(duration: JdToken.Duration.fast),
+                value: configuration.isPressed)
     }
 }

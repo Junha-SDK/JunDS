@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-password-input 동형 — 표시 토글 + 강도 게이지 + 규칙 체크리스트 (DESIGN-3 §A).
 //
@@ -61,17 +61,20 @@ public final class JdPasswordInputView: UIView {
     private let strengthLabel = UILabel()
     private var bars: [UIView] = []
     private let rulesStack = UIStackView()
-    private var ruleRows: [(row: UIStackView, icon: UIImageView, label: UILabel, rule: JdPasswordRule)] = []
+    private var ruleRows:
+        [(row: UIStackView, icon: UIImageView, label: UILabel, rule: JdPasswordRule)] = []
     private let rootStack = UIStackView()
     private let spec: JdTextFieldSpec
 
-    public init(text: String = "",
-                placeholder: String = "",
-                size: JdControlSize = .md,
-                isError: Bool = false,
-                showsStrength: Bool = false,
-                showsRules: Bool = false,
-                accessibilityLabel: String? = nil) {
+    public init(
+        text: String = "",
+        placeholder: String = "",
+        size: JdControlSize = .md,
+        isError: Bool = false,
+        showsStrength: Bool = false,
+        showsRules: Bool = false,
+        accessibilityLabel: String? = nil
+    ) {
         self.placeholder = placeholder
         self.spec = JdTextFieldSpec.resolve(size: size)
         self.isError = isError
@@ -99,8 +102,9 @@ public final class JdPasswordInputView: UIView {
         fieldRow.alignment = .center
         fieldRow.spacing = JdToken.Space.s2
         fieldRow.isLayoutMarginsRelativeArrangement = true
-        fieldRow.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: spec.hPadding,
-                                                                    bottom: 0, trailing: spec.hPadding)
+        fieldRow.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: 0, leading: spec.hPadding,
+            bottom: 0, trailing: spec.hPadding)
         fieldRow.addArrangedSubview(field)
         fieldRow.addArrangedSubview(revealButton)
 
@@ -162,7 +166,7 @@ public final class JdPasswordInputView: UIView {
             let bar = UIView()
             bar.layer.cornerCurve = .continuous
             bar.jd.layout {
-                $0.height.equal(JdToken.Space.s1) // 웹 height: var(--jd-space-1)
+                $0.height.equal(JdToken.Space.s1)  // 웹 height: var(--jd-space-1)
             }
             bars.append(bar)
             // ⚠️ 등폭 제약은 **스택에 넣은 뒤에** 건다 — 넣기 전이면 두 막대에 공통 조상이 없어
@@ -212,21 +216,24 @@ public final class JdPasswordInputView: UIView {
     }
 
     private func applyStyle() {
-        field.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                             weight: JdToken.FontWeight.normal,
-                                             compatibleWith: traitCollection)
+        field.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         field.textColor = JdToken.Color.foreground.uiColor
         fieldRow.backgroundColor = JdToken.Color.card.uiColor
         fieldRow.layer.cornerRadius = spec.radius
         applyRevealIcon()
 
-        let captionFont = JdFontBridge.scaledFont(size: JdToken.FontSize.xs,
-                                                  weight: JdToken.FontWeight.semibold,
-                                                  compatibleWith: traitCollection)
+        let captionFont = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.xs,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         strengthLabel.font = captionFont
-        let ruleFont = JdFontBridge.scaledFont(size: JdToken.FontSize.xs,
-                                               weight: JdToken.FontWeight.normal,
-                                               compatibleWith: traitCollection)
+        let ruleFont = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.xs,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         let ruleSymbol = UIImage.SymbolConfiguration(font: ruleFont)
         for row in ruleRows {
             row.label.font = ruleFont
@@ -236,13 +243,16 @@ public final class JdPasswordInputView: UIView {
     }
 
     private func applyRevealIcon() {
-        let symbolFont = JdFontBridge.scaledFont(size: spec.fontSize,
-                                                 weight: JdToken.FontWeight.medium,
-                                                 compatibleWith: traitCollection)
+        let symbolFont = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         let name = field.isSecureTextEntry ? "eye" : "eye.slash"
-        revealButton.setImage(UIImage(systemName: name,
-                                      withConfiguration: UIImage.SymbolConfiguration(font: symbolFont)),
-                              for: .normal)
+        revealButton.setImage(
+            UIImage(
+                systemName: name,
+                withConfiguration: UIImage.SymbolConfiguration(font: symbolFont)),
+            for: .normal)
         revealButton.accessibilityLabel = field.isSecureTextEntry ? "비밀번호 표시" : "비밀번호 숨기기"
         revealButton.sizeToFit()
     }
@@ -273,10 +283,11 @@ public final class JdPasswordInputView: UIView {
         let tone = JdSeverityBadgeSpec.resolve(severity: current.tone, size: .md)
         for (index, bar) in bars.enumerated() {
             // 막대는 그래픽이라 도트 색(원색), 글자는 텍스트 대비용 전경색을 쓴다
-            bar.backgroundColor = index < current.score
+            bar.backgroundColor =
+                index < current.score
                 ? tone.dotColor.uiColor
                 : JdToken.Color.border.uiColor
-            bar.layer.cornerRadius = JdToken.Space.s1 / 2 // 알약(웹 radius-full)
+            bar.layer.cornerRadius = JdToken.Space.s1 / 2  // 알약(웹 radius-full)
         }
         strengthLabel.text = current.label
         strengthLabel.textColor = tone.foreground.uiColor
@@ -285,10 +296,12 @@ public final class JdPasswordInputView: UIView {
         for row in ruleRows {
             let passed = current.isSatisfied(row.rule)
             row.icon.image = UIImage(systemName: passed ? "checkmark.circle.fill" : "circle")
-            row.icon.tintColor = passed
+            row.icon.tintColor =
+                passed
                 ? JdToken.Color.success.uiColor
                 : JdToken.Color.mutedLight.uiColor
-            row.label.textColor = passed
+            row.label.textColor =
+                passed
                 ? JdToken.Color.success.uiColor
                 : JdToken.Color.muted.uiColor
             row.row.accessibilityValue = passed ? "충족" : "미충족"
@@ -325,4 +338,3 @@ public final class JdPasswordInputView: UIView {
         applyRevealIcon()
     }
 }
-

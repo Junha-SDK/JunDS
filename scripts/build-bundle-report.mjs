@@ -21,7 +21,7 @@ const ROOT = join(__dirname, "..");
 const DS = join(ROOT, "ds");
 const OUT = join(ROOT, ".ai", "bundle.json");
 const CACHE = join(ROOT, ".ai", ".bundle-cache.json");
-const CONCURRENCY = Math.max(2, Math.min(8, (cpus()?.length || 4)));
+const CONCURRENCY = Math.max(2, Math.min(8, cpus()?.length || 4));
 
 const KINDS = [
   { dir: "primitives", kind: "primitive" },
@@ -41,7 +41,11 @@ async function listEntries() {
       .map((d) => ({ name: d.name, kind, file: join(root, d.name, `${d.name}.tsx`) }))
       .filter((e) => !e.file.includes(".stories.") && !e.file.includes(".test."));
     const stats = await Promise.all(
-      candidates.map((c) => stat(c.file).then((s) => ({ ...c, mtimeMs: s.mtimeMs })).catch(() => null)),
+      candidates.map((c) =>
+        stat(c.file)
+          .then((s) => ({ ...c, mtimeMs: s.mtimeMs }))
+          .catch(() => null),
+      ),
     );
     return stats.filter(Boolean);
   });
@@ -156,7 +160,9 @@ async function main() {
         } catch (err) {
           failed += 1;
           console.warn(
-            `[bundle-report] (${idx + 1}/${entries.length}) ${entry.name} failed: ${err.message}. Falling back to source size.`,
+            `[bundle-report] (${idx + 1}/${entries.length}) ${entry.name} failed: ${
+              err.message
+            }. Falling back to source size.`,
           );
           sizes = await fallbackSize(entry.file);
         }

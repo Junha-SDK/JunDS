@@ -4,10 +4,7 @@
   "category": "hooks",
   "title": "useEventListener",
   "oneLiner": "이벤트 리스너 등록·해제 수명 관리.",
-  "tags": [
-    "hook",
-    "이벤트"
-  ],
+  "tags": ["hook", "이벤트"],
   "controls": [],
   "snippets": {
     "web": null,

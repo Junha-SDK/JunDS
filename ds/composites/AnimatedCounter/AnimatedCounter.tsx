@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { cn } from "../../utils/cn";
+import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 export interface AnimatedCounterProps {
   /** 표시할 숫자 값 */
@@ -37,8 +38,14 @@ export function AnimatedCounter({
   const rafRef = useRef<number | undefined>(undefined);
   const startRef = useRef<number>(0);
   const fromRef = useRef(0);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    // 숫자가 굴러가는 것도 움직임이다 — 감속을 요청했으면 최종값으로 바로 앉힌다.
+    if (reducedMotion) {
+      setDisplay(Number(value.toFixed(decimals)));
+      return;
+    }
     fromRef.current = display;
     startRef.current = performance.now();
     const diff = value - fromRef.current;
@@ -58,8 +65,12 @@ export function AnimatedCounter({
     };
 
     rafRef.current = requestAnimationFrame(step);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [value, duration, decimals]);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+    // display 는 애니메이션 시작점으로만 읽는다 — 의존성에 넣으면 매 프레임 재시작한다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, duration, decimals, reducedMotion]);
 
   const formatted = new Intl.NumberFormat("ko-KR", {
     minimumFractionDigits: decimals,
@@ -67,12 +78,12 @@ export function AnimatedCounter({
   }).format(display);
 
   return (
-    <span className={cn("tabular-nums font-bold", className)} aria-live="polite">
+    <span className={cn("tabular-nums font-bold whitespace-nowrap", className)} aria-live="polite">
       {prefix}
       {formatted.split("").map((char, i) => (
         <span
           key={`${i}-${char}`}
-          className="inline-block transition-transform duration-300"
+          className="inline-block transition-transform duration-300 motion-reduce:transition-none"
           style={{ transform: "translateY(0)" }}
         >
           {char}

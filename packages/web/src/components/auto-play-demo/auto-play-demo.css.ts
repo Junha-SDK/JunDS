@@ -21,40 +21,53 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-auto-play-demo {
-    --jd-auto-play-demo-exit: none; /* fade · crossfade = 불투명도만 */
-    position: relative; display: grid; width: 100%;
-    box-sizing: border-box; /* DEC-014-9 — width:100% + padding 병용 대비 */
-  }
-  jd-auto-play-demo[transition="slide-up"] { --jd-auto-play-demo-exit: translateY(0.75rem); }
-  jd-auto-play-demo[transition="slide-left"] { --jd-auto-play-demo-exit: translateX(1rem); }
-  jd-auto-play-demo[transition="scale"] { --jd-auto-play-demo-exit: scale(0.9); }
+  @layer junds.components {
+    jd-auto-play-demo {
+      --jd-auto-play-demo-exit: none; /* fade · crossfade = 불투명도만 */
+      position: relative;
+      display: grid;
+      width: 100%;
+      box-sizing: border-box; /* DEC-014-9 — width:100% + padding 병용 대비 */
+    }
+    jd-auto-play-demo[transition="slide-up"] {
+      --jd-auto-play-demo-exit: translateY(0.75rem);
+    }
+    jd-auto-play-demo[transition="slide-left"] {
+      --jd-auto-play-demo-exit: translateX(1rem);
+    }
+    jd-auto-play-demo[transition="scale"] {
+      --jd-auto-play-demo-exit: scale(0.9);
+    }
 
-  .jd-auto-play-demo__frame {
-    grid-area: 1 / 1; /* 전부 같은 칸 — 상자는 가장 큰 프레임에 맞는다 */
-    min-width: 0;
-    visibility: hidden;
-    pointer-events: none;
-    opacity: var(--jd-opacity-0);
-    transform: var(--jd-auto-play-demo-exit);
-    transition-property: opacity, transform;
-    transition-duration: var(--jd-auto-play-demo-duration, 400ms);
-    transition-timing-function: var(--jd-easing-spring);
-  }
+    .jd-auto-play-demo__frame {
+      grid-area: 1 / 1; /* 전부 같은 칸 — 상자는 가장 큰 프레임에 맞는다 */
+      min-width: 0;
+      visibility: hidden;
+      pointer-events: none;
+      opacity: var(--jd-opacity-0);
+      transform: var(--jd-auto-play-demo-exit);
+      transition-property: opacity, transform;
+      transition-duration: var(--jd-auto-play-demo-duration, 400ms);
+      transition-timing-function: var(--jd-easing-spring);
+    }
 
-  /* 나가는 프레임은 전이가 끝날 때까지만 보인다 — 그동안 클릭을 먹지 않는다 */
-  .jd-auto-play-demo__frame[data-leaving] { visibility: visible; }
+    /* 나가는 프레임은 전이가 끝날 때까지만 보인다 — 그동안 클릭을 먹지 않는다 */
+    .jd-auto-play-demo__frame[data-leaving] {
+      visibility: visible;
+    }
 
-  /* 활성 프레임만 보이고, 만질 수 있다 (포커스가 들어오면 순환이 멈춘다) */
-  .jd-auto-play-demo__frame[data-active] {
-    visibility: visible;
-    pointer-events: auto;
-    opacity: var(--jd-opacity-100);
-    transform: none;
-  }
+    /* 활성 프레임만 보이고, 만질 수 있다 (포커스가 들어오면 순환이 멈춘다) */
+    .jd-auto-play-demo__frame[data-active] {
+      visibility: visible;
+      pointer-events: auto;
+      opacity: var(--jd-opacity-100);
+      transform: none;
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-auto-play-demo__frame { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-auto-play-demo__frame {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

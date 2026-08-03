@@ -168,7 +168,9 @@ export function ChartCard({
     <section
       className={cn(
         "w-full transition-colors duration-200",
-        variant === "card" && "bg-white border border-border rounded-xl p-4 shadow-xs",
+        // bg-white 는 라이트 전용 값 — 다크에서 카드만 하얗게 남는다.
+        variant === "card" &&
+          "bg-card border border-border rounded-xl p-4 shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.06)]",
         variant === "plain" && "p-0",
         className,
       )}
@@ -187,7 +189,9 @@ export function ChartCard({
 
       {(value || trend) && (
         <div className="mt-4 flex items-end justify-between gap-3">
-          {value && <div className="text-2xl font-bold tracking-tight text-foreground">{value}</div>}
+          {value && (
+            <div className="text-2xl font-bold tracking-tight text-foreground">{value}</div>
+          )}
           {trend && <TrendPill trend={trend} />}
         </div>
       )}
@@ -230,7 +234,16 @@ function ChartRenderer({ type, ...props }: ChartRendererProps & { type: ChartTyp
   return <RadialChart {...props} />;
 }
 
-function BarChart({ title, data, height, max, formatValue, showGrid, showAxis, tone }: ChartRendererProps) {
+function BarChart({
+  title,
+  data,
+  height,
+  max,
+  formatValue,
+  showGrid,
+  showAxis,
+  tone,
+}: ChartRendererProps) {
   const resolvedMax = max ?? Math.max(...data.map((point) => point.value), 1);
 
   return (
@@ -240,13 +253,18 @@ function BarChart({ title, data, height, max, formatValue, showGrid, showAxis, t
         {data.map((point, index) => {
           const pct = toPercent(point.value, resolvedMax);
           return (
-            <div key={point.label} className="flex h-full min-w-0 flex-1 flex-col items-center gap-1">
+            <div
+              key={point.label}
+              className="flex h-full min-w-0 flex-1 flex-col items-center gap-1"
+            >
               <span className="text-[10px] font-semibold tabular-nums text-foreground">
                 {formatValue(point.value)}
               </span>
               <div className="flex w-full flex-1 items-end">
                 <div
-                  className="w-full rounded-t-md transition-all duration-500"
+                  // 자라는 건 height 하나다. transition-all 이면 background-color 재계산까지
+                  // 매 프레임 끌고 들어간다 — 실제로 움직이는 속성만 지목한다.
+                  className="w-full rounded-t-md transition-[height] duration-500 motion-reduce:transition-none"
                   style={{
                     height: `${pct}%`,
                     minHeight: point.value > 0 ? 4 : 0,
@@ -255,7 +273,9 @@ function BarChart({ title, data, height, max, formatValue, showGrid, showAxis, t
                 />
               </div>
               {showAxis && (
-                <span className="w-full truncate text-center text-[10px] text-muted">{point.label}</span>
+                <span className="w-full truncate text-center text-[10px] text-muted">
+                  {point.label}
+                </span>
               )}
             </div>
           );
@@ -286,12 +306,18 @@ function HorizontalBarChart({
       {data.map((point, index) => {
         const pct = toPercent(point.value, resolvedMax);
         return (
-          <div key={point.label} className="grid grid-cols-[minmax(4rem,7rem)_1fr_auto] items-center gap-3">
+          <div
+            key={point.label}
+            className="grid grid-cols-[minmax(4rem,7rem)_1fr_auto] items-center gap-3"
+          >
             <span className="truncate text-xs font-medium text-muted">{point.label}</span>
-            <div className="h-2.5 overflow-hidden rounded-full bg-gray-100">
+            <div className="h-2.5 overflow-hidden rounded-full bg-border-light">
               <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{ width: `${pct}%`, backgroundColor: point.color || paletteColor(index, tone) }}
+                className="h-full rounded-full transition-[width] duration-500 motion-reduce:transition-none"
+                style={{
+                  width: `${pct}%`,
+                  backgroundColor: point.color || paletteColor(index, tone),
+                }}
               />
             </div>
             {showAxis && (
@@ -326,17 +352,25 @@ function StackedBarChart({
   const legendItems = getStackedLegendItems(rows);
 
   return (
-    <div className="flex flex-col justify-center gap-3" style={{ minHeight: height }} role="img" aria-label={`${title} 누적 막대 차트`}>
+    <div
+      className="flex flex-col justify-center gap-3"
+      style={{ minHeight: height }}
+      role="img"
+      aria-label={`${title} 누적 막대 차트`}
+    >
       <div className="flex flex-col gap-3">
         {rows.map((row) => (
-          <div key={row.label} className="grid grid-cols-[minmax(4rem,6rem)_1fr_auto] items-center gap-3">
+          <div
+            key={row.label}
+            className="grid grid-cols-[minmax(4rem,6rem)_1fr_auto] items-center gap-3"
+          >
             <span className="truncate text-xs font-medium text-muted">{row.label}</span>
-            <div className="flex h-3 overflow-hidden rounded-full bg-gray-100">
+            <div className="flex h-3 overflow-hidden rounded-full bg-border-light">
               {row.segments.map((segment, index) => (
                 <div
                   key={`${row.label}-${segment.label}`}
                   title={`${segment.label}: ${formatValue(segment.value)}`}
-                  className="h-full transition-all duration-500"
+                  className="h-full transition-[width] duration-500 motion-reduce:transition-none"
                   style={{
                     width: `${toPercent(segment.value, resolvedMax)}%`,
                     backgroundColor: segment.color || paletteColor(index, tone),
@@ -371,12 +405,19 @@ function LineChart({
   const points = buildPoints(data, width, height, padding);
   const path = pointsToPath(points);
   const bottomY = height - padding.bottom;
-  const areaPath = points.length ? `${path} L${points[points.length - 1].x},${bottomY} L${points[0].x},${bottomY} Z` : "";
+  const areaPath = points.length
+    ? `${path} L${points[points.length - 1].x},${bottomY} L${points[0].x},${bottomY} Z`
+    : "";
   const stroke = toneColor[tone];
 
   return (
     <div role="img" aria-label={`${title} ${area ? "영역" : "라인"} 차트`}>
-      <svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} className="overflow-visible">
+      <svg
+        width="100%"
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        className="overflow-visible"
+      >
         <title>{title}</title>
         {area && (
           <defs>
@@ -388,14 +429,22 @@ function LineChart({
         )}
         {showGrid && <SvgGrid width={width} height={height} bottom={padding.bottom} />}
         {area && <path d={areaPath} fill={`url(#${gradientId})`} />}
-        <path d={path} fill="none" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d={path}
+          fill="none"
+          stroke={stroke}
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
         {points.map((point, index) => (
           <circle
             key={`${point.label}-${index}`}
             cx={point.x}
             cy={point.y}
             r={index === points.length - 1 ? 4 : 2.5}
-            fill="white"
+            // 점 안쪽은 카드 배경과 같아야 "도넛"으로 보인다. 흰색으로 굳히면 다크에서 흰 점이 뜬다.
+            fill="var(--card)"
             stroke={data[index]?.color || stroke}
             strokeWidth="2"
           />
@@ -416,11 +465,19 @@ function DonutChart({ title, data, height, formatValue, showLegend, tone }: Char
         items: [...state.items, { point, index, pct, offset: state.offset }],
       };
     },
-    { offset: 0, items: [] as { point: ChartDataPoint; index: number; pct: number; offset: number }[] },
+    {
+      offset: 0,
+      items: [] as { point: ChartDataPoint; index: number; pct: number; offset: number }[],
+    },
   );
 
   return (
-    <div className="flex items-center gap-5" style={{ minHeight: height }} role="img" aria-label={`${title} 도넛 차트`}>
+    <div
+      className="flex items-center gap-5"
+      style={{ minHeight: height }}
+      role="img"
+      aria-label={`${title} 도넛 차트`}
+    >
       <svg width="118" height="118" viewBox="0 0 36 36" className="shrink-0">
         <title>{title}</title>
         <circle cx="18" cy="18" r="14" fill="none" stroke="var(--border-light)" strokeWidth="4" />
@@ -436,7 +493,7 @@ function DonutChart({ title, data, height, formatValue, showLegend, tone }: Char
             strokeDasharray={`${pct} ${100 - pct}`}
             strokeDashoffset={-offset}
             strokeLinecap="round"
-            className="transition-all duration-500"
+            className="transition-[stroke-dasharray,stroke-dashoffset] duration-500 motion-reduce:transition-none"
             pathLength={100}
             style={{ transformOrigin: "center", transform: "rotate(-90deg)" }}
           />
@@ -469,13 +526,20 @@ function SparklineChart({ title, data, height, formatValue, tone }: ChartRendere
   const points = buildPoints(data, width, height, padding);
   const path = pointsToPath(points);
   const bottomY = height - padding.bottom;
-  const areaPath = points.length ? `${path} L${points[points.length - 1].x},${bottomY} L${points[0].x},${bottomY} Z` : "";
+  const areaPath = points.length
+    ? `${path} L${points[points.length - 1].x},${bottomY} L${points[0].x},${bottomY} Z`
+    : "";
   const stroke = toneColor[tone];
   const last = data[data.length - 1];
 
   return (
     <div role="img" aria-label={`${title} 스파크라인`}>
-      <svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`} className="overflow-visible">
+      <svg
+        width="100%"
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        className="overflow-visible"
+      >
         <title>{title}</title>
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -484,14 +548,30 @@ function SparklineChart({ title, data, height, formatValue, tone }: ChartRendere
           </linearGradient>
         </defs>
         <path d={areaPath} fill={`url(#${gradientId})`} />
-        <path d={path} fill="none" stroke={stroke} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d={path}
+          fill="none"
+          stroke={stroke}
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
         {points.length > 0 && (
-          <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r="3.5" fill={stroke} />
+          <circle
+            cx={points[points.length - 1].x}
+            cy={points[points.length - 1].y}
+            r="3.5"
+            fill={stroke}
+          />
         )}
       </svg>
       <div className="mt-1 flex items-center justify-between text-[10px]">
         <span className="truncate text-muted">{data[0]?.label}</span>
-        {last && <span className="font-semibold tabular-nums text-foreground">{formatValue(last.value)}</span>}
+        {last && (
+          <span className="font-semibold tabular-nums text-foreground">
+            {formatValue(last.value)}
+          </span>
+        )}
         <span className="truncate text-muted">{last?.label}</span>
       </div>
     </div>
@@ -502,19 +582,29 @@ function ProgressChart({ title, data, height, max, formatValue, tone }: ChartRen
   const resolvedMax = max ?? 100;
 
   return (
-    <div className="flex flex-col justify-center gap-4" style={{ minHeight: height }} role="img" aria-label={`${title} 진행률 차트`}>
+    <div
+      className="flex flex-col justify-center gap-4"
+      style={{ minHeight: height }}
+      role="img"
+      aria-label={`${title} 진행률 차트`}
+    >
       {data.map((point, index) => {
         const pct = toPercent(point.value, resolvedMax);
         return (
           <div key={point.label}>
             <div className="mb-1.5 flex items-center justify-between gap-3">
               <span className="truncate text-xs font-medium text-foreground">{point.label}</span>
-              <span className="text-xs font-semibold tabular-nums text-muted">{formatValue(point.value)}</span>
+              <span className="text-xs font-semibold tabular-nums text-muted">
+                {formatValue(point.value)}
+              </span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+            <div className="h-2 overflow-hidden rounded-full bg-border-light">
               <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{ width: `${pct}%`, backgroundColor: point.color || paletteColor(index, tone) }}
+                className="h-full rounded-full transition-[width] duration-500 motion-reduce:transition-none"
+                style={{
+                  width: `${pct}%`,
+                  backgroundColor: point.color || paletteColor(index, tone),
+                }}
               />
             </div>
           </div>
@@ -524,14 +614,27 @@ function ProgressChart({ title, data, height, max, formatValue, tone }: ChartRen
   );
 }
 
-function RadialChart({ title, data, height, max, formatValue, showLegend, tone }: ChartRendererProps) {
+function RadialChart({
+  title,
+  data,
+  height,
+  max,
+  formatValue,
+  showLegend,
+  tone,
+}: ChartRendererProps) {
   const point = data[0];
   const resolvedMax = max ?? 100;
   const pct = toPercent(point.value, resolvedMax);
   const stroke = point.color || toneColor[tone];
 
   return (
-    <div className="flex items-center gap-5" style={{ minHeight: height }} role="img" aria-label={`${title} 방사형 차트`}>
+    <div
+      className="flex items-center gap-5"
+      style={{ minHeight: height }}
+      role="img"
+      aria-label={`${title} 방사형 차트`}
+    >
       <svg width="118" height="118" viewBox="0 0 36 36" className="shrink-0">
         <title>{title}</title>
         <circle cx="18" cy="18" r="14" fill="none" stroke="var(--border-light)" strokeWidth="4" />
@@ -560,8 +663,11 @@ function RadialChart({ title, data, height, max, formatValue, showLegend, tone }
           <div className="mt-1 text-xs text-muted">
             목표 {formatValue(resolvedMax)} 중 {formatValue(point.value)}
           </div>
-          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-gray-100">
-            <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: stroke }} />
+          <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-border-light">
+            <div
+              className="h-full rounded-full"
+              style={{ width: `${pct}%`, backgroundColor: stroke }}
+            />
           </div>
         </div>
       )}
@@ -574,11 +680,16 @@ function TrendPill({ trend }: { trend: ChartTrend }) {
   const className = {
     up: "bg-success-light text-success",
     down: "bg-danger-light text-danger",
-    neutral: "bg-gray-100 text-muted",
+    neutral: "bg-surface-soft text-muted",
   }[direction];
 
   return (
-    <div className={cn("inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold", className)}>
+    <div
+      className={cn(
+        "inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold",
+        className,
+      )}
+    >
       <TrendIcon direction={direction} />
       <span>{trend.value}</span>
       {trend.label && <span className="font-normal opacity-80">{trend.label}</span>}
@@ -604,7 +715,13 @@ function TrendIcon({ direction }: { direction: "up" | "down" | "neutral" }) {
       aria-hidden="true"
       className={direction === "down" ? "rotate-180" : undefined}
     >
-      <path d="M3 7.5 6 4.5l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M3 7.5 6 4.5l3 3"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -622,7 +739,9 @@ function ChartLegend({
         <div key={item.label} className="flex min-w-0 items-center gap-2 text-xs">
           <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: item.color }} />
           <span className="min-w-0 flex-1 truncate text-muted">{item.label}</span>
-          {item.value && <span className="font-semibold tabular-nums text-foreground">{item.value}</span>}
+          {item.value && (
+            <span className="font-semibold tabular-nums text-foreground">{item.value}</span>
+          )}
         </div>
       ))}
     </div>
@@ -645,13 +764,29 @@ function SvgGrid({ width, height, bottom }: { width: number; height: number; bot
     <g aria-hidden="true">
       {Array.from({ length: rows }, (_, index) => {
         const y = 12 + (index / (rows - 1)) * (height - bottom - 12);
-        return <line key={index} x1="0" x2={width} y1={y} y2={y} stroke="var(--border-light)" strokeWidth="1" />;
+        return (
+          <line
+            key={index}
+            x1="0"
+            x2={width}
+            y1={y}
+            y2={y}
+            stroke="var(--border-light)"
+            strokeWidth="1"
+          />
+        );
       })}
     </g>
   );
 }
 
-function ChartAxis({ data, formatValue }: { data: ChartDataPoint[]; formatValue: (value: number) => string }) {
+function ChartAxis({
+  data,
+  formatValue,
+}: {
+  data: ChartDataPoint[];
+  formatValue: (value: number) => string;
+}) {
   const first = data[0];
   const last = data[data.length - 1];
   const max = Math.max(...data.map((point) => point.value));
@@ -667,11 +802,14 @@ function ChartAxis({ data, formatValue }: { data: ChartDataPoint[]; formatValue:
 
 function ChartSkeleton({ height }: { height: number }) {
   return (
-    <div className="flex animate-pulse items-end gap-2" style={{ height }}>
+    <div
+      className="flex animate-pulse motion-reduce:animate-none items-end gap-2"
+      style={{ height }}
+    >
       {Array.from({ length: 7 }, (_, index) => (
         <div
           key={index}
-          className="flex-1 rounded-t-md bg-gray-200"
+          className="flex-1 rounded-t-md bg-border"
           style={{ height: `${32 + ((index * 17) % 52)}%` }}
         />
       ))}
@@ -682,7 +820,7 @@ function ChartSkeleton({ height }: { height: number }) {
 function ChartEmptyState({ height, message }: { height: number; message: string }) {
   return (
     <div
-      className="flex items-center justify-center rounded-lg border border-dashed border-border bg-gray-50/60 text-sm text-muted"
+      className="flex items-center justify-center rounded-xl border border-dashed border-border bg-surface-soft/60 text-sm text-muted"
       style={{ minHeight: height }}
     >
       {message}
@@ -712,7 +850,9 @@ function buildPoints(
 }
 
 function pointsToPath(points: Point[]) {
-  return points.map((point, index) => `${index === 0 ? "M" : "L"}${round(point.x)},${round(point.y)}`).join(" ");
+  return points
+    .map((point, index) => `${index === 0 ? "M" : "L"}${round(point.x)},${round(point.y)}`)
+    .join(" ");
 }
 
 function getStackedLegendItems(

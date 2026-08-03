@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Result",
   "oneLiner": "결과 페이지 컴포넌트",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

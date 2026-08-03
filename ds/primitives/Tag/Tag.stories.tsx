@@ -5,7 +5,10 @@ const meta: Meta<typeof Tag> = {
   title: "Primitives/Tag",
   component: Tag,
   argTypes: {
-    color: { control: "select", options: ["gray", "primary", "blue", "green", "red", "orange", "purple", "teal"] },
+    color: {
+      control: "select",
+      options: ["gray", "primary", "blue", "green", "red", "orange", "purple", "teal"],
+    },
     closable: { control: "boolean" },
   },
   args: { children: "태그", color: "gray" },

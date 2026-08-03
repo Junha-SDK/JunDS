@@ -16,11 +16,14 @@ export interface UseClipboardReturn {
 export function useClipboard(timeout: number = 2000): UseClipboardReturn {
   const [copied, setCopied] = useState(false);
 
-  const copy = useCallback(async (text: string) => {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), timeout);
-  }, [timeout]);
+  const copy = useCallback(
+    async (text: string) => {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), timeout);
+    },
+    [timeout],
+  );
 
   const read = useCallback(async () => {
     return navigator.clipboard.readText();

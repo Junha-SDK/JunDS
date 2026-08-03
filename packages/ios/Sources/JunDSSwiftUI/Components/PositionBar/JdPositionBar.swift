@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-position-bar 동형 — 구간 대비 현재 위치 막대. (DEC-041)
 //
@@ -51,10 +51,13 @@ public struct JdPositionBar: View {
         // 웹 v2는 순수 장식 div였다(대체 텍스트 0) — v3가 얹은 낭독을 iOS도 따른다
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(.isImage)
-        .accessibilityLabel(Text(JdPositionBarGeometry.accessibilityText(low: low, high: high, cur: cur)))
+        .accessibilityLabel(
+            Text(JdPositionBarGeometry.accessibilityText(low: low, high: high, cur: cur)))
     }
 
-    private func bar(color: JdDynamicColor, start: Double, width: Double, in total: CGFloat) -> some View {
+    private func bar(
+        color: JdDynamicColor, start: Double, width: Double, in total: CGFloat
+    ) -> some View {
         Capsule()
             .fill(color.color)
             .frame(width: total * CGFloat(width / 100))

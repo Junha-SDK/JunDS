@@ -45,7 +45,14 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
           <button
             type="button"
             onClick={() => setAddOpen(true)}
-            className="shrink-0 inline-flex items-center gap-1 px-2.5 h-7 rounded-lg text-[12px] font-extrabold"
+            className={[
+              "shrink-0 inline-flex items-center gap-1 px-2.5 h-7 rounded-lg text-[12px] font-extrabold",
+              "cursor-pointer whitespace-nowrap transition-[filter] duration-150",
+              // 배경색이 인라인 style 로 고정돼 있어 hover 배경 클래스는 먹지 않는다.
+              // 눌림 반응은 filter, 포커스 표시는 인라인에 지지 않는 outline 으로 준다.
+              "hover:brightness-110 active:brightness-95",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--bm-accent-strong)]",
+            ].join(" ")}
             style={{ background: "var(--bm-accent-strong)", color: "var(--bm-card)" }}
           >
             <AppIcon name="plus" size={12} strokeWidth={2.6} />
@@ -53,7 +60,11 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
           </button>
           <Link
             href={`/portfolio/holdings`}
-            className="shrink-0 inline-flex items-center gap-0.5 text-[12px] font-bold"
+            className={[
+              "shrink-0 inline-flex items-center gap-0.5 text-[12px] font-bold rounded-md px-1 -mx-1",
+              "whitespace-nowrap transition-[filter] duration-150 hover:brightness-110",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--bm-accent-strong)]",
+            ].join(" ")}
             style={{ color: "var(--bm-accent-strong)" }}
           >
             전체
@@ -77,10 +88,7 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
   const profitColor = profit >= 0 ? "var(--bm-up)" : "var(--bm-down)";
 
   return (
-    <section
-      className="bm-card overflow-hidden"
-      style={{ border: "1px solid var(--bm-border)" }}
-    >
+    <section className="bm-card overflow-hidden" style={{ border: "1px solid var(--bm-border)" }}>
       <header
         className="px-4 py-3 flex items-center justify-between"
         style={{ borderBottom: "1px solid var(--bm-border)" }}
@@ -96,22 +104,14 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
 
       <div className="p-4 grid grid-cols-2 lg:grid-cols-4 gap-3">
         <Cell label="보유 수량" value={`${holding.qty.toLocaleString("ko-KR")}주`} />
-        <Cell
-          label="평균 단가"
-          value={holding.avgCost.toLocaleString("ko-KR")}
-          unit="원"
-        />
+        <Cell label="평균 단가" value={holding.avgCost.toLocaleString("ko-KR")} unit="원" />
         <Cell
           label="현재가"
           value={price.toLocaleString("ko-KR")}
           unit="원"
           tone={price >= holding.avgCost ? "up" : "down"}
         />
-        <Cell
-          label="평가금액"
-          value={Math.round(market).toLocaleString("ko-KR")}
-          unit="원"
-        />
+        <Cell label="평가금액" value={Math.round(market).toLocaleString("ko-KR")} unit="원" />
       </div>
 
       <div
@@ -122,7 +122,10 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
           <div className="text-[10.5px] font-bold" style={{ color: "var(--bm-muted)" }}>
             평가손익
           </div>
-          <div className="bm-num font-extrabold text-[20px]" style={{ color: profitColor }}>
+          <div
+            className="bm-num font-extrabold text-[20px] tabular-nums whitespace-nowrap"
+            style={{ color: profitColor }}
+          >
             {fmtSigned(Math.round(profit))}
           </div>
         </div>
@@ -130,7 +133,7 @@ export function MyPositionPanel({ name }: MyPositionPanelProps) {
           <div className="text-[10.5px] font-bold" style={{ color: "var(--bm-muted)" }}>
             매입금액
           </div>
-          <div className="bm-num font-extrabold text-[16px]">
+          <div className="bm-num font-extrabold text-[16px] tabular-nums whitespace-nowrap">
             {Math.round(cost).toLocaleString("ko-KR")}
           </div>
         </div>
@@ -150,18 +153,22 @@ function Cell({
   unit?: string;
   tone?: "up" | "down";
 }) {
-  const color = tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
+  const color =
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
   return (
-    <div
-      className="rounded-xl px-3 py-2.5"
-      style={{ background: "var(--bm-soft-100)" }}
-    >
+    <div className="rounded-xl px-3 py-2.5" style={{ background: "var(--bm-soft-100)" }}>
       <div className="text-[10.5px] font-bold" style={{ color: "var(--bm-muted)" }}>
         {label}
       </div>
-      <div className="bm-num font-extrabold text-[15px] mt-0.5" style={{ color }}>
+      {/* 숫자와 단위가 줄바꿈으로 갈라지면 "12,340\n원" 처럼 읽힌다 — 한 덩어리로 묶는다. */}
+      <div
+        className="bm-num font-extrabold text-[15px] mt-0.5 tabular-nums whitespace-nowrap truncate"
+        style={{ color }}
+      >
         {value}
-        {unit ? <span className="text-[10.5px] ml-0.5 font-semibold opacity-70">{unit}</span> : null}
+        {unit ? (
+          <span className="text-[10.5px] ml-0.5 font-semibold opacity-70">{unit}</span>
+        ) : null}
       </div>
     </div>
   );

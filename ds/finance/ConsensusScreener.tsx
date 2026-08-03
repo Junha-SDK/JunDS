@@ -54,7 +54,8 @@ export function ConsensusScreener({ rows, bullishness }: ConsensusScreenerProps)
             aria-label="정렬 기준"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="text-[12px] font-bold rounded-md px-2 h-7 outline-none"
+            // outline-none 만 걸면 키보드 사용자에게 포커스가 사라진다 — ring 을 같이 준다.
+            className="text-[12px] font-bold rounded-md px-2 h-7 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
             style={{
               background: "var(--bm-soft-100)",
               border: "1px solid var(--bm-border)",
@@ -85,36 +86,41 @@ export function ConsensusScreener({ rows, bullishness }: ConsensusScreenerProps)
           {[0, 3, 5, 6, 7, 8].map((n) => (
             <button
               key={n}
+              type="button"
+              aria-pressed={minBulls === n}
               onClick={() => setMinBulls(n)}
-              className="h-7 min-w-[34px] rounded-md text-[12px] font-extrabold transition-colors"
+              className="h-7 min-w-[34px] rounded-md text-[12px] font-extrabold cursor-pointer transition-colors active:scale-[0.96] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
               style={{
                 background: minBulls === n ? "var(--bm-accent-strong)" : "var(--bm-soft-100)",
                 color: minBulls === n ? "#fff" : "var(--bm-text)",
-                border: `1px solid ${minBulls === n ? "var(--bm-accent-strong)" : "var(--bm-border)"}`,
+                border: `1px solid ${
+                  minBulls === n ? "var(--bm-accent-strong)" : "var(--bm-border)"
+                }`,
               }}
             >
               {n === 0 ? "전체" : `${n}+`}
             </button>
           ))}
         </div>
-        <span
-          className="ml-auto text-[11.5px] bm-num"
-          style={{ color: "var(--bm-muted)" }}
-        >
+        <span className="ml-auto text-[11.5px] bm-num" style={{ color: "var(--bm-muted)" }}>
           {filtered.length}개 종목
         </span>
       </div>
 
       {/* Investor chip row */}
       <div
-        className="px-4 py-2.5 flex items-center gap-2 overflow-x-auto bm-scroll-x"
+        // 가로 스크롤이 끝에 닿았을 때 페이지까지 끌려가지 않게 한다.
+        className="px-4 py-2.5 flex items-center gap-2 overflow-x-auto overscroll-x-contain bm-scroll-x"
         style={{ borderBottom: "1px solid var(--bm-border)" }}
       >
         <button
+          type="button"
+          aria-pressed={filterInvestor === "all"}
           onClick={() => setFilterInvestor("all")}
-          className="bm-chip shrink-0"
+          className="bm-chip shrink-0 cursor-pointer transition-colors active:scale-[0.96] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
           style={{
-            background: filterInvestor === "all" ? "var(--bm-accent-soft-bg)" : "var(--bm-soft-100)",
+            background:
+              filterInvestor === "all" ? "var(--bm-accent-soft-bg)" : "var(--bm-soft-100)",
             color: filterInvestor === "all" ? "var(--bm-accent-strong)" : "var(--bm-text)",
             borderColor: filterInvestor === "all" ? "var(--bm-accent)" : "transparent",
           }}
@@ -127,8 +133,10 @@ export function ConsensusScreener({ rows, bullishness }: ConsensusScreenerProps)
           return (
             <button
               key={inv.id}
+              type="button"
+              aria-pressed={isOn}
               onClick={() => setFilterInvestor(inv.id)}
-              className="bm-chip shrink-0"
+              className="bm-chip shrink-0 cursor-pointer transition-colors active:scale-[0.96] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
               title={`${inv.name} 매수 의견 종목만 보기`}
               style={{
                 background: isOn ? "var(--bm-accent-soft-bg)" : "var(--bm-soft-100)",
@@ -139,10 +147,7 @@ export function ConsensusScreener({ rows, bullishness }: ConsensusScreenerProps)
               <span aria-hidden>{inv.emoji}</span>
               <span>{inv.name.split(" ").slice(-1)[0]}</span>
               {count != null ? (
-                <span
-                  className="bm-num text-[10px] font-extrabold"
-                  style={{ opacity: 0.7 }}
-                >
+                <span className="bm-num text-[10px] font-extrabold" style={{ opacity: 0.7 }}>
                   {count}
                 </span>
               ) : null}
@@ -161,7 +166,7 @@ export function ConsensusScreener({ rows, bullishness }: ConsensusScreenerProps)
           <div className="bm-empty-desc">필터를 완화해 보세요.</div>
         </div>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overscroll-x-contain">
           <table className="bm-table text-[13px]">
             <thead>
               <tr>
@@ -182,7 +187,7 @@ export function ConsensusScreener({ rows, bullishness }: ConsensusScreenerProps)
                   <td>
                     <Link
                       href={`/stock/${encodeURIComponent(row.name)}/investor`}
-                      className="font-extrabold hover:underline"
+                      className="font-extrabold hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
                     >
                       {row.name}
                     </Link>

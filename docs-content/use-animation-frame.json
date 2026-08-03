@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useAnimationFrame",
   "oneLiner": "requestAnimationFrame 루프.",
-  "tags": [
-    "hook",
-    "animation",
-    "raf"
-  ],
+  "tags": ["hook", "animation", "raf"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // useCountUp 데모 — **Core 유틸 실동작**(뷰 없음). 웹 훅의 iOS 대응은 순수 이징 함수 `JdCountUp`다.
 // 데모는 이징을 재구현하지 않는다 — 프레임마다 진행률 t(0…1)를 JdCountUp.value에 넘겨 값 위치를 받는다.
@@ -62,12 +62,14 @@ private struct CountUpStage: View {
 
     var body: some View {
         VStack(spacing: JdToken.Space.s5) {
-            JdText("\(Int(model.displayed.rounded()))",
-                   size: .xl4, weight: JdToken.FontWeight.bold, mono: true, lineLimit: 1)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, JdToken.Space.s4)
-                .background(JdToken.Color.cardHover.color)
-                .cornerRadius(JdToken.Radius.lg)
+            JdText(
+                "\(Int(model.displayed.rounded()))",
+                size: .xl4, weight: JdToken.FontWeight.bold, mono: true, lineLimit: 1
+            )
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, JdToken.Space.s4)
+            .background(JdToken.Color.cardHover.color)
+            .cornerRadius(JdToken.Radius.lg)
 
             // 진행률 바 — easeOutExpo라 초반이 빠르고 끝이 느리다(감속)
             GeometryReader { geo in
@@ -83,11 +85,13 @@ private struct CountUpStage: View {
                 model.start(to: countUpTarget(state), duration: countUpDuration(state))
             }
 
-            Text("프레임마다 t(0…1)를 JdCountUp.value(from:to:progress:)에 넘겨 값을 받는다 — 이징(easeOutExpo)은 "
-                 + "Core가, 프레임 구동은 데모가 한다. duration은 JdMotion.duration을 거쳐 Reduce Motion이면 즉시 도달한다.")
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            Text(
+                "프레임마다 t(0…1)를 JdCountUp.value(from:to:progress:)에 넘겨 값을 받는다 — 이징(easeOutExpo)은 "
+                    + "Core가, 프레임 구동은 데모가 한다. duration은 JdMotion.duration을 거쳐 Reduce Motion이면 즉시 도달한다."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
         .padding(JdToken.Space.s6)

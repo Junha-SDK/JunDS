@@ -31,20 +31,76 @@ export interface NewsSummary {
 }
 
 const POSITIVE_TERMS = [
-  "호실적", "역대 최대", "신고가", "수주", "공급계약", "기술이전",
-  "흑자전환", "급등", "강세", "상향", "확대", "성장", "돌파", "수출",
-  "혁신", "신규", "최대", "수혜", "자사주", "배당", "특허",
+  "호실적",
+  "역대 최대",
+  "신고가",
+  "수주",
+  "공급계약",
+  "기술이전",
+  "흑자전환",
+  "급등",
+  "강세",
+  "상향",
+  "확대",
+  "성장",
+  "돌파",
+  "수출",
+  "혁신",
+  "신규",
+  "최대",
+  "수혜",
+  "자사주",
+  "배당",
+  "특허",
 ];
 const NEGATIVE_TERMS = [
-  "하향", "급락", "약세", "감자", "유상증자", "감소", "적자전환",
-  "손실", "리콜", "소송", "거래정지", "관리종목", "상장폐지",
-  "횡령", "배임", "매각", "철수", "파업", "리스크",
+  "하향",
+  "급락",
+  "약세",
+  "감자",
+  "유상증자",
+  "감소",
+  "적자전환",
+  "손실",
+  "리콜",
+  "소송",
+  "거래정지",
+  "관리종목",
+  "상장폐지",
+  "횡령",
+  "배임",
+  "매각",
+  "철수",
+  "파업",
+  "리스크",
 ];
 
 const STOPWORDS = new Set([
-  "그리고", "그러나", "하지만", "또한", "이번", "지난", "최근", "오늘",
-  "내일", "관련", "위해", "위한", "있다", "이다", "있는", "했다", "하는",
-  "에서", "으로", "에는", "이는", "라고", "라며", "보다", "에서는",
+  "그리고",
+  "그러나",
+  "하지만",
+  "또한",
+  "이번",
+  "지난",
+  "최근",
+  "오늘",
+  "내일",
+  "관련",
+  "위해",
+  "위한",
+  "있다",
+  "이다",
+  "있는",
+  "했다",
+  "하는",
+  "에서",
+  "으로",
+  "에는",
+  "이는",
+  "라고",
+  "라며",
+  "보다",
+  "에서는",
 ]);
 
 function splitSentences(text: string): string[] {
@@ -81,8 +137,7 @@ export function summarizeNews(items: SummarizableNews[], maxSentences = 3): News
   const tf = new Map<string, number>();
   for (const it of items) {
     for (const w of tokenize(it.title)) tf.set(w, (tf.get(w) ?? 0) + 2);
-    if (it.description)
-      for (const w of tokenize(it.description)) tf.set(w, (tf.get(w) ?? 0) + 1);
+    if (it.description) for (const w of tokenize(it.description)) tf.set(w, (tf.get(w) ?? 0) + 1);
   }
 
   // Candidate sentences pool — both titles and description sentences
@@ -100,9 +155,7 @@ export function summarizeNews(items: SummarizableNews[], maxSentences = 3): News
   // Score each candidate
   const scored = candidates.map((c) => {
     const tokens = tokenize(c.text);
-    const score =
-      tokens.reduce((s, t) => s + (tf.get(t) ?? 0), 0) *
-      Math.max(0.3, c.weight);
+    const score = tokens.reduce((s, t) => s + (tf.get(t) ?? 0), 0) * Math.max(0.3, c.weight);
     return { ...c, score };
   });
   scored.sort((a, b) => b.score - a.score);

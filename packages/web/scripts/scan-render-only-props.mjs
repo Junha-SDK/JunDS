@@ -19,7 +19,7 @@
  * 실행:  node packages/web/scripts/scan-render-only-props.mjs [--json] [--check]
  *   --check 는 ALLOW 목록 밖의 검출이 하나라도 있으면 exit 1 (게이트용).
  */
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -124,7 +124,12 @@ function declaredProps(src) {
 const findings = [];
 for (const dir of readdirSync(componentsDir, { withFileTypes: true })) {
   if (!dir.isDirectory()) continue;
-  const src = readFileSync(join(componentsDir, dir.name, "element.ts"), "utf8");
+  /* element.ts 가 없는 디렉터리는 컴포넌트가 아니다. 실제로 잘못된 cwd 에서 실행된
+     명령이 src/components/packages/ios/... 를 만들어 게이트가 ENOENT 로 죽은 적이
+     있다 — 검사기가 트리 오염에 죽으면 정작 검사를 못 한다(gen-exports 와 같은 가드). */
+  const elementPath = join(componentsDir, dir.name, "element.ts");
+  if (!existsSync(elementPath)) continue;
+  const src = readFileSync(elementPath, "utf8");
   const declared = declaredProps(src);
   if (declared.size === 0) continue;
 
@@ -142,7 +147,10 @@ for (const dir of readdirSync(componentsDir, { withFileTypes: true })) {
     methodBody(
       src,
       new RegExp(
-        `(?:^|\\n)\\s*(?:static\\s+)?(?:private\\s+)?(?:get\\s+|set\\s+|async\\s+)?${name.replace("#", "\\#")}\\s*\\(`,
+        `(?:^|\\n)\\s*(?:static\\s+)?(?:private\\s+)?(?:get\\s+|set\\s+|async\\s+)?${name.replace(
+          "#",
+          "\\#",
+        )}\\s*\\(`,
       ),
     );
   const expand = (acc, members, depth) => {
@@ -173,6 +181,8 @@ if (json) {
   for (const f of findings) console.log(`  ${f.component.padEnd(28)} ${f.props.join(", ")}`);
 }
 if (process.argv.includes("--check") && findings.length) {
-  console.error("\n✗ 갱신 경로가 없는 프롭이 있다 — update() 에서도 읽거나 ALLOW 에 이유와 함께 등재할 것");
+  console.error(
+    "\n✗ 갱신 경로가 없는 프롭이 있다 — update() 에서도 읽거나 ALLOW 에 이유와 함께 등재할 것",
+  );
   process.exit(1);
 }

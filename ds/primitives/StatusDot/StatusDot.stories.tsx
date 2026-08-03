@@ -5,7 +5,10 @@ const meta: Meta<typeof StatusDot> = {
   title: "Primitives/StatusDot",
   component: StatusDot,
   argTypes: {
-    status: { control: "select", options: ["success", "warning", "danger", "info", "neutral", "pulse"] },
+    status: {
+      control: "select",
+      options: ["success", "warning", "danger", "info", "neutral", "pulse"],
+    },
     size: { control: "radio", options: ["sm", "md", "lg"] },
   },
   args: { status: "success", label: "온라인", size: "md" },

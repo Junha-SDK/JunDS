@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "Portal",
   "oneLiner": "React Portal 래퍼",
-  "tags": [
-    "overlay"
-  ],
+  "tags": ["overlay"],
   "controls": [],
   "snippets": {
     "web": null,

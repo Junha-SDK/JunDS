@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "Mention",
   "oneLiner": "@ 트리거로 사용자 목록을 자동완성하는 멘션 입력.",
-  "tags": [
-    "form",
-    "input",
-    "멘션"
-  ],
+  "tags": ["form", "input", "멘션"],
   "controls": [],
   "snippets": {
     "web": null,

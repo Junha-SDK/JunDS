@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Section 데모 — 레시피형 (04 §10.1). 웹 <jd-section title/description/border/gap>은
 // iOS에서 VStack + (border 시) RoundedRectangle stroke 관용구로 번역된다.
@@ -16,21 +16,21 @@ enum SectionDemo {
         ],
         swiftUI: { state in AnyView(SectionStage(state: state)) },
         recipe: """
-        // 웹 jd-section의 iOS 번역 = VStack 조립 (04 §10.1 — 신규 컴포넌트 없음)
-        VStack(alignment: .leading, spacing: JdGap.md.value) {
-            // 헤더: 제목(h4) + 설명(dimmed)
-            VStack(alignment: .leading, spacing: JdToken.Space.s0_5) {
-                JdHeading(title, level: .h4)
-                JdText(description, size: .sm, dimmed: true)
+            // 웹 jd-section의 iOS 번역 = VStack 조립 (04 §10.1 — 신규 컴포넌트 없음)
+            VStack(alignment: .leading, spacing: JdGap.md.value) {
+                // 헤더: 제목(h4) + 설명(dimmed)
+                VStack(alignment: .leading, spacing: JdToken.Space.s0_5) {
+                    JdHeading(title, level: .h4)
+                    JdText(description, size: .sm, dimmed: true)
+                }
+                // 본문: gap 적용
+                VStack(alignment: .leading, spacing: gap.value) { rows }
             }
-            // 본문: gap 적용
-            VStack(alignment: .leading, spacing: gap.value) { rows }
-        }
-        .padding(JdToken.Space.s4)
-        // border 플래그 → radius xl(16) + border stroke
-        .overlay(RoundedRectangle(cornerRadius: JdToken.Radius.xl2)
-            .stroke(JdToken.Color.border.color, lineWidth: JdToken.Border.thin))
-        """
+            .padding(JdToken.Space.s4)
+            // border 플래그 → radius xl(16) + border stroke
+            .overlay(RoundedRectangle(cornerRadius: JdToken.Radius.xl2)
+                .stroke(JdToken.Color.border.color, lineWidth: JdToken.Border.thin))
+            """
     )
 }
 

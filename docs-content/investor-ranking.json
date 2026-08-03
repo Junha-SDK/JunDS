@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "InvestorRanking",
   "oneLiner": "투자자 수급 순위 리스트.",
-  "tags": [
-    "finance",
-    "수급",
-    "순위"
-  ],
+  "tags": ["finance", "수급", "순위"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useSeo",
   "oneLiner": "SPA 라우팅에서 페이지별 head 메타(title·OG·트위터·canonical·favicon)를 갱신한다.",
-  "tags": [
-    "hook",
-    "seo",
-    "meta"
-  ],
+  "tags": ["hook", "seo", "meta"],
   "controls": [],
   "snippets": {
     "web": null,

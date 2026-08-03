@@ -11,7 +11,10 @@ export interface UseDocumentTitleOptions {
  * @example
  * useDocumentTitle("대시보드 - JunDS");
  */
-export function useDocumentTitle(title: string, { restoreOnUnmount = false }: UseDocumentTitleOptions = {}) {
+export function useDocumentTitle(
+  title: string,
+  { restoreOnUnmount = false }: UseDocumentTitleOptions = {},
+) {
   const previous = useRef<string | null>(null);
 
   useEffect(() => {

@@ -51,14 +51,15 @@ export function createScrollSpy(
     if (typeof document === "undefined") return null;
     let active: string | null = null;
     for (const sel of selectors) {
-      const el = sel.startsWith("#") || sel.startsWith(".")
-        ? document.querySelector(sel)
-        : document.getElementById(sel);
+      const el =
+        sel.startsWith("#") || sel.startsWith(".")
+          ? document.querySelector(sel)
+          : document.getElementById(sel);
       if (!el) continue;
       if (el.getBoundingClientRect().top - offset <= 0) active = el.id || sel.replace(/^#/, "");
       else break; // 문서 순서대로라 첫 미도달에서 끊는다
     }
-    return active ?? (selectors[0]?.replace(/^#/, "") ?? null);
+    return active ?? selectors[0]?.replace(/^#/, "") ?? null;
   };
 
   const watcher = createWatcher<string | null>(resolve(), (set) => {

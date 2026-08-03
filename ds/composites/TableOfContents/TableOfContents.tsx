@@ -75,157 +75,161 @@ function slugify(text: string, used: Set<string>): string {
  * @since 2.3.0
  * @tags navigation
  */
-export const TableOfContents = forwardRef<HTMLElement, TableOfContentsProps>(function TableOfContents(
-  {
-    items: itemsProp,
-    selector = "h2, h3",
-    rootSelector,
-    exclude,
-    observe = true,
-    activeTracking = true,
-    title = "목차",
-    smooth = true,
-    scrollOffset = 0,
-    onItemsChange,
-    emptyFallback = null,
-    className,
-    ...props
-  },
-  ref,
-) {
-  const [items, setItems] = useState<TocItem[]>(itemsProp ?? []);
-  const [activeId, setActiveId] = useState<string | null>(null);
+export const TableOfContents = forwardRef<HTMLElement, TableOfContentsProps>(
+  function TableOfContents(
+    {
+      items: itemsProp,
+      selector = "h2, h3",
+      rootSelector,
+      exclude,
+      observe = true,
+      activeTracking = true,
+      title = "목차",
+      smooth = true,
+      scrollOffset = 0,
+      onItemsChange,
+      emptyFallback = null,
+      className,
+      ...props
+    },
+    ref,
+  ) {
+    const [items, setItems] = useState<TocItem[]>(itemsProp ?? []);
+    const [activeId, setActiveId] = useState<string | null>(null);
 
-  // 콜백을 의존성에 직접 넣으면 인라인 함수를 넘긴 호출부에서 매 렌더 재수집된다
-  const onItemsChangeRef = useRef(onItemsChange);
-  onItemsChangeRef.current = onItemsChange;
+    // 콜백을 의존성에 직접 넣으면 인라인 함수를 넘긴 호출부에서 매 렌더 재수집된다
+    const onItemsChangeRef = useRef(onItemsChange);
+    onItemsChangeRef.current = onItemsChange;
 
-  useEffect(() => {
-    if (itemsProp) { setItems(itemsProp); return; }
-    if (typeof document === "undefined") return;
+    useEffect(() => {
+      if (itemsProp) {
+        setItems(itemsProp);
+        return;
+      }
+      if (typeof document === "undefined") return;
 
-    // 직전 수집 결과. 내용이 실제로 달라졌을 때만 setState 해서, MutationObserver 가
-    // 잦게 울리는 화면에서도 무한 리렌더로 번지지 않게 한다.
-    let last = "";
+      // 직전 수집 결과. 내용이 실제로 달라졌을 때만 setState 해서, MutationObserver 가
+      // 잦게 울리는 화면에서도 무한 리렌더로 번지지 않게 한다.
+      let last = "";
 
-    const collect = () => {
-      const root = rootSelector ? document.querySelector(rootSelector) : document;
-      if (!root) return;
+      const collect = () => {
+        const root = rootSelector ? document.querySelector(rootSelector) : document;
+        if (!root) return;
 
-      const headings = Array.from(root.querySelectorAll<HTMLElement>(selector)).filter(
-        (h) => !exclude || !h.matches(exclude),
+        const headings = Array.from(root.querySelectorAll<HTMLElement>(selector)).filter(
+          (h) => !exclude || !h.matches(exclude),
+        );
+
+        const used = new Set<string>();
+        const list: TocItem[] = headings
+          .filter((h) => h.id || h.textContent?.trim())
+          .map((h) => {
+            if (h.id) used.add(h.id);
+            else h.id = slugify(h.textContent ?? "", used);
+            return {
+              id: h.id,
+              label: h.textContent?.trim() ?? h.id,
+              level: parseInt(h.tagName.replace("H", ""), 10) || 2,
+            };
+          });
+
+        const key = list.map((i) => `${i.level}:${i.id}:${i.label}`).join("|");
+        if (key === last) return;
+        last = key;
+        setItems(list);
+        onItemsChangeRef.current?.(list);
+      };
+
+      collect();
+
+      if (!observe) return;
+
+      // 본문이 lazy 하게 도착하는 경우 마운트 시점에는 헤딩이 하나도 없다.
+      // DOM 이 안정될 때까지 변화를 지켜보며 다시 수집한다.
+      let raf = 0;
+      const mo = new MutationObserver(() => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(collect);
+      });
+      const target = rootSelector
+        ? document.querySelector(rootSelector) ?? document.body
+        : document.body;
+      mo.observe(target, { childList: true, subtree: true });
+
+      return () => {
+        cancelAnimationFrame(raf);
+        mo.disconnect();
+      };
+    }, [itemsProp, selector, rootSelector, exclude, observe]);
+
+    useEffect(() => {
+      if (!activeTracking || items.length === 0 || typeof window === "undefined") return;
+      const obs = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          if (visible[0]) setActiveId(visible[0].target.id);
+        },
+        { rootMargin: "0px 0px -70% 0px", threshold: 0.1 },
       );
+      items.forEach((it) => {
+        const el = document.getElementById(it.id);
+        if (el) obs.observe(el);
+      });
+      return () => obs.disconnect();
+    }, [items, activeTracking]);
 
-      const used = new Set<string>();
-      const list: TocItem[] = headings
-        .filter((h) => h.id || h.textContent?.trim())
-        .map((h) => {
-          if (h.id) used.add(h.id);
-          else h.id = slugify(h.textContent ?? "", used);
-          return {
-            id: h.id,
-            label: h.textContent?.trim() ?? h.id,
-            level: parseInt(h.tagName.replace("H", ""), 10) || 2,
-          };
-        });
+    const handleClick = (e: React.MouseEvent, id: string) => {
+      if (!smooth) return;
+      e.preventDefault();
+      const el = document.getElementById(id);
+      if (!el) return;
 
-      const key = list.map((i) => `${i.level}:${i.id}:${i.label}`).join("|");
-      if (key === last) return;
-      last = key;
-      setItems(list);
-      onItemsChangeRef.current?.(list);
+      // 프로그래매틱 스크롤이 진행되는 동안 useScrollSpy 가 중간 섹션들을 훑으며
+      // 활성 항목을 깜빡이지 않도록 알린다.
+      window.dispatchEvent(new Event("scrollspy:manual"));
+      setActiveId(id);
+
+      if (scrollOffset) {
+        const top = el.getBoundingClientRect().top + window.scrollY - scrollOffset;
+        window.scrollTo({ top, behavior: "smooth" });
+      } else {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      history.replaceState(null, "", `#${id}`);
     };
 
-    collect();
+    if (items.length === 0) return <>{emptyFallback}</>;
+    const minLevel = Math.min(...items.map((i) => i.level));
 
-    if (!observe) return;
-
-    // 본문이 lazy 하게 도착하는 경우 마운트 시점에는 헤딩이 하나도 없다.
-    // DOM 이 안정될 때까지 변화를 지켜보며 다시 수집한다.
-    let raf = 0;
-    const mo = new MutationObserver(() => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(collect);
-    });
-    const target = rootSelector
-      ? (document.querySelector(rootSelector) ?? document.body)
-      : document.body;
-    mo.observe(target, { childList: true, subtree: true });
-
-    return () => {
-      cancelAnimationFrame(raf);
-      mo.disconnect();
-    };
-  }, [itemsProp, selector, rootSelector, exclude, observe]);
-
-  useEffect(() => {
-    if (!activeTracking || items.length === 0 || typeof window === "undefined") return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "0px 0px -70% 0px", threshold: 0.1 },
+    return (
+      <nav ref={ref} aria-label="목차" className={cn("text-sm", className)} {...props}>
+        {title && <div className="mb-2 text-xs uppercase tracking-wider text-muted">{title}</div>}
+        <ul className="flex flex-col gap-1">
+          {items.map((it) => {
+            const isActive = it.id === activeId;
+            return (
+              <li key={it.id} style={{ paddingLeft: (it.level - minLevel) * 12 }}>
+                <a
+                  href={`#${it.id}`}
+                  onClick={(e) => handleClick(e, it.id)}
+                  className={cn(
+                    "block py-0.5 truncate border-l-2 pl-2 rounded-r-lg transition-colors duration-150",
+                    // 왼쪽 경계선이 붙어 있어 offset 링은 잘린다 — 안쪽 링으로 초점을 표시한다
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
+                    isActive
+                      ? "border-primary text-primary-ink font-medium"
+                      : "border-transparent text-muted hover:text-foreground hover:border-border",
+                  )}
+                >
+                  {it.label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     );
-    items.forEach((it) => {
-      const el = document.getElementById(it.id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
-  }, [items, activeTracking]);
-
-  const handleClick = (e: React.MouseEvent, id: string) => {
-    if (!smooth) return;
-    e.preventDefault();
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    // 프로그래매틱 스크롤이 진행되는 동안 useScrollSpy 가 중간 섹션들을 훑으며
-    // 활성 항목을 깜빡이지 않도록 알린다.
-    window.dispatchEvent(new Event("scrollspy:manual"));
-    setActiveId(id);
-
-    if (scrollOffset) {
-      const top = el.getBoundingClientRect().top + window.scrollY - scrollOffset;
-      window.scrollTo({ top, behavior: "smooth" });
-    } else {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    history.replaceState(null, "", `#${id}`);
-  };
-
-  if (items.length === 0) return <>{emptyFallback}</>;
-  const minLevel = Math.min(...items.map((i) => i.level));
-
-  return (
-    <nav
-      ref={ref}
-      aria-label="목차"
-      className={cn("text-sm", className)}
-      {...props}
-    >
-      {title && <div className="mb-2 text-xs uppercase tracking-wider text-muted">{title}</div>}
-      <ul className="flex flex-col gap-1">
-        {items.map((it) => {
-          const isActive = it.id === activeId;
-          return (
-            <li key={it.id} style={{ paddingLeft: (it.level - minLevel) * 12 }}>
-              <a
-                href={`#${it.id}`}
-                onClick={(e) => handleClick(e, it.id)}
-                className={cn(
-                  "block py-0.5 truncate border-l-2 pl-2 transition-colors",
-                  isActive
-                    ? "border-primary text-primary font-medium"
-                    : "border-transparent text-muted hover:text-foreground hover:border-border",
-                )}
-              >
-                {it.label}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  );
-});
+  },
+);

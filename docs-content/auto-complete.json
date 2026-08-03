@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "AutoComplete",
   "oneLiner": "자동완성 입력",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

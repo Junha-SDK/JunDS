@@ -29,8 +29,13 @@ export function AudioPlayer({ src, title, className }: AudioPlayerProps) {
   const togglePlay = useCallback(() => {
     const a = audioRef.current;
     if (!a) return;
-    if (a.paused) { a.play(); setPlaying(true); }
-    else { a.pause(); setPlaying(false); }
+    if (a.paused) {
+      a.play();
+      setPlaying(true);
+    } else {
+      a.pause();
+      setPlaying(false);
+    }
   }, []);
 
   const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -47,13 +52,25 @@ export function AudioPlayer({ src, title, className }: AudioPlayerProps) {
   };
 
   return (
-    <div className={cn("flex items-center gap-3 px-4 py-3 rounded-xl border border-border bg-white", className)}>
+    <div
+      className={cn(
+        "flex items-center gap-3 px-4 py-3 rounded-xl border border-border bg-card",
+        // 면이 있는 카드 — 얕은 그림자 + 상단 인셋 하이라이트로 표면을 세운다
+        "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.12)]",
+        className,
+      )}
+    >
       <audio
         ref={audioRef}
         src={src}
         onTimeUpdate={() => {
           const a = audioRef.current;
-          if (a) { setCurrentTime(a.currentTime); setProgress((a.currentTime / a.duration) * 100); }
+          if (a) {
+            setCurrentTime(a.currentTime);
+            // 메타데이터 전이면 duration 이 NaN/0 이다. scaleX(NaN) 은 transform 선언
+            // 자체를 무효화해 막대가 가득 찬 것처럼 보이므로 0 으로 눌러 둔다
+            setProgress(a.duration > 0 ? (a.currentTime / a.duration) * 100 : 0);
+          }
         }}
         onLoadedMetadata={() => setDuration(audioRef.current?.duration ?? 0)}
         onEnded={() => setPlaying(false)}
@@ -61,21 +78,40 @@ export function AudioPlayer({ src, title, className }: AudioPlayerProps) {
       <button
         type="button"
         onClick={togglePlay}
-        className="shrink-0 w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-primary-hover transition-colors"
+        className={cn(
+          "shrink-0 w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer",
+          // 누름 반응이 transform 이라 전이 대상에 명시한다. 감속 요청은 색이 아니라
+          // 움직임만 끈다 — scale 만 100 으로 고정하고 색 전이는 남긴다
+          "transition-[background-color,transform] duration-150 hover:bg-primary-hover",
+          "active:scale-[0.94] motion-reduce:active:scale-100",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        )}
         aria-label={playing ? "일시정지" : "재생"}
       >
         {playing ? (
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="3" y="2" width="3" height="10" rx="1" /><rect x="8" y="2" width="3" height="10" rx="1" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+            <rect x="3" y="2" width="3" height="10" rx="1" />
+            <rect x="8" y="2" width="3" height="10" rx="1" />
+          </svg>
         ) : (
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M4 2l8 5-8 5z" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+            <path d="M4 2l8 5-8 5z" />
+          </svg>
         )}
       </button>
       <div className="flex-1 min-w-0">
         {title && <p className="text-sm font-medium text-foreground truncate">{title}</p>}
         <div className="flex items-center gap-2">
           <span className="text-[10px] text-muted tabular-nums shrink-0">{fmt(currentTime)}</span>
-          <div className="flex-1 h-1.5 bg-gray-200 rounded-full cursor-pointer" onClick={handleSeek}>
-            <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress}%` }} />
+          <div
+            className="flex-1 h-1.5 bg-border rounded-full cursor-pointer overflow-hidden"
+            onClick={handleSeek}
+          >
+            {/* width 전이는 매 timeupdate 마다 리플로우를 낸다 — 합성만으로 끝나는 scaleX 로 채운다 */}
+            <div
+              className="h-full w-full bg-primary rounded-full origin-left transition-transform duration-150 ease-linear motion-reduce:transition-none"
+              style={{ transform: `scaleX(${progress / 100})` }}
+            />
           </div>
           <span className="text-[10px] text-muted tabular-nums shrink-0">{fmt(duration)}</span>
         </div>

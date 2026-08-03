@@ -1,6 +1,16 @@
 "use client";
 import { useState } from "react";
-import { ComponentPage, Section, Guidelines, Anatomy, UsageNote, AccessibilityNote, CodeExample, VariantGrid, VariantItem } from "../../_components/ComponentPage";
+import {
+  ComponentPage,
+  Section,
+  Guidelines,
+  Anatomy,
+  UsageNote,
+  AccessibilityNote,
+  CodeExample,
+  VariantGrid,
+  VariantItem,
+} from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { Tabs } from "@/ds/composites/Tabs";
 
@@ -29,12 +39,42 @@ export default function TabsPage() {
       status="stable"
       version="1.0.0"
       props={[
-        { name: "tabs", type: "Tab[]", required: true, description: "탭 항목 배열입니다. 각 항목은 value, label, icon?, badge?, disabled?를 가집니다." },
-        { name: "value", type: "string", required: true, description: "현재 활성화된 탭의 value입니다." },
-        { name: "onChange", type: "(value: string) => void", required: true, description: "탭 선택이 변경될 때 호출되는 콜백입니다." },
-        { name: "variant", type: '"underline" | "pills" | "segment"', default: '"underline"', description: "탭의 시각적 스타일입니다." },
-        { name: "size", type: '"sm" | "md"', default: '"md"', description: "탭의 크기입니다. 밀도가 높은 UI에서는 sm을 사용하세요." },
-        { name: "className", type: "string", description: "탭 컨테이너에 추가할 커스텀 클래스입니다." },
+        {
+          name: "tabs",
+          type: "Tab[]",
+          required: true,
+          description:
+            "탭 항목 배열입니다. 각 항목은 value, label, icon?, badge?, disabled?를 가집니다.",
+        },
+        {
+          name: "value",
+          type: "string",
+          required: true,
+          description: "현재 활성화된 탭의 value입니다.",
+        },
+        {
+          name: "onChange",
+          type: "(value: string) => void",
+          required: true,
+          description: "탭 선택이 변경될 때 호출되는 콜백입니다.",
+        },
+        {
+          name: "variant",
+          type: '"underline" | "pills" | "segment"',
+          default: '"underline"',
+          description: "탭의 시각적 스타일입니다.",
+        },
+        {
+          name: "size",
+          type: '"sm" | "md"',
+          default: '"md"',
+          description: "탭의 크기입니다. 밀도가 높은 UI에서는 sm을 사용하세요.",
+        },
+        {
+          name: "className",
+          type: "string",
+          description: "탭 컨테이너에 추가할 커스텀 클래스입니다.",
+        },
       ]}
       related={[
         { name: "SegmentedControl", href: "/design-system/composites/segmented-control" },
@@ -43,7 +83,10 @@ export default function TabsPage() {
       ]}
     >
       {/* ── Overview ── */}
-      <Section title="Overview" description="탭을 사용하면 한 화면에서 여러 카테고리의 콘텐츠를 페이지 전환 없이 빠르게 탐색할 수 있습니다.">
+      <Section
+        title="Overview"
+        description="탭을 사용하면 한 화면에서 여러 카테고리의 콘텐츠를 페이지 전환 없이 빠르게 탐색할 수 있습니다."
+      >
         <Preview
           sourceCode={`const [tab, setTab] = useState("overview");
 const tabs = [
@@ -62,15 +105,30 @@ const tabs = [
       <Section title="Anatomy" description="Tabs 컴포넌트의 내부 구조입니다.">
         <Anatomy
           items={[
-            { label: "Tab List", description: "탭 버튼들을 감싸는 컨테이너입니다. role='tablist'가 적용되어 스크린 리더가 탭 그룹으로 인식합니다." },
-            { label: "Tab Trigger", description: "개별 탭 버튼입니다. role='tab'과 aria-selected가 자동 적용됩니다. 클릭하면 해당 패널이 활성화됩니다." },
-            { label: "Tab Panel", description: "선택된 탭에 대응하는 콘텐츠 영역입니다. 현재 Tabs 컴포넌트는 탭 목록만 제공하며, 패널은 value 상태에 따라 직접 조건부 렌더링합니다." },
+            {
+              label: "Tab List",
+              description:
+                "탭 버튼들을 감싸는 컨테이너입니다. role='tablist'가 적용되어 스크린 리더가 탭 그룹으로 인식합니다.",
+            },
+            {
+              label: "Tab Trigger",
+              description:
+                "개별 탭 버튼입니다. role='tab'과 aria-selected가 자동 적용됩니다. 클릭하면 해당 패널이 활성화됩니다.",
+            },
+            {
+              label: "Tab Panel",
+              description:
+                "선택된 탭에 대응하는 콘텐츠 영역입니다. 현재 Tabs 컴포넌트는 탭 목록만 제공하며, 패널은 value 상태에 따라 직접 조건부 렌더링합니다.",
+            },
           ]}
         />
       </Section>
 
       {/* ── Variants ── */}
-      <Section title="Variants" description="3가지 시각 변형으로 다양한 맥락에 맞는 탭 UI를 구성할 수 있습니다.">
+      <Section
+        title="Variants"
+        description="3가지 시각 변형으로 다양한 맥락에 맞는 탭 UI를 구성할 수 있습니다."
+      >
         <VariantGrid cols={1}>
           <VariantItem
             label="Underline"
@@ -112,14 +170,26 @@ const tabs = [
             description="밀도가 높은 UI, 카드 내부 등에 적합합니다."
             sourceCode={`<Tabs tabs={tabs} value={v} onChange={setV} size="sm" />`}
           >
-            <Tabs tabs={simpleTabs} value={simple} onChange={setSimple} variant="underline" size="sm" />
+            <Tabs
+              tabs={simpleTabs}
+              value={simple}
+              onChange={setSimple}
+              variant="underline"
+              size="sm"
+            />
           </VariantItem>
           <VariantItem
             label="Medium (md)"
             description="기본 크기입니다. 페이지 레벨 탭에 적합합니다."
             sourceCode={`<Tabs tabs={tabs} value={v} onChange={setV} size="md" />`}
           >
-            <Tabs tabs={simpleTabs} value={simple} onChange={setSimple} variant="underline" size="md" />
+            <Tabs
+              tabs={simpleTabs}
+              value={simple}
+              onChange={setSimple}
+              variant="underline"
+              size="md"
+            />
           </VariantItem>
         </VariantGrid>
       </Section>
@@ -130,14 +200,16 @@ const tabs = [
           <div className="rounded-xl border border-border p-4">
             <h4 className="text-sm font-semibold text-foreground mb-1">키보드 내비게이션</h4>
             <p className="text-xs text-muted leading-relaxed">
-              탭에 포커스된 상태에서 클릭으로 탭을 전환할 수 있습니다.
-              각 탭 버튼은 <code className="text-xs bg-gray-100 px-1 rounded">active:scale-95</code> 피드백을 제공합니다.
+              탭에 포커스된 상태에서 클릭으로 탭을 전환할 수 있습니다. 각 탭 버튼은{" "}
+              <code className="text-xs bg-gray-100 px-1 rounded">active:scale-95</code> 피드백을
+              제공합니다.
             </p>
           </div>
           <div className="rounded-xl border border-border p-4">
             <h4 className="text-sm font-semibold text-foreground mb-1">뱃지 지원</h4>
             <p className="text-xs text-muted leading-relaxed">
-              각 탭에 숫자 뱃지를 표시할 수 있습니다. 읽지 않은 항목 수, 필터 결과 개수 등을 시각적으로 안내합니다.
+              각 탭에 숫자 뱃지를 표시할 수 있습니다. 읽지 않은 항목 수, 필터 결과 개수 등을
+              시각적으로 안내합니다.
             </p>
           </div>
           <div className="rounded-xl border border-border p-4">
@@ -149,15 +221,18 @@ const tabs = [
           <div className="rounded-xl border border-border p-4">
             <h4 className="text-sm font-semibold text-foreground mb-1">비활성화 탭</h4>
             <p className="text-xs text-muted leading-relaxed">
-              개별 탭을 <code className="text-xs bg-gray-100 px-1 rounded">disabled: true</code>로 설정하면
-              클릭이 차단되고 시각적으로 흐려집니다.
+              개별 탭을 <code className="text-xs bg-gray-100 px-1 rounded">disabled: true</code>로
+              설정하면 클릭이 차단되고 시각적으로 흐려집니다.
             </p>
           </div>
         </div>
       </Section>
 
       {/* ── With Badge Demo ── */}
-      <Section title="뱃지 활용 예시" description="뱃지를 사용하면 각 탭의 항목 수를 직관적으로 전달할 수 있습니다.">
+      <Section
+        title="뱃지 활용 예시"
+        description="뱃지를 사용하면 각 탭의 항목 수를 직관적으로 전달할 수 있습니다."
+      >
         <Preview>
           <div className="flex flex-col gap-6">
             <div>
@@ -182,19 +257,23 @@ const tabs = [
           items={[
             {
               type: "do",
-              description: "탭 레이블은 짧고 명확하게 작성하세요. 한 단어 또는 두 단어가 이상적입니다. 사용자가 한눈에 내용을 예측할 수 있어야 합니다.",
+              description:
+                "탭 레이블은 짧고 명확하게 작성하세요. 한 단어 또는 두 단어가 이상적입니다. 사용자가 한눈에 내용을 예측할 수 있어야 합니다.",
             },
             {
               type: "dont",
-              description: "탭 개수가 6개를 넘지 않도록 하세요. 탭이 너무 많으면 사용자가 원하는 항목을 찾기 어렵습니다. 많은 경우 드롭다운이나 사이드 네비게이션을 고려하세요.",
+              description:
+                "탭 개수가 6개를 넘지 않도록 하세요. 탭이 너무 많으면 사용자가 원하는 항목을 찾기 어렵습니다. 많은 경우 드롭다운이나 사이드 네비게이션을 고려하세요.",
             },
             {
               type: "do",
-              description: "같은 계층의 관련 콘텐츠를 분류할 때 탭을 사용하세요. 서로 독립적인 페이지 간 이동에는 네비게이션 메뉴가 더 적합합니다.",
+              description:
+                "같은 계층의 관련 콘텐츠를 분류할 때 탭을 사용하세요. 서로 독립적인 페이지 간 이동에는 네비게이션 메뉴가 더 적합합니다.",
             },
             {
               type: "caution",
-              description: "탭 간 전환 시 사용자의 입력 데이터가 유실되지 않도록 주의하세요. 폼이 포함된 탭이라면 상태를 보존하는 로직이 필요합니다.",
+              description:
+                "탭 간 전환 시 사용자의 입력 데이터가 유실되지 않도록 주의하세요. 폼이 포함된 탭이라면 상태를 보존하는 로직이 필요합니다.",
             },
           ]}
         />
@@ -204,13 +283,14 @@ const tabs = [
       <Section title="사용 시 참고사항">
         <div className="flex flex-col gap-3">
           <UsageNote type="info">
-            Tabs 컴포넌트는 탭 목록(Tab List)만 렌더링합니다.
-            탭 패널(Tab Panel)의 콘텐츠는 <code className="text-xs bg-gray-100 px-1 rounded">value</code> 상태에 따라 직접 조건부 렌더링하세요.
+            Tabs 컴포넌트는 탭 목록(Tab List)만 렌더링합니다. 탭 패널(Tab Panel)의 콘텐츠는{" "}
+            <code className="text-xs bg-gray-100 px-1 rounded">value</code> 상태에 따라 직접 조건부
+            렌더링하세요.
           </UsageNote>
           <UsageNote type="tip">
-            필터링 UI에는 <strong>pills</strong> 변형이 잘 어울립니다.
-            페이지 상단 네비게이션에는 <strong>underline</strong>,
-            토글 스위치 느낌이 필요하면 <strong>segment</strong>를 사용하세요.
+            필터링 UI에는 <strong>pills</strong> 변형이 잘 어울립니다. 페이지 상단 네비게이션에는{" "}
+            <strong>underline</strong>, 토글 스위치 느낌이 필요하면 <strong>segment</strong>를
+            사용하세요.
           </UsageNote>
           <UsageNote type="warning">
             탭 value는 고유해야 합니다. 중복된 value가 있으면 예상치 못한 동작이 발생할 수 있습니다.

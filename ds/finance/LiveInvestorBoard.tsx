@@ -28,6 +28,8 @@ const MARKET_LABEL: Record<MarketKey, string> = {
   futures: "선물",
 };
 
+// 투자자 3주체를 가르는 계열색 — 등락색(up/down)과 섞이면 안 되므로 기관만 보라 계열을
+// 그대로 둔다. 정체성 색이라 테마 토큰으로 옮기지 않는다.
 const INVESTOR_COLOR: Record<InvestorKey, string> = {
   foreign: "var(--bm-up)",
   institution: "#a855f7",
@@ -103,7 +105,10 @@ export function LiveInvestorBoard() {
   useEffect(() => {
     const fmtTime = () => {
       const d = new Date();
-      return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`;
+      return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(
+        2,
+        "0",
+      )}:${String(d.getSeconds()).padStart(2, "0")}`;
     };
     setNow(fmtTime());
     if (!isOpen) return;
@@ -159,7 +164,7 @@ export function LiveInvestorBoard() {
   }, [snap]);
 
   return (
-    <div className="bm-card overflow-hidden">
+    <div className="bm-card overflow-hidden" data-bm-live-board>
       <style>{`
         @keyframes bm-pulse { 0% { transform: scale(1); opacity: .8 } 80% { transform: scale(2.4); opacity: 0 } 100% { transform: scale(2.4); opacity: 0 } }
         @keyframes bm-flash-up {
@@ -169,6 +174,14 @@ export function LiveInvestorBoard() {
         @keyframes bm-flash-down {
           0% { background-color: rgba(37,99,235,0.18); }
           100% { background-color: transparent; }
+        }
+        /* 3초마다 번지는 플래시와 퍼지는 LIVE 링은 감속 요청 대상이다.
+           키프레임을 인라인으로 넣는 곳이라 motion-reduce 유틸리티가 닿지 않으므로 여기서 끈다. */
+        @media (prefers-reduced-motion: reduce) {
+          [data-bm-live-board] *,
+          [data-bm-live-board] {
+            animation: none !important;
+          }
         }
       `}</style>
 
@@ -215,10 +228,7 @@ export function LiveInvestorBoard() {
           const v = investorTotals[ik];
           const up = v >= 0;
           return (
-            <div
-              key={ik}
-              className="flex items-center gap-2"
-            >
+            <div key={ik} className="flex items-center gap-2">
               <span
                 className="size-2 rounded-full shrink-0"
                 style={{ background: INVESTOR_COLOR[ik] }}
@@ -238,20 +248,17 @@ export function LiveInvestorBoard() {
         })}
       </div>
 
-      <div className="grid" style={{ gridTemplateColumns: "minmax(108px,1fr) repeat(3, minmax(0,1.4fr))" }}>
+      <div
+        className="grid"
+        style={{ gridTemplateColumns: "minmax(108px,1fr) repeat(3, minmax(0,1.4fr))" }}
+      >
         <HeadCell title="구분" />
         {(Object.keys(MARKET_LABEL) as MarketKey[]).map((mk) => (
           <HeadCell key={mk} title={MARKET_LABEL[mk]} center />
         ))}
 
         {(Object.keys(INVESTOR_LABEL) as InvestorKey[]).map((ik) => (
-          <InvestorRowCells
-            key={ik}
-            ik={ik}
-            snap={snap}
-            prev={prev}
-            history={history}
-          />
+          <InvestorRowCells key={ik} ik={ik} snap={snap} prev={prev} history={history} />
         ))}
 
         <HeadCell title="총 거래량" muted />
@@ -274,15 +281,7 @@ export function LiveInvestorBoard() {
   );
 }
 
-function HeadCell({
-  title,
-  center,
-  muted,
-}: {
-  title: string;
-  center?: boolean;
-  muted?: boolean;
-}) {
+function HeadCell({ title, center, muted }: { title: string; center?: boolean; muted?: boolean }) {
   return (
     <span
       className="px-2 py-1.5 text-[12px] font-extrabold"
@@ -319,10 +318,7 @@ function InvestorRowCells({
           borderTop: "1px solid var(--bm-border)",
         }}
       >
-        <span
-          className="size-2 rounded-full"
-          style={{ background: INVESTOR_COLOR[ik] }}
-        />
+        <span className="size-2 rounded-full" style={{ background: INVESTOR_COLOR[ik] }} />
         {INVESTOR_LABEL[ik]}
       </div>
       {(Object.keys(MARKET_LABEL) as MarketKey[]).map((mk) => {
@@ -376,13 +372,12 @@ function InvestorRowCells({
                 매도 {fmt억(row.sell)}
               </span>
             </div>
-            <div className="mt-1 h-1.5 rounded-full overflow-hidden flex" style={{ background: "var(--bm-soft-100)" }}>
-              <div
-                style={{ width: `${ratio}%`, background: "var(--bm-up)" }}
-              />
-              <div
-                style={{ width: `${100 - ratio}%`, background: "var(--bm-down)" }}
-              />
+            <div
+              className="mt-1 h-1.5 rounded-full overflow-hidden flex"
+              style={{ background: "var(--bm-soft-100)" }}
+            >
+              <div style={{ width: `${ratio}%`, background: "var(--bm-up)" }} />
+              <div style={{ width: `${100 - ratio}%`, background: "var(--bm-down)" }} />
             </div>
             <div className="flex items-center justify-between mt-0.5">
               <span className="bm-num text-[9.5px] font-bold" style={{ color: "var(--bm-up)" }}>
@@ -400,7 +395,12 @@ function InvestorRowCells({
 }
 
 function DeltaPill({ delta }: { delta: number }) {
-  if (delta === 0) return <span className="bm-num text-[9px] font-bold" style={{ color: "var(--bm-muted)" }}>—</span>;
+  if (delta === 0)
+    return (
+      <span className="bm-num text-[9px] font-bold" style={{ color: "var(--bm-muted)" }}>
+        —
+      </span>
+    );
   const up = delta > 0;
   return (
     <span
@@ -418,7 +418,13 @@ function Sparkline({ values, color }: { values: number[]; color: string }) {
   const h = 22;
   if (values.length < 2) {
     return (
-      <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" style={{ display: "block" }}>
+      <svg
+        width="100%"
+        height={h}
+        viewBox={`0 0 ${w} ${h}`}
+        preserveAspectRatio="none"
+        style={{ display: "block" }}
+      >
         <line x1={0} x2={w} y1={h / 2} y2={h / 2} stroke="var(--bm-grid)" strokeWidth={1} />
       </svg>
     );
@@ -434,11 +440,35 @@ function Sparkline({ values, color }: { values: number[]; color: string }) {
     .join(" ");
   const fillPath = `${path} L${w},${h} L0,${h} Z`;
   return (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="shrink-0">
-      <line x1={0} x2={w} y1={yOf(0)} y2={yOf(0)} stroke="var(--bm-grid)" strokeDasharray="2 2" />
+    // 고정 100px 폭은 좁은 열에서 셀을 밀어낸다 — 빈 상태 분기와 같이 칸을 꽉 채우게 한다
+    <svg
+      width="100%"
+      height={h}
+      viewBox={`0 0 ${w} ${h}`}
+      preserveAspectRatio="none"
+      className="block w-full"
+    >
+      <line
+        x1={0}
+        x2={w}
+        y1={yOf(0)}
+        y2={yOf(0)}
+        stroke="var(--bm-grid)"
+        strokeDasharray="2 2"
+        vectorEffect="non-scaling-stroke"
+      />
       <path d={fillPath} fill={color} fillOpacity={0.12} />
-      <path d={path} fill="none" stroke={color} strokeWidth={1.5} strokeLinejoin="round" strokeLinecap="round" />
-      <circle cx={w} cy={yOf(last)} r={2} fill={color} />
+      {/* 칸 폭에 맞춰 가로로 늘어나므로 선 굵기는 스케일에서 빼야 두께가 일정하다 */}
+      <path
+        d={path}
+        fill="none"
+        stroke={color}
+        strokeWidth={1.5}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+      <circle cx={w - 1} cy={yOf(last)} r={1.6} fill={color} />
     </svg>
   );
 }

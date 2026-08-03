@@ -10,49 +10,72 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-chat-bubble {
-    display: flex; gap: var(--jd-space-2);
-    max-inline-size: 80%;
-    font-family: var(--jd-font-sans);
-  }
-  jd-chat-bubble[side="right"] {
-    margin-inline-start: auto; flex-direction: row-reverse;
-  }
+  @layer junds.components {
+    jd-chat-bubble {
+      display: flex;
+      gap: var(--jd-space-2);
+      max-inline-size: 80%;
+      font-family: var(--jd-font-sans);
+    }
+    jd-chat-bubble[side="right"] {
+      margin-inline-start: auto;
+      flex-direction: row-reverse;
+    }
 
-  .jd-chat-bubble__avatar { flex-shrink: 0; margin-block-start: auto; }
-  .jd-chat-bubble__avatar[hidden] { display: none; }
+    .jd-chat-bubble__avatar {
+      flex-shrink: 0;
+      margin-block-start: auto;
+    }
+    .jd-chat-bubble__avatar[hidden] {
+      display: none;
+    }
 
-  .jd-chat-bubble__main { min-inline-size: 0; }
+    .jd-chat-bubble__main {
+      min-inline-size: 0;
+    }
 
-  .jd-chat-bubble__sender,
-  .jd-chat-bubble__time {
-    display: block; margin: 0;
-    padding-inline: var(--jd-space-1);
-    font-size: 10px; line-height: var(--jd-leading-normal);
-    color: var(--jd-color-muted);
-  }
-  .jd-chat-bubble__sender { margin-block-end: var(--jd-space-0-5); }
-  .jd-chat-bubble__time { margin-block-start: var(--jd-space-0-5); }
-  .jd-chat-bubble__sender[hidden], .jd-chat-bubble__time[hidden] { display: none; }
-  jd-chat-bubble[side="right"] .jd-chat-bubble__sender,
-  jd-chat-bubble[side="right"] .jd-chat-bubble__time { text-align: end; }
+    .jd-chat-bubble__sender,
+    .jd-chat-bubble__time {
+      display: block;
+      margin: 0;
+      padding-inline: var(--jd-space-1);
+      font-size: 10px;
+      line-height: var(--jd-leading-normal);
+      color: var(--jd-color-muted);
+    }
+    .jd-chat-bubble__sender {
+      margin-block-end: var(--jd-space-0-5);
+    }
+    .jd-chat-bubble__time {
+      margin-block-start: var(--jd-space-0-5);
+    }
+    .jd-chat-bubble__sender[hidden],
+    .jd-chat-bubble__time[hidden] {
+      display: none;
+    }
+    jd-chat-bubble[side="right"] .jd-chat-bubble__sender,
+    jd-chat-bubble[side="right"] .jd-chat-bubble__time {
+      text-align: end;
+    }
 
-  .jd-chat-bubble__bubble {
-    padding: var(--jd-space-2) var(--jd-space-3-5);
-    border-radius: var(--jd-radius-2xl);
-    font-size: var(--jd-text-md); line-height: var(--jd-leading-relaxed);
-    overflow-wrap: anywhere;
-    background: color-mix(in srgb, var(--jd-color-muted) 14%, var(--jd-color-card));
-    color: var(--jd-color-foreground);
-    /* 꼬리 — 기본(left)은 좌하단, right는 우하단만 각진다 */
-    border-end-start-radius: var(--jd-radius-sm);
+    .jd-chat-bubble__bubble {
+      padding: var(--jd-space-2) var(--jd-space-3-5);
+      border-radius: var(--jd-radius-2xl);
+      font-size: var(--jd-text-md);
+      line-height: var(--jd-leading-relaxed);
+      overflow-wrap: anywhere;
+      background: color-mix(in srgb, var(--jd-color-muted) 14%, var(--jd-color-card));
+      color: var(--jd-color-foreground);
+      /* 꼬리 — 기본(left)은 좌하단, right는 우하단만 각진다 */
+      border-end-start-radius: var(--jd-radius-sm);
+    }
+    jd-chat-bubble[side="right"] .jd-chat-bubble__bubble {
+      border-end-start-radius: var(--jd-radius-2xl);
+      border-end-end-radius: var(--jd-radius-sm);
+    }
+    jd-chat-bubble[variant="primary"] .jd-chat-bubble__bubble {
+      background: var(--jd-color-primary);
+      color: #fff;
+    }
   }
-  jd-chat-bubble[side="right"] .jd-chat-bubble__bubble {
-    border-end-start-radius: var(--jd-radius-2xl);
-    border-end-end-radius: var(--jd-radius-sm);
-  }
-  jd-chat-bubble[variant="primary"] .jd-chat-bubble__bubble {
-    background: var(--jd-color-primary); color: #fff;
-  }
-}`;
+`;

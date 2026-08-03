@@ -41,9 +41,7 @@ describe("Box — style props", () => {
   });
 
   it("merges user-provided inline style with resolved style props", () => {
-    const { container } = render(
-      <Box p={2} style={{ outline: "1px solid red" }} />,
-    );
+    const { container } = render(<Box p={2} style={{ outline: "1px solid red" }} />);
     const el = container.firstElementChild as HTMLElement;
     expect(el.style.padding).toBe("8px");
     expect(el.style.outline).toBe("1px solid red");

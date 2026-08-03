@@ -14,8 +14,18 @@ export default function PaginationPage() {
       props={[
         { name: "page", type: "number", required: true, description: "현재 페이지" },
         { name: "totalPages", type: "number", required: true, description: "총 페이지 수" },
-        { name: "onChange", type: "(page: number) => void", required: true, description: "변경 핸들러" },
-        { name: "siblings", type: "number", default: "1", description: "현재 페이지 양 옆 표시 수" },
+        {
+          name: "onChange",
+          type: "(page: number) => void",
+          required: true,
+          description: "변경 핸들러",
+        },
+        {
+          name: "siblings",
+          type: "number",
+          default: "1",
+          description: "현재 페이지 양 옆 표시 수",
+        },
       ]}
     >
       <Section title="Demo">

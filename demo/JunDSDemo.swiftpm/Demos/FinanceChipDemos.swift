@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // finance 칩·톤 2종 데모 (DEC-047) — 웹 <jd-disclosure-tone-badge>·<jd-theme-tag-list> 동형.
 //
@@ -19,8 +19,11 @@ enum DisclosureToneBadgeDemo {
     static let demo = ComponentDemo(
         id: "DisclosureToneBadge",
         controls: [
-            .options("tone", "tone", JdDisclosureTone.allCases.map(\.rawValue), initial: "positive"),
-            .options("category", "category", JdDisclosureCategory.allCases.map(\.rawValue), initial: "earnings"),
+            .options(
+                "tone", "tone", JdDisclosureTone.allCases.map(\.rawValue), initial: "positive"),
+            .options(
+                "category", "category", JdDisclosureCategory.allCases.map(\.rawValue),
+                initial: "earnings"),
             .text("confidence", "confidence", placeholder: "0~1 (0이면 숨김)", initial: "0.87"),
             .toggle("compact", "compact", initial: false),
         ],
@@ -43,12 +46,15 @@ private struct ToneStage: View {
     @ObservedObject var state: DemoState
     var body: some View {
         VStack(spacing: JdToken.Space.s3) {
-            JdDisclosureToneBadge(tone: tone(state), category: category(state),
-                                  confidence: confidence(state), compact: state.bool("compact"))
-            Text("compact은 톤만 남기지만 낭독은 “호재 · 실적 · 신뢰도 87%” 전부다.\n중립은 색이 아니라 무채 틴트 — 톤이 없다는 뜻을 색으로도 말한다.")
-                .font(.caption)
-                .foregroundColor(JdToken.Color.muted.color)
-                .multilineTextAlignment(.center)
+            JdDisclosureToneBadge(
+                tone: tone(state), category: category(state),
+                confidence: confidence(state), compact: state.bool("compact"))
+            Text(
+                "compact은 톤만 남기지만 낭독은 “호재 · 실적 · 신뢰도 87%” 전부다.\n중립은 색이 아니라 무채 틴트 — 톤이 없다는 뜻을 색으로도 말한다."
+            )
+            .font(.caption)
+            .foregroundColor(JdToken.Color.muted.color)
+            .multilineTextAlignment(.center)
         }
     }
 }
@@ -57,8 +63,9 @@ private struct ToneStageUIKit: View {
     @ObservedObject var state: DemoState
     var body: some View {
         UIKitBox {
-            JdDisclosureToneBadgeView(tone: tone(state), category: category(state),
-                                      confidence: confidence(state), compact: state.bool("compact"))
+            JdDisclosureToneBadgeView(
+                tone: tone(state), category: category(state),
+                confidence: confidence(state), compact: state.bool("compact"))
         }
         .fixedSize()
     }
@@ -78,8 +85,10 @@ enum ThemeTagListDemo {
     )
 }
 
-private let THEME_POOL = ["반도체", "2차전지", "바이오", "조선", "원전", "AI", "로봇", "우주",
-                          "방산", "수소", "엔터", "게임"]
+private let THEME_POOL = [
+    "반도체", "2차전지", "바이오", "조선", "원전", "AI", "로봇", "우주",
+    "방산", "수소", "엔터", "게임",
+]
 
 @MainActor private func themes(_ s: DemoState) -> [String] {
     Array(THEME_POOL.prefix(Int(s.string("count")) ?? 8))

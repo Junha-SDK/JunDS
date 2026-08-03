@@ -38,8 +38,12 @@ export const FullWidth: Story = {
   render: () => (
     <div className="w-80">
       <ButtonGroup fullWidth>
-        <Button variant="secondary" fullWidth>왼쪽</Button>
-        <Button variant="secondary" fullWidth>오른쪽</Button>
+        <Button variant="secondary" fullWidth>
+          왼쪽
+        </Button>
+        <Button variant="secondary" fullWidth>
+          오른쪽
+        </Button>
       </ButtonGroup>
     </div>
   ),

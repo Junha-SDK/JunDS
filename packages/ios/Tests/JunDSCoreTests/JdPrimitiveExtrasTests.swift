@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // primitives 잔여 27종의 Core 순수 함수 전수 검증 (DESIGN-3 §E).
 //
@@ -31,10 +31,13 @@ final class JdNumberFormatStyleTests: XCTestCase {
     // v2의 `KRW ? 0 : 2` 하드코딩이 JPY·VND를 틀리게 그리던 것을 웹 v3가 고쳤고 iOS도 따른다.
     func test_currency_defaults_to_currency_specific_fraction_digits() {
         XCTAssertEqual(JdNumberFormat.string(value: 12_000, style: .currency), "₩12,000")
-        XCTAssertEqual(JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD"), "US$12.50")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD"), "US$12.50")
         // 0자리 통화가 KRW만이 아니라는 것이 이 규칙의 존재 이유다
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY"), "JP¥1,234")
-        XCTAssertEqual(JdNumberFormat.string(value: 50_000, style: .currency, currency: "VND"), "₫50,000")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234, style: .currency, currency: "JPY"), "JP¥1,234")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 50_000, style: .currency, currency: "VND"), "₫50,000")
     }
 
     func test_currency_rounds_to_zero_digits_for_krw() {
@@ -45,15 +48,19 @@ final class JdNumberFormatStyleTests: XCTestCase {
 
     // decimals 지정은 통화 기본값을 덮는다
     func test_currency_explicit_decimals_override_currency_default() {
-        XCTAssertEqual(JdNumberFormat.string(value: 12_000, style: .currency, decimals: 2), "₩12,000.00")
-        XCTAssertEqual(JdNumberFormat.string(value: 12.6, style: .currency, currency: "USD", decimals: 0), "US$13")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12_000, style: .currency, decimals: 2), "₩12,000.00")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12.6, style: .currency, currency: "USD", decimals: 0),
+            "US$13")
     }
 
     // 반올림은 웹 Intl·toFixed와 같은 halfExpand다(Foundation 기본 halfEven이 아니다 — Core가
     // roundingMode = .halfUp을 명시한다). 정확히 반인 값이 항상 위로 가는지 고정한다.
     func test_rounding_mode_matches_web_half_expand() {
-        XCTAssertEqual(JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", decimals: 0),
-                       "US$13")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12.5, style: .currency, currency: "USD", decimals: 0),
+            "US$13")
         XCTAssertEqual(JdNumberFormat.string(value: 0.5, decimals: 0), "1")
         XCTAssertEqual(JdNumberFormat.string(value: 1.5, decimals: 0), "2")
         XCTAssertEqual(JdNumberFormat.string(value: 2.5, decimals: 0), "3")
@@ -71,7 +78,7 @@ final class JdNumberFormatStyleTests: XCTestCase {
     func test_percent_default_fraction_digits_are_zero_to_one() {
         XCTAssertEqual(JdNumberFormat.string(value: 0.1234, style: .percent), "12.3%")
         XCTAssertEqual(JdNumberFormat.string(value: 0.155, style: .percent), "15.5%")
-        XCTAssertEqual(JdNumberFormat.string(value: 0.15, style: .percent), "15%") // 15.0%가 아니다
+        XCTAssertEqual(JdNumberFormat.string(value: 0.15, style: .percent), "15%")  // 15.0%가 아니다
     }
 
     func test_percent_with_decimals_pins_both_bounds() {
@@ -95,19 +102,23 @@ final class JdNumberFormatStyleTests: XCTestCase {
 
     // prefix/suffix는 포맷 결과의 바깥에 그대로 결합한다(웹 `${prefix}${formatted}${suffix}`)
     func test_prefix_and_suffix_wrap_every_style() {
-        XCTAssertEqual(JdNumberFormat.string(value: 1_234.5, decimals: 0, prefix: "약 ", suffix: " 원"),
-                       "약 1,235 원")
-        XCTAssertEqual(JdNumberFormat.string(value: 12_345, style: .compact, prefix: "~", suffix: "회"),
-                       "~1.2만회")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 1_234.5, decimals: 0, prefix: "약 ", suffix: " 원"),
+            "약 1,235 원")
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12_345, style: .compact, prefix: "~", suffix: "회"),
+            "~1.2만회")
         XCTAssertEqual(JdNumberFormat.string(value: 0.15, style: .percent, prefix: "+"), "+15%")
-        XCTAssertEqual(JdNumberFormat.string(value: 12_000, style: .currency, suffix: " (VAT 포함)"),
-                       "₩12,000 (VAT 포함)")
-        XCTAssertEqual(JdNumberFormat.string(value: 1, prefix: "", suffix: ""), "1") // 기본값은 무해
+        XCTAssertEqual(
+            JdNumberFormat.string(value: 12_000, style: .currency, suffix: " (VAT 포함)"),
+            "₩12,000 (VAT 포함)")
+        XCTAssertEqual(JdNumberFormat.string(value: 1, prefix: "", suffix: ""), "1")  // 기본값은 무해
     }
 
     func test_style_raw_values_match_web_attribute_vocabulary() {
-        XCTAssertEqual(JdNumberFormatStyle.allCases.map(\.rawValue),
-                       ["decimal", "currency", "percent", "compact"])
+        XCTAssertEqual(
+            JdNumberFormatStyle.allCases.map(\.rawValue),
+            ["decimal", "currency", "percent", "compact"])
     }
 }
 
@@ -149,9 +160,10 @@ final class JdNumberFormatCompactCountTests: XCTestCase {
     // compact 스타일과 compactCount는 같은 규칙을 공유한다(중복 구현 금지의 증명)
     func test_compactCount_matches_compact_style() {
         for count in [0, 999, 1_000, 1_050, 9_999, 10_000, 100_000_000] {
-            XCTAssertEqual(JdNumberFormat.compactCount(count),
-                           JdNumberFormat.string(value: Double(count), style: .compact),
-                           "count=\(count)")
+            XCTAssertEqual(
+                JdNumberFormat.compactCount(count),
+                JdNumberFormat.string(value: Double(count), style: .compact),
+                "count=\(count)")
         }
     }
 }
@@ -189,36 +201,47 @@ final class JdNumberInputRulesTests: XCTestCase {
 
     // 스텝: 값이 비어 있으면 0에서 출발한다(웹 `Number.isNaN(value) ? 0 : value` 동형)
     func test_stepped_starts_from_zero_when_value_is_empty() {
-        XCTAssertEqual(JdNumberInputRules.stepped(nil, direction: 1, step: 1, min: nil, max: nil),
-                       1, accuracy: epsilon)
-        XCTAssertEqual(JdNumberInputRules.stepped(nil, direction: -1, step: 1, min: nil, max: nil),
-                       -1, accuracy: epsilon)
-        XCTAssertEqual(JdNumberInputRules.stepped(nil, direction: -1, step: 1, min: 0, max: nil),
-                       0, accuracy: epsilon)
-        XCTAssertEqual(JdNumberInputRules.stepped(nil, direction: 1, step: 5, min: nil, max: nil),
-                       5, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(nil, direction: 1, step: 1, min: nil, max: nil),
+            1, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(nil, direction: -1, step: 1, min: nil, max: nil),
+            -1, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(nil, direction: -1, step: 1, min: 0, max: nil),
+            0, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(nil, direction: 1, step: 5, min: nil, max: nil),
+            5, accuracy: epsilon)
     }
 
     func test_stepped_applies_step_and_direction() {
-        XCTAssertEqual(JdNumberInputRules.stepped(3, direction: 1, step: 0.5, min: nil, max: nil),
-                       3.5, accuracy: epsilon)
-        XCTAssertEqual(JdNumberInputRules.stepped(3, direction: -1, step: 0.5, min: nil, max: nil),
-                       2.5, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(3, direction: 1, step: 0.5, min: nil, max: nil),
+            3.5, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(3, direction: -1, step: 0.5, min: nil, max: nil),
+            2.5, accuracy: epsilon)
         // direction 0이면 값은 그대로(다만 클램프는 적용된다)
-        XCTAssertEqual(JdNumberInputRules.stepped(3, direction: 0, step: 10, min: nil, max: nil),
-                       3, accuracy: epsilon)
-        XCTAssertEqual(JdNumberInputRules.stepped(99, direction: 0, step: 10, min: nil, max: 10),
-                       10, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(3, direction: 0, step: 10, min: nil, max: nil),
+            3, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(99, direction: 0, step: 10, min: nil, max: 10),
+            10, accuracy: epsilon)
     }
 
     // 스텝은 **클램프한다** — 타이핑과 달리 스텝 버튼은 경계를 넘지 않는다(§1.5 계약)
     func test_stepped_clamps_at_bounds() {
-        XCTAssertEqual(JdNumberInputRules.stepped(9.5, direction: 1, step: 1, min: 0, max: 10),
-                       10, accuracy: epsilon)
-        XCTAssertEqual(JdNumberInputRules.stepped(10, direction: 1, step: 1, min: 0, max: 10),
-                       10, accuracy: epsilon)
-        XCTAssertEqual(JdNumberInputRules.stepped(0.5, direction: -1, step: 1, min: 0, max: 10),
-                       0, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(9.5, direction: 1, step: 1, min: 0, max: 10),
+            10, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(10, direction: 1, step: 1, min: 0, max: 10),
+            10, accuracy: epsilon)
+        XCTAssertEqual(
+            JdNumberInputRules.stepped(0.5, direction: -1, step: 1, min: 0, max: 10),
+            0, accuracy: epsilon)
     }
 
     // canIncrement/canDecrement — 경계와 **정확히 같은 값**이면 더 못 간다(웹 `v >= max` 동형)
@@ -316,10 +339,10 @@ final class JdPinRulesTests: XCTestCase {
         XCTAssertEqual(JdPinRules.focusIndex("1", length: 6), 1)
         XCTAssertEqual(JdPinRules.focusIndex("12345", length: 6), 5)
         XCTAssertEqual(JdPinRules.focusIndex("123456", length: 6), 5)
-        XCTAssertEqual(JdPinRules.focusIndex("1234567", length: 6), 5) // 과충전도 마지막 칸
+        XCTAssertEqual(JdPinRules.focusIndex("1234567", length: 6), 5)  // 과충전도 마지막 칸
         XCTAssertEqual(JdPinRules.focusIndex("", length: 1), 0)
         XCTAssertEqual(JdPinRules.focusIndex("1", length: 1), 0)
-        XCTAssertEqual(JdPinRules.focusIndex("", length: 0), 0)       // 음수 인덱스 방어
+        XCTAssertEqual(JdPinRules.focusIndex("", length: 0), 0)  // 음수 인덱스 방어
     }
 
     func test_isComplete_needs_full_length_and_positive_length() {
@@ -327,7 +350,7 @@ final class JdPinRulesTests: XCTestCase {
         XCTAssertTrue(JdPinRules.isComplete("1234567", length: 6))
         XCTAssertFalse(JdPinRules.isComplete("12345", length: 6))
         XCTAssertFalse(JdPinRules.isComplete("", length: 6))
-        XCTAssertFalse(JdPinRules.isComplete("", length: 0)) // length 0은 "완료"가 아니다
+        XCTAssertFalse(JdPinRules.isComplete("", length: 0))  // length 0은 "완료"가 아니다
     }
 
     // 붙여넣기 한 번에 전체 채움 — sanitize 하나로 처리된다는 계약(렌더가 재구현하지 않는 이유)
@@ -345,8 +368,10 @@ final class JdPhoneMaskTests: XCTestCase {
 
     // KR 3-4-4 — 입력 중 부분 문자열이 자릿수대로 자란다
     func test_kr_progressive_input() {
-        let expected = ["0", "01", "010", "010-1", "010-12", "010-123", "010-1234",
-                        "010-1234-5", "010-1234-56", "010-1234-567", "010-1234-5678"]
+        let expected = [
+            "0", "01", "010", "010-1", "010-12", "010-123", "010-1234",
+            "010-1234-5", "010-1234-56", "010-1234-567", "010-1234-5678",
+        ]
         let source = "01012345678"
         for (index, want) in expected.enumerated() {
             let raw = String(source.prefix(index + 1))
@@ -356,8 +381,10 @@ final class JdPhoneMaskTests: XCTestCase {
 
     // US 3-3-4 — 그룹 길이가 KR과 다르다는 것이 국가 축의 존재 이유다
     func test_us_progressive_input() {
-        let expected = ["2", "21", "212", "212-5", "212-55", "212-555",
-                        "212-555-1", "212-555-12", "212-555-123", "212-555-1234"]
+        let expected = [
+            "2", "21", "212", "212-5", "212-55", "212-555",
+            "212-555-1", "212-555-12", "212-555-123", "212-555-1234",
+        ]
         let source = "2125551234"
         for (index, want) in expected.enumerated() {
             let raw = String(source.prefix(index + 1))
@@ -368,8 +395,9 @@ final class JdPhoneMaskTests: XCTestCase {
     func test_jp_uses_the_same_grouping_as_kr() {
         XCTAssertEqual(JdPhoneMask.format("09012345678", country: .jp), "090-1234-5678")
         XCTAssertEqual(JdPhoneMask.format("0901234", country: .jp), "090-1234")
-        XCTAssertEqual(JdPhoneMask.format("09012345678", country: .kr),
-                       JdPhoneMask.format("09012345678", country: .jp))
+        XCTAssertEqual(
+            JdPhoneMask.format("09012345678", country: .kr),
+            JdPhoneMask.format("09012345678", country: .jp))
     }
 
     // 초과분은 잘리지 않고 마지막 그룹으로 붙는다(입력을 삼키지 않는다 — 자르기는 소비자 몫)
@@ -390,7 +418,8 @@ final class JdPhoneMaskTests: XCTestCase {
     func test_fullNumber_drops_a_single_leading_zero() {
         XCTAssertEqual(JdPhoneMask.fullNumber("01012345678", country: .kr), "+82 1012345678")
         XCTAssertEqual(JdPhoneMask.fullNumber("1012345678", country: .kr), "+82 1012345678")
-        XCTAssertEqual(JdPhoneMask.fullNumber("0012345", country: .kr), "+82 012345") // 두 번째 0은 남는다
+        // 두 번째 0은 남는다
+        XCTAssertEqual(JdPhoneMask.fullNumber("0012345", country: .kr), "+82 012345")
         XCTAssertEqual(JdPhoneMask.fullNumber("09012345678", country: .jp), "+81 9012345678")
         XCTAssertEqual(JdPhoneMask.fullNumber("2125551234", country: .us), "+1 2125551234")
     }
@@ -465,10 +494,10 @@ final class JdPasswordStrengthTests: XCTestCase {
     // 렌더는 label·tone만 본다.
     func test_normalized_score_bands_map_to_label_and_tone() {
         let cases: [(String, JdPasswordLevel, String, JdSeverity)] = [
-            ("abc", .weak, "취약", .danger),          // 규칙 1/5 + 길이보너스 소량
-            ("abcdefgh", .fair, "보통", .warn),       // 규칙 2/5 + 0.5×0.2
-            ("abcdefgH", .good, "양호", .ok),         // 규칙 3/5
-            ("abcdefgH1!", .strong, "강력", .ok),      // 규칙 5/5
+            ("abc", .weak, "취약", .danger),  // 규칙 1/5 + 길이보너스 소량
+            ("abcdefgh", .fair, "보통", .warn),  // 규칙 2/5 + 0.5×0.2
+            ("abcdefgH", .good, "양호", .ok),  // 규칙 3/5
+            ("abcdefgH1!", .strong, "강력", .ok),  // 규칙 5/5
         ]
         for (password, level, label, tone) in cases {
             let strength = JdPasswordStrength.evaluate(password)
@@ -499,13 +528,16 @@ final class JdPasswordStrengthTests: XCTestCase {
     }
 
     func test_evaluation_is_deterministic_and_equatable() {
-        XCTAssertEqual(JdPasswordStrength.evaluate("Passw0rd!"), JdPasswordStrength.evaluate("Passw0rd!"))
-        XCTAssertNotEqual(JdPasswordStrength.evaluate("Passw0rd!"), JdPasswordStrength.evaluate("password"))
+        XCTAssertEqual(
+            JdPasswordStrength.evaluate("Passw0rd!"), JdPasswordStrength.evaluate("Passw0rd!"))
+        XCTAssertNotEqual(
+            JdPasswordStrength.evaluate("Passw0rd!"), JdPasswordStrength.evaluate("password"))
     }
 
     func test_rule_labels_are_present_for_the_checklist() {
-        XCTAssertEqual(JdPasswordRule.allCases.map(\.rawValue),
-                       ["length", "uppercase", "lowercase", "number", "symbol"])
+        XCTAssertEqual(
+            JdPasswordRule.allCases.map(\.rawValue),
+            ["length", "uppercase", "lowercase", "number", "symbol"])
         XCTAssertEqual(JdPasswordRule.length.label, "8자 이상")
         XCTAssertEqual(JdPasswordRule.uppercase.label, "대문자 포함")
         XCTAssertEqual(JdPasswordRule.number.label, "숫자 포함")
@@ -599,8 +631,10 @@ final class JdHighlightSegmentsTests: XCTestCase {
 
     // 불변식: 구간을 이어 붙이면 항상 원문이다(렌더가 글자를 잃지 않는다는 보증)
     func test_segments_always_reconstruct_the_source_text() {
-        let samples = [("hello world", "o"), ("abab", "ab"), ("Hello", "zzz"), ("한글 테스트", "테"),
-                       ("aaa", "a"), ("hello", ""), ("x", "x")]
+        let samples = [
+            ("hello world", "o"), ("abab", "ab"), ("Hello", "zzz"), ("한글 테스트", "테"),
+            ("aaa", "a"), ("hello", ""), ("x", "x"),
+        ]
         for (text, query) in samples {
             let joined = JdHighlight.segments(text: text, query: query).map(\.text).joined()
             XCTAssertEqual(joined, text, "text=\(text) query=\(query)")
@@ -680,8 +714,9 @@ final class JdStarRatingCoreTests: XCTestCase {
         for index in 0..<5 {
             for current in [0.0, 0.5, 1.0, 2.5, 5.0] {
                 let next = JdStarRating.value(forTappedIndex: index, current: current)
-                XCTAssertNotEqual(JdStarRating.fill(index: index, value: next), .empty,
-                                  "index=\(index) current=\(current)")
+                XCTAssertNotEqual(
+                    JdStarRating.fill(index: index, value: next), .empty,
+                    "index=\(index) current=\(current)")
             }
         }
     }
@@ -736,7 +771,8 @@ final class JdTextRunCoreTests: XCTestCase {
     // 카운트 표기는 JdNumberFormat.compactCount 재사용 — 규칙 중복이 없다는 증명
     func test_hashtag_count_delegates_to_compact_count() {
         for count in [0, 999, 1_000, 1_500, 10_000, 100_000_000] {
-            XCTAssertEqual(JdHashtag.countText(count), JdNumberFormat.compactCount(count), "count=\(count)")
+            XCTAssertEqual(
+                JdHashtag.countText(count), JdNumberFormat.compactCount(count), "count=\(count)")
         }
         XCTAssertEqual(JdHashtag.countText(999), "999")
         XCTAssertEqual(JdHashtag.countText(1_500), "1.5천")

@@ -6,15 +6,15 @@ lucide-react 의존 절단(03-web-arch §7.2)을 위한 v3 자체 아이콘 시�
 
 ## 문법 (전 아이콘 공통 — check.mjs가 강제)
 
-| 항목 | 값 |
-|---|---|
-| 캔버스 | `viewBox="0 0 24 24"` |
-| 라이브 에어리어 | 3~21 (18×18) · 원형은 광학 보정 ±0.75 허용 |
-| 스트로크 | `1.5` · `currentColor` · round cap/join |
-| 채움 | 전면 금지(`fill="none"` 루트 고정, 자식 fill 속성 불허) — 점(dot)도 소형 stroke 원 |
-| 자식 요소 | path/circle/ellipse/rect/line/polyline/polygon만, 기하 속성만(색·굵기·transform 오버라이드 금지) |
-| 이름 | kebab-case, 의미 우선(`X→close`, `AlertTriangle→warning`, `MousePointer→cursor`) |
-| 반복 기하 | 셰브런 반폭·높이 4.25 / 화살촉 45° / 풀블리드 원 r9 / 대형 라운드 렉트 rx 2±0.5, 타일 rx 1.5 |
+| 항목            | 값                                                                                               |
+| --------------- | ------------------------------------------------------------------------------------------------ |
+| 캔버스          | `viewBox="0 0 24 24"`                                                                            |
+| 라이브 에어리어 | 3~21 (18×18) · 원형은 광학 보정 ±0.75 허용                                                       |
+| 스트로크        | `1.5` · `currentColor` · round cap/join                                                          |
+| 채움            | 전면 금지(`fill="none"` 루트 고정, 자식 fill 속성 불허) — 점(dot)도 소형 stroke 원               |
+| 자식 요소       | path/circle/ellipse/rect/line/polyline/polygon만, 기하 속성만(색·굵기·transform 오버라이드 금지) |
+| 이름            | kebab-case, 의미 우선(`X→close`, `AlertTriangle→warning`, `MousePointer→cursor`)                 |
+| 반복 기하       | 셰브런 반폭·높이 4.25 / 화살촉 45° / 풀블리드 원 r9 / 대형 라운드 렉트 rx 2±0.5, 타일 rx 1.5     |
 
 ## 파이프라인 (의존성 0)
 
@@ -44,81 +44,81 @@ node icons/build.mjs   # 검증 후 dist/ + preview.html 재생성 (실패 시 �
 사용처¹ = ds/·app/ 27개 소비 파일 내 리터럴 참조 수(2026-07-24 grep 기준, 동적 조립 제외라 하한값).
 0인 33종은 v2 앱 잔재·미래 사용분이지만 `IconName` 공개 표면이므로 전수 제작했다.
 
-| jd 이름 | lucide | AppIcon 키 | 사용처¹ |
-|---|---|---|---|
-| close | X | close | 8 |
-| search | Search | search | 7 |
-| sparkles | Sparkles | sparkles | 7 |
-| trending-up | TrendingUp | trendingUp | 7 |
-| wallet | Wallet | wallet | 7 |
-| activity | Activity | activity | 6 |
-| info | Info | info | 6 |
-| trending-down | TrendingDown | trendingDown | 6 |
-| calendar | Calendar | calendar | 5 |
-| newspaper | Newspaper | newspaper | 5 |
-| banknote | Banknote | banknote | 4 |
-| chart-line | LineChart | lineChart | 4 |
-| crown | Crown | crown | 4 |
-| target | Target | target | 4 |
-| bell | Bell | bell | 3 |
-| calendar-check | CalendarCheck | calendarCheck | 2 |
-| chart-bar | BarChart3 | barChart | 2 |
-| chevron-right | ChevronRight | chevronRight | 2 |
-| command | Command | command | 2 |
-| dashboard | LayoutDashboard | layoutDashboard | 2 |
-| flame | Flame | flame | 2 |
-| grid | Grid2x2 | grid2x2 | 2 |
-| layout-grid | LayoutGrid | layoutGrid | 2 |
-| list-ordered | ListOrdered | listOrdered | 2 |
-| pencil | Pencil | pencil | 2 |
-| plus | Plus | plus | 2 |
-| settings | Settings | settings | 2 |
-| sliders | SlidersHorizontal | sliders | 2 |
-| swap | ArrowLeftRight | swap | 2 |
-| warning | AlertTriangle | alert | 2 |
-| arrow-down | ArrowDown | arrowDown | 1 |
-| arrow-up | ArrowUp | arrowUp | 1 |
-| chevron-left | ChevronLeft | chevronLeft | 1 |
-| clock | Clock | clock | 1 |
-| external-link | ExternalLink | external | 1 |
-| lock | Lock | lock | 1 |
-| menu | Menu | menu | 1 |
-| moon | Moon | moon | 1 |
-| star | Star | star | 1 |
-| sun | Sun | sun | 1 |
-| arrow-left | ArrowLeft | arrowLeft | 0 |
-| arrow-right | ArrowRight | arrowRight | 0 |
-| building | Building2 | building | 0 |
-| chart-pie | PieChart | pieChart | 0 |
-| check | Check | check | 0 |
-| chevron-down | ChevronDown | chevronDown | 0 |
-| chevron-up | ChevronUp | chevronUp | 0 |
-| chevrons-up-down | ChevronsUpDown | chevronsUpDown | 0 |
-| columns | Columns2 | columns2 | 0 |
-| cursor | MousePointer | mousePointer | 0 |
-| download | Download | download | 0 |
-| equal | Equal | equal | 0 |
-| eraser | Eraser | eraser | 0 |
-| eye | Eye | eye | 0 |
-| eye-off | EyeOff | eyeOff | 0 |
-| globe | Globe2 | globe | 0 |
-| hammer | Hammer | hammer | 0 |
-| magnet | Magnet | magnet | 0 |
-| maximize | Maximize | maximize | 0 |
-| minus | Minus | minus | 0 |
-| move | Move | move | 0 |
-| percent | Percent | percent | 0 |
-| plane | Plane | plane | 0 |
-| redo | Redo | redo | 0 |
-| refresh | RefreshCw | refresh | 0 |
-| rows | Rows2 | rows2 | 0 |
-| ruler | Ruler | ruler | 0 |
-| slash | Slash | slash | 0 |
-| square | Square | square | 0 |
-| trash | Trash | trash | 0 |
-| type | Type | type | 0 |
-| undo | Undo | undo | 0 |
-| wind | Wind | wind | 0 |
+| jd 이름          | lucide            | AppIcon 키      | 사용처¹ |
+| ---------------- | ----------------- | --------------- | ------- |
+| close            | X                 | close           | 8       |
+| search           | Search            | search          | 7       |
+| sparkles         | Sparkles          | sparkles        | 7       |
+| trending-up      | TrendingUp        | trendingUp      | 7       |
+| wallet           | Wallet            | wallet          | 7       |
+| activity         | Activity          | activity        | 6       |
+| info             | Info              | info            | 6       |
+| trending-down    | TrendingDown      | trendingDown    | 6       |
+| calendar         | Calendar          | calendar        | 5       |
+| newspaper        | Newspaper         | newspaper       | 5       |
+| banknote         | Banknote          | banknote        | 4       |
+| chart-line       | LineChart         | lineChart       | 4       |
+| crown            | Crown             | crown           | 4       |
+| target           | Target            | target          | 4       |
+| bell             | Bell              | bell            | 3       |
+| calendar-check   | CalendarCheck     | calendarCheck   | 2       |
+| chart-bar        | BarChart3         | barChart        | 2       |
+| chevron-right    | ChevronRight      | chevronRight    | 2       |
+| command          | Command           | command         | 2       |
+| dashboard        | LayoutDashboard   | layoutDashboard | 2       |
+| flame            | Flame             | flame           | 2       |
+| grid             | Grid2x2           | grid2x2         | 2       |
+| layout-grid      | LayoutGrid        | layoutGrid      | 2       |
+| list-ordered     | ListOrdered       | listOrdered     | 2       |
+| pencil           | Pencil            | pencil          | 2       |
+| plus             | Plus              | plus            | 2       |
+| settings         | Settings          | settings        | 2       |
+| sliders          | SlidersHorizontal | sliders         | 2       |
+| swap             | ArrowLeftRight    | swap            | 2       |
+| warning          | AlertTriangle     | alert           | 2       |
+| arrow-down       | ArrowDown         | arrowDown       | 1       |
+| arrow-up         | ArrowUp           | arrowUp         | 1       |
+| chevron-left     | ChevronLeft       | chevronLeft     | 1       |
+| clock            | Clock             | clock           | 1       |
+| external-link    | ExternalLink      | external        | 1       |
+| lock             | Lock              | lock            | 1       |
+| menu             | Menu              | menu            | 1       |
+| moon             | Moon              | moon            | 1       |
+| star             | Star              | star            | 1       |
+| sun              | Sun               | sun             | 1       |
+| arrow-left       | ArrowLeft         | arrowLeft       | 0       |
+| arrow-right      | ArrowRight        | arrowRight      | 0       |
+| building         | Building2         | building        | 0       |
+| chart-pie        | PieChart          | pieChart        | 0       |
+| check            | Check             | check           | 0       |
+| chevron-down     | ChevronDown       | chevronDown     | 0       |
+| chevron-up       | ChevronUp         | chevronUp       | 0       |
+| chevrons-up-down | ChevronsUpDown    | chevronsUpDown  | 0       |
+| columns          | Columns2          | columns2        | 0       |
+| cursor           | MousePointer      | mousePointer    | 0       |
+| download         | Download          | download        | 0       |
+| equal            | Equal             | equal           | 0       |
+| eraser           | Eraser            | eraser          | 0       |
+| eye              | Eye               | eye             | 0       |
+| eye-off          | EyeOff            | eyeOff          | 0       |
+| globe            | Globe2            | globe           | 0       |
+| hammer           | Hammer            | hammer          | 0       |
+| magnet           | Magnet            | magnet          | 0       |
+| maximize         | Maximize          | maximize        | 0       |
+| minus            | Minus             | minus           | 0       |
+| move             | Move              | move            | 0       |
+| percent          | Percent           | percent         | 0       |
+| plane            | Plane             | plane           | 0       |
+| redo             | Redo              | redo            | 0       |
+| refresh          | RefreshCw         | refresh         | 0       |
+| rows             | Rows2             | rows2           | 0       |
+| ruler            | Ruler             | ruler           | 0       |
+| slash            | Slash             | slash           | 0       |
+| square           | Square            | square          | 0       |
+| trash            | Trash             | trash           | 0       |
+| type             | Type              | type            | 0       |
+| undo             | Undo              | undo            | 0       |
+| wind             | Wind              | wind            | 0       |
 
 패턴 보강분(lucide 별칭 동시 제공): copy(Copy) · filter(Filter) · pin(Pin) · minimize(Minimize).
 

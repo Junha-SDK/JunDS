@@ -4,12 +4,21 @@ import { Box } from "./Box";
 import type { BoxProps } from "./Box";
 import type { Responsive, FontSizeToken, FontWeightToken } from "./styleProps";
 
-export interface HeadingProps extends Omit<BoxProps, "as" | "fontSize" | "fontWeight" | "lineHeight"> {
+export interface HeadingProps
+  extends Omit<BoxProps, "as" | "fontSize" | "fontWeight" | "lineHeight"> {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   truncate?: boolean;
 }
 
-const levelDefaults: Record<number, { fontSize: Responsive<FontSizeToken>; fontWeight: FontWeightToken; lineHeight: string; mb: number }> = {
+const levelDefaults: Record<
+  number,
+  {
+    fontSize: Responsive<FontSizeToken>;
+    fontWeight: FontWeightToken;
+    lineHeight: string;
+    mb: number;
+  }
+> = {
   1: { fontSize: { base: "2xl", md: "3xl" }, fontWeight: "bold", lineHeight: "tight", mb: 6 },
   2: { fontSize: { base: "xl", md: "2xl" }, fontWeight: "bold", lineHeight: "tight", mb: 4 },
   3: { fontSize: "xl", fontWeight: "semibold", lineHeight: "snug", mb: 3 },

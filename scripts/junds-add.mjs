@@ -41,7 +41,12 @@ if (!name) {
 function inferKind(n) {
   if (n.startsWith("use") && /^use[A-Z]/.test(n)) return "hook";
   // 패턴 키워드
-  if (/Page$|Layout$|Reader$|Inbox$|Editor$|Dashboard$|Builder$|Wizard$|Center$|Feed$|Album$|Diagram$/.test(n)) return "pattern";
+  if (
+    /Page$|Layout$|Reader$|Inbox$|Editor$|Dashboard$|Builder$|Wizard$|Center$|Feed$|Album$|Diagram$/.test(
+      n,
+    )
+  )
+    return "pattern";
   // primitive 키워드 (단일 element 표시)
   if (/Button$|Icon$|Badge$|Tag$|Chip$|Mark$|Dot$|Indicator$|Spinner$/.test(n)) return "primitive";
   // 그 외 composite 기본

@@ -1,8 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import {
-  _isDomainAllowed,
-  _isLocationTampered,
-} from "@/ds/auth/domain-lock";
+import { _isDomainAllowed, _isLocationTampered } from "@/ds/auth/domain-lock";
 
 const ORIGINAL_LOCATION = window.location;
 

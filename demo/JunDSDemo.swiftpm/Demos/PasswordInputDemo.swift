@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // PasswordInput 데모 — 실컴포넌트 JdPasswordInput(SwiftUI)/JdPasswordInputView(UIKit).
 //
@@ -50,7 +50,8 @@ private struct PasswordInputStageSwiftUI: View {
 
             VStack(alignment: .leading, spacing: JdToken.Space.s1) {
                 Text(passwordDemoSummary(text))
-                Text("강도 4단(취약/보통/양호/강력)은 규칙 5종(8자 이상·대문자·소문자·숫자·특수문자) 충족 비율 80% + 길이 보너스 20%로 결정된다")
+                Text(
+                    "강도 4단(취약/보통/양호/강력)은 규칙 5종(8자 이상·대문자·소문자·숫자·특수문자) 충족 비율 80% + 길이 보너스 20%로 결정된다")
             }
             .font(.footnote)
             .foregroundColor(.secondary)
@@ -79,7 +80,8 @@ private struct PasswordInputStageUIKit: View {
 
             VStack(alignment: .leading, spacing: JdToken.Space.s1) {
                 Text(passwordDemoSummary(text))
-                Text("강도 4단(취약/보통/양호/강력)은 규칙 5종(8자 이상·대문자·소문자·숫자·특수문자) 충족 비율 80% + 길이 보너스 20%로 결정된다")
+                Text(
+                    "강도 4단(취약/보통/양호/강력)은 규칙 5종(8자 이상·대문자·소문자·숫자·특수문자) 충족 비율 80% + 길이 보너스 20%로 결정된다")
             }
             .font(.footnote)
             .foregroundColor(.secondary)

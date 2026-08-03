@@ -19,7 +19,7 @@ export class JdTextarea extends JdElement {
     maxLength: { type: Number, default: 0, attribute: "maxlength" }, // 네이티브 표기 계승
     error: { type: Boolean, reflect: true },
     autoResize: { type: Boolean, reflect: true }, // attr: auto-resize
-    showCount: { type: Boolean, reflect: true },  // attr: show-count
+    showCount: { type: Boolean, reflect: true }, // attr: show-count
     disabled: { type: Boolean, reflect: true },
     required: { type: Boolean, reflect: true },
   };
@@ -40,7 +40,9 @@ export class JdTextarea extends JdElement {
 
   protected render(): void {
     adoptStyles(textareaStyles);
-    const existing = this.querySelector<HTMLTextAreaElement>(":scope > textarea.jd-textarea__input");
+    const existing = this.querySelector<HTMLTextAreaElement>(
+      ":scope > textarea.jd-textarea__input",
+    );
     if (existing) {
       this.#ta = existing;
       this.#count = this.querySelector(":scope > .jd-textarea__count")!;

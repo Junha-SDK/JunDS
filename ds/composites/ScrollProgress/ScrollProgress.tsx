@@ -25,55 +25,71 @@ export interface ScrollProgressProps extends HTMLAttributes<HTMLDivElement> {
  * @since 2.3.0
  * @tags feedback
  */
-export const ScrollProgress = forwardRef<HTMLDivElement, ScrollProgressProps>(function ScrollProgress(
-  { position = "top", color, thickness = 3, target, className, style, "aria-label": ariaLabel, ...props },
-  ref,
-) {
-  const t = useT();
-  const [progress, setProgress] = useState(0);
+export const ScrollProgress = forwardRef<HTMLDivElement, ScrollProgressProps>(
+  function ScrollProgress(
+    {
+      position = "top",
+      color,
+      thickness = 3,
+      target,
+      className,
+      style,
+      "aria-label": ariaLabel,
+      ...props
+    },
+    ref,
+  ) {
+    const t = useT();
+    const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+    useEffect(() => {
+      if (typeof window === "undefined") return;
 
-    const compute = () => {
-      const el = target;
-      if (el) {
-        const max = el.scrollHeight - el.clientHeight;
-        setProgress(max > 0 ? (el.scrollTop / max) * 100 : 0);
-      } else {
-        const doc = document.documentElement;
-        const max = doc.scrollHeight - doc.clientHeight;
-        setProgress(max > 0 ? (doc.scrollTop / max) * 100 : 0);
-      }
-    };
+      const compute = () => {
+        const el = target;
+        if (el) {
+          const max = el.scrollHeight - el.clientHeight;
+          setProgress(max > 0 ? (el.scrollTop / max) * 100 : 0);
+        } else {
+          const doc = document.documentElement;
+          const max = doc.scrollHeight - doc.clientHeight;
+          setProgress(max > 0 ? (doc.scrollTop / max) * 100 : 0);
+        }
+      };
 
-    compute();
-    const handler = () => compute();
-    const scrollSrc = (target ?? window) as Window | HTMLElement;
-    scrollSrc.addEventListener("scroll", handler, { passive: true });
-    window.addEventListener("resize", handler);
-    return () => {
-      scrollSrc.removeEventListener("scroll", handler);
-      window.removeEventListener("resize", handler);
-    };
-  }, [target]);
+      compute();
+      const handler = () => compute();
+      const scrollSrc = (target ?? window) as Window | HTMLElement;
+      scrollSrc.addEventListener("scroll", handler, { passive: true });
+      window.addEventListener("resize", handler);
+      return () => {
+        scrollSrc.removeEventListener("scroll", handler);
+        window.removeEventListener("resize", handler);
+      };
+    }, [target]);
 
-  return (
-    <div
-      ref={ref}
-      role="progressbar"
-      aria-label={ariaLabel ?? t("ariaScrollProgress")}
-      aria-valuenow={Math.round(progress)}
-      aria-valuemin={0}
-      aria-valuemax={100}
-      className={cn("fixed left-0 right-0 z-50 pointer-events-none", position === "top" ? "top-0" : "bottom-0", className)}
-      style={{ height: thickness, ...style }}
-      {...props}
-    >
+    return (
       <div
-        className="h-full transition-[width] duration-100 ease-out"
-        style={{ width: `${progress}%`, background: color ?? "var(--primary)" }}
-      />
-    </div>
-  );
-});
+        ref={ref}
+        role="progressbar"
+        aria-label={ariaLabel ?? t("ariaScrollProgress")}
+        aria-valuenow={Math.round(progress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        className={cn(
+          "fixed left-0 right-0 z-50 pointer-events-none",
+          position === "top" ? "top-0" : "bottom-0",
+          className,
+        )}
+        style={{ height: thickness, ...style }}
+        {...props}
+      >
+        <div
+          // 폭이 스크롤을 따라 흐른다 — 감속 요청이면 스크롤 위치에 즉시 붙는다.
+          className="h-full transition-[width] duration-100 ease-out motion-reduce:transition-none"
+          style={{ width: `${progress}%`, background: color ?? "var(--primary)" }}
+        />
+      </div>
+    );
+  },
+);

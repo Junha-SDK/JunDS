@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveTicker",
   "oneLiner": "실시간 티커 스트립.",
-  "tags": [
-    "finance",
-    "live",
-    "티커"
-  ],
+  "tags": ["finance", "live", "티커"],
   "controls": [],
   "snippets": {
     "web": null,

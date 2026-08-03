@@ -89,7 +89,9 @@ export class JdStepper extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdStep[];
@@ -166,8 +168,8 @@ export class JdStepper extends JdElement {
         status === "completed"
           ? this.completedLabel
           : status === "current"
-            ? this.currentLabel
-            : this.upcomingLabel;
+          ? this.currentLabel
+          : this.upcomingLabel;
       this.#applyCircle(row.querySelector<HTMLElement>(".jd-stepper__circle")!, step, status, i);
     });
   }

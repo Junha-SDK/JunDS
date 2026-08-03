@@ -40,7 +40,13 @@ interface Product {
   reviews: number;
 }
 
-export function ProductDetail({ product, related }: { product: Product; related: Product[] }) {
+export function ProductDetail({
+  product,
+  related,
+}: {
+  product: Product;
+  related: Product[];
+}) {
   const [qty, setQty] = useState(1);
   const [reactions, setReactions] = useState([
     { emoji: "❤️", count: 142, reacted: false },
@@ -51,7 +57,9 @@ export function ProductDetail({ product, related }: { product: Product; related:
   const toggleReaction = (emoji: string) => {
     setReactions((rs) =>
       rs.map((r) =>
-        r.emoji === emoji ? { ...r, reacted: !r.reacted, count: r.count + (r.reacted ? -1 : 1) } : r,
+        r.emoji === emoji
+          ? { ...r, reacted: !r.reacted, count: r.count + (r.reacted ? -1 : 1) }
+          : r,
       ),
     );
   };
@@ -122,9 +130,7 @@ export function ProductDetail({ product, related }: { product: Product; related:
               title={p.title}
               brand={p.brand}
               image={p.image}
-              price={
-                <PriceDisplay value={p.price} currency={p.currency} size="sm" />
-              }
+              price={<PriceDisplay value={p.price} currency={p.currency} size="sm" />}
               rating={p.rating}
               reviewCount={p.reviews}
             />

@@ -79,12 +79,26 @@ function timeLabel(d: EmailMessage["receivedAt"]) {
  * @tags email, layout
  */
 export const EmailInbox = forwardRef<HTMLElement, EmailInboxProps>(function EmailInbox(
-  { folders, messages, activeFolderId, onFolderChange, activeMessageId, onMessageSelect, onToggleStar, search, onSearchChange, className },
+  {
+    folders,
+    messages,
+    activeFolderId,
+    onFolderChange,
+    activeMessageId,
+    onMessageSelect,
+    onToggleStar,
+    search,
+    onSearchChange,
+    className,
+  },
   ref,
 ) {
   const [internalSearch, setInternalSearch] = useState("");
   const q = search ?? internalSearch;
-  const setQ = (v: string) => { onSearchChange?.(v); if (search === undefined) setInternalSearch(v); };
+  const setQ = (v: string) => {
+    onSearchChange?.(v);
+    if (search === undefined) setInternalSearch(v);
+  };
 
   const filtered = useMemo(() => {
     const base = messages.filter((m) => m.folderId === activeFolderId);
@@ -104,7 +118,15 @@ export const EmailInbox = forwardRef<HTMLElement, EmailInboxProps>(function Emai
   );
 
   return (
-    <section ref={ref} className={cn("grid grid-cols-1 lg:grid-cols-[200px_360px_1fr] h-[640px] rounded-xl border border-border bg-surface overflow-hidden", className)} aria-label="이메일 인박스">
+    <section
+      ref={ref}
+      className={cn(
+        "grid grid-cols-1 lg:grid-cols-[200px_360px_1fr] h-[640px] rounded-2xl border border-border bg-surface overflow-hidden",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.12)]",
+        className,
+      )}
+      aria-label="이메일 인박스"
+    >
       {/* 폴더 패널 */}
       <nav aria-label="폴더" className="hidden lg:block border-r border-border p-2 overflow-y-auto">
         <ul className="space-y-0.5">
@@ -117,8 +139,12 @@ export const EmailInbox = forwardRef<HTMLElement, EmailInboxProps>(function Emai
                   onClick={() => onFolderChange(f.id)}
                   aria-current={active ? "true" : undefined}
                   className={cn(
-                    "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm cursor-pointer",
-                    active ? "bg-primary/10 text-primary font-semibold" : "text-foreground hover:bg-surface-soft",
+                    "w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm cursor-pointer",
+                    "transition-colors duration-150",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
+                    active
+                      ? "bg-primary/10 text-primary-ink font-semibold"
+                      : "text-foreground hover:bg-surface-soft",
                   )}
                 >
                   <span className="flex items-center gap-2 min-w-0">
@@ -126,7 +152,7 @@ export const EmailInbox = forwardRef<HTMLElement, EmailInboxProps>(function Emai
                     <span className="truncate">{f.label}</span>
                   </span>
                   {f.unreadCount !== undefined && f.unreadCount > 0 && (
-                    <span className="text-[10px] tabular-nums px-1.5 rounded-full bg-primary/15 text-primary">
+                    <span className="text-[10px] tabular-nums px-1.5 rounded-full bg-primary/15 text-primary-ink shrink-0">
                       {f.unreadCount}
                     </span>
                   )}
@@ -146,60 +172,96 @@ export const EmailInbox = forwardRef<HTMLElement, EmailInboxProps>(function Emai
             onChange={(e) => setQ(e.target.value)}
             placeholder="검색…"
             aria-label="이메일 검색"
-            className="w-full h-9 px-3 text-sm rounded-md border border-border bg-surface focus:outline-none focus:border-primary"
+            className={cn(
+              "w-full min-w-0 h-9 px-3 text-sm rounded-xl border border-border bg-surface",
+              "transition-[border-color,box-shadow] duration-150 placeholder:text-muted-light",
+              // outline 을 지우면 초점 표시가 사라진다 — 같은 자리에서 glow 로 되돌려준다
+              "outline-none focus-visible:border-primary focus-visible:shadow-[0_0_0_3px_var(--primary-glow)]",
+            )}
           />
         </div>
         {filtered.length === 0 ? (
           <div className="flex-1 overflow-y-auto">
-            <EmptyState icon="📭" title="메일이 없습니다" description={q ? "검색 결과 없음" : "받은 편지함이 비었습니다"} />
+            <EmptyState
+              icon="📭"
+              title="메일이 없습니다"
+              description={q ? "검색 결과 없음" : "받은 편지함이 비었습니다"}
+            />
           </div>
         ) : (
-        <ul className="flex-1 overflow-y-auto" aria-label="메일 목록">
-          {filtered.map((m) => {
-            const active = m.id === activeMessageId;
-            return (
-              <li key={m.id}>
-                <button
-                  type="button"
-                  onClick={() => onMessageSelect(m)}
-                  aria-current={active ? "true" : undefined}
-                  className={cn(
-                    "w-full px-3 py-2.5 text-left border-b border-border-light cursor-pointer transition-colors",
-                    active ? "bg-primary/10" : m.unread ? "bg-surface" : "bg-surface-soft/40",
-                    "hover:bg-surface-soft",
-                  )}
-                >
-                  <div className="flex items-start gap-2">
-                    <span aria-hidden="true" className={cn("inline-block w-1.5 h-1.5 rounded-full mt-1.5 shrink-0", m.unread ? "bg-primary" : "bg-transparent")} />
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-baseline justify-between gap-2">
-                        <span className={cn("text-sm truncate", m.unread ? "font-semibold text-foreground" : "text-foreground")}>
-                          {m.from}
-                        </span>
-                        <span className="text-[10px] text-muted tabular-nums shrink-0">{timeLabel(m.receivedAt)}</span>
-                      </div>
-                      <p className={cn("text-sm truncate", m.unread ? "font-medium text-foreground" : "text-muted")}>
-                        {m.subject}
-                      </p>
-                      <p className="text-xs text-muted truncate">{m.preview}</p>
-                    </div>
-                    {onToggleStar && (
-                      <button
-                        type="button"
-                        onClick={(e) => { e.stopPropagation(); onToggleStar(m.id); }}
-                        aria-label={m.starred ? "별표 해제" : "별표"}
-                        aria-pressed={m.starred}
-                        className={cn("text-xs cursor-pointer", m.starred ? "text-amber-500" : "text-muted-light")}
-                      >
-                        {m.starred ? "★" : "☆"}
-                      </button>
+          <ul className="flex-1 overflow-y-auto" aria-label="메일 목록">
+            {filtered.map((m) => {
+              const active = m.id === activeMessageId;
+              return (
+                <li key={m.id}>
+                  <button
+                    type="button"
+                    onClick={() => onMessageSelect(m)}
+                    aria-current={active ? "true" : undefined}
+                    className={cn(
+                      "w-full px-3 py-2.5 text-left border-b border-border-light cursor-pointer transition-colors duration-150",
+                      // 목록 행은 좌우가 패널에 붙어 있어 offset 링이 잘린다 — 안쪽 링
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
+                      active ? "bg-primary/10" : m.unread ? "bg-surface" : "bg-surface-soft/40",
+                      "hover:bg-surface-soft",
                     )}
-                  </div>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+                  >
+                    <div className="flex items-start gap-2">
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "inline-block w-1.5 h-1.5 rounded-full mt-1.5 shrink-0",
+                          m.unread ? "bg-primary" : "bg-transparent",
+                        )}
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-baseline justify-between gap-2">
+                          <span
+                            className={cn(
+                              "text-sm truncate",
+                              m.unread ? "font-semibold text-foreground" : "text-foreground",
+                            )}
+                          >
+                            {m.from}
+                          </span>
+                          <span className="text-[10px] text-muted tabular-nums shrink-0">
+                            {timeLabel(m.receivedAt)}
+                          </span>
+                        </div>
+                        <p
+                          className={cn(
+                            "text-sm truncate",
+                            m.unread ? "font-medium text-foreground" : "text-muted",
+                          )}
+                        >
+                          {m.subject}
+                        </p>
+                        <p className="text-xs text-muted truncate">{m.preview}</p>
+                      </div>
+                      {onToggleStar && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onToggleStar(m.id);
+                          }}
+                          aria-label={m.starred ? "별표 해제" : "별표"}
+                          aria-pressed={m.starred}
+                          className={cn(
+                            "text-xs cursor-pointer shrink-0 rounded-md px-0.5 transition-colors duration-150",
+                            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55",
+                            m.starred ? "text-amber-500" : "text-muted-light hover:text-muted",
+                          )}
+                        >
+                          {m.starred ? "★" : "☆"}
+                        </button>
+                      )}
+                    </div>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         )}
       </div>
 
@@ -208,29 +270,42 @@ export const EmailInbox = forwardRef<HTMLElement, EmailInboxProps>(function Emai
         {activeMessage ? (
           <>
             <header className="p-4 border-b border-border">
-              <h2 className="text-lg font-semibold text-foreground">{activeMessage.subject}</h2>
-              <div className="mt-2 flex items-center gap-2 text-xs text-muted">
+              <h2 className="text-lg font-semibold text-foreground break-words">
+                {activeMessage.subject}
+              </h2>
+              <div className="mt-2 flex items-center gap-2 text-xs text-muted min-w-0">
                 {activeMessage.fromAvatar ? (
-                  <img src={activeMessage.fromAvatar} alt="" className="w-7 h-7 rounded-full object-cover" />
+                  <img
+                    src={activeMessage.fromAvatar}
+                    alt=""
+                    className="w-7 h-7 rounded-full object-cover shrink-0"
+                  />
                 ) : (
-                  <div className="w-7 h-7 rounded-full bg-primary/15 text-primary inline-flex items-center justify-center text-[11px] font-semibold">
+                  <div className="w-7 h-7 shrink-0 rounded-full bg-primary/15 text-primary-ink inline-flex items-center justify-center text-[11px] font-semibold">
                     {activeMessage.from.slice(0, 1)}
                   </div>
                 )}
-                <span className="font-medium text-foreground">{activeMessage.from}</span>
-                <span>·</span>
-                <span>{timeLabel(activeMessage.receivedAt)}</span>
+                <span className="font-medium text-foreground truncate">{activeMessage.from}</span>
+                <span className="shrink-0">·</span>
+                <span className="shrink-0 whitespace-nowrap tabular-nums">
+                  {timeLabel(activeMessage.receivedAt)}
+                </span>
                 {activeMessage.attachments !== undefined && activeMessage.attachments > 0 && (
                   <>
                     <span>·</span>
-                    <span aria-label={`첨부 ${activeMessage.attachments}개`}>📎 {activeMessage.attachments}</span>
+                    <span aria-label={`첨부 ${activeMessage.attachments}개`}>
+                      📎 {activeMessage.attachments}
+                    </span>
                   </>
                 )}
               </div>
               {activeMessage.labels && activeMessage.labels.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1">
                   {activeMessage.labels.map((l) => (
-                    <span key={l} className="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-soft text-[10px] text-foreground">
+                    <span
+                      key={l}
+                      className="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-soft text-[10px] text-foreground whitespace-nowrap"
+                    >
                       {l}
                     </span>
                   ))}
@@ -242,7 +317,11 @@ export const EmailInbox = forwardRef<HTMLElement, EmailInboxProps>(function Emai
             </div>
           </>
         ) : (
-          <EmptyState icon="✉️" title="메일을 선택하세요" description="좌측 목록에서 읽을 메일을 클릭하세요." />
+          <EmptyState
+            icon="✉️"
+            title="메일을 선택하세요"
+            description="좌측 목록에서 읽을 메일을 클릭하세요."
+          />
         )}
       </article>
     </section>

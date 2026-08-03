@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "CommandPaletteHost",
   "oneLiner": "금융 앱 커맨드 팔레트 호스트 — 항목 프로바이더 등록.",
-  "tags": [
-    "finance",
-    "검색",
-    "팔레트"
-  ],
+  "tags": ["finance", "검색", "팔레트"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "FormArray",
   "oneLiner": "배열형 폼 필드(추가/삭제 가능한 반복 항목)를 관리합니다.",
-  "tags": [
-    "form"
-  ],
+  "tags": ["form"],
   "controls": [],
   "snippets": {
     "web": null,

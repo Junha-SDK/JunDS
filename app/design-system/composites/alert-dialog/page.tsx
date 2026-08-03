@@ -20,8 +20,18 @@ export default function AlertDialogPage() {
         { name: "onCancel", type: "() => void", required: true, description: "취소 핸들러" },
         { name: "title", type: "string", required: true, description: "제목" },
         { name: "description", type: "string", required: true, description: "설명 텍스트" },
-        { name: "variant", type: '"danger"|"warning"|"info"', default: '"info"', description: "변형 스타일" },
-        { name: "confirmLabel", type: "string", default: '"확인"', description: "확인 버튼 텍스트" },
+        {
+          name: "variant",
+          type: '"danger"|"warning"|"info"',
+          default: '"info"',
+          description: "변형 스타일",
+        },
+        {
+          name: "confirmLabel",
+          type: "string",
+          default: '"확인"',
+          description: "확인 버튼 텍스트",
+        },
         { name: "cancelLabel", type: "string", default: '"취소"', description: "취소 버튼 텍스트" },
         { name: "loading", type: "boolean", default: "false", description: "로딩 상태" },
       ]}

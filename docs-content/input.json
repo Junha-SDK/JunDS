@@ -4,12 +4,7 @@
   "category": "primitives",
   "title": "Input",
   "oneLiner": "텍스트 입력 — v3 웹은 jd-text-field로 v2 Input+FormField 통합(label·error 내장, 네이티브 input 위임).",
-  "tags": [
-    "form",
-    "control",
-    "input",
-    "text-field"
-  ],
+  "tags": ["form", "control", "input", "text-field"],
   "controls": [
     {
       "prop": "label",
@@ -24,11 +19,7 @@
     {
       "prop": "size",
       "kind": "segmented",
-      "options": [
-        "sm",
-        "md",
-        "lg"
-      ],
+      "options": ["sm", "md", "lg"],
       "default": "md"
     },
     {

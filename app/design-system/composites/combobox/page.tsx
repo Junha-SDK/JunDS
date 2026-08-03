@@ -41,7 +41,12 @@ export default function ComboboxPage() {
         { name: "loading", type: "boolean", default: "false", description: "로딩 상태" },
         { name: "disabled", type: "boolean", default: "false", description: "비활성화" },
         { name: "error", type: "boolean", default: "false", description: "에러 상태" },
-        { name: "emptyMessage", type: "string", default: '"결과 없음"', description: "빈 결과 메시지" },
+        {
+          name: "emptyMessage",
+          type: "string",
+          default: '"결과 없음"',
+          description: "빈 결과 메시지",
+        },
       ]}
     >
       <Section title="기본">

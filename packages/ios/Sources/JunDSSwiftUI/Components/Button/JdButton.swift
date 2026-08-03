@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 public struct JdButton: View {
     private let title: String
@@ -7,11 +7,13 @@ public struct JdButton: View {
     private let isLoading: Bool
     private let action: () -> Void
 
-    public init(_ title: String,
-                variant: JdButtonVariant = .primary,
-                size: JdControlSize = .md,
-                loading: Bool = false,
-                action: @escaping () -> Void) {
+    public init(
+        _ title: String,
+        variant: JdButtonVariant = .primary,
+        size: JdControlSize = .md,
+        loading: Bool = false,
+        action: @escaping () -> Void
+    ) {
         self.title = title
         self.spec = JdButtonSpec.resolve(variant: variant, size: size)
         self.isLoading = loading
@@ -44,21 +46,27 @@ struct JdButtonPressStyle: ButtonStyle {
         let shape = RoundedRectangle(cornerRadius: spec.radius, style: .continuous)
         let background = configuration.isPressed ? spec.pressedBackground : spec.background
         return configuration.label
-            .font(JdSwiftUIFont.scaled(size: spec.fontSize, weight: spec.fontWeight, category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: spec.fontSize, weight: spec.fontWeight, category: sizeCategory)
+            )
             .padding(.horizontal, spec.hPadding)
-            .frame(minHeight: spec.minHeight) // 고정 height 금지 — XXXL에서 자란다 (04 §7.2)
+            .frame(minHeight: spec.minHeight)  // 고정 height 금지 — XXXL에서 자란다 (04 §7.2)
             .foregroundColor(spec.foreground.color)
             .background(background.color)
             .clipShape(shape)
             .overlay(borderOverlay(shape))
             // 융기 (DEC-039) — 눌리면 그림자를 거두어 면이 바닥에 닿게 한다.
             // 색만 바뀌는 버튼은 손가락이 픽셀을 가려서 아무 반응도 없는 것으로 읽힌다.
-            .jdElevation(configuration.isPressed ? JdToken.Shadow.none : JdToken.Shadow.xs, in: shape)
+            .jdElevation(
+                configuration.isPressed ? JdToken.Shadow.none : JdToken.Shadow.xs, in: shape
+            )
             // 눌림은 면적으로 — reduceMotion이면 JdMotion이 애니메이션을 nil로 낮춘다
             .jdPressScale(configuration.isPressed && !reduceMotion)
             .opacity(isEnabled ? 1 : spec.disabledOpacity)
-            .animation(reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
-                       value: configuration.isPressed)
+            .animation(
+                reduceMotion ? nil : .easeOut(duration: JdToken.Duration.press),
+                value: configuration.isPressed)
     }
 
     @ViewBuilder

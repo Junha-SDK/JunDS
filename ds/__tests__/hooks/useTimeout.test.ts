@@ -10,21 +10,28 @@ describe("useTimeout", () => {
     const cb = vi.fn();
     renderHook(() => useTimeout(cb, 500));
     expect(cb).not.toHaveBeenCalled();
-    act(() => { vi.advanceTimersByTime(500); });
+    act(() => {
+      vi.advanceTimersByTime(500);
+    });
     expect(cb).toHaveBeenCalledTimes(1);
   });
 
   it("does not run when delay is null", () => {
     const cb = vi.fn();
     renderHook(() => useTimeout(cb, null));
-    act(() => { vi.advanceTimersByTime(5000); });
+    act(() => {
+      vi.advanceTimersByTime(5000);
+    });
     expect(cb).not.toHaveBeenCalled();
   });
 
   it("clear cancels pending timeout", () => {
     const cb = vi.fn();
     const { result } = renderHook(() => useTimeout(cb, 500));
-    act(() => { result.current.clear(); vi.advanceTimersByTime(500); });
+    act(() => {
+      result.current.clear();
+      vi.advanceTimersByTime(500);
+    });
     expect(cb).not.toHaveBeenCalled();
   });
 });

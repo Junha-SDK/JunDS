@@ -56,9 +56,7 @@ export class JdCheckboxCardGroup extends JdRadioCardGroup {
     return this.max > 0 && !this.#values.includes(value) && this.#values.length >= this.max;
   }
   protected override commit(value: string, checked: boolean): void {
-    this.#values = checked
-      ? [...this.#values, value]
-      : this.#values.filter((v) => v !== value);
+    this.#values = checked ? [...this.#values, value] : this.#values.filter((v) => v !== value);
     this.emit("jd-change", { values: this.#values });
   }
 

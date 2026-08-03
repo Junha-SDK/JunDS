@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-app-shell 동형 — 사이드바 레일 + 헤더/본문/푸터 골격 (DESIGN-2 §A).
 //
@@ -26,14 +26,16 @@ public struct JdAppShell<Sidebar: View, Header: View, Content: View, Footer: Vie
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     // 기본값은 웹 jd-app-shell props 그대로 (sidebarWidth 260 / collapsedWidth 64 = JdToken.Space.s16)
-    public init(sidebarWidth: CGFloat = 260,
-                collapsedWidth: CGFloat = 64,
-                collapsed: Binding<Bool>,
-                compactOpen: Binding<Bool>,
-                @ViewBuilder sidebar: () -> Sidebar,
-                @ViewBuilder header: () -> Header,
-                @ViewBuilder content: () -> Content,
-                @ViewBuilder footer: () -> Footer) {
+    public init(
+        sidebarWidth: CGFloat = 260,
+        collapsedWidth: CGFloat = 64,
+        collapsed: Binding<Bool>,
+        compactOpen: Binding<Bool>,
+        @ViewBuilder sidebar: () -> Sidebar,
+        @ViewBuilder header: () -> Header,
+        @ViewBuilder content: () -> Content,
+        @ViewBuilder footer: () -> Footer
+    ) {
         self.sidebarWidth = sidebarWidth
         self.collapsedWidth = collapsedWidth
         self._collapsed = collapsed

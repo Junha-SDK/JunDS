@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "AlbumArt",
   "oneLiner": "앨범/트랙 커버 — 이미지가 없거나 깨지면 시드에서 만든 무광 그라디언트 커버로 대신한다.",
-  "tags": [
-    "media",
-    "audio",
-    "폴백"
-  ],
+  "tags": ["media", "audio", "폴백"],
   "controls": [
     {
       "prop": "size",
@@ -21,13 +17,7 @@
     {
       "prop": "radius",
       "kind": "select",
-      "options": [
-        "none",
-        "sm",
-        "md",
-        "lg",
-        "full"
-      ],
+      "options": ["none", "sm", "md", "lg", "full"],
       "default": "md"
     }
   ],

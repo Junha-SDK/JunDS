@@ -1,8 +1,5 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../src/core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../src/core/aria.js";
 import "../src/components/feature-grid/index.js";
 import "../src/components/form-field/index.js";
 import "../src/components/popover/index.js";
@@ -12,10 +9,7 @@ import type { JdFormField } from "../src/components/form-field/element.js";
 import type { JdPopover } from "../src/components/popover/element.js";
 import type { JdTooltip } from "../src/components/tooltip/element.js";
 
-const tick = () =>
-  new Promise<void>((resolve) =>
-    queueMicrotask(() => queueMicrotask(resolve)),
-  );
+const tick = () => new Promise<void>((resolve) => queueMicrotask(() => queueMicrotask(resolve)));
 
 beforeEach(() => {
   document.body.innerHTML = "";
@@ -27,18 +21,11 @@ describe("ARIA 소유권 유틸리티", () => {
     input.setAttribute("aria-describedby", "consumer-help");
 
     syncAriaIdRefs(input, "aria-describedby", "junds-error");
-    expect(input.getAttribute("aria-describedby")).toBe(
-      "consumer-help junds-error",
-    );
+    expect(input.getAttribute("aria-describedby")).toBe("consumer-help junds-error");
 
-    input.setAttribute(
-      "aria-describedby",
-      `${input.getAttribute("aria-describedby")} live-help`,
-    );
+    input.setAttribute("aria-describedby", `${input.getAttribute("aria-describedby")} live-help`);
     syncAriaIdRefs(input, "aria-describedby", null);
-    expect(input.getAttribute("aria-describedby")).toBe(
-      "consumer-help live-help",
-    );
+    expect(input.getAttribute("aria-describedby")).toBe("consumer-help live-help");
   });
 
   test("상태가 끝나면 기존 속성을 복원하고 사용자 변경은 덮지 않는다", () => {
@@ -71,10 +58,7 @@ describe("소비자 DOM과 자동 ARIA 조합", () => {
     const field = document.querySelector<JdFormField>("jd-form-field")!;
     const input = field.querySelector("input")!;
     const errorId = field.querySelector(".jd-form-field__error")!.id;
-    expect(input.getAttribute("aria-describedby")?.split(" ")).toEqual([
-      "consumer-help",
-      errorId,
-    ]);
+    expect(input.getAttribute("aria-describedby")?.split(" ")).toEqual(["consumer-help", errorId]);
     expect(input.getAttribute("aria-invalid")).toBe("true");
     expect(input.getAttribute("aria-required")).toBe("true");
 
@@ -83,10 +67,7 @@ describe("소비자 DOM과 자동 ARIA 조합", () => {
     field.required = false;
     await field.updateComplete;
     const hintId = field.querySelector(".jd-form-field__hint")!.id;
-    expect(input.getAttribute("aria-describedby")?.split(" ")).toEqual([
-      "consumer-help",
-      hintId,
-    ]);
+    expect(input.getAttribute("aria-describedby")?.split(" ")).toEqual(["consumer-help", hintId]);
     expect(input.getAttribute("aria-invalid")).toBe("grammar");
     expect(input.getAttribute("aria-required")).toBe("false");
   });
@@ -102,10 +83,7 @@ describe("소비자 DOM과 자동 ARIA 조합", () => {
     const tooltip = document.querySelector<JdTooltip>("jd-tooltip")!;
     const button = tooltip.querySelector("button")!;
     const panelId = tooltip.querySelector(".jd-popover__panel")!.id;
-    expect(button.getAttribute("aria-describedby")?.split(" ")).toEqual([
-      "consumer-tip",
-      panelId,
-    ]);
+    expect(button.getAttribute("aria-describedby")?.split(" ")).toEqual(["consumer-tip", panelId]);
 
     tooltip.open = false;
     await tooltip.updateComplete;
@@ -123,10 +101,7 @@ describe("소비자 DOM과 자동 ARIA 조합", () => {
     const popover = document.querySelector<JdPopover>("jd-popover")!;
     const button = popover.querySelector("button")!;
     const panelId = popover.querySelector(".jd-popover__panel")!.id;
-    expect(button.getAttribute("aria-controls")?.split(" ")).toEqual([
-      "consumer-menu",
-      panelId,
-    ]);
+    expect(button.getAttribute("aria-controls")?.split(" ")).toEqual(["consumer-menu", panelId]);
     expect(button.getAttribute("aria-expanded")).toBe("true");
 
     popover.remove();

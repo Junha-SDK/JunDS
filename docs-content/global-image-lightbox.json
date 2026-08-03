@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "GlobalImageLightbox",
   "oneLiner": "본문 이미지 클릭을 위임받아 확대하는 전역 라이트박스 — 문서에 한 번만 둔다.",
-  "tags": [
-    "media",
-    "overlay",
-    "문서"
-  ],
+  "tags": ["media", "overlay", "문서"],
   "controls": [
     {
       "prop": "minSize",

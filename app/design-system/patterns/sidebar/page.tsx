@@ -43,14 +43,16 @@ export default function SidebarPage() {
       </Section>
 
       <Section title="Code">
-        <CodeBlock code={`<DsSidebarProvider>
+        <CodeBlock
+          code={`<DsSidebarProvider>
   <DsSidebar header={<Logo />}>
     <SidebarSection title="메뉴">
       <SidebarLink href="/" label="홈" icon={<HomeIcon />} active />
       <SidebarLink href="/projects" label="프로젝트" badge={3} />
     </SidebarSection>
   </DsSidebar>
-</DsSidebarProvider>`} />
+</DsSidebarProvider>`}
+        />
       </Section>
     </ComponentPage>
   );

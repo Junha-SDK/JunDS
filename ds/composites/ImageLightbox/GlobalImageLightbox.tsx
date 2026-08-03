@@ -97,7 +97,9 @@ export function GlobalImageLightbox({
       aria-label={alt || "이미지 확대 보기"}
       onClick={close}
       className={cn(
-        "fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-6 animate-fade-in",
+        // bg-black/85 는 라이트박스 크롬이다 — 모드와 무관하게 어두워야 사진이 산다.
+        "fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm p-6",
+        "animate-fade-in motion-reduce:animate-none",
         className,
       )}
     >
@@ -106,13 +108,19 @@ export function GlobalImageLightbox({
         alt={alt}
         decoding="async"
         onClick={(e) => e.stopPropagation()}
-        className="max-h-full max-w-full object-contain animate-fade-in-scale"
+        className="max-h-full max-w-full object-contain rounded-lg shadow-[0_24px_60px_-12px_rgba(0,0,0,0.6)] animate-fade-in-scale motion-reduce:animate-none"
       />
       <button
         type="button"
         onClick={close}
         aria-label={closeLabel}
-        className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-white/10 text-2xl leading-none text-white transition-colors hover:bg-white/20"
+        className={cn(
+          "absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full text-2xl leading-none text-white",
+          "bg-white/10 ring-1 ring-white/15 backdrop-blur-sm",
+          "transition-colors hover:bg-white/20 active:bg-white/25",
+          // 어두운 크롬 위라 링 오프셋도 검정이어야 링이 떠 보인다.
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/60",
+        )}
       >
         &times;
       </button>

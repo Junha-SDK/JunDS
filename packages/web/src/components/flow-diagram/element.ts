@@ -14,7 +14,10 @@
  *  - 데이터는 property(nodes/connections) 또는 자식 <script type="application/json"> 슬롯.
  *  - SVG는 createElementNS(core/chart svgNode) — 네임스페이스 함정 회피(§6-1).
  *  - 호스트는 role=application + tabindex=0(키보드 포커스). 다크 에디터 팔레트는
- *    컴포넌트 고유 지오메트리 색이라 리터럴 유지(§4.3), 선택/연결 강조만 토큰(primary/muted).
+ *    --jd-color-surface 3단(모드 무관 어두운 면)이고, 그 위 잉크는 --jd-color-on-surface
+ *    계열이다 — 모드추종 색을 얹으면 한쪽 모드에서 캔버스에 녹는다(css.ts 주석 참조).
+ *  - 화면 맞춤: fitToView는 "항상 맞춤" 옵트인이고, 그 밖에도 첫 실측에서 장면이 캔버스를
+ *    벗어나면 1회 맞춘다 — 잘린 채 끝나는 화면을 기본값으로 두지 않는다.
  */
 import { JdElement } from "../../core/element.js";
 import { adoptStyles } from "../../core/styles.js";
@@ -225,7 +228,9 @@ export class JdFlowDiagram extends JdElement {
   }
 
   protected connected(): void {
-    this.own({ destroy: on(this, "wheel", (e: WheelEvent) => this.#onWheel(e), { passive: false }) });
+    this.own({
+      destroy: on(this, "wheel", (e: WheelEvent) => this.#onWheel(e), { passive: false }),
+    });
     this.own({ destroy: on(this, "pointerdown", (e: PointerEvent) => this.#onCanvasDown(e)) });
     this.own({ destroy: on(this, "contextmenu", (e: Event) => e.preventDefault()) });
     this.own({ destroy: on(window, "pointermove", (e: PointerEvent) => this.#onPointerMove(e)) });
@@ -235,12 +240,16 @@ export class JdFlowDiagram extends JdElement {
     this.own(
       createSizeObserver(this, (s) => {
         this.#size = { w: s.width, h: s.height };
-        if (this.fitToView && !this.#didFit && s.width > 0) {
+        // 첫 실측에서 장면이 캔버스보다 크면 맞춰 넣는다 — 그대로 두면 오른쪽 노드들이
+        // 컨테이너 밖에 놓여 잘린 채 끝난다(VISUAL-BAR §6: 부모 폭 안에서 끝나거나 굴러야 한다).
+        // fitToView는 여전히 "항상 맞춤" 옵트인이다(장면이 작아도 채워 넣는다).
+        // 판단은 첫 실측 1회로 끝낸다 — 이후 리사이즈마다 카메라를 되돌리면 사용자가
+        // 팬·줌으로 옮겨 둔 시야를 빼앗는다.
+        if (!this.#didFit && s.width > 0) {
           this.#didFit = true;
-          this.#fit();
-        } else {
-          this.requestUpdate();
+          if (this.fitToView || this.#sceneOverflows()) this.#fit();
         }
+        this.requestUpdate();
       }),
     );
   }
@@ -259,7 +268,7 @@ export class JdFlowDiagram extends JdElement {
     if (!n) return { x: 0, y: 0 };
     const w = n.width ?? NODE_W;
     const h = this.#heights.get(nodeId) ?? 60;
-    const total = side === "input" ? (n.inputs ?? 1) : (n.outputs ?? 1);
+    const total = side === "input" ? n.inputs ?? 1 : n.outputs ?? 1;
     const py = total === 1 ? h / 2 : (h / (total + 1)) * (portIdx + 1);
     return { x: side === "output" ? n.x + w : n.x, y: n.y + py };
   }
@@ -272,7 +281,9 @@ export class JdFlowDiagram extends JdElement {
   /* ── 렌더 반영 ── */
   protected override update(): void {
     // 카메라 → 뷰포트 변환 + 격자
-    this.#viewport.style.transform = `translate(${this.#cam.panX}px, ${this.#cam.panY}px) scale(${this.#cam.zoom})`;
+    this.#viewport.style.transform = `translate(${this.#cam.panX}px, ${this.#cam.panY}px) scale(${
+      this.#cam.zoom
+    })`;
     this.#grid.hidden = this.noGrid;
     if (!this.noGrid) {
       const s = GRID_SIZE * this.#cam.zoom;
@@ -354,7 +365,9 @@ export class JdFlowDiagram extends JdElement {
     el.style.cursor = this.readonly ? "default" : "grab";
 
     // 구조가 바뀔 때만 내용·포트를 다시 만들고 offsetHeight를 다시 잰다(레이아웃 스래싱 방지)
-    const sig = `${node.title} ${node.content ?? ""} ${node.icon ?? ""} ${node.inputs ?? 1} ${node.outputs ?? 1} ${w} ${this.readonly ? 1 : 0}`;
+    const sig = `${node.title} ${node.content ?? ""} ${node.icon ?? ""} ${node.inputs ?? 1} ${
+      node.outputs ?? 1
+    } ${w} ${this.readonly ? 1 : 0}`;
     if (this.#nodeSigs.get(node.id) === sig && this.#heights.has(node.id)) return;
     this.#nodeSigs.set(node.id, sig);
 
@@ -578,6 +591,18 @@ export class JdFlowDiagram extends JdElement {
   }
 
   /* ── 화면 맞춤 ── */
+  /** 현재 카메라(줌 1·팬 0)에서 장면이 캔버스를 벗어나는가 — 자동 맞춤 판단에만 쓴다 */
+  #sceneOverflows(): boolean {
+    if (!this.#nodes.length || !this.#size.w) return false;
+    for (const n of this.#nodes) {
+      const w = n.width ?? NODE_W;
+      const h = this.#heights.get(n.id) ?? 60;
+      if (n.x < 0 || n.y < 0) return true;
+      if (n.x + w > this.#size.w || n.y + h > this.#size.h) return true;
+    }
+    return false;
+  }
+
   #fit(): void {
     if (!this.#nodes.length || !this.#size.w) return;
     let x1 = Infinity,
@@ -597,7 +622,10 @@ export class JdFlowDiagram extends JdElement {
     if (ww <= 0 || wh <= 0) return;
     const z = Math.min(
       MAX_ZOOM,
-      Math.max(MIN_ZOOM, Math.min((this.#size.w - FIT_PAD * 2) / ww, (this.#size.h - FIT_PAD * 2) / wh)),
+      Math.max(
+        MIN_ZOOM,
+        Math.min((this.#size.w - FIT_PAD * 2) / ww, (this.#size.h - FIT_PAD * 2) / wh),
+      ),
     );
     this.#setCam({
       zoom: z,

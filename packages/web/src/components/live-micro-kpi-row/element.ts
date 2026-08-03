@@ -49,7 +49,9 @@ export class JdLiveMicroKpiRow extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdMicroKpiItem[];
@@ -90,9 +92,7 @@ export class JdLiveMicroKpiRow extends JdElement {
 
     const sub = document.createElement("div");
     sub.className = "jd-live-micro-kpi-row__sub";
-    sub.textContent = it.hint
-      ? it.hint
-      : `${up ? "+" : ""}${(it.pct ?? 0).toFixed(2)}%`;
+    sub.textContent = it.hint ? it.hint : `${up ? "+" : ""}${(it.pct ?? 0).toFixed(2)}%`;
 
     inner.append(label, value, sub);
     cell.append(inner);

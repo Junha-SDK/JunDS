@@ -37,8 +37,7 @@ export async function buildSnapshot(outPath = DEFAULT_OUT) {
   };
 }
 
-const isMain =
-  process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
+const isMain = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
 if (isMain) {
   buildSnapshot()
     .then((r) => {

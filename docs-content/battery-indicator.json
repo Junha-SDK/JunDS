@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "BatteryIndicator",
   "oneLiner": "배터리 인디케이터",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": {

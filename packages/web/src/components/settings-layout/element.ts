@@ -135,7 +135,9 @@ export class JdSettingsLayout extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 (radio-group·tabs 선례) */
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdSettingsSection[];
@@ -181,7 +183,9 @@ export class JdSettingsLayout extends JdElement {
 
   /** 내비의 탭 버튼들 — DOM 순서(그룹 순서 반영) */
   #buttons(): HTMLButtonElement[] {
-    return Array.from(this.#nav.querySelectorAll<HTMLButtonElement>("button.jd-settings-layout__item"));
+    return Array.from(
+      this.#nav.querySelectorAll<HTMLButtonElement>("button.jd-settings-layout__item"),
+    );
   }
 
   /** 유효한 활성 id — active가 섹션에 없으면 첫 섹션으로 폴백 */
@@ -318,7 +322,12 @@ export class JdSettingsLayout extends JdElement {
   #syncPanels(activeId: string): void {
     for (const section of this.#sections) {
       let panel = this.#panels.get(section.id);
-      if (!panel && section.content !== undefined && section.content !== null && section.content !== "") {
+      if (
+        !panel &&
+        section.content !== undefined &&
+        section.content !== null &&
+        section.content !== ""
+      ) {
         panel = document.createElement("div");
         panel.className = "jd-settings-layout__panel";
         panel.dataset.section = section.id;

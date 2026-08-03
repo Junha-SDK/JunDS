@@ -51,7 +51,9 @@ export class JdLogoCloud extends JdElement {
   protected render(): void {
     adoptStyles(logoCloudStyles);
     // 선언적 JSON 슬롯 — 1회 소비
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (script) {
       try {
         const parsed = JSON.parse(script.textContent || "[]") as JdLogoItem[];

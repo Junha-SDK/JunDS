@@ -233,9 +233,11 @@ describe("jd-error-boundary", () => {
     document.body.innerHTML = `<jd-error-boundary><span id="kid">x</span></jd-error-boundary>`;
     await tick();
     const el = document.querySelector<JdErrorBoundary>("jd-error-boundary")!;
-    document.querySelector("#kid")!.dispatchEvent(
-      new CustomEvent("jd-error", { bubbles: true, detail: { error: new Error("실패") } }),
-    );
+    document
+      .querySelector("#kid")!
+      .dispatchEvent(
+        new CustomEvent("jd-error", { bubbles: true, detail: { error: new Error("실패") } }),
+      );
     await tick();
     expect(el.failed).toBe(false);
   });
@@ -244,9 +246,11 @@ describe("jd-error-boundary", () => {
     document.body.innerHTML = `<jd-error-boundary auto><span id="kid">x</span></jd-error-boundary>`;
     await tick();
     const el = document.querySelector<JdErrorBoundary>("jd-error-boundary")!;
-    document.querySelector("#kid")!.dispatchEvent(
-      new CustomEvent("jd-error", { bubbles: true, detail: { error: new Error("이미지 실패") } }),
-    );
+    document
+      .querySelector("#kid")!
+      .dispatchEvent(
+        new CustomEvent("jd-error", { bubbles: true, detail: { error: new Error("이미지 실패") } }),
+      );
     await tick();
     expect(el.failed).toBe(true);
     expect(el.querySelector(".jd-error-boundary__message")!.textContent).toBe("이미지 실패");
@@ -256,7 +260,9 @@ describe("jd-error-boundary", () => {
     document.body.innerHTML = `<jd-error-boundary heading="불러오지 못했습니다" retry-label="새로고침" failed></jd-error-boundary>`;
     await tick();
     const el = document.querySelector<JdErrorBoundary>("jd-error-boundary")!;
-    expect(el.querySelector(".jd-error-boundary__heading")!.textContent).toBe("불러오지 못했습니다");
+    expect(el.querySelector(".jd-error-boundary__heading")!.textContent).toBe(
+      "불러오지 못했습니다",
+    );
     expect(el.querySelector(".jd-error-boundary__retry")!.textContent).toBe("새로고침");
   });
 });

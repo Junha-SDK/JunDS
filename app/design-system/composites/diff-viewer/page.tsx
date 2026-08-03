@@ -32,7 +32,12 @@ export default function DiffViewerPage() {
       <Section title="Default">
         <Preview>
           <div className="w-full max-w-2xl">
-            <DiffViewer oldText={oldText} newText={newText} oldTitle="before.js" newTitle="after.ts" />
+            <DiffViewer
+              oldText={oldText}
+              newText={newText}
+              oldTitle="before.js"
+              newTitle="after.ts"
+            />
           </div>
         </Preview>
       </Section>

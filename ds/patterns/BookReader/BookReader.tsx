@@ -48,7 +48,20 @@ export interface BookReaderProps {
  * @tags book, layout
  */
 export const BookReader = forwardRef<HTMLElement, BookReaderProps>(function BookReader(
-  { title, author, chapters, activeChapterId, onChapterChange, children, currentPage, totalPages, bookmarked, onBookmarkChange, onClose, className },
+  {
+    title,
+    author,
+    chapters,
+    activeChapterId,
+    onChapterChange,
+    children,
+    currentPage,
+    totalPages,
+    bookmarked,
+    onBookmarkChange,
+    onClose,
+    className,
+  },
   ref,
 ) {
   const t = useT();
@@ -65,7 +78,7 @@ export const BookReader = forwardRef<HTMLElement, BookReaderProps>(function Book
             onClick={() => setTocOpen((o) => !o)}
             aria-label={tocOpen ? t("ariaTocHide") : t("ariaTocShow")}
             aria-expanded={tocOpen}
-            className="w-8 h-8 inline-flex items-center justify-center rounded-md hover:bg-surface-soft cursor-pointer"
+            className="w-8 h-8 inline-flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-surface-soft active:bg-border-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
           >
             ☰
           </button>
@@ -81,7 +94,7 @@ export const BookReader = forwardRef<HTMLElement, BookReaderProps>(function Book
               type="button"
               onClick={onClose}
               aria-label={t("close")}
-              className="w-8 h-8 inline-flex items-center justify-center rounded-md hover:bg-surface-soft cursor-pointer"
+              className="w-8 h-8 inline-flex items-center justify-center rounded-lg cursor-pointer transition-colors hover:bg-surface-soft hover:text-danger active:bg-border-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
             >
               ✕
             </button>
@@ -94,8 +107,12 @@ export const BookReader = forwardRef<HTMLElement, BookReaderProps>(function Book
 
       <div className="max-w-6xl mx-auto px-4 py-6 grid lg:grid-cols-[260px_1fr] gap-6">
         {tocOpen && (
-          <aside className="hidden lg:block sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
-            <ChapterList chapters={chapters} activeId={activeChapterId} onSelect={(c) => onChapterChange(c.id)} />
+          <aside className="hidden lg:block sticky top-24 self-start max-h-[calc(100vh-7rem)] min-w-0 overflow-y-auto overscroll-y-contain pr-2">
+            <ChapterList
+              chapters={chapters}
+              activeId={activeChapterId}
+              onSelect={(c) => onChapterChange(c.id)}
+            />
           </aside>
         )}
         <main className="min-w-0 prose prose-neutral dark:prose-invert max-w-none">{children}</main>

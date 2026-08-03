@@ -14,6 +14,12 @@ export default meta;
 type Story = StoryObj<typeof Alert>;
 
 export const Info: Story = { args: { variant: "info" } };
-export const Success: Story = { args: { variant: "success", title: "성공", children: "작업이 완료되었습니다." } };
-export const Warning: Story = { args: { variant: "warning", title: "경고", children: "주의가 필요합니다." } };
-export const Danger: Story = { args: { variant: "danger", title: "오류", children: "문제가 발생했습니다." } };
+export const Success: Story = {
+  args: { variant: "success", title: "성공", children: "작업이 완료되었습니다." },
+};
+export const Warning: Story = {
+  args: { variant: "warning", title: "경고", children: "주의가 필요합니다." },
+};
+export const Danger: Story = {
+  args: { variant: "danger", title: "오류", children: "문제가 발생했습니다." },
+};

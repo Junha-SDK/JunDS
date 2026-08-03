@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useImagePreload",
   "oneLiner": "이미지 프리로드.",
-  "tags": [
-    "hook",
-    "media",
-    "프리로드"
-  ],
+  "tags": ["hook", "media", "프리로드"],
   "controls": [],
   "snippets": {
     "web": null,

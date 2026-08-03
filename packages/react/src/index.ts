@@ -15,11 +15,7 @@ import "./jsx.js";
 export * from "./generated/index.js";
 
 export { Button } from "./components/Button.js";
-export type {
-  ButtonProps,
-  ButtonSize,
-  ButtonVariant,
-} from "./components/Button.types.js";
+export type { ButtonProps, ButtonSize, ButtonVariant } from "./components/Button.types.js";
 
 export { TextField, Input, FormField } from "./components/TextField.js";
 export type {

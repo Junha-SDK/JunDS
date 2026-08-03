@@ -1,10 +1,12 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 final class JdSpacerTests: XCTestCase {
 
-    private func size(of view: some View, in box: CGSize = CGSize(width: 320, height: 480)) -> CGSize {
+    private func size(
+        of view: some View, in box: CGSize = CGSize(width: 320, height: 480)
+    ) -> CGSize {
         return UIHostingController(rootView: view).sizeThatFits(in: box)
     }
 
@@ -154,10 +156,12 @@ final class JdAppShellTests: XCTestCase {
 
     // 사용자 지정 폭도 계약 표면대로 받는다
     func test_custom_widths_host() {
-        let shell = JdAppShell(sidebarWidth: 300,
-                               collapsedWidth: JdToken.Space.s12,
-                               collapsed: .constant(true),
-                               compactOpen: .constant(false)) {
+        let shell = JdAppShell(
+            sidebarWidth: 300,
+            collapsedWidth: JdToken.Space.s12,
+            collapsed: .constant(true),
+            compactOpen: .constant(false)
+        ) {
             JdText("사이드바")
         } header: {
             EmptyView()

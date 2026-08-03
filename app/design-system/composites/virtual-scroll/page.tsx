@@ -17,14 +17,32 @@ export default function VirtualScrollPage() {
       importPath='import { VirtualScroll } from "@/ds/composites/VirtualScroll"'
       props={[
         { name: "items", type: "T[]", required: true, description: "전체 아이템 배열" },
-        { name: "itemHeight", type: "number", required: true, description: "각 아이템의 고정 높이(px)" },
-        { name: "renderItem", type: "(item: T, index: number) => ReactNode", required: true, description: "아이템 렌더 함수" },
-        { name: "overscan", type: "number", default: "5", description: "보이는 영역 위/아래로 여유 렌더 개수" },
+        {
+          name: "itemHeight",
+          type: "number",
+          required: true,
+          description: "각 아이템의 고정 높이(px)",
+        },
+        {
+          name: "renderItem",
+          type: "(item: T, index: number) => ReactNode",
+          required: true,
+          description: "아이템 렌더 함수",
+        },
+        {
+          name: "overscan",
+          type: "number",
+          default: "5",
+          description: "보이는 영역 위/아래로 여유 렌더 개수",
+        },
         { name: "className", type: "string", description: "추가 클래스" },
         { name: "style", type: "CSSProperties", description: "인라인 스타일" },
       ]}
     >
-      <Section title="10,000개 리스트" description="아래 컨테이너 안에서 스크롤하면 즉시 반응합니다.">
+      <Section
+        title="10,000개 리스트"
+        description="아래 컨테이너 안에서 스크롤하면 즉시 반응합니다."
+      >
         <Preview>
           <div className="w-full max-w-md border border-border rounded-xl bg-white">
             <VirtualScroll
@@ -33,7 +51,7 @@ export default function VirtualScrollPage() {
               style={{ height: 320 }}
               renderItem={(item) => (
                 <div className="px-4 py-3 border-b border-border-light flex items-center gap-3 h-full">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-xs font-semibold">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary-ink flex items-center justify-center text-xs font-semibold">
                     {item.id + 1}
                   </div>
                   <div className="min-w-0">

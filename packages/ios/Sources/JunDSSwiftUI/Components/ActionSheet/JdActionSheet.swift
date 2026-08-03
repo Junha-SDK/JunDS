@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-action-sheet의 SwiftUI 번역: 시스템 .confirmationDialog 위임 (04 §10.1).
 // Core JdActionItem 배열 → Button(role:). isDestructive → .destructive.
@@ -12,11 +12,13 @@ public struct JdActionSheet: View {
     private let actions: [JdActionItem]
     private let onSelect: (JdActionItem) -> Void
 
-    public init(isPresented: Binding<Bool>,
-                title: String? = nil,
-                message: String? = nil,
-                actions: [JdActionItem],
-                onSelect: @escaping (JdActionItem) -> Void) {
+    public init(
+        isPresented: Binding<Bool>,
+        title: String? = nil,
+        message: String? = nil,
+        actions: [JdActionItem],
+        onSelect: @escaping (JdActionItem) -> Void
+    ) {
         self._isPresented = isPresented
         self.title = title
         self.message = message

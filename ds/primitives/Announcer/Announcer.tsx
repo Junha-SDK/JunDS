@@ -45,7 +45,14 @@ export function AnnouncerProvider({ children }: AnnouncerProviderProps) {
         aria-live="polite"
         aria-atomic="true"
         role="status"
-        style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}
+        style={{
+          position: "absolute",
+          width: 1,
+          height: 1,
+          overflow: "hidden",
+          clip: "rect(0 0 0 0)",
+          whiteSpace: "nowrap",
+        }}
       >
         {politeMsg}
       </div>
@@ -53,7 +60,14 @@ export function AnnouncerProvider({ children }: AnnouncerProviderProps) {
         aria-live="assertive"
         aria-atomic="true"
         role="alert"
-        style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}
+        style={{
+          position: "absolute",
+          width: 1,
+          height: 1,
+          overflow: "hidden",
+          clip: "rect(0 0 0 0)",
+          whiteSpace: "nowrap",
+        }}
       >
         {assertiveMsg}
       </div>

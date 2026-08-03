@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-highlight 동형 — 검색어 강조. UILabel + NSAttributedString.
 //
@@ -48,9 +48,10 @@ public final class JdHighlightTextView: UILabel {
 
     private func applyContent() {
         // UILabel은 상속 서체가 없어 본문 기본(JdTextView 기본과 같은 md)을 쓴다
-        let font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .md).fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .md).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         let result = NSMutableAttributedString()
         for segment in JdHighlight.segments(text: content, query: query) {
             var attributes: [NSAttributedString.Key: Any] = [.font: font]

@@ -33,12 +33,33 @@ export interface PhotoCardProps extends Omit<HTMLAttributes<HTMLElement>, "title
  * @tags photo, media
  */
 export const PhotoCard = forwardRef<HTMLElement, PhotoCardProps>(
-  ({ src, alt, title, meta, likes, comments, aspectRatio = "4 / 5", interactive, badge, className, ...props }, ref) => (
+  (
+    {
+      src,
+      alt,
+      title,
+      meta,
+      likes,
+      comments,
+      aspectRatio = "4 / 5",
+      interactive,
+      badge,
+      className,
+      ...props
+    },
+    ref,
+  ) => (
     <figure
       ref={ref}
       className={cn(
         "group rounded-xl overflow-hidden bg-surface border border-border",
-        interactive && "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]",
+        "shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.06)]",
+        // 호버가 바꾸는 건 위치와 그림자뿐이다. transition-all 이면 이미지 aspect-ratio 나
+        // 캡션 높이 변화까지 전이 대상이 되어 카드가 흐물거린다.
+        interactive &&
+          "transition-[transform,box-shadow] duration-200 ease-out motion-reduce:transition-none",
+        interactive &&
+          "hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-8px_rgba(0,0,0,0.22),0_2px_6px_-2px_rgba(0,0,0,0.12)] motion-reduce:hover:translate-y-0",
         className,
       )}
       {...props}
@@ -57,8 +78,12 @@ export const PhotoCard = forwardRef<HTMLElement, PhotoCardProps>(
           {meta && <p className="text-[11px] text-muted mt-0.5">{meta}</p>}
           {(likes !== undefined || comments !== undefined) && (
             <div className="flex items-center gap-3 mt-2 text-[11px] text-muted">
-              {likes !== undefined && <span aria-label={`좋아요 ${likes}`}>❤ {likes.toLocaleString()}</span>}
-              {comments !== undefined && <span aria-label={`댓글 ${comments}`}>💬 {comments.toLocaleString()}</span>}
+              {likes !== undefined && (
+                <span aria-label={`좋아요 ${likes}`}>❤ {likes.toLocaleString()}</span>
+              )}
+              {comments !== undefined && (
+                <span aria-label={`댓글 ${comments}`}>💬 {comments.toLocaleString()}</span>
+              )}
             </div>
           )}
         </figcaption>

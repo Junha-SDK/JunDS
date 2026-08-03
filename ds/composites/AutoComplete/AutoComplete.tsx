@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo, useEffect, useId } from "react";
 import { cn } from "../../utils/cn";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { Portal } from "../../primitives/Portal";
@@ -58,7 +58,7 @@ export function AutoComplete({
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const listboxId = `autocomplete-listbox-${useState(() => Math.random().toString(36).slice(2, 8))[0]}`;
+  const listboxId = `autocomplete-listbox-${useId()}`;
 
   useClickOutside(ref, () => setOpen(false), open);
 
@@ -99,7 +99,10 @@ export function AutoComplete({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") { setOpen(false); return; }
+    if (e.key === "Escape") {
+      setOpen(false);
+      return;
+    }
     if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
       updatePosition();
       setOpen(true);
@@ -132,10 +135,13 @@ export function AutoComplete({
     <div ref={wrapperRef} className={cn("relative w-full", className)}>
       <div
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-card rounded-lg transition-all duration-150",
-          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "flex items-center gap-2 h-9 px-3 border bg-card rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+          // 변하는 것은 테두리색과 글로우뿐이다. all 이면 height·padding 까지 전이 대상이 된다.
+          "transition-[border-color,box-shadow] duration-200 ease-out",
+          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           disabled && "opacity-50 cursor-not-allowed",
-          "border-border",
+          // gray-300 은 다크에서 그대로 밝은 회색으로 남는다 — 모드를 따라가는 muted 로 옮긴다.
+          "border-border hover:border-muted-light/60",
         )}
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted shrink-0">
@@ -154,7 +160,9 @@ export function AutoComplete({
           aria-expanded={open}
           aria-controls={listboxId}
           aria-autocomplete="list"
-          aria-activedescendant={open && filtered[highlightIdx] ? `${listboxId}-option-${highlightIdx}` : undefined}
+          aria-activedescendant={
+            open && filtered[highlightIdx] ? `${listboxId}-option-${highlightIdx}` : undefined
+          }
           className="flex-1 text-sm outline-none bg-transparent placeholder:text-muted-light min-w-0"
         />
         {loading && <Spinner size="xs" />}
@@ -166,14 +174,16 @@ export function AutoComplete({
             ref={ref}
             id={listboxId}
             role="listbox"
-            className="fixed z-50 bg-card border border-border rounded-lg shadow-lg max-h-60 overflow-auto py-1 animate-fade-in-scale"
+            className="fixed z-50 bg-card border border-border rounded-xl shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35),0_4px_12px_-6px_rgba(0,0,0,0.2)] ring-1 ring-border/50 max-h-60 overflow-auto overscroll-contain p-1 animate-fade-in-scale motion-reduce:animate-none"
             style={{ top: pos.top, left: pos.left, width: pos.width }}
           >
             {filtered.length === 0 && !loading && (
               <div className="px-3 py-4 text-sm text-muted text-center">{emptyMessage}</div>
             )}
             {loading && filtered.length === 0 && (
-              <div className="flex justify-center py-4"><Spinner size="sm" /></div>
+              <div className="flex justify-center py-4">
+                <Spinner size="sm" />
+              </div>
             )}
             {filtered.map((opt, i) => (
               <button
@@ -184,14 +194,19 @@ export function AutoComplete({
                 aria-selected={i === highlightIdx}
                 onClick={() => handleSelect(opt)}
                 className={cn(
-                  "w-full flex items-center gap-2 px-3 py-2 text-left transition-colors cursor-pointer text-sm",
-                  i === highlightIdx && "bg-primary-light",
-                  "hover:bg-primary/10",
+                  "w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-colors cursor-pointer text-sm",
+                  // 키보드로도 옵션에 직접 닿을 수 있으므로 포커스 표시가 필요하다.
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+                  i === highlightIdx
+                    ? "bg-primary/10 text-primary-ink"
+                    : "hover:bg-primary/10 hover:text-primary-ink active:bg-primary/20",
                 )}
               >
                 <div className="flex-1 min-w-0">
                   <div className="truncate">{opt.label}</div>
-                  {opt.description && <div className="text-xs text-muted truncate">{opt.description}</div>}
+                  {opt.description && (
+                    <div className="text-xs text-muted truncate">{opt.description}</div>
+                  )}
                 </div>
               </button>
             ))}

@@ -15,7 +15,15 @@ export interface SectionProps {
   className?: string;
 }
 
-export function Section({ title, description, children, p, gap = "md", border, className }: SectionProps) {
+export function Section({
+  title,
+  description,
+  children,
+  p,
+  gap = "md",
+  border,
+  className,
+}: SectionProps) {
   return (
     <Box
       as="section"
@@ -26,8 +34,16 @@ export function Section({ title, description, children, p, gap = "md", border, c
     >
       {(title || description) && (
         <Box mb={4}>
-          {title && <Heading level={4} mb={description ? 0.5 : 0}>{title}</Heading>}
-          {description && <Text fontSize="sm" dimmed>{description}</Text>}
+          {title && (
+            <Heading level={4} mb={description ? 0.5 : 0}>
+              {title}
+            </Heading>
+          )}
+          {description && (
+            <Text fontSize="sm" dimmed>
+              {description}
+            </Text>
+          )}
         </Box>
       )}
       <Box display="flex" direction="column" gap={gap}>

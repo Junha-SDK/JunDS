@@ -66,16 +66,22 @@ const TONE: Record<string, string> = {
   info: "var(--jd-color-info)",
 };
 
-/** v2 chartPalette를 토큰으로 번역 */
+/**
+ * 계열색 팔레트. v2 chartPalette를 토큰으로 옮길 때 **의미색**(success/warning/danger)을
+ * 그대로 썼는데, 그러면 막대 세 개짜리 차트가 초록·주황·빨강으로 서서 "2번 항목이
+ * 경고, 3번이 위험"이라고 말한다 — 데이터에는 없는 뜻이고, 채도가 높은 세 색이 서로
+ * 싸워 어느 것도 읽히지 않는다. 계열색은 `--jd-color-hue-*`에서 고른다(§8).
+ * 순서는 이웃한 두 계열이 색상축에서 멀어지도록 짰다. 0번은 강조(브랜드)를 지킨다.
+ */
 const PALETTE = [
   "var(--jd-color-primary)",
-  "var(--jd-color-success)",
-  "var(--jd-color-warning)",
-  "var(--jd-color-danger)",
-  "var(--jd-color-accent)",
-  "var(--jd-color-muted)",
-  "var(--jd-color-info)",
-  "var(--jd-color-danger)",
+  "var(--jd-color-hue-teal)",
+  "var(--jd-color-hue-amber)",
+  "var(--jd-color-hue-rose)",
+  "var(--jd-color-hue-blue)",
+  "var(--jd-color-hue-green)",
+  "var(--jd-color-hue-purple)",
+  "var(--jd-color-hue-gray)",
 ];
 
 const DEFAULT_HEIGHTS: Record<ChartType, number> = {
@@ -347,6 +353,22 @@ export class JdChartCard extends JdElement {
     return PALETTE[index % PALETTE.length]!;
   }
 
+  /**
+   * 한 계열의 막대들은 **같은 것의 다른 값**이다. 막대마다 다른 hue를 주면 계열색이
+   * 범례 노릇을 하려 들어 "2번은 초록, 3번은 주황"이라는 없는 뜻이 생기고, 채도 높은
+   * 두 색이 나란히 서면 서로 싸워 어느 쪽도 읽히지 않는다(실측: 초록·주황 인접).
+   * 색은 하나로 두고 뒤로 갈수록 카드색에 눅여 **한 색상의 명도 계단**으로 순서를 말한다.
+   * 조각마다 뜻이 다른 donut·stacked-bar는 계속 #paletteColor(범주색)를 쓴다.
+   * 소비자가 point.color로 뜻을 실어 보냈으면 그 뜻이 이긴다.
+   */
+  #seriesColor(index: number, count: number, point?: JdChartDataPoint): string {
+    if (point?.color) return point.color;
+    const base = TONE[this.tone] ?? TONE.default!;
+    if (index <= 0 || count <= 1) return base;
+    const keep = 100 - Math.min(46, (index / (count - 1)) * 46);
+    return `color-mix(in srgb, ${base} ${keep.toFixed(1)}%, var(--jd-color-card))`;
+  }
+
   /* ── bar (세로 막대) ───────────────────────────────────── */
   #bar(height: number, fmt: (v: number) => string): HTMLElement {
     const root = document.createElement("div");
@@ -371,7 +393,7 @@ export class JdChartCard extends JdElement {
       bar.className = "jd-chart-card__bar";
       bar.style.height = `${pct}%`;
       bar.style.minHeight = point.value > 0 ? "4px" : "0";
-      bar.style.backgroundColor = this.#paletteColor(i, point);
+      bar.style.backgroundColor = this.#seriesColor(i, this.#data.length, point);
       track.append(bar);
       col.append(val, track);
       if (!this.noAxis) {
@@ -406,7 +428,7 @@ export class JdChartCard extends JdElement {
       const fill = document.createElement("div");
       fill.className = "jd-chart-card__hfill";
       fill.style.width = `${pct}%`;
-      fill.style.backgroundColor = this.#paletteColor(i, point);
+      fill.style.backgroundColor = this.#seriesColor(i, this.#data.length, point);
       track.append(fill);
       row.append(label, track);
       if (!this.noAxis) {
@@ -480,11 +502,18 @@ export class JdChartCard extends JdElement {
     const stroke = TONE[this.tone] ?? TONE.default!;
 
     const svg = svgNode("svg", "jd-chart-card__svg");
-    setAttrs(svg, { width: "100%", height, viewBox: `0 0 ${width} ${height}`, "aria-hidden": "true" });
+    setAttrs(svg, {
+      width: "100%",
+      height,
+      viewBox: `0 0 ${width} ${height}`,
+      "aria-hidden": "true",
+    });
 
     if (!this.noGrid) svg.append(svgGrid(width, height, pad.bottom));
     if (area && points.length) {
-      const areaPath = `${path} L${coord(points[points.length - 1]!.x)},${coord(bottomY)} L${coord(points[0]!.x)},${coord(bottomY)} Z`;
+      const areaPath = `${path} L${coord(points[points.length - 1]!.x)},${coord(bottomY)} L${coord(
+        points[0]!.x,
+      )},${coord(bottomY)} Z`;
       const fill = svgNode("path", "jd-chart-card__area");
       fill.setAttribute("d", areaPath);
       fill.style.fill = stroke;
@@ -589,9 +618,16 @@ export class JdChartCard extends JdElement {
     const bottomY = height - pad.bottom;
     const stroke = TONE[this.tone] ?? TONE.default!;
     const svg = svgNode("svg", "jd-chart-card__svg");
-    setAttrs(svg, { width: "100%", height, viewBox: `0 0 ${width} ${height}`, "aria-hidden": "true" });
+    setAttrs(svg, {
+      width: "100%",
+      height,
+      viewBox: `0 0 ${width} ${height}`,
+      "aria-hidden": "true",
+    });
     if (points.length) {
-      const areaPath = `${path} L${coord(points[points.length - 1]!.x)},${coord(bottomY)} L${coord(points[0]!.x)},${coord(bottomY)} Z`;
+      const areaPath = `${path} L${coord(points[points.length - 1]!.x)},${coord(bottomY)} L${coord(
+        points[0]!.x,
+      )},${coord(bottomY)} Z`;
       const fill = svgNode("path", "jd-chart-card__area");
       fill.setAttribute("d", areaPath);
       fill.style.fill = stroke;
@@ -652,7 +688,7 @@ export class JdChartCard extends JdElement {
       const fill = document.createElement("div");
       fill.className = "jd-chart-card__prog-fill";
       fill.style.width = `${pct}%`;
-      fill.style.backgroundColor = this.#paletteColor(i, point);
+      fill.style.backgroundColor = this.#seriesColor(i, this.#data.length, point);
       track.append(fill);
       item.append(head, track);
       root.append(item);
@@ -842,10 +878,21 @@ function stackedLegendItems(rowsSegments: JdChartSegment[][]): { label: string; 
 
 function trendIcon(direction: "up" | "down" | "neutral"): SVGSVGElement {
   const svg = svgNode("svg", "jd-chart-card__trend-icon");
-  setAttrs(svg, { width: 12, height: 12, viewBox: "0 0 12 12", fill: "none", "aria-hidden": "true" });
+  setAttrs(svg, {
+    width: 12,
+    height: 12,
+    viewBox: "0 0 12 12",
+    fill: "none",
+    "aria-hidden": "true",
+  });
   const path = svgNode("path");
   if (direction === "neutral") {
-    setAttrs(path, { d: "M2.5 6h7", stroke: "currentColor", "stroke-width": 1.5, "stroke-linecap": "round" });
+    setAttrs(path, {
+      d: "M2.5 6h7",
+      stroke: "currentColor",
+      "stroke-width": 1.5,
+      "stroke-linecap": "round",
+    });
   } else {
     setAttrs(path, {
       d: "M3 7.5 6 4.5l3 3",

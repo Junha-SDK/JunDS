@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LivePrice",
   "oneLiner": "실시간 가격 표시 — 틱 구독.",
-  "tags": [
-    "finance",
-    "live",
-    "가격"
-  ],
+  "tags": ["finance", "live", "가격"],
   "controls": [],
   "snippets": {
     "web": null,

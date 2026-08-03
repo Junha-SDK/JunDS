@@ -8,29 +8,39 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-scroll-progress {
-    display: block; box-sizing: border-box;
-    position: fixed; inset-inline: 0; inset-block-start: 0;
-    z-index: var(--jd-z-overlay);
-    height: var(--jd-scroll-progress-thickness, 3px);
-    pointer-events: none;
-    overflow: hidden;
-  }
-  jd-scroll-progress[position="bottom"] {
-    inset-block-start: auto; inset-block-end: 0;
-  }
+  @layer junds.components {
+    jd-scroll-progress {
+      display: block;
+      box-sizing: border-box;
+      position: fixed;
+      inset-inline: 0;
+      inset-block-start: 0;
+      z-index: var(--jd-z-overlay);
+      height: var(--jd-scroll-progress-thickness, 3px);
+      pointer-events: none;
+      overflow: hidden;
+    }
+    jd-scroll-progress[position="bottom"] {
+      inset-block-start: auto;
+      inset-block-end: 0;
+    }
 
-  .jd-scroll-progress__bar {
-    width: 100%; height: 100%;
-    transform-origin: 0 50%;
-    transform: scaleX(var(--jd-scroll-progress-scale, 0));
-    background: var(--jd-scroll-progress-color, var(--jd-color-primary));
-    transition: transform var(--jd-duration-fast) var(--jd-easing-ease-out);
-  }
-  jd-scroll-progress:dir(rtl) .jd-scroll-progress__bar { transform-origin: 100% 50%; }
+    .jd-scroll-progress__bar {
+      width: 100%;
+      height: 100%;
+      transform-origin: 0 50%;
+      transform: scaleX(var(--jd-scroll-progress-scale, 0));
+      background: var(--jd-scroll-progress-color, var(--jd-color-primary));
+      transition: transform var(--jd-duration-fast) var(--jd-easing-ease-out);
+    }
+    jd-scroll-progress:dir(rtl) .jd-scroll-progress__bar {
+      transform-origin: 100% 50%;
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-scroll-progress__bar { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-scroll-progress__bar {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

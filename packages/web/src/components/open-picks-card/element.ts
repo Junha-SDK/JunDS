@@ -40,9 +40,10 @@ function toPicks(v: unknown): JdPickItem[] {
     if (!raw || typeof raw !== "object") continue;
     out.push({
       name: typeof raw.name === "string" ? raw.name : "",
-      expectedPct: typeof raw.expectedPct === "number" && Number.isFinite(raw.expectedPct)
-        ? raw.expectedPct
-        : 0,
+      expectedPct:
+        typeof raw.expectedPct === "number" && Number.isFinite(raw.expectedPct)
+          ? raw.expectedPct
+          : 0,
       reason: typeof raw.reason === "string" ? raw.reason : "",
       strength: normStrength(raw.strength),
       href: typeof raw.href === "string" ? raw.href : undefined,
@@ -163,8 +164,7 @@ export class JdOpenPicksCard extends JdElement {
   protected override update(): void {
     const isClose = this.kind === "close";
     this.#emojiEl.textContent = this.emoji || (isClose ? "🌇" : "🌅");
-    this.#titleEl.textContent =
-      this.heading || (isClose ? "내일 종가 강세" : "내일 시초가 강세");
+    this.#titleEl.textContent = this.heading || (isClose ? "내일 종가 강세" : "내일 시초가 강세");
 
     const rows = sortPicks(this.#picks);
     const high = rows.filter((p) => p.strength === "high").length;

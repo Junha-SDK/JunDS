@@ -57,8 +57,7 @@ export interface JdElementSpec {
 }
 
 /** camelCase → kebab-case (JdElement의 attribute 이름 규칙과 동일) */
-const toAttr = (name: string): string =>
-  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+const toAttr = (name: string): string => name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 
 type DataAttributes = {
   [name: `data-${string}`]: string | number | boolean | null | undefined;

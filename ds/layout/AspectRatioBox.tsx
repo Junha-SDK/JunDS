@@ -10,7 +10,12 @@ export interface AspectRatioBoxProps extends Omit<BoxProps, "position"> {
 
 export function AspectRatioBox({ ratio = 16 / 9, children, ...props }: AspectRatioBoxProps) {
   return (
-    <Box position="relative" overflow="hidden" {...props} style={{ ...props.style, aspectRatio: ratio }}>
+    <Box
+      position="relative"
+      overflow="hidden"
+      {...props}
+      style={{ ...props.style, aspectRatio: ratio }}
+    >
       {children}
     </Box>
   );

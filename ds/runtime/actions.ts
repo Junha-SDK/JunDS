@@ -14,10 +14,7 @@ export type ActionContext = {
   onUnsupported?: (action: ActionNode) => void;
 };
 
-export async function runAction(
-  action: ActionNode,
-  ctx: ActionContext,
-): Promise<void> {
+export async function runAction(action: ActionNode, ctx: ActionContext): Promise<void> {
   switch (action.kind) {
     case "noop":
       return;
@@ -56,10 +53,7 @@ export async function runAction(
   }
 }
 
-export async function runActions(
-  actions: ActionNode[],
-  ctx: ActionContext,
-): Promise<void> {
+export async function runActions(actions: ActionNode[], ctx: ActionContext): Promise<void> {
   for (const action of actions) {
     await runAction(action, ctx);
   }

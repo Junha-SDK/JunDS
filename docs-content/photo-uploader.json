@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PhotoUploader",
   "oneLiner": "사진 업로드 드롭존 — 미리보기.",
-  "tags": [
-    "photo",
-    "사진",
-    "업로드"
-  ],
+  "tags": ["photo", "사진", "업로드"],
   "controls": [],
   "snippets": {
     "web": null,

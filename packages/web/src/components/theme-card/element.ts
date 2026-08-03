@@ -29,7 +29,7 @@ export interface JdThemeStock {
   price: number;
   pct: number;
   /** 거래대금(억) */
-  "amount억": number;
+  amount억: number;
   hot?: boolean;
   king?: boolean;
 }
@@ -37,7 +37,7 @@ export interface JdThemeStock {
 export interface JdThemeBlock {
   name: string;
   /** 총 거래대금(억) */
-  "total억": number;
+  total억: number;
   headline?: string;
   starred?: boolean;
   stocks: JdThemeStock[];
@@ -106,11 +106,14 @@ export class JdThemeCard extends JdElement {
     );
     if (!script?.textContent) return;
     try {
-      const parsed = JSON.parse(script.textContent) as { theme?: JdThemeBlock; trend?: number[] } | JdThemeBlock;
+      const parsed = JSON.parse(script.textContent) as
+        | { theme?: JdThemeBlock; trend?: number[] }
+        | JdThemeBlock;
       if (parsed && "stocks" in parsed) {
         this.#theme = parsed as JdThemeBlock;
       } else if (parsed && typeof parsed === "object") {
-        if ((parsed as { theme?: JdThemeBlock }).theme) this.#theme = (parsed as { theme: JdThemeBlock }).theme;
+        if ((parsed as { theme?: JdThemeBlock }).theme)
+          this.#theme = (parsed as { theme: JdThemeBlock }).theme;
         const t = (parsed as { trend?: number[] }).trend;
         if (Array.isArray(t)) this.#trend = t.filter((n): n is number => Number.isFinite(n));
       }

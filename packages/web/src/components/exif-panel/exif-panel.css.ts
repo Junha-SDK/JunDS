@@ -16,50 +16,57 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.base {
-  jd-exif-panel:not(:defined) { display: block; }
-  jd-exif-panel:not(:defined) > script { display: none; }
-}
-@layer junds.components {
-  jd-exif-panel { display: block; }
+  @layer junds.base {
+    jd-exif-panel:not(:defined) {
+      display: block;
+    }
+    jd-exif-panel:not(:defined) > script {
+      display: none;
+    }
+  }
+  @layer junds.components {
+    jd-exif-panel {
+      display: block;
+    }
 
-  jd-exif-panel .jd-descriptions__list {
-    --jd-desc-label-w: 4rem;
-    column-gap: var(--jd-space-4);
-    row-gap: var(--jd-space-1);
-  }
-  jd-exif-panel .jd-descriptions__label {
-    font-size: var(--jd-text-xs);
-    font-weight: var(--jd-weight-normal);
-    color: var(--jd-color-muted);
-  }
-  jd-exif-panel .jd-descriptions__value {
-    font-size: var(--jd-text-xs);
-    font-weight: var(--jd-weight-medium);
-    color: var(--jd-color-foreground);
-    font-variant-numeric: tabular-nums;
-  }
+    jd-exif-panel .jd-descriptions__list {
+      --jd-desc-label-w: 4rem;
+      column-gap: var(--jd-space-4);
+      row-gap: var(--jd-space-1);
+    }
+    jd-exif-panel .jd-descriptions__label {
+      font-size: var(--jd-text-xs);
+      font-weight: var(--jd-weight-normal);
+      color: var(--jd-color-muted);
+    }
+    jd-exif-panel .jd-descriptions__value {
+      font-size: var(--jd-text-xs);
+      font-weight: var(--jd-weight-medium);
+      color: var(--jd-color-foreground);
+      font-variant-numeric: tabular-nums;
+    }
 
-  /* ── compact — 같은 dl을 한 줄로 흘린다 ─────────────────────── */
-  jd-exif-panel[compact] .jd-descriptions__list {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    column-gap: var(--jd-space-3);
-    row-gap: var(--jd-space-1);
+    /* ── compact — 같은 dl을 한 줄로 흘린다 ─────────────────────── */
+    jd-exif-panel[compact] .jd-descriptions__list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      column-gap: var(--jd-space-3);
+      row-gap: var(--jd-space-1);
+    }
+    jd-exif-panel[compact] .jd-descriptions__item {
+      display: inline-flex;
+      align-items: baseline;
+      gap: var(--jd-space-1);
+    }
+    jd-exif-panel[compact] .jd-descriptions__label {
+      flex: none;
+      padding-block-start: 0;
+      color: var(--jd-color-muted-light);
+    }
+    jd-exif-panel[compact] .jd-descriptions__value {
+      font-weight: var(--jd-weight-normal);
+      color: var(--jd-color-muted);
+    }
   }
-  jd-exif-panel[compact] .jd-descriptions__item {
-    display: inline-flex;
-    align-items: baseline;
-    gap: var(--jd-space-1);
-  }
-  jd-exif-panel[compact] .jd-descriptions__label {
-    flex: none;
-    padding-block-start: 0;
-    color: var(--jd-color-muted-light);
-  }
-  jd-exif-panel[compact] .jd-descriptions__value {
-    font-weight: var(--jd-weight-normal);
-    color: var(--jd-color-muted);
-  }
-}`;
+`;

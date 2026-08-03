@@ -4,11 +4,7 @@
   "category": "core",
   "title": "Group",
   "oneLiner": "줄바꿈을 허용하는 가로 묶음(row·wrap·gap sm 기본). no-wrap으로 줄바꿈 금지.",
-  "tags": [
-    "layout",
-    "flex",
-    "묶음"
-  ],
+  "tags": ["layout", "flex", "묶음"],
   "controls": [
     {
       "prop": "gap",

@@ -57,14 +57,17 @@ export function PinInput({
     if (idx >= 0 && idx < length) inputRefs.current[idx]?.focus();
   };
 
-  const updateValues = useCallback((newValues: string[]) => {
-    setValues(newValues);
-    const joined = newValues.join("");
-    onChange?.(joined);
-    if (newValues.every((v) => v !== "")) {
-      onComplete?.(joined);
-    }
-  }, [onChange, onComplete]);
+  const updateValues = useCallback(
+    (newValues: string[]) => {
+      setValues(newValues);
+      const joined = newValues.join("");
+      onChange?.(joined);
+      if (newValues.every((v) => v !== "")) {
+        onComplete?.(joined);
+      }
+    },
+    [onChange, onComplete],
+  );
 
   const handleChange = (idx: number, char: string) => {
     if (disabled) return;
@@ -115,7 +118,9 @@ export function PinInput({
       {Array.from({ length }, (_, i) => (
         <input
           key={i}
-          ref={(el) => { inputRefs.current[i] = el; }}
+          ref={(el) => {
+            inputRefs.current[i] = el;
+          }}
           type={masked ? "password" : "text"}
           inputMode={numeric ? "numeric" : "text"}
           maxLength={1}
@@ -128,15 +133,21 @@ export function PinInput({
           onPaste={handlePaste}
           onFocus={(e) => e.target.select()}
           className={cn(
-            "w-10 h-12 text-center text-lg font-bold border rounded-xl bg-white",
-            "shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out outline-none",
+            "w-10 h-12 text-center text-lg font-bold border rounded-xl bg-card tabular-nums",
+            // 포커스 시 칸이 솟아오르므로(scale·translate) 감속 요청을 받는다.
+            // 전이 대상은 색·그림자·변형뿐 — transition-all 은 w-10/h-12 까지 끌어들인다.
+            "shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none",
+            "transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out motion-reduce:transition-none",
             "focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)] focus:scale-105 focus:-translate-y-0.5",
+            "motion-reduce:focus:scale-100 motion-reduce:focus:translate-y-0",
             "disabled:opacity-50 disabled:cursor-not-allowed",
             error
-              ? "border-danger shake"
+              // 기존 `shake` 는 어디에도 정의되지 않은 죽은 클래스라 에러가 눈에 띄지 않았다.
+              // 새 리터럴 색을 만들지 않고 danger 토큰 링으로 상태를 보이게 한다.
+              ? "border-danger ring-2 ring-danger/25"
               : values[i]
-                ? "border-primary/50 bg-primary-light/20 shadow-[0_1px_3px_var(--primary-glow)]"
-                : "border-border hover:border-gray-300",
+              ? "border-primary/50 bg-primary-light/20 shadow-[0_1px_3px_var(--primary-glow)]"
+              : "border-border hover:border-muted-light",
           )}
         />
       ))}

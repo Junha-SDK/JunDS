@@ -48,9 +48,7 @@ export class JdSkeleton extends JdElement {
   protected render(): void {
     adoptStyles(skeletonStyles);
     // 입양(§3.3): SSR/프리렌더 골격이 있으면 그대로 쓴다
-    this.#lines = Array.from(
-      this.querySelectorAll<HTMLSpanElement>(":scope > .jd-skeleton__line"),
-    );
+    this.#lines = Array.from(this.querySelectorAll<HTMLSpanElement>(":scope > .jd-skeleton__line"));
     this.update();
   }
 

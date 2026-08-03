@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "DetailPanel",
   "oneLiner": "디테일 패널",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

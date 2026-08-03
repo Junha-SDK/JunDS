@@ -10,10 +10,28 @@ export default function SwipeActionPage() {
       description="모바일에서 좌/우로 스와이프하여 숨겨진 액션 버튼을 노출하는 인터랙션. 리스트 아이템에 자주 활용됩니다."
       importPath='import { SwipeAction } from "@/ds/composites/SwipeAction"'
       props={[
-        { name: "children", type: "ReactNode", required: true, description: "스와이프 가능한 콘텐츠" },
-        { name: "leftActions", type: "{ label, color, onClick }[]", description: "왼쪽 스와이프 시 노출되는 액션" },
-        { name: "rightActions", type: "{ label, color, onClick }[]", description: "오른쪽 스와이프 시 노출되는 액션" },
-        { name: "threshold", type: "number", default: "80", description: "고정되는 스와이프 거리(px)" },
+        {
+          name: "children",
+          type: "ReactNode",
+          required: true,
+          description: "스와이프 가능한 콘텐츠",
+        },
+        {
+          name: "leftActions",
+          type: "{ label, color, onClick }[]",
+          description: "왼쪽 스와이프 시 노출되는 액션",
+        },
+        {
+          name: "rightActions",
+          type: "{ label, color, onClick }[]",
+          description: "오른쪽 스와이프 시 노출되는 액션",
+        },
+        {
+          name: "threshold",
+          type: "number",
+          default: "80",
+          description: "고정되는 스와이프 거리(px)",
+        },
         { name: "className", type: "string", description: "추가 클래스" },
       ]}
     >

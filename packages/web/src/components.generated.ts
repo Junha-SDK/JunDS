@@ -308,6 +308,7 @@ export { JdSettingsLayout } from "./components/settings-layout/element.js";
 export { JdSeverityBadge } from "./components/severity-badge/element.js";
 export { JdShow, JdHide } from "./components/show/element.js";
 export { JdSidebar } from "./components/sidebar/element.js";
+export { JdSidebarLayout } from "./components/sidebar-layout/element.js";
 export { JdSidebarLink } from "./components/sidebar-link/element.js";
 export { JdSidebarProvider } from "./components/sidebar-provider/element.js";
 export { JdSidebarSection } from "./components/sidebar-section/element.js";
@@ -323,6 +324,7 @@ export { JdSortableList } from "./components/sortable-list/element.js";
 export { JdSpacer } from "./components/spacer/element.js";
 export { JdSparkline } from "./components/sparkline/element.js";
 export { JdSpinner } from "./components/spinner/element.js";
+export { JdSplit } from "./components/split/element.js";
 export { JdSplitPane } from "./components/split-pane/element.js";
 export { JdSpoilerBlock } from "./components/spoiler-block/element.js";
 export { JdSpotlight } from "./components/spotlight/element.js";
@@ -342,6 +344,7 @@ export { JdStoryCircle } from "./components/story-circle/element.js";
 export { JdStrategyPanel } from "./components/strategy-panel/element.js";
 export { JdSwipeAction } from "./components/swipe-action/element.js";
 export { JdSwitch } from "./components/switch/element.js";
+export { JdSwitcher } from "./components/switcher/element.js";
 export { JdTable } from "./components/table/element.js";
 export { JdTableOfContents } from "./components/table-of-contents/element.js";
 export { JdTabs } from "./components/tabs/element.js";
@@ -691,6 +694,7 @@ import { JdSettingsLayout } from "./components/settings-layout/element.js";
 import { JdSeverityBadge } from "./components/severity-badge/element.js";
 import { JdShow, JdHide } from "./components/show/element.js";
 import { JdSidebar } from "./components/sidebar/element.js";
+import { JdSidebarLayout } from "./components/sidebar-layout/element.js";
 import { JdSidebarLink } from "./components/sidebar-link/element.js";
 import { JdSidebarProvider } from "./components/sidebar-provider/element.js";
 import { JdSidebarSection } from "./components/sidebar-section/element.js";
@@ -706,6 +710,7 @@ import { JdSortableList } from "./components/sortable-list/element.js";
 import { JdSpacer } from "./components/spacer/element.js";
 import { JdSparkline } from "./components/sparkline/element.js";
 import { JdSpinner } from "./components/spinner/element.js";
+import { JdSplit } from "./components/split/element.js";
 import { JdSplitPane } from "./components/split-pane/element.js";
 import { JdSpoilerBlock } from "./components/spoiler-block/element.js";
 import { JdSpotlight } from "./components/spotlight/element.js";
@@ -725,6 +730,7 @@ import { JdStoryCircle } from "./components/story-circle/element.js";
 import { JdStrategyPanel } from "./components/strategy-panel/element.js";
 import { JdSwipeAction } from "./components/swipe-action/element.js";
 import { JdSwitch } from "./components/switch/element.js";
+import { JdSwitcher } from "./components/switcher/element.js";
 import { JdTable } from "./components/table/element.js";
 import { JdTableOfContents } from "./components/table-of-contents/element.js";
 import { JdTabs } from "./components/tabs/element.js";
@@ -1084,6 +1090,7 @@ export const ALL_COMPONENTS = [
   JdShow,
   JdHide,
   JdSidebar,
+  JdSidebarLayout,
   JdSidebarLink,
   JdSidebarProvider,
   JdSidebarSection,
@@ -1099,6 +1106,7 @@ export const ALL_COMPONENTS = [
   JdSpacer,
   JdSparkline,
   JdSpinner,
+  JdSplit,
   JdSplitPane,
   JdSpoilerBlock,
   JdSpotlight,
@@ -1118,6 +1126,7 @@ export const ALL_COMPONENTS = [
   JdStrategyPanel,
   JdSwipeAction,
   JdSwitch,
+  JdSwitcher,
   JdTable,
   JdTableOfContents,
   JdTabs,

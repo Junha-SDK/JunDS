@@ -13,7 +13,12 @@ export default function DropdownPage() {
       props={[
         { name: "trigger", type: "ReactNode", required: true, description: "트리거 요소" },
         { name: "items", type: "DropdownItem[]", required: true, description: "메뉴 항목" },
-        { name: "onSelect", type: "(key: string) => void", required: true, description: "선택 핸들러" },
+        {
+          name: "onSelect",
+          type: "(key: string) => void",
+          required: true,
+          description: "선택 핸들러",
+        },
         { name: "align", type: '"left"|"right"', default: '"right"', description: "정렬" },
       ]}
     >

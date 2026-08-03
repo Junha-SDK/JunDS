@@ -20,15 +20,13 @@ function seedVolume(price: number, size: number): number {
   return Math.round(base);
 }
 
-const SEED: TickerStock[] = HEATMAP_FLAT
-  .filter((c) => (c.price ?? 0) > 0)
-  .map((c) => ({
-    name: c.name,
-    close: c.price ?? 0,
-    pct: c.change,
-    volume: seedVolume(c.price ?? 0, c.size),
-    group: c.group,
-  }));
+const SEED: TickerStock[] = HEATMAP_FLAT.filter((c) => (c.price ?? 0) > 0).map((c) => ({
+  name: c.name,
+  close: c.price ?? 0,
+  pct: c.change,
+  volume: seedVolume(c.price ?? 0, c.size),
+  group: c.group,
+}));
 
 function tickStocks(prev: TickerStock[], jitter: () => number): TickerStock[] {
   return prev.map((s) => {
@@ -128,24 +126,36 @@ export function LiveTicker() {
             {isOpen ? "LIVE" : marketStatus === "휴장" ? "휴장" : "장마감"}
           </span>
           <span className="text-[10.5px] font-extrabold" style={{ color: "var(--bm-muted)" }}>
-            {isOpen ? `실시간 시세 · ${sorted.length}종목` : `${sorted.length}종목 · 정규장 09:00–15:30 KST`}
+            {isOpen
+              ? `실시간 시세 · ${sorted.length}종목`
+              : `${sorted.length}종목 · 정규장 09:00–15:30 KST`}
           </span>
         </div>
         <div className="overflow-hidden flex-1 relative">
-          <div className="bm-marquee flex items-center gap-6 py-2 whitespace-nowrap" style={{ width: "200%" }}>
+          <div
+            className="bm-marquee flex items-center gap-6 py-2 whitespace-nowrap"
+            style={{ width: "200%" }}
+          >
             {stream.map((s, i) => {
               const ref = prev[i % prev.length];
               const priceUp = ref ? s.close > ref.close : false;
               const priceDown = ref ? s.close < ref.close : false;
               return (
-                <span key={`${s.name}-${i}`} className="inline-flex items-center gap-1.5 text-[12px]">
+                <span
+                  key={`${s.name}-${i}`}
+                  className="inline-flex items-center gap-1.5 text-[12px]"
+                >
                   <span className="font-extrabold" style={{ color: "var(--bm-text)" }}>
                     {s.name}
                   </span>
                   <span
                     className="bm-num font-extrabold"
                     style={{
-                      color: priceUp ? "var(--bm-up)" : priceDown ? "var(--bm-down)" : "var(--bm-text)",
+                      color: priceUp
+                        ? "var(--bm-up)"
+                        : priceDown
+                        ? "var(--bm-down)"
+                        : "var(--bm-text)",
                     }}
                   >
                     {priceUp ? "▲" : priceDown ? "▼" : ""}

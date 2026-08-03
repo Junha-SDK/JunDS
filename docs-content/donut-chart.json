@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "DonutChart",
   "oneLiner": "도넛 차트 — 비중 표시.",
-  "tags": [
-    "finance",
-    "chart",
-    "도넛"
-  ],
+  "tags": ["finance", "chart", "도넛"],
   "controls": [],
   "snippets": {
     "web": null,

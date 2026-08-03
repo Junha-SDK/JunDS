@@ -59,9 +59,16 @@
 
   /* FOUC 방지(§3.2): 업그레이드 전 기본 박스 — 태그별 display만 선지정.
      오버레이류는 업그레이드 전 display:none으로 내용 번쩍임 차단. */
-  jd-button:not(:defined) { display: inline-flex; }
-  jd-text-field:not(:defined) { display: flex; flex-direction: column; }
-  jd-modal:not(:defined) { display: none; }
+  jd-button:not(:defined) {
+    display: inline-flex;
+  }
+  jd-text-field:not(:defined) {
+    display: flex;
+    flex-direction: column;
+  }
+  jd-modal:not(:defined) {
+    display: none;
+  }
 
   /* B1 core — 컨테이너·타이포는 골격 이동이 없거나 얕아 display 선지정으로 충분 */
   jd-box:not(:defined),
@@ -70,38 +77,68 @@
   jd-divider:not(:defined),
   jd-page:not(:defined),
   jd-page-header:not(:defined),
-  jd-section:not(:defined) { display: block; }
+  jd-section:not(:defined) {
+    display: block;
+  }
   jd-flex:not(:defined),
   jd-center:not(:defined),
   jd-hstack:not(:defined),
-  jd-group:not(:defined) { display: flex; }
+  jd-group:not(:defined) {
+    display: flex;
+  }
   jd-vstack:not(:defined),
-  jd-page-body:not(:defined) { display: flex; flex-direction: column; }
-  jd-grid-layout:not(:defined) { display: grid; }
+  jd-page-body:not(:defined) {
+    display: flex;
+    flex-direction: column;
+  }
+  jd-grid-layout:not(:defined) {
+    display: grid;
+  }
 
   /* B2 layout */
   jd-container:not(:defined),
   jd-spacer:not(:defined),
-  jd-aspect-ratio-box:not(:defined) { display: block; }
+  jd-aspect-ratio-box:not(:defined) {
+    display: block;
+  }
   jd-wrap:not(:defined),
-  jd-app-shell:not(:defined) { display: flex; }
-  jd-stack:not(:defined) { display: flex; flex-direction: column; }
+  jd-app-shell:not(:defined) {
+    display: flex;
+  }
+  jd-stack:not(:defined) {
+    display: flex;
+    flex-direction: column;
+  }
   jd-grid:not(:defined),
-  jd-simple-grid:not(:defined) { display: grid; }
+  jd-simple-grid:not(:defined) {
+    display: grid;
+  }
   jd-show:not(:defined),
-  jd-hide:not(:defined) { display: contents; }
-  jd-overlay:not(:defined) { position: absolute; inset: 0; }
+  jd-hide:not(:defined) {
+    display: contents;
+  }
+  jd-overlay:not(:defined) {
+    position: absolute;
+    inset: 0;
+  }
 
   /* B3 primitives 폼 코어 */
   jd-icon-button:not(:defined),
   jd-label:not(:defined),
   jd-checkbox:not(:defined),
   jd-toggle:not(:defined),
-  jd-switch:not(:defined) { display: inline-flex; }
+  jd-switch:not(:defined) {
+    display: inline-flex;
+  }
   jd-textarea:not(:defined),
   jd-slider:not(:defined),
-  jd-range-slider:not(:defined) { display: block; }
-  jd-radio-group:not(:defined) { display: flex; flex-direction: column; }
+  jd-range-slider:not(:defined) {
+    display: block;
+  }
+  jd-radio-group:not(:defined) {
+    display: flex;
+    flex-direction: column;
+  }
 
   /* B4 primitives 표시 */
   jd-badge:not(:defined),
@@ -112,43 +149,84 @@
   jd-key-cap:not(:defined),
   jd-status-dot:not(:defined),
   jd-battery-indicator:not(:defined),
-  jd-severity-badge:not(:defined) { display: inline-flex; }
+  jd-severity-badge:not(:defined) {
+    display: inline-flex;
+  }
 
   /* composites 선택 입력 1 — 팝업은 JS가 만들므로 업그레이드 전에는 새어 나올 것이
      없다. 호스트 display만 선지정해 골격 도착 시 자리 이동(레이아웃 시프트)을 막는다.
      select는 v2 w-fit 기본이라 inline-flex, 나머지 입력형은 폭 100% flex다. */
   jd-select:not(:defined),
-  jd-segmented-control:not(:defined) { display: inline-flex; }
+  jd-segmented-control:not(:defined) {
+    display: inline-flex;
+  }
   jd-multi-select:not(:defined),
   jd-combobox:not(:defined),
-  jd-auto-complete:not(:defined) { display: flex; flex-direction: column; }
-  jd-tag-input:not(:defined) { display: flex; flex-wrap: wrap; align-items: center; }
-  jd-transfer:not(:defined) { display: flex; align-items: center; }
+  jd-auto-complete:not(:defined) {
+    display: flex;
+    flex-direction: column;
+  }
+  jd-tag-input:not(:defined) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  jd-transfer:not(:defined) {
+    display: flex;
+    align-items: center;
+  }
 
   /* composites 날짜·시간 1 — 픽커 필드는 트리거 하나만 보이므로 inline-flex,
      격자 픽커는 카드라 inline-block. 업그레이드 전 패널이 새어 나오지 않게
      내부 골격이 아직 없다는 점에 기대지 않고 호스트 display만 선지정한다. */
   jd-date-range-picker:not(:defined),
   jd-time-picker:not(:defined),
-  jd-countdown:not(:defined) { display: inline-flex; }
+  jd-countdown:not(:defined) {
+    display: inline-flex;
+  }
   jd-month-picker:not(:defined),
-  jd-year-picker:not(:defined) { display: inline-block; }
+  jd-year-picker:not(:defined) {
+    display: inline-block;
+  }
   jd-date-input:not(:defined),
-  jd-date-range-filter:not(:defined) { display: flex; flex-direction: column; }
+  jd-date-range-filter:not(:defined) {
+    display: flex;
+    flex-direction: column;
+  }
 
   /* composites 오버레이·플로팅 2 — 화면에 떠 있는 것들은 업그레이드 전에 **문서 흐름
      안에 잠깐 나타났다가 튀어 오르는** 것이 가장 큰 번쩍임이다. 최종 좌표는 JS가
      쓰는 --jd-affix-* 에 달려 있으므로 여기서는 흐름에서 빼는 것까지만 선지정한다. */
-  jd-affix:not(:defined) { display: block; position: fixed; bottom: 20px; right: 20px; }
-  jd-sticky:not(:defined) { display: block; position: sticky; top: 0; }
-  jd-floating-action-button:not(:defined) {
-    display: flex; flex-direction: column-reverse; position: fixed;
-    bottom: 1.5rem; right: 1.5rem;
+  jd-affix:not(:defined) {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
   }
-  jd-dock:not(:defined) { display: inline-flex; align-items: flex-end; }
-  jd-dock-item:not(:defined) { display: block; }
+  jd-sticky:not(:defined) {
+    display: block;
+    position: sticky;
+    top: 0;
+  }
+  jd-floating-action-button:not(:defined) {
+    display: flex;
+    flex-direction: column-reverse;
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+  jd-dock:not(:defined) {
+    display: inline-flex;
+    align-items: flex-end;
+  }
+  jd-dock-item:not(:defined) {
+    display: block;
+  }
   /* 덮개는 JS가 만든다 — 업그레이드 전에는 본문만 보이면 되므로 display만 준다 */
-  jd-loading-overlay:not(:defined) { display: block; position: relative; }
+  jd-loading-overlay:not(:defined) {
+    display: block;
+    position: relative;
+  }
 
   /* composites 내비게이션 1 — 항목이 전부 데이터(프로퍼티·JSON 슬롯)라 업그레이드
      전에는 내용이 아예 없다. 번쩍임이 아니라 **골격이 도착하는 순간의 자리 이동**이
@@ -156,19 +234,37 @@
   jd-breadcrumb:not(:defined),
   jd-stepper:not(:defined),
   jd-tree-view:not(:defined),
-  jd-tree-nav:not(:defined) { display: block; }
-  jd-tabs:not(:defined) { display: flex; align-items: flex-end; }
-  jd-pagination:not(:defined) { display: flex; align-items: center; }
-  jd-navigation-menu:not(:defined) { display: inline-flex; }
+  jd-tree-nav:not(:defined) {
+    display: block;
+  }
+  jd-tabs:not(:defined) {
+    display: flex;
+    align-items: flex-end;
+  }
+  jd-pagination:not(:defined) {
+    display: flex;
+    align-items: center;
+  }
+  jd-navigation-menu:not(:defined) {
+    display: inline-flex;
+  }
 
   /* composites 상태 표시 2 — 전부 표시 전용이라 번쩍일 내용이 없고, 업그레이드 순간의
      자리 이동만 막으면 된다. 카드형(Stat/Metric/Trust)은 블록, 뱃지·인디케이터는
      인라인이 최종 형태다. */
   jd-stat-card:not(:defined),
   jd-metric-card:not(:defined),
-  jd-trust-indicator:not(:defined) { display: block; }
-  jd-stat:not(:defined) { display: flex; flex-direction: column; }
+  jd-trust-indicator:not(:defined) {
+    display: block;
+  }
+  jd-stat:not(:defined) {
+    display: flex;
+    flex-direction: column;
+  }
   jd-security-badge:not(:defined),
   jd-thinking-indicator:not(:defined),
-  jd-online-status:not(:defined) { display: inline-flex; align-items: center; }
+  jd-online-status:not(:defined) {
+    display: inline-flex;
+    align-items: center;
+  }
 }

@@ -16,7 +16,13 @@ export const Default: Story = {
       <Card.Header>카드 제목</Card.Header>
       <Card.Body>카드 내용이 여기에 들어갑니다.</Card.Body>
       <Card.Footer>
-        <button className="text-sm text-primary">더보기</button>
+        {/* 스토리도 기준선을 보여 주는 자리다 — 누를 수 있는 것에는 세 상태가 전부 있어야 한다. */}
+        <button
+          type="button"
+          className="text-sm text-primary-ink rounded-lg px-2 py-1 -mx-2 cursor-pointer transition-colors hover:bg-primary-light hover:text-primary-hover active:bg-primary-light/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+        >
+          더보기
+        </button>
       </Card.Footer>
     </Card>
   ),

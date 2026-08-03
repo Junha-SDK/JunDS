@@ -5,7 +5,14 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-form { display: block; }
-  .jd-form { display: flex; flex-direction: column; gap: var(--jd-space-4); }
-}`;
+  @layer junds.components {
+    jd-form {
+      display: block;
+    }
+    .jd-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--jd-space-4);
+    }
+  }
+`;

@@ -45,10 +45,7 @@ function GridIcon({ active }: { active: boolean }) {
       height="18"
       viewBox="0 0 18 18"
       fill="none"
-      className={cn(
-        "transition-colors",
-        active ? "text-primary" : "text-muted-foreground",
-      )}
+      className={cn("transition-colors", active ? "text-primary-ink" : "text-muted")}
     >
       <rect x="1" y="1" width="7" height="7" rx="1.5" fill="currentColor" />
       <rect x="10" y="1" width="7" height="7" rx="1.5" fill="currentColor" />
@@ -65,10 +62,7 @@ function ListIcon({ active }: { active: boolean }) {
       height="18"
       viewBox="0 0 18 18"
       fill="none"
-      className={cn(
-        "transition-colors",
-        active ? "text-primary" : "text-muted-foreground",
-      )}
+      className={cn("transition-colors", active ? "text-primary-ink" : "text-muted")}
     >
       <rect x="1" y="2" width="16" height="3" rx="1" fill="currentColor" />
       <rect x="1" y="7.5" width="16" height="3" rx="1" fill="currentColor" />
@@ -79,20 +73,9 @@ function ListIcon({ active }: { active: boolean }) {
 
 function SearchIcon() {
   return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      className="text-muted-foreground"
-    >
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-muted">
       <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5" />
-      <path
-        d="M11 11l3.5 3.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
+      <path d="M11 11l3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -172,27 +155,30 @@ export function CollectionView({
               onChange={(e) => setSearch(e.target.value)}
               placeholder="검색..."
               className={cn(
-                "w-full pl-9 pr-3 py-2 rounded-lg border border-border bg-background",
-                "text-sm placeholder:text-muted-foreground",
-                "focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary",
-                "transition-all",
+                "w-full pl-9 pr-3 py-2 rounded-xl border border-border bg-card",
+                "text-sm placeholder:text-muted-light",
+                // 색과 글로우만 바뀐다 — transition-all 은 padding 까지 물어 리플로우를 만든다
+                "transition-[border-color,box-shadow] duration-200 ease-out",
+                "hover:border-muted-light",
+                "focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)]",
               )}
             />
           </div>
         )}
 
         {/* 뷰 토글 */}
-        <div className="flex items-center gap-1 rounded-lg border border-border p-0.5">
+        <div className="flex items-center gap-1 rounded-xl border border-border bg-card p-0.5">
           <button
             type="button"
             onClick={() => setCurrentView("grid")}
             className={cn(
-              "p-1.5 rounded-md transition-colors",
-              currentView === "grid"
-                ? "bg-muted"
-                : "hover:bg-muted/50",
+              "p-1.5 rounded-lg transition-colors cursor-pointer",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+              // bg-muted 는 본문 회색(#6b6880)이라 배경으로 깔면 어두운 판이 된다 — 선택 표시는 primary 틴트로
+              currentView === "grid" ? "bg-primary/10" : "hover:bg-card-hover",
             )}
             aria-label="그리드 보기"
+            aria-pressed={currentView === "grid"}
           >
             <GridIcon active={currentView === "grid"} />
           </button>
@@ -200,12 +186,12 @@ export function CollectionView({
             type="button"
             onClick={() => setCurrentView("list")}
             className={cn(
-              "p-1.5 rounded-md transition-colors",
-              currentView === "list"
-                ? "bg-muted"
-                : "hover:bg-muted/50",
+              "p-1.5 rounded-lg transition-colors cursor-pointer",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+              currentView === "list" ? "bg-primary/10" : "hover:bg-card-hover",
             )}
             aria-label="리스트 보기"
+            aria-pressed={currentView === "list"}
           >
             <ListIcon active={currentView === "list"} />
           </button>
@@ -218,11 +204,15 @@ export function CollectionView({
           <button
             type="button"
             onClick={() => setActiveCategory(null)}
+            aria-pressed={!activeCategory}
             className={cn(
-              "px-3 py-1 rounded-full text-xs font-medium transition-colors border",
+              "px-3 py-1 rounded-full text-xs font-medium border cursor-pointer whitespace-nowrap",
+              "transition-colors active:scale-[0.97] motion-reduce:active:scale-100",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              // text-primary-foreground 는 이 라이브러리에 없는 토큰이라 대비가 사라진다
               !activeCategory
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-muted/50 text-muted-foreground border-border hover:bg-muted",
+                ? "bg-primary text-white border-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]"
+                : "bg-card text-muted border-border hover:bg-card-hover hover:text-foreground",
             )}
           >
             전체
@@ -231,14 +221,15 @@ export function CollectionView({
             <button
               key={cat}
               type="button"
-              onClick={() =>
-                setActiveCategory(activeCategory === cat ? null : cat)
-              }
+              onClick={() => setActiveCategory(activeCategory === cat ? null : cat)}
+              aria-pressed={activeCategory === cat}
               className={cn(
-                "px-3 py-1 rounded-full text-xs font-medium transition-colors border",
+                "px-3 py-1 rounded-full text-xs font-medium border cursor-pointer whitespace-nowrap",
+                "transition-colors active:scale-[0.97] motion-reduce:active:scale-100",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 activeCategory === cat
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-muted/50 text-muted-foreground border-border hover:bg-muted",
+                  ? "bg-primary text-white border-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]"
+                  : "bg-card text-muted border-border hover:bg-card-hover hover:text-foreground",
               )}
             >
               {cat}
@@ -249,7 +240,7 @@ export function CollectionView({
 
       {/* ─── 콘텐츠 ─── */}
       {filtered.length === 0 ? (
-        <div className="flex items-center justify-center py-16 text-sm text-muted-foreground">
+        <div className="flex items-center justify-center py-16 text-sm text-muted">
           {emptyMessage}
         </div>
       ) : currentView === "grid" ? (
@@ -262,37 +253,37 @@ export function CollectionView({
                 key={item.key}
                 onClick={item.onClick}
                 className={cn(
-                  "group relative flex flex-col rounded-xl border border-border bg-card text-left",
-                  "overflow-hidden transition-all duration-200",
+                  "group relative flex flex-col rounded-xl border border-border bg-card text-left min-w-0",
+                  // 뜨는 카드는 그림자 한 겹으로는 배경에서 떨어지지 않는다 — 다층 그림자로 세운다.
+                  // 움직이는 것은 transform·shadow·border 뿐이라 감속 요청도 여기서 받는다
+                  "overflow-hidden transition-[transform,box-shadow,border-color] duration-200 ease-out motion-reduce:transition-none",
                   (item.onClick || item.href) &&
-                    "cursor-pointer hover:shadow-lg hover:border-primary hover:-translate-y-0.5 hover:z-10",
+                    "cursor-pointer hover:border-primary hover:-translate-y-0.5 hover:z-10 motion-reduce:hover:translate-y-0 hover:shadow-[0_10px_30px_-8px_rgba(0,0,0,0.28),0_4px_10px_-4px_rgba(0,0,0,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 )}
               >
                 {/* 프리뷰 영역 */}
-                <div className="aspect-[4/3] bg-muted/40 flex items-center justify-center overflow-hidden">
+                <div className="aspect-[4/3] bg-card-hover border-b border-border-light flex items-center justify-center overflow-hidden">
                   {item.preview ?? (
-                    <span className="text-3xl text-muted-foreground/30">
+                    <span className="text-3xl text-muted-light/50">
                       {item.icon ?? item.label.charAt(0)}
                     </span>
                   )}
                 </div>
 
                 {/* 정보 영역 */}
-                <div className="flex flex-col gap-1.5 p-4">
-                  <span className="text-sm font-semibold text-foreground">
+                <div className="flex flex-col gap-1.5 p-4 min-w-0">
+                  <span className="text-sm font-semibold text-foreground truncate">
                     {item.label}
                   </span>
                   {item.description && (
-                    <span className="text-xs text-muted-foreground line-clamp-2">
-                      {item.description}
-                    </span>
+                    <span className="text-xs text-muted line-clamp-2">{item.description}</span>
                   )}
                   {item.tags && item.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-1">
                       {item.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground"
+                          className="inline-flex px-1.5 py-0.5 rounded-lg text-[10px] font-medium bg-background text-muted ring-1 ring-border-light whitespace-nowrap"
                         >
                           {tag}
                         </span>
@@ -314,16 +305,16 @@ export function CollectionView({
                 key={item.key}
                 onClick={item.onClick}
                 className={cn(
-                  "group flex items-center gap-4 rounded-xl border border-border bg-card p-4 text-left",
-                  "transition-all duration-200",
+                  "group flex items-center gap-4 rounded-xl border border-border bg-card p-4 text-left w-full min-w-0",
+                  "transition-[box-shadow,border-color,background-color] duration-200 ease-out",
                   (item.onClick || item.href) &&
-                    "cursor-pointer hover:shadow-md hover:border-primary",
+                    "cursor-pointer hover:border-primary hover:bg-card-hover hover:shadow-[0_6px_18px_-8px_rgba(0,0,0,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 )}
               >
                 {/* 아이콘 */}
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted/60 flex items-center justify-center">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-background ring-1 ring-border-light flex items-center justify-center">
                   {item.icon ?? (
-                    <span className="text-sm font-bold text-muted-foreground/50">
+                    <span className="text-sm font-bold text-muted-light">
                       {item.label.charAt(0)}
                     </span>
                   )}
@@ -331,23 +322,19 @@ export function CollectionView({
 
                 {/* 텍스트 */}
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-semibold text-foreground truncate">
-                    {item.label}
-                  </div>
+                  <div className="text-sm font-semibold text-foreground truncate">{item.label}</div>
                   {item.description && (
-                    <div className="text-xs text-muted-foreground truncate">
-                      {item.description}
-                    </div>
+                    <div className="text-xs text-muted truncate">{item.description}</div>
                   )}
                 </div>
 
                 {/* 태그 */}
                 {item.tags && item.tags.length > 0 && (
-                  <div className="hidden sm:flex flex-wrap gap-1">
+                  <div className="hidden sm:flex flex-wrap gap-1 shrink-0">
                     {item.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex px-1.5 py-0.5 rounded text-[10px] font-medium bg-muted text-muted-foreground"
+                        className="inline-flex px-1.5 py-0.5 rounded-lg text-[10px] font-medium bg-background text-muted ring-1 ring-border-light whitespace-nowrap"
                       >
                         {tag}
                       </span>

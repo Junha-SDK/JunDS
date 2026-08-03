@@ -35,9 +35,7 @@ export function getUsage(data, input) {
 
   if (snippet) {
     const code =
-      platform === "web"
-        ? substituteTemplateTokens(snippet.code, c.controls)
-        : snippet.code;
+      platform === "web" ? substituteTemplateTokens(snippet.code, c.controls) : snippet.code;
     return {
       ok: true,
       ...meta(data),
@@ -79,9 +77,7 @@ export function getUsage(data, input) {
       ? `${platform} 구현은 완료(ledger: ${ledgerStatus})지만 스니펫이 아직 저작되지 ` +
         `않았다 — docs-content/${c.id ?? row.id}.json에 추가 필요(검증: build-index.mjs).`
       : `${platform} 전환 상태: ${ledgerStatus} (ledger 기준). ` +
-        (authored.length
-          ? `저작된 대안 플랫폼: ${authored.join(", ")}.`
-          : "저작된 스니펫 없음.");
+        (authored.length ? `저작된 대안 플랫폼: ${authored.join(", ")}.` : "저작된 스니펫 없음.");
 
   return {
     ok: true,

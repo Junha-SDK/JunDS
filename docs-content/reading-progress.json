@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ReadingProgress",
   "oneLiner": "독서 진행률 표시.",
-  "tags": [
-    "book",
-    "독서",
-    "진행률"
-  ],
+  "tags": ["book", "독서", "진행률"],
   "controls": [],
   "snippets": {
     "web": null,

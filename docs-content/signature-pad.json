@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "SignaturePad",
   "oneLiner": "마우스/터치로 서명을 그리는 패드.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

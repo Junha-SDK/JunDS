@@ -68,14 +68,16 @@ export function AppShell({
   useEffect(() => {
     if (mobileOpen) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   const sw = sidebarCollapsed ? collapsedWidth : sidebarWidth;
 
   return (
     <Box display="flex" h="screenH" overflow="hidden" bg="background" className={className}>
-      {/* Desktop Sidebar */}
+      {/* Desktop Sidebar — bg 는 인라인 style 로 나가므로 `white` 리터럴이면 다크에서 그대로 흰 판이 된다 */}
       {sidebar && !isMobile && (
         <Box
           as="aside"
@@ -83,7 +85,7 @@ export function AppShell({
           overflow="auto"
           border
           borderWidth={0}
-          bg="white"
+          bg="card"
           transition="slow"
           style={{
             width: sw,
@@ -117,7 +119,7 @@ export function AppShell({
             left={0}
             bottom={0}
             zIndex="modal"
-            bg="white"
+            bg="card"
             overflow="auto"
             shadow="xl"
             style={{ width: sidebarWidth, zIndex: 1400 }}
@@ -134,7 +136,7 @@ export function AppShell({
           <Box
             as="header"
             shrink={0}
-            bg="white"
+            bg="card"
             position={stickyHeader ? "sticky" : undefined}
             top={stickyHeader ? 0 : undefined}
             zIndex={stickyHeader ? "sticky" : undefined}
@@ -145,11 +147,20 @@ export function AppShell({
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 text-muted hover:text-foreground cursor-pointer z-10"
+                className={cn(
+                  "absolute left-3 top-1/2 -translate-y-1/2 z-10 p-2 rounded-lg cursor-pointer text-muted",
+                  "transition-colors hover:text-foreground hover:bg-card-hover active:bg-muted/15",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+                )}
                 aria-label="사이드바 열기"
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M3 4.5h12M3 9h12M3 13.5h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path
+                    d="M3 4.5h12M3 9h12M3 13.5h12"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               </button>
             )}
@@ -164,7 +175,7 @@ export function AppShell({
 
         {/* Footer */}
         {footer && (
-          <Box as="footer" shrink={0} bg="white" style={{ borderTop: "1px solid var(--border)" }}>
+          <Box as="footer" shrink={0} bg="card" style={{ borderTop: "1px solid var(--border)" }}>
             {footer}
           </Box>
         )}

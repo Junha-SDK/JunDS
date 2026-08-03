@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Wrap 데모 — **별칭**이다. 웹에서 <jd-wrap>은 <jd-group>과 표면 동형이라 단일 구현 +
 // 별칭으로 처리되고(R12), iOS도 신규 타입을 만들지 않는다:
@@ -13,7 +13,7 @@ enum WrapDemo {
     static let demo = ComponentDemo(
         id: "Wrap",
         controls: [
-            .options("gap", "gap", ["xs", "sm", "md", "lg"], initial: "sm"),
+            .options("gap", "gap", ["xs", "sm", "md", "lg"], initial: "sm")
         ],
         swiftUI: { state in AnyView(WrapStageSwiftUI(state: state)) },
         uikit: { state in AnyView(WrapStageUIKit(state: state)) }
@@ -77,10 +77,12 @@ private struct WrapStageUIKit: View {
                     .fixedSize()
             }
 
-            Text("UIStackView는 wrap을 지원하지 않는다 — JdStackView.horizontal no-wrap 폴백이라 "
-                 + "줄바꿈 대신 가로 스크롤로 확인한다(04 §10.1). 줄바꿈이 필요하면 SwiftUI JdFlowLayout.")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                "UIStackView는 wrap을 지원하지 않는다 — JdStackView.horizontal no-wrap 폴백이라 "
+                    + "줄바꿈 대신 가로 스크롤로 확인한다(04 §10.1). 줄바꿈이 필요하면 SwiftUI JdFlowLayout."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
         }
         .padding(JdToken.Space.s6)
     }
@@ -112,10 +114,12 @@ private func wrapTagView(_ label: String) -> UIView {
     container.addSubview(text)
     text.jd.layout {
         $0.edges.equalToSuperview()
-            .inset(NSDirectionalEdgeInsets(top: JdToken.Space.s1_5,
-                                           leading: JdToken.Space.s3,
-                                           bottom: JdToken.Space.s1_5,
-                                           trailing: JdToken.Space.s3))
+            .inset(
+                NSDirectionalEdgeInsets(
+                    top: JdToken.Space.s1_5,
+                    leading: JdToken.Space.s3,
+                    bottom: JdToken.Space.s1_5,
+                    trailing: JdToken.Space.s3))
     }
     return container
 }

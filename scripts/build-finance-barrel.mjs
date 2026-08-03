@@ -21,7 +21,8 @@ import path from "node:path";
 
 const FIN = "/Users/junha/develop/jjunhaa/JunDS/ds/finance";
 
-const VALUE_DECL = /^export\s+(?:async\s+)?(?:function|const|let|var|class|enum)\s+([\p{ID_Start}_$][\p{ID_Continue}$]*)/gmu;
+const VALUE_DECL =
+  /^export\s+(?:async\s+)?(?:function|const|let|var|class|enum)\s+([\p{ID_Start}_$][\p{ID_Continue}$]*)/gmu;
 const TYPE_DECL = /^export\s+(?:type|interface)\s+([\p{ID_Start}_$][\p{ID_Continue}$]*)/gmu;
 const NAMED_LIST = /^export\s+(?:type\s+)?\{([^}]+)\}\s*(?:from\s+['"][^'"]+['"])?\s*;?/gm;
 
@@ -58,7 +59,9 @@ async function listSources(dir) {
   return entries
     .filter((e) => e.isFile())
     .map((e) => e.name)
-    .filter((n) => (n.endsWith(".ts") || n.endsWith(".tsx")) && n !== "index.ts" && n !== "index.tsx")
+    .filter(
+      (n) => (n.endsWith(".ts") || n.endsWith(".tsx")) && n !== "index.ts" && n !== "index.tsx",
+    )
     .sort();
 }
 
@@ -103,22 +106,25 @@ function renderModuleExports(modules) {
 // subpaths, but excluded from the top-level `@junds/ui/finance` barrel so
 // client bundles don't accidentally pull `yahoo-finance2`, `process.env`,
 // or other non-isomorphic dependencies.
-const SERVER_ONLY_LIBS = new Set([
-  "auth",
-  "ecos",
-  "rss",
-  "yahoo",
-]);
+const SERVER_ONLY_LIBS = new Set(["auth", "ecos", "rss", "yahoo"]);
 
 async function main() {
   // 1) lib barrel
   const libMods = await collectModules(path.join(FIN, "lib"));
-  const libLines = ["// Auto-generated barrel for ds/finance/lib", "", ...renderModuleExports(libMods)];
+  const libLines = [
+    "// Auto-generated barrel for ds/finance/lib",
+    "",
+    ...renderModuleExports(libMods),
+  ];
   await fs.writeFile(path.join(FIN, "lib", "index.ts"), libLines.join("\n") + "\n", "utf8");
 
   // 2) charts barrel
   const chartsMods = await collectModules(path.join(FIN, "charts"));
-  const chartsLines = ["// Auto-generated barrel for ds/finance/charts", "", ...renderModuleExports(chartsMods)];
+  const chartsLines = [
+    "// Auto-generated barrel for ds/finance/charts",
+    "",
+    ...renderModuleExports(chartsMods),
+  ];
   await fs.writeFile(path.join(FIN, "charts", "index.ts"), chartsLines.join("\n") + "\n", "utf8");
 
   // 3) finance root barrel: components first (component-name wins on collision),

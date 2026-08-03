@@ -10,33 +10,33 @@ G0 스펙(00~07)에서 누락됐다. 본 문서가 그 계승을 v3 체제(바�
 
 ### 1.1 구조
 
-| 항목 | 실측 |
-|---|---|
-| 위치·규모 | `mcp/server.mjs` 단일 파일 957행 + `mcp/README.md` |
-| 프로토콜 | MCP stdio(JSON-RPC), `@modelcontextprotocol/sdk` ^1.29.0 `McpServer.registerTool` |
-| 입력 검증 | zod 스키마(PascalCase/kebab-case 정규식, 경로 이탈 가드, 쉘 메타문자 거부) |
-| 실행 안전 | 외부 명령은 전부 `spawn(cmd, args, {shell:false})` — 쉘 문자열 경로 없음 |
-| 발견 | 레포 루트 `.mcp.json` → `node mcp/server.mjs` (`npm run mcp` 동일) |
-| 의존성 | SDK는 루트 devDep. **zod는 직접 선언 없음** — SDK 내부 의존에 업힌 전이 호이스팅(lockfile 실측) |
+| 항목      | 실측                                                                                            |
+| --------- | ----------------------------------------------------------------------------------------------- |
+| 위치·규모 | `mcp/server.mjs` 단일 파일 957행 + `mcp/README.md`                                              |
+| 프로토콜  | MCP stdio(JSON-RPC), `@modelcontextprotocol/sdk` ^1.29.0 `McpServer.registerTool`               |
+| 입력 검증 | zod 스키마(PascalCase/kebab-case 정규식, 경로 이탈 가드, 쉘 메타문자 거부)                      |
+| 실행 안전 | 외부 명령은 전부 `spawn(cmd, args, {shell:false})` — 쉘 문자열 경로 없음                        |
+| 발견      | 레포 루트 `.mcp.json` → `node mcp/server.mjs` (`npm run mcp` 동일)                              |
+| 의존성    | SDK는 루트 devDep. **zod는 직접 선언 없음** — SDK 내부 의존에 업힌 전이 호이스팅(lockfile 실측) |
 
 ### 1.2 도구 14종 전수
 
-| # | 도구 | 방식 | 데이터 소스 | 성격 |
-|---|---|---|---|---|
-| 1 | `locate` | shell-out `npm run locate` | scripts/locate.mjs 랭킹 | 조회(기여자) |
-| 2 | `map_refresh` | shell-out `npm run map` | `.ai/MAP.md` 재생성 | **쓰기**(기여자) |
-| 3 | `extract_props` | shell-out `npm run extract-props` | `.ai/props.json` 재생성 | **쓰기**(기여자) |
-| 4 | `get_component_props` | 파일 읽기 | `.ai/props.json` | 조회 |
-| 5 | `list_recipes` | 디렉토리 읽기 | `.ai/recipes/*.md` | 조회 |
-| 6 | `read_recipe` | 파일 읽기 | `.ai/recipes/<slug>.md` | 조회 |
-| 7 | `scaffold` | shell-out `npm run scaffold` | `ds/` 신규 파일 생성 | **쓰기**(기여자) |
-| 8 | `list_requirements` | 디렉토리 읽기 | `requirements/*.md` | 조회(기여자) |
-| 9 | `read_requirement` | 파일 읽기 | `requirements/<slug>.md` | 조회(기여자) |
-| 10 | `list_hooks` | 소스 파싱 | `ds/hooks/index.ts` 배럴 + JSDoc | 조회 |
-| 11 | `get_a11y` | 파일 읽기 | `.ai/a11y.json` | 조회 |
-| 12 | `get_bundle_info` | 파일 읽기 | `.ai/bundle.json` | 조회 |
-| 13 | `get_deps_for` | 파일 읽기 | `.ai/deps.json` | 조회 |
-| 14 | `get_screenshot_info` | 파일 읽기 | `.ai/screenshots.json` | 조회 |
+| #   | 도구                  | 방식                              | 데이터 소스                      | 성격             |
+| --- | --------------------- | --------------------------------- | -------------------------------- | ---------------- |
+| 1   | `locate`              | shell-out `npm run locate`        | scripts/locate.mjs 랭킹          | 조회(기여자)     |
+| 2   | `map_refresh`         | shell-out `npm run map`           | `.ai/MAP.md` 재생성              | **쓰기**(기여자) |
+| 3   | `extract_props`       | shell-out `npm run extract-props` | `.ai/props.json` 재생성          | **쓰기**(기여자) |
+| 4   | `get_component_props` | 파일 읽기                         | `.ai/props.json`                 | 조회             |
+| 5   | `list_recipes`        | 디렉토리 읽기                     | `.ai/recipes/*.md`               | 조회             |
+| 6   | `read_recipe`         | 파일 읽기                         | `.ai/recipes/<slug>.md`          | 조회             |
+| 7   | `scaffold`            | shell-out `npm run scaffold`      | `ds/` 신규 파일 생성             | **쓰기**(기여자) |
+| 8   | `list_requirements`   | 디렉토리 읽기                     | `requirements/*.md`              | 조회(기여자)     |
+| 9   | `read_requirement`    | 파일 읽기                         | `requirements/<slug>.md`         | 조회(기여자)     |
+| 10  | `list_hooks`          | 소스 파싱                         | `ds/hooks/index.ts` 배럴 + JSDoc | 조회             |
+| 11  | `get_a11y`            | 파일 읽기                         | `.ai/a11y.json`                  | 조회             |
+| 12  | `get_bundle_info`     | 파일 읽기                         | `.ai/bundle.json`                | 조회             |
+| 13  | `get_deps_for`        | 파일 읽기                         | `.ai/deps.json`                  | 조회             |
+| 14  | `get_screenshot_info` | 파일 읽기                         | `.ai/screenshots.json`           | 조회             |
 
 ### 1.3 v3 관점의 한계 5건
 
@@ -77,12 +77,12 @@ v2 서버(`mcp/`)는 v2 동결 구역과 함께 그대로 존치한다 — 01 §
 
 ### 3.1 4계열 (전부 읽기 전용 — v3 MCP에 쓰기 도구는 없다)
 
-| 소스 | 내용 | 스키마 근거 |
-|---|---|---|
-| `docs-spec/registry/ledger.json` | 468행 전환 원장 `{id, category, tier, web, ios, docs, tests, bench, notes}` | 실측·07 §4 (상태 정본) |
-| `docs-content/<kebab>.json` (레포 루트) | 컴포넌트별 콘텐츠 정본 468건 — oneLiner·tags·controls·snippets 4탭·tokens·a11y | 콘텐츠 트랙 DEC-021 (06 §2.2+§2.3 정렬) — §3.2 |
-| `tokens/*.json` (12그룹) | 토큰 단일 소스. 파생 네이밍은 생성기 규약: CSS `--jd-<prefix>-<kebab>`, Swift `JdToken.<Group>.<name>` | 02·tokens/build/generate.mjs 실측 |
-| `docs-spec/registry/size-baseline.json` | 컴포넌트별 gzip bytes `{core, components: {<kebab>: bytes}}` | 실측 (05 게이트 산출물) |
+| 소스                                    | 내용                                                                                                   | 스키마 근거                                    |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| `docs-spec/registry/ledger.json`        | 468행 전환 원장 `{id, category, tier, web, ios, docs, tests, bench, notes}`                            | 실측·07 §4 (상태 정본)                         |
+| `docs-content/<kebab>.json` (레포 루트) | 컴포넌트별 콘텐츠 정본 468건 — oneLiner·tags·controls·snippets 4탭·tokens·a11y                         | 콘텐츠 트랙 DEC-021 (06 §2.2+§2.3 정렬) — §3.2 |
+| `tokens/*.json` (12그룹)                | 토큰 단일 소스. 파생 네이밍은 생성기 규약: CSS `--jd-<prefix>-<kebab>`, Swift `JdToken.<Group>.<name>` | 02·tokens/build/generate.mjs 실측              |
+| `docs-spec/registry/size-baseline.json` | 컴포넌트별 gzip bytes `{core, components: {<kebab>: bytes}}`                                           | 실측 (05 게이트 산출물)                        |
 
 ### 3.2 docs-content — 콘텐츠 정본 (DEC-026 개정: 콘텐츠 트랙 정본 채택)
 
@@ -98,7 +98,7 @@ Q2 승인의 원칙(문서 화면과 MCP의 **단일 저작점** + ledger 정합
   — 06 §2.2(코드 탭 4종)·§2.3(ControlDef) 정렬. 조인 키는 **(ledgerId, category)**
   (원장 중복 id AreaChart 2건 때문에 id 단독 불가).
 - 상태(web/ios)는 파일에 저장하지 않는다 — ledger가 유일 정본, 검증기가 조인.
-- 스니펫 게이트: ledger가 done*일 때만 비-null + **실물 대조**(웹 태그·서브패스·iOS 식별자).
+- 스니펫 게이트: ledger가 done\*일 때만 비-null + **실물 대조**(웹 태그·서브패스·iOS 식별자).
 - web 스니펫의 `{prop}` 템플릿 토큰(06 §2.3)은 controls와 연동.
 
 MCP 측 어댑테이션:
@@ -109,7 +109,7 @@ MCP 측 어댑테이션:
   (06 §2.3 "복사도 주입값 기준") — 복사해 바로 동작하는 코드가 계약.
 - 검증은 정본 검증기(build-index.mjs)에 위임 — 로직 중복 저작 금지. MCP가 보태는
   **보완 게이트 1건**: 정본 게이트는 ¬done ⇒ null 방향만 강제하므로, 역방향
-  **"web done* ⇒ web 스니펫 저작"** 커버리지를 `content-gate.test.mjs`가 강제한다
+  **"web done\* ⇒ web 스니펫 저작"** 커버리지를 `content-gate.test.mjs`가 강제한다
   (DEC-016-2 저작 게이트의 계승) — 배치가 web 상태를 done으로 갱신하면
   스니펫 저작이 DoD다.
 
@@ -214,19 +214,19 @@ MCP 측 어댑테이션:
 
 ## 5. v2 → v3 호환성 표 (14종 전수 처분)
 
-| v2 도구 | v3 처분 | 근거 |
-|---|---|---|
-| `locate` | → `search_components` | 개념 검색 계승. 파일 랭킹(레포 전제)은 소비자에 무의미 |
-| `get_component_props` | → `get_component` + `get_usage`의 `attributes` | 정본이 .ai/props.json(v2)에서 docs-content(v3)로 이동 |
-| `list_hooks` | → `search_components {category:"hooks"}` | hooks도 원장 468행에 포함(→Behavior 전환 상태 노출) |
-| `get_bundle_info` | → `get_component.gzipBytes` | 정본이 size-baseline.json(05 게이트 산출물)으로 이동 |
-| `list_recipes` / `read_recipe` | 미계승 (후속 재심의) | .ai/recipes는 v2 자산. v3 대응물 생기면 `get_usage` 확장으로 수용 |
-| `scaffold` | **미계승** | 기여자 쓰기 도구. v3 스캐폴딩은 배치 워크플로(07)가 담당, 소비자 표면에 부적합 |
-| `map_refresh` / `extract_props` | **미계승** | v2 아티팩트 재생성 — 동결 구역 쓰기 |
-| `list_requirements` / `read_requirement` | **미계승** | v2 기여 문서. v3 스펙은 docs-spec/이며 사람·에이전트가 직독 |
-| `get_a11y` | 부분 계승 — docs-content `a11y` 표 | axe 런 아티팩트는 v2 전용. v3 a11y는 DoD(07 §3-1)로 강제되고 요약만 콘텐츠화 |
-| `get_deps_for` | 미계승 | v3는 의존성 0 철학 — CE 간 import 그래프 자체가 거의 없음(Box 파생 정도) |
-| `get_screenshot_info` | 미계승 | v2 스크린샷 파이프라인 전용. v3 시각 정본은 문서 화면(06) |
+| v2 도구                                  | v3 처분                                        | 근거                                                                           |
+| ---------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------ |
+| `locate`                                 | → `search_components`                          | 개념 검색 계승. 파일 랭킹(레포 전제)은 소비자에 무의미                         |
+| `get_component_props`                    | → `get_component` + `get_usage`의 `attributes` | 정본이 .ai/props.json(v2)에서 docs-content(v3)로 이동                          |
+| `list_hooks`                             | → `search_components {category:"hooks"}`       | hooks도 원장 468행에 포함(→Behavior 전환 상태 노출)                            |
+| `get_bundle_info`                        | → `get_component.gzipBytes`                    | 정본이 size-baseline.json(05 게이트 산출물)으로 이동                           |
+| `list_recipes` / `read_recipe`           | 미계승 (후속 재심의)                           | .ai/recipes는 v2 자산. v3 대응물 생기면 `get_usage` 확장으로 수용              |
+| `scaffold`                               | **미계승**                                     | 기여자 쓰기 도구. v3 스캐폴딩은 배치 워크플로(07)가 담당, 소비자 표면에 부적합 |
+| `map_refresh` / `extract_props`          | **미계승**                                     | v2 아티팩트 재생성 — 동결 구역 쓰기                                            |
+| `list_requirements` / `read_requirement` | **미계승**                                     | v2 기여 문서. v3 스펙은 docs-spec/이며 사람·에이전트가 직독                    |
+| `get_a11y`                               | 부분 계승 — docs-content `a11y` 표             | axe 런 아티팩트는 v2 전용. v3 a11y는 DoD(07 §3-1)로 강제되고 요약만 콘텐츠화   |
+| `get_deps_for`                           | 미계승                                         | v3는 의존성 0 철학 — CE 간 import 그래프 자체가 거의 없음(Box 파생 정도)       |
+| `get_screenshot_info`                    | 미계승                                         | v2 스크린샷 파이프라인 전용. v3 시각 정본은 문서 화면(06)                      |
 
 v2 서버는 `.mcp.json`의 `junds` 항목으로 그대로 남는다(동결) — v2 레인에서 작업하는
 에이전트의 도구를 뺏지 않는다. v3는 `junds-v3` 항목으로 병기한다(§6).
@@ -285,9 +285,12 @@ npm publish는 DEC-005대로 요청 시에만 — 본 트랙은 publish하지 �
 2. 루트 `.mcp.json`에 `junds-v3` 항목 병기 (v2 `junds` 무수정):
 
 ```jsonc
-{ "mcpServers": {
-    "junds":    { "command": "node", "args": ["mcp/server.mjs"] },
-    "junds-v3": { "command": "node", "args": ["packages/mcp/src/server.mjs"] } } }
+{
+  "mcpServers": {
+    "junds": { "command": "node", "args": ["mcp/server.mjs"] },
+    "junds-v3": { "command": "node", "args": ["packages/mcp/src/server.mjs"] }
+  }
+}
 ```
 
 ---
@@ -297,7 +300,7 @@ npm publish는 DEC-005대로 요청 시에만 — 본 트랙은 publish하지 �
 1. **단위 (도구별)**: 도구 함수에 픽스처 데이터 주입 — 매칭·랭킹·절단·미발견 제안·
    미전환 구조화 응답(§4.3) 전부. vitest node 환경, 루트 러너에 워크스페이스로 편입.
 2. **정합 게이트**: 정본 검증기(docs-content/build-index.mjs) 실행 성공 + 보완
-   게이트(web done* ⇒ web 스니펫, §3.2)를 vitest로. 토큰 파생 이름은 생성물
+   게이트(web done\* ⇒ web 스니펫, §3.2)를 vitest로. 토큰 파생 이름은 생성물
    `tokens.css`/`JdToken.swift`의 실제 이름과 전수 대조(생성기 규칙 재사용 검증).
 3. **통합 (프로토콜 왕복)**: SDK `InMemoryTransport`로 클라이언트↔서버 실왕복 —
    도구 목록 조회 + 도구 5종 호출 각 1건. 프로세스 spawn 없이 CI 안정.
@@ -314,7 +317,7 @@ DEC-014-8 프로토콜(node_modules/.vite 삭제) 준수.
 
 1. 도구 5종 구현 + zod 입력 스키마 + 응답 메타(generatedAt) 전 도구 일관.
 2. §7의 1~4 테스트 전부 통과 (nvm22).
-3. 콘텐츠 정본(루트 docs-content/) 소비 + web done* 전수 스니펫 커버(게이트 통과, DEC-026).
+3. 콘텐츠 정본(루트 docs-content/) 소비 + web done\* 전수 스니펫 커버(게이트 통과, DEC-026).
 4. eslint 에러 0, 루트 `v3:test` 무해 통과(--if-present 편입 확인).
 5. README(도구 표·연결·실검증 절차) + Claude Code 실검증 수행.
 6. DECISIONS.md append(승인 결과 기록) + 커밋 1건(내 경로만 스테이징).

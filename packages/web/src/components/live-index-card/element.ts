@@ -67,7 +67,9 @@ export class JdLiveIndexCard extends JdElement {
     this.setAttribute("role", "group");
 
     // 선언적 초기화 슬롯 — spark 배열 1회 소비
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (script?.textContent) {
       try {
         const parsed = JSON.parse(script.textContent) as number[];

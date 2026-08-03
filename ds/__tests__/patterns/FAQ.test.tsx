@@ -4,7 +4,9 @@ import { FAQ } from "../../patterns/FAQ";
 
 describe("FAQ", () => {
   it("renders", () => {
-    const { container } = render(<FAQ items={[{question:"q",answer:"a"}]} data-testid="root" />);
+    const { container } = render(
+      <FAQ items={[{ question: "q", answer: "a" }]} data-testid="root" />,
+    );
     expect(container.firstChild).toBeTruthy();
   });
 });

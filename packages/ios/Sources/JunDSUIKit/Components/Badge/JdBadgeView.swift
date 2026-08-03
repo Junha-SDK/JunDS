@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-badge 동형 — 상태·카테고리 라벨. A8 명명 규칙 Jd<이름>View.
 // 웹처럼 count 모드가 children을 대체한다(병용 금지) → 모드는 init에서 확정되고 이후 바뀌지
@@ -31,10 +31,12 @@ public final class JdBadgeView: UIView {
     private let isCountMode: Bool
     private var spec: JdBadgeSpec
 
-    public init(_ text: String,
-                variant: JdBadgeVariant = .default,
-                size: JdDisplaySize = .md,
-                showsDot: Bool = false) {
+    public init(
+        _ text: String,
+        variant: JdBadgeVariant = .default,
+        size: JdDisplaySize = .md,
+        showsDot: Bool = false
+    ) {
         self.text = text
         self.variant = variant
         self.size = size
@@ -69,8 +71,9 @@ public final class JdBadgeView: UIView {
             let height = max(JdBadgeSpec.countDiameter, content.height)
             return CGSize(width: width, height: height)
         }
-        return CGSize(width: content.width + spec.hPadding * 2,
-                      height: content.height + spec.vPadding * 2)
+        return CGSize(
+            width: content.width + spec.hPadding * 2,
+            height: content.height + spec.vPadding * 2)
     }
 
     public override func layoutSubviews() {
@@ -96,15 +99,15 @@ public final class JdBadgeView: UIView {
             $0.width.equal(spec.dotSize)
             $0.height.equal(spec.dotSize)
         }
-        dotView.isAccessibilityElement = false // 장식 (04 §7.1)
+        dotView.isAccessibilityElement = false  // 장식 (04 §7.1)
 
         contentLabel.adjustsFontForContentSizeCategory = true
-        contentLabel.numberOfLines = 1 // 웹 white-space: nowrap
+        contentLabel.numberOfLines = 1  // 웹 white-space: nowrap
         contentLabel.textAlignment = .center
 
         stack.axis = .horizontal
         stack.alignment = .center
-        stack.spacing = JdToken.Space.s1 // 웹 gap: var(--jd-space-1)
+        stack.spacing = JdToken.Space.s1  // 웹 gap: var(--jd-space-1)
         stack.isUserInteractionEnabled = false
         stack.addArrangedSubview(dotView)
         stack.addArrangedSubview(contentLabel)
@@ -126,7 +129,7 @@ public final class JdBadgeView: UIView {
     private var vInset: CGFloat { isCountMode ? 0 : spec.vPadding }
 
     private func resolveAndApply() {
-        guard !isCountMode else { return } // 카운트 모드는 danger·18pt 고정
+        guard !isCountMode else { return }  // 카운트 모드는 danger·18pt 고정
         spec = JdBadgeSpec.resolve(variant: variant, size: size)
         dotView.jd.update {
             $0.width.equal(spec.dotSize)
@@ -149,9 +152,10 @@ public final class JdBadgeView: UIView {
 
     private func applyStyle() {
         if isCountMode {
-            contentLabel.font = JdFontBridge.scaledFont(size: JdBadgeSpec.countFontSize,
-                                                        weight: JdToken.FontWeight.semibold,
-                                                        compatibleWith: traitCollection)
+            contentLabel.font = JdFontBridge.scaledFont(
+                size: JdBadgeSpec.countFontSize,
+                weight: JdToken.FontWeight.semibold,
+                compatibleWith: traitCollection)
             // 웹 #fff — 스펙에 카운트 전경색이 없어 시스템 흰색을 쓴다(notes 보고분)
             contentLabel.textColor = .white
             backgroundColor = JdToken.Color.danger.uiColor
@@ -160,9 +164,10 @@ public final class JdBadgeView: UIView {
             return
         }
 
-        contentLabel.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                                    weight: JdToken.FontWeight.semibold,
-                                                    compatibleWith: traitCollection)
+        contentLabel.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         contentLabel.textColor = spec.foreground.uiColor
         // 웹은 variant마다 도트 색을 따로 주지만 값이 전경색과 같은 계열이라 스펙 전경색을 쓴다
         dotView.backgroundColor = spec.foreground.uiColor

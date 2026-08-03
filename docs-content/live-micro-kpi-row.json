@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveMicroKpiRow",
   "oneLiner": "보조 KPI 4종 행 — 환율·수급·유가.",
-  "tags": [
-    "finance",
-    "live",
-    "kpi"
-  ],
+  "tags": ["finance", "live", "kpi"],
   "controls": [],
   "snippets": {
     "web": null,

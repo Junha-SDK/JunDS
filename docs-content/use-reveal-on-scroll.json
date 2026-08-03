@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useRevealOnScroll",
   "oneLiner": "스크롤 진입 시 자식에 is-visible 클래스를 붙인다 — 모션은 CSS 가 정한다.",
-  "tags": [
-    "hook",
-    "스크롤",
-    "모션"
-  ],
+  "tags": ["hook", "스크롤", "모션"],
   "controls": [],
   "snippets": {
     "web": null,

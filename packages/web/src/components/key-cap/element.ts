@@ -9,8 +9,8 @@ import keyCapStyles from "./key-cap.css.js";
 export class JdKeyCap extends JdElement {
   static override tag = "jd-key-cap";
   static override props = {
-    size: { type: String, default: "md", reflect: true },          // sm | md | lg
-    variant: { type: String, default: "default", reflect: true },  // default | primary | muted
+    size: { type: String, default: "md", reflect: true }, // sm | md | lg
+    variant: { type: String, default: "default", reflect: true }, // default | primary | muted
     pressed: { type: Boolean, reflect: true },
   };
 

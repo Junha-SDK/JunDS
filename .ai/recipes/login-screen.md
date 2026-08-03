@@ -50,8 +50,12 @@ export default function LoginPage() {
     <Flex align="center" justify="center" className="min-h-[80vh]">
       <Box className="w-full" maxW="384px">
         <VStack align="center" className="mb-8">
-          <Heading level={1} className="text-xl">로그인</Heading>
-          <Text fontSize="sm" dimmed className="mt-1">계정에 로그인하세요</Text>
+          <Heading level={1} className="text-xl">
+            로그인
+          </Heading>
+          <Text fontSize="sm" dimmed className="mt-1">
+            계정에 로그인하세요
+          </Text>
         </VStack>
 
         <Card>
@@ -59,7 +63,9 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit}>
               <VStack gap={4}>
                 <Box>
-                  <Label className="mb-1.5 block text-xs" htmlFor="email">이메일</Label>
+                  <Label className="mb-1.5 block text-xs" htmlFor="email">
+                    이메일
+                  </Label>
                   <Input
                     id="email"
                     type="email"
@@ -71,7 +77,9 @@ export default function LoginPage() {
                 </Box>
 
                 <Box>
-                  <Label className="mb-1.5 block text-xs" htmlFor="password">비밀번호</Label>
+                  <Label className="mb-1.5 block text-xs" htmlFor="password">
+                    비밀번호
+                  </Label>
                   <Input
                     id="password"
                     type="password"
@@ -100,8 +108,12 @@ export default function LoginPage() {
                 <Divider label="또는" />
 
                 <VStack gap={2}>
-                  <Button variant="secondary" size="md" fullWidth>Google로 계속하기</Button>
-                  <Button variant="secondary" size="md" fullWidth>GitHub로 계속하기</Button>
+                  <Button variant="secondary" size="md" fullWidth>
+                    Google로 계속하기
+                  </Button>
+                  <Button variant="secondary" size="md" fullWidth>
+                    GitHub로 계속하기
+                  </Button>
                 </VStack>
               </VStack>
             </form>
@@ -111,7 +123,9 @@ export default function LoginPage() {
         <Box className="mt-6 text-center">
           <Text fontSize="xs" dimmed>
             계정이 없으신가요?{" "}
-            <button className="text-primary font-semibold hover:underline">회원가입</button>
+            <button className="text-primary font-semibold hover:underline">
+              회원가입
+            </button>
           </Text>
         </Box>
       </Box>

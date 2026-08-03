@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // 스테이지 호스트 — 다크/Dynamic Type 시뮬레이션의 핵심.
 // UIHostingController를 자식으로 안고 setOverrideTraitCollection으로
@@ -16,8 +16,10 @@ enum TypeLadder {
         .accessibilityExtraLarge, .accessibilityExtraExtraLarge,
         .accessibilityExtraExtraExtraLarge,
     ]
-    static let labels: [String] = ["XS", "S", "M", "L", "XL", "XXL", "XXXL", "AX1", "AX2", "AX3", "AX4", "AX5"]
-    static let defaultIndex = 3 // .large
+    static let labels: [String] = [
+        "XS", "S", "M", "L", "XL", "XXL", "XXXL", "AX1", "AX2", "AX3", "AX4", "AX5",
+    ]
+    static let defaultIndex = 3  // .large
 }
 
 struct A11yRow: Identifiable {

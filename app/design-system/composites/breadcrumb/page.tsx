@@ -16,12 +16,14 @@ export default function BreadcrumbPage() {
     >
       <Section title="Demo">
         <Preview>
-          <Breadcrumb items={[
-            { label: "홈", href: "/" },
-            { label: "프로젝트", href: "/projects" },
-            { label: "SLD 관리", href: "/projects/1" },
-            { label: "설정" },
-          ]} />
+          <Breadcrumb
+            items={[
+              { label: "홈", href: "/" },
+              { label: "프로젝트", href: "/projects" },
+              { label: "SLD 관리", href: "/projects/1" },
+              { label: "설정" },
+            ]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

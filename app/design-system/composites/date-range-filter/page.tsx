@@ -18,18 +18,43 @@ export default function DateRangeFilterPage() {
       description="시작일/종료일 입력과 프리셋 버튼을 제공하는 날짜 범위 필터 컴포넌트. 조회/초기화 버튼과 빠른 프리셋을 지원합니다."
       importPath='import { DateRangeFilter } from "@/ds/composites/DateRangeFilter"'
       props={[
-        { name: "startDate", type: "string", required: true, description: "시작 날짜 (YYYY-MM-DD)" },
+        {
+          name: "startDate",
+          type: "string",
+          required: true,
+          description: "시작 날짜 (YYYY-MM-DD)",
+        },
         { name: "endDate", type: "string", required: true, description: "종료 날짜 (YYYY-MM-DD)" },
-        { name: "onStartChange", type: "(date: string) => void", required: true, description: "시작 날짜 변경 핸들러" },
-        { name: "onEndChange", type: "(date: string) => void", required: true, description: "종료 날짜 변경 핸들러" },
-        { name: "onApply", type: "() => void", required: true, description: "조회 버튼 클릭 핸들러" },
+        {
+          name: "onStartChange",
+          type: "(date: string) => void",
+          required: true,
+          description: "시작 날짜 변경 핸들러",
+        },
+        {
+          name: "onEndChange",
+          type: "(date: string) => void",
+          required: true,
+          description: "종료 날짜 변경 핸들러",
+        },
+        {
+          name: "onApply",
+          type: "() => void",
+          required: true,
+          description: "조회 버튼 클릭 핸들러",
+        },
         { name: "onReset", type: "() => void", description: "초기화 버튼 클릭 핸들러" },
-        { name: "presets", type: "DatePreset[]", description: "프리셋 버튼 목록 (기본: 오늘/7일/30일/이번달)" },
+        {
+          name: "presets",
+          type: "DatePreset[]",
+          description: "프리셋 버튼 목록 (기본: 오늘/7일/30일/이번달)",
+        },
       ]}
     >
       <Section title="기본">
         <p className="text-sm text-muted mb-3">
-          시작일과 종료일을 선택한 후 조회 버튼을 클릭합니다. 초기화 버튼으로 날짜를 리셋할 수 있습니다.
+          시작일과 종료일을 선택한 후 조회 버튼을 클릭합니다. 초기화 버튼으로 날짜를 리셋할 수
+          있습니다.
         </p>
         <Preview>
           <div className="space-y-3">
@@ -56,7 +81,8 @@ export default function DateRangeFilterPage() {
 
       <Section title="프리셋">
         <p className="text-sm text-muted mb-3">
-          기본 제공 프리셋(오늘, 최근 7일, 최근 30일, 이번 달)을 클릭하면 자동으로 날짜가 설정됩니다. 프리셋 활성 상태가 하이라이트됩니다.
+          기본 제공 프리셋(오늘, 최근 7일, 최근 30일, 이번 달)을 클릭하면 자동으로 날짜가
+          설정됩니다. 프리셋 활성 상태가 하이라이트됩니다.
         </p>
         <Preview>
           <div className="space-y-3">
@@ -73,7 +99,10 @@ export default function DateRangeFilterPage() {
             />
             {presetStart && presetEnd && (
               <p className="text-sm text-foreground">
-                선택된 범위: <strong>{presetStart} ~ {presetEnd}</strong>
+                선택된 범위:{" "}
+                <strong>
+                  {presetStart} ~ {presetEnd}
+                </strong>
               </p>
             )}
           </div>

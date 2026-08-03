@@ -46,14 +46,14 @@ label.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| (첫 인자) | `String` | — | 표시 문자열 |
-| `size` | `JdTextSize` | `.md` | 폰트 크기 사다리 (pt): 2xs=10 · xs=12 · sm=14 · md=16 · lg=18 · xl=20 · 2xl=24 · 3xl=30 · 4xl=36 |
-| `weight` | `CGFloat` | `JdToken.FontWeight.normal` (400) | 굵기 — `JdToken.FontWeight` 축(400/500/600/700) |
-| `dimmed` | `Bool` | `false` | `true`면 `JdToken.Color.muted`, 기본은 `.foreground` |
-| `mono` | `Bool` | `false` | 모노스페이스 패밀리 |
-| `lineLimit` | `Int?` | `nil` | 최대 행 수, 초과분은 말줄임(tail). **SwiftUI 전용** |
+| 파라미터    | 타입         | 기본값                            | 의미                                                                                             |
+| ----------- | ------------ | --------------------------------- | ------------------------------------------------------------------------------------------------ |
+| (첫 인자)   | `String`     | —                                 | 표시 문자열                                                                                      |
+| `size`      | `JdTextSize` | `.md`                             | 폰트 크기 사다리 (pt): 2xs=10 · xs=12 · sm=14 · md=16 · lg=18 · xl=20 · 2xl=24 · 3xl=30 · 4xl=36 |
+| `weight`    | `CGFloat`    | `JdToken.FontWeight.normal` (400) | 굵기 — `JdToken.FontWeight` 축(400/500/600/700)                                                  |
+| `dimmed`    | `Bool`       | `false`                           | `true`면 `JdToken.Color.muted`, 기본은 `.foreground`                                             |
+| `mono`      | `Bool`       | `false`                           | 모노스페이스 패밀리                                                                              |
+| `lineLimit` | `Int?`       | `nil`                             | 최대 행 수, 초과분은 말줄임(tail). **SwiftUI 전용**                                              |
 
 특이사항: Dynamic Type 자동 스케일(UIKit은 `adjustsFontForContentSizeCategory` 내장). UIKit엔
 `lineLimit` 파라미터가 없다 — 기본 `numberOfLines = 0`(다행)이고 소비자가 `label.numberOfLines`로 조절한다.
@@ -86,11 +86,11 @@ heading.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| (첫 인자) | `String` | — | 표시 문자열 |
-| `level` | `JdHeadingLevel` | `.h2` | 레벨 램프: h1 24 bold · h2 20 bold · h3 20 semibold · h4 18 semibold · h5 16 semibold · h6 14 semibold+대문자 |
-| `truncate` | `Bool` | `false` | `true`면 단일 행 말줄임. **SwiftUI 전용** |
+| 파라미터   | 타입             | 기본값  | 의미                                                                                                          |
+| ---------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| (첫 인자)  | `String`         | —       | 표시 문자열                                                                                                   |
+| `level`    | `JdHeadingLevel` | `.h2`   | 레벨 램프: h1 24 bold · h2 20 bold · h3 20 semibold · h4 18 semibold · h5 16 semibold · h6 14 semibold+대문자 |
+| `truncate` | `Bool`           | `false` | `true`면 단일 행 말줄임. **SwiftUI 전용**                                                                     |
 
 특이사항: 접근성 heading 트레이트 + 레벨을 부여해 VoiceOver 로터로 탐색된다. L6는 **표시만** 대문자화이며
 VoiceOver는 원문으로 읽는다(웹 `text-transform` 동형). UIKit엔 `truncate` 파라미터가 없다 —
@@ -124,10 +124,10 @@ divider.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `orientation` | `JdOrientation` | `.horizontal` | `.horizontal` / `.vertical` |
-| `label` | `String?` | `nil` | 있으면 `선—라벨—선`(라벨 muted), 없으면 순수 선 |
+| 파라미터      | 타입            | 기본값        | 의미                                            |
+| ------------- | --------------- | ------------- | ----------------------------------------------- |
+| `orientation` | `JdOrientation` | `.horizontal` | `.horizontal` / `.vertical`                     |
+| `label`       | `String?`       | `nil`         | 있으면 `선—라벨—선`(라벨 muted), 없으면 순수 선 |
 
 특이사항: 두께는 `JdToken.Border.thin`(1pt) 고정, 길이는 소비자 제약 몫(웹의 `margin-block 16px`은
 이식하지 않음 — 간격은 스택 spacing으로). 라벨이 없으면 접근성 트리에서 제외(장식), 있으면 그 텍스트만
@@ -164,13 +164,13 @@ column.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `axis` | `NSLayoutConstraint.Axis` | `.vertical` | 주축 방향 |
-| `gap` | `JdGap` | `.md` (16) | 아이템 간격 → `spacing`으로 환산 |
-| `alignment` | `UIStackView.Alignment` | `.fill` | 교차축 정렬 (`.fill` = 웹 stretch) |
-| `distribution` | `UIStackView.Distribution` | `.fill` | 주축 분배 |
-| `arranged` | `[UIView]` | `[]` | 초기 자식 뷰 |
+| 파라미터       | 타입                       | 기본값      | 의미                               |
+| -------------- | -------------------------- | ----------- | ---------------------------------- |
+| `axis`         | `NSLayoutConstraint.Axis`  | `.vertical` | 주축 방향                          |
+| `gap`          | `JdGap`                    | `.md` (16)  | 아이템 간격 → `spacing`으로 환산   |
+| `alignment`    | `UIStackView.Alignment`    | `.fill`     | 교차축 정렬 (`.fill` = 웹 stretch) |
+| `distribution` | `UIStackView.Distribution` | `.fill`     | 주축 분배                          |
+| `arranged`     | `[UIView]`                 | `[]`        | 초기 자식 뷰                       |
 
 팩토리: `.horizontal(gap: .sm, alignment: .center, [뷰])` · `.vertical(gap: .md, [뷰])` — 각각 웹
 `jd-hstack`/`jd-vstack` 기본값 동형.
@@ -203,10 +203,10 @@ JdFlowLayout(spacing: JdGap.sm.value, rowSpacing: JdGap.md.value) {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `spacing` | `CGFloat` | `JdToken.Space.s2` (8) | 행 안 아이템 간격 |
-| `rowSpacing` | `CGFloat?` | `nil` | 행 사이 간격, 미지정 시 `spacing`과 동일(웹 단일 gap 동형) |
+| 파라미터     | 타입       | 기본값                 | 의미                                                       |
+| ------------ | ---------- | ---------------------- | ---------------------------------------------------------- |
+| `spacing`    | `CGFloat`  | `JdToken.Space.s2` (8) | 행 안 아이템 간격                                          |
+| `rowSpacing` | `CGFloat?` | `nil`                  | 행 사이 간격, 미지정 시 `spacing`과 동일(웹 단일 gap 동형) |
 
 특이사항: RTL은 `Layout`이 자동 반전 처리한다(leading 기준 배치). UIKit엔 대응 컴포넌트가 없다 —
 `JdStackView`는 no-wrap이므로 줄바꿈이 필요하면 SwiftUI를 쓰거나 소비자가 직접 흐름을 계산한다.
@@ -242,10 +242,10 @@ stack.addArrangedSubview(spacer)     // 스택 아이템 사이 고정 간격
 stack.addArrangedSubview(bodyView)
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| (첫 인자) | `JdGap` | `.md` (16) | 간격 크기 — **실제 차지 공간은 이 값의 2배** |
-| `axis` | `JdSpacerAxis` | `.vertical` | `.vertical` / `.horizontal` |
+| 파라미터  | 타입           | 기본값      | 의미                                         |
+| --------- | -------------- | ----------- | -------------------------------------------- |
+| (첫 인자) | `JdGap`        | `.md` (16)  | 간격 크기 — **실제 차지 공간은 이 값의 2배** |
+| `axis`    | `JdSpacerAxis` | `.vertical` | `.vertical` / `.horizontal`                  |
 
 특이사항: ⚠️ 실제 길이 = `size`의 **2배**다(웹의 양측 패딩 `padding-block`/`padding-inline` 합을 승계 —
 md → 32pt). 순수 장식이라 접근성 트리에서 제외된다. 교차축은 0(SwiftUI)/미지정(UIKit)이라 부모 폭을 부풀리지 않는다.
@@ -292,14 +292,14 @@ shell.isCollapsed = true                     // 레일 접기 (애니메이션 �
 shell.isCompactOpen = true                   // compact 폭에서 드로어 열기 (regular 복귀 시 자동 닫힘)
 ```
 
-| 파라미터/프로퍼티 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `sidebarWidth` | `CGFloat` | `260` | 펼친 레일 폭 |
-| `collapsedWidth` | `CGFloat` | `64` (`JdToken.Space.s16`) | 접힌 레일 폭 |
-| `collapsed` / `isCollapsed` | `Binding<Bool>` / `Bool` | `false` | 레일 접힘 상태 |
-| `compactOpen` / `isCompactOpen` | `Binding<Bool>` / `Bool` | `false` | compact 드로어 개폐 |
-| `sidebar`·`header`·`content`·`footer` | `@ViewBuilder` | — | SwiftUI 슬롯(생략 시 `EmptyView()`) |
-| `sidebar`·`content` | `UIViewController` | — | UIKit init 인자(자식 VC 컨테인먼트) |
+| 파라미터/프로퍼티                     | 타입                     | 기본값                     | 의미                                |
+| ------------------------------------- | ------------------------ | -------------------------- | ----------------------------------- |
+| `sidebarWidth`                        | `CGFloat`                | `260`                      | 펼친 레일 폭                        |
+| `collapsedWidth`                      | `CGFloat`                | `64` (`JdToken.Space.s16`) | 접힌 레일 폭                        |
+| `collapsed` / `isCollapsed`           | `Binding<Bool>` / `Bool` | `false`                    | 레일 접힘 상태                      |
+| `compactOpen` / `isCompactOpen`       | `Binding<Bool>` / `Bool` | `false`                    | compact 드로어 개폐                 |
+| `sidebar`·`header`·`content`·`footer` | `@ViewBuilder`           | —                          | SwiftUI 슬롯(생략 시 `EmptyView()`) |
+| `sidebar`·`content`                   | `UIViewController`       | —                          | UIKit init 인자(자식 VC 컨테인먼트) |
 
 특이사항: ⚠️ **웹/SwiftUI는 header·footer 슬롯이 있지만 UIKit `JdAppShellController`는 sidebar+content 2열만** —
 헤더/푸터는 content VC 내부에서 구성한다. compact 판정 기준은 화면이 아니라 컨테이너 폭이라 분할 화면·팝오버에서도
@@ -323,10 +323,10 @@ tabletOnly.jdShow(above: .md, below: .lg)     // md 이상 AND lg 미만 (태블
 mobileHint.jdHide(above: .lg)                 // lg 이상이면 숨김 (데스크톱 폭에서 제거)
 ```
 
-| 파라미터 | 타입 | 기본값 | 의미 |
-|---|---|---|---|
-| `above` | `JdBreakpoint?` | `nil` | 이 브레이크포인트 폭 **이상**(≥) 조건 |
-| `below` | `JdBreakpoint?` | `nil` | 이 브레이크포인트 폭 **미만**(<) 조건 |
+| 파라미터 | 타입            | 기본값 | 의미                                  |
+| -------- | --------------- | ------ | ------------------------------------- |
+| `above`  | `JdBreakpoint?` | `nil`  | 이 브레이크포인트 폭 **이상**(≥) 조건 |
+| `below`  | `JdBreakpoint?` | `nil`  | 이 브레이크포인트 폭 **미만**(<) 조건 |
 
 `JdBreakpoint`: `sm` 640 · `md` 768 · `lg` 1024 · `xl` 1280 · `2xl` 1536.
 

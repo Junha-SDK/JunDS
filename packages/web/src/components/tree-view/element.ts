@@ -22,11 +22,7 @@
  * 반드시 접히는 구조였다). 행 전체 클릭은 v2 그대로 토글+선택.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  isContentEmpty,
-  setContent,
-  type JdContent,
-} from "../../core/content.js";
+import { isContentEmpty, setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { createKeyHandler } from "../../behaviors/input.js";
 import treeViewStyles from "./tree-view.css.js";
@@ -149,7 +145,9 @@ export class JdTreeView extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비. 파생 클래스가 태그명만 바꿔 재사용한다 */
   protected readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdTreeNode[];
@@ -177,7 +175,9 @@ export class JdTreeView extends JdElement {
     if (rows.length !== nodes.length) {
       for (const row of rows) row.remove();
       for (let i = 0; i < nodes.length; i++) container.append(this.#createRow());
-      rows = Array.from(container.querySelectorAll<HTMLLIElement>(":scope > li.jd-tree-view__item"));
+      rows = Array.from(
+        container.querySelectorAll<HTMLLIElement>(":scope > li.jd-tree-view__item"),
+      );
     }
     rows.forEach((row, i) => {
       const node = nodes[i];
@@ -251,7 +251,7 @@ export class JdTreeView extends JdElement {
     const visible = this.#visibleKeys();
     if (!this.#focusKey || !visible.includes(this.#focusKey)) {
       this.#focusKey =
-        this.selected && visible.includes(this.selected) ? this.selected : (visible[0] ?? null);
+        this.selected && visible.includes(this.selected) ? this.selected : visible[0] ?? null;
     }
     for (const [key, row] of this.#byKey) {
       const node = this.#nodeByKey.get(key);
@@ -333,9 +333,9 @@ export class JdTreeView extends JdElement {
       this.#setExpanded(key, false);
       return;
     }
-    const parent = this.#byKey.get(key)?.parentElement?.closest<HTMLLIElement>(
-      "li.jd-tree-view__item",
-    );
+    const parent = this.#byKey
+      .get(key)
+      ?.parentElement?.closest<HTMLLIElement>("li.jd-tree-view__item");
     this.#focusRow(parent?.dataset.key ?? null);
   }
 

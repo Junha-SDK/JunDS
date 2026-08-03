@@ -39,7 +39,9 @@ const CPM_CJK = 170;
 
 /** HTML 태그 제거 후 순수 텍스트 */
 export function stripHtml(html: string): string {
-  return String(html ?? "").replace(/<[^>]*>/g, "").trim();
+  return String(html ?? "")
+    .replace(/<[^>]*>/g, "")
+    .trim();
 }
 
 /** HTML 문자열의 h2·h3 개수 */
@@ -49,7 +51,9 @@ export function countHeadings(content: string): number {
 
 /** CJK 문자와 라틴 단어를 분리해 읽기 시간 추정 (v2 estimateReadingTime 동형) */
 export function estimateReadingTime(text: string): JdReadingEstimate {
-  const cleaned = String(text ?? "").replace(/\s+/g, " ").trim();
+  const cleaned = String(text ?? "")
+    .replace(/\s+/g, " ")
+    .trim();
   const cjkChars = cleaned.match(CJK)?.length ?? 0;
   const words = cleaned.replace(CJK, " ").split(" ").filter(Boolean).length;
   const base = words / WPM_LATIN + cjkChars / CPM_CJK;

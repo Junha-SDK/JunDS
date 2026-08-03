@@ -44,12 +44,15 @@ export function Resizable({
 
   const isHorizontal = direction === "horizontal";
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    dragging.current = true;
-    document.body.style.cursor = isHorizontal ? "col-resize" : "row-resize";
-    document.body.style.userSelect = "none";
-  }, [isHorizontal]);
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      dragging.current = true;
+      document.body.style.cursor = isHorizontal ? "col-resize" : "row-resize";
+      document.body.style.userSelect = "none";
+    },
+    [isHorizontal],
+  );
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -98,20 +101,36 @@ export function Resizable({
         {children[0]}
       </div>
 
-      {/* 드래그 핸들 */}
+      {/* 드래그 핸들 — 마우스로만 잡을 수 있으면 키보드 사용자에게는 고정 레이아웃이다.
+          separator 로 알리고 화살표로도 옮길 수 있게 한다 */}
       <div
         onMouseDown={handleMouseDown}
+        role="separator"
+        aria-orientation={isHorizontal ? "vertical" : "horizontal"}
+        aria-label="패널 크기 조절"
+        aria-valuenow={Math.round(size)}
+        aria-valuemin={minSize}
+        aria-valuemax={maxSize}
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- 값을 가진 separator 는 ARIA window splitter 이고, 그 패턴은 포커스를 받아 화살표로 움직이는 것이 정의다
+        tabIndex={0}
+        onKeyDown={(e) => {
+          const dec = isHorizontal ? "ArrowLeft" : "ArrowUp";
+          const inc = isHorizontal ? "ArrowRight" : "ArrowDown";
+          if (e.key !== dec && e.key !== inc) return;
+          e.preventDefault();
+          const step = e.shiftKey ? 10 : 2;
+          setSize((s) => Math.max(minSize, Math.min(maxSize, s + (e.key === inc ? step : -step))));
+        }}
         className={cn(
-          "relative flex-shrink-0 bg-border transition-colors duration-150 hover:bg-primary/30",
-          isHorizontal
-            ? "w-1.5 cursor-col-resize"
-            : "h-1.5 cursor-row-resize",
+          "relative shrink-0 bg-border transition-colors duration-150 hover:bg-primary/30 active:bg-primary/50",
+          "focus-visible:outline-none focus-visible:bg-primary/40 focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+          isHorizontal ? "w-1.5 cursor-col-resize" : "h-1.5 cursor-row-resize",
         )}
       >
         {/* 핸들 표시 */}
         <div
           className={cn(
-            "absolute bg-muted rounded-full",
+            "absolute bg-muted rounded-full pointer-events-none",
             isHorizontal
               ? "w-1 h-6 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               : "h-1 w-6 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
@@ -120,9 +139,7 @@ export function Resizable({
       </div>
 
       {/* 두 번째 패널 */}
-      <div className="flex-1 overflow-auto">
-        {children[1]}
-      </div>
+      <div className="flex-1 overflow-auto">{children[1]}</div>
     </div>
   );
 }

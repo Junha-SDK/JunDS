@@ -108,7 +108,11 @@ export function ProfileForm({ onSubmit }: { onSubmit: (v: Values) => Promise<voi
           name="notifications"
           control={control}
           render={({ field }) => (
-            <Switch checked={field.value} onChange={field.onChange} label="이메일로 받기" />
+            <Switch
+              checked={field.value}
+              onChange={field.onChange}
+              label="이메일로 받기"
+            />
           )}
         />
       </FormField>

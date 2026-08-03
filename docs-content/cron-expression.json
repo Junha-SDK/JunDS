@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "CronExpression",
   "oneLiner": "cron 표현식을 시각적으로 편집하는 입력기.",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

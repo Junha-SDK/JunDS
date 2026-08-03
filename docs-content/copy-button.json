@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "CopyButton",
   "oneLiner": "클립보드 복사 버튼",
-  "tags": [
-    "form",
-    "control"
-  ],
+  "tags": ["form", "control"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -36,7 +36,11 @@ export interface JdExifData {
 }
 
 /** v2 rows 순서·라벨 그대로 */
-const FIELDS: { key: string; label: string; pick: (d: JdExifData) => string | number | undefined }[] = [
+const FIELDS: {
+  key: string;
+  label: string;
+  pick: (d: JdExifData) => string | number | undefined;
+}[] = [
   { key: "camera", label: "카메라", pick: (d) => d.camera },
   { key: "lens", label: "렌즈", pick: (d) => d.lens },
   { key: "focal-length", label: "초점거리", pick: (d) => d.focalLength },
@@ -82,7 +86,9 @@ export class JdExifPanel extends JdDescriptions {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "{}") as JdExifData;

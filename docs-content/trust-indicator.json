@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "TrustIndicator",
   "oneLiner": "보안 신뢰 지표 — 보안 항목별 통과/실패 상태 표시",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

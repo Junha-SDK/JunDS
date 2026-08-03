@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-theme-tag-list 동형 — 해시태그 칩 줄. (DEC-047)
 //
@@ -12,9 +12,11 @@ public struct JdThemeTagList: View {
     private let spacing: CGFloat
     private let onSelect: ((String) -> Void)?
 
-    public init(themes: [String],
-                spacing: CGFloat = JdToken.Space.s1_5,
-                onSelect: ((String) -> Void)? = nil) {
+    public init(
+        themes: [String],
+        spacing: CGFloat = JdToken.Space.s1_5,
+        onSelect: ((String) -> Void)? = nil
+    ) {
         self.themes = themes
         self.spacing = spacing
         self.onSelect = onSelect
@@ -32,10 +34,14 @@ public struct JdThemeTagList: View {
     private func chip(_ theme: String, index: Int) -> some View {
         let view = JdThemeChip(theme: theme, index: index)
         if let onSelect {
-            Button { onSelect(theme) } label: { view }
-                .buttonStyle(.plain)
-                // 칩은 링크처럼 동작한다 — 웹은 실제 <a href>다
-                .accessibilityAddTraits(.isLink)
+            Button {
+                onSelect(theme)
+            } label: {
+                view
+            }
+            .buttonStyle(.plain)
+            // 칩은 링크처럼 동작한다 — 웹은 실제 <a href>다
+            .accessibilityAddTraits(.isLink)
         } else {
             view
         }
@@ -60,9 +66,12 @@ public struct JdThemeChip: View {
             Text("#").opacity(spec.prefixOpacity)
             Text(theme)
         }
-        .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                   weight: spec.fontWeight,
-                                   category: sizeCategory))
+        .font(
+            JdSwiftUIFont.scaled(
+                size: spec.fontSize,
+                weight: spec.fontWeight,
+                category: sizeCategory)
+        )
         .foregroundColor(spec.foreground.color)
         .padding(.horizontal, spec.hPadding)
         .padding(.vertical, spec.vPadding)

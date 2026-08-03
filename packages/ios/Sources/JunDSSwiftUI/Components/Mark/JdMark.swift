@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-mark 동형 — 형광펜 강조 (DESIGN-3 §C).
 // 배경형(기본)과 밑줄형 두 표면이고, 밑줄형은 배경 없이 밑줄 색만 팔레트를 따른다(웹 동형).
@@ -24,7 +24,7 @@ public struct JdMark: View {
         } else {
             Text(text)
                 .foregroundColor(JdMarkPalette.foreground(color).color)
-                .padding(.horizontal, JdToken.Space.s0_5) // 웹 padding-inline: var(--jd-space-0-5)
+                .padding(.horizontal, JdToken.Space.s0_5)  // 웹 padding-inline: var(--jd-space-0-5)
                 .background(JdMarkPalette.background(color).color)
                 .clipShape(RoundedRectangle(cornerRadius: JdToken.Radius.sm, style: .continuous))
         }

@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Overlay 데모 — 레시피형 (04 §10.1). 웹 <jd-overlay>는 절대 위치 덮개 + backdrop-filter이고,
 // iOS 관용구는 .overlay(alignment:) + 재질(.ultraThinMaterial)이다. 신규 타입 없음.
@@ -15,16 +15,16 @@ enum OverlayDemo {
         ],
         swiftUI: { state in AnyView(OverlayStage(state: state)) },
         recipe: """
-        // Overlay = .overlay 관용구 (04 §10.1 — 신규 컴포넌트 없음)
-        base.overlay(alignment: noCenter ? .topLeading : .center) {
-            content
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.ultraThinMaterial)      // 웹 backdrop-filter: blur(4px) 등가
-        }
+            // Overlay = .overlay 관용구 (04 §10.1 — 신규 컴포넌트 없음)
+            base.overlay(alignment: noCenter ? .topLeading : .center) {
+                content
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.ultraThinMaterial)      // 웹 backdrop-filter: blur(4px) 등가
+            }
 
-        // blur 없이 딤만 필요하면
-        .background(JdToken.Color.foreground.color.opacity(JdToken.Opacity.o50))
-        """
+            // blur 없이 딤만 필요하면
+            .background(JdToken.Color.foreground.color.opacity(JdToken.Opacity.o50))
+            """
     )
 
     // 덮개가 실물로 보이는 최소 높이 — 토큰 파생(80×2)
@@ -58,17 +58,21 @@ private struct OverlayStage: View {
                 }
                 .cornerRadius(JdToken.Radius.lg)
 
-            Text(blur
-                 ? "blur — .ultraThinMaterial이 밑 내용을 흐린다(웹 backdrop-filter 등가)."
-                 : "blur 해제 — 재질 대신 foreground 50% 딤. 밑 내용이 흐려지지 않고 어두워진다.")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                blur
+                    ? "blur — .ultraThinMaterial이 밑 내용을 흐린다(웹 backdrop-filter 등가)."
+                    : "blur 해제 — 재질 대신 foreground 50% 딤. 밑 내용이 흐려지지 않고 어두워진다."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
 
-            Text(noCenter
-                 ? "no-center — 덮개 내용이 좌상단 정렬"
-                 : "기본 — 덮개 내용이 양축 중앙")
-                .font(.footnote)
-                .foregroundColor(.secondary)
+            Text(
+                noCenter
+                    ? "no-center — 덮개 내용이 좌상단 정렬"
+                    : "기본 — 덮개 내용이 양축 중앙"
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
         }
         .padding(JdToken.Space.s6)
     }

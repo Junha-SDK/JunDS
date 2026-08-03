@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ExifPanel",
   "oneLiner": "사진 EXIF 메타데이터 패널.",
-  "tags": [
-    "photo",
-    "사진",
-    "메타"
-  ],
+  "tags": ["photo", "사진", "메타"],
   "controls": [],
   "snippets": {
     "web": null,

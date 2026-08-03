@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "BottomSheet",
   "oneLiner": "화면 하단에서 슬라이드 업되는 시트형 모달.",
-  "tags": [
-    "overlay"
-  ],
+  "tags": ["overlay"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -61,11 +61,7 @@ function RangeCalendarDemo() {
 
   return (
     <div>
-      <DsCalendar
-        events={[]}
-        selectionMode="range"
-        onRangeSelect={setRange}
-      />
+      <DsCalendar events={[]} selectionMode="range" onRangeSelect={setRange} />
       <p className="mt-3 text-sm text-muted">
         선택 범위: <span className="font-semibold text-foreground">{rangeText}</span>
       </p>
@@ -85,13 +81,7 @@ function MinMaxCalendarDemo() {
 }
 
 function WeekViewDemo() {
-  return (
-    <DsCalendar
-      events={basicEvents}
-      view="week"
-      onDateClick={() => {}}
-    />
-  );
+  return <DsCalendar events={basicEvents} view="week" onDateClick={() => {}} />;
 }
 
 /* ------------------------------------------------------------------ */
@@ -105,15 +95,53 @@ export default function CalendarPage() {
       description="월간/주간 캘린더. 이벤트 표시, 날짜 선택, 범위 선택, 날짜 제한, 주간 뷰를 지원합니다."
       importPath='import { DsCalendar } from "@/ds/patterns/Calendar"'
       props={[
-        { name: "events", type: "CalendarEvent[]", description: "이벤트 목록. id, date(YYYY-MM-DD), label, color?, time?, allDay? 포함." },
-        { name: "selectedDate", type: "Date | null", description: "현재 선택된 날짜 (controlled)." },
-        { name: "selectionMode", type: '"single" | "range"', default: '"single"', description: "날짜 선택 모드. single 또는 range." },
-        { name: "selectedRange", type: "{ start: Date | null; end: Date | null }", description: "선택된 날짜 범위 (controlled). range 모드에서 사용." },
-        { name: "onDateSelect", type: "(date: Date) => void", description: "날짜 선택 핸들러 (single 모드)." },
-        { name: "onRangeSelect", type: "(range: { start: Date; end: Date }) => void", description: "범위 선택 완료 핸들러 (range 모드)." },
-        { name: "minDate", type: "Date", description: "선택 가능한 최소 날짜. 이전 날짜는 비활성화." },
-        { name: "maxDate", type: "Date", description: "선택 가능한 최대 날짜. 이후 날짜는 비활성화." },
-        { name: "view", type: '"month" | "week"', default: '"month"', description: "캘린더 뷰 모드." },
+        {
+          name: "events",
+          type: "CalendarEvent[]",
+          description: "이벤트 목록. id, date(YYYY-MM-DD), label, color?, time?, allDay? 포함.",
+        },
+        {
+          name: "selectedDate",
+          type: "Date | null",
+          description: "현재 선택된 날짜 (controlled).",
+        },
+        {
+          name: "selectionMode",
+          type: '"single" | "range"',
+          default: '"single"',
+          description: "날짜 선택 모드. single 또는 range.",
+        },
+        {
+          name: "selectedRange",
+          type: "{ start: Date | null; end: Date | null }",
+          description: "선택된 날짜 범위 (controlled). range 모드에서 사용.",
+        },
+        {
+          name: "onDateSelect",
+          type: "(date: Date) => void",
+          description: "날짜 선택 핸들러 (single 모드).",
+        },
+        {
+          name: "onRangeSelect",
+          type: "(range: { start: Date; end: Date }) => void",
+          description: "범위 선택 완료 핸들러 (range 모드).",
+        },
+        {
+          name: "minDate",
+          type: "Date",
+          description: "선택 가능한 최소 날짜. 이전 날짜는 비활성화.",
+        },
+        {
+          name: "maxDate",
+          type: "Date",
+          description: "선택 가능한 최대 날짜. 이후 날짜는 비활성화.",
+        },
+        {
+          name: "view",
+          type: '"month" | "week"',
+          default: '"month"',
+          description: "캘린더 뷰 모드.",
+        },
         { name: "onDateClick", type: "(date: Date) => void", description: "날짜 클릭 핸들러." },
         { name: "renderDay", type: "(date, events) => ReactNode", description: "커스텀 셀 렌더." },
         { name: "className", type: "string", description: "루트 요소 추가 클래스." },
@@ -151,9 +179,7 @@ export default function CalendarPage() {
 
       {/* Section 4: 주간 뷰 */}
       <Section title="주간 뷰">
-        <p className="text-sm text-muted mb-3">
-          view=&quot;week&quot;으로 주간 뷰를 표시합니다.
-        </p>
+        <p className="text-sm text-muted mb-3">view=&quot;week&quot;으로 주간 뷰를 표시합니다.</p>
         <Preview padding={false}>
           <div className="p-4">
             <WeekViewDemo />

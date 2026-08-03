@@ -40,9 +40,15 @@ export default function ButtonGroupPage() {
         <Preview>
           <div className="max-w-md">
             <ButtonGroup fullWidth separated>
-              <Button variant="secondary" fullWidth>목록</Button>
-              <Button variant="secondary" fullWidth>보드</Button>
-              <Button variant="secondary" fullWidth>캘린더</Button>
+              <Button variant="secondary" fullWidth>
+                목록
+              </Button>
+              <Button variant="secondary" fullWidth>
+                보드
+              </Button>
+              <Button variant="secondary" fullWidth>
+                캘린더
+              </Button>
             </ButtonGroup>
           </div>
         </Preview>

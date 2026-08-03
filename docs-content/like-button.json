@@ -4,11 +4,7 @@
   "category": "primitives",
   "title": "LikeButton",
   "oneLiner": "좋아요 토글 버튼 — 카운트 표시.",
-  "tags": [
-    "social",
-    "toggle",
-    "좋아요"
-  ],
+  "tags": ["social", "toggle", "좋아요"],
   "controls": [],
   "snippets": {
     "web": null,

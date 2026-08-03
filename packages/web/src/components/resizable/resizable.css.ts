@@ -10,35 +10,52 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.base {
-  jd-resizable:not(:defined) { display: flex; }
-}
-@layer junds.components {
-  jd-resizable {
-    display: flex; flex-direction: row; overflow: hidden;
-    box-sizing: border-box; height: 100%;
-    font-family: var(--jd-font-sans);
-    border: var(--jd-border-thin) solid var(--jd-color-border);
-    border-radius: var(--jd-radius-xl);
+  @layer junds.base {
+    jd-resizable:not(:defined) {
+      display: flex;
+    }
   }
-  jd-resizable[direction="vertical"] { flex-direction: column; }
+  @layer junds.components {
+    jd-resizable {
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+      box-sizing: border-box;
+      height: 100%;
+      font-family: var(--jd-font-sans);
+      border: var(--jd-border-thin) solid var(--jd-color-border);
+      border-radius: var(--jd-radius-xl);
+    }
+    jd-resizable[direction="vertical"] {
+      flex-direction: column;
+    }
 
-  /* v2 w-1.5 / h-1.5 — 원형(4px)보다 두껍다 */
-  jd-resizable > .jd-split-pane__separator { inline-size: 6px; }
-  /* 세로 분할 기하·커서는 파생 태그가 스스로 선언한다 — 원형 시트의 호스트 셀렉터
+    /* v2 w-1.5 / h-1.5 — 원형(4px)보다 두껍다 */
+    jd-resizable > .jd-split-pane__separator {
+      inline-size: 6px;
+    }
+    /* 세로 분할 기하·커서는 파생 태그가 스스로 선언한다 — 원형 시트의 호스트 셀렉터
      (jd-split-pane[direction="vertical"])는 파생 태그에 걸리지 않는다 */
-  jd-resizable[direction="vertical"] > .jd-split-pane__separator {
-    inline-size: auto; block-size: 6px; cursor: row-resize;
-  }
+    jd-resizable[direction="vertical"] > .jd-split-pane__separator {
+      inline-size: auto;
+      block-size: 6px;
+      cursor: row-resize;
+    }
 
-  jd-resizable .jd-split-pane__grip {
-    display: block; position: absolute;
-    inset-inline-start: 50%; inset-block-start: 50%;
-    translate: -50% -50%;
-    background: var(--jd-color-muted); border-radius: var(--jd-radius-full);
-    inline-size: 4px; block-size: 24px;
+    jd-resizable .jd-split-pane__grip {
+      display: block;
+      position: absolute;
+      inset-inline-start: 50%;
+      inset-block-start: 50%;
+      translate: -50% -50%;
+      background: var(--jd-color-muted);
+      border-radius: var(--jd-radius-full);
+      inline-size: 4px;
+      block-size: 24px;
+    }
+    jd-resizable[direction="vertical"] .jd-split-pane__grip {
+      inline-size: 24px;
+      block-size: 4px;
+    }
   }
-  jd-resizable[direction="vertical"] .jd-split-pane__grip {
-    inline-size: 24px; block-size: 4px;
-  }
-}`;
+`;

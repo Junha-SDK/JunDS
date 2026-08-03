@@ -15,12 +15,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       include: ["src/**/*.{ts,tsx}"],
-      exclude: [
-        "src/generated/index.ts",
-        "src/index.ts",
-        "src/jsx.ts",
-        "src/tokens.generated.ts",
-      ],
+      exclude: ["src/generated/index.ts", "src/index.ts", "src/jsx.ts", "src/tokens.generated.ts"],
       reporter: ["text", "json-summary", "html"],
       reportsDirectory: "../../coverage/react",
       // 2026-07-27 실측(lines 98.3 / branches 85.1 / functions 93.9)의

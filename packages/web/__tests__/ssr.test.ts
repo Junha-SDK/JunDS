@@ -4,6 +4,7 @@
  * DOM 전역이 없는 Node에서 모듈 import가 그냥 평가되고, 등록은 no-op이어야 한다.
  */
 import { describe, expect, test } from "vitest";
+import { squish } from "./css-text.js";
 
 describe("Node(비브라우저) 모듈 평가", () => {
   test("배럴 import가 throw 없이 평가된다", async () => {
@@ -24,8 +25,12 @@ describe("Node(비브라우저) 모듈 평가", () => {
 
   test("css 태그는 시트를 지연 생성 — text 접근은 Node에서 안전 (§3.1-4)", async () => {
     const { css } = await import("../src/index.js");
-    const styles = css`.jd-ssr { color: red; }`;
-    expect(styles.text).toBe(".jd-ssr { color: red; }");
+    const styles = css`
+      .jd-ssr {
+        color: red;
+      }
+    `;
+    expect(squish(styles.text)).toBe(".jd-ssr { color: red; }");
     // sheet()는 브라우저 전용 — Node에서 호출하지 않는 것이 규약
   });
 
@@ -34,15 +39,49 @@ describe("Node(비브라우저) 모듈 평가", () => {
     expect(mod.defineJunds).toBeTypeOf("function");
     const barrel = await import("../src/index.js");
     for (const name of [
-      "JdBox", "JdCenter", "JdDivider", "JdFlex", "JdGridLayout", "JdGroup",
-      "JdHStack", "JdHeading", "JdPage", "JdPageBody", "JdPageHeader",
-      "JdSection", "JdText", "JdVStack",
-      "JdAppShell", "JdAspectRatioBox", "JdContainer", "JdGrid", "JdHide",
-      "JdOverlay", "JdShow", "JdSimpleGrid", "JdSpacer", "JdStack", "JdWrap",
-      "JdIconButton", "JdTextarea", "JdLabel", "JdCheckbox", "JdRadioGroup",
-      "JdToggle", "JdSwitch", "JdSlider", "JdRangeSlider",
-      "JdBadge", "JdTag", "JdAvatar", "JdSpinner", "JdKbd", "JdKeyCap",
-      "JdStatusDot", "JdBatteryIndicator", "JdSeverityBadge",
+      "JdBox",
+      "JdCenter",
+      "JdDivider",
+      "JdFlex",
+      "JdGridLayout",
+      "JdGroup",
+      "JdHStack",
+      "JdHeading",
+      "JdPage",
+      "JdPageBody",
+      "JdPageHeader",
+      "JdSection",
+      "JdText",
+      "JdVStack",
+      "JdAppShell",
+      "JdAspectRatioBox",
+      "JdContainer",
+      "JdGrid",
+      "JdHide",
+      "JdOverlay",
+      "JdShow",
+      "JdSimpleGrid",
+      "JdSpacer",
+      "JdStack",
+      "JdWrap",
+      "JdIconButton",
+      "JdTextarea",
+      "JdLabel",
+      "JdCheckbox",
+      "JdRadioGroup",
+      "JdToggle",
+      "JdSwitch",
+      "JdSlider",
+      "JdRangeSlider",
+      "JdBadge",
+      "JdTag",
+      "JdAvatar",
+      "JdSpinner",
+      "JdKbd",
+      "JdKeyCap",
+      "JdStatusDot",
+      "JdBatteryIndicator",
+      "JdSeverityBadge",
     ] as const) {
       expect(barrel[name], name).toBeTypeOf("function");
     }

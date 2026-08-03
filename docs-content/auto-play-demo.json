@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "AutoPlayDemo",
   "oneLiner": "자동 순환 데모",
-  "tags": [
-    "misc"
-  ],
+  "tags": ["misc"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -10,8 +10,17 @@ export default function SpoilerBlockPage() {
       description="민감하거나 스포일러성 콘텐츠를 블러 처리하여 숨깁니다. 버튼 클릭으로 공개할 수 있습니다."
       importPath='import { SpoilerBlock } from "@/ds/composites/SpoilerBlock"'
       props={[
-        { name: "type", type: '"spoiler"|"caution"', default: '"spoiler"', description: "블록 유형" },
-        { name: "label", type: "string", description: "공개 버튼 레이블 (기본값: type에 따라 자동)" },
+        {
+          name: "type",
+          type: '"spoiler"|"caution"',
+          default: '"spoiler"',
+          description: "블록 유형",
+        },
+        {
+          name: "label",
+          type: "string",
+          description: "공개 버튼 레이블 (기본값: type에 따라 자동)",
+        },
         { name: "children", type: "ReactNode", description: "숨길 콘텐츠" },
         { name: "className", type: "string", description: "추가 CSS 클래스" },
       ]}
@@ -23,14 +32,16 @@ export default function SpoilerBlockPage() {
               <div className="space-y-2">
                 <p className="font-semibold text-sm text-foreground">결말 스포일러</p>
                 <p className="text-sm text-muted">
-                  주인공은 마지막 전투에서 승리하지만, 동료를 잃는 대가를 치릅니다.
-                  엔딩 크레딧 후 숨겨진 장면에서 새로운 적의 등장이 암시됩니다.
+                  주인공은 마지막 전투에서 승리하지만, 동료를 잃는 대가를 치릅니다. 엔딩 크레딧 후
+                  숨겨진 장면에서 새로운 적의 등장이 암시됩니다.
                 </p>
               </div>
             </SpoilerBlock>
             <SpoilerBlock type="spoiler">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg">A+</div>
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg">
+                  A+
+                </div>
                 <div>
                   <p className="text-sm font-medium text-foreground">최종 성적</p>
                   <p className="text-xs text-muted">2026년 1학기 종합 평가</p>
@@ -48,8 +59,7 @@ export default function SpoilerBlockPage() {
               <div className="space-y-2">
                 <p className="font-semibold text-sm text-foreground">민감한 내용 포함</p>
                 <p className="text-sm text-muted">
-                  이 섹션에는 민감한 정보가 포함되어 있습니다.
-                  확인 전 주의하시기 바랍니다.
+                  이 섹션에는 민감한 정보가 포함되어 있습니다. 확인 전 주의하시기 바랍니다.
                 </p>
                 <div className="flex gap-2">
                   <div className="w-16 h-16 rounded-lg bg-primary/10 border border-primary/20" />
@@ -63,7 +73,7 @@ export default function SpoilerBlockPage() {
                 이 답변에는 수학 문제의 풀이 과정이 포함되어 있습니다.
               </p>
               <pre className="mt-2 p-3 bg-card border border-border rounded-lg text-xs font-mono text-foreground">
-{`x² + 5x + 6 = 0
+                {`x² + 5x + 6 = 0
 (x + 2)(x + 3) = 0
 x = -2 또는 x = -3`}
               </pre>

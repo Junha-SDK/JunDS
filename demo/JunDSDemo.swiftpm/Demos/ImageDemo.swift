@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Image 데모 — 레시피형 (04 §10.1). 웹 <jd-image>의 status(loading/loaded/error) 3상태가
 // AsyncImage의 phase와 1:1이라 상태 기계를 새로 짜지 않는다 — 신규 타입 없음.
@@ -13,41 +13,43 @@ enum ImageDemo {
     static let demo = ComponentDemo(
         id: "Image",
         controls: [
-            .options("state", "state (AsyncImage phase)", ["loading", "success", "error"], initial: "success"),
+            .options(
+                "state", "state (AsyncImage phase)", ["loading", "success", "error"],
+                initial: "success"),
             .options("fit", "fit", JdImageFit.allCases.map(\.rawValue), initial: "cover"),
             .options("radius", "radius", ["none", "sm", "md", "lg", "xl"], initial: "lg"),
         ],
         swiftUI: { state in AnyView(ImageStage(state: state)) },
         recipe: """
-        // Image = AsyncImage phase 관용구 (04 §10.1 — 신규 컴포넌트 없음)
-        AsyncImage(url: url) { phase in
-            switch phase {
-            case .empty:                                   // 웹 status="loading"
-                JdSpinner(size: .sm)
-                    .frame(maxWidth: .infinity, minHeight: 120)
-                    .background(JdToken.Color.cardHover.color)
-            case .success(let image):                      // status="loaded"
-                image.resizable()
-                    .aspectRatio(contentMode: .fill)       // JdImageFit.cover (.fit = contain)
-            case .failure:                                 // status="error" — 폴백
-                Image(systemName: "photo")
-                    .font(.system(size: JdIconSize.lg.side))
-                    .foregroundColor(JdToken.Color.mutedLight.color)
-                    .frame(maxWidth: .infinity, minHeight: 120)
-                    .background(JdToken.Color.cardHover.color)
-            @unknown default:
-                EmptyView()
+            // Image = AsyncImage phase 관용구 (04 §10.1 — 신규 컴포넌트 없음)
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .empty:                                   // 웹 status="loading"
+                    JdSpinner(size: .sm)
+                        .frame(maxWidth: .infinity, minHeight: 120)
+                        .background(JdToken.Color.cardHover.color)
+                case .success(let image):                      // status="loaded"
+                    image.resizable()
+                        .aspectRatio(contentMode: .fill)       // JdImageFit.cover (.fit = contain)
+                case .failure:                                 // status="error" — 폴백
+                    Image(systemName: "photo")
+                        .font(.system(size: JdIconSize.lg.side))
+                        .foregroundColor(JdToken.Color.mutedLight.color)
+                        .frame(maxWidth: .infinity, minHeight: 120)
+                        .background(JdToken.Color.cardHover.color)
+                @unknown default:
+                    EmptyView()
+                }
             }
-        }
-        .frame(height: 160)
-        .clipShape(RoundedRectangle(cornerRadius: JdToken.Radius.lg, style: .continuous))
-        .accessibilityLabel(Text(alt))    // 의미 있는 이미지만. 장식이면 .accessibilityHidden(true)
+            .frame(height: 160)
+            .clipShape(RoundedRectangle(cornerRadius: JdToken.Radius.lg, style: .continuous))
+            .accessibilityLabel(Text(alt))    // 의미 있는 이미지만. 장식이면 .accessibilityHidden(true)
 
-        // UIKit — 로딩은 URLSession, 표시는 UIImageView
-        imageView.contentMode = .scaleAspectFill    // cover (.scaleAspectFit = contain, .scaleToFill = fill)
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = JdToken.Radius.lg
-        """
+            // UIKit — 로딩은 URLSession, 표시는 UIImageView
+            imageView.contentMode = .scaleAspectFill    // cover (.scaleAspectFit = contain, .scaleToFill = fill)
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = JdToken.Radius.lg
+            """
     )
 
     // 무대 높이 — 레시피의 frame(height: 160)과 같은 자리(토큰 파생 80×2)
@@ -70,11 +72,13 @@ private func imageRadius(_ state: DemoState) -> CGFloat {
     }
 }
 
-private let imageNote = "JdImageFit.fill(비율 무시)만 contentMode 대응이 없다 — .resizable() + 고정 "
+private let imageNote =
+    "JdImageFit.fill(비율 무시)만 contentMode 대응이 없다 — .resizable() + 고정 "
     + "frame이 그 자리다. AsyncImage는 URLSession 공유 캐시에만 기대므로 긴 목록의 재사용 캐싱은 "
     + "소비자 몫이다(서드파티 0 규칙상 이미지 캐시 라이브러리는 도입하지 않는다)."
 
-private let imageStageNote = "이 스테이지는 네트워크를 쓰지 않는다 — 세 상태를 컨트롤로 직접 고르고 "
+private let imageStageNote =
+    "이 스테이지는 네트워크를 쓰지 않는다 — 세 상태를 컨트롤로 직접 고르고 "
     + "그림은 로컬 SF Symbol이다. 실제 소비 코드는 아래 레시피(AsyncImage phase)가 정본이다."
 
 private struct ImageStage: View {
@@ -84,13 +88,17 @@ private struct ImageStage: View {
         let radius = imageRadius(state)
 
         return VStack(spacing: JdToken.Space.s4) {
-            ImagePhaseBlock(phase: state.string("state", fallback: "success"),
-                            fit: imageFit(state))
-                .frame(maxWidth: .infinity,
-                       minHeight: ImageDemo.stageHeight,
-                       maxHeight: ImageDemo.stageHeight)
-                .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
-                .accessibilityLabel(Text("산 사진 예시"))
+            ImagePhaseBlock(
+                phase: state.string("state", fallback: "success"),
+                fit: imageFit(state)
+            )
+            .frame(
+                maxWidth: .infinity,
+                minHeight: ImageDemo.stageHeight,
+                maxHeight: ImageDemo.stageHeight
+            )
+            .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
+            .accessibilityLabel(Text("산 사진 예시"))
 
             VStack(spacing: JdToken.Space.s1) {
                 Text(imageStageNote)

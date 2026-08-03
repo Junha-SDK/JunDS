@@ -12,43 +12,74 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.base {
-  jd-split-pane:not(:defined) { display: flex; }
-}
-@layer junds.components {
-  jd-split-pane {
-    display: flex; flex-direction: row; overflow: hidden;
-    box-sizing: border-box; height: 100%;
-    font-family: var(--jd-font-sans);
+  @layer junds.base {
+    jd-split-pane:not(:defined) {
+      display: flex;
+    }
   }
-  jd-split-pane[direction="vertical"] { flex-direction: column; }
+  @layer junds.components {
+    jd-split-pane {
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+      box-sizing: border-box;
+      height: 100%;
+      font-family: var(--jd-font-sans);
+    }
+    jd-split-pane[direction="vertical"] {
+      flex-direction: column;
+    }
 
-  .jd-split-pane__pane { overflow: auto; min-width: 0; min-height: 0; }
-  .jd-split-pane__pane--start { flex: 0 0 auto; }
-  .jd-split-pane__pane--end { flex: 1 1 0; }
+    /* 패널은 폭이 드래그로 바뀐다 — 좁아진 칸에서 기본 CJK 줄바꿈은 글자 단위라
+     SK하이닉 / 스처럼 낱말 한가운데가 끊긴다(§5). keep-all로 어절을 지키고,
+     한 어절이 칸보다 길 때만 끊는다. 파생 태그(jd-resizable)도 이 규칙을 그대로 쓴다. */
+    .jd-split-pane__pane {
+      overflow: auto;
+      min-width: 0;
+      min-height: 0;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+    .jd-split-pane__pane--start {
+      flex: 0 0 auto;
+    }
+    .jd-split-pane__pane--end {
+      flex: 1 1 0;
+    }
 
-  .jd-split-pane__separator {
-    position: relative; flex: 0 0 auto;
-    background: var(--jd-color-border);
-    touch-action: none; /* 드래그 중 브라우저 스크롤 제스처가 포인터를 가로채지 않게 */
-    transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out);
-    /* direction 기본 horizontal — v2 w-1 */
-    inline-size: 4px; cursor: col-resize;
-  }
-  jd-split-pane[direction="vertical"] > .jd-split-pane__separator {
-    inline-size: auto; block-size: 4px; cursor: row-resize;
-  }
-  .jd-split-pane__separator:hover {
-    background: color-mix(in srgb, var(--jd-color-primary) 30%, transparent);
-  }
-  .jd-split-pane__separator:focus-visible {
-    outline: none; box-shadow: var(--jd-shadow-focus-ring); z-index: 1;
-  }
+    .jd-split-pane__separator {
+      position: relative;
+      flex: 0 0 auto;
+      background: var(--jd-color-border);
+      touch-action: none; /* 드래그 중 브라우저 스크롤 제스처가 포인터를 가로채지 않게 */
+      transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out);
+      /* direction 기본 horizontal — v2 w-1 */
+      inline-size: 4px;
+      cursor: col-resize;
+    }
+    jd-split-pane[direction="vertical"] > .jd-split-pane__separator {
+      inline-size: auto;
+      block-size: 4px;
+      cursor: row-resize;
+    }
+    .jd-split-pane__separator:hover {
+      background: color-mix(in srgb, var(--jd-color-primary) 30%, transparent);
+    }
+    .jd-split-pane__separator:focus-visible {
+      outline: none;
+      box-shadow: var(--jd-shadow-focus-ring);
+      z-index: 1;
+    }
 
-  /* 파생(jd-resizable)이 켠다 */
-  .jd-split-pane__grip { display: none; }
+    /* 파생(jd-resizable)이 켠다 */
+    .jd-split-pane__grip {
+      display: none;
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-split-pane__separator { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-split-pane__separator {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

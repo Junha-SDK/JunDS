@@ -145,7 +145,9 @@ export class JdTradeJournal extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdTradeEntry[];
@@ -258,7 +260,10 @@ export class JdTradeJournal extends JdElement {
     this.#sideSelect = document.createElement("select");
     this.#sideSelect.className = "jd-trade-journal__input";
     this.#sideSelect.setAttribute("aria-label", "매수/매도");
-    for (const [value, label] of [["buy", "매수"], ["sell", "매도"]] as const) {
+    for (const [value, label] of [
+      ["buy", "매수"],
+      ["sell", "매도"],
+    ] as const) {
       const opt = document.createElement("option");
       opt.value = value;
       opt.textContent = label;
@@ -467,7 +472,7 @@ export class JdTradeJournal extends JdElement {
       monthCounts.set(m, (monthCounts.get(m) ?? 0) + 1);
     }
     const months = [...monthCounts.keys()].sort((a, b) => a.localeCompare(b));
-    const thisMonth = months.length ? (monthCounts.get(months[months.length - 1]!) ?? 0) : 0;
+    const thisMonth = months.length ? monthCounts.get(months[months.length - 1]!) ?? 0 : 0;
     const values = [total, buys, sells, thisMonth];
     const tiles = this.#stats.querySelectorAll(".jd-trade-journal__stat-value");
     tiles.forEach((tile, i) => {

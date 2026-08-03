@@ -1,5 +1,5 @@
-import Foundation
 import CoreGraphics
+import Foundation
 
 // 웹 hooks(→Behavior) 46종의 iOS 대응.
 // ⚠️ iOS에서 hooks는 "라이브러리 컴포넌트"가 아니다 — 대부분은 SwiftUI 환경값·시스템 API·
@@ -123,9 +123,9 @@ public enum JdFieldRule: Equatable, Sendable {
     case required
     case minLength(Int)
     case maxLength(Int)
-    case pattern(String)              // 정규식
+    case pattern(String)  // 정규식
     case email
-    case custom(id: String)           // 소비자 판정 위임 — Core는 통과로 본다
+    case custom(id: String)  // 소비자 판정 위임 — Core는 통과로 본다
 
     /// 위반 시 메시지 — 렌더 계층이 그대로 노출한다
     public func message(label: String) -> String {
@@ -183,7 +183,9 @@ public enum JdForm {
 
 public enum JdScrollProgress {
     /// 읽기 진행률 0…1 — 스크롤 오프셋과 스크롤 가능 높이로 계산.
-    public static func reading(offset: CGFloat, contentHeight: CGFloat, viewportHeight: CGFloat) -> Double {
+    public static func reading(
+        offset: CGFloat, contentHeight: CGFloat, viewportHeight: CGFloat
+    ) -> Double {
         let scrollable = contentHeight - viewportHeight
         guard scrollable > 0 else { return contentHeight > 0 ? 1 : 0 }
         return Double(min(max(offset / scrollable, 0), 1))
@@ -191,7 +193,9 @@ public enum JdScrollProgress {
 
     /// 스크롤 스파이: 각 섹션의 y 시작점과 현재 오프셋(+상단 여백)으로 활성 인덱스를 판정.
     /// 현재 위치를 지난 마지막 섹션이 활성이다(웹 동형).
-    public static func activeSection(offset: CGFloat, sectionOffsets: [CGFloat], topInset: CGFloat = 0) -> Int? {
+    public static func activeSection(
+        offset: CGFloat, sectionOffsets: [CGFloat], topInset: CGFloat = 0
+    ) -> Int? {
         guard !sectionOffsets.isEmpty else { return nil }
         let cursor = offset + topInset
         var active = 0
@@ -252,7 +256,8 @@ public enum JdBreakpointValue {
     public static func resolve<T>(width: CGFloat, base: T, overrides: [(JdBreakpoint, T)]) -> T {
         var value = base
         // 브레이크포인트 오름차순으로 순회하며 폭이 도달한 것까지 덮어쓴다
-        for (bp, override) in overrides.sorted(by: { $0.0.width < $1.0.width }) where width >= bp.width {
+        for (bp, override) in overrides.sorted(by: { $0.0.width < $1.0.width })
+        where width >= bp.width {
             value = override
         }
         return value

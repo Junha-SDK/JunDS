@@ -15,18 +15,28 @@ const meta: Meta<typeof Drawer> = {
 export default meta;
 type Story = StoryObj<typeof Drawer>;
 
+// 스토리도 기준선을 보여 주는 자리다 — 누를 수 있는 것에는 hover·active·focus-visible 이 전부 있어야 한다.
+const btnBase =
+  "px-3 py-1.5 text-sm rounded-xl cursor-pointer transition-[background-color,border-color,transform] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+const btnPrimary = `${btnBase} bg-primary text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.14)] hover:bg-primary-hover`;
+const btnGhost = `${btnBase} border border-border text-muted hover:bg-surface-soft hover:text-foreground hover:border-muted-light`;
+
 const Demo = ({
   side = "right",
   size = "md",
   title = "필터",
-}: { side?: "left" | "right" | "bottom"; size?: "sm" | "md" | "lg" | "xl"; title?: string }) => {
+}: {
+  side?: "left" | "right" | "bottom";
+  size?: "sm" | "md" | "lg" | "xl";
+  title?: string;
+}) => {
   const [open, setOpen] = useState(true);
   return (
     <div className="min-h-[320px]">
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="px-3 py-1.5 text-sm rounded-lg bg-primary text-white"
+        className={btnPrimary}
       >
         Drawer 열기
       </button>
@@ -41,14 +51,14 @@ const Demo = ({
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="px-3 py-1.5 text-sm rounded-lg border border-border text-muted"
+              className={btnGhost}
             >
               취소
             </button>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="px-3 py-1.5 text-sm rounded-lg bg-primary text-white"
+              className={btnPrimary}
             >
               적용
             </button>

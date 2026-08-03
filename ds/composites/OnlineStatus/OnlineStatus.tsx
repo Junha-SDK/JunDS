@@ -1,5 +1,5 @@
 "use client";
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { cn } from "../../utils/cn";
 import type { HTMLAttributes } from "react";
 
@@ -23,11 +23,12 @@ export interface OnlineStatusProps extends HTMLAttributes<HTMLDivElement> {
 
 const sizeMap: Record<OnlineStatusSize, number> = { xs: 6, sm: 8, md: 10, lg: 12 };
 
+// 재실 상태는 브랜드색이 아니라 의미색이다 — 리터럴 hex 는 테마·다크에서 홀로 떠 있다
 const colorMap: Record<OnlineStatusValue, string> = {
-  online: "#22c55e",
-  away: "#f59e0b",
-  busy: "#ef4444",
-  offline: "#9ca3af",
+  online: "var(--success)",
+  away: "var(--warning)",
+  busy: "var(--danger)",
+  offline: "var(--muted-light)",
 };
 
 const defaultLabels: Record<OnlineStatusValue, string> = {
@@ -57,26 +58,52 @@ function relativeTime(d: Date): string {
  * @tags social
  */
 export const OnlineStatus = forwardRef<HTMLDivElement, OnlineStatusProps>(function OnlineStatus(
-  { status, size = "sm", showLabel = false, pulse = false, lastSeenAt, labels, className, ...props },
+  {
+    status,
+    size = "sm",
+    showLabel = false,
+    pulse = false,
+    lastSeenAt,
+    labels,
+    className,
+    ...props
+  },
   ref,
 ) {
   const px = sizeMap[size];
   const color = colorMap[status];
   const label = labels?.[status] ?? defaultLabels[status];
-  const lastSeen = lastSeenAt ? (lastSeenAt instanceof Date ? lastSeenAt : new Date(lastSeenAt)) : null;
+
+  // relativeTime 은 Date.now() 를 읽는다 — 렌더 단계에서 부르면 서버와 클라이언트가
+  // 서로 다른 문자열을 내놓아 하이드레이션이 어긋난다. 마운트 뒤에만 계산한다
+  const [relative, setRelative] = useState<string | null>(null);
+  useEffect(() => {
+    if (!lastSeenAt) {
+      setRelative(null);
+      return;
+    }
+    const d = lastSeenAt instanceof Date ? lastSeenAt : new Date(lastSeenAt);
+    setRelative(relativeTime(d));
+  }, [lastSeenAt]);
 
   return (
     <div ref={ref} className={cn("inline-flex items-center gap-1.5", className)} {...props}>
-      <span className="relative inline-block" style={{ width: px, height: px }}>
+      <span className="relative inline-block shrink-0" style={{ width: px, height: px }}>
         {pulse && status === "online" && (
-          <span className="absolute inset-0 rounded-full animate-ping" style={{ background: color, opacity: 0.5 }} />
+          <span
+            className="absolute inset-0 rounded-full animate-ping motion-reduce:animate-none"
+            style={{ background: color, opacity: 0.5 }}
+          />
         )}
-        <span className="relative block w-full h-full rounded-full border-2 border-background" style={{ background: color }} />
+        <span
+          className="relative block w-full h-full rounded-full border-2 border-background shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]"
+          style={{ background: color }}
+        />
       </span>
       {showLabel && (
-        <span className="text-xs text-muted">
+        <span className="text-xs text-muted whitespace-nowrap">
           {label}
-          {status === "offline" && lastSeen && ` · ${relativeTime(lastSeen)}`}
+          {status === "offline" && relative && ` · ${relative}`}
         </span>
       )}
     </div>

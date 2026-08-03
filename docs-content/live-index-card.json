@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveIndexCard",
   "oneLiner": "실시간 지수 카드.",
-  "tags": [
-    "finance",
-    "live",
-    "지수"
-  ],
+  "tags": ["finance", "live", "지수"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-divider 동형 — 1px 구분선 (DESIGN §2.3).
 // 웹의 수평 margin-block 16px은 이식하지 않는다 — 간격은 소비자 스택 spacing 몫.
@@ -79,17 +79,19 @@ public final class JdDividerView: UIView {
         let textLabel = UILabel()
         textLabel.text = text
         // 웹 라벨 = footnote·muted — sm(13pt)이 JdFontBridge의 footnote 텍스트 스타일에 대응
-        textLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.sm,
-                                                 weight: JdToken.FontWeight.normal,
-                                                 compatibleWith: traitCollection)
+        textLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.sm,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         textLabel.adjustsFontForContentSizeCategory = true
         textLabel.textColor = JdToken.Color.muted.uiColor
 
         // 웹 gap 12(--jd-space-3) 동형 — named JdGap에 없는 값이라 custom + 토큰 참조
-        let stack = JdStackView(axis: orientation == .horizontal ? .horizontal : .vertical,
-                                gap: .custom(JdToken.Space.s3),
-                                alignment: .center,
-                                arranged: [leadingLine, textLabel, trailingLine])
+        let stack = JdStackView(
+            axis: orientation == .horizontal ? .horizontal : .vertical,
+            gap: .custom(JdToken.Space.s3),
+            alignment: .center,
+            arranged: [leadingLine, textLabel, trailingLine])
         addSubview(stack)
         stack.jd.layout {
             $0.edges.equalToSuperview()

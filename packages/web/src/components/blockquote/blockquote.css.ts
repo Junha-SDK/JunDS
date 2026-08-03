@@ -10,46 +10,57 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-blockquote { display: block; }
+  @layer junds.components {
+    jd-blockquote {
+      display: block;
+    }
 
-  .jd-blockquote {
-    box-sizing: border-box; margin: 0;
-    font-family: var(--jd-font-sans);
-    font-size: var(--jd-text-lg); line-height: var(--jd-leading-relaxed);
-    color: var(--jd-color-foreground);
-    border-inline-start: var(--jd-border-heavy) solid var(--jd-color-border);
-    padding-inline-start: var(--jd-space-4);
-  }
-  /* 이탤릭은 본문에만 — 출처까지 기울면 되돌리는 규칙이 또 필요해진다 */
-  .jd-blockquote__body { font-style: italic; }
+    .jd-blockquote {
+      box-sizing: border-box;
+      margin: 0;
+      font-family: var(--jd-font-sans);
+      font-size: var(--jd-text-lg);
+      line-height: var(--jd-leading-relaxed);
+      color: var(--jd-color-foreground);
+      border-inline-start: var(--jd-border-heavy) solid var(--jd-color-border);
+      padding-inline-start: var(--jd-space-4);
+    }
+    /* 이탤릭은 본문에만 — 출처까지 기울면 되돌리는 규칙이 또 필요해진다 */
+    .jd-blockquote__body {
+      font-style: italic;
+    }
 
-  .jd-blockquote__footer {
-    margin-block-start: var(--jd-space-2);
-    font-size: var(--jd-text-md);
-    color: var(--jd-color-muted);
-  }
-  .jd-blockquote__footer[hidden] { display: none; }
-  /* <cite>의 UA 기본 이탤릭 해제 (v2 not-italic) */
-  .jd-blockquote__cite { font-style: normal; }
+    .jd-blockquote__footer {
+      margin-block-start: var(--jd-space-2);
+      font-size: var(--jd-text-md);
+      color: var(--jd-color-muted);
+    }
+    .jd-blockquote__footer[hidden] {
+      display: none;
+    }
+    /* <cite>의 UA 기본 이탤릭 해제 (v2 not-italic) */
+    .jd-blockquote__cite {
+      font-style: normal;
+    }
 
-  jd-blockquote[variant="bordered"] > .jd-blockquote {
-    border-inline-start-color: var(--jd-color-primary);
+    jd-blockquote[variant="bordered"] > .jd-blockquote {
+      border-inline-start-color: var(--jd-color-primary);
+    }
+    jd-blockquote[variant="filled"] > .jd-blockquote {
+      background: var(--jd-color-card-hover);
+      border-inline-start-color: var(--jd-color-primary);
+      border-radius: var(--jd-radius-md);
+      padding: var(--jd-space-4);
+    }
+    jd-blockquote[variant="callout"] > .jd-blockquote {
+      background: var(--jd-color-primary-light);
+      border-inline-start: 0;
+      border-radius: var(--jd-radius-md);
+      padding: var(--jd-space-4);
+      color: color-mix(in srgb, var(--jd-color-primary) 65%, var(--jd-color-foreground));
+    }
+    jd-blockquote[variant="callout"] .jd-blockquote__footer {
+      color: color-mix(in srgb, var(--jd-color-primary) 45%, var(--jd-color-foreground));
+    }
   }
-  jd-blockquote[variant="filled"] > .jd-blockquote {
-    background: var(--jd-color-card-hover);
-    border-inline-start-color: var(--jd-color-primary);
-    border-radius: var(--jd-radius-md);
-    padding: var(--jd-space-4);
-  }
-  jd-blockquote[variant="callout"] > .jd-blockquote {
-    background: var(--jd-color-primary-light);
-    border-inline-start: 0;
-    border-radius: var(--jd-radius-md);
-    padding: var(--jd-space-4);
-    color: color-mix(in srgb, var(--jd-color-primary) 65%, var(--jd-color-foreground));
-  }
-  jd-blockquote[variant="callout"] .jd-blockquote__footer {
-    color: color-mix(in srgb, var(--jd-color-primary) 45%, var(--jd-color-foreground));
-  }
-}`;
+`;

@@ -1,10 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  BindingError,
-  evaluateExpression,
-  resolvePropValue,
-} from "../../runtime/bindings";
+import { BindingError, evaluateExpression, resolvePropValue } from "../../runtime/bindings";
 
 describe("evaluateExpression", () => {
   it("reads a top-level identifier", () => {
@@ -20,9 +16,7 @@ describe("evaluateExpression", () => {
   });
 
   it("supports numeric bracket index", () => {
-    expect(
-      evaluateExpression("items[1]", { items: ["a", "b", "c"] }),
-    ).toBe("b");
+    expect(evaluateExpression("items[1]", { items: ["a", "b", "c"] })).toBe("b");
   });
 
   it("supports quoted string keys", () => {
@@ -38,15 +32,11 @@ describe("evaluateExpression", () => {
   });
 
   it("blocks __proto__ access", () => {
-    expect(
-      evaluateExpression("user.__proto__", { user: {} }),
-    ).toBeUndefined();
+    expect(evaluateExpression("user.__proto__", { user: {} })).toBeUndefined();
   });
 
   it("blocks constructor escape", () => {
-    expect(
-      evaluateExpression("user.constructor", { user: {} }),
-    ).toBeUndefined();
+    expect(evaluateExpression("user.constructor", { user: {} })).toBeUndefined();
   });
 
   it("rejects empty expressions", () => {
@@ -67,26 +57,18 @@ describe("resolvePropValue", () => {
 
   it("resolves bindings against scope", () => {
     expect(
-      resolvePropValue(
-        { $kind: "binding", expr: "user.name" },
-        { user: { name: "Junha" } },
-      ),
+      resolvePropValue({ $kind: "binding", expr: "user.name" }, { user: { name: "Junha" } }),
     ).toBe("Junha");
   });
 
   it("uses fallback when binding resolves to undefined", () => {
     expect(
-      resolvePropValue(
-        { $kind: "binding", expr: "missing.path", fallback: "default" },
-        {},
-      ),
+      resolvePropValue({ $kind: "binding", expr: "missing.path", fallback: "default" }, {}),
     ).toBe("default");
   });
 
   it("returns null when binding misses and no fallback is provided", () => {
-    expect(
-      resolvePropValue({ $kind: "binding", expr: "nope" }, {}),
-    ).toBe(null);
+    expect(resolvePropValue({ $kind: "binding", expr: "nope" }, {})).toBe(null);
   });
 
   it("picks the matching breakpoint, falling back upward to base", () => {

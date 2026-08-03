@@ -1,5 +1,16 @@
 "use client";
-import { ComponentPage, Section, Guidelines, Anatomy, UsageNote, AccessibilityNote, CodeExample, VariantGrid, VariantItem, DecisionMatrix } from "../../_components/ComponentPage";
+import {
+  ComponentPage,
+  Section,
+  Guidelines,
+  Anatomy,
+  UsageNote,
+  AccessibilityNote,
+  CodeExample,
+  VariantGrid,
+  VariantItem,
+  DecisionMatrix,
+} from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { Input } from "@/ds/primitives/Input";
 
@@ -12,12 +23,42 @@ export default function InputPage() {
       status="stable"
       version="1.0.0"
       props={[
-        { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "입력 필드의 크기를 결정합니다. 주변 UI 밀도에 맞춰 선택하세요." },
-        { name: "error", type: "boolean", default: "false", description: "에러 상태를 시각적으로 표시합니다. border 색상이 danger 색상으로 변경됩니다." },
-        { name: "leftSlot", type: "ReactNode", description: "입력 필드 왼쪽에 렌더링할 아이콘 또는 요소입니다. 검색 아이콘 등에 활용합니다." },
-        { name: "rightSlot", type: "ReactNode", description: "입력 필드 오른쪽에 렌더링할 아이콘 또는 요소입니다. 클리어 버튼, 단위 표시 등에 활용합니다." },
-        { name: "placeholder", type: "string", description: "입력 전 힌트 텍스트입니다. 짧고 명확한 안내 문구를 사용하세요." },
-        { name: "disabled", type: "boolean", default: "false", description: "비활성화 상태입니다. 시각적으로 흐려지며 상호작용이 차단됩니다." },
+        {
+          name: "size",
+          type: '"sm" | "md" | "lg"',
+          default: '"md"',
+          description: "입력 필드의 크기를 결정합니다. 주변 UI 밀도에 맞춰 선택하세요.",
+        },
+        {
+          name: "error",
+          type: "boolean",
+          default: "false",
+          description:
+            "에러 상태를 시각적으로 표시합니다. border 색상이 danger 색상으로 변경됩니다.",
+        },
+        {
+          name: "leftSlot",
+          type: "ReactNode",
+          description:
+            "입력 필드 왼쪽에 렌더링할 아이콘 또는 요소입니다. 검색 아이콘 등에 활용합니다.",
+        },
+        {
+          name: "rightSlot",
+          type: "ReactNode",
+          description:
+            "입력 필드 오른쪽에 렌더링할 아이콘 또는 요소입니다. 클리어 버튼, 단위 표시 등에 활용합니다.",
+        },
+        {
+          name: "placeholder",
+          type: "string",
+          description: "입력 전 힌트 텍스트입니다. 짧고 명확한 안내 문구를 사용하세요.",
+        },
+        {
+          name: "disabled",
+          type: "boolean",
+          default: "false",
+          description: "비활성화 상태입니다. 시각적으로 흐려지며 상호작용이 차단됩니다.",
+        },
       ]}
       related={[
         { name: "Textarea", href: "/design-system/primitives/textarea" },
@@ -27,7 +68,10 @@ export default function InputPage() {
       ]}
     >
       {/* ── Overview ── */}
-      <Section title="Overview" description="기본적인 텍스트 입력 필드입니다. 대부분의 폼에서 이름, 이메일, 주소 등 한 줄짜리 텍스트 데이터를 수집할 때 사용합니다.">
+      <Section
+        title="Overview"
+        description="기본적인 텍스트 입력 필드입니다. 대부분의 폼에서 이름, 이메일, 주소 등 한 줄짜리 텍스트 데이터를 수집할 때 사용합니다."
+      >
         <Preview sourceCode={`<Input placeholder="이름을 입력하세요" />`}>
           <div className="flex flex-col gap-3 max-w-sm">
             <Input placeholder="이름을 입력하세요" />
@@ -39,16 +83,35 @@ export default function InputPage() {
       <Section title="Anatomy" description="Input 컴포넌트를 구성하는 내부 요소들입니다.">
         <Anatomy
           items={[
-            { label: "Container", description: "입력 필드를 감싸는 최외곽 컨테이너입니다. border, 배경색, focus ring 등 시각적 상태를 담당합니다." },
-            { label: "Placeholder", description: "값이 비어있을 때 표시되는 힌트 텍스트입니다. 입력을 시작하면 사라집니다." },
-            { label: "Left Slot", description: "입력 필드 왼쪽에 위치하는 아이콘 또는 요소 영역입니다. 검색, 통화 기호 등 맥락 정보를 제공합니다." },
-            { label: "Right Slot", description: "입력 필드 오른쪽에 위치하는 아이콘 또는 요소 영역입니다. 지우기 버튼, 단위(원, kg) 등을 표시합니다." },
+            {
+              label: "Container",
+              description:
+                "입력 필드를 감싸는 최외곽 컨테이너입니다. border, 배경색, focus ring 등 시각적 상태를 담당합니다.",
+            },
+            {
+              label: "Placeholder",
+              description:
+                "값이 비어있을 때 표시되는 힌트 텍스트입니다. 입력을 시작하면 사라집니다.",
+            },
+            {
+              label: "Left Slot",
+              description:
+                "입력 필드 왼쪽에 위치하는 아이콘 또는 요소 영역입니다. 검색, 통화 기호 등 맥락 정보를 제공합니다.",
+            },
+            {
+              label: "Right Slot",
+              description:
+                "입력 필드 오른쪽에 위치하는 아이콘 또는 요소 영역입니다. 지우기 버튼, 단위(원, kg) 등을 표시합니다.",
+            },
           ]}
         />
       </Section>
 
       {/* ── Sizes ── */}
-      <Section title="Sizes" description="주변 레이아웃의 밀도에 맞춰 3가지 크기를 제공합니다. 기본값은 md이며, 대부분의 경우 md를 권장합니다.">
+      <Section
+        title="Sizes"
+        description="주변 레이아웃의 밀도에 맞춰 3가지 크기를 제공합니다. 기본값은 md이며, 대부분의 경우 md를 권장합니다."
+      >
         <VariantGrid cols={3}>
           <VariantItem
             label="Small (sm)"
@@ -75,7 +138,10 @@ export default function InputPage() {
       </Section>
 
       {/* ── States ── */}
-      <Section title="States" description="Input은 상호작용 상태에 따라 시각적 피드백을 제공합니다.">
+      <Section
+        title="States"
+        description="Input은 상호작용 상태에 따라 시각적 피드백을 제공합니다."
+      >
         <VariantGrid cols={2}>
           <VariantItem
             label="Default"
@@ -111,7 +177,12 @@ export default function InputPage() {
               leftSlot={
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M9.5 9.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path
+                    d="M9.5 9.5L13 13"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               }
             />
@@ -120,7 +191,10 @@ export default function InputPage() {
       </Section>
 
       {/* ── With Slots ── */}
-      <Section title="슬롯 활용 예시" description="leftSlot과 rightSlot을 조합하면 다양한 입력 패턴을 만들 수 있습니다.">
+      <Section
+        title="슬롯 활용 예시"
+        description="leftSlot과 rightSlot을 조합하면 다양한 입력 패턴을 만들 수 있습니다."
+      >
         <Preview
           sourceCode={`<Input placeholder="검색어를 입력하세요" leftSlot={<SearchIcon />} />
 <Input placeholder="0" rightSlot={<span>원</span>} />
@@ -132,7 +206,12 @@ export default function InputPage() {
               leftSlot={
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M9.5 9.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path
+                    d="M9.5 9.5L13 13"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               }
             />
@@ -144,7 +223,15 @@ export default function InputPage() {
               placeholder="이메일"
               leftSlot={
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                  <rect
+                    x="1"
+                    y="3"
+                    width="12"
+                    height="8"
+                    rx="1.5"
+                    stroke="currentColor"
+                    strokeWidth="1.3"
+                  />
                   <path d="M1 4.5L7 8L13 4.5" stroke="currentColor" strokeWidth="1.3" />
                 </svg>
               }
@@ -154,7 +241,10 @@ export default function InputPage() {
       </Section>
 
       {/* ── Decision Matrix ── */}
-      <Section title="비슷한 입력 컴포넌트 비교" description="텍스트 입력 외에도 옵션 선택·검색·태그 입력 등 의도가 다른 입력 컴포넌트들이 있습니다.">
+      <Section
+        title="비슷한 입력 컴포넌트 비교"
+        description="텍스트 입력 외에도 옵션 선택·검색·태그 입력 등 의도가 다른 입력 컴포넌트들이 있습니다."
+      >
         <DecisionMatrix
           rows={[
             {
@@ -162,7 +252,8 @@ export default function InputPage() {
               href: "/design-system/primitives/input",
               signature: "단일 텍스트",
               useWhen: "이름·이메일·주소 등 자유 텍스트 한 줄 입력. 가장 기본적인 선택.",
-              avoidWhen: "여러 줄(Textarea), 비밀번호(PasswordInput), 검색(SearchInput) 등 의도가 분명할 때.",
+              avoidWhen:
+                "여러 줄(Textarea), 비밀번호(PasswordInput), 검색(SearchInput) 등 의도가 분명할 때.",
             },
             {
               name: "Textarea",
@@ -211,24 +302,31 @@ export default function InputPage() {
       </Section>
 
       {/* ── Guidelines ── */}
-      <Section title="Guidelines" description="Input 컴포넌트를 올바르게 사용하기 위한 가이드라인입니다.">
+      <Section
+        title="Guidelines"
+        description="Input 컴포넌트를 올바르게 사용하기 위한 가이드라인입니다."
+      >
         <Guidelines
           items={[
             {
               type: "do",
-              description: "placeholder는 입력 형식에 대한 짧은 힌트만 제공하세요. 예: '홍길동', 'example@email.com'",
+              description:
+                "placeholder는 입력 형식에 대한 짧은 힌트만 제공하세요. 예: '홍길동', 'example@email.com'",
             },
             {
               type: "dont",
-              description: "label 없이 Input을 단독으로 사용하지 마세요. 시각적 레이블이 없으면 사용자가 어떤 정보를 입력해야 하는지 알 수 없습니다.",
+              description:
+                "label 없이 Input을 단독으로 사용하지 마세요. 시각적 레이블이 없으면 사용자가 어떤 정보를 입력해야 하는지 알 수 없습니다.",
             },
             {
               type: "do",
-              description: "에러 상태일 때는 Input 아래에 구체적인 에러 메시지를 함께 표시하세요. 빨간 border만으로는 원인을 알 수 없습니다.",
+              description:
+                "에러 상태일 때는 Input 아래에 구체적인 에러 메시지를 함께 표시하세요. 빨간 border만으로는 원인을 알 수 없습니다.",
             },
             {
               type: "dont",
-              description: "placeholder를 label 대용으로 사용하지 마세요. 입력을 시작하면 placeholder가 사라지므로 맥락을 잃게 됩니다.",
+              description:
+                "placeholder를 label 대용으로 사용하지 마세요. 입력을 시작하면 placeholder가 사라지므로 맥락을 잃게 됩니다.",
             },
           ]}
         />
@@ -238,16 +336,19 @@ export default function InputPage() {
       <Section title="사용 시 참고사항">
         <div className="flex flex-col gap-3">
           <UsageNote type="info">
-            Input의 <code className="text-xs bg-gray-100 px-1 rounded">size</code> prop은 HTML의 기본 <code className="text-xs bg-gray-100 px-1 rounded">size</code> 속성을 오버라이드합니다.
-            HTML 기본 size 속성이 필요한 경우는 거의 없으므로 걱정하지 않아도 됩니다.
+            Input의 <code className="text-xs bg-gray-100 px-1 rounded">size</code> prop은 HTML의
+            기본 <code className="text-xs bg-gray-100 px-1 rounded">size</code> 속성을
+            오버라이드합니다. HTML 기본 size 속성이 필요한 경우는 거의 없으므로 걱정하지 않아도
+            됩니다.
           </UsageNote>
           <UsageNote type="tip">
-            비밀번호 입력이 필요하다면 Input 대신 <strong>PasswordInput</strong> 컴포넌트를 사용하세요.
-            표시/숨기기 토글과 강도 표시기가 내장되어 있습니다.
+            비밀번호 입력이 필요하다면 Input 대신 <strong>PasswordInput</strong> 컴포넌트를
+            사용하세요. 표시/숨기기 토글과 강도 표시기가 내장되어 있습니다.
           </UsageNote>
           <UsageNote type="warning">
-            에러 상태를 표시할 때 반드시 <code className="text-xs bg-gray-100 px-1 rounded">aria-describedby</code>를 사용하여 에러 메시지와 Input을 연결하세요.
-            스크린 리더 사용자가 에러 내용을 인식할 수 있습니다.
+            에러 상태를 표시할 때 반드시{" "}
+            <code className="text-xs bg-gray-100 px-1 rounded">aria-describedby</code>를 사용하여
+            에러 메시지와 Input을 연결하세요. 스크린 리더 사용자가 에러 내용을 인식할 수 있습니다.
           </UsageNote>
         </div>
       </Section>

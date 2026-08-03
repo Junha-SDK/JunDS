@@ -13,12 +13,14 @@ export interface TextProps extends Omit<BoxProps, "as"> {
 
 export const Text = forwardRef<HTMLElement, TextProps>(
   ({ as = "p", truncate, lineClamp, mono, dimmed, className, style, ...props }, ref) => {
-    const clampStyle: React.CSSProperties | undefined = lineClamp ? {
-      display: "-webkit-box",
-      WebkitLineClamp: lineClamp,
-      WebkitBoxOrient: "vertical" as const,
-      overflow: "hidden",
-    } : undefined;
+    const clampStyle: React.CSSProperties | undefined = lineClamp
+      ? {
+          display: "-webkit-box",
+          WebkitLineClamp: lineClamp,
+          WebkitBoxOrient: "vertical" as const,
+          overflow: "hidden",
+        }
+      : undefined;
 
     return (
       <Box
@@ -27,11 +29,10 @@ export const Text = forwardRef<HTMLElement, TextProps>(
         fontSize={props.fontSize ?? "md"}
         lineHeight={props.lineHeight ?? "relaxed"}
         color={dimmed ? "muted" : props.color}
-        className={[
-          mono && "font-mono",
-          truncate && "truncate",
-          className,
-        ].filter(Boolean).join(" ") || undefined}
+        className={
+          [mono && "font-mono", truncate && "truncate", className].filter(Boolean).join(" ") ||
+          undefined
+        }
         style={{ ...clampStyle, ...style }}
         {...props}
       />

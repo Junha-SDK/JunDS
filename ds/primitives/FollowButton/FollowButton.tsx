@@ -3,7 +3,8 @@ import { forwardRef, useState } from "react";
 import { cn } from "../../utils/cn";
 import type { ButtonHTMLAttributes } from "react";
 
-export interface FollowButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> {
+export interface FollowButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> {
   /** 팔로우 상태 */
   following: boolean;
   /** 변경 콜백 */
@@ -35,11 +36,20 @@ const sizeMap = {
  * @tags sns, control
  */
 export const FollowButton = forwardRef<HTMLButtonElement, FollowButtonProps>(
-  ({
-    following, onChange, size = "md", unfollowOnHover = true,
-    followLabel = "팔로우", followingLabel = "팔로잉", unfollowLabel = "언팔로우",
-    className, ...props
-  }, ref) => {
+  (
+    {
+      following,
+      onChange,
+      size = "md",
+      unfollowOnHover = true,
+      followLabel = "팔로우",
+      followingLabel = "팔로잉",
+      unfollowLabel = "언팔로우",
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const [hover, setHover] = useState(false);
     const showUnfollow = following && unfollowOnHover && hover;
     const label = following ? (showUnfollow ? unfollowLabel : followingLabel) : followLabel;
@@ -55,15 +65,19 @@ export const FollowButton = forwardRef<HTMLButtonElement, FollowButtonProps>(
         onBlur={() => setHover(false)}
         onClick={() => onChange(!following)}
         className={cn(
-          "inline-flex items-center justify-center rounded-full font-semibold transition-all cursor-pointer select-none",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
+          "inline-flex items-center justify-center rounded-full font-semibold cursor-pointer select-none whitespace-nowrap",
+          // 라벨이 팔로우↔언팔로우로 바뀌면 폭이 변한다. `all` 이면 그 폭까지 전이돼 글자가 흐른다.
+          "transition-[color,background-color,border-color,transform,filter] duration-150",
+          "motion-reduce:transition-none",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           "active:scale-[0.98] motion-reduce:active:scale-100",
           sizeMap[size],
           following
             ? showUnfollow
-              ? "border border-rose-500 text-rose-500 bg-transparent"
-              : "border border-border text-foreground bg-transparent"
-            : "bg-primary text-white hover:brightness-110",
+              ? // 언팔로우는 파괴적 동작이다 — 로즈 리터럴 대신 시스템의 danger 를 쓴다.
+                "border border-danger text-danger bg-transparent hover:bg-danger/10"
+              : "border border-border text-foreground bg-transparent hover:bg-card-hover"
+            : "bg-primary text-white hover:brightness-110 shadow-[0_1px_2px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.15)]",
           className,
         )}
         {...props}

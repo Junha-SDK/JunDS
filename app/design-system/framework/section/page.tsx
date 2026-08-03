@@ -21,11 +21,17 @@ export default function SectionPage() {
         <Preview>
           <VStack gap="lg">
             <Section title="최근 활동" description="지난 7일간의 활동입니다">
-              <Box p={3} bg="surface-raised" radius="md" border><span className="text-sm">활동 1</span></Box>
-              <Box p={3} bg="surface-raised" radius="md" border><span className="text-sm">활동 2</span></Box>
+              <Box p={3} bg="surface-raised" radius="md" border>
+                <span className="text-sm">활동 1</span>
+              </Box>
+              <Box p={3} bg="surface-raised" radius="md" border>
+                <span className="text-sm">활동 2</span>
+              </Box>
             </Section>
             <Section title="통계" border p={4}>
-              <Box p={3} bg="primary" radius="md" color="white"><span className="text-sm">테두리 있는 섹션</span></Box>
+              <Box p={3} bg="primary" radius="md" color="white">
+                <span className="text-sm">테두리 있는 섹션</span>
+              </Box>
             </Section>
           </VStack>
         </Preview>

@@ -29,5 +29,9 @@ export function Show({ children, above, below }: ShowProps) {
 }
 
 export function Hide({ children, above, below }: ShowProps) {
-  return <Show above={below} below={above}>{children}</Show>;
+  return (
+    <Show above={below} below={above}>
+      {children}
+    </Show>
+  );
 }

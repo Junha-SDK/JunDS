@@ -73,10 +73,7 @@ function _detectGlobalOverrides(): boolean {
 
   for (const api of criticalAPIs) {
     try {
-      const descriptor = Object.getOwnPropertyDescriptor(
-        api.obj,
-        api.name
-      );
+      const descriptor = Object.getOwnPropertyDescriptor(api.obj, api.name);
       if (descriptor && (descriptor.get || descriptor.set)) {
         return true;
       }
@@ -91,9 +88,7 @@ function _detectGlobalOverrides(): boolean {
 /**
  * 무결성 검사를 실행하고 위반 시 콜백 호출
  */
-export function _runIntegrityCheck(
-  onViolation?: (type: string) => void
-): boolean {
+export function _runIntegrityCheck(onViolation?: (type: string) => void): boolean {
   if (process.env.NODE_ENV !== "production") return true;
 
   let clean = true;
@@ -122,9 +117,7 @@ export function _runIntegrityCheck(
 /**
  * 주기적 무결성 검사 시작
  */
-export function _startIntegrityMonitor(
-  onViolation?: (type: string) => void
-): void {
+export function _startIntegrityMonitor(onViolation?: (type: string) => void): void {
   if (_state._initialized) return;
   if (process.env.NODE_ENV !== "production") return;
 

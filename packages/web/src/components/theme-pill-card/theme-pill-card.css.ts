@@ -7,44 +7,80 @@ import { css } from "../../core/styles.js";
  * 필요하면 --jd-fin-orange 폴백 체인으로 연다.
  */
 export default css`
-@layer junds.components {
-  jd-theme-pill-card {
-    --jd-fin-card: var(--bm-card, var(--jd-color-card));
-    --jd-fin-border: var(--bm-border, var(--jd-color-border));
-    --jd-fin-text: var(--bm-text, var(--jd-color-foreground));
-    --jd-fin-soft: var(--bm-soft-100, color-mix(in srgb, var(--jd-color-foreground) 6%, transparent));
+  @layer junds.components {
+    jd-theme-pill-card {
+      --jd-fin-card: var(--bm-card, var(--jd-color-card));
+      --jd-fin-border: var(--bm-border, var(--jd-color-border));
+      --jd-fin-text: var(--bm-text, var(--jd-color-foreground));
+      --jd-fin-soft: var(
+        --bm-soft-100,
+        color-mix(in srgb, var(--jd-color-foreground) 6%, transparent)
+      );
 
-    display: block; box-sizing: border-box; font-family: var(--jd-font-sans);
-  }
-  jd-theme-pill-card * { box-sizing: border-box; }
+      display: block;
+      box-sizing: border-box;
+      font-family: var(--jd-font-sans);
+    }
+    jd-theme-pill-card * {
+      box-sizing: border-box;
+    }
 
-  .jd-theme-pill-card {
-    display: flex; align-items: center; justify-content: space-between; gap: var(--jd-space-2);
-    padding: var(--jd-space-2-5) var(--jd-space-3);
-    background: var(--jd-fin-card);
-    border: var(--jd-border-thin) solid var(--jd-fin-border);
-    border-radius: var(--jd-radius-2xl);
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
-    color: var(--jd-fin-text);
-    transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out);
-  }
-  .jd-theme-pill-card:hover { background: var(--jd-fin-soft); }
+    .jd-theme-pill-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--jd-space-2);
+      padding: var(--jd-space-2-5) var(--jd-space-3);
+      background: var(--jd-fin-card);
+      border: var(--jd-border-thin) solid var(--jd-fin-border);
+      border-radius: var(--jd-radius-2xl);
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      color: var(--jd-fin-text);
+      transition: background-color var(--jd-duration-fast) var(--jd-easing-ease-out);
+    }
+    .jd-theme-pill-card:hover {
+      background: var(--jd-fin-soft);
+    }
 
-  .jd-theme-pill-card__name {
-    min-width: 0; font-size: 13px; font-weight: var(--jd-weight-bold);
-    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  }
-  .jd-theme-pill-card__total {
-    flex-shrink: 0;
-    padding: var(--jd-space-0-5) var(--jd-space-2);
-    border-radius: var(--jd-radius-md);
-    font-size: var(--jd-text-xs); font-weight: var(--jd-weight-bold);
-    font-variant-numeric: tabular-nums; white-space: nowrap;
-    background: var(--jd-fin-orange-soft, color-mix(in srgb, color-mix(in srgb, var(--jd-color-hue-orange) var(--jd-tone-lift), #ffffff) var(--jd-tone-bg-mix), transparent));
-    color: var(--jd-fin-orange, color-mix(in srgb, var(--jd-color-hue-orange) var(--jd-tone-ink-mix), var(--jd-tone-ink-toward)));
-  }
+    .jd-theme-pill-card__name {
+      min-width: 0;
+      font-size: 13px;
+      font-weight: var(--jd-weight-bold);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .jd-theme-pill-card__total {
+      flex-shrink: 0;
+      padding: var(--jd-space-0-5) var(--jd-space-2);
+      border-radius: var(--jd-radius-md);
+      font-size: var(--jd-text-xs);
+      font-weight: var(--jd-weight-bold);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      background: var(
+        --jd-fin-orange-soft,
+        color-mix(
+          in srgb,
+          color-mix(in srgb, var(--jd-color-hue-orange) var(--jd-tone-lift), #ffffff)
+            var(--jd-tone-bg-mix),
+          transparent
+        )
+      );
+      color: var(
+        --jd-fin-orange,
+        color-mix(
+          in srgb,
+          var(--jd-color-hue-orange) var(--jd-tone-ink-mix),
+          var(--jd-tone-ink-toward)
+        )
+      );
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-theme-pill-card { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-theme-pill-card {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // 데모 앱은 소비자이므로 UIKit 구현을 스스로 랩해 쓴다 — 라이브러리 관할 밖 (DEC-010 각주)
 
@@ -108,7 +108,8 @@ final class UIKitModalHostController: UIViewController {
         title.adjustsFontForContentSizeCategory = true
 
         let body = UILabel()
-        body.text = persistent
+        body.text =
+            persistent
             ? "persistent — 스와이프로 닫히지 않는다. 닫기 버튼이 requestClose(.close)를 호출한다."
             : "스와이프 다운 = 웹 백드롭 경로(jd-request-close reason: backdrop)."
         body.numberOfLines = 0

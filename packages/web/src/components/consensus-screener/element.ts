@@ -266,26 +266,26 @@ export class JdConsensusScreener extends JdElement {
     if (this.#sortSelect) this.#sortSelect.value = this.#sort;
 
     // 매수 버튼 활성
-    this.#bullRow?.querySelectorAll<HTMLButtonElement>(".jd-consensus-screener__bull-btn").forEach(
-      (b) => {
+    this.#bullRow
+      ?.querySelectorAll<HTMLButtonElement>(".jd-consensus-screener__bull-btn")
+      .forEach((b) => {
         const on = Number(b.dataset.bulls) === this.#minBulls;
         b.toggleAttribute("data-active", on);
         b.setAttribute("aria-pressed", String(on));
-      },
-    );
+      });
 
     if (this.#investorsDirty) {
       this.#rebuildChips();
       this.#investorsDirty = false;
     }
     // 칩 활성
-    this.#chipRow?.querySelectorAll<HTMLButtonElement>(".jd-consensus-screener__chip").forEach(
-      (c) => {
+    this.#chipRow
+      ?.querySelectorAll<HTMLButtonElement>(".jd-consensus-screener__chip")
+      .forEach((c) => {
         const on = (c.dataset.investor || "all") === this.#filterInvestor;
         c.toggleAttribute("data-active", on);
         c.setAttribute("aria-pressed", String(on));
-      },
-    );
+      });
 
     const filtered = this.#filtered();
     if (this.#countEl) this.#countEl.textContent = `${filtered.length}개 종목`;
@@ -303,7 +303,12 @@ export class JdConsensusScreener extends JdElement {
     }
   }
 
-  #makeChip(id: string, label: string, count: number | undefined, emoji?: string): HTMLButtonElement {
+  #makeChip(
+    id: string,
+    label: string,
+    count: number | undefined,
+    emoji?: string,
+  ): HTMLButtonElement {
     const chip = document.createElement("button");
     chip.type = "button";
     chip.className = "jd-consensus-screener__chip";
@@ -356,7 +361,17 @@ export class JdConsensusScreener extends JdElement {
     table.className = "jd-consensus-screener__table";
     const thead = document.createElement("thead");
     const hr = document.createElement("tr");
-    for (const h of ["종목", "현재가", "등락률", "PER", "ROE", "▲ 매수", "▼ 매도", "평균 점수", "지지자"]) {
+    for (const h of [
+      "종목",
+      "현재가",
+      "등락률",
+      "PER",
+      "ROE",
+      "▲ 매수",
+      "▼ 매도",
+      "평균 점수",
+      "지지자",
+    ]) {
       const th = document.createElement("th");
       th.scope = "col";
       th.textContent = h;

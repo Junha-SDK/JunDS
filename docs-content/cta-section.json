@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "CTASection",
   "oneLiner": "행동 유도(CTA) 섹션 블록.",
-  "tags": [
-    "marketing",
-    "cta",
-    "섹션"
-  ],
+  "tags": ["marketing", "cta", "섹션"],
   "controls": [],
   "snippets": {
     "web": null,

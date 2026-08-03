@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useFocusMode",
   "oneLiner": "몰입(포커스) 모드 상태 관리.",
-  "tags": [
-    "hook",
-    "상태",
-    "포커스"
-  ],
+  "tags": ["hook", "상태", "포커스"],
   "controls": [],
   "snippets": {
     "web": null,

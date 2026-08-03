@@ -9,7 +9,9 @@ import { mount } from "./helpers.js";
 const BLUE_PNG =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='45'%3E%3Crect width='80' height='45' fill='%235b4cc7'/%3E%3C/svg%3E";
 
-test("jd-scroll-area: max-height가 padding·border를 포함한 총높이 상한 (DEC-014-9)", async ({ page }) => {
+test("jd-scroll-area: max-height가 padding·border를 포함한 총높이 상한 (DEC-014-9)", async ({
+  page,
+}) => {
   await mount(
     page,
     `<jd-scroll-area max-height="140" style="padding:12px;border:1px solid #000">
@@ -25,7 +27,9 @@ test("jd-scroll-area: max-height가 padding·border를 포함한 총높이 상�
   expect(box.overflows).toBe(true);
 });
 
-test("jd-scroll-area: 포커스 후 PageDown이 영역을 스크롤한다 (role=region + tabIndex)", async ({ page }) => {
+test("jd-scroll-area: 포커스 후 PageDown이 영역을 스크롤한다 (role=region + tabIndex)", async ({
+  page,
+}) => {
   await mount(
     page,
     `<jd-scroll-area max-height="120"><div style="height:800px">긴 내용</div></jd-scroll-area>`,
@@ -51,7 +55,9 @@ test("jd-image: 실제 로드 성공 → loaded, 404 → error + fallback 노출
   await expect(page.locator("#bad img")).toBeHidden(); // 실패 이미지는 감춘다
 });
 
-test("jd-image: 캐시된 이미지도 loaded로 보정된다 (리스너보다 로드가 빠른 경우)", async ({ page }) => {
+test("jd-image: 캐시된 이미지도 loaded로 보정된다 (리스너보다 로드가 빠른 경우)", async ({
+  page,
+}) => {
   await mount(page, `<jd-image src="${BLUE_PNG}" alt="첫 로드" style="width:80px"></jd-image>`);
   await expect(page.locator("jd-image")).toHaveAttribute("status", "loaded");
   // 같은 src로 새 요소를 붙이면 메모리 캐시에서 즉시 complete일 수 있다
@@ -65,7 +71,9 @@ test("jd-image: 캐시된 이미지도 loaded로 보정된다 (리스너보다 �
   await expect(page.locator("#cached")).toHaveAttribute("status", "loaded");
 });
 
-test("jd-motion: 감속 선호에서 애니메이션이 꺼지고 force-motion은 유지한다 (JS 0줄)", async ({ page }) => {
+test("jd-motion: 감속 선호에서 애니메이션이 꺼지고 force-motion은 유지한다 (JS 0줄)", async ({
+  page,
+}) => {
   await mount(
     page,
     `<jd-motion id="a" preset="fade-up">기본</jd-motion>

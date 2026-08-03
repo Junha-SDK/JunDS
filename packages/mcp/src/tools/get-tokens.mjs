@@ -27,9 +27,7 @@ export function getTokens(data, input = {}) {
   if (name) {
     const q = String(name).toLowerCase();
     // 정확 일치(cssVar/path/swift) 우선, 없으면 부분 일치로 완화.
-    const exact = entries.filter(
-      (t) => t.cssVar === name || t.path === name || t.swift === name,
-    );
+    const exact = entries.filter((t) => t.cssVar === name || t.path === name || t.swift === name);
     entries = exact.length
       ? exact
       : entries.filter(

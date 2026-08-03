@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // 표시 계열 순수 함수는 전수 검증 (04 §4.2 규칙 1·3, DESIGN-2 §C).
 // 임계값·클램프는 웹 update()의 리터럴(>70 / >30, Math.max(0, Math.min(100, v)))이 정본이다.
@@ -10,9 +10,9 @@ final class JdBatterySpecTests: XCTestCase {
 
     func test_autoColor_threshold_boundaries() {
         XCTAssertEqual(JdBatterySpec.autoColor(for: 0), .danger)
-        XCTAssertEqual(JdBatterySpec.autoColor(for: 30), .danger)     // >30 아님 → danger
+        XCTAssertEqual(JdBatterySpec.autoColor(for: 30), .danger)  // >30 아님 → danger
         XCTAssertEqual(JdBatterySpec.autoColor(for: 30.1), .warning)
-        XCTAssertEqual(JdBatterySpec.autoColor(for: 70), .warning)    // >70 아님 → warning
+        XCTAssertEqual(JdBatterySpec.autoColor(for: 70), .warning)  // >70 아님 → warning
         XCTAssertEqual(JdBatterySpec.autoColor(for: 70.1), .success)
         XCTAssertEqual(JdBatterySpec.autoColor(for: 100), .success)
     }
@@ -109,8 +109,9 @@ final class JdStatusDotSpecTests: XCTestCase {
     func test_pulses_flag_only_for_pulse() {
         for status in JdStatusKind.allCases {
             let spec = JdStatusDotSpec.resolve(status: status, size: .md)
-            XCTAssertEqual(spec.pulses, status == .pulse,
-                           "pulses 플래그 불일치: \(status.rawValue)")
+            XCTAssertEqual(
+                spec.pulses, status == .pulse,
+                "pulses 플래그 불일치: \(status.rawValue)")
         }
     }
 
@@ -134,18 +135,24 @@ final class JdStatusDotSpecTests: XCTestCase {
 
     // 웹 색 매핑: info=primary(v2 동형), pulse=success와 동색
     func test_color_mapping() {
-        XCTAssertEqual(JdStatusDotSpec.resolve(status: .success, size: .md).color.light,
-                       JdToken.Color.success.light)
-        XCTAssertEqual(JdStatusDotSpec.resolve(status: .pulse, size: .md).color.light,
-                       JdToken.Color.success.light)
-        XCTAssertEqual(JdStatusDotSpec.resolve(status: .warning, size: .md).color.light,
-                       JdToken.Color.warning.light)
-        XCTAssertEqual(JdStatusDotSpec.resolve(status: .danger, size: .md).color.light,
-                       JdToken.Color.danger.light)
-        XCTAssertEqual(JdStatusDotSpec.resolve(status: .info, size: .md).color.light,
-                       JdToken.Color.primary.light)
-        XCTAssertEqual(JdStatusDotSpec.resolve(status: .neutral, size: .md).color.light,
-                       0x9CA3_AFFF)
+        XCTAssertEqual(
+            JdStatusDotSpec.resolve(status: .success, size: .md).color.light,
+            JdToken.Color.success.light)
+        XCTAssertEqual(
+            JdStatusDotSpec.resolve(status: .pulse, size: .md).color.light,
+            JdToken.Color.success.light)
+        XCTAssertEqual(
+            JdStatusDotSpec.resolve(status: .warning, size: .md).color.light,
+            JdToken.Color.warning.light)
+        XCTAssertEqual(
+            JdStatusDotSpec.resolve(status: .danger, size: .md).color.light,
+            JdToken.Color.danger.light)
+        XCTAssertEqual(
+            JdStatusDotSpec.resolve(status: .info, size: .md).color.light,
+            JdToken.Color.primary.light)
+        XCTAssertEqual(
+            JdStatusDotSpec.resolve(status: .neutral, size: .md).color.light,
+            0x9CA3_AFFF)
     }
 }
 
@@ -163,10 +170,12 @@ final class JdSeverityBadgeSpecTests: XCTestCase {
             XCTAssertGreaterThan(spec.fontSize, 0)
             XCTAssertEqual(spec.dotSize, 8)
             XCTAssertEqual(spec.gap, JdToken.Space.s1_5)
-            XCTAssertTrue(backgrounds.insert(spec.background.light).inserted,
-                          "배경 중복: \(severity.rawValue)")
-            XCTAssertTrue(dots.insert(spec.dotColor.light).inserted,
-                          "점 색 중복: \(severity.rawValue)")
+            XCTAssertTrue(
+                backgrounds.insert(spec.background.light).inserted,
+                "배경 중복: \(severity.rawValue)")
+            XCTAssertTrue(
+                dots.insert(spec.dotColor.light).inserted,
+                "점 색 중복: \(severity.rawValue)")
             // 점 색은 v2 500 계열 리터럴이라 테마 불변
             XCTAssertEqual(spec.dotColor.light, spec.dotColor.dark)
         }

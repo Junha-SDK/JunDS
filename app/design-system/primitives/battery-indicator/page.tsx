@@ -11,15 +11,25 @@ export default function BatteryIndicatorPage() {
       importPath='import { BatteryIndicator } from "@/ds/primitives/BatteryIndicator"'
       props={[
         { name: "value", type: "number", required: true, description: "0-100 퍼센트 값" },
-        { name: "autoColor", type: "boolean", default: "false", description: "상태에 따른 색상 자동 적용 (>70 green, >30 yellow, else red)" },
-        { name: "color", type: '"success"|"warning"|"danger"|"primary"', description: "수동 색상 지정" },
+        {
+          name: "autoColor",
+          type: "boolean",
+          default: "false",
+          description: "상태에 따른 색상 자동 적용 (>70 green, >30 yellow, else red)",
+        },
+        {
+          name: "color",
+          type: '"success"|"warning"|"danger"|"primary"',
+          description: "수동 색상 지정",
+        },
         { name: "label", type: "string", description: "라벨 텍스트" },
         { name: "size", type: '"sm"|"md"|"lg"', default: '"md"', description: "크기" },
       ]}
     >
       <Section title="자동 색상">
         <p className="text-sm text-muted mb-3">
-          autoColor를 사용하면 값에 따라 자동으로 색상이 변경됩니다. 70% 이상은 초록, 30% 이상은 노랑, 그 이하는 빨강으로 표시됩니다.
+          autoColor를 사용하면 값에 따라 자동으로 색상이 변경됩니다. 70% 이상은 초록, 30% 이상은
+          노랑, 그 이하는 빨강으로 표시됩니다.
         </p>
         <Preview>
           <div className="flex items-center gap-6">

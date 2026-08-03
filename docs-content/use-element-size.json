@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useElementSize",
   "oneLiner": "요소 크기 관찰(ResizeObserver).",
-  "tags": [
-    "hook",
-    "측정",
-    "resize"
-  ],
+  "tags": ["hook", "측정", "resize"],
   "controls": [],
   "snippets": {
     "web": null,

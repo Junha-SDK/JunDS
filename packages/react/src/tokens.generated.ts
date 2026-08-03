@@ -120,6 +120,7 @@ export const spacing = {
 } as const;
 
 export const fontSize = {
+  "2xs": "0.6875rem",
   xs: "0.75rem",
   sm: "0.8125rem",
   md: "0.875rem",
@@ -152,12 +153,15 @@ export const letterSpacing = {
   tight: "-0.025em",
   normal: "0em",
   wide: "0.025em",
+  wider: "0.08em",
 } as const;
 
 export const fontFamily = {
-  sans: "'Pretendard', 'Inter', -apple-system, 'Segoe UI', sans-serif",
-  serif: "'Noto Serif KR', 'Source Serif Pro', Georgia, serif",
-  mono: "'JetBrains Mono', 'Geist Mono', ui-monospace, monospace",
+  sans: "\"Pretendard Variable\", Pretendard, \"Inter\", \"Noto Sans KR\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+  serif: "\"Noto Serif KR\", \"Nanum Myeongjo\", Georgia, \"Times New Roman\", serif",
+  display: "\"Playfair Display\", Georgia, \"Times New Roman\", serif",
+  hand: "\"Caveat\", \"Bradley Hand\", \"Segoe Script\", cursive",
+  mono: "ui-monospace, \"SF Mono\", \"JetBrains Mono\", \"Fira Code\", Menlo, Consolas, \"Liberation Mono\", monospace",
 } as const;
 
 export const shadows = {
@@ -264,6 +268,16 @@ export const mediaQueries: Record<Breakpoint, string> = {
   xl: "(min-width: 1280px)",
   "2xl": "(min-width: 1536px)",
 };
+
+export const containerSizes = {
+  xs: 512,
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  "2xl": 1536,
+} as const;
+export type ContainerSize = keyof typeof containerSizes | "full";
 
 export const gradients = {
   primary: "linear-gradient(135deg, var(--jd-color-primary) 0%, var(--jd-color-primary-hover) 100%)",

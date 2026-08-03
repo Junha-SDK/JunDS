@@ -23,21 +23,27 @@ const resultsDir = join(repoRoot, "benchmarks", "results", "ios");
 const baselinePath = join(resultsDir, "baseline.json");
 const budgetsPath = join(here, "bench-budgets.json");
 
-const REGRESSION_TOLERANCE = 0.10; // 시간 지표 ±10% 허용 오차 (05-perf §3.2)
+const REGRESSION_TOLERANCE = 0.1; // 시간 지표 ±10% 허용 오차 (05-perf §3.2)
 
 // ① 최신 결과 — 파일명이 ISO 날짜라 사전순 = 시간순
 if (!existsSync(resultsDir)) {
   console.error(`[gate] FAIL: 결과 디렉터리 없음 — ${resultsDir} (run-bench.mjs 먼저)`);
   process.exit(1);
 }
-const files = readdirSync(resultsDir).filter((f) => /^\d{4}-\d{2}-\d{2}-sim\.json$/.test(f)).sort();
+const files = readdirSync(resultsDir)
+  .filter((f) => /^\d{4}-\d{2}-\d{2}-sim\.json$/.test(f))
+  .sort();
 if (files.length === 0) {
-  console.error(`[gate] FAIL: <YYYY-MM-DD>-sim.json 결과 없음 — ${resultsDir} (run-bench.mjs 먼저)`);
+  console.error(
+    `[gate] FAIL: <YYYY-MM-DD>-sim.json 결과 없음 — ${resultsDir} (run-bench.mjs 먼저)`,
+  );
   process.exit(1);
 }
 const latestFile = files[files.length - 1];
 const latest = JSON.parse(readFileSync(join(resultsDir, latestFile), "utf8"));
-console.log(`[gate] 최신 결과: ${latestFile} (${latest.meta?.device ?? "?"} · ${latest.meta?.os ?? "?"})`);
+console.log(
+  `[gate] 최신 결과: ${latestFile} (${latest.meta?.device ?? "?"} · ${latest.meta?.os ?? "?"})`,
+);
 
 // ② 기준선 신설
 if (!existsSync(baselinePath)) {
@@ -67,7 +73,11 @@ for (const [key, { avgSeconds }] of Object.entries(latest.results ?? {})) {
     const delta = (avgSeconds - base) / base;
     deltaLabel = `${delta >= 0 ? "+" : ""}${(delta * 100).toFixed(1)}%`;
     if (delta > REGRESSION_TOLERANCE) {
-      failures.push(`${key}: avg ${avgSeconds}s — 기준선 ${base}s 대비 ${deltaLabel} (> +${REGRESSION_TOLERANCE * 100}%)`);
+      failures.push(
+        `${key}: avg ${avgSeconds}s — 기준선 ${base}s 대비 ${deltaLabel} (> +${
+          REGRESSION_TOLERANCE * 100
+        }%)`,
+      );
     }
   } else if (typeof base === "number") {
     deltaLabel = "기준선 0s — Δ 비교 생략";
@@ -76,19 +86,37 @@ for (const [key, { avgSeconds }] of Object.entries(latest.results ?? {})) {
   const perInstance = budget?.perInstanceDivisor
     ? `${((avgSeconds / budget.perInstanceDivisor) * 1000).toFixed(4)}ms/개`
     : "-";
-  rows.push({ key, avg: `${avgSeconds}s`, perInstance, base: typeof base === "number" ? `${base}s` : "-", delta: deltaLabel });
+  rows.push({
+    key,
+    avg: `${avgSeconds}s`,
+    perInstance,
+    base: typeof base === "number" ? `${base}s` : "-",
+    delta: deltaLabel,
+  });
 }
 
 // 예산에는 있는데 결과에 없는 벤치 = 이름 변경/삭제 회귀 — 조용히 통과시키지 않는다
 for (const key of Object.keys(budgets)) {
   if (key === "$comment") continue;
-  if (!latest.results?.[key]) failures.push(`${key}: 예산 항목이 결과에 없음 — 벤치 삭제/개명 여부 확인`);
+  if (!latest.results?.[key])
+    failures.push(`${key}: 예산 항목이 결과에 없음 — 벤치 삭제/개명 여부 확인`);
 }
 
 // Δ% 표
-const widths = ["key", "avg", "perInstance", "base", "delta"].map((c) => Math.max(c.length, ...rows.map((r) => r[c].length)));
-const line = (r) => [r.key.padEnd(widths[0]), r.avg.padStart(widths[1]), r.perInstance.padStart(widths[2]), r.base.padStart(widths[3]), r.delta.padStart(widths[4])].join("  ");
-console.log(line({ key: "key", avg: "avg", perInstance: "perInstance", base: "base", delta: "delta" }));
+const widths = ["key", "avg", "perInstance", "base", "delta"].map((c) =>
+  Math.max(c.length, ...rows.map((r) => r[c].length)),
+);
+const line = (r) =>
+  [
+    r.key.padEnd(widths[0]),
+    r.avg.padStart(widths[1]),
+    r.perInstance.padStart(widths[2]),
+    r.base.padStart(widths[3]),
+    r.delta.padStart(widths[4]),
+  ].join("  ");
+console.log(
+  line({ key: "key", avg: "avg", perInstance: "perInstance", base: "base", delta: "delta" }),
+);
 for (const r of rows) console.log(line(r));
 
 if (failures.length > 0) {
@@ -96,4 +124,6 @@ if (failures.length > 0) {
   for (const f of failures) console.error(`[gate]   ${f}`);
   process.exit(1);
 }
-console.log(`\n[gate] PASS — ${rows.length}건 (절대 예산 + 기준선 ±${REGRESSION_TOLERANCE * 100}% 이내)`);
+console.log(
+  `\n[gate] PASS — ${rows.length}건 (절대 예산 + 기준선 ±${REGRESSION_TOLERANCE * 100}% 이내)`,
+);

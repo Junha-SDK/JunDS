@@ -6,8 +6,8 @@
  * (배정 밖) 트리맵 렌더를 여기 흡수한다 — 이 컴포넌트의 시각 전부가 그 트리맵이다.
  *
  * SVG는 **createElementNS**로 만든다(§6-1). 배치는 v2 MarketHeatmap의 squarified
- * (Bruls/Huijing/van Wijk)를 그대로, 색은 v2 heatmapColor(한국식 상승=빨강·하락=파랑
- * HSL)를 포팅한다.
+ * (Bruls/Huijing/van Wijk)를 그대로, 색은 heatmapColor가 세기만 정하고 상승/하락 색은
+ * --jd-finance-* 훅이 정한다(아래 주석).
  *
  * 결정적 렌더(§3.1-3):
  *  - 최초 render/update는 보유 데이터만으로 결정된다 — Date/random 없음.
@@ -20,7 +20,14 @@
  */
 import { JdElement } from "../../core/element.js";
 import { adoptStyles } from "../../core/styles.js";
-import { svgNode, setAttrs, coord, positive, groupDigits, upgradeAccessor } from "../../core/chart.js";
+import {
+  svgNode,
+  setAttrs,
+  coord,
+  positive,
+  groupDigits,
+  upgradeAccessor,
+} from "../../core/chart.js";
 import { createInterval, type Timer } from "../../behaviors/timing.js";
 import portfolioHeatmapStyles from "./portfolio-heatmap.css.js";
 
@@ -51,14 +58,26 @@ interface Placed extends Cell {
   rect: Rect;
 }
 
-/** 한국식 히트맵 색 — 상승=빨강, 하락=파랑 (v2 lib/heatmapColor 포팅) */
+/**
+ * 칸 색 — 등락률의 **세기**만 여기서 정하고, 어느 쪽이 무슨 색인지는 --jd-finance-* 훅이
+ * 정한다. v2가 박아 둔 hsl(358…)/hsl(218…)은 (1) 앱이 한국 관례로 뒤집어도 이 히트맵만
+ * 옛 색으로 남고 (2) 채도 76~92%의 순색이라 칸이 수십 개 깔리면 눈이 아팠다(§8).
+ * 세기는 캔버스 토큰(surface) 쪽으로 눅인다 — 카드색 쪽으로 눅이면 약한 칸이 라이트에서
+ * 파스텔이 되어 흰 라벨이 녹는다. surface는 두 모드에서 모두 어둡다(§4).
+ * 형제 jd-market-heatmap의 heatmapColor와 같은 램프.
+ */
 function heatmapColor(pct: number, scale: number): string {
   const clamped = Math.max(-scale, Math.min(scale, pct));
   const t = Math.min(1, Math.abs(clamped) / scale);
-  if (Math.abs(clamped) < 0.1) return "hsl(220, 10%, 52%)";
-  const r = (v: number): number => Math.round(v * 10) / 10;
-  if (clamped > 0) return `hsl(358, ${r(76 + 16 * t)}%, ${r(58 - 14 * t)}%)`;
-  return `hsl(218, ${r(74 + 18 * t)}%, ${r(58 - 16 * t)}%)`;
+  if (Math.abs(clamped) < 0.1) {
+    return "color-mix(in srgb, var(--jd-color-muted) 30%, var(--jd-color-surface))";
+  }
+  const hook =
+    clamped > 0
+      ? "var(--jd-finance-up, var(--jd-color-success))"
+      : "var(--jd-finance-down, var(--jd-color-danger))";
+  const strength = (22 + 78 * t).toFixed(1);
+  return `color-mix(in srgb, ${hook} ${strength}%, var(--jd-color-surface))`;
 }
 
 function worstRatio(row: { area: number }[], shorter: number): number {
@@ -322,7 +341,9 @@ export class JdPortfolioHeatmap extends JdElement {
     this.#stats.eval.sub.textContent = "";
 
     const upDown = (v: number): string =>
-      v >= 0 ? "var(--jd-finance-up, var(--jd-color-success))" : "var(--jd-finance-down, var(--jd-color-danger))";
+      v >= 0
+        ? "var(--jd-finance-up, var(--jd-color-success))"
+        : "var(--jd-finance-down, var(--jd-color-danger))";
     this.#stats.pnl.value.textContent = `${signed(totalPnL)}${fmtMoney(totalPnL)}`;
     this.#stats.pnl.value.style.color = upDown(totalPnL);
     this.#stats.pnl.sub.textContent = `${signed(totalPct)}${totalPct.toFixed(2)}%`;
@@ -357,7 +378,9 @@ export class JdPortfolioHeatmap extends JdElement {
     this.#sr.replaceChildren(
       ...this.#holdings.map((holdItem) => {
         const li = this.ownerDocument.createElement("li");
-        li.textContent = `${holdItem.name}: 평가 ${fmtMoney(holdItem.qty * holdItem.current)}원, ${signed(holdItem.pct)}${holdItem.pct.toFixed(2)}%`;
+        li.textContent = `${holdItem.name}: 평가 ${fmtMoney(
+          holdItem.qty * holdItem.current,
+        )}원, ${signed(holdItem.pct)}${holdItem.pct.toFixed(2)}%`;
         return li;
       }),
     );
@@ -373,7 +396,10 @@ export class JdPortfolioHeatmap extends JdElement {
       width: coord(Math.max(0, rect.w - 1)),
       height: coord(Math.max(0, rect.h - 1)),
     });
-    r.setAttribute("fill", heatmapColor(c.change, scale));
+    // 표시 속성(fill=)은 var()를 풀지 못한다 — 토큰으로 말하려면 인라인 style이어야 한다
+    // (treemap-chart 색 규약과 동형). setProperty로 넣는 이유는 SVG 표시 속성 이름을
+    // 타입드 접근자로 갖지 않는 DOM 구현(프리렌더 shim)에서도 값이 남게 하기 위해서다.
+    r.style.setProperty("fill", heatmapColor(c.change, scale));
     g.append(r);
 
     const baseFont = Math.max(8.5, Math.min(rect.w * 0.13, rect.h * 0.24, 19));

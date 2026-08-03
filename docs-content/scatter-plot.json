@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ScatterPlot",
   "oneLiner": "산점도 차트.",
-  "tags": [
-    "chart",
-    "차트",
-    "산점도"
-  ],
+  "tags": ["chart", "차트", "산점도"],
   "controls": [],
   "snippets": {
     "web": null,

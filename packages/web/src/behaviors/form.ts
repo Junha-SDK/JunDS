@@ -55,7 +55,9 @@ function messageFor(rule: FieldRule | undefined, value: string): string {
 
 /** 에러를 어디에 실을지 — jd-* 컴포넌트면 error 프로퍼티, 아니면 aria-invalid */
 function showError(control: HTMLElement, message: string): void {
-  const host = control.closest<HTMLElement>("[error], jd-text-field, jd-textarea, jd-number-input, jd-password-input, jd-currency-input, jd-phone-input");
+  const host = control.closest<HTMLElement>(
+    "[error], jd-text-field, jd-textarea, jd-number-input, jd-password-input, jd-currency-input, jd-phone-input",
+  );
   if (host && "error" in host) {
     (host as unknown as { error: string }).error = message;
     return;

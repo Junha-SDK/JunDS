@@ -25,7 +25,8 @@ export default function TourPage() {
         <Preview>
           <div className="flex flex-col gap-6">
             <p className="text-sm text-muted">
-              아래 버튼을 클릭하면 가이드 투어가 시작됩니다. 각 단계에서 대상 요소가 하이라이트됩니다.
+              아래 버튼을 클릭하면 가이드 투어가 시작됩니다. 각 단계에서 대상 요소가
+              하이라이트됩니다.
             </p>
 
             <Button id="tour-start-btn" variant="primary" onClick={() => setShowTour(true)}>

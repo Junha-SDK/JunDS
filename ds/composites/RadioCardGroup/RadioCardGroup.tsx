@@ -18,7 +18,8 @@ export interface RadioCardOption {
   disabled?: boolean;
 }
 
-export interface RadioCardGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+export interface RadioCardGroupProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
   /** 옵션 목록 */
   options: RadioCardOption[];
   /** 선택값 */
@@ -41,57 +42,65 @@ export interface RadioCardGroupProps extends Omit<HTMLAttributes<HTMLDivElement>
  * @since 2.3.0
  * @tags input
  */
-export const RadioCardGroup = forwardRef<HTMLDivElement, RadioCardGroupProps>(function RadioCardGroup(
-  { options, value, defaultValue, onChange, name, columns = 1, className, ...props },
-  ref,
-) {
-  const [internal, setInternal] = useState(defaultValue ?? "");
-  const selected = value ?? internal;
+export const RadioCardGroup = forwardRef<HTMLDivElement, RadioCardGroupProps>(
+  function RadioCardGroup(
+    { options, value, defaultValue, onChange, name, columns = 1, className, ...props },
+    ref,
+  ) {
+    const [internal, setInternal] = useState(defaultValue ?? "");
+    const selected = value ?? internal;
 
-  const select = (v: string) => {
-    if (!value) setInternal(v);
-    onChange?.(v);
-  };
+    const select = (v: string) => {
+      if (!value) setInternal(v);
+      onChange?.(v);
+    };
 
-  return (
-    <div
-      ref={ref}
-      role="radiogroup"
-      className={cn("grid gap-2", className)}
-      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-      {...props}
-    >
-      {options.map((opt) => {
-        const isSelected = opt.value === selected;
-        return (
-          <label
-            key={opt.value}
-            className={cn(
-              "relative flex items-start gap-3 rounded-lg border p-3 cursor-pointer transition-colors",
-              isSelected
-                ? "border-primary bg-primary-soft ring-1 ring-primary/30"
-                : "border-border bg-surface hover:bg-surface-soft",
-              opt.disabled && "opacity-50 cursor-not-allowed",
-            )}
-          >
-            <input
-              type="radio"
-              name={name}
-              value={opt.value}
-              checked={isSelected}
-              disabled={opt.disabled}
-              onChange={() => select(opt.value)}
-              className="mt-1 accent-primary"
-            />
-            {opt.icon && <span className="shrink-0 mt-0.5 text-lg">{opt.icon}</span>}
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium">{opt.title}</div>
-              {opt.description && <div className="mt-0.5 text-xs text-muted">{opt.description}</div>}
-            </div>
-            {opt.badge && <span className="shrink-0 text-xs text-muted">{opt.badge}</span>}
-          </label>
-        );
-      })}
-    </div>
-  );
-});
+    return (
+      <div
+        ref={ref}
+        role="radiogroup"
+        className={cn("grid gap-2", className)}
+        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+        {...props}
+      >
+        {options.map((opt) => {
+          const isSelected = opt.value === selected;
+          return (
+            <label
+              key={opt.value}
+              className={cn(
+                "relative flex items-start gap-3 rounded-xl border p-3 cursor-pointer",
+                "transition-[background-color,border-color,box-shadow] duration-150",
+                // 포커스를 받는 건 안쪽 radio 다 — 어느 카드에 있는지는 카드가 보여 준다.
+                "focus-within:ring-2 focus-within:ring-primary/55 focus-within:ring-offset-2 focus-within:ring-offset-background",
+                isSelected
+                  ? // bg-primary-soft 는 @theme 에 없는 이름이라 선택 배경이 칠해지지 않았다.
+                    "border-primary bg-primary-light ring-1 ring-primary/30 shadow-[0_2px_10px_-4px_var(--primary-glow)]"
+                  : "border-border bg-surface hover:bg-surface-soft shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+                opt.disabled && "opacity-50 cursor-not-allowed",
+              )}
+            >
+              <input
+                type="radio"
+                name={name}
+                value={opt.value}
+                checked={isSelected}
+                disabled={opt.disabled}
+                onChange={() => select(opt.value)}
+                className="mt-1 accent-primary"
+              />
+              {opt.icon && <span className="shrink-0 mt-0.5 text-lg">{opt.icon}</span>}
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium">{opt.title}</div>
+                {opt.description && (
+                  <div className="mt-0.5 text-xs text-muted">{opt.description}</div>
+                )}
+              </div>
+              {opt.badge && <span className="shrink-0 text-xs text-muted">{opt.badge}</span>}
+            </label>
+          );
+        })}
+      </div>
+    );
+  },
+);

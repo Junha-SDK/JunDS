@@ -21,7 +21,10 @@ export interface ReadingGoalProps {
  * @tags book, feedback
  */
 export const ReadingGoal = forwardRef<HTMLDivElement, ReadingGoalProps>(
-  ({ current, target, unit = "권", label = "연간 목표", size = 140, thickness = 10, className }, ref) => {
+  (
+    { current, target, unit = "권", label = "연간 목표", size = 140, thickness = 10, className },
+    ref,
+  ) => {
     const pct = target > 0 ? Math.min(100, (current / target) * 100) : 0;
     const radius = (size - thickness) / 2;
     const circumference = 2 * Math.PI * radius;
@@ -40,7 +43,15 @@ export const ReadingGoal = forwardRef<HTMLDivElement, ReadingGoalProps>(
             aria-label={`${label} ${pctRounded}%`}
             className="-rotate-90"
           >
-            <circle cx={size / 2} cy={size / 2} r={radius} fill="none" strokeWidth={thickness} className="stroke-gray-200 dark:stroke-gray-800" />
+            <circle
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              fill="none"
+              strokeWidth={thickness}
+              // gray-200/gray-800 두 벌 대신 border 토큰 하나로 두 모드를 다 따라간다
+              className="stroke-border"
+            />
             <circle
               cx={size / 2}
               cy={size / 2}
@@ -50,14 +61,16 @@ export const ReadingGoal = forwardRef<HTMLDivElement, ReadingGoalProps>(
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={offset}
-              className="stroke-primary transition-[stroke-dashoffset] duration-700 ease-out"
+              // 링이 자라는 것은 움직임이다 — 감속 요청이면 최종 각도로 바로 간다
+              className="stroke-primary transition-[stroke-dashoffset] duration-700 ease-out motion-reduce:transition-none"
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-bold text-foreground tabular-nums">
-              {current}<span className="text-sm font-normal text-muted">/{target}</span>
+            <span className="text-2xl font-bold text-foreground tabular-nums whitespace-nowrap">
+              {current}
+              <span className="text-sm font-normal text-muted">/{target}</span>
             </span>
-            <span className="text-[11px] text-muted">{unit}</span>
+            <span className="text-[11px] text-muted whitespace-nowrap">{unit}</span>
           </div>
         </div>
         <p className="mt-2 text-xs text-muted">{label}</p>

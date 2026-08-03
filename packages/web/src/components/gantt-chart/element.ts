@@ -106,7 +106,9 @@ export class JdGanttChart extends JdElement {
 
   #readJson(): void {
     if (this.#tasks.length > 0) return;
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]");

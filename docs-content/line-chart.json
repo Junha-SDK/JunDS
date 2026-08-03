@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "LineChart",
   "oneLiner": "선 차트.",
-  "tags": [
-    "chart",
-    "차트",
-    "선"
-  ],
+  "tags": ["chart", "차트", "선"],
   "controls": [],
   "snippets": {
     "web": null,

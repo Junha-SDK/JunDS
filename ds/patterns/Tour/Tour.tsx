@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useId } from "react";
 import { cn } from "../../utils/cn";
 import { Portal } from "../../primitives/Portal";
 
@@ -32,6 +32,14 @@ interface Rect {
   height: number;
 }
 
+/** 팝오버 안의 작은 버튼 3종이 공유하는 상태 3종 — hover·active·focus-visible */
+const btnBase = cn(
+  "px-3 py-1 text-xs rounded-lg cursor-pointer transition-colors duration-150",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+);
+const btnPrimary =
+  "bg-primary text-white hover:bg-primary-hover active:bg-primary-hover shadow-[0_1px_2px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.18)]";
+
 /**
  * 가이드 투어 오버레이
  * @description 단계별로 UI 요소를 하이라이트하며 온보딩 가이드를 제공합니다.
@@ -45,10 +53,21 @@ interface Rect {
  * @since 2.2.0
  * @tags overlay, navigation
  */
-export function Tour({ steps, open, onClose, current: controlledCurrent, onStepChange, className }: TourProps) {
+export function Tour({
+  steps,
+  open,
+  onClose,
+  current: controlledCurrent,
+  onStepChange,
+  className,
+}: TourProps) {
   const [internalCurrent, setInternalCurrent] = useState(0);
   const [rect, setRect] = useState<Rect | null>(null);
+  // 렌더 중에 document 를 읽으면 서버 렌더에서 터진다 — 측정은 effect 로 미룬다
+  const [docHeight, setDocHeight] = useState(0);
   const popoverRef = useRef<HTMLDivElement>(null);
+  // 마스크 id 가 고정 문자열이면 투어 두 개가 같은 문서에 있을 때 서로의 구멍을 덮어쓴다
+  const maskId = `tour-mask-${useId()}`;
 
   const current = controlledCurrent ?? internalCurrent;
   const step = steps[current];
@@ -63,6 +82,7 @@ export function Tour({ steps, open, onClose, current: controlledCurrent, onStepC
 
   const updateRect = useCallback(() => {
     if (!step) return;
+    setDocHeight(document.documentElement.scrollHeight);
     const el = document.querySelector(step.target);
     if (!el) {
       setRect(null);
@@ -104,13 +124,29 @@ export function Tour({ steps, open, onClose, current: controlledCurrent, onStepC
     const gap = 12;
     switch (placement) {
       case "top":
-        return { top: rect.top - gap, left: rect.left + rect.width / 2, transform: "translate(-50%, -100%)" };
+        return {
+          top: rect.top - gap,
+          left: rect.left + rect.width / 2,
+          transform: "translate(-50%, -100%)",
+        };
       case "bottom":
-        return { top: rect.top + rect.height + gap, left: rect.left + rect.width / 2, transform: "translateX(-50%)" };
+        return {
+          top: rect.top + rect.height + gap,
+          left: rect.left + rect.width / 2,
+          transform: "translateX(-50%)",
+        };
       case "left":
-        return { top: rect.top + rect.height / 2, left: rect.left - gap, transform: "translate(-100%, -50%)" };
+        return {
+          top: rect.top + rect.height / 2,
+          left: rect.left - gap,
+          transform: "translate(-100%, -50%)",
+        };
       case "right":
-        return { top: rect.top + rect.height / 2, left: rect.left + rect.width + gap, transform: "translateY(-50%)" };
+        return {
+          top: rect.top + rect.height / 2,
+          left: rect.left + rect.width + gap,
+          transform: "translateY(-50%)",
+        };
     }
   };
 
@@ -118,9 +154,12 @@ export function Tour({ steps, open, onClose, current: controlledCurrent, onStepC
     <Portal>
       {/* 오버레이 */}
       <div className="fixed inset-0 z-[9998]" aria-hidden="true">
-        <svg className="absolute inset-0 w-full h-full" style={{ minHeight: document.documentElement.scrollHeight }}>
+        <svg
+          className="absolute inset-0 w-full h-full"
+          style={{ minHeight: docHeight || undefined }}
+        >
           <defs>
-            <mask id="tour-mask">
+            <mask id={maskId}>
               <rect x="0" y="0" width="100%" height="100%" fill="white" />
               {rect && (
                 <rect
@@ -140,7 +179,7 @@ export function Tour({ steps, open, onClose, current: controlledCurrent, onStepC
             width="100%"
             height="100%"
             fill="rgba(0,0,0,0.5)"
-            mask="url(#tour-mask)"
+            mask={`url(#${maskId})`}
           />
         </svg>
       </div>
@@ -151,15 +190,19 @@ export function Tour({ steps, open, onClose, current: controlledCurrent, onStepC
         role="dialog"
         aria-label={step.title}
         className={cn(
-          "absolute z-[9999] w-72 bg-white rounded-lg shadow-xl border border-gray-200 p-4",
+          "absolute z-[9999] w-72 max-w-[calc(100vw-2rem)] bg-card rounded-2xl border border-border p-4",
+          // 오버레이 위에 뜬 카드다 — 한 겹 shadow-xl 로는 마스크 구멍과 같은 평면으로 읽힌다.
+          // 등장 애니메이션은 넣지 않는다: 위치를 인라인 transform 이 잡고 있어
+          // fade-in-scale 계열 키프레임이 재생 중 그 transform 을 덮어쓰면 팝오버가 튄다.
+          "shadow-[0_16px_40px_-12px_rgba(0,0,0,0.45),0_6px_14px_-6px_rgba(0,0,0,0.25)] ring-1 ring-white/10",
           className,
         )}
         style={popoverStyle()}
       >
         <h3 className="text-sm font-semibold text-foreground mb-1">{step.title}</h3>
         <p className="text-sm text-muted mb-4">{step.description}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted">
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-xs text-muted tabular-nums whitespace-nowrap">
             {current + 1} / {steps.length}
           </span>
           <div className="flex gap-2">
@@ -167,7 +210,10 @@ export function Tour({ steps, open, onClose, current: controlledCurrent, onStepC
               <button
                 type="button"
                 onClick={() => setCurrent(current - 1)}
-                className="px-3 py-1 text-xs rounded-md border border-gray-200 text-foreground hover:bg-gray-50 transition-colors"
+                className={cn(
+                  btnBase,
+                  "border border-border text-foreground hover:bg-muted/10 active:bg-muted/20",
+                )}
               >
                 이전
               </button>
@@ -176,23 +222,19 @@ export function Tour({ steps, open, onClose, current: controlledCurrent, onStepC
               <button
                 type="button"
                 onClick={() => setCurrent(current + 1)}
-                className="px-3 py-1 text-xs rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
+                className={cn(btnBase, btnPrimary)}
               >
                 다음
               </button>
             ) : (
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-3 py-1 text-xs rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
-              >
+              <button type="button" onClick={onClose} className={cn(btnBase, btnPrimary)}>
                 완료
               </button>
             )}
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-1 text-xs rounded-md text-muted hover:text-foreground transition-colors"
+              className={cn(btnBase, "text-muted hover:text-foreground hover:bg-muted/10")}
             >
               닫기
             </button>

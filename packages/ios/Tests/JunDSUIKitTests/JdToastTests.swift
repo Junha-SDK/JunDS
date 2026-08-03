@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // Toast/Snackbar UIKit 계층 — Core 큐 상태전이 + 호스트/바의 자동닫힘·정지·정렬을 고정한다.
@@ -88,7 +89,7 @@ final class JdToastHostViewTests: XCTestCase {
         let manual = host.show(JdToast(title: "manual", duration: 0))
         XCTAssertTrue(host.hasPendingAutoDismiss(auto))
         XCTAssertFalse(host.hasPendingAutoDismiss(manual))
-        host.clear() // 대기 타이머 정리
+        host.clear()  // 대기 타이머 정리
     }
 
     // 정지(hover/드래그) 중엔 타이머를 멈추고, 해제 시 다시 건다(WCAG 2.2.1)
@@ -119,7 +120,7 @@ final class JdToastHostViewTests: XCTestCase {
     // 결정적 시계 주입 — 자동 닫힘이 실제로 큐를 비우는지 종단 검증
     func test_auto_dismiss_removes_toast_from_queue() {
         let host = JdToastHostView(position: .topRight, maxVisible: 4)
-        host.autoDismissSleep = { _ in } // 즉시 반환
+        host.autoDismissSleep = { _ in }  // 즉시 반환
         _ = host.show(JdToast(title: "auto", duration: 4))
         XCTAssertEqual(host.visibleToasts.count, 1)
 
@@ -145,14 +146,15 @@ final class JdSnackbarViewTests: XCTestCase {
 
     // 위치 6종이 세로 가장자리·가로 배치로 정확히 갈린다
     func test_position_resolves_vertical_and_horizontal_placement() {
-        let cases: [(JdToastPosition, JdSnackbarView.VerticalEdge, JdSnackbarView.HorizontalPlacement)] = [
-            (.topRight, .top, .trailing),
-            (.topLeft, .top, .leading),
-            (.bottomRight, .bottom, .trailing),
-            (.bottomLeft, .bottom, .leading),
-            (.top, .top, .center),
-            (.bottom, .bottom, .center),
-        ]
+        let cases:
+            [(JdToastPosition, JdSnackbarView.VerticalEdge, JdSnackbarView.HorizontalPlacement)] = [
+                (.topRight, .top, .trailing),
+                (.topLeft, .top, .leading),
+                (.bottomRight, .bottom, .trailing),
+                (.bottomLeft, .bottom, .leading),
+                (.top, .top, .center),
+                (.bottom, .bottom, .center),
+            ]
         for (position, edge, placement) in cases {
             let bar = JdSnackbarView(message: "저장됨", position: position)
             XCTAssertEqual(bar.verticalEdge, edge, "세로 정렬 불일치: \(position.rawValue)")
@@ -208,7 +210,7 @@ final class JdSnackbarViewTests: XCTestCase {
     func test_auto_dismiss_removes_bar() {
         let container = UIView()
         let bar = JdSnackbarView(message: "저장됨", position: .bottom, duration: 4)
-        bar.autoDismissSleep = { _ in } // 즉시 반환
+        bar.autoDismissSleep = { _ in }  // 즉시 반환
         var dismissed = false
         bar.onDismiss = { dismissed = true }
         bar.present(in: container)
@@ -220,8 +222,9 @@ final class JdSnackbarViewTests: XCTestCase {
     func test_action_tap_invokes_and_dismisses() {
         let container = UIView()
         var acted = false
-        let bar = JdSnackbarView(message: "삭제됨", position: .bottom, duration: 0,
-                                 actionLabel: "실행 취소", onAction: { acted = true })
+        let bar = JdSnackbarView(
+            message: "삭제됨", position: .bottom, duration: 0,
+            actionLabel: "실행 취소", onAction: { acted = true })
         bar.present(in: container)
         bar.simulateActionTap()
         XCTAssertTrue(acted)
@@ -249,9 +252,11 @@ private extension JdSnackbarView {
 private extension XCTestCase {
     // 메인 런루프를 돌리며 조건이 참이 될 때까지 폴링한다(주입된 즉시 시계로 도는 비동기 닫힘용)
     @MainActor
-    func expectEventually(_ description: String,
-                          timeout: TimeInterval = 2,
-                          _ condition: @escaping () -> Bool) {
+    func expectEventually(
+        _ description: String,
+        timeout: TimeInterval = 2,
+        _ condition: @escaping () -> Bool
+    ) {
         let expectation = expectation(description: description)
         func poll() {
             if condition() {

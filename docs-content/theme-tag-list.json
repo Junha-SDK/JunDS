@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "ThemeTagList",
   "oneLiner": "테마 태그 리스트.",
-  "tags": [
-    "finance",
-    "테마",
-    "태그"
-  ],
+  "tags": ["finance", "테마", "태그"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -2198,6 +2198,13 @@
     "elementClass": "JdSidebar"
   },
   {
+    "tag": "jd-sidebar-layout",
+    "dir": "sidebar-layout",
+    "sourceDir": "sidebar-layout",
+    "name": "SidebarLayout",
+    "elementClass": "JdSidebarLayout"
+  },
+  {
     "tag": "jd-sidebar-link",
     "dir": "sidebar-link",
     "sourceDir": "sidebar-link",
@@ -2301,6 +2308,13 @@
     "sourceDir": "spinner",
     "name": "Spinner",
     "elementClass": "JdSpinner"
+  },
+  {
+    "tag": "jd-split",
+    "dir": "split",
+    "sourceDir": "split",
+    "name": "Split",
+    "elementClass": "JdSplit"
   },
   {
     "tag": "jd-split-pane",
@@ -2434,6 +2448,13 @@
     "sourceDir": "switch",
     "name": "Switch",
     "elementClass": "JdSwitch"
+  },
+  {
+    "tag": "jd-switcher",
+    "dir": "switcher",
+    "sourceDir": "switcher",
+    "name": "Switcher",
+    "elementClass": "JdSwitcher"
   },
   {
     "tag": "jd-table",

@@ -10,7 +10,12 @@ export default function TreemapChartPage() {
       description="사각형 면적으로 값의 비율을 표현하는 차트. 카테고리별 점유율을 한눈에 비교할 수 있습니다."
       importPath='import { TreemapChart } from "@/ds/composites/TreemapChart"'
       props={[
-        { name: "data", type: "{ label: string; value: number; color?: string }[]", required: true, description: "표시할 항목 목록" },
+        {
+          name: "data",
+          type: "{ label: string; value: number; color?: string }[]",
+          required: true,
+          description: "표시할 항목 목록",
+        },
         { name: "width", type: "number", default: "400", description: "SVG 너비(px)" },
         { name: "height", type: "number", default: "250", description: "SVG 높이(px)" },
         { name: "className", type: "string", description: "추가 클래스" },

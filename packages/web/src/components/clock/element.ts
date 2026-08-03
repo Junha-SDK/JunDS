@@ -207,9 +207,7 @@ export class JdClock extends JdElement {
     if (time.textContent !== text) time.textContent = text;
     const { h, m, s } = this.#timeParts(now);
     // <time datetime>은 24시간제 기계 표기 — 화면 표기(12시간제·로케일)와 별개
-    time.dateTime = this.hideSeconds
-      ? `${pad2(h)}:${pad2(m)}`
-      : `${pad2(h)}:${pad2(m)}:${pad2(s)}`;
+    time.dateTime = this.hideSeconds ? `${pad2(h)}:${pad2(m)}` : `${pad2(h)}:${pad2(m)}:${pad2(s)}`;
   }
 
   #updateAnalog(): void {
@@ -223,10 +221,7 @@ export class JdClock extends JdElement {
     this.#hands.forEach((line, i) => {
       line.setAttribute("transform", `rotate(${num(angles[i] ?? 0)} ${num(r)} ${num(r)})`);
     });
-    face.setAttribute(
-      "aria-label",
-      now ? `${this.label} ${pad2(h)}:${pad2(m)}` : this.label,
-    );
+    face.setAttribute("aria-label", now ? `${this.label} ${pad2(h)}:${pad2(m)}` : this.label);
   }
 
   #radius(): number {
@@ -314,7 +309,9 @@ export class JdClock extends JdElement {
   }
 
   #displayFormat(): Intl.DateTimeFormat {
-    const key = `${this.locale}|${this.timeZone}|${this.hour12 ? 1 : 0}|${this.hideSeconds ? 1 : 0}`;
+    const key = `${this.locale}|${this.timeZone}|${this.hour12 ? 1 : 0}|${
+      this.hideSeconds ? 1 : 0
+    }`;
     if (!this.#fmt || this.#fmtKey !== key) {
       this.#fmtKey = key;
       this.#fmt = this.#make({

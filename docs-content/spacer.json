@@ -4,10 +4,7 @@
   "category": "layout",
   "title": "Spacer",
   "oneLiner": "토큰 간격 스페이서 — 수직 padding-block·수평 padding-inline, 스크린리더 무시(aria-hidden).",
-  "tags": [
-    "layout",
-    "spacer"
-  ],
+  "tags": ["layout", "spacer"],
   "controls": [
     {
       "prop": "size",
@@ -17,10 +14,7 @@
     {
       "prop": "axis",
       "kind": "segmented",
-      "options": [
-        "vertical",
-        "horizontal"
-      ],
+      "options": ["vertical", "horizontal"],
       "default": "vertical"
     }
   ],

@@ -8,12 +8,7 @@
  * 전제: npm run build -w @junds/web
  */
 import { chromium } from "playwright";
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-} from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -35,25 +30,20 @@ const bundle = readFileSync(bundlePath, "utf8");
 const css = readFileSync(cssPath, "utf8");
 const budgets = JSON.parse(readFileSync(budgetPath, "utf8"));
 
-const browser = await chromium.launch({ headless: true }).catch(() =>
-  chromium.launch({ headless: true, channel: "chrome" }),
-);
+const browser = await chromium
+  .launch({ headless: true })
+  .catch(() => chromium.launch({ headless: true, channel: "chrome" }));
 
 async function nextPaint(page) {
   await page.evaluate(
-    () =>
-      new Promise((resolve) =>
-        requestAnimationFrame(() => requestAnimationFrame(resolve)),
-      ),
+    () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
   );
 }
 
 async function heapUsed(session) {
   await session.send("HeapProfiler.collectGarbage");
   const result = await session.send("Performance.getMetrics");
-  return (
-    result.metrics.find((metric) => metric.name === "JSHeapUsedSize")?.value ?? 0
-  );
+  return result.metrics.find((metric) => metric.name === "JSHeapUsedSize")?.value ?? 0;
 }
 
 let metrics;
@@ -83,9 +73,7 @@ try {
     const start = performance.now();
     document.body.append(fragment);
     await Promise.all(
-      [...document.querySelectorAll("jd-button")].map(
-        (button) => button.updateComplete,
-      ),
+      [...document.querySelectorAll("jd-button")].map((button) => button.updateComplete),
     );
     return performance.now() - start;
   });
@@ -176,14 +164,8 @@ const failures = [];
 for (const [name, value] of Object.entries(metrics)) {
   const budget = budgets[name];
   const unit = name.endsWith("Bytes") ? "B" : "ms";
-  const shown =
-    unit === "B"
-      ? `${(value / 1024 / 1024).toFixed(2)}MB`
-      : `${value.toFixed(2)}ms`;
-  const cap =
-    unit === "B"
-      ? `${(budget / 1024 / 1024).toFixed(2)}MB`
-      : `${budget.toFixed(0)}ms`;
+  const shown = unit === "B" ? `${(value / 1024 / 1024).toFixed(2)}MB` : `${value.toFixed(2)}ms`;
+  const cap = unit === "B" ? `${(budget / 1024 / 1024).toFixed(2)}MB` : `${budget.toFixed(0)}ms`;
   const ok = value <= budget;
   console.log(`[runtime] ${name}: ${shown} / ${cap} ${ok ? "OK" : "FAIL"}`);
   if (!ok) failures.push(`${name} ${shown} > ${cap}`);

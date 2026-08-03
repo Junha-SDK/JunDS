@@ -23,7 +23,9 @@ function normalize(combo: string): string {
     .toLowerCase()
     .split("+")
     .map((p) => p.trim())
-    .map((p) => (p === "mod" ? (isMac ? "meta" : "ctrl") : p === "cmd" ? "meta" : p === "option" ? "alt" : p))
+    .map((p) =>
+      p === "mod" ? (isMac ? "meta" : "ctrl") : p === "cmd" ? "meta" : p === "option" ? "alt" : p,
+    )
     .sort((a, b) => {
       const order = ["ctrl", "meta", "alt", "shift"];
       const ai = order.indexOf(a);

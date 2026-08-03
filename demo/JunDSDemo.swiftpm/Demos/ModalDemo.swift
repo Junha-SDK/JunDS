@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Modal 데모 — ButtonDemo(정본) 구조 복제: ComponentDemo 하나 + 스테이지 뷰 2개.
 // persistent = 웹 백드롭 클릭 무시의 iOS 번역(interactiveDismissDisabled, DEC-012-4).
@@ -36,16 +36,19 @@ private struct ModalStageSwiftUI: View {
         }
         .padding(JdToken.Space.s6)
         // onClose는 시트 dismiss 완료 시점 1회 — 스와이프/닫기 버튼 어느 경로든 동일하게 센다.
-        .jdModal(isPresented: $isPresented,
-                 size: JdModalSize(rawValue: state.string("size")) ?? .md,
-                 persistent: persistent,
-                 onClose: { closeCount += 1 }) {
+        .jdModal(
+            isPresented: $isPresented,
+            size: JdModalSize(rawValue: state.string("size")) ?? .md,
+            persistent: persistent,
+            onClose: { closeCount += 1 }
+        ) {
             VStack(alignment: .leading, spacing: JdToken.Space.s4) {
                 Text("jdModal")
                     .font(.headline)
-                Text(persistent
-                     ? "persistent — 스와이프로 닫히지 않는다. 닫기 버튼만 동작한다(웹 백드롭 무시와 동일 의미론)."
-                     : "스와이프 다운으로 닫힌다 — 웹 백드롭 경로의 iOS 번역.")
+                Text(
+                    persistent
+                        ? "persistent — 스와이프로 닫히지 않는다. 닫기 버튼만 동작한다(웹 백드롭 무시와 동일 의미론)."
+                        : "스와이프 다운으로 닫힌다 — 웹 백드롭 경로의 iOS 번역.")
                 JdButton("닫기", variant: .primary) {
                     isPresented = false
                 }

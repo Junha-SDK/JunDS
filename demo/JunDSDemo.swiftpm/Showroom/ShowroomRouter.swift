@@ -23,7 +23,8 @@ final class ShowroomRouter: ObservableObject {
             DeepLink.logger.notice(
                 "딥링크 진입 \(url.absoluteString, privacy: .public) → \(entry.uid, privacy: .public) (\(live ? "라이브 데모" : "예정 화면", privacy: .public))"
             )
-            print("[deeplink] \(url.absoluteString) → \(entry.uid) \(live ? "(라이브 데모)" : "(예정 화면)")")
+            print(
+                "[deeplink] \(url.absoluteString) → \(entry.uid) \(live ? "(라이브 데모)" : "(예정 화면)")")
             lastFailure = nil
             // 누적이 아니라 교체 — 딥링크를 연달아 쏴도 스택이 쌓이지 않는다.
             path = [entry]

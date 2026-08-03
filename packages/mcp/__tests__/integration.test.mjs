@@ -21,10 +21,7 @@ beforeAll(async () => {
   server = createServer(); // 기본 로더 — 레포 안이므로 라이브 모드
   client = new Client({ name: "mcp-test-client", version: "0.0.0" });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
-  await Promise.all([
-    client.connect(clientTransport),
-    server.connect(serverTransport),
-  ]);
+  await Promise.all([client.connect(clientTransport), server.connect(serverTransport)]);
 });
 
 afterAll(async () => {
@@ -36,7 +33,11 @@ describe("MCP 왕복", () => {
   it("도구 5종 등록", async () => {
     const { tools } = await client.listTools();
     expect(tools.map((t) => t.name).sort()).toEqual([
-      "get_component", "get_status", "get_tokens", "get_usage", "search_components",
+      "get_component",
+      "get_status",
+      "get_tokens",
+      "get_usage",
+      "search_components",
     ]);
   });
 

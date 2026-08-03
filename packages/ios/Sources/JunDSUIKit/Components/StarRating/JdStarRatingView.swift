@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-star-rating 동형 — iOS에 시스템 대응이 없는 진짜 신규 컴포넌트 (DESIGN-3 §B).
 //
@@ -31,11 +31,13 @@ public final class JdStarRatingView: UIControl {
     /// Core의 fill 판정이 0.5 단위이므로 조절 단위도 0.5다(웹 반별 토글과 같은 격자).
     private static let step: Double = 0.5
 
-    public init(value: Double = 0,
-                max: Int = 5,
-                size: JdIconSize = .md,
-                isReadOnly: Bool = false,
-                accessibilityLabel: String = "별점") {
+    public init(
+        value: Double = 0,
+        max: Int = 5,
+        size: JdIconSize = .md,
+        isReadOnly: Bool = false,
+        accessibilityLabel: String = "별점"
+    ) {
         self.value = value
         self.starCount = Swift.max(0, max)
         self.side = size.side
@@ -101,7 +103,8 @@ public final class JdStarRatingView: UIControl {
     public override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         super.endTracking(touch, with: event)
         guard !isReadOnly, isEnabled, let point = touch?.location(in: self),
-              let index = starIndex(at: point) else { return }
+            let index = starIndex(at: point)
+        else { return }
         // 같은 별 재탭 시 반값 — 규칙 전부 Core 소유
         let next = JdStarRating.value(forTappedIndex: index, current: value)
         guard next != value else { return }
@@ -136,9 +139,10 @@ public final class JdStarRatingView: UIControl {
 
     private func applyValue() {
         // SF Symbol은 폰트에 묶여 스케일된다 (04 §7.2)
-        let font = JdFontBridge.scaledFont(size: side,
-                                           weight: JdToken.FontWeight.medium,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: side,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         let configuration = UIImage.SymbolConfiguration(font: font)
         for (index, star) in starViews.enumerated() {
             // 상태 판정은 Core — 임계값(0.5/1.0)을 여기서 다시 쓰지 않는다

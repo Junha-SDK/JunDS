@@ -14,7 +14,8 @@ export interface EmojiReactionItem {
   users?: string[];
 }
 
-export interface EmojiReactionProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect" | "onToggle"> {
+export interface EmojiReactionProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect" | "onToggle"> {
   /** 반응 목록 */
   reactions: EmojiReactionItem[];
   /** 반응 토글 */
@@ -53,9 +54,14 @@ export const EmojiReaction = forwardRef<HTMLDivElement, EmojiReactionProps>(func
           aria-pressed={r.reactedByMe || undefined}
           title={r.users?.join(", ")}
           className={cn(
-            "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs transition-colors cursor-pointer",
+            "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs cursor-pointer",
+            "transition-[background-color,border-color,transform] duration-150 active:scale-[0.94]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "motion-reduce:transition-none motion-reduce:active:scale-100",
             r.reactedByMe
-              ? "border-primary bg-primary-soft text-primary"
+              ? // bg-primary-soft 는 @theme 에 없는 이름이라 배경이 아예 칠해지지 않았다.
+                // 선택 상태가 테두리 하나로만 읽히던 원인 — 실재하는 primary-light 로 옮긴다.
+                "border-primary bg-primary-light text-primary-ink"
               : "border-border bg-surface hover:bg-surface-soft",
           )}
         >
@@ -68,7 +74,13 @@ export const EmojiReaction = forwardRef<HTMLDivElement, EmojiReactionProps>(func
           type="button"
           onClick={onAddReaction}
           aria-label="반응 추가"
-          className="inline-flex items-center justify-center w-7 h-6 rounded-full border border-border bg-surface hover:bg-surface-soft text-muted hover:text-foreground transition-colors cursor-pointer text-sm"
+          className={cn(
+            "inline-flex items-center justify-center w-7 h-6 rounded-full border border-border bg-surface text-sm cursor-pointer",
+            "text-muted hover:text-foreground hover:bg-surface-soft",
+            "transition-[color,background-color,transform] duration-150 active:scale-[0.94]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            "motion-reduce:transition-none motion-reduce:active:scale-100",
+          )}
         >
           ＋
         </button>

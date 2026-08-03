@@ -33,10 +33,7 @@ function sanitizeProps(
   return out;
 }
 
-export function serialize(
-  state: LabState,
-  options?: { id?: string; route?: string },
-): PageDoc {
+export function serialize(state: LabState, options?: { id?: string; route?: string }): PageDoc {
   const tree = state.rootIds
     .map((id) => nodeToPageNode(state, id))
     .filter((n): n is Node => n !== null);
@@ -67,11 +64,7 @@ function pageNodeToTree(
   const props: Record<string, PropValue> = {};
   if (node.props) {
     for (const [key, value] of Object.entries(node.props)) {
-      if (
-        typeof value === "string" ||
-        typeof value === "number" ||
-        typeof value === "boolean"
-      ) {
+      if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
         props[key] = value;
       }
     }
@@ -89,9 +82,7 @@ function pageNodeToTree(
 
 export function deserialize(doc: PageDoc): LabState {
   const nodes: Record<NodeId, TreeNode> = {};
-  const rootIds: NodeId[] = doc.tree.map((node) =>
-    pageNodeToTree(node, null, nodes),
-  );
+  const rootIds: NodeId[] = doc.tree.map((node) => pageNodeToTree(node, null, nodes));
   return {
     nodes,
     rootIds,

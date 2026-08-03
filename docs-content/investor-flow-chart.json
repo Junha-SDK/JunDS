@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "InvestorFlowChart",
   "oneLiner": "투자자별 순매수 흐름 차트.",
-  "tags": [
-    "finance",
-    "chart",
-    "수급"
-  ],
+  "tags": ["finance", "chart", "수급"],
   "controls": [],
   "snippets": {
     "web": null,

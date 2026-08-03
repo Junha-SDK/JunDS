@@ -54,7 +54,10 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
     return (
       <section className="bm-card px-4 py-6">
         <div className="flex items-center justify-center gap-2 text-[12px] text-[color:var(--bm-muted)]">
-          <span className="size-2 rounded-full animate-pulse" style={{ background: "var(--bm-accent-strong)" }} />
+          <span
+            className="size-2 rounded-full animate-pulse motion-reduce:animate-none"
+            style={{ background: "var(--bm-accent-strong)" }}
+          />
           AI 투자자 위원회 소집 중…
         </div>
       </section>
@@ -67,8 +70,7 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
 
   const buyers = sorted.filter((c) => c.score >= 0.2).length;
   const sellers = sorted.filter((c) => c.score <= -0.2).length;
-  const consensusScore =
-    sorted.reduce((s, c) => s + c.score, 0) / Math.max(1, sorted.length);
+  const consensusScore = sorted.reduce((s, c) => s + c.score, 0) / Math.max(1, sorted.length);
 
   return (
     <section className="bm-card overflow-hidden">
@@ -106,18 +108,20 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
                   <button
                     type="button"
                     onClick={() => setActiveId(card.investor)}
-                    className="w-full text-left flex items-center gap-3 px-4 py-3 transition-colors"
+                    aria-pressed={isActive}
+                    // 위원 목록은 키보드로도 넘길 수 있어야 한다. 좌측 강조선이 있어 offset 링은
+                    // 잘리므로 안쪽 링을 쓴다
+                    className="w-full text-left flex items-center gap-3 px-4 py-3 cursor-pointer transition-[background-color,filter] duration-150 hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--bm-accent-strong)]"
                     style={{
                       background: isActive ? "var(--bm-soft-100)" : "transparent",
-                      borderLeft: isActive
-                        ? `3px solid ${p.accent}`
-                        : "3px solid transparent",
+                      borderLeft: isActive ? `3px solid ${p.accent}` : "3px solid transparent",
                     }}
                   >
                     <span
                       className="inline-flex items-center justify-center size-9 rounded-xl text-[18px] shrink-0"
                       style={{
-                        background: `color-mix(in srgb,  10%, transparent)`,
+                        // 색 인자가 빠진 color-mix 였다 — CSS 가 선언을 통째로 버려 배경이 비어 있었다
+                        background: `color-mix(in srgb, ${p.accent} 10%, transparent)`,
                         color: p.accent,
                       }}
                     >
@@ -157,7 +161,11 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
           <header className="flex items-start gap-3 mb-4">
             <span
               className="inline-flex items-center justify-center size-12 rounded-2xl text-[26px] shrink-0"
-              style={{ background: `color-mix(in srgb,  10%, transparent)`, color: profile.accent }}
+              // 위와 같은 결함 — 색 인자가 빠져 있어 아바타 타일 배경이 그려지지 않았다
+              style={{
+                background: `color-mix(in srgb, ${profile.accent} 10%, transparent)`,
+                color: profile.accent,
+              }}
             >
               {profile.emoji}
             </span>
@@ -168,10 +176,7 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
                   {profile.name}
                 </span>
               </div>
-              <p
-                className="text-[11.5px] font-bold mt-0.5"
-                style={{ color: profile.accent }}
-              >
+              <p className="text-[11.5px] font-bold mt-0.5" style={{ color: profile.accent }}>
                 {profile.tagline}
               </p>
               <p
@@ -187,7 +192,9 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
             className="rounded-xl px-4 py-3 mb-4 flex items-center gap-3"
             style={{
               background: `color-mix(in srgb, ${verdictColorFor(active.verdict)} 8%, transparent)`,
-              border: `1px solid color-mix(in srgb, ${verdictColorFor(active.verdict)} 25%, transparent)`,
+              border: `1px solid color-mix(in srgb, ${verdictColorFor(
+                active.verdict,
+              )} 25%, transparent)`,
             }}
           >
             <div
@@ -220,10 +227,7 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
                 value={`${(active.score * 100).toFixed(0)}`}
                 tone={active.score >= 0 ? "up" : "down"}
               />
-              <Stat
-                label="신뢰도"
-                value={`${(active.confidence * 100).toFixed(0)}%`}
-              />
+              <Stat label="신뢰도" value={`${(active.confidence * 100).toFixed(0)}%`} />
             </div>
           </div>
 
@@ -239,7 +243,8 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
             <ReasonList
               title="유의 사항 / 미스매치"
               icon="alert"
-              tone="#f97316"
+              // 고정 주황 대신 이 표면의 경고 토큰 — 테마가 바뀌어도 같이 따라간다
+              tone="var(--bm-warning)"
               items={active.risks}
             />
           </div>
@@ -276,7 +281,7 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
 
           <details className="mt-4 group">
             <summary
-              className="cursor-pointer text-[11.5px] font-bold inline-flex items-center gap-1"
+              className="cursor-pointer text-[11.5px] font-bold inline-flex items-center gap-1 rounded-md transition-colors duration-150 hover:text-[color:var(--bm-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
               style={{ color: "var(--bm-muted)" }}
             >
               <AppIcon name="info" size={12} strokeWidth={2.2} />
@@ -284,29 +289,23 @@ export function InvestorCouncil({ symbol }: InvestorCouncilProps) {
             </summary>
             <ul className="mt-2 space-y-1 text-[11.5px] leading-relaxed pl-4">
               {profile.quotes.map((q) => (
-                <li
-                  key={q}
-                  className="italic"
-                  style={{ color: "var(--bm-text-soft)" }}
-                >
+                <li key={q} className="italic" style={{ color: "var(--bm-text-soft)" }}>
                   “{q}”
                 </li>
               ))}
-              <li
-                className="text-[10.5px] mt-1.5 not-italic"
-                style={{ color: "var(--bm-muted)" }}
-              >
+              <li className="text-[10.5px] mt-1.5 not-italic" style={{ color: "var(--bm-muted)" }}>
                 {profile.era} · {profile.source}
               </li>
             </ul>
           </details>
 
-          <p
-            className="mt-4 text-[10.5px] leading-relaxed"
-            style={{ color: "var(--bm-muted)" }}
-          >
-            ⚠️ 본 분석은 ButterAI 스타일의 룰 기반 시뮬레이션이며 각 인물의 공개된 투자 철학을 단순 모사한 것입니다. 실제 매수·매도 권유가 아닙니다.{" "}
-            <Link href="/investors" className="underline">
+          <p className="mt-4 text-[10.5px] leading-relaxed" style={{ color: "var(--bm-muted)" }}>
+            ⚠️ 본 분석은 ButterAI 스타일의 룰 기반 시뮬레이션이며 각 인물의 공개된 투자 철학을 단순
+            모사한 것입니다. 실제 매수·매도 권유가 아닙니다.{" "}
+            <Link
+              href="/investors"
+              className="underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
+            >
               모든 투자자 모드 보기
             </Link>
           </p>
@@ -326,8 +325,10 @@ function ConsensusBadge({
   score: number;
 }) {
   const tone = score >= 0.2 ? "up" : score <= -0.2 ? "down" : "neutral";
-  const color = tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-muted)";
-  const label = tone === "up" ? "위원회 매수 우위" : tone === "down" ? "위원회 매도 우위" : "위원회 의견 분분";
+  const color =
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-muted)";
+  const label =
+    tone === "up" ? "위원회 매수 우위" : tone === "down" ? "위원회 매도 우위" : "위원회 의견 분분";
   return (
     <div
       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
@@ -376,7 +377,8 @@ function ComponentBars({
         const v = components[key];
         const pct = Math.max(-1, Math.min(1, v));
         const w = Math.abs(pct) * 100;
-        const color = pct >= 0 ? accent : "#94a3b8";
+        // 음수 막대의 고정 슬레이트는 다크에서 배경과 붙는다 — 흐린 톤도 토큰에서 가져온다
+        const color = pct >= 0 ? accent : "var(--bm-muted)";
         return (
           <div key={key}>
             <div className="flex items-center justify-between text-[10.5px] font-bold">
@@ -397,7 +399,7 @@ function ComponentBars({
                     style={{
                       marginLeft: `${50 - w / 2}%`,
                       width: `${w / 2}%`,
-                      background: "#94a3b8",
+                      background: "var(--bm-muted)",
                     }}
                   />
                 </div>
@@ -447,7 +449,10 @@ function ReasonList({
         ) : (
           items.map((it, i) => (
             <li key={i} className="text-[12.5px] leading-relaxed flex items-start gap-1.5">
-              <span className="mt-[7px] size-1 rounded-full shrink-0" style={{ background: tone }} />
+              <span
+                className="mt-[7px] size-1 rounded-full shrink-0"
+                style={{ background: tone }}
+              />
               <span>{it}</span>
             </li>
           ))
@@ -457,20 +462,15 @@ function ReasonList({
   );
 }
 
-function Stat({
-  label,
-  value,
-  tone,
-}: {
-  label: string;
-  value: string;
-  tone?: "up" | "down";
-}) {
+function Stat({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" }) {
   const color =
     tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
   return (
     <div className="text-right">
-      <div className="text-[9.5px] font-bold uppercase tracking-wider" style={{ color: "var(--bm-muted)" }}>
+      <div
+        className="text-[9.5px] font-bold uppercase tracking-wider"
+        style={{ color: "var(--bm-muted)" }}
+      >
         {label}
       </div>
       <div className="bm-num font-extrabold text-[14px]" style={{ color }}>
@@ -491,7 +491,8 @@ function PlanCell({
   tone?: "up" | "down";
   big?: boolean;
 }) {
-  const color = tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
+  const color =
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
   return (
     <div
       className="rounded-lg px-3 py-2"
@@ -500,10 +501,7 @@ function PlanCell({
       <div className="text-[10px] font-bold" style={{ color: "var(--bm-muted)" }}>
         {label}
       </div>
-      <div
-        className="bm-num font-extrabold mt-0.5"
-        style={{ color, fontSize: big ? 16 : 13.5 }}
-      >
+      <div className="bm-num font-extrabold mt-0.5" style={{ color, fontSize: big ? 16 : 13.5 }}>
         {typeof value === "number" ? value.toLocaleString("ko-KR") : value}
       </div>
     </div>

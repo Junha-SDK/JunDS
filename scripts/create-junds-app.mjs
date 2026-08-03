@@ -61,65 +61,90 @@ function write(rel, content) {
   console.log(`  + ${rel}`);
 }
 
-const projName = path.basename(targetAbs).replace(/[^a-zA-Z0-9-_]/g, "-").toLowerCase();
+const projName = path
+  .basename(targetAbs)
+  .replace(/[^a-zA-Z0-9-_]/g, "-")
+  .toLowerCase();
 
-write("package.json", JSON.stringify({
-  name: projName,
-  version: "0.1.0",
-  private: true,
-  scripts: {
-    dev: "next dev -p 3000",
-    build: "next build",
-    start: "next start",
-  },
-  dependencies: {
-    "@junds/ui": "^2.5.0",
-    next: "^16.0.0",
-    react: "^19.0.0",
-    "react-dom": "^19.0.0",
-  },
-  devDependencies: {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    tailwindcss: "^4",
-    typescript: "^5",
-  },
-}, null, 2) + "\n");
+write(
+  "package.json",
+  JSON.stringify(
+    {
+      name: projName,
+      version: "0.1.0",
+      private: true,
+      scripts: {
+        dev: "next dev -p 3000",
+        build: "next build",
+        start: "next start",
+      },
+      dependencies: {
+        "@junds/ui": "^2.5.0",
+        next: "^16.0.0",
+        react: "^19.0.0",
+        "react-dom": "^19.0.0",
+      },
+      devDependencies: {
+        "@tailwindcss/postcss": "^4",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        tailwindcss: "^4",
+        typescript: "^5",
+      },
+    },
+    null,
+    2,
+  ) + "\n",
+);
 
-write("tsconfig.json", JSON.stringify({
-  compilerOptions: {
-    target: "ES2022",
-    lib: ["DOM", "DOM.Iterable", "ES2022"],
-    allowJs: true,
-    skipLibCheck: true,
-    strict: true,
-    noEmit: true,
-    esModuleInterop: true,
-    module: "esnext",
-    moduleResolution: "bundler",
-    resolveJsonModule: true,
-    isolatedModules: true,
-    jsx: "preserve",
-    incremental: true,
-    paths: { "@/*": ["./*"] },
-    plugins: [{ name: "next" }],
-  },
-  include: ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  exclude: ["node_modules"],
-}, null, 2) + "\n");
+write(
+  "tsconfig.json",
+  JSON.stringify(
+    {
+      compilerOptions: {
+        target: "ES2022",
+        lib: ["DOM", "DOM.Iterable", "ES2022"],
+        allowJs: true,
+        skipLibCheck: true,
+        strict: true,
+        noEmit: true,
+        esModuleInterop: true,
+        module: "esnext",
+        moduleResolution: "bundler",
+        resolveJsonModule: true,
+        isolatedModules: true,
+        jsx: "preserve",
+        incremental: true,
+        paths: { "@/*": ["./*"] },
+        plugins: [{ name: "next" }],
+      },
+      include: ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+      exclude: ["node_modules"],
+    },
+    null,
+    2,
+  ) + "\n",
+);
 
-write("next-env.d.ts", `/// <reference types="next" />
+write(
+  "next-env.d.ts",
+  `/// <reference types="next" />
 /// <reference types="next/image-types/global" />
-`);
+`,
+);
 
-write("postcss.config.mjs", `export default {
+write(
+  "postcss.config.mjs",
+  `export default {
   plugins: { "@tailwindcss/postcss": {} },
 };
-`);
+`,
+);
 
-write("app/globals.css", `@import "tailwindcss";
+write(
+  "app/globals.css",
+  `@import "tailwindcss";
 @import "@junds/ui/styles.css";
 
 body {
@@ -127,9 +152,12 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
-`);
+`,
+);
 
-write("app/layout.tsx", `import { BrandProvider, I18nProvider } from "@junds/ui";
+write(
+  "app/layout.tsx",
+  `import { BrandProvider, I18nProvider } from "@junds/ui";
 import "./globals.css";
 
 export const metadata = {
@@ -150,9 +178,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-`);
+`,
+);
 
-write("app/page.tsx", `import { HeroSection } from "@junds/ui/patterns";
+write(
+  "app/page.tsx",
+  `import { HeroSection } from "@junds/ui/patterns";
 import { FeatureGrid } from "@junds/ui/patterns";
 import { Button } from "@junds/ui/primitives";
 
@@ -187,9 +218,12 @@ export default function Home() {
     </main>
   );
 }
-`);
+`,
+);
 
-write("README.md", `# ${projName}
+write(
+  "README.md",
+  `# ${projName}
 
 JunDS로 부트스트랩된 Next.js 프로젝트.
 
@@ -210,13 +244,17 @@ npm run dev
 - 컴포넌트 추가 — \`import { Button } from "@junds/ui/primitives"\`
 - 더 많은 패턴 — \`@junds/ui/patterns\`, \`@junds/ui/composites\`
 - 레시피 — https://github.com/jjunhaa0211/JunDS/tree/main/.ai/recipes
-`);
+`,
+);
 
-write(".gitignore", `node_modules/
+write(
+  ".gitignore",
+  `node_modules/
 .next/
 *.log
 .env*.local
-`);
+`,
+);
 
 console.log(`
 ✓ ${projName} 스캐폴드 완료 (${targetAbs})

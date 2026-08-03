@@ -4,9 +4,7 @@
   "category": "patterns",
   "title": "DataTable",
   "oneLiner": "고급 데이터 테이블",
-  "tags": [
-    "data"
-  ],
+  "tags": ["data"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -47,7 +47,17 @@ export interface SocialFeedProps {
  * @tags sns, layout
  */
 export const SocialFeed = forwardRef<HTMLElement, SocialFeedProps>(function SocialFeed(
-  { stories, onStoryClick, children, hasMore, loading, onLoadMore, emptyTitle = "게시물이 없습니다", emptyDescription, className },
+  {
+    stories,
+    onStoryClick,
+    children,
+    hasMore,
+    loading,
+    onLoadMore,
+    emptyTitle = "게시물이 없습니다",
+    emptyDescription,
+    className,
+  },
   ref,
 ) {
   const t = useT();
@@ -70,13 +80,24 @@ export const SocialFeed = forwardRef<HTMLElement, SocialFeedProps>(function Soci
   const hasPosts = Array.isArray(children) ? children.length > 0 : !!children;
 
   return (
-    <section ref={ref} className={cn("max-w-2xl mx-auto", className)} aria-label={t("feedAriaLabel")}>
+    <section
+      ref={ref}
+      className={cn("max-w-2xl mx-auto", className)}
+      aria-label={t("feedAriaLabel")}
+    >
       {stories && stories.length > 0 && (
-        <div className="px-2 py-3 border-b border-border overflow-x-auto">
+        // shrink-0 이 없으면 스토리들이 스크롤되는 대신 서로 눌려 찌그러진다.
+        // 가로 스크롤도 이 띠 안에서 끝나야 페이지가 옆으로 밀리지 않는다
+        <div className="px-2 py-3 border-b border-border overflow-x-auto overscroll-x-contain">
           <ul className="flex items-center gap-3">
             {stories.map((s) => (
-              <li key={s.id}>
-                <StoryCircle name={s.name} avatar={s.avatar} state={s.state} onClick={() => onStoryClick?.(s.id)} />
+              <li key={s.id} className="shrink-0">
+                <StoryCircle
+                  name={s.name}
+                  avatar={s.avatar}
+                  state={s.state}
+                  onClick={() => onStoryClick?.(s.id)}
+                />
               </li>
             ))}
           </ul>
@@ -87,7 +108,15 @@ export const SocialFeed = forwardRef<HTMLElement, SocialFeedProps>(function Soci
         <EmptyState icon="📭" title={emptyTitle} description={emptyDescription} />
       ) : (
         <ul className="divide-y divide-border" aria-label={t("feedItems")}>
-          {Array.isArray(children) ? children.map((child, i) => <li key={i} className="py-3">{child}</li>) : <li className="py-3">{children}</li>}
+          {Array.isArray(children) ? (
+            children.map((child, i) => (
+              <li key={i} className="py-3 min-w-0">
+                {child}
+              </li>
+            ))
+          ) : (
+            <li className="py-3 min-w-0">{children}</li>
+          )}
         </ul>
       )}
 

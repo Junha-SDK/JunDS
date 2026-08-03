@@ -37,8 +37,12 @@ export function InlineEdit({
   const [draft, setDraft] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => { setDraft(value); }, [value]);
-  useEffect(() => { if (editing) inputRef.current?.focus(); }, [editing]);
+  useEffect(() => {
+    setDraft(value);
+  }, [value]);
+  useEffect(() => {
+    if (editing) inputRef.current?.focus();
+  }, [editing]);
 
   const save = useCallback(() => {
     setEditing(false);
@@ -47,7 +51,10 @@ export function InlineEdit({
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") save();
-    if (e.key === "Escape") { setDraft(value); setEditing(false); }
+    if (e.key === "Escape") {
+      setDraft(value);
+      setEditing(false);
+    }
   };
 
   if (editing) {
@@ -59,8 +66,10 @@ export function InlineEdit({
         onBlur={save}
         onKeyDown={handleKeyDown}
         className={cn(
-          "border-b-2 border-primary bg-transparent outline-none transition-colors",
-          "text-inherit font-inherit",
+          "border-b-2 border-primary bg-transparent outline-none transition-colors min-w-0",
+          // `font-inherit` 은 Tailwind 클래스가 아니라 아무 일도 하지 않았다 —
+          // h1 을 편집할 때 입력칸만 본문 서체로 쪼그라들던 원인이다.
+          "text-inherit font-[inherit]",
           className,
         )}
       />
@@ -71,10 +80,14 @@ export function InlineEdit({
     <Tag
       onClick={() => !disabled && setEditing(true)}
       tabIndex={disabled ? undefined : 0}
-      onKeyDown={(e: React.KeyboardEvent) => { if (e.key === "Enter" && !disabled) setEditing(true); }}
+      onKeyDown={(e: React.KeyboardEvent) => {
+        if (e.key === "Enter" && !disabled) setEditing(true);
+      }}
       className={cn(
-        "border-b-2 border-transparent transition-colors inline-block",
-        !disabled && "cursor-pointer hover:border-primary/30 focus:border-primary/40 outline-none",
+        // 연필 아이콘이 group-hover 로 나타나는데 정작 group 이 없어 영영 숨어 있었다.
+        "group border-b-2 border-transparent transition-colors inline-block rounded-sm",
+        !disabled &&
+          "cursor-pointer hover:border-primary/30 focus-visible:outline-none focus-visible:border-primary/40 focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         disabled && "cursor-default",
         !value && "text-muted italic",
         className,
@@ -84,8 +97,21 @@ export function InlineEdit({
     >
       {value || placeholder}
       {!disabled && (
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="inline ml-1.5 text-muted opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">
-          <path d="M8.5 1.5l2 2-6 6H2.5V7.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          className="inline ml-1.5 text-muted opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+          aria-hidden="true"
+        >
+          <path
+            d="M8.5 1.5l2 2-6 6H2.5V7.5z"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       )}
     </Tag>

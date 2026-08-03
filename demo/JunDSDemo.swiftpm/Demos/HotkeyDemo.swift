@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // useHotkeys 데모 — **Core 유틸 실동작**(뷰 없음). iOS에선 UIKeyCommand가 실제 처리를 하지만,
 // 코드 정규화(별칭 통일 + 수식키 정렬)는 순수 계산이라 Core `JdHotkey.normalize`에 있다.
@@ -10,7 +10,7 @@ enum HotkeyDemo {
     static let demo = ComponentDemo(
         id: "useHotkeys",
         controls: [
-            .text("target", "비교 대상", placeholder: "예: Cmd+Shift+K", initial: "Cmd+Shift+K"),
+            .text("target", "비교 대상", placeholder: "예: Cmd+Shift+K", initial: "Cmd+Shift+K")
         ],
         swiftUI: { state in AnyView(HotkeyStage(state: state)) }
     )
@@ -21,7 +21,9 @@ private func hotkeyTarget(_ state: DemoState) -> String {
     state.string("target", fallback: "Cmd+Shift+K")
 }
 
-private let hotkeyPresets = ["Cmd+Shift+K", "shift+meta+k", "ctrl-alt-del", "escape", "Option+Enter"]
+private let hotkeyPresets = [
+    "Cmd+Shift+K", "shift+meta+k", "ctrl-alt-del", "escape", "Option+Enter",
+]
 
 private struct HotkeyStage: View {
     @ObservedObject var state: DemoState
@@ -37,8 +39,9 @@ private struct HotkeyStage: View {
 
             VStack(spacing: JdToken.Space.s1) {
                 JdText("정규화 결과", size: .xs, dimmed: true)
-                JdText(normalizedInput.isEmpty ? "—" : normalizedInput,
-                       size: .xl2, weight: JdToken.FontWeight.semibold, mono: true, lineLimit: 1)
+                JdText(
+                    normalizedInput.isEmpty ? "—" : normalizedInput,
+                    size: .xl2, weight: JdToken.FontWeight.semibold, mono: true, lineLimit: 1)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, JdToken.Space.s4)
@@ -48,8 +51,9 @@ private struct HotkeyStage: View {
             HStack(spacing: JdToken.Space.s2) {
                 Image(systemName: matches ? "equal.circle.fill" : "notequal.circle")
                     .foregroundColor((matches ? JdToken.Color.success : JdToken.Color.muted).color)
-                JdText(matches ? "비교 대상과 동일한 정규형" : "비교 대상: \(normalizedTarget)",
-                       size: .sm, mono: true, lineLimit: 1)
+                JdText(
+                    matches ? "비교 대상과 동일한 정규형" : "비교 대상: \(normalizedTarget)",
+                    size: .sm, mono: true, lineLimit: 1)
             }
 
             // 프리셋 — 서로 다른 표기가 같은 정규형으로 접힘을 보인다
@@ -61,11 +65,13 @@ private struct HotkeyStage: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .fixedSize(horizontal: false, vertical: true)
 
-            Text("normalize는 cmd/meta/mod/super를 meta로 접고, 수식키를 [ctrl,alt,shift,meta] 고정 순서로 정렬한다 — "
-                 + "\"Cmd+Shift+K\"와 \"shift+meta+k\"가 같은 \"shift+meta+k\"가 된다(웹 normalizeChord 승계).")
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
+            Text(
+                "normalize는 cmd/meta/mod/super를 meta로 접고, 수식키를 [ctrl,alt,shift,meta] 고정 순서로 정렬한다 — "
+                    + "\"Cmd+Shift+K\"와 \"shift+meta+k\"가 같은 \"shift+meta+k\"가 된다(웹 normalizeChord 승계)."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
         .padding(JdToken.Space.s6)

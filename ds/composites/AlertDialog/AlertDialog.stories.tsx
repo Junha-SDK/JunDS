@@ -10,5 +10,7 @@ export default meta;
 type Story = StoryObj<typeof AlertDialog>;
 
 export const Default: Story = {
-  render: () => <AlertDialog open={false} onConfirm={() => {}} onCancel={() => {}} title="" description="" />,
+  render: () => (
+    <AlertDialog open={false} onConfirm={() => {}} onCancel={() => {}} title="" description="" />
+  ),
 };

@@ -141,7 +141,9 @@ export class JdAnnotationNote extends JdElement {
     };
     // preventDefault는 직접 한다: Behavior 기본값(true)은 매칭 즉시 취소해
     // 카드 안 삭제 버튼의 Enter/Space 활성화까지 막는다(StatCard와 같은 이유).
-    this.own(createKeyHandler(this, { enter: activate, space: activate }, { preventDefault: false }));
+    this.own(
+      createKeyHandler(this, { enter: activate, space: activate }, { preventDefault: false }),
+    );
   }
 
   #onDelete = (e: Event): void => {
@@ -162,7 +164,9 @@ export class JdAnnotationNote extends JdElement {
     } catch {
       if (!warnedLocale) {
         warnedLocale = true;
-        console.warn(`[junds] <jd-annotation-note> locale을 해석하지 못해 "ko"로 폴백합니다: "${locale}"`);
+        console.warn(
+          `[junds] <jd-annotation-note> locale을 해석하지 못해 "ko"로 폴백합니다: "${locale}"`,
+        );
       }
       fmt = new Intl.DateTimeFormat("ko", opts);
     }

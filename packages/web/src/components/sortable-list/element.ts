@@ -90,7 +90,9 @@ export class JdSortableList extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent);
@@ -128,7 +130,9 @@ export class JdSortableList extends JdElement {
 
     const content = document.createElement("div");
     content.className = "jd-sortable-list__content";
-    const out = this.renderItem ? this.renderItem(item, index) : (item[this.labelKey] as JdSortableItemContent);
+    const out = this.renderItem
+      ? this.renderItem(item, index)
+      : (item[this.labelKey] as JdSortableItemContent);
     if (out instanceof Node) content.append(out);
     else if (out !== null && out !== undefined) content.textContent = String(out);
     row.append(content);
@@ -183,7 +187,10 @@ export class JdSortableList extends JdElement {
     if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
     const over = Number(row.dataset.index);
     for (const r of this.querySelectorAll<HTMLElement>(":scope > .jd-sortable-list__item")) {
-      r.toggleAttribute("data-drop-target", Number(r.dataset.index) === over && over !== this.#dragIndex);
+      r.toggleAttribute(
+        "data-drop-target",
+        Number(r.dataset.index) === over && over !== this.#dragIndex,
+      );
     }
   };
 
@@ -233,7 +240,13 @@ export class JdSortableList extends JdElement {
   };
 
   #move(from: number, to: number, announceMove: boolean): void {
-    if (from === to || from < 0 || to < 0 || from >= this.#items.length || to >= this.#items.length) {
+    if (
+      from === to ||
+      from < 0 ||
+      to < 0 ||
+      from >= this.#items.length ||
+      to >= this.#items.length
+    ) {
       return;
     }
     const next = this.#items.slice();
@@ -264,7 +277,9 @@ export class JdSortableList extends JdElement {
     // 핸들이 없으면 행이 키보드 진입점 — 포커스 가능하게 하고 이름을 준다
     for (const row of this.querySelectorAll<HTMLElement>(":scope > .jd-sortable-list__item")) {
       const i = Number(row.dataset.index);
-      const label = String(this.#items[i]?.[this.labelKey] ?? this.#items[i]?.id ?? `${i + 1}번째 항목`);
+      const label = String(
+        this.#items[i]?.[this.labelKey] ?? this.#items[i]?.id ?? `${i + 1}번째 항목`,
+      );
       const handle = row.querySelector<HTMLElement>(".jd-sortable-list__handle");
       if (handle) {
         handle.setAttribute("aria-label", `${label} 정렬 핸들, 방향키로 이동`);

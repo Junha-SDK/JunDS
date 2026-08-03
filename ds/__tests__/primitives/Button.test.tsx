@@ -47,7 +47,9 @@ describe("Button", () => {
 
   it("shows spinner when loading", () => {
     render(<Button loading>로딩</Button>);
-    expect(screen.getByText("로딩").closest("button")?.querySelector("svg.animate-spin")).toBeInTheDocument();
+    expect(
+      screen.getByText("로딩").closest("button")?.querySelector("svg.animate-spin"),
+    ).toBeInTheDocument();
   });
 
   it("renders leftIcon", () => {

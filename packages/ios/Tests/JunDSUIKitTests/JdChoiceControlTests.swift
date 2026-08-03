@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 선택 컨트롤 3종(Toggle/Checkbox/RadioGroup)의 상태·발화·접근성 표면 (04 §8.2).
@@ -18,6 +19,7 @@ private func jdDescendants<T: UIView>(_ root: UIView, of type: T.Type) -> [T] {
 
 // MARK: - Toggle / Switch
 
+@MainActor
 final class JdToggleViewTests: XCTestCase {
 
     private func track(_ view: JdToggleView) throws -> UISwitch {
@@ -84,6 +86,7 @@ final class JdToggleViewTests: XCTestCase {
 
 // MARK: - Checkbox
 
+@MainActor
 final class JdCheckboxViewTests: XCTestCase {
 
     // indeterminateAllowed면 3상태 순환 off → on → indeterminate → off
@@ -147,20 +150,27 @@ final class JdCheckboxViewTests: XCTestCase {
     func test_size_change_reapplies_label_font_from_spec() {
         let view = JdCheckboxView(label: "동의", size: .sm)
         let labelView = jdDescendants(view, of: UILabel.self).first
-        XCTAssertEqual(labelView?.font.pointSize,
-                       JdFontBridge.scaledFont(size: JdChoiceSpec.resolve(size: .sm).labelFontSize,
-                                               weight: JdToken.FontWeight.normal,
-                                               compatibleWith: view.traitCollection).pointSize)
+        XCTAssertEqual(
+            labelView?.font.pointSize,
+            JdFontBridge.scaledFont(
+                size: JdChoiceSpec.resolve(size: .sm).labelFontSize,
+                weight: JdToken.FontWeight.normal,
+                compatibleWith: view.traitCollection
+            ).pointSize)
         view.size = .md
-        XCTAssertEqual(labelView?.font.pointSize,
-                       JdFontBridge.scaledFont(size: JdChoiceSpec.resolve(size: .md).labelFontSize,
-                                               weight: JdToken.FontWeight.normal,
-                                               compatibleWith: view.traitCollection).pointSize)
+        XCTAssertEqual(
+            labelView?.font.pointSize,
+            JdFontBridge.scaledFont(
+                size: JdChoiceSpec.resolve(size: .md).labelFontSize,
+                weight: JdToken.FontWeight.normal,
+                compatibleWith: view.traitCollection
+            ).pointSize)
     }
 }
 
 // MARK: - RadioGroup
 
+@MainActor
 final class JdRadioGroupViewTests: XCTestCase {
 
     private let options = [
@@ -170,7 +180,9 @@ final class JdRadioGroupViewTests: XCTestCase {
     ]
 
     private func row(_ group: JdRadioGroupView, label: String) throws -> UIControl {
-        let match = jdDescendants(group, of: UIControl.self).first { $0.accessibilityLabel == label }
+        let match = jdDescendants(group, of: UIControl.self).first {
+            $0.accessibilityLabel == label
+        }
         return try XCTUnwrap(match)
     }
 

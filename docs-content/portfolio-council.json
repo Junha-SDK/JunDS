@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "PortfolioCouncil",
   "oneLiner": "보유 종목 종합 평가(카운슬) 패널.",
-  "tags": [
-    "finance",
-    "포트폴리오",
-    "평가"
-  ],
+  "tags": ["finance", "포트폴리오", "평가"],
   "controls": [],
   "snippets": {
     "web": null,

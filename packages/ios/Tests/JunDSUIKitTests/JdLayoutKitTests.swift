@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 선언형 배치 + 열 정렬 계약 (DEC-042).
@@ -8,6 +9,7 @@ import JunDSCore
 // 이 파일이 지키는 약속은 하나다: **"진짜 어렵고 복잡한 것도 문제없이"**. 그래서 쉬운
 // 케이스가 아니라 어긋나기 쉬운 케이스를 본다 — 행 간 열 공유, 폭 부족, 마지막 행이 덜 찬
 // 표, RTL, 반응형 축 전환, 그리고 보고 높이와 실제 배치의 일치.
+@MainActor
 final class JdLayoutKitTests: XCTestCase {
 
     private final class Box: UIView {
@@ -27,7 +29,9 @@ final class JdLayoutKitTests: XCTestCase {
     }
 
     private func laidOut(_ view: UIView, width: CGFloat) {
-        let height = view.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height
+        let height = view.sizeThatFits(
+            CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+        ).height
         view.frame = CGRect(x: 0, y: 0, width: width, height: height)
         view.layoutSubviews()
     }
@@ -75,9 +79,10 @@ final class JdLayoutKitTests: XCTestCase {
     func test_flex_spacer_is_zero_sized_and_lowest_priority() {
         let flex = JdFlexSpacerView()
         XCTAssertEqual(flex.intrinsicContentSize, .zero)
-        XCTAssertLessThan(flex.contentHuggingPriority(for: .horizontal),
-                          JdSpacerView(.md, axis: .horizontal).contentHuggingPriority(for: .horizontal),
-                          "신축 여백이 고정 간격보다 우선순위가 높으면 밀어내기가 안 된다")
+        XCTAssertLessThan(
+            flex.contentHuggingPriority(for: .horizontal),
+            JdSpacerView(.md, axis: .horizontal).contentHuggingPriority(for: .horizontal),
+            "신축 여백이 고정 간격보다 우선순위가 높으면 밀어내기가 안 된다")
     }
 
     // jdFill은 addSubview를 스스로 한다 — jd.layout의 preconditionFailure 함정이 불가능해진다
@@ -114,8 +119,9 @@ final class JdLayoutKitTests: XCTestCase {
             [wide, Box(30, 20)]
         }
         laidOut(table, width: 400)
-        XCTAssertEqual(narrow.frame.width, 120, accuracy: 0.001,
-                       "1행 셀이 자기 내용(40)만큼만 잡혔다 — 열이 공유되지 않는다")
+        XCTAssertEqual(
+            narrow.frame.width, 120, accuracy: 0.001,
+            "1행 셀이 자기 내용(40)만큼만 잡혔다 — 열이 공유되지 않는다")
         XCTAssertEqual(wide.frame.width, 120, accuracy: 0.001)
         // 두 행의 두 번째 열도 같은 x에서 시작해야 한다
         let secondColumnXs = table.rows.map { $0[1].frame.minX }
@@ -123,12 +129,16 @@ final class JdLayoutKitTests: XCTestCase {
     }
 
     func test_fixed_and_flexible_columns_split_remaining_width() {
-        let a = Box(10, 20), b = Box(10, 20), c = Box(10, 20)
-        let table = JdColumnsView(columns: [.fixed(60), .flex(weight: 1), .flex(weight: 3)],
-                                  gap: .custom(10)) {
+        let a = Box(10, 20)
+        let b = Box(10, 20)
+        let c = Box(10, 20)
+        let table = JdColumnsView(
+            columns: [.fixed(60), .flex(weight: 1), .flex(weight: 3)],
+            gap: .custom(10)
+        ) {
             [a, b, c]
         }
-        laidOut(table, width: 280) // 280 - 60 - 20(gap) = 200 → 50 / 150
+        laidOut(table, width: 280)  // 280 - 60 - 20(gap) = 200 → 50 / 150
         XCTAssertEqual(a.frame.width, 60, accuracy: 0.001)
         XCTAssertEqual(b.frame.width, 50, accuracy: 0.001)
         XCTAssertEqual(c.frame.width, 150, accuracy: 0.001)
@@ -136,9 +146,12 @@ final class JdLayoutKitTests: XCTestCase {
 
     // 가중치가 전부 0이어도 0으로 나누지 않고 균등 분배한다
     func test_zero_weights_fall_back_to_equal_split() {
-        let a = Box(10, 20), b = Box(10, 20)
-        let table = JdColumnsView(columns: [.flex(weight: 0), .flex(weight: 0)],
-                                  gap: .none) { [a, b] }
+        let a = Box(10, 20)
+        let b = Box(10, 20)
+        let table = JdColumnsView(
+            columns: [.flex(weight: 0), .flex(weight: 0)],
+            gap: .none
+        ) { [a, b] }
         laidOut(table, width: 200)
         XCTAssertEqual(a.frame.width, 100, accuracy: 0.001)
         XCTAssertEqual(b.frame.width, 100, accuracy: 0.001)
@@ -146,12 +159,18 @@ final class JdLayoutKitTests: XCTestCase {
 
     // 열 정렬 — 숫자 열은 trailing이라야 자리수가 달라도 끝이 맞는다
     func test_column_alignment_places_cell_within_its_column() {
-        let lead = Box(40, 20), center = Box(40, 20), trail = Box(40, 20)
+        let lead = Box(40, 20)
+        let center = Box(40, 20)
+        let trail = Box(40, 20)
         // 정렬이 폭 규칙과 **한 값**에 붙어 있다 — 인덱스로 짝을 맞출 일이 없다
-        let table = JdColumnsView(columns: [.fixed(100, align: .start),
-                                            .fixed(100, align: .center),
-                                            .fixed(100, align: .end)],
-                                  gap: .none) {
+        let table = JdColumnsView(
+            columns: [
+                .fixed(100, align: .start),
+                .fixed(100, align: .center),
+                .fixed(100, align: .end),
+            ],
+            gap: .none
+        ) {
             [lead, center, trail]
         }
         laidOut(table, width: 300)
@@ -164,7 +183,8 @@ final class JdLayoutKitTests: XCTestCase {
 
     // 폭이 모자라면 fit 열을 줄여 잘림을 막는다. 고정 열은 소비자 의도라 건드리지 않는다.
     func test_overflow_shrinks_fit_columns_not_fixed_ones() {
-        let fixed = Box(10, 20), fit = Box(300, 20)
+        let fixed = Box(10, 20)
+        let fit = Box(300, 20)
         let table = JdColumnsView(columns: [.fixed(80), .fit()], gap: .none) { [fixed, fit] }
         laidOut(table, width: 200)
         XCTAssertEqual(fixed.frame.width, 80, accuracy: 0.001, "고정 열이 줄어들었다")
@@ -194,11 +214,15 @@ final class JdLayoutKitTests: XCTestCase {
 
     // 보고 높이 == 실제 배치 하단. 어긋나면 부모가 자르거나 빈 공간을 남긴다.
     func test_reported_height_matches_placed_rows() {
-        let table = JdColumnsView(columns: [.flex(), .flex()], gap: .custom(10), rowGap: .custom(6)) {
+        let table = JdColumnsView(
+            columns: [.flex(), .flex()], gap: .custom(10), rowGap: .custom(6)
+        ) {
             [Box(10, 20), Box(10, 30)]
             [Box(10, 20), Box(10, 20)]
         }
-        let reported = table.sizeThatFits(CGSize(width: 200, height: CGFloat.greatestFiniteMagnitude)).height
+        let reported = table.sizeThatFits(
+            CGSize(width: 200, height: CGFloat.greatestFiniteMagnitude)
+        ).height
         laidOut(table, width: 200)
         let bottom = table.rows.flatMap { $0 }.map(\.frame.maxY).max() ?? 0
         XCTAssertEqual(reported, bottom, accuracy: 0.001)
@@ -207,14 +231,15 @@ final class JdLayoutKitTests: XCTestCase {
 
     // 좁은 폭에서 셀이 여러 줄이 되면 행 높이가 그만큼 늘어난다 — 폭→높이 순서가 맞아야 한다
     func test_row_height_follows_cell_height_at_its_column_width() {
-        let tall = Box(200, 20) // 폭 100이면 2줄 → 높이 40
+        let tall = Box(200, 20)  // 폭 100이면 2줄 → 높이 40
         let table = JdColumnsView(columns: [.fixed(100), .fixed(100)], gap: .none) {
             [tall, Box(10, 20)]
         }
         laidOut(table, width: 200)
         XCTAssertEqual(tall.frame.height, 40, accuracy: 0.001)
-        XCTAssertEqual(table.sizeThatFits(CGSize(width: 200, height: CGFloat.greatestFiniteMagnitude)).height,
-                       40, accuracy: 0.001)
+        XCTAssertEqual(
+            table.sizeThatFits(CGSize(width: 200, height: CGFloat.greatestFiniteMagnitude)).height,
+            40, accuracy: 0.001)
     }
 
     func test_set_rows_replaces_children() {
@@ -226,7 +251,7 @@ final class JdLayoutKitTests: XCTestCase {
     }
 
     func test_empty_table_and_zero_width_are_safe() {
-        let empty = JdColumnsView(columns: [.flex()], gap: .none) { }
+        let empty = JdColumnsView(columns: [.flex()], gap: .none) {}
         XCTAssertEqual(empty.sizeThatFits(CGSize(width: 200, height: 200)).height, 0)
         let table = JdColumnsView(columns: [.flex()], gap: .none) { [Box(10, 10)] }
         XCTAssertEqual(table.sizeThatFits(CGSize(width: 0, height: 200)).height, 0)
@@ -320,8 +345,9 @@ final class JdLayoutKitTests: XCTestCase {
         XCTAssertEqual(table.columnGap, .md)
         XCTAssertEqual(table.rowGap, .sm)
         laidOut(table, width: 200)
-        XCTAssertEqual(table.rows[0][1].frame.minX - table.rows[0][0].frame.maxX,
-                       JdGap.md.value, accuracy: 0.001)
+        XCTAssertEqual(
+            table.rows[0][1].frame.minX - table.rows[0][0].frame.maxX,
+            JdGap.md.value, accuracy: 0.001)
     }
 
     // MARK: - 측정 회귀 (DEC-046)
@@ -354,14 +380,17 @@ final class JdLayoutKitTests: XCTestCase {
     // 이 단언이 DEC-046 이전 코드에서 실패한다 — sizeThatFits가 .zero를 주기 때문이다
     func test_measure_reads_internal_constraints_not_just_sizeThatFits() {
         let card = AutoLayoutCard(text: "USD/KRW")
-        XCTAssertEqual(card.sizeThatFits(CGSize(width: 132, height: 999)), .zero,
-                       "전제 확인: 기본 sizeThatFits는 bounds(=0)를 돌려준다")
-        XCTAssertEqual(card.intrinsicContentSize.height, UIView.noIntrinsicMetric,
-                       "전제 확인: 컨테이너는 고유 높이가 없다")
+        XCTAssertEqual(
+            card.sizeThatFits(CGSize(width: 132, height: 999)), .zero,
+            "전제 확인: 기본 sizeThatFits는 bounds(=0)를 돌려준다")
+        XCTAssertEqual(
+            card.intrinsicContentSize.height, UIView.noIntrinsicMetric,
+            "전제 확인: 컨테이너는 고유 높이가 없다")
 
         let measured = JdMeasure.size(of: card, width: 132)
-        XCTAssertGreaterThan(measured.height, 20,
-                             "내부 제약(위아래 10 + 라벨 높이)을 읽지 못했다 — 셀이 0높이로 접힌다")
+        XCTAssertGreaterThan(
+            measured.height, 20,
+            "내부 제약(위아래 10 + 라벨 높이)을 읽지 못했다 — 셀이 0높이로 접힌다")
         XCTAssertLessThanOrEqual(measured.width, 132)
     }
 
@@ -369,8 +398,9 @@ final class JdLayoutKitTests: XCTestCase {
     func test_measure_falls_through_to_sizeThatFits_for_self_laying_views() {
         let inner = JdWrapView(itemSpacing: 8, [Box(40, 20), Box(40, 20)])
         let measured = JdMeasure.size(of: inner, width: 200)
-        XCTAssertEqual(measured.height, 20, accuracy: 0.001,
-                       "자체 배치 뷰의 sizeThatFits를 쓰지 못했다")
+        XCTAssertEqual(
+            measured.height, 20, accuracy: 0.001,
+            "자체 배치 뷰의 sizeThatFits를 쓰지 못했다")
     }
 
     func test_measure_uses_intrinsic_for_content_leaves() {
@@ -383,14 +413,17 @@ final class JdLayoutKitTests: XCTestCase {
 
     // 랩·열 뷰가 Auto Layout 카드를 실제로 배치한다 — 결함의 최종 재현 지점
     func test_wrap_places_auto_layout_cards_with_real_height() {
-        let wrap = JdWrapView(itemSpacing: 8, equalWidths: true, minItemWidth: 132,
-                              [AutoLayoutCard(text: "USD/KRW"), AutoLayoutCard(text: "외국인")])
+        let wrap = JdWrapView(
+            itemSpacing: 8, equalWidths: true, minItemWidth: 132,
+            [AutoLayoutCard(text: "USD/KRW"), AutoLayoutCard(text: "외국인")])
         laidOut(wrap, width: 360)
         for card in wrap.arrangedViews {
             XCTAssertGreaterThan(card.frame.height, 20, "카드가 0높이로 접혔다")
             XCTAssertGreaterThan(card.frame.width, 0)
         }
-        XCTAssertGreaterThan(wrap.sizeThatFits(CGSize(width: 360, height: CGFloat.greatestFiniteMagnitude)).height, 20)
+        XCTAssertGreaterThan(
+            wrap.sizeThatFits(CGSize(width: 360, height: CGFloat.greatestFiniteMagnitude)).height,
+            20)
     }
 
     func test_columns_places_auto_layout_cards_with_real_height() {

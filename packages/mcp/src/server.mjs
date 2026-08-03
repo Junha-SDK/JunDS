@@ -26,7 +26,13 @@ export const VERSION = "3.0.0-alpha.0";
 // ─── 입력 스키마 ───────────────────────────────────────────────────────────
 
 const CATEGORY = z.enum([
-  "core", "layout", "primitives", "hooks", "composites", "patterns", "finance",
+  "core",
+  "layout",
+  "primitives",
+  "hooks",
+  "composites",
+  "patterns",
+  "finance",
 ]);
 const LEDGER_PLATFORM = z.enum(["web", "ios"]);
 const NORM_STATUS = z.enum(["done", "wip", "todo"]);
@@ -47,19 +53,21 @@ const QUERY = z.string().min(1).max(200);
 export function createServer(loadDataFn = loadData) {
   const server = new McpServer({ name: "junds", version: VERSION });
 
-  const wrap = (fn) => async (input = {}) => {
-    let payload;
-    try {
-      payload = fn(await loadDataFn(), input);
-    } catch (err) {
-      payload = { ok: false, error: String(err?.message ?? err) };
-    }
-    const result = {
-      content: [{ type: "text", text: JSON.stringify(payload, null, 2) }],
+  const wrap =
+    (fn) =>
+    async (input = {}) => {
+      let payload;
+      try {
+        payload = fn(await loadDataFn(), input);
+      } catch (err) {
+        payload = { ok: false, error: String(err?.message ?? err) };
+      }
+      const result = {
+        content: [{ type: "text", text: JSON.stringify(payload, null, 2) }],
+      };
+      if (payload.ok === false) result.isError = true;
+      return result;
     };
-    if (payload.ok === false) result.isError = true;
-    return result;
-  };
 
   server.registerTool(
     "search_components",
@@ -70,7 +78,7 @@ export function createServer(loadDataFn = loadData) {
         "(ids, tags, descriptions, implementation notes). Returns per-platform migration " +
         "status (web/ios) for each hit — v3 is mid-migration, so availability IS part of " +
         "the answer. Without `query`, lists by filters (category browsing). `platform` " +
-        "alone means \"usable now on that platform\" (status done); combine with `status` " +
+        'alone means "usable now on that platform" (status done); combine with `status` ' +
         "to ask e.g. platform:ios status:todo.",
       inputSchema: {
         query: QUERY.optional().describe(
@@ -167,8 +175,7 @@ export function createServer(loadDataFn = loadData) {
 
 // ─── main ──────────────────────────────────────────────────────────────────
 
-const isMain =
-  process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
+const isMain = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
 if (isMain) {
   const server = createServer();
   const transport = new StdioServerTransport();

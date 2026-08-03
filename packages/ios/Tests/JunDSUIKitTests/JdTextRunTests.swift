@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 텍스트 런 계열(Code · Mark · Highlight · Link · Mention · Hashtag)의 UIKit 표면 검증.
@@ -24,19 +25,22 @@ private func attributeColor(_ label: UILabel, _ key: NSAttributedString.Key) -> 
     resolvedLight(firstAttributes(label)[key] as? UIColor)
 }
 
+@MainActor
 final class JdCodeViewTests: XCTestCase {
 
     // 인라인 코드의 정체성 = 모노스페이스. 산세리프와 **다른 패밀리**임을 함께 고정한다
     // (scaledMonoFont 대신 scaledFont로 되돌아가는 회귀가 이 단언에서만 잡힌다)
     func test_font_is_monospaced_and_not_the_sans_face() {
         let view = JdCodeView("let x = 1")
-        let size = JdTextSpec.resolve(size: .xs).fontSize // md 럼프 = 12
-        let mono = JdFontBridge.scaledMonoFont(size: size,
-                                               weight: JdToken.FontWeight.normal,
-                                               compatibleWith: view.traitCollection)
-        let sans = JdFontBridge.scaledFont(size: size,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: view.traitCollection)
+        let size = JdTextSpec.resolve(size: .xs).fontSize  // md 럼프 = 12
+        let mono = JdFontBridge.scaledMonoFont(
+            size: size,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: view.traitCollection)
+        let sans = JdFontBridge.scaledFont(
+            size: size,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: view.traitCollection)
         XCTAssertEqual(view.font.fontName, mono.fontName)
         XCTAssertNotEqual(view.font.fontName, sans.fontName)
     }
@@ -52,10 +56,12 @@ final class JdCodeViewTests: XCTestCase {
         ]
         for (variant, background, foreground) in expected {
             let view = JdCodeView("x", variant: variant)
-            XCTAssertEqual(view.backgroundColor?.resolvedColor(with: lightTraits),
-                           background.uiColor.resolvedColor(with: lightTraits), "\(variant)")
-            XCTAssertEqual(view.textColor.resolvedColor(with: lightTraits),
-                           foreground.uiColor.resolvedColor(with: lightTraits), "\(variant)")
+            XCTAssertEqual(
+                view.backgroundColor?.resolvedColor(with: lightTraits),
+                background.uiColor.resolvedColor(with: lightTraits), "\(variant)")
+            XCTAssertEqual(
+                view.textColor.resolvedColor(with: lightTraits),
+                foreground.uiColor.resolvedColor(with: lightTraits), "\(variant)")
         }
         XCTAssertEqual(expected.count, JdCodeVariant.allCases.count)
     }
@@ -64,10 +70,12 @@ final class JdCodeViewTests: XCTestCase {
     func test_variant_change_reapplies_colors() {
         let view = JdCodeView("x")
         view.variant = .danger
-        XCTAssertEqual(view.backgroundColor?.resolvedColor(with: lightTraits),
-                       JdToken.Color.dangerLight.uiColor.resolvedColor(with: lightTraits))
-        XCTAssertEqual(view.textColor.resolvedColor(with: lightTraits),
-                       JdToken.Color.danger.uiColor.resolvedColor(with: lightTraits))
+        XCTAssertEqual(
+            view.backgroundColor?.resolvedColor(with: lightTraits),
+            JdToken.Color.dangerLight.uiColor.resolvedColor(with: lightTraits))
+        XCTAssertEqual(
+            view.textColor.resolvedColor(with: lightTraits),
+            JdToken.Color.danger.uiColor.resolvedColor(with: lightTraits))
     }
 
     // 크기 램프는 비감소 + 끝점은 확실히 벌어진다(폰트·패딩이 함께 자란다)
@@ -83,16 +91,19 @@ final class JdCodeViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdMarkViewTests: XCTestCase {
 
     // 배경형 = 팔레트 배경 + 밑줄 없음
     func test_default_is_a_background_highlight_without_underline() {
         let view = JdMarkView("형광펜")
-        XCTAssertEqual(view.backgroundColor?.resolvedColor(with: lightTraits),
-                       JdMarkPalette.background(.yellow).uiColor.resolvedColor(with: lightTraits))
+        XCTAssertEqual(
+            view.backgroundColor?.resolvedColor(with: lightTraits),
+            JdMarkPalette.background(.yellow).uiColor.resolvedColor(with: lightTraits))
         XCTAssertNil(firstAttributes(view)[.underlineStyle])
-        XCTAssertEqual(attributeColor(view, .foregroundColor),
-                       resolvedLight(JdMarkPalette.foreground(.yellow).uiColor))
+        XCTAssertEqual(
+            attributeColor(view, .foregroundColor),
+            resolvedLight(JdMarkPalette.foreground(.yellow).uiColor))
     }
 
     // 밑줄형으로 토글하면 배경이 사라지고 밑줄이 팔레트 색으로 붙는다(웹 동형)
@@ -102,34 +113,40 @@ final class JdMarkViewTests: XCTestCase {
         let attributes = firstAttributes(view)
         XCTAssertEqual(view.backgroundColor, UIColor.clear)
         XCTAssertEqual(attributes[.underlineStyle] as? Int, NSUnderlineStyle.thick.rawValue)
-        XCTAssertEqual(attributeColor(view, .underlineColor),
-                       resolvedLight(JdMarkPalette.foreground(.blue).uiColor))
+        XCTAssertEqual(
+            attributeColor(view, .underlineColor),
+            resolvedLight(JdMarkPalette.foreground(.blue).uiColor))
         // 웹 color: inherit 동형 — 밑줄형 글자색은 팔레트가 아니라 본문색이다
-        XCTAssertEqual(attributeColor(view, .foregroundColor),
-                       resolvedLight(JdToken.Color.foreground.uiColor))
+        XCTAssertEqual(
+            attributeColor(view, .foregroundColor),
+            resolvedLight(JdToken.Color.foreground.uiColor))
 
         // 되돌리면 배경형으로 복귀한다(단방향 전환 회귀 방지)
         view.underline = false
         XCTAssertNil(firstAttributes(view)[.underlineStyle])
-        XCTAssertEqual(view.backgroundColor?.resolvedColor(with: lightTraits),
-                       JdMarkPalette.background(.blue).uiColor.resolvedColor(with: lightTraits))
+        XCTAssertEqual(
+            view.backgroundColor?.resolvedColor(with: lightTraits),
+            JdMarkPalette.background(.blue).uiColor.resolvedColor(with: lightTraits))
     }
 
     // 5색 전부 팔레트가 결의된다 + color didSet 반영
     func test_all_colors_resolve_and_react_to_didSet() {
         for color in JdMarkColor.allCases {
             let view = JdMarkView("색", color: color)
-            XCTAssertEqual(view.backgroundColor?.resolvedColor(with: lightTraits),
-                           JdMarkPalette.background(color).uiColor.resolvedColor(with: lightTraits),
-                           "\(color)")
+            XCTAssertEqual(
+                view.backgroundColor?.resolvedColor(with: lightTraits),
+                JdMarkPalette.background(color).uiColor.resolvedColor(with: lightTraits),
+                "\(color)")
         }
         let view = JdMarkView("색", color: .yellow)
         view.color = .purple
-        XCTAssertEqual(view.backgroundColor?.resolvedColor(with: lightTraits),
-                       JdMarkPalette.background(.purple).uiColor.resolvedColor(with: lightTraits))
+        XCTAssertEqual(
+            view.backgroundColor?.resolvedColor(with: lightTraits),
+            JdMarkPalette.background(.purple).uiColor.resolvedColor(with: lightTraits))
     }
 }
 
+@MainActor
 final class JdHighlightTextViewTests: XCTestCase {
 
     // 핵심 계약: 칠해진 range가 **Core JdHighlight.segments와 정확히 일치**한다.
@@ -155,8 +172,8 @@ final class JdHighlightTextViewTests: XCTestCase {
         }
 
         XCTAssertEqual(actual, expected)
-        XCTAssertEqual(expected.count, 3) // 대소문자 무시 전수 매칭
-        XCTAssertEqual(attributed.string, text) // 원문 보존
+        XCTAssertEqual(expected.count, 3)  // 대소문자 무시 전수 매칭
+        XCTAssertEqual(attributed.string, text)  // 원문 보존
     }
 
     // 빈 쿼리 = 전체가 비매치 1구간(Core 판정) — 아무것도 칠하지 않는다
@@ -164,8 +181,10 @@ final class JdHighlightTextViewTests: XCTestCase {
         let view = JdHighlightTextView("검색어 없음", query: "")
         let attributed = try XCTUnwrap(view.attributedText)
         var painted = 0
-        attributed.enumerateAttribute(.backgroundColor,
-                                      in: NSRange(location: 0, length: attributed.length)) { value, _, _ in
+        attributed.enumerateAttribute(
+            .backgroundColor,
+            in: NSRange(location: 0, length: attributed.length)
+        ) { value, _, _ in
             if value != nil { painted += 1 }
         }
         XCTAssertEqual(painted, 0)
@@ -178,10 +197,11 @@ final class JdHighlightTextViewTests: XCTestCase {
         XCTAssertEqual(view.accessibilityLabel, "Swift 하이라이트")
 
         view.query = "하이"
-        XCTAssertEqual(view.accessibilityLabel, "Swift 하이라이트") // 쿼리가 바뀌어도 원문 1개
+        XCTAssertEqual(view.accessibilityLabel, "Swift 하이라이트")  // 쿼리가 바뀌어도 원문 1개
     }
 }
 
+@MainActor
 final class JdLinkViewTests: XCTestCase {
 
     private let url = URL(string: "https://junds.dev")
@@ -211,8 +231,9 @@ final class JdLinkViewTests: XCTestCase {
     // 밑줄은 기본 켬(웹 hover 밑줄의 iOS 번역) — 끄면 속성이 사라진다
     func test_underline_is_on_by_default_and_can_be_turned_off() {
         let view = JdLinkView("문서", destination: url)
-        XCTAssertEqual(firstAttributes(view.contentLabel)[.underlineStyle] as? Int,
-                       NSUnderlineStyle.single.rawValue)
+        XCTAssertEqual(
+            firstAttributes(view.contentLabel)[.underlineStyle] as? Int,
+            NSUnderlineStyle.single.rawValue)
         view.underline = false
         XCTAssertNil(firstAttributes(view.contentLabel)[.underlineStyle])
     }
@@ -220,12 +241,14 @@ final class JdLinkViewTests: XCTestCase {
     // variant 색 — default와 primary는 같은 토큰으로 결의된다(웹 `.jd-link` 기본색 = primary)
     func test_variant_colors_come_from_tokens() {
         let muted = JdLinkView("문서", destination: url, variant: .muted)
-        XCTAssertEqual(attributeColor(muted.contentLabel, .foregroundColor),
-                       resolvedLight(JdToken.Color.muted.uiColor))
+        XCTAssertEqual(
+            attributeColor(muted.contentLabel, .foregroundColor),
+            resolvedLight(JdToken.Color.muted.uiColor))
         for variant in [JdLinkVariant.default, .primary] {
             let view = JdLinkView("문서", destination: url, variant: variant)
-            XCTAssertEqual(attributeColor(view.contentLabel, .foregroundColor),
-                           resolvedLight(JdToken.Color.primary.uiColor), "\(variant)")
+            XCTAssertEqual(
+                attributeColor(view.contentLabel, .foregroundColor),
+                resolvedLight(JdToken.Color.primary.uiColor), "\(variant)")
         }
     }
 
@@ -240,13 +263,15 @@ final class JdLinkViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdMentionHashtagViewTests: XCTestCase {
 
     // 표시 문자열은 Core가 만든다(label 폴백 규칙 재구현 금지)
     func test_mention_display_text_delegates_to_core() {
         let fallback = JdMentionLabelView(handle: "junha")
-        XCTAssertEqual(fallback.attributedText?.string,
-                       JdMentionChip.displayText(handle: "junha", label: ""))
+        XCTAssertEqual(
+            fallback.attributedText?.string,
+            JdMentionChip.displayText(handle: "junha", label: ""))
         XCTAssertEqual(fallback.accessibilityLabel, "@junha")
 
         let labeled = JdMentionLabelView(handle: "junha", label: "준하", isVerified: true)
@@ -272,8 +297,9 @@ final class JdMentionHashtagViewTests: XCTestCase {
         let expected = JdHashtag.countText(1500)
         XCTAssertEqual(expected, JdNumberFormat.compactCount(1500))
         XCTAssertEqual(counted.attributedText?.string.contains("(\(expected))"), true)
-        XCTAssertEqual(counted.accessibilityLabel,
-                       "#swift, \(JdMentionStyle.trendingLabel), \(expected)")
+        XCTAssertEqual(
+            counted.accessibilityLabel,
+            "#swift, \(JdMentionStyle.trendingLabel), \(expected)")
     }
 
     // count didSet → 표기 갱신(nil이면 표기 자체가 사라진다)

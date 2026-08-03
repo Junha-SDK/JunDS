@@ -4,19 +4,12 @@
   "category": "core",
   "title": "CoreDivider",
   "oneLiner": "구분선 단일 정본 <jd-divider> — 가로·세로, 라벨 모드. LayoutDivider·primitives Divider는 별칭 예정(R12).",
-  "tags": [
-    "layout",
-    "separator",
-    "구분선"
-  ],
+  "tags": ["layout", "separator", "구분선"],
   "controls": [
     {
       "prop": "orientation",
       "kind": "segmented",
-      "options": [
-        "horizontal",
-        "vertical"
-      ],
+      "options": ["horizontal", "vertical"],
       "default": "horizontal"
     },
     {

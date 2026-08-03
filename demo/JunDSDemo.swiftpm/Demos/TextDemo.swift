@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Text 데모 — 실컴포넌트 JdText(SwiftUI)/JdTextView(UIKit).
 // 웹 <jd-text size/weight/dimmed/mono/line-clamp>의 표면을 그대로 시연.
@@ -11,12 +11,14 @@ enum TextDemo {
         id: "Text",
         controls: [
             .options("size", "size", JdTextSize.allCases.map(\.rawValue), initial: "md"),
-            .options("weight", "weight", ["normal", "medium", "semibold", "bold"], initial: "normal"),
+            .options(
+                "weight", "weight", ["normal", "medium", "semibold", "bold"], initial: "normal"),
             .toggle("dimmed", "dimmed"),
             .toggle("mono", "mono"),
             .slider("lineLimit", "lineLimit (0=무제한)", 0...3, step: 1, initial: 0),
-            .text("text", "본문", placeholder: "본문 텍스트",
-                  initial: "JunDS는 웹과 iOS가 같은 토큰을 공유하는 크로스플랫폼 디자인 시스템이다."),
+            .text(
+                "text", "본문", placeholder: "본문 텍스트",
+                initial: "JunDS는 웹과 iOS가 같은 토큰을 공유하는 크로스플랫폼 디자인 시스템이다."),
         ],
         swiftUI: { state in AnyView(TextStageSwiftUI(state: state)) },
         uikit: { state in AnyView(TextStageUIKit(state: state)) }

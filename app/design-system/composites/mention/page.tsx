@@ -23,7 +23,12 @@ export default function MentionPage() {
       importPath='import { Mention } from "@/ds/composites/Mention"'
       props={[
         { name: "value", type: "string", required: true, description: "입력 값" },
-        { name: "onChange", type: "(value: string) => void", required: true, description: "값 변경 콜백" },
+        {
+          name: "onChange",
+          type: "(value: string) => void",
+          required: true,
+          description: "값 변경 콜백",
+        },
         { name: "users", type: "MentionUser[]", required: true, description: "사용자 목록" },
         { name: "trigger", type: "string", default: '"@"', description: "트리거 문자" },
         { name: "placeholder", type: "string", description: "플레이스홀더" },

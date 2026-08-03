@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // BatteryIndicator 데모 — 실컴포넌트 JdBatteryIndicator(SwiftUI)/JdBatteryIndicatorView(UIKit).
 // 웹 <jd-battery-indicator> 동형. 컨트롤 키·값은 웹 attribute 리터럴
@@ -102,7 +102,8 @@ private struct BatteryViewRep: UIViewRepresentable {
     var color: JdBatteryColor
 
     func makeUIView(context: Context) -> JdBatteryIndicatorView {
-        JdBatteryIndicatorView(value: value, size: size, label: label, autoColor: autoColor, color: color)
+        JdBatteryIndicatorView(
+            value: value, size: size, label: label, autoColor: autoColor, color: color)
     }
 
     func updateUIView(_ view: JdBatteryIndicatorView, context: Context) {
@@ -114,7 +115,9 @@ private struct BatteryViewRep: UIViewRepresentable {
     }
 
     // 내부 스택 제약으로만 크기가 나오는 뷰라 압축 적합 크기를 직접 알려 준다
-    func sizeThatFits(_ proposal: ProposedViewSize, uiView: JdBatteryIndicatorView, context: Context) -> CGSize? {
+    func sizeThatFits(
+        _ proposal: ProposedViewSize, uiView: JdBatteryIndicatorView, context: Context
+    ) -> CGSize? {
         uiView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
 }

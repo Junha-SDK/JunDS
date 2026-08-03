@@ -7,12 +7,7 @@
 import "./styles/tokens.css";
 
 // Auth (License)
-export {
-  JunDSProvider,
-  useJunDS,
-  useLicenseStatus,
-  withLicense,
-} from "./auth";
+export { JunDSProvider, useJunDS, useLicenseStatus, withLicense } from "./auth";
 export type { JunDSProviderProps } from "./auth";
 
 // Core

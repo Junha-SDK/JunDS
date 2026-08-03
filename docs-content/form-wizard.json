@@ -4,10 +4,7 @@
   "category": "patterns",
   "title": "FormWizard",
   "oneLiner": "단계별 폼 마법사(스텝 폼).",
-  "tags": [
-    "form",
-    "navigation"
-  ],
+  "tags": ["form", "navigation"],
   "controls": [],
   "snippets": {
     "web": null,

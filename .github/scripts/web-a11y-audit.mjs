@@ -14,13 +14,7 @@
  */
 import { chromium } from "playwright";
 import { createRequire } from "node:module";
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  readdirSync,
-  writeFileSync,
-} from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -34,14 +28,10 @@ const reportPath = join(root, "coverage/web-a11y/a11y-summary.json");
 
 const strict = process.env.JUNDS_A11Y_STRICT === "1";
 const minimumPages = Number(process.env.JUNDS_A11Y_MIN_PAGES ?? 9);
-const minimumPublicComponents = Number(
-  process.env.JUNDS_A11Y_MIN_PUBLIC_COMPONENTS ?? 390,
-);
+const minimumPublicComponents = Number(process.env.JUNDS_A11Y_MIN_PUBLIC_COMPONENTS ?? 390);
 const minimumComponents = Number(process.env.JUNDS_A11Y_MIN_COMPONENTS ?? 87);
 // 최초 실측 87/390. 새 컴포넌트에 fixture가 없으면 비율이 내려가 CI가 알려준다.
-const minimumCoverageRatio = Number(
-  process.env.JUNDS_A11Y_MIN_COVERAGE_RATIO ?? 87 / 390,
-);
+const minimumCoverageRatio = Number(process.env.JUNDS_A11Y_MIN_COVERAGE_RATIO ?? 87 / 390);
 
 function publicTagInventory() {
   const tags = new Set();
@@ -70,9 +60,7 @@ function authoredTags(file) {
   const source = readFileSync(join(demoDir, file), "utf8");
   return [
     ...new Set(
-      [...source.matchAll(/<\s*(jd-[a-z0-9-]+)/gi)].map((match) =>
-        match[1].toLowerCase(),
-      ),
+      [...source.matchAll(/<\s*(jd-[a-z0-9-]+)/gi)].map((match) => match[1].toLowerCase()),
     ),
   ].sort();
 }
@@ -131,15 +119,11 @@ try {
         new Promise((resolve) => {
           const finite = document
             .getAnimations()
-            .filter(
-              (animation) =>
-                animation.effect?.getComputedTiming?.().iterations !== Infinity,
-            );
-          const done = Promise.all(
-            finite.map((animation) => animation.finished.catch(() => {})),
+            .filter((animation) => animation.effect?.getComputedTiming?.().iterations !== Infinity);
+          const done = Promise.all(finite.map((animation) => animation.finished.catch(() => {})));
+          Promise.race([done, new Promise((resolveCap) => setTimeout(resolveCap, 2000))]).then(
+            resolve,
           );
-          Promise.race([done, new Promise((resolveCap) => setTimeout(resolveCap, 2000))])
-            .then(resolve);
         }),
     );
 
@@ -188,14 +172,9 @@ try {
       window.axe.run(document, { resultTypes: ["violations"] }),
     );
     const blocking = result.violations.filter(
-      (violation) =>
-        strict ||
-        violation.impact === "critical" ||
-        violation.impact === "serious",
+      (violation) => strict || violation.impact === "critical" || violation.impact === "serious",
     );
-    const advisory = result.violations.filter(
-      (violation) => !blocking.includes(violation),
-    );
+    const advisory = result.violations.filter((violation) => !blocking.includes(violation));
     blockingRules += blocking.length;
     advisoryRules += advisory.length;
 
@@ -238,17 +217,13 @@ try {
 const coverageRatio = coveredTags.size / inventory.length;
 const uncoveredTags = inventory.filter((tag) => !coveredTags.has(tag));
 if (inventory.length < minimumPublicComponents) {
-  auditErrors.push(
-    `공개 태그 인벤토리 ${inventory.length}종 < 기준 ${minimumPublicComponents}종`,
-  );
+  auditErrors.push(`공개 태그 인벤토리 ${inventory.length}종 < 기준 ${minimumPublicComponents}종`);
 }
 if (missingDefinitions.length > 0) {
   auditErrors.push(`dist 미등록 공개 태그 ${missingDefinitions.length}종`);
 }
 if (coveredTags.size < minimumComponents) {
-  auditErrors.push(
-    `작성 fixture ${coveredTags.size}종 < 기준 ${minimumComponents}종`,
-  );
+  auditErrors.push(`작성 fixture ${coveredTags.size}종 < 기준 ${minimumComponents}종`);
 }
 if (coverageRatio + Number.EPSILON < minimumCoverageRatio) {
   auditErrors.push(
@@ -301,12 +276,8 @@ console.log(`[a11y] report ${reportPath}`);
 
 if (blockingRules > 0 || auditErrors.length > 0) {
   for (const error of auditErrors) console.error(`[a11y] ✗ ${error}`);
-  console.error(
-    `\n[a11y] FAIL — blocking ${blockingRules}건 · 감사 오류 ${auditErrors.length}건`,
-  );
+  console.error(`\n[a11y] FAIL — blocking ${blockingRules}건 · 감사 오류 ${auditErrors.length}건`);
   process.exit(1);
 }
 
-console.log(
-  `\n[a11y] PASS — ${pages.length}페이지 · blocking 0건 · advisory ${advisoryRules}건`,
-);
+console.log(`\n[a11y] PASS — ${pages.length}페이지 · blocking 0건 · advisory ${advisoryRules}건`);

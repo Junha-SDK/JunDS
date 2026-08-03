@@ -2,7 +2,7 @@
  * style-props 리졸버·적용기 단위 테스트 (B1 선행 과제).
  * v2 styleProps 어휘 패리티 + 반응형 마이크로문법 + diff 적용(소비자 스타일 보존).
  */
-import { beforeEach, describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import "../src/components/box/index.js";
 import type { JdBox } from "../src/components/box/element.js";
 
@@ -66,16 +66,22 @@ describe("색·박스 어휘", () => {
     expect(el.style.getPropertyValue("background-color")).toBe("#ff0000");
   });
 
-  test("radius는 v2 리터럴 어휘 (md=8px — 토큰 radius와 별개 축)", async () => {
+  test("radius는 토큰 어휘 — --jd-radius-* 참조 (DEC-045)", async () => {
     const el = await mount(`<jd-box radius="md"></jd-box>`);
-    expect(el.style.getPropertyValue("border-radius")).toBe("8px");
+    expect(el.style.getPropertyValue("border-radius")).toBe("var(--jd-radius-md)");
   });
 
-  test("shadow는 v2 리터럴 어휘", async () => {
+  test("shadow는 토큰 어휘 — 다크 전환이 var로 따라온다 (DEC-045)", async () => {
     const el = await mount(`<jd-box shadow="sm"></jd-box>`);
-    expect(el.style.getPropertyValue("box-shadow")).toBe(
-      "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)",
-    );
+    expect(el.style.getPropertyValue("box-shadow")).toBe("var(--jd-shadow-sm)");
+  });
+
+  test("제거된 v2 어휘는 경고하고 버린다 (조용한 값 치환 금지)", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const el = await mount(`<jd-box z-index="banner"></jd-box>`);
+    expect(el.style.getPropertyValue("z-index")).toBe("");
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('zIndex="banner"'));
+    warn.mockRestore();
   });
 
   test("border 불리언 attribute → 기본 보더 롱핸드, 문자열 → shorthand 원문", async () => {
@@ -113,16 +119,16 @@ describe("레이아웃·타이포 어휘", () => {
     expect(el.style.getPropertyValue("grid-column")).toBe("span 2");
   });
 
-  test("zIndex named/수치 (v2 styleProps 어휘 1000~1700)", async () => {
+  test("zIndex named는 토큰 어휘, 수치는 원문 통과 (DEC-045)", async () => {
     const a = await mount(`<jd-box z-index="modal"></jd-box>`);
-    expect(a.style.getPropertyValue("z-index")).toBe("1400");
+    expect(a.style.getPropertyValue("z-index")).toBe("var(--jd-z-modal)");
     const b = await mount(`<jd-box z-index="7"></jd-box>`);
     expect(b.style.getPropertyValue("z-index")).toBe("7");
   });
 
-  test("fontSize는 v2 어휘 리터럴 (md=1rem — --jd-text-md와 별개 축)", async () => {
+  test("fontSize는 토큰 어휘 — --jd-text-* 참조 (DEC-045)", async () => {
     const el = await mount(`<jd-box font-size="md"></jd-box>`);
-    expect(el.style.getPropertyValue("font-size")).toBe("1rem");
+    expect(el.style.getPropertyValue("font-size")).toBe("var(--jd-text-md)");
   });
 
   test("w/h — full/screen/수치 px (v2 resolveSize 동형)", async () => {

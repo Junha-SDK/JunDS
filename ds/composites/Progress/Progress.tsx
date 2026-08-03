@@ -65,20 +65,22 @@ export function ProgressBar({
       )}
       <div
         className={cn(
-          "w-full bg-gray-100 rounded-full overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)]",
+          "w-full bg-muted/15 rounded-full overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)]",
           barSizes[size],
         )}
       >
         <div
           className={cn(
-            "h-full rounded-full transition-all duration-500 ease-out",
+            // 채워지는 건 너비 하나다 — `all` 이면 색·그림자까지 매 프레임 다시 칠한다.
+            "h-full rounded-full transition-[width] duration-500 ease-out motion-reduce:transition-none",
             "bg-gradient-to-b from-white/25 to-white/0 shadow-[0_0_6px_rgba(0,0,0,0.06)]",
             barColors[variant],
-            animated && "animate-progress",
+            animated && "animate-progress motion-reduce:animate-none",
           )}
           style={{ width: `${pct}%` }}
           role="progressbar"
           aria-valuenow={value}
+          aria-valuemin={0}
           aria-valuemax={max}
         />
       </div>
@@ -103,23 +105,35 @@ export function ProgressSteps({ current, total, labels, className }: ProgressSte
             <div className="flex flex-col items-center">
               <div
                 className={cn(
-                  "w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all",
+                  "w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-xs font-semibold tabular-nums",
+                  "transition-colors motion-reduce:transition-none",
                   isDone
                     ? "bg-primary text-white shadow-[0_1px_3px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.2)]"
-                    : "bg-gray-100 text-muted border border-border",
+                    : "bg-muted/12 text-muted border border-border",
                   isCurrent && "ring-2 ring-primary/30 ring-offset-1",
                 )}
               >
                 {isDone && step < current ? (
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M3 7.5l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M3 7.5l3 3 5-5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 ) : (
                   step
                 )}
               </div>
               {labels?.[i] && (
-                <span className={cn("text-[10px] mt-1 whitespace-nowrap", isDone ? "text-primary font-medium" : "text-muted")}>
+                <span
+                  className={cn(
+                    "text-[10px] mt-1 whitespace-nowrap",
+                    isDone ? "text-primary-ink font-medium" : "text-muted",
+                  )}
+                >
                   {labels[i]}
                 </span>
               )}
@@ -128,7 +142,7 @@ export function ProgressSteps({ current, total, labels, className }: ProgressSte
               <div
                 className={cn(
                   "flex-1 h-0.5 mx-1 rounded-full transition-colors duration-300",
-                  step < current ? "bg-primary" : "bg-gray-200",
+                  step < current ? "bg-primary" : "bg-border",
                 )}
               />
             )}

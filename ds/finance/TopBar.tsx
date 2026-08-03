@@ -9,11 +9,7 @@ import { SearchBox } from "./SearchBox";
 import { AppIcon } from "./AppIcon";
 import { Logo } from "./Logo";
 import { marketStatusLabel } from "./lib/marketHolidays";
-import {
-  formatKoreaClock24,
-  formatKoreaDateShort,
-  useKoreaTime,
-} from "./lib/koreaTime";
+import { formatKoreaClock24, formatKoreaDateShort, useKoreaTime } from "./lib/koreaTime";
 
 interface MeResponse {
   authenticated: boolean;
@@ -101,7 +97,10 @@ export function TopBar() {
             >
               <span
                 aria-hidden
-                className={`size-1.5 rounded-full shrink-0${status === "장중" ? " animate-pulse" : ""}`}
+                // 맥동은 움직임이다 — 감속 요청을 받으면 색만 남긴다(장중 여부는 색과 라벨이 이미 말한다)
+                className={`size-1.5 rounded-full shrink-0${
+                  status === "장중" ? " animate-pulse motion-reduce:animate-none" : ""
+                }`}
                 style={{ background: "currentColor" }}
               />
               {status}
@@ -115,7 +114,7 @@ export function TopBar() {
           {me?.role === "owner" ? (
             <a
               href="/admin"
-              className="hidden md:inline-flex items-center px-2 h-8 rounded-lg text-[11.5px] font-extrabold"
+              className="hidden md:inline-flex items-center px-2 h-8 rounded-lg text-[11.5px] font-extrabold transition-colors duration-150 hover:bg-[color:var(--bm-soft-200)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-bg)]"
               style={{
                 background: "var(--bm-soft-100)",
                 color: "var(--bm-accent-strong)",
@@ -129,7 +128,7 @@ export function TopBar() {
             <button
               type="button"
               onClick={logout}
-              className="hidden md:inline-flex items-center px-2 h-8 rounded-lg text-[11.5px] font-bold"
+              className="hidden md:inline-flex items-center px-2 h-8 rounded-lg text-[11.5px] font-bold cursor-pointer transition-colors duration-150 hover:text-[color:var(--bm-text)] hover:bg-[color:var(--bm-soft-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-bg)]"
               style={{
                 color: "var(--bm-muted)",
                 border: "1px solid var(--bm-border)",

@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-like-button 동형 — 하트 토글 + 선택적 카운트 (DESIGN-3 §B).
 // 카운트 표기는 **JdNumberFormat.compactCount** 단일 소스다(자리수 축약 재구현 금지 — 04 §4.2).
@@ -70,8 +70,9 @@ public final class JdLikeButtonView: UIControl {
         let content = contentStack.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         let side = UIFontMetrics(forTextStyle: JdFontBridge.textStyle(forSize: spec.iconSize))
             .scaledValue(for: spec.side, compatibleWith: traitCollection)
-        return CGSize(width: max(side, content.width + JdToken.Space.s1 * 2),
-                      height: max(side, content.height))
+        return CGSize(
+            width: max(side, content.width + JdToken.Space.s1 * 2),
+            height: max(side, content.height))
     }
 
     public override var isHighlighted: Bool {
@@ -96,18 +97,20 @@ public final class JdLikeButtonView: UIControl {
         layer.cornerRadius = spec.radius
         layer.cornerCurve = .continuous
         alpha = isEnabled ? 1 : CGFloat(JdToken.Opacity.o50)
-        countLabel.font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                                  weight: JdToken.FontWeight.medium,
-                                                  compatibleWith: traitCollection)
+        countLabel.font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .xs).fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         applyState()
         applyCount()
     }
 
     private func applyState() {
         // SF Symbol은 폰트에 묶여 스케일된다 (04 §7.2)
-        let font = JdFontBridge.scaledFont(size: spec.iconSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: spec.iconSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
         iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font)
         iconView.image = UIImage(systemName: isLiked ? "heart.fill" : "heart")
         // 켜짐 = danger 토큰, 꺼짐 = 스펙 기본 전경(muted)

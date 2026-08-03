@@ -25,10 +25,7 @@ export default function FileUploadPage() {
       <Section title="드롭존">
         <Preview>
           <div className="max-w-md">
-            <FileUpload
-              onFiles={(f) => setFiles(f)}
-              multiple
-            />
+            <FileUpload onFiles={(f) => setFiles(f)} multiple />
             {files.length > 0 && (
               <p className="text-xs text-muted mt-2">
                 선택된 파일: {files.map((f) => f.name).join(", ")}
@@ -66,10 +63,7 @@ export default function FileUploadPage() {
       <Section title="비활성화">
         <Preview>
           <div className="max-w-md">
-            <FileUpload
-              onFiles={() => {}}
-              disabled
-            />
+            <FileUpload onFiles={() => {}} disabled />
           </div>
         </Preview>
       </Section>

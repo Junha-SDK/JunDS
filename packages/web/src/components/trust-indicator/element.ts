@@ -126,7 +126,9 @@ export class JdTrustIndicator extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       this.#items = normalize(JSON.parse(script.textContent || "[]"));
@@ -165,8 +167,9 @@ export class JdTrustIndicator extends JdElement {
       const row = list.children[i] as HTMLElement;
       if (row.dataset.status !== item.status) {
         row.dataset.status = item.status;
-        row.querySelector(".jd-trust-indicator__icon")!.innerHTML =
-          `<svg viewBox="0 0 16 16" focusable="false">${SHAPES[item.status]}</svg>`;
+        row.querySelector(
+          ".jd-trust-indicator__icon",
+        )!.innerHTML = `<svg viewBox="0 0 16 16" focusable="false">${SHAPES[item.status]}</svg>`;
         row.querySelector(".jd-trust-indicator__status")!.textContent = STATUS_LABEL[item.status];
       }
       row.dataset.key = item.key;

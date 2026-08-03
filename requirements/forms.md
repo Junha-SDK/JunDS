@@ -15,28 +15,30 @@ JunDS는 외부 폼 라이브러리(RHF, Formik 등)를 강제하지 않는다. 
 ## Scope
 
 **In scope**
+
 - `ds/hooks/useForm.ts` — 기존 자체 훅 (required/minLength/pattern/validate 4종 룰)
 - `ds/patterns/Form` + `ds/patterns/Form/FormField` — 라벨 + 에러 슬롯 통일
 - 외부 통합 레시피:
   - `.ai/recipes/rhf-zod-form.md` — RHF + Zod
   - `.ai/recipes/form-validation.md` — 자체 useForm + valibot
 - 모든 form primitive(Input/Textarea/Switch/Checkbox/Select/...)는 controlled
-  + uncontrolled 모두 지원
+  - uncontrolled 모두 지원
 
 **Out of scope**
+
 - 폼 빌더 GUI (no-code 캔버스) — `ds/patterns/FormBuilder`가 별도 담당
 - 서버 사이드 검증 — 호출자 책임
 
 ## User stories / acceptance criteria
 
 - [x] **As a 사용자** I can `useForm({ initial, rules })`로 작은 로그인 폼을
-  외부 의존 0으로 만들 수 있다.
+      외부 의존 0으로 만들 수 있다.
 - [x] **As a 사용자** I can RHF + Zod 사용자라면 `Controller`로 JunDS Switch/
-  Select/Checkbox를 그대로 묶을 수 있다 (recipe 제공).
+      Select/Checkbox를 그대로 묶을 수 있다 (recipe 제공).
 - [x] **As a 시각장애인** I can 모든 폼 컴포넌트가 `aria-invalid`,
-  `aria-errormessage`, `aria-required`를 자동 처리하는 것을 본다.
+      `aria-errormessage`, `aria-required`를 자동 처리하는 것을 본다.
 - [x] **As a 사용자** I can valibot 사용자라면 같은 controller 패턴으로
-  적용한다 (라이브러리 dep는 valibot 1.x).
+      적용한다 (라이브러리 dep는 valibot 1.x).
 
 ## Design / behavior notes
 

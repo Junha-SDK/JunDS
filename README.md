@@ -35,16 +35,16 @@ JunDS는 **MCP 서버를 내장**합니다. 이 리포지토리를 Cursor / Clau
 
 AI가 아래 14개 도구로 정확한 import 경로와 prop을 찾아 코드를 만듭니다.
 
-| 도구 | 용도 |
-| --- | --- |
-| `locate` | 자연어 쿼리로 컴포넌트 / 요구사항 / 페이지 랭킹 |
-| `get_component_props` | 한국어 JSDoc 포함 prop 시그니처 |
-| `list_recipes` · `read_recipe` | Modal+Form, DataTable 페이지 등 앱 레벨 조합 템플릿 |
-| `list_requirements` · `read_requirement` | 기능 스펙 (단일 진실의 소스) |
-| `list_hooks` | 훅 인벤토리 |
-| `scaffold` | primitive · composite · pattern · hook · requirement · recipe 자동 생성 |
-| `get_a11y` · `get_bundle_info` · `get_deps_for` · `get_screenshot_info` | 접근성 / 번들 사이즈 / 의존성 / 스크린샷 메타 |
-| `extract_props` · `map_refresh` | 정적 인덱스 재생성 (husky 훅이 자동 실행) |
+| 도구                                                                    | 용도                                                                    |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `locate`                                                                | 자연어 쿼리로 컴포넌트 / 요구사항 / 페이지 랭킹                         |
+| `get_component_props`                                                   | 한국어 JSDoc 포함 prop 시그니처                                         |
+| `list_recipes` · `read_recipe`                                          | Modal+Form, DataTable 페이지 등 앱 레벨 조합 템플릿                     |
+| `list_requirements` · `read_requirement`                                | 기능 스펙 (단일 진실의 소스)                                            |
+| `list_hooks`                                                            | 훅 인벤토리                                                             |
+| `scaffold`                                                              | primitive · composite · pattern · hook · requirement · recipe 자동 생성 |
+| `get_a11y` · `get_bundle_info` · `get_deps_for` · `get_screenshot_info` | 접근성 / 번들 사이즈 / 의존성 / 스크린샷 메타                           |
+| `extract_props` · `map_refresh`                                         | 정적 인덱스 재생성 (husky 훅이 자동 실행)                               |
 
 도구 입출력 스키마는 [`mcp/README.md`](./mcp/README.md), 에이전트 온보딩은 [`AGENTS.md`](./AGENTS.md) 참조.
 
@@ -183,18 +183,23 @@ function App() {
 ## Component Categories
 
 ### Primitives (38)
+
 Button, Input, Textarea, Badge, Avatar, Spinner, Toggle, Checkbox, Radio, Switch, Slider, Tag, IconButton, Kbd, Label, NumberInput, FileUpload, CopyButton, PasswordInput, PinInput, OTPInput, CurrencyInput, PhoneInput, NumberFormatter, RangeSlider, StarRating, StatusDot, BackTop, Divider, Portal, ScrollArea, AspectRatio, ErrorBoundary, BatteryIndicator, SeverityBadge, VisuallyHidden, Announcer, FocusGuard
 
 ### Composites (117)
+
 Modal, Tabs, Select, Toast, Drawer, Card, Alert, Accordion, Breadcrumb, Pagination, Tooltip, Popover, Dropdown, Combobox, MultiSelect, Timeline, Stepper, Table, Carousel, TreeView, DataGrid, MetricCard, Heatmap, DiffViewer, JSONViewer, CodeEditor, Rating, TagInput, SearchInput, SignaturePad, AddressInput, Marquee, AnimatedCounter, Typewriter, GradientBorder, SpotlightCard, BentoGrid, Dock, CopyBlock, CompareSlider, Confetti, InlineEdit, SkeletonPreset, Globe, MiniChart, ProgressRing, GaugeChart, FunnelChart, TreemapChart, MarkdownViewer, EmojiPicker, CronExpression, SwipeAction, PullToRefresh, BottomSheet, ActionSheet, QRCode, ColorSwatch, ImageCropper, VideoPlayer, AudioPlayer, Notification, Banner, ChatBubble, LoadingOverlay, Onboarding, and more...
 
 ### Patterns (24)
+
 DataTable (25 features), FormWizard, FormArray, Form, FilterBar, CommandPalette, Sidebar, Calendar, Kanban, StatsGrid, ActionBar, FormBuilder, InfiniteList, VirtualList, ChartCard, NotificationCenter, SortableList, RichTextEditor, Tour, FlowDiagram, Starfield, MasonryGrid, LoginForm, SecurityChecklist
 
 ### Layout (11)
+
 Stack, HStack, VStack, Grid, Container, Spacer, AppShell, Wrap, SimpleGrid, Show/Hide, AspectRatioBox, Overlay, LayoutDivider
 
 ### Hooks (29)
+
 useForm, useClickOutside, useKeyboard, useMediaQuery, useLocalStorage, useDebounce, useCopyToClipboard, useToggle, useDisclosure, useBreakpoint, useReducedMotion, usePanelResize, useScrollSpy, useFocusMode, useIntersectionObserver, useCountUp, usePrefersColorScheme, useIdle, useNetworkStatus, useThrottle, usePrevious, useLongPress, useElementSize, useSteps, useClipboard, useInterval, useWindowScroll, useEventListener, useMounted
 
 ## Responsive Props
@@ -237,6 +242,7 @@ useForm, useClickOutside, useKeyboard, useMediaQuery, useLocalStorage, useDeboun
 ## Scripts
 
 ### 개발 / 빌드 / 테스트
+
 ```bash
 npm run dev                # Development server (port 6100)
 npm run build              # Build Next.js app
@@ -252,6 +258,7 @@ npm run validate:requirements  # Requirements/* integrity check
 ```
 
 ### AI / 에이전트 인프라
+
 ```bash
 npm run scaffold <kind> <Name>  # primitive | composite | pattern | hook | requirement | recipe
 npm run map                # .ai/MAP.md
@@ -276,7 +283,7 @@ npm run storybook          # Storybook with addon-a11y
 ## Browser Support
 
 | Chrome | Firefox | Safari | Edge |
-|--------|---------|--------|------|
+| ------ | ------- | ------ | ---- |
 | 90+    | 90+     | 15+    | 90+  |
 
 ## License

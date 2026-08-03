@@ -21,8 +21,25 @@ const Interactive = (props: Parameters<typeof Toggle>[0]) => {
   return <Toggle {...props} checked={checked} onChange={setChecked} />;
 };
 
-export const Off: Story = { render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} checked={false} /> };
-export const On: Story = { render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} checked={true} /> };
-export const Small: Story = { args: { size: "sm" }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const Disabled: Story = { args: { disabled: true }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
-export const NoLabel: Story = { args: { label: undefined }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} /> };
+export const Off: Story = {
+  render: (args: React.ComponentProps<typeof Interactive>) => (
+    <Interactive {...args} checked={false} />
+  ),
+};
+export const On: Story = {
+  render: (args: React.ComponentProps<typeof Interactive>) => (
+    <Interactive {...args} checked={true} />
+  ),
+};
+export const Small: Story = {
+  args: { size: "sm" },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const Disabled: Story = {
+  args: { disabled: true },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};
+export const NoLabel: Story = {
+  args: { label: undefined },
+  render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} />,
+};

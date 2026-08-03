@@ -1,12 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { beforeEach, describe, expect, test } from "vitest";
-import {
-  contentText,
-  isUnsafeHtml,
-  setContent,
-  unsafeHtml,
-} from "../src/core/content.js";
+import { contentText, isUnsafeHtml, setContent, unsafeHtml } from "../src/core/content.js";
 
 describe("소비자 콘텐츠 경계", () => {
   beforeEach(() => {
@@ -58,10 +53,7 @@ describe("소비자 콘텐츠 경계", () => {
     /* cwd 는 실행 위치(레포 루트 / 패키지)에 따라 달라져 루트에서 돌리면 ENOENT 로
        죽었다(실측). import.meta.url 은 vitest 변환 후 file: 스킴이 아닐 수 있어 쓸 수
        없다. 그래서 cwd 에서 위로 올라가며 소스 트리를 찾는다 — 두 실행 위치 모두 통과. */
-    const root = [
-      "src/components",
-      "packages/web/src/components",
-    ]
+    const root = ["src/components", "packages/web/src/components"]
       .map((rel) => resolve(process.cwd(), rel))
       .find((p) => existsSync(p));
     if (!root) throw new Error("src/components 를 찾지 못했다");
@@ -73,10 +65,7 @@ describe("소비자 콘텐츠 경계", () => {
       if (!entry.isDirectory()) continue;
       const file = `${root}/${entry.name}/element.ts`;
       const source = readFileSync(file, "utf8");
-      if (
-        source.includes('.trimStart().startsWith("<")') ||
-        publicSink.test(source)
-      ) {
+      if (source.includes('.trimStart().startsWith("<")') || publicSink.test(source)) {
         violations.push(entry.name);
       }
     }

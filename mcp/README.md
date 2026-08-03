@@ -32,10 +32,10 @@ code, and captured stderr / stdout.
 Rank source files by relevance to a free-form query. Wraps
 `npm run locate -- <query> [--type <type>] --json`.
 
-| arg | type | required | notes |
-| --- | --- | --- | --- |
-| `query` | string | yes | Free-form, e.g. `"button variants"` |
-| `type` | enum | no | `requirement` / `primitive` / `composite` / `hook` / `token` / `test` / `page` / `data` / `config` / `asset` / `file` |
+| arg     | type   | required | notes                                                                                                                 |
+| ------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| `query` | string | yes      | Free-form, e.g. `"button variants"`                                                                                   |
+| `type`  | enum   | no       | `requirement` / `primitive` / `composite` / `hook` / `token` / `test` / `page` / `data` / `config` / `asset` / `file` |
 
 Example:
 
@@ -86,11 +86,11 @@ Wraps `npm run scaffold <kind> <name> [--keywords ...]`. Creates a new
 component (primitive / composite / pattern) or a new requirement file plus
 all the matching barrels, tests, and showcase pages.
 
-| arg | type | required | notes |
-| --- | --- | --- | --- |
-| `kind` | enum | yes | `primitive` / `composite` / `pattern` / `requirement` |
-| `name` | string | yes | PascalCase for components, kebab-case for requirements |
-| `keywords` | string | no | Comma-separated, e.g. `"modal,dialog,overlay"` |
+| arg        | type   | required | notes                                                  |
+| ---------- | ------ | -------- | ------------------------------------------------------ |
+| `kind`     | enum   | yes      | `primitive` / `composite` / `pattern` / `requirement`  |
+| `name`     | string | yes      | PascalCase for components, kebab-case for requirements |
+| `keywords` | string | no       | Comma-separated, e.g. `"modal,dialog,overlay"`         |
 
 Example:
 
@@ -137,9 +137,9 @@ Read `.ai/a11y.json` (axe-core results). With `name`, returns just that
 component's violations. Without, returns the run summary plus only the
 components that have at least one violation.
 
-| arg | type | required | notes |
-| --- | --- | --- | --- |
-| `name` | string | no | PascalCase component name |
+| arg    | type   | required | notes                     |
+| ------ | ------ | -------- | ------------------------- |
+| `name` | string | no       | PascalCase component name |
 
 Example:
 
@@ -157,9 +157,9 @@ Read `.ai/bundle.json`. With `name`, returns that component's
 `{ rawBytes, gzipBytes }`. Without, returns the top 10 components by gzip
 size plus the per-kind / overall totals.
 
-| arg | type | required | notes |
-| --- | --- | --- | --- |
-| `name` | string | no | PascalCase component name |
+| arg    | type   | required | notes                     |
+| ------ | ------ | -------- | ------------------------- |
+| `name` | string | no       | PascalCase component name |
 
 Example:
 
@@ -175,9 +175,9 @@ Returns `{ ok, name, kind, file, rawBytes, gzipBytes }` or
 Look up one component's `{ kind, file, imports, importedBy }` entry from
 `.ai/deps.json`.
 
-| arg | type | required | notes |
-| --- | --- | --- | --- |
-| `name` | string | yes | PascalCase component name |
+| arg    | type   | required | notes                     |
+| ------ | ------ | -------- | ------------------------- |
+| `name` | string | yes      | PascalCase component name |
 
 ```json
 { "name": "Button" }
@@ -189,9 +189,9 @@ Read `.ai/screenshots.json`. With `name`, returns that component's
 screenshot entry. Without, returns the full manifest summary
 (`generatedAt`, `summary`, `count`, `components`).
 
-| arg | type | required | notes |
-| --- | --- | --- | --- |
-| `name` | string | no | PascalCase component name |
+| arg    | type   | required | notes                     |
+| ------ | ------ | -------- | ------------------------- |
+| `name` | string | no       | PascalCase component name |
 
 ```json
 { "name": "Modal" }

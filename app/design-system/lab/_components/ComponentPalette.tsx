@@ -6,13 +6,13 @@ import { useLab } from "../_lib/store";
 import { componentDefs, componentDefMap } from "../_lib/registry";
 
 const catColors: Record<string, string> = {
-  "레이아웃": "bg-violet-500",
-  "기본": "bg-blue-500",
-  "입력": "bg-emerald-500",
-  "데이터": "bg-amber-500",
-  "피드백": "bg-rose-500",
-  "네비게이션": "bg-cyan-500",
-  "오버레이": "bg-pink-500",
+  레이아웃: "bg-violet-500",
+  기본: "bg-blue-500",
+  입력: "bg-emerald-500",
+  데이터: "bg-amber-500",
+  피드백: "bg-rose-500",
+  네비게이션: "bg-cyan-500",
+  오버레이: "bg-pink-500",
 };
 
 const categoryOrder = [
@@ -34,9 +34,7 @@ export function ComponentPalette() {
     const q = search.trim().toLowerCase();
     const filtered = q
       ? componentDefs.filter(
-          (d) =>
-            d.label.toLowerCase().includes(q) ||
-            d.category.toLowerCase().includes(q),
+          (d) => d.label.toLowerCase().includes(q) || d.category.toLowerCase().includes(q),
         )
       : componentDefs;
 
@@ -115,9 +113,7 @@ export function ComponentPalette() {
                   "hover:text-foreground transition-colors select-none",
                 )}
               >
-                <span
-                  className={cn("w-1.5 h-1.5 rounded-full shrink-0", dotColor)}
-                />
+                <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", dotColor)} />
                 <span className="flex-1 text-left">{cat}</span>
                 <svg
                   className={cn(
@@ -151,12 +147,8 @@ export function ComponentPalette() {
                         "border border-transparent hover:border-border",
                       )}
                     >
-                      <span className="text-sm shrink-0 leading-none">
-                        {def.icon ?? "?"}
-                      </span>
-                      <span className="truncate text-[11px] font-medium">
-                        {def.label}
-                      </span>
+                      <span className="text-sm shrink-0 leading-none">{def.icon ?? "?"}</span>
+                      <span className="truncate text-[11px] font-medium">{def.label}</span>
                     </button>
                   ))}
                 </div>
@@ -167,9 +159,7 @@ export function ComponentPalette() {
 
         {/* No results */}
         {grouped.size === 0 && (
-          <p className="text-xs text-muted text-center py-8">
-            검색 결과가 없습니다
-          </p>
+          <p className="text-xs text-muted text-center py-8">검색 결과가 없습니다</p>
         )}
       </div>
     </aside>

@@ -1,16 +1,8 @@
 import { createElement, Fragment, type ReactNode } from "react";
 
 import { runActions, type ActionContext } from "./actions";
-import {
-  resolvePropValue,
-  type Breakpoint,
-  type BindingScope,
-} from "./bindings";
-import {
-  defaultRegistry,
-  type ComponentRegistry,
-  type FallbackRenderer,
-} from "./registry";
+import { resolvePropValue, type Breakpoint, type BindingScope } from "./bindings";
+import { defaultRegistry, type ComponentRegistry, type FallbackRenderer } from "./registry";
 import type { ActionNode, Node, PageDoc, PropValue } from "./schema";
 
 export type RendererMode = "design" | "runtime";
@@ -140,18 +132,14 @@ function renderNode(node: Node, ctx: RenderContext): ReactNode {
   const handlers = buildEventHandlers(node.events, ctx);
 
   const previewProps =
-    ctx.mode === "design" && entry.previewProps
-      ? entry.previewProps()
-      : undefined;
+    ctx.mode === "design" && entry.previewProps ? entry.previewProps() : undefined;
 
   const designProps =
     ctx.mode === "design"
       ? {
           "data-junds-node": node.id,
-          onMouseEnterCapture: () =>
-            ctx.onDesignEvent?.({ kind: "hover", nodeId: node.id }),
-          onMouseLeaveCapture: () =>
-            ctx.onDesignEvent?.({ kind: "hover", nodeId: null }),
+          onMouseEnterCapture: () => ctx.onDesignEvent?.({ kind: "hover", nodeId: node.id }),
+          onMouseLeaveCapture: () => ctx.onDesignEvent?.({ kind: "hover", nodeId: null }),
           onClickCapture: (event: { stopPropagation: () => void }) => {
             event.stopPropagation();
             ctx.onDesignEvent?.({ kind: "select", nodeId: node.id });
@@ -167,15 +155,10 @@ function renderNode(node: Node, ctx: RenderContext): ReactNode {
     key: node.id,
   };
 
-  const renderTarget: string | typeof entry.Component =
-    entry.Component ?? entry.htmlTag ?? "div";
+  const renderTarget: string | typeof entry.Component = entry.Component ?? entry.htmlTag ?? "div";
 
   if (entry.Component) {
-    return createElement(
-      entry.Component,
-      finalProps,
-      childContent,
-    );
+    return createElement(entry.Component, finalProps, childContent);
   }
 
   return createElement(
@@ -185,11 +168,7 @@ function renderNode(node: Node, ctx: RenderContext): ReactNode {
   );
 }
 
-function renderSlot(
-  node: Node,
-  slotName: string,
-  ctx: RenderContext,
-): ReactNode[] {
+function renderSlot(node: Node, slotName: string, ctx: RenderContext): ReactNode[] {
   const slotChildren = node.slots?.[slotName];
   if (!slotChildren || slotChildren.length === 0) return [];
   return slotChildren.map((child) => renderNode(child, ctx));

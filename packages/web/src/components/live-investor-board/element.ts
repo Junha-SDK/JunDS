@@ -55,7 +55,11 @@ const INVESTORS: readonly { key: InvestorKey; label: string; colorVar: string }[
 
 const HISTORY_LEN = 16;
 
-const STATUS_WORD: Record<MarketStatus, string> = { open: "LIVE", closed: "장마감", holiday: "휴장" };
+const STATUS_WORD: Record<MarketStatus, string> = {
+  open: "LIVE",
+  closed: "장마감",
+  holiday: "휴장",
+};
 
 function net(row: Row): number {
   return row.buy - row.sell;
@@ -277,7 +281,16 @@ export class JdLiveInvestorBoard extends JdElement {
 
     cell.append(spark, netRow, bsRow, bar, rateRow);
     this.#cells.set(`${market}:${iv.key}`, {
-      cell, spark, net: netVal, delta, buy, sell, barBuy, barSell, rateBuy, rateSell,
+      cell,
+      spark,
+      net: netVal,
+      delta,
+      buy,
+      sell,
+      barBuy,
+      barSell,
+      rateBuy,
+      rateSell,
     });
     return cell;
   }
@@ -303,9 +316,7 @@ export class JdLiveInvestorBoard extends JdElement {
   #syncTimer(): void {
     const shouldRun = this.live && this.status === "open" && this.isConnected;
     if (shouldRun && !this.#timer) {
-      this.#timer = this.own(
-        createInterval(() => this.#doTick(), Math.max(250, this.interval)),
-      );
+      this.#timer = this.own(createInterval(() => this.#doTick(), Math.max(250, this.interval)));
     } else if (!shouldRun && this.#timer) {
       this.#timer.destroy();
       this.#timer = undefined;
@@ -330,7 +341,8 @@ export class JdLiveInvestorBoard extends JdElement {
   }
 
   #paintHeader(): void {
-    const status = (this.status as MarketStatus) in STATUS_WORD ? (this.status as MarketStatus) : "closed";
+    const status =
+      (this.status as MarketStatus) in STATUS_WORD ? (this.status as MarketStatus) : "closed";
     const isOpen = status === "open";
     this.#liveEl.toggleAttribute("data-open", isOpen);
     this.#liveWord.textContent = STATUS_WORD[status];
@@ -361,7 +373,12 @@ export class JdLiveInvestorBoard extends JdElement {
         const row = this.#snap[m.key][iv.key];
         volBuy += row.buy;
         volSell += row.sell;
-        this.#paintCell(`${m.key}:${iv.key}`, row, this.#prev[m.key][iv.key], this.#history[m.key][iv.key]);
+        this.#paintCell(
+          `${m.key}:${iv.key}`,
+          row,
+          this.#prev[m.key][iv.key],
+          this.#history[m.key][iv.key],
+        );
       }
       this.#volumeCells.get(m.key)!.textContent = fmtEok(volBuy + volSell);
     }

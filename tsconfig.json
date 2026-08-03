@@ -24,22 +24,6 @@
       "@junds/ui": ["./ds/index.ts"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    ".next",
-    "out",
-    "coverage",
-    "playwright-report",
-    "test-results",
-    "create-junds"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
+  "exclude": ["node_modules", "dist", ".next", "out", "coverage", "playwright-report", "test-results", "create-junds"]
 }

@@ -92,8 +92,7 @@ export class JdPhotoAlbum extends JdElement {
     const header = document.createElement("header");
     header.className = "jd-photo-album__header";
     header.innerHTML =
-      '<h2 class="jd-photo-album__title"></h2>' +
-      '<p class="jd-photo-album__count"></p>';
+      '<h2 class="jd-photo-album__title"></h2>' + '<p class="jd-photo-album__count"></p>';
 
     const filters = document.createElement("div");
     filters.className = "jd-photo-album__filters";
@@ -145,7 +144,8 @@ export class JdPhotoAlbum extends JdElement {
     this.#lbCounter = this.querySelector(".jd-photo-album__lb-counter")!;
     this.#lbPanel = this.querySelector(".jd-photo-album__lb-panel")!;
     this.setAttribute("role", "region");
-    if (!this.hasAttribute("aria-label")) this.setAttribute("aria-label", this.title || "사진 앨범");
+    if (!this.hasAttribute("aria-label"))
+      this.setAttribute("aria-label", this.title || "사진 앨범");
   }
 
   protected override connected(): void {

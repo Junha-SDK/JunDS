@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 final class JdDividerFlowTests: XCTestCase {
 

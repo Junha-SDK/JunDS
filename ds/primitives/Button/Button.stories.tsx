@@ -5,7 +5,10 @@ const meta: Meta<typeof Button> = {
   title: "Primitives/Button",
   component: Button,
   argTypes: {
-    variant: { control: "select", options: ["primary", "secondary", "danger", "ghost", "outline", "link"] },
+    variant: {
+      control: "select",
+      options: ["primary", "secondary", "danger", "ghost", "outline", "link"],
+    },
     size: { control: "select", options: ["xs", "sm", "md", "lg"] },
     loading: { control: "boolean" },
     disabled: { control: "boolean" },

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "ChatBubble",
   "oneLiner": "채팅 메시지 말풍선.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

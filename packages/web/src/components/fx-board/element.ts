@@ -169,7 +169,9 @@ export class JdFxBoard extends JdElement {
     this.#statusEl.textContent = this.#statusText();
 
     const grid = this.#grid;
-    grid.style.gridTemplateColumns = `repeat(${Math.max(1, this.#items.length)}, minmax(0, 1fr))`;
+    // 열 수만 넘기고 폭은 CSS가 정한다 — grid-template-columns를 인라인으로 박으면
+    // 어떤 레이어도 이길 수 없어, 종목이 늘어날수록 칸이 눌리는 것을 시트가 막을 수 없다.
+    grid.style.setProperty("--jd-fx-count", String(Math.max(1, this.#items.length)));
     if (grid.children.length !== this.#items.length) {
       grid.textContent = "";
       for (let i = 0; i < this.#items.length; i++) grid.append(this.#buildCell());

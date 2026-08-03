@@ -55,6 +55,7 @@
     --jd-color-surface-overlay: #22203a;
     --jd-color-on-surface: #e4e2ee;
     --jd-color-on-surface-muted: #a09cb5;
+    --jd-color-primary-ink: #5b4cc7;
     --jd-color-hue-gray: #6b6880;
     --jd-color-hue-blue: #2563eb;
     --jd-color-hue-green: #157f47;
@@ -114,9 +115,12 @@
     --jd-radius-xl: 0.75rem;
     --jd-radius-2xl: 1rem;
     --jd-radius-full: 9999px;
-    --jd-font-sans: 'Pretendard', 'Inter', -apple-system, 'Segoe UI', sans-serif;
-    --jd-font-serif: 'Noto Serif KR', 'Source Serif Pro', Georgia, serif;
-    --jd-font-mono: 'JetBrains Mono', 'Geist Mono', ui-monospace, monospace;
+    --jd-font-sans: "Pretendard Variable", Pretendard, "Inter", "Noto Sans KR", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    --jd-font-serif: "Noto Serif KR", "Nanum Myeongjo", Georgia, "Times New Roman", serif;
+    --jd-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+    --jd-font-hand: "Caveat", "Bradley Hand", "Segoe Script", cursive;
+    --jd-font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Fira Code", Menlo, Consolas, "Liberation Mono", monospace;
+    --jd-text-2xs: 0.6875rem;
     --jd-text-xs: 0.75rem;
     --jd-text-sm: 0.8125rem;
     --jd-text-md: 0.875rem;
@@ -140,6 +144,7 @@
     --jd-tracking-tight: -0.025em;
     --jd-tracking-normal: 0em;
     --jd-tracking-wide: 0.025em;
+    --jd-tracking-wider: 0.08em;
     --jd-duration-instant: 0ms;
     --jd-duration-press: 90ms;
     --jd-duration-fast: 100ms;
@@ -203,6 +208,12 @@
     --jd-breakpoint-lg: 1024px;
     --jd-breakpoint-xl: 1280px;
     --jd-breakpoint-2xl: 1536px;
+    --jd-container-xs: 512px;
+    --jd-container-sm: 640px;
+    --jd-container-md: 768px;
+    --jd-container-lg: 1024px;
+    --jd-container-xl: 1280px;
+    --jd-container-2xl: 1536px;
     --jd-gradient-primary: linear-gradient(135deg, var(--jd-color-primary) 0%, var(--jd-color-primary-hover) 100%);
     --jd-gradient-primary-soft: linear-gradient(135deg, var(--jd-color-primary-light) 0%, var(--jd-color-primary-glow) 100%);
     --jd-gradient-success: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
@@ -267,6 +278,7 @@
     --jd-color-surface-overlay: #22203a;
     --jd-color-on-surface: #e4e2ee;
     --jd-color-on-surface-muted: #a09cb5;
+    --jd-color-primary-ink: #9580fa;
     --jd-color-status-todo-bg: rgba(160, 156, 181, 0.14);
     --jd-color-status-todo-text: #a09cb5;
     --jd-color-status-progress-bg: rgba(59, 130, 246, 0.16);

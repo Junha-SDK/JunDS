@@ -21,9 +21,14 @@ export interface DividerProps {
  * @since 2.2.0
  * @tags layout
  */
-export const Divider = forwardRef<HTMLDivElement, DividerProps>(function Divider({ orientation = "horizontal", label, className }, ref) {
+export const Divider = forwardRef<HTMLDivElement, DividerProps>(function Divider(
+  { orientation = "horizontal", label, className },
+  ref,
+) {
   if (orientation === "vertical") {
-    return <div ref={ref} className={cn("w-px bg-border self-stretch", className)} role="separator" />;
+    return (
+      <div ref={ref} className={cn("w-px bg-border self-stretch", className)} role="separator" />
+    );
   }
 
   if (label) {

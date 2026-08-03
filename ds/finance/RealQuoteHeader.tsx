@@ -67,10 +67,7 @@ export function RealQuoteHeader({ symbol }: { symbol: string }) {
   const color = up ? "var(--bm-up)" : "var(--bm-down)";
 
   return (
-    <section
-      className="bm-card overflow-hidden"
-      style={{ border: "1px solid var(--bm-border)" }}
-    >
+    <section className="bm-card overflow-hidden" style={{ border: "1px solid var(--bm-border)" }}>
       <header
         className="px-4 py-3 flex items-center justify-between"
         style={{ borderBottom: "1px solid var(--bm-border)" }}
@@ -120,7 +117,13 @@ export function RealQuoteHeader({ symbol }: { symbol: string }) {
       </header>
 
       <div className="px-4 py-3 grid grid-cols-2 md:grid-cols-4 gap-3 bm-num">
-        <KV label="현재가" value={data.price.toLocaleString("ko-KR")} unit="원" tone={up ? "up" : "down"} large />
+        <KV
+          label="현재가"
+          value={data.price.toLocaleString("ko-KR")}
+          unit="원"
+          tone={up ? "up" : "down"}
+          large
+        />
         <KV
           label="전일대비"
           value={`${up ? "+" : ""}${data.change.toFixed(0)}`}
@@ -170,20 +173,16 @@ function KV({
   tone?: "up" | "down";
   large?: boolean;
 }) {
-  const color = tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
+  const color =
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
   return (
     <div>
       <div className="text-[10.5px] font-bold" style={{ color: "var(--bm-muted)" }}>
         {label}
       </div>
-      <div
-        className="bm-num font-extrabold mt-0.5"
-        style={{ color, fontSize: large ? 18 : 14 }}
-      >
+      <div className="bm-num font-extrabold mt-0.5" style={{ color, fontSize: large ? 18 : 14 }}>
         {value}
-        {unit ? (
-          <span className="text-[10.5px] ml-1 font-semibold opacity-80">{unit}</span>
-        ) : null}
+        {unit ? <span className="text-[10.5px] ml-1 font-semibold opacity-80">{unit}</span> : null}
       </div>
     </div>
   );
@@ -198,7 +197,8 @@ function Mini({
   value: string | undefined;
   tone?: "up" | "down";
 }) {
-  const color = tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
+  const color =
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)";
   return (
     <div className="flex items-center justify-between gap-2">
       <span className="text-[10.5px] font-bold" style={{ color: "var(--bm-muted)" }}>

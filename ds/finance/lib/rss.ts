@@ -117,7 +117,10 @@ export async function fetchRss(spec: RssFeedSpec, revalidate = 300): Promise<Rss
   }
 }
 
-export async function fetchAllFeeds(specs: RssFeedSpec[] = FEED_SPECS, revalidate = 300): Promise<RssItem[]> {
+export async function fetchAllFeeds(
+  specs: RssFeedSpec[] = FEED_SPECS,
+  revalidate = 300,
+): Promise<RssItem[]> {
   const all = await Promise.all(specs.map((s) => fetchRss(s, revalidate)));
   // 시간순(최신 우선)
   const merged = all.flat();

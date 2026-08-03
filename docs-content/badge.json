@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "Badge",
   "oneLiner": "상태나 카테고리를 표시하는 작은 라벨.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": {

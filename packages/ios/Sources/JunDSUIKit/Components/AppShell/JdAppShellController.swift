@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-app-shell 동형 — 사이드바 레일 + 본문 2열 골격 (DESIGN-2 §A).
 //
@@ -166,9 +166,11 @@ public final class JdAppShellController: UIViewController {
 
         // 웹 레일 전환 300ms cubic-bezier(0.16,1,0.3,1) = Duration.slow + Easing.default
         let curve = JdToken.Easing.default
-        let animator = UIViewPropertyAnimator(duration: duration,
-                                              controlPoint1: CGPoint(x: curve.0, y: curve.1),
-                                              controlPoint2: CGPoint(x: curve.2, y: curve.3)) { [weak self] in
+        let animator = UIViewPropertyAnimator(
+            duration: duration,
+            controlPoint1: CGPoint(x: curve.0, y: curve.1),
+            controlPoint2: CGPoint(x: curve.2, y: curve.3)
+        ) { [weak self] in
             self?.view.layoutIfNeeded()
             self?.dimView.alpha = dimAlpha
         }

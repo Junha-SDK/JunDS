@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Highlight 데모 — 실컴포넌트 JdHighlightText(SwiftUI)/JdHighlightTextView(UIKit).
 // 웹 <jd-highlight> 동형. 컨트롤 키·값은 웹 attribute 리터럴(text/query/color).
@@ -15,8 +15,9 @@ enum HighlightDemo {
     static let demo = ComponentDemo(
         id: "Highlight",
         controls: [
-            .text("text", "text", placeholder: "본문",
-                  initial: "디자인 시스템은 디자인 토큰 한 벌에서 시작한다 — 웹과 iOS가 같은 토큰을 읽는다."),
+            .text(
+                "text", "text", placeholder: "본문",
+                initial: "디자인 시스템은 디자인 토큰 한 벌에서 시작한다 — 웹과 iOS가 같은 토큰을 읽는다."),
             .text("query", "query", placeholder: "검색어", initial: "디자인"),
             .options("color", "color", JdMarkColor.allCases.map(\.rawValue), initial: "yellow"),
         ],
@@ -51,7 +52,8 @@ private func highlightSegmentNote(_ state: DemoState) -> String {
         + "(대소문자 무시 전수 매칭, query가 비면 전체가 비매칭 1구간)."
 }
 
-private let highlightNote = "칠하는 일만 뷰가 한다 — 매칭 규칙은 Core 단일 소스다. "
+private let highlightNote =
+    "칠하는 일만 뷰가 한다 — 매칭 규칙은 Core 단일 소스다. "
     + "낭독은 조각으로 쪼개지 않고 원문 전체가 라벨 1개로 나간다(04 §7.1)."
 
 private struct HighlightStageSwiftUI: View {
@@ -59,9 +61,10 @@ private struct HighlightStageSwiftUI: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: JdToken.Space.s4) {
-            JdHighlightText(highlightText(state),
-                            query: highlightQuery(state),
-                            color: highlightColor(state))
+            JdHighlightText(
+                highlightText(state),
+                query: highlightQuery(state),
+                color: highlightColor(state))
 
             VStack(alignment: .leading, spacing: JdToken.Space.s1) {
                 Text(highlightSegmentNote(state))
@@ -80,10 +83,12 @@ private struct HighlightStageUIKit: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: JdToken.Space.s4) {
-            HighlightViewRep(text: highlightText(state),
-                             query: highlightQuery(state),
-                             color: highlightColor(state))
-                .fixedSize(horizontal: false, vertical: true)
+            HighlightViewRep(
+                text: highlightText(state),
+                query: highlightQuery(state),
+                color: highlightColor(state)
+            )
+            .fixedSize(horizontal: false, vertical: true)
 
             VStack(alignment: .leading, spacing: JdToken.Space.s1) {
                 Text(highlightSegmentNote(state))
@@ -117,7 +122,9 @@ private struct HighlightViewRep: UIViewRepresentable {
         if view.color != color { view.color = color }
     }
 
-    func sizeThatFits(_ proposal: ProposedViewSize, uiView: JdHighlightTextView, context: Context) -> CGSize? {
+    func sizeThatFits(
+        _ proposal: ProposedViewSize, uiView: JdHighlightTextView, context: Context
+    ) -> CGSize? {
         // 폭이 정해지지 않은 제안이면 줄바꿈 없이 재는 것이 UILabel의 자연 크기다
         let width = proposal.width ?? .greatestFiniteMagnitude
         return uiView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))

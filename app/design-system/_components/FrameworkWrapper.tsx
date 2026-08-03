@@ -10,17 +10,54 @@ type SpacingPreset = "tight" | "default" | "relaxed";
 type FontScalePreset = "xs" | "sm" | "default" | "lg" | "xl";
 
 const RADIUS_SCALE: Record<RadiusPreset, Record<string, string>> = {
-  none: { "--jds-radius-sm": "0px", "--jds-radius-md": "0px", "--jds-radius-lg": "0px", "--jds-radius-xl": "0px" },
-  sm:   { "--jds-radius-sm": "2px", "--jds-radius-md": "4px", "--jds-radius-lg": "6px", "--jds-radius-xl": "8px" },
-  md:   { "--jds-radius-sm": "4px", "--jds-radius-md": "8px", "--jds-radius-lg": "12px", "--jds-radius-xl": "16px" },
-  lg:   { "--jds-radius-sm": "6px", "--jds-radius-md": "12px", "--jds-radius-lg": "16px", "--jds-radius-xl": "24px" },
-  full: { "--jds-radius-sm": "9999px", "--jds-radius-md": "9999px", "--jds-radius-lg": "9999px", "--jds-radius-xl": "9999px" },
+  none: {
+    "--jds-radius-sm": "0px",
+    "--jds-radius-md": "0px",
+    "--jds-radius-lg": "0px",
+    "--jds-radius-xl": "0px",
+  },
+  sm: {
+    "--jds-radius-sm": "2px",
+    "--jds-radius-md": "4px",
+    "--jds-radius-lg": "6px",
+    "--jds-radius-xl": "8px",
+  },
+  md: {
+    "--jds-radius-sm": "4px",
+    "--jds-radius-md": "8px",
+    "--jds-radius-lg": "12px",
+    "--jds-radius-xl": "16px",
+  },
+  lg: {
+    "--jds-radius-sm": "6px",
+    "--jds-radius-md": "12px",
+    "--jds-radius-lg": "16px",
+    "--jds-radius-xl": "24px",
+  },
+  full: {
+    "--jds-radius-sm": "9999px",
+    "--jds-radius-md": "9999px",
+    "--jds-radius-lg": "9999px",
+    "--jds-radius-xl": "9999px",
+  },
 };
 
 const DENSITY_VARS: Record<DensityMode, Record<string, string>> = {
-  compact:     { "--jds-density-px": "8px",  "--jds-density-py": "4px",  "--jds-density-text": "0.75rem" },
-  normal:      { "--jds-density-px": "16px", "--jds-density-py": "8px",  "--jds-density-text": "0.875rem" },
-  comfortable: { "--jds-density-px": "20px", "--jds-density-py": "12px", "--jds-density-text": "0.875rem" },
+  compact: {
+    "--jds-density-px": "8px",
+    "--jds-density-py": "4px",
+    "--jds-density-text": "0.75rem",
+  },
+  normal: {
+    "--jds-density-px": "16px",
+    "--jds-density-py": "8px",
+    "--jds-density-text": "0.875rem",
+  },
+  comfortable: {
+    "--jds-density-px": "20px",
+    "--jds-density-py": "12px",
+    "--jds-density-text": "0.875rem",
+  },
 };
 
 const SPACING_MULT: Record<SpacingPreset, string> = {
@@ -30,11 +67,11 @@ const SPACING_MULT: Record<SpacingPreset, string> = {
 };
 
 const FONT_SCALE: Record<FontScalePreset, Record<string, string>> = {
-  xs:      { "--jds-font-scale": "0.85", "--jds-font-base": "13px" },
-  sm:      { "--jds-font-scale": "0.92", "--jds-font-base": "14px" },
-  default: { "--jds-font-scale": "1",    "--jds-font-base": "15px" },
-  lg:      { "--jds-font-scale": "1.08", "--jds-font-base": "16px" },
-  xl:      { "--jds-font-scale": "1.15", "--jds-font-base": "17px" },
+  xs: { "--jds-font-scale": "0.85", "--jds-font-base": "13px" },
+  sm: { "--jds-font-scale": "0.92", "--jds-font-base": "14px" },
+  default: { "--jds-font-scale": "1", "--jds-font-base": "15px" },
+  lg: { "--jds-font-scale": "1.08", "--jds-font-base": "16px" },
+  xl: { "--jds-font-scale": "1.15", "--jds-font-base": "17px" },
 };
 
 const STORAGE_KEY = "junds-settings";
@@ -44,17 +81,25 @@ function loadSettings() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : null;
-  } catch { return null; }
+  } catch {
+    return null;
+  }
 }
 
 function saveSettings(settings: Record<string, string>) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(settings)); } catch { /* noop */ }
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+  } catch {
+    /* noop */
+  }
 }
 
 export function FrameworkWrapper({ children }: { children: ReactNode }) {
   const saved = loadSettings();
   const [theme, _setTheme] = useState(saved?.theme ?? "purple");
-  const [colorMode, _setColorMode] = useState<"light" | "dark" | "system">(saved?.colorMode ?? "system");
+  const [colorMode, _setColorMode] = useState<"light" | "dark" | "system">(
+    saved?.colorMode ?? "system",
+  );
   const [density, _setDensity] = useState<DensityMode>(saved?.density ?? "normal");
   const [radius, _setRadius] = useState<RadiusPreset>(saved?.radius ?? "md");
   const [spacing, _setSpacing] = useState<SpacingPreset>(saved?.spacing ?? "default");

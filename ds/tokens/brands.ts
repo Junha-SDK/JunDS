@@ -34,22 +34,25 @@ export interface BrandPreset {
 }
 
 const radiusScale: Record<BrandRadius, { sm: string; md: string; lg: string; xl: string }> = {
-  sharp:    { sm: "2px",  md: "3px",  lg: "4px",  xl: "6px"  },
-  default:  { sm: "6px",  md: "10px", lg: "14px", xl: "20px" },
-  soft:     { sm: "10px", md: "16px", lg: "22px", xl: "28px" },
-  pill:     { sm: "999px", md: "999px", lg: "999px", xl: "999px" },
+  sharp: { sm: "2px", md: "3px", lg: "4px", xl: "6px" },
+  default: { sm: "6px", md: "10px", lg: "14px", xl: "20px" },
+  soft: { sm: "10px", md: "16px", lg: "22px", xl: "28px" },
+  pill: { sm: "999px", md: "999px", lg: "999px", xl: "999px" },
 };
 
-const densityScale: Record<BrandDensity, { px: string; py: string; text: string; spacing: string }> = {
-  compact:     { px: "0.5rem",  py: "0.25rem", text: "13px", spacing: "0.85" },
-  cozy:        { px: "0.75rem", py: "0.5rem",  text: "14px", spacing: "1"    },
-  comfortable: { px: "1rem",    py: "0.75rem", text: "15px", spacing: "1.15" },
+const densityScale: Record<
+  BrandDensity,
+  { px: string; py: string; text: string; spacing: string }
+> = {
+  compact: { px: "0.5rem", py: "0.25rem", text: "13px", spacing: "0.85" },
+  cozy: { px: "0.75rem", py: "0.5rem", text: "14px", spacing: "1" },
+  comfortable: { px: "1rem", py: "0.75rem", text: "15px", spacing: "1.15" },
 };
 
 const fontFamilyScale: Record<BrandFont, string> = {
-  sans:  "'Pretendard', 'Inter', -apple-system, 'Segoe UI', sans-serif",
+  sans: "'Pretendard', 'Inter', -apple-system, 'Segoe UI', sans-serif",
   serif: "'Noto Serif KR', 'Source Serif Pro', Georgia, serif",
-  mono:  "'JetBrains Mono', 'Geist Mono', ui-monospace, monospace",
+  mono: "'JetBrains Mono', 'Geist Mono', ui-monospace, monospace",
 };
 
 export const brandPresets: BrandPreset[] = [

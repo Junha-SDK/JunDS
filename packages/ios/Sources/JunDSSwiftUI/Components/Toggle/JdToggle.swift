@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-toggle · jd-switch 동형 — 웹은 두 태그(Switch가 Toggle의 서브클래스)지만
 // iOS는 같은 시스템 컨트롤이라 단일 구현 + 별칭이다 (R12, DESIGN-2 §B1).
@@ -16,9 +16,11 @@ public struct JdToggle: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ label: String? = nil,
-                isOn: Binding<Bool>,
-                size: JdToggleSize = .md) {
+    public init(
+        _ label: String? = nil,
+        isOn: Binding<Bool>,
+        size: JdToggleSize = .md
+    ) {
         self.label = label
         self.size = size
         self.spec = JdToggleSpec.resolve(size: size)
@@ -43,9 +45,12 @@ public struct JdToggle: View {
     private var control: some View {
         Toggle(isOn: $isOn) {
             Text(label ?? "")
-                .font(JdSwiftUIFont.scaled(size: spec.labelFontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.labelFontSize,
+                        weight: JdToken.FontWeight.normal,
+                        category: sizeCategory)
+                )
                 .foregroundColor(JdToken.Color.foreground.color)
         }
         .toggleStyle(.switch)

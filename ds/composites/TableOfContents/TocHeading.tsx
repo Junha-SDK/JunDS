@@ -48,19 +48,20 @@ function slugify(text: string): string {
  * @since 2.3.0
  * @tags navigation, content
  */
-export const TocHeading = forwardRef<HTMLHeadingElement, TocHeadingProps>(
-  function TocHeading({ level = 2, id, label, hidden = false, children, ...props }, ref) {
-    const autoId = useId().replace(/:/g, "");
-    const text = label ?? textOf(children);
-    const finalId = id || (text ? slugify(text) : "") || `h${level}-${autoId}`;
+export const TocHeading = forwardRef<HTMLHeadingElement, TocHeadingProps>(function TocHeading(
+  { level = 2, id, label, hidden = false, children, ...props },
+  ref,
+) {
+  const autoId = useId().replace(/:/g, "");
+  const text = label ?? textOf(children);
+  const finalId = id || (text ? slugify(text) : "") || `h${level}-${autoId}`;
 
-    useRegisterHeading(hidden ? null : { id: finalId, label: text || finalId, level });
+  useRegisterHeading(hidden ? null : { id: finalId, label: text || finalId, level });
 
-    const Tag = `h${level}` as const;
-    return (
-      <Tag ref={ref} id={finalId} {...props}>
-        {children}
-      </Tag>
-    );
-  },
-);
+  const Tag = `h${level}` as const;
+  return (
+    <Tag ref={ref} id={finalId} {...props}>
+      {children}
+    </Tag>
+  );
+});

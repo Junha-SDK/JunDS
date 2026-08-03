@@ -10,5 +10,9 @@ export default meta;
 type Story = StoryObj<typeof Sheet>;
 
 export const Default: Story = {
-  render: () => <Sheet open={false} onClose={() => {}}>{null}</Sheet>,
+  render: () => (
+    <Sheet open={false} onClose={() => {}}>
+      {null}
+    </Sheet>
+  ),
 };

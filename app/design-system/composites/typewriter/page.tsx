@@ -12,7 +12,12 @@ export default function TypewriterPage() {
       props={[
         { name: "texts", type: "string[]", required: true, description: "순회할 문자열 목록" },
         { name: "speed", type: "number", default: "80", description: "타이핑 속도(ms / 문자)" },
-        { name: "deleteSpeed", type: "number", default: "40", description: "지우기 속도(ms / 문자)" },
+        {
+          name: "deleteSpeed",
+          type: "number",
+          default: "40",
+          description: "지우기 속도(ms / 문자)",
+        },
         { name: "delay", type: "number", default: "2000", description: "한 문장 완성 후 대기(ms)" },
         { name: "loop", type: "boolean", default: "true", description: "반복 여부" },
         { name: "cursor", type: "boolean", default: "true", description: "커서 표시 여부" },
@@ -33,11 +38,15 @@ export default function TypewriterPage() {
           <div className="flex flex-col gap-4 text-lg">
             <div>
               빠른 속도 ·{" "}
-              <Typewriter texts={["fast", "rapid", "instant"]} speed={40} deleteSpeed={20} delay={800} />
+              <Typewriter
+                texts={["fast", "rapid", "instant"]}
+                speed={40}
+                deleteSpeed={20}
+                delay={800}
+              />
             </div>
             <div>
-              커스텀 커서 ·{" "}
-              <Typewriter texts={["Hello", "World"]} cursorChar="_" />
+              커스텀 커서 · <Typewriter texts={["Hello", "World"]} cursorChar="_" />
             </div>
           </div>
         </Preview>

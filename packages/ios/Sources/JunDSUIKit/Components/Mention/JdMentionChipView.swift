@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-mention-chip 동형 — `@handle` 표시용 링크 칩. UILabel 기반(텍스트 런이라 인라인이 정본).
 //
@@ -26,10 +26,12 @@ public final class JdMentionLabelView: UILabel {
     /// 링크 열기는 소비자 몫(라우터·UIApplication.open) — 웹 href 자리다
     public var onTap: (() -> Void)?
 
-    public init(handle: String,
-                label: String = "",
-                isVerified: Bool = false,
-                onTap: (() -> Void)? = nil) {
+    public init(
+        handle: String,
+        label: String = "",
+        isVerified: Bool = false,
+        onTap: (() -> Void)? = nil
+    ) {
         self.handle = handle
         self.label = label
         self.isVerified = isVerified
@@ -65,24 +67,30 @@ public final class JdMentionLabelView: UILabel {
 
     private func applyContent() {
         // UILabel은 상속 서체가 없어 본문 기본(JdTextView 기본과 같은 md) + 웹 medium 굵기
-        let font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .md).fontSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           compatibleWith: traitCollection)
-        let result = NSMutableAttributedString(string: displayText, attributes: [
-            .font: font,
-            .foregroundColor: JdToken.Color.primary.uiColor,
-        ])
+        let font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .md).fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
+        let result = NSMutableAttributedString(
+            string: displayText,
+            attributes: [
+                .font: font,
+                .foregroundColor: JdToken.Color.primary.uiColor,
+            ])
 
         if isVerified {
             // 웹은 텍스트 "✓" + aria-label — iOS는 SF Symbol로 옮기고 의미는 라벨이 싣는다
             result.append(NSAttributedString(string: " "))
-            result.append(JdMentionStyle.symbolRun("checkmark.seal.fill",
-                                                   color: JdToken.Color.primary,
-                                                   traits: traitCollection))
+            result.append(
+                JdMentionStyle.symbolRun(
+                    "checkmark.seal.fill",
+                    color: JdToken.Color.primary,
+                    traits: traitCollection))
         }
 
         attributedText = result
-        accessibilityLabel = isVerified
+        accessibilityLabel =
+            isVerified
             ? "\(displayText), \(JdMentionStyle.verifiedLabel)"
             : displayText
         invalidateIntrinsicContentSize()
@@ -103,28 +111,35 @@ enum JdMentionStyle {
     static var markFontSize: CGFloat { JdTextSpec.resolve(size: .xs).fontSize }
 
     static func markFont(_ traits: UITraitCollection) -> UIFont {
-        JdFontBridge.scaledFont(size: markFontSize,
-                                weight: JdToken.FontWeight.medium,
-                                compatibleWith: traits)
+        JdFontBridge.scaledFont(
+            size: markFontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traits)
     }
 
     /// SF Symbol을 텍스트 런에 인라인으로 얹는다(웹의 인라인 span 동형).
     /// 첨부 이미지엔 다이나믹 컬러를 실을 수 없어 현재 트레이트로 해석해 굽는다 —
     /// 그래서 호출부는 traitCollectionDidChange에서 재구성한다.
-    static func symbolRun(_ name: String,
-                          color: JdDynamicColor,
-                          traits: UITraitCollection) -> NSAttributedString {
+    static func symbolRun(
+        _ name: String,
+        color: JdDynamicColor,
+        traits: UITraitCollection
+    ) -> NSAttributedString {
         let font = markFont(traits)
         let configuration = UIImage.SymbolConfiguration(font: font)
-        guard let image = UIImage(systemName: name, withConfiguration: configuration)?
-            .withTintColor(color.uiColor.resolvedColor(with: traits), renderingMode: .alwaysOriginal) else {
+        guard
+            let image = UIImage(systemName: name, withConfiguration: configuration)?
+                .withTintColor(
+                    color.uiColor.resolvedColor(with: traits), renderingMode: .alwaysOriginal)
+        else {
             return NSAttributedString()
         }
         let attachment = NSTextAttachment()
         attachment.image = image
         // 첨부는 베이스라인 기준이라 디센더만큼 내려 글줄 중앙에 맞춘다
-        attachment.bounds = CGRect(x: 0, y: font.descender,
-                                   width: image.size.width, height: image.size.height)
+        attachment.bounds = CGRect(
+            x: 0, y: font.descender,
+            width: image.size.width, height: image.size.height)
         return NSAttributedString(attachment: attachment)
     }
 }

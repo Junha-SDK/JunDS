@@ -4,46 +4,24 @@
   "category": "core",
   "title": "Flex",
   "oneLiner": "flex 컨테이너 — direction·align·justify·gap 프롭, inline 전환. Box 파생.",
-  "tags": [
-    "layout",
-    "flex",
-    "container"
-  ],
+  "tags": ["layout", "flex", "container"],
   "controls": [
     {
       "prop": "direction",
       "kind": "segmented",
-      "options": [
-        "row",
-        "column",
-        "row-reverse",
-        "column-reverse"
-      ],
+      "options": ["row", "column", "row-reverse", "column-reverse"],
       "default": "row"
     },
     {
       "prop": "align",
       "kind": "select",
-      "options": [
-        "start",
-        "center",
-        "end",
-        "stretch",
-        "baseline"
-      ],
+      "options": ["start", "center", "end", "stretch", "baseline"],
       "default": "center"
     },
     {
       "prop": "justify",
       "kind": "select",
-      "options": [
-        "start",
-        "center",
-        "end",
-        "between",
-        "around",
-        "evenly"
-      ],
+      "options": ["start", "center", "end", "between", "around", "evenly"],
       "default": "start"
     },
     {

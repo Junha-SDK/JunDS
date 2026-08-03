@@ -25,11 +25,9 @@ const columnsMap: Record<NonNullable<BookShelfProps["columns"]>, string> = {
 };
 
 const variantMap: Record<BookShelfVariant, string> = {
-  wood:
-    "p-4 rounded-2xl bg-gradient-to-b from-amber-50 to-amber-100 dark:from-amber-950/40 dark:to-amber-900/20 shadow-[inset_0_-4px_8px_rgba(0,0,0,0.08)]",
+  wood: "p-4 rounded-2xl bg-gradient-to-b from-amber-50 to-amber-100 dark:from-amber-950/40 dark:to-amber-900/20 shadow-[inset_0_-4px_8px_rgba(0,0,0,0.08)]",
   minimal: "p-2",
-  card:
-    "p-5 rounded-xl border border-border bg-surface shadow-sm",
+  card: "p-5 rounded-xl border border-border bg-surface shadow-sm",
 };
 
 /**
@@ -45,7 +43,11 @@ const variantMap: Record<BookShelfVariant, string> = {
  */
 export const BookShelf = forwardRef<HTMLDivElement, BookShelfProps>(
   ({ children, columns = 5, variant = "minimal", label, className, ...props }, ref) => (
-    <section ref={ref as never} className={cn(variantMap[variant], className)} {...props as HTMLAttributes<HTMLElement>}>
+    <section
+      ref={ref as never}
+      className={cn(variantMap[variant], className)}
+      {...(props as HTMLAttributes<HTMLElement>)}
+    >
       {label && (
         <header className="mb-3 px-1 text-sm font-semibold text-foreground tracking-tight">
           {label}

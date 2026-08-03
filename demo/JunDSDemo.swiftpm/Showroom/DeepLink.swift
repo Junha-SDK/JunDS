@@ -34,7 +34,8 @@ enum DeepLink {
             case .emptyPath:
                 return "컴포넌트 id가 없다 — junds://component/<id> (예: junds://component/PriceBadge)"
             case .tooManyComponents(let parts):
-                return "경로 조각이 \(parts.count)개다 — junds://component/<id> 또는 junds://component/<category>/<id> 만 받는다"
+                return
+                    "경로 조각이 \(parts.count)개다 — junds://component/<id> 또는 junds://component/<category>/<id> 만 받는다"
             case .unknownId(let id):
                 return "원장에 없는 id \"\(id)\" — ledger.json의 row id와 같은 문자열이어야 한다(대소문자는 무시)"
             case .unknownCategory(let category, let id):

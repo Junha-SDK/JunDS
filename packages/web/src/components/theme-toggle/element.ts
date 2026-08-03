@@ -8,6 +8,9 @@
  *  - 모드는 저장값(jd-color-mode) 우선, 없으면 prefers-color-scheme. 토글 시 저장 +
  *    documentElement에 data-jd-theme(전환기 data-theme 병기)를 칠한다.
  *  - createStoredValue로 탭 간 동기화, 명시 저장값이 없을 때만 OS 변화 추종.
+ *  - `manual`이면 **마운트가 문서를 칠하지 않는다**. 버튼은 문서의 현재 색 구성을
+ *    비추기만 하고, 칠하는 것은 사용자가 누른 뒤다. 컴포넌트 카탈로그처럼 이 버튼이
+ *    "앱의 테마 스위치"가 아니라 "표본 하나"인 자리를 위한 노브다.
  *
  * jd-change{mode} 사후 발행 — 관찰자용.
  */
@@ -28,9 +31,20 @@ export class JdThemeToggle extends JdElement {
   static override props = {
     /** localStorage 키 */
     storageKey: { type: String, default: "jd-color-mode" },
+    /**
+     * 마운트만으로 문서를 칠하지 않는다 — 버튼은 문서의 **현재** 색 구성을 비추고,
+     * 문서를 바꾸는 것은 사용자가 눌렀을 때뿐이다.
+     *
+     * 이 노브가 필요한 이유: 이 버튼은 앱의 유일한 테마 스위치일 수도 있지만,
+     * 컴포넌트 카탈로그에 놓인 385개 표본 중 하나일 수도 있다. 후자에서 자동 적용은
+     * **호스트 페이지를 인질로 잡는다** — MySelf 의 JunDS 카탈로그가 이 카드까지
+     * 스크롤하는 순간 문서 루트가 다크로 칠해져 옆 카드 384개가 함께 뒤집혔다(실측).
+     */
+    manual: { type: Boolean },
   };
 
   declare storageKey: string;
+  declare manual: boolean;
 
   #btn!: HTMLButtonElement;
   #icon!: SVGSVGElement;
@@ -70,26 +84,30 @@ export class JdThemeToggle extends JdElement {
   protected override connected(): void {
     this.#btn.addEventListener("click", this.#onClick);
     // 이펙트 단계: 저장값 → prefers 순으로 실제 모드 해석 후 적용.
-    this.#store = this.own(
-      createStoredValue<JdColorScheme | null>(this.storageKey, null),
-    );
+    this.#store = this.own(createStoredValue<JdColorScheme | null>(this.storageKey, null));
     this.#os = this.own(createColorSchemeWatcher());
     const stored = this.#store.get();
     this.#explicit = stored === "light" || stored === "dark";
-    this.#apply(this.#explicit ? (stored as JdColorScheme) : this.#os.get(), { persist: false });
+    // manual 이면 문서를 읽기만 한다 — 버튼이 현재 상태를 비추고, 칠하는 것은 클릭 뒤.
+    if (this.manual) this.#adopt();
+    else this.#apply(this.#explicit ? (stored as JdColorScheme) : this.#os.get(), { persist: false });
 
     // 다른 탭에서 저장값이 바뀌면 따라간다
     this.own({
       destroy: this.#store.subscribe((v) => {
         this.#explicit = v === "light" || v === "dark";
-        if (this.#explicit) this.#apply(v as JdColorScheme, { persist: false });
+        if (!this.#explicit) return;
+        if (this.manual) this.#paintOnly(v as JdColorScheme);
+        else this.#apply(v as JdColorScheme, { persist: false });
       }),
     });
 
     // 명시 저장값이 없을 때만 OS 색 구성을 추종한다
     this.own({
       destroy: this.#os.subscribe((mode) => {
-        if (!this.#explicit) this.#apply(mode, { persist: false });
+        if (this.#explicit) return;
+        if (this.manual) this.#paintOnly(mode);
+        else this.#apply(mode, { persist: false });
       }),
     });
   }
@@ -102,6 +120,21 @@ export class JdThemeToggle extends JdElement {
     this.#explicit = true;
     this.#apply(this.#mode === "dark" ? "light" : "dark", { persist: true });
   };
+
+  /** 문서의 현재 색 구성을 읽어 버튼에만 반영한다 (manual 진입점) */
+  #adopt(): void {
+    const root = this.ownerDocument.documentElement;
+    const dark =
+      root.getAttribute("data-jd-theme") === "dark" ||
+      root.getAttribute("data-theme") === "dark";
+    this.#paintOnly(dark ? "dark" : "light");
+  }
+
+  /** 문서를 건드리지 않고 버튼 상태만 맞춘다 */
+  #paintOnly(mode: JdColorScheme): void {
+    this.#mode = mode;
+    this.#paint(mode);
+  }
 
   /** 문서 루트에 색 구성을 칠하고 버튼 표시를 갱신 */
   #apply(mode: JdColorScheme, opts: { persist: boolean }): void {

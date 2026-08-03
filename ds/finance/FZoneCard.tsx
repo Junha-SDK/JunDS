@@ -43,17 +43,25 @@ export function FZoneCard({ card }: { card: TFZoneCard }) {
   return (
     <Link
       href={`/stock/${encodeURIComponent(card.name)}`}
-      className="bm-card overflow-hidden block"
+      // 카드 전체가 링크인데 눌리는 표시가 하나도 없었다 — 이 디렉터리의 상호작용 관례
+      // (soft-100 호버 / accent-strong 링 / 감속요청 시 scale 고정)를 그대로 얹는다
+      className={[
+        "bm-card overflow-hidden block cursor-pointer",
+        "transition-[box-shadow,transform] duration-150",
+        "hover:shadow-[0_12px_28px_-14px_rgba(15,23,42,0.28),0_4px_10px_-6px_rgba(15,23,42,0.16)]",
+        "active:scale-[0.99] motion-reduce:active:scale-100",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-bg)]",
+      ].join(" ")}
     >
       <header
         className="px-3 py-2 flex items-center justify-between gap-2"
         style={{ background: headerBg }}
       >
-        <span className="font-extrabold text-[14px]" style={{ color: "#0f172a" }}>
+        <span className="font-extrabold text-[14px] truncate" style={{ color: "#0f172a" }}>
           {card.name}
         </span>
         <span
-          className="bm-pill text-white"
+          className="bm-pill text-white shrink-0 whitespace-nowrap"
           style={{ background: "var(--bm-up)", fontSize: 12 }}
         >
           {liveStatus}
@@ -64,12 +72,17 @@ export function FZoneCard({ card }: { card: TFZoneCard }) {
         <div>
           <div className="flex items-center justify-between">
             <span className="text-[12px] text-[color:var(--bm-muted)]">현재가</span>
-            <span className="bm-num font-extrabold text-[14px]" style={{ color: pct > 0 ? "var(--bm-up)" : "var(--bm-down)" }}>
+            <span
+              className="bm-num font-extrabold text-[14px]"
+              style={{ color: pct > 0 ? "var(--bm-up)" : "var(--bm-down)" }}
+            >
               {price.toLocaleString("ko-KR")}
             </span>
           </div>
           <div className="flex items-center justify-between mt-0.5">
-            <span className="bm-num text-[12px] text-[color:var(--bm-muted)]">시총 {card.cap조}조</span>
+            <span className="bm-num text-[12px] text-[color:var(--bm-muted)]">
+              시총 {card.cap조}조
+            </span>
             <PriceBadge pct={pct} size="sm" showArrow={false} />
           </div>
           <div className="flex items-center justify-between mt-0.5 text-[12px] text-[color:var(--bm-muted)]">
@@ -104,10 +117,16 @@ function Row({
   return (
     <div className="flex items-center justify-between">
       <span
-        className="font-bold"
+        className="font-bold whitespace-nowrap"
         style={{
-          background: highlight ? "rgba(239,68,68,0.12)" : "transparent",
-          border: highlight ? "1px solid rgba(239,68,68,0.6)" : "none",
+          // 강조색은 글자와 같은 --bm-up 에서 파생시킨다. 고정 rgba 를 쓰면 상승색을
+          // 바꿨을 때 테두리만 옛 빨강으로 남는다
+          background: highlight
+            ? "color-mix(in srgb, var(--bm-up) 12%, transparent)"
+            : "transparent",
+          border: highlight
+            ? "1px solid color-mix(in srgb, var(--bm-up) 60%, transparent)"
+            : "none",
           color: highlight ? "var(--bm-up)" : muted ? "var(--bm-muted)" : "var(--bm-text)",
           padding: highlight ? "1px 8px" : "1px 4px",
           borderRadius: 6,
@@ -116,7 +135,10 @@ function Row({
       >
         {label}
       </span>
-      <span className="bm-num font-semibold" style={{ color: muted ? "var(--bm-muted)" : "var(--bm-text)" }}>
+      <span
+        className="bm-num font-semibold"
+        style={{ color: muted ? "var(--bm-muted)" : "var(--bm-text)" }}
+      >
         {value.toLocaleString("ko-KR")}
       </span>
     </div>
@@ -128,8 +150,9 @@ function MarkerColumn({ marker }: { marker: "high" | "mid" | "low" }) {
   const mid = marker === "mid" ? "var(--bm-down)" : "transparent";
   const bot = marker === "low" ? "var(--bm-down)" : "transparent";
   return (
-    <svg width={18} height={108} viewBox="0 0 18 108">
-      <line x1={9} x2={9} y1={2} y2={106} stroke="rgba(15,23,42,0.15)" />
+    <svg width={18} height={108} viewBox="0 0 18 108" className="block shrink-0" aria-hidden="true">
+      {/* 축선은 고정 슬레이트 15% 였다 — 어두운 배경에서 사라진다. 테두리 토큰을 따른다 */}
+      <line x1={9} x2={9} y1={2} y2={106} stroke="var(--bm-border)" />
       <rect x={5} y={4} width={8} height={20} fill={top} rx={2} />
       <rect x={5} y={42} width={8} height={28} fill={mid} rx={2} />
       <rect x={5} y={84} width={8} height={20} fill={bot} rx={2} />

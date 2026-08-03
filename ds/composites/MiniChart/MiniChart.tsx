@@ -19,12 +19,19 @@ export interface MiniChartProps {
 /**
  * 카드 안에 들어갈 작은 미니 차트(스파크라인).
  * @example
- * <MiniChart data={[5, 8, 12, 9, 14]} type="line" color="#3b82f6" />
+ * <MiniChart data={[5, 8, 12, 9, 14]} type="line" color="var(--info)" />
  * @status stable
  * @since 2.2.0
  * @tags chart
  */
-export function MiniChart({ data, type = "line", width = 120, height = 32, color = "var(--primary)", className }: MiniChartProps) {
+export function MiniChart({
+  data,
+  type = "line",
+  width = 120,
+  height = 32,
+  color = "var(--primary)",
+  className,
+}: MiniChartProps) {
   if (data.length < 2) return null;
   const max = Math.max(...data);
   const min = Math.min(...data);
@@ -40,18 +47,49 @@ export function MiniChart({ data, type = "line", width = 120, height = 32, color
   const areaD = `${pathD} L${width},${height} L0,${height} Z`;
 
   return (
-    <svg width={width} height={height} className={cn("inline-block", className)} aria-hidden="true">
+    // viewBox 가 없으면 좁은 칸에서 SVG 가 줄지 않고 그대로 넘친다.
+    // 좌표계를 viewBox 로 넘겨야 max-w-full 이 실제로 축소로 이어진다.
+    <svg
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
+      className={cn("inline-block max-w-full h-auto align-middle", className)}
+      aria-hidden="true"
+    >
       {type === "bar" ? (
         data.map((v, i) => {
           const barH = ((v - min) / range) * (height - 4);
           const barW = Math.max(2, step - 2);
-          return <rect key={i} x={i * step} y={height - barH - 2} width={barW} height={barH} fill={color} rx={1} opacity={0.8} />;
+          return (
+            <rect
+              key={i}
+              x={i * step}
+              y={height - barH - 2}
+              width={barW}
+              height={barH}
+              fill={color}
+              rx={1}
+              opacity={0.8}
+            />
+          );
         })
       ) : (
         <>
           {type === "area" && <path d={areaD} fill={color} opacity={0.1} />}
-          <path d={pathD} fill="none" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r={2} fill={color} />
+          <path
+            d={pathD}
+            fill="none"
+            stroke={color}
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <circle
+            cx={points[points.length - 1].x}
+            cy={points[points.length - 1].y}
+            r={2}
+            fill={color}
+          />
         </>
       )}
     </svg>

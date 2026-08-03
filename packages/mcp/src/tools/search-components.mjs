@@ -20,10 +20,8 @@ function scoreRow(row, content, terms) {
     else if (idf.includes(tf)) s = 50;
     else if (tags.some((t) => t.toLowerCase().includes(term))) s = 30;
     else if ((content.oneLiner ?? "").toLowerCase().includes(term)) s = 20;
-    else if (
-      (row.notes ?? "").toLowerCase().includes(term) ||
-      fold(content.tag ?? "").includes(tf)
-    ) s = 10;
+    else if ((row.notes ?? "").toLowerCase().includes(term) || fold(content.tag ?? "").includes(tf))
+      s = 10;
     if (s === 0) return 0; // AND 실패
     score += s;
   }
@@ -40,14 +38,10 @@ export function searchComponents(data, input = {}) {
     const want = status ?? "done";
     rows = rows.filter((r) => normStatus(r[platform]) === want);
   } else if (status) {
-    rows = rows.filter(
-      (r) => normStatus(r.web) === status || normStatus(r.ios) === status,
-    );
+    rows = rows.filter((r) => normStatus(r.web) === status || normStatus(r.ios) === status);
   }
 
-  const terms = query
-    ? String(query).toLowerCase().split(/\s+/).filter(Boolean)
-    : null;
+  const terms = query ? String(query).toLowerCase().split(/\s+/).filter(Boolean) : null;
 
   let scored = rows.map((r) => {
     const c = contentFor(data, r) ?? {};

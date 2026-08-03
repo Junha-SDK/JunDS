@@ -38,11 +38,7 @@ describe("Node 모듈 평가·renderToString", () => {
 
   test("TextField — 라벨·에러 행·aria 연결까지 완성 골격", () => {
     const html = renderToString(
-      <TextField
-        label="이름"
-        error="이름을 입력해주세요"
-        placeholder="이름 입력"
-      />,
+      <TextField label="이름" error="이름을 입력해주세요" placeholder="이름 입력" />,
     );
     expect(html).toContain("<jd-text-field");
     expect(html).toContain('label="이름"');
@@ -92,9 +88,7 @@ describe("Node 모듈 평가·renderToString", () => {
   });
 
   test("controlled value가 서버 HTML에 직렬화된다", () => {
-    const html = renderToString(
-      <TextField value="서버값" onChange={() => {}} />,
-    );
+    const html = renderToString(<TextField value="서버값" onChange={() => {}} />);
     expect(html).toContain('value="서버값"');
   });
 });

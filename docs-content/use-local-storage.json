@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useLocalStorage",
   "oneLiner": "localStorage 동기화 상태.",
-  "tags": [
-    "hook",
-    "storage",
-    "영속"
-  ],
+  "tags": ["hook", "storage", "영속"],
   "controls": [],
   "snippets": {
     "web": null,

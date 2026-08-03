@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Popover",
   "oneLiner": "사용자 트리거의 의미를 보존하며 클릭·ESC·바깥 클릭을 처리하는 팝오버.",
-  "tags": [
-    "overlay"
-  ],
+  "tags": ["overlay"],
   "controls": [],
   "snippets": {
     "web": {

@@ -4,38 +4,18 @@
   "category": "core",
   "title": "Text",
   "oneLiner": "본문 텍스트 — as로 시맨틱 교체(p·span·label 등 7종), truncate·lineClamp·mono·dimmed.",
-  "tags": [
-    "typography",
-    "text",
-    "본문"
-  ],
+  "tags": ["typography", "text", "본문"],
   "controls": [
     {
       "prop": "as",
       "kind": "select",
-      "options": [
-        "p",
-        "span",
-        "div",
-        "label",
-        "strong",
-        "em",
-        "small"
-      ],
+      "options": ["p", "span", "div", "label", "strong", "em", "small"],
       "default": "p"
     },
     {
       "prop": "fontSize",
       "kind": "select",
-      "options": [
-        "2xs",
-        "xs",
-        "sm",
-        "md",
-        "lg",
-        "xl",
-        "2xl"
-      ],
+      "options": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
       "default": "md"
     },
     {

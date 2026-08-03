@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-code 동형 — 인라인 코드 칩 (DESIGN-3 §C).
 // 계약: mono 폰트 · 배경 = variant별 *Light 토큰 · 전경 = 해당 시맨틱 색 · radius sm · padding 2/6.
@@ -16,9 +16,11 @@ public struct JdCode: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ text: String,
-                variant: JdCodeVariant = .default,
-                size: JdControlSize = .md) {
+    public init(
+        _ text: String,
+        variant: JdCodeVariant = .default,
+        size: JdControlSize = .md
+    ) {
         self.text = text
         self.variant = variant
         self.metrics = JdCodeMetrics(size: size)
@@ -26,9 +28,12 @@ public struct JdCode: View {
 
     public var body: some View {
         Text(text)
-            .font(JdSwiftUIFont.scaledMono(size: metrics.fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaledMono(
+                    size: metrics.fontSize,
+                    weight: JdToken.FontWeight.normal,
+                    category: sizeCategory)
+            )
             .foregroundColor(JdCodeMetrics.foreground(variant).color)
             .padding(.horizontal, metrics.hPadding)
             .padding(.vertical, metrics.vPadding)
@@ -50,17 +55,17 @@ struct JdCodeMetrics {
     init(size: JdControlSize) {
         switch size {
         case .sm:
-            fontSize = JdTextSpec.resolve(size: .xs2).fontSize   // 10
-            hPadding = JdToken.Space.s1                          // 4
-            vPadding = JdToken.Space.s0                          // 0
+            fontSize = JdTextSpec.resolve(size: .xs2).fontSize  // 10
+            hPadding = JdToken.Space.s1  // 4
+            vPadding = JdToken.Space.s0  // 0
         case .md:
-            fontSize = JdTextSpec.resolve(size: .xs).fontSize    // 12
-            hPadding = JdToken.Space.s1_5                        // 6 (계약 padding 2/6)
-            vPadding = JdToken.Space.s0_5                        // 2
+            fontSize = JdTextSpec.resolve(size: .xs).fontSize  // 12
+            hPadding = JdToken.Space.s1_5  // 6 (계약 padding 2/6)
+            vPadding = JdToken.Space.s0_5  // 2
         case .lg:
-            fontSize = JdTextSpec.resolve(size: .sm).fontSize    // 14
-            hPadding = JdToken.Space.s2                          // 8
-            vPadding = JdToken.Space.s1                          // 4
+            fontSize = JdTextSpec.resolve(size: .sm).fontSize  // 14
+            hPadding = JdToken.Space.s2  // 8
+            vPadding = JdToken.Space.s1  // 4
         }
     }
 

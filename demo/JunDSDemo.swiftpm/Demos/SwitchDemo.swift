@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Switch 데모 — **별칭**이다. 웹은 두 태그(<jd-toggle>·<jd-switch>, Switch가 Toggle의 서브클래스)지만
 // iOS는 같은 시스템 컨트롤이라 단일 구현 + 별칭(R12, DESIGN-2 §B1):

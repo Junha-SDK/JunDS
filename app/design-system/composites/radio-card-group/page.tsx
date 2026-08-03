@@ -13,7 +13,13 @@ export default function RadioCardGroupPage() {
     >
       <Section title="Default">
         <Preview>
-          <RadioCardGroup options={[{value:"a",title:"기본",description:"가벼운 시작"},{value:"b",title:"프로",description:"전체 기능"}]} defaultValue="a" />
+          <RadioCardGroup
+            options={[
+              { value: "a", title: "기본", description: "가벼운 시작" },
+              { value: "b", title: "프로", description: "전체 기능" },
+            ]}
+            defaultValue="a"
+          />
         </Preview>
       </Section>
     </ComponentPage>

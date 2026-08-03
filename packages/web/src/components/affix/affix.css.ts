@@ -11,14 +11,25 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-affix {
-    display: block; box-sizing: border-box;
-    position: fixed;
-    z-index: var(--jd-affix-z, var(--jd-z-overlay));
-    top: var(--jd-affix-top, auto);
-    bottom: var(--jd-affix-bottom, 20px);
-    left: var(--jd-affix-left, auto);
-    right: var(--jd-affix-right, 20px);
+  @layer junds.components {
+    jd-affix {
+      /* block이면 자식 둘이 서로 달라붙어 한 덩어리로 읽힌다 — 떠 있는 상자는 서로
+       떨어져 있어야 각각으로 보인다. 자식이 하나면 세로 스택은 block과 같다. */
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--jd-space-2);
+      box-sizing: border-box;
+      /* 고정 상자는 shrink-to-fit이라 내용이 넓으면 화면 밖으로 자란다 — 컨테이닝
+       블록(뷰포트 또는 contain 조상) 폭을 넘지 않게 상한을 둔다(§6). */
+      max-width: 100%;
+      min-width: 0;
+      position: fixed;
+      z-index: var(--jd-affix-z, var(--jd-z-overlay));
+      top: var(--jd-affix-top, auto);
+      bottom: var(--jd-affix-bottom, 20px);
+      left: var(--jd-affix-left, auto);
+      right: var(--jd-affix-right, 20px);
+    }
   }
-}`;
+`;

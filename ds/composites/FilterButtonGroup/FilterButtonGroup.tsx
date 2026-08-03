@@ -49,14 +49,17 @@ export function FilterButtonGroup({ options, value, onChange, className }: Filte
             type="button"
             onClick={() => onChange(option.key)}
             className={cn(
-              "h-9 px-4 text-sm font-medium border transition-all duration-150 cursor-pointer",
-              isFirst && "rounded-l-lg",
-              isLast && "rounded-r-lg",
+              "relative h-9 px-4 text-sm font-medium border cursor-pointer whitespace-nowrap",
+              "transition-[color,background-color,border-color,box-shadow] duration-150 ease-out",
+              // 포커스 링이 이웃 버튼의 테두리 아래로 숨지 않도록 포커스 시에만 위로 올린다.
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:z-20",
+              isFirst && "rounded-l-xl",
+              isLast && "rounded-r-xl",
               !isFirst && !isLast && "rounded-none",
               !isFirst && "-ml-px",
               isActive
-                ? "bg-primary text-white border-primary z-10 relative"
-                : "bg-card text-foreground border-border hover:bg-gray-50",
+                ? "bg-primary text-white border-primary z-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] active:bg-primary-hover"
+                : "bg-card text-foreground border-border hover:bg-card-hover hover:border-muted-light/60 active:bg-muted/15",
             )}
           >
             {option.label}

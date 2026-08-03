@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // SeverityBadge 데모 — 실컴포넌트 JdSeverityBadge(SwiftUI)/JdSeverityBadgeView(UIKit).
 // 웹 <jd-severity-badge> 동형. 컨트롤 키·값은 웹 attribute 리터럴(severity/size/dot) — 04 §3.
@@ -104,7 +104,9 @@ private struct SeverityBadgeViewRep: UIViewRepresentable {
     }
 
     // 내부 스택 제약으로만 크기가 나오는 뷰라 압축 적합 크기를 직접 알려 준다
-    func sizeThatFits(_ proposal: ProposedViewSize, uiView: JdSeverityBadgeView, context: Context) -> CGSize? {
+    func sizeThatFits(
+        _ proposal: ProposedViewSize, uiView: JdSeverityBadgeView, context: Context
+    ) -> CGSize? {
         uiView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
 }

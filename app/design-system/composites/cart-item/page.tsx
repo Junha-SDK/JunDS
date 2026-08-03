@@ -13,7 +13,16 @@ export default function CartItemPage() {
     >
       <Section title="Default">
         <Preview>
-          <CartItem title="베이직 셔츠" variant="블랙 / M" image="https://placehold.co/200" price="₩29,000" subtotal="₩58,000" quantity={2} onQuantityChange={()=>{}} onRemove={()=>{}} />
+          <CartItem
+            title="베이직 셔츠"
+            variant="블랙 / M"
+            image="https://placehold.co/200"
+            price="₩29,000"
+            subtotal="₩58,000"
+            quantity={2}
+            onQuantityChange={() => {}}
+            onRemove={() => {}}
+          />
         </Preview>
       </Section>
     </ComponentPage>

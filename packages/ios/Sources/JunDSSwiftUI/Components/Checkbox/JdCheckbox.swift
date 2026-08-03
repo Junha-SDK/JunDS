@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-checkbox 동형 — iOS엔 체크박스 관용구가 없어 SF Symbols 자체 드로잉이다
 // (04 §10.1 primitives 항목). 3상태(JdCheckboxState)는 네이티브 input.indeterminate 등가.
@@ -18,10 +18,12 @@ public struct JdCheckbox: View {
     // 소비자가 .disabled(true)를 걸면 웹 disabled(opacity 50%) 동형으로 흐려진다
     @Environment(\.isEnabled) private var isEnabled
 
-    public init(_ label: String? = nil,
-                state: Binding<JdCheckboxState>,
-                size: JdToggleSize = .md,
-                indeterminateAllowed: Bool = false) {
+    public init(
+        _ label: String? = nil,
+        state: Binding<JdCheckboxState>,
+        size: JdToggleSize = .md,
+        indeterminateAllowed: Bool = false
+    ) {
         self.label = label
         self.spec = JdChoiceSpec.resolve(size: size)
         self.indeterminateAllowed = indeterminateAllowed
@@ -56,15 +58,17 @@ public struct JdCheckbox: View {
 
     private var symbolFont: Font {
         // 심볼 크기 = 스펙 boxSize(md 16 / sm 14). 폰트 경유라 Dynamic Type에 함께 자란다.
-        JdSwiftUIFont.scaled(size: spec.boxSize,
-                             weight: JdToken.FontWeight.normal,
-                             category: sizeCategory)
+        JdSwiftUIFont.scaled(
+            size: spec.boxSize,
+            weight: JdToken.FontWeight.normal,
+            category: sizeCategory)
     }
 
     private var labelFont: Font {
-        JdSwiftUIFont.scaled(size: spec.labelFontSize,
-                             weight: JdToken.FontWeight.normal,
-                             category: sizeCategory)
+        JdSwiftUIFont.scaled(
+            size: spec.labelFontSize,
+            weight: JdToken.FontWeight.normal,
+            category: sizeCategory)
     }
 
     private func advance() {
@@ -77,7 +81,9 @@ public struct JdCheckbox: View {
     // indeterminateAllowed면 3상태 순환 off → on → indeterminate → off.
     // ⚠️ 이 순환 규칙은 Core 스펙에 없어 두 계층에 각각 구현돼 있다(DEC-010으로 계층 간 공유 불가).
     //    JdCheckboxState의 Core 멤버로 승격할 후보 — DECISIONS 기록감.
-    private static func next(_ state: JdCheckboxState, indeterminateAllowed: Bool) -> JdCheckboxState {
+    private static func next(
+        _ state: JdCheckboxState, indeterminateAllowed: Bool
+    ) -> JdCheckboxState {
         switch state {
         case .off:
             return .on

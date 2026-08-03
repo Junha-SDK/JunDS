@@ -54,7 +54,10 @@ export function Collapsible({
       <button
         type="button"
         onClick={toggle}
-        className="w-full cursor-pointer"
+        className={cn(
+          "w-full cursor-pointer rounded-xl text-left transition-colors",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        )}
         aria-expanded={isOpen}
         aria-label={rest["aria-label"] ?? (typeof trigger === "string" ? trigger : "토글")}
       >
@@ -62,13 +65,13 @@ export function Collapsible({
       </button>
       <div
         className={cn(
-          "grid transition-all duration-200",
+          // 실제로 변하는 것은 행 높이와 투명도뿐이다. all 이면 자식의 padding·font-size 까지
+          // 매 프레임 리플로우 대상이 된다. 높이가 움직이므로 감속 요청을 받는다.
+          "grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none",
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
         )}
       >
-        <div className="overflow-hidden">
-          {children}
-        </div>
+        <div className="overflow-hidden">{children}</div>
       </div>
     </div>
   );

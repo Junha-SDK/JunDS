@@ -10,7 +10,7 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-07-27T04:10:36.085Z
+Generated: 2026-07-28T05:34:32.285Z
 
 ---
 

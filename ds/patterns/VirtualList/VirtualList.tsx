@@ -57,11 +57,7 @@ export function VirtualList<T>({
   }, [handleScroll]);
 
   return (
-    <div
-      ref={containerRef}
-      className={cn("overflow-auto", className)}
-      style={{ height }}
-    >
+    <div ref={containerRef} className={cn("overflow-auto", className)} style={{ height }}>
       <div style={{ height: totalHeight, position: "relative" }}>
         <div style={{ transform: `translateY(${offsetY}px)` }}>
           {items.slice(startIdx, endIdx).map((item, i) => (

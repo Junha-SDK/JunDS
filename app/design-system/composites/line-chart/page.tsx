@@ -13,7 +13,10 @@ export default function LineChartPage() {
     >
       <Section title="Default">
         <Preview>
-          <LineChart labels={["월","화","수","목","금"]} series={[{name:"매출",data:[10,15,8,22,18],area:true}]} />
+          <LineChart
+            labels={["월", "화", "수", "목", "금"]}
+            series={[{ name: "매출", data: [10, 15, 8, 22, 18], area: true }]}
+          />
         </Preview>
       </Section>
     </ComponentPage>

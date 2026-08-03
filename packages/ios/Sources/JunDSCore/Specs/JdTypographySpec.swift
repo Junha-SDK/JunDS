@@ -1,5 +1,5 @@
-import Foundation
 import CoreGraphics
+import Foundation
 
 // 웹 jd-text fontSize 어휘 — rawValue는 웹 attribute 문자열과 일치 (04 §3 규칙 1).
 // 값 사다리는 v2 리터럴 패리티(DEC-014-1) — JdToken.FontSize(--jd-text-*)와 **별개**의
@@ -38,8 +38,9 @@ public struct JdTextSpec: Sendable {
         case .xl3: fontSize = 30
         case .xl4: fontSize = 36
         }
-        return JdTextSpec(fontSize: fontSize,
-                          lineHeightMultiple: JdToken.LineHeight.relaxed)
+        return JdTextSpec(
+            fontSize: fontSize,
+            lineHeightMultiple: JdToken.LineHeight.relaxed)
     }
 }
 
@@ -65,22 +66,22 @@ public struct JdHeadingSpec: Sendable {
         var uppercase = false
         switch level {
         case .h1:
-            fontSize = JdTextSpec.resolve(size: .xl2).fontSize   // 24
+            fontSize = JdTextSpec.resolve(size: .xl2).fontSize  // 24
             fontWeight = JdToken.FontWeight.bold
         case .h2:
-            fontSize = JdTextSpec.resolve(size: .xl).fontSize    // 20
+            fontSize = JdTextSpec.resolve(size: .xl).fontSize  // 20
             fontWeight = JdToken.FontWeight.bold
         case .h3:
-            fontSize = JdTextSpec.resolve(size: .xl).fontSize    // 20
+            fontSize = JdTextSpec.resolve(size: .xl).fontSize  // 20
             fontWeight = JdToken.FontWeight.semibold
         case .h4:
-            fontSize = JdTextSpec.resolve(size: .lg).fontSize    // 18
+            fontSize = JdTextSpec.resolve(size: .lg).fontSize  // 18
             fontWeight = JdToken.FontWeight.semibold
         case .h5:
-            fontSize = JdTextSpec.resolve(size: .md).fontSize    // 16
+            fontSize = JdTextSpec.resolve(size: .md).fontSize  // 16
             fontWeight = JdToken.FontWeight.semibold
         case .h6:
-            fontSize = JdTextSpec.resolve(size: .sm).fontSize    // 14
+            fontSize = JdTextSpec.resolve(size: .sm).fontSize  // 14
             fontWeight = JdToken.FontWeight.semibold
             uppercase = true
         }

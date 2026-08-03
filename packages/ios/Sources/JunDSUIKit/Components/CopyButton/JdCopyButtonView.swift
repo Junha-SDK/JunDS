@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-copy-button 동형 — 복사는 시스템 API(UIPasteboard)가 하고 컴포넌트는 버튼만 얇게
 // 얹는다 (DESIGN-3 §B, 04 §10 번역 원칙).
@@ -36,11 +36,13 @@ public final class JdCopyButtonView: UIControl {
     /// DESIGN-3 §B에 명시된 2초를 그대로 상수로 둔다 — 토큰 신설은 하지 않는다.
     private static let copiedDuration: TimeInterval = 2
 
-    public init(text: String,
-                label: String = "복사",
-                copiedLabel: String = "복사됨",
-                variant: JdButtonVariant = .secondary,
-                size: JdControlSize = .md) {
+    public init(
+        text: String,
+        label: String = "복사",
+        copiedLabel: String = "복사됨",
+        variant: JdButtonVariant = .secondary,
+        size: JdControlSize = .md
+    ) {
         self.text = text
         self.label = label
         self.copiedLabel = copiedLabel
@@ -87,8 +89,9 @@ public final class JdCopyButtonView: UIControl {
 
     public override var intrinsicContentSize: CGSize {
         let content = contentStack.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        return CGSize(width: content.width + spec.hPadding * 2,
-                      height: max(spec.minHeight, content.height + JdToken.Space.s1 * 2))
+        return CGSize(
+            width: content.width + spec.hPadding * 2,
+            height: max(spec.minHeight, content.height + JdToken.Space.s1 * 2))
     }
 
     public override var isHighlighted: Bool {
@@ -109,9 +112,10 @@ public final class JdCopyButtonView: UIControl {
     // MARK: - 내부
 
     private func applyStyle() {
-        titleLabel.font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                                  weight: spec.fontWeight,
-                                                  compatibleWith: traitCollection)
+        titleLabel.font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: spec.fontWeight,
+            compatibleWith: traitCollection)
         titleLabel.textColor = spec.foreground.uiColor
         iconView.tintColor = spec.foreground.uiColor
         backgroundColor = (isHighlighted ? spec.pressedBackground : spec.background).uiColor
@@ -133,9 +137,10 @@ public final class JdCopyButtonView: UIControl {
         titleLabel.text = title
         accessibilityLabel = title
         // SF Symbol은 폰트에 묶여 스케일된다 (04 §7.2)
-        let font = JdFontBridge.scaledFont(size: spec.fontSize,
-                                           weight: spec.fontWeight,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: spec.fontSize,
+            weight: spec.fontWeight,
+            compatibleWith: traitCollection)
         iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font)
         iconView.image = UIImage(systemName: isCopied ? "checkmark" : "doc.on.doc")
         invalidateIntrinsicContentSize()

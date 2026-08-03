@@ -50,7 +50,8 @@ export function FilterBar({
   return (
     <div className={cn("flex items-center gap-2 flex-wrap", className)}>
       {onSearchChange && (
-        <div className="w-64">
+        // 좁은 칸에서 고정 폭이 그대로 넘치지 않도록 상한만 둔다.
+        <div className="w-64 max-w-full min-w-0">
           <Input
             value={searchValue}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -59,7 +60,12 @@ export function FilterBar({
             leftSlot={
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M9.5 9.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M9.5 9.5L13 13"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             }
           />
@@ -70,7 +76,8 @@ export function FilterBar({
         <Button variant="ghost" size="xs" onClick={onReset}>
           초기화
           {activeCount && activeCount > 0 && (
-            <span className="ml-1 bg-primary text-white text-[10px] rounded-full w-4 h-4 inline-flex items-center justify-center">
+            // w-4 고정이면 두 자리 수부터 숫자가 잘린다 — 최소 폭 + 좌우 여백으로 늘어나게 둔다.
+            <span className="ml-1 bg-primary text-white text-[10px] rounded-full min-w-4 h-4 px-1 inline-flex items-center justify-center tabular-nums shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
               {activeCount}
             </span>
           )}

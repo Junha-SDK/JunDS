@@ -41,28 +41,33 @@ export function useAsync<T, A extends unknown[]>(
 
   useEffect(() => {
     mountedRef.current = true;
-    return () => { mountedRef.current = false; };
+    return () => {
+      mountedRef.current = false;
+    };
   }, []);
 
-  const execute = useCallback(async (...args: A) => {
-    const id = ++callIdRef.current;
-    setStatus("pending");
-    setError(null);
-    try {
-      const result = await fn(...args);
-      if (id === callIdRef.current && mountedRef.current) {
-        setData(result);
-        setStatus("success");
+  const execute = useCallback(
+    async (...args: A) => {
+      const id = ++callIdRef.current;
+      setStatus("pending");
+      setError(null);
+      try {
+        const result = await fn(...args);
+        if (id === callIdRef.current && mountedRef.current) {
+          setData(result);
+          setStatus("success");
+        }
+        return result;
+      } catch (e) {
+        if (id === callIdRef.current && mountedRef.current) {
+          setError(e instanceof Error ? e : new Error(String(e)));
+          setStatus("error");
+        }
+        return undefined;
       }
-      return result;
-    } catch (e) {
-      if (id === callIdRef.current && mountedRef.current) {
-        setError(e instanceof Error ? e : new Error(String(e)));
-        setStatus("error");
-      }
-      return undefined;
-    }
-  }, [fn]);
+    },
+    [fn],
+  );
 
   const reset = useCallback(() => {
     callIdRef.current++;

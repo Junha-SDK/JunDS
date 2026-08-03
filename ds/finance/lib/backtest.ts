@@ -74,23 +74,20 @@ function verdictToWeight(v: InvestorScoreCard["verdict"]): number {
 }
 
 /** Build a synthetic snapshot at bar `i` of `candles`. */
-function snapshotAtBar(
-  name: string,
-  candles: Candle[],
-  i: number,
-): FundamentalSnapshot {
+function snapshotAtBar(name: string, candles: Candle[], i: number): FundamentalSnapshot {
   const window = candles.slice(0, i + 1);
   const last = window[window.length - 1];
   const lookback = Math.min(window.length, 252); // ~1Y of daily bars
   const recent = window.slice(-lookback);
   const high52 = Math.max(...recent.map((b) => b.h));
   const low52 = Math.min(...recent.map((b) => b.l));
-  const pricePosition52w =
-    high52 > low52 ? (last.c - low52) / (high52 - low52) : 0.5;
+  const pricePosition52w = high52 > low52 ? (last.c - low52) / (high52 - low52) : 0.5;
 
   // 5-bar momentum
-  const m5 = window.length > 5 ? (last.c - window[window.length - 6].c) / window[window.length - 6].c : 0;
-  const m20 = window.length > 20 ? (last.c - window[window.length - 21].c) / window[window.length - 21].c : 0;
+  const m5 =
+    window.length > 5 ? (last.c - window[window.length - 6].c) / window[window.length - 6].c : 0;
+  const m20 =
+    window.length > 20 ? (last.c - window[window.length - 21].c) / window[window.length - 21].c : 0;
   const changePct = m5 * 100;
 
   const m = metricsFor(name);
@@ -213,5 +210,5 @@ export function backtestInvestor(
 function hashName(s: string): number {
   let h = 0;
   for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
-  return Math.abs(h) % 9000 + 100;
+  return (Math.abs(h) % 9000) + 100;
 }

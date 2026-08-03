@@ -113,7 +113,9 @@ export function useResource<T>(
     const unsub = subscribe(k, tick);
     if (enabled && (!entry || !fresh)) void run().catch(() => {});
     if (revalidateOnFocus && typeof window !== "undefined") {
-      const onFocus = () => { void run().catch(() => {}); };
+      const onFocus = () => {
+        void run().catch(() => {});
+      };
       window.addEventListener("focus", onFocus);
       return () => {
         unsub();

@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-like-button 동형 — 하트 토글 + 선택적 카운트 (DESIGN-3 §B).
 // 카운트 표기는 **JdNumberFormat.compactCount** 단일 소스다 — 자리수 축약을 여기서
@@ -13,10 +13,12 @@ public struct JdLikeButton: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(isLiked: Binding<Bool>,
-                count: Int? = nil,
-                size: JdIconButtonSize = .md,
-                isEnabled: Bool = true) {
+    public init(
+        isLiked: Binding<Bool>,
+        count: Int? = nil,
+        size: JdIconButtonSize = .md,
+        isEnabled: Bool = true
+    ) {
         self._isLiked = isLiked
         self.count = count
         self.spec = JdIconButtonSpec.resolve(variant: .ghost, size: size)
@@ -32,9 +34,11 @@ public struct JdLikeButton: View {
                 if let countText {
                     Text(countText)
                         // 스타일이 심볼 폰트를 깔아두므로 카운트만 본문 크기로 되돌린다
-                        .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                                   weight: JdToken.FontWeight.medium,
-                                                   category: sizeCategory))
+                        .font(
+                            JdSwiftUIFont.scaled(
+                                size: JdTextSpec.resolve(size: .xs).fontSize,
+                                weight: JdToken.FontWeight.medium,
+                                category: sizeCategory))
                 }
             }
             // 카운트가 붙으면 정사각 히트 타깃이 아니므로 좌우 숨통을 준다

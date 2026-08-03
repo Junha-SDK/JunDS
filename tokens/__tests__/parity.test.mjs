@@ -11,23 +11,50 @@ import { join } from "node:path";
 import { describe, expect, test } from "vitest";
 
 import {
-  REPO_ROOT, OUT_CSS, OUT_SWIFT,
-  loadTokens, collectLeaves, cssVarName, colorToRRGGBBAA, resolveAlias, aliasToVar, swiftKey,
+  REPO_ROOT,
+  OUT_CSS,
+  OUT_SWIFT,
+  loadTokens,
+  collectLeaves,
+  cssVarName,
+  colorToRRGGBBAA,
+  resolveAlias,
+  aliasToVar,
+  swiftKey,
 } from "../build/generate.mjs";
-import { legacyLightColorMap, legacyDarkColorMap, legacyShadowKeyMap } from "../build/legacy-map.mjs";
+import {
+  legacyLightColorMap,
+  legacyDarkColorMap,
+  legacyShadowKeyMap,
+  legacyFontFamilyMap,
+  legacyUnmappedV2Vars,
+} from "../build/legacy-map.mjs";
 
 // v2 소스 (동결 — 읽기 전용)
 import { spacing as v2Spacing } from "../../ds/tokens/spacing.ts";
 import { radius as v2Radius } from "../../ds/tokens/radius.ts";
-import { fontSize as v2FontSize, fontWeight as v2FontWeight, lineHeight as v2LineHeight, letterSpacing as v2LetterSpacing } from "../../ds/tokens/typography.ts";
+import {
+  fontSize as v2FontSize,
+  fontWeight as v2FontWeight,
+  lineHeight as v2LineHeight,
+  letterSpacing as v2LetterSpacing,
+} from "../../ds/tokens/typography.ts";
+import { fontFamily as v2FontFamily } from "../../ds/tokens/fontFamily.ts";
 import { shadows as v2Shadows } from "../../ds/tokens/shadows.ts";
 import { duration as v2Duration, easing as v2Easing } from "../../ds/tokens/animation.ts";
 import { zIndex as v2ZIndex } from "../../ds/tokens/zindex.ts";
 import { opacity as v2Opacity } from "../../ds/tokens/opacity.ts";
 import { borderWidth as v2BorderWidth } from "../../ds/tokens/borderWidth.ts";
-import { breakpoints as v2Breakpoints, mediaQueries as v2MediaQueries } from "../../ds/tokens/breakpoints.ts";
+import {
+  breakpoints as v2Breakpoints,
+  mediaQueries as v2MediaQueries,
+} from "../../ds/tokens/breakpoints.ts";
 import { gradients as v2Gradients } from "../../ds/tokens/gradients.ts";
-import { colors as v2Colors, priorityColors as v2PriorityColors, statusColors as v2StatusColors } from "../../ds/tokens/colors.ts";
+import {
+  colors as v2Colors,
+  priorityColors as v2PriorityColors,
+  statusColors as v2StatusColors,
+} from "../../ds/tokens/colors.ts";
 
 const tokens = loadTokens();
 const v2Css = readFileSync(join(REPO_ROOT, "ds/styles/tokens.css"), "utf8");
@@ -47,7 +74,9 @@ function blocks(css, selectorRe) {
 // v2: 모든 :root 블록 병합 후 프레임워크 노브(--jds-*)는 제외 (DEC-008-(4) 폐기 대상)
 const v2Light = Object.fromEntries(
   Object.entries(
-    blocks(v2Css, /:root\s*\{([^}]*)\}/g).map(extractVars).reduce((a, b) => ({ ...a, ...b }), {}),
+    blocks(v2Css, /:root\s*\{([^}]*)\}/g)
+      .map(extractVars)
+      .reduce((a, b) => ({ ...a, ...b }), {}),
   ).filter(([k]) => !k.startsWith("--jds-")),
 );
 const v2Dark = extractVars(blocks(v2Css, /\[data-theme="dark"\]\s*\{([^}]*)\}/g)[0] ?? "");
@@ -116,9 +145,24 @@ const V3_ELEVATION_REWORK = {
 };
 
 describe("v2 CSS ↔ 생성 CSS 패리티 (legacy-map 전량)", () => {
+  /**
+   * v2 :root의 **전량**이 셋 중 하나로 분류돼 있어야 한다 — 색 27 · 폰트 5 · 미승격 32.
+   * 부분집합 단언으로 물러서지 않는 이유: 이 단언 하나가 "v2에 변수가 늘었는데 아무도
+   * 판단하지 않았다"를 잡는 유일한 그물이다. 새 변수를 만나면 승격(맵에 추가)이든
+   * 미승격(legacyUnmappedV2Vars에 명시)이든 **판단을 적어야** 통과한다.
+   */
+  test("v2 :root 변수는 전량 분류돼 있다 — 승격 32 + 미승격 32", () => {
+    const classified = [
+      ...Object.keys(legacyLightColorMap),
+      ...Object.keys(legacyFontFamilyMap),
+      ...legacyUnmappedV2Vars,
+    ];
+    expect(new Set(classified).size, "분류표 자체에 중복이 있다").toBe(classified.length);
+    expect(Object.keys(v2Light).sort()).toEqual(classified.sort());
+  });
+
   test("라이트 27변수 — 값 전 항목 일치 (승인 이탈은 승인값으로 고정)", () => {
-    expect(Object.keys(v2Light).sort()).toEqual(Object.keys(legacyLightColorMap).sort());
-    expect(Object.keys(v2Light)).toHaveLength(27);
+    expect(Object.keys(legacyLightColorMap)).toHaveLength(27);
     for (const [v2Name, v3Name] of Object.entries(legacyLightColorMap)) {
       const dev = SANCTIONED_DEVIATIONS[v3Name];
       if (dev) {
@@ -127,6 +171,18 @@ describe("v2 CSS ↔ 생성 CSS 패리티 (legacy-map 전량)", () => {
       } else {
         expect(v3Root[v3Name], `${v2Name} → ${v3Name}`).toBe(v2Light[v2Name]);
       }
+    }
+  });
+
+  /**
+   * 폰트 스택은 v2 CSS가 줄바꿈으로 접어 두므로 공백만 평탄화해 비교한다.
+   * 값까지 v2 그대로여야 한다 — 폴백 체인에서 한 칸이 빠지면(예: "Noto Sans KR")
+   * 그 폰트가 없는 환경에서 조용히 다른 글꼴로 렌더된다.
+   */
+  test("폰트 패밀리 5종 — 이름·값 전 항목 일치 (DEC-051)", () => {
+    const flat = (v) => v.replace(/\s+/g, " ").trim();
+    for (const [v2Name, v3Name] of Object.entries(legacyFontFamilyMap)) {
+      expect(v3Root[v3Name], `${v2Name} → ${v3Name}`).toBe(flat(v2Light[v2Name]));
     }
   });
 
@@ -140,7 +196,9 @@ describe("v2 CSS ↔ 생성 CSS 패리티 (legacy-map 전량)", () => {
   });
 
   test("다크 블록은 color-scheme: dark를 유지", () => {
-    expect(v3Css).toMatch(/\[data-jd-theme="dark"\],\s*\[data-theme="dark"\]\s*\{[^}]*color-scheme:\s*dark;/);
+    expect(v3Css).toMatch(
+      /\[data-jd-theme="dark"\],\s*\[data-theme="dark"\]\s*\{[^}]*color-scheme:\s*dark;/,
+    );
   });
 });
 
@@ -148,13 +206,19 @@ describe("v2 TS 리터럴 토큰 ↔ tokens/*.json 패리티", () => {
   const strip = (o) => Object.fromEntries(Object.entries(o).filter(([k]) => !k.startsWith("$")));
 
   test("spacing", () => expect(strip(tokens.space)).toEqual(v2Spacing));
-  test("radius (DEC-008-(4): radius.ts 4/6/8/12 정본)", () => expect(strip(tokens.radius)).toEqual(v2Radius));
+  test("radius (DEC-008-(4): radius.ts 4/6/8/12 정본)", () =>
+    expect(strip(tokens.radius)).toEqual(v2Radius));
   test("typography", () => {
     expect(strip(tokens.type.fontSize)).toEqual(v2FontSize);
     expect(strip(tokens.type.fontWeight)).toEqual(v2FontWeight);
     expect(strip(tokens.type.lineHeight)).toEqual(v2LineHeight);
     expect(strip(tokens.type.letterSpacing)).toEqual(v2LetterSpacing);
   });
+  // fontFamily는 02-tokens §1.2 표에서 누락돼 그동안 패리티 밖에 있었다 — 그 틈에
+  // 축약 스택(문서앱 globals.css 출처)이 정본 행세를 했다. 여기 들어온 이상 typography와
+  // 같은 규칙을 받는다: v2 리터럴이 정본, 이탈은 기록된 승인만. (DEC-051)
+  test("fontFamily — v2 fontFamily.ts 5종 그대로", () =>
+    expect(strip(tokens.type.fontFamily)).toEqual(v2FontFamily));
   test("shadows — 키 집합은 v2 그대로, 값은 DEC-039 승격분만 이탈", () => {
     expect(Object.keys(v2Shadows).sort()).toEqual(Object.keys(legacyShadowKeyMap).sort());
     for (const [v2Key, v3Key] of Object.entries(legacyShadowKeyMap)) {
@@ -209,13 +273,17 @@ describe("v2 TS 리터럴 토큰 ↔ tokens/*.json 패리티", () => {
   });
   test("status/priority 컬러 — 라이트는 colors.ts 리터럴 일치, 다크만 신설 (DEC-044)", () => {
     const light = (o) =>
-      Object.fromEntries(Object.entries(o).map(([k, v]) => [
-        k,
-        Object.fromEntries(Object.entries(strip(v)).map(([p, m]) => {
-          expect(Object.keys(strip(m)).sort(), `color.${k}.${p}`).toEqual(["dark", "light"]);
-          return [p, m.light];
-        })),
-      ]));
+      Object.fromEntries(
+        Object.entries(o).map(([k, v]) => [
+          k,
+          Object.fromEntries(
+            Object.entries(strip(v)).map(([p, m]) => {
+              expect(Object.keys(strip(m)).sort(), `color.${k}.${p}`).toEqual(["dark", "light"]);
+              return [p, m.light];
+            }),
+          ),
+        ]),
+      );
     expect(light(strip(tokens.color.status))).toEqual(v2StatusColors);
     const p = Object.values(light(strip(tokens.color.priority)));
     Object.entries(v2PriorityColors).forEach(([k, v]) => {
@@ -237,7 +305,8 @@ describe("Swift 산출물 값 검증 (0xRRGGBBAA 재파싱)", () => {
   const parsed = {};
   for (const m of swift.matchAll(
     /public static let `?(\w+)`? = JdDynamicColor\(light: 0x([0-9A-F]{8}), dark: 0x([0-9A-F]{8})\)/g,
-  )) parsed[m[1]] = { light: m[2], dark: m[3] };
+  ))
+    parsed[m[1]] = { light: m[2], dark: m[3] };
 
   test("모든 color 리프가 방출되고 hex가 원본 JSON과 일치", () => {
     const leaves = collectLeaves("color", tokens.color);

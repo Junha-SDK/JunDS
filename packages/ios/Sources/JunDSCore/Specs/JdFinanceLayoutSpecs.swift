@@ -29,27 +29,32 @@ public struct JdLiveStackedCellSpec: Sendable {
     public static func resolve(change: Double) -> JdLiveStackedCellSpec {
         // gainOrEven — 0%도 상승 쪽이다(위 JdTrendPolicy 주석)
         let trend = JdTrend.resolve(change, policy: .gainOrEven)
-        return JdLiveStackedCellSpec(priceFontSize: 13,
-                                     pctFontSize: 10.5,
-                                     priceFontWeight: JdToken.FontWeight.bold,
-                                     pctFontWeight: JdToken.FontWeight.semibold,
-                                     color: JdFinanceTheme.color(trend),
-                                     lineSpacing: 0)
+        return JdLiveStackedCellSpec(
+            priceFontSize: 13,
+            pctFontSize: 10.5,
+            priceFontWeight: JdToken.FontWeight.bold,
+            pctFontWeight: JdToken.FontWeight.semibold,
+            color: JdFinanceTheme.color(trend),
+            lineSpacing: 0)
     }
 
     /// 두 줄의 확정 문자열. 폴백 규칙이 값마다 다르다(가격 `> 0` / 등락률 `!= 0`) —
     /// 리프와 같은 규칙을 Core에서 재사용한다.
-    public static func lines(price: Double,
-                            change: Double,
-                            priceFallback: Double = 0,
-                            pctFallback: Double = 0,
-                            priceDecimals: Int = 0,
-                            pctDecimals: Int = 2,
-                            locale: String = "ko-KR") -> (price: String, pct: String) {
+    public static func lines(
+        price: Double,
+        change: Double,
+        priceFallback: Double = 0,
+        pctFallback: Double = 0,
+        priceDecimals: Int = 0,
+        pctDecimals: Int = 2,
+        locale: String = "ko-KR"
+    ) -> (price: String, pct: String) {
         let p = JdFinanceFormat.resolvedPrice(price: price, fallback: priceFallback)
         let c = JdFinanceFormat.resolvedChange(change: change, fallback: pctFallback)
-        return (JdFinanceFormat.priceText(p, decimals: priceDecimals, locale: locale),
-                JdFinanceFormat.percentText(c, decimals: pctDecimals))
+        return (
+            JdFinanceFormat.priceText(p, decimals: priceDecimals, locale: locale),
+            JdFinanceFormat.percentText(c, decimals: pctDecimals)
+        )
     }
 
     /// 색이 유일한 방향 신호가 되지 않게 말로도 준다(웹엔 없는 보정, 04 §7.1)
@@ -83,13 +88,14 @@ public struct JdPositionBarSpec: Sendable {
     /// 마커 2×12px foreground 정중앙(50%)
     public static func resolve(tone: JdPositionBarTone) -> JdPositionBarSpec {
         let base = tone == .up ? JdFinanceTheme.up : JdFinanceTheme.down
-        return JdPositionBarSpec(trackHeight: 8,
-                                 markerHeight: 12,
-                                 markerWidth: 2,
-                                 trackColor: JdFinanceSpecMix.wash(JdToken.Color.muted, alpha: 0.18),
-                                 bandColor: JdFinanceSpecMix.wash(base, alpha: 0.18),
-                                 fillColor: base,
-                                 markerColor: JdToken.Color.foreground)
+        return JdPositionBarSpec(
+            trackHeight: 8,
+            markerHeight: 12,
+            markerWidth: 2,
+            trackColor: JdFinanceSpecMix.wash(JdToken.Color.muted, alpha: 0.18),
+            bandColor: JdFinanceSpecMix.wash(base, alpha: 0.18),
+            fillColor: base,
+            markerColor: JdToken.Color.foreground)
     }
 }
 
@@ -104,19 +110,28 @@ public enum JdPositionBarGeometry {
 
     /// 밴드·채움의 시작·폭(퍼센트).
     /// 폭은 음수가 되지 않게 0으로 클램프한다 — 웹 v2는 `cur < low`일 때 음수 width를 냈다.
-    public static func layout(low: Double, high: Double, cur: Double)
-        -> (bandStart: Double, bandWidth: Double, fillStart: Double, fillWidth: Double) {
-        let l = percent(low), h = percent(high), c = percent(cur)
-        return (bandStart: l,
-                bandWidth: max(0, h - l),
-                fillStart: l,
-                fillWidth: max(0, c - l))
+    public static func layout(
+        low: Double, high: Double, cur: Double
+    )
+        -> (bandStart: Double, bandWidth: Double, fillStart: Double, fillWidth: Double)
+    {
+        let l = percent(low)
+        let h = percent(high)
+        let c = percent(cur)
+        return (
+            bandStart: l,
+            bandWidth: max(0, h - l),
+            fillStart: l,
+            fillWidth: max(0, c - l)
+        )
     }
 
     /// 웹은 순수 장식 div였다(대체 텍스트 0) — v3가 role=img + 위치 낭독을 얹었고 iOS도 따른다
     public static func accessibilityText(low: Double, high: Double, cur: Double) -> String {
         let round1: (Double) -> Double = { (($0 * 10).rounded()) / 10 }
-        let l = round1(percent(low)), h = round1(percent(high)), c = round1(percent(cur))
+        let l = round1(percent(low))
+        let h = round1(percent(high))
+        let c = round1(percent(cur))
         return "구간 \(trim(l))–\(trim(h))% 중 현재 \(trim(c))%"
     }
 
@@ -141,11 +156,13 @@ public struct JdMicroKpiItem: Sendable, Equatable {
     /// pct 대신 보조 라인에 넣을 문구 (예: "순매수") — 색은 여전히 pct 부호를 따른다
     public var hint: String?
 
-    public init(label: String,
-                value: String,
-                pct: Double? = nil,
-                unit: String? = nil,
-                hint: String? = nil) {
+    public init(
+        label: String,
+        value: String,
+        pct: Double? = nil,
+        unit: String? = nil,
+        hint: String? = nil
+    ) {
         self.label = label
         self.value = value
         self.pct = pct
@@ -183,22 +200,23 @@ public struct JdMicroKpiCellSpec: Sendable {
         } else {
             sub = JdToken.Color.muted
         }
-        return JdMicroKpiCellSpec(labelFontSize: 10.5,
-                                  valueFontSize: 16,
-                                  unitFontSize: 10.5,
-                                  subFontSize: 10,
-                                  labelFontWeight: JdToken.FontWeight.bold,
-                                  // 웹 800 — FontWeight 램프(최대 700) 밖이라 리터럴
-                                  valueFontWeight: 800,
-                                  subFontWeight: JdToken.FontWeight.bold,
-                                  hPadding: JdToken.Space.s3,
-                                  vPadding: JdToken.Space.s2_5,
-                                  cornerRadius: JdToken.Radius.xl2,
-                                  background: JdToken.Color.card,
-                                  border: JdToken.Color.border,
-                                  labelColor: JdToken.Color.muted,
-                                  valueColor: JdToken.Color.foreground,
-                                  subColor: sub)
+        return JdMicroKpiCellSpec(
+            labelFontSize: 10.5,
+            valueFontSize: 16,
+            unitFontSize: 10.5,
+            subFontSize: 10,
+            labelFontWeight: JdToken.FontWeight.bold,
+            // 웹 800 — FontWeight 램프(최대 700) 밖이라 리터럴
+            valueFontWeight: 800,
+            subFontWeight: JdToken.FontWeight.bold,
+            hPadding: JdToken.Space.s3,
+            vPadding: JdToken.Space.s2_5,
+            cornerRadius: JdToken.Radius.xl2,
+            background: JdToken.Color.card,
+            border: JdToken.Color.border,
+            labelColor: JdToken.Color.muted,
+            valueColor: JdToken.Color.foreground,
+            subColor: sub)
     }
 
     /// 보조 라인 문자열 — hint가 있으면 hint, 없으면 부호 붙은 퍼센트(웹 동형)

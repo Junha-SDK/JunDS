@@ -37,7 +37,9 @@ const tags = ALL_COMPONENTS.map((C) => (C as unknown as { tag: string }).tag)
 let asyncCrash = "";
 const onErr = (e: unknown): void => {
   const msg =
-    e instanceof Error ? e.message : (e as { reason?: { message?: string } })?.reason?.message ?? String(e);
+    e instanceof Error
+      ? e.message
+      : (e as { reason?: { message?: string } })?.reason?.message ?? String(e);
   if (!asyncCrash) asyncCrash = msg;
 };
 process.on("uncaughtException", onErr);

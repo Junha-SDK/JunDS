@@ -1,9 +1,4 @@
-import type {
-  BindingValue,
-  LiteralValue,
-  PropValue,
-  ResponsiveValue,
-} from "./schema";
+import type { BindingValue, LiteralValue, PropValue, ResponsiveValue } from "./schema";
 
 export type BindingScope = Record<string, unknown>;
 
@@ -131,11 +126,7 @@ function parse(tokens: Token[], expr: string): { root: string; steps: AccessStep
   return { root, steps };
 }
 
-const BLOCKED_KEYS = new Set([
-  "__proto__",
-  "prototype",
-  "constructor",
-]);
+const BLOCKED_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 
 function readKey(target: unknown, key: string | number): unknown {
   if (target == null) return undefined;
@@ -154,10 +145,7 @@ function readKey(target: unknown, key: string | number): unknown {
   return undefined;
 }
 
-export function evaluateExpression(
-  expr: string,
-  scope: BindingScope,
-): unknown {
+export function evaluateExpression(expr: string, scope: BindingScope): unknown {
   const tokens = tokenize(expr);
   const { root, steps } = parse(tokens, expr);
   if (BLOCKED_KEYS.has(root)) return undefined;

@@ -11,10 +11,25 @@ export function BreakpointIndicator() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const bp = width >= 1536 ? "2xl" : width >= 1280 ? "xl" : width >= 1024 ? "lg" : width >= 768 ? "md" : width >= 640 ? "sm" : "xs";
+  const bp =
+    width >= 1536
+      ? "2xl"
+      : width >= 1280
+      ? "xl"
+      : width >= 1024
+      ? "lg"
+      : width >= 768
+      ? "md"
+      : width >= 640
+      ? "sm"
+      : "xs";
 
   return (
-    <span className="text-[10px] font-mono text-white/30 tabular-nums" title={`${width}px`}>
+    // white/30 은 어두운 레일 위에서 3:1 근처라 숫자를 읽을 수 없었다 — /55 가 하한이다
+    <span
+      className="text-[10px] font-mono text-white/55 tabular-nums whitespace-nowrap"
+      title={`${width}px`}
+    >
       {bp} {width}
     </span>
   );

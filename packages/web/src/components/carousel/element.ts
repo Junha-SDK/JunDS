@@ -113,9 +113,14 @@ export class JdCarousel extends JdElement {
       this.#adoptSlides(nodes);
     }
 
-    this.#prev = this.querySelector<HTMLButtonElement>(':scope > button[data-dir="prev"]') ?? this.#buildArrow("prev", PREV_SVG);
-    this.#next = this.querySelector<HTMLButtonElement>(':scope > button[data-dir="next"]') ?? this.#buildArrow("next", NEXT_SVG);
-    this.#dots = this.querySelector<HTMLElement>(":scope > .jd-carousel__dots") ?? this.#buildDots();
+    this.#prev =
+      this.querySelector<HTMLButtonElement>(':scope > button[data-dir="prev"]') ??
+      this.#buildArrow("prev", PREV_SVG);
+    this.#next =
+      this.querySelector<HTMLButtonElement>(':scope > button[data-dir="next"]') ??
+      this.#buildArrow("next", NEXT_SVG);
+    this.#dots =
+      this.querySelector<HTMLElement>(":scope > .jd-carousel__dots") ?? this.#buildDots();
     this.update();
   }
 

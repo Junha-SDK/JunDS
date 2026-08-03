@@ -1,5 +1,5 @@
-import XCTest
 import JunDSCore
+import XCTest
 
 // finance 공통 어휘 계약 (DEC-040).
 //
@@ -20,8 +20,9 @@ final class JdFinanceSpecTests: XCTestCase {
 
     // live 규칙: up(>0)이 flat보다 우선한다. 순서를 바꾸면 아주 작은 양수가 회색이 된다.
     func test_live_policy_prefers_up_over_flat_for_tiny_positives() {
-        XCTAssertEqual(JdTrend.resolve(0.003, policy: .live), .up,
-                       "+0.003은 상승이어야 한다 — flat 임계값(0.005)보다 up 판정이 우선")
+        XCTAssertEqual(
+            JdTrend.resolve(0.003, policy: .live), .up,
+            "+0.003은 상승이어야 한다 — flat 임계값(0.005)보다 up 판정이 우선")
         XCTAssertEqual(JdTrend.resolve(0.0001, policy: .live), .up)
     }
 
@@ -29,8 +30,9 @@ final class JdFinanceSpecTests: XCTestCase {
     func test_live_policy_flat_band_is_negative_side_only() {
         XCTAssertEqual(JdTrend.resolve(0, policy: .live), .flat)
         XCTAssertEqual(JdTrend.resolve(-0.004, policy: .live), .flat)
-        XCTAssertEqual(JdTrend.resolve(-0.005, policy: .live), .down,
-                       "임계값 경계는 미포함(abs < 0.005)")
+        XCTAssertEqual(
+            JdTrend.resolve(-0.005, policy: .live), .down,
+            "임계값 경계는 미포함(abs < 0.005)")
         XCTAssertEqual(JdTrend.resolve(-0.01, policy: .live), .down)
     }
 
@@ -109,14 +111,17 @@ final class JdFinanceSpecTests: XCTestCase {
         let koreanUp = JdDynamicColor(light: 0xE11D_48FF, dark: 0xFB71_85FF)
         JdFinanceTheme.up = koreanUp
 
-        XCTAssertEqual(JdFinanceTheme.color(.up).light, koreanUp.light,
-                       "override가 색 조회에 반영되지 않는다 — 죽은 노브")
-        XCTAssertEqual(JdPriceBadgeSpec.resolve(pct: 1.2).color.light, koreanUp.light,
-                       "스펙이 테마를 읽지 않고 토큰을 직접 박아 뒀다")
+        XCTAssertEqual(
+            JdFinanceTheme.color(.up).light, koreanUp.light,
+            "override가 색 조회에 반영되지 않는다 — 죽은 노브")
+        XCTAssertEqual(
+            JdPriceBadgeSpec.resolve(pct: 1.2).color.light, koreanUp.light,
+            "스펙이 테마를 읽지 않고 토큰을 직접 박아 뒀다")
         XCTAssertEqual(JdHotPctChipSpec.resolve().gradientTop.light, koreanUp.light)
-        XCTAssertEqual(JdLiveStatusDotSpec.resolve(live: false).color.light,
-                       JdToken.Color.muted.light,
-                       "비라이브는 up override와 무관해야 한다")
+        XCTAssertEqual(
+            JdLiveStatusDotSpec.resolve(live: false).color.light,
+            JdToken.Color.muted.light,
+            "비라이브는 up override와 무관해야 한다")
     }
 
     func test_reset_restores_token_defaults() {
@@ -130,8 +135,9 @@ final class JdFinanceSpecTests: XCTestCase {
     // MARK: - 스펙 사다리
 
     func test_price_badge_hides_arrow_on_flat_regardless_of_flag() {
-        XCTAssertFalse(JdPriceBadgeSpec.resolve(pct: 0, showArrow: true).showsArrow,
-                       "flat엔 화살표가 없다(웹 trend !== flat 조건)")
+        XCTAssertFalse(
+            JdPriceBadgeSpec.resolve(pct: 0, showArrow: true).showsArrow,
+            "flat엔 화살표가 없다(웹 trend !== flat 조건)")
         XCTAssertTrue(JdPriceBadgeSpec.resolve(pct: 1, showArrow: true).showsArrow)
         XCTAssertFalse(JdPriceBadgeSpec.resolve(pct: 1, showArrow: false).showsArrow)
         XCTAssertNil(JdPriceBadgeSpec.symbolName(.flat))
@@ -142,8 +148,10 @@ final class JdFinanceSpecTests: XCTestCase {
     func test_price_badge_size_ladder_and_weight() {
         XCTAssertEqual(JdPriceBadgeSpec.resolve(pct: 1, size: .sm).fontSize, 12)
         XCTAssertEqual(JdPriceBadgeSpec.resolve(pct: 1, size: .md).fontSize, 14)
-        XCTAssertEqual(JdPriceBadgeSpec.resolve(pct: 1, bold: true).fontWeight, JdToken.FontWeight.bold)
-        XCTAssertEqual(JdPriceBadgeSpec.resolve(pct: 1, bold: false).fontWeight, JdToken.FontWeight.medium)
+        XCTAssertEqual(
+            JdPriceBadgeSpec.resolve(pct: 1, bold: true).fontWeight, JdToken.FontWeight.bold)
+        XCTAssertEqual(
+            JdPriceBadgeSpec.resolve(pct: 1, bold: false).fontWeight, JdToken.FontWeight.medium)
     }
 
     func test_live_status_dot_spec_and_default_labels() {
@@ -158,8 +166,9 @@ final class JdFinanceSpecTests: XCTestCase {
 
     func test_hot_pct_chip_text_is_always_upward() {
         XCTAssertEqual(JdHotPctChipSpec.text(12.345), "↑ 12.35%")
-        XCTAssertEqual(JdHotPctChipSpec.text(-3), "↑ -3.00%",
-                       "웹과 동형 — 부호 분기가 없다(늘 급등 표기)")
+        XCTAssertEqual(
+            JdHotPctChipSpec.text(-3), "↑ -3.00%",
+            "웹과 동형 — 부호 분기가 없다(늘 급등 표기)")
         XCTAssertEqual(JdHotPctChipSpec.text(.nan), "↑ 0.00%")
     }
 

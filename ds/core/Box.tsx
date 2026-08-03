@@ -1,7 +1,12 @@
 "use client";
 import { forwardRef, useId } from "react";
 import { cn } from "../utils/cn";
-import { resolveStyleProps, splitStyleProps, hasResponsiveProps, generateResponsiveCSS } from "./styleProps";
+import {
+  resolveStyleProps,
+  splitStyleProps,
+  hasResponsiveProps,
+  generateResponsiveCSS,
+} from "./styleProps";
 import type { StyleProps } from "./styleProps";
 import type { ElementType, ComponentPropsWithRef, ReactNode } from "react";
 

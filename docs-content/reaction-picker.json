@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ReactionPicker",
   "oneLiner": "반응 이모지 선택 팝오버.",
-  "tags": [
-    "social",
-    "이모지",
-    "반응"
-  ],
+  "tags": ["social", "이모지", "반응"],
   "controls": [],
   "snippets": {
     "web": null,

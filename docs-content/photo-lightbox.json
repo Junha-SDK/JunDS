@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "PhotoLightbox",
   "oneLiner": "사진 라이트박스 뷰어 — 확대·내비게이션.",
-  "tags": [
-    "photo",
-    "사진",
-    "뷰어"
-  ],
+  "tags": ["photo", "사진", "뷰어"],
   "controls": [],
   "snippets": {
     "web": null,

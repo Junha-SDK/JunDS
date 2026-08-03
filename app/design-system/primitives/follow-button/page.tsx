@@ -13,7 +13,7 @@ export default function FollowButtonPage() {
     >
       <Section title="Default">
         <Preview>
-          <FollowButton following={false} onChange={()=>{}} />
+          <FollowButton following={false} onChange={() => {}} />
         </Preview>
       </Section>
     </ComponentPage>

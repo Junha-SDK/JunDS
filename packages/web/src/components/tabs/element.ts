@@ -19,11 +19,7 @@
  * v2가 variant마다 통째로 복제했던 3벌 JSX는 골격 1벌 + CSS로 접힌다.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  isContentEmpty,
-  setContent,
-  type JdContent,
-} from "../../core/content.js";
+import { isContentEmpty, setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createKeyHandler } from "../../behaviors/input.js";
@@ -111,7 +107,9 @@ export class JdTabs extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 (radio-group·action-sheet 선례) */
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdTab[];

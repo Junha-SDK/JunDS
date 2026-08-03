@@ -11,9 +11,24 @@ export default function SplitPanePage() {
       importPath='import { SplitPane } from "@/ds/composites/SplitPane"'
       props={[
         { name: "left", type: "ReactNode", required: true, description: "첫 번째(왼쪽/위) 영역" },
-        { name: "right", type: "ReactNode", required: true, description: "두 번째(오른쪽/아래) 영역" },
-        { name: "direction", type: '"horizontal" | "vertical"', default: '"horizontal"', description: "분할 방향" },
-        { name: "defaultSize", type: "number", default: "50", description: "첫 번째 영역의 초기 크기(%)" },
+        {
+          name: "right",
+          type: "ReactNode",
+          required: true,
+          description: "두 번째(오른쪽/아래) 영역",
+        },
+        {
+          name: "direction",
+          type: '"horizontal" | "vertical"',
+          default: '"horizontal"',
+          description: "분할 방향",
+        },
+        {
+          name: "defaultSize",
+          type: "number",
+          default: "50",
+          description: "첫 번째 영역의 초기 크기(%)",
+        },
         { name: "minSize", type: "number", default: "20", description: "최소 크기(%)" },
         { name: "maxSize", type: "number", default: "80", description: "최대 크기(%)" },
       ]}
@@ -23,7 +38,9 @@ export default function SplitPanePage() {
           <div className="w-full h-48 border border-border rounded-xl overflow-hidden">
             <SplitPane
               left={<div className="p-4 bg-primary/5 h-full text-sm">왼쪽 패널</div>}
-              right={<div className="p-4 h-full text-sm">오른쪽 패널 — 가운데 핸들을 드래그하세요.</div>}
+              right={
+                <div className="p-4 h-full text-sm">오른쪽 패널 — 가운데 핸들을 드래그하세요.</div>
+              }
             />
           </div>
         </Preview>

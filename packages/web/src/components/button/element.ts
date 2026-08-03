@@ -8,8 +8,7 @@ import { defineProps, JdElement, type PropDefs } from "../../core/element.js";
 import { adoptStyles } from "../../core/styles.js";
 import buttonStyles from "./button.css.js";
 
-export type JdButtonVariant =
-  "primary" | "secondary" | "danger" | "ghost" | "outline" | "link";
+export type JdButtonVariant = "primary" | "secondary" | "danger" | "ghost" | "outline" | "link";
 export type JdButtonSize = "xs" | "sm" | "md" | "lg";
 export type JdButtonType = "button" | "submit" | "reset";
 
@@ -41,9 +40,7 @@ export class JdButton extends JdElement {
   protected render(): void {
     adoptStyles(buttonStyles);
     // 입양 규칙(§3.3): SSR/어댑터가 그린 골격이 있으면 재사용
-    const existing = this.querySelector<HTMLButtonElement>(
-      ":scope > button.jd-button",
-    );
+    const existing = this.querySelector<HTMLButtonElement>(":scope > button.jd-button");
     this.#btn = existing ?? this.#build();
     this.update();
   }
@@ -58,8 +55,7 @@ export class JdButton extends JdElement {
 
   protected override update(): void {
     const b = this.#btn;
-    b.type =
-      this.type === "submit" || this.type === "reset" ? this.type : "button";
+    b.type = this.type === "submit" || this.type === "reset" ? this.type : "button";
     b.disabled = this.disabled || this.loading; // 네이티브 위임(§1.6-1)
     if (this.loading) b.setAttribute("aria-busy", "true");
     else b.removeAttribute("aria-busy");

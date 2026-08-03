@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useNetworkStatus",
   "oneLiner": "온라인·오프라인 네트워크 상태 감지.",
-  "tags": [
-    "hook",
-    "network",
-    "상태"
-  ],
+  "tags": ["hook", "network", "상태"],
   "controls": [],
   "snippets": {
     "web": null,

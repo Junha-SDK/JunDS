@@ -22,9 +22,24 @@ export default function CalendarMonthPage() {
             selectedDate={selected}
             onSelectDate={setSelected}
             events={[
-              { id: "e1", title: "팀 회의", start: new Date(month.getFullYear(), month.getMonth(), 12).toISOString(), color: "primary" },
-              { id: "e2", title: "디자인 리뷰", start: new Date(month.getFullYear(), month.getMonth(), 18).toISOString(), color: "success" },
-              { id: "e3", title: "릴리스", start: new Date(month.getFullYear(), month.getMonth(), 25).toISOString(), color: "warning" },
+              {
+                id: "e1",
+                title: "팀 회의",
+                start: new Date(month.getFullYear(), month.getMonth(), 12).toISOString(),
+                color: "primary",
+              },
+              {
+                id: "e2",
+                title: "디자인 리뷰",
+                start: new Date(month.getFullYear(), month.getMonth(), 18).toISOString(),
+                color: "success",
+              },
+              {
+                id: "e3",
+                title: "릴리스",
+                start: new Date(month.getFullYear(), month.getMonth(), 25).toISOString(),
+                color: "warning",
+              },
             ]}
           />
         </Preview>

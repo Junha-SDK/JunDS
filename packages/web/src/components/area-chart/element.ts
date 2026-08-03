@@ -84,7 +84,8 @@ export class JdAreaChart extends JdLineChart {
         base?.push({ x, y: this.yFor(bottom, min, range) });
       }
       if (offsets) {
-        for (let i = 0; i < s.data.length; i += 1) offsets[i] = (offsets[i] ?? 0) + (s.data[i] ?? 0);
+        for (let i = 0; i < s.data.length; i += 1)
+          offsets[i] = (offsets[i] ?? 0) + (s.data[i] ?? 0);
       }
       return { color: seriesColor(si, s.color), points, base, filled: true };
     });

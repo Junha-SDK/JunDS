@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-radio-group 동형 — 옵션 배열 + 단일 선택 (role=radiogroup 등가).
 // iOS엔 라디오 관용구가 없어 SF Symbols 자체 드로잉이다 (04 §10.1 primitives).
@@ -16,11 +16,13 @@ public struct JdRadioGroup: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ options: [JdRadioOption],
-                selection: Binding<String?>,
-                axis: JdAxis = .vertical,
-                size: JdToggleSize = .md,
-                isEnabled: Bool = true) {
+    public init(
+        _ options: [JdRadioOption],
+        selection: Binding<String?>,
+        axis: JdAxis = .vertical,
+        size: JdToggleSize = .md,
+        isEnabled: Bool = true
+    ) {
         self.options = options
         self.axis = axis
         self.spec = JdChoiceSpec.resolve(size: size)
@@ -73,14 +75,16 @@ public struct JdRadioGroup: View {
 
     private var symbolFont: Font {
         // 심볼 크기 = 스펙 boxSize(md 16 / sm 14). 폰트 경유라 Dynamic Type에 함께 자란다.
-        JdSwiftUIFont.scaled(size: spec.boxSize,
-                             weight: JdToken.FontWeight.normal,
-                             category: sizeCategory)
+        JdSwiftUIFont.scaled(
+            size: spec.boxSize,
+            weight: JdToken.FontWeight.normal,
+            category: sizeCategory)
     }
 
     private var labelFont: Font {
-        JdSwiftUIFont.scaled(size: spec.labelFontSize,
-                             weight: JdToken.FontWeight.normal,
-                             category: sizeCategory)
+        JdSwiftUIFont.scaled(
+            size: spec.labelFontSize,
+            weight: JdToken.FontWeight.normal,
+            category: sizeCategory)
     }
 }

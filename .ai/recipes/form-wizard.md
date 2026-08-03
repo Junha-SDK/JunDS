@@ -106,8 +106,10 @@ export default function SignupWizard() {
       description: "로그인에 사용할 이메일과 비밀번호",
       content: <StepAccount />,
       validate: (d) => {
-        if (!d.email || !/^[^@]+@[^@]+\.[^@]+$/.test(String(d.email))) return "올바른 이메일을 입력하세요";
-        if (!d.password || String(d.password).length < 8) return "비밀번호는 8자 이상이어야 합니다";
+        if (!d.email || !/^[^@]+@[^@]+\.[^@]+$/.test(String(d.email)))
+          return "올바른 이메일을 입력하세요";
+        if (!d.password || String(d.password).length < 8)
+          return "비밀번호는 8자 이상이어야 합니다";
         return true;
       },
     },
@@ -115,13 +117,13 @@ export default function SignupWizard() {
       title: "프로필",
       description: "표시 이름과 직무",
       content: <StepProfile />,
-      validate: (d) => (d.name && d.role) ? true : "이름과 직무를 입력하세요",
+      validate: (d) => (d.name && d.role ? true : "이름과 직무를 입력하세요"),
     },
     {
       title: "확인",
       description: "정보가 맞는지 확인하세요",
       content: <StepConfirm />,
-      validate: (d) => d.agreed ? true : "약관에 동의해 주세요",
+      validate: (d) => (d.agreed ? true : "약관에 동의해 주세요"),
     },
   ];
 

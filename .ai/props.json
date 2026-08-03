@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T04:35:18.259Z",
+  "generatedAt": "2026-07-28T05:34:37.759Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -908,7 +908,7 @@
           "name": "disabled",
           "type": "boolean",
           "optional": true,
-          "description": "입력 필드를 비활성화합니다.\n\n`true`이면 투명도가 낮아지고(`opacity-40`), 커서가 `not-allowed`로 바뀌며,\n배경이 회색(`bg-gray-50`)으로 변합니다. 포커스와 입력이 차단됩니다."
+          "description": "입력 필드를 비활성화합니다.\n\n`true`이면 투명도가 낮아지고(`opacity-40`), 커서가 `not-allowed`로 바뀌며,\n배경이 한 단계 가라앉습니다(`bg-card-hover`). 포커스와 입력이 차단됩니다."
         },
         {
           "name": "className",

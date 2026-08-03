@@ -4,10 +4,7 @@
   "category": "layout",
   "title": "AspectRatioBox",
   "oneLiner": "비율 고정 박스 — CSS aspect-ratio 원문 수용(\"16/9\"·\"1.5\"), 기본 16/9. Box 파생.",
-  "tags": [
-    "layout",
-    "ratio"
-  ],
+  "tags": ["layout", "ratio"],
   "controls": [
     {
       "prop": "ratio",

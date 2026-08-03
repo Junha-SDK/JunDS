@@ -15,7 +15,7 @@ export interface HighlightProps {
 
 const variantClass: Record<NonNullable<HighlightProps["variant"]>, string> = {
   yellow: "bg-yellow-200 dark:bg-yellow-500/30 text-foreground rounded-sm px-0.5",
-  primary: "bg-primary/15 text-primary rounded-sm px-0.5 font-semibold",
+  primary: "bg-primary/15 text-primary-ink rounded-sm px-0.5 font-semibold",
   underline: "underline decoration-2 decoration-primary underline-offset-2",
 };
 
@@ -36,13 +36,21 @@ export const Highlight = forwardRef<HTMLSpanElement, HighlightProps>(
     const parts = useMemo(() => {
       if (!query) return [{ text, match: false }];
       const re = new RegExp(`(${escapeRegExp(query)})`, "ig");
-      return text.split(re).map((p) => ({ text: p, match: re.test(p) && p.toLowerCase() === query.toLowerCase() ? true : p.toLowerCase() === query.toLowerCase() }));
+      return text.split(re).map((p) => ({
+        text: p,
+        match:
+          re.test(p) && p.toLowerCase() === query.toLowerCase()
+            ? true
+            : p.toLowerCase() === query.toLowerCase(),
+      }));
     }, [text, query]);
     return (
       <span ref={ref} className={className}>
         {parts.map((p, i) =>
           p.match ? (
-            <mark key={i} className={cn(variantClass[variant])}>{p.text}</mark>
+            <mark key={i} className={cn(variantClass[variant])}>
+              {p.text}
+            </mark>
           ) : (
             <span key={i}>{p.text}</span>
           ),

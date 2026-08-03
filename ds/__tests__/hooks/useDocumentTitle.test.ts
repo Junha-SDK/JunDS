@@ -3,7 +3,9 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 
 describe("useDocumentTitle", () => {
-  beforeEach(() => { document.title = "original"; });
+  beforeEach(() => {
+    document.title = "original";
+  });
 
   it("sets title", () => {
     renderHook(() => useDocumentTitle("new"));

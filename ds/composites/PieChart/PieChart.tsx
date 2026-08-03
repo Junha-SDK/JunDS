@@ -25,9 +25,24 @@ export interface PieChartProps extends HTMLAttributes<HTMLDivElement> {
   centerLabel?: string;
 }
 
-const DEFAULT_COLORS = ["var(--primary)", "#22c55e", "#f59e0b", "#ef4444", "#3b82f6", "#a855f7", "#ec4899"];
+const DEFAULT_COLORS = [
+  "var(--primary)",
+  "#22c55e",
+  "#f59e0b",
+  "#ef4444",
+  "#3b82f6",
+  "#a855f7",
+  "#ec4899",
+];
 
-function arcPath(cx: number, cy: number, r: number, ir: number, startAngle: number, endAngle: number): string {
+function arcPath(
+  cx: number,
+  cy: number,
+  r: number,
+  ir: number,
+  startAngle: number,
+  endAngle: number,
+): string {
   const largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
   const x0 = cx + r * Math.cos(startAngle);
   const y0 = cy + r * Math.sin(startAngle);
@@ -73,25 +88,43 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(function PieCh
 
   return (
     <div ref={ref} className={cn("inline-flex items-center gap-4", className)} {...props}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label="파이 차트">
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        role="img"
+        aria-label="파이 차트"
+        className="block shrink-0 max-w-full h-auto"
+      >
         {slices.map((s, i) => (
-          <path key={i} d={s.path} fill={s.color}>
-            <title>{s.label}: {s.percent.toFixed(1)}%</title>
+          // 인접한 조각이 맞닿아 한 덩어리로 읽히지 않도록 카드색으로 얇게 갈라 둔다
+          <path key={i} d={s.path} fill={s.color} stroke="var(--card)" strokeWidth={1.5}>
+            <title>
+              {s.label}: {s.percent.toFixed(1)}%
+            </title>
           </path>
         ))}
         {centerLabel && innerRatio > 0 && (
-          <text x={cx} y={cy + 4} textAnchor="middle" fontSize={size * 0.12} className="fill-foreground font-semibold">
+          <text
+            x={cx}
+            y={cy + 4}
+            textAnchor="middle"
+            fontSize={size * 0.12}
+            className="fill-foreground font-semibold"
+          >
             {centerLabel}
           </text>
         )}
       </svg>
       {showLegend && (
-        <ul className="flex flex-col gap-1 text-xs">
+        <ul className="flex flex-col gap-1 text-xs min-w-0">
           {slices.map((s, i) => (
-            <li key={i} className="flex items-center gap-2">
+            <li key={i} className="flex items-center gap-2 min-w-0">
               <span className="w-2.5 h-2.5 rounded-sm shrink-0" style={{ background: s.color }} />
-              <span className="text-foreground">{s.label}</span>
-              <span className="text-muted tabular-nums">{s.percent.toFixed(1)}%</span>
+              <span className="text-foreground truncate">{s.label}</span>
+              <span className="text-muted tabular-nums whitespace-nowrap ml-auto">
+                {s.percent.toFixed(1)}%
+              </span>
             </li>
           ))}
         </ul>

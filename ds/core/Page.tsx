@@ -27,19 +27,17 @@ export interface PageBodyProps {
 }
 
 const maxWidthMap = {
-  sm: "640px", md: "768px", lg: "1024px",
-  xl: "1280px", "2xl": "1536px", full: "100%",
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1536px",
+  full: "100%",
 };
 
 export function Page({ children, maxWidth = "xl", p = { base: 4, md: 6 }, className }: PageProps) {
   return (
-    <Box
-      mx="auto"
-      w="full"
-      p={p}
-      maxW={maxWidthMap[maxWidth]}
-      className={className}
-    >
+    <Box mx="auto" w="full" p={p} maxW={maxWidthMap[maxWidth]} className={className}>
       {children}
     </Box>
   );
@@ -51,8 +49,14 @@ function PageHeader({ title, description, actions, breadcrumb, className }: Page
       {breadcrumb && <Box mb={3}>{breadcrumb}</Box>}
       <Box display={{ base: "block", md: "flex" }} align="start" justify="between" gap={4}>
         <Box>
-          <Heading level={1} mb={description ? 1 : 0}>{title}</Heading>
-          {description && <Text fontSize="sm" dimmed>{description}</Text>}
+          <Heading level={1} mb={description ? 1 : 0}>
+            {title}
+          </Heading>
+          {description && (
+            <Text fontSize="sm" dimmed>
+              {description}
+            </Text>
+          )}
         </Box>
         {actions && (
           <Box display="flex" align="center" gap={2} shrink={0} mt={{ base: 3, md: 0 }}>

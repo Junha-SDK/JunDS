@@ -23,7 +23,12 @@ export default function RadioPage() {
         { name: "options", type: "RadioOption[]", required: true, description: "옵션 목록" },
         { name: "value", type: "string", description: "선택 값" },
         { name: "onChange", type: "(value: string) => void", description: "변경 핸들러" },
-        { name: "direction", type: '"horizontal"|"vertical"', default: '"vertical"', description: "배치 방향" },
+        {
+          name: "direction",
+          type: '"horizontal"|"vertical"',
+          default: '"vertical"',
+          description: "배치 방향",
+        },
       ]}
     >
       <Section title="Directions">
@@ -35,7 +40,13 @@ export default function RadioPage() {
             </div>
             <div>
               <p className="text-xs text-muted mb-2">Horizontal</p>
-              <RadioGroup name="h" options={options} value={v} onChange={setV} direction="horizontal" />
+              <RadioGroup
+                name="h"
+                options={options}
+                value={v}
+                onChange={setV}
+                direction="horizontal"
+              />
             </div>
           </div>
         </Preview>

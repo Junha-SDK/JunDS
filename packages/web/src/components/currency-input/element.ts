@@ -61,12 +61,16 @@ export class JdCurrencyInput extends JdElement {
   /** 표시 문자열 — 포커스 중엔 원시값, 아니면 통화 표기 */
   get formatted(): string {
     if (Number.isNaN(this.value)) return "";
-    return this.#focused ? String(this.value) : formatterFor(this.locale, this.currency).format(this.value);
+    return this.#focused
+      ? String(this.value)
+      : formatterFor(this.locale, this.currency).format(this.value);
   }
 
   protected render(): void {
     adoptStyles(currencyInputStyles);
-    const existing = this.querySelector<HTMLInputElement>(":scope > input.jd-currency-input__input");
+    const existing = this.querySelector<HTMLInputElement>(
+      ":scope > input.jd-currency-input__input",
+    );
     if (existing) this.#input = existing;
     else this.#build();
     this.update();

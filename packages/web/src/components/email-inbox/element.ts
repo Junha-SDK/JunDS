@@ -91,7 +91,9 @@ export class JdEmailInbox extends JdElement {
   }
 
   #readJsonSlots(): void {
-    const scripts = this.querySelectorAll<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const scripts = this.querySelectorAll<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     scripts.forEach((s) => {
       const key = s.dataset.jdJson || "messages";
       try {
@@ -217,7 +219,8 @@ export class JdEmailInbox extends JdElement {
 
   protected override update(): void {
     // 검색 입력 미러(IME 안전)
-    if (this.#searchInput.value !== (this.search || "")) this.#searchInput.value = this.search || "";
+    if (this.#searchInput.value !== (this.search || ""))
+      this.#searchInput.value = this.search || "";
 
     const folderSig = `${this.#foldersVer}|${this.activeFolderId}`;
     if (folderSig !== this.#folderSig) {
@@ -225,7 +228,9 @@ export class JdEmailInbox extends JdElement {
       this.#rebuildFolders();
     }
 
-    const listSig = `${this.#messagesVer}|${this.activeFolderId}|${this.activeMessageId}|${this.search || ""}|${this.#now !== null}`;
+    const listSig = `${this.#messagesVer}|${this.activeFolderId}|${this.activeMessageId}|${
+      this.search || ""
+    }|${this.#now !== null}`;
     if (listSig !== this.#listSig) {
       this.#listSig = listSig;
       this.#rebuildList();

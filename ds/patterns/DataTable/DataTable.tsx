@@ -5,7 +5,17 @@ import { Pagination } from "../../composites/Pagination";
 import { EmptyState } from "../../composites/EmptyState";
 import { Checkbox } from "../../primitives/Checkbox";
 import type { ReactNode } from "react";
-import { SearchIcon, ChevronIcon, DownloadIcon, FullscreenIcon, ColumnsIcon, DensityIcon, FilterIcon, PinIcon, CopyIcon } from "./DataTableIcons";
+import {
+  SearchIcon,
+  ChevronIcon,
+  DownloadIcon,
+  FullscreenIcon,
+  ColumnsIcon,
+  DensityIcon,
+  FilterIcon,
+  PinIcon,
+  CopyIcon,
+} from "./DataTableIcons";
 import { exportCSV, exportJSON, ToolbarBtn, ColumnFilter, ColumnResizer } from "./DataTableUtils";
 
 /* ─────────────────────────── Types ─────────────────────────── */
@@ -68,7 +78,12 @@ export interface DataTableProps<T> {
   /** 내보내기 파일명 */
   exportFilename?: string;
   /* ── 벌크 액션 ── */
-  bulkActions?: { label: string; icon?: ReactNode; onClick: (keys: Set<string>) => void; variant?: "danger" | "default" }[];
+  bulkActions?: {
+    label: string;
+    icon?: ReactNode;
+    onClick: (keys: Set<string>) => void;
+    variant?: "danger" | "default";
+  }[];
   /* ── 밀도 ── */
   density?: DensityMode;
   /** 밀도 토글 표시 여부 */
@@ -136,7 +151,11 @@ export type SortState = { key: string; dir: "asc" | "desc" };
 /* ─────────────────────────── Constants ─────────────────────────── */
 
 const alignClass = { left: "text-left", center: "text-center", right: "text-right" } as const;
-const headerContentClass = { left: "justify-start", center: "justify-center", right: "justify-end" } as const;
+const headerContentClass = {
+  left: "justify-start",
+  center: "justify-center",
+  right: "justify-end",
+} as const;
 
 const densityPadding: Record<DensityMode, string> = {
   compact: "px-3 py-1.5",
@@ -149,7 +168,6 @@ const densityText: Record<DensityMode, string> = {
   normal: "text-sm",
   comfortable: "text-sm",
 };
-
 
 /* ─────────────────────────── Main Component ─────────────────────────── */
 
@@ -219,8 +237,8 @@ export function DataTable<T>({
   const [sorts, setSorts] = useState<SortState[]>([]);
   const [search, setSearch] = useState("");
   const [columnFilters, setColumnFilters] = useState<Record<string, string>>({});
-  const [hiddenKeys, setHiddenKeys] = useState<Set<string>>(() =>
-    new Set(initialColumns.filter((c) => c.hidden).map((c) => c.key)),
+  const [hiddenKeys, setHiddenKeys] = useState<Set<string>>(
+    () => new Set(initialColumns.filter((c) => c.hidden).map((c) => c.key)),
   );
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set());
   const [density, setDensity] = useState<DensityMode>(initialDensity);
@@ -232,7 +250,9 @@ export function DataTable<T>({
   const [showDensityMenu, setShowDensityMenu] = useState(false);
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [focusedRow, setFocusedRow] = useState<number>(-1);
-  const [contextMenuState, setContextMenuState] = useState<{ x: number; y: number; row: T } | null>(null);
+  const [contextMenuState, setContextMenuState] = useState<{ x: number; y: number; row: T } | null>(
+    null,
+  );
   const [dragRowIndex, setDragRowIndex] = useState<number | null>(null);
   const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
   const [copiedCell, setCopiedCell] = useState<string | null>(null);
@@ -273,9 +293,12 @@ export function DataTable<T>({
   /* ── Close menus on outside click ── */
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (columnMenuRef.current && !columnMenuRef.current.contains(e.target as Node)) setShowColumnMenu(false);
-      if (densityMenuRef.current && !densityMenuRef.current.contains(e.target as Node)) setShowDensityMenu(false);
-      if (exportMenuRef.current && !exportMenuRef.current.contains(e.target as Node)) setShowExportMenu(false);
+      if (columnMenuRef.current && !columnMenuRef.current.contains(e.target as Node))
+        setShowColumnMenu(false);
+      if (densityMenuRef.current && !densityMenuRef.current.contains(e.target as Node))
+        setShowDensityMenu(false);
+      if (exportMenuRef.current && !exportMenuRef.current.contains(e.target as Node))
+        setShowExportMenu(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -284,29 +307,43 @@ export function DataTable<T>({
   /* ── Fullscreen ── */
   useEffect(() => {
     if (!isFullscreen) return;
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setIsFullscreen(false); };
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFullscreen(false);
+    };
     document.addEventListener("keydown", handler);
     document.body.style.overflow = "hidden";
-    return () => { document.removeEventListener("keydown", handler); document.body.style.overflow = ""; };
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
   }, [isFullscreen]);
 
   /* ── Context menu close ── */
   useEffect(() => {
     if (!contextMenuState) return;
     const handler = (e: MouseEvent) => setContextMenuState(null);
-    const keyHandler = (e: KeyboardEvent) => { if (e.key === "Escape") setContextMenuState(null); };
+    const keyHandler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setContextMenuState(null);
+    };
     document.addEventListener("mousedown", handler);
     document.addEventListener("keydown", keyHandler);
-    return () => { document.removeEventListener("mousedown", handler); document.removeEventListener("keydown", keyHandler); };
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("keydown", keyHandler);
+    };
   }, [contextMenuState]);
 
   /* ── Pinned keys (internal) ── */
   const pinnedKeys = pinnedKeysProp ?? new Set<string>();
-  const togglePin = useCallback((key: string) => {
-    const next = new Set(pinnedKeys);
-    if (next.has(key)) next.delete(key); else next.add(key);
-    onPinnedChange?.(next);
-  }, [pinnedKeys, onPinnedChange]);
+  const togglePin = useCallback(
+    (key: string) => {
+      const next = new Set(pinnedKeys);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      onPinnedChange?.(next);
+    },
+    [pinnedKeys, onPinnedChange],
+  );
 
   /* ── Filtering ── */
   const filtered = useMemo(() => {
@@ -319,7 +356,8 @@ export function DataTable<T>({
       result = result.filter((row) =>
         columns.some((col) => {
           const node = col.render(row, 0);
-          const text = typeof node === "string" || typeof node === "number" ? String(node).toLowerCase() : "";
+          const text =
+            typeof node === "string" || typeof node === "number" ? String(node).toLowerCase() : "";
           return text.includes(q);
         }),
       );
@@ -334,7 +372,8 @@ export function DataTable<T>({
           if (!col) return true;
           if (col.filterFn) return col.filterFn(row, filterVal);
           const node = col.render(row, 0);
-          const text = typeof node === "string" || typeof node === "number" ? String(node).toLowerCase() : "";
+          const text =
+            typeof node === "string" || typeof node === "number" ? String(node).toLowerCase() : "";
           return text.includes(filterVal.toLowerCase());
         }),
       );
@@ -360,7 +399,8 @@ export function DataTable<T>({
 
   /* ── Row pinning: separate pinned from unpinned ── */
   const { pinnedRows, unpinnedRows, displayRows } = useMemo(() => {
-    if (!pinnableRows || pinnedKeys.size === 0) return { pinnedRows: [] as T[], unpinnedRows: sorted, displayRows: sorted };
+    if (!pinnableRows || pinnedKeys.size === 0)
+      return { pinnedRows: [] as T[], unpinnedRows: sorted, displayRows: sorted };
     const pinned: T[] = [];
     const unpinned: T[] = [];
     sorted.forEach((row) => {
@@ -375,15 +415,23 @@ export function DataTable<T>({
   const serverTotal = serverSide && totalRows != null ? totalRows : displayRows.length;
   const totalPages = Math.max(1, Math.ceil(serverTotal / safePageSize));
   const currentPage = Math.min(page, totalPages);
-  const paged = serverSide ? displayRows : virtualScroll ? displayRows : displayRows.slice((currentPage - 1) * safePageSize, currentPage * safePageSize);
+  const paged = serverSide
+    ? displayRows
+    : virtualScroll
+    ? displayRows
+    : displayRows.slice((currentPage - 1) * safePageSize, currentPage * safePageSize);
   const rangeStart = serverTotal === 0 ? 0 : (currentPage - 1) * safePageSize + 1;
   const rangeEnd = Math.min(currentPage * safePageSize, serverTotal);
 
   /* ── Virtual scroll ── */
   const [scrollTop, setScrollTop] = useState(0);
   const [containerHeight, setContainerHeight] = useState(600);
-  const virtualStartIdx = virtualScroll ? Math.max(0, Math.floor(scrollTop / virtualRowHeight) - 5) : 0;
-  const virtualEndIdx = virtualScroll ? Math.min(displayRows.length, Math.ceil((scrollTop + containerHeight) / virtualRowHeight) + 5) : paged.length;
+  const virtualStartIdx = virtualScroll
+    ? Math.max(0, Math.floor(scrollTop / virtualRowHeight) - 5)
+    : 0;
+  const virtualEndIdx = virtualScroll
+    ? Math.min(displayRows.length, Math.ceil((scrollTop + containerHeight) / virtualRowHeight) + 5)
+    : paged.length;
   const virtualPaged = virtualScroll ? displayRows.slice(virtualStartIdx, virtualEndIdx) : paged;
 
   /* ── Sticky left offset ── */
@@ -391,7 +439,8 @@ export function DataTable<T>({
   const rowNumColWidth = showRowNumbers ? 48 : 0;
   const checkColWidth = selectable ? 48 : 0;
   const expandColWidth = expandable ? 40 : 0;
-  const stickyLeft = dragColWidth + rowNumColWidth + checkColWidth + (expandable ? expandColWidth : 0);
+  const stickyLeft =
+    dragColWidth + rowNumColWidth + checkColWidth + (expandable ? expandColWidth : 0);
   const leftOffset = dragColWidth + rowNumColWidth + checkColWidth + expandColWidth;
 
   /* ── Column width ── */
@@ -406,7 +455,8 @@ export function DataTable<T>({
 
   /* ── Selection ── */
   const visibleRows = virtualScroll ? displayRows : paged;
-  const allSelected = visibleRows.length > 0 && visibleRows.every((r) => selectedKeys?.has(rowKey(r)));
+  const allSelected =
+    visibleRows.length > 0 && visibleRows.every((r) => selectedKeys?.has(rowKey(r)));
   const someSelected = visibleRows.some((r) => selectedKeys?.has(rowKey(r)));
   const selectedCount = selectedKeys?.size ?? 0;
 
@@ -421,36 +471,41 @@ export function DataTable<T>({
   const toggleRow = (key: string) => {
     if (!onSelectionChange) return;
     const next = new Set(selectedKeys ?? []);
-    if (next.has(key)) next.delete(key); else next.add(key);
+    if (next.has(key)) next.delete(key);
+    else next.add(key);
     onSelectionChange(next);
   };
 
   /* ── Sort ── */
-  const handleSort = useCallback((key: string, multi: boolean) => {
-    setPage(1);
-    setSorts((prev) => {
-      const existing = prev.find((s) => s.key === key);
-      let next: SortState[];
-      if (existing) {
-        if (existing.dir === "asc") {
-          next = prev.map((s) => s.key === key ? { ...s, dir: "desc" as const } : s);
+  const handleSort = useCallback(
+    (key: string, multi: boolean) => {
+      setPage(1);
+      setSorts((prev) => {
+        const existing = prev.find((s) => s.key === key);
+        let next: SortState[];
+        if (existing) {
+          if (existing.dir === "asc") {
+            next = prev.map((s) => (s.key === key ? { ...s, dir: "desc" as const } : s));
+          } else {
+            next = prev.filter((s) => s.key !== key);
+          }
         } else {
-          next = prev.filter((s) => s.key !== key);
+          const newSort: SortState = { key, dir: "asc" };
+          next = multi ? [...prev, newSort] : [newSort];
         }
-      } else {
-        const newSort: SortState = { key, dir: "asc" };
-        next = multi ? [...prev, newSort] : [newSort];
-      }
-      if (serverSide) onSortChange?.(next);
-      return next;
-    });
-  }, [serverSide, onSortChange]);
+        if (serverSide) onSortChange?.(next);
+        return next;
+      });
+    },
+    [serverSide, onSortChange],
+  );
 
   /* ── Expand ── */
   const toggleExpand = (key: string) => {
     setExpandedKeys((prev) => {
       const next = new Set(prev);
-      if (next.has(key)) next.delete(key); else next.add(key);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
       return next;
     });
   };
@@ -552,13 +607,25 @@ export function DataTable<T>({
   const toggleGroup = (groupKey: string) => {
     setCollapsedGroups((prev) => {
       const next = new Set(prev);
-      if (next.has(groupKey)) next.delete(groupKey); else next.add(groupKey);
+      if (next.has(groupKey)) next.delete(groupKey);
+      else next.add(groupKey);
       return next;
     });
   };
 
   /* ── Render row helper ── */
-  const renderRow = (row: T, key: string, globalIdx: number, localIdx: number, isPinned: boolean, isSelected: boolean | undefined, isStriped: boolean | undefined, isExpanded: boolean, isFocused: boolean, customRowClass?: string): React.ReactNode[] => {
+  const renderRow = (
+    row: T,
+    key: string,
+    globalIdx: number,
+    localIdx: number,
+    isPinned: boolean,
+    isSelected: boolean | undefined,
+    isStriped: boolean | undefined,
+    isExpanded: boolean,
+    isFocused: boolean,
+    customRowClass?: string,
+  ): React.ReactNode[] => {
     const pad = densityPadding[density];
     return [
       <tr
@@ -571,48 +638,84 @@ export function DataTable<T>({
         }}
         data-row-index={globalIdx}
         draggable={draggableRows}
-        onDragStart={draggableRows ? (e) => {
-          setDragRowIndex(globalIdx);
-          e.dataTransfer.effectAllowed = "move";
-        } : undefined}
-        onDragOver={draggableRows ? (e) => {
-          e.preventDefault();
-          e.dataTransfer.dropEffect = "move";
-        } : undefined}
-        onDrop={draggableRows ? (e) => {
-          e.preventDefault();
-          if (dragRowIndex !== null && dragRowIndex !== globalIdx) {
-            onRowReorder?.(dragRowIndex, globalIdx);
-          }
-          setDragRowIndex(null);
-        } : undefined}
+        onDragStart={
+          draggableRows
+            ? (e) => {
+                setDragRowIndex(globalIdx);
+                e.dataTransfer.effectAllowed = "move";
+              }
+            : undefined
+        }
+        onDragOver={
+          draggableRows
+            ? (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = "move";
+              }
+            : undefined
+        }
+        onDrop={
+          draggableRows
+            ? (e) => {
+                e.preventDefault();
+                if (dragRowIndex !== null && dragRowIndex !== globalIdx) {
+                  onRowReorder?.(dragRowIndex, globalIdx);
+                }
+                setDragRowIndex(null);
+              }
+            : undefined
+        }
         onDragEnd={draggableRows ? () => setDragRowIndex(null) : undefined}
         className={cn(
+          // gray-50/amber-50 은 라이트 전용이라 다크에서 흰 줄무늬가 남는다 — 모드를 따라가는 토큰으로
           "group transition-colors",
           onRowClick && "cursor-pointer",
-          "hover:bg-gray-50/90",
-          isStriped && "bg-gray-50/45",
+          "hover:bg-card-hover",
+          isStriped && "bg-card-hover",
           isSelected && "bg-primary-light/50 hover:bg-primary-light/70",
-          isFocused && "ring-2 ring-inset ring-primary/30",
-          isPinned && "bg-amber-50/60 hover:bg-amber-50/80",
+          isFocused && "ring-2 ring-inset ring-primary/40",
+          isPinned && "bg-warning-light",
           dragRowIndex === globalIdx && "opacity-50",
           customRowClass,
         )}
       >
         {draggableRows && (
-          <td className={cn("w-10 border-b border-border-light bg-white group-hover:bg-gray-50/95 cursor-grab", pad)} onClick={(e) => e.stopPropagation()}>
-            <span className="text-muted-light text-sm select-none" aria-label="드래그 핸들">⠿</span>
+          <td
+            className={cn(
+              "w-10 border-b border-border-light bg-card group-hover:bg-card-hover cursor-grab",
+              pad,
+            )}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="text-muted-light text-sm select-none" aria-label="드래그 핸들">
+              ⠿
+            </span>
           </td>
         )}
         {showRowNumbers && (
-          <td className={cn("w-12 border-b border-border-light bg-white group-hover:bg-gray-50/95 text-center text-muted-light", pad)}>
+          <td
+            className={cn(
+              "w-12 border-b border-border-light bg-card group-hover:bg-card-hover text-center text-muted-light",
+              pad,
+            )}
+          >
             <div className="flex items-center justify-center gap-1">
-              <span className="text-xs">{globalIdx + 1}</span>
+              <span className="text-xs tabular-nums">{globalIdx + 1}</span>
               {pinnableRows && (
                 <button
                   type="button"
-                  onClick={(e) => { e.stopPropagation(); togglePin(key); }}
-                  className={cn("p-0.5 rounded transition-colors cursor-pointer", isPinned ? "text-amber-500" : "text-transparent group-hover:text-muted-light hover:text-muted")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    togglePin(key);
+                  }}
+                  className={cn(
+                    "p-0.5 rounded-lg transition-colors cursor-pointer",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset focus-visible:text-muted",
+                    // 고정 표시는 amber 리터럴이 아니라 의미색(warning)이다
+                    isPinned
+                      ? "text-warning"
+                      : "text-transparent group-hover:text-muted-light hover:text-muted",
+                  )}
                   aria-label={isPinned ? "고정 해제" : "행 고정"}
                   title={isPinned ? "고정 해제" : "행 고정"}
                 >
@@ -627,8 +730,8 @@ export function DataTable<T>({
             className={cn(
               "sticky left-0 z-20 w-12 border-b border-border-light",
               pad,
-              "bg-white group-hover:bg-gray-50/95",
-              isStriped && "bg-gray-50/95",
+              "bg-card group-hover:bg-card-hover",
+              isStriped && "bg-card-hover",
               isSelected && "bg-primary-light/90",
             )}
             onClick={(e) => e.stopPropagation()}
@@ -640,10 +743,27 @@ export function DataTable<T>({
         )}
         {expandable && (
           <td
-            className={cn("w-10 border-b border-border-light", pad, "bg-white group-hover:bg-gray-50/95")}
-            onClick={(e) => { e.stopPropagation(); toggleExpand(key); }}
+            className={cn(
+              "w-10 border-b border-border-light",
+              pad,
+              "bg-card group-hover:bg-card-hover",
+            )}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleExpand(key);
+            }}
           >
-            <button type="button" className={cn("p-1 rounded transition-transform cursor-pointer", isExpanded && "rotate-90")} aria-label="행 확장" aria-expanded={isExpanded}>
+            <button
+              type="button"
+              className={cn(
+                // 90도 회전은 움직임이다 — 감속 요청이면 즉시 최종 각도로 간다
+                "p-1 rounded-lg transition-transform duration-150 cursor-pointer motion-reduce:transition-none",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+                isExpanded && "rotate-90",
+              )}
+              aria-label="행 확장"
+              aria-expanded={isExpanded}
+            >
               <ChevronIcon dir="right" className="text-muted" />
             </button>
           </td>
@@ -664,8 +784,8 @@ export function DataTable<T>({
                 pad,
                 alignClass[align],
                 col.sticky && [
-                  "sticky z-10 bg-white group-hover:bg-gray-50/95",
-                  isStriped && "bg-gray-50/95",
+                  "sticky z-10 bg-card group-hover:bg-card-hover",
+                  isStriped && "bg-card-hover",
                   isSelected && "bg-primary-light/90",
                 ],
                 customCellClass,
@@ -683,25 +803,43 @@ export function DataTable<T>({
                   value={editValue}
                   onChange={(e) => setEditValue(e.target.value)}
                   onBlur={commitEdit}
-                  onKeyDown={(e) => { if (e.key === "Enter") commitEdit(); if (e.key === "Escape") setEditingCell(null); }}
-                  className="w-full h-7 px-1.5 text-sm border border-primary rounded outline-none bg-white"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") commitEdit();
+                    if (e.key === "Escape") setEditingCell(null);
+                  }}
+                  className="w-full h-7 px-1.5 text-sm border border-primary rounded-lg outline-none bg-card text-foreground shadow-[0_0_0_3px_var(--primary-glow)]"
                 />
               ) : (
-                <div className="flex items-center gap-1">
-                  <span className="flex-1">{node}</span>
+                <div className="flex items-center gap-1 min-w-0">
+                  <span className="flex-1 min-w-0">{node}</span>
                   {copyable && cellText && (
                     <button
                       type="button"
-                      onClick={(e) => { e.stopPropagation(); copyToClipboard(cellText, cellId); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        copyToClipboard(cellText, cellId);
+                      }}
                       className={cn(
-                        "shrink-0 p-0.5 rounded transition-all cursor-pointer",
-                        copiedCell === cellId ? "text-green-500" : "text-transparent group-hover:text-muted-light hover:text-muted",
+                        // 바뀌는 것은 글자색 하나다 — transition-all 은 padding 까지 물어 리플로우를 만든다
+                        "shrink-0 p-0.5 rounded-lg transition-colors cursor-pointer",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset focus-visible:text-muted",
+                        copiedCell === cellId
+                          ? "text-success"
+                          : "text-transparent group-hover:text-muted-light hover:text-muted",
                       )}
                       aria-label="셀 복사"
                       title="클립보드에 복사"
                     >
                       {copiedCell === cellId ? (
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.5L5 9l4.5-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <path
+                            d="M2.5 6.5L5 9l4.5-6"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
                       ) : (
                         <CopyIcon />
                       )}
@@ -715,7 +853,7 @@ export function DataTable<T>({
       </tr>,
       /* Expanded row */
       isExpanded && expandable && expandedRowRender && (
-        <tr key={`${key}-expanded`} className="bg-gray-50/30">
+        <tr key={`${key}-expanded`} className="bg-card-hover">
           <td colSpan={colSpan} className="px-4 py-4 border-b border-border-light">
             {expandedRowRender(row)}
           </td>
@@ -725,40 +863,68 @@ export function DataTable<T>({
   };
 
   /* ── Render ── */
-  const colSpan = columns.length + (selectable ? 1 : 0) + (expandable ? 1 : 0) + (showRowNumbers ? 1 : 0) + (draggableRows ? 1 : 0);
+  const colSpan =
+    columns.length +
+    (selectable ? 1 : 0) +
+    (expandable ? 1 : 0) +
+    (showRowNumbers ? 1 : 0) +
+    (draggableRows ? 1 : 0);
   const pad = densityPadding[density];
   const textSize = densityText[density];
 
-  const hasToolbar = searchable || exportable || densityToggle || fullscreenToggle || columnToggle || (selectable && bulkActions && selectedCount > 0);
+  const hasToolbar =
+    searchable ||
+    exportable ||
+    densityToggle ||
+    fullscreenToggle ||
+    columnToggle ||
+    (selectable && bulkActions && selectedCount > 0);
 
   return (
     <div
       ref={containerRef}
       className={cn(
         "w-full",
-        isFullscreen && "fixed inset-0 z-50 bg-white flex flex-col",
+        isFullscreen && "fixed inset-0 z-50 bg-background flex flex-col",
         className,
       )}
     >
       {/* ── Toolbar ── */}
       {hasToolbar && (
-        <div className={cn(
-          "flex flex-wrap items-center gap-2 px-4 py-2.5 border-b border-border bg-white",
-          isFullscreen && "border-t-0",
-        )}>
+        <div
+          className={cn(
+            // 툴바만 좌우 테두리가 없어 아래 표와 한 판으로 읽히지 않았다 — 상단을 표와 같은 곡률로 잇는다
+            "flex flex-wrap items-center gap-2 px-4 py-2.5 border border-b-0 border-border bg-card rounded-t-xl",
+            isFullscreen && "border-t-0 rounded-none",
+          )}
+        >
           {/* Search */}
           {searchable && (
             <div className="relative flex-1 min-w-[200px] max-w-sm">
-              <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted"><SearchIcon /></span>
+              <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted">
+                <SearchIcon />
+              </span>
               <input
                 value={search}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder={searchPlaceholder}
-                className="w-full h-8 pl-8 pr-8 text-xs border border-border rounded-lg outline-none focus:border-primary focus:shadow-[0_0_0_2px_var(--primary-glow)] bg-white transition-all"
+                className="w-full h-8 pl-8 pr-8 text-xs border border-border rounded-xl outline-none hover:border-muted-light focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow)] bg-card text-foreground placeholder:text-muted-light transition-[border-color,box-shadow] duration-150 ease-out"
               />
               {search && (
-                <button type="button" onClick={() => handleSearchChange("")} className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground cursor-pointer" aria-label="검색어 지우기">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                <button
+                  type="button"
+                  onClick={() => handleSearchChange("")}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-0.5 text-muted transition-colors hover:text-foreground cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55"
+                  aria-label="검색어 지우기"
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path
+                      d="M3 3l6 6M9 3l-6 6"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </button>
               )}
             </div>
@@ -766,26 +932,41 @@ export function DataTable<T>({
 
           {/* Active filter indicator */}
           {activeFilterCount > 0 && (
-            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-primary/10 text-primary text-[10px] font-semibold">
+            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-primary/10 text-primary-ink text-[10px] font-semibold whitespace-nowrap tabular-nums">
               <FilterIcon /> {activeFilterCount}개 필터 활성
-              <button type="button" onClick={() => { setSearch(""); setColumnFilters({}); setPage(1); }} className="ml-1 hover:text-danger cursor-pointer" aria-label="모든 필터 초기화">✕</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch("");
+                  setColumnFilters({});
+                  setPage(1);
+                }}
+                className="ml-1 rounded transition-colors hover:text-danger cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55"
+                aria-label="모든 필터 초기화"
+              >
+                ✕
+              </button>
             </span>
           )}
 
           {/* Bulk actions */}
           {selectable && bulkActions && selectedCount > 0 && (
             <div className="flex items-center gap-1.5 ml-auto">
-              <span className="text-xs text-muted font-medium">{selectedCount}개 선택</span>
+              <span className="text-xs text-muted font-medium whitespace-nowrap tabular-nums">
+                {selectedCount}개 선택
+              </span>
               {bulkActions.map((action) => (
                 <button
                   key={action.label}
                   type="button"
                   onClick={() => action.onClick(selectedKeys ?? new Set())}
                   className={cn(
-                    "inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-colors",
+                    "inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap",
+                    "transition-colors active:scale-[0.97] motion-reduce:active:scale-100",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
                     action.variant === "danger"
                       ? "text-danger hover:bg-danger/10"
-                      : "text-foreground hover:bg-gray-100",
+                      : "text-foreground hover:bg-card-hover",
                   )}
                 >
                   {action.icon}
@@ -799,26 +980,35 @@ export function DataTable<T>({
             {/* Column toggle */}
             {columnToggle && (
               <div className="relative" ref={columnMenuRef}>
-                <ToolbarBtn onClick={() => setShowColumnMenu(!showColumnMenu)} active={showColumnMenu} title="컬럼 설정">
+                <ToolbarBtn
+                  onClick={() => setShowColumnMenu(!showColumnMenu)}
+                  active={showColumnMenu}
+                  title="컬럼 설정"
+                >
                   <ColumnsIcon /> 컬럼
                 </ToolbarBtn>
                 {showColumnMenu && (
-                  <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-border rounded-lg shadow-lg py-1 z-50 animate-fade-in-scale">
+                  // 떠 있는 패널은 그림자 한 겹으로 배경에서 떨어지지 않는다 — 다층 그림자 + 얇은 링
+                  <div className="absolute right-0 top-full mt-1 w-48 bg-card border border-border rounded-xl shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-border-light py-1 z-50 animate-fade-in-scale motion-reduce:animate-none">
                     {initialColumns.map((col) => (
-                      <label key={col.key} className="flex items-center gap-2 px-3 py-1.5 text-xs hover:bg-gray-50 cursor-pointer">
+                      <label
+                        key={col.key}
+                        className="flex items-center gap-2 px-3 py-1.5 text-xs transition-colors hover:bg-card-hover cursor-pointer has-[:focus-visible]:bg-card-hover"
+                      >
                         <input
                           type="checkbox"
                           checked={!hiddenKeys.has(col.key)}
                           onChange={() => {
                             setHiddenKeys((prev) => {
                               const next = new Set(prev);
-                              if (next.has(col.key)) next.delete(col.key); else next.add(col.key);
+                              if (next.has(col.key)) next.delete(col.key);
+                              else next.add(col.key);
                               return next;
                             });
                           }}
-                          className="rounded cursor-pointer"
+                          className="rounded cursor-pointer accent-[var(--primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55"
                         />
-                        {col.header}
+                        <span className="min-w-0 truncate">{col.header}</span>
                       </label>
                     ))}
                   </div>
@@ -829,14 +1019,29 @@ export function DataTable<T>({
             {/* Density toggle */}
             {densityToggle && (
               <div className="relative" ref={densityMenuRef}>
-                <ToolbarBtn onClick={() => setShowDensityMenu(!showDensityMenu)} active={showDensityMenu} title="행 밀도">
+                <ToolbarBtn
+                  onClick={() => setShowDensityMenu(!showDensityMenu)}
+                  active={showDensityMenu}
+                  title="행 밀도"
+                >
                   <DensityIcon />
                 </ToolbarBtn>
                 {showDensityMenu && (
-                  <div className="absolute right-0 top-full mt-1 w-32 bg-white border border-border rounded-lg shadow-lg py-1 z-50 animate-fade-in-scale">
+                  <div className="absolute right-0 top-full mt-1 w-32 bg-card border border-border rounded-xl shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-border-light py-1 z-50 animate-fade-in-scale motion-reduce:animate-none">
                     {(["compact", "normal", "comfortable"] as const).map((d) => (
-                      <button key={d} type="button" onClick={() => { setDensity(d); setShowDensityMenu(false); }}
-                        className={cn("w-full text-left px-3 py-1.5 text-xs cursor-pointer hover:bg-gray-50", density === d && "text-primary font-semibold")}>
+                      <button
+                        key={d}
+                        type="button"
+                        onClick={() => {
+                          setDensity(d);
+                          setShowDensityMenu(false);
+                        }}
+                        className={cn(
+                          "w-full text-left px-3 py-1.5 text-xs cursor-pointer transition-colors hover:bg-card-hover",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+                          density === d && "text-primary-ink font-semibold",
+                        )}
+                      >
                         {{ compact: "좁게", normal: "보통", comfortable: "넓게" }[d]}
                       </button>
                     ))}
@@ -852,11 +1057,27 @@ export function DataTable<T>({
                   <DownloadIcon /> 내보내기
                 </ToolbarBtn>
                 {showExportMenu && (
-                  <div className="absolute right-0 top-full mt-1 w-36 bg-white border border-border rounded-lg shadow-lg py-1 z-50 animate-fade-in-scale">
-                    <button type="button" onClick={() => { exportCSV(columns, sorted, exportFilename); setShowExportMenu(false); }}
-                      className="w-full text-left px-3 py-1.5 text-xs cursor-pointer hover:bg-gray-50">CSV 다운로드</button>
-                    <button type="button" onClick={() => { exportJSON(sorted, exportFilename); setShowExportMenu(false); }}
-                      className="w-full text-left px-3 py-1.5 text-xs cursor-pointer hover:bg-gray-50">JSON 다운로드</button>
+                  <div className="absolute right-0 top-full mt-1 w-36 bg-card border border-border rounded-xl shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-border-light py-1 z-50 animate-fade-in-scale motion-reduce:animate-none">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        exportCSV(columns, sorted, exportFilename);
+                        setShowExportMenu(false);
+                      }}
+                      className="w-full text-left px-3 py-1.5 text-xs cursor-pointer transition-colors hover:bg-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset"
+                    >
+                      CSV 다운로드
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        exportJSON(sorted, exportFilename);
+                        setShowExportMenu(false);
+                      }}
+                      className="w-full text-left px-3 py-1.5 text-xs cursor-pointer transition-colors hover:bg-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset"
+                    >
+                      JSON 다운로드
+                    </button>
                   </div>
                 )}
               </div>
@@ -864,7 +1085,11 @@ export function DataTable<T>({
 
             {/* Fullscreen */}
             {fullscreenToggle && (
-              <ToolbarBtn onClick={() => setIsFullscreen(!isFullscreen)} active={isFullscreen} title={isFullscreen ? "풀스크린 종료" : "풀스크린"}>
+              <ToolbarBtn
+                onClick={() => setIsFullscreen(!isFullscreen)}
+                active={isFullscreen}
+                title={isFullscreen ? "풀스크린 종료" : "풀스크린"}
+              >
                 <FullscreenIcon active={isFullscreen} />
               </ToolbarBtn>
             )}
@@ -873,24 +1098,39 @@ export function DataTable<T>({
       )}
 
       {/* ── Table ── */}
-      <div className={cn(
-        "overflow-hidden rounded-lg border border-border bg-white shadow-sm",
-        hasToolbar && "border-t-0 rounded-t-none",
-        isFullscreen && "flex-1 rounded-none border-0 shadow-none",
-      )}>
+      <div
+        className={cn(
+          "overflow-hidden rounded-xl border border-border bg-card shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_12px_-6px_rgba(0,0,0,0.08)]",
+          hasToolbar && "border-t-0 rounded-t-none",
+          isFullscreen && "flex-1 rounded-none border-0 shadow-none",
+        )}
+      >
         <div
-          className={cn("overflow-x-auto", isFullscreen && "h-full overflow-y-auto", virtualScroll && "overflow-y-auto")}
+          className={cn(
+            // 좁은 칸에서 표가 페이지를 밀지 않게 가로 스크롤은 이 상자 안에서 끝낸다
+            "overflow-x-auto overscroll-x-contain",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/40",
+            isFullscreen && "h-full overflow-y-auto",
+            virtualScroll && "overflow-y-auto",
+          )}
           style={virtualScroll ? { maxHeight: isFullscreen ? undefined : 600 } : undefined}
-          onScroll={virtualScroll ? (e) => {
-            setScrollTop((e.target as HTMLDivElement).scrollTop);
-            setContainerHeight((e.target as HTMLDivElement).clientHeight);
-          } : undefined}
+          onScroll={
+            virtualScroll
+              ? (e) => {
+                  setScrollTop((e.target as HTMLDivElement).scrollTop);
+                  setContainerHeight((e.target as HTMLDivElement).clientHeight);
+                }
+              : undefined
+          }
           onKeyDown={handleTableKeyDown}
           tabIndex={0}
           role="region"
           aria-label={caption ?? "데이터 테이블"}
         >
-          <table className={cn("min-w-full border-separate border-spacing-0", textSize)} aria-busy={loading}>
+          <table
+            className={cn("min-w-full border-separate border-spacing-0", textSize)}
+            aria-busy={loading}
+          >
             {caption && <caption className="sr-only">{caption}</caption>}
             <colgroup>
               {draggableRows && <col style={{ width: 40 }} />}
@@ -898,23 +1138,33 @@ export function DataTable<T>({
               {selectable && <col style={{ width: 48 }} />}
               {expandable && <col style={{ width: 40 }} />}
               {columns.map((col) => (
-                <col key={col.key} style={col.width ? { width: col.width } : columnWidths[col.key] ? { width: columnWidths[col.key] } : undefined} />
+                <col
+                  key={col.key}
+                  style={
+                    col.width
+                      ? { width: col.width }
+                      : columnWidths[col.key]
+                      ? { width: columnWidths[col.key] }
+                      : undefined
+                  }
+                />
               ))}
             </colgroup>
 
-            <thead className={cn("bg-gray-50/90", stickyHeader && "sticky top-0 z-30")}>
+            {/* 헤더 띠는 gray-50 대신 background — 다크에서 카드보다 한 단계 가라앉아 같은 위계로 읽힌다 */}
+            <thead className={cn("bg-background", stickyHeader && "sticky top-0 z-30")}>
               {/* Column group headers */}
               {hasGroups && groups && (
                 <tr>
-                  {draggableRows && <th className="border-b border-border bg-gray-50/95" />}
-                  {showRowNumbers && <th className="border-b border-border bg-gray-50/95" />}
-                  {selectable && <th className="border-b border-border bg-gray-50/95" />}
-                  {expandable && <th className="border-b border-border bg-gray-50/95" />}
+                  {draggableRows && <th className="border-b border-border bg-background" />}
+                  {showRowNumbers && <th className="border-b border-border bg-background" />}
+                  {selectable && <th className="border-b border-border bg-background" />}
+                  {expandable && <th className="border-b border-border bg-background" />}
                   {groups.map((g, i) => (
                     <th
                       key={i}
                       colSpan={g.span}
-                      className="border-b border-border bg-gray-50/95 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-muted-light text-center"
+                      className="border-b border-border bg-background px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-muted-light text-center"
                     >
                       {g.name}
                     </th>
@@ -925,24 +1175,45 @@ export function DataTable<T>({
               {/* Column headers */}
               <tr>
                 {draggableRows && (
-                  <th scope="col" className={cn("w-10 border-b border-border bg-gray-50/95", pad)}>
+                  <th scope="col" className={cn("w-10 border-b border-border bg-background", pad)}>
                     <span className="sr-only">드래그</span>
                   </th>
                 )}
                 {showRowNumbers && (
-                  <th scope="col" className={cn("w-12 border-b border-border bg-gray-50/95 text-center text-muted-light", pad)}>
+                  <th
+                    scope="col"
+                    className={cn(
+                      "w-12 border-b border-border bg-background text-center text-muted-light",
+                      pad,
+                    )}
+                  >
                     #
                   </th>
                 )}
                 {selectable && (
-                  <th scope="col" className={cn("sticky left-0 z-20 w-12 border-b border-border bg-gray-50/95", pad)}>
+                  <th
+                    scope="col"
+                    className={cn(
+                      "sticky left-0 z-20 w-12 border-b border-border bg-background",
+                      pad,
+                    )}
+                  >
                     <div className="flex items-center justify-center">
-                      <Checkbox checked={allSelected} indeterminate={someSelected && !allSelected} onChange={toggleAll} size="sm" />
+                      <Checkbox
+                        checked={allSelected}
+                        indeterminate={someSelected && !allSelected}
+                        onChange={toggleAll}
+                        size="sm"
+                      />
                     </div>
                   </th>
                 )}
                 {expandable && (
-                  <th scope="col" className={cn("w-10 border-b border-border bg-gray-50/95", pad)} style={{ left: checkColWidth || undefined }}>
+                  <th
+                    scope="col"
+                    className={cn("w-10 border-b border-border bg-background", pad)}
+                    style={{ left: checkColWidth || undefined }}
+                  >
                     <span className="sr-only">확장</span>
                   </th>
                 )}
@@ -955,12 +1226,20 @@ export function DataTable<T>({
                     <th
                       key={col.key}
                       scope="col"
-                      aria-sort={col.sortable ? (sortState ? (sortState.dir === "asc" ? "ascending" : "descending") : "none") : undefined}
+                      aria-sort={
+                        col.sortable
+                          ? sortState
+                            ? sortState.dir === "asc"
+                              ? "ascending"
+                              : "descending"
+                            : "none"
+                          : undefined
+                      }
                       className={cn(
                         "border-b border-border text-xs font-semibold uppercase tracking-wide text-muted whitespace-nowrap relative",
                         pad,
                         alignClass[align],
-                        col.sticky && "sticky z-10 bg-gray-50/95",
+                        col.sticky && "sticky z-10 bg-background",
                       )}
                       style={getColumnStyle(col)}
                     >
@@ -970,8 +1249,8 @@ export function DataTable<T>({
                             type="button"
                             onClick={(e) => handleSort(col.key, e.shiftKey)}
                             className={cn(
-                              "inline-flex items-center gap-1 rounded-md text-inherit transition-colors cursor-pointer",
-                              "hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30",
+                              "inline-flex items-center gap-1 rounded-lg text-inherit transition-colors cursor-pointer",
+                              "hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                             )}
                             title="클릭: 정렬, Shift+클릭: 멀티 정렬"
                           >
@@ -979,25 +1258,34 @@ export function DataTable<T>({
                             <span
                               aria-hidden="true"
                               className={cn(
-                                "flex h-4 w-4 shrink-0 items-center justify-center text-muted-light transition-all",
-                                sortState ? "opacity-100 text-primary" : "opacity-35",
+                                // 화살표가 180도 뒤집힌다 — 움직임이므로 감속 요청을 받는다
+                                "flex h-4 w-4 shrink-0 items-center justify-center text-muted-light",
+                                "transition-[opacity,transform,color] duration-150 ease-out motion-reduce:transition-none",
+                                sortState ? "opacity-100 text-primary-ink" : "opacity-35",
                                 sortState?.dir === "desc" && "rotate-180",
                               )}
                             >
                               <ChevronIcon dir="up" />
                             </span>
                             {sorts.length > 1 && sortIdx >= 0 && (
-                              <span className="text-[9px] text-primary font-bold">{sortIdx + 1}</span>
+                              <span className="text-[9px] text-primary-ink font-bold tabular-nums">
+                                {sortIdx + 1}
+                              </span>
                             )}
                           </button>
                         ) : (
                           <span>{col.header}</span>
                         )}
                         {col.filterable && (
-                          <ColumnFilter value={columnFilters[col.key] ?? ""} onChange={(v) => setColumnFilter(col.key, v)} />
+                          <ColumnFilter
+                            value={columnFilters[col.key] ?? ""}
+                            onChange={(v) => setColumnFilter(col.key, v)}
+                          />
                         )}
                       </div>
-                      {(col.resizable !== false) && <ColumnResizer onResize={(d) => handleResize(col.key, d)} />}
+                      {col.resizable !== false && (
+                        <ColumnResizer onResize={(d) => handleResize(col.key, d)} />
+                      )}
                     </th>
                   );
                 })}
@@ -1007,19 +1295,61 @@ export function DataTable<T>({
             <tbody ref={tableBodyRef}>
               {/* Virtual scroll spacer */}
               {virtualScroll && virtualStartIdx > 0 && (
-                <tr><td colSpan={colSpan} style={{ height: virtualStartIdx * virtualRowHeight, padding: 0 }} /></tr>
+                <tr>
+                  <td
+                    colSpan={colSpan}
+                    style={{ height: virtualStartIdx * virtualRowHeight, padding: 0 }}
+                  />
+                </tr>
               )}
 
               {loading ? (
                 Array.from({ length: 5 }, (_, i) => (
                   <tr key={i}>
-                    {draggableRows && <td className={cn("w-10 border-b border-border-light bg-white", pad)} />}
-                    {showRowNumbers && <td className={cn("w-12 border-b border-border-light bg-white text-center text-muted-light", pad)}>{i + 1}</td>}
-                    {selectable && <td className={cn("sticky left-0 z-20 w-12 border-b border-border-light bg-white", pad)}><div className="mx-auto h-3.5 w-3.5 animate-pulse rounded bg-gray-200" /></td>}
-                    {expandable && <td className={cn("w-10 border-b border-border-light bg-white", pad)} />}
+                    {draggableRows && (
+                      <td className={cn("w-10 border-b border-border-light bg-card", pad)} />
+                    )}
+                    {showRowNumbers && (
+                      <td
+                        className={cn(
+                          "w-12 border-b border-border-light bg-card text-center text-muted-light",
+                          pad,
+                        )}
+                      >
+                        {i + 1}
+                      </td>
+                    )}
+                    {selectable && (
+                      <td
+                        className={cn(
+                          "sticky left-0 z-20 w-12 border-b border-border-light bg-card",
+                          pad,
+                        )}
+                      >
+                        <div className="mx-auto h-3.5 w-3.5 animate-pulse rounded bg-border" />
+                      </td>
+                    )}
+                    {expandable && (
+                      <td className={cn("w-10 border-b border-border-light bg-card", pad)} />
+                    )}
                     {columns.map((col) => (
-                      <td key={col.key} className={cn("border-b border-border-light", pad, alignClass[col.align ?? "left"], col.sticky && "sticky z-10 bg-white")} style={getColumnStyle(col)}>
-                        <div className={cn("h-4 w-3/4 animate-pulse rounded bg-gray-200", col.align === "center" && "mx-auto", col.align === "right" && "ml-auto")} />
+                      <td
+                        key={col.key}
+                        className={cn(
+                          "border-b border-border-light",
+                          pad,
+                          alignClass[col.align ?? "left"],
+                          col.sticky && "sticky z-10 bg-card",
+                        )}
+                        style={getColumnStyle(col)}
+                      >
+                        <div
+                          className={cn(
+                            "h-4 w-3/4 animate-pulse rounded bg-border",
+                            col.align === "center" && "mx-auto",
+                            col.align === "right" && "ml-auto",
+                          )}
+                        />
                       </td>
                     ))}
                   </tr>
@@ -1035,37 +1365,62 @@ export function DataTable<T>({
                 groupedRows.flatMap((group) => {
                   const isCollapsed = collapsedGroups.has(group.key);
                   return [
-                    <tr key={`group-${group.key}`} className="bg-gray-100/80">
+                    <tr key={`group-${group.key}`} className="bg-background">
                       <td
                         colSpan={colSpan}
-                        className={cn("border-b border-border font-semibold text-xs cursor-pointer select-none", pad)}
+                        className={cn(
+                          "border-b border-border font-semibold text-xs cursor-pointer select-none",
+                          pad,
+                        )}
                         onClick={() => toggleGroup(group.key)}
                       >
                         <div className="flex items-center gap-2">
-                          <ChevronIcon dir={isCollapsed ? "right" : "down"} className="text-muted" />
+                          <ChevronIcon
+                            dir={isCollapsed ? "right" : "down"}
+                            className="text-muted"
+                          />
                           <span>{group.key}</span>
-                          <span className="text-muted-light font-normal">({group.rows.length}개)</span>
+                          <span className="text-muted-light font-normal">
+                            ({group.rows.length}개)
+                          </span>
                         </div>
                       </td>
                     </tr>,
-                    ...(!isCollapsed ? group.rows.map((row, idx) => {
-                      const key = rowKey(row);
-                      const globalIdx = displayRows.indexOf(row);
-                      const isPinned = pinnedKeys.has(key);
-                      const isSelected = selectedKeys?.has(key);
-                      const isStriped = striped && idx % 2 === 1;
-                      const isExpanded = expandedKeys.has(key);
-                      const isFocused = focusedRow === idx;
-                      const customRowClass = rowClassName?.(row, globalIdx);
+                    ...(!isCollapsed
+                      ? group.rows
+                          .map((row, idx) => {
+                            const key = rowKey(row);
+                            const globalIdx = displayRows.indexOf(row);
+                            const isPinned = pinnedKeys.has(key);
+                            const isSelected = selectedKeys?.has(key);
+                            const isStriped = striped && idx % 2 === 1;
+                            const isExpanded = expandedKeys.has(key);
+                            const isFocused = focusedRow === idx;
+                            const customRowClass = rowClassName?.(row, globalIdx);
 
-                      return renderRow(row, key, globalIdx, idx, isPinned, isSelected, isStriped, isExpanded, isFocused, customRowClass);
-                    }).flat() : []),
+                            return renderRow(
+                              row,
+                              key,
+                              globalIdx,
+                              idx,
+                              isPinned,
+                              isSelected,
+                              isStriped,
+                              isExpanded,
+                              isFocused,
+                              customRowClass,
+                            );
+                          })
+                          .flat()
+                      : []),
                   ];
                 })
               ) : (
                 virtualPaged.flatMap((row, idx) => {
                   const key = rowKey(row);
-                  const globalIdx = virtualScroll ? virtualStartIdx + idx : (currentPage - 1) * safePageSize + idx;
+                  const globalIdx = virtualScroll
+                    ? virtualStartIdx + idx
+                    : (currentPage - 1) * safePageSize + idx;
                   const isPinned = pinnedKeys.has(key);
                   const isSelected = selectedKeys?.has(key);
                   const isStriped = striped && globalIdx % 2 === 1;
@@ -1073,26 +1428,63 @@ export function DataTable<T>({
                   const isFocused = focusedRow === idx;
                   const customRowClass = rowClassName?.(row, globalIdx);
 
-                  return renderRow(row, key, globalIdx, idx, isPinned, isSelected, isStriped, isExpanded, isFocused, customRowClass);
+                  return renderRow(
+                    row,
+                    key,
+                    globalIdx,
+                    idx,
+                    isPinned,
+                    isSelected,
+                    isStriped,
+                    isExpanded,
+                    isFocused,
+                    customRowClass,
+                  );
                 })
               )}
 
               {/* Virtual scroll bottom spacer */}
               {virtualScroll && virtualEndIdx < displayRows.length && (
-                <tr><td colSpan={colSpan} style={{ height: (displayRows.length - virtualEndIdx) * virtualRowHeight, padding: 0 }} /></tr>
+                <tr>
+                  <td
+                    colSpan={colSpan}
+                    style={{
+                      height: (displayRows.length - virtualEndIdx) * virtualRowHeight,
+                      padding: 0,
+                    }}
+                  />
+                </tr>
               )}
 
               {/* Summary row */}
               {showSummary && !loading && displayRows.length > 0 && (
-                <tr className="bg-gray-50/80 font-semibold">
-                  {draggableRows && <td className={cn("border-t-2 border-border bg-gray-50/95", pad)} />}
-                  {showRowNumbers && <td className={cn("border-t-2 border-border bg-gray-50/95", pad)} />}
-                  {selectable && <td className={cn("sticky left-0 z-20 border-t-2 border-border bg-gray-50/95", pad)} />}
-                  {expandable && <td className={cn("border-t-2 border-border bg-gray-50/95", pad)} />}
+                <tr className="bg-background font-semibold">
+                  {draggableRows && (
+                    <td className={cn("border-t-2 border-border bg-background", pad)} />
+                  )}
+                  {showRowNumbers && (
+                    <td className={cn("border-t-2 border-border bg-background", pad)} />
+                  )}
+                  {selectable && (
+                    <td
+                      className={cn(
+                        "sticky left-0 z-20 border-t-2 border-border bg-background",
+                        pad,
+                      )}
+                    />
+                  )}
+                  {expandable && (
+                    <td className={cn("border-t-2 border-border bg-background", pad)} />
+                  )}
                   {columns.map((col) => (
                     <td
                       key={col.key}
-                      className={cn("border-t-2 border-border text-foreground", pad, alignClass[col.align ?? "left"], col.sticky && "sticky z-10 bg-gray-50/95")}
+                      className={cn(
+                        "border-t-2 border-border text-foreground",
+                        pad,
+                        alignClass[col.align ?? "left"],
+                        col.sticky && "sticky z-10 bg-background",
+                      )}
                       style={getColumnStyle(col)}
                     >
                       {col.aggregate ? col.aggregate(displayRows) : null}
@@ -1106,10 +1498,12 @@ export function DataTable<T>({
 
         {/* ── Footer ── */}
         {!loading && serverTotal > 0 && !virtualScroll && (
-          <div className="flex flex-col gap-3 border-t border-border bg-gray-50/60 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 border-t border-border bg-background px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               <span className="text-xs text-muted" aria-live="polite">
-                <span className="font-medium text-foreground">{rangeStart}–{rangeEnd}</span>
+                <span className="font-medium text-foreground">
+                  {rangeStart}–{rangeEnd}
+                </span>
                 <span> / 총 {serverTotal}개</span>
                 {!serverSide && displayRows.length !== data.length && (
                   <span className="text-muted-light"> (전체 {data.length}개 중 필터됨)</span>
@@ -1119,26 +1513,35 @@ export function DataTable<T>({
                 <select
                   value={pageSize}
                   onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-                  className="h-7 px-2 text-xs border border-border rounded-md outline-none cursor-pointer bg-white"
+                  className="h-7 px-2 text-xs border border-border rounded-lg outline-none cursor-pointer bg-card text-foreground transition-colors hover:border-muted-light focus-visible:border-primary focus-visible:shadow-[0_0_0_3px_var(--primary-glow)]"
                 >
                   {pageSizeOptions.map((s) => (
-                    <option key={s} value={s}>{s}개씩</option>
+                    <option key={s} value={s}>
+                      {s}개씩
+                    </option>
                   ))}
                 </select>
               )}
             </div>
             {totalPages > 1 && (
-              <Pagination page={currentPage} totalPages={totalPages} onChange={handlePageChange} className="justify-end" />
+              <Pagination
+                page={currentPage}
+                totalPages={totalPages}
+                onChange={handlePageChange}
+                className="justify-end"
+              />
             )}
           </div>
         )}
 
         {/* Virtual scroll info */}
         {virtualScroll && !loading && displayRows.length > 0 && (
-          <div className="flex items-center justify-between border-t border-border bg-gray-50/60 px-4 py-2.5">
+          <div className="flex items-center justify-between border-t border-border bg-background px-4 py-2.5">
             <span className="text-xs text-muted">
               총 <span className="font-medium text-foreground">{displayRows.length}</span>개
-              {displayRows.length !== data.length && <span className="text-muted-light"> (전체 {data.length}개 중 필터됨)</span>}
+              {displayRows.length !== data.length && (
+                <span className="text-muted-light"> (전체 {data.length}개 중 필터됨)</span>
+              )}
             </span>
           </div>
         )}
@@ -1147,15 +1550,18 @@ export function DataTable<T>({
       {/* ── Context menu ── */}
       {contextMenuState && (
         <div
-          className="fixed z-[9999] min-w-[160px] bg-white border border-border rounded-lg shadow-lg py-1 animate-fade-in-scale"
+          className="fixed z-[9999] min-w-[160px] bg-card border border-border rounded-xl shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-border-light py-1 animate-fade-in-scale motion-reduce:animate-none"
           style={{ left: contextMenuState.x, top: contextMenuState.y }}
           onMouseDown={(e) => e.stopPropagation()}
         >
           {/* Default: copy row key */}
           <button
             type="button"
-            onClick={() => { navigator.clipboard.writeText(rowKey(contextMenuState.row)); setContextMenuState(null); }}
-            className="w-full text-left px-3 py-1.5 text-xs cursor-pointer hover:bg-gray-50 flex items-center gap-2"
+            onClick={() => {
+              navigator.clipboard.writeText(rowKey(contextMenuState.row));
+              setContextMenuState(null);
+            }}
+            className="w-full text-left px-3 py-1.5 text-xs cursor-pointer transition-colors hover:bg-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset flex items-center gap-2"
           >
             <CopyIcon /> 복사
           </button>
@@ -1163,8 +1569,11 @@ export function DataTable<T>({
           {pinnableRows && (
             <button
               type="button"
-              onClick={() => { togglePin(rowKey(contextMenuState.row)); setContextMenuState(null); }}
-              className="w-full text-left px-3 py-1.5 text-xs cursor-pointer hover:bg-gray-50 flex items-center gap-2"
+              onClick={() => {
+                togglePin(rowKey(contextMenuState.row));
+                setContextMenuState(null);
+              }}
+              className="w-full text-left px-3 py-1.5 text-xs cursor-pointer transition-colors hover:bg-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset flex items-center gap-2"
             >
               <PinIcon active={pinnedKeys.has(rowKey(contextMenuState.row))} />
               {pinnedKeys.has(rowKey(contextMenuState.row)) ? "고정 해제" : "행 고정"}
@@ -1175,10 +1584,14 @@ export function DataTable<T>({
             <button
               key={i}
               type="button"
-              onClick={() => { item.onClick(); setContextMenuState(null); }}
+              onClick={() => {
+                item.onClick();
+                setContextMenuState(null);
+              }}
               className={cn(
-                "w-full text-left px-3 py-1.5 text-xs cursor-pointer hover:bg-gray-50",
-                item.danger && "text-danger hover:bg-danger/5",
+                "w-full text-left px-3 py-1.5 text-xs cursor-pointer transition-colors hover:bg-card-hover",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+                item.danger && "text-danger hover:bg-danger/10",
               )}
             >
               {item.label}

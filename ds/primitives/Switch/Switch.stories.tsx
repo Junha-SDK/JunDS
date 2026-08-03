@@ -21,8 +21,31 @@ const Interactive = (props: Parameters<typeof Switch>[0]) => {
   return <Switch {...props} checked={checked} onChange={setChecked} />;
 };
 
-export const Off: Story = { render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} checked={false} /> };
-export const On: Story = { render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} checked={true} /> };
-export const Small: Story = { args: { size: "sm" }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} checked={true} /> };
-export const Large: Story = { args: { size: "lg" }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} checked={true} /> };
-export const Disabled: Story = { args: { disabled: true }, render: (args: React.ComponentProps<typeof Interactive>) => <Interactive {...args} checked={true} /> };
+export const Off: Story = {
+  render: (args: React.ComponentProps<typeof Interactive>) => (
+    <Interactive {...args} checked={false} />
+  ),
+};
+export const On: Story = {
+  render: (args: React.ComponentProps<typeof Interactive>) => (
+    <Interactive {...args} checked={true} />
+  ),
+};
+export const Small: Story = {
+  args: { size: "sm" },
+  render: (args: React.ComponentProps<typeof Interactive>) => (
+    <Interactive {...args} checked={true} />
+  ),
+};
+export const Large: Story = {
+  args: { size: "lg" },
+  render: (args: React.ComponentProps<typeof Interactive>) => (
+    <Interactive {...args} checked={true} />
+  ),
+};
+export const Disabled: Story = {
+  args: { disabled: true },
+  render: (args: React.ComponentProps<typeof Interactive>) => (
+    <Interactive {...args} checked={true} />
+  ),
+};

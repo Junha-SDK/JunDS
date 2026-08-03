@@ -113,9 +113,7 @@ describe("ProjectDoc schema", () => {
       schemaVersion: 1 as const,
       id: "proj",
       name: "demo",
-      pages: [
-        { schemaVersion: 1 as const, id: "home", route: "/", tree: [] },
-      ],
+      pages: [{ schemaVersion: 1 as const, id: "home", route: "/", tree: [] }],
     };
     expect(parseProjectDoc(project)).toMatchObject({ id: "proj" });
   });

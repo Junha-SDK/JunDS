@@ -89,7 +89,9 @@ export class JdCommentThread extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdComment[];
@@ -224,7 +226,9 @@ export class JdCommentThread extends JdElement {
   /** 트리 안 모든 <time>을 now 기준 상대 표기로 갱신(connected 이후에만) */
   #applyRelativeTime(): void {
     const now = Date.now();
-    const times = this.#root.querySelectorAll<HTMLTimeElement>(".jd-comment-thread__time[datetime]");
+    const times = this.#root.querySelectorAll<HTMLTimeElement>(
+      ".jd-comment-thread__time[datetime]",
+    );
     times.forEach((t) => {
       const iso = t.getAttribute("datetime");
       if (iso) t.textContent = relativeShort(iso, now);

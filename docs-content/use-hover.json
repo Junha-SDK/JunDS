@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useHover",
   "oneLiner": "요소 호버 상태 감지.",
-  "tags": [
-    "hook",
-    "interaction",
-    "호버"
-  ],
+  "tags": ["hook", "interaction", "호버"],
   "controls": [],
   "snippets": {
     "web": null,

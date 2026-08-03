@@ -1,10 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { parsePageDoc } from "../../runtime/schema";
-import {
-  serialize,
-  deserialize,
-} from "../../../app/design-system/lab/_lib/adapter";
+import { serialize, deserialize } from "../../../app/design-system/lab/_lib/adapter";
 import type { LabState } from "../../../app/design-system/lab/_lib/types";
 
 function makeLabState(): LabState {
@@ -48,9 +45,7 @@ describe("Lab adapter", () => {
     const doc = serialize(state);
     const restored = deserialize(doc);
     expect(restored.rootIds).toEqual(state.rootIds);
-    expect(Object.keys(restored.nodes).sort()).toEqual(
-      Object.keys(state.nodes).sort(),
-    );
+    expect(Object.keys(restored.nodes).sort()).toEqual(Object.keys(state.nodes).sort());
     expect(restored.nodes.n2.parentId).toBe("n1");
     expect(restored.nodes.n2.children).toBe("Click me");
     expect(restored.nodes.n2.props.variant).toBe("primary");

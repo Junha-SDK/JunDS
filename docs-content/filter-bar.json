@@ -4,10 +4,7 @@
   "category": "patterns",
   "title": "FilterBar",
   "oneLiner": "필터 바",
-  "tags": [
-    "form",
-    "control"
-  ],
+  "tags": ["form", "control"],
   "controls": [],
   "snippets": {
     "web": null,

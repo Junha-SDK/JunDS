@@ -16,7 +16,11 @@ export default function SearchInputPage() {
       props={[
         { name: "value", type: "string", description: "controlled 입력 값" },
         { name: "onChange", type: "(value: string) => void", description: "입력 변경 시 호출" },
-        { name: "onSearch", type: "(value: string) => void", description: "디바운스 후 호출되는 검색 핸들러" },
+        {
+          name: "onSearch",
+          type: "(value: string) => void",
+          description: "디바운스 후 호출되는 검색 핸들러",
+        },
         { name: "placeholder", type: "string", default: '"검색..."', description: "플레이스홀더" },
         { name: "debounce", type: "number", default: "300", description: "디바운스 지연(ms)" },
         { name: "loading", type: "boolean", description: "로딩 스피너 표시" },

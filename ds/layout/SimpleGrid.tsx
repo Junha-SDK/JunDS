@@ -16,9 +16,7 @@ export const SimpleGrid = forwardRef<HTMLElement, SimpleGridProps>(
       ? `repeat(auto-fill, minmax(${minChildWidth}px, 1fr))`
       : cols;
 
-    return (
-      <Box ref={ref} display="grid" cols={resolvedCols} gap={gap} {...props} />
-    );
+    return <Box ref={ref} display="grid" cols={resolvedCols} gap={gap} {...props} />;
   },
 );
 

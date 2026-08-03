@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Textarea 데모 — 실컴포넌트 JdTextarea(SwiftUI)/JdTextareaView(UIKit).
 // 웹 error는 **메시지 없는 boolean**이다(jd-text-field의 메시지 문자열과 표면이 다름 — v2 실태).

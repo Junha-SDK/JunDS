@@ -36,14 +36,19 @@ export function OTPInput({
   const [values, setValues] = useState<string[]>(Array(length).fill(""));
   const refs = useRef<(HTMLInputElement | null)[]>([]);
 
-  const focus = (i: number) => { if (i >= 0 && i < length) refs.current[i]?.focus(); };
+  const focus = (i: number) => {
+    if (i >= 0 && i < length) refs.current[i]?.focus();
+  };
 
-  const update = useCallback((next: string[]) => {
-    setValues(next);
-    const code = next.join("");
-    onChange?.(code);
-    if (next.every((v) => v !== "")) onComplete?.(code);
-  }, [onChange, onComplete]);
+  const update = useCallback(
+    (next: string[]) => {
+      setValues(next);
+      const code = next.join("");
+      onChange?.(code);
+      if (next.every((v) => v !== "")) onComplete?.(code);
+    },
+    [onChange, onComplete],
+  );
 
   const handleInput = (i: number, v: string) => {
     if (disabled) return;
@@ -57,10 +62,14 @@ export function OTPInput({
   const handleKeyDown = (i: number, e: React.KeyboardEvent) => {
     if (e.key === "Backspace") {
       if (values[i]) {
-        const next = [...values]; next[i] = ""; update(next);
+        const next = [...values];
+        next[i] = "";
+        update(next);
       } else if (i > 0) {
         focus(i - 1);
-        const next = [...values]; next[i - 1] = ""; update(next);
+        const next = [...values];
+        next[i - 1] = "";
+        update(next);
       }
     } else if (e.key === "ArrowLeft") focus(i - 1);
     else if (e.key === "ArrowRight") focus(i + 1);
@@ -79,14 +88,20 @@ export function OTPInput({
   const half = Math.floor(length / 2);
 
   return (
-    <div className={cn("inline-flex items-center gap-1.5", className)} role="group" aria-label="인증 코드 입력">
+    <div
+      className={cn("inline-flex items-center gap-1.5", className)}
+      role="group"
+      aria-label="인증 코드 입력"
+    >
       {Array.from({ length }, (_, i) => (
         <span key={i} className="contents">
           {i === half && (
             <span className="w-2.5 h-0.5 bg-border rounded-full mx-1.5" aria-hidden="true" />
           )}
           <input
-            ref={(el) => { refs.current[i] = el; }}
+            ref={(el) => {
+              refs.current[i] = el;
+            }}
             type="text"
             inputMode="numeric"
             maxLength={1}
@@ -99,15 +114,18 @@ export function OTPInput({
             onPaste={handlePaste}
             onFocus={(e) => e.target.select()}
             className={cn(
-              "w-11 h-13 text-center text-xl font-bold border-2 rounded-xl bg-white",
-              "shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out outline-none",
+              "w-11 h-13 text-center text-xl font-bold border-2 rounded-xl bg-card text-foreground",
+              // 포커스에서 실제로 변하는 셋만 지목한다. 확대·부상은 움직임이므로 감속 요청을 받는다
+              "shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[transform,border-color,box-shadow] duration-200 ease-out outline-none",
+              "motion-reduce:transition-none motion-reduce:focus:scale-100 motion-reduce:focus:translate-y-0",
               "focus:border-primary focus:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)] focus:scale-105 focus:-translate-y-0.5",
               "disabled:opacity-50 disabled:cursor-not-allowed",
               error
-                ? "border-danger animate-[shake_0.3s_ease-in-out]"
+                ? // `shake` 키프레임이 이 저장소에 없다 — 없는 애니메이션 대신 위험 글로우로 오류를 말한다
+                  "border-danger shadow-[0_0_0_3px_rgba(220,63,63,0.18)]"
                 : values[i]
-                  ? "border-primary/50 bg-primary-light/20 shadow-[0_1px_3px_var(--primary-glow)]"
-                  : "border-border hover:border-gray-300",
+                ? "border-primary/50 bg-primary-light/20 shadow-[0_1px_3px_var(--primary-glow)]"
+                : "border-border hover:border-muted-light",
             )}
           />
         </span>

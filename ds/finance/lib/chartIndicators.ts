@@ -57,11 +57,7 @@ export interface BollingerSeries {
   lower: (number | null)[];
 }
 
-export function computeBollinger(
-  closes: number[],
-  period = 20,
-  stdDev = 2,
-): BollingerSeries {
+export function computeBollinger(closes: number[], period = 20, stdDev = 2): BollingerSeries {
   const mid = computeSMA(closes, period);
   const upper: (number | null)[] = [];
   const lower: (number | null)[] = [];
@@ -113,17 +109,12 @@ export function computeRSI(closes: number[], period = 14): (number | null)[] {
 /* ─────────────────────────── MACD ─────────────────────────── */
 
 export interface MacdSeries {
-  macd: (number | null)[];     // EMA(fast) - EMA(slow)
-  signal: (number | null)[];   // EMA(macd, signal)
-  histogram: (number | null)[];// macd - signal
+  macd: (number | null)[]; // EMA(fast) - EMA(slow)
+  signal: (number | null)[]; // EMA(macd, signal)
+  histogram: (number | null)[]; // macd - signal
 }
 
-export function computeMACD(
-  closes: number[],
-  fast = 12,
-  slow = 26,
-  signalPeriod = 9,
-): MacdSeries {
+export function computeMACD(closes: number[], fast = 12, slow = 26, signalPeriod = 9): MacdSeries {
   const emaFast = computeEMA(closes, fast);
   const emaSlow = computeEMA(closes, slow);
   const macd: (number | null)[] = closes.map((_, i) => {
@@ -206,11 +197,7 @@ export interface StochasticSeries {
  *   %K = (Close - LowestLow_n) / (HighestHigh_n - LowestLow_n) * 100
  *   %D = SMA(%K, smoothPeriod)
  */
-export function computeStochastic(
-  bars: Bar[],
-  period = 14,
-  smoothPeriod = 3,
-): StochasticSeries {
+export function computeStochastic(bars: Bar[], period = 14, smoothPeriod = 3): StochasticSeries {
   const k: (number | null)[] = new Array(bars.length).fill(null);
   for (let i = period - 1; i < bars.length; i++) {
     let hi = -Infinity;
@@ -332,10 +319,7 @@ export function computeATR(bars: Bar[], period = 14): (number | null)[] {
 /**
  * Williams %R — Stochastic 의 역방향. -100~0 범위, -80 이하 과매도 / -20 이상 과매수.
  */
-export function computeWilliamsR(
-  bars: Bar[],
-  period = 14,
-): (number | null)[] {
+export function computeWilliamsR(bars: Bar[], period = 14): (number | null)[] {
   const out: (number | null)[] = new Array(bars.length).fill(null);
   for (let i = period - 1; i < bars.length; i++) {
     let hi = -Infinity;
@@ -384,12 +368,7 @@ export interface IchimokuSeries {
   spanB: (number | null)[];
 }
 
-export function computeIchimoku(
-  bars: Bar[],
-  conv = 9,
-  baseP = 26,
-  spanBP = 52,
-): IchimokuSeries {
+export function computeIchimoku(bars: Bar[], conv = 9, baseP = 26, spanBP = 52): IchimokuSeries {
   const hl = (period: number, end: number): number | null => {
     if (end < period - 1) return null;
     let hi = -Infinity;
@@ -541,9 +520,21 @@ export function detectPatterns(bars: Bar[]): PatternHit[] {
     const b1 = ma20[i];
     if (a0 == null || a1 == null || b0 == null || b1 == null) continue;
     if (a0 <= b0 && a1 > b1) {
-      hits.push({ kind: "golden-cross", startIndex: i, endIndex: i, strength: 0.7, note: "MA5↑MA20" });
+      hits.push({
+        kind: "golden-cross",
+        startIndex: i,
+        endIndex: i,
+        strength: 0.7,
+        note: "MA5↑MA20",
+      });
     } else if (a0 >= b0 && a1 < b1) {
-      hits.push({ kind: "dead-cross", startIndex: i, endIndex: i, strength: 0.7, note: "MA5↓MA20" });
+      hits.push({
+        kind: "dead-cross",
+        startIndex: i,
+        endIndex: i,
+        strength: 0.7,
+        note: "MA5↓MA20",
+      });
     }
   }
   // Double top/bottom — pivot 비교 (가장 단순한 룰)
@@ -601,10 +592,7 @@ export interface VolumeProfileBin {
 /**
  * 가격대별 누적 거래량 분포. 차트 우측에 가로 바로 그려 지지·저항 시각화.
  */
-export function computeVolumeProfile(
-  bars: Bar[],
-  bins = 24,
-): VolumeProfileBin[] {
+export function computeVolumeProfile(bars: Bar[], bins = 24): VolumeProfileBin[] {
   if (bars.length === 0 || bins <= 0) return [];
   let min = Infinity;
   let max = -Infinity;

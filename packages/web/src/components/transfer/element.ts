@@ -103,10 +103,15 @@ export class JdTransfer extends JdElement {
     this.upgradeOwn("source");
     this.upgradeOwn("target");
     this.readJsonSlot();
-    if (!this.querySelector(':scope > .jd-transfer__panel[data-side="source"]')) this.buildSkeleton();
+    if (!this.querySelector(':scope > .jd-transfer__panel[data-side="source"]'))
+      this.buildSkeleton();
     this.panels = { source: this.readPanel("source"), target: this.readPanel("target") };
-    this.moveToTargetBtn = this.querySelector<HTMLButtonElement>('.jd-transfer__move[data-dir="to-target"]')!;
-    this.moveToSourceBtn = this.querySelector<HTMLButtonElement>('.jd-transfer__move[data-dir="to-source"]')!;
+    this.moveToTargetBtn = this.querySelector<HTMLButtonElement>(
+      '.jd-transfer__move[data-dir="to-target"]',
+    )!;
+    this.moveToSourceBtn = this.querySelector<HTMLButtonElement>(
+      '.jd-transfer__move[data-dir="to-source"]',
+    )!;
     // 내부 노드 리스너는 render 1회 — 노드와 수명을 같이 한다
     this.moveToTargetBtn.addEventListener("click", () => this.move("source", "target"));
     this.moveToSourceBtn.addEventListener("click", () => this.move("target", "source"));
@@ -128,10 +133,14 @@ export class JdTransfer extends JdElement {
   }
 
   protected readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
-      const parsed = JSON.parse(script.textContent) as Partial<Record<JdTransferSide, JdTransferItem[]>>;
+      const parsed = JSON.parse(script.textContent) as Partial<
+        Record<JdTransferSide, JdTransferItem[]>
+      >;
       if (Array.isArray(parsed.source)) this.lists.source = parsed.source;
       if (Array.isArray(parsed.target)) this.lists.target = parsed.target;
     } catch {
@@ -194,7 +203,9 @@ export class JdTransfer extends JdElement {
   }
 
   protected readPanel(side: JdTransferSide): PanelRefs {
-    const root = this.querySelector<HTMLElement>(`:scope > .jd-transfer__panel[data-side="${side}"]`)!;
+    const root = this.querySelector<HTMLElement>(
+      `:scope > .jd-transfer__panel[data-side="${side}"]`,
+    )!;
     return {
       root,
       title: root.querySelector<HTMLElement>(".jd-transfer__title")!,

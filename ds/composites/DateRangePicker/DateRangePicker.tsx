@@ -36,7 +36,11 @@ function formatDate(d: Date): string {
 }
 
 function isSameDay(a: Date, b: Date): boolean {
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
 }
 
 function getDaysInMonth(year: number, month: number): number {
@@ -67,7 +71,9 @@ export function DateRangePicker({
   const today = new Date();
   const [open, setOpen] = useState(false);
   const [leftMonth, setLeftMonth] = useState(
-    value.start ? new Date(value.start.getFullYear(), value.start.getMonth(), 1) : new Date(today.getFullYear(), today.getMonth(), 1),
+    value.start
+      ? new Date(value.start.getFullYear(), value.start.getMonth(), 1)
+      : new Date(today.getFullYear(), today.getMonth(), 1),
   );
   const [selecting, setSelecting] = useState<"start" | "end">("start");
   const [hoverDate, setHoverDate] = useState<Date | null>(null);
@@ -101,8 +107,10 @@ export function DateRangePicker({
   };
 
   const isDateDisabled = (date: Date): boolean => {
-    if (minDate && date < new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())) return true;
-    if (maxDate && date > new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())) return true;
+    if (minDate && date < new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate()))
+      return true;
+    if (maxDate && date > new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate()))
+      return true;
     return false;
   };
 
@@ -167,7 +175,9 @@ export function DateRangePicker({
         </div>
         <div className="grid grid-cols-7 text-center text-xs text-muted mb-1">
           {WEEKDAYS.map((w) => (
-            <div key={w} className="h-7 flex items-center justify-center">{w}</div>
+            <div key={w} className="h-7 flex items-center justify-center">
+              {w}
+            </div>
           ))}
         </div>
         <div className="grid grid-cols-7">
@@ -187,12 +197,15 @@ export function DateRangePicker({
                 onClick={() => handleDateClick(date)}
                 onMouseEnter={() => selecting === "end" && setHoverDate(date)}
                 className={cn(
-                  "h-8 text-sm transition-colors cursor-pointer relative",
-                  "hover:bg-gray-100",
+                  "h-8 text-sm tabular-nums transition-colors cursor-pointer relative",
+                  "hover:bg-muted/10 active:bg-muted/20",
+                  // 날짜 칸은 서로 붙어 있어 offset ring 이 이웃을 덮는다 — inset 으로 건다
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55 focus-visible:z-10",
                   isDisabled && "opacity-30 cursor-not-allowed hover:bg-transparent",
                   inRange && "bg-primary/10",
-                  (isStart || isEnd) && "bg-primary text-white hover:bg-primary/90 rounded-md font-medium",
-                  isToday && !isStart && !isEnd && "font-bold text-primary",
+                  (isStart || isEnd) &&
+                    "bg-primary text-white hover:bg-primary-hover rounded-lg font-medium shadow-[0_1px_3px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.2)]",
+                  isToday && !isStart && !isEnd && "font-bold text-primary-ink",
                 )}
               >
                 {date.getDate()}
@@ -209,17 +222,46 @@ export function DateRangePicker({
       <div
         ref={triggerRef}
         onClick={handleOpen}
+        // 트리거는 div 라 기본 포커스를 못 받는다 — 키보드로도 열 수 있어야
+        // focus-visible 링이 의미를 갖는다
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-disabled={disabled || undefined}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleOpen();
+          }
+        }}
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-white rounded-lg transition-all duration-150 cursor-pointer",
-          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "flex items-center gap-2 h-9 px-3 border bg-card rounded-xl cursor-pointer",
+          "shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-200 ease-out",
+          "focus-visible:outline-none focus-visible:border-primary focus-visible:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           disabled && "opacity-50 cursor-not-allowed",
-          open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
+          open
+            ? "border-primary shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]"
+            : "border-border hover:border-muted-light",
         )}
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted shrink-0">
-          <rect x="1.5" y="2.5" width="11" height="9.5" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+          <rect
+            x="1.5"
+            y="2.5"
+            width="11"
+            height="9.5"
+            rx="1.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          />
           <path d="M1.5 5.5h11" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M4.5 1v2M9.5 1v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path
+            d="M4.5 1v2M9.5 1v2"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
         </svg>
         <span className={cn("text-sm", displayValue ? "text-foreground" : "text-muted-light")}>
           {displayValue || placeholder}
@@ -230,7 +272,12 @@ export function DateRangePicker({
         <Portal>
           <div
             ref={ref}
-            className="fixed z-50 bg-white border border-border rounded-lg shadow-lg p-4 animate-fade-in-scale"
+            className={cn(
+              "fixed z-50 bg-card border border-border rounded-2xl p-4",
+              // 떠 있는 패널 — 한 겹 그림자는 유령이라 다층 + 얇은 링으로 세운다
+              "shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35),0_4px_10px_-4px_rgba(0,0,0,0.2)] ring-1 ring-black/[0.04]",
+              "animate-fade-in-scale motion-reduce:animate-none",
+            )}
             style={{ top: pos.top, left: pos.left }}
             onMouseLeave={() => setHoverDate(null)}
           >
@@ -238,25 +285,40 @@ export function DateRangePicker({
               <button
                 type="button"
                 onClick={handlePrevMonth}
-                className="p-1 rounded hover:bg-gray-100 transition-colors cursor-pointer"
+                aria-label="이전 달"
+                className="p-1 rounded-lg text-muted hover:bg-muted/10 hover:text-foreground active:bg-muted/20 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M10 4L6 8l4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
               <div className="flex-1" />
               <button
                 type="button"
                 onClick={handleNextMonth}
-                className="p-1 rounded hover:bg-gray-100 transition-colors cursor-pointer"
+                aria-label="다음 달"
+                className="p-1 rounded-lg text-muted hover:bg-muted/10 hover:text-foreground active:bg-muted/20 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M6 4l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>
 
-            <div className="flex gap-4">
+            {/* 달력 2개는 528px — 좁은 화면에서 뷰포트를 넘기지 않게 세로로 접는다 */}
+            <div className="flex flex-col sm:flex-row gap-4 max-w-[calc(100vw-2rem)] overflow-x-auto overscroll-x-contain">
               {renderCalendar(leftMonth)}
               {renderCalendar(rightMonth)}
             </div>

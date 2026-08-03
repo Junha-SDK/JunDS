@@ -14,6 +14,7 @@
 ## Scope
 
 **In scope**
+
 - `useResource(key, fetcher, options)` — SWR-style 캐시 + revalidate +
   windowFocus revalidation + invalidation
 - `useMutation(fn, { onSuccess, invalidates })` — POST/PUT/DELETE 표준화
@@ -22,6 +23,7 @@
 - 단일 모듈 캐시 (Map) — 컴포넌트 트리 외부에서도 invalidate 가능
 
 **Out of scope**
+
 - GraphQL 클라이언트 — 별도 라이브러리
 - offline-first sync (replication) — 후속 작업
 - WebSocket 실시간 — 호출자 측
@@ -29,13 +31,13 @@
 ## User stories / acceptance criteria
 
 - [x] **As a 개발자** I can `useResource(["user", id], () => fetchUser(id))`
-  한 줄로 캐싱+로딩+에러를 얻는다.
+      한 줄로 캐싱+로딩+에러를 얻는다.
 - [x] **As a 개발자** I can `useMutation(api.like, { invalidates: [["posts"]] })`
-  로 mutation 후 관련 목록을 자동 재검증할 수 있다.
+      로 mutation 후 관련 목록을 자동 재검증할 수 있다.
 - [x] **As a 사용자** I can 좋아요를 누르면 옵티미스틱 카운트가 즉시 +1,
-  서버 실패 시 자동으로 -1 롤백되는 것을 본다 (`useOptimisticState`).
+      서버 실패 시 자동으로 -1 롤백되는 것을 본다 (`useOptimisticState`).
 - [x] **As a 개발자** I can window focus 시 자동 재검증을 끄거나 켤 수 있다
-  (`revalidateOnFocus: false`).
+      (`revalidateOnFocus: false`).
 
 ## Design / behavior notes
 

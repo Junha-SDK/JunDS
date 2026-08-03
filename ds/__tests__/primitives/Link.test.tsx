@@ -4,7 +4,11 @@ import { Link } from "../../primitives/Link";
 
 describe("Link", () => {
   it("renders", () => {
-    const { container } = render(<Link href="/x" data-testid="root">link</Link>);
+    const { container } = render(
+      <Link href="/x" data-testid="root">
+        link
+      </Link>,
+    );
     expect(container.firstChild).toBeTruthy();
   });
 });

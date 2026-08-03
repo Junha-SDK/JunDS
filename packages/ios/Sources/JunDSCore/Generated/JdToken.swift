@@ -88,6 +88,7 @@ public enum JdToken {
         public static let surfaceOverlay = JdDynamicColor(light: 0x22203AFF, dark: 0x22203AFF)
         public static let onSurface = JdDynamicColor(light: 0xE4E2EEFF, dark: 0xE4E2EEFF)
         public static let onSurfaceMuted = JdDynamicColor(light: 0xA09CB5FF, dark: 0xA09CB5FF)
+        public static let primaryInk = JdDynamicColor(light: 0x5B4CC7FF, dark: 0x9580FAFF)
         public static let hueGray = JdDynamicColor(light: 0x6B6880FF, dark: 0x6B6880FF)
         public static let hueBlue = JdDynamicColor(light: 0x2563EBFF, dark: 0x2563EBFF)
         public static let hueGreen = JdDynamicColor(light: 0x157F47FF, dark: 0x157F47FF)
@@ -154,6 +155,7 @@ public enum JdToken {
         public static let full: CGFloat = 9999
     }
     public enum FontSize {
+        public static let xs2: CGFloat = 11
         public static let xs: CGFloat = 12
         public static let sm: CGFloat = 13
         public static let md: CGFloat = 14
@@ -184,6 +186,7 @@ public enum JdToken {
         public static let tight: CGFloat = -0.025
         public static let normal: CGFloat = 0
         public static let wide: CGFloat = 0.025
+        public static let wider: CGFloat = 0.08
     }
     public enum Duration {
         public static let instant: TimeInterval = 0
@@ -368,6 +371,16 @@ public enum JdToken {
         public static let heavy: CGFloat = 4
     }
     public enum Breakpoint {
+        public static let sm: CGFloat = 640
+        public static let md: CGFloat = 768
+        public static let lg: CGFloat = 1024
+        public static let xl: CGFloat = 1280
+        public static let xl2: CGFloat = 1536
+    }
+    /// 본문 폭 상한 — 웹 jd-container size 프리셋과 같은 값.
+    /// size=full은 "상한 없음"이라 여기 없다 (JdContainerSize.maxWidth가 nil로 표현).
+    public enum Container {
+        public static let xs: CGFloat = 512
         public static let sm: CGFloat = 640
         public static let md: CGFloat = 768
         public static let lg: CGFloat = 1024

@@ -12,10 +12,7 @@
  * `<time datetime>`로 기계 판독 날짜, 태그 목록은 실제 <ul>/<li>.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import blogPostStyles from "./blog-post.css.js";
@@ -32,7 +29,11 @@ function fmtDate(d: string): string {
   if (!d) return "";
   const date = new Date(d);
   if (Number.isNaN(date.getTime())) return d;
-  return new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "long", day: "numeric" }).format(date);
+  return new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
 }
 
 export class JdBlogPost extends JdElement {
@@ -115,9 +116,7 @@ export class JdBlogPost extends JdElement {
   #build(): void {
     const sidebar = this.querySelector<HTMLElement>(':scope > [slot="sidebar"]');
     const footerSlot = this.querySelector<HTMLElement>(':scope > [slot="footer"]');
-    const bodyNodes = Array.from(this.childNodes).filter(
-      (n) => n !== sidebar && n !== footerSlot,
-    );
+    const bodyNodes = Array.from(this.childNodes).filter((n) => n !== sidebar && n !== footerSlot);
 
     const header = document.createElement("header");
     header.className = "jd-blog-post__header";

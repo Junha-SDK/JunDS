@@ -37,7 +37,21 @@ export interface CartItemProps extends Omit<HTMLAttributes<HTMLDivElement>, "tit
  * @tags ecommerce
  */
 export const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartItem(
-  { title, variant, image, price, subtotal, quantity, onQuantityChange, min = 1, max, onRemove, disabled, className, ...props },
+  {
+    title,
+    variant,
+    image,
+    price,
+    subtotal,
+    quantity,
+    onQuantityChange,
+    min = 1,
+    max,
+    onRemove,
+    disabled,
+    className,
+    ...props
+  },
   ref,
 ) {
   const dec = () => onQuantityChange?.(Math.max(min, quantity - 1));
@@ -54,42 +68,67 @@ export const CartItem = forwardRef<HTMLDivElement, CartItemProps>(function CartI
       {...props}
     >
       {image && (
-        <div className="shrink-0 w-20 h-20 rounded-md overflow-hidden bg-surface-soft">
+        <div className="shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-surface-soft ring-1 ring-border-light">
           <img src={image} alt="" className="w-full h-full object-cover" />
         </div>
       )}
       <div className="flex-1 min-w-0">
         <h4 className="text-sm font-medium leading-snug truncate">{title}</h4>
         {variant && <div className="mt-0.5 text-xs text-muted truncate">{variant}</div>}
-        <div className="mt-2 text-sm text-muted">{price}</div>
+        <div className="mt-2 text-sm text-muted whitespace-nowrap tabular-nums">{price}</div>
         {onQuantityChange && (
-          <div className="mt-2 inline-flex items-center rounded-md border border-border overflow-hidden text-sm">
+          <div className="mt-2 inline-flex items-center rounded-xl border border-border bg-card overflow-hidden text-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]">
             <button
               type="button"
               onClick={dec}
               disabled={disabled || quantity <= min}
               aria-label="수량 감소"
-              className="w-8 h-8 flex items-center justify-center hover:bg-surface-soft disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >−</button>
-            <span className="w-10 text-center font-medium tabular-nums" aria-live="polite">{quantity}</span>
+              className={cn(
+                "w-8 h-8 flex items-center justify-center cursor-pointer transition-colors",
+                "hover:bg-surface-soft active:bg-border-light",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+                "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent",
+              )}
+            >
+              −
+            </button>
+            <span
+              className="w-10 text-center font-medium tabular-nums border-x border-border-light"
+              aria-live="polite"
+            >
+              {quantity}
+            </span>
             <button
               type="button"
               onClick={inc}
               disabled={disabled || (max !== undefined && quantity >= max)}
               aria-label="수량 증가"
-              className="w-8 h-8 flex items-center justify-center hover:bg-surface-soft disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >+</button>
+              className={cn(
+                "w-8 h-8 flex items-center justify-center cursor-pointer transition-colors",
+                "hover:bg-surface-soft active:bg-border-light",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+                "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent",
+              )}
+            >
+              +
+            </button>
           </div>
         )}
       </div>
       <div className="flex flex-col items-end gap-2 shrink-0">
-        {subtotal && <div className="text-sm font-semibold">{subtotal}</div>}
+        {subtotal && (
+          <div className="text-sm font-semibold whitespace-nowrap tabular-nums">{subtotal}</div>
+        )}
         {onRemove && (
           <button
             type="button"
             onClick={onRemove}
             aria-label="삭제"
-            className="text-xs text-muted hover:text-danger transition-colors cursor-pointer"
+            className={cn(
+              "-mx-1 rounded-lg px-1 py-0.5 text-xs text-muted cursor-pointer whitespace-nowrap",
+              "transition-colors hover:text-danger",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            )}
           >
             삭제
           </button>

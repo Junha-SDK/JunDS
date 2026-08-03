@@ -103,7 +103,10 @@ function dedent(raw: string): string {
 /** 블록 파서 — 결과는 DocumentFragment. 텍스트는 inline()이 이미 안전화했다 */
 function parse(md: string): DocumentFragment {
   const frag = document.createDocumentFragment();
-  const lines = md.replace(/\r\n?/g, "\n").replace(/\u0000/g, "").split("\n");
+  const lines = md
+    .replace(/\r\n?/g, "\n")
+    .replace(/\u0000/g, "")
+    .split("\n");
   let i = 0;
 
   const el = (tag: string, cls: string, html?: string): HTMLElement => {

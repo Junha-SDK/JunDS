@@ -55,9 +55,17 @@ export const ExifPanel = forwardRef<HTMLDListElement, ExifPanelProps>(
 
     if (compact) {
       return (
-        <div ref={ref as never} className={cn("flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted", className)}>
+        <div
+          ref={ref as never}
+          className={cn(
+            "flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted",
+            className,
+          )}
+        >
           {rows.map((r) => (
-            <span key={r.label}><span className="text-muted-light">{r.label}</span> {r.value}</span>
+            <span key={r.label}>
+              <span className="text-muted-light">{r.label}</span> {r.value}
+            </span>
           ))}
         </div>
       );

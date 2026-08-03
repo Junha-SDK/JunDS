@@ -29,7 +29,10 @@ const HEADING_SELECTOR = "h1[id], h2[id], h3[id]";
  *     </>
  *   );
  */
-export function useReadingProgress({ target, throttleMs = 50 }: UseReadingProgressOptions = {}): UseReadingProgressResult {
+export function useReadingProgress({
+  target,
+  throttleMs = 50,
+}: UseReadingProgressOptions = {}): UseReadingProgressResult {
   const [progress, setProgress] = useState(0);
   const [activeHeadingId, setActiveHeadingId] = useState<string | null>(null);
   const lastTick = useRef(0);

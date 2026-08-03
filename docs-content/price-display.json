@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "PriceDisplay",
   "oneLiner": "가격 표시 — 통화·할인 표기.",
-  "tags": [
-    "commerce",
-    "가격"
-  ],
+  "tags": ["commerce", "가격"],
   "controls": [],
   "snippets": {
     "web": null,

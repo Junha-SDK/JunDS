@@ -407,8 +407,8 @@ export class JdCandleChart extends JdChartBase {
   #bollingerData(): BollingerBands | null {
     const bb = this.#indicators.bollinger;
     if (!bb) return null;
-    const period = typeof bb === "object" ? (bb.period ?? 20) : 20;
-    const stdDev = typeof bb === "object" ? (bb.stdDev ?? 2) : 2;
+    const period = typeof bb === "object" ? bb.period ?? 20 : 20;
+    const stdDev = typeof bb === "object" ? bb.stdDev ?? 2 : 2;
     return bollinger(
       this.#display.map((c) => c.c),
       period,
@@ -825,7 +825,10 @@ export class JdCandleChart extends JdChartBase {
       }
       return;
     }
-    const idx = Math.max(0, Math.min(this.#display.length - 1, Math.round((x - l.padL) / l.slot - 0.5)));
+    const idx = Math.max(
+      0,
+      Math.min(this.#display.length - 1, Math.round((x - l.padL) / l.slot - 0.5)),
+    );
     if (idx === this.#hoverIdx) return;
     this.#hoverIdx = idx;
     this.#drawCrosshair();

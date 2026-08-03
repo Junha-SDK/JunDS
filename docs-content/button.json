@@ -4,34 +4,18 @@
   "category": "primitives",
   "title": "Button",
   "oneLiner": "범용 버튼 — variant 6종·size 4종, 로딩·비활성 상태 내장. 내부 네이티브 button 위임.",
-  "tags": [
-    "form",
-    "control",
-    "button"
-  ],
+  "tags": ["form", "control", "button"],
   "controls": [
     {
       "prop": "variant",
       "kind": "select",
-      "options": [
-        "primary",
-        "secondary",
-        "danger",
-        "ghost",
-        "outline",
-        "link"
-      ],
+      "options": ["primary", "secondary", "danger", "ghost", "outline", "link"],
       "default": "primary"
     },
     {
       "prop": "size",
       "kind": "segmented",
-      "options": [
-        "xs",
-        "sm",
-        "md",
-        "lg"
-      ],
+      "options": ["xs", "sm", "md", "lg"],
       "default": "md"
     },
     {

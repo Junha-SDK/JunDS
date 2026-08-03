@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-slider 동형 — 값 슬라이더 (DESIGN-2 §B1).
 // 웹이 네이티브 input[type=range]에 위임했듯 iOS도 시스템 Slider에 위임한다
@@ -22,14 +22,16 @@ public struct JdSlider: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(value: Binding<Double>,
-                in bounds: ClosedRange<Double> = 0...100,
-                step: Double = 1,
-                color: JdSliderColor = .primary,
-                size: JdToggleSize = .md,
-                showsValue: Bool = false,
-                marks: [JdSliderMark] = [],
-                format: ((Double) -> String)? = nil) {
+    public init(
+        value: Binding<Double>,
+        in bounds: ClosedRange<Double> = 0...100,
+        step: Double = 1,
+        color: JdSliderColor = .primary,
+        size: JdToggleSize = .md,
+        showsValue: Bool = false,
+        marks: [JdSliderMark] = [],
+        format: ((Double) -> String)? = nil
+    ) {
         self._value = value
         self.bounds = bounds
         self.spec = JdSliderSpec.resolve(size: size)
@@ -63,17 +65,23 @@ public struct JdSlider: View {
             Text(Self.plain(bounds.lowerBound))
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text(display(value))
-                .font(JdSwiftUIFont.scaled(size: spec.valueFontSize,
-                                           weight: JdToken.FontWeight.semibold,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.valueFontSize,
+                        weight: JdToken.FontWeight.semibold,
+                        category: sizeCategory)
+                )
                 .foregroundColor(JdToken.Color.foreground.color)
                 .frame(maxWidth: .infinity, alignment: .center)
             Text(Self.plain(bounds.upperBound))
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
-        .font(JdSwiftUIFont.scaled(size: spec.valueFontSize,
-                                   weight: JdToken.FontWeight.normal,
-                                   category: sizeCategory))
+        .font(
+            JdSwiftUIFont.scaled(
+                size: spec.valueFontSize,
+                weight: JdToken.FontWeight.normal,
+                category: sizeCategory)
+        )
         .foregroundColor(JdToken.Color.muted.color)
         // 슬라이더 자신이 값·최소·최대를 낭독하므로 헤더는 시각 중복 — 장식으로 숨긴다 (04 §7.1)
         .accessibilityHidden(true)
@@ -95,8 +103,10 @@ public struct JdSlider: View {
                 GeometryReader { proxy in
                     ForEach(Array(marks.enumerated()), id: \.offset) { entry in
                         markItem(entry.element)
-                            .position(x: proxy.size.width * CGFloat(axis.fraction(of: entry.element.value)),
-                                      y: proxy.size.height / 2)
+                            .position(
+                                x: proxy.size.width
+                                    * CGFloat(axis.fraction(of: entry.element.value)),
+                                y: proxy.size.height / 2)
                     }
                 }
             )
@@ -111,14 +121,17 @@ public struct JdSlider: View {
                 .frame(width: JdToken.Border.medium, height: JdToken.Space.s1_5)
             if let label = mark.label {
                 Text(label)
-                    .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .xs2).fontSize,
-                                               weight: JdToken.FontWeight.normal,
-                                               category: sizeCategory))
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: JdTextSpec.resolve(size: .xs2).fontSize,
+                            weight: JdToken.FontWeight.normal,
+                            category: sizeCategory)
+                    )
                     .foregroundColor(JdToken.Color.muted.color)
                     .fixedSize()
             }
         }
-        .padding(.top, JdToken.Space.s0_5) // 웹 틱 margin-top 2px
+        .padding(.top, JdToken.Space.s0_5)  // 웹 틱 margin-top 2px
     }
 
     // MARK: - 값 표기

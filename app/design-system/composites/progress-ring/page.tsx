@@ -14,8 +14,18 @@ export default function ProgressRingPage() {
         { name: "max", type: "number", default: "100", description: "최대값" },
         { name: "size", type: "number", default: "80", description: "지름(px)" },
         { name: "strokeWidth", type: "number", default: "6", description: "선 굵기(px)" },
-        { name: "color", type: "string", default: '"var(--primary)"', description: "진행 부분 색상" },
-        { name: "trackColor", type: "string", default: '"var(--border)"', description: "트랙 색상" },
+        {
+          name: "color",
+          type: "string",
+          default: '"var(--primary)"',
+          description: "진행 부분 색상",
+        },
+        {
+          name: "trackColor",
+          type: "string",
+          default: '"var(--border)"',
+          description: "트랙 색상",
+        },
         { name: "children", type: "ReactNode", description: "가운데 커스텀 콘텐츠" },
       ]}
     >

@@ -1,6 +1,7 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
 // 벤치 반복 수 — tools/bench-budgets.json의 perInstanceDivisor와 반드시 일치한다.
@@ -24,6 +25,7 @@ private let jdBenchCanvas = CGRect(x: 0, y: 0, width: 320, height: 4000)
 // UIKit 뷰 계층 생성 벤치 (05-perf §2.2, I1) — "뷰 계층 생성만 계측"이 규약이므로
 // 데이터 준비(라벨 텍스트·자식 뷰 생성)는 계측 창 밖에서 수행한다(웹 W5 규약의 iOS 등가).
 // 클래스 접두 JdBench = 러너의 채택 필터 — 이름을 바꾸면 러너가 결과를 버린다.
+@MainActor
 final class JdBenchUIKitTests: XCTestCase {
 
     // (a) JdButtonView init ×100 — resolve + 서브뷰 조립 + 자체 DSL 제약 설치까지가 init 비용

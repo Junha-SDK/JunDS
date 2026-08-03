@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "SpoilerBlock",
   "oneLiner": "블러 처리된 콘텐츠를 클릭으로 노출하는 스포일러 블록.",
-  "tags": [
-    "disclosure"
-  ],
+  "tags": ["disclosure"],
   "controls": [],
   "snippets": {
     "web": null,

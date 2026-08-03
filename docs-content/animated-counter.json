@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "AnimatedCounter",
   "oneLiner": "숫자가 부드럽게 증가/감소하며 표시되는 카운터.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

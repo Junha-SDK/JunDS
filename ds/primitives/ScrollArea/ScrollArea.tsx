@@ -37,8 +37,7 @@ const overflowMap: Record<ScrollOrientation, string> = {
  */
 export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
   ({ children, className, maxHeight, orientation = "vertical" }, ref) => {
-    const maxHeightStyle =
-      typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight;
+    const maxHeightStyle = typeof maxHeight === "number" ? `${maxHeight}px` : maxHeight;
 
     return (
       <div
@@ -50,13 +49,16 @@ export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
         className={cn(
           "relative",
           overflowMap[orientation],
-          /* 커스텀 스크롤바 */
+          /* 커스텀 스크롤바 — gray-300/400 은 라이트 전용이라 다크에서 배경에 묻힌다.
+             테마를 따라가는 muted 계열로 옮긴다 */
           "[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2",
           "[&::-webkit-scrollbar-track]:bg-transparent",
-          "[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300",
-          "[&::-webkit-scrollbar-thumb:hover]:bg-gray-400",
-          "scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-300",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1",
+          "[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted-light/50",
+          "[&::-webkit-scrollbar-thumb:hover]:bg-muted/60",
+          /* Firefox 는 ::-webkit-* 를 모른다 — 표준 속성으로 같은 모양을 준다
+             (`scrollbar-thin` 류는 tailwind-scrollbar 플러그인 전용인데 이 저장소엔 없다) */
+          "[scrollbar-width:thin] [scrollbar-color:var(--muted-light)_transparent]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           className,
         )}
         style={{ maxHeight: maxHeightStyle }}

@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ReadingGoal",
   "oneLiner": "독서 목표 진행 카드.",
-  "tags": [
-    "book",
-    "독서",
-    "목표"
-  ],
+  "tags": ["book", "독서", "목표"],
   "controls": [],
   "snippets": {
     "web": null,

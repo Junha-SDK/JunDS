@@ -14,9 +14,19 @@ export default function WatermarkPage() {
       importPath='import { Watermark } from "@/ds/composites/Watermark"'
       props={[
         { name: "text", type: "string", required: true, description: "워터마크 텍스트" },
-        { name: "children", type: "ReactNode", required: true, description: "워터마크가 적용될 콘텐츠" },
+        {
+          name: "children",
+          type: "ReactNode",
+          required: true,
+          description: "워터마크가 적용될 콘텐츠",
+        },
         { name: "fontSize", type: "number", default: "16", description: "폰트 크기 (px)" },
-        { name: "color", type: "string", default: '"rgba(0,0,0,0.08)"', description: "워터마크 색상" },
+        {
+          name: "color",
+          type: "string",
+          default: '"rgba(0,0,0,0.08)"',
+          description: "워터마크 색상",
+        },
         { name: "rotate", type: "number", default: "-22", description: "회전 각도" },
         { name: "gap", type: "number", default: "100", description: "워터마크 간격 (px)" },
       ]}
@@ -56,11 +66,18 @@ export default function WatermarkPage() {
 
       <Section title="색상 및 회전 커스터마이징">
         <Preview padding={false}>
-          <Watermark text="CONFIDENTIAL" color="rgba(239, 68, 68, 0.1)" rotate={-30} fontSize={20} gap={120}>
+          <Watermark
+            text="CONFIDENTIAL"
+            color="rgba(239, 68, 68, 0.1)"
+            rotate={-30}
+            fontSize={20}
+            gap={120}
+          >
             <div className="p-8 min-h-[200px]">
               <h3 className="text-lg font-semibold mb-2">기밀 문서</h3>
               <p className="text-sm text-muted">
-                빨간색 워터마크가 -30도 각도로 표시됩니다. 색상, 회전 각도, 폰트 크기를 자유롭게 조절할 수 있습니다.
+                빨간색 워터마크가 -30도 각도로 표시됩니다. 색상, 회전 각도, 폰트 크기를 자유롭게
+                조절할 수 있습니다.
               </p>
             </div>
           </Watermark>

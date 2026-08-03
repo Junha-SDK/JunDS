@@ -27,7 +27,11 @@ export interface GaugeChartProps {
  * @tags chart
  */
 export function GaugeChart({
-  value, min = 0, max = 100, label, size = 160,
+  value,
+  min = 0,
+  max = 100,
+  label,
+  size = 160,
   segments = [
     { color: "var(--danger)", from: 0, to: 33 },
     { color: "var(--warning)", from: 33, to: 66 },
@@ -62,15 +66,49 @@ export function GaugeChart({
     <div className={cn("inline-block", className)}>
       <svg width={size} height={size * 0.7} viewBox={`0 0 ${size} ${size * 0.7 + 20}`}>
         {segments.map((seg, i) => (
-          <path key={i} d={describeArc(seg.from / 100, seg.to / 100)} fill="none" stroke={seg.color} strokeWidth={10} strokeLinecap="round" opacity={0.2} />
+          <path
+            key={i}
+            d={describeArc(seg.from / 100, seg.to / 100)}
+            fill="none"
+            stroke={seg.color}
+            strokeWidth={10}
+            strokeLinecap="round"
+            opacity={0.2}
+          />
         ))}
-        <path d={describeArc(0, pct)} fill="none" stroke={activeSegment?.color ?? "var(--primary)"} strokeWidth={10} strokeLinecap="round" />
+        <path
+          d={describeArc(0, pct)}
+          fill="none"
+          stroke={activeSegment?.color ?? "var(--primary)"}
+          strokeWidth={10}
+          strokeLinecap="round"
+        />
         {/* Needle */}
-        <line x1={cx} y1={cy} x2={needleTip.x} y2={needleTip.y} stroke="var(--foreground)" strokeWidth={2} strokeLinecap="round" />
+        <line
+          x1={cx}
+          y1={cy}
+          x2={needleTip.x}
+          y2={needleTip.y}
+          stroke="var(--foreground)"
+          strokeWidth={2}
+          strokeLinecap="round"
+        />
         <circle cx={cx} cy={cy} r={4} fill="var(--foreground)" />
         {/* Value */}
-        <text x={cx} y={cy + 24} textAnchor="middle" className="text-lg font-bold" fill="currentColor">{value}</text>
-        {label && <text x={cx} y={cy + 38} textAnchor="middle" className="text-[10px]" fill="var(--muted)">{label}</text>}
+        <text
+          x={cx}
+          y={cy + 24}
+          textAnchor="middle"
+          className="text-lg font-bold"
+          fill="currentColor"
+        >
+          {value}
+        </text>
+        {label && (
+          <text x={cx} y={cy + 38} textAnchor="middle" className="text-[10px]" fill="var(--muted)">
+            {label}
+          </text>
+        )}
       </svg>
     </div>
   );

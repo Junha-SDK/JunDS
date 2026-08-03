@@ -15,10 +15,7 @@ describe("DocPager", () => {
 
   it("renders both links with their labels", () => {
     render(
-      <DocPager
-        prev={{ href: "/a", title: "앞 문서" }}
-        next={{ href: "/b", title: "뒤 문서" }}
-      />,
+      <DocPager prev={{ href: "/a", title: "앞 문서" }} next={{ href: "/b", title: "뒤 문서" }} />,
     );
     expect(screen.getByText("앞 문서")).toBeInTheDocument();
     expect(screen.getByText("뒤 문서")).toBeInTheDocument();

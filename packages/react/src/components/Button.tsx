@@ -29,25 +29,9 @@ export type { ButtonProps, ButtonSize, ButtonVariant } from "./Button.types.js";
 /** CE의 SPINNER_SVG와 동형 — 입양 골격의 SSR 완성 상태(§11-4)를 위해 어댑터가 선렌더 */
 function Spinner() {
   return (
-    <svg
-      className="jd-button__spinner"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <circle
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="3"
-        opacity=".25"
-      />
-      <path
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-        opacity=".75"
-      />
+    <svg className="jd-button__spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" opacity=".25" />
+      <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" opacity=".75" />
     </svg>
   );
 }
@@ -110,9 +94,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <span style={{ flexShrink: 0 }}>{leftIcon}</span>
           ) : null}
           <Slottable>{children}</Slottable>
-          {rightIcon && !loading ? (
-            <span style={{ flexShrink: 0 }}>{rightIcon}</span>
-          ) : null}
+          {rightIcon && !loading ? <span style={{ flexShrink: 0 }}>{rightIcon}</span> : null}
         </Slot>
       );
     }
@@ -144,9 +126,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <span style={{ flexShrink: 0 }}>{leftIcon}</span>
           ) : null}
           {children}
-          {rightIcon && !loading ? (
-            <span style={{ flexShrink: 0 }}>{rightIcon}</span>
-          ) : null}
+          {rightIcon && !loading ? <span style={{ flexShrink: 0 }}>{rightIcon}</span> : null}
         </button>
       </jd-button>
     );

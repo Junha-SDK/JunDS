@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-tag 동형 — 태그/칩 (DESIGN-2 §B2).
 // 웹은 closable 어트리뷰트 + jd-remove 사후 통지지만, iOS는 콜백 유무가 곧 닫기 버튼 유무다
@@ -16,9 +16,11 @@ public struct JdTag: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ text: String,
-                color: JdTagColor = .gray,
-                onRemove: (() -> Void)? = nil) {
+    public init(
+        _ text: String,
+        color: JdTagColor = .gray,
+        onRemove: (() -> Void)? = nil
+    ) {
         self.text = text
         self.spec = JdTagSpec.resolve(color: color)
         self.onRemove = onRemove
@@ -27,10 +29,13 @@ public struct JdTag: View {
     public var body: some View {
         HStack(spacing: spec.gap) {
             Text(text)
-                .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                           weight: spec.fontWeight,
-                                           category: sizeCategory))
-                .lineLimit(1) // 웹 white-space: nowrap
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.fontSize,
+                        weight: spec.fontWeight,
+                        category: sizeCategory)
+                )
+                .lineLimit(1)  // 웹 white-space: nowrap
             if let onRemove {
                 removeButton(onRemove)
             }
@@ -49,11 +54,13 @@ public struct JdTag: View {
     private func removeButton(_ action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: "xmark")
-                .font(JdSwiftUIFont.scaled(size: spec.closeIconSize,
-                                           weight: JdToken.FontWeight.semibold,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: spec.closeIconSize,
+                        weight: JdToken.FontWeight.semibold,
+                        category: sizeCategory))
         }
-        .buttonStyle(.plain) // 웹 background: transparent; color: inherit
+        .buttonStyle(.plain)  // 웹 background: transparent; color: inherit
         .accessibilityLabel(Text(Self.removeLabel))
     }
 }

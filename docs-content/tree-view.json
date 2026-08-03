@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "TreeView",
   "oneLiner": "트리뷰 컴포넌트 — 파일 탐색기 스타일의 트리 구조",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

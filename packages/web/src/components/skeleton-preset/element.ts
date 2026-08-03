@@ -82,19 +82,11 @@ export class JdSkeletonPreset extends JdElement {
         break;
       }
       case "profile": {
-        this.append(
-          block("avatar"),
-          group("body", block("name"), block("meta")),
-        );
+        this.append(block("avatar"), group("body", block("name"), block("meta")));
         break;
       }
       case "article": {
-        const para = group(
-          "para",
-          block("p"),
-          block("p"),
-          block("p"),
-        );
+        const para = group("para", block("p"), block("p"), block("p"));
         // v2 마지막 줄 w-5/6 — 치수는 CSS가 [data-last]로 잡는다
         para.lastElementChild?.setAttribute("data-last", "");
         this.append(
@@ -108,11 +100,7 @@ export class JdSkeletonPreset extends JdElement {
       case "list": {
         for (let r = 0; r < rows; r++) {
           this.append(
-            group(
-              "item",
-              block("icon"),
-              group("body", block("item-title"), block("item-sub")),
-            ),
+            group("item", block("icon"), group("body", block("item-title"), block("item-sub"))),
           );
         }
         break;

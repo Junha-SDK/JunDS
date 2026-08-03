@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "SpotlightCard",
   "oneLiner": "마우스 위치에 스포트라이트 글로우가 따라오는 카드.",
-  "tags": [
-    "layout"
-  ],
+  "tags": ["layout"],
   "controls": [],
   "snippets": {
     "web": null,

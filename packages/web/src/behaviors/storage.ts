@@ -30,8 +30,8 @@ export function createStoredValue<T>(
     typeof window === "undefined"
       ? null
       : opts.storage === "session"
-        ? window.sessionStorage
-        : window.localStorage;
+      ? window.sessionStorage
+      : window.localStorage;
 
   const read = (): T => {
     if (!area) return initial;
@@ -112,7 +112,8 @@ export function setCookie(name: string, value: string, opts: CookieOptions = {})
   if (typeof document === "undefined") return;
   let str = `${name}=${encodeURIComponent(value)}`;
   const expires =
-    opts.expires ?? (opts.days !== undefined ? new Date(Date.now() + opts.days * 86_400_000) : undefined);
+    opts.expires ??
+    (opts.days !== undefined ? new Date(Date.now() + opts.days * 86_400_000) : undefined);
   if (expires) str += `; expires=${expires.toUTCString()}`;
   str += `; path=${opts.path ?? "/"}`;
   if (opts.domain) str += `; domain=${opts.domain}`;

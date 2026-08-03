@@ -1,8 +1,10 @@
-import XCTest
-import UIKit
 import JunDSCore
+import UIKit
+import XCTest
+
 @testable import JunDSUIKit
 
+@MainActor
 final class JdStackViewTests: XCTestCase {
 
     // 기본값 3케이스 — 웹 jd-vstack 동형: column·gap md(16)·stretch(→.fill)
@@ -47,6 +49,7 @@ final class JdStackViewTests: XCTestCase {
     }
 }
 
+@MainActor
 final class JdDividerViewTests: XCTestCase {
 
     // 선 두께는 intrinsic으로 축 고정(1pt = JdToken.Border.thin), 길이 축은 소비자 몫

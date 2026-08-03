@@ -34,15 +34,9 @@ export async function mount(
  * 건너뛰며, Option+Tab이 모든 컨트롤을 순회한다. 그 차이를 테스트 실패로
  * 오인하지 않도록 실제 사용자 키 조합을 브라우저/플랫폼에 맞춘다.
  */
-export async function pressTab(
-  page: Page,
-  browserName: string,
-  reverse = false,
-): Promise<void> {
+export async function pressTab(page: Page, browserName: string, reverse = false): Promise<void> {
   const keys = [
-    ...(browserName === "webkit" && process.platform === "darwin"
-      ? ["Alt"]
-      : []),
+    ...(browserName === "webkit" && process.platform === "darwin" ? ["Alt"] : []),
     ...(reverse ? ["Shift"] : []),
     "Tab",
   ];

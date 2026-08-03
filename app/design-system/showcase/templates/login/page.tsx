@@ -19,10 +19,16 @@ export default function LoginTemplate() {
         {/* Logo */}
         <VStack align="center" className="mb-8">
           <Flex align="center" justify="center" className="w-12 h-12 bg-primary rounded-2xl mb-4">
-            <Text className="text-white" fontWeight="bold" fontSize="lg">J</Text>
+            <Text className="text-white" fontWeight="bold" fontSize="lg">
+              J
+            </Text>
           </Flex>
-          <Heading level={1} className="text-xl">다시 오신 것을 환영합니다</Heading>
-          <Text fontSize="sm" dimmed className="mt-1">계정에 로그인하세요</Text>
+          <Heading level={1} className="text-xl">
+            다시 오신 것을 환영합니다
+          </Heading>
+          <Text fontSize="sm" dimmed className="mt-1">
+            계정에 로그인하세요
+          </Text>
         </VStack>
 
         <Card>
@@ -54,9 +60,7 @@ export default function LoginTemplate() {
                   onChange={(e) => setRemember(e.target.checked)}
                   label="로그인 유지"
                 />
-                <button className="text-xs text-primary hover:underline">
-                  비밀번호 찾기
-                </button>
+                <button className="text-xs text-primary-ink hover:underline">비밀번호 찾기</button>
               </Flex>
 
               <Button variant="primary" size="md" fullWidth>
@@ -80,9 +84,7 @@ export default function LoginTemplate() {
         <Text className="text-center" fontSize="xs" dimmed>
           <Box className="mt-6">
             계정이 없으신가요?{" "}
-            <button className="text-primary font-semibold hover:underline">
-              회원가입
-            </button>
+            <button className="text-primary-ink font-semibold hover:underline">회원가입</button>
           </Box>
         </Text>
       </Box>
@@ -90,7 +92,15 @@ export default function LoginTemplate() {
       {/* Code */}
       <Box as="details" className="rounded-2xl border border-border bg-white overflow-hidden">
         <summary className="px-5 py-3 text-sm font-semibold cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-2">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted"><path d="M4.5 3L1.5 7l3 4M9.5 3l3 4-3 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted">
+            <path
+              d="M4.5 3L1.5 7l3 4M9.5 3l3 4-3 4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
           코드 보기
         </summary>
         <pre className="p-5 text-xs font-mono text-gray-300 bg-gray-950 overflow-x-auto leading-relaxed border-t border-border max-h-[500px] overflow-y-auto">

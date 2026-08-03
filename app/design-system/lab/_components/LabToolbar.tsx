@@ -85,9 +85,7 @@ export function LabToolbar() {
         </div>
       </header>
 
-      {showExporter && (
-        <CodeExporter onClose={() => setShowExporter(false)} />
-      )}
+      {showExporter && <CodeExporter onClose={() => setShowExporter(false)} />}
     </>
   );
 }

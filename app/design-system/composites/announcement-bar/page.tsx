@@ -13,7 +13,11 @@ export default function AnnouncementBarPage() {
     >
       <Section title="Default">
         <Preview>
-          <AnnouncementBar message="🎉 새로운 기능이 출시되었습니다" ctaLabel="자세히" ctaHref="#" />
+          <AnnouncementBar
+            message="🎉 새로운 기능이 출시되었습니다"
+            ctaLabel="자세히"
+            ctaHref="#"
+          />
         </Preview>
       </Section>
     </ComponentPage>

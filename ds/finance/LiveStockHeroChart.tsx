@@ -89,15 +89,22 @@ export function LiveStockHeroChart({
   // 3. 가격 라더 markers — strategyFor 의 B1/B2/B3 + T2 + 현재가
   const markers = useMemo<MarkerLine[]>(() => {
     const s = strategyFor(symbol);
+    // T2·B3 만 하드코딩된 보라(#8b5cf6/#7c3aed)였다 — 같은 차트의 다른 선들은 이미
+    // bm 토큰을 쓴다. 두 보라의 관계(밝은 것/어두운 것)는 color-mix 로 유지한 채
+    // 테마 강조색을 따르게 한다.
     return [
       {
         label: s.takeProfitZones[1]?.label ?? "T2",
         price: s.takeProfitZones[1]?.price ?? 0,
-        color: "#8b5cf6",
+        color: "var(--bm-accent-strong)",
       },
       { label: s.buyZones[0].label, price: s.buyZones[0].price, color: "var(--bm-success)" },
       { label: s.buyZones[1].label, price: s.buyZones[1].price, color: "var(--bm-down)" },
-      { label: s.buyZones[2].label, price: s.buyZones[2].price, color: "#7c3aed" },
+      {
+        label: s.buyZones[2].label,
+        price: s.buyZones[2].price,
+        color: "color-mix(in srgb, var(--bm-accent-strong) 78%, black)",
+      },
     ];
   }, [symbol]);
 
@@ -125,7 +132,10 @@ export function LiveStockHeroChart({
   return (
     <div className="relative">
       {/* LIVE 배지 */}
-      <div className="absolute top-2 left-2 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-full backdrop-blur" style={{ background: "color-mix(in srgb, var(--bm-card) 80%, transparent)" }}>
+      <div
+        className="absolute top-2 left-2 z-10 flex items-center gap-1.5 px-2 py-0.5 rounded-full backdrop-blur"
+        style={{ background: "color-mix(in srgb, var(--bm-card) 80%, transparent)" }}
+      >
         <span className="relative flex size-2">
           <span
             className="absolute inline-flex h-full w-full rounded-full opacity-75"

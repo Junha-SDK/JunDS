@@ -42,9 +42,7 @@ function stripJsDocLine(line) {
  * structured object: `{ description, status, since, tags, example }`.
  */
 function parseJsDocBlock(rawBlock) {
-  const inner = rawBlock
-    .replace(/^\/\*\*\s*\n?/, "")
-    .replace(/\s*\*\/\s*$/, "");
+  const inner = rawBlock.replace(/^\/\*\*\s*\n?/, "").replace(/\s*\*\/\s*$/, "");
   const lines = inner.split("\n").map(stripJsDocLine);
 
   const result = {
@@ -182,7 +180,9 @@ function readComponentDoc(file, name) {
 
 /** Escape pipes in markdown table cells. */
 function tcell(s) {
-  return String(s ?? "").replace(/\|/g, "\\|").replace(/\n/g, " ");
+  return String(s ?? "")
+    .replace(/\|/g, "\\|")
+    .replace(/\n/g, " ");
 }
 
 /** Trim & flatten verbose prop descriptions to the first sentence/line. */
@@ -228,7 +228,9 @@ function kindDir(kind) {
 /** Clean the giant `import("/abs/path/...").ReactNode` style types. */
 function cleanType(t) {
   if (!t) return "";
-  return String(t).replace(/import\("[^"]+"\)\./g, "").trim();
+  return String(t)
+    .replace(/import\("[^"]+"\)\./g, "")
+    .trim();
 }
 
 /* ──────────────────────────── hooks ──────────────────────────── */
@@ -241,12 +243,8 @@ function readHookDescription(hookName) {
   // Look for the JSDoc that sits immediately above `export function <hookName>` /
   // `export const <hookName>`.
   const blocks = collectJsDocBlocks(src);
-  const reNamed = new RegExp(
-    `^export\\s+(?:function|const|class)\\s+${hookName}\\b`,
-  );
-  const named = jsDocImmediatelyBefore(src, blocks, (tail) =>
-    reNamed.test(tail),
-  );
+  const reNamed = new RegExp(`^export\\s+(?:function|const|class)\\s+${hookName}\\b`);
+  const named = jsDocImmediatelyBefore(src, blocks, (tail) => reNamed.test(tail));
   if (named) {
     const parsed = parseJsDocBlock(named.text);
     if (parsed.description) return parsed.description.split("\n")[0].trim();
@@ -271,7 +269,10 @@ function readPublicHooks() {
   while ((m = re.exec(src))) {
     const inside = m[1];
     for (const part of inside.split(",")) {
-      const id = part.trim().split(/\s+as\s+/)[0].trim();
+      const id = part
+        .trim()
+        .split(/\s+as\s+/)[0]
+        .trim();
       if (id && id.startsWith("use") && !seen.has(id)) {
         seen.add(id);
         names.push(id);
@@ -287,11 +288,12 @@ function buildPropsTable(props) {
   if (!props || props.length === 0) {
     return "_props 없음_\n";
   }
-  const head =
-    "| Prop | Type | Required | Description |\n|------|------|:--------:|-------------|";
+  const head = "| Prop | Type | Required | Description |\n|------|------|:--------:|-------------|";
   const rows = props.map((p) => {
     const required = p.optional ? "" : "✓";
-    return `| \`${tcell(p.name)}\` | \`${tcell(cleanType(p.type))}\` | ${required} | ${tcell(shortDesc(p.description))} |`;
+    return `| \`${tcell(p.name)}\` | \`${tcell(cleanType(p.type))}\` | ${required} | ${tcell(
+      shortDesc(p.description),
+    )} |`;
   });
   return [head, ...rows].join("\n");
 }
@@ -307,9 +309,7 @@ function buildComponentSection(c, doc) {
   if (tags) meta.push(tags);
   if (meta.length) headerBits.push(meta.join(" — "));
 
-  const description = doc.description
-    ? doc.description.split("\n")[0].trim()
-    : "";
+  const description = doc.description ? doc.description.split("\n")[0].trim() : "";
 
   const lines = [];
   lines.push(headerBits.join("\n\n"));
@@ -336,9 +336,7 @@ function buildComponentSection(c, doc) {
 
 function buildHooksTable(hookNames) {
   const head = "| Hook | Description |\n|------|-------------|";
-  const rows = hookNames.map(
-    (h) => `| \`${h}\` | ${tcell(shortDesc(readHookDescription(h)))} |`,
-  );
+  const rows = hookNames.map((h) => `| \`${h}\` | ${tcell(shortDesc(readHookDescription(h)))} |`);
   return [head, ...rows].join("\n");
 }
 
@@ -353,11 +351,7 @@ function buildToc(byKind) {
     const list = byKind[kind] ?? [];
     if (!list.length) continue;
     const title =
-      kind === "primitive"
-        ? "Primitives"
-        : kind === "composite"
-          ? "Composites"
-          : "Patterns";
+      kind === "primitive" ? "Primitives" : kind === "composite" ? "Composites" : "Patterns";
     lines.push(`- [${title}](#${slug(title)})`);
     for (const c of list) {
       lines.push(`  - [${c.name}](#${slug(c.name)})`);
@@ -378,10 +372,7 @@ function buildKindSection(kind, components, kindTitle) {
     lines.push("");
   }
   // Trim the trailing separator.
-  while (
-    lines.length &&
-    (lines[lines.length - 1] === "---" || lines[lines.length - 1] === "")
-  ) {
+  while (lines.length && (lines[lines.length - 1] === "---" || lines[lines.length - 1] === "")) {
     lines.pop();
   }
   return lines.join("\n");
@@ -429,9 +420,7 @@ function main() {
   const out = [];
   out.push("# junDS — 디자인 시스템 컴포넌트 레퍼런스");
   out.push("");
-  out.push(
-    "> 이 문서는 `.ai/props.json`과 컴포넌트 소스의 JSDoc을 토대로 자동 생성됩니다.",
-  );
+  out.push("> 이 문서는 `.ai/props.json`과 컴포넌트 소스의 JSDoc을 토대로 자동 생성됩니다.");
   out.push(
     "> **수정하지 마세요.** 컴포넌트 props를 변경하면 `npm run extract-props && npm run docs:components`를 실행하세요.",
   );
@@ -446,9 +435,7 @@ function main() {
   out.push(UTILS_BLOCK);
   out.push("## 공용 Hooks");
   out.push("");
-  out.push(
-    "모든 hook은 `@/ds/hooks`에서 import. 자세한 시그니처는 소스의 JSDoc을 참고하세요.",
-  );
+  out.push("모든 hook은 `@/ds/hooks`에서 import. 자세한 시그니처는 소스의 JSDoc을 참고하세요.");
   out.push("");
   out.push(buildHooksTable(hooks));
   out.push("");

@@ -185,9 +185,7 @@ function extractOwnProps(decl, checker) {
 
     let typeText = "unknown";
     try {
-      const type = m.type
-        ? checker.getTypeFromTypeNode(m.type)
-        : checker.getTypeAtLocation(m);
+      const type = m.type ? checker.getTypeFromTypeNode(m.type) : checker.getTypeAtLocation(m);
       typeText = checker
         .typeToString(
           type,
@@ -342,10 +340,7 @@ async function mtimeOf(p) {
  * tsconfig, and package.json (for the `since` fallback).
  */
 async function buildSignature(allComponents) {
-  const probes = [
-    path.join(repoRoot, "tsconfig.json"),
-    path.join(repoRoot, "package.json"),
-  ];
+  const probes = [path.join(repoRoot, "tsconfig.json"), path.join(repoRoot, "package.json")];
   for (const c of allComponents) {
     probes.push(c.abs);
     probes.push(c.abs.replace(/\.tsx$/, ".types.ts"));
@@ -394,7 +389,9 @@ async function main() {
       await stat(outFile);
       const ms = Date.now() - t0;
       console.log(
-        `[extract-props] up-to-date — ${cache.componentCount ?? "?"} components (${ms}ms, mtime cache hit)`,
+        `[extract-props] up-to-date — ${
+          cache.componentCount ?? "?"
+        } components (${ms}ms, mtime cache hit)`,
       );
       return;
     } catch {
@@ -412,11 +409,7 @@ async function main() {
         ts.flattenDiagnosticMessageText(cfgFile.error.messageText, "\n"),
     );
   }
-  const parsed = ts.parseJsonConfigFileContent(
-    cfgFile.config,
-    ts.sys,
-    repoRoot,
-  );
+  const parsed = ts.parseJsonConfigFileContent(cfgFile.config, ts.sys, repoRoot);
 
   // Make sure every component file (and its sibling .types.ts) is in the
   // program even if the include globs would otherwise miss it.

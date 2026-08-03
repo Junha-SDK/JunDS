@@ -4,6 +4,7 @@
  * (실브라우저 표시 전환은 데모 puppeteer 검증 몫).
  */
 import { beforeEach, expect, test } from "vitest";
+import { squish } from "./css-text.js";
 import "../src/components/show/index.js";
 import { JdHide, JdShow } from "../src/components/show/element.js";
 import showStyles from "../src/components/show/show.css.js";
@@ -15,21 +16,29 @@ beforeEach(() => {
 });
 
 test("display:contents 기본 — 레이아웃 무개입 (v2 래퍼 없는 렌더 등가)", () => {
-  expect(showStyles.text).toContain("jd-show, jd-hide { display: contents; }");
+  expect(squish(showStyles.text)).toContain(squish("jd-show, jd-hide { display: contents; }"));
 });
 
 test("above/below 규칙이 v2 BREAKPOINTS 전 구간을 커버", () => {
   // show[above=md]: 768 미만 숨김 / show[below=md]: 768 이상 숨김
-  expect(showStyles.text).toContain('@media (max-width: 767.98px)  { jd-show[above="md"]  { display: none; } }');
-  expect(showStyles.text).toContain('@media (min-width: 768px)  { jd-show[below="md"]  { display: none; } }');
+  expect(squish(showStyles.text)).toContain(
+    squish('@media (max-width: 767.98px) { jd-show[above="md"] { display: none; } }'),
+  );
+  expect(squish(showStyles.text)).toContain(
+    squish('@media (min-width: 768px) { jd-show[below="md"] { display: none; } }'),
+  );
   // hide는 역방향
-  expect(showStyles.text).toContain('@media (min-width: 768px)  { jd-hide[above="md"]  { display: none; } }');
-  expect(showStyles.text).toContain('@media (max-width: 767.98px)  { jd-hide[below="md"]  { display: none; } }');
+  expect(squish(showStyles.text)).toContain(
+    squish('@media (min-width: 768px) { jd-hide[above="md"] { display: none; } }'),
+  );
+  expect(squish(showStyles.text)).toContain(
+    squish('@media (max-width: 767.98px) { jd-hide[below="md"] { display: none; } }'),
+  );
   for (const bp of ["sm", "md", "lg", "xl", "2xl"]) {
-    expect(showStyles.text).toContain(`jd-show[above="${bp}"]`);
-    expect(showStyles.text).toContain(`jd-show[below="${bp}"]`);
-    expect(showStyles.text).toContain(`jd-hide[above="${bp}"]`);
-    expect(showStyles.text).toContain(`jd-hide[below="${bp}"]`);
+    expect(squish(showStyles.text)).toContain(`jd-show[above="${bp}"]`);
+    expect(squish(showStyles.text)).toContain(`jd-show[below="${bp}"]`);
+    expect(squish(showStyles.text)).toContain(`jd-hide[above="${bp}"]`);
+    expect(squish(showStyles.text)).toContain(`jd-hide[below="${bp}"]`);
   }
 });
 

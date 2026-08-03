@@ -29,7 +29,12 @@ function* walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, entry.name);
     if (entry.isDirectory()) yield* walk(p);
-    else if (entry.isFile() && /\.tsx$/.test(entry.name) && !/\.stories\./.test(entry.name) && !/\.test\./.test(entry.name)) {
+    else if (
+      entry.isFile() &&
+      /\.tsx$/.test(entry.name) &&
+      !/\.stories\./.test(entry.name) &&
+      !/\.test\./.test(entry.name)
+    ) {
       yield p;
     }
   }
@@ -64,9 +69,14 @@ const summary = {
 };
 
 fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
-fs.writeFileSync(REPORT_PATH, JSON.stringify({ generatedAt: new Date().toISOString(), summary, items }, null, 2) + "\n");
+fs.writeFileSync(
+  REPORT_PATH,
+  JSON.stringify({ generatedAt: new Date().toISOString(), summary, items }, null, 2) + "\n",
+);
 
-console.log(`[audit-compound-api] ${summary.migrated} migrated · ${summary.partial} partial · ${summary.flat} flat · ${summary.legacy} legacy (총 ${summary.total})`);
+console.log(
+  `[audit-compound-api] ${summary.migrated} migrated · ${summary.partial} partial · ${summary.flat} flat · ${summary.legacy} legacy (총 ${summary.total})`,
+);
 if (summary.legacy > 0) {
   console.log("\n  legacy (Object.assign 사용 — createCompound로 교체 권장):");
   for (const it of items.filter((i) => i.status === "legacy").slice(0, 20)) {
@@ -77,7 +87,11 @@ if (summary.legacy > 0) {
 if (summary.partial > 0) {
   console.log("\n  partial (멤버 또는 asChild 한쪽만 — 검토 권장):");
   for (const it of items.filter((i) => i.status === "partial").slice(0, 10)) {
-    console.log("   ⚠", it.file, `(asChild=${it.usesAsChild}, createCompound=${it.usesCreateCompound})`);
+    console.log(
+      "   ⚠",
+      it.file,
+      `(asChild=${it.usesAsChild}, createCompound=${it.usesCreateCompound})`,
+    );
   }
 }
 

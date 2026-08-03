@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-label 동형 — 폼 라벨 (DESIGN-2 §B1).
 // 웹은 required 표식을 CSS ::after로 그려 AT에 아무것도 알리지 않는다(순수 시각 표식).
@@ -32,9 +32,12 @@ public struct JdLabel: View {
                     .padding(.leading, spec.markerSpacing)
             }
         }
-        .font(JdSwiftUIFont.scaled(size: spec.fontSize,
-                                   weight: spec.fontWeight,
-                                   category: sizeCategory))
+        .font(
+            JdSwiftUIFont.scaled(
+                size: spec.fontSize,
+                weight: spec.fontWeight,
+                category: sizeCategory)
+        )
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text(accessibilityText))
     }

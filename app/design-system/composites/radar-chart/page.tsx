@@ -13,7 +13,14 @@ export default function RadarChartPage() {
     >
       <Section title="Default">
         <Preview>
-          <RadarChart axes={["속도","품질","가격","UX","지원"]} series={[{name:"제품 A",data:[3,5,4,5,2]},{name:"제품 B",data:[5,3,3,4,5]}]} max={5} />
+          <RadarChart
+            axes={["속도", "품질", "가격", "UX", "지원"]}
+            series={[
+              { name: "제품 A", data: [3, 5, 4, 5, 2] },
+              { name: "제품 B", data: [5, 3, 3, 4, 5] },
+            ]}
+            max={5}
+          />
         </Preview>
       </Section>
     </ComponentPage>

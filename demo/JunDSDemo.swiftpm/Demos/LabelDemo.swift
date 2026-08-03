@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Label 데모 — 실컴포넌트 JdLabel(SwiftUI)/JdLabelView(UIKit).
 // 웹은 required 표식 "*"를 CSS ::after로 그려 AT에 아무것도 알리지 않는다(순수 시각 표식) —

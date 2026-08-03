@@ -16,34 +16,47 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-animated-counter {
-    display: inline;
-    font-family: var(--jd-font-sans);
-    font-weight: var(--jd-weight-bold);
-    font-variant-numeric: tabular-nums;
-  }
+  @layer junds.components {
+    jd-animated-counter {
+      display: inline;
+      font-family: var(--jd-font-sans);
+      font-weight: var(--jd-weight-bold);
+      font-variant-numeric: tabular-nums;
+    }
 
-  /* 시각 표시부 — aria-hidden. 숫자 덩어리는 줄바꿈으로 쪼개지지 않는다 */
-  .jd-animated-counter__value { white-space: nowrap; }
+    /* 시각 표시부 — aria-hidden. 숫자 덩어리는 줄바꿈으로 쪼개지지 않는다 */
+    .jd-animated-counter__value {
+      white-space: nowrap;
+    }
 
-  .jd-animated-counter__char {
-    display: inline-block;
-    transition: transform var(--jd-duration-slow) var(--jd-easing-ease-out);
-  }
+    .jd-animated-counter__char {
+      display: inline-block;
+      transition: transform var(--jd-duration-slow) var(--jd-easing-ease-out);
+    }
 
-  /*
+    /*
    * 낭독 전용 텍스트. display:none·hidden은 접근성 트리에서도 지우므로 쓰지 않는다
    * (jd-visually-hidden과 같은 clip 관용구). user-select:none이라 화면 복사에는
    * 눈에 보이는 숫자만 담기고 이 사본은 딸려오지 않는다.
    */
-  .jd-animated-counter__text {
-    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-    overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
-    -webkit-user-select: none; user-select: none;
-  }
+    .jd-animated-counter__text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  @media (prefers-reduced-motion: reduce) {
-    .jd-animated-counter__char { transition: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-animated-counter__char {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

@@ -38,23 +38,20 @@ export function Marquee({
   const animDir = direction === "left" ? "normal" : "reverse";
 
   return (
-    <div
-      className={cn("overflow-hidden", className)}
-      role="marquee"
-      aria-live="off"
-    >
+    <div className={cn("overflow-hidden", className)} role="marquee" aria-live="off">
       <div
-        className={cn(
-          "flex w-max",
-          pauseOnHover && "hover:[animation-play-state:paused]",
-        )}
+        className={cn("flex w-max", pauseOnHover && "hover:[animation-play-state:paused]")}
         style={{
           animation: `marquee-scroll ${speed}s linear infinite ${animDir}`,
           gap,
         }}
       >
-        <div className="flex shrink-0" style={{ gap }}>{children}</div>
-        <div className="flex shrink-0" style={{ gap }} aria-hidden="true">{children}</div>
+        <div className="flex shrink-0" style={{ gap }}>
+          {children}
+        </div>
+        <div className="flex shrink-0" style={{ gap }} aria-hidden="true">
+          {children}
+        </div>
       </div>
       <style>{`
         @keyframes marquee-scroll {

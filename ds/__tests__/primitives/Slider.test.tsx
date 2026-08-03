@@ -28,7 +28,15 @@ describe("Slider", () => {
   });
 
   it("renders marks", () => {
-    render(<Slider value={50} marks={[{ value: 0, label: "시작" }, { value: 100, label: "끝" }]} />);
+    render(
+      <Slider
+        value={50}
+        marks={[
+          { value: 0, label: "시작" },
+          { value: 100, label: "끝" },
+        ]}
+      />,
+    );
     expect(screen.getByText("시작")).toBeInTheDocument();
     expect(screen.getByText("끝")).toBeInTheDocument();
   });

@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "ProductCard",
   "oneLiner": "상품 카드 — 이미지·가격·액션.",
-  "tags": [
-    "commerce",
-    "카드",
-    "상품"
-  ],
+  "tags": ["commerce", "카드", "상품"],
   "controls": [],
   "snippets": {
     "web": null,

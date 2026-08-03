@@ -18,7 +18,13 @@
  *  - **AT에 숫자 0** → 숨김 실적 표(분기·매출·영업이익·순이익).
  *  - 색이 fill 표시 속성 리터럴이었다 → 시리즈 그룹 `--jd-series-color` 경유(테마 오버라이드).
  */
-import { JdCartesianChart, coord, groupDigits, svgNode, upgradeAccessor } from "../../core/chart.js";
+import {
+  JdCartesianChart,
+  coord,
+  groupDigits,
+  svgNode,
+  upgradeAccessor,
+} from "../../core/chart.js";
 import type { JdChartTick, JdLegendItem } from "../../core/chart.js";
 import { adoptStyles } from "../../core/styles.js";
 import quarterBarChartStyles from "./quarter-bar-chart.css.js";
@@ -97,9 +103,13 @@ export class JdQuarterBarChart extends JdCartesianChart {
   #bLabel(): string {
     return this.#metric() === "revenue-net" ? "순이익" : "영업이익";
   }
-  #aColor = "var(--jd-qbar-revenue, #5cdcd0)";
+  // 폴백까지 팔레트 안에 둔다 — v2 승계 리터럴(민트 #5cdcd0·형광 보라 #a855f7)은 시트를
+  // 함께 싣지 않은 소비 경로에서만 발화하는 팔레트 밖 색이었다(§8). 값은 css.ts와 같다.
+  #aColor = "var(--jd-qbar-revenue, var(--jd-color-hue-violet))";
   #bColor(): string {
-    return this.#metric() === "revenue-net" ? "var(--jd-qbar-net, #a855f7)" : "var(--jd-qbar-op, #0f766e)";
+    return this.#metric() === "revenue-net"
+      ? "var(--jd-qbar-net, var(--jd-color-hue-blue))"
+      : "var(--jd-qbar-op, var(--jd-color-hue-teal))";
   }
 
   /** v2 스케일: max=매출/이익 최댓값, min=min(0, 이익들), yOf 선형 사상 */
@@ -166,7 +176,9 @@ export class JdQuarterBarChart extends JdCartesianChart {
       const cx = this.padLeft + i * slot + slot / 2;
       const yA = yOf(num(d.revenue));
       const yB = yOf(num(d[bKey]));
-      groupA.append(bar(cx - barWidth - 2, Math.min(yA, y0), barWidth, Math.max(1, Math.abs(yA - y0))));
+      groupA.append(
+        bar(cx - barWidth - 2, Math.min(yA, y0), barWidth, Math.max(1, Math.abs(yA - y0))),
+      );
       groupB.append(bar(cx + 2, Math.min(yB, y0), barWidth, Math.max(1, Math.abs(yB - y0))));
     });
     plot.append(groupA, groupB);

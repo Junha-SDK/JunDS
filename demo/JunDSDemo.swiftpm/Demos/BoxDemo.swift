@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Box 데모 — 레시피형 (04 §10.1: core는 신규 컴포넌트를 만들지 않는다).
 // 웹 <jd-box>는 스타일 프롭(p/bg/radius/border…) 원형 컨테이너 — iOS 번역은
@@ -17,16 +17,16 @@ enum BoxDemo {
         ],
         swiftUI: { state in AnyView(BoxStage(state: state)) },
         recipe: """
-        // Box = 토큰 모디파이어 체인 (04 §10.1 — 신규 컴포넌트 없음)
-        content
-            .padding(JdGap.md.value)                       // p
-            .background(JdToken.Color.card.color)          // bg
-            .cornerRadius(JdToken.Radius.md)               // radius
-            .overlay(                                      // border
-                RoundedRectangle(cornerRadius: JdToken.Radius.md)
-                    .stroke(JdToken.Color.border.color, lineWidth: JdToken.Border.thin)
-            )
-        """
+            // Box = 토큰 모디파이어 체인 (04 §10.1 — 신규 컴포넌트 없음)
+            content
+                .padding(JdGap.md.value)                       // p
+                .background(JdToken.Color.card.color)          // bg
+                .cornerRadius(JdToken.Radius.md)               // radius
+                .overlay(                                      // border
+                    RoundedRectangle(cornerRadius: JdToken.Radius.md)
+                        .stroke(JdToken.Color.border.color, lineWidth: JdToken.Border.thin)
+                )
+            """
     )
 }
 
@@ -41,8 +41,9 @@ private struct BoxStage: View {
             .cornerRadius(radius)
             .overlay(
                 RoundedRectangle(cornerRadius: radius)
-                    .stroke(state.bool("border") ? JdToken.Color.border.color : .clear,
-                            lineWidth: JdToken.Border.thin)
+                    .stroke(
+                        state.bool("border") ? JdToken.Color.border.color : .clear,
+                        lineWidth: JdToken.Border.thin)
             )
             .padding(JdToken.Space.s6)
     }

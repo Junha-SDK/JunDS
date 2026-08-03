@@ -4,11 +4,7 @@
   "category": "core",
   "title": "Box",
   "oneLiner": "스타일 프롭(p·bg·radius 등 44종)을 attribute로 받는 원형 컨테이너. 모든 core 컨테이너의 베이스.",
-  "tags": [
-    "layout",
-    "container",
-    "style-props"
-  ],
+  "tags": ["layout", "container", "style-props"],
   "controls": [
     {
       "prop": "p",
@@ -23,32 +19,13 @@
     {
       "prop": "radius",
       "kind": "select",
-      "options": [
-        "none",
-        "xs",
-        "sm",
-        "md",
-        "lg",
-        "xl",
-        "2xl",
-        "3xl",
-        "full"
-      ],
+      "options": ["none", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "full"],
       "default": "md"
     },
     {
       "prop": "shadow",
       "kind": "select",
-      "options": [
-        "none",
-        "xs",
-        "sm",
-        "md",
-        "lg",
-        "xl",
-        "2xl",
-        "inner"
-      ],
+      "options": ["none", "xs", "sm", "md", "lg", "xl", "2xl", "inner"],
       "default": "none"
     },
     {

@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "BrandSwitcher",
   "oneLiner": "브랜드 테마 전환기 — BrandProvider 의존.",
-  "tags": [
-    "theme",
-    "브랜드",
-    "전환"
-  ],
+  "tags": ["theme", "브랜드", "전환"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-notification의 UIKit 번역 — 인라인 카드(아이콘+제목+설명+액션+닫기) (DESIGN-4 §B).
 // A8 명명 규칙 Jd<이름>View. 30% 테두리 + 5% 틴트로 variant를 색만이 아니라 형태로도 구분한다.
@@ -21,14 +21,16 @@ public final class JdNotificationView: UIView {
     private let textStack = UIStackView()
     private let bodyStack = UIStackView()
 
-    public init(title: String? = nil,
-                description: String? = nil,
-                variant: JdFeedbackVariant = .info,
-                systemImage: String? = nil,
-                actionLabel: String? = nil,
-                onAction: (() -> Void)? = nil,
-                isDismissible: Bool = false,
-                onDismiss: (() -> Void)? = nil) {
+    public init(
+        title: String? = nil,
+        description: String? = nil,
+        variant: JdFeedbackVariant = .info,
+        systemImage: String? = nil,
+        actionLabel: String? = nil,
+        onAction: (() -> Void)? = nil,
+        isDismissible: Bool = false,
+        onDismiss: (() -> Void)? = nil
+    ) {
         self.variant = variant
         self.systemImage = systemImage
         self.onAction = onAction
@@ -36,7 +38,7 @@ public final class JdNotificationView: UIView {
         super.init(frame: .zero)
 
         iconView.contentMode = .center
-        iconView.isAccessibilityElement = false // 아이콘은 장식 — 제목/설명이 표면
+        iconView.isAccessibilityElement = false  // 아이콘은 장식 — 제목/설명이 표면
         iconView.setContentHuggingPriority(.required, for: .horizontal)
         iconView.isHidden = (systemImage == nil)
 
@@ -56,8 +58,10 @@ public final class JdNotificationView: UIView {
         textStack.addArrangedSubview(descriptionLabel)
 
         if let actionLabel, let onAction {
-            let button = JdNotificationView.makeActionButton(actionLabel,
-                                                             tint: variant.color.uiColor) { onAction() }
+            let button = JdNotificationView.makeActionButton(
+                actionLabel,
+                tint: variant.color.uiColor
+            ) { onAction() }
             actionButton = button
             let row = UIStackView(arrangedSubviews: [button, UIView()])
             row.axis = .horizontal
@@ -108,42 +112,50 @@ public final class JdNotificationView: UIView {
     private func applyStyle() {
         backgroundColor = JdFeedbackTint.tint(variant.color)
         // CGColor는 다이나믹 자동 갱신이 안 돼 트레이트마다 수동 재적용 (30% 테두리)
-        layer.borderColor = variant.color.uiColor
+        layer.borderColor =
+            variant.color.uiColor
             .resolvedColor(with: traitCollection)
             .withAlphaComponent(CGFloat(JdToken.Opacity.o30))
             .cgColor
 
-        titleLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.lg,
-                                                  weight: JdToken.FontWeight.semibold,
-                                                  compatibleWith: traitCollection)
+        titleLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.lg,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         titleLabel.textColor = JdToken.Color.foreground.uiColor
 
-        descriptionLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                        weight: JdToken.FontWeight.normal,
-                                                        compatibleWith: traitCollection)
+        descriptionLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         descriptionLabel.textColor = JdToken.Color.muted.uiColor
 
         if let systemImage {
             iconView.tintColor = variant.color.uiColor
             iconView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(
-                font: JdFontBridge.scaledFont(size: JdToken.FontSize.lg,
-                                              weight: JdToken.FontWeight.semibold,
-                                              compatibleWith: traitCollection))
+                font: JdFontBridge.scaledFont(
+                    size: JdToken.FontSize.lg,
+                    weight: JdToken.FontWeight.semibold,
+                    compatibleWith: traitCollection))
             iconView.image = UIImage(systemName: systemImage)
         }
 
         if let actionButton {
             actionButton.tintColor = variant.color.uiColor
-            actionButton.titleLabel?.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                                    weight: JdToken.FontWeight.semibold,
-                                                                    compatibleWith: traitCollection)
+            actionButton.titleLabel?.font = JdFontBridge.scaledFont(
+                size: JdToken.FontSize.md,
+                weight: JdToken.FontWeight.semibold,
+                compatibleWith: traitCollection)
         }
         dismissButton?.setPreferredSymbolConfiguration(
-            JdFeedbackDismissButton.symbolConfig(compatibleWith: traitCollection), forImageIn: .normal)
+            JdFeedbackDismissButton.symbolConfig(compatibleWith: traitCollection),
+            forImageIn: .normal)
     }
 
-    private static func makeActionButton(_ title: String, tint: UIColor,
-                                         onTap: @escaping () -> Void) -> JdFeedbackActionButton {
+    private static func makeActionButton(
+        _ title: String, tint: UIColor,
+        onTap: @escaping () -> Void
+    ) -> JdFeedbackActionButton {
         let button = JdFeedbackActionButton(type: .system)
         button.setTitle(title, for: .normal)
         button.tintColor = tint
@@ -151,7 +163,8 @@ public final class JdNotificationView: UIView {
         button.accessibilityLabel = title
         button.contentHorizontalAlignment = .leading
         button.onTapForward = onTap
-        button.addTarget(button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
+        button.addTarget(
+            button, action: #selector(JdFeedbackActionButton.jdHandleTap), for: .touchUpInside)
         return button
     }
 }

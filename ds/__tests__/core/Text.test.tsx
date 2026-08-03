@@ -34,9 +34,7 @@ describe("Text", () => {
     const el = container.firstElementChild as HTMLElement;
     expect(el.style.display).toBe("-webkit-box");
     expect(el.style.overflow).toBe("hidden");
-    expect((el.style as unknown as Record<string, string>)["webkitLineClamp"]).toBe(
-      "3",
-    );
+    expect((el.style as unknown as Record<string, string>)["webkitLineClamp"]).toBe("3");
   });
 
   it("preserves user className alongside variant classes", () => {

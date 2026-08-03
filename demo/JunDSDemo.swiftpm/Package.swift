@@ -1,7 +1,7 @@
+import AppleProductTypes
 // swift-tools-version: 5.9
 // JunDS v3 — 실기기 데모 카탈로그 (Swift Playgrounds 앱 포맷, Xcode로 열어 iPhone에 바로 Run).
 import PackageDescription
-import AppleProductTypes
 
 let package = Package(
     name: "JunDSDemo",
@@ -19,12 +19,12 @@ let package = Package(
             accentColor: .presetColor(.purple),
             supportedDeviceFamilies: [
                 .pad,
-                .phone
+                .phone,
             ],
             supportedInterfaceOrientations: [
                 .portrait,
                 .landscapeRight,
-                .landscapeLeft
+                .landscapeLeft,
             ],
             // 딥링크 junds://component/<id> — CFBundleURLTypes 등록
             additionalInfoPlistContentFilePath: "AdditionalInfo.plist"

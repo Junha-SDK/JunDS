@@ -22,9 +22,7 @@ describe("Kanban", () => {
   });
 
   it("renders with empty columns", () => {
-    const { container } = render(
-      <Kanban<Card> columns={[]} renderCard={() => null} />,
-    );
+    const { container } = render(<Kanban<Card> columns={[]} renderCard={() => null} />);
     expect(container.firstChild).toBeDefined();
   });
 });

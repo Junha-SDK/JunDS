@@ -21,6 +21,14 @@ export interface PhotoCarouselProps {
   className?: string;
 }
 
+// 사진 위에 뜨는 좌우 버튼 — 어두운 배경 위이므로 링도 흰색이어야 보인다
+const navBtn = cn(
+  "absolute top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/20 text-white backdrop-blur cursor-pointer",
+  "ring-1 ring-white/15 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.5)]",
+  "transition-colors hover:bg-white/30 active:bg-white/40",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80",
+);
+
 /**
  * 사진 슬라이드쇼 — 자동재생/수동 컨트롤/키보드 지원.
  * @example
@@ -29,7 +37,13 @@ export interface PhotoCarouselProps {
  * @since 2.4.0
  * @tags photo, media
  */
-export function PhotoCarousel({ photos, autoPlayMs = 0, showIndicators = true, aspectRatio = "16 / 9", className }: PhotoCarouselProps) {
+export function PhotoCarousel({
+  photos,
+  autoPlayMs = 0,
+  showIndicators = true,
+  aspectRatio = "16 / 9",
+  className,
+}: PhotoCarouselProps) {
   const t = useT();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -42,7 +56,10 @@ export function PhotoCarousel({ photos, autoPlayMs = 0, showIndicators = true, a
   }, [total, index]);
 
   const next = useCallback(() => setIndex((i) => (total > 0 ? (i + 1) % total : 0)), [total]);
-  const prev = useCallback(() => setIndex((i) => (total > 0 ? (i - 1 + total) % total : 0)), [total]);
+  const prev = useCallback(
+    () => setIndex((i) => (total > 0 ? (i - 1 + total) % total : 0)),
+    [total],
+  );
 
   useEffect(() => {
     if (!autoPlayMs || paused || total <= 1) return;
@@ -51,8 +68,14 @@ export function PhotoCarousel({ photos, autoPlayMs = 0, showIndicators = true, a
   }, [autoPlayMs, paused, total, next]);
 
   const onKey = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
-    if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      prev();
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      next();
+    }
   };
 
   if (total === 0) return null;
@@ -69,18 +92,25 @@ export function PhotoCarousel({ photos, autoPlayMs = 0, showIndicators = true, a
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
-      className={cn("relative overflow-hidden rounded-xl bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40", className)}
+      className={cn(
+        "relative overflow-hidden rounded-2xl bg-black ring-1 ring-white/10",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        className,
+      )}
       style={{ aspectRatio }}
     >
       {photos.map((p, i) => (
         <div
           key={i}
           aria-hidden={i !== index}
-          className={cn("absolute inset-0 transition-opacity duration-500", i === index ? "opacity-100" : "opacity-0")}
+          className={cn(
+            "absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none",
+            i === index ? "opacity-100" : "opacity-0",
+          )}
         >
           <img src={p.src} alt={p.alt} className="w-full h-full object-cover" />
           {p.caption && (
-            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white text-sm">
+            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/75 to-transparent px-4 pt-10 pb-4 text-white text-sm">
               {p.caption}
             </div>
           )}
@@ -89,10 +119,24 @@ export function PhotoCarousel({ photos, autoPlayMs = 0, showIndicators = true, a
 
       {total > 1 && (
         <>
-          <button type="button" onClick={prev} aria-label={t("ariaPrevPhoto")} className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/20 text-white backdrop-blur hover:bg-white/30 transition-colors cursor-pointer">‹</button>
-          <button type="button" onClick={next} aria-label={t("ariaNextPhoto")} className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/20 text-white backdrop-blur hover:bg-white/30 transition-colors cursor-pointer">›</button>
+          <button
+            type="button"
+            onClick={prev}
+            aria-label={t("ariaPrevPhoto")}
+            className={cn(navBtn, "left-3")}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={next}
+            aria-label={t("ariaNextPhoto")}
+            className={cn(navBtn, "right-3")}
+          >
+            ›
+          </button>
           {showIndicators && (
-            <div className="absolute bottom-3 inset-x-0 flex justify-center gap-1.5">
+            <div className="absolute bottom-3 inset-x-0 flex justify-center gap-0.5">
               {photos.map((_, i) => (
                 <button
                   key={i}
@@ -100,8 +144,19 @@ export function PhotoCarousel({ photos, autoPlayMs = 0, showIndicators = true, a
                   onClick={() => setIndex(i)}
                   aria-label={t("ariaPhotoNumber", { n: i + 1 })}
                   aria-current={i === index ? "true" : undefined}
-                  className={cn("w-1.5 h-1.5 rounded-full transition-all", i === index ? "bg-white w-5" : "bg-white/50 hover:bg-white/80")}
-                />
+                  // 점 자체는 6px 이라 손가락으로 못 누른다 — 히트 영역은 버튼이, 모양은 안쪽 span 이 맡는다
+                  className="group flex h-5 w-4 items-center justify-center rounded-full cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+                >
+                  <span
+                    className={cn(
+                      // 폭이 변하는 알약이다 — transition-all 로 두면 위치까지 함께 흐른다
+                      "h-1.5 rounded-full transition-[width,background-color] duration-200 ease-out motion-reduce:transition-none",
+                      i === index
+                        ? "w-5 bg-white"
+                        : "w-1.5 bg-white/50 group-hover:bg-white/80 group-active:bg-white",
+                    )}
+                  />
+                </button>
               ))}
             </div>
           )}

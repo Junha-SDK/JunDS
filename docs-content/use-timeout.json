@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useTimeout",
   "oneLiner": "안전한 setTimeout 래퍼.",
-  "tags": [
-    "hook",
-    "timing",
-    "timeout"
-  ],
+  "tags": ["hook", "timing", "timeout"],
   "controls": [],
   "snippets": {
     "web": null,

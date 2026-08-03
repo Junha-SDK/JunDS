@@ -64,9 +64,7 @@ function write(items: Holding[]): void {
   try {
     window.localStorage.setItem(
       KEY,
-      JSON.stringify(
-        items.map(({ name, qty, avgCost, color }) => ({ name, qty, avgCost, color })),
-      ),
+      JSON.stringify(items.map(({ name, qty, avgCost, color }) => ({ name, qty, avgCost, color }))),
     );
     window.dispatchEvent(new CustomEvent(EVENT));
   } catch {
@@ -114,12 +112,15 @@ export function useHoldings() {
     setItems(next);
   }, []);
 
-  const update = useCallback((name: string, patch: Partial<Pick<Holding, "qty" | "avgCost" | "color">>) => {
-    const cur = read();
-    const next = cur.map((h) => (h.name === name ? withSector({ ...h, ...patch }) : h));
-    write(next);
-    setItems(next);
-  }, []);
+  const update = useCallback(
+    (name: string, patch: Partial<Pick<Holding, "qty" | "avgCost" | "color">>) => {
+      const cur = read();
+      const next = cur.map((h) => (h.name === name ? withSector({ ...h, ...patch }) : h));
+      write(next);
+      setItems(next);
+    },
+    [],
+  );
 
   const remove = useCallback((name: string) => {
     const next = read().filter((h) => h.name !== name);

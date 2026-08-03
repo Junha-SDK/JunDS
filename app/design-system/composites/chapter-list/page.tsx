@@ -13,7 +13,13 @@ export default function ChapterListPage() {
     >
       <Section title="Default">
         <Preview>
-          <ChapterList chapters={[{id:"1",title:"1장. 시작",page:1},{id:"2",title:"2장. 본론",page:42,locked:true}]} activeId="1" />
+          <ChapterList
+            chapters={[
+              { id: "1", title: "1장. 시작", page: 1 },
+              { id: "2", title: "2장. 본론", page: 42, locked: true },
+            ]}
+            activeId="1"
+          />
         </Preview>
       </Section>
     </ComponentPage>

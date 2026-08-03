@@ -6,17 +6,17 @@
 `jd-battery-indicator`·`jd-kbd`·`jd-key-cap`과 각각 동형이며, 색·치수는 임의 상수가 아니라
 전부 `JdToken`/`JdGap`과 Core 스펙(`JdDisplaySpecs`)에서 온다.
 
-| # | SwiftUI | UIKit | 웹 | 한 줄 |
-|---|---|---|---|---|
-| 1 | `JdBadge` | `JdBadgeView` | `jd-badge` | 상태·카테고리 라벨 (+ 알림 카운트 모드) |
-| 2 | `JdTag` | `JdTagView` | `jd-tag` | 태그/칩 (+ 닫기 버튼) |
-| 3 | `JdAvatar` | `JdAvatarView` | `jd-avatar` | 이미지 또는 이니셜 폴백 + 상태 도트 |
-| 4 | `JdSpinner` | `JdSpinnerView` | `jd-spinner` | 회전 로딩 표시기 |
-| 5 | `JdStatusDot` | `JdStatusDotView` | `jd-status-dot` | 상태 점 + 선택 라벨 (+ pulse) |
-| 6 | `JdSeverityBadge` | `JdSeverityBadgeView` | `jd-severity-badge` | 심각도 알약 뱃지 |
-| 7 | `JdBatteryIndicator` | `JdBatteryIndicatorView` | `jd-battery-indicator` | 배터리형 레벨 게이지 |
-| 8 | `JdKbd` | `JdKbdView` | `jd-kbd` | 단축키 표기 칩 |
-| 9 | `JdKeyCap` | `JdKeyCapView` | `jd-key-cap` | 키 한 개 모양 칩 (+ 눌림) |
+| #   | SwiftUI              | UIKit                    | 웹                     | 한 줄                                   |
+| --- | -------------------- | ------------------------ | ---------------------- | --------------------------------------- |
+| 1   | `JdBadge`            | `JdBadgeView`            | `jd-badge`             | 상태·카테고리 라벨 (+ 알림 카운트 모드) |
+| 2   | `JdTag`              | `JdTagView`              | `jd-tag`               | 태그/칩 (+ 닫기 버튼)                   |
+| 3   | `JdAvatar`           | `JdAvatarView`           | `jd-avatar`            | 이미지 또는 이니셜 폴백 + 상태 도트     |
+| 4   | `JdSpinner`          | `JdSpinnerView`          | `jd-spinner`           | 회전 로딩 표시기                        |
+| 5   | `JdStatusDot`        | `JdStatusDotView`        | `jd-status-dot`        | 상태 점 + 선택 라벨 (+ pulse)           |
+| 6   | `JdSeverityBadge`    | `JdSeverityBadgeView`    | `jd-severity-badge`    | 심각도 알약 뱃지                        |
+| 7   | `JdBatteryIndicator` | `JdBatteryIndicatorView` | `jd-battery-indicator` | 배터리형 레벨 게이지                    |
+| 8   | `JdKbd`              | `JdKbdView`              | `jd-kbd`               | 단축키 표기 칩                          |
+| 9   | `JdKeyCap`           | `JdKeyCapView`           | `jd-key-cap`           | 키 한 개 모양 칩 (+ 눌림)               |
 
 ## 공통 규칙
 
@@ -68,19 +68,19 @@ badge.jd.layout {
 let unread = JdBadgeView(count: 12)
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `text` | `String` | — | 라벨 문자열(첫 인자, 인자 레이블 생략) |
-| `variant` | `JdBadgeVariant` | `.default` | `default`·`primary`·`success`·`warning`·`danger`·`info`·`outline` |
-| `size` | `JdDisplaySize` | `.md` | `sm`·`md`·`lg` |
-| `showsDot` | `Bool` | `false` | 앞머리 6pt 상태 점(장식 — AT에서 숨김) |
+| 파라미터   | 타입             | 기본값     | 설명                                                              |
+| ---------- | ---------------- | ---------- | ----------------------------------------------------------------- |
+| `text`     | `String`         | —          | 라벨 문자열(첫 인자, 인자 레이블 생략)                            |
+| `variant`  | `JdBadgeVariant` | `.default` | `default`·`primary`·`success`·`warning`·`danger`·`info`·`outline` |
+| `size`     | `JdDisplaySize`  | `.md`      | `sm`·`md`·`lg`                                                    |
+| `showsDot` | `Bool`           | `false`    | 앞머리 6pt 상태 점(장식 — AT에서 숨김)                            |
 
 카운트 모드 전용 init `init(count:maxCount:)`:
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `count` | `Int` | — | 표시할 개수 |
-| `maxCount` | `Int` | `99` | 초과 시 `"maxCount+"`로 표기 |
+| 파라미터   | 타입  | 기본값 | 설명                         |
+| ---------- | ----- | ------ | ---------------------------- |
+| `count`    | `Int` | —      | 표시할 개수                  |
+| `maxCount` | `Int` | `99`   | 초과 시 `"maxCount+"`로 표기 |
 
 UIKit 프로퍼티: `text`·`variant`·`size`·`showsDot`(전부 `var`, 대입 시 재적용). 카운트 모드는 init에서
 확정되고 이후 축을 바꿀 수 없다.
@@ -116,11 +116,11 @@ tag.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `text` | `String` | — | 태그 문자열(첫 인자) |
-| `color` | `JdTagColor` | `.gray` | `gray`·`primary`·`blue`·`green`·`red`·`orange`·`purple`·`teal` |
-| `onRemove` | `(() -> Void)?` | `nil` | 있으면 닫기(x) 버튼 + 탭 시 콜백. `nil`이면 버튼 없음 |
+| 파라미터   | 타입            | 기본값  | 설명                                                           |
+| ---------- | --------------- | ------- | -------------------------------------------------------------- |
+| `text`     | `String`        | —       | 태그 문자열(첫 인자)                                           |
+| `color`    | `JdTagColor`    | `.gray` | `gray`·`primary`·`blue`·`green`·`red`·`orange`·`purple`·`teal` |
+| `onRemove` | `(() -> Void)?` | `nil`   | 있으면 닫기(x) 버튼 + 탭 시 콜백. `nil`이면 버튼 없음          |
 
 UIKit 프로퍼티: `text`·`color`·`onRemove`(전부 `var`).
 
@@ -155,12 +155,12 @@ avatar.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `name` | `String` | `""` | 이니셜·폴백 색·접근성 라벨의 단일 입력 |
-| `image` | `Image?` (SwiftUI) / `UIImage?` (UIKit) | `nil` | 있으면 이미지 우선, 없으면 이니셜 폴백 |
-| `size` | `JdAvatarSize` | `.md` | `xs`·`sm`·`md`·`lg`·`xl` (24/32/36/44/56pt) |
-| `status` | `JdAvatarStatus?` | `nil` | `online`·`offline`·`away`·`busy`. `nil`이면 도트 없음 |
+| 파라미터 | 타입                                    | 기본값 | 설명                                                  |
+| -------- | --------------------------------------- | ------ | ----------------------------------------------------- |
+| `name`   | `String`                                | `""`   | 이니셜·폴백 색·접근성 라벨의 단일 입력                |
+| `image`  | `Image?` (SwiftUI) / `UIImage?` (UIKit) | `nil`  | 있으면 이미지 우선, 없으면 이니셜 폴백                |
+| `size`   | `JdAvatarSize`                          | `.md`  | `xs`·`sm`·`md`·`lg`·`xl` (24/32/36/44/56pt)           |
+| `status` | `JdAvatarStatus?`                       | `nil`  | `online`·`offline`·`away`·`busy`. `nil`이면 도트 없음 |
 
 UIKit 프로퍼티: `name`·`image`·`status`(`var`). ⚠️ 크기는 `avatarSize`(public `let`)로 노출되며 생성
 후 변경 불가.
@@ -197,11 +197,11 @@ spinner.jd.layout {
 // spinner.isAnimating  // get-only — Reduce Motion 정지 여부 관측용
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `size` | `JdDisplaySize` | `.md` | `sm`·`md`·`lg` (지름 16/24/32pt) |
-| `label` | `String` | `JdSpinnerSpec.defaultLabel`(`"로딩 중"`) | 접근성 라벨 |
-| `color` | `JdDynamicColor` | `JdToken.Color.primary` | 링·호 색 |
+| 파라미터 | 타입             | 기본값                                    | 설명                             |
+| -------- | ---------------- | ----------------------------------------- | -------------------------------- |
+| `size`   | `JdDisplaySize`  | `.md`                                     | `sm`·`md`·`lg` (지름 16/24/32pt) |
+| `label`  | `String`         | `JdSpinnerSpec.defaultLabel`(`"로딩 중"`) | 접근성 라벨                      |
+| `color`  | `JdDynamicColor` | `JdToken.Color.primary`                   | 링·호 색                         |
 
 UIKit 프로퍼티: `label`(`var`), `isAnimating`(get-only). ⚠️ `size`·`color`는 init 전용이라 이후 변경할
 수 없다(프로퍼티 없음).
@@ -236,11 +236,11 @@ dot.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `status` | `JdStatusKind` | `.neutral` | `neutral`·`success`·`warning`·`danger`·`info`·`pulse`(첫 인자) |
-| `label` | `String?` | `nil` | 점 옆 라벨. `nil`/빈 문자열이면 점만 표시 |
-| `size` | `JdDisplaySize` | `.md` | `sm`·`md`·`lg` (점 6/8/10pt) |
+| 파라미터 | 타입            | 기본값     | 설명                                                           |
+| -------- | --------------- | ---------- | -------------------------------------------------------------- |
+| `status` | `JdStatusKind`  | `.neutral` | `neutral`·`success`·`warning`·`danger`·`info`·`pulse`(첫 인자) |
+| `label`  | `String?`       | `nil`      | 점 옆 라벨. `nil`/빈 문자열이면 점만 표시                      |
+| `size`   | `JdDisplaySize` | `.md`      | `sm`·`md`·`lg` (점 6/8/10pt)                                   |
 
 UIKit 프로퍼티: `status`·`label`·`size`(전부 `var`).
 
@@ -276,12 +276,12 @@ sev.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `text` | `String` | — | 라벨 문자열(첫 인자) |
-| `severity` | `JdSeverity` | `.neutral` | `ok`·`warn`·`danger`·`info`·`neutral` |
-| `size` | `JdDisplaySize` | `.md` | `sm`·`md`·`lg`(md·lg 동일 패딩, sm만 축소) |
-| `showsDot` | `Bool` | `false` | 앞머리 8pt 점(장식 — AT에서 숨김) |
+| 파라미터   | 타입            | 기본값     | 설명                                       |
+| ---------- | --------------- | ---------- | ------------------------------------------ |
+| `text`     | `String`        | —          | 라벨 문자열(첫 인자)                       |
+| `severity` | `JdSeverity`    | `.neutral` | `ok`·`warn`·`danger`·`info`·`neutral`      |
+| `size`     | `JdDisplaySize` | `.md`      | `sm`·`md`·`lg`(md·lg 동일 패딩, sm만 축소) |
+| `showsDot` | `Bool`          | `false`    | 앞머리 8pt 점(장식 — AT에서 숨김)          |
 
 UIKit 프로퍼티: `text`·`severity`·`size`·`showsDot`(전부 `var`).
 
@@ -315,13 +315,13 @@ battery.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `value` | `Double` | — | 레벨(0–100으로 클램프) |
-| `size` | `JdDisplaySize` | `.md` | `sm`·`md`·`lg`(본체 40×16/56×24/80×32pt) |
-| `label` | `String?` | `nil` | 게이지 앞 텍스트 라벨 |
-| `autoColor` | `Bool` | `false` | `true`면 값으로 색 자동 결정(`color` 무시) |
-| `color` | `JdBatteryColor` | `.primary` | 수동 채움색 `primary`·`success`·`warning`·`danger` |
+| 파라미터    | 타입             | 기본값     | 설명                                               |
+| ----------- | ---------------- | ---------- | -------------------------------------------------- |
+| `value`     | `Double`         | —          | 레벨(0–100으로 클램프)                             |
+| `size`      | `JdDisplaySize`  | `.md`      | `sm`·`md`·`lg`(본체 40×16/56×24/80×32pt)           |
+| `label`     | `String?`        | `nil`      | 게이지 앞 텍스트 라벨                              |
+| `autoColor` | `Bool`           | `false`    | `true`면 값으로 색 자동 결정(`color` 무시)         |
+| `color`     | `JdBatteryColor` | `.primary` | 수동 채움색 `primary`·`success`·`warning`·`danger` |
 
 UIKit 프로퍼티: `value`·`size`·`label`·`autoColor`·`color`(전부 `var`).
 
@@ -353,9 +353,9 @@ kbd.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `keys` | `String` | — | 단축키 문자열(첫 인자, 공백 자동 제거) |
+| 파라미터 | 타입     | 기본값 | 설명                                   |
+| -------- | -------- | ------ | -------------------------------------- |
+| `keys`   | `String` | —      | 단축키 문자열(첫 인자, 공백 자동 제거) |
 
 UIKit 프로퍼티: `keys`(`var`, 대입 시 재정규화). `JdKbdView`는 `UILabel` 서브클래스다.
 
@@ -388,12 +388,12 @@ cap.jd.layout {
 }
 ```
 
-| 파라미터 | 타입 | 기본값 | 설명 |
-|---|---|---|---|
-| `key` | `String` | — | 키 글자(첫 인자) |
-| `variant` | `JdKeyCapVariant` | `.default` | `default`(카드+그림자)·`primary`(강조색+흰 글자)·`muted`(연한 표면) |
-| `size` | `JdDisplaySize` | `.md` | `sm`·`md`·`lg`(높이 20/24/32pt) |
-| `isPressed` | `Bool` | `false` | 눌림 상태 — 아래로 1pt + 그림자 제거 |
+| 파라미터    | 타입              | 기본값     | 설명                                                                |
+| ----------- | ----------------- | ---------- | ------------------------------------------------------------------- |
+| `key`       | `String`          | —          | 키 글자(첫 인자)                                                    |
+| `variant`   | `JdKeyCapVariant` | `.default` | `default`(카드+그림자)·`primary`(강조색+흰 글자)·`muted`(연한 표면) |
+| `size`      | `JdDisplaySize`   | `.md`      | `sm`·`md`·`lg`(높이 20/24/32pt)                                     |
+| `isPressed` | `Bool`            | `false`    | 눌림 상태 — 아래로 1pt + 그림자 제거                                |
 
 UIKit 프로퍼티: `isPressed`(`var`). ⚠️ `variant`·`keyCapSize`는 public `let`이라 생성 후 변경 불가.
 `JdKeyCapView`는 `UILabel` 서브클래스다.

@@ -43,7 +43,7 @@ const SKIP_STORY = new Set([
   "Sidebar",
   // Callbacks with non-void specific return types — fixture cannot synthesize.
   "PullToRefresh", // onRefresh: () => Promise<void>
-  "DataTable",     // getRowKey: (row) => string
+  "DataTable", // getRowKey: (row) => string
 ]);
 
 function normalizeType(raw) {
@@ -63,13 +63,18 @@ function fixtureFor(type) {
   if (/^\[number,\s*number\]$/.test(t)) return { value: "{[0, 0]}" };
   if (/^string\s*\|\s*number$/.test(t) || /^number\s*\|\s*string$/.test(t)) return { value: '""' };
   if (/^Array<.+>$/.test(t) || /\[\]$/.test(t)) return { value: "{[]}" };
-  if (/=>\s*(void|undefined|boolean|string|number)/.test(t) || /^\(\)\s*=>/.test(t)) return { value: "{() => {}}" };
+  if (/=>\s*(void|undefined|boolean|string|number)/.test(t) || /^\(\)\s*=>/.test(t))
+    return { value: "{() => {}}" };
   return null;
 }
 
 function hasValueExport(sourcePath, name) {
   let src;
-  try { src = fs.readFileSync(sourcePath, "utf8"); } catch { return false; }
+  try {
+    src = fs.readFileSync(sourcePath, "utf8");
+  } catch {
+    return false;
+  }
   const patterns = [
     new RegExp(`export\\s+const\\s+${name}\\b`),
     new RegExp(`export\\s+function\\s+${name}\\b`),
@@ -105,9 +110,10 @@ function storyFile(component, jsxProps) {
   const { name, kind } = component;
   const groupTitle = KIND_TO_TITLE[kind];
   const attrs = jsxProps.attrs.length ? " " + jsxProps.attrs.join(" ") : "";
-  const tag = jsxProps.childrenJsx !== null
-    ? `<${name}${attrs}>${jsxProps.childrenJsx}</${name}>`
-    : `<${name}${attrs} />`;
+  const tag =
+    jsxProps.childrenJsx !== null
+      ? `<${name}${attrs}>${jsxProps.childrenJsx}</${name}>`
+      : `<${name}${attrs} />`;
   return `import type { Meta, StoryObj } from "@storybook/react";
 import { ${name} } from "./${name}";
 
@@ -184,7 +190,11 @@ function main() {
   console.log(`[generate-stories] skipped (required props): ${stats.skippedRequired.length}`);
   console.log(`[generate-stories] skipped (not renderable): ${stats.skippedNotRenderable.length}`);
   if (stats.skippedExplicit.length) {
-    console.log(`[generate-stories] skipped (explicit list): ${stats.skippedExplicit.length} — ${stats.skippedExplicit.join(", ")}`);
+    console.log(
+      `[generate-stories] skipped (explicit list): ${
+        stats.skippedExplicit.length
+      } — ${stats.skippedExplicit.join(", ")}`,
+    );
   }
   if (stats.created.length) {
     const byKind = stats.created.reduce((acc, x) => {

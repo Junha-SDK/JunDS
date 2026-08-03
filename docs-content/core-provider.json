@@ -4,11 +4,7 @@
   "category": "core",
   "title": "CoreProvider",
   "oneLiner": "테마·토큰 설정 표면 — v3에서 CE 없이 내부화: CSS 토큰 오버라이드 + data-jd-theme 속성 (DEC-014-6).",
-  "tags": [
-    "theme",
-    "tokens",
-    "provider"
-  ],
+  "tags": ["theme", "tokens", "provider"],
   "controls": [],
   "snippets": {
     "web": {

@@ -112,7 +112,7 @@ function ChevronIcon({ open }: { open: boolean }) {
       strokeLinejoin="round"
       aria-hidden="true"
       className={cn(
-        "shrink-0 transition-transform duration-200",
+        "shrink-0 transition-transform duration-200 motion-reduce:transition-none",
         open && "rotate-90",
       )}
     >
@@ -146,8 +146,7 @@ function TreeNavNode({
   const hasChildren = !!item.children?.length;
   const isOpen = !!expanded[item.key];
   const isActive = activeKey === item.key;
-  const badge =
-    item.badge ?? (showCount && hasChildren ? countLeaves(item) : undefined);
+  const badge = item.badge ?? (showCount && hasChildren ? countLeaves(item) : undefined);
 
   const handleClick = () => {
     if (hasChildren) {
@@ -156,9 +155,7 @@ function TreeNavNode({
     onItemClick?.(item.key, item.href);
   };
 
-  const handlePrefetch = onItemPrefetch
-    ? () => onItemPrefetch(item.key, item.href)
-    : undefined;
+  const handlePrefetch = onItemPrefetch ? () => onItemPrefetch(item.key, item.href) : undefined;
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -180,29 +177,29 @@ function TreeNavNode({
         onFocus={handlePrefetch}
         onTouchStart={handlePrefetch}
         className={cn(
-          "flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
-          "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-          isActive &&
-            "bg-neutral-100 font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100",
-          !isActive && "text-neutral-600 dark:text-neutral-400",
+          "flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-sm transition-colors duration-150",
+          // neutral 팔레트 + dark: 짝 대신 의미 토큰 — 테마 변수가 두 모드를 알아서 따라간다
+          "hover:bg-muted/10",
+          // tabIndex=0 이라 실제로 초점을 받는 요소다 — 링을 걸 자리가 여기다
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          isActive && "bg-primary/10 font-medium text-primary-ink",
+          !isActive && "text-muted hover:text-foreground",
         )}
         style={{ paddingLeft: `${depth * 16 + 8}px` }}
       >
         {hasChildren && <ChevronIcon open={isOpen} />}
 
-        {!hasChildren && (
-          <span className="inline-block w-4 shrink-0" aria-hidden="true" />
-        )}
+        {!hasChildren && <span className="inline-block w-4 shrink-0" aria-hidden="true" />}
 
         {item.icon && <span className="shrink-0">{item.icon}</span>}
 
-        <span className="flex-1 truncate">{item.label}</span>
+        <span className="min-w-0 flex-1 truncate">{item.label}</span>
 
         {badge != null && (
           <span
             className={cn(
-              "ml-auto inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-xs font-medium",
-              "bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-300",
+              "ml-auto inline-flex h-5 min-w-5 shrink-0 items-center justify-center rounded-full px-1.5 text-xs font-medium tabular-nums",
+              "bg-muted/15 text-muted",
             )}
           >
             {badge}
@@ -286,8 +283,7 @@ export function TreeNav({
     return map;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const [uncontrolled, setUncontrolled] =
-    useState<Record<string, boolean>>(initialExpanded);
+  const [uncontrolled, setUncontrolled] = useState<Record<string, boolean>>(initialExpanded);
 
   // activeKey 로 가는 경로는 항상 펼쳐 둔다 — 딥링크로 들어온 사용자가
   // 접힌 가지 안에 숨은 현재 문서를 찾지 못하는 일을 막는다.
@@ -338,7 +334,11 @@ export function TreeNav({
         <button
           type="button"
           onClick={toggleAll}
-          className="mb-1 w-full rounded-md px-2 py-1 text-left text-xs text-muted transition-colors hover:bg-neutral-100 hover:text-foreground dark:hover:bg-neutral-800"
+          className={cn(
+            "mb-1 w-full cursor-pointer rounded-lg px-2 py-1 text-left text-xs text-muted",
+            "transition-colors duration-150 hover:bg-muted/10 hover:text-foreground",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          )}
         >
           {allOpen ? "전체 접기" : "전체 펼치기"}
         </button>

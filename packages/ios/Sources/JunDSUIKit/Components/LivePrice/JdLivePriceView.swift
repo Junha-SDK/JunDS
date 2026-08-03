@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-live-price 동형 — 현재가 + 값 변화 플래시. (DEC-048)
 //
@@ -27,9 +27,10 @@ public final class JdLivePriceView: JdLivePriceTextView {
 
     override func applyStyle() {
         spec = JdLivePriceSpec.resolve(size: size)
-        font = JdFontBridge.scaledDigitFont(size: spec.fontSize,
-                                           weight: spec.fontWeight,
-                                           compatibleWith: traitCollection)
+        font = JdFontBridge.scaledDigitFont(
+            size: spec.fontSize,
+            weight: spec.fontWeight,
+            compatibleWith: traitCollection)
         textColor = spec.textColor.uiColor
         layer.cornerRadius = spec.cornerRadius
         layer.masksToBounds = true
@@ -39,8 +40,9 @@ public final class JdLivePriceView: JdLivePriceTextView {
         // 최초 1회는 previousValue가 nil이라 건너뛴다(웹 #started 게이트 동형)
         defer { previousValue = price }
         guard showsFlash, previousValue != nil,
-              JdMotion.duration(JdLivePriceSpec.flashDuration) > 0,
-              let trend = JdLivePriceSpec.flashTrend(previous: previous, current: price) else { return }
+            JdMotion.duration(JdLivePriceSpec.flashDuration) > 0,
+            let trend = JdLivePriceSpec.flashTrend(previous: previous, current: price)
+        else { return }
 
         flashWork?.cancel()
         backgroundColor = JdLivePriceSpec.flashColor(trend).uiColor
@@ -49,7 +51,8 @@ public final class JdLivePriceView: JdLivePriceTextView {
             UIView.animate(withDuration: JdToken.Duration.slow) { self.backgroundColor = .clear }
         }
         flashWork = work
-        DispatchQueue.main.asyncAfter(deadline: .now() + JdLivePriceSpec.flashDuration, execute: work)
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + JdLivePriceSpec.flashDuration, execute: work)
     }
 
     deinit { flashWork?.cancel() }

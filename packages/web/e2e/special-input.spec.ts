@@ -10,7 +10,10 @@ test("jd-star-rating: 라디오 그룹은 탭스톱 1개 (v2는 별 개수만큼
   page,
   browserName,
 }) => {
-  await mount(page, `<button id="before">앞</button><jd-star-rating value="3"></jd-star-rating><button id="after">뒤</button>`);
+  await mount(
+    page,
+    `<button id="before">앞</button><jd-star-rating value="3"></jd-star-rating><button id="after">뒤</button>`,
+  );
   await page.locator("#before").focus();
 
   let stops = 0;
@@ -37,7 +40,9 @@ test("jd-star-rating: 화살표가 선택을 옮긴다 — 수제 키보드 코�
   await expect(el.locator("[data-filled]")).toHaveCount(2);
 });
 
-test("jd-pin-input: 실제 타이핑이 칸을 자동 전진시키고 Backspace가 후퇴시킨다", async ({ page }) => {
+test("jd-pin-input: 실제 타이핑이 칸을 자동 전진시키고 Backspace가 후퇴시킨다", async ({
+  page,
+}) => {
   await mount(page, `<jd-pin-input length="4"></jd-pin-input>`);
   const cells = page.locator("jd-pin-input input");
   await cells.first().focus();
@@ -62,7 +67,10 @@ test("jd-number-input: 스텝 버튼은 탭 순서 밖 — Tab은 입력으로 �
   page,
   browserName,
 }) => {
-  await mount(page, `<button id="before">앞</button><jd-number-input value="1" label="수량"></jd-number-input>`);
+  await mount(
+    page,
+    `<button id="before">앞</button><jd-number-input value="1" label="수량"></jd-number-input>`,
+  );
   await page.locator("#before").focus();
   await pressTab(page, browserName);
   await expect(page.locator("jd-number-input input")).toBeFocused();
@@ -78,7 +86,9 @@ test("jd-number-input: ↑↓ 네이티브 스테퍼가 동작하고 확정 시 
   await expect(input).toHaveValue("10");
 });
 
-test("jd-phone-input: 국가 select를 키보드로 바꿀 수 있다 (v2 수제 드롭다운은 불가)", async ({ page }) => {
+test("jd-phone-input: 국가 select를 키보드로 바꿀 수 있다 (v2 수제 드롭다운은 불가)", async ({
+  page,
+}) => {
   await mount(page, `<jd-phone-input value="1012345678"></jd-phone-input>`);
   const el = page.locator("jd-phone-input");
   await expect(el.locator("input")).toHaveValue("101-2345-678");
@@ -120,7 +130,9 @@ test("jd-file-upload: 실제 드롭이 파일을 통지하고 드래그 상태�
     return dt;
   });
   await zone.dispatchEvent("drop", { dataTransfer: small });
-  expect(await page.evaluate(() => (window as unknown as { got?: string[] }).got)).toEqual(["a.txt"]);
+  expect(await page.evaluate(() => (window as unknown as { got?: string[] }).got)).toEqual([
+    "a.txt",
+  ]);
 
   // max-size(16B) 초과는 거부 — 메시지가 보이고 jd-change는 없다
   const big = await page.evaluateHandle(() => {
@@ -129,9 +141,13 @@ test("jd-file-upload: 실제 드롭이 파일을 통지하고 드래그 상태�
     return dt;
   });
   await zone.dispatchEvent("drop", { dataTransfer: big });
-  expect(await page.evaluate(() => (window as unknown as { failed?: string }).failed)).toBe("max-size");
+  expect(await page.evaluate(() => (window as unknown as { failed?: string }).failed)).toBe(
+    "max-size",
+  );
   await expect(page.locator(".jd-file-upload__error")).toBeVisible();
-  expect(await page.evaluate(() => (window as unknown as { got?: string[] }).got)).toEqual(["a.txt"]);
+  expect(await page.evaluate(() => (window as unknown as { got?: string[] }).got)).toEqual([
+    "a.txt",
+  ]);
 
   // 키보드로 피커 열기 — 실제 파일 선택창은 열지 않고 click 위임만 확인
   await page.evaluate(() => {
@@ -146,7 +162,9 @@ test("jd-file-upload: 실제 드롭이 파일을 통지하고 드래그 상태�
   expect(await page.evaluate(() => (window as unknown as { picked?: boolean }).picked)).toBe(true);
 });
 
-test("jd-back-top: 초기엔 숨김, 임계 초과 스크롤에서 노출되고 클릭이 최상단으로 보낸다", async ({ page }) => {
+test("jd-back-top: 초기엔 숨김, 임계 초과 스크롤에서 노출되고 클릭이 최상단으로 보낸다", async ({
+  page,
+}) => {
   await mount(page, `<div style="height:300vh"></div><jd-back-top threshold="200"></jd-back-top>`);
   const el = page.locator("jd-back-top");
   await expect(el).toBeHidden(); // 프리렌더 결정성: 첫 골격은 항상 숨김
@@ -166,7 +184,9 @@ test("jd-back-top: 초기엔 숨김, 임계 초과 스크롤에서 노출되고 
  * v2는 await만 걸어 unhandled rejection을 냈고, v3는 jd-error로 흡수한다.
  * (성공 경로는 vitest에서 clipboard 스텁으로 검증)
  */
-test("jd-copy-button: 클립보드 불가 환경에서 jd-error로 흡수 — unhandled rejection 없음", async ({ page }) => {
+test("jd-copy-button: 클립보드 불가 환경에서 jd-error로 흡수 — unhandled rejection 없음", async ({
+  page,
+}) => {
   await mount(page, `<jd-copy-button text="복사 대상"></jd-copy-button>`);
   expect(await page.evaluate(() => window.isSecureContext || !!navigator.clipboard)).toBe(false);
 

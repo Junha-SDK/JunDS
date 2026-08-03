@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-live-pct-badge 동형 — 등락률 텍스트 + 추세 색. (DEC-040)
 //
@@ -20,16 +20,18 @@ public final class JdLivePctBadgeView: JdLivePctTextView {
 
     override func applyStyle() {
         // 웹: 12px bold
-        font = JdFontBridge.scaledDigitFont(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                           weight: JdToken.FontWeight.bold,
-                                           compatibleWith: traitCollection)
+        font = JdFontBridge.scaledDigitFont(
+            size: JdTextSpec.resolve(size: .xs).fontSize,
+            weight: JdToken.FontWeight.bold,
+            compatibleWith: traitCollection)
     }
 
     override func applyContent() {
         super.applyContent()
         textColor = JdFinanceTheme.color(trend).uiColor
         // 색이 유일한 추세 신호이면 색각 이상 사용자에게 정보가 사라진다 — 말로도 붙인다 (04 §7.1)
-        accessibilityLabel = JdLivePctBadgeView.accessibilityText(trend: trend, formatted: formatted)
+        accessibilityLabel = JdLivePctBadgeView.accessibilityText(
+            trend: trend, formatted: formatted)
     }
 
     /// 추세명 사전 — SwiftUI 계층(JdLivePctBadge)에 동형 사본이 있다(DEC-010으로 공유 불가)

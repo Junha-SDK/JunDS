@@ -32,11 +32,16 @@ export interface DetailPanelProps {
   className?: string;
 }
 
-const statusStyles: Record<NonNullable<DetailPanelProps["status"]>, { bg: string; text: string; label: string }> = {
-  success: { bg: "bg-green-50 dark:bg-green-900/30", text: "text-green-700 dark:text-green-300", label: "성공" },
-  warning: { bg: "bg-amber-50 dark:bg-amber-900/30", text: "text-amber-700 dark:text-amber-300", label: "경고" },
-  danger: { bg: "bg-red-50 dark:bg-red-900/30", text: "text-red-700 dark:text-red-300", label: "위험" },
-  info: { bg: "bg-blue-50 dark:bg-blue-900/30", text: "text-blue-700 dark:text-blue-300", label: "정보" },
+// `dark:` 변형은 OS 선호도를 보지만 이 저장소의 테마는 `[data-theme]` 속성이다 —
+// 둘이 어긋나면 라이트 테마에 어두운 배지가 박힌다. 모드를 따라가는 의미 토큰만 쓴다.
+const statusStyles: Record<
+  NonNullable<DetailPanelProps["status"]>,
+  { bg: string; text: string; label: string }
+> = {
+  success: { bg: "bg-success-light", text: "text-success", label: "성공" },
+  warning: { bg: "bg-warning-light", text: "text-warning", label: "경고" },
+  danger: { bg: "bg-danger-light", text: "text-danger", label: "위험" },
+  info: { bg: "bg-info-light", text: "text-info", label: "정보" },
 };
 
 /**
@@ -97,19 +102,20 @@ export function DetailPanel({
   return (
     <div
       className={cn(
-        "fixed top-0 right-0 h-full z-40 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 shadow-xl flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        "fixed top-0 right-0 h-full z-40 flex flex-col bg-card border-l border-border",
+        // 떠 있는 면이라 한 겹 그림자로는 배경에서 떨어지지 않는다 — 다층 + 얇은 링.
+        "shadow-[-12px_0_36px_-14px_rgba(0,0,0,0.34),-4px_0_12px_-6px_rgba(0,0,0,0.18)] ring-1 ring-black/5",
+        "transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
         open ? "translate-x-0" : "translate-x-full",
         className,
       )}
       style={{ width }}
     >
       {/* 헤더 */}
-      <div className="flex items-start justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700 shrink-0">
+      <div className="flex items-start justify-between px-5 py-4 border-b border-border shrink-0">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 truncate">
-              {title}
-            </h3>
+            <h3 className="text-base font-semibold text-foreground truncate">{title}</h3>
             {status && (
               <span
                 className={cn(
@@ -122,27 +128,32 @@ export function DetailPanel({
               </span>
             )}
           </div>
-          {subtitle && (
-            <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400 truncate">
-              {subtitle}
-            </p>
-          )}
+          {subtitle && <p className="mt-0.5 text-sm text-muted truncate">{subtitle}</p>}
         </div>
         <button
           type="button"
           onClick={onClose}
           aria-label={t("close")}
-          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer shrink-0 ml-2"
+          className={cn(
+            "shrink-0 ml-2 p-1 rounded-lg cursor-pointer text-muted-light",
+            "transition-colors hover:text-foreground hover:bg-card-hover active:bg-muted/15",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+          )}
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M4.5 4.5l9 9M13.5 4.5l-9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path
+              d="M4.5 4.5l9 9M13.5 4.5l-9 9"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       </div>
 
       {/* 탭 */}
       {tabs && tabs.length > 0 && (
-        <div className="flex border-b border-gray-200 dark:border-gray-700 px-5 gap-0 shrink-0">
+        <div className="flex border-b border-border px-5 gap-0 shrink-0 overflow-x-auto overscroll-x-contain">
           {tabs.map((tab) => (
             <button
               key={tab.key}
@@ -151,20 +162,22 @@ export function DetailPanel({
               aria-selected={activeTab === tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={cn(
-                "inline-flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium border-b-2 -mb-px transition-all duration-150 cursor-pointer",
+                "inline-flex shrink-0 items-center gap-1.5 px-3 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 -mb-px cursor-pointer",
+                "transition-colors duration-150",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
                 activeTab === tab.key
-                  ? "border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400"
-                  : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:border-gray-300",
+                  ? "border-primary text-primary-ink"
+                  : "border-transparent text-muted hover:text-foreground hover:border-border",
               )}
             >
               {tab.label}
               {tab.badge !== undefined && tab.badge > 0 && (
                 <span
                   className={cn(
-                    "inline-flex items-center justify-center rounded-full min-w-[18px] h-[18px] px-1 text-[10px] font-semibold",
+                    "inline-flex items-center justify-center rounded-full min-w-[18px] h-[18px] px-1 text-[10px] font-semibold tabular-nums",
                     activeTab === tab.key
-                      ? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300"
-                      : "bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400",
+                      ? "bg-primary-light text-primary-ink"
+                      : "bg-muted/15 text-muted",
                   )}
                 >
                   {tab.badge}

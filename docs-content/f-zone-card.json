@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "FZoneCard",
   "oneLiner": "매수 구간(F존) 카드 — 레벨별 밴드 표시.",
-  "tags": [
-    "finance",
-    "전략",
-    "카드"
-  ],
+  "tags": ["finance", "전략", "카드"],
   "controls": [],
   "snippets": {
     "web": null,

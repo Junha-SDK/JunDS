@@ -145,8 +145,14 @@ export class JdStat extends JdElement {
     this.#delta = el("span", "jd-stat__delta");
     this.#delta.append(this.#change, this.#changeLabel);
 
+    // 값과 단위를 한 상자로 묶는다 — 줄바꿈 지점은 플렉스 아이템 사이에 생기므로,
+    // 형제로 두면 좁은 칸에서 "12,480,000"과 "원"이 다른 줄로 갈린다(VISUAL-BAR §5).
+    // CSS만으로는 두 아이템을 한 줄바꿈 단위로 묶을 수 없어 골격을 한 겹 더한다.
+    const pair = el("span", "jd-stat__pair");
+    pair.append(this.#value, this.#unit);
+
     const row = el("div", "jd-stat__row");
-    row.append(this.#value, this.#unit, this.#delta);
+    row.append(pair, this.#delta);
 
     this.#hint = el("p", "jd-stat__hint");
 

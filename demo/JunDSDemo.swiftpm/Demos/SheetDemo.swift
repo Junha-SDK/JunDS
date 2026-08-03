@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Sheet 데모 — **별칭**이다(alias-of: BottomSheet). 웹은 별도 태그지만 iOS엔 신규 타입이 없다 —
 // Sheet = BottomSheet의 draggable(끌어 닫기) 형태다(04 §10.1, DESIGN-4 A). 신규 표면을 만들지 않고
@@ -10,7 +10,7 @@ enum SheetDemo {
     static let demo = ComponentDemo(
         id: "Sheet",
         controls: [
-            .options("size", "size", JdOverlaySize.allCases.map(\.rawValue), initial: "md"),
+            .options("size", "size", JdOverlaySize.allCases.map(\.rawValue), initial: "md")
         ],
         swiftUI: { state in AnyView(SheetStage(state: state)) }
     )
@@ -37,14 +37,18 @@ private struct SheetStage: View {
         .padding(JdToken.Space.s6)
         .background(
             // alias-of BottomSheet: draggable 고정 = 끌어 닫기 허용이 Sheet의 실체
-            JdBottomSheet(isPresented: $isPresented,
-                          size: sheetSize(state),
-                          draggable: true) {
+            JdBottomSheet(
+                isPresented: $isPresented,
+                size: sheetSize(state),
+                draggable: true
+            ) {
                 VStack(alignment: .leading, spacing: JdToken.Space.s4) {
                     Text("JdSheet ≡ JdBottomSheet(draggable: true)")
                         .font(.headline)
-                    Text("웹의 Sheet 태그는 iOS에서 새 컴포넌트가 아니라 draggable 바텀시트다 — 소비자가 어느 이름으로 불러도 같은 시트가 나온다.")
-                        .font(.body)
+                    Text(
+                        "웹의 Sheet 태그는 iOS에서 새 컴포넌트가 아니라 draggable 바텀시트다 — 소비자가 어느 이름으로 불러도 같은 시트가 나온다."
+                    )
+                    .font(.body)
                     JdButton("닫기", variant: .primary) { isPresented = false }
                 }
                 .padding(JdToken.Space.s4)

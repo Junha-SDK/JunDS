@@ -30,7 +30,12 @@ export interface VirtualScrollProps<T> {
  * @tags data
  */
 export function VirtualScroll<T>({
-  items, itemHeight, renderItem, overscan = 5, className, style,
+  items,
+  itemHeight,
+  renderItem,
+  overscan = 5,
+  className,
+  style,
 }: VirtualScrollProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollTop, setScrollTop] = useState(0);
@@ -51,16 +56,29 @@ export function VirtualScroll<T>({
 
   const totalHeight = items.length * itemHeight;
   const startIdx = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
-  const endIdx = Math.min(items.length, Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan);
+  const endIdx = Math.min(
+    items.length,
+    Math.ceil((scrollTop + containerHeight) / itemHeight) + overscan,
+  );
   const visibleItems = items.slice(startIdx, endIdx);
 
   return (
-    <div ref={containerRef} onScroll={handleScroll} className={cn("overflow-auto", className)} style={style}>
+    <div
+      ref={containerRef}
+      onScroll={handleScroll}
+      className={cn("overflow-auto", className)}
+      style={style}
+    >
       <div style={{ height: totalHeight, position: "relative" }}>
         {visibleItems.map((item, i) => (
           <div
             key={startIdx + i}
-            style={{ position: "absolute", top: (startIdx + i) * itemHeight, width: "100%", height: itemHeight }}
+            style={{
+              position: "absolute",
+              top: (startIdx + i) * itemHeight,
+              width: "100%",
+              height: itemHeight,
+            }}
           >
             {renderItem(item, startIdx + i)}
           </div>

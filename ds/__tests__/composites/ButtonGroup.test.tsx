@@ -15,12 +15,20 @@ describe("ButtonGroup", () => {
   });
 
   it("has group role", () => {
-    render(<ButtonGroup><button>A</button></ButtonGroup>);
+    render(
+      <ButtonGroup>
+        <button>A</button>
+      </ButtonGroup>,
+    );
     expect(screen.getByRole("group")).toBeInTheDocument();
   });
 
   it("applies fullWidth", () => {
-    const { container } = render(<ButtonGroup fullWidth><button>A</button></ButtonGroup>);
+    const { container } = render(
+      <ButtonGroup fullWidth>
+        <button>A</button>
+      </ButtonGroup>,
+    );
     expect(container.firstChild).toHaveClass("w-full");
   });
 });

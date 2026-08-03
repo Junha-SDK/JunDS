@@ -14,7 +14,7 @@ const meta: Meta<typeof HoverCard> = {
 export default meta;
 type Story = StoryObj<typeof HoverCard>;
 
-const Trigger = <span className="text-primary underline cursor-default">@junha</span>;
+const Trigger = <span className="text-primary-ink underline cursor-default">@junha</span>;
 
 const Profile = (
   <div className="space-y-1.5">

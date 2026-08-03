@@ -50,20 +50,25 @@ export function FocusGuard({
     };
   }, [active, autoFocus, returnFocus]);
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (!active || e.key !== "Tab" || !ref.current) return;
-    const focusable = ref.current.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
-    );
-    if (focusable.length === 0) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault(); last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault(); first.focus();
-    }
-  }, [active]);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (!active || e.key !== "Tab" || !ref.current) return;
+      const focusable = ref.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    },
+    [active],
+  );
 
   return (
     <div ref={ref} onKeyDown={handleKeyDown} className={cn(className)}>

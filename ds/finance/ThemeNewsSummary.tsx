@@ -65,8 +65,7 @@ export function ThemeNewsSummary({ query, limit = 10, compact }: ThemeNewsSummar
     );
   }
 
-  const toneTone =
-    summary.tone > 0.15 ? "positive" : summary.tone < -0.15 ? "negative" : "neutral";
+  const toneTone = summary.tone > 0.15 ? "positive" : summary.tone < -0.15 ? "negative" : "neutral";
   const toneStyle: Record<typeof toneTone, { fg: string; bg: string; label: string }> = {
     positive: { fg: "var(--bm-up)", bg: "var(--bm-up-soft)", label: "전반 호재" },
     negative: { fg: "var(--bm-down)", bg: "var(--bm-down-soft)", label: "전반 악재" },
@@ -122,10 +121,7 @@ export function ThemeNewsSummary({ query, limit = 10, compact }: ThemeNewsSummar
           {summary.keyTerms.map((k) => (
             <span key={k.term} className="bm-chip">
               {k.term}
-              <span
-                className="bm-num text-[10px] font-bold ml-1"
-                style={{ opacity: 0.6 }}
-              >
+              <span className="bm-num text-[10px] font-bold ml-1" style={{ opacity: 0.6 }}>
                 {k.count}
               </span>
             </span>

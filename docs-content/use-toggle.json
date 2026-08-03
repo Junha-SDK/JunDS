@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useToggle",
   "oneLiner": "불린 토글 상태.",
-  "tags": [
-    "hook",
-    "상태",
-    "토글"
-  ],
+  "tags": ["hook", "상태", "토글"],
   "controls": [],
   "snippets": {
     "web": null,

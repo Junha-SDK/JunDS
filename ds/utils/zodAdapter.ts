@@ -6,9 +6,12 @@ import type { FormRules } from "../hooks/useForm";
  * const rules = zodAdapter(z.object({ name: z.string().min(1), email: z.string().email() }));
  * const form = useForm({ name: "", email: "" }, rules);
  */
-export function zodAdapter<T extends Record<string, unknown>>(
-  schema: { safeParse: (data: unknown) => { success: boolean; error?: { issues: { path: (string | number)[]; message: string }[] } } },
-): FormRules<T> {
+export function zodAdapter<T extends Record<string, unknown>>(schema: {
+  safeParse: (data: unknown) => {
+    success: boolean;
+    error?: { issues: { path: (string | number)[]; message: string }[] };
+  };
+}): FormRules<T> {
   const rules: FormRules<T> = {} as FormRules<T>;
 
   const proxy = new Proxy(rules, {

@@ -25,8 +25,7 @@ let currentNames: string[] = [];
 function reconnect(): void {
   const wanted = Array.from(subscribers.keys()).sort();
   const same =
-    wanted.length === currentNames.length &&
-    wanted.every((n, i) => n === currentNames[i]);
+    wanted.length === currentNames.length && wanted.every((n, i) => n === currentNames[i]);
   if (same && es) return;
 
   if (es) {

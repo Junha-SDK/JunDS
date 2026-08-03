@@ -68,7 +68,9 @@ export function RealCandleChart({
       if (showLoading) {
         setState((prev) => ({ ...prev, loading: true }));
       }
-      const url = `/api/candles?symbol=${encodeURIComponent(symbol)}&range=${range}&interval=${interval}&_=${Date.now()}`;
+      const url = `/api/candles?symbol=${encodeURIComponent(
+        symbol,
+      )}&range=${range}&interval=${interval}&_=${Date.now()}`;
       try {
         const r = await fetch(url, { cache: "no-store" });
         const data = await r.json();
@@ -146,21 +148,25 @@ export function RealCandleChart({
       <div className="flex items-center justify-between mb-2 px-1">
         <div className="flex items-center gap-2 text-[11.5px]">
           <span
-            className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full font-extrabold"
+            className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full font-extrabold whitespace-nowrap"
+            // 바로 아래 점은 var(--bm-success) 인데 배지만 리터럴 초록이었다 —
+            // 다크 전환 때 배지와 점이 서로 다른 초록으로 갈라진다.
             style={{
-              background: state.source === "yahoo" ? "rgba(34,197,94,0.12)" : "var(--bm-soft-100)",
-              color: state.source === "yahoo" ? "#16a34a" : "var(--bm-muted)",
+              background: state.source === "yahoo" ? "var(--bm-success-bg)" : "var(--bm-soft-100)",
+              color: state.source === "yahoo" ? "var(--bm-success)" : "var(--bm-muted)",
             }}
           >
             <span
               className="size-1.5 rounded-full"
-              style={{ background: state.source === "yahoo" ? "var(--bm-success)" : "var(--bm-muted)" }}
+              style={{
+                background: state.source === "yahoo" ? "var(--bm-success)" : "var(--bm-muted)",
+              }}
             />
             {state.source === "yahoo"
               ? "Yahoo Finance · 실시간"
               : state.loading
-                ? "데이터 불러오는 중…"
-                : "샘플 데이터"}
+              ? "데이터 불러오는 중…"
+              : "샘플 데이터"}
           </span>
           {state.source === "yahoo" ? (
             <span className="bm-num text-[11px]" style={{ color: "var(--bm-muted)" }}>
@@ -176,7 +182,11 @@ export function RealCandleChart({
             href={`https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[11px] font-bold flex items-center gap-1"
+            className={[
+              "text-[11px] font-bold flex items-center gap-1 whitespace-nowrap rounded-sm",
+              "transition-colors duration-150 hover:text-[color:var(--bm-text)]",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--bm-accent)]",
+            ].join(" ")}
             style={{ color: "var(--bm-muted)" }}
           >
             Yahoo에서 보기
@@ -212,7 +222,7 @@ function FreshnessBadge({
   const live = marketStatus === "장중" || marketStatus === "프리장" || marketStatus === "애프터장";
   return (
     <span
-      className="text-[11px] font-bold inline-flex items-center gap-1"
+      className="text-[11px] font-bold inline-flex items-center gap-1 whitespace-nowrap tabular-nums"
       style={{ color: "var(--bm-muted)" }}
       title={new Date(asOf).toLocaleTimeString("ko-KR")}
     >

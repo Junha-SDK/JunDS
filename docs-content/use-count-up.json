@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useCountUp",
   "oneLiner": "숫자 카운트업 애니메이션.",
-  "tags": [
-    "hook",
-    "animation",
-    "숫자"
-  ],
+  "tags": ["hook", "animation", "숫자"],
   "controls": [],
   "snippets": {
     "web": null,

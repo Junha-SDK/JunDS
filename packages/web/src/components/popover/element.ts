@@ -21,10 +21,7 @@
  * 이벤트 시점에 측정한다.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { createClickOutside, on } from "../../behaviors/input.js";
@@ -227,11 +224,7 @@ export class JdPopover extends JdElement {
       syncOwnedAttribute(control, "aria-expanded", null);
       syncAriaIdRefs(control, "aria-controls", null);
       // Tooltip 계열: 열려 있을 때만 서술 관계를 맺는다(hidden 요소 참조 금지)
-      syncAriaIdRefs(
-        control,
-        "aria-describedby",
-        this.open ? panel.id : null,
-      );
+      syncAriaIdRefs(control, "aria-describedby", this.open ? panel.id : null);
     }
   }
 

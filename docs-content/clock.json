@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "Clock",
   "oneLiner": "현재 시각 시계 표시.",
-  "tags": [
-    "display",
-    "time",
-    "시계"
-  ],
+  "tags": ["display", "time", "시계"],
   "controls": [],
   "snippets": {
     "web": null,

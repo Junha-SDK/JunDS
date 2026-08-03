@@ -67,7 +67,8 @@ function rewriteSpecifier(spec, ctx) {
   return spec;
 }
 
-const IMPORT_RE = /(\bimport\s+(?:type\s+)?(?:[^'"]*?)from\s+|\bexport\s+(?:type\s+)?(?:\*|\{[^}]*\})\s+from\s+|\brequire\s*\(\s*|\bimport\s*\(\s*)(['"])([^'"]+)(\2)/g;
+const IMPORT_RE =
+  /(\bimport\s+(?:type\s+)?(?:[^'"]*?)from\s+|\bexport\s+(?:type\s+)?(?:\*|\{[^}]*\})\s+from\s+|\brequire\s*\(\s*|\bimport\s*\(\s*)(['"])([^'"]+)(\2)/g;
 
 function transformSource(src, ctx) {
   return src.replace(IMPORT_RE, (m, prefix, q1, spec, q2) => {

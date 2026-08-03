@@ -302,8 +302,7 @@ export class JdMultiLineChart extends JdCategoryChart<JdChartSeries> {
       box.append(name);
       const val = svgNode("text", "jd-mlc__tip-val");
       setAttrs(val, { x: coord(tipW - TIP_PAD_X), y: yPos });
-      val.textContent =
-        v == null ? "—" : `${v >= 0 ? "+" : ""}${v.toFixed(2)}${this.unit}`;
+      val.textContent = v == null ? "—" : `${v >= 0 ? "+" : ""}${v.toFixed(2)}${this.unit}`;
       box.append(val);
     });
 

@@ -210,7 +210,9 @@ export class JdOnboardingTour extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비(문자열 target만 표현 가능) */
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as unknown;

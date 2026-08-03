@@ -45,7 +45,9 @@ export function useImagePreload(urls: string[], { concurrency = 3 }: UseImagePre
     };
     tryNext();
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
     // urls is treated as the dependency boundary by reference — callers should
     // memoize if identity should be stable across renders.
     // eslint-disable-next-line react-hooks/exhaustive-deps

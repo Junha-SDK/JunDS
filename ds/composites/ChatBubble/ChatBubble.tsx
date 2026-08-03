@@ -30,23 +30,45 @@ export interface ChatBubbleProps {
  * @tags data-display
  */
 export function ChatBubble({
-  children, sender, avatar, timestamp, side = "left", variant = "default", className,
+  children,
+  sender,
+  avatar,
+  timestamp,
+  side = "left",
+  variant = "default",
+  className,
 }: ChatBubbleProps) {
   const isRight = side === "right";
   return (
     <div className={cn("flex gap-2 max-w-[80%]", isRight && "ml-auto flex-row-reverse", className)}>
       {avatar && <div className="shrink-0 mt-auto">{avatar}</div>}
-      <div>
-        {sender && <p className={cn("text-[10px] text-muted mb-0.5 px-1", isRight && "text-right")}>{sender}</p>}
-        <div className={cn(
-          "px-3.5 py-2 rounded-2xl text-sm leading-relaxed",
-          isRight
-            ? variant === "primary" ? "bg-primary text-white rounded-br-sm" : "bg-gray-100 text-foreground rounded-br-sm"
-            : "bg-gray-100 text-foreground rounded-bl-sm",
-        )}>
+      {/* min-w-0 이 없으면 긴 한 덩어리 텍스트가 플렉스 부모의 80% 제한을 밀어낸다 */}
+      <div className="min-w-0">
+        {sender && (
+          <p className={cn("text-[10px] text-muted mb-0.5 px-1", isRight && "text-right")}>
+            {sender}
+          </p>
+        )}
+        <div
+          className={cn(
+            // gray-100 + ring-black 은 다크에서 무너진다(링은 아예 보이지 않는다).
+            // 중립 말풍선은 카드 면이다 — surface + border 링이 두 모드 모두에서 배경과 분리된다.
+            "px-3.5 py-2 rounded-2xl text-sm leading-relaxed transition-shadow duration-200",
+            "min-w-0 break-words",
+            isRight
+              ? variant === "primary"
+                ? "bg-primary text-white rounded-br-md shadow-[0_2px_8px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.15)]"
+                : "bg-surface text-foreground rounded-br-md shadow-[0_1px_2px_rgba(0,0,0,0.05)] ring-1 ring-border"
+              : "bg-surface text-foreground rounded-bl-md shadow-[0_1px_2px_rgba(0,0,0,0.05)] ring-1 ring-border",
+          )}
+        >
           {children}
         </div>
-        {timestamp && <p className={cn("text-[10px] text-muted mt-0.5 px-1", isRight && "text-right")}>{timestamp}</p>}
+        {timestamp && (
+          <p className={cn("text-[10px] text-muted mt-0.5 px-1", isRight && "text-right")}>
+            {timestamp}
+          </p>
+        )}
       </div>
     </div>
   );

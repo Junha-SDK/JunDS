@@ -48,11 +48,11 @@ public extension JdFinanceTheme {
     /// 테마 카테고리 회전 팔레트 — 웹 `--bm-cat-*` 기본값 5종을 웹과 **같은 순서**로 둔다
     /// (cat-3 → 2 → 4 → 8 → 5). 순서가 다르면 같은 데이터가 두 플랫폼에서 다른 색이 된다.
     static var categoryPalette: [JdDynamicColor] = [
-        JdDynamicColor(light: 0x14B8_A6FF, dark: 0x2DD4_BFFF), // cat-3 teal
-        JdDynamicColor(light: 0xEC48_99FF, dark: 0xF472_B6FF), // cat-2 pink
-        JdDynamicColor(light: 0xF59E_0BFF, dark: 0xFBBF_24FF), // cat-4 amber
-        JdDynamicColor(light: 0x10B9_81FF, dark: 0x34D3_99FF), // cat-8 emerald
-        JdDynamicColor(light: 0x8B5C_F6FF, dark: 0xA78B_FAFF), // cat-5 violet
+        JdDynamicColor(light: 0x14B8_A6FF, dark: 0x2DD4_BFFF),  // cat-3 teal
+        JdDynamicColor(light: 0xEC48_99FF, dark: 0xF472_B6FF),  // cat-2 pink
+        JdDynamicColor(light: 0xF59E_0BFF, dark: 0xFBBF_24FF),  // cat-4 amber
+        JdDynamicColor(light: 0x10B9_81FF, dark: 0x34D3_99FF),  // cat-8 emerald
+        JdDynamicColor(light: 0x8B5C_F6FF, dark: 0xA78B_FAFF),  // cat-5 violet
     ]
 
     /// 인덱스를 팔레트 길이로 감아 색을 고른다. 음수·초과도 안전하다.
@@ -96,15 +96,18 @@ public struct JdDisclosureToneBadgeSpec: Sendable {
 
     /// 웹: full = h28 · px10 · radius lg · 톤 11/800 · cat 10.5/700 · conf 10/700,
     /// compact = h20 · px6 · radius sm · 톤 10.5/800 · 나머지 숨김
-    public static func resolve(tone: JdDisclosureTone, compact: Bool = false) -> JdDisclosureToneBadgeSpec {
+    public static func resolve(
+        tone: JdDisclosureTone, compact: Bool = false
+    ) -> JdDisclosureToneBadgeSpec {
         let base: JdDynamicColor
         switch tone {
         case .positive: base = JdFinanceTheme.up
         case .negative: base = JdFinanceTheme.down
-        case .neutral:  base = JdToken.Color.muted
+        case .neutral: base = JdToken.Color.muted
         }
         // 중립은 색이 아니라 무채 틴트다 — 톤이 없다는 뜻을 색으로도 말한다
-        let background = tone == .neutral
+        let background =
+            tone == .neutral
             ? JdFinanceSpecMix.wash(JdToken.Color.foreground, alpha: 0.06)
             : JdFinanceTheme.tint(base, alpha: 0.14)
         let foreground = tone == .neutral ? JdToken.Color.muted : JdFinanceTheme.onTint(base)
@@ -134,9 +137,11 @@ public struct JdDisclosureToneBadgeSpec: Sendable {
 
     /// compact에서 카테고리·신뢰도를 숨겨도 스크린리더는 전부 읽어야 한다.
     /// 웹 v2는 접근 이름이 아예 없었고 v3가 얹은 보정을 iOS도 따른다.
-    public static func accessibilityText(tone: JdDisclosureTone,
-                                        category: JdDisclosureCategory,
-                                        confidence: Double) -> String {
+    public static func accessibilityText(
+        tone: JdDisclosureTone,
+        category: JdDisclosureCategory,
+        confidence: Double
+    ) -> String {
         var parts = [tone.label, category.label]
         if let c = confidenceText(confidence) { parts.append("신뢰도 \(c)") }
         return parts.joined(separator: " · ")
@@ -159,14 +164,15 @@ public struct JdThemeChipSpec: Sendable {
     /// 웹: 알약 · px8/py2 · 12px bold · 회전 accent 12% 배경 + 섞은 글자
     public static func resolve(index: Int) -> JdThemeChipSpec {
         let base = JdFinanceTheme.categoryColor(index)
-        return JdThemeChipSpec(hPadding: JdToken.Space.s2,
-                               vPadding: JdToken.Space.s0_5,
-                               gap: 2,
-                               fontSize: JdTextSpec.resolve(size: .xs).fontSize,
-                               fontWeight: JdToken.FontWeight.bold,
-                               background: JdFinanceTheme.tint(base),
-                               foreground: JdFinanceTheme.onTint(base),
-                               prefixOpacity: 0.7)
+        return JdThemeChipSpec(
+            hPadding: JdToken.Space.s2,
+            vPadding: JdToken.Space.s0_5,
+            gap: 2,
+            fontSize: JdTextSpec.resolve(size: .xs).fontSize,
+            fontWeight: JdToken.FontWeight.bold,
+            background: JdFinanceTheme.tint(base),
+            foreground: JdFinanceTheme.onTint(base),
+            prefixOpacity: 0.7)
     }
 }
 
@@ -199,11 +205,12 @@ public struct JdLivePriceSpec: Sendable {
     public static let flashDuration: TimeInterval = 0.6
 
     public static func resolve(size: JdLivePriceSize = .md) -> JdLivePriceSpec {
-        JdLivePriceSpec(fontSize: size.fontSize,
-                        fontWeight: JdToken.FontWeight.bold,
-                        textColor: JdFinanceTheme.up,
-                        cornerRadius: JdToken.Radius.sm,
-                        flashPadding: (h: 4, v: 1))
+        JdLivePriceSpec(
+            fontSize: size.fontSize,
+            fontWeight: JdToken.FontWeight.bold,
+            textColor: JdFinanceTheme.up,
+            cornerRadius: JdToken.Radius.sm,
+            flashPadding: (h: 4, v: 1))
     }
 
     /// 플래시 배경 — 방향을 색으로 남긴다(웹 16% 틴트)
@@ -215,7 +222,9 @@ public struct JdLivePriceSpec: Sendable {
     /// **최초 표시에서는 절대 켜지 않는다**(previous가 nil): 웹의 결정적 렌더 규칙(§3.1-3)과
     /// 같은 이유로, 화면에 처음 뜨는 순간 번쩍이면 값이 바뀐 것처럼 보인다.
     public static func flashTrend(previous: Double?, current: Double) -> JdTrend? {
-        guard let previous, previous != current, current.isFinite, previous.isFinite else { return nil }
+        guard let previous, previous != current, current.isFinite, previous.isFinite else {
+            return nil
+        }
         return current > previous ? .up : .down
     }
 }

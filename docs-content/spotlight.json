@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "Spotlight",
   "oneLiner": "포커스 하이라이트 오버레이",
-  "tags": [
-    "overlay",
-    "navigation"
-  ],
+  "tags": ["overlay", "navigation"],
   "controls": [],
   "snippets": {
     "web": null,

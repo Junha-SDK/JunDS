@@ -31,25 +31,22 @@ export function useOptimisticState<T>(initial: T): [T, OptimisticController<T>, 
     setState(next);
   }, []);
 
-  const run = useCallback(
-    async (apply: (current: T) => T, mutation: () => Promise<unknown>) => {
-      const before = truthRef.current;
-      const optimistic = apply(before);
-      setState(optimistic);
-      setPendingCount((n) => n + 1);
-      try {
-        await mutation();
-        truthRef.current = optimistic;
-      } catch (e) {
-        // Rollback to last-known-truth.
-        setState(truthRef.current);
-        throw e;
-      } finally {
-        setPendingCount((n) => n - 1);
-      }
-    },
-    [],
-  );
+  const run = useCallback(async (apply: (current: T) => T, mutation: () => Promise<unknown>) => {
+    const before = truthRef.current;
+    const optimistic = apply(before);
+    setState(optimistic);
+    setPendingCount((n) => n + 1);
+    try {
+      await mutation();
+      truthRef.current = optimistic;
+    } catch (e) {
+      // Rollback to last-known-truth.
+      setState(truthRef.current);
+      throw e;
+    } finally {
+      setPendingCount((n) => n - 1);
+    }
+  }, []);
 
   return [state, { run, pendingCount }, setTruth];
 }

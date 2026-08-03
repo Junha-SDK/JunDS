@@ -42,7 +42,9 @@ export default function TypographyPage() {
         <div className="flex flex-col gap-4">
           <div>
             <div className="text-xs text-muted mb-1">Sans (Geist Sans)</div>
-            <p className="text-lg font-sans">The quick brown fox jumps over the lazy dog. 가나다라마바사아자차카</p>
+            <p className="text-lg font-sans">
+              The quick brown fox jumps over the lazy dog. 가나다라마바사아자차카
+            </p>
           </div>
           <div>
             <div className="text-xs text-muted mb-1">Mono (Geist Mono)</div>

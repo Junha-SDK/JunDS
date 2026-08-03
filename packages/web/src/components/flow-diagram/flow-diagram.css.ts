@@ -2,165 +2,384 @@ import { css } from "../../core/styles.js";
 
 /**
  * v2 값(Tailwind → 의미 번역). 노드 에디터는 고정 다크 서피스(gray-950 캔버스 / gray-900
- * 노드)라 그 팔레트는 컴포넌트 고유 색 리터럴로 유지한다(§4.3) — 테마로 뒤집지 않는다.
- * 선택·연결 강조와 격자만 시맨틱 토큰(primary/muted)을 쓴다. 좌표·치수는 JS 인라인.
+ * 노드)다 — 여기서 --jd-color-surface 3단은 **의도된 선택**이다(라이트에서도 어두운 크롬,
+ * 02-tokens §2). 그래서 그 위의 잉크는 모드를 따라가면 안 된다: 선·테두리·라벨을
+ * --jd-color-muted/--jd-color-neutral-* (모드추종)로 칠하면 한쪽 모드에서 캔버스에 녹는다.
+ * 잉크는 전부 --jd-color-on-surface(-muted)에서 뽑고, 테두리는 그 잉크의 혼합으로 만든다(§4).
+ * 선택·연결 강조는 --jd-color-primary 계열만 쓴다 — 임의의 핑크/시안은 팔레트 밖이다(§8).
+ * 좌표·치수는 JS 인라인.
  */
 export default css`
-@layer junds.base {
-  jd-flow-diagram:not(:defined) { display: block; }
-}
-@layer junds.components {
-  jd-flow-diagram {
-    display: block; position: relative; box-sizing: border-box;
-    width: 100%; min-height: 400px; overflow: hidden;
-    background: var(--jd-color-surface); /* 항상 어두운 캔버스 — 모드 무관 (DEC-044) */
-    font-family: var(--jd-font-sans);
-    outline: none; touch-action: none; cursor: default;
+  @layer junds.base {
+    jd-flow-diagram:not(:defined) {
+      display: block;
+    }
   }
-  jd-flow-diagram:focus-visible { box-shadow: inset 0 0 0 2px var(--jd-color-primary); }
-  jd-flow-diagram[data-grabbing] { cursor: grabbing; }
-  jd-flow-diagram[data-space] { cursor: grab; }
+  @layer junds.components {
+    jd-flow-diagram {
+      display: block;
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      /* flex/grid 부모 안에서 width:100%가 기준 폭을 넘겨 캔버스가 컨테이너 밖으로
+         비어져 나가는 것을 막는다(§6). 장면 자체의 화면 맞춤은 element.ts가 담당한다. */
+      max-width: 100%;
+      min-width: 0;
+      min-height: 400px;
+      overflow: hidden;
+      background: var(--jd-color-surface); /* 항상 어두운 캔버스 — 모드 무관 (DEC-044) */
+      font-family: var(--jd-font-sans);
+      outline: none;
+      touch-action: none;
+      cursor: default;
+    }
+    /* 캔버스는 overflow:hidden 이라 바깥 아웃라인이 잘린다 — 링을 안쪽 그림자로 준다(§1) */
+    jd-flow-diagram:focus-visible {
+      outline: none;
+      box-shadow: inset 0 0 0 var(--jd-border-medium) var(--jd-color-ring-primary);
+    }
+    jd-flow-diagram[data-grabbing] {
+      cursor: grabbing;
+    }
+    jd-flow-diagram[data-space] {
+      cursor: grab;
+    }
 
-  /* 격자 */
-  .jd-flow__grid {
-    position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  }
-  .jd-flow__grid[hidden] { display: none; }
+    /* 격자 */
+    .jd-flow__grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    }
+    .jd-flow__grid[hidden] {
+      display: none;
+    }
 
-  /* 변환 레이어 */
-  .jd-flow__viewport { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
-  .jd-flow__nodes, .jd-flow__groups { position: absolute; top: 0; left: 0; }
+    /* 변환 레이어 */
+    .jd-flow__viewport {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+    }
+    .jd-flow__nodes,
+    .jd-flow__groups {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
-  /* 연결선 SVG */
-  .jd-flow__links {
-    position: absolute; top: 0; left: 0; width: 1px; height: 1px;
-    overflow: visible; pointer-events: none;
-  }
-  .jd-flow__link-hit {
-    stroke: transparent; stroke-width: 14; fill: none;
-    pointer-events: stroke; cursor: pointer;
-  }
-  .jd-flow__link-line {
-    stroke: var(--jd-color-muted); stroke-width: 2; fill: none; stroke-linecap: round;
-    pointer-events: none;
-  }
-  .jd-flow__link-line[data-animate] {
-    stroke-dasharray: 6 4; animation: jd-flow-dash 0.8s linear infinite;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .jd-flow__link-line[data-animate] { animation: none; }
-  }
-  @keyframes jd-flow-dash { to { stroke-dashoffset: -20; } }
-  .jd-flow__link-arrow { fill: var(--jd-color-muted); pointer-events: none; }
-  .jd-flow__link[data-selected] .jd-flow__link-line { stroke: var(--jd-color-primary); stroke-width: 3; }
-  .jd-flow__link[data-selected] .jd-flow__link-arrow { fill: var(--jd-color-primary); }
-  .jd-flow__link-label-bg { fill: var(--jd-color-surface-raised); stroke: var(--jd-color-surface-overlay); stroke-width: 1; pointer-events: none; }
-  .jd-flow__link-label {
-    fill: var(--jd-color-neutral-300); font-size: 10px; font-family: var(--jd-font-sans); pointer-events: none;
-  }
+    /* 연결선 SVG */
+    .jd-flow__links {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: 1px;
+      overflow: visible;
+      pointer-events: none;
+    }
+    .jd-flow__link-hit {
+      stroke: transparent;
+      stroke-width: 14;
+      fill: none;
+      pointer-events: stroke;
+      cursor: pointer;
+    }
+    .jd-flow__link-line {
+      stroke: var(--jd-color-on-surface-muted);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      pointer-events: none;
+    }
+    .jd-flow__link-line[data-animate] {
+      stroke-dasharray: 6 4;
+      animation: jd-flow-dash 0.8s linear infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-flow__link-line[data-animate] {
+        animation: none;
+      }
+    }
+    @keyframes jd-flow-dash {
+      to {
+        stroke-dashoffset: -20;
+      }
+    }
+    .jd-flow__link-arrow {
+      fill: var(--jd-color-on-surface-muted);
+      pointer-events: none;
+    }
+    /* 선택 강조는 primary 계열이되, 어두운 캔버스 위에서는 원색만으로 대비가 서지 않아
+       잉크를 섞어 띄운다 — marquee·선택 노드와 같은 배합이라 강조색이 갈라지지 않는다 */
+    .jd-flow__link[data-selected] .jd-flow__link-line {
+      stroke: color-mix(in srgb, var(--jd-color-primary) 55%, var(--jd-color-on-surface));
+      stroke-width: 3;
+    }
+    .jd-flow__link[data-selected] .jd-flow__link-arrow {
+      fill: color-mix(in srgb, var(--jd-color-primary) 55%, var(--jd-color-on-surface));
+    }
+    .jd-flow__link-label-bg {
+      fill: var(--jd-color-surface-raised);
+      stroke: var(--jd-color-surface-overlay);
+      stroke-width: 1;
+      pointer-events: none;
+    }
+    /* neutral-300은 모드추종이라 다크에서 #3a3656 — 같은 어두운 라벨판 위에서 사라진다.
+       라벨 폭은 element.ts가 10px 기준으로 계산하므로 글자 크기는 건드리지 않는다. */
+    .jd-flow__link-label {
+      fill: var(--jd-color-on-surface);
+      font-size: 10px;
+      font-family: var(--jd-font-sans);
+      pointer-events: none;
+    }
 
-  /* 노드 카드 */
-  .jd-flow__node {
-    position: absolute; user-select: none; overflow: visible;
-    border-radius: var(--jd-radius-xl);
-    border: 2px solid var(--jd-color-muted);
-    background: var(--jd-color-surface-raised); color: var(--jd-color-on-surface);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  }
-  .jd-flow__node[data-selected] {
-    box-shadow: 0 0 0 2px var(--jd-color-primary), 0 4px 24px rgba(0, 0, 0, 0.4);
-    z-index: 10;
-  }
-  .jd-flow__node[data-variant="success"] { border-color: var(--jd-color-success); }
-  .jd-flow__node[data-variant="warning"] { border-color: var(--jd-color-warning); }
-  .jd-flow__node[data-variant="danger"] { border-color: var(--jd-color-danger); }
-  .jd-flow__node[data-variant="info"] { border-color: var(--jd-color-primary); }
+    /* 노드 카드 */
+    .jd-flow__node {
+      position: absolute;
+      user-select: none;
+      overflow: visible;
+      border-radius: var(--jd-radius-xl);
+      border: var(--jd-border-medium) solid
+        color-mix(in srgb, var(--jd-color-on-surface) 30%, transparent);
+      background: var(--jd-color-surface-raised);
+      color: var(--jd-color-on-surface);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .jd-flow__node[data-selected] {
+      box-shadow: 0 0 0 var(--jd-border-medium)
+          color-mix(in srgb, var(--jd-color-primary) 55%, var(--jd-color-on-surface)),
+        0 4px 24px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
+    .jd-flow__node[data-variant="success"] {
+      border-color: var(--jd-color-success);
+    }
+    .jd-flow__node[data-variant="warning"] {
+      border-color: var(--jd-color-warning);
+    }
+    .jd-flow__node[data-variant="danger"] {
+      border-color: var(--jd-color-danger);
+    }
+    .jd-flow__node[data-variant="info"] {
+      border-color: var(--jd-color-primary);
+    }
 
-  .jd-flow__node-header {
-    display: flex; align-items: center; gap: var(--jd-space-1-5);
-    padding: var(--jd-space-2) var(--jd-space-3);
-    font-size: var(--jd-text-sm); font-weight: var(--jd-weight-bold);
-    border-block-end: 1px solid var(--jd-color-muted);
-    border-start-start-radius: 10px; border-start-end-radius: 10px;
-    background: var(--jd-color-surface-overlay); color: var(--jd-color-on-surface-muted);
-  }
-  .jd-flow__node[data-variant="success"] .jd-flow__node-header { background: color-mix(in srgb, var(--jd-color-success) 30%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); border-color: var(--jd-color-success); }
-  .jd-flow__node[data-variant="warning"] .jd-flow__node-header { background: color-mix(in srgb, var(--jd-color-warning) 30%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); border-color: var(--jd-color-warning); }
-  .jd-flow__node[data-variant="danger"] .jd-flow__node-header { background: color-mix(in srgb, var(--jd-color-danger) 30%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); border-color: var(--jd-color-danger); }
-  .jd-flow__node[data-variant="info"] .jd-flow__node-header { background: color-mix(in srgb, var(--jd-color-primary) 34%, var(--jd-color-surface-overlay)); color: var(--jd-color-on-surface); border-color: var(--jd-color-primary); }
-  .jd-flow__node-icon { flex-shrink: 0; font-size: var(--jd-text-md); }
-  .jd-flow__node-icon[hidden] { display: none; }
-  .jd-flow__node-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .jd-flow__node-body {
-    padding: var(--jd-space-2) var(--jd-space-3);
-    font-size: var(--jd-text-xs); color: var(--jd-color-on-surface-muted);
-  }
-  .jd-flow__node-body[hidden] { display: none; }
+    .jd-flow__node-header {
+      display: flex;
+      align-items: center;
+      gap: var(--jd-space-1-5);
+      padding: var(--jd-space-2) var(--jd-space-3);
+      font-size: var(--jd-text-sm);
+      font-weight: var(--jd-weight-bold);
+      border-block-end: var(--jd-border-thin) solid
+        color-mix(in srgb, var(--jd-color-on-surface) 30%, transparent);
+      border-start-start-radius: 10px;
+      border-start-end-radius: 10px;
+      background: var(--jd-color-surface-overlay);
+      /* 헤더는 노드의 제목줄이다 — 보조 잉크로는 흐리다 */
+      color: var(--jd-color-on-surface);
+    }
+    .jd-flow__node[data-variant="success"] .jd-flow__node-header {
+      background: color-mix(in srgb, var(--jd-color-success) 30%, var(--jd-color-surface-overlay));
+      color: var(--jd-color-on-surface);
+      border-color: var(--jd-color-success);
+    }
+    .jd-flow__node[data-variant="warning"] .jd-flow__node-header {
+      background: color-mix(in srgb, var(--jd-color-warning) 30%, var(--jd-color-surface-overlay));
+      color: var(--jd-color-on-surface);
+      border-color: var(--jd-color-warning);
+    }
+    .jd-flow__node[data-variant="danger"] .jd-flow__node-header {
+      background: color-mix(in srgb, var(--jd-color-danger) 30%, var(--jd-color-surface-overlay));
+      color: var(--jd-color-on-surface);
+      border-color: var(--jd-color-danger);
+    }
+    .jd-flow__node[data-variant="info"] .jd-flow__node-header {
+      background: color-mix(in srgb, var(--jd-color-primary) 34%, var(--jd-color-surface-overlay));
+      color: var(--jd-color-on-surface);
+      border-color: var(--jd-color-primary);
+    }
+    .jd-flow__node-icon {
+      flex-shrink: 0;
+      font-size: var(--jd-text-md);
+    }
+    .jd-flow__node-icon[hidden] {
+      display: none;
+    }
+    .jd-flow__node-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .jd-flow__node-body {
+      padding: var(--jd-space-2) var(--jd-space-3);
+      font-size: var(--jd-text-xs);
+      color: var(--jd-color-on-surface-muted);
+    }
+    .jd-flow__node-body[hidden] {
+      display: none;
+    }
 
-  /* 포트 */
-  .jd-flow__ports { position: absolute; inset: 0; pointer-events: none; }
-  .jd-flow__port {
-    position: absolute; width: 12px; height: 12px; border-radius: var(--jd-radius-full);
-    border: 2px solid var(--jd-color-surface-overlay); background: var(--jd-color-info); z-index: 20;
-    cursor: crosshair; pointer-events: auto;
-    transition: transform var(--jd-duration-fast) var(--jd-easing-default);
-  }
-  .jd-flow__port:hover { transform: scale(1.5); }
-  .jd-flow__port[data-readonly] { cursor: default; opacity: 0.4; }
-  .jd-flow__port[data-readonly]:hover { transform: none; }
+    /* 포트 */
+    .jd-flow__ports {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .jd-flow__port {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: var(--jd-radius-full);
+      border: var(--jd-border-medium) solid var(--jd-color-surface-overlay);
+      background: var(--jd-color-info);
+      z-index: 20;
+      cursor: crosshair;
+      pointer-events: auto;
+      transition: transform var(--jd-duration-fast) var(--jd-easing-default);
+    }
+    .jd-flow__port:hover {
+      transform: scale(1.5);
+    }
+    .jd-flow__port[data-readonly] {
+      cursor: default;
+      opacity: 0.4;
+    }
+    .jd-flow__port[data-readonly]:hover {
+      transform: none;
+    }
 
-  /* 그룹 */
-  .jd-flow__group {
-    position: absolute; pointer-events: none; border-radius: var(--jd-radius-2xl);
-    background: color-mix(in srgb, var(--jd-flow-group, #818cf8) 8%, transparent);
-    border: 2px dashed color-mix(in srgb, var(--jd-flow-group, #818cf8) 40%, transparent);
-  }
-  .jd-flow__group-label {
-    position: absolute; top: 6px; left: 12px;
-    font-size: 10px; font-weight: var(--jd-weight-bold);
-    text-transform: uppercase; letter-spacing: var(--jd-tracking-wide);
-    color: var(--jd-flow-group, #818cf8);
-  }
+    /* 그룹 */
+    .jd-flow__group {
+      position: absolute;
+      pointer-events: none;
+      border-radius: var(--jd-radius-2xl);
+      background: color-mix(in srgb, var(--jd-flow-group, #818cf8) 8%, transparent);
+      border: var(--jd-border-medium) dashed
+        color-mix(in srgb, var(--jd-flow-group, #818cf8) 40%, transparent);
+    }
+    .jd-flow__group-label {
+      position: absolute;
+      top: 6px;
+      left: 12px;
+      font-size: var(--jd-text-2xs);
+      font-weight: var(--jd-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--jd-tracking-wide);
+      color: var(--jd-flow-group, #818cf8);
+    }
 
-  /* 범위 선택 박스 */
-  .jd-flow__marquee {
-    position: absolute; pointer-events: none; border-radius: var(--jd-radius-lg);
-    border: 2px dashed rgba(236, 72, 153, 0.6); background: rgba(236, 72, 153, 0.1);
-  }
-  .jd-flow__marquee[hidden] { display: none; }
+    /* 범위 선택 박스 — 강조는 primary 계열이다. 임의의 핑크는 팔레트 밖이고(§8),
+       선택된 노드·연결선이 이미 primary라 한 화면에서 강조색이 갈라졌다.
+       어두운 캔버스 위에서 primary만으로는 어두우니 잉크를 섞어 띄운다. */
+    .jd-flow__marquee {
+      position: absolute;
+      pointer-events: none;
+      border-radius: var(--jd-radius-lg);
+      border: var(--jd-border-medium) dashed
+        color-mix(in srgb, var(--jd-color-primary) 55%, var(--jd-color-on-surface));
+      background: color-mix(in srgb, var(--jd-color-primary) 22%, transparent);
+    }
+    .jd-flow__marquee[hidden] {
+      display: none;
+    }
 
-  /* 미니맵 */
-  .jd-flow__minimap {
-    position: absolute; top: var(--jd-space-3); right: var(--jd-space-3); z-index: 20;
-    width: 150px; height: 90px; border-radius: var(--jd-radius-lg);
-    border: 1px solid var(--jd-color-surface-overlay); background: color-mix(in srgb, var(--jd-color-surface) 90%, transparent);
-    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
-  }
-  .jd-flow__minimap[hidden] { display: none; }
-  .jd-flow__mini-link { stroke: var(--jd-color-muted); stroke-width: 0.8; }
-  .jd-flow__mini-node { fill: var(--jd-color-surface-overlay); stroke: var(--jd-color-on-surface-muted); stroke-width: 0.5; }
-  .jd-flow__mini-view { fill: none; stroke: var(--jd-color-primary); stroke-width: 1.5; }
+    /* 미니맵 */
+    .jd-flow__minimap {
+      position: absolute;
+      top: var(--jd-space-3);
+      right: var(--jd-space-3);
+      z-index: 20;
+      width: 150px;
+      height: 90px;
+      border-radius: var(--jd-radius-lg);
+      border: var(--jd-border-thin) solid var(--jd-color-surface-overlay);
+      background: color-mix(in srgb, var(--jd-color-surface) 90%, transparent);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+    .jd-flow__minimap[hidden] {
+      display: none;
+    }
+    .jd-flow__mini-link {
+      stroke: var(--jd-color-on-surface-muted);
+      stroke-width: 0.8;
+    }
+    .jd-flow__mini-node {
+      fill: var(--jd-color-surface-overlay);
+      stroke: var(--jd-color-on-surface-muted);
+      stroke-width: 0.5;
+    }
+    .jd-flow__mini-view {
+      fill: none;
+      stroke: color-mix(in srgb, var(--jd-color-primary) 55%, var(--jd-color-on-surface));
+      stroke-width: 1.5;
+    }
 
-  /* 줌 컨트롤 */
-  .jd-flow__zoom {
-    position: absolute; bottom: var(--jd-space-4); right: var(--jd-space-4); z-index: 20;
-    display: flex; flex-direction: column; gap: var(--jd-space-1);
-  }
-  .jd-flow__zoom-btn {
-    width: 2rem; height: 2rem; border: 0; border-radius: var(--jd-radius-lg);
-    display: inline-flex; align-items: center; justify-content: center;
-    background: color-mix(in srgb, var(--jd-color-surface-overlay) 90%, transparent); color: var(--jd-color-on-surface); cursor: pointer;
-    font-family: inherit; font-size: var(--jd-text-sm); line-height: 1;
-    transition: background-color var(--jd-duration-fast) var(--jd-easing-default);
-  }
-  .jd-flow__zoom-btn:hover { background: var(--jd-color-surface-overlay); }
-  .jd-flow__zoom-btn:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
-  .jd-flow__zoom-label { font-size: 10px; }
+    /* 줌 컨트롤 */
+    .jd-flow__zoom {
+      position: absolute;
+      bottom: var(--jd-space-4);
+      right: var(--jd-space-4);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: var(--jd-space-1);
+    }
+    .jd-flow__zoom-btn {
+      width: 2rem;
+      height: 2rem;
+      border: 0;
+      border-radius: var(--jd-radius-lg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: color-mix(in srgb, var(--jd-color-surface-overlay) 90%, transparent);
+      color: var(--jd-color-on-surface);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: var(--jd-text-sm);
+      line-height: var(--jd-leading-none);
+      transition: background-color var(--jd-duration-snap) var(--jd-easing-ease-out),
+        box-shadow var(--jd-duration-snap) var(--jd-easing-ease-out),
+        scale var(--jd-duration-press) var(--jd-easing-ease-out);
+    }
+    .jd-flow__zoom-btn:hover {
+      background: var(--jd-color-surface-overlay);
+    }
+    .jd-flow__zoom-btn:active {
+      scale: 0.97;
+      box-shadow: inset 0 1px 2px var(--jd-color-shade);
+    }
+    .jd-flow__zoom-btn:focus-visible {
+      outline: none;
+      box-shadow: var(--jd-shadow-focus-ring);
+    }
+    .jd-flow__zoom-label {
+      font-size: var(--jd-text-2xs);
+      font-variant-numeric: tabular-nums;
+    }
 
-  /* 단축키 힌트 */
-  .jd-flow__hint {
-    position: absolute; bottom: var(--jd-space-4); left: var(--jd-space-4); z-index: 20;
-    font-size: 10px; color: var(--jd-color-on-surface-muted); user-select: none; pointer-events: none;
+    /* 단축키 힌트 */
+    .jd-flow__hint {
+      position: absolute;
+      bottom: var(--jd-space-4);
+      left: var(--jd-space-4);
+      z-index: 20;
+      font-size: var(--jd-text-2xs);
+      color: var(--jd-color-on-surface-muted);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .jd-flow__port,
+      .jd-flow__zoom-btn {
+        transition: none;
+      }
+    }
   }
-}`;
+`;

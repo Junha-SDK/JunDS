@@ -52,14 +52,18 @@ export interface JdTreemapItem {
   color?: string;
 }
 
-/** v2 COLORS — 이미 토큰 형태였던 것을 jd 토큰으로 1:1 번역 */
+/**
+ * 팔레트 **슬롯**만 참조한다 — 실제 색은 treemap-chart.css.ts가 hue 램프에서 정한다.
+ * v2 승계값은 info/success/warning/danger였는데, 의미색을 범주에 빌려 쓰면 네 번째
+ * 타일이 "위험"이라고 말한다(§8). 색을 CSS에 두면 소비자가 한 줄로 갈아끼울 수도 있다.
+ */
 const PALETTE: readonly string[] = [
-  "var(--jd-color-primary)",
-  "var(--jd-color-info)",
-  "var(--jd-color-success)",
-  "var(--jd-color-warning)",
-  "var(--jd-color-danger)",
-  "var(--jd-color-accent)",
+  "var(--jd-treemap-1)",
+  "var(--jd-treemap-2)",
+  "var(--jd-treemap-3)",
+  "var(--jd-treemap-4)",
+  "var(--jd-treemap-5)",
+  "var(--jd-treemap-6)",
 ];
 
 /** v2 라벨 표시 조건 */
@@ -120,7 +124,9 @@ export class JdTreemapChart extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 */
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent || "[]");

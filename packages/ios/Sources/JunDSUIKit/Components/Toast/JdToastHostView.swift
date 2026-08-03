@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-toast 스택의 UIKit 호스트 (DESIGN-4 §C, §4.1 UIKit 브리지 패턴).
 // SwiftUI JdToastCenter는 DEC-010(계층 상호 import 금지) 때문에 여기서 참조하지 못한다 —
@@ -318,19 +318,24 @@ final class JdToastCardView: UIView {
     }
 
     private func applyStyle() {
-        titleLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                  weight: JdToken.FontWeight.semibold,
-                                                  compatibleWith: traitCollection)
-        messageLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.sm,
-                                                    weight: JdToken.FontWeight.normal,
-                                                    compatibleWith: traitCollection)
-        let iconFont = JdFontBridge.scaledFont(size: JdToken.FontSize.xs,
-                                               weight: JdToken.FontWeight.semibold,
-                                               compatibleWith: traitCollection)
-        closeButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(font: iconFont),
-                                                    forImageIn: .normal)
+        titleLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
+        messageLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.sm,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
+        let iconFont = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.xs,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
+        closeButton.setPreferredSymbolConfiguration(
+            UIImage.SymbolConfiguration(font: iconFont),
+            forImageIn: .normal)
         backgroundColor = JdToken.Color.card.uiColor
-        layer.borderColor = JdToken.Color.border.uiColor.resolvedColor(with: traitCollection).cgColor
+        layer.borderColor =
+            JdToken.Color.border.uiColor.resolvedColor(with: traitCollection).cgColor
         applyShadow()
     }
 
@@ -344,7 +349,7 @@ final class JdToastCardView: UIView {
         layer.shadowColor = ink.uiColor.resolvedColor(with: traitCollection).cgColor
         layer.shadowOpacity = 1
         layer.shadowOffset = CGSize(width: geometry.x, height: geometry.y)
-        layer.shadowRadius = geometry.blur / 2 // CSS blur = 2 × 렌더 반경
+        layer.shadowRadius = geometry.blur / 2  // CSS blur = 2 × 렌더 반경
     }
 
     @objc private func didTapClose() {

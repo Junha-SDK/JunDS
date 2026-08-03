@@ -42,7 +42,12 @@ export default function TransferPage() {
       props={[
         { name: "source", type: "TransferItem[]", required: true, description: "소스 목록" },
         { name: "target", type: "TransferItem[]", required: true, description: "대상 목록" },
-        { name: "onChange", type: "(source, target) => void", required: true, description: "변경 핸들러" },
+        {
+          name: "onChange",
+          type: "(source, target) => void",
+          required: true,
+          description: "변경 핸들러",
+        },
         { name: "sourceTitle", type: "string", default: '"소스"', description: "소스 패널 제목" },
         { name: "targetTitle", type: "string", default: '"대상"', description: "대상 패널 제목" },
         { name: "searchable", type: "boolean", default: "false", description: "검색 기능 활성화" },
@@ -53,7 +58,10 @@ export default function TransferPage() {
           <Transfer
             source={source}
             target={target}
-            onChange={(s, t) => { setSource(s); setTarget(t); }}
+            onChange={(s, t) => {
+              setSource(s);
+              setTarget(t);
+            }}
             sourceTitle="프레임워크"
             targetTitle="선택됨"
             searchable
@@ -66,7 +74,10 @@ export default function TransferPage() {
           <Transfer
             source={source2}
             target={target2}
-            onChange={(s, t) => { setSource2(s); setTarget2(t); }}
+            onChange={(s, t) => {
+              setSource2(s);
+              setTarget2(t);
+            }}
             sourceTitle="언어 선택"
             targetTitle="사용 언어"
           />

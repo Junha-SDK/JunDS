@@ -9,7 +9,13 @@ import { Kbd } from "@/ds/primitives/Kbd";
 const items = [
   { id: "1", label: "홈으로 이동", group: "Navigation", action: () => {} },
   { id: "2", label: "프로젝트 목록", group: "Navigation", action: () => {} },
-  { id: "3", label: "설정", group: "Navigation", action: () => {}, keywords: ["config", "preference"] },
+  {
+    id: "3",
+    label: "설정",
+    group: "Navigation",
+    action: () => {},
+    keywords: ["config", "preference"],
+  },
   { id: "4", label: "새 업무 만들기", group: "Actions", action: () => {} },
   { id: "5", label: "Excel 내보내기", group: "Actions", action: () => {} },
   { id: "6", label: "사용자 관리", group: "Admin", action: () => {} },

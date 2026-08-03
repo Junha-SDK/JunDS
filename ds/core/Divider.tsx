@@ -12,7 +12,14 @@ export interface CoreDividerProps {
   className?: string;
 }
 
-export function CoreDivider({ orientation = "horizontal", my = 4, mx, color = "border", label, className }: CoreDividerProps) {
+export function CoreDivider({
+  orientation = "horizontal",
+  my = 4,
+  mx,
+  color = "border",
+  label,
+  className,
+}: CoreDividerProps) {
   const margin = resolveStyleProps(orientation === "horizontal" ? { my } : { mx });
 
   if (label) {
@@ -26,8 +33,14 @@ export function CoreDivider({ orientation = "horizontal", my = 4, mx, color = "b
   }
 
   return orientation === "horizontal" ? (
-    <hr className={cn("border-0 h-px", className)} style={{ ...margin, backgroundColor: `var(--${color})` }} />
+    <hr
+      className={cn("border-0 h-px", className)}
+      style={{ ...margin, backgroundColor: `var(--${color})` }}
+    />
   ) : (
-    <div className={cn("w-px self-stretch", className)} style={{ ...margin, backgroundColor: `var(--${color})` }} />
+    <div
+      className={cn("w-px self-stretch", className)}
+      style={{ ...margin, backgroundColor: `var(--${color})` }}
+    />
   );
 }

@@ -81,7 +81,7 @@ export function TimePicker({
 
   useEffect(() => {
     if (open && hourListRef.current && parsedHour !== null) {
-      const displayHour = format === "12h" ? (parsedHour % 12 || 12) : parsedHour;
+      const displayHour = format === "12h" ? parsedHour % 12 || 12 : parsedHour;
       const idx = hours.indexOf(displayHour);
       if (idx >= 0) hourListRef.current.scrollTop = idx * 32;
     }
@@ -116,7 +116,7 @@ export function TimePicker({
     setPeriod(p);
     if (parsedHour !== null) {
       let hour24: number;
-      const displayHour = format === "12h" ? (parsedHour % 12 || 12) : parsedHour;
+      const displayHour = format === "12h" ? parsedHour % 12 || 12 : parsedHour;
       if (p === "AM") hour24 = displayHour === 12 ? 0 : displayHour;
       else hour24 = displayHour === 12 ? 12 : displayHour + 12;
       const m = parsedMinute ?? 0;
@@ -136,7 +136,7 @@ export function TimePicker({
 
   const displayHourSelected = useMemo(() => {
     if (parsedHour === null) return null;
-    return format === "12h" ? (parsedHour % 12 || 12) : parsedHour;
+    return format === "12h" ? parsedHour % 12 || 12 : parsedHour;
   }, [parsedHour, format]);
 
   return (
@@ -144,16 +144,39 @@ export function TimePicker({
       <div
         ref={triggerRef}
         onClick={handleOpen}
+        // 트리거는 div 이지만 실제로는 버튼이다. 포커스를 받지 못하면 focus-within 스타일도
+        // 키보드 사용자에게 절대 보이지 않으므로 role/tabIndex/키 입력을 함께 붙인다.
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-disabled={disabled || undefined}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleOpen();
+          } else if (e.key === "Escape") {
+            setOpen(false);
+          }
+        }}
         className={cn(
-          "flex items-center gap-2 h-9 px-3 border bg-white rounded-lg transition-all duration-150 cursor-pointer",
-          "focus-within:border-primary focus-within:shadow-[0_0_0_3px_var(--primary-glow)]",
+          "flex items-center gap-2 h-9 px-3 border bg-card rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer",
+          "transition-[border-color,box-shadow] duration-200 ease-out",
+          "focus-visible:outline-none focus-visible:border-primary focus-visible:shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]",
           disabled && "opacity-50 cursor-not-allowed",
-          open ? "border-primary shadow-[0_0_0_3px_var(--primary-glow)]" : "border-border",
+          open
+            ? "border-primary shadow-[0_0_0_3px_var(--primary-glow),0_1px_2px_rgba(0,0,0,0.04)]"
+            : "border-border hover:border-muted-light/60",
         )}
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-muted shrink-0">
           <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M7 4v3.5l2.5 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path
+            d="M7 4v3.5l2.5 1.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
         </svg>
         <span className={cn("text-sm", value ? "text-foreground" : "text-muted-light")}>
           {displayValue || placeholder}
@@ -164,13 +187,13 @@ export function TimePicker({
         <Portal>
           <div
             ref={ref}
-            className="fixed z-50 bg-white border border-border rounded-lg shadow-lg animate-fade-in-scale flex"
+            className="fixed z-50 bg-card border border-border rounded-xl shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35),0_4px_12px_-6px_rgba(0,0,0,0.2)] ring-1 ring-border/50 animate-fade-in-scale motion-reduce:animate-none flex overflow-hidden"
             style={{ top: pos.top, left: pos.left }}
           >
             {/* 시 */}
             <div
               ref={hourListRef}
-              className="w-16 h-48 overflow-auto border-r border-border py-1 scrollbar-thin"
+              className="w-16 h-48 overflow-auto overscroll-contain border-r border-border py-1 scrollbar-thin"
             >
               {hours.map((h) => (
                 <button
@@ -179,8 +202,9 @@ export function TimePicker({
                   onClick={() => handleHourSelect(h)}
                   className={cn(
                     "w-full h-8 text-sm text-center transition-colors cursor-pointer",
-                    "hover:bg-gray-50",
-                    displayHourSelected === h && "bg-primary-light text-primary font-medium",
+                    "hover:bg-muted/10 active:bg-muted/15",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
+                    displayHourSelected === h && "bg-primary-light text-primary-ink font-medium",
                   )}
                 >
                   {String(h).padStart(2, "0")}
@@ -191,7 +215,10 @@ export function TimePicker({
             {/* 분 */}
             <div
               ref={minuteListRef}
-              className={cn("w-16 h-48 overflow-auto py-1 scrollbar-thin", format === "12h" && "border-r border-border")}
+              className={cn(
+                "w-16 h-48 overflow-auto overscroll-contain py-1 scrollbar-thin",
+                format === "12h" && "border-r border-border",
+              )}
             >
               {minutes.map((m) => (
                 <button
@@ -200,8 +227,9 @@ export function TimePicker({
                   onClick={() => handleMinuteSelect(m)}
                   className={cn(
                     "w-full h-8 text-sm text-center transition-colors cursor-pointer",
-                    "hover:bg-gray-50",
-                    parsedMinute === m && "bg-primary-light text-primary font-medium",
+                    "hover:bg-muted/10 active:bg-muted/15",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
+                    parsedMinute === m && "bg-primary-light text-primary-ink font-medium",
                   )}
                 >
                   {String(m).padStart(2, "0")}
@@ -219,8 +247,9 @@ export function TimePicker({
                     onClick={() => handlePeriodChange(p)}
                     className={cn(
                       "flex-1 text-sm text-center transition-colors cursor-pointer",
-                      "hover:bg-gray-50",
-                      period === p && "bg-primary-light text-primary font-medium",
+                      "hover:bg-muted/10 active:bg-muted/15",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
+                      period === p && "bg-primary-light text-primary-ink font-medium",
                     )}
                   >
                     {p}

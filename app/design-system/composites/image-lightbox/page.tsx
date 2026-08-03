@@ -12,13 +12,19 @@ export default function ImageLightboxPage() {
       props={[
         { name: "src", type: "string", description: "이미지 URL" },
         { name: "alt", type: "string", description: "대체 텍스트" },
-        { name: "children", type: "ReactNode", description: "커스텀 썸네일 (없으면 src 이미지 사용)" },
+        {
+          name: "children",
+          type: "ReactNode",
+          description: "커스텀 썸네일 (없으면 src 이미지 사용)",
+        },
         { name: "className", type: "string", description: "추가 CSS 클래스" },
       ]}
     >
       <Section title="기본">
         <Preview>
-          <p className="text-xs text-muted mb-3">클릭하면 라이트박스가 열립니다. +/- 로 줌, Esc로 닫기</p>
+          <p className="text-xs text-muted mb-3">
+            클릭하면 라이트박스가 열립니다. +/- 로 줌, Esc로 닫기
+          </p>
           <ImageLightbox
             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='50%25' stop-color='%23ec4899'/%3E%3Cstop offset='100%25' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='500' fill='url(%23g)'/%3E%3Ctext x='400' y='260' text-anchor='middle' fill='white' font-size='32' font-family='system-ui'>Click to Expand</text%3E%3C/svg%3E"
             alt="그라데이션 예시"

@@ -122,7 +122,9 @@ export class JdNavSidebar extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 (radio-group·tabs 선례) */
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "[]") as JdNavSection[];
@@ -137,7 +139,9 @@ export class JdNavSidebar extends JdElement {
   #syncSections(): void {
     this.#built = this.#sections;
     this.#itemRefs = [];
-    for (const old of this.#nav.querySelectorAll<HTMLElement>(":scope > .jd-nav-sidebar__section")) {
+    for (const old of this.#nav.querySelectorAll<HTMLElement>(
+      ":scope > .jd-nav-sidebar__section",
+    )) {
       old.remove();
     }
     for (const section of this.#sections) {
@@ -215,9 +219,7 @@ export class JdNavSidebar extends JdElement {
   #isActive(path: string, item: JdNavItem): boolean {
     if (!path) return false;
     if (path === item.href) return true;
-    return (
-      item.matchPaths?.some((p) => path === p || path.startsWith(`${p}/`)) ?? false
-    );
+    return item.matchPaths?.some((p) => path === p || path.startsWith(`${p}/`)) ?? false;
   }
 
   #onClick = (e: Event): void => {

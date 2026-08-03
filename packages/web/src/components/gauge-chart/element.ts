@@ -122,7 +122,9 @@ export class JdGaugeChart extends JdElement {
 
   /** 선언적 초기화 슬롯 — 1회 소비 */
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed: unknown = JSON.parse(script.textContent || "[]");
@@ -251,7 +253,9 @@ export class JdGaugeChart extends JdElement {
     const start = this.#polar(START_ANGLE + lo * TOTAL_ANGLE, r, cx, cy);
     const end = this.#polar(START_ANGLE + hi * TOTAL_ANGLE, r, cx, cy);
     const largeArc = (hi - lo) * TOTAL_ANGLE > 180 ? 1 : 0;
-    return `M ${num(start.x)} ${num(start.y)} A ${num(r)} ${num(r)} 0 ${largeArc} 1 ${num(end.x)} ${num(end.y)}`;
+    return `M ${num(start.x)} ${num(start.y)} A ${num(r)} ${num(r)} 0 ${largeArc} 1 ${num(
+      end.x,
+    )} ${num(end.y)}`;
   }
 
   #px(v: number, fallback: number): number {

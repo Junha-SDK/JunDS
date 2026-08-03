@@ -119,7 +119,11 @@ export default function TreeNavPage() {
       props={[
         { name: "items", type: "TreeNavItem[]", description: "트리 항목 목록" },
         { name: "activeKey", type: "string", description: "현재 활성 항목 키" },
-        { name: "onItemClick", type: "(key: string, href?: string) => void", description: "항목 클릭 핸들러" },
+        {
+          name: "onItemClick",
+          type: "(key: string, href?: string) => void",
+          description: "항목 클릭 핸들러",
+        },
         { name: "defaultExpanded", type: "string[]", description: "기본 확장 키 목록" },
         { name: "className", type: "string", description: "추가 CSS 클래스" },
       ]}
@@ -127,10 +131,7 @@ export default function TreeNavPage() {
       <Section title="기본">
         <Preview>
           <div className="max-w-xs">
-            <TreeNav
-              items={basicItems}
-              defaultExpanded={["project", "src"]}
-            />
+            <TreeNav items={basicItems} defaultExpanded={["project", "src"]} />
           </div>
         </Preview>
       </Section>
@@ -138,11 +139,7 @@ export default function TreeNavPage() {
       <Section title="배지">
         <Preview>
           <div className="max-w-xs">
-            <TreeNav
-              items={badgeItems}
-              defaultExpanded={["inbox"]}
-              activeKey="unread"
-            />
+            <TreeNav items={badgeItems} defaultExpanded={["inbox"]} activeKey="unread" />
           </div>
         </Preview>
       </Section>
@@ -151,7 +148,10 @@ export default function TreeNavPage() {
         <Preview>
           <div className="max-w-xs">
             <p className="text-xs text-muted mb-3">
-              현재 선택: <code className="px-1 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">{activeKey}</code>
+              현재 선택:{" "}
+              <code className="px-1 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-xs">
+                {activeKey}
+              </code>
             </p>
             <TreeNav
               items={activeItems}

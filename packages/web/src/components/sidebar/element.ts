@@ -52,14 +52,11 @@ export class JdSidebar extends JdElement {
 
   #build(): void {
     const pick = (name: string): Node[] =>
-      [...this.childNodes].filter(
-        (n) => n instanceof Element && n.getAttribute("slot") === name,
-      );
+      [...this.childNodes].filter((n) => n instanceof Element && n.getAttribute("slot") === name);
     const headerNodes = pick("header");
     const footerNodes = pick("footer");
     const rest = [...this.childNodes].filter(
-      (n) =>
-        !(n instanceof Element && ["header", "footer"].includes(n.getAttribute("slot") ?? "")),
+      (n) => !(n instanceof Element && ["header", "footer"].includes(n.getAttribute("slot") ?? "")),
     );
 
     if (headerNodes.length) {

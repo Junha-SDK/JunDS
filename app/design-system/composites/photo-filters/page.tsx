@@ -13,7 +13,11 @@ export default function PhotoFiltersPage() {
     >
       <Section title="Default">
         <Preview>
-          <PhotoFilters previewSrc="https://picsum.photos/seed/f/200" filters={defaultPhotoFilters} onChange={()=>{}} />
+          <PhotoFilters
+            previewSrc="https://picsum.photos/seed/f/200"
+            filters={defaultPhotoFilters}
+            onChange={() => {}}
+          />
         </Preview>
       </Section>
     </ComponentPage>

@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-pin-input 동형 — 자릿수 분할 코드 입력 (DESIGN-3 §A).
 // **OTPInput은 별도 타입이 아니라 이 컴포넌트의 설정 변형이다**(alphanumeric=false +
@@ -27,16 +27,18 @@ public struct JdPinInput: View {
     @Environment(\.sizeCategory) private var sizeCategory
 
     /// 웹 v2 PinInput 칸: 40×48. 토큰 조합으로만 표기한다(전용 스펙 부재분)
-    private static let cellWidth = JdToken.Space.s10   // 40
+    private static let cellWidth = JdToken.Space.s10  // 40
     private static let cellHeight = JdToken.Space.s12  // 48
 
-    public init(value: Binding<String>,
-                length: Int = 6,
-                masked: Bool = false,
-                alphanumeric: Bool = false,
-                isError: Bool = false,
-                accessibilityLabel: String? = nil,
-                onComplete: ((String) -> Void)? = nil) {
+    public init(
+        value: Binding<String>,
+        length: Int = 6,
+        masked: Bool = false,
+        alphanumeric: Bool = false,
+        isError: Bool = false,
+        accessibilityLabel: String? = nil,
+        onComplete: ((String) -> Void)? = nil
+    ) {
         self._value = value
         self.length = length
         self.masked = masked
@@ -54,7 +56,7 @@ public struct JdPinInput: View {
         }
         .overlay(inputProxy)
         .accessibilityElement(children: .contain)
-        .opacity(isEnabled ? 1 : JdToken.Opacity.o50) // 웹 :disabled opacity-50
+        .opacity(isEnabled ? 1 : JdToken.Opacity.o50)  // 웹 :disabled opacity-50
     }
 
     // MARK: - 칸 (표시 전용 — 값은 프록시 필드가 쥔다)
@@ -63,9 +65,12 @@ public struct JdPinInput: View {
         let shape = RoundedRectangle(cornerRadius: JdToken.Radius.lg, style: .continuous)
         let text = JdPinRules.cellText(value, index: index, masked: masked) ?? ""
         return Text(text)
-            .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.lg,
-                                       weight: JdToken.FontWeight.bold,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: JdToken.FontSize.lg,
+                    weight: JdToken.FontWeight.bold,
+                    category: sizeCategory)
+            )
             .foregroundColor(JdToken.Color.foreground.color)
             .frame(width: Self.cellWidth, height: Self.cellHeight)
             .background(JdToken.Color.card.color)
@@ -102,14 +107,15 @@ public struct JdPinInput: View {
     }
 
     private var sanitized: Binding<String> {
-        Binding(get: { value },
-                set: { raw in
-                    let next = JdPinRules.sanitize(raw, length: length, alphanumeric: alphanumeric)
-                    guard next != value else { return }
-                    value = next
-                    if JdPinRules.isComplete(next, length: length) {
-                        onComplete?(next)
-                    }
-                })
+        Binding(
+            get: { value },
+            set: { raw in
+                let next = JdPinRules.sanitize(raw, length: length, alphanumeric: alphanumeric)
+                guard next != value else { return }
+                value = next
+                if JdPinRules.isComplete(next, length: length) {
+                    onComplete?(next)
+                }
+            })
     }
 }

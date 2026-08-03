@@ -36,12 +36,7 @@ export default function StatCardPage() {
               trend="down"
               description="목표: 85%"
             />
-            <StatCard
-              label="진행 중"
-              value={32}
-              change="0%"
-              trend="neutral"
-            />
+            <StatCard label="진행 중" value={32} change="0%" trend="neutral" />
             <StatCard
               label="지연"
               value={8}
@@ -63,7 +58,12 @@ export default function StatCardPage() {
               trend="up"
               icon={
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M9 3v12M3 9h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path
+                    d="M9 3v12M3 9h12"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               }
             />
@@ -75,7 +75,12 @@ export default function StatCardPage() {
               icon={
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                   <circle cx="9" cy="9" r="7" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M9 5v4l3 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path
+                    d="M9 5v4l3 2"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               }
             />

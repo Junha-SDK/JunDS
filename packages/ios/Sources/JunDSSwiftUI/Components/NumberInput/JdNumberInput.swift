@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-number-input 동형 — 숫자 입력 + 증감 버튼 (DESIGN-3 §A).
 //
@@ -27,15 +27,17 @@ public struct JdNumberInput: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(value: Binding<Double?>,
-                min: Double? = nil,
-                max: Double? = nil,
-                step: Double = 1,
-                size: JdNumberInputSize = .md,
-                isError: Bool = false,
-                hidesControls: Bool = false,
-                placeholder: String = "",
-                accessibilityLabel: String? = nil) {
+    public init(
+        value: Binding<Double?>,
+        min: Double? = nil,
+        max: Double? = nil,
+        step: Double = 1,
+        size: JdNumberInputSize = .md,
+        isError: Bool = false,
+        hidesControls: Bool = false,
+        placeholder: String = "",
+        accessibilityLabel: String? = nil
+    ) {
         self._value = value
         self.lowerBound = min
         self.upperBound = max
@@ -64,7 +66,7 @@ public struct JdNumberInput: View {
         .background(JdToken.Color.card.color)
         .clipShape(shape)
         .overlay(shape.strokeBorder(borderColor, lineWidth: JdToken.Border.thin))
-        .opacity(isEnabled ? 1 : JdToken.Opacity.o50) // 웹 [disabled] opacity-50
+        .opacity(isEnabled ? 1 : JdToken.Opacity.o50)  // 웹 [disabled] opacity-50
     }
 
     // MARK: - 조각
@@ -74,9 +76,12 @@ public struct JdNumberInput: View {
             .focused($isFocused)
             .keyboardType(.decimalPad)
             .multilineTextAlignment(.center)
-            .font(JdSwiftUIFont.scaled(size: size.fontSize,
-                                       weight: JdToken.FontWeight.normal,
-                                       category: sizeCategory))
+            .font(
+                JdSwiftUIFont.scaled(
+                    size: size.fontSize,
+                    weight: JdToken.FontWeight.normal,
+                    category: sizeCategory)
+            )
             .foregroundColor(JdToken.Color.foreground.color)
             .padding(.horizontal, JdToken.Space.s2)
             .frame(minHeight: size.height)
@@ -116,16 +121,20 @@ public struct JdNumberInput: View {
     /// 웹 버튼의 aria-label("감소"/"증가")은 이식하지 않는다 — 버튼을 접근성에서 감추고
     /// 필드 하나를 .adjustable로 노출하는 것이 이 계약의 a11y 표면이다.
     private func stepButton(direction: Int, systemImage: String) -> some View {
-        let enabled = direction > 0
+        let enabled =
+            direction > 0
             ? JdNumberInputRules.canIncrement(value, max: upperBound)
             : JdNumberInputRules.canDecrement(value, min: lowerBound)
         return Button {
             applyStep(direction)
         } label: {
             Image(systemName: systemImage)
-                .font(JdSwiftUIFont.scaled(size: size.fontSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           category: sizeCategory))
+                .font(
+                    JdSwiftUIFont.scaled(
+                        size: size.fontSize,
+                        weight: JdToken.FontWeight.medium,
+                        category: sizeCategory)
+                )
                 .foregroundColor(JdToken.Color.muted.color)
                 .padding(.horizontal, JdToken.Space.s2_5)
                 .frame(minHeight: size.height)
@@ -133,7 +142,7 @@ public struct JdNumberInput: View {
         }
         .buttonStyle(.plain)
         .disabled(!enabled)
-        .opacity(enabled ? 1 : JdToken.Opacity.o30) // 웹 :disabled opacity-30
+        .opacity(enabled ? 1 : JdToken.Opacity.o30)  // 웹 :disabled opacity-30
         .accessibilityHidden(true)
     }
 
@@ -158,8 +167,9 @@ public struct JdNumberInput: View {
     }
 
     private func applyStep(_ direction: Int) {
-        let next = JdNumberInputRules.stepped(value, direction: direction, step: step,
-                                              min: lowerBound, max: upperBound)
+        let next = JdNumberInputRules.stepped(
+            value, direction: direction, step: step,
+            min: lowerBound, max: upperBound)
         value = next
         draft = JdNumberInput.plain(next)
     }

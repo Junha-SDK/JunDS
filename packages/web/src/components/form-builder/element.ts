@@ -95,7 +95,9 @@ export class JdFormBuilder extends JdElement {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdBuilderField[];

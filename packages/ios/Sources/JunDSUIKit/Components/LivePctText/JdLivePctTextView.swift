@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-live-pct-text 동형 — 등락률 텍스트 리프. A8 명명 규칙 Jd<이름>View. (DEC-040)
 //
@@ -34,11 +34,13 @@ public class JdLivePctTextView: UILabel {
         didSet { applyContent() }
     }
 
-    public init(change: Double,
-                fallback: Double = 0,
-                decimals: Int = 2,
-                showSign: Bool = true,
-                withPercent: Bool = true) {
+    public init(
+        change: Double,
+        fallback: Double = 0,
+        decimals: Int = 2,
+        showSign: Bool = true,
+        withPercent: Bool = true
+    ) {
         self.change = change
         self.fallback = fallback
         self.decimals = decimals
@@ -46,7 +48,7 @@ public class JdLivePctTextView: UILabel {
         self.withPercent = withPercent
         super.init(frame: .zero)
         adjustsFontForContentSizeCategory = true
-        numberOfLines = 1 // 웹 인라인 동형
+        numberOfLines = 1  // 웹 인라인 동형
         applyStyle()
         applyContent()
     }
@@ -62,10 +64,11 @@ public class JdLivePctTextView: UILabel {
 
     /// 확정 표시 문자열 — 파생·소비자 공용. 웹 `get formatted()` 동형.
     public var formatted: String {
-        JdFinanceFormat.percentText(resolvedValue,
-                                    decimals: decimals,
-                                    showSign: showSign,
-                                    withPercent: withPercent)
+        JdFinanceFormat.percentText(
+            resolvedValue,
+            decimals: decimals,
+            showSign: showSign,
+            withPercent: withPercent)
     }
 
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -77,9 +80,10 @@ public class JdLivePctTextView: UILabel {
     // MARK: 내부 — 파생 클래스가 확장한다
 
     func applyStyle() {
-        font = JdFontBridge.scaledDigitFont(size: JdTextSpec.resolve(size: .md).fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        font = JdFontBridge.scaledDigitFont(
+            size: JdTextSpec.resolve(size: .md).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
     }
 
     func applyContent() {

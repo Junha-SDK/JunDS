@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "MultiLineChart",
   "oneLiner": "다중 선 차트 — 시리즈 비교.",
-  "tags": [
-    "finance",
-    "chart",
-    "선"
-  ],
+  "tags": ["finance", "chart", "선"],
   "controls": [],
   "snippets": {
     "web": null,

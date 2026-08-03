@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "ThemeNewsSummary",
   "oneLiner": "테마 뉴스 요약 패널 — 검색어 기반.",
-  "tags": [
-    "finance",
-    "뉴스",
-    "테마"
-  ],
+  "tags": ["finance", "뉴스", "테마"],
   "controls": [],
   "snippets": {
     "web": null,

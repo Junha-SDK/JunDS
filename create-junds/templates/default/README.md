@@ -14,12 +14,12 @@ Open http://localhost:3000.
 
 ## Scripts
 
-| Script | What it does |
-| --- | --- |
-| `npm run dev` | Start the dev server (Turbopack). |
-| `npm run build` | Production build. |
-| `npm run start` | Run the production build. |
-| `npm run lint` | ESLint with `next` defaults. |
+| Script              | What it does                        |
+| ------------------- | ----------------------------------- |
+| `npm run dev`       | Start the dev server (Turbopack).   |
+| `npm run build`     | Production build.                   |
+| `npm run start`     | Run the production build.           |
+| `npm run lint`      | ESLint with `next` defaults.        |
 | `npm run typecheck` | `tsc --noEmit` over the whole repo. |
 
 ## Where things live

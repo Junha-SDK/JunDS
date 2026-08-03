@@ -56,7 +56,7 @@ JunDS 는 상용 라이브러리이므로 호스트 앱이 유효한 라이선�
   - `onLicenseError(status)` 콜백으로 호스트가 에러를 후킹.
   - 1시간 (`_REVALIDATION_INTERVAL`) 마다 재검증, 실패 시 상태 즉시 갱신.
 - **캐시.** `localStorage["__jds_lv"]` 에 `{ _h: hash, _t: timestamp,
-  _s: success }` 저장, 4시간 TTL.
+_s: success }` 저장, 4시간 TTL.
 - **도메인 잠금.** `_isDomainAllowed(host, domains[])` 가 응답의 도메인 화이트
   리스트와 현재 hostname 을 비교. `localhost`/`127.0.0.1` 은 개발 편의를 위해
   허용 정책이 들어 있다.

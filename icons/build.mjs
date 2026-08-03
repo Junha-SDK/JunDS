@@ -47,11 +47,15 @@ const icons = names.map((name) => ({
 for (const { name, exportName, svg } of icons) {
   writeFileSync(
     join(DIST, "icons", `${name}.js`),
-    `${BANNER}\nexport const ${exportName} = { name: ${JSON.stringify(name)}, svg: ${JSON.stringify(svg)} };\n`,
+    `${BANNER}\nexport const ${exportName} = { name: ${JSON.stringify(name)}, svg: ${JSON.stringify(
+      svg,
+    )} };\n`,
   );
   writeFileSync(
     join(DIST, "icons", `${name}.d.ts`),
-    `${BANNER}\nexport declare const ${exportName}: { readonly name: ${JSON.stringify(name)}; readonly svg: string };\n`,
+    `${BANNER}\nexport declare const ${exportName}: { readonly name: ${JSON.stringify(
+      name,
+    )}; readonly svg: string };\n`,
   );
 }
 
@@ -70,8 +74,11 @@ writeFileSync(
   [
     BANNER,
     "export interface JdIconDef { readonly name: string; readonly svg: string }",
-    ...icons.map(({ name, exportName }) =>
-      `export declare const ${exportName}: { readonly name: ${JSON.stringify(name)}; readonly svg: string };`,
+    ...icons.map(
+      ({ name, exportName }) =>
+        `export declare const ${exportName}: { readonly name: ${JSON.stringify(
+          name,
+        )}; readonly svg: string };`,
     ),
     `export declare const iconNames: readonly string[];`,
     "",
@@ -88,7 +95,9 @@ const sprite = [
   "<defs>",
   ...icons.map(
     ({ name }) =>
-      `<symbol id="jd-${name}" ${symbolAttrs}>${inner(readFileSync(join(ICONS_DIR, `${name}.svg`), "utf8"))}</symbol>`,
+      `<symbol id="jd-${name}" ${symbolAttrs}>${inner(
+        readFileSync(join(ICONS_DIR, `${name}.svg`), "utf8"),
+      )}</symbol>`,
   ),
   "</defs>",
   "</svg>",
@@ -98,7 +107,9 @@ writeFileSync(join(DIST, "sprite.svg"), sprite);
 
 // ── (d) 별칭표·메타 ─────────────────────────────────────────
 const cleanAliases = Object.fromEntries(
-  Object.entries(aliases).filter(([k]) => !k.startsWith("$")).sort(([a], [b]) => a.localeCompare(b)),
+  Object.entries(aliases)
+    .filter(([k]) => !k.startsWith("$"))
+    .sort(([a], [b]) => a.localeCompare(b)),
 );
 writeFileSync(join(DIST, "aliases.json"), JSON.stringify(cleanAliases, null, 2) + "\n");
 writeFileSync(
@@ -106,8 +117,17 @@ writeFileSync(
   JSON.stringify(
     {
       count: names.length,
-      grammar: { viewBox: ROOT_ATTRS.viewBox, strokeWidth: ROOT_ATTRS["stroke-width"], cap: "round", join: "round", fill: "none" },
-      lucideCoverage: { required: REQUIRED_LUCIDE.length, aliased: Object.keys(cleanAliases).length },
+      grammar: {
+        viewBox: ROOT_ATTRS.viewBox,
+        strokeWidth: ROOT_ATTRS["stroke-width"],
+        cap: "round",
+        join: "round",
+        fill: "none",
+      },
+      lucideCoverage: {
+        required: REQUIRED_LUCIDE.length,
+        aliased: Object.keys(cleanAliases).length,
+      },
       names,
     },
     null,
@@ -118,7 +138,8 @@ writeFileSync(
 // ── (e) 카탈로그 preview.html ────────────────────────────────
 const cells = icons
   .map(
-    ({ name, svg }) => `<figure class="cell" data-name="${name}" title="${name}">${svg}<figcaption>${name}</figcaption></figure>`,
+    ({ name, svg }) =>
+      `<figure class="cell" data-name="${name}" title="${name}">${svg}<figcaption>${name}</figcaption></figure>`,
   )
   .join("\n");
 const preview = `<!doctype html>
@@ -200,5 +221,7 @@ ${cells}
 writeFileSync(join(ROOT, "preview.html"), preview);
 
 console.log(
-  `✓ ${names.length}종 생성 → dist/icons/*.js(+d.ts), index, sprite.svg, aliases.json(${Object.keys(cleanAliases).length}), meta.json, preview.html`,
+  `✓ ${names.length}종 생성 → dist/icons/*.js(+d.ts), index, sprite.svg, aliases.json(${
+    Object.keys(cleanAliases).length
+  }), meta.json, preview.html`,
 );

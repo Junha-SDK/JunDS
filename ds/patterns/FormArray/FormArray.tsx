@@ -8,7 +8,11 @@ export interface FormArrayProps<T> {
   /** 값 변경 콜백 */
   onChange: (value: T[]) => void;
   /** 항목 렌더 함수 */
-  renderItem: (item: T, index: number, helpers: { remove: () => void; update: (val: T) => void }) => ReactNode;
+  renderItem: (
+    item: T,
+    index: number,
+    helpers: { remove: () => void; update: (val: T) => void },
+  ) => ReactNode;
   /** 새 항목 기본값 */
   defaultItem: T;
   /** 최대 항목 수 */
@@ -35,7 +39,14 @@ export interface FormArrayProps<T> {
  * @tags form
  */
 export function FormArray<T>({
-  value, onChange, renderItem, defaultItem, maxItems, minItems = 0, addLabel = "항목 추가", className,
+  value,
+  onChange,
+  renderItem,
+  defaultItem,
+  maxItems,
+  minItems = 0,
+  addLabel = "항목 추가",
+  className,
 }: FormArrayProps<T>) {
   const add = () => {
     if (maxItems && value.length >= maxItems) return;
@@ -48,7 +59,7 @@ export function FormArray<T>({
   };
 
   const update = (index: number, val: T) => {
-    onChange(value.map((item, i) => i === index ? val : item));
+    onChange(value.map((item, i) => (i === index ? val : item)));
   };
 
   return (
@@ -62,11 +73,20 @@ export function FormArray<T>({
             <button
               type="button"
               onClick={() => remove(i)}
-              className="shrink-0 p-2 text-muted hover:text-danger transition-colors cursor-pointer mt-1"
+              className={cn(
+                "shrink-0 p-2 mt-1 rounded-lg cursor-pointer transition-colors",
+                "text-muted hover:text-danger hover:bg-danger-light active:bg-danger/15",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+              )}
               aria-label="항목 삭제"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path
+                  d="M3.5 3.5l7 7M10.5 3.5l-7 7"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           )}
@@ -76,9 +96,16 @@ export function FormArray<T>({
         <button
           type="button"
           onClick={add}
-          className="inline-flex items-center gap-1.5 px-3 py-2 text-sm text-primary border border-dashed border-primary/30 rounded-lg hover:bg-primary/5 transition-colors cursor-pointer"
+          className={cn(
+            "inline-flex items-center gap-1.5 px-3 py-2 text-sm rounded-xl cursor-pointer transition-colors",
+            "text-primary-ink border border-dashed border-primary/30",
+            "hover:bg-primary/5 hover:border-primary/50 active:bg-primary/10",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          )}
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3v8M3 7h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 3v8M3 7h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
           {addLabel}
         </button>
       )}

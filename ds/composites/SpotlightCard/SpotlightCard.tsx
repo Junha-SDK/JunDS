@@ -47,8 +47,12 @@ export function SpotlightCard({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border bg-white p-6 transition-shadow duration-300",
-        "hover:shadow-lg",
+        "relative overflow-hidden rounded-2xl border border-border bg-card p-6",
+        // 한 겹 `shadow-lg` 는 면이 아니라 유령처럼 보인다. 가까운 그림자와 먼 그림자를
+        // 겹치고 위쪽 인셋 하이라이트로 면의 두께를 만든다.
+        "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.1)]",
+        "hover:shadow-[0_14px_36px_-14px_rgba(0,0,0,0.3),0_4px_10px_-6px_rgba(0,0,0,0.16),inset_0_1px_0_rgba(255,255,255,0.14)]",
+        "transition-shadow duration-300",
         className,
       )}
     >

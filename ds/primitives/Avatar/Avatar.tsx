@@ -72,7 +72,10 @@ function getColor(name: string): string {
  * @since 2.2.0
  * @tags data-display
  */
-export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar({ name, src, size = "md", status, className, ...props }, ref) {
+export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
+  { name, src, size = "md", status, className, ...props },
+  ref,
+) {
   return (
     <div ref={ref} className={cn("relative inline-flex shrink-0", className)} {...props}>
       {src ? (
@@ -90,7 +93,9 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar({ 
             "rounded-full flex items-center justify-center font-semibold select-none",
             "ring-1 ring-black/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_1px_2px_rgba(0,0,0,0.05)]",
             sizeStyles[size],
-            name ? getColor(name) : "bg-gradient-to-br from-gray-100 to-gray-200/80 text-gray-500",
+            name
+              ? getColor(name)
+              : "bg-gradient-to-br from-muted/15 to-muted/25 text-muted",
           )}
         >
           {name ? getInitials(name) : "?"}
@@ -99,7 +104,9 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(function Avatar({ 
       {status && (
         <span
           className={cn(
-            "absolute bottom-0 right-0 rounded-full border-white shadow-[0_1px_2px_rgba(0,0,0,0.15)]",
+            // 상태 점을 둘러싼 테두리는 "뒤에 깔린 표면"을 흉내 내는 것이다.
+            // border-white 로 고정하면 다크에서 흰 고리만 남는다.
+            "absolute bottom-0 right-0 rounded-full border-card shadow-[0_1px_2px_rgba(0,0,0,0.15)]",
             statusColors[status],
             statusDotSize[size],
           )}

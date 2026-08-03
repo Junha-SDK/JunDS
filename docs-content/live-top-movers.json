@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveTopMovers",
   "oneLiner": "실시간 급등락 상위 종목.",
-  "tags": [
-    "finance",
-    "live",
-    "순위"
-  ],
+  "tags": ["finance", "live", "순위"],
   "controls": [],
   "snippets": {
     "web": null,

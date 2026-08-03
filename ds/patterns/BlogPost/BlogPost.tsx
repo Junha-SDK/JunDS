@@ -47,30 +47,54 @@ function fmtDate(d: Date | string): string {
  * @tags layout
  */
 export const BlogPost = forwardRef<HTMLElement, BlogPostProps>(function BlogPost(
-  { title, excerpt, publishedAt, readingMinutes, author, tags, coverImage, children, sidebar, footer, className, ...props },
+  {
+    title,
+    excerpt,
+    publishedAt,
+    readingMinutes,
+    author,
+    tags,
+    coverImage,
+    children,
+    sidebar,
+    footer,
+    className,
+    ...props
+  },
   ref,
 ) {
   return (
-    <article
-      ref={ref}
-      className={cn("max-w-6xl mx-auto px-4 sm:px-6 py-10", className)}
-      {...props}
-    >
+    <article ref={ref} className={cn("max-w-6xl mx-auto px-4 sm:px-6 py-10", className)} {...props}>
       <header className="max-w-3xl mx-auto text-center mb-8">
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-1 justify-center mb-4">
             {tags.map((t) => (
-              <span key={t} className="text-xs font-medium px-2 py-0.5 rounded-full bg-primary-soft text-primary">{t}</span>
+              <span
+                key={t}
+                className="text-xs font-medium px-2 py-0.5 rounded-full bg-primary-light text-primary-ink"
+              >
+                {t}
+              </span>
             ))}
           </div>
         )}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">{title}</h1>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+          {title}
+        </h1>
         {excerpt && <p className="mt-4 text-lg text-muted">{excerpt}</p>}
         <div className="mt-6 flex items-center justify-center gap-3 text-sm text-muted">
           {author && (
             <span className="flex items-center gap-2">
-              {author.avatar && <img src={author.avatar} alt={author.name} className="w-6 h-6 rounded-full" />}
-              {author.href ? <a href={author.href} className="hover:text-foreground">{author.name}</a> : author.name}
+              {author.avatar && (
+                <img src={author.avatar} alt={author.name} className="w-6 h-6 rounded-full" />
+              )}
+              {author.href ? (
+                <a href={author.href} className="hover:text-foreground">
+                  {author.name}
+                </a>
+              ) : (
+                author.name
+              )}
             </span>
           )}
           {publishedAt && (
@@ -94,10 +118,10 @@ export const BlogPost = forwardRef<HTMLElement, BlogPostProps>(function BlogPost
         </div>
       )}
 
-      <div className={cn("grid gap-10", sidebar ? "lg:grid-cols-[1fr_240px]" : "max-w-3xl mx-auto")}>
-        <div className="prose prose-neutral dark:prose-invert max-w-none">
-          {children}
-        </div>
+      <div
+        className={cn("grid gap-10", sidebar ? "lg:grid-cols-[1fr_240px]" : "max-w-3xl mx-auto")}
+      >
+        <div className="prose prose-neutral dark:prose-invert max-w-none">{children}</div>
         {sidebar && (
           <aside className="hidden lg:block">
             <div className="sticky top-6">{sidebar}</div>
@@ -106,9 +130,7 @@ export const BlogPost = forwardRef<HTMLElement, BlogPostProps>(function BlogPost
       </div>
 
       {footer && (
-        <footer className="max-w-3xl mx-auto mt-16 pt-8 border-t border-border">
-          {footer}
-        </footer>
+        <footer className="max-w-3xl mx-auto mt-16 pt-8 border-t border-border">{footer}</footer>
       )}
     </article>
   );

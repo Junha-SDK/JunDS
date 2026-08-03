@@ -1,13 +1,15 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-toast 스택의 SwiftUI 호스트 (DESIGN-4 §C). 앱 루트에 1회 부착하면
 // 센터의 큐를 position별 정렬로 오버레이한다. 빈 공간은 히트테스트를 통과하고
 // 카드만 상호작용한다(.overlay(alignment:)는 콘텐츠 크기만 차지).
 public extension View {
     /// 큐를 position별 정렬로 오버레이한다. 앱 루트에 1회.
-    func jdToastHost(_ center: JdToastCenter = .shared,
-                     position: JdToastPosition = .topRight) -> some View {
+    func jdToastHost(
+        _ center: JdToastCenter = .shared,
+        position: JdToastPosition = .topRight
+    ) -> some View {
         overlay(JdToastHostLayer(center: center, position: position))
     }
 }
@@ -86,16 +88,22 @@ struct JdToastCard: View {
             VStack(alignment: .leading, spacing: JdToken.Space.s1) {
                 if let title = toast.title, !title.isEmpty {
                     Text(title)
-                        .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.md,
-                                                   weight: JdToken.FontWeight.semibold,
-                                                   category: sizeCategory))
+                        .font(
+                            JdSwiftUIFont.scaled(
+                                size: JdToken.FontSize.md,
+                                weight: JdToken.FontWeight.semibold,
+                                category: sizeCategory)
+                        )
                         .foregroundColor(JdToken.Color.foreground.color)
                 }
                 if let message = toast.message, !message.isEmpty {
                     Text(message)
-                        .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.sm,
-                                                   weight: JdToken.FontWeight.normal,
-                                                   category: sizeCategory))
+                        .font(
+                            JdSwiftUIFont.scaled(
+                                size: JdToken.FontSize.sm,
+                                weight: JdToken.FontWeight.normal,
+                                category: sizeCategory)
+                        )
                         .foregroundColor(JdToken.Color.muted.color)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -106,9 +114,12 @@ struct JdToastCard: View {
                 center.dismiss(toast.id)
             } label: {
                 Image(systemName: "xmark")
-                    .font(JdSwiftUIFont.scaled(size: JdToken.FontSize.xs,
-                                               weight: JdToken.FontWeight.semibold,
-                                               category: sizeCategory))
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: JdToken.FontSize.xs,
+                            weight: JdToken.FontWeight.semibold,
+                            category: sizeCategory)
+                    )
                     .foregroundColor(JdToken.Color.muted.color)
             }
             .accessibilityLabel(Text("닫기"))

@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "YearPicker",
   "oneLiner": "연도 선택 피커.",
-  "tags": [
-    "form",
-    "date",
-    "선택"
-  ],
+  "tags": ["form", "date", "선택"],
   "controls": [],
   "snippets": {
     "web": null,

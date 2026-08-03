@@ -10,7 +10,8 @@ export interface SkeletonPresetProps {
   className?: string;
 }
 
-const shimmer = "animate-pulse bg-gray-200 rounded";
+// 맥동은 움직임이다 — 감속 요청이면 정지한 회색 면으로 남는다
+const shimmer = "animate-pulse motion-reduce:animate-none bg-border rounded-lg";
 
 function CardSkeleton({ className }: { className?: string }) {
   return (
@@ -29,12 +30,16 @@ function CardSkeleton({ className }: { className?: string }) {
 function TableSkeleton({ rows = 5, className }: { rows?: number; className?: string }) {
   return (
     <div className={cn("rounded-xl border border-border overflow-hidden", className)}>
-      <div className="flex gap-4 p-3 bg-gray-50 border-b border-border">
-        {[...Array(4)].map((_, i) => <div key={i} className={cn(shimmer, "h-4 flex-1")} />)}
+      <div className="flex gap-4 p-3 bg-surface-soft border-b border-border">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className={cn(shimmer, "h-4 flex-1")} />
+        ))}
       </div>
       {[...Array(rows)].map((_, r) => (
         <div key={r} className="flex gap-4 p-3 border-b border-border last:border-0">
-          {[...Array(4)].map((_, i) => <div key={i} className={cn(shimmer, "h-4 flex-1")} />)}
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className={cn(shimmer, "h-4 flex-1")} />
+          ))}
         </div>
       ))}
     </div>
@@ -98,10 +103,15 @@ function ListSkeleton({ rows = 5, className }: { rows?: number; className?: stri
  */
 export function SkeletonPreset({ variant, rows, className }: SkeletonPresetProps) {
   switch (variant) {
-    case "card": return <CardSkeleton className={className} />;
-    case "table": return <TableSkeleton rows={rows} className={className} />;
-    case "profile": return <ProfileSkeleton className={className} />;
-    case "article": return <ArticleSkeleton className={className} />;
-    case "list": return <ListSkeleton rows={rows} className={className} />;
+    case "card":
+      return <CardSkeleton className={className} />;
+    case "table":
+      return <TableSkeleton rows={rows} className={className} />;
+    case "profile":
+      return <ProfileSkeleton className={className} />;
+    case "article":
+      return <ArticleSkeleton className={className} />;
+    case "list":
+      return <ListSkeleton rows={rows} className={className} />;
   }
 }

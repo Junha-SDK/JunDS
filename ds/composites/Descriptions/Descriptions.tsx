@@ -72,9 +72,10 @@ export function Descriptions({
 
   if (bordered) {
     return (
-      <div className={cn("border border-border rounded-lg overflow-hidden", className)}>
+      <div className={cn("border border-border rounded-xl overflow-hidden", className)}>
         {title && (
-          <div className="px-4 py-3 bg-gray-50 border-b border-border">
+          // bg-gray-50 은 라이트 전용 값 — 다크에서 헤더 줄만 밝게 뜬다.
+          <div className="px-4 py-3 bg-surface-soft border-b border-border">
             <h3 className="text-sm font-semibold text-foreground">{title}</h3>
           </div>
         )}
@@ -86,8 +87,12 @@ export function Descriptions({
                   const span = item.span ?? 1;
                   if (layout === "vertical") {
                     return (
-                      <td key={item.key} colSpan={span} className="border-r border-border last:border-r-0 p-0">
-                        <div className="px-3 py-1.5 bg-gray-50 text-xs font-medium text-muted border-b border-border">
+                      <td
+                        key={item.key}
+                        colSpan={span}
+                        className="border-r border-border last:border-r-0 p-0"
+                      >
+                        <div className="px-3 py-1.5 bg-surface-soft text-xs font-medium text-muted border-b border-border">
                           {item.label}
                         </div>
                         <div className="px-3 py-2 text-sm text-foreground">{item.value}</div>
@@ -97,10 +102,11 @@ export function Descriptions({
                   return (
                     <td key={item.key} colSpan={span * 2} className="p-0">
                       <div className="flex">
-                        <div className="px-3 py-2 bg-gray-50 text-xs font-medium text-muted w-[120px] shrink-0 border-r border-border flex items-center">
+                        <div className="px-3 py-2 bg-surface-soft text-xs font-medium text-muted w-[120px] shrink-0 border-r border-border flex items-center">
                           {item.label}
                         </div>
-                        <div className="px-3 py-2 text-sm text-foreground flex-1 border-r border-border last:border-r-0">
+                        {/* 값이 긴 문자열이면 flex 자식은 min-w-0 없이 넘친다 */}
+                        <div className="px-3 py-2 text-sm text-foreground flex-1 min-w-0 border-r border-border last:border-r-0">
                           {item.value}
                         </div>
                       </div>
@@ -118,9 +124,7 @@ export function Descriptions({
   // 비-bordered 레이아웃
   return (
     <div className={cn("", className)}>
-      {title && (
-        <h3 className="text-sm font-semibold text-foreground mb-3">{title}</h3>
-      )}
+      {title && <h3 className="text-sm font-semibold text-foreground mb-3">{title}</h3>}
       <div
         className="grid gap-x-6 gap-y-3"
         style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
@@ -136,8 +140,10 @@ export function Descriptions({
                 </>
               ) : (
                 <div className="flex gap-2">
-                  <div className="text-xs font-medium text-muted w-[100px] shrink-0 pt-0.5">{item.label}</div>
-                  <div className="text-sm text-foreground flex-1">{item.value}</div>
+                  <div className="text-xs font-medium text-muted w-[100px] shrink-0 pt-0.5">
+                    {item.label}
+                  </div>
+                  <div className="text-sm text-foreground flex-1 min-w-0">{item.value}</div>
                 </div>
               )}
             </div>

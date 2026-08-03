@@ -32,13 +32,26 @@ export interface PhotoLightboxProps {
  * @since 2.4.0
  * @tags photo, overlay
  */
-export function PhotoLightbox({ photos, index, onIndexChange, onClose, open, className }: PhotoLightboxProps) {
+export function PhotoLightbox({
+  photos,
+  index,
+  onIndexChange,
+  onClose,
+  open,
+  className,
+}: PhotoLightboxProps) {
   const t = useT();
   const total = photos.length;
   const photo = photos[index];
 
-  const goPrev = useCallback(() => onIndexChange((index - 1 + total) % total), [index, total, onIndexChange]);
-  const goNext = useCallback(() => onIndexChange((index + 1) % total), [index, total, onIndexChange]);
+  const goPrev = useCallback(
+    () => onIndexChange((index - 1 + total) % total),
+    [index, total, onIndexChange],
+  );
+  const goNext = useCallback(
+    () => onIndexChange((index + 1) % total),
+    [index, total, onIndexChange],
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -58,45 +71,63 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, open, cla
       role="dialog"
       aria-modal="true"
       aria-label={t("ariaPhotoView")}
-      className={cn("fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-4", className)}
+      className={cn(
+        "fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-4",
+        "animate-fade-in motion-reduce:animate-none",
+        className,
+      )}
       onClick={onClose}
     >
       <button
         type="button"
         onClick={onClose}
         aria-label={t("close")}
-        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 text-white text-xl hover:bg-white/20 transition-colors cursor-pointer"
+        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 text-white text-xl ring-1 ring-white/15 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       >
         ✕
       </button>
 
-      <div className="relative max-w-[90vw] max-h-[80vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="relative max-w-[90vw] max-h-[80vh] flex items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+      >
         {total > 1 && (
           <button
             type="button"
             onClick={goPrev}
             aria-label={t("ariaPrevPhoto")}
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer z-10"
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 text-white ring-1 ring-white/15 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             ‹
           </button>
         )}
-        <img src={photo.src} alt={photo.alt} className="max-w-full max-h-[80vh] object-contain rounded-lg" />
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-[0_24px_60px_-20px_rgba(0,0,0,0.85)] ring-1 ring-white/10"
+        />
         {total > 1 && (
           <button
             type="button"
             onClick={goNext}
             aria-label={t("ariaNextPhoto")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer z-10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 text-white ring-1 ring-white/15 hover:bg-white/20 active:bg-white/30 transition-colors cursor-pointer z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             ›
           </button>
         )}
       </div>
 
-      <div className="mt-4 max-w-2xl w-full text-center text-white" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="mt-4 max-w-2xl w-full text-center text-white"
+        onClick={(e) => e.stopPropagation()}
+      >
         {photo.caption && <p className="text-sm">{photo.caption}</p>}
-        {total > 1 && <p className="text-[11px] text-white/60 mt-1 tabular-nums">{index + 1} / {total}</p>}
+        {total > 1 && (
+          <p className="text-[11px] text-white/60 mt-1 tabular-nums">
+            {index + 1} / {total}
+          </p>
+        )}
       </div>
     </div>
   );

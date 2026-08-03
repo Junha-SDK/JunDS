@@ -65,18 +65,27 @@ export function estimateDomesticGain(input: DomesticGainInput): DomesticGainResu
       capitalGainsTax = taxableBase * KR_LARGE_SHAREHOLDER_RATE_LOW;
     } else {
       const lower = KR_LARGE_SHAREHOLDER_THRESHOLD * KR_LARGE_SHAREHOLDER_RATE_LOW;
-      const upper =
-        (taxableBase - KR_LARGE_SHAREHOLDER_THRESHOLD) * KR_LARGE_SHAREHOLDER_RATE_HIGH;
+      const upper = (taxableBase - KR_LARGE_SHAREHOLDER_THRESHOLD) * KR_LARGE_SHAREHOLDER_RATE_HIGH;
       capitalGainsTax = lower + upper;
     }
     notes.push(
-      `대주주 양도소득세: ${(KR_LARGE_SHAREHOLDER_RATE_LOW * 100).toFixed(1)}% (3억 이하) / ${(KR_LARGE_SHAREHOLDER_RATE_HIGH * 100).toFixed(1)}% (3억 초과). 기본공제 250만원 적용.`,
+      `대주주 양도소득세: ${(KR_LARGE_SHAREHOLDER_RATE_LOW * 100).toFixed(1)}% (3억 이하) / ${(
+        KR_LARGE_SHAREHOLDER_RATE_HIGH * 100
+      ).toFixed(1)}% (3억 초과). 기본공제 250만원 적용.`,
     );
   }
 
   const totalTax = capitalGainsTax + transactionTax;
   const afterTax = sellAmount - transactionTax - capitalGainsTax - commissions;
-  return { netGain, taxable: Math.max(0, netGain - KR_BASIC_DEDUCTION), capitalGainsTax, transactionTax, totalTax, afterTax, notes };
+  return {
+    netGain,
+    taxable: Math.max(0, netGain - KR_BASIC_DEDUCTION),
+    capitalGainsTax,
+    transactionTax,
+    totalTax,
+    afterTax,
+    notes,
+  };
 }
 
 export interface ForeignGainInput {

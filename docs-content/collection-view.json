@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "CollectionView",
   "oneLiner": "검색·필터·뷰 전환을 지원하는 컬렉션 뷰어.",
-  "tags": [
-    "data"
-  ],
+  "tags": ["data"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -9,11 +9,7 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./ds/__tests__/setup.ts"],
     include: ["ds/__tests__/**/*.test.{ts,tsx}"],
-    exclude: [
-      "**/node_modules/**",
-      "**/dist/**",
-      "ds/__tests__/a11y/**",
-    ],
+    exclude: ["**/node_modules/**", "**/dist/**", "ds/__tests__/a11y/**"],
     css: false,
     coverage: {
       provider: "v8",

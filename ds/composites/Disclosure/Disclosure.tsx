@@ -28,9 +28,7 @@ const DisclosureContext = createContext<DisclosureContextValue | null>(null);
 function useDisclosureContext(part: string): DisclosureContextValue {
   const ctx = useContext(DisclosureContext);
   if (!ctx) {
-    throw new Error(
-      `<Disclosure.${part}> must be rendered inside a <Disclosure> root.`,
-    );
+    throw new Error(`<Disclosure.${part}> must be rendered inside a <Disclosure> root.`);
   }
   return ctx;
 }
@@ -65,10 +63,7 @@ export interface DisclosureProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const DisclosureRoot = forwardRef<HTMLDivElement, DisclosureProps>(
-  (
-    { defaultOpen = false, open, onOpenChange, asChild, className, children, ...props },
-    ref,
-  ) => {
+  ({ defaultOpen = false, open, onOpenChange, asChild, className, children, ...props }, ref) => {
     const [internalOpen, setInternalOpen] = useState(defaultOpen);
     const isControlled = open !== undefined;
     const isOpen = isControlled ? open : internalOpen;
@@ -100,8 +95,7 @@ const DisclosureRoot = forwardRef<HTMLDivElement, DisclosureProps>(
 );
 DisclosureRoot.displayName = "Disclosure";
 
-export interface DisclosureTriggerProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface DisclosureTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Slot 위임. true이면 자체 `<button>` 대신 단일 자식으로 위임 */
   asChild?: boolean;
 }
@@ -125,7 +119,12 @@ const DisclosureTrigger = forwardRef<HTMLButtonElement, DisclosureTriggerProps>(
         aria-controls={contentId}
         data-state={isOpen ? "open" : "closed"}
         onClick={handleClick}
-        className={cn(className)}
+        // 표시가 없는(headless) 부품이지만 포커스만은 기본값이 필요하다 — 누를 수 있는 것이
+        // 키보드로 어디 있는지 보이지 않으면 안 된다. cn 은 twMerge 라 소비자 className 이 이긴다.
+        className={cn(
+          "rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          className,
+        )}
         {...props}
       >
         {children}

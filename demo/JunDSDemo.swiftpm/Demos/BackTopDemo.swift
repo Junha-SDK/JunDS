@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // BackTop 데모 — 실컴포넌트 JdBackTopButton(SwiftUI)/JdBackTopButtonView(UIKit).
 //
@@ -14,7 +14,9 @@ enum BackTopDemo {
     static let demo = ComponentDemo(
         id: "BackTop",
         controls: [
-            .slider("threshold", "threshold", 100...600, step: 20, initial: Double(JdBackTop.defaultThreshold)),
+            .slider(
+                "threshold", "threshold", 100...600, step: 20,
+                initial: Double(JdBackTop.defaultThreshold))
         ],
         swiftUI: { state in AnyView(BackTopStageSwiftUI(state: state)) },
         uikit: { state in AnyView(BackTopStageUIKit(state: state)) }
@@ -129,12 +131,14 @@ private struct BackTopStageUIKit: View {
 
 // 각주 — 판정의 실황. shouldShow는 엄격 초과(>)라 경계값에서는 아직 감춰져 있다.
 private func backTopFootnote(scrollY: CGFloat, threshold: CGFloat, visible: Bool) -> some View {
-    Text("JdBackTop.shouldShow(scrollY: \(Int(scrollY)), threshold: \(Int(threshold))) = "
-         + "\(visible ? "true" : "false") — 판정은 Core가 단일 소스이고 엄격 초과(>)라 "
-         + "경계값에서는 아직 감춰져 있다. 버튼은 스크롤을 되돌리는 트리거일 뿐이다.")
-        .font(.footnote)
-        .foregroundColor(.secondary)
-        .multilineTextAlignment(.center)
+    Text(
+        "JdBackTop.shouldShow(scrollY: \(Int(scrollY)), threshold: \(Int(threshold))) = "
+            + "\(visible ? "true" : "false") — 판정은 Core가 단일 소스이고 엄격 초과(>)라 "
+            + "경계값에서는 아직 감춰져 있다. 버튼은 스크롤을 되돌리는 트리거일 뿐이다."
+    )
+    .font(.footnote)
+    .foregroundColor(.secondary)
+    .multilineTextAlignment(.center)
 }
 
 // 데모 전용 UIKit 랩 — 소비자 관할 (DEC-010 각주).
@@ -235,9 +239,10 @@ private final class BackTopStageUIView: UIView {
         label.text = BackTopDemo.rowText(index)
         label.numberOfLines = 0
         label.adjustsFontForContentSizeCategory = true
-        label.font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .sm).fontSize,
-                                             weight: JdToken.FontWeight.normal,
-                                             compatibleWith: traitCollection)
+        label.font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .sm).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         label.textColor = JdToken.Color.foreground.uiColor
         return label
     }

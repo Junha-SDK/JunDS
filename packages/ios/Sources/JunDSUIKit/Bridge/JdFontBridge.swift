@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 토큰 CGFloat(size/weight) → Dynamic Type 스케일 UIFont (04 §6 — 고정 pt 금지)
 public enum JdFontBridge {
@@ -21,16 +21,20 @@ public enum JdFontBridge {
     // 사용처는 반드시 adjustsFontForContentSizeCategory = true 를 함께 켠다.
     // compatibleWith: 뷰의 traitCollection을 넘겨야 setOverrideTraitCollection 기반
     // 컨테이너 단위 Dynamic Type(쇼룸 시뮬레이션 등)이 반영된다.
-    public static func scaledFont(size: CGFloat, weight: CGFloat,
-                                  compatibleWith traits: UITraitCollection? = nil) -> UIFont {
+    public static func scaledFont(
+        size: CGFloat, weight: CGFloat,
+        compatibleWith traits: UITraitCollection? = nil
+    ) -> UIFont {
         let base = UIFont.systemFont(ofSize: size, weight: uiWeight(weight))
         return UIFontMetrics(forTextStyle: textStyle(forSize: size))
             .scaledFont(for: base, compatibleWith: traits)
     }
 
     // 모노스페이스 변형 — 베이스만 monospacedSystemFont로 바꾸고 스케일 규칙은 동일 (DESIGN §2.3)
-    public static func scaledMonoFont(size: CGFloat, weight: CGFloat,
-                                      compatibleWith traits: UITraitCollection? = nil) -> UIFont {
+    public static func scaledMonoFont(
+        size: CGFloat, weight: CGFloat,
+        compatibleWith traits: UITraitCollection? = nil
+    ) -> UIFont {
         let base = UIFont.monospacedSystemFont(ofSize: size, weight: uiWeight(weight))
         return UIFontMetrics(forTextStyle: textStyle(forSize: size))
             .scaledFont(for: base, compatibleWith: traits)
@@ -42,8 +46,10 @@ public enum JdFontBridge {
     /// 시세·등락률은 값이 갱신될 때 자리수가 바뀌어도 **폭이 흔들리지 않는 것**만 필요하므로
     /// 숫자 폭만 고정한다(SwiftUI 쪽 대응은 `.monospacedDigit()`).
     /// finance 86종이 전부 숫자를 그리므로 브리지에 둔다.
-    public static func scaledDigitFont(size: CGFloat, weight: CGFloat,
-                                       compatibleWith traits: UITraitCollection? = nil) -> UIFont {
+    public static func scaledDigitFont(
+        size: CGFloat, weight: CGFloat,
+        compatibleWith traits: UITraitCollection? = nil
+    ) -> UIFont {
         let base = UIFont.monospacedDigitSystemFont(ofSize: size, weight: uiWeight(weight))
         return UIFontMetrics(forTextStyle: textStyle(forSize: size))
             .scaledFont(for: base, compatibleWith: traits)

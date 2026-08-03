@@ -34,8 +34,7 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
     return searchStocks(query.trim(), 6);
   }, [query]);
 
-  const winColor =
-    result.totalReturn > result.buyHoldReturn ? "var(--bm-up)" : "var(--bm-down)";
+  const winColor = result.totalReturn > result.buyHoldReturn ? "var(--bm-up)" : "var(--bm-down)";
   const inv = INVESTORS[investor];
 
   return (
@@ -49,14 +48,17 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Investor picker */}
           <div>
-            <label className="text-[10.5px] font-bold tracking-wide uppercase block mb-1.5"
-                   style={{ color: "var(--bm-muted)" }}>
+            <label
+              className="text-[10.5px] font-bold tracking-wide uppercase block mb-1.5"
+              style={{ color: "var(--bm-muted)" }}
+            >
               거장
             </label>
             <select
               value={investor}
               onChange={(e) => setInvestor(e.target.value as InvestorId)}
-              className="w-full h-10 px-3 rounded-lg outline-none text-[13px] font-bold"
+              // outline-none 만 있고 대체 표시가 없었다 — 키보드로는 어디에 있는지 알 수 없었다
+              className="w-full h-10 px-3 rounded-xl outline-none text-[13px] font-bold cursor-pointer transition-shadow duration-150 focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
               style={{
                 background: "var(--bm-soft-100)",
                 border: "1px solid var(--bm-border)",
@@ -86,7 +88,7 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
               }}
               onFocus={() => setQuery("")}
               placeholder="종목명 검색"
-              className="w-full h-10 px-3 rounded-lg outline-none text-[13px] font-bold"
+              className="w-full min-w-0 h-10 px-3 rounded-xl outline-none text-[13px] font-bold transition-shadow duration-150 focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)]"
               style={{
                 background: "var(--bm-soft-100)",
                 border: "1px solid var(--bm-border)",
@@ -94,9 +96,7 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
               }}
             />
             {query.trim() && suggestions.length > 0 ? (
-              <ul
-                className="absolute z-10 left-0 right-0 mt-1 bm-card-lg overflow-hidden max-h-60 overflow-y-auto"
-              >
+              <ul className="absolute z-10 left-0 right-0 mt-1 bm-card-lg overflow-hidden max-h-60 overflow-y-auto overscroll-contain shadow-[0_18px_40px_-16px_rgba(15,23,42,0.42),0_6px_14px_-6px_rgba(15,23,42,0.22)] ring-1 ring-white/10">
                 {suggestions.map((s) => (
                   <li key={s.name}>
                     <button
@@ -105,11 +105,14 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
                         setSymbol(s.name);
                         setQuery("");
                       }}
-                      className="w-full px-3 py-2 text-left text-[13px] font-bold hover:bg-[var(--bm-soft-100)]"
+                      className="w-full px-3 py-2 text-left text-[13px] font-bold cursor-pointer transition-colors duration-150 hover:bg-[var(--bm-soft-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color:var(--bm-accent-strong)]"
                     >
                       {s.name}
                       {s.sector ? (
-                        <span className="ml-2 text-[11px] font-normal" style={{ color: "var(--bm-muted)" }}>
+                        <span
+                          className="ml-2 text-[11px] font-normal"
+                          style={{ color: "var(--bm-muted)" }}
+                        >
                           · {s.sector}
                         </span>
                       ) : null}
@@ -132,12 +135,16 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
               {RANGES.map((r) => (
                 <button
                   key={r.key}
+                  type="button"
+                  aria-pressed={bars === r.key}
                   onClick={() => setBars(r.key)}
-                  className="flex-1 h-10 rounded-lg text-[13px] font-extrabold transition-colors"
+                  className="flex-1 h-10 rounded-xl text-[13px] font-extrabold cursor-pointer transition-[background-color,border-color,transform] duration-150 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bm-card)]"
                   style={{
                     background: bars === r.key ? "var(--bm-accent-strong)" : "var(--bm-soft-100)",
                     color: bars === r.key ? "#fff" : "var(--bm-text)",
-                    border: `1px solid ${bars === r.key ? "var(--bm-accent-strong)" : "var(--bm-border)"}`,
+                    border: `1px solid ${
+                      bars === r.key ? "var(--bm-accent-strong)" : "var(--bm-border)"
+                    }`,
                   }}
                 >
                   {r.label}
@@ -163,8 +170,10 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px"
-             style={{ background: "var(--bm-border)" }}>
+        <div
+          className="grid grid-cols-2 md:grid-cols-4 gap-px"
+          style={{ background: "var(--bm-border)" }}
+        >
           <Stat
             label="전략 수익률"
             value={`${(result.totalReturn * 100).toFixed(2)}%`}
@@ -177,15 +186,14 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
           />
           <Stat
             label="vs. 매수보유"
-            value={`${result.totalReturn > result.buyHoldReturn ? "+" : ""}${((result.totalReturn - result.buyHoldReturn) * 100).toFixed(2)}%p`}
+            value={`${result.totalReturn > result.buyHoldReturn ? "+" : ""}${(
+              (result.totalReturn - result.buyHoldReturn) *
+              100
+            ).toFixed(2)}%p`}
             tone={result.totalReturn > result.buyHoldReturn ? "up" : "down"}
             customColor={winColor}
           />
-          <Stat
-            label="MDD"
-            value={`${(result.maxDrawdown * 100).toFixed(2)}%`}
-            tone="down"
-          />
+          <Stat label="MDD" value={`${(result.maxDrawdown * 100).toFixed(2)}%`} tone="down" />
           <Stat label="연환산 (CAGR)" value={`${(result.cagr * 100).toFixed(2)}%`} />
           <Stat label="매수보유 CAGR" value={`${(result.buyHoldCagr * 100).toFixed(2)}%`} />
           <Stat label="포지션 변경" value={`${result.trades}회`} />
@@ -211,17 +219,16 @@ export function BacktestRunner({ presetSymbol }: BacktestRunnerProps) {
           {(["강력매수", "매수", "관망", "매도", "강력매도"] as const).map((v) => (
             <span
               key={v}
-              className="bm-num text-[11.5px] font-bold inline-flex items-center gap-1"
+              className="bm-num text-[11.5px] font-bold inline-flex items-center gap-1 whitespace-nowrap tabular-nums"
             >
               <span style={{ color: "var(--bm-muted)" }}>{v}</span>
               <span
                 style={{
-                  color:
-                    v.includes("매수")
-                      ? "var(--bm-up)"
-                      : v.includes("매도")
-                        ? "var(--bm-down)"
-                        : "var(--bm-text)",
+                  color: v.includes("매수")
+                    ? "var(--bm-up)"
+                    : v.includes("매도")
+                    ? "var(--bm-down)"
+                    : "var(--bm-text)",
                 }}
               >
                 {result.verdictHist[v]}
@@ -247,11 +254,7 @@ function Stat({
 }) {
   const color =
     customColor ??
-    (tone === "up"
-      ? "var(--bm-up)"
-      : tone === "down"
-        ? "var(--bm-down)"
-        : "var(--bm-text)");
+    (tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-text)");
   return (
     <div className="bm-stat-tile">
       <span className="bm-stat-tile-label">{label}</span>
@@ -282,7 +285,13 @@ function EquitySvg({ result }: { result: BacktestResult }) {
   const bhColor = "var(--bm-muted)";
 
   return (
-    <svg width="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="none"
+      role="img"
+      aria-label="자산 곡선 — 전략 대 매수보유"
+      className="block w-full h-auto"
+    >
       {/* baseline */}
       <line
         x1={pad.l}
@@ -294,13 +303,7 @@ function EquitySvg({ result }: { result: BacktestResult }) {
         strokeWidth={1}
         vectorEffect="non-scaling-stroke"
       />
-      <text
-        x={pad.l - 4}
-        y={y(1) + 3}
-        fontSize="10"
-        textAnchor="end"
-        fill="var(--bm-muted)"
-      >
+      <text x={pad.l - 4} y={y(1) + 3} fontSize="10" textAnchor="end" fill="var(--bm-muted)">
         1.00
       </text>
       <polyline
@@ -325,7 +328,15 @@ function EquitySvg({ result }: { result: BacktestResult }) {
         <text x="24" y="15" fontSize="10" fill="var(--bm-text)" fontWeight="700">
           전략
         </text>
-        <line x1="8" y1="26" x2="20" y2="26" stroke={bhColor} strokeWidth="1.5" strokeDasharray="3 2" />
+        <line
+          x1="8"
+          y1="26"
+          x2="20"
+          y2="26"
+          stroke={bhColor}
+          strokeWidth="1.5"
+          strokeDasharray="3 2"
+        />
         <text x="24" y="29" fontSize="10" fill="var(--bm-muted)" fontWeight="700">
           매수보유
         </text>

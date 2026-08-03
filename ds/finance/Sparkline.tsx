@@ -41,7 +41,9 @@ export function Sparkline({
   });
   const polyPts = points.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
   const fillPath = fill
-    ? `M0,${height} L${points.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" L")} L${width},${height} Z`
+    ? `M0,${height} L${points
+        .map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`)
+        .join(" L")} L${width},${height} Z`
     : null;
 
   const last = points[points.length - 1];

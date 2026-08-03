@@ -4,9 +4,7 @@
   "category": "primitives",
   "title": "StatusDot",
   "oneLiner": "상태 표시 점",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": {

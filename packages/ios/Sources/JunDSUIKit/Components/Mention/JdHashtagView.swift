@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-hashtag 동형 — `#tag` 링크 칩. UILabel 기반(텍스트 런이라 인라인이 정본).
 //
@@ -28,10 +28,12 @@ public final class JdHashtagLabelView: UILabel {
     /// 링크 열기는 소비자 몫(라우터·UIApplication.open) — 웹 href 자리다
     public var onTap: (() -> Void)?
 
-    public init(tag: String,
-                count: Int? = nil,
-                isTrending: Bool = false,
-                onTap: (() -> Void)? = nil) {
+    public init(
+        tag: String,
+        count: Int? = nil,
+        isTrending: Bool = false,
+        onTap: (() -> Void)? = nil
+    ) {
         self.hashtag = tag
         self.count = count
         self.isTrending = isTrending
@@ -70,29 +72,38 @@ public final class JdHashtagLabelView: UILabel {
 
     private func applyContent() {
         // UILabel은 상속 서체가 없어 본문 기본(JdTextView 기본과 같은 md) + 웹 medium 굵기
-        let font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .md).fontSize,
-                                           weight: JdToken.FontWeight.medium,
-                                           compatibleWith: traitCollection)
-        let result = NSMutableAttributedString(string: displayText, attributes: [
-            .font: font,
-            .foregroundColor: JdToken.Color.primary.uiColor,
-        ])
+        let font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .md).fontSize,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
+        let result = NSMutableAttributedString(
+            string: displayText,
+            attributes: [
+                .font: font,
+                .foregroundColor: JdToken.Color.primary.uiColor,
+            ])
 
         if isTrending {
             // 웹은 🔥 이모지 — SF Symbol로 옮기고 색은 토큰(warning)에서 읽는다
             result.append(NSAttributedString(string: " "))
-            result.append(JdMentionStyle.symbolRun("flame.fill",
-                                                   color: JdToken.Color.warning,
-                                                   traits: traitCollection))
+            result.append(
+                JdMentionStyle.symbolRun(
+                    "flame.fill",
+                    color: JdToken.Color.warning,
+                    traits: traitCollection))
         }
 
         if let countText {
-            result.append(NSAttributedString(string: " " + countText, attributes: [
-                .font: JdFontBridge.scaledFont(size: JdMentionStyle.markFontSize,
-                                               weight: JdToken.FontWeight.normal,
-                                               compatibleWith: traitCollection),
-                .foregroundColor: JdToken.Color.muted.uiColor, // 웹 .jd-hashtag__count
-            ]))
+            result.append(
+                NSAttributedString(
+                    string: " " + countText,
+                    attributes: [
+                        .font: JdFontBridge.scaledFont(
+                            size: JdMentionStyle.markFontSize,
+                            weight: JdToken.FontWeight.normal,
+                            compatibleWith: traitCollection),
+                        .foregroundColor: JdToken.Color.muted.uiColor,  // 웹 .jd-hashtag__count
+                    ]))
         }
 
         attributedText = result

@@ -29,6 +29,16 @@ export interface FAQProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
   searchable?: boolean;
 }
 
+/** 카테고리 칩 — 켜짐/꺼짐 두 상태가 같은 형태를 공유한다 */
+const chip = cn(
+  "px-3 py-1 text-xs rounded-full border cursor-pointer whitespace-nowrap",
+  "transition-colors duration-150",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+);
+const chipOn =
+  "border-primary bg-primary text-white hover:bg-primary-hover shadow-[0_1px_2px_var(--primary-glow),inset_0_1px_0_rgba(255,255,255,0.18)]";
+const chipOff = "border-border hover:bg-muted/10 active:bg-muted/20";
+
 /**
  * FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
  * @example
@@ -38,7 +48,16 @@ export interface FAQProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
  * @tags marketing
  */
 export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
-  { title, subtitle, items, multiple = false, showCategoryFilter = false, searchable = false, className, ...props },
+  {
+    title,
+    subtitle,
+    items,
+    multiple = false,
+    showCategoryFilter = false,
+    searchable = false,
+    className,
+    ...props
+  },
   ref,
 ) {
   const [open, setOpen] = useState<Set<string>>(new Set());
@@ -56,7 +75,9 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
       if (category && it.category !== category) return false;
       if (query) {
         const q = query.toLowerCase();
-        const text = `${typeof it.question === "string" ? it.question : ""} ${typeof it.answer === "string" ? it.answer : ""}`.toLowerCase();
+        const text = `${typeof it.question === "string" ? it.question : ""} ${
+          typeof it.answer === "string" ? it.answer : ""
+        }`.toLowerCase();
         if (!text.includes(q)) return false;
       }
       return true;
@@ -93,7 +114,8 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="검색..."
-              className="flex-1 rounded-md border border-border bg-surface px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              // ring-ring 은 --color-ring 이 없어 아무 링도 그리지 않았다 — 실재하는 토큰으로
+              className="flex-1 min-w-0 rounded-xl border border-border bg-surface px-3 py-2 text-sm shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-200 ease-out hover:border-muted-light focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             />
           )}
           {showCategoryFilter && categories.length > 0 && (
@@ -101,10 +123,8 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
               <button
                 type="button"
                 onClick={() => setCategory(null)}
-                className={cn(
-                  "px-3 py-1 text-xs rounded-full border cursor-pointer",
-                  category === null ? "border-primary bg-primary text-white" : "border-border hover:bg-surface-soft",
-                )}
+                aria-pressed={category === null}
+                className={cn(chip, category === null ? chipOn : chipOff)}
               >
                 전체
               </button>
@@ -113,10 +133,8 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
                   key={c}
                   type="button"
                   onClick={() => setCategory(c)}
-                  className={cn(
-                    "px-3 py-1 text-xs rounded-full border cursor-pointer",
-                    category === c ? "border-primary bg-primary text-white" : "border-border hover:bg-surface-soft",
-                  )}
+                  aria-pressed={category === c}
+                  className={cn(chip, category === c ? chipOn : chipOff)}
                 >
                   {c}
                 </button>
@@ -134,15 +152,34 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
           const id = it.id ?? String(i);
           const isOpen = open.has(id);
           return (
-            <div key={id} className="rounded-lg border border-border bg-surface overflow-hidden">
+            <div
+              key={id}
+              className={cn(
+                "rounded-xl border bg-surface overflow-hidden transition-colors duration-150",
+                isOpen ? "border-primary/40" : "border-border",
+              )}
+            >
               <button
                 type="button"
                 onClick={() => toggle(id)}
                 aria-expanded={isOpen}
-                className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left font-medium hover:bg-surface-soft cursor-pointer"
+                className={cn(
+                  "w-full flex items-center justify-between gap-3 px-4 py-3 text-left font-medium cursor-pointer",
+                  "transition-colors duration-150 hover:bg-muted/10 active:bg-muted/20",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary/55",
+                )}
               >
-                <span>{it.question}</span>
-                <span className={cn("text-muted transition-transform shrink-0", isOpen && "rotate-180")}>⌄</span>
+                <span className="min-w-0">{it.question}</span>
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    // 화살표가 도는 건 움직임이다
+                    "text-muted shrink-0 transition-transform duration-200 motion-reduce:transition-none",
+                    isOpen && "rotate-180",
+                  )}
+                >
+                  ⌄
+                </span>
               </button>
               {isOpen && (
                 <div className="px-4 pb-3 text-sm text-muted leading-relaxed">{it.answer}</div>

@@ -4,30 +4,18 @@
   "category": "primitives",
   "title": "IconButton",
   "oneLiner": "아이콘 전용 버튼",
-  "tags": [
-    "form",
-    "control"
-  ],
+  "tags": ["form", "control"],
   "controls": [
     {
       "prop": "variant",
       "kind": "segmented",
-      "options": [
-        "ghost",
-        "outline",
-        "filled"
-      ],
+      "options": ["ghost", "outline", "filled"],
       "default": "ghost"
     },
     {
       "prop": "size",
       "kind": "segmented",
-      "options": [
-        "xs",
-        "sm",
-        "md",
-        "lg"
-      ],
+      "options": ["xs", "sm", "md", "lg"],
       "default": "md"
     }
   ],

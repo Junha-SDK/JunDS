@@ -10,7 +10,7 @@ describe("Badge", () => {
 
   it("renders all variants", () => {
     const variants = ["primary", "success", "danger", "warning", "info", "default"] as const;
-    variants.forEach(variant => {
+    variants.forEach((variant) => {
       const { unmount } = render(<Badge variant={variant}>{variant}</Badge>);
       expect(screen.getByText(variant)).toBeDefined();
       unmount();

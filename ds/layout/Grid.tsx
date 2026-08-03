@@ -19,8 +19,8 @@ export const Grid = forwardRef<HTMLElement, GridProps>(
     const resolvedCols = autoFit
       ? `repeat(auto-fit, minmax(${autoFit}px, 1fr))`
       : autoFill
-        ? `repeat(auto-fill, minmax(${autoFill}px, 1fr))`
-        : cols;
+      ? `repeat(auto-fill, minmax(${autoFill}px, 1fr))`
+      : cols;
 
     return (
       <Box

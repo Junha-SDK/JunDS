@@ -3,6 +3,8 @@
  * aspect-ratio-box/overlay. 별칭 파생(R12)·기본값 CSS·컴포넌트 고유 프롭.
  */
 import { beforeEach, describe, expect, test } from "vitest";
+import { CONTAINER_SIZES } from "../src/core/tokens.generated.js";
+import { squish } from "./css-text.js";
 import "../src/components/stack/index.js";
 import "../src/components/grid/index.js";
 import "../src/components/grid-layout/index.js";
@@ -31,8 +33,14 @@ beforeEach(() => {
 
 test("B2 전 태그 정의 + 별칭 파생 관계(R12)", () => {
   for (const tag of [
-    "jd-stack", "jd-grid", "jd-simple-grid", "jd-container", "jd-spacer",
-    "jd-wrap", "jd-aspect-ratio-box", "jd-overlay",
+    "jd-stack",
+    "jd-grid",
+    "jd-simple-grid",
+    "jd-container",
+    "jd-spacer",
+    "jd-wrap",
+    "jd-aspect-ratio-box",
+    "jd-overlay",
   ]) {
     expect(customElements.get(tag), tag).toBeDefined();
   }
@@ -59,22 +67,29 @@ describe("jd-grid / jd-simple-grid — auto 컬럼 (v2 분기 동형)", () => {
     document.body.innerHTML = `<jd-grid auto-fit="240"></jd-grid>`;
     await tick();
     const el = document.querySelector<JdGrid>("jd-grid")!;
-    expect(el.style.getPropertyValue("grid-template-columns"))
-      .toBe("repeat(auto-fit, minmax(240px, 1fr))");
+    expect(el.style.getPropertyValue("grid-template-columns")).toBe(
+      "repeat(auto-fit, minmax(240px, 1fr))",
+    );
   });
 
   test("auto-fill 우선순위는 auto-fit 다음", async () => {
     document.body.innerHTML = `<jd-grid auto-fit="200" auto-fill="300"></jd-grid>`;
     await tick();
-    expect(document.querySelector<HTMLElement>("jd-grid")!.style.getPropertyValue("grid-template-columns"))
-      .toBe("repeat(auto-fit, minmax(200px, 1fr))");
+    expect(
+      document
+        .querySelector<HTMLElement>("jd-grid")!
+        .style.getPropertyValue("grid-template-columns"),
+    ).toBe("repeat(auto-fit, minmax(200px, 1fr))");
   });
 
   test("min-child-width(SimpleGrid 표면) → auto-fill", async () => {
     document.body.innerHTML = `<jd-simple-grid min-child-width="180"></jd-simple-grid>`;
     await tick();
-    expect(document.querySelector<HTMLElement>("jd-simple-grid")!.style.getPropertyValue("grid-template-columns"))
-      .toBe("repeat(auto-fill, minmax(180px, 1fr))");
+    expect(
+      document
+        .querySelector<HTMLElement>("jd-simple-grid")!
+        .style.getPropertyValue("grid-template-columns"),
+    ).toBe("repeat(auto-fill, minmax(180px, 1fr))");
   });
 
   test("auto 해제 시 cols 프롭 복원·무프롭이면 제거", async () => {
@@ -92,8 +107,17 @@ describe("jd-grid / jd-simple-grid — auto 컬럼 (v2 분기 동형)", () => {
 
 describe("jd-container", () => {
   test("size 프리셋 반영(기본 lg 미반영) + no-center", async () => {
-    expect(containerStyles.text).toContain("max-width: 1024px");
-    expect(containerStyles.text).toContain("jd-container[size=\"xs\"] { max-width: 512px; }");
+    // 프리셋 표의 정본은 tokens/container.json이다. px를 여기 적어 두면 토큰을 고쳤을 때
+    // 테스트가 옛 숫자를 지키게 되므로, 규칙이 **자기 이름의 var**를 가리키는지만 본다
+    // (값 일치는 tokens 패리티 테스트의 몫).
+    const css = squish(containerStyles.text);
+    expect(css).toContain("max-width: var(--jd-container-lg)");
+    for (const size of Object.keys(CONTAINER_SIZES)) {
+      expect(css, `size=${size}`).toContain(
+        squish(`jd-container[size="${size}"] { max-width: var(--jd-container-${size}); }`),
+      );
+    }
+    expect(css).toContain(squish('jd-container[size="full"] { max-width: 100%; }'));
     document.body.innerHTML = `<jd-container no-center></jd-container>`;
     await tick();
     const el = document.querySelector<JdContainer>("jd-container")!;

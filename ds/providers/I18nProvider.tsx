@@ -287,10 +287,7 @@ const builtInLocales: Record<LocaleId, Locale> = {
  *   interpolate("Hello, {name}!", { name: "Junha" }) // "Hello, Junha!"
  *   interpolate("{n} items", { n: 3 })              // "3 items"
  */
-export function interpolate(
-  message: string,
-  params?: Record<string, string | number>,
-): string {
+export function interpolate(message: string, params?: Record<string, string | number>): string {
   if (!params) return message;
   return message.replace(/\{(\w+)\}/g, (match, key) => {
     const value = params[key];
@@ -349,12 +346,8 @@ export function useI18n(): Locale {
  */
 export function useT() {
   const dict = useI18n();
-  return (
-    key: keyof Locale | (string & {}),
-    params?: Record<string, string | number>,
-  ): string => {
-    const message =
-      key in dict ? dict[key as keyof Locale] : (key as string);
+  return (key: keyof Locale | (string & {}), params?: Record<string, string | number>): string => {
+    const message = key in dict ? dict[key as keyof Locale] : (key as string);
     return interpolate(message, params);
   };
 }

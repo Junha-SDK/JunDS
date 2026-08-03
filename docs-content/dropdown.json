@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "Dropdown",
   "oneLiner": "드롭다운 메뉴",
-  "tags": [
-    "overlay",
-    "navigation"
-  ],
+  "tags": ["overlay", "navigation"],
   "controls": [],
   "snippets": {
     "web": null,

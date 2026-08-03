@@ -22,15 +22,8 @@
  *  jd-search({ query }) · jd-filter({ category })를 추가 발행한다.
  */
 import { JdElement } from "../../core/element.js";
-import {
-  syncAriaIdRefs,
-  syncOwnedAttribute,
-} from "../../core/aria.js";
-import {
-  contentText,
-  setContent,
-  type JdContent,
-} from "../../core/content.js";
+import { syncAriaIdRefs, syncOwnedAttribute } from "../../core/aria.js";
+import { contentText, setContent, type JdContent } from "../../core/content.js";
 import { adoptStyles } from "../../core/styles.js";
 import { jdUid } from "../../core/uid.js";
 import { on, createKeyHandler } from "../../behaviors/input.js";
@@ -191,8 +184,9 @@ export class JdFaq extends JdElement {
       if (!item) return;
       row.dataset.faqId = item.id ?? String(i);
       row.dataset.category = item.category ?? "";
-      row.dataset.search =
-        `${contentText(item.question)} ${contentText(item.answer)}`.toLowerCase();
+      row.dataset.search = `${contentText(item.question)} ${contentText(
+        item.answer,
+      )}`.toLowerCase();
       setContent(row.querySelector<HTMLElement>(".jd-faq__question")!, item.question);
       setContent(row.querySelector<HTMLElement>(".jd-faq__answer")!, item.answer);
     });
@@ -338,9 +332,7 @@ export class JdFaq extends JdElement {
     if (this.#search.value !== this.#query) this.#search.value = this.#query;
 
     // 칩 활성 상태
-    const chips = Array.from(
-      this.#filters.querySelectorAll<HTMLButtonElement>(".jd-faq__chip"),
-    );
+    const chips = Array.from(this.#filters.querySelectorAll<HTMLButtonElement>(".jd-faq__chip"));
     for (const chip of chips) {
       const cat = chip.dataset.category ? chip.dataset.category : null;
       const active = cat === this.#category;

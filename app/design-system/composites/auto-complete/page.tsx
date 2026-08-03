@@ -27,12 +27,31 @@ export default function AutoCompletePage() {
       importPath='import { AutoComplete } from "@/ds/composites/AutoComplete"'
       props={[
         { name: "value", type: "string", required: true, description: "입력 값" },
-        { name: "onChange", type: "(value: string) => void", required: true, description: "값 변경 콜백" },
-        { name: "options", type: "AutoCompleteOption[]", required: true, description: "자동완성 옵션 목록" },
-        { name: "onSelect", type: "(option: AutoCompleteOption) => void", description: "옵션 선택 콜백" },
+        {
+          name: "onChange",
+          type: "(value: string) => void",
+          required: true,
+          description: "값 변경 콜백",
+        },
+        {
+          name: "options",
+          type: "AutoCompleteOption[]",
+          required: true,
+          description: "자동완성 옵션 목록",
+        },
+        {
+          name: "onSelect",
+          type: "(option: AutoCompleteOption) => void",
+          description: "옵션 선택 콜백",
+        },
         { name: "placeholder", type: "string", description: "플레이스홀더" },
         { name: "loading", type: "boolean", default: "false", description: "로딩 상태" },
-        { name: "emptyMessage", type: "string", default: '"결과 없음"', description: "결과 없을 때 메시지" },
+        {
+          name: "emptyMessage",
+          type: "string",
+          default: '"결과 없음"',
+          description: "결과 없을 때 메시지",
+        },
         { name: "disabled", type: "boolean", default: "false", description: "비활성화 상태" },
       ]}
     >
@@ -46,9 +65,7 @@ export default function AutoCompletePage() {
               onSelect={(opt) => setSelected(opt.label)}
               placeholder="과일을 검색하세요..."
             />
-            {selected && (
-              <p className="mt-3 text-sm text-muted">선택된 항목: {selected}</p>
-            )}
+            {selected && <p className="mt-3 text-sm text-muted">선택된 항목: {selected}</p>}
           </div>
         </Preview>
       </Section>
@@ -70,12 +87,7 @@ export default function AutoCompletePage() {
       <Section title="비활성화">
         <Preview>
           <div className="max-w-sm">
-            <AutoComplete
-              value="사과"
-              onChange={() => {}}
-              options={fruitOptions}
-              disabled
-            />
+            <AutoComplete value="사과" onChange={() => {}} options={fruitOptions} disabled />
           </div>
         </Preview>
       </Section>

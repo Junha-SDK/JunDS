@@ -57,7 +57,8 @@ export function useHotkeys(map: HotkeyMap, options: UseHotkeysOptions = {}) {
 
   useEffect(() => {
     if (!enabled) return;
-    const el: EventTarget = target ?? (typeof window !== "undefined" ? window : ({} as EventTarget));
+    const el: EventTarget =
+      target ?? (typeof window !== "undefined" ? window : ({} as EventTarget));
     if (!("addEventListener" in el)) return;
 
     const normalized = new Map<string, HotkeyHandler>();
@@ -69,12 +70,14 @@ export function useHotkeys(map: HotkeyMap, options: UseHotkeysOptions = {}) {
       const ke = e as KeyboardEvent;
       if (!enableOnFormTags) {
         const t = ke.target as HTMLElement | null;
-        if (t && (
-          t.tagName === "INPUT" ||
-          t.tagName === "TEXTAREA" ||
-          t.tagName === "SELECT" ||
-          t.isContentEditable
-        )) return;
+        if (
+          t &&
+          (t.tagName === "INPUT" ||
+            t.tagName === "TEXTAREA" ||
+            t.tagName === "SELECT" ||
+            t.isContentEditable)
+        )
+          return;
       }
       const chord = eventToChord(ke);
       const fn = normalized.get(chord);

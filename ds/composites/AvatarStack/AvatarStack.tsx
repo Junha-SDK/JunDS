@@ -29,18 +29,27 @@ export function AvatarStack({ names, max = 4, size = "sm", className }: AvatarSt
   return (
     <div className={cn("flex items-center -space-x-2", className)}>
       {visible.map((name, i) => (
-        <div key={`${name}-${i}`} className="ring-2 ring-white rounded-full">
+        // 겹친 아바타를 갈라 놓는 링은 "뒤에 깔린 면"의 색이어야 한다. ring-white 는
+        // 다크에서 흰 테두리로 남으므로 모드를 따라가는 card 로 바꾼다.
+        <div key={`${name}-${i}`} className="ring-2 ring-card rounded-full">
           <Avatar name={name} size={size} />
         </div>
       ))}
       {overflow > 0 && (
-        <div className={cn(
-          "rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-semibold ring-2 ring-white",
-          size === "xs" ? "w-6 h-6 text-[9px]" :
-          size === "sm" ? "w-8 h-8 text-[10px]" :
-          size === "md" ? "w-9 h-9 text-xs" :
-          size === "lg" ? "w-11 h-11 text-sm" : "w-14 h-14 text-base",
-        )}>
+        <div
+          className={cn(
+            "rounded-full bg-muted/15 text-muted flex items-center justify-center font-semibold tabular-nums ring-2 ring-card",
+            size === "xs"
+              ? "w-6 h-6 text-[9px]"
+              : size === "sm"
+              ? "w-8 h-8 text-[10px]"
+              : size === "md"
+              ? "w-9 h-9 text-xs"
+              : size === "lg"
+              ? "w-11 h-11 text-sm"
+              : "w-14 h-14 text-base",
+          )}
+        >
           +{overflow}
         </div>
       )}

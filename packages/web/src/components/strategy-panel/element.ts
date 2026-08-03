@@ -73,9 +73,18 @@ const RECO_TONE: Record<string, { color: string; bg: string; strong?: string }> 
     strong: "var(--jd-color-success)",
     bg: "color-mix(in srgb, var(--jd-color-success) 12%, transparent)",
   },
-  매수: { color: "color-mix(in srgb, var(--jd-color-success) 55%, var(--jd-color-muted))", bg: "color-mix(in srgb, var(--jd-color-success) 8%, transparent)" },
-  관망: { color: "var(--jd-color-muted)", bg: "color-mix(in srgb, var(--jd-color-muted) 12%, transparent)" },
-  매도: { color: "color-mix(in srgb, var(--jd-color-danger) 55%, var(--jd-color-muted))", bg: "color-mix(in srgb, var(--jd-color-danger) 8%, transparent)" },
+  매수: {
+    color: "color-mix(in srgb, var(--jd-color-success) 55%, var(--jd-color-muted))",
+    bg: "color-mix(in srgb, var(--jd-color-success) 8%, transparent)",
+  },
+  관망: {
+    color: "var(--jd-color-muted)",
+    bg: "color-mix(in srgb, var(--jd-color-muted) 12%, transparent)",
+  },
+  매도: {
+    color: "color-mix(in srgb, var(--jd-color-danger) 55%, var(--jd-color-muted))",
+    bg: "color-mix(in srgb, var(--jd-color-danger) 8%, transparent)",
+  },
   강력매도: {
     color: "color-mix(in srgb, var(--jd-color-danger) 65%, var(--jd-color-foreground))",
     strong: "var(--jd-color-danger)",
@@ -131,7 +140,9 @@ export class JdStrategyPanel extends JdElement {
   }
 
   #readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script) return;
     try {
       const parsed = JSON.parse(script.textContent || "null") as JdStrategySnapshot;
@@ -189,7 +200,9 @@ export class JdStrategyPanel extends JdElement {
       badge("info", "데모 알고리즘"),
     );
     const right = elc("div", "jd-strategy-panel__header-right");
-    right.append(elc("span", "jd-strategy-panel__num", `손익비 ${s.riskRewardRatio.toFixed(1)} : 1`));
+    right.append(
+      elc("span", "jd-strategy-panel__num", `손익비 ${s.riskRewardRatio.toFixed(1)} : 1`),
+    );
     header.append(left, right);
     return header;
   }
@@ -233,21 +246,34 @@ export class JdStrategyPanel extends JdElement {
     const b = s.scoreBreakdown;
     const confidencePct = Math.round(s.confidence * 100);
     const confidenceLabel =
-      confidencePct >= 85 ? "매우 확신" : confidencePct >= 70 ? "확신" : confidencePct >= 55 ? "약간 확신" : "관망에 가까움";
+      confidencePct >= 85
+        ? "매우 확신"
+        : confidencePct >= 70
+        ? "확신"
+        : confidencePct >= 55
+        ? "약간 확신"
+        : "관망에 가까움";
 
     const details = elc("details", "jd-strategy-panel__reason") as HTMLDetailsElement;
     const summary = elc("summary", "jd-strategy-panel__reason-summary");
     summary.append(
       icon("info", "13", "2.4", "jd-strategy-panel__tone-icon"),
       elc("span", "", `왜 "${s.recommendation}"인가요? — 추천 근거 보기`),
-      elc("span", "jd-strategy-panel__reason-chip", `신뢰도 ${confidencePct}% · ${confidenceLabel}`),
+      elc(
+        "span",
+        "jd-strategy-panel__reason-chip",
+        `신뢰도 ${confidencePct}% · ${confidenceLabel}`,
+      ),
     );
     details.append(summary);
 
     const body = elc("div", "jd-strategy-panel__reason-body");
 
     // 산식 카드
-    const formula = elc("div", "jd-strategy-panel__reason-card jd-strategy-panel__reason-card--soft");
+    const formula = elc(
+      "div",
+      "jd-strategy-panel__reason-card jd-strategy-panel__reason-card--soft",
+    );
     formula.append(elc("div", "jd-strategy-panel__reason-heading", "추천 점수 산식 (0~100)"));
     const ul = elc("ul", "jd-strategy-panel__breakdown");
     ul.append(
@@ -268,13 +294,20 @@ export class JdStrategyPanel extends JdElement {
     const total = elc("li", "jd-strategy-panel__breakdown-total");
     total.append(
       elc("span", "jd-strategy-panel__breakdown-total-label", "합계 (클램프 후)"),
-      elc("span", "jd-strategy-panel__breakdown-total-value jd-strategy-panel__tone", `${b.finalScore.toFixed(0)} / 100`),
+      elc(
+        "span",
+        "jd-strategy-panel__breakdown-total-value jd-strategy-panel__tone",
+        `${b.finalScore.toFixed(0)} / 100`,
+      ),
     );
     ul.append(total);
     formula.append(ul);
     const criteria = elc("div", "jd-strategy-panel__reason-criteria");
     const cLabel = elc("strong", "", "판정 기준:");
-    criteria.append(cLabel, document.createTextNode(" ≥80 강력매수 · ≥62 매수 · 39~61 관망 · ≤38 매도 · ≤20 강력매도"));
+    criteria.append(
+      cLabel,
+      document.createTextNode(" ≥80 강력매수 · ≥62 매수 · 39~61 관망 · ≤38 매도 · ≤20 강력매도"),
+    );
     formula.append(criteria);
 
     // 신뢰도 의미 + 근거
@@ -291,7 +324,10 @@ export class JdStrategyPanel extends JdElement {
     const reasons = elc("ul", "jd-strategy-panel__reasons");
     for (const r of s.reasons) {
       const li = elc("li", "jd-strategy-panel__reason-item");
-      li.append(elc("span", "jd-strategy-panel__reason-dot jd-strategy-panel__tone-bgdot"), elc("span", "", r));
+      li.append(
+        elc("span", "jd-strategy-panel__reason-dot jd-strategy-panel__tone-bgdot"),
+        elc("span", "", r),
+      );
       reasons.append(li);
     }
     meaning.append(reasons);
@@ -367,7 +403,10 @@ function badge(variant: string, text: string): HTMLElement {
 
 /** 추천 카드 우측의 점수/신뢰도 셀 */
 function metricCell(label: string, value: string, unit: string, borderRight: boolean): HTMLElement {
-  const cell = elc("div", `jd-strategy-panel__rec-metric${borderRight ? " jd-strategy-panel__rec-metric--divider" : ""}`);
+  const cell = elc(
+    "div",
+    `jd-strategy-panel__rec-metric${borderRight ? " jd-strategy-panel__rec-metric--divider" : ""}`,
+  );
   cell.append(elc("div", "jd-strategy-panel__rec-metric-label", label));
   const v = elc("div", "jd-strategy-panel__rec-metric-value jd-strategy-panel__tone");
   v.append(document.createTextNode(value), elc("span", "jd-strategy-panel__rec-metric-unit", unit));
@@ -375,7 +414,12 @@ function metricCell(label: string, value: string, unit: string, borderRight: boo
   return cell;
 }
 
-function kpiTile(label: string, value: string, unit: string, tone?: "buy" | "stop" | "neutral"): HTMLElement {
+function kpiTile(
+  label: string,
+  value: string,
+  unit: string,
+  tone?: "buy" | "stop" | "neutral",
+): HTMLElement {
   const tile = elc("div", "jd-strategy-panel__kpi");
   if (tone) tile.dataset.tone = tone;
   tile.append(elc("div", "jd-strategy-panel__kpi-label", label));
@@ -386,10 +430,18 @@ function kpiTile(label: string, value: string, unit: string, tone?: "buy" | "sto
   return tile;
 }
 
-function breakdownRow(label: string, detail: string, value: string, trend: "up" | "down" | "text"): HTMLElement {
+function breakdownRow(
+  label: string,
+  detail: string,
+  value: string,
+  trend: "up" | "down" | "text",
+): HTMLElement {
   const li = elc("li", "jd-strategy-panel__breakdown-row");
   const main = elc("div", "jd-strategy-panel__breakdown-main");
-  main.append(elc("div", "jd-strategy-panel__breakdown-label", label), elc("div", "jd-strategy-panel__breakdown-detail", detail));
+  main.append(
+    elc("div", "jd-strategy-panel__breakdown-label", label),
+    elc("div", "jd-strategy-panel__breakdown-detail", detail),
+  );
   const v = elc("span", "jd-strategy-panel__breakdown-value", value);
   v.dataset.trend = trend;
   li.append(main, v);
@@ -406,13 +458,19 @@ function zoneColumn(
   const col = elc("div", "jd-strategy-panel__zone");
   col.dataset.tone = tone;
   const head = elc("div", "jd-strategy-panel__zone-head");
-  head.append(icon(iconName, "13", "2.4", "jd-strategy-panel__zone-icon"), elc("h3", "jd-strategy-panel__zone-title", title));
+  head.append(
+    icon(iconName, "13", "2.4", "jd-strategy-panel__zone-icon"),
+    elc("h3", "jd-strategy-panel__zone-title", title),
+  );
   col.append(head);
   for (const level of levels) {
     const dist = pctDist(current, level.price);
     const row = elc("div", "jd-strategy-panel__level");
     const left = elc("div", "jd-strategy-panel__level-left");
-    left.append(chip(level.label, tone), elc("div", "jd-strategy-panel__level-desc", level.description));
+    left.append(
+      chip(level.label, tone),
+      elc("div", "jd-strategy-panel__level-desc", level.description),
+    );
     const right = elc("div", "jd-strategy-panel__level-right");
     right.append(
       elc("div", "jd-strategy-panel__level-price", KRW.format(level.price)),
@@ -429,7 +487,10 @@ function stopColumn(level: JdStrategyLevel, current: number): HTMLElement {
   const col = elc("div", "jd-strategy-panel__zone");
   col.dataset.tone = "stop";
   const head = elc("div", "jd-strategy-panel__zone-head");
-  head.append(icon("alert", "13", "2.4", "jd-strategy-panel__zone-icon"), elc("h3", "jd-strategy-panel__zone-title", "손절선"));
+  head.append(
+    icon("alert", "13", "2.4", "jd-strategy-panel__zone-icon"),
+    elc("h3", "jd-strategy-panel__zone-title", "손절선"),
+  );
   col.append(head);
   const box = elc("div", "jd-strategy-panel__stop");
   const rowTop = elc("div", "jd-strategy-panel__stop-top");
@@ -448,7 +509,10 @@ function positionTile(label: string, pct: number, tone: "info" | "primary" | "up
   const tile = elc("div", "jd-strategy-panel__position");
   tile.dataset.tone = tone;
   const left = elc("div", "");
-  left.append(elc("div", "jd-strategy-panel__position-label", `${label} 포지션`), elc("div", "jd-strategy-panel__position-value", `${pct}%`));
+  left.append(
+    elc("div", "jd-strategy-panel__position-label", `${label} 포지션`),
+    elc("div", "jd-strategy-panel__position-value", `${pct}%`),
+  );
   tile.append(left, elc("div", "jd-strategy-panel__position-note", "총자산 대비"));
   return tile;
 }

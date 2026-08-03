@@ -112,12 +112,15 @@ export function StarRating({
               }
             }}
             className={cn(
-              "inline-flex items-center justify-center transition-all duration-150",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:rounded-sm",
+              // 바뀌는 것은 색과 크기뿐이다 — all 로 두면 레이아웃 속성까지 전이 대상이 된다
+              "inline-flex items-center justify-center rounded-md transition-[color,transform] duration-150",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               filled
                 ? "text-amber-400 drop-shadow-[0_1px_1.5px_rgba(217,119,6,0.35)]"
-                : "text-gray-300",
-              !readonly && "hover:scale-110 active:scale-95",
+                : // 빈 별은 다크에서도 보여야 한다 — 고정 회색 대신 muted 를 옅게 깐다
+                  "text-muted/35",
+              !readonly &&
+                "hover:scale-110 active:scale-95 motion-reduce:hover:scale-100 motion-reduce:active:scale-100",
             )}
           >
             <StarIcon filled={filled} className={sizeMap[size]} />

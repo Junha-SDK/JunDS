@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Menubar",
   "oneLiner": "메뉴바",
-  "tags": [
-    "navigation"
-  ],
+  "tags": ["navigation"],
   "controls": [],
   "snippets": {
     "web": null,

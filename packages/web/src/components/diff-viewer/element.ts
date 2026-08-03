@@ -112,7 +112,12 @@ export function diffLines(oldLines: string[], newLines: string[]): JdDiffLine[] 
   let j = 0;
   while (i < m && j < n) {
     if (oldLines[a + i] === newLines[b + j]) {
-      mid.push({ type: "same", content: oldLines[a + i] ?? "", oldNum: a + i + 1, newNum: b + j + 1 });
+      mid.push({
+        type: "same",
+        content: oldLines[a + i] ?? "",
+        oldNum: a + i + 1,
+        newNum: b + j + 1,
+      });
       i += 1;
       j += 1;
     } else if ((dp[(i + 1) * w + j] ?? 0) >= (dp[i * w + j + 1] ?? 0)) {

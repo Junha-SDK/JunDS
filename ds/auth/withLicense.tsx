@@ -9,13 +9,10 @@ import { useLicenseStatus } from "./JunDSProvider";
  */
 export function withLicense<P extends object>(
   WrappedComponent: ComponentType<P>,
-  componentName?: string
+  componentName?: string,
 ) {
   const displayName =
-    componentName ||
-    WrappedComponent.displayName ||
-    WrappedComponent.name ||
-    "Component";
+    componentName || WrappedComponent.displayName || WrappedComponent.name || "Component";
 
   function LicensedComponent(props: P) {
     const status = useLicenseStatus();

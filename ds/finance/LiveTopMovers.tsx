@@ -43,7 +43,10 @@ async function fetchMarket(market: "KOSPI" | "KOSDAQ", limit: number): Promise<M
   return { rise, fall, volume };
 }
 
-export function LiveTopMovers({ rows = 8, market = "KOSPI" as "KOSPI" | "KOSDAQ" }: {
+export function LiveTopMovers({
+  rows = 8,
+  market = "KOSPI" as "KOSPI" | "KOSDAQ",
+}: {
   rows?: number;
   market?: "KOSPI" | "KOSDAQ";
 }) {
@@ -69,7 +72,10 @@ export function LiveTopMovers({ rows = 8, market = "KOSPI" as "KOSPI" | "KOSDAQ"
         }
         const d = new Date();
         setNow(
-          `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`,
+          `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(
+            2,
+            "0",
+          )}:${String(d.getSeconds()).padStart(2, "0")}`,
         );
       } catch {
         if (!aborted) setSource("error");
@@ -115,16 +121,21 @@ export function LiveTopMovers({ rows = 8, market = "KOSPI" as "KOSPI" | "KOSDAQ"
         <span className="relative flex size-2.5">
           <span
             className="absolute inline-flex h-full w-full rounded-full opacity-75"
-            style={{ background: dotColor, animation: source === "live" ? "bm-pulse 1.4s ease-out infinite" : "none" }}
+            style={{
+              background: dotColor,
+              animation: source === "live" ? "bm-pulse 1.4s ease-out infinite" : "none",
+            }}
           />
-          <span className="relative inline-flex rounded-full size-2.5" style={{ background: dotColor }} />
+          <span
+            className="relative inline-flex rounded-full size-2.5"
+            style={{ background: dotColor }}
+          />
         </span>
         <span className="text-[11px] font-extrabold tracking-[0.06em]" style={{ color: dotColor }}>
           {liveLabel}
         </span>
         <span className="text-[12.5px] font-extrabold">
-          {activeMarket === "KOSPI" ? "코스피" : "코스닥"}{" "}
-          {isOpen ? "실시간 순위" : "장 마감 순위"}
+          {activeMarket === "KOSPI" ? "코스피" : "코스닥"} {isOpen ? "실시간 순위" : "장 마감 순위"}
         </span>
 
         <div
@@ -136,7 +147,8 @@ export function LiveTopMovers({ rows = 8, market = "KOSPI" as "KOSPI" | "KOSDAQ"
               key={m}
               type="button"
               onClick={() => setActiveMarket(m)}
-              className="px-2 py-0.5 text-[10.5px] font-extrabold"
+              aria-pressed={activeMarket === m}
+              className="px-2 py-0.5 text-[10.5px] font-extrabold cursor-pointer transition-colors hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bm-accent-strong)] focus-visible:ring-inset"
               style={{
                 background: activeMarket === m ? "var(--bm-accent-strong)" : "transparent",
                 color: activeMarket === m ? "var(--bm-card)" : "var(--bm-muted)",
@@ -186,8 +198,10 @@ function Column({
   isMid?: boolean;
   isLast?: boolean;
 }) {
+  // 거래대금 열은 등락(up/down)과 구분되는 제3의 색이다. 하드코딩된 보라 대신
+  // 이 화면 체계가 이미 쓰는 강조 토큰을 쓴다 — 테마를 갈아도 따라온다.
   const accent =
-    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "#9333ea";
+    tone === "up" ? "var(--bm-up)" : tone === "down" ? "var(--bm-down)" : "var(--bm-accent-strong)";
   return (
     <div
       style={{
@@ -206,81 +220,85 @@ function Column({
         <span className="text-[11.5px] font-extrabold">{title}</span>
       </div>
       <ul>
-        {rows.length === 0 ? (
-          Array.from({ length: 5 }).map((_, i) => (
-            <li
-              key={`sk-${i}`}
-              className="px-3 py-2"
-              style={{
-                borderBottom: i === 4 ? "none" : "1px solid var(--bm-border)",
-              }}
-            >
-              <div className="h-3 rounded bm-shine" style={{ background: "var(--bm-soft-100)" }} />
-            </li>
-          ))
-        ) : (
-          rows.map((s, i) => (
-            <li
-              key={`${s.code}-${i}`}
-              className="grid items-center px-3 py-1.5"
-              style={{
-                gridTemplateColumns: "16px 1fr auto",
-                borderBottom: i === rows.length - 1 ? "none" : "1px solid var(--bm-border)",
-                gap: 8,
-              }}
-            >
-              <span
-                className="bm-num text-[10px] font-extrabold inline-flex items-center justify-center rounded-full"
+        {rows.length === 0
+          ? Array.from({ length: 5 }).map((_, i) => (
+              <li
+                key={`sk-${i}`}
+                className="px-3 py-2"
                 style={{
-                  width: 16,
-                  height: 16,
-                  background: i === 0 ? accent : "var(--bm-soft-100)",
-                  color: i === 0 ? "white" : "var(--bm-muted)",
+                  borderBottom: i === 4 ? "none" : "1px solid var(--bm-border)",
                 }}
               >
-                {i + 1}
-              </span>
-              <Link href={`/stock/${encodeURIComponent(s.name)}`} className="min-w-0">
                 <div
-                  className="text-[11.5px] font-extrabold truncate"
-                  style={{ color: "var(--bm-text)" }}
-                >
-                  {s.name}
-                </div>
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <span
-                    className="bm-num text-[10px] font-bold"
-                    style={{ color: "var(--bm-muted)" }}
-                  >
-                    {s.price.toLocaleString("ko-KR")}
-                  </span>
-                  <span
-                    className="text-[9px] font-bold rounded-full px-1"
-                    style={{ background: "var(--bm-soft-100)", color: "var(--bm-muted)" }}
-                  >
-                    {s.code}
-                  </span>
-                </div>
-              </Link>
-              {metric === "pct" ? (
+                  className="h-3 rounded bm-shine"
+                  style={{ background: "var(--bm-soft-100)" }}
+                />
+              </li>
+            ))
+          : rows.map((s, i) => (
+              <li
+                key={`${s.code}-${i}`}
+                className="grid items-center px-3 py-1.5"
+                style={{
+                  gridTemplateColumns: "16px 1fr auto",
+                  borderBottom: i === rows.length - 1 ? "none" : "1px solid var(--bm-border)",
+                  gap: 8,
+                }}
+              >
                 <span
-                  className="bm-num font-extrabold text-[12px] whitespace-nowrap"
-                  style={{ color: tone === "up" ? "var(--bm-up)" : "var(--bm-down)" }}
+                  className="bm-num text-[10px] font-extrabold inline-flex items-center justify-center rounded-full"
+                  style={{
+                    width: 16,
+                    height: 16,
+                    background: i === 0 ? accent : "var(--bm-soft-100)",
+                    color: i === 0 ? "white" : "var(--bm-muted)",
+                  }}
                 >
-                  {s.changePct >= 0 ? "+" : ""}
-                  {s.changePct.toFixed(2)}%
+                  {i + 1}
                 </span>
-              ) : (
-                <span
-                  className="bm-num font-extrabold text-[12px] whitespace-nowrap"
-                  style={{ color: "#9333ea" }}
+                <Link
+                  href={`/stock/${encodeURIComponent(s.name)}`}
+                  className="min-w-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bm-accent-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bm-card)]"
                 >
-                  {fmtAmount(s.amount)}
-                </span>
-              )}
-            </li>
-          ))
-        )}
+                  <div
+                    className="text-[11.5px] font-extrabold truncate"
+                    style={{ color: "var(--bm-text)" }}
+                  >
+                    {s.name}
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <span
+                      className="bm-num text-[10px] font-bold"
+                      style={{ color: "var(--bm-muted)" }}
+                    >
+                      {s.price.toLocaleString("ko-KR")}
+                    </span>
+                    <span
+                      className="text-[9px] font-bold rounded-full px-1"
+                      style={{ background: "var(--bm-soft-100)", color: "var(--bm-muted)" }}
+                    >
+                      {s.code}
+                    </span>
+                  </div>
+                </Link>
+                {metric === "pct" ? (
+                  <span
+                    className="bm-num font-extrabold text-[12px] whitespace-nowrap"
+                    style={{ color: tone === "up" ? "var(--bm-up)" : "var(--bm-down)" }}
+                  >
+                    {s.changePct >= 0 ? "+" : ""}
+                    {s.changePct.toFixed(2)}%
+                  </span>
+                ) : (
+                  <span
+                    className="bm-num font-extrabold text-[12px] whitespace-nowrap"
+                    style={{ color: accent }}
+                  >
+                    {fmtAmount(s.amount)}
+                  </span>
+                )}
+              </li>
+            ))}
       </ul>
     </div>
   );

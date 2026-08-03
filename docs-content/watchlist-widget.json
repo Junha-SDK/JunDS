@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "WatchlistWidget",
   "oneLiner": "관심종목 위젯 — 실시간 시세.",
-  "tags": [
-    "finance",
-    "관심종목",
-    "위젯"
-  ],
+  "tags": ["finance", "관심종목", "위젯"],
   "controls": [],
   "snippets": {
     "web": null,

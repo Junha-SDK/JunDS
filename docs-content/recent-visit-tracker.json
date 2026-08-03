@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "RecentVisitTracker",
   "oneLiner": "최근 방문 종목 기록 트래커(렌더 없음).",
-  "tags": [
-    "finance",
-    "인프라",
-    "기록"
-  ],
+  "tags": ["finance", "인프라", "기록"],
   "controls": [],
   "snippets": {
     "web": null,

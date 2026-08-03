@@ -99,9 +99,7 @@ describe("TextField — dSIH 골격의 hydration 정합", () => {
 
     expect(c.querySelector("input")).toBe(input);
     expect(c.querySelector("label")!.textContent).toBe("이름");
-    expect(c.querySelector("p.jd-text-field__error")!.textContent).toContain(
-      "이름을 입력해주세요",
-    );
+    expect(c.querySelector("p.jd-text-field__error")!.textContent).toContain("이름을 입력해주세요");
     expect(error).not.toHaveBeenCalled();
     error.mockRestore();
   });

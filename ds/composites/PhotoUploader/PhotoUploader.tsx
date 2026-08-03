@@ -33,45 +33,88 @@ export interface PhotoUploaderProps {
  * @since 2.4.0
  * @tags photo, form, input
  */
-export function PhotoUploader({ onAdd, onRemove, photos = [], maxCount = 9, maxSize, accept = "image/*", className }: PhotoUploaderProps) {
+export function PhotoUploader({
+  onAdd,
+  onRemove,
+  photos = [],
+  maxCount = 9,
+  maxSize,
+  accept = "image/*",
+  className,
+}: PhotoUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Revoke object URLs on unmount to avoid leaks.
-  useEffect(() => () => { photos.forEach((p) => URL.revokeObjectURL(p.url)); }, [photos]);
+  useEffect(
+    () => () => {
+      photos.forEach((p) => URL.revokeObjectURL(p.url));
+    },
+    [photos],
+  );
 
-  const ingest = useCallback((files: FileList | null) => {
-    if (!files) return;
-    const arr = Array.from(files).filter((f) => f.type.startsWith("image/"));
-    if (arr.length === 0) { setError("이미지 파일만 업로드 가능합니다"); return; }
-    if (maxSize) {
-      const oversize = arr.filter((f) => f.size > maxSize);
-      if (oversize.length > 0) { setError(`${(maxSize / 1024 / 1024).toFixed(0)}MB를 초과한 파일이 있습니다`); return; }
-    }
-    const remaining = maxCount - photos.length;
-    const accepted = arr.slice(0, Math.max(0, remaining));
-    if (accepted.length === 0) { setError(`최대 ${maxCount}장까지 업로드할 수 있습니다`); return; }
-    setError(null);
-    onAdd(accepted.map((file, i) => ({ id: `${Date.now()}-${i}`, file, url: URL.createObjectURL(file) })));
-  }, [maxCount, maxSize, onAdd, photos.length]);
+  const ingest = useCallback(
+    (files: FileList | null) => {
+      if (!files) return;
+      const arr = Array.from(files).filter((f) => f.type.startsWith("image/"));
+      if (arr.length === 0) {
+        setError("이미지 파일만 업로드 가능합니다");
+        return;
+      }
+      if (maxSize) {
+        const oversize = arr.filter((f) => f.size > maxSize);
+        if (oversize.length > 0) {
+          setError(`${(maxSize / 1024 / 1024).toFixed(0)}MB를 초과한 파일이 있습니다`);
+          return;
+        }
+      }
+      const remaining = maxCount - photos.length;
+      const accepted = arr.slice(0, Math.max(0, remaining));
+      if (accepted.length === 0) {
+        setError(`최대 ${maxCount}장까지 업로드할 수 있습니다`);
+        return;
+      }
+      setError(null);
+      onAdd(
+        accepted.map((file, i) => ({
+          id: `${Date.now()}-${i}`,
+          file,
+          url: URL.createObjectURL(file),
+        })),
+      );
+    },
+    [maxCount, maxSize, onAdd, photos.length],
+  );
 
   return (
     <div className={cn("space-y-2", className)}>
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        onDrop={(e) => { e.preventDefault(); setDragOver(false); ingest(e.dataTransfer.files); }}
-        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDragOver(false);
+          ingest(e.dataTransfer.files);
+        }}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragOver(true);
+        }}
         onDragLeave={() => setDragOver(false)}
         className={cn(
-          "block w-full border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
-          dragOver ? "border-primary bg-primary-light/30" : "border-border hover:border-primary/40 hover:bg-primary-light/10",
+          // 변하는 것은 테두리색과 배경색뿐이다 — transition-all 은 p-6 까지 끌어들여 리플로우를 만든다.
+          "block w-full border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors duration-200",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          dragOver
+            ? "border-primary bg-primary-light/30"
+            : "border-border hover:border-primary/40 hover:bg-primary-light/10",
         )}
       >
         <p className="text-sm text-foreground">사진을 드래그하거나 클릭해서 추가</p>
-        <p className="text-[11px] text-muted mt-1">최대 {maxCount}장 · {photos.length}/{maxCount}</p>
+        <p className="text-[11px] text-muted mt-1">
+          최대 {maxCount}장 · {photos.length}/{maxCount}
+        </p>
       </button>
       <input
         ref={inputRef}
@@ -89,14 +132,22 @@ export function PhotoUploader({ onAdd, onRemove, photos = [], maxCount = 9, maxS
       {photos.length > 0 && (
         <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
           {photos.map((p) => (
-            <div key={p.id} className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
+            <div
+              key={p.id}
+              className="relative aspect-square rounded-xl overflow-hidden bg-muted/10 ring-1 ring-inset ring-black/[0.06]"
+            >
               <img src={p.url} alt={p.file.name} className="w-full h-full object-cover" />
               {onRemove && (
                 <button
                   type="button"
                   onClick={() => onRemove(p.id)}
                   aria-label={`${p.file.name} 제거`}
-                  className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/60 text-white text-xs hover:bg-black/80 transition-colors cursor-pointer"
+                  // 사진 위에 얹히는 크롬이라 검정 스크림이 맞다 — 두 모드 모두 사진 위에서 대비를 낸다.
+                  className={cn(
+                    "absolute top-1 right-1 w-6 h-6 rounded-full bg-black/60 text-white text-xs cursor-pointer",
+                    "transition-colors hover:bg-black/80 active:bg-black/90",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-1 focus-visible:ring-offset-black/40",
+                  )}
                 >
                   ✕
                 </button>

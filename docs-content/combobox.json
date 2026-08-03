@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "Combobox",
   "oneLiner": "콤보박스 (자동완성 + 셀렉트 + 생성)",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

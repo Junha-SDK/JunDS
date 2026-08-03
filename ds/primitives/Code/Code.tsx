@@ -15,7 +15,7 @@ export interface CodeProps extends HTMLAttributes<HTMLElement> {
 
 const variantClass: Record<CodeVariant, string> = {
   default: "bg-surface-soft text-foreground border-border",
-  primary: "bg-primary-soft text-primary border-primary/30",
+  primary: "bg-primary-light text-primary-ink border-primary/30",
   success: "bg-success/10 text-success border-success/30",
   warning: "bg-warning/10 text-warning border-warning/30",
   danger: "bg-danger/10 text-danger border-danger/30",

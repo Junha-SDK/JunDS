@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDS
+import SwiftUI
 
 // Snackbar 데모 — **자체 단일 바**(스택 아님, 위치 4종, 자동 닫힘). 자체 구현(04 §10.1).
 // isPresented 바인딩으로 스스로 뜨고 duration 뒤 닫힌다(hover/focus 중 정지). action은 선택 표면.
@@ -9,8 +9,10 @@ enum SnackbarDemo {
     static let demo = ComponentDemo(
         id: "Snackbar",
         controls: [
-            .options("position", "position", JdToastPosition.allCases.map(\.rawValue), initial: "bottom"),
-            .options("variant", "variant", JdFeedbackVariant.allCases.map(\.rawValue), initial: "info"),
+            .options(
+                "position", "position", JdToastPosition.allCases.map(\.rawValue), initial: "bottom"),
+            .options(
+                "variant", "variant", JdFeedbackVariant.allCases.map(\.rawValue), initial: "info"),
             .toggle("action", "action 버튼"),
         ],
         swiftUI: { state in AnyView(SnackbarStage(state: state)) }
@@ -44,12 +46,13 @@ private struct SnackbarStage: View {
         .padding(JdToken.Space.s6)
         .overlay(
             // 단일 바 — position에 맞춰 스스로 정렬한다
-            JdSnackbar(isPresented: $isPresented,
-                       message: "변경 사항이 저장되었습니다",
-                       variant: snackbarVariant(state),
-                       position: snackbarPosition(state),
-                       actionLabel: state.bool("action") ? "실행 취소" : nil,
-                       onAction: state.bool("action") ? { actionCount += 1 } : nil)
+            JdSnackbar(
+                isPresented: $isPresented,
+                message: "변경 사항이 저장되었습니다",
+                variant: snackbarVariant(state),
+                position: snackbarPosition(state),
+                actionLabel: state.bool("action") ? "실행 취소" : nil,
+                onAction: state.bool("action") ? { actionCount += 1 } : nil)
         )
     }
 }

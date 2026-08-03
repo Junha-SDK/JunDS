@@ -27,15 +27,18 @@ export interface DocPagerProps extends HTMLAttributes<HTMLElement> {
    * 링크 렌더러. Next.js `<Link>` 나 react-router `<Link>` 를 쓰려면 넘긴다.
    * 기본은 평범한 `<a>` — 클라이언트 라우팅 없이 전체 페이지가 다시 뜬다.
    */
-  renderLink?: (props: {
-    href: string;
-    className: string;
-    children: ReactNode;
-  }) => ReactNode;
+  renderLink?: (props: { href: string; className: string; children: ReactNode }) => ReactNode;
 }
 
+// 살짝 떠오르는 것으로 "여기를 누르면 넘어간다" 를 말한다 — 부상은 움직임이라 감속 요청을 받는다
 const linkClass =
-  "group flex flex-col gap-1 rounded-xl border border-border bg-card p-4 no-underline transition-colors hover:border-primary hover:bg-card-hover focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2";
+  "group flex flex-col gap-1 rounded-xl border border-border bg-card p-4 no-underline" +
+  " shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]" +
+  " transition-[color,background-color,border-color,box-shadow,transform] duration-150" +
+  " hover:border-primary hover:bg-card-hover hover:-translate-y-0.5 hover:shadow-[0_8px_20px_-10px_rgba(0,0,0,0.35)]" +
+  " active:translate-y-0" +
+  " motion-reduce:transition-none motion-reduce:hover:translate-y-0" +
+  " focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2";
 
 /**
  * 문서 하단의 이전/다음 문서 내비게이션.
@@ -85,7 +88,7 @@ export const DocPager = forwardRef<HTMLElement, DocPagerProps>(function DocPager
         </span>
         <strong
           className={cn(
-            "text-sm font-medium text-foreground transition-colors group-hover:text-primary",
+            "text-sm font-medium text-foreground transition-colors group-hover:text-primary-ink",
             isNext && "text-right",
           )}
         >

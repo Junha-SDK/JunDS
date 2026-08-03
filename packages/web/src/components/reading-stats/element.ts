@@ -75,7 +75,13 @@ export class JdReadingStats extends JdElement {
     const time = this.#tile("누적 시간");
     this.#hours = document.createElement("span");
     this.#minutes = document.createElement("span");
-    time.value.append(this.#hours, unit("h", 0.5), document.createTextNode(" "), this.#minutes, unit("m", 0.5));
+    time.value.append(
+      this.#hours,
+      unit("h", 0.5),
+      document.createTextNode(" "),
+      this.#minutes,
+      unit("m", 0.5),
+    );
 
     this.append(today.tile, streak.tile, books.tile, time.tile);
     this.update();
@@ -106,7 +112,10 @@ export class JdReadingStats extends JdElement {
       const pct = goal > 0 ? Math.min(100, Math.max(0, (this.pagesToday / goal) * 100)) : 0;
       this.#todayBar.style.width = `${pct}%`;
       this.#todayBarWrap.setAttribute("aria-valuemax", String(goal));
-      this.#todayBarWrap.setAttribute("aria-valuenow", String(Math.min(Math.max(this.pagesToday, 0), goal)));
+      this.#todayBarWrap.setAttribute(
+        "aria-valuenow",
+        String(Math.min(Math.max(this.pagesToday, 0), goal)),
+      );
       this.#todayBarWrap.setAttribute("aria-valuetext", `${Math.round(pct)}%`);
     }
 

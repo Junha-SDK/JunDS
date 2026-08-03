@@ -9,17 +9,29 @@ describe("Card", () => {
   });
 
   it("renders Card.Header", () => {
-    render(<Card><Card.Header>Title</Card.Header></Card>);
+    render(
+      <Card>
+        <Card.Header>Title</Card.Header>
+      </Card>,
+    );
     expect(screen.getByText("Title")).toBeDefined();
   });
 
   it("renders Card.Body", () => {
-    render(<Card><Card.Body>Body text</Card.Body></Card>);
+    render(
+      <Card>
+        <Card.Body>Body text</Card.Body>
+      </Card>,
+    );
     expect(screen.getByText("Body text")).toBeDefined();
   });
 
   it("renders Card.Footer", () => {
-    render(<Card><Card.Footer>Footer</Card.Footer></Card>);
+    render(
+      <Card>
+        <Card.Footer>Footer</Card.Footer>
+      </Card>,
+    );
     expect(screen.getByText("Footer")).toBeDefined();
   });
 });

@@ -46,19 +46,22 @@ export function FileUpload({
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const processFiles = useCallback((fileList: FileList | null) => {
-    if (!fileList) return;
-    const files = Array.from(fileList);
-    if (maxSize) {
-      const oversized = files.filter((f) => f.size > maxSize);
-      if (oversized.length > 0) {
-        setError(`파일 크기가 ${(maxSize / 1024 / 1024).toFixed(0)}MB를 초과합니다`);
-        return;
+  const processFiles = useCallback(
+    (fileList: FileList | null) => {
+      if (!fileList) return;
+      const files = Array.from(fileList);
+      if (maxSize) {
+        const oversized = files.filter((f) => f.size > maxSize);
+        if (oversized.length > 0) {
+          setError(`파일 크기가 ${(maxSize / 1024 / 1024).toFixed(0)}MB를 초과합니다`);
+          return;
+        }
       }
-    }
-    setError(null);
-    onFiles(files);
-  }, [maxSize, onFiles]);
+      setError(null);
+      onFiles(files);
+    },
+    [maxSize, onFiles],
+  );
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -78,7 +81,16 @@ export function FileUpload({
         <div onClick={() => inputRef.current?.click()} className={cn("cursor-pointer", className)}>
           {trigger}
         </div>
-        <input ref={inputRef} type="file" accept={accept} multiple={multiple} aria-label={t("ariaFilePicker")} tabIndex={-1} className="hidden" onChange={(e) => processFiles(e.target.files)} />
+        <input
+          ref={inputRef}
+          type="file"
+          accept={accept}
+          multiple={multiple}
+          aria-label={t("ariaFilePicker")}
+          tabIndex={-1}
+          className="hidden"
+          onChange={(e) => processFiles(e.target.files)}
+        />
       </>
     );
   }
@@ -89,38 +101,77 @@ export function FileUpload({
         role="button"
         tabIndex={disabled ? -1 : 0}
         aria-label={description}
-        onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && !disabled) { e.preventDefault(); inputRef.current?.click(); } }}
+        onKeyDown={(e) => {
+          if ((e.key === "Enter" || e.key === " ") && !disabled) {
+            e.preventDefault();
+            inputRef.current?.click();
+          }
+        }}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={() => setDragOver(false)}
         onClick={() => !disabled && inputRef.current?.click()}
         className={cn(
-          "group flex flex-col items-center justify-center gap-2.5 border-2 border-dashed rounded-2xl p-8 bg-gray-50/50 transition-all duration-200 ease-out cursor-pointer",
+          // bg-gray-50 은 라이트 전용이라 다크에서 밝은 판이 남는다 — 모드를 따라가는 bg-card-hover 로.
+          // 드래그 시 scale 이 걸리므로 transform 도 전이 대상이고, 감속 요청도 여기서 받는다
+          "group flex flex-col items-center justify-center gap-2.5 border-2 border-dashed rounded-2xl p-8 bg-card-hover cursor-pointer",
+          "transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out motion-reduce:transition-none",
           "hover:border-primary/40 hover:bg-primary-light/30",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2",
-          dragOver && "border-primary bg-primary-light/40 scale-[1.01] shadow-[0_0_0_4px_var(--primary-glow)]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          dragOver &&
+            "border-primary bg-primary-light/40 scale-[1.01] motion-reduce:scale-100 shadow-[0_0_0_4px_var(--primary-glow)]",
           disabled && "opacity-50 cursor-not-allowed",
           error ? "border-danger/40" : "border-border",
         )}
       >
         <div
           className={cn(
-            "flex items-center justify-center w-12 h-12 rounded-full bg-white text-muted-light shadow-[0_1px_3px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-black/[0.04] transition-all duration-200",
-            "group-hover:text-primary group-hover:scale-105",
-            dragOver && "text-primary scale-110 shadow-[0_4px_12px_var(--primary-glow)]",
+            "flex items-center justify-center w-12 h-12 rounded-full bg-card text-muted-light shadow-[0_1px_3px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-border-light",
+            "transition-[color,transform,box-shadow] duration-200 ease-out motion-reduce:transition-none",
+            "group-hover:text-primary-ink group-hover:scale-105 motion-reduce:group-hover:scale-100",
+            dragOver &&
+              "text-primary-ink scale-110 motion-reduce:scale-100 shadow-[0_4px_12px_var(--primary-glow)]",
           )}
         >
           <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
-            <path d="M16 20V8m0 0l-4 4m4-4l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M4 22v2a4 4 0 004 4h16a4 4 0 004-4v-2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path
+              d="M16 20V8m0 0l-4 4m4-4l4 4"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M4 22v2a4 4 0 004 4h16a4 4 0 004-4v-2"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
           </svg>
         </div>
         <p className="text-sm text-muted text-center">{description}</p>
-        {accept && <p className="text-[10px] text-muted-light">{accept.replace(/,/g, ", ")}</p>}
-        {maxSize && <p className="text-[10px] text-muted-light">최대 {(maxSize / 1024 / 1024).toFixed(0)}MB</p>}
+        {accept && (
+          <p className="text-[10px] text-muted-light text-center break-all">
+            {accept.replace(/,/g, ", ")}
+          </p>
+        )}
+        {maxSize && (
+          <p className="text-[10px] text-muted-light whitespace-nowrap tabular-nums">
+            최대 {(maxSize / 1024 / 1024).toFixed(0)}MB
+          </p>
+        )}
       </div>
       {error && <p className="text-xs text-danger mt-1.5">{error}</p>}
-      <input ref={inputRef} type="file" accept={accept} multiple={multiple} aria-label={t("ariaFilePicker")} tabIndex={-1} className="hidden" onChange={(e) => processFiles(e.target.files)} />
+      <input
+        ref={inputRef}
+        type="file"
+        accept={accept}
+        multiple={multiple}
+        aria-label={t("ariaFilePicker")}
+        tabIndex={-1}
+        className="hidden"
+        onChange={(e) => processFiles(e.target.files)}
+      />
     </div>
   );
 }

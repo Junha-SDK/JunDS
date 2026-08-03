@@ -33,7 +33,12 @@ import { Card } from "@/ds/composites/Card";
 import { Button } from "@/ds/primitives/Button";
 
 interface DashboardData {
-  stats: { label: string; value: string | number; change?: string; trend?: "up" | "down" | "neutral" }[];
+  stats: {
+    label: string;
+    value: string | number;
+    change?: string;
+    trend?: "up" | "down" | "neutral";
+  }[];
   weeklySignups: { label: string; value: number }[];
   trafficSources: { label: string; value: number; color?: string }[];
   activity: TimelineItem[];
@@ -47,9 +52,12 @@ const sample: DashboardData = {
     { label: "MRR", value: "$24.1k", change: "+8.2%", trend: "up" },
   ],
   weeklySignups: [
-    { label: "월", value: 32 }, { label: "화", value: 41 },
-    { label: "수", value: 38 }, { label: "목", value: 52 },
-    { label: "금", value: 47 }, { label: "토", value: 19 },
+    { label: "월", value: 32 },
+    { label: "화", value: 41 },
+    { label: "수", value: 38 },
+    { label: "목", value: 52 },
+    { label: "금", value: 47 },
+    { label: "토", value: 19 },
     { label: "일", value: 12 },
   ],
   trafficSources: [
@@ -59,9 +67,27 @@ const sample: DashboardData = {
     { label: "Social", value: 9 },
   ],
   activity: [
-    { key: "1", title: "새 결제", description: "Pro 플랜 구독", time: "방금", color: "success" },
-    { key: "2", title: "회원가입", description: "user@acme.com", time: "5분 전", color: "primary" },
-    { key: "3", title: "결제 실패", description: "카드 한도 초과", time: "1시간 전", color: "danger" },
+    {
+      key: "1",
+      title: "새 결제",
+      description: "Pro 플랜 구독",
+      time: "방금",
+      color: "success",
+    },
+    {
+      key: "2",
+      title: "회원가입",
+      description: "user@acme.com",
+      time: "5분 전",
+      color: "primary",
+    },
+    {
+      key: "3",
+      title: "결제 실패",
+      description: "카드 한도 초과",
+      time: "1시간 전",
+      color: "danger",
+    },
   ],
 };
 
@@ -107,7 +133,9 @@ export default function DashboardOverview({ data = sample }: { data?: DashboardD
           <VStack gap={3}>
             <Heading level={3}>최근 활동</Heading>
             {data.activity.length === 0 ? (
-              <Text fontSize="sm" dimmed>표시할 활동이 없습니다.</Text>
+              <Text fontSize="sm" dimmed>
+                표시할 활동이 없습니다.
+              </Text>
             ) : (
               <Timeline items={data.activity} />
             )}

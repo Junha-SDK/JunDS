@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Code 데모 — 실컴포넌트 JdCode(SwiftUI)/JdCodeView(UIKit). 웹 <jd-code> 동형.
 // 컨트롤 키·값은 웹 attribute 리터럴(variant/size) — 3플랫폼 동일 (04 §3).
@@ -12,7 +12,8 @@ enum CodeDemo {
     static let demo = ComponentDemo(
         id: "Code",
         controls: [
-            .options("variant", "variant", JdCodeVariant.allCases.map(\.rawValue), initial: "default"),
+            .options(
+                "variant", "variant", JdCodeVariant.allCases.map(\.rawValue), initial: "default"),
             .options("size", "size", JdControlSize.allCases.map(\.rawValue), initial: "md"),
             .text("text", "text", placeholder: "코드 조각", initial: "npm run build"),
         ],
@@ -21,7 +22,8 @@ enum CodeDemo {
     )
 }
 
-private let codeNote = "폰트는 모노스페이스 고정, 램프는 sm 10 / md 12 / lg 14pt다 — 웹 11·13pt는 "
+private let codeNote =
+    "폰트는 모노스페이스 고정, 램프는 sm 10 / md 12 / lg 14pt다 — 웹 11·13pt는 "
     + "대응 토큰이 없어 JdTextSpec 사다리로 옮겨졌다. 웹 .jd-code의 1pt 테두리(color-mix)는 "
     + "대응 토큰이 없어 두 계층 모두 생략한다."
 
@@ -48,9 +50,10 @@ private struct CodeStageSwiftUI: View {
             // 텍스트 런이라 문단 안에서 어떻게 앉는지가 실제 쓰임이다
             HStack(spacing: JdToken.Space.s2) {
                 JdText("실행:", size: .sm, dimmed: true)
-                JdCode(codeText(state),
-                       variant: codeVariant(state),
-                       size: codeSize(state))
+                JdCode(
+                    codeText(state),
+                    variant: codeVariant(state),
+                    size: codeSize(state))
             }
 
             Text(codeNote)
@@ -69,10 +72,12 @@ private struct CodeStageUIKit: View {
         VStack(spacing: JdToken.Space.s4) {
             HStack(spacing: JdToken.Space.s2) {
                 JdText("실행:", size: .sm, dimmed: true)
-                CodeViewRep(text: codeText(state),
-                            variant: codeVariant(state),
-                            size: codeSize(state))
-                    .fixedSize()
+                CodeViewRep(
+                    text: codeText(state),
+                    variant: codeVariant(state),
+                    size: codeSize(state)
+                )
+                .fixedSize()
             }
 
             Text(codeNote)

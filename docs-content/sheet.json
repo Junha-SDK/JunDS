@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Sheet",
   "oneLiner": "모바일 바텀 시트 (드래그로 닫기 지원)",
-  "tags": [
-    "overlay"
-  ],
+  "tags": ["overlay"],
   "controls": [],
   "snippets": {
     "web": null,

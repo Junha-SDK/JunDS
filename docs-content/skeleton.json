@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Skeleton",
   "oneLiner": "스켈레톤 로딩",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

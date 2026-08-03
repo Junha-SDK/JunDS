@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useCookie",
   "oneLiner": "쿠키 읽기·쓰기.",
-  "tags": [
-    "hook",
-    "storage",
-    "쿠키"
-  ],
+  "tags": ["hook", "storage", "쿠키"],
   "controls": [],
   "snippets": {
     "web": null,

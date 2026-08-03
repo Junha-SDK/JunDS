@@ -14,25 +14,46 @@ import { css } from "../../core/styles.js";
  *
  * `overflow: visible` — 마지막 점(후광 r3.4)의 중심이 x=width라 뷰박스 경계에서
  * 잘리는 것을 지오메트리를 건드리지 않고 없앤다(mini-chart 선례).
+ *
+ * 기본색은 success를 **직접** 잡지 않는다. 스파크라인의 기본 의미는 "오르는 추세"라
+ * 등락색이고, 등락색은 앱이 시작 시 1회 덮어쓰는 --jd-finance-up 훅을 경유해야 한다
+ * (DECISIONS "색 기본값은 웹을 따르고, 관례 전환은 앱에 남겼다"). 직접 칠하면 한국
+ * 관례(적상승)로 전환한 앱에서 price-badge만 빨개지고 스파크라인만 초록으로 남는다.
  */
 export default css`
-@layer junds.base {
-  jd-sparkline:not(:defined) { display: inline-block; }
-}
-@layer junds.components {
-  jd-sparkline {
-    display: inline-block;
-    line-height: 0; /* svg 아래 baseline 여백 제거 */
-    color: var(--jd-sparkline-color, var(--jd-color-success));
+  @layer junds.base {
+    jd-sparkline:not(:defined) {
+      display: inline-block;
+    }
   }
+  @layer junds.components {
+    jd-sparkline {
+      display: inline-block;
+      line-height: 0; /* svg 아래 baseline 여백 제거 */
+      color: var(--jd-sparkline-color, var(--jd-finance-up, var(--jd-color-success)));
+    }
 
-  .jd-sparkline__svg { display: block; overflow: visible; }
+    .jd-sparkline__svg {
+      display: block;
+      overflow: visible;
+    }
 
-  .jd-sparkline__line {
-    fill: none; stroke: currentColor;
-    stroke-linejoin: round; stroke-linecap: round;
+    .jd-sparkline__line {
+      fill: none;
+      stroke: currentColor;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    .jd-sparkline__baseline {
+      stroke: currentColor;
+      opacity: var(--jd-opacity-25);
+    }
+    .jd-sparkline__dot-halo {
+      fill: currentColor;
+      opacity: var(--jd-opacity-20);
+    }
+    .jd-sparkline__dot {
+      fill: currentColor;
+    }
   }
-  .jd-sparkline__baseline { stroke: currentColor; opacity: var(--jd-opacity-25); }
-  .jd-sparkline__dot-halo { fill: currentColor; opacity: var(--jd-opacity-20); }
-  .jd-sparkline__dot { fill: currentColor; }
-}`;
+`;

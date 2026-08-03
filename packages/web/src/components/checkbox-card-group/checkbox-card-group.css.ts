@@ -6,11 +6,12 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-checkbox-card-group {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: var(--jd-space-2);
-    font-family: var(--jd-font-sans);
+  @layer junds.components {
+    jd-checkbox-card-group {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: var(--jd-space-2);
+      font-family: var(--jd-font-sans);
+    }
   }
-}`;
+`;

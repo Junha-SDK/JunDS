@@ -35,7 +35,12 @@ export interface CommandPaletteProps {
  * @since 2.2.0
  * @tags overlay, navigation
  */
-export function CommandPalette({ items, placeholder = "검색 또는 명령어 입력...", open: controlledOpen, onOpenChange }: CommandPaletteProps) {
+export function CommandPalette({
+  items,
+  placeholder = "검색 또는 명령어 입력...",
+  open: controlledOpen,
+  onOpenChange,
+}: CommandPaletteProps) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [activeIdx, setActiveIdx] = useState(0);
@@ -101,27 +106,45 @@ export function CommandPalette({ items, placeholder = "검색 또는 명령어 �
   return (
     <Portal>
       <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]">
-        <div className="absolute inset-0 bg-black/40 animate-fade-in" onClick={() => setOpen(false)} />
-        <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl animate-fade-in-scale overflow-hidden">
+        <div
+          className="absolute inset-0 bg-black/40 backdrop-blur-[2px] animate-fade-in motion-reduce:animate-none"
+          onClick={() => setOpen(false)}
+        />
+        {/* 팔레트는 떠 있는 패널이다 — bg-white 대신 모드를 따라가는 bg-card, 그림자는 다층 + 얇은 링 */}
+        <div className="relative mx-4 w-full max-w-lg bg-card rounded-2xl shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45),0_8px_20px_-8px_rgba(0,0,0,0.25)] ring-1 ring-border-light animate-fade-in-scale motion-reduce:animate-none overflow-hidden">
           {/* Search */}
           <div className="flex items-center gap-3 px-4 py-3 border-b border-border-light">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-muted shrink-0">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              className="text-muted shrink-0"
+            >
               <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M12.5 12.5L16 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <path
+                d="M12.5 12.5L16 16"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
             </svg>
             <input
               ref={inputRef}
               value={search}
-              onChange={(e) => { setSearch(e.target.value); setActiveIdx(0); }}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setActiveIdx(0);
+              }}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              className="flex-1 text-sm outline-none bg-transparent placeholder:text-muted-light"
+              className="flex-1 min-w-0 text-sm text-foreground outline-none bg-transparent placeholder:text-muted-light"
             />
             <Kbd keys={["ESC"]} />
           </div>
 
           {/* Results */}
-          <div ref={listRef} className="max-h-[320px] overflow-y-auto py-1">
+          <div ref={listRef} className="max-h-[320px] overflow-y-auto overscroll-y-contain py-1">
             {filtered.length === 0 && (
               <div className="py-8 text-center text-sm text-muted">결과 없음</div>
             )}
@@ -139,16 +162,26 @@ export function CommandPalette({ items, placeholder = "검색 또는 명령어 �
                     <button
                       key={item.id}
                       type="button"
-                      onClick={() => { item.action(); setOpen(false); }}
+                      onClick={() => {
+                        item.action();
+                        setOpen(false);
+                      }}
                       className={cn(
                         "w-full flex items-center gap-3 px-4 py-2 text-left transition-colors cursor-pointer",
-                        idx === activeIdx ? "bg-primary-light text-primary" : "hover:bg-gray-50",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-inset",
+                        idx === activeIdx ? "bg-primary-light text-primary-ink" : "hover:bg-card-hover",
                       )}
                     >
-                      {item.icon && <span className="shrink-0 w-5 h-5 flex items-center justify-center text-muted">{item.icon}</span>}
+                      {item.icon && (
+                        <span className="shrink-0 w-5 h-5 flex items-center justify-center text-muted">
+                          {item.icon}
+                        </span>
+                      )}
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium truncate">{item.label}</div>
-                        {item.description && <div className="text-xs text-muted truncate">{item.description}</div>}
+                        {item.description && (
+                          <div className="text-xs text-muted truncate">{item.description}</div>
+                        )}
                       </div>
                     </button>
                   );
@@ -158,9 +191,14 @@ export function CommandPalette({ items, placeholder = "검색 또는 명령어 �
           </div>
 
           {/* Footer */}
-          <div className="flex items-center gap-3 px-4 py-2 border-t border-border-light text-[10px] text-muted-light">
-            <span className="flex items-center gap-1"><Kbd keys={["↑"]} /><Kbd keys={["↓"]} /> 이동</span>
-            <span className="flex items-center gap-1"><Kbd keys={["↵"]} /> 실행</span>
+          <div className="flex flex-wrap items-center gap-3 px-4 py-2 border-t border-border-light bg-card-hover text-[10px] text-muted-light">
+            <span className="flex items-center gap-1 whitespace-nowrap">
+              <Kbd keys={["↑"]} />
+              <Kbd keys={["↓"]} /> 이동
+            </span>
+            <span className="flex items-center gap-1 whitespace-nowrap">
+              <Kbd keys={["↵"]} /> 실행
+            </span>
           </div>
         </div>
       </div>

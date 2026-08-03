@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // OTPInput 데모 — **별도 타입이 없다**. 웹 <jd-otp-input>의 iOS 대응은 JdPinInput의
 // 설정 변형이다(R12 Switch=Toggle 선례 · DESIGN-3 §A):
@@ -17,7 +17,7 @@ enum OTPInputDemo {
     static let demo = ComponentDemo(
         id: "OTPInput",
         controls: [
-            .toggle("masked", "masked"),
+            .toggle("masked", "masked")
         ],
         swiftUI: { state in AnyView(OTPInputStageSwiftUI(state: state, length: otpLength)) },
         uikit: { state in AnyView(OTPInputStageUIKit(state: state, length: otpLength)) }
@@ -36,7 +36,7 @@ private struct OTPInputStageSwiftUI: View {
                 value: $value,
                 length: length,
                 masked: state.bool("masked"),
-                alphanumeric: false, // OTP는 숫자 전용 — 자동완성이 붙는 조건이기도 하다
+                alphanumeric: false,  // OTP는 숫자 전용 — 자동완성이 붙는 조건이기도 하다
                 isError: false,
                 accessibilityLabel: "인증 번호"
             ) { _ in

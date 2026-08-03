@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-alert-dialog(+ ConfirmDialog 별칭)의 SwiftUI 번역: 시스템 .alert 위임 (04 §10.1).
 // 확인/취소 2버튼. isDestructive면 확인 버튼이 .destructive(빨강). cancelLabel nil이면 확인 단일.
@@ -15,14 +15,16 @@ public struct JdAlertDialog: View {
     private let onConfirm: () -> Void
     private let onCancel: (() -> Void)?
 
-    public init(isPresented: Binding<Bool>,
-                title: String,
-                message: String? = nil,
-                confirmLabel: String = "확인",
-                cancelLabel: String? = "취소",
-                isDestructive: Bool = false,
-                onConfirm: @escaping () -> Void,
-                onCancel: (() -> Void)? = nil) {
+    public init(
+        isPresented: Binding<Bool>,
+        title: String,
+        message: String? = nil,
+        confirmLabel: String = "확인",
+        cancelLabel: String? = "취소",
+        isDestructive: Bool = false,
+        onConfirm: @escaping () -> Void,
+        onCancel: (() -> Void)? = nil
+    ) {
         self._isPresented = isPresented
         self.title = title
         self.message = message

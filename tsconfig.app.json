@@ -5,19 +5,6 @@
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.app.tsbuildinfo"
   },
-  "include": [
-    "next-env.d.ts",
-    "app/**/*.ts",
-    "app/**/*.tsx",
-    "ds/**/*.ts",
-    "ds/**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "ds/__tests__/**",
-    "**/*.stories.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ]
+  "include": ["next-env.d.ts", "app/**/*.ts", "app/**/*.tsx", "ds/**/*.ts", "ds/**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "ds/__tests__/**", "**/*.stories.tsx", "**/*.test.ts", "**/*.test.tsx"]
 }

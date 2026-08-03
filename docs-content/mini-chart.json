@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "MiniChart",
   "oneLiner": "카드 안에 들어갈 작은 미니 차트(스파크라인).",
-  "tags": [
-    "chart"
-  ],
+  "tags": ["chart"],
   "controls": [],
   "snippets": {
     "web": null,

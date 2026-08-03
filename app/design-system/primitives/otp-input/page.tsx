@@ -14,13 +14,24 @@ export default function OTPInputPage() {
       props={[
         { name: "length", type: "number", default: "6", description: "코드 자릿수." },
         { name: "onChange", type: "(code: string) => void", description: "값 변경 콜백." },
-        { name: "onComplete", type: "(code: string) => void", description: "모든 칸이 채워졌을 때 호출." },
-        { name: "error", type: "boolean", description: "오류 상태 (테두리 빨강 + shake 애니메이션)." },
+        {
+          name: "onComplete",
+          type: "(code: string) => void",
+          description: "모든 칸이 채워졌을 때 호출.",
+        },
+        {
+          name: "error",
+          type: "boolean",
+          description: "오류 상태 (테두리 빨강 + shake 애니메이션).",
+        },
         { name: "disabled", type: "boolean", description: "비활성화." },
         { name: "className", type: "string", description: "추가 CSS 클래스." },
       ]}
     >
-      <Section title="Basic" description="6자리 OTP 입력. 모든 칸을 채우면 onComplete가 호출됩니다.">
+      <Section
+        title="Basic"
+        description="6자리 OTP 입력. 모든 칸을 채우면 onComplete가 호출됩니다."
+      >
         <Preview>
           <div className="flex flex-col gap-3 items-start">
             <OTPInput length={6} onChange={setCode} />

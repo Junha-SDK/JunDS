@@ -87,9 +87,7 @@ const HOLIDAYS: MarketHoliday[] = [
   { date: "2027-12-31", name: "연말 폐장" },
 ];
 
-const HOLIDAY_INDEX = new Map<string, string>(
-  HOLIDAYS.map((h) => [h.date, h.name]),
-);
+const HOLIDAY_INDEX = new Map<string, string>(HOLIDAYS.map((h) => [h.date, h.name]));
 
 export function pad2(n: number): string {
   return String(n).padStart(2, "0");
@@ -122,7 +120,14 @@ export function isMarketClosed(date: Date): boolean {
  * date.getTime()은 이미 UTC epoch ms를 반환하므로, 9시간만 더해 `getUTC*`로 읽으면
  * KST 벽시계가 그대로 떨어진다.
  */
-function toKST(date: Date): { year: number; month1: number; day: number; weekday: number; hour: number; minute: number } {
+function toKST(date: Date): {
+  year: number;
+  month1: number;
+  day: number;
+  weekday: number;
+  hour: number;
+  minute: number;
+} {
   const kst = new Date(date.getTime() + 9 * 60 * 60_000);
   return {
     year: kst.getUTCFullYear(),

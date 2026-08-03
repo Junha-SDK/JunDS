@@ -39,8 +39,14 @@ export interface ProfileHeaderProps {
  * @tags sns, layout
  */
 export const ProfileHeader = forwardRef<HTMLElement, ProfileHeaderProps>(
-  ({ avatar, banner, name, handle, bio, location, joinedAt, stats, actions, verified, className }, ref) => (
-    <header ref={ref} className={cn("rounded-xl overflow-hidden border border-border bg-surface", className)}>
+  (
+    { avatar, banner, name, handle, bio, location, joinedAt, stats, actions, verified, className },
+    ref,
+  ) => (
+    <header
+      ref={ref}
+      className={cn("rounded-xl overflow-hidden border border-border bg-surface", className)}
+    >
       <div className="h-32 bg-gradient-to-r from-primary/20 to-primary/40 relative">
         {banner && <img src={banner} alt="" className="w-full h-full object-cover" />}
       </div>
@@ -50,7 +56,7 @@ export const ProfileHeader = forwardRef<HTMLElement, ProfileHeaderProps>(
             {avatar ? (
               <img src={avatar} alt="" className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full bg-primary/20 text-primary flex items-center justify-center text-xl font-bold">
+              <div className="w-full h-full bg-primary/20 text-primary-ink flex items-center justify-center text-xl font-bold">
                 {name.slice(0, 1)}
               </div>
             )}
@@ -61,7 +67,11 @@ export const ProfileHeader = forwardRef<HTMLElement, ProfileHeaderProps>(
         <div className="mt-3">
           <div className="flex items-center gap-1.5">
             <h2 className="text-lg font-bold text-foreground truncate">{name}</h2>
-            {verified && <span aria-label="인증됨" className="text-primary">✓</span>}
+            {verified && (
+              <span aria-label="인증됨" className="text-primary-ink">
+                ✓
+              </span>
+            )}
           </div>
           {handle && <p className="text-sm text-muted">@{handle}</p>}
         </div>
@@ -86,7 +96,13 @@ export const ProfileHeader = forwardRef<HTMLElement, ProfileHeaderProps>(
               );
               return (
                 <li key={s.label}>
-                  {s.href ? <a href={s.href} className="hover:underline">{inner}</a> : <span>{inner}</span>}
+                  {s.href ? (
+                    <a href={s.href} className="hover:underline">
+                      {inner}
+                    </a>
+                  ) : (
+                    <span>{inner}</span>
+                  )}
                 </li>
               );
             })}

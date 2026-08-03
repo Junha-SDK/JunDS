@@ -39,19 +39,21 @@ interface Line {
 export default function Checkout() {
   const [lines, setLines] = useState<Line[]>([
     { id: "a", title: "JunDS Hoodie", image: "/p/hoodie.png", price: 49, qty: 1 },
-    { id: "b", title: "JunDS Stickers Pack", image: "/p/stickers.png", price: 12, qty: 2 },
+    {
+      id: "b",
+      title: "JunDS Stickers Pack",
+      image: "/p/stickers.png",
+      price: 12,
+      qty: 2,
+    },
   ]);
   const [submitting, setSubmitting] = useState(false);
 
-  const total = useMemo(
-    () => lines.reduce((s, l) => s + l.price * l.qty, 0),
-    [lines],
-  );
+  const total = useMemo(() => lines.reduce((s, l) => s + l.price * l.qty, 0), [lines]);
 
   const updateQty = (id: string, qty: number) =>
     setLines((ls) => ls.map((l) => (l.id === id ? { ...l, qty } : l)));
-  const remove = (id: string) =>
-    setLines((ls) => ls.filter((l) => l.id !== id));
+  const remove = (id: string) => setLines((ls) => ls.filter((l) => l.id !== id));
 
   if (lines.length === 0) {
     return (
@@ -109,7 +111,11 @@ export default function Checkout() {
             description: "안전한 결제로 마무리합니다.",
             content: (
               <div className="space-y-3">
-                <Input placeholder="카드 번호" aria-label="카드 번호" inputMode="numeric" />
+                <Input
+                  placeholder="카드 번호"
+                  aria-label="카드 번호"
+                  inputMode="numeric"
+                />
                 <Input placeholder="MM/YY" aria-label="카드 만료" />
                 <Input placeholder="CVC" aria-label="카드 CVC" inputMode="numeric" />
                 <LoadingButton

@@ -26,7 +26,11 @@ function isCompleted(set: ChapterListProps["completedIds"], id: string) {
 }
 
 function ChapterRow({
-  chapter, depth, activeId, completedIds, onSelect,
+  chapter,
+  depth,
+  activeId,
+  completedIds,
+  onSelect,
 }: {
   chapter: Chapter;
   depth: number;
@@ -44,18 +48,26 @@ function ChapterRow({
         disabled={chapter.locked}
         aria-current={active ? "true" : undefined}
         className={cn(
-          "w-full flex items-center justify-between gap-3 py-2 pr-3 text-left text-sm rounded-md transition-colors",
+          "w-full flex items-center justify-between gap-3 py-2 pr-3 text-left text-sm rounded-lg transition-colors duration-150",
           "hover:bg-surface-soft disabled:opacity-50 disabled:cursor-not-allowed",
-          active && "bg-primary/10 text-primary font-semibold",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          active && "bg-primary/10 text-primary-ink font-semibold",
           !active && done && "text-muted",
         )}
         style={{ paddingLeft: 8 + depth * 16 }}
       >
         <span className="flex items-center gap-2 min-w-0">
-          <span className={cn(
-            "shrink-0 inline-flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-semibold",
-            active ? "bg-primary text-white" : done ? "bg-success/20 text-success" : "bg-gray-200 dark:bg-gray-700 text-muted",
-          )}>
+          <span
+            className={cn(
+              "shrink-0 inline-flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-semibold",
+              active
+                ? "bg-primary text-white"
+                : done
+                ? "bg-success/20 text-success"
+                : // 회색 팔레트 + dark: 짝 대신 muted 를 옅게 — 두 모드 모두 변수를 따라간다
+                  "bg-muted/15 text-muted",
+            )}
+          >
             {done ? "✓" : chapter.locked ? "🔒" : ""}
           </span>
           <span className="truncate">{chapter.title}</span>
@@ -69,7 +81,14 @@ function ChapterRow({
       {chapter.subChapters && chapter.subChapters.length > 0 && (
         <ul className="mt-0.5">
           {chapter.subChapters.map((sub) => (
-            <ChapterRow key={sub.id} chapter={sub} depth={depth + 1} activeId={activeId} completedIds={completedIds} onSelect={onSelect} />
+            <ChapterRow
+              key={sub.id}
+              chapter={sub}
+              depth={depth + 1}
+              activeId={activeId}
+              completedIds={completedIds}
+              onSelect={onSelect}
+            />
           ))}
         </ul>
       )}
@@ -90,7 +109,14 @@ export const ChapterList = forwardRef<HTMLElement, ChapterListProps>(
     <nav ref={ref} aria-label="목차" className={cn("text-sm", className)}>
       <ul>
         {chapters.map((c) => (
-          <ChapterRow key={c.id} chapter={c} depth={0} activeId={activeId} completedIds={completedIds} onSelect={onSelect} />
+          <ChapterRow
+            key={c.id}
+            chapter={c}
+            depth={0}
+            activeId={activeId}
+            completedIds={completedIds}
+            onSelect={onSelect}
+          />
         ))}
       </ul>
     </nav>

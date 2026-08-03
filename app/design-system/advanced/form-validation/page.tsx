@@ -108,16 +108,29 @@ export default function FormValidationPage() {
           {submitted ? (
             <div className="text-center py-8">
               <div className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M8 16l6 6 10-12" stroke="var(--success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <path
+                    d="M8 16l6 6 10-12"
+                    stroke="var(--success)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
               <p className="text-lg font-bold text-foreground mb-1">가입이 완료되었습니다!</p>
               <p className="text-sm text-muted mb-4">{values.name}님, 환영합니다.</p>
-              <Button variant="secondary" size="sm" onClick={handleReset}>다시 시도</Button>
+              <Button variant="secondary" size="sm" onClick={handleReset}>
+                다시 시도
+              </Button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
               <div>
-                <label htmlFor="form-validation-name" className="block text-sm font-medium text-foreground mb-1">
+                <label
+                  htmlFor="form-validation-name"
+                  className="block text-sm font-medium text-foreground mb-1"
+                >
                   이름 <span className="text-danger">*</span>
                 </label>
                 <Input
@@ -134,7 +147,10 @@ export default function FormValidationPage() {
               </div>
 
               <div>
-                <label htmlFor="form-validation-email" className="block text-sm font-medium text-foreground mb-1">
+                <label
+                  htmlFor="form-validation-email"
+                  className="block text-sm font-medium text-foreground mb-1"
+                >
                   이메일 <span className="text-danger">*</span>
                 </label>
                 <Input
@@ -152,7 +168,10 @@ export default function FormValidationPage() {
               </div>
 
               <div>
-                <label htmlFor="form-validation-password" className="block text-sm font-medium text-foreground mb-1">
+                <label
+                  htmlFor="form-validation-password"
+                  className="block text-sm font-medium text-foreground mb-1"
+                >
                   비밀번호 <span className="text-danger">*</span>
                 </label>
                 <Input
@@ -170,7 +189,10 @@ export default function FormValidationPage() {
               </div>
 
               <div>
-                <label htmlFor="form-validation-confirm-password" className="block text-sm font-medium text-foreground mb-1">
+                <label
+                  htmlFor="form-validation-confirm-password"
+                  className="block text-sm font-medium text-foreground mb-1"
+                >
                   비밀번호 확인 <span className="text-danger">*</span>
                 </label>
                 <Input
@@ -188,7 +210,10 @@ export default function FormValidationPage() {
               </div>
 
               <div>
-                <label htmlFor="form-validation-phone" className="block text-sm font-medium text-foreground mb-1">
+                <label
+                  htmlFor="form-validation-phone"
+                  className="block text-sm font-medium text-foreground mb-1"
+                >
                   전화번호 <span className="text-danger">*</span>
                 </label>
                 <Input
@@ -216,7 +241,9 @@ export default function FormValidationPage() {
 
               {Object.keys(errors).length > 0 && touched.size > 0 && (
                 <div className="flex items-center gap-2 mt-2">
-                  <Badge variant="danger" size="sm">{Object.keys(errors).length}개 오류</Badge>
+                  <Badge variant="danger" size="sm">
+                    {Object.keys(errors).length}개 오류
+                  </Badge>
                   <span className="text-xs text-muted">모든 필드를 올바르게 입력해주세요</span>
                 </div>
               )}
@@ -225,8 +252,12 @@ export default function FormValidationPage() {
         </Preview>
       </Section>
 
-      <Section title="zodAdapter 사용법" description="Zod 스키마를 useForm의 FormRules로 변환하는 방법입니다.">
-        <CodeExample code={`import { z } from "zod";
+      <Section
+        title="zodAdapter 사용법"
+        description="Zod 스키마를 useForm의 FormRules로 변환하는 방법입니다."
+      >
+        <CodeExample
+          code={`import { z } from "zod";
 import { useForm } from "@/ds/hooks/useForm";
 import { zodAdapter } from "@/ds/utils/zodAdapter";
 
@@ -252,11 +283,16 @@ const form = useForm(
   onChange={(e) => form.setValue("name", e.target.value)}
   error={!!form.errors.name}
 />
-{form.errors.name && <p>{form.errors.name}</p>}`} />
+{form.errors.name && <p>{form.errors.name}</p>}`}
+        />
       </Section>
 
-      <Section title="useForm 직접 사용" description="Zod 없이 커스텀 검증 규칙을 직접 정의하는 방법입니다.">
-        <CodeExample code={`import { useForm } from "@/ds/hooks/useForm";
+      <Section
+        title="useForm 직접 사용"
+        description="Zod 없이 커스텀 검증 규칙을 직접 정의하는 방법입니다."
+      >
+        <CodeExample
+          code={`import { useForm } from "@/ds/hooks/useForm";
 
 const form = useForm(
   { email: "", age: 0 },
@@ -271,12 +307,13 @@ const form = useForm(
   },
 );
 
-// form.values, form.errors, form.setValue, form.validate 사용`} />
+// form.values, form.errors, form.setValue, form.validate 사용`}
+        />
       </Section>
 
       <UsageNote type="tip">
-        Zod를 사용하지 않는 프로젝트에서는 useForm의 커스텀 규칙을 직접 정의하세요.
-        zodAdapter는 Zod가 이미 설치된 프로젝트에서만 사용할 수 있습니다.
+        Zod를 사용하지 않는 프로젝트에서는 useForm의 커스텀 규칙을 직접 정의하세요. zodAdapter는
+        Zod가 이미 설치된 프로젝트에서만 사용할 수 있습니다.
       </UsageNote>
     </ComponentPage>
   );

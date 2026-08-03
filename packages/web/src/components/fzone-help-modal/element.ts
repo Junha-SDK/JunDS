@@ -106,14 +106,25 @@ interface Term {
 const SHARED_TERMS: Term[] = [
   {
     term: "B1·B2·B3",
-    meaning:
-      "단기 매수 후보 가격(1차→3차). 숫자가 커질수록 더 깊게 조정받았을 때의 분할매수 자리.",
+    meaning: "단기 매수 후보 가격(1차→3차). 숫자가 커질수록 더 깊게 조정받았을 때의 분할매수 자리.",
     color: UP,
   },
-  { term: "G1·G2·G3", meaning: "골드존 — 중장기 누적 매수 후보 가격대 (1차~3차).", color: "var(--jd-color-warning)" },
-  { term: "J1·J2·J3", meaning: "38스윙 — 단기 되돌림 진입 후보 가격대 (1차~3차).", color: "var(--jd-color-info)" },
+  {
+    term: "G1·G2·G3",
+    meaning: "골드존 — 중장기 누적 매수 후보 가격대 (1차~3차).",
+    color: "var(--jd-color-warning)",
+  },
+  {
+    term: "J1·J2·J3",
+    meaning: "38스윙 — 단기 되돌림 진입 후보 가격대 (1차~3차).",
+    color: "var(--jd-color-info)",
+  },
   { term: "저항선", meaning: "단기 반등 시 매물벽으로 작용하기 쉬운 위쪽 가격.", color: "#0ea5e9" },
-  { term: "F존임박", meaning: "아직 B1을 터치하진 않았지만 곧 진입할 가능성이 높은 상태.", color: "#a855f7" },
+  {
+    term: "F존임박",
+    meaning: "아직 B1을 터치하진 않았지만 곧 진입할 가능성이 높은 상태.",
+    color: "#a855f7",
+  },
 ];
 
 const READ_CARDS = [
@@ -218,7 +229,11 @@ export class JdFzoneHelpModal extends JdModal {
     return body;
   }
 
-  #section(title: string, icon: string, accent: string): { section: HTMLElement; content: HTMLElement } {
+  #section(
+    title: string,
+    icon: string,
+    accent: string,
+  ): { section: HTMLElement; content: HTMLElement } {
     const section = elc("section", "jd-fzone-help__section");
     section.style.setProperty("--accent", accent);
     const h4 = elc("h4", "jd-fzone-help__section-title");
@@ -235,7 +250,10 @@ export class JdFzoneHelpModal extends JdModal {
       const card = elc("div", "jd-fzone-help__read-card");
       card.style.setProperty("--tab", c.color);
       const head = elc("div", "jd-fzone-help__read-head");
-      head.append(elc("span", "jd-fzone-help__read-dot"), elc("span", "jd-fzone-help__read-title", c.title));
+      head.append(
+        elc("span", "jd-fzone-help__read-dot"),
+        elc("span", "jd-fzone-help__read-title", c.title),
+      );
       card.append(head, elc("p", "jd-fzone-help__read-body", c.body));
       grid.append(card);
     }
@@ -262,13 +280,19 @@ export class JdFzoneHelpModal extends JdModal {
       const ul = elc("ul", "jd-fzone-help__tab-bullets");
       for (const b of c.bullets) {
         const li = elc("li", "jd-fzone-help__tab-bullet");
-        li.append(elc("span", "jd-fzone-help__tab-bullet-dot"), elc("span", "jd-fzone-help__tab-bullet-text", b));
+        li.append(
+          elc("span", "jd-fzone-help__tab-bullet-dot"),
+          elc("span", "jd-fzone-help__tab-bullet-text", b),
+        );
         ul.append(li);
       }
       tabBody.append(ul);
       if (c.example) {
         const ex = elc("div", "jd-fzone-help__tab-example");
-        ex.append(elc("span", "jd-fzone-help__tab-example-label", "예시"), elc("span", "jd-fzone-help__tab-example-text", c.example));
+        ex.append(
+          elc("span", "jd-fzone-help__tab-example-label", "예시"),
+          elc("span", "jd-fzone-help__tab-example-text", c.example),
+        );
         tabBody.append(ex);
       }
       article.append(head, tabBody);

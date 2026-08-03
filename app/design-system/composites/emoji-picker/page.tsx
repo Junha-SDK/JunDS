@@ -12,7 +12,11 @@ export default function EmojiPickerPage() {
       description="카테고리 탭과 검색을 지원하는 이모지 선택 패널."
       importPath='import { EmojiPicker } from "@/ds/composites/EmojiPicker"'
       props={[
-        { name: "onSelect", type: "(emoji: string) => void", description: "이모지를 선택했을 때 호출되는 콜백" },
+        {
+          name: "onSelect",
+          type: "(emoji: string) => void",
+          description: "이모지를 선택했을 때 호출되는 콜백",
+        },
         { name: "className", type: "string", description: "컨테이너 클래스" },
       ]}
     >

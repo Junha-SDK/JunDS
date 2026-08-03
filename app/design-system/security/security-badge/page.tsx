@@ -13,7 +13,12 @@ export default function SecurityBadgePage() {
       description="보안 레벨 뱃지. 보안 상태를 시각적으로 표시합니다."
       importPath='import { SecurityBadge } from "@/ds/composites/SecurityBadge"'
       props={[
-        { name: "level", type: '"critical"|"warning"|"safe"|"verified"|"unverified"', required: true, description: "보안 레벨" },
+        {
+          name: "level",
+          type: '"critical"|"warning"|"safe"|"verified"|"unverified"',
+          required: true,
+          description: "보안 레벨",
+        },
         { name: "label", type: "string", description: "커스텀 라벨" },
         { name: "showIcon", type: "boolean", default: "true", description: "아이콘 표시" },
         { name: "size", type: '"sm"|"md"|"lg"', default: '"md"', description: "크기" },
@@ -22,7 +27,9 @@ export default function SecurityBadgePage() {
       <Section title="All Levels">
         <Preview>
           <div className="flex items-center gap-2 flex-wrap">
-            {levels.map((l) => <SecurityBadge key={l} level={l} />)}
+            {levels.map((l) => (
+              <SecurityBadge key={l} level={l} />
+            ))}
           </div>
         </Preview>
       </Section>

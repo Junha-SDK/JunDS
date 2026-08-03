@@ -81,9 +81,15 @@ export default function ActionBarPage() {
         onClear={() => setSelected(new Set())}
         actions={
           <>
-            <Button size="sm" variant="secondary">이동</Button>
-            <Button size="sm" variant="secondary">복제</Button>
-            <Button size="sm" variant="danger">삭제</Button>
+            <Button size="sm" variant="secondary">
+              이동
+            </Button>
+            <Button size="sm" variant="secondary">
+              복제
+            </Button>
+            <Button size="sm" variant="danger">
+              삭제
+            </Button>
           </>
         }
       />

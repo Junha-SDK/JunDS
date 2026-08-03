@@ -1,14 +1,16 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-modal의 SwiftUI 번역: 시스템 시트 위임 (04 §10).
 // persistent = interactiveDismissDisabled (웹: 백드롭 클릭 무시, DEC-012-4)
 public extension View {
-    func jdModal<Content: View>(isPresented: Binding<Bool>,
-                                size: JdModalSize = .md,
-                                persistent: Bool = false,
-                                onClose: (() -> Void)? = nil,
-                                @ViewBuilder content: @escaping () -> Content) -> some View {
+    func jdModal<Content: View>(
+        isPresented: Binding<Bool>,
+        size: JdModalSize = .md,
+        persistent: Bool = false,
+        onClose: (() -> Void)? = nil,
+        @ViewBuilder content: @escaping () -> Content
+    ) -> some View {
         return sheet(isPresented: isPresented, onDismiss: onClose) {
             JdModalChrome(size: size, persistent: persistent, content: content)
         }

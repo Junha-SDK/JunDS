@@ -100,7 +100,9 @@ export class JdSegmentedControl extends JdElement {
   }
 
   protected readJsonSlot(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdSegmentOption[];
@@ -115,7 +117,9 @@ export class JdSegmentedControl extends JdElement {
   protected rebuild(): void {
     if (!this.indicator) return;
     if (!this.groupName) this.groupName = this.name || jdUid("jd-sc");
-    const existing = this.querySelectorAll<HTMLLabelElement>(":scope > label.jd-segmented-control__seg");
+    const existing = this.querySelectorAll<HTMLLabelElement>(
+      ":scope > label.jd-segmented-control__seg",
+    );
     if (existing.length === this.optionList.length) return;
     for (const seg of existing) seg.remove();
     for (const opt of this.optionList) {
@@ -159,7 +163,9 @@ export class JdSegmentedControl extends JdElement {
   protected override update(): void {
     this.setAttribute("aria-label", this.label);
     const name = this.name || this.groupName;
-    const segs = this.querySelectorAll<HTMLLabelElement>(":scope > label.jd-segmented-control__seg");
+    const segs = this.querySelectorAll<HTMLLabelElement>(
+      ":scope > label.jd-segmented-control__seg",
+    );
     segs.forEach((seg, i) => {
       const opt = this.optionList[i];
       if (!opt) return;
@@ -188,7 +194,9 @@ export class JdSegmentedControl extends JdElement {
   protected measure(): void {
     const indicator = this.indicator;
     if (!indicator) return;
-    const segs = this.querySelectorAll<HTMLLabelElement>(":scope > label.jd-segmented-control__seg");
+    const segs = this.querySelectorAll<HTMLLabelElement>(
+      ":scope > label.jd-segmented-control__seg",
+    );
     const i = this.optionList.findIndex((o) => o.value === this.value);
     const seg = i >= 0 ? segs[i] : undefined;
     if (!seg || seg.offsetWidth === 0) {

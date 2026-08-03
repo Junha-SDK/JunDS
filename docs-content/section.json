@@ -4,11 +4,7 @@
   "category": "core",
   "title": "Section",
   "oneLiner": "제목·설명 헤더 + 세로 흐름 본문 섹션. gap은 본문 flex에 적용, border 전환.",
-  "tags": [
-    "layout",
-    "section",
-    "구획"
-  ],
+  "tags": ["layout", "section", "구획"],
   "controls": [
     {
       "prop": "title",

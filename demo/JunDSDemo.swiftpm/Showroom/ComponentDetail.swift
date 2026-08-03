@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // 컴포넌트 상세 — 스키마(ComponentDemo)로부터 일괄 구동되는 화면.
 // 라이브 스테이지 + 컨트롤 패널 + SwiftUI↔UIKit 탭 + 다크/Dynamic Type/Reduce Motion + 접근성 검사.
@@ -269,7 +269,10 @@ struct LedgerStatusRows: View {
             Spacer()
             Text(value)
                 .font(.footnote)
-                .foregroundColor(value == "done" || value.hasPrefix("pass") ? JdToken.Color.success.color : .secondary)
+                .foregroundColor(
+                    value == "done" || value.hasPrefix("pass")
+                        ? JdToken.Color.success.color : .secondary
+                )
                 .multilineTextAlignment(.trailing)
         }
     }
@@ -288,9 +291,11 @@ struct A11yInspector: View {
                     VStack(alignment: .leading, spacing: JdToken.Space.s2) {
                         Text("표시할 접근성 요소가 없다")
                             .font(.footnote.weight(.medium))
-                        Text("SwiftUI는 보조기술(VoiceOver)이 실제로 켜져 있을 때만 접근성 트리를 만든다 — SwiftUI 스테이지가 비어 보이는 것은 정상이며 요소가 없다는 뜻이 아니다. UIKit 탭으로 바꾸면 실제 요소·트레이트·값을 볼 수 있다.")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                        Text(
+                            "SwiftUI는 보조기술(VoiceOver)이 실제로 켜져 있을 때만 접근성 트리를 만든다 — SwiftUI 스테이지가 비어 보이는 것은 정상이며 요소가 없다는 뜻이 아니다. UIKit 탭으로 바꾸면 실제 요소·트레이트·값을 볼 수 있다."
+                        )
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                     }
                     .padding(.vertical, JdToken.Space.s1)
                 }

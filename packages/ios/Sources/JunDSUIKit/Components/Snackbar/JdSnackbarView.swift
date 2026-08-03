@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-snackbar의 UIKit 번역 (DESIGN-4 §C) — 스택이 아닌 단일 바. 위치 4종.
 // present(in:)으로 컨테이너 세이프에어리어의 위치별 코너에 정렬하고, 자동 닫힘을 건다.
@@ -40,12 +40,14 @@ public final class JdSnackbarView: UIView {
         try? await Task.sleep(nanoseconds: UInt64((seconds * 1_000_000_000).rounded()))
     }
 
-    public init(message: String,
-                variant: JdFeedbackVariant = .info,
-                position: JdToastPosition = .bottom,
-                duration: TimeInterval = 4,
-                actionLabel: String? = nil,
-                onAction: (() -> Void)? = nil) {
+    public init(
+        message: String,
+        variant: JdFeedbackVariant = .info,
+        position: JdToastPosition = .bottom,
+        duration: TimeInterval = 4,
+        actionLabel: String? = nil,
+        onAction: (() -> Void)? = nil
+    ) {
         self.message = message
         self.variant = variant
         self.position = position
@@ -57,7 +59,7 @@ public final class JdSnackbarView: UIView {
 
         messageLabel.numberOfLines = 0
         messageLabel.adjustsFontForContentSizeCategory = true
-        messageLabel.textColor = .white // 웹 color:#fff — 전용 토큰 없음(notes 보고분)
+        messageLabel.textColor = .white  // 웹 color:#fff — 전용 토큰 없음(notes 보고분)
         messageLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         messageLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
@@ -229,12 +231,14 @@ public final class JdSnackbarView: UIView {
     }
 
     private func applyStyle() {
-        messageLabel.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                    weight: JdToken.FontWeight.medium,
-                                                    compatibleWith: traitCollection)
-        actionButton.titleLabel?.font = JdFontBridge.scaledFont(size: JdToken.FontSize.md,
-                                                                weight: JdToken.FontWeight.semibold,
-                                                                compatibleWith: traitCollection)
+        messageLabel.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.medium,
+            compatibleWith: traitCollection)
+        actionButton.titleLabel?.font = JdFontBridge.scaledFont(
+            size: JdToken.FontSize.md,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         backgroundColor = backgroundColorToken.uiColor
     }
 

@@ -27,42 +27,44 @@ export interface SkeletonProps {
  */
 export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
   ({ variant = "text", width, height, lines = 1, className }, ref) => {
-  const baseClass = "bg-gray-200 animate-pulse rounded";
+    // bg-gray-200 은 다크에서 밝은 회색 덩어리로 남는다. muted 알파는 두 모드 다 성립한다.
+    // 맥동은 움직임이므로 감속 요청을 받는다 — 라이브러리 소비자는 globals.css 를 함께 쓰지 않는다.
+    const baseClass = "bg-muted/15 rounded-md animate-pulse motion-reduce:animate-none";
 
-  if (variant === "circle") {
-    return (
-      <div
-        ref={ref}
-        className={cn(baseClass, "rounded-full", className)}
-        style={{ width: width || 40, height: height || 40 }}
-      />
-    );
-  }
-
-  if (variant === "rect") {
-    return (
-      <div
-        ref={ref}
-        className={cn(baseClass, "rounded-lg", className)}
-        style={{ width: width || "100%", height: height || 100 }}
-      />
-    );
-  }
-
-  // text
-  return (
-    <div ref={ref} className={cn("flex flex-col gap-2", className)}>
-      {Array.from({ length: lines }, (_, i) => (
+    if (variant === "circle") {
+      return (
         <div
-          key={i}
-          className={cn(baseClass, "h-3.5")}
-          style={{
-            width: i === lines - 1 && lines > 1 ? "75%" : width || "100%",
-          }}
+          ref={ref}
+          className={cn(baseClass, "rounded-full", className)}
+          style={{ width: width || 40, height: height || 40 }}
         />
-      ))}
-    </div>
-  );
-},
+      );
+    }
+
+    if (variant === "rect") {
+      return (
+        <div
+          ref={ref}
+          className={cn(baseClass, "rounded-xl", className)}
+          style={{ width: width || "100%", height: height || 100 }}
+        />
+      );
+    }
+
+    // text
+    return (
+      <div ref={ref} className={cn("flex flex-col gap-2", className)}>
+        {Array.from({ length: lines }, (_, i) => (
+          <div
+            key={i}
+            className={cn(baseClass, "h-3.5")}
+            style={{
+              width: i === lines - 1 && lines > 1 ? "75%" : width || "100%",
+            }}
+          />
+        ))}
+      </div>
+    );
+  },
 );
 Skeleton.displayName = "Skeleton";

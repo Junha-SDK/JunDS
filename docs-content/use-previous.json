@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "usePrevious",
   "oneLiner": "직전 렌더 값 보관 — React 전용.",
-  "tags": [
-    "hook",
-    "react",
-    "상태"
-  ],
+  "tags": ["hook", "react", "상태"],
   "controls": [],
   "snippets": {
     "web": null,

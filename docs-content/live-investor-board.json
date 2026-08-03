@@ -4,11 +4,7 @@
   "category": "finance",
   "title": "LiveInvestorBoard",
   "oneLiner": "실시간 투자자 수급 보드.",
-  "tags": [
-    "finance",
-    "live",
-    "수급"
-  ],
+  "tags": ["finance", "live", "수급"],
   "controls": [],
   "snippets": {
     "web": null,

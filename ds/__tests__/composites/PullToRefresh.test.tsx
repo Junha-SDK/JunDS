@@ -4,7 +4,9 @@ import { PullToRefresh } from "../../composites/PullToRefresh";
 
 describe("PullToRefresh", () => {
   it("renders without throwing", () => {
-    const { container } = render(<PullToRefresh onRefresh={() => Promise.resolve()}>{null}</PullToRefresh>);
+    const { container } = render(
+      <PullToRefresh onRefresh={() => Promise.resolve()}>{null}</PullToRefresh>,
+    );
     expect(container.firstChild).toBeDefined();
   });
 });

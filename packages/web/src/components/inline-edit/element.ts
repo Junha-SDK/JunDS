@@ -115,10 +115,7 @@ export class JdInlineEdit extends JdElement {
     this.#text.textContent = filled ? this.value : this.placeholder;
     this.#trigger.toggleAttribute("data-empty", !filled);
     this.#trigger.disabled = this.disabled;
-    this.#trigger.setAttribute(
-      "aria-label",
-      `${filled ? this.value : this.placeholder} 편집`,
-    );
+    this.#trigger.setAttribute("aria-label", `${filled ? this.value : this.placeholder} 편집`);
 
     const editing = this.editing && !this.disabled;
     this.#display.hidden = editing;

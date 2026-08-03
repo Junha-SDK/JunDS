@@ -4,11 +4,7 @@
   "category": "composites",
   "title": "SeoHead",
   "oneLiner": "페이지 SEO 메타태그를 선언적으로 지정 — 아무것도 렌더하지 않는다. 기본값은 SeoProvider 가 준다.",
-  "tags": [
-    "seo",
-    "meta",
-    "헤드"
-  ],
+  "tags": ["seo", "meta", "헤드"],
   "controls": [],
   "snippets": {
     "web": null,

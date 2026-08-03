@@ -4,7 +4,8 @@ import { ComponentPage, Section } from "../../_components/ComponentPage";
 import { Preview } from "../../_components/Preview";
 import { RichTextEditor } from "@/ds/patterns/RichTextEditor";
 
-const initialContent = "<p>안녕하세요! <strong>리치 텍스트 에디터</strong>입니다.</p><p>다양한 서식을 적용해 보세요.</p>";
+const initialContent =
+  "<p>안녕하세요! <strong>리치 텍스트 에디터</strong>입니다.</p><p>다양한 서식을 적용해 보세요.</p>";
 
 export default function RichTextEditorPage() {
   const [html, setHtml] = useState(initialContent);
@@ -18,7 +19,11 @@ export default function RichTextEditorPage() {
         { name: "value", type: "string", description: "HTML 문자열" },
         { name: "onChange", type: "(html: string) => void", description: "변경 콜백" },
         { name: "placeholder", type: "string", description: "플레이스홀더 텍스트" },
-        { name: "toolbar", type: "ToolbarOption[]", description: "툴바 옵션 (bold, italic, list 등)" },
+        {
+          name: "toolbar",
+          type: "ToolbarOption[]",
+          description: "툴바 옵션 (bold, italic, list 등)",
+        },
         { name: "minHeight", type: "number", description: "최소 높이 (px)" },
       ]}
     >

@@ -10,14 +10,16 @@
 import { css } from "../../core/styles.js";
 
 export default css`
-@layer junds.components {
-  jd-sticky {
-    display: block; box-sizing: border-box;
-    position: sticky;
-    z-index: var(--jd-affix-z, var(--jd-z-sticky));
-    top: var(--jd-affix-top, 0px);
-    bottom: var(--jd-affix-bottom, auto);
-    left: var(--jd-affix-left, auto);
-    right: var(--jd-affix-right, auto);
+  @layer junds.components {
+    jd-sticky {
+      display: block;
+      box-sizing: border-box;
+      position: sticky;
+      z-index: var(--jd-affix-z, var(--jd-z-sticky));
+      top: var(--jd-affix-top, 0px);
+      bottom: var(--jd-affix-bottom, auto);
+      left: var(--jd-affix-left, auto);
+      right: var(--jd-affix-right, auto);
+    }
   }
-}`;
+`;

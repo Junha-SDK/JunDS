@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "ColorSwatch",
   "oneLiner": "색상 팔레트에서 색을 선택하는 스와치.",
-  "tags": [
-    "data-display"
-  ],
+  "tags": ["data-display"],
   "controls": [],
   "snippets": {
     "web": null,

@@ -15,8 +15,18 @@ export default function TagInputPage() {
       importPath='import { TagInput } from "@/ds/composites/TagInput"'
       props={[
         { name: "value", type: "string[]", required: true, description: "현재 태그 목록" },
-        { name: "onChange", type: "(tags: string[]) => void", required: true, description: "태그 변경 핸들러" },
-        { name: "placeholder", type: "string", default: '"태그 입력 후 Enter"', description: "플레이스홀더" },
+        {
+          name: "onChange",
+          type: "(tags: string[]) => void",
+          required: true,
+          description: "태그 변경 핸들러",
+        },
+        {
+          name: "placeholder",
+          type: "string",
+          default: '"태그 입력 후 Enter"',
+          description: "플레이스홀더",
+        },
         { name: "maxTags", type: "number", description: "최대 태그 개수" },
         { name: "disabled", type: "boolean", description: "비활성화 여부" },
         { name: "error", type: "boolean", description: "오류 상태 스타일" },
@@ -34,7 +44,13 @@ export default function TagInputPage() {
       <Section title="크기 / 최대 개수">
         <Preview>
           <div className="flex flex-col gap-3 w-full max-w-md">
-            <TagInput size="sm" value={skills} onChange={setSkills} placeholder="스킬을 입력하세요 (최대 5개)" maxTags={5} />
+            <TagInput
+              size="sm"
+              value={skills}
+              onChange={setSkills}
+              placeholder="스킬을 입력하세요 (최대 5개)"
+              maxTags={5}
+            />
             <TagInput size="md" value={skills} onChange={setSkills} placeholder="medium" />
             <TagInput size="lg" value={skills} onChange={setSkills} placeholder="large" />
           </div>

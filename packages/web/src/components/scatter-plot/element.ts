@@ -196,8 +196,14 @@ export class JdScatterPlot extends JdCartesianChart {
       for (const p of s.data) {
         const dot = svgNode("circle", "jd-chart__point");
         const bubble = p.size !== undefined;
-        dot.setAttribute("cx", String(coord(this.padLeft + ((p.x - d.xMin) / xRange) * this.innerWidth)));
-        dot.setAttribute("cy", String(coord(this.baseY - ((p.y - d.yMin) / yRange) * this.innerHeight)));
+        dot.setAttribute(
+          "cx",
+          String(coord(this.padLeft + ((p.x - d.xMin) / xRange) * this.innerWidth)),
+        );
+        dot.setAttribute(
+          "cy",
+          String(coord(this.baseY - ((p.y - d.yMin) / yRange) * this.innerHeight)),
+        );
         // 음수 r은 SVG가 원을 통째로 지운다 — clamp
         dot.setAttribute("r", String(coord(Math.max(0, bubble ? p.size! : fallbackR))));
         if (bubble) dot.setAttribute("data-bubble", "");

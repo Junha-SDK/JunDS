@@ -38,17 +38,17 @@ export function Logo({ size = "md", href, showSubtitle = false }: LogoProps) {
         />
       </span>
       {showSubtitle ? (
-        <span
-          className="text-[11px] font-bold tracking-wider"
-          style={{ color: "var(--bm-muted)" }}
-        >
+        <span className="text-[11px] font-bold tracking-wider" style={{ color: "var(--bm-muted)" }}>
           BUTTERMONEY
         </span>
       ) : null}
     </span>
   );
   return href ? (
-    <Link href={href} className="inline-flex items-center">
+    <Link
+      href={href}
+      className="inline-flex items-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--bm-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bm-card)]"
+    >
       {inner}
     </Link>
   ) : (

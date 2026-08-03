@@ -4,10 +4,7 @@
   "category": "patterns",
   "title": "RichTextEditor",
   "oneLiner": "리치 텍스트 에디터 (contentEditable 기반)",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

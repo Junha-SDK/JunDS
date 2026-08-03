@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-mark 동형 — 형광펜 강조. A8 명명 규칙 Jd<이름>View(UILabel 서브클래스).
 // 배경형(기본)과 밑줄형 두 표면이고, 밑줄형은 배경 없이 밑줄 색만 팔레트를 따른다(웹 동형).
@@ -53,9 +53,10 @@ public final class JdMarkView: UILabel {
 
     private func applyContent() {
         // UILabel은 상속 서체가 없어 본문 기본(JdTextView 기본과 같은 md)을 쓴다
-        let font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .md).fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .md).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         var attributes: [NSAttributedString.Key: Any] = [.font: font]
 
         if underline {

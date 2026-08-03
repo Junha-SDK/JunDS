@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useReducer,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useReducer, type ReactNode } from "react";
 import type { LabState, NodeId, PropValue, TreeNode } from "./types";
 import { componentDefMap } from "./registry";
 
@@ -154,9 +149,8 @@ function labReducer(state: LabState, action: Action): LabState {
         oldParent.childNodes = removeFromArray(oldParent.childNodes, nodeId);
         nodes[oldParent.id] = oldParent;
       }
-      const rootIds = node.parentId === null
-        ? removeFromArray(state.rootIds, nodeId)
-        : [...state.rootIds];
+      const rootIds =
+        node.parentId === null ? removeFromArray(state.rootIds, nodeId) : [...state.rootIds];
 
       // Update node's parentId
       nodes[nodeId] = { ...node, parentId: newParentId };
@@ -193,18 +187,13 @@ function labReducer(state: LabState, action: Action): LabState {
         nodes[parent.id] = parent;
       }
 
-      const rootIds = node.parentId === null
-        ? removeFromArray(state.rootIds, action.nodeId)
-        : [...state.rootIds];
+      const rootIds =
+        node.parentId === null ? removeFromArray(state.rootIds, action.nodeId) : [...state.rootIds];
 
       const selectedId =
-        state.selectedId && toRemove.includes(state.selectedId)
-          ? null
-          : state.selectedId;
+        state.selectedId && toRemove.includes(state.selectedId) ? null : state.selectedId;
       const hoveredId =
-        state.hoveredId && toRemove.includes(state.hoveredId)
-          ? null
-          : state.hoveredId;
+        state.hoveredId && toRemove.includes(state.hoveredId) ? null : state.hoveredId;
 
       return { ...state, nodes, rootIds, selectedId, hoveredId };
     }
@@ -246,11 +235,7 @@ function labReducer(state: LabState, action: Action): LabState {
       const node = state.nodes[action.nodeId];
       if (!node) return state;
 
-      const { cloned, rootCloneId } = deepCloneNode(
-        action.nodeId,
-        state.nodes,
-        node.parentId,
-      );
+      const { cloned, rootCloneId } = deepCloneNode(action.nodeId, state.nodes, node.parentId);
       if (!rootCloneId) return state;
 
       const nodes = { ...state.nodes, ...cloned };
@@ -258,11 +243,7 @@ function labReducer(state: LabState, action: Action): LabState {
       if (node.parentId && nodes[node.parentId]) {
         const parent = { ...nodes[node.parentId] };
         const idx = parent.childNodes.indexOf(action.nodeId);
-        parent.childNodes = insertAtIndex(
-          parent.childNodes,
-          rootCloneId,
-          idx + 1,
-        );
+        parent.childNodes = insertAtIndex(parent.childNodes, rootCloneId, idx + 1);
         nodes[parent.id] = parent;
         return { ...state, nodes, selectedId: rootCloneId };
       }
@@ -296,11 +277,7 @@ const LabContext = createContext<LabCtx | null>(null);
 export function LabProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(labReducer, initialState);
 
-  return (
-    <LabContext.Provider value={{ state, dispatch }}>
-      {children}
-    </LabContext.Provider>
-  );
+  return <LabContext.Provider value={{ state, dispatch }}>{children}</LabContext.Provider>;
 }
 
 export function useLab(): LabCtx {

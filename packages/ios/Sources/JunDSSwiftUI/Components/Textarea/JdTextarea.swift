@@ -1,6 +1,6 @@
+import JunDSCore
 import SwiftUI
 import UIKit
-import JunDSCore
 
 // 웹 jd-textarea 동형 — 다행 입력 (DESIGN-2 §B1). TextEditor 기반.
 // 웹 error는 메시지 없는 boolean이다(jd-text-field의 메시지 문자열과 표면이 다름 — v2 실태).
@@ -26,12 +26,14 @@ public struct JdTextarea: View {
         return (probe.textContainer.lineFragmentPadding, probe.textContainerInset.top)
     }()
 
-    public init(text: Binding<String>,
-                placeholder: String = "",
-                rows: Int = 4,
-                maxLength: Int = 0,
-                isError: Bool = false,
-                showsCount: Bool = false) {
+    public init(
+        text: Binding<String>,
+        placeholder: String = "",
+        rows: Int = 4,
+        maxLength: Int = 0,
+        isError: Bool = false,
+        showsCount: Bool = false
+    ) {
         self._text = text
         self.placeholder = placeholder
         self.rows = rows
@@ -69,9 +71,12 @@ public struct JdTextarea: View {
         .overlay(alignment: .bottomTrailing) {
             if showsCount, maxLength > 0 {
                 Text("\(text.count)/\(maxLength)")
-                    .font(JdSwiftUIFont.scaled(size: spec.countFontSize,
-                                               weight: JdToken.FontWeight.normal,
-                                               category: sizeCategory))
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: spec.countFontSize,
+                            weight: JdToken.FontWeight.normal,
+                            category: sizeCategory)
+                    )
                     // muted-light는 AA 미달 → muted (웹 DEC-027 동형)
                     .foregroundColor(JdToken.Color.muted.color)
                     .padding(.trailing, JdToken.Space.s3)
@@ -80,15 +85,16 @@ public struct JdTextarea: View {
                     .accessibilityHidden(true)
             }
         }
-        .opacity(isEnabled ? 1 : JdToken.Opacity.o40) // 웹 :disabled opacity-40
+        .opacity(isEnabled ? 1 : JdToken.Opacity.o40)  // 웹 :disabled opacity-40
     }
 
     // MARK: - 파생 값
 
     private var font: Font {
-        JdSwiftUIFont.scaled(size: spec.fontSize,
-                             weight: JdToken.FontWeight.normal,
-                             category: sizeCategory)
+        JdSwiftUIFont.scaled(
+            size: spec.fontSize,
+            weight: JdToken.FontWeight.normal,
+            category: sizeCategory)
     }
 
     private var borderColor: Color {
@@ -106,9 +112,10 @@ public struct JdTextarea: View {
     /// 웹 maxlength 동형 — 초과 입력을 잘라낸다(프로그램 대입은 네이티브처럼 제한하지 않는다)
     private var boundedText: Binding<String> {
         let limit = maxLength
-        return Binding(get: { self.text },
-                       set: { newValue in
-                           self.text = limit > 0 ? String(newValue.prefix(limit)) : newValue
-                       })
+        return Binding(
+            get: { self.text },
+            set: { newValue in
+                self.text = limit > 0 ? String(newValue.prefix(limit)) : newValue
+            })
     }
 }

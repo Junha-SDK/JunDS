@@ -124,9 +124,13 @@ const sampleItems: CollectionItem[] = [
     tags: ["레이아웃", "접기"],
     preview: (
       <div className="w-full h-full bg-rose-50 flex flex-col items-center justify-center gap-1 px-6">
-        <div className="w-full max-w-[180px] h-6 bg-rose-200 rounded text-xs flex items-center px-2 text-rose-700">섹션 1 ▾</div>
+        <div className="w-full max-w-[180px] h-6 bg-rose-200 rounded text-xs flex items-center px-2 text-rose-700">
+          섹션 1 ▾
+        </div>
         <div className="w-full max-w-[180px] h-6 bg-white border border-rose-200 rounded" />
-        <div className="w-full max-w-[180px] h-6 bg-rose-200 rounded text-xs flex items-center px-2 text-rose-700">섹션 2 ▸</div>
+        <div className="w-full max-w-[180px] h-6 bg-rose-200 rounded text-xs flex items-center px-2 text-rose-700">
+          섹션 2 ▸
+        </div>
       </div>
     ),
   },
@@ -214,9 +218,7 @@ const sampleItems: CollectionItem[] = [
             <div
               key={i}
               className={`w-4 h-4 rounded text-[8px] flex items-center justify-center ${
-                i === 9
-                  ? "bg-pink-500 text-white"
-                  : "bg-white text-pink-400 border border-pink-100"
+                i === 9 ? "bg-pink-500 text-white" : "bg-white text-pink-400 border border-pink-100"
               }`}
             >
               {i + 1}
@@ -249,61 +251,62 @@ export default function CollectionViewPage() {
       description="아이템을 시각적으로 탐색할 수 있는 그리드/리스트 컬렉션 뷰. 검색, 카테고리 필터, 뷰 전환을 지원합니다."
       importPath='import { CollectionView } from "@/ds/composites/CollectionView"'
       props={[
-        { name: "items", type: "CollectionItem[]", required: true, description: "표시할 아이템 배열" },
+        {
+          name: "items",
+          type: "CollectionItem[]",
+          required: true,
+          description: "표시할 아이템 배열",
+        },
         { name: "view", type: '"grid" | "list"', default: '"grid"', description: "초기 뷰 모드" },
-        { name: "searchable", type: "boolean", default: "false", description: "검색 입력 표시 여부" },
-        { name: "filterable", type: "boolean", default: "false", description: "카테고리 필터 칩 표시 여부" },
+        {
+          name: "searchable",
+          type: "boolean",
+          default: "false",
+          description: "검색 입력 표시 여부",
+        },
+        {
+          name: "filterable",
+          type: "boolean",
+          default: "false",
+          description: "카테고리 필터 칩 표시 여부",
+        },
         { name: "columns", type: "2 | 3 | 4", default: "3", description: "그리드 컬럼 수" },
-        { name: "emptyMessage", type: "string", default: '"항목이 없습니다."', description: "빈 상태 메시지" },
+        {
+          name: "emptyMessage",
+          type: "string",
+          default: '"항목이 없습니다."',
+          description: "빈 상태 메시지",
+        },
         { name: "className", type: "string", description: "추가 CSS 클래스" },
       ]}
     >
       <Section title="기본 그리드 뷰">
         <Preview>
-          <CollectionView
-            items={sampleItems.slice(0, 6)}
-            columns={3}
-          />
+          <CollectionView items={sampleItems.slice(0, 6)} columns={3} />
         </Preview>
       </Section>
 
       <Section title="검색 + 카테고리 필터">
         <Preview>
-          <CollectionView
-            items={sampleItems}
-            searchable
-            filterable
-            columns={3}
-          />
+          <CollectionView items={sampleItems} searchable filterable columns={3} />
         </Preview>
       </Section>
 
       <Section title="리스트 뷰">
         <Preview>
-          <CollectionView
-            items={sampleItems.slice(0, 8)}
-            view="list"
-          />
+          <CollectionView items={sampleItems.slice(0, 8)} view="list" />
         </Preview>
       </Section>
 
       <Section title="2 컬럼 그리드">
         <Preview>
-          <CollectionView
-            items={sampleItems.slice(0, 4)}
-            columns={2}
-            searchable
-          />
+          <CollectionView items={sampleItems.slice(0, 4)} columns={2} searchable />
         </Preview>
       </Section>
 
       <Section title="4 컬럼 그리드">
         <Preview>
-          <CollectionView
-            items={sampleItems}
-            columns={4}
-            filterable
-          />
+          <CollectionView items={sampleItems} columns={4} filterable />
         </Preview>
       </Section>
 

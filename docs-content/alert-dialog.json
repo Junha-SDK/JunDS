@@ -4,10 +4,7 @@
   "category": "composites",
   "title": "AlertDialog",
   "oneLiner": "경고 다이얼로그 (배경 클릭으로 닫기 불가)",
-  "tags": [
-    "overlay",
-    "feedback"
-  ],
+  "tags": ["overlay", "feedback"],
   "controls": [],
   "snippets": {
     "web": null,

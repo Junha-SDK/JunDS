@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "Banner",
   "oneLiner": "배너 알림 컴포넌트",
-  "tags": [
-    "feedback"
-  ],
+  "tags": ["feedback"],
   "controls": [],
   "snippets": {
     "web": null,

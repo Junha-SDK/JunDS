@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 // 웹 jd-slider 동형 — UISlider 위임 + 헤더 행 + 마크 (DESIGN-2 §B1).
 // 웹이 네이티브 input[type=range]에 위임했듯 여기도 시스템 컨트롤을 쓴다(04 §10.1).
@@ -39,7 +39,7 @@ public final class JdSliderView: UIView {
     public var isEnabled: Bool = true {
         didSet {
             slider.isEnabled = isEnabled
-            alpha = isEnabled ? 1 : JdToken.Opacity.o50 // 웹 [disabled] opacity-50
+            alpha = isEnabled ? 1 : JdToken.Opacity.o50  // 웹 [disabled] opacity-50
         }
     }
 
@@ -65,13 +65,15 @@ public final class JdSliderView: UIView {
     private var storedValue: Double
     private var spec: JdSliderSpec
 
-    public init(value: Double = 0,
-                in bounds: ClosedRange<Double> = 0...100,
-                step: Double = 1,
-                color: JdSliderColor = .primary,
-                size: JdToggleSize = .md,
-                showsValue: Bool = false,
-                marks: [JdSliderMark] = []) {
+    public init(
+        value: Double = 0,
+        in bounds: ClosedRange<Double> = 0...100,
+        step: Double = 1,
+        color: JdSliderColor = .primary,
+        size: JdToggleSize = .md,
+        showsValue: Bool = false,
+        marks: [JdSliderMark] = []
+    ) {
         let axis = JdRangeState(bounds: bounds, step: step)
         self.valueBounds = bounds
         self.axis = axis
@@ -113,7 +115,7 @@ public final class JdSliderView: UIView {
 
         rootStack.axis = .vertical
         rootStack.alignment = .fill
-        rootStack.spacing = JdToken.Space.s1_5 // 웹 헤더 margin-bottom
+        rootStack.spacing = JdToken.Space.s1_5  // 웹 헤더 margin-bottom
         rootStack.addArrangedSubview(headerStack)
         rootStack.addArrangedSubview(slider)
         rootStack.addArrangedSubview(marksView)
@@ -144,14 +146,16 @@ public final class JdSliderView: UIView {
     }
 
     private func applyStyle() {
-        let font = JdFontBridge.scaledFont(size: spec.valueFontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: spec.valueFontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         minLabel.font = font
         maxLabel.font = font
-        displayLabel.font = JdFontBridge.scaledFont(size: spec.valueFontSize,
-                                                    weight: JdToken.FontWeight.semibold,
-                                                    compatibleWith: traitCollection)
+        displayLabel.font = JdFontBridge.scaledFont(
+            size: spec.valueFontSize,
+            weight: JdToken.FontWeight.semibold,
+            compatibleWith: traitCollection)
         minLabel.textColor = JdToken.Color.muted.uiColor
         maxLabel.textColor = JdToken.Color.muted.uiColor
         displayLabel.textColor = JdToken.Color.foreground.uiColor
@@ -244,8 +248,9 @@ private final class JdSliderMarksView: UIView {
             guard index < marks.count else { break }
             let size = item.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
             let center = width * CGFloat(axis.fraction(of: marks[index].value))
-            item.frame = CGRect(x: center - size.width / 2, y: 0,
-                                width: size.width, height: size.height)
+            item.frame = CGRect(
+                x: center - size.width / 2, y: 0,
+                width: size.width, height: size.height)
         }
     }
 
@@ -296,9 +301,10 @@ private final class JdSliderMarksView: UIView {
     }
 
     private func applyFonts() {
-        let font = JdFontBridge.scaledFont(size: JdTextSpec.resolve(size: .xs2).fontSize,
-                                           weight: JdToken.FontWeight.normal,
-                                           compatibleWith: traitCollection)
+        let font = JdFontBridge.scaledFont(
+            size: JdTextSpec.resolve(size: .xs2).fontSize,
+            weight: JdToken.FontWeight.normal,
+            compatibleWith: traitCollection)
         for label in labels {
             label.font = font
         }

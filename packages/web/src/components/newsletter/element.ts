@@ -71,7 +71,9 @@ export class JdNewsletter extends JdElement {
       this.#submit = this.querySelector<HTMLButtonElement>(".jd-newsletter__submit")!;
       this.#consentRow = this.querySelector<HTMLLabelElement>(".jd-newsletter__consent")!;
       this.#consent = this.#consentRow.querySelector("input")!;
-      this.#consentText = this.#consentRow.querySelector<HTMLSpanElement>(".jd-newsletter__consent-text")!;
+      this.#consentText = this.#consentRow.querySelector<HTMLSpanElement>(
+        ".jd-newsletter__consent-text",
+      )!;
       this.#message = this.querySelector<HTMLDivElement>(".jd-newsletter__message")!;
     } else {
       this.#build();

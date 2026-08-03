@@ -58,8 +58,15 @@ describe("search_components", () => {
   it("절단 명시 — 50 초과는 truncated:true", () => {
     const big = makeFixture();
     big.ledger.rows = Array.from({ length: 60 }, (_, i) => ({
-      id: `Comp${i}`, category: "composites", tier: "T2",
-      web: "todo", ios: "todo", docs: "todo", tests: "todo", bench: "todo", notes: "",
+      id: `Comp${i}`,
+      category: "composites",
+      tier: "T2",
+      web: "todo",
+      ios: "todo",
+      docs: "todo",
+      tests: "todo",
+      bench: "todo",
+      notes: "",
     }));
     const r = searchComponents(big, {});
     expect(r.total).toBe(60);

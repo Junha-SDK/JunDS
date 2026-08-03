@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "useInfiniteFeed",
   "oneLiner": "무한 스크롤 피드 로딩.",
-  "tags": [
-    "hook",
-    "스크롤",
-    "피드"
-  ],
+  "tags": ["hook", "스크롤", "피드"],
   "controls": [],
   "snippets": {
     "web": null,

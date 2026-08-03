@@ -11,7 +11,15 @@ export interface WrapProps extends Omit<BoxProps, "display" | "wrap"> {
 
 export const Wrap = forwardRef<HTMLElement, WrapProps>(
   ({ gap = "sm", justify, align = "center", ...props }, ref) => (
-    <Box ref={ref} display="flex" wrap="wrap" gap={gap} justify={justify} align={align} {...props} />
+    <Box
+      ref={ref}
+      display="flex"
+      wrap="wrap"
+      gap={gap}
+      justify={justify}
+      align={align}
+      {...props}
+    />
   ),
 );
 

@@ -4,9 +4,7 @@
   "category": "composites",
   "title": "ImageCropper",
   "oneLiner": "이미지를 잘라내는 크로퍼.",
-  "tags": [
-    "media"
-  ],
+  "tags": ["media"],
   "controls": [],
   "snippets": {
     "web": null,

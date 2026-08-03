@@ -39,9 +39,11 @@ export const LikeButton = forwardRef<HTMLButtonElement, LikeButtonProps>(
         aria-label={liked ? "좋아요 취소" : "좋아요"}
         onClick={() => onChange(!liked)}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-full font-medium transition-all cursor-pointer select-none",
+          "inline-flex items-center gap-1.5 rounded-full font-medium cursor-pointer select-none",
+          // 바뀌는 건 색과 눌림 스케일뿐이다 — transition-all 이면 padding·font-size 까지 대상이 된다.
+          "transition-[color,background-color,transform] duration-150 motion-reduce:transition-none",
           "hover:bg-surface-soft active:scale-95 motion-reduce:active:scale-100",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           liked ? "text-rose-500" : "text-muted",
           s.btn,
           className,
@@ -56,9 +58,16 @@ export const LikeButton = forwardRef<HTMLButtonElement, LikeButtonProps>(
           stroke="currentColor"
           strokeWidth={2}
           aria-hidden="true"
-          className={cn("transition-transform duration-200", liked && "scale-110 motion-reduce:scale-100")}
+          className={cn(
+            "transition-transform duration-200 motion-reduce:transition-none",
+            liked && "scale-110 motion-reduce:scale-100",
+          )}
         >
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeLinejoin="round" strokeLinecap="round" />
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
         </svg>
         {count !== undefined && <span className="tabular-nums">{count.toLocaleString()}</span>}
       </button>

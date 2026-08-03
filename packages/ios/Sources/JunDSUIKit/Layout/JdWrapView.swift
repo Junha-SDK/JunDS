@@ -1,5 +1,5 @@
-import UIKit
 import JunDSCore
+import UIKit
 
 /// 랩(줄바꿈) 컨테이너 — 웹 `jd-group`(row·wrap) / `jd-wrap` 동형, SwiftUI `JdFlowLayout`의
 /// UIKit 대응. (DEC-041)
@@ -49,12 +49,14 @@ public final class JdWrapView: UIView {
 
     private var items: [UIView] = []
 
-    public init(itemSpacing: CGFloat = JdToken.Space.s2,
-                lineSpacing: CGFloat? = nil,
-                equalWidths: Bool = false,
-                maxPerLine: Int? = nil,
-                minItemWidth: CGFloat = 0,
-                _ views: [UIView] = []) {
+    public init(
+        itemSpacing: CGFloat = JdToken.Space.s2,
+        lineSpacing: CGFloat? = nil,
+        equalWidths: Bool = false,
+        maxPerLine: Int? = nil,
+        minItemWidth: CGFloat = 0,
+        _ views: [UIView] = []
+    ) {
         self.itemSpacing = itemSpacing
         self.lineSpacing = lineSpacing ?? itemSpacing
         self.equalWidths = equalWidths
@@ -77,7 +79,7 @@ public final class JdWrapView: UIView {
         }
         items = views
         for view in views {
-            view.translatesAutoresizingMaskIntoConstraints = true // frame 배치
+            view.translatesAutoresizingMaskIntoConstraints = true  // frame 배치
             addSubview(view)
         }
         invalidateLayout()
@@ -101,7 +103,8 @@ public final class JdWrapView: UIView {
         guard bounds.width > 0 else {
             return CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
         }
-        return CGSize(width: UIView.noIntrinsicMetric, height: arrange(in: bounds.width, place: false))
+        return CGSize(
+            width: UIView.noIntrinsicMetric, height: arrange(in: bounds.width, place: false))
     }
 
     public override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -146,7 +149,9 @@ public final class JdWrapView: UIView {
                 index += 1
             }
             let lineHeight = line.map(\.size.height).max() ?? 0
-            if place { placeLine(line, y: y, lineHeight: lineHeight, maxWidth: maxWidth, isRTL: isRTL) }
+            if place {
+                placeLine(line, y: y, lineHeight: lineHeight, maxWidth: maxWidth, isRTL: isRTL)
+            }
             y += lineHeight + lineSpacing
         }
         return max(0, y - lineSpacing)
@@ -170,7 +175,9 @@ public final class JdWrapView: UIView {
             // 한 행의 셀 높이를 가장 큰 것으로 맞춘다(격자가 들쭉날쭉해지지 않게)
             let lineHeight = sized.map(\.size.height).max() ?? 0
             let stretched = sized.map { ($0.view, CGSize(width: itemWidth, height: lineHeight)) }
-            if place { placeLine(stretched, y: y, lineHeight: lineHeight, maxWidth: maxWidth, isRTL: isRTL) }
+            if place {
+                placeLine(stretched, y: y, lineHeight: lineHeight, maxWidth: maxWidth, isRTL: isRTL)
+            }
             y += lineHeight + lineSpacing
             index += perLine
         }
@@ -182,17 +189,20 @@ public final class JdWrapView: UIView {
         if let cap = maxPerLine, cap > 0 { perLine = min(perLine, cap) }
         if minItemWidth > 0 {
             // (n × min) + ((n-1) × spacing) <= maxWidth 를 만족하는 최대 n
-            let fitting = Int(((maxWidth + itemSpacing) / (minItemWidth + itemSpacing)).rounded(.down))
+            let fitting = Int(
+                ((maxWidth + itemSpacing) / (minItemWidth + itemSpacing)).rounded(.down))
             perLine = min(perLine, max(1, fitting))
         }
         return max(1, perLine)
     }
 
-    private func placeLine(_ line: [(view: UIView, size: CGSize)],
-                           y: CGFloat,
-                           lineHeight: CGFloat,
-                           maxWidth: CGFloat,
-                           isRTL: Bool) {
+    private func placeLine(
+        _ line: [(view: UIView, size: CGSize)],
+        y: CGFloat,
+        lineHeight: CGFloat,
+        maxWidth: CGFloat,
+        isRTL: Bool
+    ) {
         var x: CGFloat = 0
         for (view, size) in line {
             // 행 안 세로 중앙 정렬 (웹 align-items: center)

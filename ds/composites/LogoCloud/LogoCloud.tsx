@@ -49,14 +49,22 @@ export const LogoCloud = forwardRef<HTMLElement, LogoCloudProps>(function LogoCl
   ref,
 ) {
   const renderLogo = (l: LogoItem, i: number) => {
-    const inner = l.logo ?? (l.src ? <img src={l.src} alt={l.name} className="h-8 w-auto object-contain" /> : <span className="text-sm font-semibold text-muted">{l.name}</span>);
+    const inner =
+      l.logo ??
+      (l.src ? (
+        <img src={l.src} alt={l.name} className="h-8 w-auto object-contain" />
+      ) : (
+        <span className="text-sm font-semibold text-muted">{l.name}</span>
+      ));
     const wrap = (children: ReactNode) => (
       <div
         key={i}
         title={l.name}
         className={cn(
+          // `transition` 은 transform 까지 대상으로 삼는다 — 여기서 변하는 건 필터와 투명도뿐이다
           "flex items-center justify-center h-12 px-4",
-          grayscale && "grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition",
+          grayscale &&
+            "grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-[filter,opacity] duration-200 ease-out",
         )}
       >
         {children}
@@ -64,7 +72,14 @@ export const LogoCloud = forwardRef<HTMLElement, LogoCloudProps>(function LogoCl
     );
     if (l.href) {
       return (
-        <a key={i} href={l.href} target="_blank" rel="noopener noreferrer" aria-label={l.name}>
+        <a
+          key={i}
+          href={l.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={l.name}
+          className="rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/55 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
           {wrap(inner)}
         </a>
       );
@@ -74,14 +89,19 @@ export const LogoCloud = forwardRef<HTMLElement, LogoCloudProps>(function LogoCl
 
   return (
     <section ref={ref} className={cn("px-4 sm:px-6 py-10", className)} {...props}>
-      {title && <div className="text-center text-xs font-semibold uppercase tracking-wider text-muted mb-6">{title}</div>}
+      {title && (
+        <div className="text-center text-xs font-semibold uppercase tracking-wider text-muted mb-6">
+          {title}
+        </div>
+      )}
       {layout === "grid" ? (
         <div className={cn("max-w-5xl mx-auto grid gap-6 items-center", colMap[columns])}>
           {logos.map(renderLogo)}
         </div>
       ) : (
         <div className="overflow-hidden relative max-w-7xl mx-auto" aria-label="logos">
-          <div className="flex gap-10 animate-[junds-marquee_30s_linear_infinite] whitespace-nowrap">
+          {/* 끝없이 흐르는 띠는 감속 요청 대상 1순위다 — 멈추면 첫 벌이 그대로 보인다 */}
+          <div className="flex gap-10 animate-[junds-marquee_30s_linear_infinite] motion-reduce:animate-none whitespace-nowrap">
             {[...logos, ...logos].map(renderLogo)}
           </div>
           <style>{`@keyframes junds-marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>

@@ -4,11 +4,7 @@
   "category": "patterns",
   "title": "PricingPage",
   "oneLiner": "요금제 페이지 템플릿.",
-  "tags": [
-    "template",
-    "가격",
-    "마케팅"
-  ],
+  "tags": ["template", "가격", "마케팅"],
   "controls": [],
   "snippets": {
     "web": null,

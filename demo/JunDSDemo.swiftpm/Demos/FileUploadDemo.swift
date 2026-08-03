@@ -1,7 +1,7 @@
+import JunDS
 import SwiftUI
 import UIKit
 import UniformTypeIdentifiers
-import JunDS
 
 // FileUpload 데모 — 실컴포넌트 JdFileUploadZone(SwiftUI)/JdFileUploadZoneView(UIKit).
 //
@@ -124,15 +124,19 @@ private func uploadFootnote(fileNames: [String], failure: String?) -> some View 
             .font(.footnote)
             .foregroundColor(JdToken.Color.danger.color)
     } else if fileNames.isEmpty {
-        Text("드롭존을 탭하면 시스템 파일 피커가 열린다 — 컴포넌트는 피커를 만들지 않고 외형과 "
-             + "선택된 파일 목록 표시만 책임진다. 파일 행은 표시 전용이라 삭제 동작은 표면이 아니다.")
-            .font(.footnote)
-            .foregroundColor(.secondary)
+        Text(
+            "드롭존을 탭하면 시스템 파일 피커가 열린다 — 컴포넌트는 피커를 만들지 않고 외형과 "
+                + "선택된 파일 목록 표시만 책임진다. 파일 행은 표시 전용이라 삭제 동작은 표면이 아니다."
+        )
+        .font(.footnote)
+        .foregroundColor(.secondary)
     } else {
-        Text("선택된 파일 \(fileNames.count)개 — 목록은 시스템 피커가 돌려준 URL의 "
-             + "lastPathComponent다(파일 접근 자체는 데모의 관심사가 아니다).")
-            .font(.footnote)
-            .foregroundColor(.secondary)
+        Text(
+            "선택된 파일 \(fileNames.count)개 — 목록은 시스템 피커가 돌려준 URL의 "
+                + "lastPathComponent다(파일 접근 자체는 데모의 관심사가 아니다)."
+        )
+        .font(.footnote)
+        .foregroundColor(.secondary)
     }
 }
 

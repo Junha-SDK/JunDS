@@ -21,8 +21,18 @@ export default function StepperPage() {
       importPath='import { Stepper } from "@/ds/composites/Stepper"'
       props={[
         { name: "steps", type: "StepItem[]", required: true, description: "단계 목록" },
-        { name: "current", type: "number", required: true, description: "현재 단계 인덱스 (0부터)" },
-        { name: "direction", type: '"horizontal"|"vertical"', default: '"horizontal"', description: "방향" },
+        {
+          name: "current",
+          type: "number",
+          required: true,
+          description: "현재 단계 인덱스 (0부터)",
+        },
+        {
+          name: "direction",
+          type: '"horizontal"|"vertical"',
+          default: '"horizontal"',
+          description: "방향",
+        },
       ]}
     >
       <Section title="수평 스텝퍼">

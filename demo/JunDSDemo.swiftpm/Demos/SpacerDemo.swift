@@ -1,6 +1,6 @@
+import JunDS
 import SwiftUI
 import UIKit
-import JunDS
 
 // Spacer 데모 — 실컴포넌트 JdSpacer(SwiftUI) / JdSpacerView(UIKit).
 // 웹 jd-spacer는 vertical=padding-block, horizontal=padding-inline로 **양쪽**에 패딩을 주므로
@@ -119,10 +119,11 @@ private struct SpacerRep: UIViewRepresentable {
             JdSpacerView(size, axis: axis),
             spacerBlockView(axis: axis),
         ]
-        return JdStackView(axis: axis == .horizontal ? .horizontal : .vertical,
-                           gap: .none,
-                           alignment: .center,
-                           arranged: views)
+        return JdStackView(
+            axis: axis == .horizontal ? .horizontal : .vertical,
+            gap: .none,
+            alignment: .center,
+            arranged: views)
     }
 
     func updateUIView(_ stack: JdStackView, context: Context) {

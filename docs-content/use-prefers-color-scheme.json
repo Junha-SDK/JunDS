@@ -4,11 +4,7 @@
   "category": "hooks",
   "title": "usePrefersColorScheme",
   "oneLiner": "시스템 라이트·다크 선호 감지.",
-  "tags": [
-    "hook",
-    "theme",
-    "다크모드"
-  ],
+  "tags": ["hook", "theme", "다크모드"],
   "controls": [],
   "snippets": {
     "web": null,

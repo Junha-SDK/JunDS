@@ -11,8 +11,8 @@ export class JdIconButton extends JdElement {
   static override tag = "jd-icon-button";
   static override props = {
     variant: { type: String, default: "ghost", reflect: true }, // ghost | outline | filled
-    size: { type: String, default: "md", reflect: true },       // xs | sm | md | lg
-    label: { type: String },                                    // 접근성 라벨(필수)
+    size: { type: String, default: "md", reflect: true }, // xs | sm | md | lg
+    label: { type: String }, // 접근성 라벨(필수)
     type: { type: String, default: "button" },
     disabled: { type: Boolean, reflect: true },
   };

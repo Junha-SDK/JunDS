@@ -70,12 +70,8 @@ export class JdModal extends JdElement {
   protected render(): void {
     adoptStyles(modalStyles);
     // 입양 규칙(§3.3)
-    let backdrop = this.querySelector<HTMLDivElement>(
-      ":scope > .jd-modal__backdrop",
-    );
-    const panel = this.querySelector<HTMLDivElement>(
-      ":scope > .jd-modal__panel",
-    );
+    let backdrop = this.querySelector<HTMLDivElement>(":scope > .jd-modal__backdrop");
+    const panel = this.querySelector<HTMLDivElement>(":scope > .jd-modal__panel");
     if (panel && backdrop) {
       this.#panel = panel;
     } else {
@@ -94,11 +90,8 @@ export class JdModal extends JdElement {
 
   protected override connected(): void {
     // Behavior 수명은 own()이 관리(§1.2) — disconnected 시 자동 destroy
-    this.#trap = this.own(
-      createFocusTrap(this.#panel, { initialFocus: "[data-autofocus]" }),
-    );
-    if (this.open && !this.#wasOpen)
-      this.#applyOpenChange(true); // 재연결 복원
+    this.#trap = this.own(createFocusTrap(this.#panel, { initialFocus: "[data-autofocus]" }));
+    if (this.open && !this.#wasOpen) this.#applyOpenChange(true); // 재연결 복원
     else if (this.open) this.#trap.activate(); // 최초 연결: render가 이미 전이 적용 — 트랩만 늦게 합류
   }
 
@@ -124,10 +117,7 @@ export class JdModal extends JdElement {
         continue;
       }
       const previous = this.#syncedPanelAria.get(name);
-      if (
-        previous !== undefined &&
-        this.#panel.getAttribute(name) === previous
-      ) {
+      if (previous !== undefined && this.#panel.getAttribute(name) === previous) {
         this.#panel.removeAttribute(name);
       }
       this.#syncedPanelAria.delete(name);
@@ -166,11 +156,7 @@ export class JdModal extends JdElement {
 
   #requestClose(reason: "escape" | "backdrop" | "close"): void {
     if (!this.open) return;
-    const proceed = this.emit(
-      "jd-request-close",
-      { reason },
-      { cancelable: true },
-    );
+    const proceed = this.emit("jd-request-close", { reason }, { cancelable: true });
     if (proceed) this.open = false; // → update()가 전이 부수효과 수행
   }
 

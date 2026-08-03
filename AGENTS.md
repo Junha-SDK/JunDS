@@ -1,9 +1,11 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may
 all differ from your training data. Read the relevant guide in
 `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+
 <!-- END:nextjs-agent-rules -->
 
 ---
@@ -42,7 +44,12 @@ files first, in order:
    plus the 10 lowest-covered files. Re-run `npm run coverage:report`.
 10. **`.ai/css-vars.json`** — CSS custom properties from `app/globals.css`,
     grouped by selector and category. Read before referencing `var(--*)`.
-11. **`COMPONENTS.md`** — auto-generated component reference (regenerate
+11. **`.ai/layout-map.json`** — 레이아웃 **의도 → 3플랫폼 API** 대응표 (웹 태그 /
+    UIKit / SwiftUI) + 세 플랫폼이 공유하는 어휘(브레이크포인트·gap·align·container).
+    배치 관련 요청이면 코드를 뒤지기 전에 여기부터 본다. "좁으면 세로로 접기" 같은
+    의도로 찾는다 — CSS 속성명이나 UIStackView 용어가 아니라. 표에 적힌 심볼이 실제로
+    존재하는지는 `npm run layout-map:check`가 검증하므로 낡은 이름이 남아 있지 않다.
+12. **`COMPONENTS.md`** — auto-generated component reference (regenerate
     with `npm run docs:components`). Don't hand-edit.
 
 After these files, you usually do **not** need to glob anything.
@@ -125,15 +132,15 @@ scripts/             build-map, locate, run-server, etc.
 > `npm run scaffold <kind> <Name>` — it creates every file below in the
 > correct shape and registers the component in the search dictionary.
 
-| Intent | Touch these files |
-| --- | --- |
-| Add a new primitive `Foo` | `ds/primitives/Foo/Foo.tsx`, `ds/primitives/index.ts`, `ds/index.ts`, `ds/__tests__/primitives/Foo.test.tsx`, `app/design-system/primitives/foo/page.tsx`, `app/design-system/_data/search-dictionary.ts` |
-| Add a new composite `Foo` | same as above but under `ds/composites/Foo/` and `app/design-system/composites/foo/` |
-| Edit existing component behavior | the matching `ds/<kind>/<Name>/<Name>.tsx` + its test in `ds/__tests__/<kind>/<Name>.test.tsx` + the showcase page if behavior is visible |
-| Adjust design tokens | `ds/tokens/<token>.ts` + `app/design-system/tokens/page.tsx` + `app/globals.css` if it bridges to CSS vars |
-| Add or change a hook | `ds/hooks/<name>.ts`, `ds/hooks/index.ts` |
-| Fix a showcase route | `app/design-system/<kind>/<slug>/page.tsx` (kind = primitives/composites/patterns) |
-| Update the public API surface | `ds/index.ts` (root barrel) and the matching kind barrel |
+| Intent                           | Touch these files                                                                                                                                                                                         |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Add a new primitive `Foo`        | `ds/primitives/Foo/Foo.tsx`, `ds/primitives/index.ts`, `ds/index.ts`, `ds/__tests__/primitives/Foo.test.tsx`, `app/design-system/primitives/foo/page.tsx`, `app/design-system/_data/search-dictionary.ts` |
+| Add a new composite `Foo`        | same as above but under `ds/composites/Foo/` and `app/design-system/composites/foo/`                                                                                                                      |
+| Edit existing component behavior | the matching `ds/<kind>/<Name>/<Name>.tsx` + its test in `ds/__tests__/<kind>/<Name>.test.tsx` + the showcase page if behavior is visible                                                                 |
+| Adjust design tokens             | `ds/tokens/<token>.ts` + `app/design-system/tokens/page.tsx` + `app/globals.css` if it bridges to CSS vars                                                                                                |
+| Add or change a hook             | `ds/hooks/<name>.ts`, `ds/hooks/index.ts`                                                                                                                                                                 |
+| Fix a showcase route             | `app/design-system/<kind>/<slug>/page.tsx` (kind = primitives/composites/patterns)                                                                                                                        |
+| Update the public API surface    | `ds/index.ts` (root barrel) and the matching kind barrel                                                                                                                                                  |
 
 ## Conventions
 

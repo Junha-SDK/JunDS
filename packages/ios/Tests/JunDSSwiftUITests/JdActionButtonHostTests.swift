@@ -1,6 +1,6 @@
-import XCTest
-import SwiftUI
 import JunDS
+import SwiftUI
+import XCTest
 
 // SwiftUI 버튼 계열 호스팅 스모크 — 04 §8.2 "UIHostingController sizeThatFits > 0".
 // 렌더 내부(심볼·색)는 스냅샷 배치의 몫이고 여기서는 조립·크기 축 계약만 본다.

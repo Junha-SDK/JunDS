@@ -4,10 +4,7 @@
   "category": "primitives",
   "title": "FileUpload",
   "oneLiner": "파일 업로드 (드래그 앤 드롭 + 클릭)",
-  "tags": [
-    "form",
-    "input"
-  ],
+  "tags": ["form", "input"],
   "controls": [],
   "snippets": {
     "web": null,

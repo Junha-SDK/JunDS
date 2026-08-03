@@ -1,5 +1,5 @@
-import SwiftUI
 import JunDSCore
+import SwiftUI
 
 // 웹 jd-link 동형 — 앵커 프리미티브 (DESIGN-3 §C).
 // 실제 열기는 시스템이 한다(SwiftUI Link → openURL). destination이 nil이면 링크가 아니라
@@ -14,11 +14,13 @@ public struct JdLink: View {
     // 변경 시 재평가 + 값을 scaled에 명시 전달 (04 §6)
     @Environment(\.sizeCategory) private var sizeCategory
 
-    public init(_ text: String,
-                destination: URL?,
-                variant: JdLinkVariant = .default,
-                underline: Bool = true,
-                isExternal: Bool = false) {
+    public init(
+        _ text: String,
+        destination: URL?,
+        variant: JdLinkVariant = .default,
+        underline: Bool = true,
+        isExternal: Bool = false
+    ) {
         self.text = text
         self.destination = destination
         self.variant = variant
@@ -31,27 +33,33 @@ public struct JdLink: View {
         if let destination {
             Link(destination: destination) { run }
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(Text(JdLinkStyle.accessibilityText(text, isExternal: isExternal)))
+                .accessibilityLabel(
+                    Text(JdLinkStyle.accessibilityText(text, isExternal: isExternal))
+                )
                 .accessibilityAddTraits(.isLink)
         } else {
             run
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(Text(JdLinkStyle.accessibilityText(text, isExternal: isExternal)))
+                .accessibilityLabel(
+                    Text(JdLinkStyle.accessibilityText(text, isExternal: isExternal)))
         }
     }
 
     // MARK: 내부
 
     private var run: some View {
-        HStack(spacing: JdToken.Space.s1) { // 웹 gap: var(--jd-space-1)
+        HStack(spacing: JdToken.Space.s1) {  // 웹 gap: var(--jd-space-1)
             Text(text)
                 .underline(underline, color: JdLinkStyle.foreground(variant).color)
             if isExternal {
                 // 웹의 외부 링크 SVG 대응 — 장식이라 AT에서 감추고 의미는 라벨이 싣는다
                 Image(systemName: "arrow.up.right")
-                    .font(JdSwiftUIFont.scaled(size: JdTextSpec.resolve(size: .xs).fontSize,
-                                               weight: JdToken.FontWeight.medium,
-                                               category: sizeCategory))
+                    .font(
+                        JdSwiftUIFont.scaled(
+                            size: JdTextSpec.resolve(size: .xs).fontSize,
+                            weight: JdToken.FontWeight.medium,
+                            category: sizeCategory)
+                    )
                     .accessibilityHidden(true)
             }
         }

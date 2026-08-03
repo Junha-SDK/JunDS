@@ -15,7 +15,11 @@ describe("Tag", () => {
 
   it("renders close button when closable", () => {
     const onClose = vi.fn();
-    render(<Tag closable onClose={onClose}>삭제 가능</Tag>);
+    render(
+      <Tag closable onClose={onClose}>
+        삭제 가능
+      </Tag>,
+    );
     fireEvent.click(screen.getByLabelText("삭제"));
     expect(onClose).toHaveBeenCalledOnce();
   });

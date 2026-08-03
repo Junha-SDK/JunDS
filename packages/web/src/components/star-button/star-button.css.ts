@@ -9,32 +9,62 @@ import { css } from "../../core/styles.js";
  * "외관은 v2와 같게"). 크기는 토큰 스케일이 아니라 px 수치라 --_jd-star-size 변수로 받는다.
  */
 export default css`
-@layer junds.components {
-  jd-star-button { display: inline-flex; --_jd-star-size: 18px; }
+  @layer junds.components {
+    jd-star-button {
+      display: inline-flex;
+      --_jd-star-size: 18px;
+    }
 
-  .jd-star-button {
-    display: inline-flex; align-items: center; justify-content: center;
-    padding: var(--jd-space-1); border: 0; background: none; cursor: pointer;
-    line-height: 0; color: var(--jd-color-muted); border-radius: var(--jd-radius-md);
-    transition: color var(--jd-duration-fast) var(--jd-easing-ease-out),
-                background var(--jd-duration-fast) var(--jd-easing-ease-out),
-                transform var(--jd-duration-fast) var(--jd-easing-ease-out);
+    .jd-star-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--jd-space-1);
+      border: 0;
+      background: none;
+      cursor: pointer;
+      line-height: 0;
+      color: var(--jd-color-muted);
+      border-radius: var(--jd-radius-md);
+      transition: color var(--jd-duration-fast) var(--jd-easing-ease-out),
+        background var(--jd-duration-fast) var(--jd-easing-ease-out),
+        transform var(--jd-duration-fast) var(--jd-easing-ease-out);
+    }
+    .jd-star-button:hover:not(:disabled) {
+      color: var(--jd-color-warning);
+    }
+    .jd-star-button:active:not(:disabled) {
+      transform: scale(0.92);
+    }
+    .jd-star-button:disabled {
+      opacity: var(--jd-opacity-50);
+      cursor: not-allowed;
+    }
+    .jd-star-button:focus-visible {
+      outline: none;
+      box-shadow: var(--jd-shadow-focus-ring);
+    }
+
+    .jd-star-button__icon {
+      width: var(--_jd-star-size);
+      height: var(--_jd-star-size);
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* 활성 — v2: 획 색만 warning으로. 채우지 않는다. */
+    jd-star-button[active] .jd-star-button {
+      color: var(--jd-color-warning);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .jd-star-button {
+        transition: none;
+      }
+      .jd-star-button:active:not(:disabled) {
+        transform: none;
+      }
+    }
   }
-  .jd-star-button:hover:not(:disabled) { color: var(--jd-color-warning); }
-  .jd-star-button:active:not(:disabled) { transform: scale(0.92); }
-  .jd-star-button:disabled { opacity: var(--jd-opacity-50); cursor: not-allowed; }
-  .jd-star-button:focus-visible { outline: none; box-shadow: var(--jd-shadow-focus-ring); }
-
-  .jd-star-button__icon {
-    width: var(--_jd-star-size); height: var(--_jd-star-size);
-    fill: none; stroke: currentColor; stroke-width: 2;
-  }
-
-  /* 활성 — v2: 획 색만 warning으로. 채우지 않는다. */
-  jd-star-button[active] .jd-star-button { color: var(--jd-color-warning); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .jd-star-button { transition: none; }
-    .jd-star-button:active:not(:disabled) { transform: none; }
-  }
-}`;
+`;

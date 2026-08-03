@@ -96,7 +96,9 @@ export class JdCommandPalette extends JdModal {
     const search = panel.querySelector<HTMLElement>(":scope > .jd-command-palette__search");
     if (search) {
       this.#searchRow = search;
-      this.#input = panel.querySelector(":scope > .jd-command-palette__search .jd-command-palette__input");
+      this.#input = panel.querySelector(
+        ":scope > .jd-command-palette__search .jd-command-palette__input",
+      );
       this.#results = panel.querySelector(":scope > .jd-command-palette__results");
       this.#footer = panel.querySelector(":scope > .jd-command-palette__footer");
       this.#listId = this.#results?.id || jdUid("jd-cmdk-list");
@@ -152,7 +154,9 @@ export class JdCommandPalette extends JdModal {
   }
 
   #readJson(): void {
-    const script = this.querySelector<HTMLScriptElement>(':scope > script[type="application/json"]');
+    const script = this.querySelector<HTMLScriptElement>(
+      ':scope > script[type="application/json"]',
+    );
     if (!script?.textContent) return;
     try {
       const parsed = JSON.parse(script.textContent) as JdCommandItem[];
