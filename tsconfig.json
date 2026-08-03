@@ -21,9 +21,20 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@junds/ui": ["./ds/index.ts"]
+      "@junds/ui": ["./ds/index.ts"],
+      "@junds/web/*": ["./packages/web/src/components/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
-  "exclude": ["node_modules", "dist", ".next", "out", "coverage", "playwright-report", "test-results", "create-junds"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/dist",
+    ".next",
+    "out",
+    "coverage",
+    "playwright-report",
+    "test-results",
+    "create-junds"
+  ]
 }

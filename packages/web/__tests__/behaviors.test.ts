@@ -296,7 +296,7 @@ describe("input", () => {
     press(document.querySelector("#i")!);
     expect(fn).toHaveBeenCalledOnce(); // 입력 요소 안에서는 발동하지 않는다
 
-    b.update({ "ctrl+j": fn });
+    b.update!({ "ctrl+j": fn });
     press(document);
     expect(fn).toHaveBeenCalledOnce(); // 맵이 교체됨
     b.destroy();
