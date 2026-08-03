@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type StatTrend = "up" | "down" | "flat";
@@ -20,6 +21,8 @@ export interface StatProps extends HTMLAttributes<HTMLDivElement> {
   hint?: ReactNode;
   /** 레이아웃 정렬 */
   align?: "left" | "center";
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const trendStyles: Record<StatTrend, { color: string; arrow: string }> = {
@@ -37,15 +40,16 @@ const trendStyles: Record<StatTrend, { color: string; arrow: string }> = {
  * @tags data-display
  */
 export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
-  { label, value, unit, change, trend, hint, align = "left", className, ...props },
+  { label, value, unit, change, trend, hint, align = "left", asChild, className, children, ...props },
   ref,
 ) {
   const finalTrend: StatTrend =
     trend ?? (change === undefined ? "flat" : change > 0 ? "up" : change < 0 ? "down" : "flat");
   const t = trendStyles[finalTrend];
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         "flex flex-col gap-1",
         align === "center" && "items-center text-center",
@@ -53,6 +57,7 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
       )}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <div className="text-xs text-muted uppercase tracking-wider">{label}</div>
       <div className="flex items-baseline gap-1.5">
         <span className="text-2xl font-semibold tabular-nums">{value}</span>
@@ -64,6 +69,6 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
         )}
       </div>
       {hint && <div className="text-xs text-muted">{hint}</div>}
-    </div>
+    </Comp>
   );
 });

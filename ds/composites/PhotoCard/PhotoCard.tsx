@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface PhotoCardProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
@@ -22,6 +23,8 @@ export interface PhotoCardProps extends Omit<HTMLAttributes<HTMLElement>, "title
   interactive?: boolean;
   /** 우상단 배지 */
   badge?: ReactNode;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -44,13 +47,17 @@ export const PhotoCard = forwardRef<HTMLElement, PhotoCardProps>(
       aspectRatio = "4 / 5",
       interactive,
       badge,
+      asChild,
       className,
+      children,
       ...props
     },
     ref,
-  ) => (
-    <figure
-      ref={ref}
+  ) => {
+    const Comp = asChild ? Slot : "figure";
+    return (
+    <Comp
+      ref={ref as never}
       className={cn(
         "group rounded-xl overflow-hidden bg-surface border border-border",
         "shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.06)]",
@@ -64,6 +71,7 @@ export const PhotoCard = forwardRef<HTMLElement, PhotoCardProps>(
       )}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <div className="relative" style={{ aspectRatio }}>
         <img src={src} alt={alt} className="w-full h-full object-cover" loading="lazy" />
         {badge && (
@@ -88,7 +96,8 @@ export const PhotoCard = forwardRef<HTMLElement, PhotoCardProps>(
           )}
         </figcaption>
       )}
-    </figure>
-  ),
+    </Comp>
+    );
+  },
 );
 PhotoCard.displayName = "PhotoCard";

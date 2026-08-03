@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-03T02:35:49.605Z",
+  "generatedAt": "2026-08-03T03:04:27.804Z",
   "summary": {
     "migrated": 3,
-    "partial": 2,
-    "flat": 230,
+    "partial": 40,
+    "flat": 192,
     "legacy": 0,
     "total": 235
   },
@@ -34,11 +34,11 @@
     },
     {
       "file": "ds/composites/Affix/Affix.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/AlbumArt/AlbumArt.tsx",
@@ -114,11 +114,11 @@
     },
     {
       "file": "ds/composites/AutoHideHeader/AutoHideHeader.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/AutoPlayDemo/AutoPlayDemo.tsx",
@@ -226,11 +226,11 @@
     },
     {
       "file": "ds/composites/ButtonGroup/ButtonGroup.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/CTASection/CTASection.tsx",
@@ -634,11 +634,11 @@
     },
     {
       "file": "ds/composites/Hint/Hint.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/HoverCard/HoverCard.tsx",
@@ -738,11 +738,11 @@
     },
     {
       "file": "ds/composites/LoadingOverlay/LoadingOverlay.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/LoadingScreen/LoadingScreen.tsx",
@@ -818,11 +818,11 @@
     },
     {
       "file": "ds/composites/MonthPicker/MonthPicker.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/MultiSelect/MultiSelect.tsx",
@@ -842,11 +842,11 @@
     },
     {
       "file": "ds/composites/Newsletter/Newsletter.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/Notification/Notification.tsx",
@@ -882,19 +882,19 @@
     },
     {
       "file": "ds/composites/OnlineStatus/OnlineStatus.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/PageHeader/PageHeader.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/Pagination/Pagination.tsx",
@@ -906,19 +906,19 @@
     },
     {
       "file": "ds/composites/PasswordStrength/PasswordStrength.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/PhotoCard/PhotoCard.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/PhotoCarousel/PhotoCarousel.tsx",
@@ -938,11 +938,11 @@
     },
     {
       "file": "ds/composites/PhotoGrid/PhotoGrid.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/PhotoLightbox/PhotoLightbox.tsx",
@@ -962,11 +962,11 @@
     },
     {
       "file": "ds/composites/PieChart/PieChart.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/PollCard/PollCard.tsx",
@@ -994,27 +994,27 @@
     },
     {
       "file": "ds/composites/PriceDisplay/PriceDisplay.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/PricingTable/PricingTable.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/ProductCard/ProductCard.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/ProfileHeader/ProfileHeader.tsx",
@@ -1066,27 +1066,27 @@
     },
     {
       "file": "ds/composites/QuantitySelector/QuantitySelector.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/RadarChart/RadarChart.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/RadioCardGroup/RadioCardGroup.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/Rating/Rating.tsx",
@@ -1154,19 +1154,19 @@
     },
     {
       "file": "ds/composites/SankeyDiagram/SankeyDiagram.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/ScatterPlot/ScatterPlot.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/ScreenshotGrid/ScreenshotGrid.tsx",
@@ -1178,11 +1178,11 @@
     },
     {
       "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/ScrollSpy/ScrollSpy.tsx",
@@ -1282,11 +1282,11 @@
     },
     {
       "file": "ds/composites/SocialShare/SocialShare.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/SplitPane/SplitPane.tsx",
@@ -1322,11 +1322,11 @@
     },
     {
       "file": "ds/composites/Stat/Stat.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/StatCard/StatCard.tsx",
@@ -1386,11 +1386,11 @@
     },
     {
       "file": "ds/composites/TableOfContents/TocHeading.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/Tabs/Tabs.tsx",
@@ -1410,11 +1410,11 @@
     },
     {
       "file": "ds/composites/TestimonialCard/TestimonialCard.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/TextareaAutosize/TextareaAutosize.tsx",
@@ -1426,11 +1426,11 @@
     },
     {
       "file": "ds/composites/ThinkingIndicator/ThinkingIndicator.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/TimePicker/TimePicker.tsx",
@@ -1530,27 +1530,27 @@
     },
     {
       "file": "ds/composites/Watermark/Watermark.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/Waveform/Waveform.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/YearPicker/YearPicker.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/patterns/ActionBar/ActionBar.tsx",
@@ -1658,19 +1658,19 @@
     },
     {
       "file": "ds/patterns/FAQ/FAQ.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/patterns/FeatureGrid/FeatureGrid.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/patterns/FilterBar/FilterBar.tsx",
@@ -1690,11 +1690,11 @@
     },
     {
       "file": "ds/patterns/Form/Form.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/patterns/FormArray/FormArray.tsx",
@@ -1730,19 +1730,19 @@
     },
     {
       "file": "ds/patterns/GanttChart/GanttChart.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/patterns/HeroSection/HeroSection.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/patterns/InfiniteList/InfiniteList.tsx",
@@ -1802,11 +1802,11 @@
     },
     {
       "file": "ds/patterns/PricingPage/PricingPage.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx",
@@ -1826,16 +1826,16 @@
     },
     {
       "file": "ds/patterns/SettingsLayout/SettingsLayout.tsx",
-      "status": "flat",
+      "status": "partial",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/patterns/Sidebar/Sidebar.tsx",
-      "status": "flat",
-      "usesCreateCompound": false,
+      "status": "partial",
+      "usesCreateCompound": true,
       "usesObjectAssign": false,
       "usesAsChild": false,
       "usesSlot": false

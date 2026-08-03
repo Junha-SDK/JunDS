@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
 import { cn } from "../../utils/cn";
+import { createCompound } from "../../utils/createCompound";
 
 // ─── Context ────────────────────────────
 interface SidebarContextValue {
@@ -63,7 +64,7 @@ export interface SidebarProps {
  * @since 2.2.0
  * @tags navigation
  */
-export function DsSidebar({
+function SidebarRoot({
   header,
   footer,
   children,
@@ -184,3 +185,10 @@ export function SidebarSection({ title, children }: SidebarSectionProps) {
     </div>
   );
 }
+
+/** compound 표면 — 멤버로도 조립: `DsSidebar.Provider` / `DsSidebar.Link` / `DsSidebar.Section` */
+export const DsSidebar = createCompound(SidebarRoot, {
+  Provider: DsSidebarProvider,
+  Link: SidebarLink,
+  Section: SidebarSection,
+});

@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "../../utils/cn";
+import { Slot } from "../../utils/Slot";
 import type { ReactNode, CSSProperties } from "react";
 
 export interface AffixProps {
@@ -11,6 +12,8 @@ export interface AffixProps {
   zIndex?: number;
   /** 추가 클래스 */
   className?: string;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -28,11 +31,13 @@ export function Affix({
   position = { bottom: 20, right: 20 },
   zIndex = 40,
   className,
+  asChild,
 }: AffixProps) {
   const style: CSSProperties = { position: "fixed", zIndex, ...position };
+  const Comp = asChild ? Slot : "div";
   return (
-    <div className={cn(className)} style={style}>
+    <Comp className={cn(className)} style={style}>
       {children}
-    </div>
+    </Comp>
   );
 }

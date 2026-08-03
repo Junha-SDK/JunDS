@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import { useMemo } from "react";
 import type { ReactNode } from "react";
 
@@ -18,6 +19,8 @@ export interface WatermarkProps {
   gap?: number;
   /** 추가 클래스 */
   className?: string;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -39,6 +42,7 @@ export function Watermark({
   rotate = -22,
   gap = 100,
   className,
+  asChild,
 }: WatermarkProps) {
   const backgroundStyle = useMemo(() => {
     const canvas = typeof document !== "undefined" ? document.createElement("canvas") : null;
@@ -102,14 +106,15 @@ export function Watermark({
     };
   }, [text, fontSize, color, rotate, gap]);
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div className={cn("relative", className)}>
-      {children}
+    <Comp className={cn("relative", className)}>
+      {asChild ? <Slottable>{children}</Slottable> : children}
       <div
         className="absolute inset-0 pointer-events-none z-10"
         style={backgroundStyle}
         aria-hidden="true"
       />
-    </div>
+    </Comp>
   );
 }

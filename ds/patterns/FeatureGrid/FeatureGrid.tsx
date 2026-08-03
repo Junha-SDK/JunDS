@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface FeatureItem {
@@ -29,6 +30,8 @@ export interface FeatureGridProps extends Omit<HTMLAttributes<HTMLElement>, "tit
   columns?: 2 | 3 | 4;
   /** 레이아웃 종류 */
   layout?: FeatureGridLayout;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const colMap: Record<2 | 3 | 4, string> = {
@@ -46,15 +49,17 @@ const colMap: Record<2 | 3 | 4, string> = {
  * @tags marketing
  */
 export const FeatureGrid = forwardRef<HTMLElement, FeatureGridProps>(function FeatureGrid(
-  { title, subtitle, features, columns = 3, layout = "card", className, ...props },
+  { title, subtitle, features, columns = 3, layout = "card", asChild, className, children, ...props },
   ref,
 ) {
+  const Comp = asChild ? Slot : "section";
   return (
-    <section
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn("px-4 sm:px-6 py-12 sm:py-20 max-w-7xl mx-auto", className)}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {(title || subtitle) && (
         <div className="text-center mb-10 max-w-2xl mx-auto">
           {title && <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h2>}
@@ -120,6 +125,6 @@ export const FeatureGrid = forwardRef<HTMLElement, FeatureGridProps>(function Fe
           );
         })}
       </div>
-    </section>
+    </Comp>
   );
 });

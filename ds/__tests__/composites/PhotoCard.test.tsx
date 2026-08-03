@@ -7,4 +7,22 @@ describe("PhotoCard", () => {
     const { container } = render(<PhotoCard src="/p.jpg" alt="사진" />);
     expect(container.firstChild).toBeTruthy();
   });
+
+  it("asChild renders the child element as root and merges className", () => {
+    const { container } = render(
+      <PhotoCard asChild src="/p.jpg" alt="사진" className="extra-class">
+        <a href="#" className="child">
+          y
+        </a>
+      </PhotoCard>,
+    );
+    const root = container.firstElementChild;
+    expect(root?.tagName).toBe("A");
+    expect(root?.className).toContain("rounded-xl");
+    expect(root?.className).toContain("extra-class");
+    expect(root?.className).toContain("child");
+    // 래퍼 figure 가 생기지 않는다
+    expect(container.querySelector("figure")).toBeNull();
+    expect(root?.parentElement).toBe(container);
+  });
 });

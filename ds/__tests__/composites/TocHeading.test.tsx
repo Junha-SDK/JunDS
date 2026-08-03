@@ -1,22 +1,21 @@
 import { render } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { ScatterPlot } from "../../composites/ScatterPlot";
+import { TocHeading } from "../../composites/TableOfContents/TocHeading";
 
-describe("ScatterPlot", () => {
+describe("TocHeading", () => {
   it("renders", () => {
-    const { container } = render(
-      <ScatterPlot series={[{ name: "a", data: [{ x: 1, y: 2 }] }]} data-testid="root" />,
-    );
-    expect(container.firstChild).toBeTruthy();
+    const { container } = render(<TocHeading level={2}>들어가며</TocHeading>);
+    const root = container.firstElementChild as HTMLElement;
+    expect(root.tagName).toBe("H2");
   });
 
   it("asChild 로 자식 엘리먼트가 root 가 되고 className 이 병합된다", () => {
     const { container } = render(
-      <ScatterPlot asChild className="extra" series={[{ name: "a", data: [{ x: 1, y: 2 }] }]}>
+      <TocHeading asChild className="extra" label="y">
         <a href="#" className="child">
           y
         </a>
-      </ScatterPlot>,
+      </TocHeading>,
     );
     const root = container.firstElementChild as HTMLElement;
     expect(root.tagName).toBe("A");

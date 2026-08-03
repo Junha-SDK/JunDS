@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type ThinkingVariant = "dots" | "pulse" | "wave" | "typewriter";
@@ -12,6 +13,8 @@ export interface ThinkingIndicatorProps extends HTMLAttributes<HTMLDivElement> {
   label?: ReactNode;
   /** 점 색상 */
   color?: string;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -23,16 +26,21 @@ export interface ThinkingIndicatorProps extends HTMLAttributes<HTMLDivElement> {
  * @tags feedback
  */
 export const ThinkingIndicator = forwardRef<HTMLDivElement, ThinkingIndicatorProps>(
-  function ThinkingIndicator({ variant = "dots", label, color, className, ...props }, ref) {
+  function ThinkingIndicator(
+    { variant = "dots", label, color, asChild, className, children, ...props },
+    ref,
+  ) {
+    const Comp = asChild ? Slot : "div";
     return (
-      <div
-        ref={ref}
+      <Comp
+        ref={ref as never}
         role="status"
         aria-live="polite"
         aria-label={typeof label === "string" ? label : "응답을 생성 중입니다"}
         className={cn("inline-flex items-center gap-2 text-sm text-muted", className)}
         {...props}
       >
+        {asChild ? <Slottable>{children}</Slottable> : null}
         {label && <span>{label}</span>}
         {variant === "dots" && (
           <span className="inline-flex items-center gap-1">
@@ -99,7 +107,7 @@ export const ThinkingIndicator = forwardRef<HTMLDivElement, ThinkingIndicatorPro
           50% { opacity: 0; }
         }
       `}</style>
-      </div>
+      </Comp>
     );
   },
 );

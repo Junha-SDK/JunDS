@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useEffect, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import { useT } from "../../providers/I18nProvider";
 import type { HTMLAttributes } from "react";
 
@@ -15,6 +16,8 @@ export interface ScrollProgressProps extends HTMLAttributes<HTMLDivElement> {
   target?: HTMLElement | null;
   /** 스크린리더용 라벨 (기본 "페이지 스크롤 진행률") */
   "aria-label"?: string;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -32,9 +35,11 @@ export const ScrollProgress = forwardRef<HTMLDivElement, ScrollProgressProps>(
       color,
       thickness = 3,
       target,
+      asChild,
       className,
       style,
       "aria-label": ariaLabel,
+      children,
       ...props
     },
     ref,
@@ -68,9 +73,10 @@ export const ScrollProgress = forwardRef<HTMLDivElement, ScrollProgressProps>(
       };
     }, [target]);
 
+    const Comp = asChild ? Slot : "div";
     return (
-      <div
-        ref={ref}
+      <Comp
+        ref={ref as never}
         role="progressbar"
         aria-label={ariaLabel ?? t("ariaScrollProgress")}
         aria-valuenow={Math.round(progress)}
@@ -84,12 +90,13 @@ export const ScrollProgress = forwardRef<HTMLDivElement, ScrollProgressProps>(
         style={{ height: thickness, ...style }}
         {...props}
       >
+        {asChild ? <Slottable>{children}</Slottable> : null}
         <div
           // 폭이 스크롤을 따라 흐른다 — 감속 요청이면 스크롤 위치에 즉시 붙는다.
           className="h-full transition-[width] duration-100 ease-out motion-reduce:transition-none"
           style={{ width: `${progress}%`, background: color ?? "var(--primary)" }}
         />
-      </div>
+      </Comp>
     );
   },
 );

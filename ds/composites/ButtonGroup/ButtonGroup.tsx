@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "../../utils/cn";
+import { Slot } from "../../utils/Slot";
 import type { ReactNode } from "react";
 
 export interface ButtonGroupProps {
@@ -11,6 +12,8 @@ export interface ButtonGroupProps {
   fullWidth?: boolean;
   /** 추가 클래스 */
   className?: string;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -25,9 +28,16 @@ export interface ButtonGroupProps {
  * @since 2.2.0
  * @tags form, control
  */
-export function ButtonGroup({ children, separated, fullWidth, className }: ButtonGroupProps) {
+export function ButtonGroup({
+  children,
+  separated,
+  fullWidth,
+  className,
+  asChild,
+}: ButtonGroupProps) {
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
+    <Comp
       className={cn(
         "inline-flex",
         fullWidth && "w-full",
@@ -39,6 +49,6 @@ export function ButtonGroup({ children, separated, fullWidth, className }: Butto
       role="group"
     >
       {children}
-    </div>
+    </Comp>
   );
 }

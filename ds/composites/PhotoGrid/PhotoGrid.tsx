@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type PhotoGridLayout = "uniform" | "masonry" | "mosaic";
@@ -14,6 +15,8 @@ export interface PhotoGridProps extends HTMLAttributes<HTMLDivElement> {
   columns?: 2 | 3 | 4 | 5;
   /** 간격 (Tailwind gap 키) */
   gap?: 1 | 2 | 3 | 4;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const colsMap: Record<NonNullable<PhotoGridProps["columns"]>, string> = {
@@ -46,11 +49,12 @@ const masonryColsMap: Record<NonNullable<PhotoGridProps["columns"]>, string> = {
  * @tags photo, layout
  */
 export const PhotoGrid = forwardRef<HTMLDivElement, PhotoGridProps>(
-  ({ children, layout = "uniform", columns = 3, gap = 2, className, ...props }, ref) => {
+  ({ children, layout = "uniform", columns = 3, gap = 2, asChild, className, ...props }, ref) => {
+    const Comp = asChild ? Slot : "div";
     if (layout === "masonry") {
       return (
-        <div
-          ref={ref}
+        <Comp
+          ref={ref as never}
           className={cn(
             masonryColsMap[columns],
             gapMap[gap],
@@ -60,13 +64,13 @@ export const PhotoGrid = forwardRef<HTMLDivElement, PhotoGridProps>(
           {...props}
         >
           {children}
-        </div>
+        </Comp>
       );
     }
     if (layout === "mosaic") {
       return (
-        <div
-          ref={ref}
+        <Comp
+          ref={ref as never}
           className={cn(
             "grid grid-cols-4 grid-rows-2",
             gapMap[gap],
@@ -76,13 +80,17 @@ export const PhotoGrid = forwardRef<HTMLDivElement, PhotoGridProps>(
           {...props}
         >
           {children}
-        </div>
+        </Comp>
       );
     }
     return (
-      <div ref={ref} className={cn("grid", colsMap[columns], gapMap[gap], className)} {...props}>
+      <Comp
+        ref={ref as never}
+        className={cn("grid", colsMap[columns], gapMap[gap], className)}
+        {...props}
+      >
         {children}
-      </div>
+      </Comp>
     );
   },
 );

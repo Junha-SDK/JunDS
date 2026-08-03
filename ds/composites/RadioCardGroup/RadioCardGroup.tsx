@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface RadioCardOption {
@@ -32,6 +33,8 @@ export interface RadioCardGroupProps
   name?: string;
   /** 컬럼 수 */
   columns?: number;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -44,7 +47,18 @@ export interface RadioCardGroupProps
  */
 export const RadioCardGroup = forwardRef<HTMLDivElement, RadioCardGroupProps>(
   function RadioCardGroup(
-    { options, value, defaultValue, onChange, name, columns = 1, className, ...props },
+    {
+      options,
+      value,
+      defaultValue,
+      onChange,
+      name,
+      columns = 1,
+      asChild,
+      className,
+      children,
+      ...props
+    },
     ref,
   ) {
     const [internal, setInternal] = useState(defaultValue ?? "");
@@ -55,14 +69,16 @@ export const RadioCardGroup = forwardRef<HTMLDivElement, RadioCardGroupProps>(
       onChange?.(v);
     };
 
+    const Comp = asChild ? Slot : "div";
     return (
-      <div
-        ref={ref}
+      <Comp
+        ref={ref as never}
         role="radiogroup"
         className={cn("grid gap-2", className)}
         style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
         {...props}
       >
+        {asChild ? <Slottable>{children}</Slottable> : null}
         {options.map((opt) => {
           const isSelected = opt.value === selected;
           return (
@@ -100,7 +116,7 @@ export const RadioCardGroup = forwardRef<HTMLDivElement, RadioCardGroupProps>(
             </label>
           );
         })}
-      </div>
+      </Comp>
     );
   },
 );

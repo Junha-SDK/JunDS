@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface ProductCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
@@ -34,6 +35,8 @@ export interface ProductCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   outOfStockLabel?: string;
   /** 카드 클릭 (상세 이동) */
   onClick?: () => void;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -61,14 +64,17 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(function
     disabled,
     outOfStockLabel = "품절",
     onClick,
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
 ) {
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         "relative group rounded-xl border border-border bg-surface overflow-hidden",
         "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.12)] transition-shadow duration-200",
@@ -81,6 +87,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(function
       onClick={!disabled ? onClick : undefined}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {badge && (
         <span className="absolute top-2 left-2 z-10 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-danger text-white">
           {badge}
@@ -171,6 +178,6 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(function
           </button>
         )}
       </div>
-    </div>
+    </Comp>
   );
 });

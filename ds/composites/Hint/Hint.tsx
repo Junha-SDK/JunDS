@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type HintVariant = "info" | "tip" | "warning" | "muted";
@@ -10,6 +11,8 @@ export interface HintProps extends HTMLAttributes<HTMLDivElement> {
   variant?: HintVariant;
   /** 좌측 아이콘 */
   icon?: ReactNode;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
   /** 본문 */
   children: ReactNode;
 }
@@ -38,12 +41,13 @@ const defaultIcons: Record<HintVariant, ReactNode> = {
  * @tags feedback
  */
 export const Hint = forwardRef<HTMLDivElement, HintProps>(function Hint(
-  { variant = "muted", icon, children, className, ...props },
+  { variant = "muted", icon, asChild, children, className, ...props },
   ref,
 ) {
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         "inline-flex items-start gap-1.5 text-xs leading-snug",
         variantClass[variant],
@@ -54,7 +58,7 @@ export const Hint = forwardRef<HTMLDivElement, HintProps>(function Hint(
       <span className="shrink-0 mt-px" aria-hidden="true">
         {icon ?? defaultIcons[variant]}
       </span>
-      <span>{children}</span>
-    </div>
+      {asChild ? <Slottable>{children}</Slottable> : <span>{children}</span>}
+    </Comp>
   );
 });

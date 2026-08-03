@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useMemo } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export interface GanttTask {
@@ -31,6 +32,8 @@ export interface GanttChartProps extends Omit<HTMLAttributes<HTMLDivElement>, "o
   labelWidth?: number;
   /** 태스크 선택 콜백 */
   onSelect?: (task: GanttTask) => void;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const DAY_MS = 86400000;
@@ -52,7 +55,17 @@ function dayDiff(a: Date, b: Date): number {
  * @tags chart
  */
 export const GanttChart = forwardRef<HTMLDivElement, GanttChartProps>(function GanttChart(
-  { tasks, dayWidth = 24, rowHeight = 32, labelWidth = 160, onSelect, className, ...props },
+  {
+    tasks,
+    dayWidth = 24,
+    rowHeight = 32,
+    labelWidth = 160,
+    onSelect,
+    asChild,
+    className,
+    children,
+    ...props
+  },
   ref,
 ) {
   const { minDate, totalDays, weeks } = useMemo(() => {
@@ -73,17 +86,24 @@ export const GanttChart = forwardRef<HTMLDivElement, GanttChartProps>(function G
 
   const totalWidth = totalDays * dayWidth;
 
+  const Comp = asChild ? Slot : "div";
+
   if (tasks.length === 0) {
     return (
-      <div ref={ref} className={cn("p-6 text-sm text-muted text-center", className)} {...props}>
+      <Comp
+        ref={ref as never}
+        className={cn("p-6 text-sm text-muted text-center", className)}
+        {...props}
+      >
+        {asChild ? <Slottable>{children}</Slottable> : null}
         표시할 태스크가 없습니다.
-      </div>
+      </Comp>
     );
   }
 
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       // 넓은 타임라인이 페이지를 밀지 않도록 스크롤을 이 상자 안에서 끝낸다
       className={cn(
         "border border-border rounded-xl overflow-auto overscroll-x-contain bg-surface",
@@ -92,6 +112,7 @@ export const GanttChart = forwardRef<HTMLDivElement, GanttChartProps>(function G
       )}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <div className="flex" style={{ minWidth: labelWidth + totalWidth }}>
         {/* Sticky left labels */}
         <div
@@ -167,6 +188,6 @@ export const GanttChart = forwardRef<HTMLDivElement, GanttChartProps>(function G
           })}
         </div>
       </div>
-    </div>
+    </Comp>
   );
 });

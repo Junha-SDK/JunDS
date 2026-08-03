@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export type QuantitySize = "sm" | "md" | "lg";
@@ -24,6 +25,8 @@ export interface QuantitySelectorProps extends Omit<HTMLAttributes<HTMLDivElemen
   size?: QuantitySize;
   /** input 직접 편집 허용 */
   editable?: boolean;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const sizeMap: Record<QuantitySize, { btn: string; input: string }> = {
@@ -52,7 +55,9 @@ export const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps
       disabled,
       size = "md",
       editable = true,
+      asChild,
       className,
+      children,
       ...props
     },
     ref,
@@ -72,9 +77,10 @@ export const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps
 
     const sz = sizeMap[size];
 
+    const Comp = asChild ? Slot : "div";
     return (
-      <div
-        ref={ref}
+      <Comp
+        ref={ref as never}
         role="group"
         aria-label="수량"
         className={cn(
@@ -83,6 +89,7 @@ export const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps
         )}
         {...props}
       >
+        {asChild ? <Slottable>{children}</Slottable> : null}
         <button
           type="button"
           onClick={dec}
@@ -138,7 +145,7 @@ export const QuantitySelector = forwardRef<HTMLDivElement, QuantitySelectorProps
         >
           +
         </button>
-      </div>
+      </Comp>
     );
   },
 );

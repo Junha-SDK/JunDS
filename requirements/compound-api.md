@@ -213,6 +213,17 @@ export const Foo = createCompound(FooRoot, {
 
 ## Changelog
 
+- 2026-08-03 (2차) — **일괄 마이그레이션 웨이브 실증**: flat 228종을 5배치로
+  전수 검토해 asChild 성립 조건을 실측했다. 결과 **37종 마이그레이션 완료**
+  (children 직속 root 는 단순 Slot 치환, 내부 구조 보유 root 는 Button reference
+  의 `Slottable` 패턴) + `DsSidebar` 를 `createCompound` 멤버 표면
+  (`Provider`/`Link`/`Section`)으로 승격. 나머지 191종은 **구조적으로 위임이
+  성립하지 않아** 스킵 — 사유 4범주: (a) root 가 spread props 를 받지 않는
+  닫힌 인터페이스 (최다, ~90종 — 위임하려면 공개 API 확장이 선행돼야 함),
+  (b) children 이 root 직속이 아닌 내부 슬롯, (c) portal·조건부 null·Fragment
+  root, (d) svg/canvas root. 따라서 "137개 전부 asChild" 는 목표로서 성립하지
+  않으며, 이후 작업은 (a) 범주의 API 확장 여부를 컴포넌트별로 결정하는 일이다
+  (각 배치 보고에 파일 단위 사유 기록).
 - 2026-08-03 — 미구현 인프라 완성: (1) `createCompound` dev 검사 추가 — 멤버 키
   중복 `console.warn` + sub-member `asChild` 사용 시
   `console.error("[JunDS] sub-member에는 asChild를 사용할 수 없습니다…")` 가드,

@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useMemo } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export interface SankeyNode {
@@ -33,6 +34,8 @@ export interface SankeyDiagramProps extends HTMLAttributes<HTMLDivElement> {
   nodeWidth?: number;
   /** 노드 사이 간격 */
   nodeGap?: number;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const DEFAULT_COLORS = [
@@ -86,7 +89,18 @@ function autoColumns(nodes: SankeyNode[], links: SankeyLink[]): Map<string, numb
  * @tags chart
  */
 export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(function SankeyDiagram(
-  { nodes, links, width = 560, height = 320, nodeWidth = 14, nodeGap = 8, className, ...props },
+  {
+    nodes,
+    links,
+    width = 560,
+    height = 320,
+    nodeWidth = 14,
+    nodeGap = 8,
+    asChild,
+    className,
+    children,
+    ...props
+  },
   ref,
 ) {
   const { resolved, columns, linkPaths } = useMemo(() => {
@@ -181,8 +195,10 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(func
   const colCount = columns.length;
   const colWidth = (width - nodeWidth) / Math.max(1, colCount - 1);
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div ref={ref} className={cn("inline-block max-w-full", className)} {...props}>
+    <Comp ref={ref as never} className={cn("inline-block max-w-full", className)} {...props}>
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {/* viewBox 는 이미 있었지만 CSS 로 크기를 풀어 주지 않아 좁은 칸에서 그대로 넘쳤다. */}
       <svg
         width={width}
@@ -231,6 +247,6 @@ export const SankeyDiagram = forwardRef<HTMLDivElement, SankeyDiagramProps>(func
           );
         })}
       </svg>
-    </div>
+    </Comp>
   );
 });
