@@ -4,6 +4,27 @@
 
 ---
 
+## 2026-08-03 — 차트 8종 출고 (finance iOS 13→21/86, 원장 141→149/468)
+
+### DEC-052. 차트 8종은 계산을 Core 에 모으고 렌더는 한 패스로 그린다
+
+사람 지시: "나머지도 진행해 달라." DEC-049 가 세운 `JdChartGeometry` 위에 남은 차트
+8종(Area·Candle·Donut·MultiLine·QuarterBar·RealCandle·MarketIndex·InvestorFlow)을
+출고했다. 규율은 그대로다 — 좌표·눈금·판정은 Core spec(`JdChartAxisSpecs`·
+`JdChartSeriesSpecs`·`JdCandleChartSpecs`)이 정본이고, SwiftUI 는 Canvas 한 패스,
+UIKit 은 `draw(_:)` 한 패스로 결과만 그린다. 스펙 테스트 51종은 뷰보다 먼저,
+손검산 좌표로 작성했다 (DEC-048).
+
+웹과 의도적으로 다른 것: hover 크로스헤어·툴팁은 마우스 전용이라 미이식,
+RealCandle·MarketIndex·InvestorFlow 는 fetch 없이 **데이터 주입 뷰**(라이브 배선은
+후속), 거래량 막대색은 리터럴 대신 `JdFinanceTheme.up/down` 55% 워시, Donut 은
+0·음수·NaN 조각을 거른다(웹은 안 걸러 음수가 각도를 망친다). 전체 목록은
+`packages/ios/USAGE/07-finance-charts.md` 에 표로 기록.
+
+검증: `npm run ios:build` 성공, iPhone 17 시뮬레이터 902/902 통과.
+
+---
+
 ## 2026-07-28 — v2가 늘어난 자리의 처분
 
 ### DEC-051. v2에 새로 생긴 변수 37종의 처분 — 승격 5 · 미승격 32

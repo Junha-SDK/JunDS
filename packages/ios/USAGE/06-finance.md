@@ -81,7 +81,7 @@ JdFinanceTheme.down = JdDynamicColor(light: 0x2563EBFF, dark: 0x60A5FAFF)
 
 ### 차트 좌표는 Core가 만든다
 
-그래픽 계열(지금은 Sparkline, 앞으로 차트 8종)은 **그리기 전에 좌표를 Core에 묻는다**
+그래픽 계열(Sparkline + [07의 차트 8종](07-finance-charts.md))은 **그리기 전에 좌표를 Core에 묻는다**
 (`JdChartGeometry`). SwiftUI `Canvas`와 UIKit `draw(_:)`가 같은 산수를 각자 구현하면 두
 계층의 그림이 서로 어긋나기 때문이다.
 
