@@ -55,8 +55,9 @@ DEC-049의 차트 8종. 전부 같은 구조다 — **좌표·눈금·판정은 
 ### 웹 계약 중 옮기지 않은 것
 
 - **hover 크로스헤어·툴팁**(Area·MultiLine·Candle) — 마우스 전용 DOM 상호작용.
-- **CandleChart 기술 지표 15종**(RSI·MACD·Bollinger·Ichimoku·VolumeProfile 등 서브패널),
-  이벤트 마커, heikin/line/area 표현 변형(area는 `JdAreaChart` 담당), compareLine — 후속.
+- **CandleChart 기술 지표 서브패널**(RSI·MACD 등을 그리는 패널 UI), 이벤트 마커,
+  line/area 표현 변형(area는 `JdAreaChart` 담당), compareLine — 후속.
+  단, **지표 계산 자체는 이식됐다** — 아래 [지표 계산 17종](#지표-계산-17종--jdchartindicators) 참고.
 - **RealCandleChart의 fetch·폴링·"Yahoo에서 보기" 링크** — 데이터/내비게이션은 앱의 몫.
 
 ---
@@ -287,3 +288,56 @@ ScrollView {
     .padding(JdToken.Space.s4)
 }
 ```
+
+---
+
+## 지표 계산 17종 — `JdChartIndicators`
+
+웹 `ds/finance/lib/chartIndicators.ts`의 이식. 전부 **순수 함수**(Core, UI 없음)이고,
+시리즈 함수는 입력과 **같은 길이**를 반환한다 — 웜업 구간은 웹의 `null`처럼 `nil`로 채워
+인덱스가 밀리지 않는다(규칙 ②의 지표판). 수치는 웹과 비트 단위 패리티가 계약이다
+(`JdChartIndicatorSpecTests` — 웹 52검산 테스트와 같은 입력·같은 기대값).
+
+| 함수 | 웹 | 반환 | 비고 |
+| --- | --- | --- | --- |
+| `sma(_:period:)` | computeSMA | `[Double?]` | `JdCandleChartLayout.movingAverage`도 여기에 위임 |
+| `ema(_:period:)` | computeEMA | `[Double?]` | SMA 시드 후 k-스무딩 |
+| `bollinger(_:period:stdDev:)` | computeBollinger | `JdBollingerSeries` | 기본 (20, 2) |
+| `rsi(_:period:)` | computeRSI | `[Double?]` | Wilder — `count <= period`면 전부 nil |
+| `macd(_:fast:slow:signalPeriod:)` | computeMACD | `JdMacdSeries` | 기본 (12, 26, 9) |
+| `heikinAshi(_:)` | toHeikinAshi | `[JdCandle]` | `t`는 원본 승계 |
+| `stochastic(_:period:smoothPeriod:)` | computeStochastic | `JdStochasticSeries` | 창 폭 0이면 %K = 50 |
+| `obv(_:)` | computeOBV | `[Double]` | 첫 값 0 |
+| `vwap(_:sessionBoundary:)` | computeVWAP | `[Double?]` | boundary가 true면 그 봉부터 새 세션 |
+| `atr(_:period:)` | computeATR | `[Double?]` | Wilder — `count < period+1`이면 전부 nil |
+| `williamsR(_:period:)` | computeWilliamsR | `[Double?]` | −100~0, 창 폭 0이면 −50 |
+| `cci(_:period:)` | computeCCI | `[Double?]` | 편차 0이면 0 |
+| `ichimoku(_:conversionPeriod:basePeriod:spanBPeriod:)` | computeIchimoku | `JdIchimokuSeries` | 스팬 A·B는 26봉 앞으로 시프트 |
+| `pivot(previous:)` | computePivot | `JdPivotLevels` | P·R1–R3·S1–S3 |
+| `regression(_:)` | computeRegression | `JdRegressionChannel?` | 4점 미만이면 nil, R² 포함 |
+| `detectPatterns(_:)` | detectPatterns | `[JdPatternHit]` | 골든/데드 크로스(MA5×MA20) + 쌍봉/쌍바닥 |
+| `volumeProfile(_:bins:)` | computeVolumeProfile | `[JdVolumeProfileBin]` | 기본 24 bin, h−l 겹침 비례 분배 |
+
+```swift
+let closes = candles.map(\.c)
+
+let ma20 = JdChartIndicators.sma(closes, period: 20)          // [Double?] — 웜업은 nil
+let bands = JdChartIndicators.bollinger(closes)               // .upper / .middle / .lower
+let rsi = JdChartIndicators.rsi(closes)                       // 0~100
+let macd = JdChartIndicators.macd(closes)                     // .macd / .signal / .histogram
+
+let ha = JdChartIndicators.heikinAshi(candles)                // [JdCandle] — 그대로 캔들 차트에
+let vwap = JdChartIndicators.vwap(candles) { prev, cur, _ in
+    !prev.t.hasPrefix(cur.t.prefix(10))                       // 날짜가 바뀌면 세션 리셋
+}
+
+let ich = JdChartIndicators.ichimoku(candles)                 // spanA/B는 이미 26봉 시프트됨
+let levels = JdChartIndicators.pivot(previous: yesterday)     // levels.r1 … levels.s3
+let hits = JdChartIndicators.detectPatterns(candles)          // hits[i].kind == .goldenCross …
+```
+
+웹과 의도적으로 다른 것 둘: ① `period ≤ 0` 같은 무의미 인자는 웹의 미정의 동작
+(Infinity/NaN 전파) 대신 **전부-nil**로 눕힌다(Swift는 트랩까지 갈 수 있다).
+② `volumeProfile`은 비수치 h/l 봉을 건너뛴다 — JS의 NaN 인덱스는 조용히 무시되지만
+Swift `Int(nan)`은 트랩이다. 둘 다 웹 테스트가 커버하지 않는 구간이라 수치 패리티엔
+영향이 없다.

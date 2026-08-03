@@ -199,17 +199,10 @@ public struct JdCandleChartLayout: Sendable {
         return floor(CGFloat(volume / maxVol) * (volH - 8))
     }
 
-    /// 이동평균 — 웹 computeMA 동형(기간 미달 구간은 nil)
+    /// 이동평균 — 웹 computeMA 동형(기간 미달 구간은 nil).
+    /// 산수는 `JdChartIndicators.sma` 한 곳이다 — 지표 이식(chartIndicators.ts) 때 위임.
     public static func movingAverage(_ candles: [JdCandle], period: Int) -> [Double?] {
-        guard period > 0 else { return candles.map { _ in nil } }
-        var out: [Double?] = []
-        var sum = 0.0
-        for index in 0..<candles.count {
-            sum += candles[index].c
-            if index >= period { sum -= candles[index - period].c }
-            out.append(index >= period - 1 ? sum / Double(period) : nil)
-        }
-        return out
+        JdChartIndicators.sma(candles.map(\.c), period: period)
     }
 
     /// MA 계열색 — 서로 구분되는 것 자체가 기능이라 의미 토큰으로 접지 않는다(웹 주석 승계).

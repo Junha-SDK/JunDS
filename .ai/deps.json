@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T04:07:50.602Z",
+  "generatedAt": "2026-08-03T03:37:57.026Z",
   "componentCount": 282,
   "graph": {
     "Announcer": {
@@ -28,7 +28,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["AvatarStack"]
+      "importedBy": [
+        "AvatarStack"
+      ]
     },
     "BackTop": {
       "kind": "primitive",
@@ -50,7 +52,10 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["Kanban", "NotificationCenter"]
+      "importedBy": [
+        "Kanban",
+        "NotificationCenter"
+      ]
     },
     "BatteryIndicator": {
       "kind": "primitive",
@@ -72,7 +77,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["BookReader"]
+      "importedBy": [
+        "BookReader"
+      ]
     },
     "Button": {
       "kind": "primitive",
@@ -87,7 +94,14 @@
           "name": "Slot"
         }
       ],
-      "importedBy": ["Calendar", "ConfirmDialog", "FilterBar", "FormBuilder", "LoginForm", "SecurityChecklist"]
+      "importedBy": [
+        "Calendar",
+        "ConfirmDialog",
+        "FilterBar",
+        "FormBuilder",
+        "LoginForm",
+        "SecurityChecklist"
+      ]
     },
     "Checkbox": {
       "kind": "primitive",
@@ -98,7 +112,10 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["DataTable", "LoginForm"]
+      "importedBy": [
+        "DataTable",
+        "LoginForm"
+      ]
     },
     "Code": {
       "kind": "primitive",
@@ -142,7 +159,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["LoginForm"]
+      "importedBy": [
+        "LoginForm"
+      ]
     },
     "ErrorBoundary": {
       "kind": "primitive",
@@ -230,7 +249,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["Calendar", "RichTextEditor"]
+      "importedBy": [
+        "Calendar"
+      ]
     },
     "Image": {
       "kind": "primitive",
@@ -252,7 +273,11 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["FilterBar", "FormBuilder", "LoginForm"]
+      "importedBy": [
+        "FilterBar",
+        "FormBuilder",
+        "LoginForm"
+      ]
     },
     "Kbd": {
       "kind": "primitive",
@@ -263,7 +288,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["CommandPalette"]
+      "importedBy": [
+        "CommandPalette"
+      ]
     },
     "KeyCap": {
       "kind": "primitive",
@@ -285,7 +312,11 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["FormBuilder", "FormField", "LoginForm"]
+      "importedBy": [
+        "FormBuilder",
+        "FormField",
+        "LoginForm"
+      ]
     },
     "LikeButton": {
       "kind": "primitive",
@@ -383,7 +414,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["LoginForm"]
+      "importedBy": [
+        "LoginForm"
+      ]
     },
     "PhoneInput": {
       "kind": "primitive",
@@ -495,7 +528,12 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["AutoComplete", "Combobox", "InfiniteList", "SocialFeed"]
+      "importedBy": [
+        "AutoComplete",
+        "Combobox",
+        "InfiniteList",
+        "SocialFeed"
+      ]
     },
     "StarRating": {
       "kind": "primitive",
@@ -539,7 +577,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["MultiSelect"]
+      "importedBy": [
+        "MultiSelect"
+      ]
     },
     "Textarea": {
       "kind": "primitive",
@@ -550,7 +590,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["FormBuilder"]
+      "importedBy": [
+        "FormBuilder"
+      ]
     },
     "Toggle": {
       "kind": "primitive",
@@ -613,6 +655,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -637,7 +683,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["LoginForm"]
+      "importedBy": [
+        "LoginForm"
+      ]
     },
     "AlertDialog": {
       "kind": "composite",
@@ -658,6 +706,10 @@
       "kind": "composite",
       "file": "ds/composites/AnimatedCounter/AnimatedCounter.tsx",
       "imports": [
+        {
+          "kind": "hook",
+          "name": "useReducedMotion"
+        },
         {
           "kind": "util",
           "name": "cn"
@@ -739,6 +791,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -798,6 +854,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "createCompound"
         }
       ],
       "importedBy": []
@@ -896,6 +956,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -967,7 +1031,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["BookReader"]
+      "importedBy": [
+        "BookReader"
+      ]
     },
     "ChatBubble": {
       "kind": "composite",
@@ -1092,6 +1158,10 @@
       "kind": "composite",
       "file": "ds/composites/CommentThread/CommentThread.tsx",
       "imports": [
+        {
+          "kind": "hook",
+          "name": "useMounted"
+        },
         {
           "kind": "util",
           "name": "cn"
@@ -1335,6 +1405,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "createCompound"
         }
       ],
       "importedBy": []
@@ -1400,7 +1474,12 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["DataTable", "EmailInbox", "PhotoAlbum", "SocialFeed"]
+      "importedBy": [
+        "DataTable",
+        "EmailInbox",
+        "PhotoAlbum",
+        "SocialFeed"
+      ]
     },
     "ExifPanel": {
       "kind": "composite",
@@ -1512,6 +1591,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -1639,6 +1722,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -1758,6 +1845,10 @@
         {
           "kind": "util",
           "name": "createCompound"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -1769,6 +1860,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -1810,6 +1905,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -1869,6 +1968,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -1880,6 +1983,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -1893,7 +2000,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["DataTable"]
+      "importedBy": [
+        "DataTable"
+      ]
     },
     "PasswordStrength": {
       "kind": "composite",
@@ -1902,6 +2011,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -1913,9 +2026,15 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
-      "importedBy": ["PhotoAlbum"]
+      "importedBy": [
+        "PhotoAlbum"
+      ]
     },
     "PhotoCarousel": {
       "kind": "composite",
@@ -1946,9 +2065,15 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
-      "importedBy": ["PhotoAlbum"]
+      "importedBy": [
+        "PhotoAlbum"
+      ]
     },
     "PhotoLightbox": {
       "kind": "composite",
@@ -1959,7 +2084,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["PhotoAlbum"]
+      "importedBy": [
+        "PhotoAlbum"
+      ]
     },
     "PhotoUploader": {
       "kind": "composite",
@@ -1979,6 +2106,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2027,6 +2158,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2038,9 +2173,15 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
-      "importedBy": ["PricingPage"]
+      "importedBy": [
+        "PricingPage"
+      ]
     },
     "ProductCard": {
       "kind": "composite",
@@ -2049,6 +2190,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2126,6 +2271,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2137,6 +2286,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2148,6 +2301,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2194,7 +2351,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["BookReader"]
+      "importedBy": [
+        "BookReader"
+      ]
     },
     "ReadingStats": {
       "kind": "composite",
@@ -2247,6 +2406,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2258,6 +2421,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2280,9 +2447,15 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
-      "importedBy": ["BookReader"]
+      "importedBy": [
+        "BookReader"
+      ]
     },
     "ScrollSpy": {
       "kind": "composite",
@@ -2360,7 +2533,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["FormBuilder"]
+      "importedBy": [
+        "FormBuilder"
+      ]
     },
     "SeoHead": {
       "kind": "composite",
@@ -2439,6 +2614,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2493,6 +2672,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2506,7 +2689,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["StatsGrid"]
+      "importedBy": [
+        "StatsGrid"
+      ]
     },
     "Stepper": {
       "kind": "composite",
@@ -2539,7 +2724,9 @@
           "name": "cn"
         }
       ],
-      "importedBy": ["SocialFeed"]
+      "importedBy": [
+        "SocialFeed"
+      ]
     },
     "SwipeAction": {
       "kind": "composite",
@@ -2603,6 +2790,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2625,6 +2816,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2780,6 +2975,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2791,6 +2990,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2802,6 +3005,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -2990,6 +3197,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -3001,6 +3212,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -3042,6 +3257,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -3104,6 +3323,10 @@
       "file": "ds/patterns/ForumThread/ForumThread.tsx",
       "imports": [
         {
+          "kind": "hook",
+          "name": "useMounted"
+        },
+        {
           "kind": "util",
           "name": "cn"
         }
@@ -3117,6 +3340,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -3128,6 +3355,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -3275,6 +3506,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -3283,10 +3518,6 @@
       "kind": "pattern",
       "file": "ds/patterns/RichTextEditor/RichTextEditor.tsx",
       "imports": [
-        {
-          "kind": "primitive",
-          "name": "IconButton"
-        },
         {
           "kind": "util",
           "name": "cn"
@@ -3316,6 +3547,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "Slot"
         }
       ],
       "importedBy": []
@@ -3327,6 +3562,10 @@
         {
           "kind": "util",
           "name": "cn"
+        },
+        {
+          "kind": "util",
+          "name": "createCompound"
         }
       ],
       "importedBy": []
@@ -3456,12 +3695,12 @@
         "count": 2
       },
       {
-        "name": "IconButton",
+        "name": "Avatar",
         "kind": "primitive",
-        "count": 2
+        "count": 1
       },
       {
-        "name": "Avatar",
+        "name": "BookmarkButton",
         "kind": "primitive",
         "count": 1
       }

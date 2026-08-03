@@ -119,10 +119,13 @@ test("jd-mark: 다크 테마에서 배경·글자색이 반전된다", async ({ 
       return { bg: cs.backgroundColor, fg: cs.color };
     });
   const light = await read();
-  expect(light.bg).toBe("rgba(254, 240, 138, 0.7)"); // v2 yellow-200/70
+  // 색값은 톤 레시피(DEC-044)가 파생하므로 리터럴을 못박지 않는다 —
+  // 계약은 "형광펜 배경이 실제로 칠해져 있고, 다크에서 배경·글자 모두 바뀐다"이다.
+  expect(light.bg).not.toBe("rgba(0, 0, 0, 0)");
 
   await page.evaluate(() => document.documentElement.setAttribute("data-jd-theme", "dark"));
   const dark = await read();
-  expect(dark.bg).toBe("rgba(234, 179, 8, 0.3)"); // v2 dark:yellow-500/30
+  expect(dark.bg).not.toBe("rgba(0, 0, 0, 0)");
+  expect(dark.bg).not.toBe(light.bg);
   expect(dark.fg).not.toBe(light.fg);
 });

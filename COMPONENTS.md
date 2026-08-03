@@ -3,7 +3,7 @@
 > 이 문서는 `.ai/props.json`과 컴포넌트 소스의 JSDoc을 토대로 자동 생성됩니다.
 > **수정하지 마세요.** 컴포넌트 props를 변경하면 `npm run extract-props && npm run docs:components`를 실행하세요.
 
-총 **276개** 컴포넌트 — Primitives 48 · Composites 188 · Patterns 40.
+총 **295개** 컴포넌트 — Primitives 48 · Composites 188 · Patterns 40.
 
 ## 목차
 
@@ -1752,6 +1752,7 @@ iOS 스타일 스위치
 | `position` | `{ top?: number; bottom?: number; left?: number; right?: number; }` |  | 화면 고정 좌표 |
 | `zIndex` | `number` |  | z-index 값 |
 | `className` | `string` |  | 추가 클래스 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -2043,6 +2044,7 @@ SVG 영역 차트 (overlap 또는 stacked).
 | `threshold` | `number` |  | 스크롤 감지 임계값 (px) |
 | `height` | `number` |  | 헤더 높이 (px) |
 | `className` | `string` |  | 추가 클래스 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -2175,7 +2177,7 @@ SVG 영역 차트 (overlap 또는 stacked).
 
 *stable* · *v2.2.0* — `layout`
 
-크기가 다른 카드를 비대칭 그리드로 배치하는 벤토 레이아웃.
+BentoGrid 컴포넌트
 
 **Import:** `import { BentoGrid } from "@/ds/composites/BentoGrid";`
 
@@ -2187,15 +2189,6 @@ SVG 영역 차트 (overlap 또는 stacked).
 | `cols` | `number` |  | 그리드 열 수 |
 | `gap` | `number` |  | 셀 간격(rem 단위 4배수) |
 | `className` | `string` |  | 추가 클래스 |
-
-**Example**
-
-```tsx
-<BentoGrid cols={3} gap="md">
-  <BentoItem span={2}>큰 카드</BentoItem>
-  <BentoItem>작은 카드</BentoItem>
-</BentoGrid>
-```
 
 ---
 
@@ -2429,6 +2422,7 @@ SVG 영역 차트 (overlap 또는 stacked).
 | `separated` | `boolean` |  | 버튼 간 구분선 |
 | `fullWidth` | `boolean` |  | 전체 너비 |
 | `className` | `string` |  | 추가 클래스 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -3413,7 +3407,7 @@ cron 표현식을 시각적으로 편집하는 입력기.
 
 *stable* · *v2.2.0* — `navigation`
 
-macOS 스타일의 마우스 오버 시 확대되는 독.
+Dock 컴포넌트
 
 **Import:** `import { Dock } from "@/ds/composites/Dock";`
 
@@ -3424,15 +3418,6 @@ macOS 스타일의 마우스 오버 시 확대되는 독.
 | `children` | `ReactNode` | ✓ | 도크 아이템 (DockItem) |
 | `magnification` | `number` |  | 호버 시 확대 배율 |
 | `className` | `string` |  | 추가 클래스 |
-
-**Example**
-
-```tsx
-<Dock magnification={1.4}>
-  <DockItem icon={<HomeIcon />} />
-  <DockItem icon={<SearchIcon />} />
-</Dock>
-```
 
 ---
 
@@ -3862,6 +3847,7 @@ EXIF 패널 — 카메라/렌즈/노출 정보 표시.
 |------|------|:--------:|-------------|
 | `variant` | `HintVariant` |  | 변형 |
 | `icon` | `ReactNode` |  | 좌측 아이콘 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 | `children` | `ReactNode` | ✓ | 본문 |
 
 **Example**
@@ -4192,6 +4178,7 @@ JSON 데이터를 트리 구조로 펼쳐서 보여주는 뷰어.
 | `children` | `ReactNode` | ✓ | 자식 요소 |
 | `label` | `string` |  | 로딩 라벨 텍스트 |
 | `blur` | `boolean` |  | 배경 블러 효과 적용 여부 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 | `className` | `string` |  | 추가 클래스 |
 
 **Example**
@@ -4435,6 +4422,7 @@ Modal 컴포넌트
 | `dismissible` | `boolean` |  | 백드롭(오버레이) 클릭으로 모달을 닫을 수 있는지 여부. |
 | `children` | `ReactNode` | ✓ | 모달 내부에 렌더링할 콘텐츠. |
 | `className` | `string` |  | 모달 콘텐츠 영역에 추가할 CSS 클래스. |
+| `asChild` | `boolean` |  | 콘텐츠 패널을 자식 엘리먼트로 렌더 위임합니다 (Radix-style asChild). |
 
 ---
 
@@ -4456,6 +4444,7 @@ Modal 컴포넌트
 | `min` | `string` |  | 최소 (yyyy-mm) |
 | `max` | `string` |  | 최대 (yyyy-mm) |
 | `monthLabels` | `Array<string>` |  | 월 이름 라벨 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -4540,6 +4529,7 @@ Modal 컴포넌트
 | `requireConsent` | `boolean` |  | 동의 필수 여부 |
 | `onSubscribe` | `(email: string) => Promise<void> \| void` |  | 제출 핸들러 (Promise 반환) |
 | `variant` | `"stacked" \| "card" \| "inline"` |  | 레이아웃 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -4676,6 +4666,7 @@ const player = useAudioPlayer(tracks);
 | `pulse` | `boolean` |  | 펄스 애니메이션 (online에만) |
 | `lastSeenAt` | `string \| Date` |  | 마지막 활동 시각 (offline일 때 표시) |
 | `labels` | `Partial<Record<OnlineStatusValue, string>>` |  | 커스텀 라벨 매핑 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -4706,6 +4697,7 @@ const player = useAudioPlayer(tracks);
 | `avatar` | `ReactNode` |  | 좌측 아바타/아이콘 영역 |
 | `footer` | `ReactNode` |  | 하단 탭/메타 영역 |
 | `divider` | `boolean` |  | 구분선 표시 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -4758,6 +4750,7 @@ const player = useAudioPlayer(tracks);
 | `showLabel` | `boolean` |  | 라벨 노출 (very weak / weak / ...) |
 | `showChecklist` | `boolean` |  | 규칙 체크리스트 노출 |
 | `onChange` | `(level: StrengthLevel, passedRules: string[]) => void` |  | 강도 변경 콜백 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -4788,6 +4781,7 @@ const player = useAudioPlayer(tracks);
 | `aspectRatio` | `string` |  | 종횡비 (CSS aspect-ratio 표현) |
 | `interactive` | `boolean` |  | 호버 시 살짝 떠오르는 효과 |
 | `badge` | `ReactNode` |  | 우상단 배지 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -4865,6 +4859,7 @@ const player = useAudioPlayer(tracks);
 | `layout` | `PhotoGridLayout` |  | 레이아웃 모드 |
 | `columns` | `5 \| 2 \| 3 \| 4` |  | 컬럼 수 |
 | `gap` | `2 \| 3 \| 4 \| 1` |  | 간격 (Tailwind gap 키) |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -4948,6 +4943,7 @@ const player = useAudioPlayer(tracks);
 | `innerRatio` | `number` |  | 도넛 모드 (안쪽 비율 0~1) |
 | `showLegend` | `boolean` |  | 범례 표시 |
 | `centerLabel` | `string` |  | 가운데 라벨 (도넛) |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5065,6 +5061,7 @@ SNS 게시물 카드 — 작성자 + 본문 + 미디어 + 액션 바.
 | `size` | `PriceSize` |  | 크기 |
 | `showDiscount` | `boolean` |  | 할인 라벨 자동 계산 노출 |
 | `layout` | `PriceLayout` |  | 레이아웃 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5088,6 +5085,7 @@ SNS 게시물 카드 — 작성자 + 본문 + 미디어 + 액션 바.
 |------|------|:--------:|-------------|
 | `plans` | `Array<PricingPlan>` | ✓ | 플랜 목록 |
 | `columns` | `number` |  | 컬럼 수 (기본 자동) |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5124,6 +5122,7 @@ e-commerce 상품 카드 (이미지 + 가격 + 평점 + 위시 + 장바구니).
 | `disabled` | `boolean` |  | 비활성 (품절 등) |
 | `outOfStockLabel` | `string` |  | 품절 텍스트 |
 | `onClick` | `() => void` |  | 카드 클릭 (상세 이동) |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5306,6 +5305,7 @@ SNS 프로필 헤더 — 배너 + 아바타 + 통계 + 액션.
 | `disabled` | `boolean` |  | 비활성 |
 | `size` | `QuantitySize` |  | 크기 |
 | `editable` | `boolean` |  | input 직접 편집 허용 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5335,6 +5335,7 @@ SVG 레이더(스파이더) 차트 — 다축 비교용.
 | `fillOpacity` | `number` |  | 영역 채움 투명도 |
 | `showDots` | `boolean` |  | 점 표시 |
 | `showLegend` | `boolean` |  | 범례 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5362,6 +5363,7 @@ SVG 레이더(스파이더) 차트 — 다축 비교용.
 | `onChange` | `(value: string) => void` |  | 변경 콜백 |
 | `name` | `string` |  | name (form 통합) |
 | `columns` | `number` |  | 컬럼 수 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5615,6 +5617,7 @@ SVG 레이더(스파이더) 차트 — 다축 비교용.
 | `height` | `number` |  | 높이 |
 | `nodeWidth` | `number` |  | 노드 폭 |
 | `nodeGap` | `number` |  | 노드 사이 간격 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5646,6 +5649,7 @@ SVG 산점도 / 버블 차트 (point.size 지정 시 버블).
 | `showXAxis` | `boolean` |  | X축 라벨 |
 | `showLegend` | `boolean` |  | 범례 |
 | `defaultPointSize` | `number` |  | 기본 점 크기 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -5698,6 +5702,7 @@ SVG 산점도 / 버블 차트 (point.size 지정 시 버블).
 | `thickness` | `number` |  | 두께(px) |
 | `target` | `HTMLElement \| null` |  | 추적 대상 (없으면 window) |
 | `aria-label` | `string` |  | 스크린리더용 라벨 (기본 "페이지 스크롤 진행률") |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -6041,6 +6046,7 @@ SVG 산점도 / 버블 차트 (point.size 지정 시 버블).
 | `platforms` | `Array<SocialPlatform>` |  | 노출할 플랫폼 |
 | `size` | `"sm" \| "md" \| "lg"` |  | 크기 |
 | `shape` | `"circle" \| "square"` |  | 동그라미 vs 사각형 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -6179,6 +6185,7 @@ SVG 산점도 / 버블 차트 (point.size 지정 시 버블).
 | `trend` | `StatTrend` |  | 트렌드 (자동 계산되지만 override 가능) |
 | `hint` | `ReactNode` |  | 부가 설명 |
 | `align` | `"left" \| "center"` |  | 레이아웃 정렬 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -6469,6 +6476,7 @@ SVG 산점도 / 버블 차트 (point.size 지정 시 버블).
 | `authorAvatar` | `string` |  | 작성자 아바타 URL |
 | `companyLogo` | `ReactNode` |  | 작성자 회사 로고 |
 | `highlighted` | `boolean` |  | 강조 표시 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -6517,6 +6525,7 @@ AI/LLM 응답 대기 인디케이터. ChatBubble 안에 넣어 사용.
 | `variant` | `ThinkingVariant` |  | 애니메이션 종류 |
 | `label` | `ReactNode` |  | 좌측 라벨 (예: "Claude가 생각 중") |
 | `color` | `string` |  | 점 색상 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -6883,6 +6892,7 @@ const items: TreeNavItem[] = [
 | `rotate` | `number` |  | 회전 각도(deg) |
 | `gap` | `number` |  | 패턴 간격(px) |
 | `className` | `string` |  | 추가 클래스 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -6914,6 +6924,7 @@ const items: TreeNavItem[] = [
 | `onSeek` | `(fraction: number) => void` |  | 탐색 콜백 (0~1 비율). |
 | `ariaLabel` | `string` |  | 슬라이더 접근성 라벨 |
 | `height` | `number` |  | 막대 높이 (px, 기본 40) |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -6941,6 +6952,7 @@ const items: TreeNavItem[] = [
 | `min` | `number` |  | 최소 연도 |
 | `max` | `number` |  | 최대 연도 |
 | `pageSize` | `number` |  | 한 페이지 연도 수 (기본 12) |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -7355,6 +7367,7 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 | `multiple` | `boolean` |  | 다중 펼침 허용 |
 | `showCategoryFilter` | `boolean` |  | 카테고리 필터 노출 |
 | `searchable` | `boolean` |  | 검색 입력 노출 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -7381,6 +7394,7 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 | `features` | `Array<FeatureItem>` | ✓ | 기능 목록 |
 | `columns` | `2 \| 3 \| 4` |  | 컬럼 수 (반응형 자동 조정) |
 | `layout` | `FeatureGridLayout` |  | 레이아웃 종류 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -7483,6 +7497,7 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 | `onSubmit` | `() => void` |  | 제출 콜백 |
 | `children` | `ReactNode` | ✓ | 자식 요소 |
 | `className` | `string` |  | 추가 클래스 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -7633,6 +7648,7 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 | `rowHeight` | `number` |  | 행 높이 |
 | `labelWidth` | `number` |  | 좌측 라벨 폭 |
 | `onSelect` | `(task: GanttTask) => void` |  | 태스크 선택 콜백 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -7663,6 +7679,7 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 | `media` | `ReactNode` |  | 우측 미디어 (split 전용) |
 | `bgImage` | `string` |  | 배경 이미지 URL (imageBg 전용) |
 | `footer` | `ReactNode` |  | 푸터 영역 (소셜 프루프, 로고 등) |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -7891,6 +7908,7 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 | `toggleLabels` | `{ monthly?: string; yearly?: string; saveLabel?: string; }` |  | 토글 라벨 |
 | `faqs` | `Array<PricingFAQ>` |  | FAQ 리스트 |
 | `footerCta` | `ReactNode` |  | 하단 CTA 영역 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -7972,6 +7990,7 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 | `onChange` | `(id: string) => void` |  | 변경 콜백 |
 | `title` | `ReactNode` |  | 페이지 제목 |
 | `sidebarWidth` | `number` |  | 사이드바 폭 |
+| `asChild` | `boolean` |  | root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) |
 
 **Example**
 
@@ -7983,9 +8002,7 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 
 ### Sidebar
 
-*stable* · *v2.2.0* — `navigation`
-
-사이드바
+compound 표면 — 멤버로도 조립: `DsSidebar.Provider` / `DsSidebar.Link` / `DsSidebar.Section`
 
 **Import:** `import { Sidebar } from "@/ds/patterns/Sidebar";`
 
@@ -7999,16 +8016,6 @@ FAQ 섹션 (검색 + 카테고리 필터 + 단일/다중 펼침).
 | `width` | `number` |  | 펼친 상태 너비(px) |
 | `collapsedWidth` | `number` |  | 접힌 상태 너비(px) |
 | `className` | `string` |  | 추가 클래스 |
-
-**Example**
-
-```tsx
-<DsSidebarProvider>
-  <DsSidebar header={<Logo />}>
-    <SidebarLink href="/" label="홈" icon={<HomeIcon />} />
-  </DsSidebar>
-</DsSidebarProvider>
-```
 
 ---
 
@@ -8183,4 +8190,4 @@ SNS 피드 — 상단 스토리 바 + 무한 스크롤 게시물 리스트.
 
 ---
 
-Auto-generated by `npm run docs:components` from `.ai/props.json` on 2026-07-28. Do not edit by hand.
+Auto-generated by `npm run docs:components` from `.ai/props.json` on 2026-08-03. Do not edit by hand.
