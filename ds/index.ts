@@ -24,6 +24,9 @@ export * from "./patterns";
 
 // Layout
 export * from "./layout";
+// runtime 은 이름 충돌(Node·Breakpoint 등)을 피해 네임스페이스로 노출한다.
+// 개별 심볼은 `@junds/ui/runtime` subpath 로 가져오는 것을 권장.
+export * as runtime from "./runtime";
 
 // Hooks
 export * from "./hooks";
