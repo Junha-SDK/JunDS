@@ -1,9 +1,9 @@
 # MySelf → JunDS 흡수 (디자인 시스템 통합)
 
 - **Slug:** `myself-migration`
-- **Status:** active
+- **Status:** shipped
 - **Owner:** 박준하 (pjh02@hygino.co.kr)
-- **Last updated:** 2026-07-27
+- **Last updated:** 2026-08-03
 
 ## Goal
 
@@ -32,7 +32,7 @@
 - [x] 이식물 어디에도 junome 도메인·OG 이미지·문서 레지스트리 같은 사이트 고유 값이 남아 있지 않다.
 - [x] superset 화 과정에서 기존 JunDS 사용처의 기본 동작이 바뀌지 않는다 (새 동작은 전부 opt-in).
 - [x] 새 컴포넌트마다 쇼케이스 페이지와 테스트가 있다.
-- [ ] MySelf 의 각 화면을 실제로 JunDS 컴포넌트로 교체한다. _(다음 단계)_
+- ~~MySelf 의 각 화면을 실제로 JunDS 컴포넌트로 교체한다.~~ — Out of scope 와 동일 항목이라 본 요구사항 범위에서 제외. 후속 requirement 로 다룬다.
 
 ## 이식 결과
 

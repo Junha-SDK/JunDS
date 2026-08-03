@@ -1,9 +1,9 @@
 # Forms
 
 - **Slug:** `forms`
-- **Status:** active
+- **Status:** shipped
 - **Owner:** goodjunha@gmail.com
-- **Last updated:** 2026-07-27
+- **Last updated:** 2026-08-03
 
 ## Goal
 

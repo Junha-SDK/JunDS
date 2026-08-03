@@ -67,6 +67,13 @@ export const BookReader = forwardRef<HTMLElement, BookReaderProps>(function Book
   const t = useT();
   const [tocOpen, setTocOpen] = useState(true);
 
+  if (chapters.length === 0) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("[JunDS] BookReader: chapters가 비어 있어 렌더하지 않습니다.");
+    }
+    return null;
+  }
+
   return (
     <article ref={ref} className={cn("relative bg-surface min-h-screen", className)}>
       <ScrollProgress position="top" thickness={2} aria-label="페이지 스크롤 진행률" />

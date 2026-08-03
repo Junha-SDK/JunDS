@@ -1,78 +1,78 @@
 {
-  "generatedAt": "2026-05-04T09:16:20.796Z",
+  "generatedAt": "2026-08-03T02:14:52.386Z",
   "total": {
-    "lines": 53.28,
-    "statements": 49.18,
-    "functions": 41.74,
-    "branches": 41.8
+    "lines": 34.14,
+    "statements": 31.98,
+    "functions": 29.23,
+    "branches": 28.6
   },
-  "fileCount": 361,
+  "fileCount": 518,
   "lowestCovered": [
     {
-      "file": "ds/core/Center.tsx",
+      "file": "ds/composites/NowPlayingBar/NowPlayingBar.tsx",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/composites/SeoHead/SeoHead.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 100
     },
     {
-      "file": "ds/core/Divider.tsx",
+      "file": "ds/finance/AlertButton.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 0
     },
     {
-      "file": "ds/core/GridLayout.tsx",
+      "file": "ds/finance/AlertHeaderButton.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 0
     },
     {
-      "file": "ds/core/Group.tsx",
+      "file": "ds/finance/AlertManager.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 0
     },
     {
-      "file": "ds/core/HStack.tsx",
+      "file": "ds/finance/AlertSheet.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 0
     },
     {
-      "file": "ds/core/JunDSProvider.tsx",
+      "file": "ds/finance/AppHeader.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 0
     },
     {
-      "file": "ds/core/Section.tsx",
+      "file": "ds/finance/AppIcon.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 0
     },
     {
-      "file": "ds/core/VStack.tsx",
+      "file": "ds/finance/AreaChart.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,
       "branches": 0
     },
     {
-      "file": "ds/hooks/useBreakpoint.ts",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 0
-    },
-    {
-      "file": "ds/hooks/useClipboard.ts",
+      "file": "ds/finance/BacktestRunner.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,

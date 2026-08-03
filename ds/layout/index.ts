@@ -16,6 +16,9 @@ export type { AppShellProps } from "./AppShell";
 export { Wrap } from "./Wrap";
 export type { WrapProps } from "./Wrap";
 
+export { Switcher } from "./Switcher";
+export type { SwitcherProps } from "./Switcher";
+
 export { SimpleGrid } from "./SimpleGrid";
 export type { SimpleGridProps } from "./SimpleGrid";
 

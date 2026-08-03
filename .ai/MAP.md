@@ -10,13 +10,13 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-07-28T05:34:32.285Z
+Generated: 2026-08-03T02:15:22.038Z
 
 ---
 
 ## Requirements (read FIRST for any feature work)
 
-_20 files_
+_21 files_
 
 - `requirements/_template.md`
 - `requirements/agent-onboarding.md`
@@ -26,6 +26,7 @@ _20 files_
 - `requirements/design-system-library.md`
 - `requirements/forms.md`
 - `requirements/i18n.md`
+- `requirements/layout-freedom.md`
 - `requirements/license-and-auth.md`
 - `requirements/motion.md`
 - `requirements/multi-brand-theming.md`
@@ -498,7 +499,7 @@ _55 files_
 
 ## Layout  (`ds/layout/`)
 
-_11 files_
+_12 files_
 
 - `ds/layout/AppShell.tsx`
 - `ds/layout/AspectRatioBox.tsx`
@@ -510,6 +511,7 @@ _11 files_
 - `ds/layout/SimpleGrid.tsx`
 - `ds/layout/Spacer.tsx`
 - `ds/layout/Stack.tsx`
+- `ds/layout/Switcher.tsx`
 - `ds/layout/Wrap.tsx`
 
 ## Hooks  (`ds/hooks/`)
@@ -636,7 +638,7 @@ _33 files_
 
 ## Showcase routes  (`app/**/page.tsx`)
 
-_316 files_
+_317 files_
 
 - `app/design-system/advanced/ai-prompt/page.tsx`
 - `app/design-system/advanced/changelog/page.tsx`
@@ -840,6 +842,7 @@ _316 files_
 - `app/design-system/framework/grid-layout/page.tsx`
 - `app/design-system/framework/group/page.tsx`
 - `app/design-system/framework/heading/page.tsx`
+- `app/design-system/framework/layout-lab/page.tsx`
 - `app/design-system/framework/page/page.tsx`
 - `app/design-system/framework/provider/page.tsx`
 - `app/design-system/framework/section/page.tsx`
@@ -966,7 +969,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_333 files_
+_345 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -1175,18 +1178,29 @@ _333 files_
 - `ds/__tests__/composites/Waveform.test.tsx`
 - `ds/__tests__/composites/YearPicker.test.tsx`
 - `ds/__tests__/core/Box.test.tsx`
+- `ds/__tests__/core/Center.test.tsx`
+- `ds/__tests__/core/Divider.test.tsx`
 - `ds/__tests__/core/Flex.test.tsx`
+- `ds/__tests__/core/GridLayout.test.tsx`
+- `ds/__tests__/core/Group.test.tsx`
 - `ds/__tests__/core/Heading.test.tsx`
+- `ds/__tests__/core/HStack.test.tsx`
+- `ds/__tests__/core/JunDSProvider.test.tsx`
 - `ds/__tests__/core/Page.test.tsx`
+- `ds/__tests__/core/Section.test.tsx`
 - `ds/__tests__/core/Text.test.tsx`
+- `ds/__tests__/core/VStack.test.tsx`
 - `ds/__tests__/hooks/useAnimationFrame.test.ts`
 - `ds/__tests__/hooks/useAsync.test.ts`
+- `ds/__tests__/hooks/useBreakpoint.test.tsx`
 - `ds/__tests__/hooks/useClickOutside.test.tsx`
+- `ds/__tests__/hooks/useClipboard.test.ts`
 - `ds/__tests__/hooks/useCopyToClipboard.test.ts`
 - `ds/__tests__/hooks/useDebounce.test.ts`
 - `ds/__tests__/hooks/useDisclosure.test.ts`
 - `ds/__tests__/hooks/useDocumentTitle.test.ts`
 - `ds/__tests__/hooks/useFocusMode.test.ts`
+- `ds/__tests__/hooks/useForm.test.ts`
 - `ds/__tests__/hooks/useImagePreload.test.ts`
 - `ds/__tests__/hooks/useInfiniteFeed.test.ts`
 - `ds/__tests__/hooks/useJsonLd.test.ts`
@@ -1201,6 +1215,7 @@ _333 files_
 - `ds/__tests__/hooks/useToggle.test.ts`
 - `ds/__tests__/hooks/useWindowSize.test.ts`
 - `ds/__tests__/layout/Stack.test.tsx`
+- `ds/__tests__/layout/Switcher.test.tsx`
 - `ds/__tests__/patterns/ActionBar.test.tsx`
 - `ds/__tests__/patterns/AuthLayout.test.tsx`
 - `ds/__tests__/patterns/BlogPost.test.tsx`
@@ -1304,4 +1319,4 @@ _333 files_
 
 ---
 
-**Total indexed files:** 1233
+**Total indexed files:** 1248
