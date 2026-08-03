@@ -27,7 +27,7 @@ touches a feature listed below — code may have drifted, this file has not.
 | [`motion`](./motion.md)                                       | shipped | `<Motion preset="…">` + `useAnimationFrame` + reduced-motion 자동 대응 — 8개 진입 프리셋.                     |
 | [`myself-migration`](./myself-migration.md)                   | shipped | MySelf(junome.info) 의 디자인 시스템 자산을 JunDS 로 흡수 — 신규 이식 + 겹치는 것의 superset 화.              |
 | [`multi-brand-theming`](./multi-brand-theming.md)             | shipped | `BrandProvider` + 5종 브랜드 프리셋 — color+radius+density+font 묶음 단위 전환.                               |
-| [`no-code-framework-phase-0`](./no-code-framework-phase-0.md) | draft   | `PageDoc` / `ProjectDoc` JSON 스키마 정식화 + `ds/runtime/` 단일 렌더러 분리 — 노코드 프레임워크의 토대.      |
+| [`no-code-framework-phase-0`](./no-code-framework-phase-0.md) | shipped | `PageDoc` / `ProjectDoc` JSON 스키마 정식화 + `ds/runtime/` 단일 렌더러 분리 — 노코드 프레임워크의 토대.      |
 | [`no-code-personas`](./no-code-personas.md)                   | draft   | 비개발자 5페르소나 (랜딩·블로그·쇼핑·대시보드·예약) end-to-end 시나리오 + Phase 매핑.                         |
 | [`photo-domain`](./photo-domain.md)                           | shipped | 사진 도메인 — 카드·그리드·라이트박스·줌·비교·EXIF·필터 + `PhotoAlbum` 패턴 + `useImagePreload`.               |
 | [`showcase-site`](./showcase-site.md)                         | shipped | `app/design-system/*` Next.js 쇼케이스 — 사이드바, 검색 팔레트, 테마 스위처, 컴포넌트 페이지.                 |

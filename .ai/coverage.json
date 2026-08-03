@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-03T02:14:52.386Z",
+  "generatedAt": "2026-08-03T02:38:08.095Z",
   "total": {
-    "lines": 34.14,
-    "statements": 31.98,
-    "functions": 29.23,
-    "branches": 28.6
+    "lines": 40.92,
+    "statements": 38.67,
+    "functions": 32.93,
+    "branches": 32.72
   },
   "fileCount": 518,
   "lowestCovered": [
@@ -58,21 +58,21 @@
       "branches": 0
     },
     {
-      "file": "ds/finance/AppIcon.tsx",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 0
-    },
-    {
-      "file": "ds/finance/AreaChart.tsx",
-      "lines": 0,
-      "statements": 0,
-      "functions": 0,
-      "branches": 0
-    },
-    {
       "file": "ds/finance/BacktestRunner.tsx",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/finance/BmSwitch.tsx",
+      "lines": 0,
+      "statements": 0,
+      "functions": 0,
+      "branches": 0
+    },
+    {
+      "file": "ds/finance/BottomNav.tsx",
       "lines": 0,
       "statements": 0,
       "functions": 0,

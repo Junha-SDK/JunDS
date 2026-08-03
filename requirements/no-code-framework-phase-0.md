@@ -1,9 +1,9 @@
 # No-Code Framework — Phase 0 (Schema & Renderer 분리)
 
 - **Slug:** `no-code-framework-phase-0`
-- **Status:** draft
+- **Status:** shipped
 - **Owner:** Junha (goodjunha@gmail.com)
-- **Last updated:** 2026-04-30
+- **Last updated:** 2026-08-03
 
 ## Goal
 
@@ -34,16 +34,16 @@ JunDS를 비개발자도 웹사이트를 만들 수 있는 **노코드 프레임
 
 ## User stories / acceptance criteria
 
-- [ ] As a 라이브러리 메인테이너, I can `import { Renderer, parsePageDoc } from "@junds/ui/runtime"`,
+- [x] As a 라이브러리 메인테이너, I can `import { Renderer, parsePageDoc } from "@junds/ui/runtime"`,
       so that 외부 호스트 앱이 임의의 `PageDoc` JSON 을 화면에 그릴 수 있다.
-- [ ] As a Lab 사용자, I can 캔버스에서 만든 트리를 JSON으로 export 하고, 같은
+- [x] As a Lab 사용자, I can 캔버스에서 만든 트리를 JSON으로 export 하고, 같은
       JSON 을 다시 import 했을 때 **시각적으로 동일한** 결과가 나온다 (round-trip).
-- [ ] As a 라이브러리 메인테이너, I can `parsePageDoc(unknown)` 호출 시 잘못된
+- [x] As a 라이브러리 메인테이너, I can `parsePageDoc(unknown)` 호출 시 잘못된
       JSON 에 대해 사람이 읽을 수 있는 오류 경로(`tree[2].props.variant`)를
       받는다.
-- [ ] As a 게시 사이트 방문자, I see 디자인 타임 캔버스와 픽셀 동일한 화면을
+- [x] As a 게시 사이트 방문자, I see 디자인 타임 캔버스와 픽셀 동일한 화면을
       본다 — 두 환경 모두 같은 `<Renderer />` 함수를 사용한다.
-- [ ] As an AI 에이전트, I can `PageDoc` 의 한 노드만 patch 한 결과를 다시
+- [x] As an AI 에이전트, I can `PageDoc` 의 한 노드만 patch 한 결과를 다시
       검증할 수 있다 — 스키마는 부분 patch 검증을 지원한다.
 
 ## Architecture decisions
@@ -133,23 +133,15 @@ parsePageDoc → deserialize` 후 시각적으로 동일해야 한다. 시각 �
 - `mcp/server.mjs` — 신규 tool 추가: `validate_page_doc`, `apply_page_patch`.
 - `requirements/README.md` — 이 문서 + `no-code-personas.md` 인덱스 추가.
 - `AGENTS.md` — "AI Agent Onboarding" 섹션에 런타임 스키마 항목 추가.
-
-## Planned files (Phase 0 deliverables)
-
-이 파일들은 Phase 0 작업으로 신설되며, 작업 완료 시 `## Touched files` 로
-이동한다. 검증기는 이 섹션을 스캔하지 않는다.
-
 - `ds/runtime/index.ts` — public barrel: `Renderer`, `parsePageDoc`,
-  `parseProjectDoc`, 타입 export.
-- `ds/runtime/schema.ts` — `PageDoc` / `ProjectDoc` 검증 스키마 + 추론 타입.
+  `parseProjectDoc`, `parseNodePatch`, 타입 export.
+- `ds/runtime/schema.ts` — `PageDoc` / `ProjectDoc` 검증 스키마 + `NodePatch` + 추론 타입.
 - `ds/runtime/Renderer.tsx` — JSON 트리를 DOM 으로 그리는 단일 함수.
-- `ds/runtime/registry.ts` — `ComponentManifest` 통합 모델 + 모든 DS
-  컴포넌트 등록.
+- `ds/runtime/registry.ts` — `ComponentRegistry` 모델 + 기본 레지스트리.
 - `ds/runtime/bindings.ts` — `{{ expr }}` 표현식 파서/평가기.
 - `ds/runtime/actions.ts` — 선언적 액션 인터프리터 스텁 (Phase 0 은 noop만).
-- `ds/runtime/__tests__/schema.test.ts` — round-trip + 오류 경로 테스트.
-- `ds/runtime/__tests__/Renderer.test.tsx` — design vs runtime 모드 동치
-  검증.
+- `ds/__tests__/runtime/*` — round-trip · 오류 경로 · 부분 patch · Renderer 모드 동치.
+- `app/design-system/lab/_lib/adapter.ts` — `serialize`/`deserialize` (Lab ↔ PageDoc).
 
 ## Migration plan (Lab → PageDoc)
 
@@ -442,4 +434,11 @@ describe("PageDoc", () => {
 
 ## Changelog
 
+- 2026-08-03 — Phase 0 출고 확인: `ds/runtime/`(schema·Renderer·registry·bindings·actions,
+  valibot) + Lab adapter(serialize/deserialize) + `./runtime` subpath + rollup entry 가
+  구현·테스트돼 있음을 실사로 확인. 남아 있던 조각을 마감 — `parseNodePatch`(A5 부분
+  patch 검증) + MCP `validate_page_doc`/`apply_page_patch` + 루트 barrel 네임스페이스
+  export(`export * as runtime` — `export *` 는 Node·Breakpoint 이름 충돌로 기존 공개
+  API 를 깨뜨려 네임스페이스로 대체) + AGENTS.md 온보딩 항목. round-trip 의 시각 동치
+  Playwright 스냅샷은 후속 항목으로 남김.
 - 2026-04-30 — created (Phase 0 spec + Zod schema draft + persona reference).

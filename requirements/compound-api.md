@@ -3,7 +3,7 @@
 **Slug:** `compound-api`
 **Status:** active
 **Owner:** goodjunha@gmail.com
-**Last updated:** 2026-04-29
+**Last updated:** 2026-08-03
 
 ## Goal
 
@@ -39,19 +39,21 @@ JunDS의 모든 복합 컴포넌트가 **레고 블록처럼 조립** 가능하�
 
 ## User stories / acceptance criteria
 
-- **As a 사용자** I can `<Card asChild><Link href="/x"><Card.Body>…` 처럼
+- [x] **As a 사용자** I can `<Card asChild><Link href="/x"><Card.Body>…` 처럼
   root만 `<Link>`로 위임해도 패딩/그림자/hover 스타일이 유지된다.
   → AC: `asChild` 적용 시 `cn()` 클래스 + `forwardRef`/`onClick` 전부 자식에
   병합되며 추가 wrapper element가 발생하지 않는다.
-- **As a 사용자** I can `<Modal>`에서 `Modal.Header`만 빼거나 `Modal.Footer`를
+- [x] **As a 사용자** I can `<Modal>`에서 `Modal.Header`만 빼거나 `Modal.Footer`를
   맨 위로 이동해도 동작한다.
   → AC: 멤버는 위치 의존이 없고, 부재해도 root 렌더링이 깨지지 않는다.
-- **As a 라이브러리 작성자** I can grep으로 `Object.assign(Root, { ` 사용처를
+- [x] **As a 라이브러리 작성자** I can grep으로 `Object.assign(Root, { ` 사용처를
   0건으로 유지한다.
   → AC: lint/CI에서 `Object.assign(<PascalCase>, {` 패턴이 검출되면 실패.
-- **As a 사용자** I can sub-member에 `asChild`를 시도하면 dev 콘솔에 명확한
+  (CI `compound-api` 잡이 `npm run audit:compound:strict`로 legacy>0 시 실패.)
+- [x] **As a 사용자** I can sub-member에 `asChild`를 시도하면 dev 콘솔에 명확한
   에러가 뜬다 — 두 단계 cloneElement를 디버그하지 않아도 된다.
   → AC: `Card.Header asChild` → dev에서 `console.error("[JunDS] sub-member에는 asChild를 사용할 수 없습니다…")`.
+  (`createCompound`가 dev에서 모든 멤버를 가드로 감싼다.)
 
 ## Design / behavior notes
 
@@ -76,16 +78,19 @@ JunDS의 모든 복합 컴포넌트가 **레고 블록처럼 조립** 가능하�
 - `ds/utils/createCompound.ts` — 멤버 부착 + dev 중복 검사 + 타입 추론.
 - `ds/utils/polymorphic.ts` — `as`/`asChild` 보조 타입.
 - `ds/composites/Card/Card.tsx` — reference 구현 (요건 변경 시 항상 함께 업데이트).
-- `ds/composites/Modal/Modal.tsx` — 두 번째 reference (asChild + 멤버 4개 + portal).
+- `ds/composites/Modal/Modal.tsx` — 두 번째 reference (asChild(콘텐츠 패널 위임)
+  + 멤버 4개: `Header` / `Title` / `Body` / `Footer` + portal).
 - `scripts/scaffold.mjs` — composite 템플릿이 항상 이 규약을 만족하게 유지.
 - `requirements/design-system-library.md` — 전체 라이브러리 정책의 cross-link.
 
 ## Open questions
 
 - **`asChild` + portal 조합.** `Modal` 같은 portal 컴포넌트의 root에 asChild를
-  허용해야 하는가? 현재는 미허용 — portal 타깃이 user wrapper로 바뀌면 z-index
-  / focus trap의 가정이 깨진다. 차후 `Tooltip`처럼 trigger에 asChild를 따로
-  두는 패턴으로 대체 검토 필요.
+  허용해야 하는가? portal 타깃이 user wrapper로 바뀌면 z-index / focus trap의
+  가정이 깨진다. → 2026-08-03 부분 해소: `Modal`의 asChild는 portal 래퍼/백드롭이
+  아니라 **콘텐츠 패널 엘리먼트만** 위임한다 — portal·z-index·focus trap 가정은
+  Modal이 계속 소유. 차후 `Tooltip`처럼 trigger에 asChild를 따로 두는 패턴은
+  여전히 검토 대상.
 - **server component compatibility.** Slot이 cloneElement를 쓰므로 RSC에서
   `'use client'` 경계를 통과해야 한다. composite 단위로 `'use client'`를
   이미 박았지만, asChild로 RSC 자식을 넘기는 케이스의 동작은 아직 검증 전.
@@ -208,4 +213,13 @@ export const Foo = createCompound(FooRoot, {
 
 ## Changelog
 
+- 2026-08-03 — 미구현 인프라 완성: (1) `createCompound` dev 검사 추가 — 멤버 키
+  중복 `console.warn` + sub-member `asChild` 사용 시
+  `console.error("[JunDS] sub-member에는 asChild를 사용할 수 없습니다…")` 가드,
+  (2) CI `compound-api` 잡 신설 (`npm run audit:compound:strict` — legacy>0 시
+  실패), (3) `scaffold composite` 템플릿이 `createCompound` + `Slot` 골격 자동
+  주입, (4) `Modal` reference 완성 — asChild(콘텐츠 패널 위임) + 멤버 4개
+  (`Header`/`Title`/`Body`/`Footer`), (5) `BentoGrid.Item`·`Dock.Item` 직접 대입
+  잔재를 `createCompound`로 교체. 137개 마이그레이션은 진행 중 — Status active
+  유지.
 - 2026-04-29 — created.

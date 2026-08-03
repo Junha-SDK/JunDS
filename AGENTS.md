@@ -49,7 +49,11 @@ files first, in order:
     배치 관련 요청이면 코드를 뒤지기 전에 여기부터 본다. "좁으면 세로로 접기" 같은
     의도로 찾는다 — CSS 속성명이나 UIStackView 용어가 아니라. 표에 적힌 심볼이 실제로
     존재하는지는 `npm run layout-map:check`가 검증하므로 낡은 이름이 남아 있지 않다.
-12. **`COMPONENTS.md`** — auto-generated component reference (regenerate
+12. **`ds/runtime/schema.ts`** — 노코드 런타임의 `PageDoc`/`ProjectDoc` 스키마
+    (valibot). 빌더(Lab)·게시 사이트·AI 패치가 전부 이 JSON 형식 하나를 본다.
+    페이지 JSON 을 만들거나 고치는 요청이면 `parsePageDoc`/`parseNodePatch` 로
+    검증부터 한다 (MCP `validate_page_doc` / `apply_page_patch` 도 같은 일).
+13. **`COMPONENTS.md`** — auto-generated component reference (regenerate
     with `npm run docs:components`). Don't hand-edit.
 
 After these files, you usually do **not** need to glob anything.
@@ -85,7 +89,7 @@ npm run build:lib                               # bundle the @junds/ui dist (mjs
 `mcp/server.mjs` exposes the project's tooling over the Model Context Protocol
 (`locate`, `get_component_props`, `list_recipes`, `read_recipe`,
 `list_requirements`, `read_requirement`, `scaffold`, `map_refresh`,
-`extract_props`). Project-level Claude Code clients pick it up automatically
+`extract_props`, `validate_page_doc`, `apply_page_patch`). Project-level Claude Code clients pick it up automatically
 via `.mcp.json`. See `mcp/README.md` for per-tool input/output shapes.
 
 A pre-commit hook (`.husky/pre-commit`) auto-runs `npm run map` and

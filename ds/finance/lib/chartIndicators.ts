@@ -42,7 +42,7 @@ export function computeEMA(values: number[], period: number): (number | null)[] 
       out.push(prev);
       continue;
     }
-    const cur = values[i] * k + (prev as number) * (1 - k);
+    const cur: number = values[i] * k + (prev as number) * (1 - k);
     out.push(cur);
     prev = cur;
   }

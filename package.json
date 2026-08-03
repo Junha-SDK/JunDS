@@ -330,6 +330,7 @@
     "add": "node scripts/junds-add.mjs",
     "create-app": "node scripts/create-junds-app.mjs",
     "audit:compound": "node scripts/audit-compound-api.mjs",
+    "audit:compound:strict": "node scripts/audit-compound-api.mjs --strict",
     "scan:motion-rtl": "node scripts/scan-motion-rtl.mjs",
     "scan:motion-rtl:strict": "node scripts/scan-motion-rtl.mjs --strict",
     "scan:ssr-rsc": "node scripts/scan-ssr-rsc.mjs",

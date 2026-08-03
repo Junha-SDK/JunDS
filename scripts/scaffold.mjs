@@ -136,7 +136,12 @@ async function refuseIfAnyExists(paths) {
 
 // ───────────── component templates ─────────────
 
-function componentSource(name) {
+function componentSource(name, kind) {
+  // Composites follow the compound-api contract (requirements/compound-api.md):
+  // createCompound member 부착 + root 전용 asChild(Slot 위임) 골격을 자동 주입한다.
+  if (kind === "composite") {
+    return compoundComponentSource(name);
+  }
   return `"use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
@@ -150,6 +155,54 @@ export const ${name} = forwardRef<HTMLDivElement, ${name}Props>(
   ),
 );
 ${name}.displayName = "${name}";
+`;
+}
+
+// 표준 템플릿 — requirements/compound-api.md §표준 템플릿과 동기화 유지.
+function compoundComponentSource(name) {
+  return `"use client";
+import { forwardRef } from "react";
+import { cn } from "../../utils/cn";
+import { Slot } from "../../utils/Slot";
+import { createCompound } from "../../utils/createCompound";
+import type { HTMLAttributes } from "react";
+
+export interface ${name}Props extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * 자식 엘리먼트로 렌더 위임 (Radix-style asChild).
+   *
+   * root 전용 — sub-member(\`${name}.Header\` 등)에는 사용할 수 없습니다.
+   *
+   * @default false
+   */
+  asChild?: boolean;
+}
+
+const ${name}Root = forwardRef<HTMLDivElement, ${name}Props>(
+  ({ asChild, className, ...props }, ref) => {
+    const Comp = asChild ? Slot : "div";
+    return <Comp ref={ref as never} className={cn("", className)} {...props} />;
+  },
+);
+${name}Root.displayName = "${name}";
+
+function ${name}Header({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("", className)} {...props} />;
+}
+
+function ${name}Body({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn("", className)} {...props} />;
+}
+
+/**
+ * TODO: 1–2문장 설명
+ * @status new
+ * @since 2.2.0
+ */
+export const ${name} = createCompound(${name}Root, {
+  Header: ${name}Header,
+  Body: ${name}Body,
+});
 `;
 }
 
@@ -423,7 +476,7 @@ async function scaffoldComponent(kind, name, keywords) {
   await ensureDir(path.dirname(testFile));
   await ensureDir(showcaseDir);
 
-  await writeFile(componentFile, componentSource(name));
+  await writeFile(componentFile, componentSource(name, kind));
   await writeFile(componentIndex, componentBarrel(name));
   await writeFile(testFile, componentTest(name, kindPlural));
   await writeFile(showcaseFile, showcasePage(name, kindPlural));

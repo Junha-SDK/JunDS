@@ -14,7 +14,7 @@
 import { spawn } from "node:child_process";
 import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -927,6 +927,136 @@ server.registerTool(
     },
   },
   toolGetScreenshotInfo,
+);
+
+// ─────────────── runtime (PageDoc) tools ───────────────
+
+let runtimeModPromise = null;
+
+/** dist/runtime.mjs 를 지연 로드한다 — 빌드 산출물이 없으면 안내와 함께 실패. */
+function loadRuntime() {
+  if (!runtimeModPromise) {
+    runtimeModPromise = import(
+      pathToFileURL(path.join(repoRoot, "dist", "runtime.mjs")).href
+    ).catch((err) => {
+      runtimeModPromise = null;
+      throw new Error(
+        `dist/runtime.mjs unavailable — run \`npm run build:lib\` first (${err?.message ?? err})`,
+      );
+    });
+  }
+  return runtimeModPromise;
+}
+
+function findNodeById(nodes, nodeId) {
+  for (const node of nodes) {
+    if (node.id === nodeId) return node;
+    if (node.slots) {
+      for (const children of Object.values(node.slots)) {
+        const hit = findNodeById(children, nodeId);
+        if (hit) return hit;
+      }
+    }
+  }
+  return null;
+}
+
+async function toolValidatePageDoc({ doc }) {
+  let runtime;
+  try {
+    runtime = await loadRuntime();
+  } catch (err) {
+    return errorResult(err.message);
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(doc);
+  } catch (err) {
+    return errorResult("doc is not valid JSON", { reason: err.message });
+  }
+
+  const result = runtime.safeParsePageDoc(parsed);
+  if (result.ok) {
+    return successResult({ ok: true, id: result.doc.id, route: result.doc.route });
+  }
+  return errorResult("PageDoc validation failed", { reason: result.error.message });
+}
+
+async function toolApplyPagePatch({ doc, nodeId, patch }) {
+  let runtime;
+  try {
+    runtime = await loadRuntime();
+  } catch (err) {
+    return errorResult(err.message);
+  }
+
+  let parsedDoc;
+  let parsedPatch;
+  try {
+    parsedDoc = JSON.parse(doc);
+    parsedPatch = JSON.parse(patch);
+  } catch (err) {
+    return errorResult("doc/patch is not valid JSON", { reason: err.message });
+  }
+
+  let validPatch;
+  try {
+    validPatch = runtime.parseNodePatch(parsedPatch);
+  } catch (err) {
+    return errorResult("patch failed NodePatch validation", { reason: err.message });
+  }
+
+  const before = runtime.safeParsePageDoc(parsedDoc);
+  if (!before.ok) {
+    return errorResult("input doc failed PageDoc validation", {
+      reason: before.error.message,
+    });
+  }
+
+  const nextDoc = structuredClone(before.doc);
+  const target = findNodeById(nextDoc.tree, nodeId);
+  if (!target) {
+    return errorResult(`node not found: ${nodeId}`);
+  }
+  Object.assign(target, validPatch);
+
+  const after = runtime.safeParsePageDoc(nextDoc);
+  if (!after.ok) {
+    return errorResult("patched doc failed PageDoc validation", {
+      reason: after.error.message,
+    });
+  }
+
+  return successResult({ ok: true, doc: after.doc });
+}
+
+server.registerTool(
+  "validate_page_doc",
+  {
+    title: "validate_page_doc",
+    description:
+      "Validate a PageDoc JSON string against the ds/runtime schema. Returns ok or a human-readable error path (e.g. `tree[2].props.variant`). Requires `npm run build:lib` once.",
+    inputSchema: {
+      doc: z.string().min(2).describe("PageDoc as a JSON string."),
+    },
+  },
+  toolValidatePageDoc,
+);
+
+server.registerTool(
+  "apply_page_patch",
+  {
+    title: "apply_page_patch",
+    description:
+      "Apply a partial NodePatch to one node of a PageDoc (by node id), re-validate the whole doc, and return the patched doc. Patch and doc are JSON strings.",
+    inputSchema: {
+      doc: z.string().min(2).describe("PageDoc as a JSON string."),
+      nodeId: z.string().min(1).describe("`id` of the tree node to patch."),
+      patch: z.string().min(2).describe("Partial Node fields as a JSON string."),
+    },
+  },
+  toolApplyPagePatch,
 );
 
 // ─────────────────────── main ────────────────────────

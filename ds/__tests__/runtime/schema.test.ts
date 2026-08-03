@@ -5,6 +5,7 @@ import {
   parsePageDoc,
   parseProjectDoc,
   safeParsePageDoc,
+  parseNodePatch,
   type PageDoc,
 } from "../../runtime/schema";
 
@@ -126,6 +127,33 @@ describe("ProjectDoc schema", () => {
         name: "demo",
         pages: [],
       }),
+    ).toThrow(PageDocParseError);
+  });
+});
+
+describe("parseNodePatch (부분 patch 검증, A5)", () => {
+  it("props 만 있는 부분 patch 를 받아들인다", () => {
+    const patch = parseNodePatch({ props: { variant: "primary" } });
+    expect(patch).toEqual({ props: { variant: "primary" } });
+  });
+
+  it("빈 patch 도 유효하다", () => {
+    expect(parseNodePatch({})).toEqual({});
+  });
+
+  it("존재하는 필드는 노드와 같은 규칙으로 검증한다 — 빈 componentId 거부", () => {
+    expect(() => parseNodePatch({ componentId: "" })).toThrow(PageDocParseError);
+  });
+
+  it("잘못된 액션 kind 를 이벤트 patch 에서 거부한다", () => {
+    expect(() => parseNodePatch({ events: { onClick: [{ kind: "evil" }] } })).toThrow(
+      PageDocParseError,
+    );
+  });
+
+  it("slots patch 는 완전한 노드를 요구한다", () => {
+    expect(() =>
+      parseNodePatch({ slots: { default: [{ id: "n2" }] } }),
     ).toThrow(PageDocParseError);
   });
 });

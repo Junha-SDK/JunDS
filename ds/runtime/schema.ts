@@ -230,6 +230,28 @@ export function safeParsePageDoc(
   return { ok: false, error: new PageDocParseError(result.issues) };
 }
 
+/* ── Partial node patch (A5) ──
+ * AI 에이전트가 트리의 한 노드만 갱신하는 시나리오용. 모든 필드가 선택이지만,
+ * 존재하는 필드는 nodeSchema 와 같은 규칙으로 검증된다. */
+export type NodePatch = Partial<Node>;
+
+const nodePatchSchema: v.GenericSchema<NodePatch> = v.lazy(() =>
+  v.object({
+    id: v.optional(v.pipe(v.string(), v.minLength(1))),
+    componentId: v.optional(v.pipe(v.string(), v.minLength(1))),
+    props: v.optional(v.record(v.string(), propValueSchema)),
+    events: v.optional(v.record(v.string(), v.array(actionNodeSchema))),
+    children: v.optional(v.string()),
+    slots: v.optional(v.record(v.string(), v.array(nodeSchema))),
+  }),
+);
+
+export function parseNodePatch(input: unknown): NodePatch {
+  const result = v.safeParse(nodePatchSchema, input);
+  if (!result.success) throw new PageDocParseError(result.issues);
+  return result.output;
+}
+
 export const SCHEMA_VERSION = 1 as const;
 
 export function migratePageDoc(doc: unknown): PageDoc {

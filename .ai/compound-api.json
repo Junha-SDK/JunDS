@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-06T00:57:27.741Z",
+  "generatedAt": "2026-08-03T02:35:49.605Z",
   "summary": {
-    "migrated": 2,
-    "partial": 1,
-    "flat": 224,
+    "migrated": 3,
+    "partial": 2,
+    "flat": 230,
     "legacy": 0,
-    "total": 227
+    "total": 235
   },
   "items": [
     {
@@ -34,6 +34,14 @@
     },
     {
       "file": "ds/composites/Affix/Affix.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/AlbumArt/AlbumArt.tsx",
       "status": "flat",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
@@ -146,8 +154,8 @@
     },
     {
       "file": "ds/composites/BentoGrid/BentoGrid.tsx",
-      "status": "flat",
-      "usesCreateCompound": false,
+      "status": "partial",
+      "usesCreateCompound": true,
       "usesObjectAssign": false,
       "usesAsChild": false,
       "usesSlot": false
@@ -497,9 +505,17 @@
       "usesSlot": true
     },
     {
-      "file": "ds/composites/Dock/Dock.tsx",
+      "file": "ds/composites/DocPager/DocPager.tsx",
       "status": "flat",
       "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Dock/Dock.tsx",
+      "status": "partial",
+      "usesCreateCompound": true,
       "usesObjectAssign": false,
       "usesAsChild": false,
       "usesSlot": false
@@ -649,6 +665,14 @@
       "usesSlot": false
     },
     {
+      "file": "ds/composites/ImageLightbox/GlobalImageLightbox.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
       "file": "ds/composites/ImageLightbox/ImageLightbox.tsx",
       "status": "flat",
       "usesCreateCompound": false,
@@ -786,11 +810,11 @@
     },
     {
       "file": "ds/composites/Modal/Modal.tsx",
-      "status": "partial",
+      "status": "migrated",
       "usesCreateCompound": true,
       "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
+      "usesAsChild": true,
+      "usesSlot": true
     },
     {
       "file": "ds/composites/MonthPicker/MonthPicker.tsx",
@@ -826,6 +850,14 @@
     },
     {
       "file": "ds/composites/Notification/Notification.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/NowPlayingBar/NowPlayingBar.tsx",
       "status": "flat",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
@@ -1009,6 +1041,14 @@
       "usesSlot": false
     },
     {
+      "file": "ds/composites/ProjectCard/ProjectCard.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
       "file": "ds/composites/PullToRefresh/PullToRefresh.tsx",
       "status": "flat",
       "usesCreateCompound": false,
@@ -1129,6 +1169,14 @@
       "usesSlot": false
     },
     {
+      "file": "ds/composites/ScreenshotGrid/ScreenshotGrid.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
       "file": "ds/composites/ScrollProgress/ScrollProgress.tsx",
       "status": "flat",
       "usesCreateCompound": false,
@@ -1178,6 +1226,14 @@
     },
     {
       "file": "ds/composites/Select/Select.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/SeoHead/SeoHead.tsx",
       "status": "flat",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
@@ -1329,6 +1385,14 @@
       "usesSlot": false
     },
     {
+      "file": "ds/composites/TableOfContents/TocHeading.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
       "file": "ds/composites/Tabs/Tabs.tsx",
       "status": "flat",
       "usesCreateCompound": false,
@@ -1466,6 +1530,14 @@
     },
     {
       "file": "ds/composites/Watermark/Watermark.tsx",
+      "status": "flat",
+      "usesCreateCompound": false,
+      "usesObjectAssign": false,
+      "usesAsChild": false,
+      "usesSlot": false
+    },
+    {
+      "file": "ds/composites/Waveform/Waveform.tsx",
       "status": "flat",
       "usesCreateCompound": false,
       "usesObjectAssign": false,
@@ -1802,14 +1874,6 @@
     },
     {
       "file": "ds/patterns/Tour/Tour.tsx",
-      "status": "flat",
-      "usesCreateCompound": false,
-      "usesObjectAssign": false,
-      "usesAsChild": false,
-      "usesSlot": false
-    },
-    {
-      "file": "ds/patterns/VideoPlayer/VideoPlayer.tsx",
       "status": "flat",
       "usesCreateCompound": false,
       "usesObjectAssign": false,

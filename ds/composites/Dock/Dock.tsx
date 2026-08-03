@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useCallback } from "react";
 import { cn } from "../../utils/cn";
+import { createCompound } from "../../utils/createCompound";
 import type { ReactNode } from "react";
 
 export interface DockProps {
@@ -28,11 +29,8 @@ export interface DockItemProps {
  *   <DockItem icon={<HomeIcon />} />
  *   <DockItem icon={<SearchIcon />} />
  * </Dock>
- * @status stable
- * @since 2.2.0
- * @tags navigation
  */
-export function Dock({ children, magnification = 1.6, className }: DockProps) {
+function DockRoot({ children, magnification = 1.6, className }: DockProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [mouseX, setMouseX] = useState<number | null>(null);
 
@@ -116,4 +114,14 @@ function DockItem({ children, label, onClick, className }: DockItemProps) {
   );
 }
 
-Dock.Item = DockItem;
+DockRoot.displayName = "Dock";
+
+/**
+ * Dock 컴포넌트
+ * @status stable
+ * @since 2.2.0
+ * @tags navigation
+ */
+export const Dock = createCompound(DockRoot, {
+  Item: DockItem,
+});

@@ -241,6 +241,24 @@ jobs:
       - name: Verify every showcase page is indexed
         run: npm run validate:search-dictionary
 
+  compound-api:
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Restore node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: deps-${{ runner.os }}-node20-${{ hashFiles('package-lock.json') }}
+      - name: Audit compound API (report)
+        run: npm run audit:compound
+      - name: Strict guard — Object.assign(Root, { … }) 금지 (legacy > 0 이면 실패)
+        run: npm run audit:compound:strict
+
   scan-motion-rtl:
     needs: install
     runs-on: ubuntu-latest

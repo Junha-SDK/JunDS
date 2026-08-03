@@ -67,7 +67,7 @@ const AXES = [
     cssProp: "font-size",
     // type은 서브그룹이 한 겹 더 있다 — path를 ["fontSize", key]로 맞춰 준다
     names: new Map(
-      Object.keys(tokens.type.fontSize)
+      Object.keys((tokens.type as { fontSize: Record<string, unknown> }).fontSize)
         .filter((k) => !k.startsWith("$"))
         .map((k) => [k, `var(${cssVarName("type", ["fontSize", k])})`]),
     ),
