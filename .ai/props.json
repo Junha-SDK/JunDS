@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T02:15:26.247Z",
+  "generatedAt": "2026-08-03T03:37:25.193Z",
   "components": [
     {
       "name": "AspectRatio",
@@ -2214,6 +2214,12 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -2766,6 +2772,12 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -3349,6 +3361,12 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -5741,6 +5759,12 @@
           "description": "좌측 아이콘"
         },
         {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
+        },
+        {
           "name": "children",
           "type": "ReactNode",
           "optional": false,
@@ -6309,6 +6333,12 @@
           "description": "배경 블러 효과 적용 여부"
         },
         {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
+        },
+        {
           "name": "className",
           "type": "string",
           "optional": true,
@@ -6731,6 +6761,12 @@
           "type": "string",
           "optional": true,
           "description": "모달 콘텐츠 영역에 추가할 CSS 클래스.\n\n백드롭이 아닌 내부 패널에 적용됩니다.\n디자인 시스템이 제공하지 않는 커스텀 스타일이 필요할 때 사용합니다."
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "콘텐츠 패널을 자식 엘리먼트로 렌더 위임합니다 (Radix-style asChild).\n\n`true`이면 Modal은 내부 콘텐츠 `<div>`를 렌더하지 않고, 단일 React child에\n패널의 className/ref를 병합해 cloneElement합니다. portal 래퍼와 백드롭은\n항상 Modal이 소유합니다 — 위임되는 것은 콘텐츠 패널 엘리먼트뿐이므로\nz-index/focus trap 가정은 깨지지 않습니다."
         }
       ]
     },
@@ -6780,6 +6816,12 @@
           "type": "Array<string>",
           "optional": true,
           "description": "월 이름 라벨"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -6946,6 +6988,12 @@
           "type": "\"stacked\" | \"card\" | \"inline\"",
           "optional": true,
           "description": "레이아웃"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -7181,6 +7229,12 @@
           "type": "Partial<Record<OnlineStatusValue, string>>",
           "optional": true,
           "description": "커스텀 라벨 매핑"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -7242,6 +7296,12 @@
           "type": "boolean",
           "optional": true,
           "description": "구분선 표시"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -7328,6 +7388,12 @@
           "type": "(level: StrengthLevel, passedRules: string[]) => void",
           "optional": true,
           "description": "강도 변경 콜백"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -7396,6 +7462,12 @@
           "type": "ReactNode",
           "optional": true,
           "description": "우상단 배지"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -7521,6 +7593,12 @@
           "type": "2 | 3 | 4 | 1",
           "optional": true,
           "description": "간격 (Tailwind gap 키)"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -7671,6 +7749,12 @@
           "type": "string",
           "optional": true,
           "description": "가운데 라벨 (도넛)"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -7923,6 +8007,12 @@
           "type": "PriceLayout",
           "optional": true,
           "description": "레이아웃"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -7948,6 +8038,12 @@
           "type": "number",
           "optional": true,
           "description": "컬럼 수 (기본 자동)"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -8051,6 +8147,12 @@
           "type": "() => void",
           "optional": true,
           "description": "카드 클릭 (상세 이동)"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -8425,6 +8527,12 @@
           "type": "boolean",
           "optional": true,
           "description": "input 직접 편집 허용"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -8486,6 +8594,12 @@
           "type": "boolean",
           "optional": true,
           "description": "범례"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -8535,6 +8649,12 @@
           "type": "number",
           "optional": true,
           "description": "컬럼 수"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -8974,6 +9094,12 @@
           "type": "number",
           "optional": true,
           "description": "노드 사이 간격"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -9047,6 +9173,12 @@
           "type": "number",
           "optional": true,
           "description": "기본 점 크기"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -9134,6 +9266,12 @@
           "type": "string",
           "optional": true,
           "description": "스크린리더용 라벨 (기본 \"페이지 스크롤 진행률\")"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -9763,6 +9901,12 @@
           "type": "\"circle\" | \"square\"",
           "optional": true,
           "description": "동그라미 vs 사각형"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -10003,6 +10147,12 @@
           "type": "\"left\" | \"center\"",
           "optional": true,
           "description": "레이아웃 정렬"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -10568,6 +10718,12 @@
           "type": "boolean",
           "optional": true,
           "description": "강조 표시"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -10630,6 +10786,12 @@
           "type": "string",
           "optional": true,
           "description": "점 색상"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -11232,6 +11394,12 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -11294,6 +11462,12 @@
           "type": "number",
           "optional": true,
           "description": "막대 높이 (px, 기본 40)"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -11343,6 +11517,12 @@
           "type": "number",
           "optional": true,
           "description": "한 페이지 연도 수 (기본 12)"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -12393,6 +12573,12 @@
           "type": "boolean",
           "optional": true,
           "description": "검색 입력 노출"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -12436,6 +12622,12 @@
           "type": "FeatureGridLayout",
           "optional": true,
           "description": "레이아웃 종류"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -12674,6 +12866,12 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -12919,6 +13117,12 @@
           "type": "(task: GanttTask) => void",
           "optional": true,
           "description": "태스크 선택 콜백"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -12986,6 +13190,12 @@
           "type": "ReactNode",
           "optional": true,
           "description": "푸터 영역 (소셜 프루프, 로고 등)"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -13399,6 +13609,12 @@
           "type": "ReactNode",
           "optional": true,
           "description": "하단 CTA 영역"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -13529,6 +13745,12 @@
           "type": "number",
           "optional": true,
           "description": "사이드바 폭"
+        },
+        {
+          "name": "asChild",
+          "type": "boolean",
+          "optional": true,
+          "description": "root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴)"
         }
       ]
     },
@@ -13537,11 +13759,6 @@
       "kind": "pattern",
       "file": "ds/patterns/Sidebar/Sidebar.tsx",
       "interface": "SidebarProps",
-      "status": "stable",
-      "since": "2.2.0",
-      "tags": [
-        "navigation"
-      ],
       "props": [
         {
           "name": "header",
@@ -13862,6 +14079,533 @@
           "type": "string",
           "optional": true,
           "description": "추가 클래스"
+        }
+      ]
+    },
+    {
+      "name": "AppShell",
+      "kind": "layout",
+      "file": "ds/layout/AppShell.tsx",
+      "interface": "AppShellProps",
+      "props": [
+        {
+          "name": "sidebar",
+          "type": "ReactNode",
+          "optional": true
+        },
+        {
+          "name": "header",
+          "type": "ReactNode",
+          "optional": true
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false
+        },
+        {
+          "name": "sidebarWidth",
+          "type": "number",
+          "optional": true,
+          "description": "사이드바 너비 (px)"
+        },
+        {
+          "name": "collapsedWidth",
+          "type": "number",
+          "optional": true,
+          "description": "접힌 사이드바 너비 (px)"
+        },
+        {
+          "name": "sidebarCollapsed",
+          "type": "boolean",
+          "optional": true,
+          "description": "사이드바 접힘 상태"
+        },
+        {
+          "name": "onSidebarToggle",
+          "type": "(collapsed: boolean) => void",
+          "optional": true,
+          "description": "사이드바 접힘 토글 핸들러"
+        },
+        {
+          "name": "mobileBreakpoint",
+          "type": "number",
+          "optional": true,
+          "description": "모바일 브레이크포인트 (px) — 이 미만에서 사이드바가 오버레이"
+        },
+        {
+          "name": "contentPadding",
+          "type": "Responsive<string | number>",
+          "optional": true,
+          "description": "메인 콘텐츠 패딩"
+        },
+        {
+          "name": "stickyHeader",
+          "type": "boolean",
+          "optional": true,
+          "description": "고정 헤더"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "AspectRatioBox",
+      "kind": "layout",
+      "file": "ds/layout/AspectRatioBox.tsx",
+      "interface": "AspectRatioBoxProps",
+      "props": [
+        {
+          "name": "ratio",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "Container",
+      "kind": "layout",
+      "file": "ds/layout/Container.tsx",
+      "interface": "ContainerProps",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\" | \"2xl\"",
+          "optional": true
+        },
+        {
+          "name": "px",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "center",
+          "type": "boolean",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Grid",
+      "kind": "layout",
+      "file": "ds/layout/Grid.tsx",
+      "interface": "GridProps",
+      "props": [
+        {
+          "name": "cols",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "rows",
+          "type": "string | number",
+          "optional": true
+        },
+        {
+          "name": "gap",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "rowGap",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "columnGap",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "autoFit",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "autoFill",
+          "type": "number",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Overlay",
+      "kind": "layout",
+      "file": "ds/layout/Overlay.tsx",
+      "interface": "OverlayProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false
+        },
+        {
+          "name": "center",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "blur",
+          "type": "boolean",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Show",
+      "kind": "layout",
+      "file": "ds/layout/Show.tsx",
+      "interface": "ShowProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false
+        },
+        {
+          "name": "above",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\"",
+          "optional": true
+        },
+        {
+          "name": "below",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\"",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "SimpleGrid",
+      "kind": "layout",
+      "file": "ds/layout/SimpleGrid.tsx",
+      "interface": "SimpleGridProps",
+      "props": [
+        {
+          "name": "cols",
+          "type": "Responsive<number>",
+          "optional": true
+        },
+        {
+          "name": "gap",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "minChildWidth",
+          "type": "number",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Spacer",
+      "kind": "layout",
+      "file": "ds/layout/Spacer.tsx",
+      "interface": "SpacerProps",
+      "props": [
+        {
+          "name": "size",
+          "type": "string | number",
+          "optional": true
+        },
+        {
+          "name": "axis",
+          "type": "\"horizontal\" | \"vertical\"",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Stack",
+      "kind": "layout",
+      "file": "ds/layout/Stack.tsx",
+      "interface": "StackProps",
+      "props": [
+        {
+          "name": "direction",
+          "type": "Responsive<\"row\" | \"column\" | \"row-reverse\" | \"column-reverse\">",
+          "optional": true
+        },
+        {
+          "name": "gap",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "divider",
+          "type": "ReactNode",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Switcher",
+      "kind": "layout",
+      "file": "ds/layout/Switcher.tsx",
+      "interface": "SwitcherProps",
+      "props": [
+        {
+          "name": "threshold",
+          "type": "number | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\"",
+          "optional": true,
+          "description": "접힘 기준 폭 — 브레이크포인트 토큰 또는 px 숫자.\n뷰포트가 아니라 **자기가 놓인 컨테이너**가 이보다 좁아지면 세로로 접힌다."
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "optional": true,
+          "description": "한 줄에 허용할 최대 아이템 수 — 넘으면 폭과 무관하게 전부 세로로 쌓는다"
+        }
+      ]
+    },
+    {
+      "name": "Wrap",
+      "kind": "layout",
+      "file": "ds/layout/Wrap.tsx",
+      "interface": "WrapProps",
+      "props": [
+        {
+          "name": "gap",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "justify",
+          "type": "\"center\" | \"start\" | \"end\" | \"between\"",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Flex",
+      "kind": "core",
+      "file": "ds/core/Flex.tsx",
+      "interface": "FlexProps",
+      "props": [
+        {
+          "name": "inline",
+          "type": "boolean",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "GridLayout",
+      "kind": "core",
+      "file": "ds/core/GridLayout.tsx",
+      "interface": "GridLayoutProps",
+      "props": [
+        {
+          "name": "cols",
+          "type": "string | number",
+          "optional": true
+        },
+        {
+          "name": "rows",
+          "type": "string | number",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Group",
+      "kind": "core",
+      "file": "ds/core/Group.tsx",
+      "interface": "GroupProps",
+      "props": [
+        {
+          "name": "noWrap",
+          "type": "boolean",
+          "optional": true,
+          "description": "자식이 줄 바꿈 허용"
+        }
+      ]
+    },
+    {
+      "name": "Heading",
+      "kind": "core",
+      "file": "ds/core/Heading.tsx",
+      "interface": "HeadingProps",
+      "props": [
+        {
+          "name": "level",
+          "type": "5 | 2 | 3 | 4 | 6 | 1",
+          "optional": true
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "JunDSProvider",
+      "kind": "core",
+      "file": "ds/core/JunDSProvider.tsx",
+      "interface": "JunDSProviderProps",
+      "props": [
+        {
+          "name": "theme",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "colorMode",
+          "type": "\"light\" | \"dark\" | \"system\"",
+          "optional": true
+        },
+        {
+          "name": "density",
+          "type": "DensityMode",
+          "optional": true
+        },
+        {
+          "name": "radius",
+          "type": "RadiusPreset",
+          "optional": true
+        },
+        {
+          "name": "spacing",
+          "type": "SpacingPreset",
+          "optional": true
+        },
+        {
+          "name": "fontSize",
+          "type": "FontScalePreset",
+          "optional": true
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "Page",
+      "kind": "core",
+      "file": "ds/core/Page.tsx",
+      "interface": "PageProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false
+        },
+        {
+          "name": "maxWidth",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\" | \"2xl\"",
+          "optional": true
+        },
+        {
+          "name": "p",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Section",
+      "kind": "core",
+      "file": "ds/core/Section.tsx",
+      "interface": "SectionProps",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "optional": false
+        },
+        {
+          "name": "p",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "gap",
+          "type": "Responsive<string | number>",
+          "optional": true
+        },
+        {
+          "name": "border",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Text",
+      "kind": "core",
+      "file": "ds/core/Text.tsx",
+      "interface": "TextProps",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"span\" | \"p\" | \"div\" | \"em\" | \"label\" | \"small\" | \"strong\"",
+          "optional": true
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "lineClamp",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "mono",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "dimmed",
+          "type": "boolean",
+          "optional": true
         }
       ]
     }

@@ -34,6 +34,9 @@ const KIND_TO_PLURAL = {
   primitive: "primitives",
   composite: "composites",
   pattern: "patterns",
+  // layout/core 는 폴더가 아니라 평면 파일 관례 — 테스트 경로 규칙은 동일하다
+  layout: "layout",
+  core: "core",
 };
 
 // Components that crash with the auto-generated empty-fixture render

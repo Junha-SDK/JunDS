@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-03T02:38:08.095Z",
+  "generatedAt": "2026-08-03T05:17:46.265Z",
   "total": {
-    "lines": 40.92,
-    "statements": 38.67,
-    "functions": 32.93,
-    "branches": 32.72
+    "lines": 41.8,
+    "statements": 39.55,
+    "functions": 33.74,
+    "branches": 34.08
   },
-  "fileCount": 518,
+  "fileCount": 520,
   "lowestCovered": [
     {
       "file": "ds/composites/NowPlayingBar/NowPlayingBar.tsx",

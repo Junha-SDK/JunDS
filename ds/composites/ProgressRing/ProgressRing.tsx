@@ -19,6 +19,8 @@ export interface ProgressRingProps {
   children?: ReactNode;
   /** 추가 클래스 */
   className?: string;
+  /** 스크린리더용 이름 — progressbar 는 접근 가능한 이름이 필수다 */
+  "aria-label"?: string;
 }
 
 /**
@@ -38,6 +40,7 @@ export function ProgressRing({
   trackColor = "var(--border)",
   children,
   className,
+  "aria-label": ariaLabel = "진행률",
 }: ProgressRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -49,6 +52,7 @@ export function ProgressRing({
       className={cn("relative inline-flex items-center justify-center shrink-0", className)}
       style={{ width: size, height: size }}
       role="progressbar"
+      aria-label={ariaLabel}
       aria-valuenow={Math.round(progress * 100)}
       aria-valuemin={0}
       aria-valuemax={100}

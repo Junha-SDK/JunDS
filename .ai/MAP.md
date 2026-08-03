@@ -10,7 +10,7 @@ structural change (new component, deleted file, renamed dir), run:
 npm run map
 ```
 
-Generated: 2026-08-03T02:15:22.038Z
+Generated: 2026-08-03T03:36:01.385Z
 
 ---
 
@@ -969,7 +969,7 @@ _4 files_
 
 ## Tests  (`ds/__tests__/`)
 
-_345 files_
+_356 files_
 
 - `ds/__tests__/a11y/audit.test.tsx`
 - `ds/__tests__/auth/crypto.test.ts`
@@ -1165,6 +1165,7 @@ _345 files_
 - `ds/__tests__/composites/TimePicker.test.tsx`
 - `ds/__tests__/composites/Toast.a11y.test.tsx`
 - `ds/__tests__/composites/Toast.test.tsx`
+- `ds/__tests__/composites/TocHeading.test.tsx`
 - `ds/__tests__/composites/Tooltip.test.tsx`
 - `ds/__tests__/composites/Transfer.test.tsx`
 - `ds/__tests__/composites/TreemapChart.test.tsx`
@@ -1190,6 +1191,14 @@ _345 files_
 - `ds/__tests__/core/Section.test.tsx`
 - `ds/__tests__/core/Text.test.tsx`
 - `ds/__tests__/core/VStack.test.tsx`
+- `ds/__tests__/finance/backtest.test.ts`
+- `ds/__tests__/finance/chartIndicators.test.ts`
+- `ds/__tests__/finance/charts.smoke.test.tsx`
+- `ds/__tests__/finance/disclosureTone.test.ts`
+- `ds/__tests__/finance/format.test.ts`
+- `ds/__tests__/finance/libMisc.test.ts`
+- `ds/__tests__/finance/marketHolidays.test.ts`
+- `ds/__tests__/finance/tax.test.ts`
 - `ds/__tests__/hooks/useAnimationFrame.test.ts`
 - `ds/__tests__/hooks/useAsync.test.ts`
 - `ds/__tests__/hooks/useBreakpoint.test.tsx`
@@ -1247,6 +1256,7 @@ _345 files_
 - `ds/__tests__/patterns/RichTextEditor.test.tsx`
 - `ds/__tests__/patterns/SecurityChecklist.test.tsx`
 - `ds/__tests__/patterns/SettingsLayout.test.tsx`
+- `ds/__tests__/patterns/Sidebar.test.tsx`
 - `ds/__tests__/patterns/SocialFeed.test.tsx`
 - `ds/__tests__/patterns/SortableList.test.tsx`
 - `ds/__tests__/patterns/Starfield.test.tsx`
@@ -1314,9 +1324,10 @@ _345 files_
 - `ds/__tests__/runtime/schema.test.ts`
 - `ds/__tests__/types/prop-contracts.test.ts`
 - `ds/__tests__/utils/cn.test.ts`
+- `ds/__tests__/utils/createCompound.test.tsx`
 - `ds/__tests__/utils/kinsoku.test.ts`
 - `ds/__tests__/utils/Slot.test.tsx`
 
 ---
 
-**Total indexed files:** 1248
+**Total indexed files:** 1259

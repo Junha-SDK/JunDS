@@ -43,6 +43,8 @@ const KINDS = [
   { kind: "primitive", root: "ds/primitives" },
   { kind: "composite", root: "ds/composites" },
   { kind: "pattern", root: "ds/patterns" },
+  { kind: "layout", root: "ds/layout" },
+  { kind: "core", root: "ds/core" },
 ];
 
 const SKIP_DIRS = new Set([".git", "node_modules", "dist", ".next", "coverage"]);
@@ -98,7 +100,9 @@ async function discoverComponents(kind, root) {
     if (base.includes(".")) continue; // skip Foo.types.tsx etc.
 
     const parent = path.basename(path.dirname(abs));
-    if (parent !== base) continue; // require Name/Name.tsx folder convention
+    // layout/core 는 폴더가 아니라 평면 파일 관례(ds/layout/Wrap.tsx)를 쓴다
+    const flatFileKind = kind === "layout" || kind === "core";
+    if (parent !== base && !(flatFileKind && path.dirname(abs) === absRoot)) continue;
 
     out.push({
       kind,

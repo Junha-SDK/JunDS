@@ -3,7 +3,8 @@ import { test, expect } from "@playwright/test";
 test.describe("Design System", () => {
   test("main page loads and shows hero", async ({ page }) => {
     await page.goto("/design-system");
-    await expect(page.locator("h1")).toContainText("junDS");
+    // 시각 정제 트랙에서 확정된 히어로 카피 — 바뀌면 의도된 카피 변경인지 확인할 것
+    await expect(page.locator("h1")).toContainText("design system");
   });
 
   test("stats section shows correct numbers", async ({ page }) => {

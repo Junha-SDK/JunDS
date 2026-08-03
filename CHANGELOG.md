@@ -5,6 +5,28 @@
 
 ## [Unreleased]
 
+### Added — 레이아웃 자유도 · compound 규약 · 노코드 런타임 (2026-08-03)
+
+- **`Switcher` 레이아웃 프리미티브** — 미디어쿼리 없이 자기 컨테이너 폭 기준으로
+  가로↔세로 접힘 (`threshold` 토큰/px, `limit`). 웹 CE `jd-switcher` / iOS
+  `JdSwitcher` 의 React 대응물. 쇼케이스 Layout Lab(`framework/layout-lab`)과
+  `ResizableFrame` 으로 폭을 바꿔가며 관찰 가능.
+- **`asChild` 위임 37종 확대** — children 직속 root 는 Slot 치환, 내부 구조
+  root 는 `Slottable` 패턴. `DsSidebar` 는 `Provider`/`Link`/`Section` compound
+  멤버 표면 추가. `createCompound` 는 dev 에서 중복 멤버 키 warn + sub-member
+  `asChild` 사용 시 에러를 낸다.
+- **노코드 런타임 마감** — `parseNodePatch`(부분 patch 검증), MCP
+  `validate_page_doc`/`apply_page_patch`, 루트 barrel 네임스페이스
+  `export * as runtime`.
+- **`useForm.setError`** — 외부(서버) 검증 실패를 필드 에러로 통보.
+
+### Fixed (2026-08-03)
+
+- `ProgressRing` 에 접근 가능한 이름 추가 (`aria-label`, 기본 "진행률") —
+  axe `aria-progressbar-name` serious 위반 해소.
+- `BookReader` 빈 `chapters` 가드 — null 렌더 + dev 경고.
+- 리포 typecheck 403건 → 0 — `packages/web/dist` 타입 이중 포함 제거.
+
 ### Changed — BREAKING (v3 웹 스타일 프롭 어휘, DEC-045)
 
 스타일 프롭의 `radius` / `fontSize` / `shadow` / `zIndex`가 v2 리터럴 척도를 버리고
