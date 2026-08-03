@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export interface YearPickerProps
@@ -17,6 +18,8 @@ export interface YearPickerProps
   max?: number;
   /** 한 페이지 연도 수 (기본 12) */
   pageSize?: number;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /** 페이지 앞뒤 이동 버튼 — 상태 3종을 한 곳에서 잡는다 */
@@ -35,7 +38,7 @@ const navBtn = cn(
  * @tags input
  */
 export const YearPicker = forwardRef<HTMLDivElement, YearPickerProps>(function YearPicker(
-  { value, defaultValue, onChange, min, max, pageSize = 12, className, ...props },
+  { value, defaultValue, onChange, min, max, pageSize = 12, asChild, className, children, ...props },
   ref,
 ) {
   const today = new Date();
@@ -50,9 +53,10 @@ export const YearPicker = forwardRef<HTMLDivElement, YearPickerProps>(function Y
 
   const years = Array.from({ length: pageSize }, (_, i) => page + i);
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         "inline-block rounded-2xl border border-border bg-surface p-3 select-none",
         "shadow-[0_1px_2px_rgba(0,0,0,0.05),inset_0_1px_0_rgba(255,255,255,0.12)]",
@@ -60,6 +64,7 @@ export const YearPicker = forwardRef<HTMLDivElement, YearPickerProps>(function Y
       )}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <div className="flex items-center justify-between mb-3">
         <button
           type="button"
@@ -105,6 +110,6 @@ export const YearPicker = forwardRef<HTMLDivElement, YearPickerProps>(function Y
           );
         })}
       </div>
-    </div>
+    </Comp>
   );
 });

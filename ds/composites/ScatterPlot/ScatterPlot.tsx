@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export interface ScatterPoint {
@@ -39,6 +40,8 @@ export interface ScatterPlotProps extends HTMLAttributes<HTMLDivElement> {
   showLegend?: boolean;
   /** 기본 점 크기 */
   defaultPointSize?: number;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 // 첫 색만 CSS 변수고 나머지는 hex 였다 — 계열은 그대로 두되 전부 의미색 변수로 맞춰
@@ -72,7 +75,9 @@ export const ScatterPlot = forwardRef<HTMLDivElement, ScatterPlotProps>(function
     showXAxis = true,
     showLegend = true,
     defaultPointSize = 4,
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
@@ -97,8 +102,14 @@ export const ScatterPlot = forwardRef<HTMLDivElement, ScatterPlotProps>(function
   const projectX = (x: number) => PADDING.left + ((x - xMin) / xRange) * innerW;
   const projectY = (y: number) => PADDING.top + innerH - ((y - yMin) / yRange) * innerH;
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div ref={ref} className={cn("flex items-center gap-4 max-w-full", className)} {...props}>
+    <Comp
+      ref={ref as never}
+      className={cn("flex items-center gap-4 max-w-full", className)}
+      {...props}
+    >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <svg
         width={width}
         height={height}
@@ -201,6 +212,6 @@ export const ScatterPlot = forwardRef<HTMLDivElement, ScatterPlotProps>(function
           ))}
         </ul>
       )}
-    </div>
+    </Comp>
   );
 });

@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useEffect, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export type OnlineStatusValue = "online" | "away" | "busy" | "offline";
@@ -19,6 +20,8 @@ export interface OnlineStatusProps extends HTMLAttributes<HTMLDivElement> {
   lastSeenAt?: Date | string;
   /** 커스텀 라벨 매핑 */
   labels?: Partial<Record<OnlineStatusValue, string>>;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const sizeMap: Record<OnlineStatusSize, number> = { xs: 6, sm: 8, md: 10, lg: 12 };
@@ -65,7 +68,9 @@ export const OnlineStatus = forwardRef<HTMLDivElement, OnlineStatusProps>(functi
     pulse = false,
     lastSeenAt,
     labels,
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
@@ -86,8 +91,10 @@ export const OnlineStatus = forwardRef<HTMLDivElement, OnlineStatusProps>(functi
     setRelative(relativeTime(d));
   }, [lastSeenAt]);
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div ref={ref} className={cn("inline-flex items-center gap-1.5", className)} {...props}>
+    <Comp ref={ref as never} className={cn("inline-flex items-center gap-1.5", className)} {...props}>
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <span className="relative inline-block shrink-0" style={{ width: px, height: px }}>
         {pulse && status === "online" && (
           <span
@@ -106,6 +113,6 @@ export const OnlineStatus = forwardRef<HTMLDivElement, OnlineStatusProps>(functi
           {status === "offline" && relative && ` · ${relative}`}
         </span>
       )}
-    </div>
+    </Comp>
   );
 });

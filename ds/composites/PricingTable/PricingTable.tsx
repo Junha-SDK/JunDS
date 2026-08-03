@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface PricingPlan {
@@ -33,6 +34,8 @@ export interface PricingTableProps extends HTMLAttributes<HTMLDivElement> {
   plans: PricingPlan[];
   /** 컬럼 수 (기본 자동) */
   columns?: number;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -44,18 +47,20 @@ export interface PricingTableProps extends HTMLAttributes<HTMLDivElement> {
  * @tags marketing
  */
 export const PricingTable = forwardRef<HTMLDivElement, PricingTableProps>(function PricingTable(
-  { plans, columns, className, ...props },
+  { plans, columns, asChild, className, children, ...props },
   ref,
 ) {
   const cols = columns ?? Math.min(plans.length, 4);
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn("grid gap-4", className)}
       style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {plans.map((plan) => (
         <div
           key={plan.id}
@@ -125,6 +130,6 @@ export const PricingTable = forwardRef<HTMLDivElement, PricingTableProps>(functi
           )}
         </div>
       ))}
-    </div>
+    </Comp>
   );
 });

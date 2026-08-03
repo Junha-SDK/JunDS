@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { ReactNode } from "react";
 
 export interface LoadingOverlayProps {
@@ -11,6 +12,8 @@ export interface LoadingOverlayProps {
   label?: string;
   /** 배경 블러 효과 적용 여부 */
   blur?: boolean;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
   /** 추가 클래스 */
   className?: string;
 }
@@ -30,11 +33,13 @@ export function LoadingOverlay({
   children,
   label = "로딩 중...",
   blur,
+  asChild,
   className,
 }: LoadingOverlayProps) {
+  const Comp = asChild ? Slot : "div";
   return (
-    <div className={cn("relative", className)}>
-      {children}
+    <Comp className={cn("relative", className)}>
+      {asChild ? <Slottable>{children}</Slottable> : children}
       {active && (
         <div
           className={cn(
@@ -69,6 +74,6 @@ export function LoadingOverlay({
           {label && <p className="text-sm text-muted mt-2 px-4 text-center">{label}</p>}
         </div>
       )}
-    </div>
+    </Comp>
   );
 }

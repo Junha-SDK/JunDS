@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useId, type HTMLAttributes, type ReactNode } from "react";
+import { Slot } from "../../utils/Slot";
 import { useRegisterHeading } from "../../providers/TocProvider";
 
 export interface TocHeadingProps extends Omit<HTMLAttributes<HTMLHeadingElement>, "children"> {
@@ -15,6 +16,8 @@ export interface TocHeadingProps extends Omit<HTMLAttributes<HTMLHeadingElement>
   label?: string;
   /** 이 헤딩을 목차에서 뺄지 (본문에는 그대로 보인다) */
   hidden?: boolean;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
   children?: ReactNode;
 }
 
@@ -49,7 +52,7 @@ function slugify(text: string): string {
  * @tags navigation, content
  */
 export const TocHeading = forwardRef<HTMLHeadingElement, TocHeadingProps>(function TocHeading(
-  { level = 2, id, label, hidden = false, children, ...props },
+  { level = 2, id, label, hidden = false, asChild, children, ...props },
   ref,
 ) {
   const autoId = useId().replace(/:/g, "");
@@ -59,9 +62,10 @@ export const TocHeading = forwardRef<HTMLHeadingElement, TocHeadingProps>(functi
   useRegisterHeading(hidden ? null : { id: finalId, label: text || finalId, level });
 
   const Tag = `h${level}` as const;
+  const Comp = asChild ? Slot : Tag;
   return (
-    <Tag ref={ref} id={finalId} {...props}>
+    <Comp ref={ref as never} id={finalId} {...props}>
       {children}
-    </Tag>
+    </Comp>
   );
 });

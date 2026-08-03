@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useMemo } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export type StrengthLevel = 0 | 1 | 2 | 3 | 4;
@@ -25,6 +26,8 @@ export interface PasswordStrengthProps extends Omit<HTMLAttributes<HTMLDivElemen
   showChecklist?: boolean;
   /** 강도 변경 콜백 */
   onChange?: (level: StrengthLevel, passedRules: string[]) => void;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 export const DEFAULT_RULES: PasswordRule[] = [
@@ -67,7 +70,9 @@ export const PasswordStrength = forwardRef<HTMLDivElement, PasswordStrengthProps
       showLabel = true,
       showChecklist = false,
       onChange,
+      asChild,
       className,
+      children,
       ...props
     },
     ref,
@@ -84,8 +89,10 @@ export const PasswordStrength = forwardRef<HTMLDivElement, PasswordStrengthProps
       onChange?.(level, passedIds);
     }, [level, passedIds, onChange]);
 
+    const Comp = asChild ? Slot : "div";
     return (
-      <div ref={ref} className={cn("w-full flex flex-col gap-2", className)} {...props}>
+      <Comp ref={ref as never} className={cn("w-full flex flex-col gap-2", className)} {...props}>
+        {asChild ? <Slottable>{children}</Slottable> : null}
         <div className="flex items-center gap-2">
           <div className="flex-1 grid grid-cols-4 gap-1">
             {[1, 2, 3, 4].map((i) => (
@@ -124,7 +131,7 @@ export const PasswordStrength = forwardRef<HTMLDivElement, PasswordStrengthProps
             })}
           </ul>
         )}
-      </div>
+      </Comp>
     );
   },
 );

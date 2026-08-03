@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import { PricingTable, type PricingPlan } from "../../composites/PricingTable";
 import type { HTMLAttributes, ReactNode } from "react";
 
@@ -24,6 +25,8 @@ export interface PricingPageProps extends Omit<HTMLAttributes<HTMLDivElement>, "
   faqs?: PricingFAQ[];
   /** 하단 CTA 영역 */
   footerCta?: ReactNode;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -43,7 +46,9 @@ export const PricingPage = forwardRef<HTMLDivElement, PricingPageProps>(function
     toggleLabels,
     faqs,
     footerCta,
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
@@ -56,8 +61,14 @@ export const PricingPage = forwardRef<HTMLDivElement, PricingPageProps>(function
   };
   const plans = yearly && yearlyPlans ? yearlyPlans : monthlyPlans;
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div ref={ref} className={cn("max-w-6xl mx-auto px-4 py-10 sm:py-16", className)} {...props}>
+    <Comp
+      ref={ref as never}
+      className={cn("max-w-6xl mx-auto px-4 py-10 sm:py-16", className)}
+      {...props}
+    >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <div className="text-center mb-10">
         {title && <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{title}</h1>}
         {description && (
@@ -129,6 +140,6 @@ export const PricingPage = forwardRef<HTMLDivElement, PricingPageProps>(function
       )}
 
       {footerCta && <section className="mt-16 text-center">{footerCta}</section>}
-    </div>
+    </Comp>
   );
 });

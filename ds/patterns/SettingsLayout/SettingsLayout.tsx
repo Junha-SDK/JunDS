@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 
 export interface SettingsSection {
@@ -30,6 +31,8 @@ export interface SettingsLayoutProps
   title?: ReactNode;
   /** 사이드바 폭 */
   sidebarWidth?: number;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -49,7 +52,9 @@ export const SettingsLayout = forwardRef<HTMLDivElement, SettingsLayoutProps>(
       onChange,
       title,
       sidebarWidth = 220,
+      asChild,
       className,
+      children,
       ...props
     },
     ref,
@@ -71,12 +76,14 @@ export const SettingsLayout = forwardRef<HTMLDivElement, SettingsLayoutProps>(
       return acc;
     }, new Map());
 
+    const Comp = asChild ? Slot : "div";
     return (
-      <div
-        ref={ref}
+      <Comp
+        ref={ref as never}
         className={cn("flex flex-col lg:flex-row min-h-[480px] bg-background", className)}
         {...props}
       >
+        {asChild ? <Slottable>{children}</Slottable> : null}
         {/* 좁은 화면에서는 사이드바가 위로 접히는데 고정 width 를 그대로 두면 한 칸만
             차지한 채 본문이 옆으로 삐져나간다 — 폭은 lg 이상에서만 건다 */}
         <aside
@@ -125,7 +132,7 @@ export const SettingsLayout = forwardRef<HTMLDivElement, SettingsLayoutProps>(
         </aside>
         {/* min-w-0 이 없으면 본문의 긴 표·코드가 플렉스 칸을 밀어 사이드바를 찌그러뜨린다 */}
         <main className="flex-1 min-w-0 p-6 lg:p-8 overflow-auto">{current?.content}</main>
-      </div>
+      </Comp>
     );
   },
 );

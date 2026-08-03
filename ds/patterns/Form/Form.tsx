@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext } from "react";
 import { cn } from "../../utils/cn";
+import { Slot } from "../../utils/Slot";
 import type { ReactNode } from "react";
 
 interface FormContextType {
@@ -36,6 +37,8 @@ export interface FormProps {
   children: ReactNode;
   /** 추가 클래스 */
   className?: string;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -57,6 +60,7 @@ export function Form({
   onSubmit,
   children,
   className,
+  asChild,
 }: FormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,9 +77,15 @@ export function Form({
         setTouched: (name) => onBlur?.(name),
       }}
     >
-      <form onSubmit={handleSubmit} className={cn("space-y-4", className)} noValidate>
-        {children}
-      </form>
+      {asChild ? (
+        <Slot onSubmit={handleSubmit} className={cn("space-y-4", className)}>
+          {children}
+        </Slot>
+      ) : (
+        <form onSubmit={handleSubmit} className={cn("space-y-4", className)} noValidate>
+          {children}
+        </form>
+      )}
     </FormContext.Provider>
   );
 }

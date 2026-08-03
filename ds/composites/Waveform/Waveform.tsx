@@ -2,6 +2,7 @@
 
 import { forwardRef, useMemo, useRef, type CSSProperties, type HTMLAttributes } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 
 export interface WaveformProps extends Omit<HTMLAttributes<HTMLDivElement>, "onSeek"> {
   /**
@@ -26,6 +27,8 @@ export interface WaveformProps extends Omit<HTMLAttributes<HTMLDivElement>, "onS
   ariaLabel?: string;
   /** 막대 높이 (px, 기본 40) */
   height?: number;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /** 시드 문자열 → 32bit 해시 */
@@ -88,8 +91,10 @@ export const Waveform = forwardRef<HTMLDivElement, WaveformProps>(function Wavef
     onSeek,
     ariaLabel = "재생 위치",
     height = 40,
+    asChild,
     className,
     style,
+    children,
     ...props
   },
   ref,
@@ -143,16 +148,17 @@ export const Waveform = forwardRef<HTMLDivElement, WaveformProps>(function Wavef
     }
   };
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={(node) => {
+    <Comp
+      ref={((node: HTMLDivElement | null) => {
         // 탐색 시 컨테이너 폭을 재야 해서 내부 ref 가 필요하고, 호출부가 넘긴
         // ref 도 그대로 살려야 한다. React 19 타입에서 RefObject.current 는
         // 읽기 전용이라 쓰기 위해 좁은 캐스트를 쓴다.
         innerRef.current = node;
         if (typeof ref === "function") ref(node);
         else if (ref) (ref as { current: HTMLDivElement | null }).current = node;
-      }}
+      }) as never}
       className={cn(
         "flex items-end gap-[2px] select-none",
         interactive &&
@@ -172,6 +178,7 @@ export const Waveform = forwardRef<HTMLDivElement, WaveformProps>(function Wavef
       onKeyDown={interactive ? handleKeyDown : undefined}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {heights.map((h, i) => {
         const played = i < playedCount;
         const isHead = playing && i === playedCount;
@@ -187,6 +194,6 @@ export const Waveform = forwardRef<HTMLDivElement, WaveformProps>(function Wavef
           />
         );
       })}
-    </div>
+    </Comp>
   );
 });

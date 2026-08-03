@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface PageHeaderBreadcrumb {
@@ -25,6 +26,8 @@ export interface PageHeaderProps extends Omit<HTMLAttributes<HTMLElement>, "titl
   footer?: ReactNode;
   /** 구분선 표시 */
   divider?: boolean;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -45,14 +48,17 @@ export const PageHeader = forwardRef<HTMLElement, PageHeaderProps>(function Page
     avatar,
     footer,
     divider = true,
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
 ) {
+  const Comp = asChild ? Slot : "header";
   return (
-    <header
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         "flex flex-col gap-3 px-4 sm:px-6 py-4",
         divider && "border-b border-border",
@@ -60,6 +66,7 @@ export const PageHeader = forwardRef<HTMLElement, PageHeaderProps>(function Page
       )}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {breadcrumb && breadcrumb.length > 0 && (
         <nav aria-label="breadcrumb" className="flex items-center gap-1 text-xs text-muted">
           {breadcrumb.map((b, i) => (
@@ -110,6 +117,6 @@ export const PageHeader = forwardRef<HTMLElement, PageHeaderProps>(function Page
         {actions && <div className="shrink-0 flex items-center gap-2">{actions}</div>}
       </div>
       {footer && <div className="pt-1">{footer}</div>}
-    </header>
+    </Comp>
   );
 });

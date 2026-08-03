@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export interface PieSlice {
@@ -23,6 +24,8 @@ export interface PieChartProps extends HTMLAttributes<HTMLDivElement> {
   showLegend?: boolean;
   /** 가운데 라벨 (도넛) */
   centerLabel?: string;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const DEFAULT_COLORS = [
@@ -67,7 +70,17 @@ function arcPath(
  * @tags chart
  */
 export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(function PieChart(
-  { data, size = 200, innerRatio = 0, showLegend = true, centerLabel, className, ...props },
+  {
+    data,
+    size = 200,
+    innerRatio = 0,
+    showLegend = true,
+    centerLabel,
+    asChild,
+    className,
+    children,
+    ...props
+  },
   ref,
 ) {
   const total = data.reduce((s, d) => s + d.value, 0) || 1;
@@ -86,8 +99,10 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(function PieCh
     return { ...d, color, path, percent: (d.value / total) * 100, start };
   });
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div ref={ref} className={cn("inline-flex items-center gap-4", className)} {...props}>
+    <Comp ref={ref as never} className={cn("inline-flex items-center gap-4", className)} {...props}>
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <svg
         width={size}
         height={size}
@@ -129,6 +144,6 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(function PieCh
           ))}
         </ul>
       )}
-    </div>
+    </Comp>
   );
 });

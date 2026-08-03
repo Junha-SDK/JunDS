@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type HeroVariant = "centered" | "split" | "imageBg" | "minimal";
@@ -24,6 +25,8 @@ export interface HeroSectionProps extends Omit<HTMLAttributes<HTMLElement>, "tit
   bgImage?: string;
   /** 푸터 영역 (소셜 프루프, 로고 등) */
   footer?: ReactNode;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 function CtaButton({
@@ -76,11 +79,15 @@ export const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(function He
     media,
     bgImage,
     footer,
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
 ) {
+  const Comp = asChild ? Slot : "section";
+  const slotted = asChild ? <Slottable>{children}</Slottable> : null;
   const content = (
     <div
       className={cn(
@@ -108,24 +115,25 @@ export const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(function He
 
   if (variant === "split") {
     return (
-      <section
-        ref={ref}
+      <Comp
+        ref={ref as never}
         className={cn(
           "grid lg:grid-cols-2 gap-10 items-center px-4 sm:px-6 py-12 sm:py-20 max-w-7xl mx-auto",
           className,
         )}
         {...props}
       >
+        {slotted}
         {content}
         <div className="order-first lg:order-last">{media}</div>
-      </section>
+      </Comp>
     );
   }
 
   if (variant === "imageBg") {
     return (
-      <section
-        ref={ref}
+      <Comp
+        ref={ref as never}
         className={cn("relative px-4 sm:px-6 py-20 sm:py-32 text-white overflow-hidden", className)}
         style={
           bgImage
@@ -138,6 +146,7 @@ export const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(function He
         }
         {...props}
       >
+        {slotted}
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-5">
           {eyebrow && (
             <div className="text-xs font-semibold uppercase tracking-wider">{eyebrow}</div>
@@ -151,29 +160,31 @@ export const HeroSection = forwardRef<HTMLElement, HeroSectionProps>(function He
             </div>
           )}
         </div>
-      </section>
+      </Comp>
     );
   }
 
   if (variant === "minimal") {
     return (
-      <section
-        ref={ref}
+      <Comp
+        ref={ref as never}
         className={cn("px-4 sm:px-6 py-10 max-w-4xl mx-auto", className)}
         {...props}
       >
+        {slotted}
         {content}
-      </section>
+      </Comp>
     );
   }
 
   return (
-    <section
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn("px-4 sm:px-6 py-16 sm:py-24 max-w-5xl mx-auto", className)}
       {...props}
     >
+      {slotted}
       {content}
-    </section>
+    </Comp>
   );
 });

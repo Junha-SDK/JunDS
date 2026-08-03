@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export interface RadarSeries {
@@ -26,6 +27,8 @@ export interface RadarChartProps extends HTMLAttributes<HTMLDivElement> {
   showDots?: boolean;
   /** 범례 */
   showLegend?: boolean;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 // 시리즈 구분색 — 의미색이 아니라 "서로 다름"을 나타내는 계열색이라 리터럴로 둔다.
@@ -49,7 +52,9 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function R
     fillOpacity = 0.2,
     showDots = true,
     showLegend = true,
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
@@ -72,12 +77,14 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function R
       })
       .join(" ");
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn("inline-flex items-center gap-4 max-w-full", className)}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {/* viewBox 가 있으므로 max-w-full + h-auto 면 좁은 칸에서 잘리지 않고 비율대로 줄어든다 */}
       <svg
         width={size}
@@ -183,6 +190,6 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function R
           ))}
         </ul>
       )}
-    </div>
+    </Comp>
   );
 });

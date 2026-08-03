@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type TestimonialVariant = "card" | "quote" | "minimal";
@@ -22,6 +23,8 @@ export interface TestimonialCardProps extends HTMLAttributes<HTMLDivElement> {
   companyLogo?: ReactNode;
   /** 강조 표시 */
   highlighted?: boolean;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -43,11 +46,15 @@ export const TestimonialCard = forwardRef<HTMLDivElement, TestimonialCardProps>(
       authorAvatar,
       companyLogo,
       highlighted,
+      asChild,
       className,
+      children,
       ...props
     },
     ref,
   ) {
+    const Comp = asChild ? Slot : "div";
+    const slotted = asChild ? <Slottable>{children}</Slottable> : null;
     const initials = authorName
       .split(/\s+/)
       .map((p) => p[0])
@@ -102,7 +109,8 @@ export const TestimonialCard = forwardRef<HTMLDivElement, TestimonialCardProps>(
 
     if (variant === "quote") {
       return (
-        <div ref={ref} className={cn("relative px-6 py-8", className)} {...props}>
+        <Comp ref={ref as never} className={cn("relative px-6 py-8", className)} {...props}>
+          {slotted}
           <span
             className="absolute top-2 left-0 text-6xl text-primary-ink/20 font-serif leading-none select-none"
             aria-hidden="true"
@@ -112,26 +120,27 @@ export const TestimonialCard = forwardRef<HTMLDivElement, TestimonialCardProps>(
           {stars}
           <blockquote className="text-lg italic leading-relaxed">{quote}</blockquote>
           {author}
-        </div>
+        </Comp>
       );
     }
 
     if (variant === "minimal") {
       return (
-        <div ref={ref} className={cn("flex flex-col gap-3", className)} {...props}>
+        <Comp ref={ref as never} className={cn("flex flex-col gap-3", className)} {...props}>
+          {slotted}
           {stars}
           <p className="text-sm text-foreground leading-relaxed">{quote}</p>
           <div className="flex items-center gap-2 text-xs text-muted">
             <span className="font-medium text-foreground">{authorName}</span>
             {authorRole && <span>· {authorRole}</span>}
           </div>
-        </div>
+        </Comp>
       );
     }
 
     return (
-      <div
-        ref={ref}
+      <Comp
+        ref={ref as never}
         className={cn(
           "rounded-xl border bg-surface p-5 transition-shadow duration-200 ease-out",
           // 면이 있는 카드는 상단 인셋 하이라이트로 두께를 만든다.
@@ -143,10 +152,11 @@ export const TestimonialCard = forwardRef<HTMLDivElement, TestimonialCardProps>(
         )}
         {...props}
       >
+        {slotted}
         {stars}
         <blockquote className="text-sm text-foreground leading-relaxed">{quote}</blockquote>
         {author}
-      </div>
+      </Comp>
     );
   },
 );

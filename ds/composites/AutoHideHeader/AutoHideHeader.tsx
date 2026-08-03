@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot } from "../../utils/Slot";
 
 export interface AutoHideHeaderProps {
   /** 자식 요소 */
@@ -12,6 +13,8 @@ export interface AutoHideHeaderProps {
   height?: number;
   /** 추가 클래스 */
   className?: string;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -36,6 +39,7 @@ export function AutoHideHeader({
   threshold = 8,
   height = 64,
   className,
+  asChild,
 }: AutoHideHeaderProps) {
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
@@ -64,8 +68,9 @@ export function AutoHideHeader({
     return () => window.removeEventListener("scroll", onScroll);
   }, [threshold, height]);
 
+  const Comp = asChild ? Slot : "header";
   return (
-    <header
+    <Comp
       className={cn(
         "sticky top-0 z-50 w-full transition-transform duration-300 ease-in-out",
         // 감속 요청을 켠 사용자에게는 숨김 자체가 통제 불가능한 움직임이다 —
@@ -77,6 +82,6 @@ export function AutoHideHeader({
       style={{ height }}
     >
       {children}
-    </header>
+    </Comp>
   );
 }

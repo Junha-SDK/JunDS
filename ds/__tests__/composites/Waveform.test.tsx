@@ -60,4 +60,21 @@ describe("Waveform", () => {
     render(<Waveform seed="a" progress={5} onSeek={() => {}} />);
     expect(screen.getByRole("slider")).toHaveAttribute("aria-valuenow", "100");
   });
+
+  it("asChild renders the child element as root and merges className", () => {
+    const { container } = render(
+      <Waveform asChild seed="a" className="extra-class">
+        <a href="#" className="child">
+          y
+        </a>
+      </Waveform>,
+    );
+    const root = container.firstElementChild;
+    expect(root?.tagName).toBe("A");
+    expect(root?.className).toContain("flex");
+    expect(root?.className).toContain("extra-class");
+    expect(root?.className).toContain("child");
+    // 래퍼 엘리먼트가 생기지 않는다
+    expect(root?.parentElement).toBe(container);
+  });
 });

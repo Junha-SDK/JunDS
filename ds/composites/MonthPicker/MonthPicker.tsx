@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export interface MonthPickerValue {
@@ -22,6 +23,8 @@ export interface MonthPickerProps
   max?: string;
   /** 월 이름 라벨 */
   monthLabels?: string[];
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const DEFAULT_LABELS = [
@@ -59,7 +62,18 @@ function isBefore(a: MonthPickerValue, b: MonthPickerValue) {
  * @tags input
  */
 export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function MonthPicker(
-  { value, defaultValue, onChange, min, max, monthLabels = DEFAULT_LABELS, className, ...props },
+  {
+    value,
+    defaultValue,
+    onChange,
+    min,
+    max,
+    monthLabels = DEFAULT_LABELS,
+    asChild,
+    className,
+    children,
+    ...props
+  },
   ref,
 ) {
   const today = new Date();
@@ -77,9 +91,10 @@ export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function
     onChange?.(v);
   };
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         // 패널이므로 radius 계단의 한 칸 위 + 얕은 깊이를 준다.
         "inline-block rounded-2xl border border-border bg-surface p-3 select-none",
@@ -88,6 +103,7 @@ export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function
       )}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       <div className="flex items-center justify-between mb-3">
         <button
           type="button"
@@ -147,6 +163,6 @@ export const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(function
           );
         })}
       </div>
-    </div>
+    </Comp>
   );
 });

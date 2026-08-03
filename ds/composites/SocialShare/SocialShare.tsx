@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export type SocialPlatform =
@@ -24,6 +25,8 @@ export interface SocialShareProps extends HTMLAttributes<HTMLDivElement> {
   size?: "sm" | "md" | "lg";
   /** 동그라미 vs 사각형 */
   shape?: "circle" | "square";
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /**
@@ -99,7 +102,9 @@ export const SocialShare = forwardRef<HTMLDivElement, SocialShareProps>(function
     platforms = ["twitter", "facebook", "linkedin", "kakao", "email", "copy"],
     size = "md",
     shape = "circle",
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
@@ -115,14 +120,16 @@ export const SocialShare = forwardRef<HTMLDivElement, SocialShareProps>(function
     } catch {}
   };
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       role="group"
       aria-label="공유"
       className={cn("inline-flex items-center gap-2 flex-wrap", className)}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {platforms.map((p) => {
         const href = buildShareUrl(p, url, title);
         const onClick = p === "copy" ? handleCopy : undefined;
@@ -165,6 +172,6 @@ export const SocialShare = forwardRef<HTMLDivElement, SocialShareProps>(function
         }
         return <button key={p} type="button" onClick={onClick} {...commonProps} />;
       })}
-    </div>
+    </Comp>
   );
 });

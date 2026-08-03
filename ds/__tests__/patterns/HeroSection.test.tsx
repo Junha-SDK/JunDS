@@ -7,4 +7,21 @@ describe("HeroSection", () => {
     const { container } = render(<HeroSection title="x" data-testid="root" />);
     expect(container.firstChild).toBeTruthy();
   });
+
+  it("asChild renders the child element as root and merges className", () => {
+    const { container } = render(
+      <HeroSection asChild title="x" className="extra-class">
+        <a href="#" className="child">
+          y
+        </a>
+      </HeroSection>,
+    );
+    const root = container.firstElementChild;
+    expect(root?.tagName).toBe("A");
+    expect(root?.className).toContain("max-w-5xl");
+    expect(root?.className).toContain("extra-class");
+    expect(root?.className).toContain("child");
+    // 래퍼 엘리먼트가 생기지 않는다
+    expect(root?.parentElement).toBe(container);
+  });
 });

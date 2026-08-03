@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes } from "react";
 
 export type PriceSize = "sm" | "md" | "lg" | "xl";
@@ -23,6 +24,8 @@ export interface PriceDisplayProps extends HTMLAttributes<HTMLDivElement> {
   showDiscount?: boolean;
   /** 레이아웃 */
   layout?: PriceLayout;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 const sizeMap: Record<PriceSize, { current: string; original: string }> = {
@@ -62,7 +65,9 @@ export const PriceDisplay = forwardRef<HTMLDivElement, PriceDisplayProps>(functi
     size = "md",
     showDiscount = true,
     layout = "inline",
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
@@ -76,9 +81,10 @@ export const PriceDisplay = forwardRef<HTMLDivElement, PriceDisplayProps>(functi
       ? Math.round(((original - value) / original) * 100)
       : null;
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         "inline-flex flex-wrap",
         layout === "inline" ? "items-baseline gap-1.5" : "flex-col gap-0.5",
@@ -86,6 +92,7 @@ export const PriceDisplay = forwardRef<HTMLDivElement, PriceDisplayProps>(functi
       )}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {showDiscount && discountPct !== null && discountPct > 0 && (
         <span
           className={cn(
@@ -105,6 +112,6 @@ export const PriceDisplay = forwardRef<HTMLDivElement, PriceDisplayProps>(functi
           {fmtOriginal}
         </span>
       )}
-    </div>
+    </Comp>
   );
 });

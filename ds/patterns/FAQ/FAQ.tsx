@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState, useMemo } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface FAQItem {
@@ -27,6 +28,8 @@ export interface FAQProps extends Omit<HTMLAttributes<HTMLElement>, "title"> {
   showCategoryFilter?: boolean;
   /** 검색 입력 노출 */
   searchable?: boolean;
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 /** 카테고리 칩 — 켜짐/꺼짐 두 상태가 같은 형태를 공유한다 */
@@ -55,7 +58,9 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
     multiple = false,
     showCategoryFilter = false,
     searchable = false,
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
@@ -93,12 +98,14 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
     });
   };
 
+  const Comp = asChild ? Slot : "section";
   return (
-    <section
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn("px-4 sm:px-6 py-12 sm:py-20 max-w-3xl mx-auto", className)}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {(title || subtitle) && (
         <div className="text-center mb-10">
           {title && <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h2>}
@@ -188,6 +195,6 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
           );
         })}
       </div>
-    </section>
+    </Comp>
   );
 });

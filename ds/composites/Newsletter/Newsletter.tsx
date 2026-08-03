@@ -1,6 +1,7 @@
 "use client";
 import { forwardRef, useState, type FormEvent } from "react";
 import { cn } from "../../utils/cn";
+import { Slot, Slottable } from "../../utils/Slot";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type NewsletterStatus = "idle" | "submitting" | "success" | "error";
@@ -27,6 +28,8 @@ export interface NewsletterProps
   onSubscribe?: (email: string) => Promise<void> | void;
   /** 레이아웃 */
   variant?: "inline" | "stacked" | "card";
+  /** root 엘리먼트를 자식 엘리먼트로 위임 (Slot 패턴) */
+  asChild?: boolean;
 }
 
 function isValidEmail(s: string): boolean {
@@ -53,7 +56,9 @@ export const Newsletter = forwardRef<HTMLDivElement, NewsletterProps>(function N
     requireConsent = false,
     onSubscribe,
     variant = "stacked",
+    asChild,
     className,
+    children,
     ...props
   },
   ref,
@@ -150,15 +155,17 @@ export const Newsletter = forwardRef<HTMLDivElement, NewsletterProps>(function N
     </form>
   );
 
+  const Comp = asChild ? Slot : "div";
   return (
-    <div
-      ref={ref}
+    <Comp
+      ref={ref as never}
       className={cn(
         variant === "card" && "rounded-xl border border-border bg-surface p-6",
         className,
       )}
       {...props}
     >
+      {asChild ? <Slottable>{children}</Slottable> : null}
       {(title || description) && (
         <div className="mb-4">
           {title && <h3 className="text-lg font-semibold">{title}</h3>}
@@ -166,6 +173,6 @@ export const Newsletter = forwardRef<HTMLDivElement, NewsletterProps>(function N
         </div>
       )}
       {inner}
-    </div>
+    </Comp>
   );
 });
