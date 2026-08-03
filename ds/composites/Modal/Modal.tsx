@@ -9,6 +9,7 @@ import {
   forwardRef,
 } from "react";
 import { cn } from "../../utils/cn";
+import { Slot } from "../../utils/Slot";
 import { createCompound } from "../../utils/createCompound";
 import { Portal } from "../../primitives/Portal";
 import type { ReactNode } from "react";
@@ -87,6 +88,26 @@ export interface ModalProps {
    * <Modal className="bg-card-hover" open={isOpen} onClose={close}>...</Modal>
    */
   className?: string;
+
+  /**
+   * 콘텐츠 패널을 자식 엘리먼트로 렌더 위임합니다 (Radix-style asChild).
+   *
+   * `true`이면 Modal은 내부 콘텐츠 `<div>`를 렌더하지 않고, 단일 React child에
+   * 패널의 className/ref를 병합해 cloneElement합니다. portal 래퍼와 백드롭은
+   * 항상 Modal이 소유합니다 — 위임되는 것은 콘텐츠 패널 엘리먼트뿐이므로
+   * z-index/focus trap 가정은 깨지지 않습니다.
+   *
+   * @default false
+   *
+   * @example
+   * <Modal asChild open={isOpen} onClose={close}>
+   *   <form onSubmit={handleSubmit}>
+   *     <Modal.Header onClose={close}>프로필 수정</Modal.Header>
+   *     <Modal.Body>...</Modal.Body>
+   *   </form>
+   * </Modal>
+   */
+  asChild?: boolean;
 }
 
 export interface ModalHeaderProps {
@@ -116,6 +137,28 @@ export interface ModalHeaderProps {
   className?: string;
 }
 
+export interface ModalTitleProps {
+  /**
+   * 모달 제목 텍스트. `aria-labelledby`가 가리키는 `<h3>`로 렌더링됩니다.
+   *
+   * `Modal.Header`가 내부적으로 사용합니다 — Header의 기본 레이아웃(구분선,
+   * 닫기 버튼) 없이 커스텀 헤더를 직접 조립할 때만 단독으로 사용하세요.
+   * 같은 모달 안에서 `Modal.Header`와 동시에 쓰면 제목 id가 중복됩니다.
+   */
+  children: ReactNode;
+
+  /** 제목 엘리먼트에 추가할 CSS 클래스. */
+  className?: string;
+}
+
+export interface ModalBodyProps {
+  /** 본문 콘텐츠. `aria-describedby`가 가리키는 영역으로 렌더링됩니다. */
+  children: ReactNode;
+
+  /** 본문 영역에 추가할 CSS 클래스. */
+  className?: string;
+}
+
 export interface ModalFooterProps {
   children: ReactNode;
   className?: string;
@@ -134,7 +177,7 @@ const sizeStyles: Record<ModalSize, string> = {
  * 모달 다이얼로그.
  *
  * 포커스 트랩, ESC 닫기, 백드롭 클릭 닫기를 내장합니다.
- * Compound Component: `Modal.Header`, `Modal.Footer`
+ * Compound Component: `Modal.Header`, `Modal.Title`, `Modal.Body`, `Modal.Footer`
  *
  * @example
  * <Modal open={isOpen} onClose={close}>
@@ -147,7 +190,7 @@ const sizeStyles: Record<ModalSize, string> = {
  * </Modal>
  */
 const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
-  ({ open, onClose, size = "md", dismissible = true, children, className }, ref) => {
+  ({ open, onClose, size = "md", dismissible = true, asChild, children, className }, ref) => {
     const dialogRef = useRef<HTMLDivElement>(null);
     const titleId = useId();
     const descId = useId();
@@ -211,6 +254,9 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
 
     if (!open) return null;
 
+    // asChild는 콘텐츠 패널만 위임한다 — portal 래퍼/백드롭은 항상 Modal 소유.
+    const ContentComp = asChild ? Slot : "div";
+
     return (
       <Portal>
         <div
@@ -228,23 +274,23 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
             onClick={dismissible ? onClose : undefined}
           />
           {/* Content */}
-          <div
-            ref={ref}
-            className={cn(
-              // bg-white 는 라이트 전용이라 다크에서 흰 판이 된다 — 모드를 따라가는 card 로.
-              // 떠 있는 패널이므로 다층 그림자에 얇은 링을 더해 가장자리를 세운다.
-              "relative w-full bg-card rounded-2xl ring-1 ring-border/60",
-              "shadow-[0_25px_60px_rgba(0,0,0,0.15),0_10px_20px_rgba(0,0,0,0.06)]",
-              "animate-fade-in-scale motion-reduce:animate-none",
-              "overflow-hidden flex flex-col max-h-[90vh]",
-              sizeStyles[size],
-              className,
-            )}
-          >
-            <ModalIdContext.Provider value={{ titleId, descId }}>
+          <ModalIdContext.Provider value={{ titleId, descId }}>
+            <ContentComp
+              ref={ref as never}
+              className={cn(
+                // bg-white 는 라이트 전용이라 다크에서 흰 판이 된다 — 모드를 따라가는 card 로.
+                // 떠 있는 패널이므로 다층 그림자에 얇은 링을 더해 가장자리를 세운다.
+                "relative w-full bg-card rounded-2xl ring-1 ring-border/60",
+                "shadow-[0_25px_60px_rgba(0,0,0,0.15),0_10px_20px_rgba(0,0,0,0.06)]",
+                "animate-fade-in-scale motion-reduce:animate-none",
+                "overflow-hidden flex flex-col max-h-[90vh]",
+                sizeStyles[size],
+                className,
+              )}
+            >
               {children}
-            </ModalIdContext.Provider>
-          </div>
+            </ContentComp>
+          </ModalIdContext.Provider>
         </div>
       </Portal>
     );
@@ -252,8 +298,35 @@ const ModalBase = forwardRef<HTMLDivElement, ModalProps>(
 );
 ModalBase.displayName = "Modal";
 
-function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
+/**
+ * 모달 제목 `<h3>`. `aria-labelledby`와 연결됩니다.
+ *
+ * `Modal.Header`가 내부에서 사용하므로 보통 직접 쓸 일이 없습니다.
+ * Header의 기본 크롬(구분선·닫기 버튼) 없이 커스텀 헤더를 조립할 때 사용하세요.
+ */
+function ModalTitle({ children, className }: ModalTitleProps) {
   const ids = useContext(ModalIdContext);
+  return (
+    <h3 id={ids?.titleId} className={cn("text-base font-semibold text-foreground", className)}>
+      {children}
+    </h3>
+  );
+}
+
+/**
+ * 모달 본문 영역. 기본 패딩과 세로 스크롤이 적용되며 `aria-describedby`와
+ * 연결됩니다. 부재해도 모달 렌더링은 깨지지 않습니다.
+ */
+function ModalBody({ children, className }: ModalBodyProps) {
+  const ids = useContext(ModalIdContext);
+  return (
+    <div id={ids?.descId} className={cn("px-6 py-4 overflow-y-auto", className)}>
+      {children}
+    </div>
+  );
+}
+
+function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
   return (
     <div
       className={cn(
@@ -261,9 +334,7 @@ function ModalHeader({ children, onClose, className }: ModalHeaderProps) {
         className,
       )}
     >
-      <h3 id={ids?.titleId} className="text-base font-semibold text-foreground">
-        {children}
-      </h3>
+      <ModalTitle>{children}</ModalTitle>
       {onClose && (
         <button
           type="button"
@@ -311,5 +382,7 @@ function ModalFooter({ children, className }: ModalFooterProps) {
  */
 export const Modal = createCompound(ModalBase, {
   Header: ModalHeader,
+  Title: ModalTitle,
+  Body: ModalBody,
   Footer: ModalFooter,
 });

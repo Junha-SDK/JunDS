@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "../../utils/cn";
+import { createCompound } from "../../utils/createCompound";
 import type { ReactNode } from "react";
 
 export interface BentoGridProps {
@@ -30,11 +31,8 @@ const rowSpanMap = { 1: "row-span-1", 2: "row-span-2", 3: "row-span-3" };
  *   <BentoItem span={2}>큰 카드</BentoItem>
  *   <BentoItem>작은 카드</BentoItem>
  * </BentoGrid>
- * @status stable
- * @since 2.2.0
- * @tags layout
  */
-export function BentoGrid({ children, cols = 4, gap = 4, className }: BentoGridProps) {
+function BentoGridRoot({ children, cols = 4, gap = 4, className }: BentoGridProps) {
   const colsClass: Record<number, string> = {
     2: "grid-cols-2",
     3: "grid-cols-3",
@@ -72,4 +70,14 @@ function BentoGridItem({ children, colSpan = 1, rowSpan = 1, className }: BentoG
   );
 }
 
-BentoGrid.Item = BentoGridItem;
+BentoGridRoot.displayName = "BentoGrid";
+
+/**
+ * BentoGrid 컴포넌트
+ * @status stable
+ * @since 2.2.0
+ * @tags layout
+ */
+export const BentoGrid = createCompound(BentoGridRoot, {
+  Item: BentoGridItem,
+});
