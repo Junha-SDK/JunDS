@@ -22,6 +22,8 @@ export interface UseFormReturn<T extends Record<string, any>> {
   isSubmitting: boolean;
   setValue: (name: keyof T, value: any) => void;
   setTouched: (name: keyof T) => void;
+  /** 외부(서버 등) 검증 실패를 필드 에러로 통보 */
+  setError: (name: keyof T, message: string) => void;
   handleChange: (
     name: keyof T,
   ) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
@@ -93,6 +95,10 @@ export function useForm<T extends Record<string, any>>(
       delete next[name];
       return next;
     });
+  }, []);
+
+  const setError = useCallback((name: keyof T, message: string) => {
+    setErrors((prev) => ({ ...prev, [name]: message }));
   }, []);
 
   const setTouched = useCallback(
@@ -172,6 +178,7 @@ export function useForm<T extends Record<string, any>>(
     isSubmitting,
     setValue,
     setTouched,
+    setError,
     handleChange,
     handleBlur,
     handleSubmit,

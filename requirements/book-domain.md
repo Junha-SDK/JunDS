@@ -1,9 +1,9 @@
 # 책 도메인 — Reading & Annotation Components
 
 - **Slug:** `book-domain`
-- **Status:** active
+- **Status:** shipped
 - **Owner:** goodjunha@gmail.com
-- **Last updated:** 2026-05-04
+- **Last updated:** 2026-08-03
 
 ## Goal
 

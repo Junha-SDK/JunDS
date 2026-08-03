@@ -136,7 +136,7 @@
 - `scripts/consumer-smoke.mjs`
 - `scripts/public-api-gate.mjs`
 - `benchmarks/runtime-gate.mjs`
-- `packages/web/e2e/visual.spec.ts`
+- `packages/web/e2e/*`
 - `packages/web/README.md`
 - `packages/react/README.md`
 

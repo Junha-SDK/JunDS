@@ -1,9 +1,9 @@
 # SNS 도메인 — Social Feed Components
 
 - **Slug:** `sns-domain`
-- **Status:** active
+- **Status:** shipped
 - **Owner:** goodjunha@gmail.com
-- **Last updated:** 2026-05-04
+- **Last updated:** 2026-08-03
 
 ## Goal
 
